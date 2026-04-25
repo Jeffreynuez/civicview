@@ -1,0 +1,294 @@
+{
+  "_note": "Curated upcoming public events / town halls per representative. Keys are bioguide_ids. Each event: id, title, type, date (ISO), location, virtual (bool), url, description.",
+  "_source": "Manually curated demo data — replace with feeds from member offices or services like townhallproject.com when available.",
+  "events": {
+    "R000595": [
+      {
+        "id": "evt-r000595-001",
+        "title": "Florida Constituent Town Hall",
+        "type": "Town Hall",
+        "date": "2026-05-08T18:30:00",
+        "location": "Miami-Dade College, North Campus, Miami, FL",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/rubio-may-townhall",
+        "description": "An open Q&A on federal infrastructure investment in South Florida and hurricane preparedness funding."
+      },
+      {
+        "id": "evt-r000595-002",
+        "title": "Tele-Town Hall: National Security",
+        "type": "Tele-Town Hall",
+        "date": "2026-05-22T19:00:00",
+        "location": "Statewide phone-in",
+        "virtual": true,
+        "rsvp_url": "https://example.com/rsvp/rubio-tele-may22",
+        "description": "Phone-in town hall covering border security and Latin America policy."
+      }
+    ],
+    "S001227": [
+      {
+        "id": "evt-s001227-001",
+        "title": "Coffee with the Senator — Tampa",
+        "type": "Meet & Greet",
+        "date": "2026-05-15T08:00:00",
+        "location": "USF Marshall Student Center, Tampa, FL",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/scott-coffee-tampa",
+        "description": "Informal morning constituent meeting. Coffee and pastries provided."
+      },
+      {
+        "id": "evt-s001227-002",
+        "title": "Senate Field Hearing on SBA Lending",
+        "type": "Field Hearing",
+        "date": "2026-06-04T10:00:00",
+        "location": "Orlando Public Library — Main Branch",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Public hearing on small business credit access. Public attendance welcome; written testimony may be submitted in advance."
+      }
+    ],
+    "C001098": [
+      {
+        "id": "evt-c001098-001",
+        "title": "Houston Town Hall",
+        "type": "Town Hall",
+        "date": "2026-05-19T18:00:00",
+        "location": "George R. Brown Convention Center, Houston, TX",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/cruz-houston",
+        "description": "Constituent town hall on energy policy, border security, and judicial nominations."
+      },
+      {
+        "id": "evt-c001098-002",
+        "title": "Virtual Office Hours",
+        "type": "Virtual Office Hours",
+        "date": "2026-05-29T15:00:00",
+        "location": "Zoom",
+        "virtual": true,
+        "rsvp_url": "https://example.com/rsvp/cruz-virtual",
+        "description": "Open Zoom session — first 50 constituents to register receive a slot."
+      }
+    ],
+    "C001129": [
+      {
+        "id": "evt-c001129-001",
+        "title": "Orlando Listening Session — Housing Affordability",
+        "type": "Listening Session",
+        "date": "2026-05-10T17:00:00",
+        "location": "Dr. Phillips Center, Orlando, FL",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/frost-orlando-housing",
+        "description": "Hear from neighbors about rent and housing pressures. Local advocates and HUD staff will join."
+      },
+      {
+        "id": "evt-c001129-002",
+        "title": "Youth Civic Roundtable",
+        "type": "Roundtable",
+        "date": "2026-06-12T16:00:00",
+        "location": "Valencia College, East Campus",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/frost-youth-roundtable",
+        "description": "Roundtable for high school and college students on civic engagement and voting access."
+      }
+    ],
+    "C001091": [
+      {
+        "id": "evt-c001091-001",
+        "title": "San Antonio Constituent Coffee",
+        "type": "Meet & Greet",
+        "date": "2026-05-17T09:00:00",
+        "location": "Pearl Brewery, San Antonio, TX",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/castro-coffee",
+        "description": "Coffee and conversation with constituents from District 20."
+      }
+    ],
+    "P000197": [
+      {
+        "id": "evt-p000197-001",
+        "title": "San Francisco District Update",
+        "type": "Town Hall",
+        "date": "2026-05-21T18:00:00",
+        "location": "Sava Pool Community Room, San Francisco, CA",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/pelosi-sf",
+        "description": "District update covering federal funding wins for SF and floor priorities for the rest of the session."
+      }
+    ],
+    "R000609": [
+      {
+        "id": "evt-r000609-001",
+        "title": "Veterans Resource Fair",
+        "type": "Resource Fair",
+        "date": "2026-05-24T10:00:00",
+        "location": "Jacksonville Veterans Memorial Arena",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Free fair connecting veterans with VA benefits, healthcare enrollment, and employment resources."
+      }
+    ],
+    "W000823": [
+      {
+        "id": "evt-w000823-001",
+        "title": "Mobile District Office — Clermont",
+        "type": "Mobile Office",
+        "date": "2026-05-13T13:00:00",
+        "location": "Clermont City Hall, Clermont, FL",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Casework appointments — passport help, IRS issues, Social Security questions. Walk-ins welcome."
+      }
+    ],
+    "M000355": [
+      {
+        "id": "evt-m000355-001",
+        "title": "Louisville Business Roundtable",
+        "type": "Roundtable",
+        "date": "2026-05-20T08:30:00",
+        "location": "Greater Louisville Inc. Offices",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/mcconnell-louisville",
+        "description": "Closed-door roundtable with Kentucky business leaders. Press Q&A to follow at 10am."
+      }
+    ],
+    "S000148": [
+      {
+        "id": "evt-s000148-001",
+        "title": "Brooklyn Listening Tour Stop",
+        "type": "Listening Session",
+        "date": "2026-05-09T11:00:00",
+        "location": "Brooklyn Public Library — Central Branch",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/schumer-brooklyn",
+        "description": "Public listening session focused on rising costs of living and federal grants for NYC."
+      }
+    ],
+    "G000555": [
+      {
+        "id": "evt-g000555-001",
+        "title": "Albany Constituent Coffee",
+        "type": "Meet & Greet",
+        "date": "2026-05-16T08:30:00",
+        "location": "The Egg, Empire State Plaza, Albany, NY",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/gillibrand-albany",
+        "description": "Coffee and Q&A. Topics expected: military families, paid leave, agriculture funding."
+      }
+    ],
+    "S000033": [
+      {
+        "id": "evt-s000033-001",
+        "title": "Burlington Town Hall — Healthcare for All",
+        "type": "Town Hall",
+        "date": "2026-05-31T17:00:00",
+        "location": "Flynn Center for the Performing Arts, Burlington, VT",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/sanders-burlington",
+        "description": "Open town hall on Medicare expansion and prescription drug pricing reform."
+      },
+      {
+        "id": "evt-s000033-002",
+        "title": "Live-Streamed Senate Floor Recap",
+        "type": "Virtual Q&A",
+        "date": "2026-06-07T19:00:00",
+        "location": "YouTube Live",
+        "virtual": true,
+        "rsvp_url": "https://example.com/rsvp/sanders-livestream",
+        "description": "Recap of the week's Senate floor activity with live constituent questions."
+      }
+    ],
+    "W000817": [
+      {
+        "id": "evt-w000817-001",
+        "title": "Cambridge Town Hall",
+        "type": "Town Hall",
+        "date": "2026-05-23T14:00:00",
+        "location": "Cambridge Public Library — Main Branch",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/warren-cambridge",
+        "description": "Town hall on consumer protection, student loan reform, and bank oversight."
+      }
+    ],
+    "F000479": [
+      {
+        "id": "evt-f000479-001",
+        "title": "Pittsburgh Roundtable on Steel & Trade",
+        "type": "Roundtable",
+        "date": "2026-05-28T11:00:00",
+        "location": "USW District 10 Hall, Pittsburgh, PA",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Roundtable with USW leadership on tariffs and domestic steel manufacturing."
+      }
+    ],
+    "O000174": [
+      {
+        "id": "evt-o000174-001",
+        "title": "Atlanta Open Office Hours",
+        "type": "Office Hours",
+        "date": "2026-05-26T13:00:00",
+        "location": "Atlanta City Hall — Constituent Services Suite",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/ossoff-office-hours",
+        "description": "Drop-in office hours for casework, federal program issues, and policy questions."
+      }
+    ],
+    "O000172": [
+      {
+        "id": "evt-o000172-001",
+        "title": "Bronx Town Hall: Affordable Housing",
+        "type": "Town Hall",
+        "date": "2026-05-14T18:00:00",
+        "location": "Lehman College, Lovinger Theatre, Bronx, NY",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/aoc-bronx",
+        "description": "District town hall on rent stabilization, NYCHA funding, and federal housing investment."
+      },
+      {
+        "id": "evt-o000172-002",
+        "title": "Queens Mobile Office Hours",
+        "type": "Mobile Office",
+        "date": "2026-06-06T10:00:00",
+        "location": "Queens Public Library — Astoria Branch",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Walk-in casework hours staffed by district team. Bring documentation if applicable."
+      }
+    ],
+    "J000294": [
+      {
+        "id": "evt-j000294-001",
+        "title": "Brooklyn District Update",
+        "type": "Town Hall",
+        "date": "2026-05-18T18:00:00",
+        "location": "Boys and Girls High School, Brooklyn, NY",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/jeffries-brooklyn",
+        "description": "District update with the House Democratic Leader. Subjects include floor priorities and federal investments in NY-08."
+      }
+    ],
+    "J000299": [
+      {
+        "id": "evt-j000299-001",
+        "title": "Shreveport Constituent Briefing",
+        "type": "Town Hall",
+        "date": "2026-05-30T13:00:00",
+        "location": "Shreveport Convention Center",
+        "virtual": false,
+        "rsvp_url": "https://example.com/rsvp/johnson-shreveport",
+        "description": "Constituent briefing from the Speaker on the House majority's legislative agenda."
+      }
+    ],
+    "S001185": [
+      {
+        "id": "evt-s001185-001",
+        "title": "Jefferson Parish Mobile Office",
+        "type": "Mobile Office",
+        "date": "2026-05-12T10:00:00",
+        "location": "Jefferson Parish Library — East Bank Regional",
+        "virtual": false,
+        "rsvp_url": null,
+        "description": "Casework appointments with district staff. Federal benefits, passports, IRS, military."
+      }
+    ]
+  }
+}

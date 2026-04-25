@@ -1,0 +1,377 @@
+{
+  "_note": "Curated candidate registry for Florida 2026 (demo data). Candidate IDs are stable slugs (kebab-case) referenced by elections.json. Stances are realistic but editorialized for demonstration — replace with primary-sourced candidate statements in production.",
+  "_source": "Manually curated. Candidate photos are placeholders; fundraising is illustrative.",
+  "candidates": {
+
+    "fl-cand-byron-donalds": {
+      "id": "fl-cand-byron-donalds",
+      "name": "Byron Donalds",
+      "party": "R",
+      "seeking_office": "Governor of Florida",
+      "incumbent": false,
+      "current_office": "U.S. Representative, FL-19",
+      "bioguide_id": "D000032",
+      "hometown": "Naples, FL",
+      "age": 47,
+      "website": "https://byrondonalds.com",
+      "social": { "twitter": "byrondonalds", "facebook": "byrondonalds" },
+      "photo_url": null,
+      "bio": "Byron Donalds has represented Florida's 19th congressional district since 2021 and previously served in the Florida House. He is running on a platform focused on economic growth, border security, and expanding school choice statewide.",
+      "top_issues": [
+        { "name": "Economy", "stance": "Pro-growth tax reform; reduce state regulatory burden on small business; keep Florida income-tax-free." },
+        { "name": "Education", "stance": "Expand universal school choice; strengthen civic curriculum; reform university governance." },
+        { "name": "Public Safety", "stance": "Continue anti-drug trafficking interdictions; fully staff sheriff's offices; support E-Verify enforcement." },
+        { "name": "Housing", "stance": "Remove local permitting barriers; expand Live Local Act incentives for workforce housing." },
+        { "name": "Insurance", "stance": "Continue property-insurance litigation reform; expand Citizens' depopulation pipeline." }
+      ],
+      "endorsements": [
+        { "name": "Former President Donald J. Trump", "org": "45th/47th President" },
+        { "name": "Senator Rick Scott", "org": "U.S. Senate (FL)" },
+        { "name": "Rep. Anna Paulina Luna", "org": "U.S. House (FL-13)" }
+      ],
+      "fundraising": { "total_raised": 18400000, "total_spent": 9800000, "cash_on_hand": 8600000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "U.S. Representative, FL-19", "from": 2021, "to": null },
+        { "role": "Florida State Representative, Dist. 80", "from": 2016, "to": 2020 },
+        { "role": "Financial services professional (private sector)", "from": 2003, "to": 2016 }
+      ]
+    },
+
+    "fl-cand-paul-renner": {
+      "id": "fl-cand-paul-renner",
+      "name": "Paul Renner",
+      "party": "R",
+      "seeking_office": "Governor of Florida",
+      "incumbent": false,
+      "current_office": "Former Speaker, Florida House of Representatives",
+      "hometown": "Palm Coast, FL",
+      "age": 57,
+      "website": "https://paulrennerfl.com",
+      "social": { "twitter": "paulrennerfl" },
+      "photo_url": null,
+      "bio": "Paul Renner served as Speaker of the Florida House from 2022 to 2024, presiding over major reforms in education, litigation, and property insurance. He is running on a platform of experienced conservative governance.",
+      "top_issues": [
+        { "name": "Education", "stance": "Cement the universal school-choice expansion and protect civics reforms." },
+        { "name": "Insurance", "stance": "Continue tort-reform track; target fraud in auto-glass and roof claims." },
+        { "name": "Public Safety", "stance": "Invest in deputy training academies; maintain sentencing enhancements." },
+        { "name": "Property Rights", "stance": "Strengthen Burt Harris protections; cap local impact fees." },
+        { "name": "Taxes", "stance": "Permanent sales-tax holidays; no state income tax; cap local property-tax growth." }
+      ],
+      "endorsements": [
+        { "name": "Former FL Senate President Kathleen Passidomo", "org": "FL Senate" },
+        { "name": "Florida Chamber of Commerce" }
+      ],
+      "fundraising": { "total_raised": 11200000, "total_spent": 6300000, "cash_on_hand": 4900000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Speaker, Florida House", "from": 2022, "to": 2024 },
+        { "role": "Florida State Representative, Dist. 19", "from": 2015, "to": 2024 },
+        { "role": "U.S. Navy JAG officer", "from": 1992, "to": 1996 }
+      ]
+    },
+
+    "fl-cand-jared-moskowitz": {
+      "id": "fl-cand-jared-moskowitz",
+      "name": "Jared Moskowitz",
+      "party": "D",
+      "seeking_office": "Governor of Florida",
+      "incumbent": false,
+      "current_office": "U.S. Representative, FL-23",
+      "bioguide_id": "M001217",
+      "hometown": "Parkland, FL",
+      "age": 45,
+      "website": "https://jaredmoskowitz.com",
+      "social": { "twitter": "JaredEMoskowitz", "facebook": "jaredmoskowitz" },
+      "photo_url": null,
+      "bio": "Jared Moskowitz represents Florida's 23rd congressional district and previously directed Florida's Division of Emergency Management under Governor DeSantis. He is running on a platform emphasizing pragmatic centrism, disaster resilience, and affordability.",
+      "top_issues": [
+        { "name": "Insurance", "stance": "Create a state reinsurance backstop; cap premium increases; publish insurer loss-ratio data." },
+        { "name": "Housing", "stance": "Triple the state rental-assistance fund; first-time homebuyer down-payment support." },
+        { "name": "Education", "stance": "Raise teacher starting pay to the national median; means-test voucher expansion." },
+        { "name": "Disaster Resilience", "stance": "Accelerate hurricane mitigation grants; invest in stormwater and beach renourishment." },
+        { "name": "Gun Safety", "stance": "Universal background checks; fund Parkland-era red-flag law." }
+      ],
+      "endorsements": [
+        { "name": "Rep. Debbie Wasserman Schultz", "org": "U.S. House (FL-25)" },
+        { "name": "Florida Police Chiefs Association (partial)" }
+      ],
+      "fundraising": { "total_raised": 9600000, "total_spent": 5100000, "cash_on_hand": 4500000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "U.S. Representative, FL-23", "from": 2023, "to": null },
+        { "role": "Director, Florida Division of Emergency Management", "from": 2019, "to": 2021 },
+        { "role": "Florida State Representative, Dist. 97", "from": 2012, "to": 2018 }
+      ]
+    },
+
+    "fl-cand-nikki-fried": {
+      "id": "fl-cand-nikki-fried",
+      "name": "Nikki Fried",
+      "party": "D",
+      "seeking_office": "Governor of Florida",
+      "incumbent": false,
+      "current_office": "Chair, Florida Democratic Party",
+      "hometown": "Fort Lauderdale, FL",
+      "age": 48,
+      "website": "https://nikkifried.com",
+      "social": { "twitter": "nikkifried", "facebook": "nikkifried" },
+      "photo_url": null,
+      "bio": "Nikki Fried served as Florida's Commissioner of Agriculture from 2019 to 2023 — the last Democrat to win a statewide race in Florida — and currently chairs the Florida Democratic Party. She is running on consumer-protection, reproductive rights, and a reset on affordability.",
+      "top_issues": [
+        { "name": "Reproductive Rights", "stance": "Codify pre-Dobbs access into state statute; defend Amendment 4 implementation." },
+        { "name": "Affordability", "stance": "Emergency insurance rate freeze; windfall tax on corporate landlords; grocery tax holiday." },
+        { "name": "Agriculture", "stance": "Grow local food supply chains; expand farm-to-school; protect agricultural land from sprawl." },
+        { "name": "Environment", "stance": "Stronger wetlands protection; accelerate Everglades restoration; reject further offshore drilling leases." },
+        { "name": "Voting Rights", "stance": "Automatic voter registration; restore mail-ballot drop boxes; independent redistricting." }
+      ],
+      "endorsements": [
+        { "name": "Planned Parenthood of Florida" },
+        { "name": "Florida Education Association (partial)" },
+        { "name": "SEIU Florida" }
+      ],
+      "fundraising": { "total_raised": 7200000, "total_spent": 3900000, "cash_on_hand": 3300000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Chair, Florida Democratic Party", "from": 2023, "to": null },
+        { "role": "Florida Commissioner of Agriculture", "from": 2019, "to": 2023 },
+        { "role": "Public defender & cannabis-industry attorney", "from": 2002, "to": 2018 }
+      ]
+    },
+
+    "fl-cand-james-uthmeier": {
+      "id": "fl-cand-james-uthmeier",
+      "name": "James Uthmeier",
+      "party": "R",
+      "seeking_office": "Attorney General of Florida",
+      "incumbent": true,
+      "current_office": "Attorney General of Florida",
+      "official_id": "fl-exec-ag",
+      "official_scope": "state",
+      "hometown": "Tallahassee, FL",
+      "age": 38,
+      "website": "https://uthmeierforflorida.com",
+      "social": { "twitter": "jamesuthmeier" },
+      "photo_url": null,
+      "bio": "James Uthmeier was appointed Attorney General in 2025. Previously he served as Governor DeSantis's chief of staff and general counsel. He is running for a full term on a platform of border enforcement, consumer protection, and transnational crime.",
+      "top_issues": [
+        { "name": "Public Safety", "stance": "Expand state task forces on human trafficking and fentanyl interdiction." },
+        { "name": "Consumer Protection", "stance": "Aggressive enforcement against insurance bad-faith and data-broker abuses." },
+        { "name": "Immigration", "stance": "Litigate to defend state-level immigration enforcement authority." },
+        { "name": "Rule of Law", "stance": "Challenge federal overreach; defend Florida statutes in court." }
+      ],
+      "endorsements": [
+        { "name": "Governor Ron DeSantis" },
+        { "name": "Florida Sheriffs Association" }
+      ],
+      "fundraising": { "total_raised": 4800000, "total_spent": 1900000, "cash_on_hand": 2900000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Attorney General of Florida", "from": 2025, "to": null },
+        { "role": "Chief of Staff, Office of the Governor", "from": 2023, "to": 2025 },
+        { "role": "General Counsel, Office of the Governor", "from": 2021, "to": 2023 }
+      ]
+    },
+
+    "fl-cand-jose-javier-rodriguez": {
+      "id": "fl-cand-jose-javier-rodriguez",
+      "name": "José Javier Rodríguez",
+      "party": "D",
+      "seeking_office": "Attorney General of Florida",
+      "incumbent": false,
+      "current_office": "Former Assistant Secretary, U.S. Department of Labor",
+      "hometown": "Miami, FL",
+      "age": 50,
+      "website": "https://jjrfl.com",
+      "social": { "twitter": "jjrfl" },
+      "photo_url": null,
+      "bio": "José Javier Rodríguez is a former state senator and U.S. Department of Labor official. He is running for Attorney General on a platform of consumer protection, civil rights, and restoring the office's independence.",
+      "top_issues": [
+        { "name": "Consumer Protection", "stance": "Rebuild wage-theft unit; prosecute price-gouging aggressively after storms." },
+        { "name": "Civil Rights", "stance": "Re-establish civil rights division; vigorous voting-rights enforcement." },
+        { "name": "Environment", "stance": "Hold polluters accountable; pursue PFAS contamination cases." },
+        { "name": "Housing", "stance": "Enforce against predatory landlords and mortgage fraud." }
+      ],
+      "endorsements": [
+        { "name": "SEIU Florida" },
+        { "name": "Equality Florida Action" }
+      ],
+      "fundraising": { "total_raised": 2100000, "total_spent": 840000, "cash_on_hand": 1260000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Assistant Secretary, U.S. Department of Labor", "from": 2021, "to": 2024 },
+        { "role": "Florida State Senator, Dist. 37", "from": 2016, "to": 2020 },
+        { "role": "Civil rights attorney (private practice)", "from": 2006, "to": 2016 }
+      ]
+    },
+
+    "fl-cand-maxwell-frost": {
+      "id": "fl-cand-maxwell-frost",
+      "name": "Maxwell Frost",
+      "party": "D",
+      "seeking_office": "U.S. House, FL-10",
+      "incumbent": true,
+      "current_office": "U.S. Representative, FL-10",
+      "bioguide_id": "F000476",
+      "hometown": "Orlando, FL",
+      "age": 29,
+      "website": "https://frostforcongress.com",
+      "social": { "twitter": "maxwellfrostfl", "instagram": "maxwellfrostfl" },
+      "photo_url": "https://unitedstates.github.io/images/congress/225x275/F000476.jpg",
+      "bio": "Maxwell Frost is the first Gen Z member of Congress, representing Florida's 10th district since 2023. He is seeking re-election on a platform of housing affordability, gun safety, and Medicare expansion.",
+      "top_issues": [
+        { "name": "Housing", "stance": "Federal rental-assistance expansion; ban corporate rent-fixing algorithms." },
+        { "name": "Gun Safety", "stance": "Universal background checks; assault-weapons ban; youth-focused prevention." },
+        { "name": "Healthcare", "stance": "Lower Medicare age; cap insulin and inhaler prices." },
+        { "name": "Voting Rights", "stance": "Pass the Freedom to Vote Act." }
+      ],
+      "endorsements": [
+        { "name": "Giffords PAC" },
+        { "name": "SEIU Florida" },
+        { "name": "Sierra Club" }
+      ],
+      "fundraising": { "total_raised": 3200000, "total_spent": 1400000, "cash_on_hand": 1800000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "U.S. Representative, FL-10", "from": 2023, "to": null },
+        { "role": "National Organizing Director, March For Our Lives", "from": 2020, "to": 2022 }
+      ]
+    },
+
+    "fl-cand-willie-montague": {
+      "id": "fl-cand-willie-montague",
+      "name": "Willie Montague",
+      "party": "R",
+      "seeking_office": "U.S. House, FL-10",
+      "incumbent": false,
+      "current_office": "Pastor & nonprofit founder",
+      "hometown": "Orlando, FL",
+      "age": 44,
+      "website": "https://willieforcongress.com",
+      "social": { "twitter": "williemontaguefl" },
+      "photo_url": null,
+      "bio": "Willie Montague is a pastor and nonprofit founder who ran for FL-10 in 2020 and 2022. He is running on a platform of economic opportunity in urban communities, school choice, and family values.",
+      "top_issues": [
+        { "name": "Education", "stance": "Expand federal school-choice dollars; support HBCUs and trade programs." },
+        { "name": "Economy", "stance": "Opportunity zone extensions; small-business tax credits in underserved neighborhoods." },
+        { "name": "Public Safety", "stance": "Restore broken-windows policing in partnership with community leaders." },
+        { "name": "Family", "stance": "Federal paid-family-leave via tax credit; fatherhood initiative funding." }
+      ],
+      "endorsements": [
+        { "name": "Central Florida Republican Assembly" }
+      ],
+      "fundraising": { "total_raised": 680000, "total_spent": 290000, "cash_on_hand": 390000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Senior Pastor, The Father's House", "from": 2012, "to": null },
+        { "role": "Founder, The Montague Foundation", "from": 2016, "to": null }
+      ]
+    },
+
+    "fl-cand-anna-eskamani": {
+      "id": "fl-cand-anna-eskamani",
+      "name": "Anna V. Eskamani",
+      "party": "D",
+      "seeking_office": "FL House Dist. 42",
+      "incumbent": true,
+      "current_office": "Florida State Representative, Dist. 42",
+      "official_id": "fl-house-42",
+      "official_scope": "state",
+      "hometown": "Orlando, FL",
+      "age": 35,
+      "website": "https://annaforflorida.com",
+      "social": { "twitter": "AnnaForFlorida", "instagram": "annaforflorida" },
+      "photo_url": null,
+      "bio": "Anna Eskamani has represented FL House District 42 since 2018. She is seeking re-election on a platform of reproductive rights, renters' protections, and transparency reforms.",
+      "top_issues": [
+        { "name": "Reproductive Rights", "stance": "Defend Amendment 4 implementation; repeal parental-consent override." },
+        { "name": "Housing", "stance": "Statewide rent-stabilization framework; just-cause eviction protections." },
+        { "name": "Labor", "stance": "Repeal preemption of local minimum-wage laws; restore collective-bargaining protections." }
+      ],
+      "endorsements": [
+        { "name": "Florida AFL-CIO" },
+        { "name": "Ruth's List Florida" }
+      ],
+      "fundraising": { "total_raised": 520000, "total_spent": 210000, "cash_on_hand": 310000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Florida State Representative, Dist. 42", "from": 2018, "to": null },
+        { "role": "Planned Parenthood of Southwest and Central Florida (exec)", "from": 2013, "to": 2018 }
+      ]
+    },
+
+    "fl-cand-bonnie-jackson": {
+      "id": "fl-cand-bonnie-jackson",
+      "name": "Bonnie Jackson",
+      "party": "R",
+      "seeking_office": "FL House Dist. 42",
+      "incumbent": false,
+      "current_office": "Small business owner",
+      "hometown": "Winter Park, FL",
+      "age": 52,
+      "website": "https://bonnieforflorida.com",
+      "social": {},
+      "photo_url": null,
+      "bio": "Bonnie Jackson is a small-business owner making her first run for office, focused on tax relief, parental rights, and public safety.",
+      "top_issues": [
+        { "name": "Taxes", "stance": "Cap local millage growth; permanent back-to-school sales tax holiday." },
+        { "name": "Parental Rights", "stance": "Expand parental curriculum notification; defend library-content review laws." },
+        { "name": "Public Safety", "stance": "Fund school resource officers in every campus; support sheriff's offices." }
+      ],
+      "endorsements": [],
+      "fundraising": { "total_raised": 180000, "total_spent": 60000, "cash_on_hand": 120000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Owner, Jackson Insurance Group", "from": 2009, "to": null }
+      ]
+    },
+
+    "fl-cand-ileana-garcia": {
+      "id": "fl-cand-ileana-garcia",
+      "name": "Ileana García",
+      "party": "R",
+      "seeking_office": "FL Senate Dist. 40",
+      "incumbent": true,
+      "current_office": "Florida State Senator, Dist. 40",
+      "official_id": "fl-sen-40",
+      "official_scope": "state",
+      "hometown": "Miami, FL",
+      "age": 58,
+      "website": "https://ileanaforflorida.com",
+      "social": { "twitter": "ileanagarciaUSA" },
+      "photo_url": null,
+      "bio": "Ileana García has represented Dist. 40 since 2020 and founded Latinas for Trump. She is seeking re-election on a platform of anti-authoritarianism, Cuban/Venezuelan policy, and consumer protection.",
+      "top_issues": [
+        { "name": "Foreign Policy", "stance": "Tightened sanctions on Cuba/Venezuela/Nicaragua regimes." },
+        { "name": "Insurance", "stance": "Transparency mandates on insurer rate filings; consumer right-to-cure." },
+        { "name": "Condo Safety", "stance": "Continue post-Surfside inspection and reserve-funding enforcement." }
+      ],
+      "endorsements": [
+        { "name": "Assembly of the Cuban Resistance" }
+      ],
+      "fundraising": { "total_raised": 940000, "total_spent": 390000, "cash_on_hand": 550000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Florida State Senator, Dist. 40", "from": 2020, "to": null },
+        { "role": "Founder, Latinas for Trump", "from": 2016, "to": 2020 }
+      ]
+    },
+
+    "fl-cand-raquel-pacheco": {
+      "id": "fl-cand-raquel-pacheco",
+      "name": "Raquel Pacheco",
+      "party": "D",
+      "seeking_office": "FL Senate Dist. 40",
+      "incumbent": false,
+      "current_office": "Attorney & community organizer",
+      "hometown": "Coral Gables, FL",
+      "age": 41,
+      "website": "https://raquelfordistrict40.com",
+      "social": { "twitter": "raquelfordist40" },
+      "photo_url": null,
+      "bio": "Raquel Pacheco is an immigration attorney and community organizer making her first run for state office, focused on housing affordability and healthcare expansion.",
+      "top_issues": [
+        { "name": "Housing", "stance": "Statewide rent stabilization pilot; expand SHIP program funding." },
+        { "name": "Healthcare", "stance": "Expand Medicaid under the ACA; state-level reinsurance for marketplace plans." },
+        { "name": "Immigration", "stance": "Repeal SB 1718 employment verification provisions." }
+      ],
+      "endorsements": [
+        { "name": "LatinoVictoryFund" }
+      ],
+      "fundraising": { "total_raised": 360000, "total_spent": 110000, "cash_on_hand": 250000, "as_of": "2026-03-31" },
+      "experience": [
+        { "role": "Managing Attorney, South Florida Immigration Clinic", "from": 2015, "to": null }
+      ]
+    }
+
+  }
+}

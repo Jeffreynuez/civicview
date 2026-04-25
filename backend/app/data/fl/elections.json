@@ -1,0 +1,336 @@
+{
+  "_note": "Curated Florida 2026 election cycle (demo data). Structured to be API-ready: candidate_ids point into candidates.json, office/level are stable classifications, and ballot_measures are grouped by state and county so a personalized ballot can be built from (state, county, congressional_district, state_senate_district, state_house_district, city_slug).",
+  "_source": "Manually curated; replace with Ballotpedia / FL Division of Elections / county Supervisor of Elections feeds when available.",
+  "state": "FL",
+  "state_name": "Florida",
+  "cycle": "2026",
+  "key_dates": {
+    "primary": "2026-08-18",
+    "general": "2026-11-03",
+    "voter_registration_deadline_primary": "2026-07-20",
+    "voter_registration_deadline_general": "2026-10-05",
+    "vote_by_mail_request_deadline_primary": "2026-08-08",
+    "vote_by_mail_request_deadline_general": "2026-10-24",
+    "early_voting_window_general": "2026-10-19 to 2026-11-01"
+  },
+  "races": [
+    {
+      "id": "fl-2026-gov",
+      "office": "Governor of Florida",
+      "level": "state",
+      "jurisdiction": "FL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "Open seat — Governor DeSantis is term-limited. Primary is closed (party-only).",
+      "primary_candidates": {
+        "R": ["fl-cand-byron-donalds", "fl-cand-paul-renner"],
+        "D": ["fl-cand-jared-moskowitz", "fl-cand-nikki-fried"]
+      },
+      "general_candidates": [
+        "fl-cand-byron-donalds",
+        "fl-cand-jared-moskowitz"
+      ],
+      "general_candidates_note": "Demo projection of primary winners — update after Aug 18."
+    },
+    {
+      "id": "fl-2026-ag",
+      "office": "Attorney General of Florida",
+      "level": "state",
+      "jurisdiction": "FL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-james-uthmeier",
+      "notes": "Uthmeier was appointed in 2025 and is seeking a full term.",
+      "primary_candidates": {
+        "R": ["fl-cand-james-uthmeier"],
+        "D": ["fl-cand-jose-javier-rodriguez"]
+      },
+      "general_candidates": [
+        "fl-cand-james-uthmeier",
+        "fl-cand-jose-javier-rodriguez"
+      ]
+    },
+    {
+      "id": "fl-2026-us-house-10",
+      "office": "U.S. House, FL-10",
+      "level": "federal",
+      "jurisdiction": "FL-10",
+      "state_fips": "12",
+      "congressional_district": "10",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-maxwell-frost",
+      "primary_candidates": {
+        "D": ["fl-cand-maxwell-frost"],
+        "R": ["fl-cand-willie-montague"]
+      },
+      "general_candidates": [
+        "fl-cand-maxwell-frost",
+        "fl-cand-willie-montague"
+      ]
+    },
+    {
+      "id": "fl-2026-state-senate-40",
+      "office": "Florida State Senate, Dist. 40",
+      "level": "state",
+      "jurisdiction": "FL-SD-40",
+      "chamber": "State Senate",
+      "state_senate_district": "40",
+      "seat_type": "legislative",
+      "term_length_years": 4,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-ileana-garcia",
+      "primary_candidates": {
+        "R": ["fl-cand-ileana-garcia"],
+        "D": ["fl-cand-raquel-pacheco"]
+      },
+      "general_candidates": [
+        "fl-cand-ileana-garcia",
+        "fl-cand-raquel-pacheco"
+      ]
+    },
+    {
+      "id": "fl-2026-state-house-42",
+      "office": "Florida House of Representatives, Dist. 42",
+      "level": "state",
+      "jurisdiction": "FL-HD-42",
+      "chamber": "State House",
+      "state_house_district": "42",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-anna-eskamani",
+      "primary_candidates": {
+        "D": ["fl-cand-anna-eskamani"],
+        "R": ["fl-cand-bonnie-jackson"]
+      },
+      "general_candidates": [
+        "fl-cand-anna-eskamani",
+        "fl-cand-bonnie-jackson"
+      ]
+    }
+  ],
+  "ballot_measures": {
+    "state": [
+      {
+        "id": "fl-2026-amend-1",
+        "number": "Amendment 1",
+        "title": "Property-Tax Relief for Homestead Owners Over 65",
+        "summary": "Expands the homestead property-tax exemption for homeowners aged 65 and older by an additional $25,000, bringing the total exemption cap to $75,000 for qualifying residents. Applies to non-school-district millages only.",
+        "level": "state",
+        "type": "Constitutional Amendment",
+        "source": "Legislatively referred (SJR 224)",
+        "threshold": "60%",
+        "appears_on": "general",
+        "support": {
+          "arguments": [
+            "Lowers fixed-cost burden on seniors aging in place as insurance and HOA costs climb.",
+            "Does not affect school-district funding."
+          ],
+          "sponsors": ["Florida Chamber of Commerce", "AARP Florida"]
+        },
+        "opposition": {
+          "arguments": [
+            "Shifts ~$180M/yr of county tax burden onto working-age homeowners and renters.",
+            "Benefits highest-value homesteads disproportionately."
+          ],
+          "sponsors": ["Florida Policy Institute"]
+        },
+        "fiscal_impact": "Estimated −$180M/yr in non-school local property-tax revenue statewide by Year 3."
+      },
+      {
+        "id": "fl-2026-amend-2",
+        "number": "Amendment 2",
+        "title": "Right to Clean Water",
+        "summary": "Establishes a fundamental right of Floridians to clean and healthy waters, enforceable against polluters via private action and state Attorney General. Directs the legislature to pass implementing statutes within two years.",
+        "level": "state",
+        "type": "Constitutional Amendment",
+        "source": "Citizen-initiated (Florida Right to Clean Water Inc.)",
+        "threshold": "60%",
+        "appears_on": "general",
+        "support": {
+          "arguments": [
+            "Creates a durable standard surviving administration changes.",
+            "Empowers affected residents to act where regulators don't."
+          ],
+          "sponsors": ["Florida Conservation Voters", "VoteWater.org"]
+        },
+        "opposition": {
+          "arguments": [
+            "Will trigger a wave of litigation against farmers, municipalities, and utilities.",
+            "Vague language creates regulatory uncertainty."
+          ],
+          "sponsors": ["Florida Farm Bureau", "Associated Industries of Florida"]
+        },
+        "fiscal_impact": "Indeterminate — enforcement costs depend on implementing statute."
+      },
+      {
+        "id": "fl-2026-amend-3",
+        "number": "Amendment 3",
+        "title": "Independent Redistricting Commission",
+        "summary": "Creates a 12-member citizen redistricting commission to draw congressional and state legislative maps beginning with the 2030 cycle, replacing legislative map-drawing authority.",
+        "level": "state",
+        "type": "Constitutional Amendment",
+        "source": "Citizen-initiated (Fair Districts Florida)",
+        "threshold": "60%",
+        "appears_on": "general",
+        "support": {
+          "arguments": [
+            "Removes self-dealing by incumbent legislators.",
+            "Track record in states like California and Michigan shows more competitive districts."
+          ],
+          "sponsors": ["League of Women Voters of Florida", "Common Cause Florida"]
+        },
+        "opposition": {
+          "arguments": [
+            "Removes accountability from elected officials to unelected commissioners.",
+            "Existing Fair Districts amendments already constrain legislature."
+          ],
+          "sponsors": ["Republican Party of Florida"]
+        },
+        "fiscal_impact": "~$8M/yr ongoing for commission operations; ~$14M in startup IT and staffing."
+      }
+    ],
+    "counties": {
+      "miami-dade": [
+        {
+          "id": "fl-2026-miamidade-q1",
+          "number": "Miami-Dade Question 1",
+          "title": "Affordable Housing Bond — $450M",
+          "summary": "Authorizes Miami-Dade County to issue up to $450 million in general obligation bonds, funded by a property-tax millage increase of 0.25 mills (~$58/yr for a $300K assessed home), to construct and preserve workforce and senior affordable housing countywide.",
+          "level": "county",
+          "county": "Miami-Dade",
+          "county_fips": "12086",
+          "type": "Bond referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general",
+          "support": {
+            "arguments": [
+              "Produces ~6,000 income-restricted units over 10 years.",
+              "Dedicates 40% to seniors and essential workers."
+            ],
+            "sponsors": ["Miami Homes For All", "South Florida AFL-CIO"]
+          },
+          "opposition": {
+            "arguments": [
+              "Adds to property-tax burden during an affordability crisis.",
+              "County lacks capacity to deploy funds efficiently."
+            ],
+            "sponsors": ["Miami-Dade Chamber of Commerce (divided)"]
+          },
+          "fiscal_impact": "+0.25 mills ad valorem; ~$28M/yr in new debt service over 25 years."
+        },
+        {
+          "id": "fl-2026-miamidade-q2",
+          "number": "Miami-Dade Question 2",
+          "title": "Countywide Transit Expansion Surtax Extension",
+          "summary": "Extends the existing half-cent People's Transportation Tax by 20 years beyond its current 2042 sunset, dedicating 50% of new revenues to the SMART Plan rapid-transit corridors.",
+          "level": "county",
+          "county": "Miami-Dade",
+          "county_fips": "12086",
+          "type": "Tax extension referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general"
+        }
+      ],
+      "orange": [
+        {
+          "id": "fl-2026-orange-q1",
+          "number": "Orange County Question 1",
+          "title": "Rent-Stabilization Advisory Referendum",
+          "summary": "Non-binding advisory question asking whether Orange County should petition the Florida Legislature to authorize local rent-stabilization ordinances in housing-emergency conditions.",
+          "level": "county",
+          "county": "Orange",
+          "county_fips": "12095",
+          "type": "Advisory referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general",
+          "notes": "Advisory only — does not create binding policy. A 2022 binding rent-stabilization measure was struck down by Florida courts."
+        },
+        {
+          "id": "fl-2026-orange-q2",
+          "number": "Orange County Question 2",
+          "title": "Tourist Development Tax Reallocation",
+          "summary": "Amends the county charter to allow up to 25% of Tourist Development Tax revenues to be directed toward workforce housing and transportation near tourist corridors.",
+          "level": "county",
+          "county": "Orange",
+          "county_fips": "12095",
+          "type": "Charter amendment",
+          "threshold": "Simple majority",
+          "appears_on": "general"
+        }
+      ],
+      "hillsborough": [
+        {
+          "id": "fl-2026-hillsborough-q1",
+          "number": "Hillsborough Question 1",
+          "title": "Transportation Sales Surtax — 1¢ for 30 Years",
+          "summary": "Imposes a 1-cent transportation sales surtax for 30 years, with revenues dedicated 45% to road/bridge maintenance, 30% to HART transit, 15% to safety/complete-streets, and 10% to planning.",
+          "level": "county",
+          "county": "Hillsborough",
+          "county_fips": "12057",
+          "type": "Tax referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general",
+          "notes": "Successor to the 2018 surtax that was struck down by the Florida Supreme Court over spending-plan language. Drafters say this version cures the earlier defect."
+        }
+      ],
+      "duval": [
+        {
+          "id": "fl-2026-duval-q1",
+          "number": "Duval Question 1",
+          "title": "JEA Governance Reform",
+          "summary": "Amends the Jacksonville city charter to require supermajority City Council approval for any sale, merger, or privatization of the JEA public utility.",
+          "level": "county",
+          "county": "Duval",
+          "county_fips": "12031",
+          "type": "Charter amendment",
+          "threshold": "Simple majority",
+          "appears_on": "general"
+        }
+      ],
+      "pinellas": [
+        {
+          "id": "fl-2026-pinellas-q1",
+          "number": "Pinellas Question 1",
+          "title": "Beach Renourishment Surtax",
+          "summary": "Imposes a 0.5% transportation and beach-resilience surtax for 15 years, with 60% dedicated to beach renourishment and coastal-resilience projects and 40% to transportation.",
+          "level": "county",
+          "county": "Pinellas",
+          "county_fips": "12103",
+          "type": "Tax referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general"
+        }
+      ],
+      "leon": [
+        {
+          "id": "fl-2026-leon-q1",
+          "number": "Leon Question 1",
+          "title": "Blueprint 2030 Infrastructure Extension",
+          "summary": "Extends the existing Blueprint infrastructure sales surtax by 10 years beyond its 2039 sunset to fund additional stormwater, parks, and regional mobility projects.",
+          "level": "county",
+          "county": "Leon",
+          "county_fips": "12073",
+          "type": "Tax extension referendum",
+          "threshold": "Simple majority",
+          "appears_on": "general"
+        }
+      ]
+    }
+  },
+  "_personalization_hints": {
+    "match_keys": {
+      "state": ["level=state"],
+      "county": ["level=county AND county_fips=<user.county_fips>"],
+      "congressional_district": ["congressional_district=<user.district>"],
+      "state_senate_district": ["state_senate_district=<user.state_senate_district>"],
+      "state_house_district": ["state_house_district=<user.state_house_district>"]
+    },
+    "notes": "Frontend will stitch 'Your Ballot' from: statewide races + statewide measures + county-matched measures + federal race matching user's congressional_district + state legislative races matching user's districts. Municipal races not yet seeded — stubs can be added under races[].jurisdiction once city election dates align."
+  }
+}

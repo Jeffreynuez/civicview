@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Phase 1 demo data + uploaded media. Both are regenerated/recreated
+# on startup from the JSON seeds; checking them in would (a) bloat the
+# repo with binary churn, (b) leak any test posts/comments contributors
+# made locally, and (c) make merges painful when two people seed
+# different demo state.
+civiclens.db
+civiclens.db-journal
+uploads/

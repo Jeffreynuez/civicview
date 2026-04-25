@@ -1,0 +1,1473 @@
+"""
+Congress.gov API Service
+Fetches real data from Congress.gov API with caching and fallback to sample data.
+"""
+
+import asyncio
+import json
+import os
+import re
+import time
+import logging
+from collections import Counter
+from pathlib import Path
+from typing import Optional
+
+import httpx
+from dotenv import load_dotenv
+
+from app.services.congress_selection import annotate_members, annotate_selection
+
+CONGRESS_PROFILES_PATH = (
+    Path(__file__).resolve().parent.parent / "data" / "federal" / "congress_profiles.json"
+)
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+load_dotenv()
+logger = logging.getLogger(__name__)
+
+CONGRESS_API_BASE = "https://api.congress.gov/v3"
+GOVTRACK_API_BASE = "https://www.govtrack.us/api/v2"
+# Comprehensive per-member contact data (DC + district offices, phones, socials).
+# Note: the legacy theunitedstates.io host returns 410 Gone; the github.io mirror
+# still serves the same community data files.
+LEGISLATORS_SOCIAL_URL = "https://unitedstates.github.io/congress-legislators/legislators-social-media.json"
+LEGISLATORS_DISTRICT_OFFICES_URL = "https://unitedstates.github.io/congress-legislators/legislators-district-offices.json"
+LEGISLATORS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/legislators-current.json"
+COMMITTEES_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/committees-current.json"
+COMMITTEE_MEMBERSHIP_URL = "https://unitedstates.github.io/congress-legislators/committee-membership-current.json"
+CACHE_TTL = 1800  # 30 minutes
+LEGISLATORS_CACHE_TTL = 86400  # 24h — this data changes rarely
+IMAGE_BASE = "https://unitedstates.github.io/images/congress/225x275"
+
+
+# Matches the bill-number prefix of a GovTrack vote question, e.g.
+#   "H.R. 1681: Expediting Federal Broadband Deployment Reviews Act"
+#   "H.R. 7024 (118th): Tax Relief for American Families and Workers Act"
+#   "S. 2226: National Defense Authorization Act"
+_BILL_NUMBER_RE = re.compile(
+    r"^\s*((?:H\.\s*R\.|S\.|H\.\s*J\.\s*Res\.|S\.\s*J\.\s*Res\.|"
+    r"H\.\s*Con\.\s*Res\.|S\.\s*Con\.\s*Res\.|H\.\s*Res\.|S\.\s*Res\.)\s*\d+)"
+    r"(?:\s*\((\d+)(?:st|nd|rd|th)?\))?\s*:\s*(.+)$",
+    re.IGNORECASE,
+)
+
+
+def _parse_bill_from_question(question: str, related_bill_id=None, congress=None):
+    """Extract a minimal bill descriptor from a GovTrack vote question.
+
+    Returns None if the question doesn't lead with a bill number.
+    Shape:
+        {display_number, title, congress, related_bill_id}
+    `display_number` is normalized to a compact "H.R. 1681" form.
+    """
+    if not question:
+        return None
+    m = _BILL_NUMBER_RE.match(question)
+    if not m:
+        return None
+    raw_number, paren_congress, title = m.group(1), m.group(2), m.group(3)
+    # Normalize whitespace inside the bill number ("H. R. 1681" → "H.R. 1681").
+    display_number = re.sub(r"\s+", "", raw_number)
+    # Re-insert a single space before the digit for readability.
+    display_number = re.sub(r"(Res\.|R\.|S\.)(\d)", r"\1 \2", display_number, flags=re.IGNORECASE)
+    return {
+        "display_number": display_number,
+        "title": title.strip(),
+        "congress": int(paren_congress) if paren_congress else (int(congress) if congress else None),
+        "related_bill_id": related_bill_id,
+    }
+
+
+class CongressService:
+    def __init__(self):
+        self.api_key = os.getenv("CONGRESS_API_KEY", "")
+        self._cache = {}  # {cache_key: (timestamp, data)}
+        self._profiles_sidecar: dict = {}  # bioguide_id -> {top_issues, experience}
+        # Cross-reference: any sitting rep who also appears as a candidate in
+        # data/<state>/candidates.json. Used both for issue/experience merge
+        # (candidate record is more detailed) AND to surface an `active_candidacy`
+        # pointer on member-detail responses so the frontend can render the
+        # "Currently running for X" cross-nav link.
+        self._candidacies_by_bioguide: dict = {}  # bioguide_id -> candidate dict
+        self._load_profiles_sidecar()
+        self._load_candidacy_index()
+        if not self.api_key:
+            logger.warning("No CONGRESS_API_KEY found — will use sample data only")
+
+    # ------------------------------------------------------------------
+    # Curated profile sidecar (top_issues + experience)
+    # ------------------------------------------------------------------
+    def _load_profiles_sidecar(self) -> None:
+        """Load the hand-curated congress_profiles.json once at startup.
+
+        Shape: {bioguide_id: {"top_issues": [{name, stance}...],
+                              "experience": [{role, from, to}...]}}.
+        Missing file is not fatal — the service just won't enrich.
+        """
+        try:
+            if CONGRESS_PROFILES_PATH.exists():
+                with CONGRESS_PROFILES_PATH.open("r", encoding="utf-8") as fh:
+                    self._profiles_sidecar = json.load(fh) or {}
+                logger.info(
+                    "CongressService: loaded %d curated profiles",
+                    len(self._profiles_sidecar),
+                )
+            else:
+                logger.info(
+                    "CongressService: no congress_profiles.json at %s",
+                    CONGRESS_PROFILES_PATH,
+                )
+        except (json.JSONDecodeError, OSError) as e:
+            logger.error("CongressService: failed to load profiles sidecar: %s", e)
+            self._profiles_sidecar = {}
+
+    def _load_candidacy_index(self) -> None:
+        """Walk every /data/<state>/candidates.json and index by bioguide_id.
+
+        Lets a sitting rep's issues/experience come straight from their
+        richer candidate record when no sidecar entry exists, and powers the
+        'active_candidacy' cross-nav on member-detail responses.
+        """
+        self._candidacies_by_bioguide = {}
+        if not DATA_DIR.exists():
+            return
+        for state_dir in DATA_DIR.iterdir():
+            if not state_dir.is_dir():
+                continue
+            c_path = state_dir / "candidates.json"
+            if not c_path.exists():
+                continue
+            try:
+                with c_path.open("r", encoding="utf-8") as fh:
+                    raw = json.load(fh)
+                cands = raw.get("candidates", {}) or {}
+                for cid, payload in cands.items():
+                    bg = payload.get("bioguide_id")
+                    if not bg:
+                        continue
+                    entry = {"id": cid, **payload}
+                    self._candidacies_by_bioguide[bg] = entry
+            except (json.JSONDecodeError, OSError) as e:
+                logger.error("CongressService: failed to load %s: %s", c_path, e)
+        if self._candidacies_by_bioguide:
+            logger.info(
+                "CongressService: indexed %d sitting-rep candidacies",
+                len(self._candidacies_by_bioguide),
+            )
+
+    def _merge_profile(self, detail: Optional[dict]) -> Optional[dict]:
+        """Merge curated top_issues + experience into a member-detail payload.
+
+        Resolution order for each field (first non-empty wins):
+          1. detail itself (already populated — leave alone)
+          2. candidate record cross-referenced by bioguide_id (richer, more
+             current since candidates publish fresh stances for elections)
+          3. congress_profiles.json sidecar (curated evergreen baseline)
+
+        Also attaches an `active_candidacy` stub whenever a matching candidate
+        record exists so the frontend can render a "Currently running for X"
+        cross-nav link from the rep profile to the candidate profile.
+        """
+        if not detail:
+            return detail
+        bg = detail.get("bioguide_id")
+        if not bg:
+            return detail
+
+        candidacy = self._candidacies_by_bioguide.get(bg)
+        sidecar = self._profiles_sidecar.get(bg)
+
+        # top_issues: candidate > sidecar
+        if not detail.get("top_issues"):
+            if candidacy and candidacy.get("top_issues"):
+                detail["top_issues"] = candidacy["top_issues"]
+            elif sidecar and sidecar.get("top_issues"):
+                detail["top_issues"] = sidecar["top_issues"]
+
+        # experience: candidate > sidecar
+        if not detail.get("experience"):
+            if candidacy and candidacy.get("experience"):
+                detail["experience"] = candidacy["experience"]
+            elif sidecar and sidecar.get("experience"):
+                detail["experience"] = sidecar["experience"]
+
+        # Cross-nav pointer — minimal shape; the frontend hydrates as needed
+        if candidacy and not detail.get("active_candidacy"):
+            detail["active_candidacy"] = {
+                "candidate_id": candidacy.get("id"),
+                "seeking_office": candidacy.get("seeking_office"),
+                "incumbent": candidacy.get("incumbent", False),
+            }
+        return detail
+
+    # ------------------------------------------------------------------
+    # Cache helpers
+    # ------------------------------------------------------------------
+    def _get_cached(self, key: str):
+        if key in self._cache:
+            ts, data = self._cache[key]
+            if time.time() - ts < CACHE_TTL:
+                logger.debug(f"Cache hit: {key}")
+                return data
+            del self._cache[key]
+        return None
+
+    def _set_cached(self, key: str, data):
+        self._cache[key] = (time.time(), data)
+
+    # ------------------------------------------------------------------
+    # API helpers
+    # ------------------------------------------------------------------
+    async def _api_get(self, path: str, params: dict = None) -> Optional[dict]:
+        """Make a GET request to Congress.gov API."""
+        if not self.api_key:
+            return None
+
+        url = f"{CONGRESS_API_BASE}{path}"
+        query = {"api_key": self.api_key, "format": "json"}
+        if params:
+            query.update(params)
+
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                resp = await client.get(url, params=query)
+                if resp.status_code == 200:
+                    return resp.json()
+                logger.warning(f"Congress API {resp.status_code} for {path}")
+                return None
+        except Exception as e:
+            logger.error(f"Congress API error for {path}: {e}")
+            return None
+
+    # ------------------------------------------------------------------
+    # Public methods
+    # ------------------------------------------------------------------
+    async def get_members_by_state(self, state_code: str) -> list:
+        """Get all Congress members for a state. Tries API first, falls back to sample data."""
+        cache_key = f"members:{state_code}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        # Try live API
+        members = await self._fetch_members_from_api(state_code)
+        if members:
+            # Enrich with serving_since from the cached legislators-current index
+            await self._enrich_with_tenure(members)
+            annotate_members(members)
+            # Also merge curated top_issues/experience + active_candidacy so that
+            # listing-only entries carry the enriched data. Otherwise, a client
+            # that already has `bio` on a list row won't re-fetch detail and
+            # ends up with empty Issues/Experience tabs.
+            for m in members:
+                self._merge_profile(m)
+            self._set_cached(cache_key, members)
+            return members
+
+        # Fallback to sample data
+        logger.info(f"Using sample data for state {state_code}")
+        fallback = self._get_sample_members(state_code)
+        if fallback:
+            annotate_members(fallback)
+            for m in fallback:
+                self._merge_profile(m)
+            self._set_cached(cache_key, fallback)
+        return fallback
+
+    async def _enrich_with_tenure(self, members: list) -> None:
+        """Mutates `members` adding `serving_since` (year string) where possible.
+
+        Uses the all-members index, which is sourced from legislators-current.json
+        and already cached.
+        """
+        try:
+            index = await self.get_all_members()
+            by_bg = {m["bioguide_id"]: m for m in index if m.get("bioguide_id")}
+            for m in members:
+                bg = m.get("bioguide_id")
+                if bg and bg in by_bg and not m.get("serving_since"):
+                    m["serving_since"] = by_bg[bg].get("serving_since")
+        except Exception as e:
+            logger.debug(f"Tenure enrich skipped: {e}")
+
+    async def get_member_detail(self, bioguide_id: str) -> Optional[dict]:
+        """Get detailed info for a single member. Tries API, falls back to sample data."""
+        cache_key = f"detail:{bioguide_id}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        # Try live API
+        detail = await self._fetch_member_detail_from_api(bioguide_id)
+        if detail:
+            annotate_selection(detail)
+            self._merge_profile(detail)
+            self._set_cached(cache_key, detail)
+            return detail
+
+        # Fallback to sample data
+        fallback = self._find_sample_member(bioguide_id)
+        if fallback:
+            annotate_selection(fallback)
+            self._merge_profile(fallback)
+            self._set_cached(cache_key, fallback)
+        return fallback
+
+    async def get_member_bills(self, bioguide_id: str, limit: int = 10) -> dict:
+        """Get both sponsored and cosponsored bills for a member."""
+        cache_key = f"bills:{bioguide_id}:{limit}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        sponsored = await self._fetch_legislation(
+            bioguide_id, "sponsored-legislation", "sponsoredLegislation", limit
+        )
+        cosponsored = await self._fetch_legislation(
+            bioguide_id, "cosponsored-legislation", "cosponsoredLegislation", limit
+        )
+
+        result = {"sponsored": sponsored or [], "cosponsored": cosponsored or []}
+        # Only cache if we got something from the API (avoid caching empty
+        # results when the API key is missing/invalid).
+        if sponsored or cosponsored:
+            self._set_cached(cache_key, result)
+        return result
+
+    async def get_bill_snapshot(
+        self, congress: int, bill_type: str, number: str
+    ) -> Optional[dict]:
+        """Get a small snapshot of a single bill's current state — used by the
+        client-side bill-tracker to detect status changes.
+
+        Returns: {congress, type, number, citation, title, latest_action,
+                  latest_action_date, introduced_date, policy_area, url}
+        or None if the bill can't be found.
+        """
+        if not (congress and bill_type and number):
+            return None
+
+        bt = bill_type.lower()
+        cache_key = f"bill_snapshot:{congress}:{bt}:{number}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        data = await self._api_get(f"/bill/{congress}/{bt}/{number}")
+        if not data or "bill" not in data:
+            return None
+
+        b = data["bill"]
+        action = b.get("latestAction", {}) or {}
+        bill_type_upper = (b.get("type") or bill_type).upper()
+        bill_number = str(b.get("number", number))
+        pretty_type = {
+            "HR": "H.R.", "S": "S.", "HJRES": "H.J.Res.",
+            "SJRES": "S.J.Res.", "HCONRES": "H.Con.Res.",
+            "SCONRES": "S.Con.Res.", "HRES": "H.Res.", "SRES": "S.Res.",
+        }.get(bill_type_upper, bill_type_upper)
+        citation = f"{pretty_type} {bill_number}" if bill_number else None
+        policy_area = (b.get("policyArea") or {}).get("name")
+
+        snapshot = {
+            "congress": b.get("congress", congress),
+            "type": bill_type_upper,
+            "number": bill_number,
+            "citation": citation,
+            "title": b.get("title", "Untitled"),
+            "introduced_date": b.get("introducedDate", ""),
+            "latest_action": action.get("text", ""),
+            "latest_action_date": action.get("actionDate", ""),
+            "policy_area": policy_area,
+            "url": b.get("url"),
+        }
+        self._set_cached(cache_key, snapshot)
+        return snapshot
+
+    async def get_member_contact(self, bioguide_id: str) -> Optional[dict]:
+        """Get detailed contact info for a member (DC + district offices, phones, socials)."""
+        cache_key = f"contact:{bioguide_id}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        # Pull from Congress.gov for DC office as a baseline
+        detail = await self._api_get(f"/member/{bioguide_id}")
+        dc_office = ""
+        dc_phone = ""
+        official_website = ""
+        if detail and "member" in detail:
+            m = detail["member"]
+            terms = m.get("terms", [])
+            if terms:
+                latest = terms[-1]
+                dc_office = latest.get("officeAddress", "")
+                dc_phone = latest.get("officePhone", "")
+            official_website = m.get("officialWebsiteUrl", "") or ""
+
+        # Supplement with the community data files (district offices + socials)
+        district_offices = await self._fetch_district_offices(bioguide_id)
+        socials = await self._fetch_legislator_socials(bioguide_id)
+
+        contact = {
+            "bioguide_id": bioguide_id,
+            "dc_office": dc_office or None,
+            "dc_phone": dc_phone or None,
+            "official_website": official_website or None,
+            "district_offices": district_offices,
+            "socials": socials,
+        }
+        # Only cache if we found real data somewhere
+        if dc_office or dc_phone or district_offices or socials:
+            self._set_cached(cache_key, contact)
+        return contact
+
+    async def get_member_votes(
+        self,
+        bioguide_id: str,
+        limit: int = 10,
+        year: Optional[int] = None,
+        month: Optional[int] = None,
+    ) -> list:
+        """Get the member's roll-call votes via GovTrack.
+
+        Modes:
+          - No year: return the ``limit`` most recent votes (default 10).
+            Cache key: ``votes:{bioguide}:recent:{limit}``.
+          - Year specified: return *all* votes cast by the member in that
+            calendar year (then filtered by ``month`` if provided). A full
+            year is pulled once and cached under ``votes:{bioguide}:{year}``
+            so repeated month-switches on the frontend are a cache hit.
+        """
+        # Step 1: translate bioguide → govtrack person id
+        person_id = await self._resolve_govtrack_id(bioguide_id)
+        if not person_id:
+            logger.info(f"Could not resolve govtrack id for {bioguide_id}")
+            return []
+
+        if year is None:
+            cache_key = f"votes:{bioguide_id}:recent:{limit}"
+            cached = self._get_cached(cache_key)
+            if cached is not None:
+                return cached
+            votes = await self._fetch_govtrack_votes(person_id, limit=limit)
+            if votes:
+                self._set_cached(cache_key, votes)
+            return votes
+
+        # Year mode — pull the whole year once, then filter by month.
+        cache_key = f"votes:{bioguide_id}:{year}"
+        cached = self._get_cached(cache_key)
+        if cached is None:
+            created_gte = f"{year}-01-01T00:00:00"
+            created_lt = f"{year + 1}-01-01T00:00:00"
+            cached = await self._fetch_govtrack_votes(
+                person_id,
+                limit=600,
+                created_gte=created_gte,
+                created_lt=created_lt,
+            )
+            if cached:
+                self._set_cached(cache_key, cached)
+
+        if month is None:
+            return cached
+        # Month filter is cheap and deterministic, do it in-process.
+        mm = f"{int(month):02d}"
+        return [v for v in cached if (v.get("date") or "")[5:7] == mm]
+
+    async def get_all_members(self) -> list:
+        """Return a lightweight list of every current Congress member.
+
+        Pulled from the cached legislators-current.json. Each entry:
+            {bioguide_id, name, party, chamber, state, district,
+             role, image, serving_since}
+        """
+        cache_key = "all_members_lite"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        data = await self._fetch_legislators_current()
+        if not data:
+            return []
+
+        members = []
+        for entry in data:
+            try:
+                bioguide = entry.get("id", {}).get("bioguide")
+                if not bioguide:
+                    continue
+                terms = entry.get("terms", [])
+                if not terms:
+                    continue
+                latest = terms[-1]
+                chamber_raw = latest.get("type")  # 'sen' or 'rep'
+                chamber = "Senate" if chamber_raw == "sen" else "House"
+                party_name = (latest.get("party") or "").lower()
+                if "republican" in party_name:
+                    party = "R"
+                elif "democrat" in party_name:
+                    party = "D"
+                else:
+                    party = "I"
+                state = latest.get("state")
+                district = latest.get("district") if chamber == "House" else None
+
+                name_obj = entry.get("name", {})
+                name = (
+                    name_obj.get("official_full")
+                    or f"{name_obj.get('first', '')} {name_obj.get('last', '')}".strip()
+                    or "Unknown"
+                )
+
+                role = (
+                    "Senator" if chamber == "Senate"
+                    else f"Representative, District {district}" if district is not None
+                    else "Representative"
+                )
+
+                serving_since = (terms[0].get("start") or "")[:4]  # year only
+
+                members.append({
+                    "bioguide_id": bioguide,
+                    "name": name,
+                    "party": party,
+                    "chamber": chamber,
+                    "state": state,
+                    "district": district,
+                    "role": role,
+                    "image": f"{IMAGE_BASE}/{bioguide}.jpg",
+                    "serving_since": serving_since,
+                })
+            except Exception as e:
+                logger.debug(f"Skipping legislator due to parse error: {e}")
+                continue
+
+        if members:
+            annotate_members(members)
+            self._set_cached(cache_key, members)
+            logger.info(f"Built all-members index: {len(members)} entries")
+        return members
+
+    async def get_member_stats(self, bioguide_id: str, party: Optional[str] = None) -> dict:
+        """Get aggregate stats: party-line voting % and top issue areas.
+
+        Returns a dict shaped like:
+            {
+                "party_line_pct": int | None,   # 0-100 or None if uncomputable
+                "votes_analyzed": int,           # how many votes were checked
+                "top_issues": [{"name": str, "count": int}, ...],   # up to 5
+            }
+        """
+        cache_key = f"stats:{bioguide_id}:{party or '?'}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        # Resolve party if not supplied (used to know which party majority to compare against)
+        if not party:
+            party = await self._lookup_party(bioguide_id)
+
+        # Run vote-stat computation and bills fetch in parallel
+        party_stat_task = self._compute_party_line(bioguide_id, party)
+        sponsored_task = self._fetch_legislation(
+            bioguide_id, "sponsored-legislation", "sponsoredLegislation", 25
+        )
+        cosponsored_task = self._fetch_legislation(
+            bioguide_id, "cosponsored-legislation", "cosponsoredLegislation", 25
+        )
+
+        party_stat, sponsored, cosponsored = await asyncio.gather(
+            party_stat_task, sponsored_task, cosponsored_task
+        )
+
+        # Tally policy areas — sponsored bills are stronger signal so weight them 2x
+        counter: Counter = Counter()
+        for b in sponsored or []:
+            pa = (b.get("policy_area") or "").strip()
+            if pa:
+                counter[pa] += 2
+        for b in cosponsored or []:
+            pa = (b.get("policy_area") or "").strip()
+            if pa:
+                counter[pa] += 1
+
+        top_issues = [
+            {"name": name, "count": count}
+            for name, count in counter.most_common(5)
+        ]
+
+        result = {
+            "bioguide_id": bioguide_id,
+            "party_line_pct": party_stat.get("pct"),
+            "votes_analyzed": party_stat.get("analyzed", 0),
+            "top_issues": top_issues,
+        }
+        # Cache only if we got at least one signal
+        if result["party_line_pct"] is not None or top_issues:
+            self._set_cached(cache_key, result)
+        return result
+
+    # ------------------------------------------------------------------
+    # Committees
+    # ------------------------------------------------------------------
+    async def get_committees(self) -> list:
+        """Return a list of parent committees (House + Senate + Joint).
+
+        Sourced from committees-current.json (community data) — Congress.gov's
+        /committee endpoint doesn't expose member rosters, so we use the
+        community files for both list and detail.
+
+        Each entry includes its subcommittees inline. The parent uses
+        `thomas_id` (e.g. "HSAG"); subcommittees use `parent_id + sub_id`
+        (e.g. "HSAG15") which is also the membership lookup key.
+        """
+        cache_key = "committees_list"
+        cached = self._get_cached_long(cache_key)
+        if cached is not None:
+            return cached
+
+        data = await self._fetch_committees_current()
+        if not data:
+            return []
+
+        chamber_map = {"house": "House", "senate": "Senate", "joint": "Joint"}
+        committees = []
+        for c in data:
+            try:
+                chamber = chamber_map.get((c.get("type") or "").lower(), c.get("type"))
+                thomas_id = c.get("thomas_id")
+                if not thomas_id:
+                    continue
+                subs = []
+                for s in c.get("subcommittees", []) or []:
+                    sub_thomas = s.get("thomas_id")
+                    if not sub_thomas:
+                        continue
+                    subs.append({
+                        "thomas_id": f"{thomas_id}{sub_thomas}",
+                        "name": s.get("name"),
+                        "chamber": chamber,
+                    })
+                committees.append({
+                    "thomas_id": thomas_id,
+                    "name": c.get("name"),
+                    "chamber": chamber,
+                    "url": c.get("url"),
+                    "jurisdiction": c.get("jurisdiction"),
+                    "address": c.get("address"),
+                    "phone": c.get("phone"),
+                    "subcommittees": subs,
+                })
+            except Exception as e:
+                logger.debug(f"Committee parse error: {e}")
+                continue
+
+        chamber_rank = {"House": 0, "Senate": 1, "Joint": 2}
+        committees.sort(key=lambda c: (chamber_rank.get(c["chamber"], 9), c["name"] or ""))
+        if committees:
+            self._set_cached_long(cache_key, committees)
+            logger.info(f"Fetched {len(committees)} committees from community data")
+        return committees
+
+    async def get_committee_detail(self, thomas_id: str) -> Optional[dict]:
+        """Return a committee's metadata + roster.
+
+        `thomas_id` is the community-data identifier (e.g. "HSAG" for House
+        Agriculture, "HSAG15" for its Forestry subcommittee).
+        """
+        if not thomas_id:
+            return None
+        thomas_id = thomas_id.upper()
+
+        cache_key = f"committee_detail:{thomas_id}"
+        cached = self._get_cached_long(cache_key)
+        if cached is not None:
+            return cached
+
+        # Walk the committees list to find this id (parent or sub)
+        committees = await self.get_committees()
+        committee_meta = None
+        parent_meta = None
+        for c in committees:
+            if c["thomas_id"] == thomas_id:
+                committee_meta = c
+                break
+            for s in c.get("subcommittees", []) or []:
+                if s["thomas_id"] == thomas_id:
+                    committee_meta = {
+                        "thomas_id": s["thomas_id"],
+                        "name": s["name"],
+                        "chamber": s["chamber"],
+                        "url": None,
+                        "jurisdiction": None,
+                        "address": None,
+                        "phone": None,
+                        "subcommittees": [],
+                    }
+                    parent_meta = {
+                        "thomas_id": c["thomas_id"],
+                        "name": c["name"],
+                    }
+                    break
+            if committee_meta:
+                break
+        if not committee_meta:
+            return None
+
+        # Look up the roster
+        membership_data = await self._fetch_committee_membership()
+        raw_members = (membership_data or {}).get(thomas_id, [])
+
+        # Need party letters from the legislators-current index. We map
+        # majority/minority to R/D using each member's actual party.
+        all_members = await self.get_all_members()
+        party_by_bg = {m["bioguide_id"]: m.get("party") for m in all_members}
+        state_by_bg = {m["bioguide_id"]: m.get("state") for m in all_members}
+
+        roster = []
+        for m in raw_members:
+            try:
+                bioguide = m.get("bioguide")
+                if not bioguide:
+                    continue
+                roster.append({
+                    "bioguide_id": bioguide,
+                    "name": m.get("name") or "",
+                    "party": party_by_bg.get(bioguide) or "I",
+                    "state": state_by_bg.get(bioguide),
+                    "title": m.get("title") or "",
+                    "rank": m.get("rank"),
+                    "side": m.get("party"),  # 'majority' or 'minority'
+                    "image": f"{IMAGE_BASE}/{bioguide}.jpg",
+                })
+            except Exception as e:
+                logger.debug(f"Roster parse error: {e}")
+                continue
+
+        # Sort: Chair → Ranking Member → Vice Chair → majority by rank → minority by rank
+        def _sort_key(r):
+            t = (r.get("title") or "").lower()
+            side = (r.get("side") or "").lower()
+            rank = r.get("rank") or 999
+            if "chair" in t and "vice" not in t and "ranking" not in t and "subcommittee" not in t:
+                return (0, rank)
+            if "ranking" in t:
+                return (1, rank)
+            if "vice" in t and "chair" in t:
+                return (2, rank)
+            if side == "majority":
+                return (3, rank)
+            return (4, rank)
+        roster.sort(key=_sort_key)
+
+        result = {
+            **committee_meta,
+            "members": roster,
+        }
+        if parent_meta:
+            result["parent"] = parent_meta
+        if roster or committee_meta.get("name"):
+            self._set_cached_long(cache_key, result)
+        return result
+
+    async def _fetch_committees_current(self) -> list:
+        return await self._fetch_and_cache_json(
+            "committees_current", COMMITTEES_CURRENT_URL, ttl=LEGISLATORS_CACHE_TTL
+        )
+
+    async def _fetch_committee_membership(self) -> dict:
+        return await self._fetch_and_cache_json(
+            "committee_membership", COMMITTEE_MEMBERSHIP_URL, ttl=LEGISLATORS_CACHE_TTL
+        )
+
+    # ------------------------------------------------------------------
+    # Long-TTL cache helpers (24h) — used for committee data which changes
+    # rarely over the course of a session.
+    # ------------------------------------------------------------------
+    def _get_cached_long(self, key: str):
+        if key in self._cache:
+            ts, data = self._cache[key]
+            if time.time() - ts < LEGISLATORS_CACHE_TTL:
+                return data
+            del self._cache[key]
+        return None
+
+    def _set_cached_long(self, key: str, data):
+        self._cache[key] = (time.time(), data)
+
+    # ------------------------------------------------------------------
+    # API fetch methods
+    # ------------------------------------------------------------------
+    async def _fetch_legislation(
+        self, bioguide_id: str, path_segment: str, data_key: str, limit: int
+    ) -> list:
+        """Fetch sponsored or cosponsored legislation for a member."""
+        data = await self._api_get(
+            f"/member/{bioguide_id}/{path_segment}",
+            {"limit": limit, "sort": "updateDate+desc"},
+        )
+        if not data or data_key not in data:
+            return []
+
+        bills = []
+        for b in data.get(data_key, [])[:limit]:
+            try:
+                title = b.get("title", "Untitled")
+                action = b.get("latestAction", {})
+                bill_type = (b.get("type") or "").upper()
+                bill_number = b.get("number", "")
+                congress_num = b.get("congress", "")
+                # e.g. "H.R. 1234" / "S. 567"
+                citation = None
+                if bill_type and bill_number:
+                    pretty_type = {
+                        "HR": "H.R.", "S": "S.", "HJRES": "H.J.Res.",
+                        "SJRES": "S.J.Res.", "HCONRES": "H.Con.Res.",
+                        "SCONRES": "S.Con.Res.", "HRES": "H.Res.", "SRES": "S.Res.",
+                    }.get(bill_type, bill_type)
+                    citation = f"{pretty_type} {bill_number}"
+
+                policy_area = (b.get("policyArea") or {}).get("name")
+                bills.append({
+                    "title": title,
+                    "citation": citation,
+                    "congress": congress_num,
+                    "type": bill_type,
+                    "number": str(bill_number) if bill_number else None,
+                    "introduced_date": b.get("introducedDate", ""),
+                    "latest_action": action.get("text", "Introduced"),
+                    "latest_action_date": action.get("actionDate", ""),
+                    "policy_area": policy_area,
+                    "url": b.get("url"),
+                })
+            except Exception as e:
+                logger.warning(f"Error parsing bill: {e}")
+                continue
+        return bills
+
+    async def _fetch_legislators_current(self) -> list:
+        """Fetch the big legislators-current.json file and cache for 24h."""
+        return await self._fetch_and_cache_json(
+            "legislators_current", LEGISLATORS_CURRENT_URL, ttl=LEGISLATORS_CACHE_TTL
+        )
+
+    async def _fetch_district_offices(self, bioguide_id: str) -> list:
+        """Return the list of district office entries for a member."""
+        data = await self._fetch_and_cache_json(
+            "legislators_district_offices",
+            LEGISLATORS_DISTRICT_OFFICES_URL,
+            ttl=LEGISLATORS_CACHE_TTL,
+        )
+        if not data:
+            return []
+        for entry in data:
+            if entry.get("id", {}).get("bioguide") == bioguide_id:
+                offices = []
+                for o in entry.get("offices", []):
+                    offices.append({
+                        "city": o.get("city"),
+                        "state": o.get("state"),
+                        "address": o.get("address"),
+                        "suite": o.get("suite"),
+                        "zip": o.get("zip"),
+                        "phone": o.get("phone"),
+                        "fax": o.get("fax"),
+                        "building": o.get("building"),
+                        "hours": o.get("hours"),
+                    })
+                return offices
+        return []
+
+    async def _fetch_legislator_socials(self, bioguide_id: str) -> dict:
+        """Return social media handles for a legislator."""
+        data = await self._fetch_and_cache_json(
+            "legislators_social",
+            LEGISLATORS_SOCIAL_URL,
+            ttl=LEGISLATORS_CACHE_TTL,
+        )
+        if not data:
+            return {}
+        for entry in data:
+            if entry.get("id", {}).get("bioguide") == bioguide_id:
+                s = entry.get("social", {})
+                return {
+                    "twitter": s.get("twitter"),
+                    "facebook": s.get("facebook"),
+                    "instagram": s.get("instagram"),
+                    "youtube": s.get("youtube_id") or s.get("youtube"),
+                }
+        return {}
+
+    async def _fetch_and_cache_json(self, cache_key: str, url: str, ttl: int = CACHE_TTL):
+        """Generic fetch+cache for the community JSON endpoints (no api key needed)."""
+        # Use a dedicated cache slot that respects a custom TTL
+        if cache_key in self._cache:
+            ts, data = self._cache[cache_key]
+            if time.time() - ts < ttl:
+                return data
+        try:
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                resp = await client.get(url)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    self._cache[cache_key] = (time.time(), data)
+                    return data
+                logger.warning(f"{url} returned {resp.status_code}")
+        except Exception as e:
+            logger.error(f"Error fetching {url}: {e}")
+        return None
+
+    async def _resolve_govtrack_id(self, bioguide_id: str) -> Optional[int]:
+        """Look up a govtrack person id for a bioguide id.
+
+        GovTrack's /person?bioguideid=… endpoint has regressed and now
+        returns 400 on every query variant. legislators-current.json
+        (which we already cache for other lookups) carries a `govtrack`
+        id for every sitting member — so we resolve from there first and
+        only fall back to the live API lookup for former members or any
+        future case where it starts working again.
+        """
+        cache_key = f"govtrack_id:{bioguide_id}"
+        cached = self._get_cached(cache_key)
+        if cached is not None:
+            return cached
+
+        # Primary path — legislators-current.json sidecar (offline-safe,
+        # 100% coverage for sitting members).
+        data = await self._fetch_legislators_current()
+        if data:
+            for entry in data:
+                ids = entry.get("id", {}) or {}
+                if ids.get("bioguide") == bioguide_id:
+                    person_id = ids.get("govtrack")
+                    if person_id:
+                        self._set_cached(cache_key, person_id)
+                        return person_id
+                    break
+
+        # Fallback — live GovTrack API lookup (currently broken upstream
+        # but left intact so former members and retirees can still resolve
+        # if/when GovTrack restores the endpoint).
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                resp = await client.get(
+                    f"{GOVTRACK_API_BASE}/person",
+                    params={"bioguideid": bioguide_id, "limit": 1},
+                )
+                if resp.status_code != 200:
+                    logger.warning(f"GovTrack person lookup {resp.status_code} for {bioguide_id}")
+                    return None
+                body = resp.json()
+                objects = body.get("objects", [])
+                if not objects:
+                    return None
+                person_id = objects[0].get("id")
+                if person_id:
+                    self._set_cached(cache_key, person_id)
+                return person_id
+        except Exception as e:
+            logger.error(f"GovTrack person lookup failed for {bioguide_id}: {e}")
+            return None
+
+    async def _lookup_party(self, bioguide_id: str) -> Optional[str]:
+        """Resolve a member's current party letter (R/D/I) from legislators-current.json."""
+        data = await self._fetch_legislators_current()
+        if not data:
+            return None
+        for entry in data:
+            if entry.get("id", {}).get("bioguide") == bioguide_id:
+                terms = entry.get("terms", [])
+                if terms:
+                    party_name = (terms[-1].get("party") or "").lower()
+                    if "republican" in party_name:
+                        return "R"
+                    if "democrat" in party_name:
+                        return "D"
+                    return "I"
+        return None
+
+    async def _compute_party_line(self, bioguide_id: str, party: Optional[str]) -> dict:
+        """Compute party-line voting % across the member's recent roll-calls.
+
+        For each of the member's ~15 most recent votes we fetch every voter on
+        that roll-call and tally by party. If the member's party majority
+        position (more yes than no) matches the member's own position, we count
+        it toward their party-line %.
+
+        Votes where the party was effectively tied, where the member's position
+        was Present/Not Voting, or where the vote totals are missing, are
+        skipped.
+        """
+        if not party or party not in ("R", "D"):
+            return {"pct": None, "analyzed": 0}
+
+        person_id = await self._resolve_govtrack_id(bioguide_id)
+        if not person_id:
+            return {"pct": None, "analyzed": 0}
+
+        votes = await self._fetch_govtrack_votes(person_id, 15)
+        if not votes:
+            return {"pct": None, "analyzed": 0}
+
+        party_full = "Republican" if party == "R" else "Democrat"
+        yea_values = {"yes", "aye", "yea"}
+        nay_values = {"no", "nay"}
+
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            async def party_totals_for_vote(vote_id):
+                try:
+                    resp = await client.get(
+                        f"{GOVTRACK_API_BASE}/vote_voter",
+                        params={"vote": vote_id, "limit": 600},
+                    )
+                    if resp.status_code != 200:
+                        return None
+                    yes = no = 0
+                    for row in resp.json().get("objects", []):
+                        role = row.get("person_role") or {}
+                        if role.get("party") != party_full:
+                            continue
+                        pos = (row.get("option", {}).get("value") or "").lower()
+                        if pos in yea_values:
+                            yes += 1
+                        elif pos in nay_values:
+                            no += 1
+                    return yes, no
+                except Exception as e:
+                    logger.debug(f"Party totals fetch failed for vote {vote_id}: {e}")
+                    return None
+
+            tallies = await asyncio.gather(
+                *(party_totals_for_vote(v.get("vote_id")) for v in votes if v.get("vote_id"))
+            )
+
+        matched = 0
+        analyzed = 0
+        for vote, tally in zip(votes, tallies):
+            if not tally:
+                continue
+            p_yes, p_no = tally
+            if p_yes == 0 and p_no == 0:
+                continue
+            if p_yes == p_no:
+                continue  # no clear party majority
+            position = (vote.get("position") or "").lower()
+            if position in yea_values:
+                member_yes = True
+            elif position in nay_values:
+                member_yes = False
+            else:
+                continue  # Present / Not Voting / procedural — skip
+            party_majority_yes = p_yes > p_no
+
+            analyzed += 1
+            if member_yes == party_majority_yes:
+                matched += 1
+
+        if analyzed == 0:
+            return {"pct": None, "analyzed": 0}
+        pct = round((matched / analyzed) * 100)
+        return {"pct": pct, "analyzed": analyzed}
+
+    async def _fetch_govtrack_votes(
+        self,
+        person_id: int,
+        limit: int,
+        created_gte: Optional[str] = None,
+        created_lt: Optional[str] = None,
+    ) -> list:
+        """Fetch vote_voter entries for a person from GovTrack.
+
+        When a date window is supplied, pulls the whole window by paginating
+        GovTrack's offset/limit in chunks (GovTrack caps each page at ~200).
+
+        Each returned row carries the related-bill subtree when GovTrack
+        reports one, so the frontend can deep-link to the underlying bill:
+            bill: { number, type, title, display_number, congress } | None
+        """
+        # Note: GovTrack's DRF filter exposes date range on vote_voter via
+        # the row's own `created` timestamp (created__gte / created__lt).
+        # The `vote__created__*` lookup is not whitelisted and returns 400.
+        base_params = {
+            "person": person_id,
+            "sort": "-created",
+        }
+        if created_gte:
+            base_params["created__gte"] = created_gte
+        if created_lt:
+            base_params["created__lt"] = created_lt
+
+        page_size = 200 if (created_gte or created_lt) else min(limit, 200)
+        results: list = []
+        offset = 0
+        try:
+            async with httpx.AsyncClient(timeout=25.0) as client:
+                while True:
+                    params = {
+                        **base_params,
+                        "limit": page_size,
+                        "offset": offset,
+                    }
+                    resp = await client.get(
+                        f"{GOVTRACK_API_BASE}/vote_voter",
+                        params=params,
+                    )
+                    if resp.status_code != 200:
+                        logger.warning(f"GovTrack votes {resp.status_code}")
+                        break
+                    data = resp.json()
+                    objects = data.get("objects", []) or []
+                    for vv in objects:
+                        vote = vv.get("vote") or {}
+                        option = vv.get("option") or {}
+                        # GovTrack's `related_bill` is a bare integer ID,
+                        # not an expanded object — not useful on its own.
+                        # The `question` field already carries the bill
+                        # display number (e.g. "H.R. 1681: Expediting …"),
+                        # so we parse that out for the frontend pill.
+                        question = vote.get("question") or ""
+                        bill_payload = _parse_bill_from_question(
+                            question,
+                            related_bill_id=vote.get("related_bill"),
+                            congress=vote.get("congress"),
+                        )
+                        results.append({
+                            "vote_id": vote.get("id"),
+                            "question": vote.get("question"),
+                            "chamber": vote.get("chamber"),
+                            "result": vote.get("result"),
+                            "category": vote.get("category"),
+                            "date": (vote.get("created") or "")[:10],
+                            "position": option.get("value"),
+                            "url": vote.get("link"),
+                            "bill": bill_payload,
+                        })
+                    # Stop when: no more rows, no date window (single page),
+                    # or we've exceeded the requested limit.
+                    total = data.get("meta", {}).get("total_count", 0)
+                    if not objects:
+                        break
+                    if not (created_gte or created_lt):
+                        break
+                    offset += len(objects)
+                    if offset >= total or offset >= 1200:
+                        break
+                return results
+        except Exception as e:
+            logger.error(f"GovTrack votes fetch failed for {person_id}: {e}")
+            return results
+
+    async def _fetch_members_from_api(self, state_code: str) -> Optional[list]:
+        """Fetch members from the Congress.gov API."""
+        # Use /member/{stateCode} endpoint — more reliable than query param filtering
+        data = await self._api_get(
+            f"/member/{state_code}", {"limit": 100, "currentMember": "true"}
+        )
+        if not data or "members" not in data:
+            return None
+
+        members = []
+        for m in data["members"]:
+            try:
+                bioguide = m.get("bioguideId", "")
+                name = m.get("name", "Unknown")
+                # API returns "LastName, FirstName" — flip it
+                if ", " in name:
+                    parts = name.split(", ", 1)
+                    name = f"{parts[1]} {parts[0]}"
+
+                party_name = m.get("partyName", "")
+                party = "R" if "Republican" in party_name else "D" if "Democrat" in party_name else "I"
+
+                terms = m.get("terms", {}).get("item", [])
+                latest_term = terms[-1] if terms else {}
+                chamber_raw = latest_term.get("chamber", "")
+                chamber = "Senate" if "Senate" in str(chamber_raw) else "House"
+                # District is at the top level of the member object, not inside terms
+                district = m.get("district") if chamber == "House" else None
+
+                role = "Senator" if chamber == "Senate" else f"Representative, District {district}" if district else "Representative"
+
+                # Use API-provided image if available, fallback to GitHub images
+                depiction = m.get("depiction", {})
+                image_url = depiction.get("imageUrl") if depiction else None
+                if not image_url:
+                    image_url = f"{IMAGE_BASE}/{bioguide}.jpg"
+
+                members.append({
+                    "bioguide_id": bioguide,
+                    "name": name,
+                    "party": party,
+                    "chamber": chamber,
+                    "district": district,
+                    "role": role,
+                    "image": image_url,
+                    "state": state_code,
+                })
+            except Exception as e:
+                logger.warning(f"Error parsing member: {e}")
+                continue
+
+        if members:
+            logger.info(f"Fetched {len(members)} members for {state_code} from Congress.gov API")
+        return members if members else None
+
+    async def _fetch_member_detail_from_api(self, bioguide_id: str) -> Optional[dict]:
+        """Fetch detailed member info from the Congress.gov API."""
+        data = await self._api_get(f"/member/{bioguide_id}")
+        if not data or "member" not in data:
+            return None
+
+        m = data["member"]
+        try:
+            name = m.get("directOrderName", m.get("invertedOrderName", "Unknown"))
+            party_name = m.get("partyHistory", [{}])[0].get("partyName", "") if m.get("partyHistory") else ""
+            party = "R" if "Republican" in party_name else "D" if "Democrat" in party_name else "I"
+
+            terms = m.get("terms", [])
+            latest_term = terms[-1] if terms else {}
+            chamber = "Senate" if "Senate" in str(latest_term.get("chamber", "")) else "House"
+            district = latest_term.get("district") if chamber == "House" else None
+            role = "Senator" if chamber == "Senate" else f"Representative, District {district}" if district else "Representative"
+
+            office = latest_term.get("officeAddress", "")
+            phone = latest_term.get("officePhone", "")
+
+            # Fetch sponsored legislation
+            bills = await self._fetch_member_bills(bioguide_id)
+
+            detail = {
+                "bioguide_id": bioguide_id,
+                "name": name,
+                "party": party,
+                "chamber": chamber,
+                "district": district,
+                "role": role,
+                "image": f"{IMAGE_BASE}/{bioguide_id}.jpg",
+                "office": office or "Washington, D.C.",
+                "phone": phone or "N/A",
+                "bio": m.get("directOrderName", name) + f" serves in the U.S. {chamber}.",
+                "committees": [],
+                "bills": bills,
+                "votes": [],
+            }
+
+            # Try to get committees
+            if m.get("depiction", {}).get("attribution"):
+                detail["bio"] = m["depiction"]["attribution"]
+
+            return detail
+        except Exception as e:
+            logger.error(f"Error parsing member detail for {bioguide_id}: {e}")
+            return None
+
+    async def _fetch_member_bills(self, bioguide_id: str) -> list:
+        """Fetch recent sponsored legislation for a member."""
+        data = await self._api_get(
+            f"/member/{bioguide_id}/sponsored-legislation",
+            {"limit": 5, "sort": "updateDate+desc"},
+        )
+        if not data or "sponsoredLegislation" not in data:
+            return []
+
+        bills = []
+        for b in data.get("sponsoredLegislation", [])[:5]:
+            try:
+                title = b.get("title", "Untitled")
+                # Truncate long titles
+                if len(title) > 80:
+                    title = title[:77] + "..."
+                action = b.get("latestAction", {})
+                status = action.get("text", "Introduced")
+                if len(status) > 40:
+                    status = status[:37] + "..."
+                date = action.get("actionDate", "")
+                bills.append({"title": title, "status": status, "date": date})
+            except Exception:
+                continue
+        return bills
+
+    # ------------------------------------------------------------------
+    # Sample / fallback data
+    # ------------------------------------------------------------------
+    def _get_sample_members(self, state_code: str) -> list:
+        return self.SAMPLE_DATA.get(state_code, {}).get("congress", [])
+
+    def _find_sample_member(self, bioguide_id: str) -> Optional[dict]:
+        for state_data in self.SAMPLE_DATA.values():
+            for member in state_data.get("congress", []):
+                if member["bioguide_id"] == bioguide_id:
+                    return member
+        return None
+
+    SAMPLE_DATA = {
+        "FL": {
+            "congress": [
+                {
+                    "bioguide_id": "S001227",
+                    "name": "Rick Scott",
+                    "party": "R",
+                    "chamber": "Senate",
+                    "district": None,
+                    "role": "Senator",
+                    "image": f"{IMAGE_BASE}/S001227.jpg",
+                    "office": "502 Hart Senate Office Building",
+                    "phone": "(202) 224-5274",
+                    "bio": "Rick Scott is the senior United States senator from Florida, serving since 2019. He previously served as the 45th governor of Florida from 2011 to 2019.",
+                    "committees": ["Commerce, Science & Transportation", "Armed Services", "Homeland Security"],
+                    "bills": [
+                        {"title": "SALT Cap Repeal Act", "status": "Introduced", "date": "2025-03-15"},
+                        {"title": "Florida Flood Protection Act", "status": "In Committee", "date": "2025-02-01"},
+                    ],
+                    "votes": [
+                        {"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"},
+                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
+                        {"desc": "Veterans Healthcare Expansion", "vote": "Yea", "date": "2025-01-20"},
+                    ],
+                },
+                {
+                    "bioguide_id": "R000595",
+                    "name": "Marco Rubio",
+                    "party": "R",
+                    "chamber": "Senate",
+                    "district": None,
+                    "role": "Senator",
+                    "image": f"{IMAGE_BASE}/R000595.jpg",
+                    "office": "284 Russell Senate Office Building",
+                    "phone": "(202) 224-3041",
+                    "bio": "Marco Rubio is the junior United States senator from Florida, serving since 2011. He was a candidate for the Republican presidential nomination in 2016.",
+                    "committees": ["Foreign Relations", "Intelligence", "Small Business"],
+                    "bills": [
+                        {"title": "China Trade Accountability Act", "status": "In Committee", "date": "2025-03-10"},
+                        {"title": "Caribbean Security Act", "status": "Introduced", "date": "2025-01-22"},
+                    ],
+                    "votes": [
+                        {"desc": "Infrastructure Investment Act", "vote": "Nay", "date": "2025-03-01"},
+                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
+                    ],
+                },
+                {
+                    "bioguide_id": "G000596",
+                    "name": "Matt Gaetz",
+                    "party": "R",
+                    "chamber": "House",
+                    "district": 1,
+                    "role": "Representative, District 1",
+                    "image": f"{IMAGE_BASE}/G000596.jpg",
+                    "office": "1728 Longworth HOB",
+                    "phone": "(202) 225-4136",
+                    "bio": "Matt Gaetz represents Florida's 1st congressional district in the United States House of Representatives, serving since 2017.",
+                    "committees": ["Armed Services", "Judiciary"],
+                    "bills": [{"title": "Fair Tax Act", "status": "Introduced", "date": "2025-02-20"}],
+                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Yea", "date": "2025-02-15"}],
+                },
+                {
+                    "bioguide_id": "R000609",
+                    "name": "John Rutherford",
+                    "party": "R",
+                    "chamber": "House",
+                    "district": 5,
+                    "role": "Representative, District 5",
+                    "image": f"{IMAGE_BASE}/R000609.jpg",
+                    "office": "2187 Rayburn HOB",
+                    "phone": "(202) 225-2501",
+                    "bio": "John Rutherford represents Florida's 5th congressional district, serving since 2017. He previously served as Sheriff of Jacksonville.",
+                    "committees": ["Appropriations", "Ethics"],
+                    "bills": [{"title": "Law Enforcement Officers Safety Act", "status": "In Committee", "date": "2025-03-05"}],
+                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                },
+                {
+                    "bioguide_id": "C001129",
+                    "name": "Maxwell Frost",
+                    "party": "D",
+                    "chamber": "House",
+                    "district": 10,
+                    "role": "Representative, District 10",
+                    "image": f"{IMAGE_BASE}/C001129.jpg",
+                    "office": "1233 Longworth HOB",
+                    "phone": "(202) 225-2176",
+                    "bio": "Maxwell Frost represents Florida's 10th congressional district, the first member of Generation Z elected to Congress in 2022.",
+                    "committees": ["Oversight", "Science, Space & Technology"],
+                    "bills": [
+                        {"title": "Youth Civic Engagement Act", "status": "Introduced", "date": "2025-03-12"},
+                        {"title": "Affordable Housing Now Act", "status": "In Committee", "date": "2025-01-30"},
+                    ],
+                    "votes": [
+                        {"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"},
+                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
+                    ],
+                },
+                {
+                    "bioguide_id": "W000823",
+                    "name": "Daniel Webster",
+                    "party": "R",
+                    "chamber": "House",
+                    "district": 11,
+                    "role": "Representative, District 11",
+                    "image": f"{IMAGE_BASE}/W000823.jpg",
+                    "office": "2184 Rayburn HOB",
+                    "phone": "(202) 225-1002",
+                    "bio": "Daniel Webster represents Florida's 11th congressional district, serving since 2011.",
+                    "committees": ["Natural Resources", "Transportation & Infrastructure"],
+                    "bills": [{"title": "Government Spending Oversight Act", "status": "Introduced", "date": "2025-02-08"}],
+                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Yea", "date": "2025-02-15"}],
+                },
+            ]
+        },
+        "TX": {
+            "congress": [
+                {
+                    "bioguide_id": "C001098",
+                    "name": "Ted Cruz",
+                    "party": "R",
+                    "chamber": "Senate",
+                    "district": None,
+                    "role": "Senator",
+                    "image": f"{IMAGE_BASE}/C001098.jpg",
+                    "office": "127A Russell SOB",
+                    "phone": "(202) 224-5922",
+                    "bio": "Ted Cruz is the senior United States senator from Texas, serving since 2013.",
+                    "committees": ["Commerce, Science & Transportation", "Judiciary", "Foreign Relations"],
+                    "bills": [{"title": "Border Security Act", "status": "In Committee", "date": "2025-03-18"}],
+                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"}],
+                },
+                {
+                    "bioguide_id": "C001091",
+                    "name": "Joaquin Castro",
+                    "party": "D",
+                    "chamber": "House",
+                    "district": 20,
+                    "role": "Representative, District 20",
+                    "image": f"{IMAGE_BASE}/C001091.jpg",
+                    "office": "2241 Rayburn HOB",
+                    "phone": "(202) 225-3236",
+                    "bio": "Joaquin Castro represents Texas's 20th congressional district, serving since 2013.",
+                    "committees": ["Foreign Affairs", "Intelligence"],
+                    "bills": [{"title": "Dream Act Reauthorization", "status": "Introduced", "date": "2025-02-14"}],
+                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                },
+            ]
+        },
+        "CA": {
+            "congress": [
+                {
+                    "bioguide_id": "P000197",
+                    "name": "Nancy Pelosi",
+                    "party": "D",
+                    "chamber": "House",
+                    "district": 11,
+                    "role": "Representative, District 11",
+                    "image": f"{IMAGE_BASE}/P000197.jpg",
+                    "office": "2371 Rayburn HOB",
+                    "phone": "(202) 225-4965",
+                    "bio": "Nancy Pelosi represents California's 11th congressional district and previously served as Speaker of the House.",
+                    "committees": [],
+                    "bills": [{"title": "Democracy Restoration Act", "status": "Introduced", "date": "2025-03-20"}],
+                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                },
+            ]
+        },
+    }

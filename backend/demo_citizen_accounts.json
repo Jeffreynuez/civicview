@@ -1,0 +1,97 @@
+{
+  "_note": "Phase 1.5 demo citizen seeds. Used to demo the engagement loop (likes, dislikes, comments, geography-scoped poll views) before real identity verification ships in Phase 2. Addresses are fabricated but mapped to real Florida cities, counties, ZIPs, and congressional districts so that geography filters produce believable clusters. Shared password for all accounts — rotate or delete this file before any public exposure.",
+  "_password_policy": "All demo citizens share the same password for walkthrough convenience.",
+  "_demo_clusters": {
+    "FL-19": "10 citizens — Donalds' district (Naples 5, Fort Myers 3, Marco Island 1, Bonita Springs 1). Heaviest cluster so the 'my district' filter on Rep. Donalds' page has meaningful signal.",
+    "FL-10": "6 — Frost's district (Orlando 4, Winter Park 1, Apopka 1)",
+    "FL-15": "5 — Tampa area (Tampa 3, Riverview 1, Brandon 1)",
+    "FL-27": "4 — Miami (Miami 3, Coral Gables 1)",
+    "FL-4":  "4 — Jacksonville",
+    "FL-2":  "3 — Tallahassee",
+    "FL-22": "3 — West Palm Beach area (WPB 2, Boca Raton 1)",
+    "FL-21": "3 — Southern Palm Beach (Boynton 2, Delray 1)",
+    "FL-13": "3 — St. Petersburg",
+    "FL-3":  "3 — Gainesville/Ocala",
+    "FL-1":  "2 — Pensacola",
+    "FL-7":  "2 — Daytona/Deltona",
+    "FL-6":  "2 — St. Augustine / Palm Coast",
+    "out-of-state": "10 — one account each in CA, TX, NY, IL, PA, OH, GA, WA, MI, VA so the 'country' scope filter on a rep's page has non-FL signal to differentiate from the 'state' scope"
+  },
+  "citizens": [
+    {"email": "maria.hernandez@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Maria Hernandez",   "address_line1": "412 Gulf Shore Blvd N",   "city": "Naples",          "county": "Collier",     "state": "FL", "zip_code": "34102", "congressional_district": "FL-19"},
+    {"email": "james.whitford@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "James Whitford",    "address_line1": "1877 Crayton Rd",          "city": "Naples",          "county": "Collier",     "state": "FL", "zip_code": "34102", "congressional_district": "FL-19"},
+    {"email": "patricia.reyes@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Patricia Reyes",    "address_line1": "2330 14th Ave N",          "city": "Naples",          "county": "Collier",     "state": "FL", "zip_code": "34103", "congressional_district": "FL-19"},
+    {"email": "david.goldman@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "David Goldman",     "address_line1": "705 Banyan Blvd",          "city": "Naples",          "county": "Collier",     "state": "FL", "zip_code": "34102", "congressional_district": "FL-19"},
+    {"email": "emily.chen@civiclens-voters.com",        "password": "CivicLensVoter!2026", "display_name": "Emily Chen",        "address_line1": "9142 Vanderbilt Dr",       "city": "Naples",          "county": "Collier",     "state": "FL", "zip_code": "34108", "congressional_district": "FL-19"},
+
+    {"email": "anthony.brooks@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Anthony Brooks",    "address_line1": "3301 McGregor Blvd",       "city": "Fort Myers",      "county": "Lee",         "state": "FL", "zip_code": "33901", "congressional_district": "FL-19"},
+    {"email": "rosa.martinez@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Rosa Martinez",     "address_line1": "6829 Winkler Rd",          "city": "Fort Myers",      "county": "Lee",         "state": "FL", "zip_code": "33907", "congressional_district": "FL-19"},
+    {"email": "kevin.oneill@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Kevin O'Neill",     "address_line1": "1510 Broadway",            "city": "Fort Myers",      "county": "Lee",         "state": "FL", "zip_code": "33901", "congressional_district": "FL-19"},
+
+    {"email": "susan.albright@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Susan Albright",    "address_line1": "850 Collier Blvd",         "city": "Marco Island",    "county": "Collier",     "state": "FL", "zip_code": "34145", "congressional_district": "FL-19"},
+    {"email": "carlos.vega@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Carlos Vega",       "address_line1": "27271 Bay Landing Dr",     "city": "Bonita Springs",  "county": "Lee",         "state": "FL", "zip_code": "34134", "congressional_district": "FL-19"},
+
+    {"email": "tyrone.washington@civiclens-voters.com", "password": "CivicLensVoter!2026", "display_name": "Tyrone Washington", "address_line1": "1019 E Central Blvd",      "city": "Orlando",         "county": "Orange",      "state": "FL", "zip_code": "32801", "congressional_district": "FL-10"},
+    {"email": "ashley.rivera@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Ashley Rivera",     "address_line1": "2244 Mills Ave",           "city": "Orlando",         "county": "Orange",      "state": "FL", "zip_code": "32803", "congressional_district": "FL-10"},
+    {"email": "michael.patel@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Michael Patel",     "address_line1": "4308 S Orange Blossom Trl", "city": "Orlando",        "county": "Orange",      "state": "FL", "zip_code": "32805", "congressional_district": "FL-10"},
+    {"email": "zoe.johnson@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Zoe Johnson",       "address_line1": "8 W Gore St",              "city": "Orlando",         "county": "Orange",      "state": "FL", "zip_code": "32806", "congressional_district": "FL-10"},
+    {"email": "gregory.hanks@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Gregory Hanks",     "address_line1": "1201 Howell Branch Rd",    "city": "Winter Park",     "county": "Orange",      "state": "FL", "zip_code": "32792", "congressional_district": "FL-10"},
+    {"email": "daniela.cortez@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Daniela Cortez",    "address_line1": "555 W Orange Blossom Trl", "city": "Apopka",          "county": "Orange",      "state": "FL", "zip_code": "32703", "congressional_district": "FL-10"},
+
+    {"email": "juan.delgado@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Juan Delgado",      "address_line1": "812 N Franklin St",        "city": "Tampa",           "county": "Hillsborough", "state": "FL", "zip_code": "33602", "congressional_district": "FL-15"},
+    {"email": "sarah.kowalski@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Sarah Kowalski",    "address_line1": "2044 W Kennedy Blvd",      "city": "Tampa",           "county": "Hillsborough", "state": "FL", "zip_code": "33606", "congressional_district": "FL-15"},
+    {"email": "marcus.greene@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Marcus Greene",     "address_line1": "3919 S Dale Mabry Hwy",    "city": "Tampa",           "county": "Hillsborough", "state": "FL", "zip_code": "33609", "congressional_district": "FL-15"},
+    {"email": "nadia.patel@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Nadia Patel",       "address_line1": "11310 Boyette Rd",         "city": "Riverview",       "county": "Hillsborough", "state": "FL", "zip_code": "33578", "congressional_district": "FL-15"},
+    {"email": "brian.holloway@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Brian Holloway",    "address_line1": "730 W Lumsden Rd",         "city": "Brandon",         "county": "Hillsborough", "state": "FL", "zip_code": "33511", "congressional_district": "FL-15"},
+
+    {"email": "luis.fernandez@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Luis Fernandez",    "address_line1": "1410 Brickell Ave",        "city": "Miami",           "county": "Miami-Dade",  "state": "FL", "zip_code": "33130", "congressional_district": "FL-27"},
+    {"email": "beatriz.castillo@civiclens-voters.com",  "password": "CivicLensVoter!2026", "display_name": "Beatriz Castillo",  "address_line1": "2780 SW 27th Ave",         "city": "Miami",           "county": "Miami-Dade",  "state": "FL", "zip_code": "33133", "congressional_district": "FL-27"},
+    {"email": "diane.kohler@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Diane Kohler",      "address_line1": "1640 NW 20th St",          "city": "Miami",           "county": "Miami-Dade",  "state": "FL", "zip_code": "33135", "congressional_district": "FL-27"},
+    {"email": "robert.laurent@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Robert Laurent",    "address_line1": "1401 Coral Way",           "city": "Coral Gables",    "county": "Miami-Dade",  "state": "FL", "zip_code": "33134", "congressional_district": "FL-27"},
+
+    {"email": "deshawn.williams@civiclens-voters.com",  "password": "CivicLensVoter!2026", "display_name": "DeShawn Williams",  "address_line1": "221 N Hogan St",           "city": "Jacksonville",    "county": "Duval",       "state": "FL", "zip_code": "32202", "congressional_district": "FL-4"},
+    {"email": "kimberly.boyd@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Kimberly Boyd",     "address_line1": "4820 San Jose Blvd",       "city": "Jacksonville",    "county": "Duval",       "state": "FL", "zip_code": "32207", "congressional_district": "FL-4"},
+    {"email": "thomas.macleod@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Thomas Macleod",    "address_line1": "10503 Beach Blvd",         "city": "Jacksonville",    "county": "Duval",       "state": "FL", "zip_code": "32246", "congressional_district": "FL-4"},
+    {"email": "ayana.harris@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Ayana Harris",      "address_line1": "5001 University Blvd W",   "city": "Jacksonville",    "county": "Duval",       "state": "FL", "zip_code": "32216", "congressional_district": "FL-4"},
+
+    {"email": "rachel.simmons@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Rachel Simmons",    "address_line1": "318 E Call St",            "city": "Tallahassee",     "county": "Leon",        "state": "FL", "zip_code": "32301", "congressional_district": "FL-2"},
+    {"email": "jorge.ruiz@civiclens-voters.com",        "password": "CivicLensVoter!2026", "display_name": "Jorge Ruiz",        "address_line1": "2020 S Monroe St",         "city": "Tallahassee",     "county": "Leon",        "state": "FL", "zip_code": "32301", "congressional_district": "FL-2"},
+    {"email": "priya.nair@civiclens-voters.com",        "password": "CivicLensVoter!2026", "display_name": "Priya Nair",        "address_line1": "2101 Apalachee Pkwy",      "city": "Tallahassee",     "county": "Leon",        "state": "FL", "zip_code": "32308", "congressional_district": "FL-2"},
+
+    {"email": "naomi.feldman@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Naomi Feldman",     "address_line1": "2300 Okeechobee Blvd",     "city": "West Palm Beach", "county": "Palm Beach",  "state": "FL", "zip_code": "33401", "congressional_district": "FL-22"},
+    {"email": "eric.santos@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Eric Santos",       "address_line1": "4150 Forest Hill Blvd",    "city": "West Palm Beach", "county": "Palm Beach",  "state": "FL", "zip_code": "33406", "congressional_district": "FL-22"},
+    {"email": "steven.horowitz@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Steven Horowitz",   "address_line1": "499 E Palmetto Park Rd",   "city": "Boca Raton",      "county": "Palm Beach",  "state": "FL", "zip_code": "33432", "congressional_district": "FL-22"},
+
+    {"email": "jamaal.price@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Jamaal Price",      "address_line1": "100 E Ocean Ave",          "city": "Boynton Beach",   "county": "Palm Beach",  "state": "FL", "zip_code": "33435", "congressional_district": "FL-21"},
+    {"email": "linda.chang@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Linda Chang",       "address_line1": "1815 N Federal Hwy",       "city": "Boynton Beach",   "county": "Palm Beach",  "state": "FL", "zip_code": "33435", "congressional_district": "FL-21"},
+    {"email": "barbara.klein@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Barbara Klein",     "address_line1": "115 NE 2nd Ave",           "city": "Delray Beach",    "county": "Palm Beach",  "state": "FL", "zip_code": "33444", "congressional_district": "FL-21"},
+
+    {"email": "christopher.ortiz@civiclens-voters.com", "password": "CivicLensVoter!2026", "display_name": "Christopher Ortiz", "address_line1": "100 2nd Ave NE",           "city": "St. Petersburg",  "county": "Pinellas",    "state": "FL", "zip_code": "33701", "congressional_district": "FL-13"},
+    {"email": "monica.bennett@civiclens-voters.com",    "password": "CivicLensVoter!2026", "display_name": "Monica Bennett",    "address_line1": "1820 4th St N",            "city": "St. Petersburg",  "county": "Pinellas",    "state": "FL", "zip_code": "33704", "congressional_district": "FL-13"},
+    {"email": "ahmed.rahman@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Ahmed Rahman",      "address_line1": "3400 Dr ML King Jr St N",  "city": "St. Petersburg",  "county": "Pinellas",    "state": "FL", "zip_code": "33704", "congressional_district": "FL-13"},
+
+    {"email": "lauren.mcallister@civiclens-voters.com", "password": "CivicLensVoter!2026", "display_name": "Lauren McAllister", "address_line1": "1104 W University Ave",    "city": "Gainesville",     "county": "Alachua",     "state": "FL", "zip_code": "32601", "congressional_district": "FL-3"},
+    {"email": "raj.gupta@civiclens-voters.com",         "password": "CivicLensVoter!2026", "display_name": "Raj Gupta",         "address_line1": "4620 NW 39th Ave",         "city": "Gainesville",     "county": "Alachua",     "state": "FL", "zip_code": "32606", "congressional_district": "FL-3"},
+    {"email": "angela.thompson@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Angela Thompson",   "address_line1": "2605 SE Maricamp Rd",      "city": "Ocala",           "county": "Marion",      "state": "FL", "zip_code": "34471", "congressional_district": "FL-3"},
+
+    {"email": "william.fischer@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "William Fischer",   "address_line1": "118 Palafox Pl",           "city": "Pensacola",       "county": "Escambia",    "state": "FL", "zip_code": "32502", "congressional_district": "FL-1"},
+    {"email": "darrell.coleman@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Darrell Coleman",   "address_line1": "4601 N 9th Ave",           "city": "Pensacola",       "county": "Escambia",    "state": "FL", "zip_code": "32503", "congressional_district": "FL-1"},
+
+    {"email": "sophia.ramos@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Sophia Ramos",      "address_line1": "1200 S Atlantic Ave",      "city": "Daytona Beach",   "county": "Volusia",     "state": "FL", "zip_code": "32118", "congressional_district": "FL-7"},
+    {"email": "travis.nguyen@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Travis Nguyen",     "address_line1": "155 E Howland Blvd",       "city": "Deltona",         "county": "Volusia",     "state": "FL", "zip_code": "32725", "congressional_district": "FL-7"},
+
+    {"email": "evelyn.richards@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Evelyn Richards",   "address_line1": "47 Sevilla St",            "city": "St. Augustine",   "county": "St. Johns",   "state": "FL", "zip_code": "32084", "congressional_district": "FL-6"},
+    {"email": "malik.carter@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Malik Carter",      "address_line1": "160 Cypress Point Pkwy",   "city": "Palm Coast",      "county": "Flagler",     "state": "FL", "zip_code": "32137", "congressional_district": "FL-6"},
+
+    {"email": "olivia.nguyen@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Olivia Nguyen",     "address_line1": "350 S Grand Ave",          "city": "Los Angeles",     "county": "Los Angeles",    "state": "CA", "zip_code": "90071", "congressional_district": "CA-34"},
+    {"email": "daniel.reed@civiclens-voters.com",       "password": "CivicLensVoter!2026", "display_name": "Daniel Reed",       "address_line1": "910 W Martin St",          "city": "San Antonio",     "county": "Bexar",          "state": "TX", "zip_code": "78207", "congressional_district": "TX-20"},
+    {"email": "rachel.goldberg@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Rachel Goldberg",   "address_line1": "225 E 14th St",            "city": "New York",        "county": "New York",       "state": "NY", "zip_code": "10003", "congressional_district": "NY-12"},
+    {"email": "andre.walker@civiclens-voters.com",      "password": "CivicLensVoter!2026", "display_name": "Andre Walker",      "address_line1": "4834 S Dr Martin L King Dr","city": "Chicago",        "county": "Cook",           "state": "IL", "zip_code": "60615", "congressional_district": "IL-1"},
+    {"email": "mia.carter@civiclens-voters.com",        "password": "CivicLensVoter!2026", "display_name": "Mia Carter",        "address_line1": "1401 John F Kennedy Blvd", "city": "Philadelphia",    "county": "Philadelphia",   "state": "PA", "zip_code": "19102", "congressional_district": "PA-3"},
+    {"email": "dwayne.alston@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Dwayne Alston",     "address_line1": "2101 Superior Ave E",      "city": "Cleveland",       "county": "Cuyahoga",       "state": "OH", "zip_code": "44114", "congressional_district": "OH-11"},
+    {"email": "kenisha.ellis@civiclens-voters.com",     "password": "CivicLensVoter!2026", "display_name": "Kenisha Ellis",     "address_line1": "600 W Peachtree St NW",    "city": "Atlanta",         "county": "Fulton",         "state": "GA", "zip_code": "30308", "congressional_district": "GA-5"},
+    {"email": "elena.park@civiclens-voters.com",        "password": "CivicLensVoter!2026", "display_name": "Elena Park",        "address_line1": "400 Broad St",             "city": "Seattle",         "county": "King",           "state": "WA", "zip_code": "98109", "congressional_district": "WA-7"},
+    {"email": "terrance.brooks@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Terrance Brooks",   "address_line1": "2 Woodward Ave",           "city": "Detroit",         "county": "Wayne",          "state": "MI", "zip_code": "48226", "congressional_district": "MI-13"},
+    {"email": "priscilla.novak@civiclens-voters.com",   "password": "CivicLensVoter!2026", "display_name": "Priscilla Novak",   "address_line1": "2301 Wilson Blvd",         "city": "Arlington",       "county": "Arlington",      "state": "VA", "zip_code": "22201", "congressional_district": "VA-8"}
+  ]
+}

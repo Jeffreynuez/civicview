@@ -1,0 +1,39 @@
+{
+  "_note": "Phase 1 demo seed credentials. These are deliberately checked-in plaintext because this file ONLY exists to bootstrap an investor-demo environment; bcrypt-hashed copies live in the SQLite DB. For any deployment outside a sandbox, either delete this file and manage accounts through an admin flow, or move these credentials to an env var and add `demo_accounts.json` to .gitignore.",
+  "_password_policy": "All demo accounts share the same password for walkthrough convenience. Rotate before any public exposure.",
+  "accounts": [
+    {
+      "official_id": "D000032",
+      "email": "byron.donalds@civiclens-demo.com",
+      "password": "CivicLensDemo!2026",
+      "display_name": "Byron Donalds",
+      "role": "U.S. Representative, FL-19",
+      "owner_state": "FL",
+      "owner_district": "FL-19"
+    },
+    {
+      "official_id": "S000033",
+      "email": "bernie.sanders@civiclens-demo.com",
+      "password": "CivicLensDemo!2026",
+      "display_name": "Bernie Sanders",
+      "role": "U.S. Senator, Vermont",
+      "owner_state": "VT"
+    },
+    {
+      "official_id": "fl-exec-gov",
+      "email": "ron.desantis@civiclens-demo.com",
+      "password": "CivicLensDemo!2026",
+      "display_name": "Ron DeSantis",
+      "role": "Governor of Florida",
+      "owner_state": "FL"
+    },
+    {
+      "official_id": "fl-cand-byron-donalds",
+      "email": "donalds.campaign@civiclens-demo.com",
+      "password": "CivicLensDemo!2026",
+      "display_name": "Byron Donalds (Campaign)",
+      "role": "Candidate for Governor of Florida",
+      "owner_state": "FL"
+    }
+  ]
+}

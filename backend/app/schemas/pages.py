@@ -1,0 +1,361 @@
+"""
+Pydantic request/response schemas for the Pages feature.
+
+Kept separate from SQLAlchemy models so we can version the API shape
+without touching DB columns (and vice versa). All response schemas use
+ConfigDict(from_attributes=True) so we can return ORM objects directly.
+"""
+from __future__ import annotations
+
+from datetime import datetime
+from typing import List, Optional
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
+
+
+# ── Auth ──────────────────────────────────────────────────────────────
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=1, max_length=256)
+
+
+class MeResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    official_id: str
+    email: EmailStr
+    display_name: str
+    role: Optional[str] = None
+    is_active: bool
+
+
+class LoginResponse(BaseModel):
+    rep: MeResponse
+    csrf_token: str
+
+
+# ── Poll options / polls ──────────────────────────────────────────────
+class PollOptionCreate(BaseModel):
+    text: str = Field(..., min_length=1, max_length=255)
+
+
+SCOPE_VALUES = ("country", "state", "district", "city")
+PRESENTATION_MODES = ("full", "hidden", "reveal_after_close")
+
+
+class PollCreate(BaseModel):
+    question: str = Field(..., min_length=1, max_length=500)
+    options: List[PollOptionCreate] = Field(..., min_length=2, max_length=8)
+    closes_at: Optional[datetime] = None
+    # Default scope the post author wants viewers to see first. Only
+    # scopes that make sense for the author's office are allowed; the
+    # router rejects mismatches. Defaults to 'country' (inclusive).
+    default_visibility_scope: str = Field(default="country")
+    # How option counts are surfaced in the feed. 'full' | 'hidden' |
+    # 'reveal_after_close'. Router clamps 'reveal_after_close' back to
+    # 'full' when no closes_at is set (it'd be a perpetual blackout
+    # otherwise).
+    presentation_mode: str = Field(default="full")
+
+
+class PollOptionRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    text: str
+    sort_order: int
+    vote_count: int = 0
+
+
+class PollScopeBreakdown(BaseModel):
+    """Per-scope vote counts for a single poll. Lets the UI render the
+    current view + let the viewer know how much bigger the
+    country-scope pool is compared to the author's district."""
+    country_total: int = 0
+    state_total: int = 0
+    district_total: int = 0
+    city_total: int = 0
+
+
+class PollRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    question: str
+    closes_at: Optional[datetime] = None
+    options: List[PollOptionRead]
+    total_votes: int = 0
+    voter_choice_id: Optional[int] = None  # filled per-request
+    # Scope controls (Phase 1.5).
+    default_visibility_scope: str = "country"
+    active_scope: str = "country"       # scope actually used for the option counts in this response
+    allowed_scopes: List[str] = []      # scopes the author's role supports (country/state/district/city)
+    scope_totals: PollScopeBreakdown = Field(default_factory=PollScopeBreakdown)
+    # Label describing what the active scope resolves to, e.g. "FL-19"
+    # or "Florida" — used in the UI to say "Showing FL-19 · 4 votes".
+    active_scope_label: Optional[str] = None
+    # Presentation mode — see Poll.presentation_mode. Frontend uses
+    # this to pick between full bars, collapsed "Show results" +
+    # "Vote" dropdowns, or a pre-close blackout.
+    presentation_mode: str = "full"
+    # True when the backend has suppressed counts on this response
+    # (currently: reveal_after_close mode, still open, caller is not
+    # the owner). The UI uses it to render the "Results will appear
+    # when the poll closes" placeholder without having to
+    # re-derive the logic.
+    counts_suppressed: bool = False
+
+
+# ── Post images ───────────────────────────────────────────────────────
+class PostImageRead(BaseModel):
+    """A single image attached to a post. `url` is a path the frontend
+    resolves against its configured API base URL (works cross-origin
+    in dev where backend and frontend are on different ports)."""
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    url: str
+    content_type: str
+    sort_order: int = 0
+
+
+# ── Posts ─────────────────────────────────────────────────────────────
+class PostCreate(BaseModel):
+    body: str = Field(..., min_length=1, max_length=5000)
+    poll: Optional[PollCreate] = None
+    # Optional list of image IDs previously uploaded via
+    # /api/pages/images/upload. The create_post handler claims those
+    # rows by setting their post_id. Cap matches the user-facing "5
+    # images max" limit; longer lists are rejected with 422.
+    image_ids: List[int] = Field(default_factory=list, max_length=5)
+
+
+class AuthorSummary(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    official_id: str
+    display_name: str
+    role: Optional[str] = None
+
+
+class ReactionSummary(BaseModel):
+    """Aggregated reaction state for one post, from the caller's POV."""
+    up_count: int = 0
+    down_count: int = 0
+    # 'up' | 'down' | None. Requires the caller to be a signed-in citizen.
+    my_reaction: Optional[str] = None
+
+
+class PostRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    official_id: str
+    body: str
+    created_at: datetime
+    author: AuthorSummary
+    poll: Optional[PollRead] = None
+    # Phase 1.5 additions — engagement summary.
+    reactions: ReactionSummary = Field(default_factory=ReactionSummary)
+    comment_count: int = 0
+    # Attached images, ordered by sort_order ascending. Empty list
+    # when the post has no images.
+    images: List[PostImageRead] = Field(default_factory=list)
+
+
+# ── Poll vote ─────────────────────────────────────────────────────────
+class PollVoteRequest(BaseModel):
+    option_id: int
+    # Anonymous fallback. Still accepted so a lurking viewer can click an
+    # option; their vote lands under scope='country' only. Citizen auth
+    # is preferred — when present on the request, the vote gets geography.
+    voter_token: Optional[str] = Field(default=None, min_length=8, max_length=64)
+
+
+# ── Reactions ─────────────────────────────────────────────────────────
+class ReactionRequest(BaseModel):
+    # 'up' or 'down'. Toggling the same kind removes the reaction.
+    kind: str = Field(..., pattern=r"^(up|down)$")
+
+
+# ── Comments ──────────────────────────────────────────────────────────
+class CommentCreate(BaseModel):
+    body: str = Field(..., min_length=1, max_length=1000)
+
+
+class CommentRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    post_id: int
+    citizen_display_name: str
+    body: str
+    created_at: datetime
+    # Geography the comment was written under — used by the owner-side
+    # filter. Always Unverified in the current build.
+    scope_state: Optional[str] = None
+    scope_district: Optional[str] = None
+    scope_city: Optional[str] = None
+    # Per-comment reactions. `my_reaction` is the caller's own — only
+    # populated when the caller is an authenticated citizen.
+    up_count: int = 0
+    down_count: int = 0
+    my_reaction: Optional[str] = None  # 'up' | 'down' | None
+
+
+# Sort / filter modes for list_comments. Named enum-ish for the router
+# to validate against instead of a grab-bag of magic strings.
+COMMENT_SORTS = ("latest", "oldest", "most_liked", "most_disliked")
+COMMENT_FILTERS = ("my_district", "my_state")
+
+
+# ── Rep events ────────────────────────────────────────────────────────
+class RepEventCreate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=500)
+    description: Optional[str] = Field(default=None, max_length=5000)
+    location: Optional[str] = Field(default=None, max_length=500)
+    url: Optional[str] = Field(default=None, max_length=500)
+    start_at: str = Field(..., min_length=4, max_length=40)  # ISO-8601
+    end_at: Optional[str] = Field(default=None, max_length=40)
+
+
+class RepEventRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    official_id: str
+    title: str
+    description: Optional[str] = None
+    location: Optional[str] = None
+    url: Optional[str] = None
+    start_at: str
+    end_at: Optional[str] = None
+    created_at: datetime
+
+
+# ── Page payload ──────────────────────────────────────────────────────
+class PageOwnerInfo(BaseModel):
+    """The rep who owns the page. Null when unclaimed."""
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    display_name: str
+    role: Optional[str] = None
+    last_login_at: Optional[datetime] = None
+
+
+class PageResponse(BaseModel):
+    official_id: str
+    claimed: bool
+    owner: Optional[PageOwnerInfo] = None
+    is_owner: bool = False  # true if the caller's session owns this page
+    posts: List[PostRead]
+    upcoming_events: List[RepEventRead]
+    # Phase 1.5 engagement filter (owner-only). Scopes the owner may
+    # slice their constituent feedback by. Derived from which of
+    # owner_state / owner_district / owner_city the owner has
+    # populated. Frontend uses it to build the filter chip row on the
+    # owner's view. Empty list when the page is unclaimed.
+    allowed_engagement_scopes: List[str] = []
+    # Human label for each allowed scope, parallel-indexed — e.g.
+    # {"country": "United States", "state": "FL", "district": "FL-19"}.
+    # Lets the UI render "Showing: FL-19" without re-deriving the label.
+    engagement_scope_labels: dict = {}
+
+
+# ── Owner dashboard (Step 7) ──────────────────────────────────────────
+class DashboardSummary(BaseModel):
+    """Top-line numbers on the owner's dashboard. All counts respect
+    the caller's active scope (country / state / district / city).
+    total_posts is never geography-filtered — posts belong to the
+    official, not to any citizen geography."""
+    total_posts: int = 0
+    total_reactions: int = 0
+    total_comments: int = 0
+    total_poll_votes: int = 0
+    unique_engaged_citizens: int = 0
+    # up_total - down_total. Positive = net-approving, negative = the
+    # opposite. Makes skimming a feed for "where's the friction?" fast.
+    reactions_net: int = 0
+
+
+class DashboardPostSummary(BaseModel):
+    """One row in the top-engaged-posts table."""
+    post_id: int
+    body_preview: str           # first ~200 chars
+    created_at: datetime
+    up_count: int = 0
+    down_count: int = 0
+    comment_count: int = 0
+    poll_vote_count: int = 0
+    engagement_score: int = 0   # sum of the four above — how we rank
+
+
+class DashboardCommenter(BaseModel):
+    """One row in the top-commenters leaderboard."""
+    citizen_id: int
+    display_name: str
+    city: Optional[str] = None
+    scope_district: Optional[str] = None
+    scope_state: Optional[str] = None
+    comment_count: int = 0
+
+
+class DashboardReactions(BaseModel):
+    """Reactions breakdown card."""
+    up_total: int = 0
+    down_total: int = 0
+    most_liked_post: Optional[DashboardPostSummary] = None
+    most_disliked_post: Optional[DashboardPostSummary] = None
+
+
+class PageDashboardResponse(BaseModel):
+    """Root payload for GET /api/pages/{official_id}/dashboard.
+
+    Everything here is gated to the page owner at the endpoint layer —
+    non-owners 403 so an outsider can't scrape per-district engagement
+    on someone else's page.
+    """
+    official_id: str
+    scope: str                   # active scope used to compute this response
+    scope_label: Optional[str] = None
+    summary: DashboardSummary
+    top_posts: List[DashboardPostSummary]
+    top_commenters: List[DashboardCommenter]
+    reactions_breakdown: DashboardReactions
+
+
+# ── Citizen auth (demo) ───────────────────────────────────────────────
+class CitizenLoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=1, max_length=256)
+
+
+class CitizenMeResponse(BaseModel):
+    """Public-facing citizen identity. The `verified` flag is the single
+    source of truth for whether this identity has been address-verified;
+    UI copy should never present geography attributes as confirmed when
+    verified is False."""
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    email: EmailStr
+    display_name: str
+    city: str
+    county: Optional[str] = None
+    state: str
+    zip_code: Optional[str] = None
+    congressional_district: Optional[str] = None
+    verified: bool = False
+
+
+class CitizenLoginResponse(BaseModel):
+    citizen: CitizenMeResponse
+
+
+# ── Citizen waitlist ──────────────────────────────────────────────────
+class WaitlistSignup(BaseModel):
+    email: EmailStr
+    clicked_from: Optional[str] = Field(default=None, max_length=64)
+    state: Optional[str] = Field(default=None, min_length=2, max_length=2)
+    # Free-form note — used by the claim-this-page flow to carry the
+    # requester's legal name + relationship to the official. Ignored
+    # by the citizen waitlist path.
+    note: Optional[str] = Field(default=None, max_length=2000)
+
+
+class WaitlistStatus(BaseModel):
+    ok: bool
+    already_subscribed: bool = False

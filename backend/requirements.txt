@@ -1,0 +1,22 @@
+# Version ranges (not pins) so the same file installs cleanly on Python
+# 3.10 – 3.14. Several of the previously-pinned versions ship no wheel
+# for Python 3.13/3.14, and on Windows without a Rust toolchain that
+# means install failure → backend never starts → frontend shows
+# "Federal data unavailable". Floors are the earliest versions known to
+# work; ceilings are the next major where we'd expect breaking changes.
+fastapi>=0.115,<0.120
+uvicorn[standard]>=0.30,<0.40
+httpx>=0.27,<0.30
+python-dotenv>=1.0,<2.0
+pydantic>=2.11,<3
+pydantic[email]>=2.11,<3
+# Phase 1 Pages feature — database, password hashing, signed session cookies.
+# We dropped passlib: passlib 1.7.4 has a compat bug with bcrypt >=5 ("detect
+# wrap bug" raises on import) and there's no 1.7.5 release. The auth module
+# now calls bcrypt directly, which works on bcrypt 4.x and 5.x.
+sqlalchemy>=2.0.35,<3
+bcrypt>=4.3,<6
+itsdangerous>=2.2,<3
+# Required by FastAPI when endpoints accept UploadFile / multipart form
+# data — specifically the post-image upload endpoint.
+python-multipart>=0.0.9,<1
