@@ -1,0 +1,52 @@
+# ───────────────────────────────────────────────────────────────────
+# Top-level .gitignore for CivicLens.
+#
+# Sub-folder .gitignore files (backend/.gitignore, frontend/.gitignore)
+# stay in place and add their own rules — git uses all of them
+# together. This file covers project-wide concerns + a safety net for
+# anything the sub-folders missed.
+# ───────────────────────────────────────────────────────────────────
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE state
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python — global belt-and-suspenders (backend/.gitignore covers venv).
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node — global belt-and-suspenders (frontend/.gitignore covers node_modules).
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local secrets — sub-folder .gitignores cover the ones we have today;
+# anything new with a .env prefix should also stay out.
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+
+# Anything starting with a leading dot under the user-data convention
+# (cowork session scratch, local override files, etc.) — opt-in only,
+# remove this if you do want such things tracked.
+.cowork/
+.local/

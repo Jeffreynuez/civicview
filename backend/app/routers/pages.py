@@ -1,0 +1,1441 @@
+"""
+Pages router — the social-network layer for reps and candidates.
+
+Public (no auth):
+  GET    /api/pages/{official_id}                    → page payload
+                                                       (posts + upcoming events + claim status)
+  POST   /api/pages/{official_id}/polls/{poll_id}/vote
+                                                     → record an anonymous vote
+                                                       (voter_token enforces one vote per browser)
+
+Authenticated (session cookie):
+  POST   /api/pages/{official_id}/posts              → create post (author must own the page)
+  DELETE /api/pages/posts/{post_id}                  → soft-delete post
+  POST   /api/pages/{official_id}/events             → create rep event
+  DELETE /api/pages/events/{event_id}                → soft-delete rep event
+
+Ownership rule: a RepAccount's `official_id` scopes every write. You
+cannot post to someone else's page even if you're logged in — the
+router checks `rep.official_id == path official_id` before mutating.
+"""
+from __future__ import annotations
+
+from datetime import datetime
+import logging
+from typing import List, Optional
+
+import uuid
+from pathlib import Path
+
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
+from fastapi.responses import FileResponse
+from sqlalchemy import func
+from sqlalchemy.orm import Session, selectinload
+
+from app.auth import get_current_rep, get_optional_rep
+from app.auth_citizen import get_current_citizen, get_optional_citizen
+from app.db import get_db
+from app.models.pages import (
+    CitizenAccount,
+    CommentReaction,
+    Poll,
+    PollOption,
+    PollVote,
+    Post,
+    PostComment,
+    PostImage,
+    PostReaction,
+    RepAccount,
+    RepEvent,
+)
+from app.schemas.pages import (
+    COMMENT_FILTERS,
+    COMMENT_SORTS,
+    SCOPE_VALUES,
+    AuthorSummary,
+    CommentCreate,
+    CommentRead,
+    DashboardCommenter,
+    DashboardPostSummary,
+    DashboardReactions,
+    DashboardSummary,
+    PageDashboardResponse,
+    PageOwnerInfo,
+    PageResponse,
+    PollCreate,
+    PollOptionRead,
+    PollRead,
+    PollScopeBreakdown,
+    PollVoteRequest,
+    PostCreate,
+    PostImageRead,
+    PostRead,
+    ReactionRequest,
+    ReactionSummary,
+    RepEventCreate,
+    RepEventRead,
+)
+
+
+logger = logging.getLogger(__name__)
+router = APIRouter()
+
+
+# ── Helpers ───────────────────────────────────────────────────────────
+def _allowed_scopes_for_owner(owner: Optional[RepAccount]) -> List[str]:
+    """Which geographic scopes does this page owner's office support?
+
+    Country is always an option. State/district/city each require the
+    owner to have the corresponding attribute. For a U.S. House rep
+    we return [country, state, district]. For a senator or governor we
+    return [country, state]. For a mayor we'd return [country, state,
+    city] once owner_city is populated.
+    """
+    scopes = ["country"]
+    if owner is None:
+        return scopes
+    if owner.owner_state:
+        scopes.append("state")
+    if owner.owner_district:
+        scopes.append("district")
+    if owner.owner_city:
+        scopes.append("city")
+    return scopes
+
+
+def _scope_label(scope: str, owner: Optional[RepAccount]) -> Optional[str]:
+    """Human-friendly label describing what a scope resolves to.
+    Used by the UI to render "Showing: FL-19 · 4 votes"."""
+    if owner is None:
+        return None
+    if scope == "country":
+        return "United States"
+    if scope == "state":
+        return owner.owner_state
+    if scope == "district":
+        return owner.owner_district
+    if scope == "city":
+        return owner.owner_city
+    return None
+
+
+def _engagement_matches_scope(row, scope: str, owner: Optional[RepAccount]) -> bool:
+    """Does an engagement row (PollVote / PostReaction / PostComment)
+    count under the given scope for this page owner?
+
+    All three models share the same `scope_state / scope_district /
+    scope_city` denormalized columns, so one matcher covers all three.
+    Reactions and comments always have a citizen_id (they're
+    citizen-gated); PollVote can have citizen_id=None for legacy
+    anonymous rows, in which case they only count under 'country'.
+    """
+    if scope == "country":
+        return True
+    # Only PollVote exposes citizen_id; reactions + comments always
+    # carry one. getattr-with-default keeps this helper generic.
+    if getattr(row, "citizen_id", 0) is None:
+        return False
+    if owner is None:
+        return False
+    if scope == "state":
+        return bool(owner.owner_state) and row.scope_state == owner.owner_state
+    if scope == "district":
+        return bool(owner.owner_district) and row.scope_district == owner.owner_district
+    if scope == "city":
+        return bool(owner.owner_city) and row.scope_city == owner.owner_city
+    return False
+
+
+# Backward-compat alias for the poll path that used the old name.
+_vote_matches_scope = _engagement_matches_scope
+
+
+def _poll_to_read(
+    poll: Poll,
+    owner: Optional[RepAccount],
+    active_scope: str,
+    voter_choice_id: Optional[int] = None,
+    is_owner_viewing: bool = False,
+) -> PollRead:
+    """Serialize a poll with its option counts filtered to `active_scope`
+    plus a full-breakdown snapshot so the UI can show "4 in FL-19 / 31
+    statewide" side-by-side.
+
+    When the poll's presentation_mode is 'reveal_after_close' and the
+    close time hasn't passed yet, we zero out every count in the
+    response for non-owner viewers. The author still gets the real
+    numbers (they need to know how their own poll is doing); anyone
+    else sees a blackout until the close tick. `counts_suppressed` is
+    surfaced so the frontend can render a polite placeholder without
+    repeating the suppression logic.
+    """
+    allowed = _allowed_scopes_for_owner(owner)
+    # Gracefully degrade — if the poll's author asked for a scope their
+    # role doesn't support (shouldn't happen post-create, but defensive)
+    # fall back to country.
+    if active_scope not in allowed:
+        active_scope = "country"
+
+    mode = (poll.presentation_mode or "full").lower()
+    now = datetime.utcnow()
+    poll_is_closed = poll.closes_at is not None and now >= poll.closes_at
+    suppress_counts = (
+        mode == "reveal_after_close"
+        and not poll_is_closed
+        and not is_owner_viewing
+    )
+
+    # Full breakdown across all scopes — always useful to the owner, and
+    # cheap since poll option votes are already in memory from the
+    # selectinload.
+    breakdown = PollScopeBreakdown()
+    options_out: List[PollOptionRead] = []
+    active_total = 0
+    for opt in poll.options:
+        votes = opt.votes or []
+        if suppress_counts:
+            active_count = 0
+        else:
+            active_count = sum(1 for v in votes if _vote_matches_scope(v, active_scope, owner))
+        active_total += active_count
+        options_out.append(PollOptionRead(
+            id=opt.id, text=opt.text, sort_order=opt.sort_order, vote_count=active_count,
+        ))
+        if suppress_counts:
+            continue  # breakdown stays zeroed
+        for v in votes:
+            breakdown.country_total += 1 if _vote_matches_scope(v, "country", owner) else 0
+            if "state" in allowed:
+                breakdown.state_total += 1 if _vote_matches_scope(v, "state", owner) else 0
+            if "district" in allowed:
+                breakdown.district_total += 1 if _vote_matches_scope(v, "district", owner) else 0
+            if "city" in allowed:
+                breakdown.city_total += 1 if _vote_matches_scope(v, "city", owner) else 0
+
+    return PollRead(
+        id=poll.id,
+        question=poll.question,
+        closes_at=poll.closes_at,
+        options=options_out,
+        total_votes=active_total,
+        voter_choice_id=voter_choice_id,
+        default_visibility_scope=poll.default_visibility_scope or "country",
+        active_scope=active_scope,
+        allowed_scopes=allowed,
+        scope_totals=breakdown,
+        active_scope_label=_scope_label(active_scope, owner),
+        presentation_mode=mode,
+        counts_suppressed=suppress_counts,
+    )
+
+
+def _reaction_summary_for_post(
+    post: Post,
+    me_citizen: Optional[CitizenAccount],
+    engagement_scope: Optional[str] = None,
+    owner: Optional[RepAccount] = None,
+) -> ReactionSummary:
+    """Aggregate a post's reactions.
+
+    When `engagement_scope` is provided (owner-only at the endpoint
+    layer — this helper trusts its caller), the counts are filtered to
+    only reactions from citizens whose geography matches. `my_reaction`
+    is unaffected by the filter — it's always the caller's own and
+    doesn't leak anyone else's identity.
+    """
+    up = down = 0
+    mine: Optional[str] = None
+    filtered = bool(engagement_scope) and engagement_scope != "country"
+    for r in (post.reactions or []):
+        # Always track the caller's own reaction first — the filter
+        # should never mask "my reaction" even if I'm outside the
+        # scope the owner is slicing by.
+        if me_citizen is not None and r.citizen_id == me_citizen.id:
+            mine = r.kind
+        if filtered and not _engagement_matches_scope(r, engagement_scope, owner):
+            continue
+        if r.kind == "up":
+            up += 1
+        elif r.kind == "down":
+            down += 1
+    return ReactionSummary(up_count=up, down_count=down, my_reaction=mine)
+
+
+def _post_to_read(
+    post: Post,
+    owner: Optional[RepAccount],
+    db: Session,
+    voter_token: Optional[str] = None,
+    me_citizen: Optional[CitizenAccount] = None,
+    scope_override: Optional[str] = None,
+    engagement_scope: Optional[str] = None,
+    is_owner_viewing: bool = False,
+) -> PostRead:
+    poll_read: Optional[PollRead] = None
+    if post.poll is not None:
+        voter_choice_id: Optional[int] = None
+        if me_citizen is not None:
+            # Authoritative — a citizen's "your vote" is keyed on their
+            # citizen_id, never on the browser's voter_token. Without
+            # this restriction, two citizens sharing a browser would
+            # both see the first one's vote as "your vote" and the
+            # second citizen's clickable ballot would never appear.
+            vote = (
+                db.query(PollVote)
+                .filter(
+                    PollVote.poll_id == post.poll.id,
+                    PollVote.citizen_id == me_citizen.id,
+                )
+                .first()
+            )
+            if vote:
+                voter_choice_id = vote.option_id
+        elif voter_token:
+            # Anonymous viewer — only surface votes that were themselves
+            # anonymous (citizen_id IS NULL). A prior citizen-attributed
+            # vote on this browser must not leak to an unauthenticated
+            # viewer as "your vote".
+            vote = (
+                db.query(PollVote)
+                .filter(
+                    PollVote.poll_id == post.poll.id,
+                    PollVote.voter_token == voter_token,
+                    PollVote.citizen_id.is_(None),
+                )
+                .first()
+            )
+            if vote:
+                voter_choice_id = vote.option_id
+
+        active_scope = scope_override or (post.poll.default_visibility_scope or "country")
+        poll_read = _poll_to_read(
+            post.poll, owner=owner, active_scope=active_scope,
+            voter_choice_id=voter_choice_id,
+            is_owner_viewing=is_owner_viewing,
+        )
+
+    # Comment count — owner-only scope filter. Non-owners always see
+    # the country-wide total so public-facing metadata is consistent
+    # across viewers.
+    comment_count_q = (
+        db.query(func.count(PostComment.id))
+        .filter(PostComment.post_id == post.id, PostComment.deleted_at.is_(None))
+    )
+    if engagement_scope and engagement_scope != "country" and owner is not None:
+        if engagement_scope == "state" and owner.owner_state:
+            comment_count_q = comment_count_q.filter(PostComment.scope_state == owner.owner_state)
+        elif engagement_scope == "district" and owner.owner_district:
+            comment_count_q = comment_count_q.filter(PostComment.scope_district == owner.owner_district)
+        elif engagement_scope == "city" and owner.owner_city:
+            comment_count_q = comment_count_q.filter(PostComment.scope_city == owner.owner_city)
+    comment_count = comment_count_q.scalar() or 0
+
+    # Serialize attached images. The relationship is loaded
+    # lazily here because the page-payload query doesn't join it
+    # — that's fine for small galleries (≤5 per post). A future
+    # selectinload could batch these if we ever page this.
+    images = [
+        PostImageRead(
+            id=img.id,
+            url=f"/api/pages/images/{img.id}",
+            content_type=img.content_type,
+            sort_order=img.sort_order,
+        )
+        for img in sorted(post.images or [], key=lambda i: i.sort_order)
+    ]
+
+    return PostRead(
+        id=post.id,
+        official_id=post.official_id,
+        body=post.body,
+        created_at=post.created_at,
+        author=AuthorSummary.model_validate(post.author),
+        poll=poll_read,
+        reactions=_reaction_summary_for_post(
+            post, me_citizen, engagement_scope=engagement_scope, owner=owner,
+        ),
+        comment_count=int(comment_count),
+        images=images,
+    )
+
+
+def _assert_owns_page(rep: RepAccount, official_id: str) -> None:
+    if rep.official_id != official_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only manage the page for your own official_id.",
+        )
+
+
+def _load_owner(db: Session, official_id: str) -> Optional[RepAccount]:
+    return (
+        db.query(RepAccount)
+        .filter(RepAccount.official_id == official_id)
+        .first()
+    )
+
+
+def _load_post_or_404(db: Session, post_id: int) -> Post:
+    post = db.get(Post, post_id)
+    if not post or post.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post
+
+
+# ── Public: page payload ──────────────────────────────────────────────
+@router.get("/{official_id}", response_model=PageResponse)
+def get_page(
+    official_id: str,
+    voter_token: Optional[str] = Query(default=None, max_length=64),
+    scope: Optional[str] = Query(
+        default=None,
+        description="Override each poll's default visibility scope. One of country/state/district/city.",
+    ),
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+):
+    """
+    Return everything needed to render a rep/candidate page:
+      • claim status + owner summary
+      • posts (newest first, soft-deleted excluded) with reaction
+        summary, comment count, and scope-filtered poll counts
+      • upcoming rep-created events (soft-deleted excluded)
+
+    Query params:
+      voter_token — annotate polls with the caller's current anonymous
+        vote choice (used when no citizen session is active).
+      scope       — override the poll default visibility scope for this
+        render. Citizens use this to "show all" instead of the author's
+        default.
+    """
+    if scope and scope not in SCOPE_VALUES:
+        raise HTTPException(status_code=400, detail=f"Unknown scope '{scope}'")
+
+    owner = _load_owner(db, official_id)
+    is_owner = bool(owner and me and me.id == owner.id)
+
+    # Scope controls two different things:
+    #   • `scope_override` drives the poll vote counts. This is public
+    #     — the poll's author already chose a default_visibility_scope
+    #     so non-owners seeing scope=... is just reading the public
+    #     view with a different slice.
+    #   • `engagement_scope` filters reactions + comment_count. That's
+    #     OWNER-ONLY so a random viewer can't peek at per-district
+    #     engagement on someone else's page. When a non-owner passes
+    #     scope=, engagement_scope stays None and they get full
+    #     country-wide counts for reactions + comment_count.
+    poll_scope_override = scope
+    engagement_scope = scope if is_owner else None
+
+    posts_q = (
+        db.query(Post)
+        .options(
+            selectinload(Post.author),
+            selectinload(Post.poll).selectinload(Poll.options).selectinload(PollOption.votes),
+            selectinload(Post.reactions),
+            selectinload(Post.images),
+        )
+        .filter(
+            Post.official_id == official_id,
+            Post.deleted_at.is_(None),
+        )
+        .order_by(Post.created_at.desc())
+        .limit(100)
+    )
+    posts = [
+        _post_to_read(
+            p, owner=owner, db=db, voter_token=voter_token,
+            me_citizen=me_citizen, scope_override=poll_scope_override,
+            engagement_scope=engagement_scope,
+            is_owner_viewing=is_owner,
+        )
+        for p in posts_q.all()
+    ]
+
+    now_iso = datetime.utcnow().isoformat()
+    events_q = (
+        db.query(RepEvent)
+        .filter(
+            RepEvent.official_id == official_id,
+            RepEvent.deleted_at.is_(None),
+            # Lexicographic compare is safe for ISO-8601 strings.
+            RepEvent.start_at >= now_iso[:10],  # from today onward
+        )
+        .order_by(RepEvent.start_at.asc())
+        .limit(50)
+    )
+    upcoming_events = [RepEventRead.model_validate(e) for e in events_q.all()]
+
+    # Scope options for the owner's filter rail. Always include
+    # 'country' as the always-available default. The rail itself is
+    # hidden to non-owners, but we publish the list alongside the
+    # payload so the frontend doesn't have to know about office roles.
+    allowed_scopes = _allowed_scopes_for_owner(owner) if owner else []
+    scope_labels = {
+        s: _scope_label(s, owner) for s in allowed_scopes
+    } if owner else {}
+
+    return PageResponse(
+        official_id=official_id,
+        claimed=owner is not None,
+        owner=PageOwnerInfo.model_validate(owner) if owner else None,
+        is_owner=is_owner,
+        posts=posts,
+        upcoming_events=upcoming_events,
+        allowed_engagement_scopes=allowed_scopes,
+        engagement_scope_labels=scope_labels,
+    )
+
+
+# ── Authenticated: posts ──────────────────────────────────────────────
+@router.post("/{official_id}/posts", response_model=PostRead, status_code=201)
+def create_post(
+    official_id: str,
+    payload: PostCreate,
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    _assert_owns_page(rep, official_id)
+
+    post = Post(
+        author_id=rep.id,
+        official_id=official_id,
+        body=payload.body.strip(),
+    )
+    db.add(post)
+    db.flush()  # populate post.id for the poll FK
+
+    if payload.poll is not None:
+        _attach_poll(db, post, payload.poll, owner=rep)
+
+    # Claim uploaded images by post_id. We fetch all requested rows in
+    # one query, then iterate the client's id list to preserve gallery
+    # order. Validation per image:
+    #   • Must exist (id lookup fails → 400).
+    #   • Must belong to this rep (another rep's image → 403).
+    #   • Must still be an orphan (post_id IS NULL); reattaching is
+    #     a bug in the client and we refuse rather than silently move
+    #     an image across posts.
+    if payload.image_ids:
+        fetched = db.query(PostImage).filter(PostImage.id.in_(payload.image_ids)).all()
+        by_id = {img.id: img for img in fetched}
+        for idx, img_id in enumerate(payload.image_ids):
+            img = by_id.get(img_id)
+            if img is None:
+                raise HTTPException(400, f"Image {img_id} not found.")
+            if img.uploader_id != rep.id:
+                raise HTTPException(403, f"Image {img_id} was not uploaded by you.")
+            if img.post_id is not None:
+                raise HTTPException(400, f"Image {img_id} is already attached to another post.")
+            img.post_id = post.id
+            img.sort_order = idx
+
+    db.commit()
+    # Reload with joined edges so _post_to_read has author+poll+options.
+    db.refresh(post)
+    if post.poll:
+        db.refresh(post.poll)
+    return _post_to_read(post, owner=rep, db=db, is_owner_viewing=True)
+
+
+def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount) -> None:
+    # Validate the requested default scope is one this office actually
+    # supports. A senator can't demand a "district" default because they
+    # don't have one; we silently clamp to 'country' rather than 400 so
+    # a frontend bug doesn't brick post creation.
+    allowed = _allowed_scopes_for_owner(owner)
+    scope = (payload.default_visibility_scope or "country").strip().lower()
+    if scope not in allowed:
+        scope = "country"
+
+    # Validate / clamp presentation mode. 'reveal_after_close' only
+    # makes sense with a close time — without one the results would
+    # never be revealed, so we silently demote to 'full'.
+    from app.schemas.pages import PRESENTATION_MODES
+    mode = (payload.presentation_mode or "full").strip().lower()
+    if mode not in PRESENTATION_MODES:
+        mode = "full"
+    if mode == "reveal_after_close" and payload.closes_at is None:
+        mode = "full"
+
+    poll = Poll(
+        post_id=post.id,
+        question=payload.question.strip(),
+        closes_at=payload.closes_at,
+        default_visibility_scope=scope,
+        presentation_mode=mode,
+    )
+    db.add(poll)
+    db.flush()
+    for idx, opt in enumerate(payload.options):
+        db.add(PollOption(
+            poll_id=poll.id,
+            text=opt.text.strip(),
+            sort_order=idx,
+        ))
+
+
+@router.delete("/posts/{post_id}", status_code=204)
+def delete_post(
+    post_id: int,
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    post = db.get(Post, post_id)
+    if not post or post.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    if post.author_id != rep.id:
+        raise HTTPException(status_code=403, detail="You can only delete your own posts")
+
+    post.deleted_at = datetime.utcnow()
+    db.commit()
+    return
+
+
+# ── Public: poll voting ───────────────────────────────────────────────
+@router.post("/{official_id}/polls/{poll_id}/vote", response_model=PollRead)
+def vote_on_poll(
+    official_id: str,
+    poll_id: int,
+    payload: PollVoteRequest,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    """
+    Record (or switch) a citizen's poll vote.
+
+    Citizen-gated — matches the rule for reactions and comments ("only
+    US citizens can engage"). We look up the caller's existing vote by
+    citizen_id only; the legacy voter_token field is ignored on writes
+    so two citizens sharing a browser no longer collide on one row.
+
+    If the caller previously voted anonymously on this same browser
+    (an old vote with voter_token set + citizen_id NULL) we adopt that
+    row into their citizen account so they don't lose their vote. Any
+    later vote from another citizen on the same browser inserts a
+    fresh row.
+    """
+    poll = (
+        db.query(Poll)
+        .options(selectinload(Poll.options).selectinload(PollOption.votes))
+        .filter(Poll.id == poll_id)
+        .first()
+    )
+    if not poll:
+        raise HTTPException(status_code=404, detail="Poll not found")
+
+    post = db.get(Post, poll.post_id)
+    if not post or post.official_id != official_id or post.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Poll not found on this page")
+
+    if poll.closes_at is not None and datetime.utcnow() >= poll.closes_at:
+        raise HTTPException(status_code=400, detail="This poll is closed")
+
+    option = db.get(PollOption, payload.option_id)
+    if not option or option.poll_id != poll.id:
+        raise HTTPException(status_code=400, detail="Invalid option for this poll")
+
+    # Authoritative lookup: the caller's own citizen_id.
+    existing = (
+        db.query(PollVote)
+        .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)
+        .first()
+    )
+
+    if existing:
+        existing.option_id = option.id
+        # Refresh geography — cheap and covers the Phase 2 case where a
+        # citizen updates their address after voting. Clear the legacy
+        # voter_token so the browser's slot is free for other citizens
+        # to vote on the same poll from the same browser.
+        existing.scope_state = citizen.state
+        existing.scope_district = citizen.congressional_district
+        existing.scope_city = citizen.city
+        existing.scope_county = citizen.county
+        existing.voter_token = None
+    else:
+        # Adopt a pre-existing anonymous vote from this browser, if any.
+        # Only pick up one where citizen_id IS NULL — we must never
+        # hijack another citizen's row.
+        adopted = None
+        if payload.voter_token:
+            adopted = (
+                db.query(PollVote)
+                .filter(
+                    PollVote.poll_id == poll.id,
+                    PollVote.voter_token == payload.voter_token,
+                    PollVote.citizen_id.is_(None),
+                )
+                .first()
+            )
+
+        if adopted:
+            adopted.option_id = option.id
+            adopted.citizen_id = citizen.id
+            adopted.voter_token = None  # free the browser slot
+            adopted.scope_state = citizen.state
+            adopted.scope_district = citizen.congressional_district
+            adopted.scope_city = citizen.city
+            adopted.scope_county = citizen.county
+        else:
+            db.add(PollVote(
+                poll_id=poll.id,
+                option_id=option.id,
+                voter_token=None,  # citizen votes aren't keyed by browser
+                citizen_id=citizen.id,
+                scope_state=citizen.state,
+                scope_district=citizen.congressional_district,
+                scope_city=citizen.city,
+                scope_county=citizen.county,
+            ))
+
+    db.commit()
+    db.refresh(poll)
+    for opt in poll.options:
+        db.refresh(opt)
+
+    owner = _load_owner(db, official_id)
+    return _poll_to_read(
+        poll, owner=owner,
+        active_scope=(poll.default_visibility_scope or "country"),
+        voter_choice_id=option.id,
+    )
+
+
+# ── Authenticated: reactions ──────────────────────────────────────────
+@router.post("/posts/{post_id}/reactions", response_model=ReactionSummary)
+def react_to_post(
+    post_id: int,
+    payload: ReactionRequest,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    """Create, flip, or remove the caller's reaction on a post.
+
+    Semantics:
+      • First time with kind=up → add 'up' reaction.
+      • Send kind=down while 'up' is active → flip to 'down'.
+      • Send kind=up while 'up' is active → remove (toggle off).
+    """
+    post = _load_post_or_404(db, post_id)
+
+    existing = (
+        db.query(PostReaction)
+        .filter(PostReaction.post_id == post.id, PostReaction.citizen_id == citizen.id)
+        .first()
+    )
+    if existing:
+        if existing.kind == payload.kind:
+            db.delete(existing)
+        else:
+            existing.kind = payload.kind
+            # Refresh geography in case the citizen's address changed
+            # since their last reaction (Phase 2 concern).
+            existing.scope_state = citizen.state
+            existing.scope_district = citizen.congressional_district
+            existing.scope_city = citizen.city
+            existing.scope_county = citizen.county
+    else:
+        db.add(PostReaction(
+            post_id=post.id,
+            citizen_id=citizen.id,
+            kind=payload.kind,
+            scope_state=citizen.state,
+            scope_district=citizen.congressional_district,
+            scope_city=citizen.city,
+            scope_county=citizen.county,
+        ))
+
+    db.commit()
+    # Reload + recompute summary for response.
+    db.refresh(post)
+    return _reaction_summary_for_post(post, me_citizen=citizen)
+
+
+@router.delete("/posts/{post_id}/reactions", response_model=ReactionSummary)
+def clear_reaction(
+    post_id: int,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    post = _load_post_or_404(db, post_id)
+    existing = (
+        db.query(PostReaction)
+        .filter(PostReaction.post_id == post.id, PostReaction.citizen_id == citizen.id)
+        .first()
+    )
+    if existing:
+        db.delete(existing)
+        db.commit()
+        db.refresh(post)
+    return _reaction_summary_for_post(post, me_citizen=citizen)
+
+
+# ── Comments ──────────────────────────────────────────────────────────
+def _comment_to_read(
+    c: PostComment,
+    me_citizen: Optional[CitizenAccount],
+) -> CommentRead:
+    """Serialize a comment with its reaction summary.
+
+    `my_reaction` is the caller's own reaction (or None) — never leaks
+    anyone else's identity. Reactions come from the eager-loaded
+    relationship so there's no extra query per row.
+    """
+    up = down = 0
+    mine: Optional[str] = None
+    for r in (c.reactions or []):
+        if r.kind == "up":
+            up += 1
+        elif r.kind == "down":
+            down += 1
+        if me_citizen is not None and r.citizen_id == me_citizen.id:
+            mine = r.kind
+    return CommentRead(
+        id=c.id,
+        post_id=c.post_id,
+        citizen_display_name=c.citizen_display_name,
+        body=c.body,
+        created_at=c.created_at,
+        scope_state=c.scope_state,
+        scope_district=c.scope_district,
+        scope_city=c.scope_city,
+        up_count=up,
+        down_count=down,
+        my_reaction=mine,
+    )
+
+
+@router.get("/posts/{post_id}/comments", response_model=List[CommentRead])
+def list_comments(
+    post_id: int,
+    scope: Optional[str] = Query(
+        default=None,
+        description="Filter to a scope (country/state/district/city). Requires the caller to be the page owner.",
+    ),
+    sort: str = Query(
+        default="latest",
+        description="Sort order — one of: " + ", ".join(COMMENT_SORTS),
+    ),
+    filter_by: Optional[str] = Query(
+        default=None, alias="filter_by",
+        description="Citizen-only filters — 'my_district' or 'my_state'. Anonymous callers fall through to an unfiltered list.",
+    ),
+    limit: int = Query(default=100, ge=1, le=500),
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+):
+    """Return comments on a post.
+
+    Layered filters/sort:
+      • `scope` — owner-only; narrows by geography (state/district/city).
+      • `filter_by` — citizen-only; pins to the caller's own district
+        or state. Anonymous callers passing this get the unfiltered
+        list rather than a 400 — the UI hides those options for them
+        anyway, but being lenient here keeps the endpoint easy to
+        exercise from a shared demo browser.
+      • `sort` — public; any caller can pick how to order.
+
+    Soft-deleted comments are omitted but retained for moderation.
+    """
+    if sort not in COMMENT_SORTS:
+        raise HTTPException(status_code=400, detail=f"Unknown sort '{sort}'")
+    if filter_by is not None and filter_by not in COMMENT_FILTERS:
+        raise HTTPException(status_code=400, detail=f"Unknown filter_by '{filter_by}'")
+
+    post = _load_post_or_404(db, post_id)
+
+    q = (
+        db.query(PostComment)
+        .options(selectinload(PostComment.reactions))
+        .filter(PostComment.post_id == post.id, PostComment.deleted_at.is_(None))
+    )
+
+    # Owner-only scope filter (unchanged semantics).
+    if scope:
+        if scope not in SCOPE_VALUES:
+            raise HTTPException(status_code=400, detail=f"Unknown scope '{scope}'")
+        owner = _load_owner(db, post.official_id)
+        if owner is None or me is None or me.id != owner.id:
+            raise HTTPException(
+                status_code=403,
+                detail="Scope filtering is restricted to the page owner.",
+            )
+        if scope == "state" and owner.owner_state:
+            q = q.filter(PostComment.scope_state == owner.owner_state)
+        elif scope == "district" and owner.owner_district:
+            q = q.filter(PostComment.scope_district == owner.owner_district)
+        elif scope == "city" and owner.owner_city:
+            q = q.filter(PostComment.scope_city == owner.owner_city)
+
+    # Citizen-only geography filter.
+    if filter_by and me_citizen is not None:
+        if filter_by == "my_district" and me_citizen.congressional_district:
+            q = q.filter(PostComment.scope_district == me_citizen.congressional_district)
+        elif filter_by == "my_state" and me_citizen.state:
+            q = q.filter(PostComment.scope_state == me_citizen.state)
+
+    # SQL-side ordering for latest/oldest. Most-liked / most-disliked
+    # are computed in Python since we need aggregate counts over the
+    # reactions relationship.
+    #
+    # `id` is always the tiebreaker. SQLite's CURRENT_TIMESTAMP has
+    # second-level resolution, so two comments posted in the same
+    # second share a created_at and the sort would otherwise return
+    # them in an undefined order (any ORM's stable sort falls back to
+    # insertion order). Using monotonically-increasing id as a
+    # secondary key makes latest/oldest deterministic even under that
+    # collision.
+    if sort == "latest":
+        q = q.order_by(PostComment.created_at.desc(), PostComment.id.desc())
+    elif sort == "oldest":
+        q = q.order_by(PostComment.created_at.asc(), PostComment.id.asc())
+
+    rows = q.limit(limit).all()
+
+    if sort == "most_liked":
+        rows.sort(
+            key=lambda c: (
+                sum(1 for r in (c.reactions or []) if r.kind == "up"),
+                c.id,   # tiebreak by id — newer rows first under ties
+            ),
+            reverse=True,
+        )
+    elif sort == "most_disliked":
+        rows.sort(
+            key=lambda c: (
+                sum(1 for r in (c.reactions or []) if r.kind == "down"),
+                c.id,
+            ),
+            reverse=True,
+        )
+
+    return [_comment_to_read(c, me_citizen) for c in rows]
+
+
+# Reactions on a comment. Schema identical to the post reactions
+# endpoints — same toggle/flip semantics, same citizen gate.
+def _comment_reaction_summary(
+    comment: PostComment,
+    me_citizen: Optional[CitizenAccount],
+) -> dict:
+    up = down = 0
+    mine: Optional[str] = None
+    for r in (comment.reactions or []):
+        if r.kind == "up":
+            up += 1
+        elif r.kind == "down":
+            down += 1
+        if me_citizen is not None and r.citizen_id == me_citizen.id:
+            mine = r.kind
+    return {"up_count": up, "down_count": down, "my_reaction": mine}
+
+
+@router.post("/comments/{comment_id}/reactions", response_model=ReactionSummary)
+def react_to_comment(
+    comment_id: int,
+    payload: ReactionRequest,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    comment = db.get(PostComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    existing = (
+        db.query(CommentReaction)
+        .filter(
+            CommentReaction.comment_id == comment.id,
+            CommentReaction.citizen_id == citizen.id,
+        )
+        .first()
+    )
+    if existing:
+        if existing.kind == payload.kind:
+            db.delete(existing)
+        else:
+            existing.kind = payload.kind
+            existing.scope_state = citizen.state
+            existing.scope_district = citizen.congressional_district
+            existing.scope_city = citizen.city
+            existing.scope_county = citizen.county
+    else:
+        db.add(CommentReaction(
+            comment_id=comment.id,
+            citizen_id=citizen.id,
+            kind=payload.kind,
+            scope_state=citizen.state,
+            scope_district=citizen.congressional_district,
+            scope_city=citizen.city,
+            scope_county=citizen.county,
+        ))
+
+    db.commit()
+    db.refresh(comment)
+    return _comment_reaction_summary(comment, me_citizen=citizen)
+
+
+@router.delete("/comments/{comment_id}/reactions", response_model=ReactionSummary)
+def clear_comment_reaction(
+    comment_id: int,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    comment = db.get(PostComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    existing = (
+        db.query(CommentReaction)
+        .filter(
+            CommentReaction.comment_id == comment.id,
+            CommentReaction.citizen_id == citizen.id,
+        )
+        .first()
+    )
+    if existing:
+        db.delete(existing)
+        db.commit()
+        db.refresh(comment)
+    return _comment_reaction_summary(comment, me_citizen=citizen)
+
+
+@router.post("/posts/{post_id}/comments", response_model=CommentRead, status_code=201)
+def create_comment(
+    post_id: int,
+    payload: CommentCreate,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    post = _load_post_or_404(db, post_id)
+    comment = PostComment(
+        post_id=post.id,
+        citizen_id=citizen.id,
+        citizen_display_name=citizen.display_name,
+        body=payload.body.strip(),
+        scope_state=citizen.state,
+        scope_district=citizen.congressional_district,
+        scope_city=citizen.city,
+        scope_county=citizen.county,
+    )
+    db.add(comment)
+    db.commit()
+    db.refresh(comment)
+    # New comment has no reactions yet — _comment_to_read handles that,
+    # and it gives the UI a consistent shape so it can drop the row
+    # into the list without special-casing "freshly-created" comments.
+    return _comment_to_read(comment, me_citizen=citizen)
+
+
+@router.delete("/comments/{comment_id}", status_code=204)
+def delete_comment(
+    comment_id: int,
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+):
+    """Soft-delete a comment. Allowed for the comment's author (the
+    citizen) or for the rep who owns the page the comment is on."""
+    comment = db.get(PostComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    is_author = me_citizen is not None and comment.citizen_id == me_citizen.id
+    is_page_owner = False
+    if me is not None:
+        post = db.get(Post, comment.post_id)
+        if post and post.official_id:
+            is_page_owner = me.official_id == post.official_id
+
+    if not (is_author or is_page_owner):
+        raise HTTPException(
+            status_code=403,
+            detail="Only the comment author or the page owner may delete.",
+        )
+
+    comment.deleted_at = datetime.utcnow()
+    db.commit()
+    return
+
+
+# ── Post image upload / serve ────────────────────────────────────────
+# Limits kept modest for the demo; bump them when we swap the disk
+# sink for S3. Content-type allow-list protects against trivially-
+# hostile uploads; magic-byte sniffing would be a nice belt-and-
+# suspenders addition for production.
+_ALLOWED_IMAGE_TYPES = {
+    "image/jpeg": "jpg",
+    "image/png":  "png",
+    "image/webp": "webp",
+}
+_MAX_IMAGE_BYTES = 5 * 1024 * 1024  # 5 MB per image
+_UPLOADS_DIR = Path(__file__).resolve().parent.parent.parent / "uploads" / "posts"
+
+
+def _ensure_uploads_dir() -> Path:
+    """Create the uploads directory the first time an image lands."""
+    _UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    return _UPLOADS_DIR
+
+
+@router.post("/images/upload", response_model=PostImageRead)
+async def upload_post_image(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    """Upload a single image as an unclaimed orphan.
+
+    Flow: rep uploads → gets {id, url} back → shows thumbnail in the
+    composer → on publish, sends image_ids to /posts to claim them.
+    Images not claimed within a post stay as orphans on disk; a future
+    janitor can sweep them.
+    """
+    ct = (file.content_type or "").lower()
+    if ct not in _ALLOWED_IMAGE_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail="Only JPEG, PNG, and WebP images are supported.",
+        )
+
+    # Read with a hard cap — UploadFile.read(size) returns up to `size`
+    # bytes but doesn't itself error at the limit, so we check and
+    # reject large payloads after the fact. Reading one byte past the
+    # limit is the canonical way to detect overrun without buffering
+    # the whole oversized stream.
+    data = await file.read(_MAX_IMAGE_BYTES + 1)
+    if len(data) > _MAX_IMAGE_BYTES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Image too large — max {_MAX_IMAGE_BYTES // 1024 // 1024} MB.",
+        )
+    if not data:
+        raise HTTPException(status_code=400, detail="Empty file.")
+
+    ext = _ALLOWED_IMAGE_TYPES[ct]
+    fname = f"{uuid.uuid4().hex}.{ext}"
+    target = _ensure_uploads_dir() / fname
+    try:
+        target.write_bytes(data)
+    except OSError as e:
+        logger.exception("Failed to write uploaded image to disk")
+        raise HTTPException(status_code=500, detail="Could not save image.") from e
+
+    img = PostImage(
+        uploader_id=rep.id,
+        filename=fname,
+        content_type=ct,
+        file_size=len(data),
+    )
+    db.add(img)
+    db.commit()
+    db.refresh(img)
+
+    return PostImageRead(
+        id=img.id,
+        url=f"/api/pages/images/{img.id}",
+        content_type=img.content_type,
+        sort_order=img.sort_order,
+    )
+
+
+@router.get("/images/{image_id}")
+def get_post_image(image_id: int, db: Session = Depends(get_db)):
+    """Stream an uploaded image's bytes. Public — once a post is
+    published anyone viewing the page should see its images. Orphan
+    images (still unclaimed by a post) are also fetchable by id, which
+    lets the composer render thumbnails straight after upload."""
+    img = db.get(PostImage, image_id)
+    if img is None:
+        raise HTTPException(status_code=404, detail="Image not found")
+    fpath = _UPLOADS_DIR / img.filename
+    if not fpath.exists():
+        raise HTTPException(status_code=404, detail="Image file missing on disk")
+    return FileResponse(fpath, media_type=img.content_type)
+
+
+# ── Authenticated: rep events ─────────────────────────────────────────
+@router.post("/{official_id}/events", response_model=RepEventRead, status_code=201)
+def create_rep_event(
+    official_id: str,
+    payload: RepEventCreate,
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    _assert_owns_page(rep, official_id)
+
+    evt = RepEvent(
+        author_id=rep.id,
+        official_id=official_id,
+        title=payload.title.strip(),
+        description=(payload.description or None),
+        location=(payload.location or None),
+        url=(payload.url or None),
+        start_at=payload.start_at,
+        end_at=payload.end_at,
+    )
+    db.add(evt)
+    db.commit()
+    db.refresh(evt)
+    return RepEventRead.model_validate(evt)
+
+
+@router.delete("/events/{event_id}", status_code=204)
+def delete_rep_event(
+    event_id: int,
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    evt = db.get(RepEvent, event_id)
+    if not evt or evt.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Event not found")
+    if evt.author_id != rep.id:
+        raise HTTPException(status_code=403, detail="You can only delete your own events")
+
+    evt.deleted_at = datetime.utcnow()
+    db.commit()
+    return
+
+
+# ── Owner dashboard (Step 7) ──────────────────────────────────────────
+def _apply_geo_filter(q, col_prefix_obj, scope: str, owner: RepAccount):
+    """Append a geography filter to an engagement query. `col_prefix_obj`
+    is the model class whose scope_* columns we filter on (PostReaction
+    / PostComment / PollVote). No-op for scope='country'.
+    """
+    if scope == "state" and owner.owner_state:
+        return q.filter(col_prefix_obj.scope_state == owner.owner_state)
+    if scope == "district" and owner.owner_district:
+        return q.filter(col_prefix_obj.scope_district == owner.owner_district)
+    if scope == "city" and owner.owner_city:
+        return q.filter(col_prefix_obj.scope_city == owner.owner_city)
+    return q
+
+
+def _body_preview(body: str, limit: int = 200) -> str:
+    body = (body or "").strip()
+    if len(body) <= limit:
+        return body
+    return body[:limit].rstrip() + "…"
+
+
+@router.get("/{official_id}/dashboard", response_model=PageDashboardResponse)
+def get_page_dashboard(
+    official_id: str,
+    scope: Optional[str] = Query(default=None),
+    db: Session = Depends(get_db),
+    rep: RepAccount = Depends(get_current_rep),
+):
+    """Owner-only engagement rollup across every post on this page.
+
+    Returns summary metrics, top 5 most-engaged posts, top 5 most-
+    active commenters, and a reactions breakdown. All engagement
+    counts respect the active scope; the unscoped 'country' path
+    returns everything.
+
+    Gated to the page owner (not just any authenticated rep) — so
+    Byron Donalds' rep account can pull D000032's dashboard but not
+    Ron DeSantis's, even though both are logged-in reps. This prevents
+    cross-page scraping of per-district engagement data.
+    """
+    owner = _load_owner(db, official_id)
+    if owner is None:
+        raise HTTPException(status_code=404, detail="Page is not claimed")
+    _assert_owns_page(rep, official_id)
+
+    active_scope = (scope or "country").lower()
+    if active_scope not in SCOPE_VALUES:
+        raise HTTPException(status_code=400, detail=f"Unknown scope '{active_scope}'")
+    # Silently demote to country when the owner's role doesn't support
+    # the requested scope (shouldn't happen from the UI but belt+suspenders).
+    allowed = _allowed_scopes_for_owner(owner)
+    if active_scope not in allowed:
+        active_scope = "country"
+
+    # Pre-fetch post ids once — every aggregation below is bounded to
+    # posts authored on this official's page.
+    posts = (
+        db.query(Post)
+        .filter(Post.official_id == official_id, Post.deleted_at.is_(None))
+        .all()
+    )
+    post_ids = [p.id for p in posts]
+    total_posts = len(posts)
+    if not post_ids:
+        # Short-circuit — no posts, no engagement possible.
+        return PageDashboardResponse(
+            official_id=official_id,
+            scope=active_scope,
+            scope_label=_scope_label(active_scope, owner),
+            summary=DashboardSummary(total_posts=0),
+            top_posts=[],
+            top_commenters=[],
+            reactions_breakdown=DashboardReactions(),
+        )
+
+    # ── Reactions per post (scoped) ──────────────────────────────────
+    r_q = (
+        db.query(PostReaction.post_id, PostReaction.kind, func.count(PostReaction.id))
+        .filter(PostReaction.post_id.in_(post_ids))
+    )
+    r_q = _apply_geo_filter(r_q, PostReaction, active_scope, owner)
+    r_rows = r_q.group_by(PostReaction.post_id, PostReaction.kind).all()
+    up_by_post: dict[int, int] = {}
+    down_by_post: dict[int, int] = {}
+    for post_id, kind, n in r_rows:
+        if kind == "up":
+            up_by_post[post_id] = n
+        elif kind == "down":
+            down_by_post[post_id] = n
+    total_up = sum(up_by_post.values())
+    total_down = sum(down_by_post.values())
+
+    # ── Comments per post (scoped, non-deleted only) ─────────────────
+    c_q = (
+        db.query(PostComment.post_id, func.count(PostComment.id))
+        .filter(PostComment.post_id.in_(post_ids), PostComment.deleted_at.is_(None))
+    )
+    c_q = _apply_geo_filter(c_q, PostComment, active_scope, owner)
+    comments_by_post: dict[int, int] = dict(
+        c_q.group_by(PostComment.post_id).all()
+    )
+    total_comments = sum(comments_by_post.values())
+
+    # ── Poll votes per post (scoped) ─────────────────────────────────
+    # Vote rows live on poll_votes, joined through polls to posts.
+    v_q = (
+        db.query(Poll.post_id, func.count(PollVote.id))
+        .join(PollVote, PollVote.poll_id == Poll.id)
+        .filter(Poll.post_id.in_(post_ids))
+    )
+    v_q = _apply_geo_filter(v_q, PollVote, active_scope, owner)
+    votes_by_post: dict[int, int] = dict(
+        v_q.group_by(Poll.post_id).all()
+    )
+    total_votes = sum(votes_by_post.values())
+
+    # ── Unique engaged citizens (scoped) ─────────────────────────────
+    # Citizens who reacted OR commented OR voted count once each. We
+    # union three scoped queries rather than one giant JOIN to keep
+    # each filter local to the relevant table.
+    def _engaged_citizen_ids(model) -> set[int]:
+        q = db.query(model.citizen_id).filter(model.citizen_id.isnot(None))
+        # All three engagement models are scoped by post_id via their
+        # relationship — restrict to this official's posts.
+        if model is PostComment:
+            q = q.filter(model.post_id.in_(post_ids), model.deleted_at.is_(None))
+        elif model is PostReaction:
+            q = q.filter(model.post_id.in_(post_ids))
+        elif model is PollVote:
+            # PollVote has no post_id; join through Poll.
+            q = (
+                db.query(PollVote.citizen_id)
+                .join(Poll, Poll.id == PollVote.poll_id)
+                .filter(Poll.post_id.in_(post_ids), PollVote.citizen_id.isnot(None))
+            )
+        q = _apply_geo_filter(q, model, active_scope, owner)
+        return {row[0] for row in q.all() if row[0] is not None}
+
+    engaged = (
+        _engaged_citizen_ids(PostReaction)
+        | _engaged_citizen_ids(PostComment)
+        | _engaged_citizen_ids(PollVote)
+    )
+
+    # ── Build per-post engagement summaries and rank ─────────────────
+    post_summaries: list[DashboardPostSummary] = []
+    for p in posts:
+        up = up_by_post.get(p.id, 0)
+        down = down_by_post.get(p.id, 0)
+        cc = comments_by_post.get(p.id, 0)
+        vc = votes_by_post.get(p.id, 0)
+        post_summaries.append(DashboardPostSummary(
+            post_id=p.id,
+            body_preview=_body_preview(p.body),
+            created_at=p.created_at,
+            up_count=up,
+            down_count=down,
+            comment_count=cc,
+            poll_vote_count=vc,
+            engagement_score=up + down + cc + vc,
+        ))
+
+    # Top posts by engagement score (descending). Break ties with
+    # created_at descending so the newer post wins — feels right in a
+    # social feed.
+    top_posts = sorted(
+        post_summaries,
+        key=lambda s: (s.engagement_score, s.created_at),
+        reverse=True,
+    )[:5]
+
+    # Most-liked / most-disliked. Only surface them when at least one
+    # reaction exists — otherwise the "most liked post" is an arbitrary
+    # tie among 0s.
+    most_liked = None
+    if total_up > 0:
+        most_liked = max(post_summaries, key=lambda s: (s.up_count, s.created_at))
+        if most_liked.up_count == 0:
+            most_liked = None
+    most_disliked = None
+    if total_down > 0:
+        most_disliked = max(post_summaries, key=lambda s: (s.down_count, s.created_at))
+        if most_disliked.down_count == 0:
+            most_disliked = None
+
+    # ── Top commenters (scoped) ──────────────────────────────────────
+    tc_q = (
+        db.query(
+            PostComment.citizen_id,
+            PostComment.citizen_display_name,
+            PostComment.scope_city,
+            PostComment.scope_district,
+            PostComment.scope_state,
+            func.count(PostComment.id).label("n"),
+        )
+        .filter(PostComment.post_id.in_(post_ids), PostComment.deleted_at.is_(None))
+    )
+    tc_q = _apply_geo_filter(tc_q, PostComment, active_scope, owner)
+    tc_rows = (
+        tc_q.group_by(
+            PostComment.citizen_id,
+            PostComment.citizen_display_name,
+            PostComment.scope_city,
+            PostComment.scope_district,
+            PostComment.scope_state,
+        )
+        .order_by(func.count(PostComment.id).desc())
+        .limit(5)
+        .all()
+    )
+    top_commenters = [
+        DashboardCommenter(
+            citizen_id=cid, display_name=name,
+            city=city, scope_district=dist, scope_state=state,
+            comment_count=n,
+        )
+        for cid, name, city, dist, state, n in tc_rows
+    ]
+
+    return PageDashboardResponse(
+        official_id=official_id,
+        scope=active_scope,
+        scope_label=_scope_label(active_scope, owner),
+        summary=DashboardSummary(
+            total_posts=total_posts,
+            total_reactions=total_up + total_down,
+            total_comments=total_comments,
+            total_poll_votes=total_votes,
+            unique_engaged_citizens=len(engaged),
+            reactions_net=total_up - total_down,
+        ),
+        top_posts=top_posts,
+        top_commenters=top_commenters,
+        reactions_breakdown=DashboardReactions(
+            up_total=total_up,
+            down_total=total_down,
+            most_liked_post=most_liked,
+            most_disliked_post=most_disliked,
+        ),
+    )

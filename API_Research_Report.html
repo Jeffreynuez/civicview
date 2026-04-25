@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civic Data API Research Report - US Political Tracking App</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a2e; background: #f8f9fa; padding: 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 2rem; color: #0d1b2a; margin-bottom: 0.5rem; }
+  .subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+  h2 { font-size: 1.5rem; color: #1b263b; margin: 2.5rem 0 1rem 0; border-bottom: 3px solid #415a77; padding-bottom: 0.5rem; }
+  h3 { font-size: 1.15rem; color: #1b263b; margin: 1.5rem 0 0.75rem 0; }
+  .card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #415a77; }
+  .card.free { border-left-color: #2d6a4f; }
+  .card.paid { border-left-color: #e76f51; }
+  .card.partial { border-left-color: #e9c46a; }
+  .card.critical { border-left-color: #d62828; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+  .badge.free { background: #d8f3dc; color: #1b4332; }
+  .badge.paid { background: #fde8e4; color: #9b2226; }
+  .badge.partial { background: #fef3cd; color: #856404; }
+  .badge.shutdown { background: #eee; color: #666; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #dee2e6; }
+  th { background: #e9ecef; font-weight: 600; color: #1b263b; }
+  tr:hover { background: #f8f9fa; }
+  .tag { display: inline-block; background: #e9ecef; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; margin: 2px; }
+  .summary-box { background: #0d1b2a; color: #e0e1dd; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+  .summary-box h2 { color: #e0e1dd; border-bottom-color: #778da9; }
+  .gap { color: #e76f51; font-weight: 600; }
+  .ok { color: #2d6a4f; font-weight: 600; }
+  .warn { color: #e9c46a; font-weight: 600; }
+  ul { margin: 0.5rem 0 0.5rem 1.5rem; }
+  li { margin-bottom: 0.4rem; }
+  a { color: #415a77; }
+  .tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 700px) { .tier-grid { grid-template-columns: 1fr; } }
+  .tier-box { background: #f1f3f5; border-radius: 8px; padding: 1rem; }
+  .tier-box h4 { margin-bottom: 0.5rem; }
+  .coverage-bar { height: 8px; background: #dee2e6; border-radius: 4px; margin: 4px 0 8px 0; }
+  .coverage-fill { height: 100%; border-radius: 4px; }
+  .rec { background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Civic Data API Research Report</h1>
+<p class="subtitle">US Political Tracking App &mdash; Research Phase 1 &mdash; April 2, 2026</p>
+
+<!-- ============================================ -->
+<h2>1. Federal-Level Data (Congress)</h2>
+
+<div class="card free">
+  <h3>Congress.gov API <span class="badge free">FREE</span></h3>
+  <p><strong>What it covers:</strong> Members of Congress (House &amp; Senate), bills, amendments, votes, nominations, treaties, committee reports, and summaries. This is now the official replacement for the retired ProPublica Congress API.</p>
+  <p><strong>Data includes:</strong> Member biographical info, party, state, sponsored/cosponsored legislation, voting records (including individual roll-call votes), bill text and status.</p>
+  <p><strong>Access:</strong> Free API key via <a href="https://api.data.gov/signup/">Data.gov</a>. Returns JSON or XML.</p>
+  <p><strong>Limits:</strong> Standard rate limits (1,000 requests/hour typical for free keys).</p>
+  <p><strong>Gaps:</strong> <span class="gap">No photos</span>. No local/state officials. Federal only.</p>
+  <p><a href="https://github.com/LibraryOfCongress/api.congress.gov">GitHub Documentation</a> | <a href="https://gpo.congress.gov/">API Portal</a></p>
+</div>
+
+<div class="card free">
+  <h3>United States Congress Images <span class="badge free">FREE / PUBLIC DOMAIN</span></h3>
+  <p><strong>What it covers:</strong> Headshot photos of all current and many past members of Congress.</p>
+  <p><strong>How it works:</strong> Photos hosted at predictable URLs by Bioguide ID:<br>
+  <code>https://unitedstates.github.io/images/congress/450x550/{bioguide_id}.jpg</code></p>
+  <p><strong>Source:</strong> Government Printing Office (public domain, CC0 dedication).</p>
+  <p><a href="https://github.com/unitedstates/images">GitHub Repository</a></p>
+</div>
+
+<div class="card free">
+  <h3>OpenFEC API (Campaign Finance) <span class="badge free">FREE</span></h3>
+  <p><strong>What it covers:</strong> Campaign contributions, expenditures, donor data, PAC information, and candidate financial filings for all federal races.</p>
+  <p><strong>Access:</strong> Free API key via <a href="https://api.open.fec.gov/developers/">api.open.fec.gov</a>.</p>
+  <p><strong>Useful for:</strong> Showing who funds candidates, financial transparency data.</p>
+  <p><a href="https://api.open.fec.gov/developers/">API Documentation</a></p>
+</div>
+
+<div class="card shutdown">
+  <h3>ProPublica Congress API <span class="badge shutdown">SHUT DOWN</span></h3>
+  <p>Shut down July 2024. No longer issuing API keys. ProPublica recommends migrating to Congress.gov API.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>2. State-Level Data (Governors, State Legislators)</h2>
+
+<div class="card free">
+  <h3>Open States / Plural API <span class="badge free">FREE (with limits)</span></h3>
+  <p><strong>What it covers:</strong> State legislators for all 50 states + DC + Puerto Rico. Includes bills, votes, committees, and legislator profiles.</p>
+  <p><strong>Data includes:</strong> Legislator names, party, district, contact info, committee assignments, bill sponsorship, vote records.</p>
+  <p><strong>Access:</strong> Free API key from <a href="https://open.pluralpolicy.com/">open.pluralpolicy.com</a>. Also offers bulk data downloads.</p>
+  <p><strong>Limits:</strong> Free tier designed for most users. Higher usage may require contact with Plural.</p>
+  <p><strong>Gaps:</strong> <span class="partial">Limited municipal coverage</span>. Does not cover sheriffs, judges, DAs, or school board members.</p>
+  <p><a href="https://docs.openstates.org/api-v3/">API v3 Documentation</a></p>
+</div>
+
+<!-- ============================================ -->
+<h2>3. Local-Level Data (The Hard Part)</h2>
+
+<div class="card paid">
+  <h3>Ballotpedia API <span class="badge paid">PAID (contact for pricing)</span></h3>
+  <p><strong>What it covers:</strong> The most comprehensive source for local political data. Covers ~15,000 political offices including state legislators, mayors, city council, sheriffs, judges, DAs, and school board members in select states.</p>
+  <p><strong>Data includes:</strong> Names, party, incumbency, biographical info, contact info, campaign websites, district maps, election dates.</p>
+  <p><strong>Down-ballot coverage (2026):</strong> AZ, AR, CA, DE, FL, GA, HI, ID, IL, IN, IA, KY, ME, MI, MN, MT, NV, NM (expanding).</p>
+  <p><strong>Cost:</strong> <span class="gap">Commercial pricing &mdash; must contact data@ballotpedia.org for rate card.</span> Likely $200-1000+/month depending on usage.</p>
+  <p><strong>Why this matters:</strong> This is the ONLY comprehensive source for local officials like sheriffs, judges, and DAs &mdash; exactly what your app needs.</p>
+  <p><a href="https://developer.ballotpedia.org">Developer Docs</a> | <a href="https://ballotpedia.org/Ballotpedia:Buy_Political_Data">Data Store</a></p>
+</div>
+
+<div class="card partial">
+  <h3>Google Civic Information API <span class="badge free">FREE</span> <span class="badge partial">PARTIAL DATA</span></h3>
+  <p><strong>What it covers:</strong> Address-based lookup of elected officials at all levels. Enter an address, get back officials from federal down to local.</p>
+  <p><strong>Data includes:</strong> Official names, office titles, party, contact info, photo URLs, social media links, websites.</p>
+  <p><strong>Limits:</strong> 25,000 queries/day free.</p>
+  <p><strong>CRITICAL CHANGE:</strong> <span class="gap">The Representatives API was turned down in April 2025.</span> The Elections and Divisions APIs continue to work. You can still look up elections and divisions by address, but direct representative lookups may be limited.</p>
+  <p><strong>Gaps:</strong> Coverage of local officials is inconsistent. Some districts have full data, others are empty.</p>
+  <p><a href="https://developers.google.com/civic-information">Documentation</a></p>
+</div>
+
+<div class="card paid">
+  <h3>CivicEngine API <span class="badge paid">PAID (pricing unclear)</span></h3>
+  <p><strong>What it covers:</strong> Election data and candidate info at all levels for jurisdictions with 5,000+ people. Federal, state, county, municipal, and school board races.</p>
+  <p><strong>Features:</strong> Query by address or lat/lng, voting locations, election dates.</p>
+  <p><strong>Cost:</strong> Contact required. No public free tier.</p>
+  <p><a href="https://developers.civicengine.com/">Developer Portal</a></p>
+</div>
+
+<div class="card paid">
+  <h3>BallotReady API <span class="badge paid">PAID</span></h3>
+  <p><strong>What it covers:</strong> Comprehensive ballot info including local races, candidate bios, and election logistics (polling places, early voting).</p>
+  <p><strong>Cost:</strong> Commercial API for organizations. Contact for pricing.</p>
+  <p><a href="https://organizations.ballotready.org/ballotready-api">API Info</a></p>
+</div>
+
+<!-- ============================================ -->
+<h2>4. Election &amp; Voting Data</h2>
+
+<div class="card free">
+  <h3>Google Civic Information API &mdash; Elections <span class="badge free">FREE</span></h3>
+  <p><strong>What it covers:</strong> Upcoming election dates, polling places, early voting locations, and ballot info (during supported election periods).</p>
+  <p><strong>Useful for:</strong> "What's on my ballot" feature, election date notifications, polling place finder.</p>
+</div>
+
+<div class="card paid">
+  <h3>Democracy Works Elections API <span class="badge paid">PAID</span></h3>
+  <p><strong>What it covers:</strong> Election data at all levels (federal to local), polling locations, and voter guidance. Powers TurboVote.</p>
+  <p><a href="https://data.democracy.works/api-info">API Documentation</a></p>
+</div>
+
+<div class="card free">
+  <h3>WhoBoughtMyRep API <span class="badge free">FREE TIER</span></h3>
+  <p><strong>What it covers:</strong> 538 members of Congress, 13.8M+ FEC donations, PAC data, voting records. Live 2026 election tracking.</p>
+  <p><strong>Access:</strong> Free tier with no credit card required.</p>
+  <p><a href="https://whoboughtmyrep.com/developers">Developer Portal</a></p>
+</div>
+
+<!-- ============================================ -->
+<h2>5. Map &amp; Geographic Data</h2>
+
+<div class="card free">
+  <h3>US Census Bureau TIGER/Line Shapefiles <span class="badge free">FREE / PUBLIC DOMAIN</span></h3>
+  <p><strong>What it covers:</strong> Official boundary data for congressional districts, state legislative districts, counties, cities, school districts, voting precincts, and more.</p>
+  <p><strong>Formats:</strong> Shapefile, KML, GeoPackage. Can be converted to GeoJSON.</p>
+  <p><strong>Latest:</strong> 2025 TIGER/Line files released September 2025 (boundaries as of January 1, 2025).</p>
+  <p><strong>This is essential for:</strong> Your interactive map with district-level zoom.</p>
+  <p><a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html">TIGER/Line Downloads</a> | <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html">Cartographic Boundary Files</a></p>
+</div>
+
+<h3>Map Library Recommendation</h3>
+<div class="rec">
+  <strong>Recommendation: Start with Leaflet, upgrade to MapLibre GL JS if needed.</strong>
+  <ul>
+    <li><strong>Leaflet</strong> &mdash; Free, open-source, 38KB bundle. Great for basic interactive maps. No usage limits.</li>
+    <li><strong>MapLibre GL JS</strong> &mdash; Free, open-source fork of Mapbox GL JS. GPU-accelerated, handles large datasets (1000+ features) at 60fps. Best default for new projects in 2026.</li>
+    <li><strong>Mapbox</strong> &mdash; 50,000 free map loads/month, then paid. Beautiful tiles but vendor lock-in.</li>
+  </ul>
+  <p>For your app with 400+ congressional districts plus state/local boundaries, <strong>MapLibre GL JS is the sweet spot</strong> &mdash; free, performant, and handles the data volume.</p>
+</div>
+
+<!-- ============================================ -->
+<div class="summary-box">
+<h2>6. Coverage Gap Analysis</h2>
+
+<table>
+  <tr>
+    <th>Data Need</th>
+    <th>Free Source Available?</th>
+    <th>Coverage</th>
+  </tr>
+  <tr>
+    <td>US Congress members (names, party, votes, bills)</td>
+    <td style="color:#2d6a4f;">Congress.gov API</td>
+    <td style="color:#2d6a4f;">Complete</td>
+  </tr>
+  <tr>
+    <td>Congress member photos</td>
+    <td style="color:#2d6a4f;">unitedstates/images (GitHub)</td>
+    <td style="color:#2d6a4f;">Complete</td>
+  </tr>
+  <tr>
+    <td>Campaign finance data</td>
+    <td style="color:#2d6a4f;">OpenFEC + WhoBoughtMyRep</td>
+    <td style="color:#2d6a4f;">Complete</td>
+  </tr>
+  <tr>
+    <td>State legislators</td>
+    <td style="color:#2d6a4f;">Open States / Plural</td>
+    <td style="color:#2d6a4f;">Complete (all 50 states)</td>
+  </tr>
+  <tr>
+    <td>District/state boundary maps</td>
+    <td style="color:#2d6a4f;">Census TIGER/Line</td>
+    <td style="color:#2d6a4f;">Complete</td>
+  </tr>
+  <tr>
+    <td>Election dates &amp; polling places</td>
+    <td style="color:#e9c46a;">Google Civic (elections only)</td>
+    <td style="color:#e9c46a;">Partial (only during active elections)</td>
+  </tr>
+  <tr>
+    <td>Governors</td>
+    <td style="color:#e9c46a;">Google Civic / manual</td>
+    <td style="color:#e9c46a;">Possible but needs assembly</td>
+  </tr>
+  <tr>
+    <td>Sheriffs, Judges, DAs</td>
+    <td style="color:#e76f51;">Ballotpedia (paid) only</td>
+    <td style="color:#e76f51;">Major gap with free sources</td>
+  </tr>
+  <tr>
+    <td>School board members</td>
+    <td style="color:#e76f51;">Ballotpedia (paid) only</td>
+    <td style="color:#e76f51;">Major gap with free sources</td>
+  </tr>
+  <tr>
+    <td>Local candidate photos</td>
+    <td style="color:#e76f51;">No free source</td>
+    <td style="color:#e76f51;">Major gap</td>
+  </tr>
+  <tr>
+    <td>Criminal history of officials</td>
+    <td style="color:#e76f51;">No API exists</td>
+    <td style="color:#e76f51;">Would require manual research</td>
+  </tr>
+  <tr>
+    <td>Education history of officials</td>
+    <td style="color:#e76f51;">No API exists</td>
+    <td style="color:#e76f51;">Would require manual research</td>
+  </tr>
+</table>
+</div>
+
+<!-- ============================================ -->
+<h2>7. Estimated Monthly Costs</h2>
+
+<table>
+  <tr><th>Service</th><th>Free Tier</th><th>Estimated Paid Cost</th></tr>
+  <tr><td>Congress.gov API</td><td>Free</td><td>$0</td></tr>
+  <tr><td>Congress Photos (GitHub)</td><td>Free</td><td>$0</td></tr>
+  <tr><td>OpenFEC API</td><td>Free</td><td>$0</td></tr>
+  <tr><td>Open States / Plural</td><td>Free tier</td><td>$0 (may need upgrade later)</td></tr>
+  <tr><td>Google Civic Info API</td><td>25,000 queries/day</td><td>$0</td></tr>
+  <tr><td>Census TIGER/Line data</td><td>Free download</td><td>$0</td></tr>
+  <tr><td>MapLibre GL JS</td><td>Free (open source)</td><td>$0</td></tr>
+  <tr><td>Web Hosting (Vercel/Netlify)</td><td>Free tier</td><td>$0-20/mo if exceeds limits</td></tr>
+  <tr><td>Backend Server (Railway/Render)</td><td>Free tier</td><td>$5-25/mo</td></tr>
+  <tr><td>Database (Supabase/PlanetScale)</td><td>Free tier</td><td>$0-25/mo</td></tr>
+  <tr style="font-weight:bold; background:#f1f3f5;">
+    <td>TOTAL (Free Sources Only)</td><td></td><td>$5-70/month</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<h2>8. Recommended Strategy</h2>
+
+<div class="card free">
+  <h3>Phase 1 Prototype: Build with Free Data</h3>
+  <p>For the 2-3 month prototype, we can build a fully functional app covering <strong>federal and state officials</strong> using entirely free APIs. This gives you Congress members, state legislators, voting records, bills, campaign finance, and full interactive maps &mdash; which is already more than most civic apps offer.</p>
+</div>
+
+<div class="card partial">
+  <h3>Phase 2: Fill Local Gaps</h3>
+  <p>For sheriffs, judges, DAs, and school board members, the options are:</p>
+  <ul>
+    <li><strong>Option A:</strong> Contact Ballotpedia for API pricing (likely the best comprehensive source).</li>
+    <li><strong>Option B:</strong> Start with a single state (yours) and manually curate local data as proof-of-concept.</li>
+    <li><strong>Option C:</strong> Build a community contribution system where local users can submit/verify data (long-term).</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Key Decisions Needed</h3>
+  <ul>
+    <li>Do we start with federal + state data only, or attempt local from day one?</li>
+    <li>Which state should be the pilot for local-level testing?</li>
+    <li>Should criminal/education history be a later phase (since no API exists)?</li>
+  </ul>
+</div>
+
+<p style="margin-top: 2rem; color: #888; font-size: 0.9rem;">Research compiled April 2, 2026. API availability and pricing may change.</p>
+
+</div>
+</body>
+</html>

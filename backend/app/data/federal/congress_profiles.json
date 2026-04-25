@@ -1,0 +1,263 @@
+{
+  "S000033": {
+    "top_issues": [
+      {"name": "Healthcare", "stance": "Medicare-for-all advocate; sponsored universal healthcare legislation and sponsored the Medicare for All Act multiple times."},
+      {"name": "Income Inequality", "stance": "Leading voice on wealth gap; consistently advocates for raising minimum wage and expanding social safety net programs."},
+      {"name": "Climate Action", "stance": "Co-chairs Senate Climate Caucus; sponsor of Green New Deal framework and aggressive emissions reduction legislation."},
+      {"name": "Criminal Justice Reform", "stance": "Advocates for ending mass incarceration; sponsored bills to reduce sentencing disparities and reform policing."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, Vermont", "from": "2007", "to": "Present"},
+      {"role": "U.S. Representative, Vermont", "from": "1991", "to": "2007"},
+      {"role": "Mayor, Burlington, VT", "from": "1981", "to": "1989"}
+    ]
+  },
+  "W000817": {
+    "top_issues": [
+      {"name": "Consumer Protection", "stance": "Founded Consumer Financial Protection Bureau; author of bankruptcy reform and consumer rights legislation."},
+      {"name": "Healthcare", "stance": "Supports Medicare-for-all expansion; authored pricing transparency and prescription drug cost reduction bills."},
+      {"name": "Student Debt Relief", "stance": "Advocate for student loan forgiveness and expanded income-driven repayment programs."},
+      {"name": "Childcare Access", "stance": "Sponsor of universal childcare proposals; advocates for substantial federal childcare investment."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, Massachusetts", "from": "2013", "to": "Present"},
+      {"role": "Harvard Law School Professor", "from": "1992", "to": "2011"},
+      {"role": "Bankruptcy Law Expert and Legal Scholar", "from": "1980", "to": "1992"}
+    ]
+  },
+  "C001098": {
+    "top_issues": [
+      {"name": "Constitutional Law", "stance": "Originalist perspective; author of legislation defending First Amendment rights and constitutional limits on federal power."},
+      {"name": "Immigration", "stance": "Advocates strict border enforcement and reduced immigration levels; sponsored border security legislation."},
+      {"name": "Second Amendment", "stance": "Strong Second Amendment advocate; opposes gun control measures and supports constitutional carry principles."},
+      {"name": "Tax Reform", "stance": "Supports flat tax proposals and substantial tax cuts; opposes estate tax and progressive taxation increases."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, Texas", "from": "2013", "to": "Present"},
+      {"role": "U.S. Representative, Texas", "from": "2013", "to": "2013"},
+      {"role": "Solicitor General, State of Texas", "from": "2003", "to": "2008"}
+    ]
+  },
+  "O000172": {
+    "top_issues": [
+      {"name": "Climate Justice", "stance": "Co-sponsor of Green New Deal; advocates bold federal action on emissions reduction and environmental justice."},
+      {"name": "Healthcare", "stance": "Medicare-for-all supporter; co-sponsors prescription drug pricing and healthcare access legislation."},
+      {"name": "Economic Justice", "stance": "Advocates for federal jobs guarantee, housing as a right, and wealth redistribution measures."},
+      {"name": "Immigration", "stance": "Opposes border wall funding; advocates sanctuary city support and pathway to citizenship for undocumented immigrants."},
+      {"name": "Student Debt", "stance": "Supports full student debt cancellation and tuition-free public higher education."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, New York (14th District)", "from": "2019", "to": "Present"},
+      {"role": "Community Organizer and Educator", "from": "2011", "to": "2018"},
+      {"role": "Bartender and Waitress", "from": "2008", "to": "2018"}
+    ]
+  },
+  "S000148": {
+    "top_issues": [
+      {"name": "Government Funding", "stance": "Senate Democratic Leader; negotiates federal spending levels and defends social programs in appropriations."},
+      {"name": "Democracy Protection", "stance": "Advocate for voting rights expansion; supports campaign finance reform and protections against voter suppression."},
+      {"name": "Healthcare", "stance": "Defends Affordable Care Act; advocates for prescription drug negotiation and mental health parity."},
+      {"name": "Infrastructure", "stance": "Champion of infrastructure investment; shaped Bipartisan Infrastructure Law and broadband expansion."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, New York", "from": "1999", "to": "Present"},
+      {"role": "Senate Democratic Leader", "from": "2021", "to": "Present"},
+      {"role": "U.S. Representative, New York", "from": "1975", "to": "1999"}
+    ]
+  },
+  "S001217": {
+    "top_issues": [
+      {"name": "Border Security", "stance": "Advocates strict immigration enforcement and border wall construction; opposed asylum expansions."},
+      {"name": "Government Efficiency", "stance": "Supports significant federal spending cuts and private sector solutions to government services."},
+      {"name": "Law and Order", "stance": "Pro-law enforcement positions; opposes defunding police and supports tough-on-crime legislation."},
+      {"name": "Business Growth", "stance": "Backs lower corporate tax rates and deregulation to encourage business expansion."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, Florida", "from": "2019", "to": "Present"},
+      {"role": "Governor, Florida", "from": "2011", "to": "2019"},
+      {"role": "Chief Financial Officer, Florida", "from": "2011", "to": "2019"}
+    ]
+  },
+  "J000294": {
+    "top_issues": [
+      {"name": "Voting Rights", "stance": "Advocates aggressive voting rights protection; supports expansions of early and mail-in voting."},
+      {"name": "Criminal Justice Reform", "stance": "Co-leads police accountability efforts; supports sentencing reform and prosecution accountability measures."},
+      {"name": "Education", "stance": "Advocates increased funding for underserved schools and programs in Black communities."},
+      {"name": "Economic Development", "stance": "Focuses on closing racial wealth gaps through targeted investment and small business support."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, New York (13th District)", "from": "2013", "to": "Present"},
+      {"role": "House Democratic Leader", "from": "2023", "to": "Present"},
+      {"role": "New York State Assemblyman", "from": "2006", "to": "2013"}
+    ]
+  },
+  "J000299": {
+    "top_issues": [
+      {"name": "Government Oversight", "stance": "Chairs House Oversight Committee; pursues investigations into executive branch conduct and agency performance."},
+      {"name": "Fiscal Responsibility", "stance": "Advocates significant federal spending reductions and constitutional balanced budget requirements."},
+      {"name": "Election Integrity", "stance": "Promoted claims about election security concerns; supports voter ID and signature matching requirements."},
+      {"name": "Constitutional Authority", "stance": "Emphasizes congressional authority and limitations on executive power."}
+    ],
+    "experience": [
+      {"role": "Speaker of the House", "from": "2023", "to": "Present"},
+      {"role": "U.S. Representative, Louisiana (4th District)", "from": "2007", "to": "Present"},
+      {"role": "Louisiana State Representative", "from": "2004", "to": "2008"}
+    ]
+  },
+  "P000197": {
+    "top_issues": [
+      {"name": "Healthcare", "stance": "Defensive advocate for Affordable Care Act; supports Medicare expansion and drug price negotiation."},
+      {"name": "Democracy Protection", "stance": "Pro-voting rights; champions legislative protections against gerrymandering and voter suppression."},
+      {"name": "Climate Action", "stance": "Co-founder of House Climate Caucus; supports clean energy investments and emissions reduction."},
+      {"name": "Social Services", "stance": "Long-time advocate for Social Security and Medicare protection; opposes privatization efforts."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, California (11th District)", "from": "1987", "to": "Present"},
+      {"role": "Speaker of the House", "from": "2007", "to": "2011"},
+      {"role": "Speaker of the House", "from": "2019", "to": "2023"}
+    ]
+  },
+  "J000289": {
+    "top_issues": [
+      {"name": "Fiscal Conservative", "stance": "Advocates dramatic federal spending reductions and opposes government entitlement expansions."},
+      {"name": "Government Accountability", "stance": "Leads House Freedom Caucus; pursues aggressive investigations into executive and administrative actions."},
+      {"name": "Second Amendment", "stance": "Strong gun rights advocate; opposes gun control measures and supports constitutional carry."},
+      {"name": "Trump Administration Support", "stance": "Close ally in House; supportive of Trump policies and critical of potential prosecution."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Ohio (4th District)", "from": "2009", "to": "Present"},
+      {"role": "House Freedom Caucus Founder and Leader", "from": "2015", "to": "Present"},
+      {"role": "Lawyer and Small Business Owner", "from": "2001", "to": "2009"}
+    ]
+  },
+  "M000355": {
+    "top_issues": [
+      {"name": "Judicial Confirmations", "stance": "Prioritized confirming federal and Supreme Court judges; succeeded in reshaping judiciary with conservative appointees."},
+      {"name": "Tax Policy", "stance": "Led passage of 2017 Tax Cuts and Jobs Act; supports lower corporate tax rates and capital gains preferences."},
+      {"name": "Government Spending", "stance": "Generally opposes spending increases; advocates for deficit reduction through spending controls."},
+      {"name": "Healthcare", "stance": "Supports repeal or modification of Affordable Care Act; prefers market-based healthcare solutions."}
+    ],
+    "experience": [
+      {"role": "U.S. Senator, Kentucky", "from": "1985", "to": "Present"},
+      {"role": "Senate Republican Leader", "from": "2007", "to": "2021"},
+      {"role": "U.S. Representative, Kentucky", "from": "1977", "to": "1985"}
+    ]
+  },
+  "G001307": {
+    "top_issues": [
+      {"name": "Tourism and Hospitality", "stance": "Advocates for tourism industry recovery and small business support in hospitality sector."},
+      {"name": "Veterans Benefits", "stance": "Focuses on veterans healthcare access and benefits expansion."},
+      {"name": "Environmental Conservation", "stance": "Supports sustainable fishing and coastal conservation in Florida."},
+      {"name": "Healthcare Access", "stance": "Advocates for healthcare affordability and expansion of rural health services."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (13th District)", "from": "2021", "to": "Present"},
+      {"role": "Florida State House of Representatives", "from": "2017", "to": "2021"},
+      {"role": "Military Service and Business Owner", "from": "2007", "to": "2017"}
+    ]
+  },
+  "W000806": {
+    "top_issues": [
+      {"name": "Education Reform", "stance": "Supports school choice, charter schools, and education savings accounts."},
+      {"name": "Disability Rights", "stance": "Advocate for people with disabilities; supports expanded accessibility and services."},
+      {"name": "Healthcare", "stance": "Supports market-based healthcare solutions and pharmaceutical innovation."},
+      {"name": "Defense and National Security", "stance": "Strong defense advocate; supports military funding increases and strategic deterrence."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (5th District)", "from": "2009", "to": "Present"},
+      {"role": "Florida State House of Representatives", "from": "2000", "to": "2008"},
+      {"role": "Teacher and Special Educator", "from": "1987", "to": "2000"}
+    ]
+  },
+  "D000621": {
+    "top_issues": [
+      {"name": "Immigration", "stance": "Opposes sanctuary city policies; advocates strict border enforcement and deportation of undocumented immigrants."},
+      {"name": "Law and Order", "stance": "Pro-police; supports tough-on-crime legislation and opposes defunding police."},
+      {"name": "Healthcare", "stance": "Opposes Medicare-for-all; supports private market healthcare and choice."},
+      {"name": "Business Deregulation", "stance": "Advocates removal of environmental and labor regulations to ease business operations."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (3rd District)", "from": "2023", "to": "Present"},
+      {"role": "Miami-Dade County School Board Member", "from": "2020", "to": "2023"},
+      {"role": "Business Executive and Entrepreneur", "from": "2000", "to": "2023"}
+    ]
+  },
+  "M000309": {
+    "top_issues": [
+      {"name": "Defense and Military Strength", "stance": "Defense hawk; advocates increased military spending and aggressive foreign policy stance."},
+      {"name": "Government Accountability", "stance": "Pursues investigations of federal agencies and executive branch conduct."},
+      {"name": "Border Security", "stance": "Supports border wall and strict immigration enforcement."},
+      {"name": "Election Integrity", "stance": "Advocates voter ID requirements and election security measures."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (7th District)", "from": "2019", "to": "Present"},
+      {"role": "U.S. Army Officer and Military Strategist", "from": "2005", "to": "2017"},
+      {"role": "Military and Defense Consultant", "from": "2017", "to": "2018"}
+    ]
+  },
+  "S000535": {
+    "top_issues": [
+      {"name": "Social Safety Net", "stance": "Advocates for expanded Social Security benefits and Medicare protections."},
+      {"name": "Healthcare Access", "stance": "Supports affordable healthcare and prescription drug price negotiation."},
+      {"name": "Workers' Rights", "stance": "Pro-union; supports collective bargaining rights and worker protections."},
+      {"name": "Education Funding", "stance": "Advocates increased federal education funding and teacher support."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (20th District)", "from": "2013", "to": "Present"},
+      {"role": "Florida State House of Representatives", "from": "2008", "to": "2013"},
+      {"role": "Teacher and Education Advocate", "from": "1990", "to": "2008"}
+    ]
+  },
+  "F000462": {
+    "top_issues": [
+      {"name": "Gun Violence Prevention", "stance": "Supports universal background checks and red flag laws; advocates for gun safety measures."},
+      {"name": "Healthcare Access", "stance": "Supports Affordable Care Act expansion and Medicare option for all."},
+      {"name": "LGBTQ+ Rights", "stance": "Advocate for LGBTQ+ protections and equality; supports marriage equality and anti-discrimination legislation."},
+      {"name": "Clean Energy", "stance": "Supports clean energy investment and climate action measures."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (21st District)", "from": "2013", "to": "Present"},
+      {"role": "Florida State House of Representatives", "from": "2005", "to": "2013"},
+      {"role": "Community Organizer and Nonprofit Director", "from": "1995", "to": "2005"}
+    ]
+  },
+  "B001267": {
+    "top_issues": [
+      {"name": "Gun Violence Prevention", "stance": "Strong advocate for gun control measures including universal background checks and assault weapon restrictions."},
+      {"name": "Climate Action", "stance": "Co-chairs Sustainable Transportation Caucus; supports clean transportation and emissions reduction."},
+      {"name": "Healthcare Reform", "stance": "Supports healthcare cost containment and prescription drug price negotiation."},
+      {"name": "Tax Policy", "stance": "Advocates progressive taxation and closing tax loopholes for corporations and wealthy individuals."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (9th District)", "from": "2013", "to": "Present"},
+      {"role": "Democratic National Committee Vice Chair", "from": "2017", "to": "2021"},
+      {"role": "EMILY's List President", "from": "2014", "to": "2017"}
+    ]
+  },
+  "F001243": {
+    "top_issues": [
+      {"name": "District Representation", "stance": "Focus on constituent services and local economic development for South Florida communities."},
+      {"name": "Medicare and Social Security", "stance": "Protects entitlements from reduction; advocates for benefit expansions for seniors."},
+      {"name": "Business Support", "stance": "Supports small business advocacy and economic development in Florida."},
+      {"name": "Affordable Housing", "stance": "Advocates for housing affordability and community development."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (22nd District)", "from": "2019", "to": "Present"},
+      {"role": "Florida State Senate", "from": "2012", "to": "2019"},
+      {"role": "Business and Real Estate Executive", "from": "1990", "to": "2012"}
+    ]
+  },
+  "G001359": {
+    "top_issues": [
+      {"name": "Immigration Reform", "stance": "Advocates comprehensive immigration reform including pathways for documented workers and Dreamers."},
+      {"name": "Medicare and Seniors", "stance": "Focuses on protecting Social Security and Medicare for seniors."},
+      {"name": "Climate and Environment", "stance": "Supports environmental protection and clean energy transition."},
+      {"name": "Healthcare Expansion", "stance": "Supports affordable healthcare access and prescription drug price controls."}
+    ],
+    "experience": [
+      {"role": "U.S. Representative, Florida (28th District)", "from": "2013", "to": "Present"},
+      {"role": "Miami-Dade County School Board", "from": "2006", "to": "2013"},
+      {"role": "Educator and Community Advocate", "from": "1987", "to": "2006"}
+    ]
+  }
+}
