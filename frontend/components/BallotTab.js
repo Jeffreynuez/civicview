@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchElections, fetchBallotForAddress } from '@/lib/api';
 import useVoterInfo from '@/lib/useVoterInfo';
+import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
@@ -48,6 +49,11 @@ export default function BallotTab({
   onCompareToggle,
   compareIds,
   onNotify,
+  // Phase 4C structural: when a citizen is signed in, render the
+  // verified-voter status banner at the top. When null, falls back to
+  // the prior layout (no banner — visitors browsing a state's ballot
+  // out of curiosity don't need a "you're not registered" treatment).
+  citizen,
   // When set, BallotTab auto-opens the containing election + race and
   // scrolls/pulses the candidate row. Used by:
   //   - clicking the "On ballot" badge on a rep profile (focusCandidateId)
@@ -159,8 +165,22 @@ export default function BallotTab({
   }
   if (!view) return null;
 
+  // Voter status — derived from citizen prop. When the citizen is
+  // signed in and their state matches stateCode, treat as registered.
+  // When their state differs, this is the out-of-state-visitor case
+  // from the design (banner explaining they're browsing FL's ballot
+  // but verified for a different district). When citizen is null,
+  // we omit the banner entirely.
+  const voterStatus = citizen
+    ? (citizen.state === stateCode
+        ? { kind: 'registered',  district: citizen.congressional_district, state: citizen.state, city: citizen.city }
+        : { kind: 'out-of-state', district: citizen.congressional_district, state: citizen.state, browsing: stateCode })
+    : null;
+
   return (
     <div>
+      {voterStatus && <VoterStatusBanner status={voterStatus} />}
+
       {/* Mode toggle */}
       {hasPersonalGeo && (
         <div style={{
@@ -410,6 +430,47 @@ function ElectionCard({
 
       {open && (
         <div style={{ padding: '12px 12px 10px' }}>
+          {/* Closed-primary disclosure — load-bearing per the design
+              system (BallotTab review §2). Closed-primary states (FL,
+              NY, etc.) only let registered partisans vote in their
+              party's primary; voters not registered with a party see
+              a different ballot. The disclosure is non-removable and
+              always visible when a primary card is open. */}
+          {isPrimary && (
+            <div
+              style={{
+                marginBottom: 12,
+                padding: '10px 12px',
+                background: 'var(--cl-up-soft)',
+                border: '1px solid var(--cl-up-border)',
+                borderRadius: 'var(--cl-radius-lg)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 10,
+              }}
+            >
+              <span style={{ flexShrink: 0, color: 'var(--cl-up-text)', display: 'inline-flex' }}>
+                <CheckCircle size={16} active color="up" />
+              </span>
+              <div
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  fontSize: 'var(--cl-text-xs)',
+                  lineHeight: 'var(--cl-leading-snug)',
+                  color: 'var(--cl-up-text)',
+                }}
+              >
+                <strong>Closed primary.</strong> Most states only let
+                registered partisans vote in their party&rsquo;s primary.
+                If you&rsquo;re not registered with a party in
+                {stateCode ? ` ${stateCode}` : ' your state'}, you may
+                not see all races. Update your registration to switch
+                parties before the deadline.
+              </div>
+            </div>
+          )}
+
           {/* Key dates for this election */}
           {election.keyDates && election.keyDates.length > 0 && (
             <div style={{
@@ -775,6 +836,20 @@ function toCandidateMember(candidate, race, stateCode, electionPhase) {
 function MeasureCard({ measure }) {
   const [expanded, setExpanded] = useState(false);
   const levelColor = measure.level === 'state' ? '#2a9d8f' : '#e76f51';
+  // Leaning preference — read once on mount, then subscribe so cross-tab
+  // and same-tab updates stay synced. Stored in localStorage by
+  // lib/leaningPrefs; backend never sees these.
+  const measureId = measure.id || `${measure.level}-${measure.number || measure.title}`;
+  const [lean, setLeanState] = useState(null);
+  useEffect(() => {
+    setLeanState(getLean(measureId));
+    const unsub = subscribeLean(() => setLeanState(getLean(measureId)));
+    return unsub;
+  }, [measureId]);
+  const handleLean = (next) => {
+    const result = setLean(measureId, next);
+    setLeanState(result);
+  };
   return (
     <div
       style={{
@@ -802,6 +877,31 @@ function MeasureCard({ measure }) {
             {measure.number && <span style={{ color: 'var(--cl-accent)' }}>{measure.number}: </span>}
             {measure.title}
           </div>
+          {/* Leaning chip — only shown when the user has actively leaned.
+              Per design system: "LEANING YES · PRIVATE TO YOU" + the
+              microcopy below the chip make clear this is private to the
+              device and never recorded as a real vote. */}
+          {lean && (
+            <div
+              style={{
+                marginTop: 6,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '2px 8px',
+                fontSize: 'var(--cl-text-2xs)',
+                fontWeight: 700,
+                borderRadius: 'var(--cl-radius-pill)',
+                background: lean === 'yes' ? 'var(--cl-accent-soft)' : 'var(--cl-warning-soft)',
+                color: lean === 'yes' ? 'var(--cl-accent)' : 'var(--cl-warning-text)',
+                border: `1px solid ${lean === 'yes' ? 'var(--cl-accent)' : 'var(--cl-warning-border)'}`,
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--cl-tracking-wide)',
+              }}
+            >
+              {lean === 'yes' ? 'Leaning yes' : 'Leaning no'} · Private to you
+            </div>
+          )}
         </div>
         <button
           onClick={() => setExpanded((v) => !v)}
@@ -813,6 +913,56 @@ function MeasureCard({ measure }) {
         >
           {expanded ? 'Hide' : 'Details'}
         </button>
+      </div>
+
+      {/* "How would you vote?" — the private leaning toggle. Two-button
+          row sits below the title in the always-visible portion of the
+          card so users can lean without expanding details. Click the
+          same option again to clear. */}
+      <div
+        style={{
+          marginTop: 10,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          flexWrap: 'wrap',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 'var(--cl-text-2xs)',
+            color: 'var(--cl-text-muted)',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: 'var(--cl-tracking-wide)',
+          }}
+        >
+          How would you vote?
+        </span>
+        <LeanButton
+          active={lean === 'yes'}
+          tone="accent"
+          onClick={() => handleLean('yes')}
+        >
+          Lean Yes
+        </LeanButton>
+        <LeanButton
+          active={lean === 'no'}
+          tone="warning"
+          onClick={() => handleLean('no')}
+        >
+          Lean No
+        </LeanButton>
+        <span
+          style={{
+            fontSize: 'var(--cl-text-2xs)',
+            color: 'var(--cl-text-muted)',
+            fontStyle: 'italic',
+            marginLeft: 'auto',
+          }}
+        >
+          Private to your device · never sent
+        </span>
       </div>
 
       {expanded && (
@@ -867,6 +1017,137 @@ function SupportOppose({ label, items, color }) {
 }
 
 // ─── Bits ────────────────────────────────────────────────────────────
+// ─── Voter status banner ────────────────────────────────────────────
+// Sits at the top of BallotTab when a citizen is signed in. Two
+// variants from the design:
+//   - kind: 'registered'   — accent-soft tinted card, check-circle
+//                            icon, "You're registered to vote in FL-19"
+//   - kind: 'out-of-state' — warning-soft tinted card, warning-circle,
+//                            "You're not verified to vote in FL"
+function VoterStatusBanner({ status }) {
+  if (status.kind === 'out-of-state') {
+    return (
+      <div
+        style={{
+          marginBottom: 12,
+          padding: '12px 14px',
+          background: 'var(--cl-warning-soft)',
+          border: '1px solid var(--cl-warning-border)',
+          borderRadius: 'var(--cl-radius-xl)',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: 10,
+        }}
+      >
+        <span style={{ flexShrink: 0, color: 'var(--cl-warning-text)', display: 'inline-flex' }}>
+          <WarningCircle size={20} active color="warning" />
+        </span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 'var(--cl-text-sm)',
+              fontWeight: 700,
+              color: 'var(--cl-warning-text)',
+            }}
+          >
+            You&rsquo;re not verified to vote in {status.browsing}
+          </div>
+          <div
+            style={{
+              fontSize: 'var(--cl-text-xs)',
+              color: 'var(--cl-warning-text)',
+              marginTop: 2,
+              lineHeight: 'var(--cl-leading-snug)',
+            }}
+          >
+            This is {status.browsing}&rsquo;s ballot. Your verified district
+            is {status.district || status.state}.
+          </div>
+        </div>
+      </div>
+    );
+  }
+  // registered
+  return (
+    <div
+      style={{
+        marginBottom: 12,
+        padding: '12px 14px',
+        background: 'var(--cl-accent-soft)',
+        border: '1px solid var(--cl-success-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 10,
+      }}
+    >
+      <span style={{ flexShrink: 0, color: 'var(--cl-accent)', display: 'inline-flex' }}>
+        <CheckCircle size={20} active color="accent" />
+      </span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: 'var(--cl-text-sm)',
+            fontWeight: 700,
+            color: 'var(--cl-text)',
+          }}
+        >
+          You&rsquo;re registered to vote in {status.district || status.state}
+        </div>
+        <div
+          style={{
+            fontSize: 'var(--cl-text-xs)',
+            color: 'var(--cl-text-light)',
+            marginTop: 2,
+            lineHeight: 'var(--cl-leading-snug)',
+          }}
+        >
+          {[status.city, status.state].filter(Boolean).join(', ')}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LeanButton({ active, tone, onClick, children }) {
+  // Toggle button for ballot-measure leaning preferences. tone='accent'
+  // for Yes (accent-green palette), tone='warning' for No (yellow
+  // palette — neutral, not destructive). Active flips to filled,
+  // inactive shows hairline outline.
+  const palette = tone === 'warning'
+    ? {
+        active: { bg: 'var(--cl-warning-soft)', color: 'var(--cl-warning-text)', border: 'var(--cl-warning-border)' },
+        idle:   { bg: 'transparent', color: 'var(--cl-text-light)', border: 'var(--cl-border)' },
+      }
+    : {
+        active: { bg: 'var(--cl-accent-soft)', color: 'var(--cl-accent)', border: 'var(--cl-accent)' },
+        idle:   { bg: 'transparent', color: 'var(--cl-text-light)', border: 'var(--cl-border)' },
+      };
+  const p = active ? palette.active : palette.idle;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        height: 26,
+        padding: '0 12px',
+        borderRadius: 'var(--cl-radius-pill)',
+        background: p.bg,
+        color: p.color,
+        border: `1px solid ${p.border}`,
+        fontSize: 'var(--cl-text-xs)',
+        fontWeight: 700,
+        fontFamily: 'var(--cl-font-sans)',
+        cursor: 'pointer',
+        transition: 'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard), color var(--cl-duration-fast) var(--cl-ease-standard)',
+      }}
+    >
+      {active && '✓ '}
+      {children}
+    </button>
+  );
+}
+
 function ModeChip({ active, onClick, children }) {
   return (
     <button

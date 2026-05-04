@@ -669,6 +669,7 @@ export default function Home() {
             onOpenPage={handleOpenPage}
             onRequestVerify={handleCitizenLoginOpen}
             onStatePick={handleStateSelect}
+            citizen={citizen}
           />
         )}
       </div>

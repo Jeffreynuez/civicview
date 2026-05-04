@@ -125,6 +125,11 @@ export default function SidePanel({
   // the parent's existing state-selection flow (same handler used by
   // MapView clicks).
   onStatePick,
+  // Phase 4C: BallotTab voter-status banner reads the current citizen
+  // for the registered/out-of-state variant. Forwarded transparently
+  // — null when no citizen is signed in, in which case the banner is
+  // omitted.
+  citizen,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -490,6 +495,7 @@ export default function SidePanel({
             onCompareToggle={onCandidateCompareToggle}
             compareIds={compareCandidateIds}
             onNotify={onNotify}
+            citizen={citizen}
             focusCandidateId={focusCandidateId}
             onFocusCandidateConsumed={onFocusCandidateConsumed}
             highlightCandidateId={highlightCandidateId}
