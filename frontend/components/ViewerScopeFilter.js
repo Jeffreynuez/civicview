@@ -1,43 +1,32 @@
 'use client';
 
+import { ScopeCountry, ScopeState, ScopeDistrict, ScopeCity } from './ui';
+
 /**
  * Viewer-side poll filter. Shown to every non-owner visitor (citizens
  * and anonymous browsers) so they can re-slice poll results across the
- * rep's allowed geographic scopes — see what their fellow district
- * thinks, vs. statewide, vs. nationwide.
+ * rep's allowed geographic scopes.
  *
  * Unlike OwnerScopeFilter this only affects poll vote counts. Reaction
  * and comment totals stay country-wide for non-owners; that's enforced
  * server-side to prevent brigade dynamics.
  *
- * UX contract:
- *   • No scope picked → backend returns each poll at its author's
- *     default_visibility_scope (the "base view" the rep set). The
- *     filter UI reflects this by leaving no chip active and showing a
- *     small note explaining what's happening.
- *   • Scope picked → all polls on the page render at that scope. A
- *     "Reset" link appears that clears the override.
- *   • Chip set is driven entirely by payload.allowed_engagement_scopes
- *     — a senator's viewers only see Country + State because
- *     "District" doesn't map to anything for a statewide office.
+ * Phase 3B: emoji scope glyphs replaced with custom navy SVGs.
  *
  * Props:
  *   scopes    — string[] from PageResponse.allowed_engagement_scopes.
- *               Hidden when <= 1 (country-only pages have nothing to
- *               slice).
- *   labels    — { [scope]: human-label } from PageResponse.engagement_scope_labels.
- *   value     — currently-selected scope ('country'/'state'/'district'/'city')
- *               or null when following the author's default.
- *   ownerName — displayed in the helper text so the viewer knows whose
- *               defaults they're looking at.
- *   onChange(next) — string|null. String = override, null = reset to
- *                    author's default.
+ *               Hidden when <= 1.
+ *   labels    — { [scope]: human-label }
+ *   value     — currently-selected scope or null when following the
+ *               author's default.
+ *   ownerName — displayed in the helper text.
+ *   onChange(next) — string|null. String = override, null = reset.
  */
 const SCOPE_META = {
-  country:  { icon: '🇺🇸', name: 'Country' },
-  state:    { icon: '📍', name: 'State' },
-  district: { icon: '🎯', name: 'District' },
-  city:     { icon: '🏙',  name: 'City' },
+  country:  { Icon: ScopeCountry,  name: 'Country' },
+  state:    { Icon: ScopeState,    name: 'State' },
+  district: { Icon: ScopeDistrict, name: 'District' },
+  city:     { Icon: ScopeCity,     name: 'City' },
 };
 
 export default function ViewerScopeFilter({
@@ -50,39 +39,44 @@ export default function ViewerScopeFilter({
   return (
     <div
       style={{
-        // Pin to the top of the scrolling feed column so the filter
-        // stays reachable as the viewer reads down the post list —
-        // same behavior as OwnerScopeFilter. `top: 0` anchors it to
-        // the top of the nearest scroll container (PageView's inner
-        // content div), and z-index sits above post cards.
         position: 'sticky', top: 0, zIndex: 5,
-        background: 'white',
-        border: '1px solid var(--border)',
-        borderRadius: '12px',
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
         padding: '10px 14px',
-        marginBottom: '12px',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+        marginBottom: 12,
+        boxShadow: 'var(--cl-shadow-sticky)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
-          <span
-            style={{
-              fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.06em',
-              color: 'var(--text-light)', textTransform: 'uppercase',
-            }}
-          >
-            Poll view
-          </span>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>
-            See how the poll looks at each level of {ownerName ? ownerName + "'s" : 'the rep\u2019s'} jurisdiction
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 10,
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+          <span className="cl-eyebrow">Poll view</span>
+          <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
+            See how the poll looks at each level of{' '}
+            {ownerName ? `${ownerName}'s` : 'the rep’s'} jurisdiction
           </span>
         </div>
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 6,
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
           {scopes.map((s) => {
             const active = overriding && s === value;
-            const meta = SCOPE_META[s] || { icon: '•', name: s };
+            const meta = SCOPE_META[s] || { name: s, Icon: null };
             const label = labels?.[s];
+            const { Icon } = meta;
             return (
               <button
                 key={s}
@@ -90,26 +84,41 @@ export default function ViewerScopeFilter({
                 onClick={() => onChange(s)}
                 title={label ? `${meta.name}: ${label}` : meta.name}
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
                   padding: '6px 12px',
-                  borderRadius: '999px',
-                  border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-                  background: active ? 'var(--accent)' : 'white',
-                  color: active ? 'white' : 'var(--text)',
-                  fontSize: '0.78rem',
+                  height: 30,
+                  borderRadius: 'var(--cl-radius-pill)',
+                  border: `1px solid ${active ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+                  background: active ? 'var(--cl-accent)' : 'var(--cl-card)',
+                  color: active ? 'var(--cl-text-on-dark)' : 'var(--cl-text)',
+                  fontSize: 'var(--cl-text-sm)',
                   fontWeight: active ? 700 : 500,
+                  fontFamily: 'var(--cl-font-sans)',
                   cursor: 'pointer',
-                  transition: 'background 0.15s, border-color 0.15s, color 0.15s',
+                  transition:
+                    'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard), color var(--cl-duration-fast) var(--cl-ease-standard)',
                 }}
               >
-                <span aria-hidden="true">{meta.icon}</span>
+                {Icon && (
+                  <Icon
+                    size={14}
+                    active={active}
+                    color={active ? 'onDark' : 'default'}
+                  />
+                )}
                 {meta.name}
                 {label && active && (
-                  <span style={{
-                    fontSize: '0.66rem', fontWeight: 700,
-                    padding: '1px 6px', borderRadius: '8px',
-                    background: 'rgba(255,255,255,0.22)',
-                  }}>
+                  <span
+                    style={{
+                      fontSize: 'var(--cl-text-2xs)',
+                      fontWeight: 700,
+                      padding: '1px 6px',
+                      borderRadius: 'var(--cl-radius-md)',
+                      background: 'rgba(255,255,255,0.22)',
+                    }}
+                  >
                     {label}
                   </span>
                 )}
@@ -122,9 +131,14 @@ export default function ViewerScopeFilter({
               onClick={() => onChange(null)}
               title="Go back to the view the author chose"
               style={{
-                background: 'transparent', border: 'none',
-                color: 'var(--accent)', fontSize: '0.74rem', fontWeight: 600,
-                cursor: 'pointer', padding: '4px 6px',
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--cl-accent)',
+                fontSize: 'var(--cl-text-xs)',
+                fontWeight: 600,
+                cursor: 'pointer',
+                padding: '4px 6px',
+                fontFamily: 'var(--cl-font-sans)',
               }}
             >
               Reset
@@ -134,8 +148,10 @@ export default function ViewerScopeFilter({
       </div>
       <div
         style={{
-          fontSize: '0.7rem', color: 'var(--text-light)',
-          marginTop: '6px', fontStyle: 'italic',
+          fontSize: 'var(--cl-text-2xs)',
+          color: 'var(--cl-text-light)',
+          marginTop: 6,
+          fontStyle: 'italic',
         }}
       >
         {overriding

@@ -306,6 +306,104 @@ export const X = (props) => (
 );
 
 // ─────────────────────────────────────────────────────────────────
+// Scope chip glyphs — custom navy glyphs (per design system spec,
+// NOT emoji). Used in OwnerScopeFilter / ViewerScopeFilter and the
+// poll scope picker on PollCard.
+//
+// All four match the same duotone treatment as the rest of the
+// icon family. Active scope flips white-on-accent-green; the
+// IconBase active state handles the inverted fill.
+// ─────────────────────────────────────────────────────────────────
+
+// Country — five-star constellation (3 + 2 in a small grid)
+export const ScopeCountry = (props) => (
+  <IconBase
+    {...props}
+    underlayer={<rect x="3" y="5" width="18" height="14" rx="1" />}
+  >
+    <rect x="3" y="5" width="18" height="14" rx="1" />
+    {[
+      [7, 9],
+      [12, 9],
+      [17, 9],
+      [9.5, 14],
+      [14.5, 14],
+    ].map(([cx, cy]) => (
+      <polygon
+        key={`${cx}-${cy}`}
+        points={[
+          `${cx},${cy - 1.5}`,
+          `${cx + 0.45},${cy - 0.45}`,
+          `${cx + 1.5},${cy - 0.45}`,
+          `${cx + 0.6},${cy + 0.2}`,
+          `${cx + 1},${cy + 1.3}`,
+          `${cx},${cy + 0.6}`,
+          `${cx - 1},${cy + 1.3}`,
+          `${cx - 0.6},${cy + 0.2}`,
+          `${cx - 1.5},${cy - 0.45}`,
+          `${cx - 0.45},${cy - 0.45}`,
+        ].join(' ')}
+        fill="currentColor"
+        stroke="none"
+      />
+    ))}
+  </IconBase>
+);
+
+// State — fluttering flag on a pole
+export const ScopeState = (props) => (
+  <IconBase
+    {...props}
+    underlayer={<path d="M5 4 v16 M5 5 h13 l-2.5 4 2.5 4 H5" />}
+  >
+    <line x1="5" y1="3" x2="5" y2="21" />
+    <path d="M5 5 h13 l-2.5 4 2.5 4 H5" />
+  </IconBase>
+);
+
+// District — sharp seven-sided polygon outline
+export const ScopeDistrict = (props) => {
+  const cx = 12;
+  const cy = 12;
+  const r = 8;
+  const sides = 7;
+  const points = Array.from({ length: sides }, (_, i) => {
+    const angle = (Math.PI * 2 * i) / sides - Math.PI / 2; // top vertex
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    return `${x.toFixed(2)},${y.toFixed(2)}`;
+  }).join(' ');
+  return (
+    <IconBase {...props} underlayer={<polygon points={points} />}>
+      <polygon points={points} />
+    </IconBase>
+  );
+};
+
+// City — three building silhouettes
+export const ScopeCity = (props) => (
+  <IconBase
+    {...props}
+    underlayer={
+      <>
+        <rect x="3" y="11" width="6" height="9" />
+        <rect x="9" y="6" width="6" height="14" />
+        <rect x="15" y="13" width="6" height="7" />
+      </>
+    }
+  >
+    <rect x="3" y="11" width="6" height="9" />
+    <rect x="9" y="6" width="6" height="14" />
+    <rect x="15" y="13" width="6" height="7" />
+    {/* windows */}
+    <line x1="11" y1="10" x2="13" y2="10" />
+    <line x1="11" y1="13" x2="13" y2="13" />
+    <line x1="5" y1="14" x2="7" y2="14" />
+    <line x1="17" y1="16" x2="19" y2="16" />
+  </IconBase>
+);
+
+// ─────────────────────────────────────────────────────────────────
 // Generic dispatch — `<Icon name="chat-circle-dots" />`. Useful when
 // the icon name is data-driven (e.g., from a config object).
 // ─────────────────────────────────────────────────────────────────
@@ -326,6 +424,10 @@ export const ICONS = {
   'arrow-left': ArrowLeft,
   'arrow-right': ArrowRight,
   'x': X,
+  'scope-country': ScopeCountry,
+  'scope-state': ScopeState,
+  'scope-district': ScopeDistrict,
+  'scope-city': ScopeCity,
 };
 
 export default function Icon({ name, ...props }) {

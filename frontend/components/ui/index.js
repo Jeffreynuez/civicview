@@ -37,4 +37,8 @@ export {
   ArrowLeft,
   ArrowRight,
   X,
+  ScopeCountry,
+  ScopeState,
+  ScopeDistrict,
+  ScopeCity,
 } from './PhosphorIcon';

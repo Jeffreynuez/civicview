@@ -12,6 +12,7 @@ import {
   reactToComment,
   resolveImageUrl,
 } from '../lib/pagesApi';
+import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
 function timeAgo(iso) {
   if (!iso) return '';
@@ -348,17 +349,23 @@ export default function PostCard({
           type="button"
           onClick={() => setCommentsOpen((o) => !o)}
           style={{
-            border: '1px solid var(--border)', background: 'white',
-            color: 'var(--text)', fontSize: '0.78rem',
-            cursor: 'pointer', padding: '5px 10px',
-            borderRadius: '999px',
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            border: '1px solid var(--cl-border)',
+            background: 'var(--cl-card)',
+            color: 'var(--cl-text)',
+            fontSize: 'var(--cl-text-sm)',
+            fontFamily: 'var(--cl-font-sans)',
+            cursor: 'pointer',
+            padding: '5px 10px',
+            height: 30,
+            borderRadius: 'var(--cl-radius-pill)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-          {commentsOpen ? 'Hide' : 'Comments'} ({post.comment_count || 0})
+          <ChatText size={14} />
+          {commentsOpen ? 'Hide' : 'Comments'}{' '}
+          (<span className="cl-num">{post.comment_count || 0}</span>)
         </button>
         {!citizen && (
           <span
@@ -572,16 +579,12 @@ export default function PostCard({
 
 function ReactionButton({ kind, count, active, disabled, onClick, title }) {
   const isUp = kind === 'up';
-  const accent = isUp ? '#1877f2' : '#c33333';
-  const icon = isUp ? (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill={active ? accent : 'none'} stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
-    </svg>
-  ) : (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill={active ? accent : 'none'} stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zM17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3" />
-    </svg>
-  );
+  // Design-system tokens. Up active is solid #1877F2 blue; down active is
+  // burgundy #8C2929 — moved away from the destructive red so disagreement
+  // reads as a separate concept from danger/delete.
+  const accent = isUp ? 'var(--cl-up)' : 'var(--cl-down)';
+  const softBg = isUp ? 'var(--cl-up-soft)' : 'var(--cl-down-soft)';
+  const Icon = isUp ? ThumbsUp : ThumbsDown;
 
   return (
     <button
@@ -590,19 +593,25 @@ function ReactionButton({ kind, count, active, disabled, onClick, title }) {
       disabled={disabled}
       title={title}
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: '6px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
         padding: '5px 10px',
-        borderRadius: '999px',
-        border: `1px solid ${active ? accent : 'var(--border)'}`,
-        background: active ? (isUp ? '#e3f0fc' : '#fde8e8') : 'white',
-        color: active ? accent : 'var(--text)',
-        fontSize: '0.78rem', fontWeight: active ? 700 : 500,
+        height: 30,
+        borderRadius: 'var(--cl-radius-pill)',
+        border: `1px solid ${active ? accent : 'var(--cl-border)'}`,
+        background: active ? softBg : 'var(--cl-card)',
+        color: active ? accent : 'var(--cl-text)',
+        fontSize: 'var(--cl-text-sm)',
+        fontWeight: active ? 700 : 500,
+        fontFamily: 'var(--cl-font-sans)',
         cursor: disabled ? 'wait' : 'pointer',
-        transition: 'background 0.15s, border-color 0.15s',
+        transition:
+          'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard), color var(--cl-duration-fast) var(--cl-ease-standard)',
       }}
     >
-      {icon}
-      {count}
+      <Icon size={14} active={active} color={isUp ? 'up' : 'down'} />
+      <span className="cl-num">{count}</span>
     </button>
   );
 }
@@ -737,29 +746,31 @@ function PostImageGallery({ images }) {
 
 function CommentReactionButton({ kind, count, active, onClick, title }) {
   const isUp = kind === 'up';
-  const accent = isUp ? '#1877f2' : '#c33333';
+  const accent = isUp ? 'var(--cl-up)' : 'var(--cl-down)';
+  const softBg = isUp ? 'var(--cl-up-soft)' : 'var(--cl-down-soft)';
+  const Icon = isUp ? ThumbsUp : ThumbsDown;
   return (
     <button
       type="button"
       onClick={onClick}
       title={title}
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: '4px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
         padding: '2px 8px',
-        borderRadius: '999px',
-        border: `1px solid ${active ? accent : 'var(--border)'}`,
-        background: active ? (isUp ? '#e3f0fc' : '#fde8e8') : 'white',
-        color: active ? accent : 'var(--text-light)',
-        fontSize: '0.7rem', fontWeight: active ? 700 : 500,
+        borderRadius: 'var(--cl-radius-pill)',
+        border: `1px solid ${active ? accent : 'var(--cl-border)'}`,
+        background: active ? softBg : 'var(--cl-card)',
+        color: active ? accent : 'var(--cl-text-light)',
+        fontSize: 'var(--cl-text-2xs)',
+        fontWeight: active ? 700 : 500,
+        fontFamily: 'var(--cl-font-sans)',
         cursor: 'pointer',
       }}
     >
-      <svg width="11" height="11" viewBox="0 0 24 24" fill={active ? accent : 'none'} stroke="currentColor" strokeWidth="2" aria-hidden="true">
-        {isUp
-          ? <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
-          : <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zM17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3" />}
-      </svg>
-      {count}
+      <Icon size={11} active={active} color={isUp ? 'up' : 'down'} />
+      <span className="cl-num">{count}</span>
     </button>
   );
 }
