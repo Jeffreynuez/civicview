@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { loginRep } from '../lib/auth';
+import CivicLensLogo from './brand/CivicLensLogo';
+import { ModalShell, Button } from './ui';
 
 /**
  * Rep / candidate login modal.
@@ -11,9 +13,11 @@ import { loginRep } from '../lib/auth';
  * /api/auth/login, which sets a signed httpOnly session cookie and returns
  * the Me payload. Success bubbles the fresh `me` up via onSuccess.
  *
- * We surface the demo credentials in a collapsed "Show demo logins" panel
- * so investors don't have to leave the room to try it — but the panel is
- * hidden by default so real users aren't confused by it.
+ * Demo credentials surface in a collapsed "Show demo logins" panel — hidden
+ * by default so real users aren't confused.
+ *
+ * Phase 3A: restyled to use the design system. Combined "Email or password"
+ * error message (security best practice — don't leak email existence).
  *
  * Props:
  *   open            — controls mount
@@ -30,9 +34,32 @@ const DEMO_ACCOUNTS = [
 ];
 const DEMO_PASSWORD = 'CivicLensDemo!2026';
 
+const FIELD_LABEL = {
+  display: 'block',
+  fontSize: 'var(--cl-text-xs)',
+  fontWeight: 600,
+  color: 'var(--cl-text)',
+  marginBottom: 4,
+};
+
+const FIELD_INPUT = {
+  width: '100%',
+  height: 38,
+  padding: '0 12px',
+  borderRadius: 'var(--cl-radius-md)',
+  border: '1px solid var(--cl-border)',
+  fontSize: 'var(--cl-text-sm)',
+  fontFamily: 'var(--cl-font-sans)',
+  color: 'var(--cl-text)',
+  background: 'var(--cl-card)',
+  boxSizing: 'border-box',
+  outline: 'none',
+};
+
 export default function RepLoginModal({ open, onClose, onSuccess, initialEmail = '' }) {
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
   const [showDemo, setShowDemo] = useState(false);
@@ -41,19 +68,12 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
     if (open) {
       setEmail(initialEmail || '');
       setPassword('');
+      setShowPw(false);
       setErr(null);
       setBusy(false);
       setShowDemo(false);
     }
   }, [open, initialEmail]);
-
-  // ESC to dismiss
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => { if (e.key === 'Escape') onClose && onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -66,7 +86,9 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
     const { ok, error } = await loginRep(email.trim(), password);
     setBusy(false);
     if (!ok) {
-      setErr(error || 'Invalid email or password');
+      // Security note: do NOT reveal whether the email exists.
+      // Combined message keeps enumeration attacks at bay.
+      setErr(error || "Email or password didn't match. Try again or reset it.");
       return;
     }
     if (onSuccess) onSuccess();
@@ -75,178 +97,211 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
   const fillDemo = (account) => {
     setEmail(account.email);
     setPassword(DEMO_PASSWORD);
+    setErr(null);
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Rep login"
-      onClick={onClose}
-      style={{
-        position: 'fixed', inset: 0, background: 'rgba(20,30,60,0.55)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        zIndex: 1400,
-      }}
+    <ModalShell
+      open={open}
+      onClose={onClose}
+      width={440}
+      cardStyle={{ padding: '24px 24px 16px' }}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: 'white', borderRadius: '14px',
-          width: 'min(420px, calc(100vw - 32px))',
-          // Cap the modal to the viewport with internal scrolling so the
-          // demo-logins list never pushes the Sign in button off-screen
-          // on short viewports (notebooks, some Windows DPI settings).
-          maxHeight: 'calc(100vh - 32px)',
-          overflowY: 'auto',
-          padding: '22px 22px 16px', boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-          <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text)' }}>
-            Sign in to your page
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              fontSize: '1.3rem', lineHeight: 1, color: 'var(--text-light)',
-            }}
-          >
-            ×
-          </button>
-        </div>
-        <p style={{ fontSize: '0.82rem', color: 'var(--text-light)', marginBottom: '14px', lineHeight: 1.45 }}>
-          Verified representatives and candidates can post updates, attach polls,
-          and publish events. Demo accounts below for the preview — production
-          will use a verified email + identity check.
-        </p>
-
-        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>
-          Email
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoFocus
-          placeholder="you@example.gov"
+      {/* Brand mark + heading */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+        <CivicLensLogo size={28} variant="color" />
+        <span
           style={{
-            width: '100%', padding: '9px 11px', borderRadius: '8px',
-            border: '1px solid var(--border)', fontSize: '0.9rem',
-            marginBottom: '10px', boxSizing: 'border-box', color: 'var(--text)',
-            background: 'white',
+            fontFamily: 'var(--cl-font-display)',
+            fontWeight: 700,
+            fontSize: 'var(--cl-text-md)',
+            color: 'var(--cl-text)',
           }}
-        />
+        >
+          CivicLens
+        </span>
+      </div>
 
-        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>
-          Password
-        </label>
+      <h2 className="cl-h1" style={{ margin: 0, marginBottom: 6 }}>
+        Sign in to your page
+      </h2>
+      <p
+        className="cl-body-sm"
+        style={{ color: 'var(--cl-text-light)', margin: 0, marginBottom: 18 }}
+      >
+        Verified representatives and candidates can post updates, attach polls,
+        and publish events.
+      </p>
+
+      {/* Email */}
+      <label htmlFor="rep-login-email" style={FIELD_LABEL}>
+        Email
+      </label>
+      <input
+        id="rep-login-email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        autoFocus
+        placeholder="you@example.gov"
+        disabled={busy}
+        style={{ ...FIELD_INPUT, marginBottom: 12 }}
+      />
+
+      {/* Password with show/hide */}
+      <label htmlFor="rep-login-password" style={FIELD_LABEL}>
+        Password
+      </label>
+      <div style={{ position: 'relative', marginBottom: 14 }}>
         <input
-          type="password"
+          id="rep-login-password"
+          type={showPw ? 'text' : 'password'}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
-          placeholder="••••••••"
-          style={{
-            width: '100%', padding: '9px 11px', borderRadius: '8px',
-            border: '1px solid var(--border)', fontSize: '0.9rem',
-            marginBottom: '10px', boxSizing: 'border-box', color: 'var(--text)',
-            background: 'white',
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') submit();
           }}
+          placeholder="••••••••"
+          disabled={busy}
+          style={{ ...FIELD_INPUT, paddingRight: 56 }}
         />
+        <button
+          type="button"
+          onClick={() => setShowPw((s) => !s)}
+          tabIndex={-1}
+          aria-label={showPw ? 'Hide password' : 'Show password'}
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: 0,
+            bottom: 0,
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--cl-text-light)',
+            fontSize: 'var(--cl-text-xs)',
+            cursor: 'pointer',
+            fontFamily: 'var(--cl-font-sans)',
+          }}
+        >
+          {showPw ? 'Hide' : 'Show'}
+        </button>
+      </div>
 
-        {err && (
-          <div
-            role="alert"
-            style={{
-              marginBottom: '10px', padding: '8px 10px',
-              background: '#fde8e8', color: '#b13b3b',
-              borderRadius: '8px', fontSize: '0.8rem',
-              border: '1px solid #f4c7c7',
-            }}
-          >
-            {err}
+      {err && (
+        <div
+          role="alert"
+          style={{
+            marginBottom: 12,
+            padding: '8px 10px',
+            background: 'var(--cl-danger-soft)',
+            color: 'var(--cl-danger-text)',
+            borderRadius: 'var(--cl-radius-md)',
+            fontSize: 'var(--cl-text-xs)',
+            border: '1px solid var(--cl-danger-border)',
+          }}
+        >
+          {err}
+        </div>
+      )}
+
+      {/* Actions */}
+      <Button
+        variant="primary"
+        size="lg"
+        onClick={submit}
+        loading={busy}
+        disabled={!canSubmit}
+        style={{ width: '100%', marginBottom: 8 }}
+      >
+        Sign in
+      </Button>
+
+      {/* Demo accounts — collapsed by default */}
+      <div
+        style={{
+          marginTop: 14,
+          paddingTop: 12,
+          borderTop: '1px dashed var(--cl-border)',
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => setShowDemo((s) => !s)}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--cl-accent)',
+            fontSize: 'var(--cl-text-xs)',
+            fontWeight: 600,
+            padding: 0,
+            fontFamily: 'var(--cl-font-sans)',
+          }}
+        >
+          {showDemo ? '▾ Hide demo logins' : '▸ Show demo logins (preview only)'}
+        </button>
+        {showDemo && (
+          <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {DEMO_ACCOUNTS.map((a) => (
+              <button
+                key={a.email}
+                type="button"
+                onClick={() => fillDemo(a)}
+                style={{
+                  textAlign: 'left',
+                  padding: '8px 10px',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 'var(--cl-radius-sm)',
+                  background: 'var(--cl-bg)',
+                  color: 'var(--cl-text)',
+                  fontSize: 'var(--cl-text-xs)',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--cl-font-sans)',
+                  transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard)',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--cl-accent)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--cl-border)';
+                }}
+              >
+                <div style={{ fontWeight: 700 }}>{a.label}</div>
+                <div
+                  style={{
+                    color: 'var(--cl-text-light)',
+                    fontSize: 'var(--cl-text-2xs)',
+                    fontFamily: 'var(--cl-font-mono)',
+                  }}
+                >
+                  {a.email}
+                </div>
+              </button>
+            ))}
+            <div
+              style={{
+                color: 'var(--cl-text-muted)',
+                fontSize: 'var(--cl-text-2xs)',
+                marginTop: 4,
+                fontStyle: 'italic',
+              }}
+            >
+              Shared demo password:{' '}
+              <code
+                style={{
+                  fontSize: 'var(--cl-text-2xs)',
+                  fontFamily: 'var(--cl-font-mono)',
+                  background: 'var(--cl-bg-soft)',
+                  padding: '1px 5px',
+                  borderRadius: 'var(--cl-radius-xs)',
+                }}
+              >
+                {DEMO_PASSWORD}
+              </code>
+            </div>
           </div>
         )}
-
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={busy}
-            style={{
-              border: '1px solid var(--border)', background: 'white',
-              color: 'var(--text-light)', padding: '8px 14px',
-              borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600,
-              cursor: busy ? 'wait' : 'pointer',
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={submit}
-            disabled={!canSubmit}
-            style={{
-              border: '1px solid var(--accent)',
-              background: canSubmit ? 'var(--accent)' : 'var(--bg)',
-              color: canSubmit ? 'white' : 'var(--text-light)',
-              padding: '8px 18px', borderRadius: '8px',
-              fontSize: '0.88rem', fontWeight: 700,
-              cursor: canSubmit ? 'pointer' : 'not-allowed',
-            }}
-          >
-            {busy ? 'Signing in…' : 'Sign in'}
-          </button>
-        </div>
-
-        {/* Collapsible demo-accounts panel — hidden by default, shown on demand */}
-        <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px dashed var(--border)' }}>
-          <button
-            type="button"
-            onClick={() => setShowDemo((s) => !s)}
-            style={{
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              color: 'var(--accent)', fontSize: '0.78rem', fontWeight: 600,
-              padding: '0',
-            }}
-          >
-            {showDemo ? '▾ Hide demo logins' : '▸ Show demo logins (preview only)'}
-          </button>
-          {showDemo && (
-            <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              {DEMO_ACCOUNTS.map((a) => (
-                <button
-                  key={a.email}
-                  type="button"
-                  onClick={() => fillDemo(a)}
-                  style={{
-                    textAlign: 'left',
-                    padding: '6px 10px',
-                    border: '1px solid var(--border)',
-                    borderRadius: '6px',
-                    background: 'var(--bg)', color: 'var(--text)',
-                    fontSize: '0.78rem', cursor: 'pointer',
-                  }}
-                  onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-                  onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; }}
-                >
-                  <div style={{ fontWeight: 700 }}>{a.label}</div>
-                  <div style={{ color: 'var(--text-light)', fontSize: '0.72rem' }}>
-                    {a.email}
-                  </div>
-                </button>
-              ))}
-              <div style={{ color: 'var(--text-light)', fontSize: '0.72rem', marginTop: '4px', fontStyle: 'italic' }}>
-                Shared demo password: <code style={{ fontSize: '0.72rem' }}>{DEMO_PASSWORD}</code>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
-    </div>
+    </ModalShell>
   );
 }

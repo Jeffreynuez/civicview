@@ -2,13 +2,19 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { loginCitizen } from '../lib/citizenAuth';
+import CivicLensLogo from './brand/CivicLensLogo';
+import { ModalShell, Button } from './ui';
 
 /**
  * Citizen login modal — parallel to RepLoginModal.
  *
- * Phase 1.5 demo: 50 seeded FL citizen accounts, all sharing the same
- * password. The demo-login panel is searchable (by name or city) because
- * scanning 50 rows visually is painful.
+ * Phase 1.5 demo: 60 seeded citizen accounts (50 FL + 10 out-of-state),
+ * all sharing the same password. The demo-login panel is searchable
+ * because scanning 60 rows visually is painful.
+ *
+ * Phase 3A: restyled to use the design system. The yellow "Demo preview"
+ * notice is LOAD-BEARING per the design system spec (preserve list) and
+ * stays exactly as authored.
  *
  * Props:
  *   open           — controls mount
@@ -17,11 +23,6 @@ import { loginCitizen } from '../lib/citizenAuth';
  */
 const DEMO_PASSWORD = 'CivicLensVoter!2026';
 
-// Kept in-sync with backend/demo_citizen_accounts.json. Hard-coded here
-// rather than fetched because (a) the list is tiny, (b) we want the
-// modal to work offline, and (c) the password is public in the seed
-// anyway. If you edit the seed file, edit this list too — a test below
-// will catch drift in the count but not in the contents.
 const DEMO_CITIZENS = [
   { label: 'Maria Hernandez',   email: 'maria.hernandez@civiclens-voters.com',   city: 'Naples',          cd: 'FL-19' },
   { label: 'James Whitford',    email: 'james.whitford@civiclens-voters.com',    city: 'Naples',          cd: 'FL-19' },
@@ -90,9 +91,32 @@ const DEMO_CITIZENS = [
   { label: 'Priscilla Novak',   email: 'priscilla.novak@civiclens-voters.com',   city: 'Arlington, VA',   cd: 'VA-8'  },
 ];
 
+const FIELD_LABEL = {
+  display: 'block',
+  fontSize: 'var(--cl-text-xs)',
+  fontWeight: 600,
+  color: 'var(--cl-text)',
+  marginBottom: 4,
+};
+
+const FIELD_INPUT = {
+  width: '100%',
+  height: 38,
+  padding: '0 12px',
+  borderRadius: 'var(--cl-radius-md)',
+  border: '1px solid var(--cl-border)',
+  fontSize: 'var(--cl-text-sm)',
+  fontFamily: 'var(--cl-font-sans)',
+  color: 'var(--cl-text)',
+  background: 'var(--cl-card)',
+  boxSizing: 'border-box',
+  outline: 'none',
+};
+
 export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
   const [showDemo, setShowDemo] = useState(false);
@@ -102,19 +126,13 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     if (open) {
       setEmail('');
       setPassword('');
+      setShowPw(false);
       setErr(null);
       setBusy(false);
       setShowDemo(false);
       setDemoFilter('');
     }
   }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => { if (e.key === 'Escape') onClose && onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
 
   const filteredDemos = useMemo(() => {
     const q = demoFilter.trim().toLowerCase();
@@ -137,7 +155,8 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     const { ok, error } = await loginCitizen(email.trim(), password);
     setBusy(false);
     if (!ok) {
-      setErr(error || 'Invalid email or password');
+      // Combined error message — don't leak whether email exists.
+      setErr(error || "Email or password didn't match. Try again or reset it.");
       return;
     }
     if (onSuccess) onSuccess();
@@ -146,229 +165,299 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const fillDemo = (account) => {
     setEmail(account.email);
     setPassword(DEMO_PASSWORD);
+    setErr(null);
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Citizen login"
-      onClick={onClose}
-      style={{
-        position: 'fixed', inset: 0, background: 'rgba(20,30,60,0.55)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        zIndex: 1400,
-      }}
+    <ModalShell
+      open={open}
+      onClose={onClose}
+      width={460}
+      cardStyle={{ padding: '24px 24px 16px' }}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: 'white', borderRadius: '14px',
-          width: 'min(460px, calc(100vw - 32px))',
-          maxHeight: 'calc(100vh - 32px)',
-          overflowY: 'auto',
-          padding: '22px 22px 16px', boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-          <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text)' }}>
-            Citizen sign in
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              fontSize: '1.3rem', lineHeight: 1, color: 'var(--text-light)',
-            }}
-          >
-            ×
-          </button>
-        </div>
-        <p style={{ fontSize: '0.82rem', color: 'var(--text-light)', marginBottom: '10px', lineHeight: 1.45 }}>
-          Verified US citizens can like, dislike, comment, and vote in polls.
-          Engagement is scoped by state and district so reps can filter what
-          their own constituents are saying.
-        </p>
-        <div
-          role="note"
+      {/* Brand mark + heading */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+        <CivicLensLogo size={28} variant="color" />
+        <span
           style={{
-            marginBottom: '14px', padding: '8px 10px',
-            background: '#fff7e6', color: '#8a6100',
-            border: '1px solid #ffe1a3',
-            borderRadius: '8px', fontSize: '0.74rem', lineHeight: 1.5,
+            fontFamily: 'var(--cl-font-display)',
+            fontWeight: 700,
+            fontSize: 'var(--cl-text-md)',
+            color: 'var(--cl-text)',
           }}
         >
-          <strong>Demo preview.</strong> These 50 Florida accounts are
-          self-attested — real identity verification (address check, one-
-          person-one-account) ships in the next phase. Every engagement
-          surface labels this data &ldquo;Unverified.&rdquo;
-        </div>
+          CivicLens
+        </span>
+      </div>
 
-        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>
-          Email
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoFocus
-          placeholder="you@example.com"
-          style={{
-            width: '100%', padding: '9px 11px', borderRadius: '8px',
-            border: '1px solid var(--border)', fontSize: '0.9rem',
-            marginBottom: '10px', boxSizing: 'border-box', color: 'var(--text)',
-            background: 'white',
-          }}
-        />
+      <h2 className="cl-h1" style={{ margin: 0, marginBottom: 6 }}>
+        Citizen sign in
+      </h2>
+      <p
+        className="cl-body-sm"
+        style={{ color: 'var(--cl-text-light)', margin: 0, marginBottom: 14 }}
+      >
+        Verified US citizens can like, dislike, comment, and vote in polls.
+        Engagement is scoped by state and district so reps can filter what
+        their own constituents are saying.
+      </p>
 
-        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>
-          Password
-        </label>
+      {/* Load-bearing yellow notice — preserved per design system rules */}
+      <div
+        role="note"
+        style={{
+          marginBottom: 16,
+          padding: '10px 12px',
+          background: 'var(--cl-warning-soft)',
+          color: 'var(--cl-warning-text)',
+          border: '1px solid var(--cl-warning-border)',
+          borderRadius: 'var(--cl-radius-md)',
+          fontSize: 'var(--cl-text-2xs)',
+          lineHeight: 1.5,
+        }}
+      >
+        <strong>Demo preview.</strong> These 60 accounts are self-attested —
+        real identity verification (address check, one-person-one-account)
+        ships in the next phase. Every engagement surface labels this data
+        &ldquo;Unverified.&rdquo;
+      </div>
+
+      {/* Email */}
+      <label htmlFor="citizen-login-email" style={FIELD_LABEL}>
+        Email
+      </label>
+      <input
+        id="citizen-login-email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        autoFocus
+        placeholder="you@example.com"
+        disabled={busy}
+        style={{ ...FIELD_INPUT, marginBottom: 12 }}
+      />
+
+      {/* Password with show/hide */}
+      <label htmlFor="citizen-login-password" style={FIELD_LABEL}>
+        Password
+      </label>
+      <div style={{ position: 'relative', marginBottom: 14 }}>
         <input
-          type="password"
+          id="citizen-login-password"
+          type={showPw ? 'text' : 'password'}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
-          placeholder="••••••••"
-          style={{
-            width: '100%', padding: '9px 11px', borderRadius: '8px',
-            border: '1px solid var(--border)', fontSize: '0.9rem',
-            marginBottom: '10px', boxSizing: 'border-box', color: 'var(--text)',
-            background: 'white',
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') submit();
           }}
+          placeholder="••••••••"
+          disabled={busy}
+          style={{ ...FIELD_INPUT, paddingRight: 56 }}
         />
+        <button
+          type="button"
+          onClick={() => setShowPw((s) => !s)}
+          tabIndex={-1}
+          aria-label={showPw ? 'Hide password' : 'Show password'}
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: 0,
+            bottom: 0,
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--cl-text-light)',
+            fontSize: 'var(--cl-text-xs)',
+            cursor: 'pointer',
+            fontFamily: 'var(--cl-font-sans)',
+          }}
+        >
+          {showPw ? 'Hide' : 'Show'}
+        </button>
+      </div>
 
-        {err && (
-          <div
-            role="alert"
-            style={{
-              marginBottom: '10px', padding: '8px 10px',
-              background: '#fde8e8', color: '#b13b3b',
-              borderRadius: '8px', fontSize: '0.8rem',
-              border: '1px solid #f4c7c7',
-            }}
-          >
-            {err}
-          </div>
-        )}
-
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={busy}
-            style={{
-              border: '1px solid var(--border)', background: 'white',
-              color: 'var(--text-light)', padding: '8px 14px',
-              borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600,
-              cursor: busy ? 'wait' : 'pointer',
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={submit}
-            disabled={!canSubmit}
-            style={{
-              border: '1px solid var(--accent)',
-              background: canSubmit ? 'var(--accent)' : 'var(--bg)',
-              color: canSubmit ? 'white' : 'var(--text-light)',
-              padding: '8px 18px', borderRadius: '8px',
-              fontSize: '0.88rem', fontWeight: 700,
-              cursor: canSubmit ? 'pointer' : 'not-allowed',
-            }}
-          >
-            {busy ? 'Signing in…' : 'Sign in'}
-          </button>
+      {err && (
+        <div
+          role="alert"
+          style={{
+            marginBottom: 12,
+            padding: '8px 10px',
+            background: 'var(--cl-danger-soft)',
+            color: 'var(--cl-danger-text)',
+            borderRadius: 'var(--cl-radius-md)',
+            fontSize: 'var(--cl-text-xs)',
+            border: '1px solid var(--cl-danger-border)',
+          }}
+        >
+          {err}
         </div>
+      )}
 
-        {/* Collapsible demo-accounts panel. Searchable because 50 is
-            too many to scan by eye — users can type "Naples" or "FL-19"
-            to narrow to the cluster they want to demo. */}
-        <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px dashed var(--border)' }}>
-          <button
-            type="button"
-            onClick={() => setShowDemo((s) => !s)}
-            style={{
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              color: 'var(--accent)', fontSize: '0.78rem', fontWeight: 600,
-              padding: '0',
-            }}
-          >
-            {showDemo
-              ? `▾ Hide demo logins (${DEMO_CITIZENS.length} Florida accounts)`
-              : `▸ Show demo logins (${DEMO_CITIZENS.length} Florida accounts)`}
-          </button>
-          {showDemo && (
-            <div style={{ marginTop: '8px' }}>
-              <input
-                type="text"
-                value={demoFilter}
-                onChange={(e) => setDemoFilter(e.target.value)}
-                placeholder="Filter by name, city, or district (e.g. FL-19)"
+      <Button
+        variant="primary"
+        size="lg"
+        onClick={submit}
+        loading={busy}
+        disabled={!canSubmit}
+        style={{ width: '100%', marginBottom: 8 }}
+      >
+        Sign in
+      </Button>
+
+      {/* Searchable demo accounts */}
+      <div
+        style={{
+          marginTop: 14,
+          paddingTop: 12,
+          borderTop: '1px dashed var(--cl-border)',
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => setShowDemo((s) => !s)}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--cl-accent)',
+            fontSize: 'var(--cl-text-xs)',
+            fontWeight: 600,
+            padding: 0,
+            fontFamily: 'var(--cl-font-sans)',
+          }}
+        >
+          {showDemo
+            ? `▾ Hide demo logins (${DEMO_CITIZENS.length} accounts)`
+            : `▸ Show demo logins (${DEMO_CITIZENS.length} accounts)`}
+        </button>
+        {showDemo && (
+          <div style={{ marginTop: 10 }}>
+            <input
+              type="text"
+              value={demoFilter}
+              onChange={(e) => setDemoFilter(e.target.value)}
+              placeholder="Filter by name, city, or district (e.g. FL-19)"
+              style={{
+                width: '100%',
+                height: 34,
+                padding: '0 10px',
+                borderRadius: 'var(--cl-radius-sm)',
+                border: '1px solid var(--cl-border)',
+                fontSize: 'var(--cl-text-xs)',
+                fontFamily: 'var(--cl-font-sans)',
+                marginBottom: 8,
+                boxSizing: 'border-box',
+                color: 'var(--cl-text)',
+                background: 'var(--cl-card)',
+                outline: 'none',
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                maxHeight: 260,
+                overflowY: 'auto',
+                paddingRight: 2,
+              }}
+            >
+              {filteredDemos.length === 0 ? (
+                <div
+                  style={{
+                    fontSize: 'var(--cl-text-xs)',
+                    color: 'var(--cl-text-light)',
+                    padding: '8px 4px',
+                  }}
+                >
+                  No matches.
+                </div>
+              ) : (
+                filteredDemos.map((a) => (
+                  <button
+                    key={a.email}
+                    type="button"
+                    onClick={() => fillDemo(a)}
+                    style={{
+                      textAlign: 'left',
+                      padding: '8px 10px',
+                      border: '1px solid var(--cl-border)',
+                      borderRadius: 'var(--cl-radius-sm)',
+                      background: 'var(--cl-bg)',
+                      color: 'var(--cl-text)',
+                      fontSize: 'var(--cl-text-xs)',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--cl-font-sans)',
+                      transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard)',
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--cl-accent)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--cl-border)';
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 8,
+                      }}
+                    >
+                      <span style={{ fontWeight: 700 }}>{a.label}</span>
+                      <span
+                        style={{
+                          fontSize: 'var(--cl-text-2xs)',
+                          fontWeight: 700,
+                          padding: '1px 6px',
+                          borderRadius: 'var(--cl-radius-pill)',
+                          background: 'var(--cl-card)',
+                          border: '1px solid var(--cl-border)',
+                          color: 'var(--cl-text-light)',
+                          fontFamily: 'var(--cl-font-mono)',
+                        }}
+                      >
+                        {a.cd}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        color: 'var(--cl-text-light)',
+                        fontSize: 'var(--cl-text-2xs)',
+                        marginTop: 2,
+                      }}
+                    >
+                      {a.city} · {a.email}
+                    </div>
+                  </button>
+                ))
+              )}
+            </div>
+            <div
+              style={{
+                color: 'var(--cl-text-muted)',
+                fontSize: 'var(--cl-text-2xs)',
+                marginTop: 8,
+                fontStyle: 'italic',
+              }}
+            >
+              Shared demo password:{' '}
+              <code
                 style={{
-                  width: '100%', padding: '7px 10px', borderRadius: '6px',
-                  border: '1px solid var(--border)', fontSize: '0.8rem',
-                  marginBottom: '8px', boxSizing: 'border-box', color: 'var(--text)',
-                  background: 'white',
-                }}
-              />
-              <div
-                style={{
-                  display: 'flex', flexDirection: 'column', gap: '4px',
-                  maxHeight: '260px', overflowY: 'auto',
-                  paddingRight: '2px',
+                  fontSize: 'var(--cl-text-2xs)',
+                  fontFamily: 'var(--cl-font-mono)',
+                  background: 'var(--cl-bg-soft)',
+                  padding: '1px 5px',
+                  borderRadius: 'var(--cl-radius-xs)',
                 }}
               >
-                {filteredDemos.length === 0 ? (
-                  <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', padding: '8px 4px' }}>
-                    No matches.
-                  </div>
-                ) : (
-                  filteredDemos.map((a) => (
-                    <button
-                      key={a.email}
-                      type="button"
-                      onClick={() => fillDemo(a)}
-                      style={{
-                        textAlign: 'left',
-                        padding: '6px 10px',
-                        border: '1px solid var(--border)',
-                        borderRadius: '6px',
-                        background: 'var(--bg)', color: 'var(--text)',
-                        fontSize: '0.78rem', cursor: 'pointer',
-                      }}
-                      onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-                      onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                        <span style={{ fontWeight: 700 }}>{a.label}</span>
-                        <span style={{
-                          fontSize: '0.68rem', fontWeight: 700,
-                          padding: '1px 6px', borderRadius: '10px',
-                          background: 'white', border: '1px solid var(--border)',
-                          color: 'var(--text-light)',
-                        }}>
-                          {a.cd}
-                        </span>
-                      </div>
-                      <div style={{ color: 'var(--text-light)', fontSize: '0.7rem', marginTop: '1px' }}>
-                        {a.city} · {a.email}
-                      </div>
-                    </button>
-                  ))
-                )}
-              </div>
-              <div style={{ color: 'var(--text-light)', fontSize: '0.7rem', marginTop: '8px', fontStyle: 'italic' }}>
-                Shared demo password: <code style={{ fontSize: '0.7rem' }}>{DEMO_PASSWORD}</code>
-              </div>
+                {DEMO_PASSWORD}
+              </code>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    </div>
+    </ModalShell>
   );
 }
