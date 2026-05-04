@@ -6,9 +6,30 @@ import useVoterInfo from '@/lib/useVoterInfo';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
+import {
+  EmptyState as UIEmptyState,
+  Skeleton,
+  CalendarCheck,
+  CheckCircle,
+  WarningCircle,
+  MapPin,
+} from './ui';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
-const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
+// Phase 4C: party colors resolve through canonical --cl-* tokens. NP
+// (non-partisan races, common at the local level) keeps a neutral grey
+// since there's no token-mapped party color for it.
+const PARTY_COLORS = {
+  R: 'var(--cl-republican)',
+  D: 'var(--cl-democrat)',
+  I: 'var(--cl-independent)',
+  NP: 'var(--cl-text-light)',
+};
+const PARTY_BG = {
+  R: 'var(--cl-republican-soft)',
+  D: 'var(--cl-democrat-soft)',
+  I: 'var(--cl-independent-soft)',
+  NP: 'var(--cl-bg-soft)',
+};
 
 /**
  * Elections tab — structured as a list of upcoming elections (Primary,
@@ -864,12 +885,36 @@ function ModeChip({ active, onClick, children }) {
 }
 
 function DateLine({ label, value, small }) {
+  // Phase 4C: hardcoded #7a5a00 (warning-deep) replaced with the canonical
+  // --cl-warning-text token. Used inside countdown / election-window
+  // panels where the warning palette signals "time-sensitive."
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px', marginTop: '3px' }}>
-      <span style={{ fontSize: small ? '0.72rem' : '0.8rem', color: '#7a5a00', fontWeight: small ? 500 : 700 }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
+        gap: 8,
+        marginTop: 3,
+      }}
+    >
+      <span
+        style={{
+          fontSize: small ? 'var(--cl-text-xs)' : 'var(--cl-text-sm)',
+          color: 'var(--cl-warning-text)',
+          fontWeight: small ? 500 : 700,
+        }}
+      >
         {label}
       </span>
-      <span style={{ fontSize: small ? '0.72rem' : '0.8rem', color: '#7a5a00', fontWeight: 700 }}>
+      <span
+        className="cl-num"
+        style={{
+          fontSize: small ? 'var(--cl-text-xs)' : 'var(--cl-text-sm)',
+          color: 'var(--cl-warning-text)',
+          fontWeight: 700,
+        }}
+      >
         {value}
       </span>
     </div>
@@ -878,31 +923,60 @@ function DateLine({ label, value, small }) {
 
 function Tag({ children }) {
   return (
-    <span style={{
-      display: 'inline-block', marginLeft: '6px', padding: '1px 7px',
-      borderRadius: '9px', fontSize: '0.68rem', fontWeight: 800,
-      background: 'var(--bg)', color: 'var(--primary)',
-    }}>
+    <span
+      style={{
+        display: 'inline-block',
+        marginLeft: 6,
+        padding: '1px 7px',
+        borderRadius: 'var(--cl-radius-md)',
+        fontSize: 'var(--cl-text-2xs)',
+        fontWeight: 800,
+        background: 'var(--cl-bg-soft)',
+        color: 'var(--cl-primary)',
+        fontFamily: 'var(--cl-font-sans)',
+      }}
+    >
       {children}
     </span>
   );
 }
 
 function Loading({ children }) {
+  // Centered loading text — used inside dense BallotTab sections where a
+  // full skeleton card would be out of scale. Tokenized in Phase 4C.
   return (
-    <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-light)' }}>
+    <div
+      style={{
+        textAlign: 'center',
+        padding: '40px 20px',
+        color: 'var(--cl-text-light)',
+        fontFamily: 'var(--cl-font-sans)',
+        fontSize: 'var(--cl-text-sm)',
+      }}
+    >
       {children}
     </div>
   );
 }
 
 function EmptyState({ children }) {
+  // Tab-internal "no data seeded" placeholder. Dashed border is
+  // intentional — communicates "intentional empty state, not error."
   return (
-    <div style={{
-      margin: '20px 10px', padding: '18px 16px', textAlign: 'center',
-      background: 'var(--bg)', border: '1px dashed var(--border)', borderRadius: '12px',
-      color: 'var(--text-light)', fontSize: '0.84rem', lineHeight: 1.5,
-    }}>
+    <div
+      style={{
+        margin: '20px 10px',
+        padding: '18px 16px',
+        textAlign: 'center',
+        background: 'var(--cl-bg)',
+        border: '1px dashed var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        color: 'var(--cl-text-light)',
+        fontSize: 'var(--cl-text-sm)',
+        fontFamily: 'var(--cl-font-sans)',
+        lineHeight: 'var(--cl-leading-normal)',
+      }}
+    >
       {children}
     </div>
   );
