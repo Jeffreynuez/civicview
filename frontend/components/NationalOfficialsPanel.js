@@ -5,12 +5,23 @@ import { fetchFederalOfficials } from '@/lib/api';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
-import TrackElectionButton from './TrackElectionButton';
+import {
+  Avatar,
+  PartyChip,
+  Eyebrow,
+  Skeleton,
+  EmptyState,
+  ArrowRight,
+  Building,
+  CheckCircle,
+} from './ui';
+import CivicLensLogo from './brand/CivicLensLogo';
 
-// Party colors resolve through the canonical --cl-* tokens. Soft-tints
-// are used for chip backgrounds (per design system "party fills are
-// pill-only" rule); the solid variants are reserved for chip text and
-// the small avatar hue dots.
+// ─────────────────────────────────────────────────────────────────
+// Color tables — resolve through the canonical --cl-* tokens. Soft
+// tints back the chips (per design system "party fills are pill-only");
+// the solid variants are for chip text and the small avatar hue dots.
+// ─────────────────────────────────────────────────────────────────
 const PARTY_COLORS = {
   R: 'var(--cl-republican)',
   D: 'var(--cl-democrat)',
@@ -23,695 +34,1128 @@ const PARTY_SOFT = {
 };
 
 /**
- * National landing view — shows while no state is selected.
- * Four tabs mirror the state-level UX (Executive / Judicial / Congress /
- * Elections), powered by /api/federal-officials.
+ * NationalOfficialsPanel — landing surface for unauthenticated visitors.
  *
- * Props:
- *   - onSelectPerson(person, roleType): open the given federal official in
- *     the ProfileView. `person` is the raw dict from federal_officials.json
- *     (contains `id`, `contact`, etc.); `roleType` is one of 'president' |
- *     'vice_president' | 'cabinet' | 'scotus' | 'congress_leader'.
+ * Phase 3D structural rewrite: replaces the prior tabs-based layout
+ * (Executive / Judicial / Congress / Elections) with the locked-in
+ * scrolling landing page from Claude Design. Sections render top-to-
+ * bottom in priority order:
+ *
+ *   1. Hero — headline + subhead + verify-address CTA + stats bar
+ *   2. Executive Branch — President + VP big cards, Cabinet grid
+ *   3. Senate Leadership — tiered cards (floor + whips)
+ *   4. House Leadership — tiered cards (floor + whips/caucus)
+ *   5. Supreme Court — 9-justice grid
+ *   6. Verification CTA strip — "Make this your own."
+ *   7. Footer — BROWSE / CITIZEN / ABOUT + non-endorsement disclaimer
+ *
+ * Data wiring is unchanged from the prior implementation: same call
+ * to /api/federal-officials, same shape (executive / judiciary /
+ * congress). The Elections tab is intentionally dropped — citizens
+ * see their ballot in the BallotTab; surfacing it here inflates the
+ * political-content density on what should be a neutral landing.
+ *
+ * Props are unchanged from the prior implementation.
  */
-export default function NationalOfficialsPanel({ onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+export default function NationalOfficialsPanel({
+  onSelectPerson,
+  onNotify,
+  onCompareToggle,
+  compareIds,
+  // New: opens the citizen-login modal when a visitor hits the
+  // hero / CTA-strip "Find my reps" buttons. Optional — falls back
+  // to onNotify if not provided.
+  onRequestVerify,
+}) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('executive');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const res = await fetchFederalOfficials();
-      if (cancelled) return;
-      setData(res.data);
-      setLoading(false);
+      try {
+        const res = await fetchFederalOfficials();
+        if (cancelled) return;
+        setData(res?.data || null);
+        setLoading(false);
+      } catch {
+        if (cancelled) return;
+        setError(true);
+        setLoading(false);
+      }
     })();
     return () => { cancelled = true; };
   }, []);
 
-  return (
-    <div>
-      {/* Tabs */}
-      <div
-        style={{
-          display: 'flex',
-          borderBottom: '1px solid var(--border)',
-          marginBottom: '12px',
-          background: 'white',
-          borderRadius: '10px 10px 0 0',
-          overflow: 'hidden',
-        }}
-      >
-        {[
-          { key: 'executive', label: 'Executive' },
-          { key: 'judicial',  label: 'Judicial' },
-          { key: 'congress',  label: 'Congress' },
-          { key: 'elections', label: '🗳 Elections' },
-        ].map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setActiveTab(key)}
-            style={{
-              flex: 1, padding: '10px', textAlign: 'center',
-              fontSize: '0.78rem', fontWeight: 600,
-              color: activeTab === key ? 'var(--primary)' : 'var(--text-light)',
-              borderBottomStyle: 'solid',
-              borderBottomWidth: '2px',
-              borderBottomColor: activeTab === key ? 'var(--accent)' : 'transparent',
-              cursor: 'pointer', background: 'none', border: 'none',
-              transition: 'all 0.2s',
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.background = 'var(--bg)')}
-            onMouseOut={(e) => (e.currentTarget.style.background = 'none')}
-          >
-            {label}
-          </button>
-        ))}
+  const handleVerifyClick = () => {
+    if (onRequestVerify) onRequestVerify();
+    else if (onNotify) onNotify('Verification flow coming soon — sign in as a citizen for the demo preview.');
+  };
+
+  if (loading) {
+    return (
+      <div style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Skeleton variant="card" withThumbnail />
+        <Skeleton variant="list" count={3} />
       </div>
+    );
+  }
 
-      {loading && <Loading>Loading federal officials…</Loading>}
+  if (error || !data) {
+    return (
+      <EmptyState
+        icon={<Building size={36} active color="muted" />}
+        headline="Federal data unavailable"
+        body="Start the API to load President, Cabinet, Supreme Court, and Congress leadership."
+        tone="muted"
+      />
+    );
+  }
 
-      {!loading && !data && (
-        <EmptyState>
-          <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--text)' }}>
-            Federal data unavailable
-          </div>
-          <div>Start the API to load President, Cabinet, Supreme Court, and Congress leadership.</div>
-        </EmptyState>
-      )}
+  const exec = data.executive || {};
+  const congress = data.congress || {};
+  const judiciary = data.judiciary || {};
 
-      {!loading && data && activeTab === 'executive' && (
-        <ExecutiveView exec={data.executive} onSelectPerson={onSelectPerson} onNotify={onNotify} onCompareToggle={onCompareToggle} compareIds={compareIds} />
-      )}
-      {!loading && data && activeTab === 'judicial'  && (
-        <JudicialView jud={data.judiciary} onSelectPerson={onSelectPerson} onNotify={onNotify} onCompareToggle={onCompareToggle} compareIds={compareIds} />
-      )}
-      {!loading && data && activeTab === 'congress'  && (
-        <CongressView congress={data.congress} onSelectPerson={onSelectPerson} onNotify={onNotify} onCompareToggle={onCompareToggle} compareIds={compareIds} />
-      )}
-      {!loading && data && activeTab === 'elections' && <ElectionsView elections={data.elections} onNotify={onNotify} />}
+  return (
+    <div style={{ fontFamily: 'var(--cl-font-sans)' }}>
+      <Hero onVerifyClick={handleVerifyClick} />
+
+      <ExecutiveBranchSection
+        exec={exec}
+        onSelectPerson={onSelectPerson}
+        onNotify={onNotify}
+        onCompareToggle={onCompareToggle}
+        compareIds={compareIds}
+      />
+
+      <SenateLeadershipSection
+        senate={congress.senate || {}}
+        congressNumber={congress.congress_number}
+        onSelectPerson={onSelectPerson}
+        onNotify={onNotify}
+        onCompareToggle={onCompareToggle}
+        compareIds={compareIds}
+      />
+
+      <HouseLeadershipSection
+        house={congress.house || {}}
+        congressNumber={congress.congress_number}
+        onSelectPerson={onSelectPerson}
+        onNotify={onNotify}
+        onCompareToggle={onCompareToggle}
+        compareIds={compareIds}
+      />
+
+      <SCOTUSSection
+        sc={judiciary.supreme_court || {}}
+        onSelectPerson={onSelectPerson}
+        onNotify={onNotify}
+        onCompareToggle={onCompareToggle}
+        compareIds={compareIds}
+      />
+
+      <VerificationCTAStrip onVerifyClick={handleVerifyClick} />
+
+      <Footer />
     </div>
   );
 }
 
-// ─── Executive ─────────────────────────────────────────────────────────
-function ExecutiveView({ exec, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
-  if (!exec) return null;
-  const pres = exec.president;
-  const vp   = exec.vice_president;
-  const cabinet = exec.cabinet || [];
+// ─────────────────────────────────────────────────────────────────
+// 1. HERO
+// ─────────────────────────────────────────────────────────────────
+function Hero({ onVerifyClick }) {
+  // Stats are demo placeholders — production should pull live counts
+  // from /api/all-members + a verified-citizens count from the citizen
+  // auth backend. Hardcoding here so the hero feels populated even when
+  // the backend is offline.
+  const STATS = [
+    { value: '535',   label: 'Members of Congress' },
+    { value: '50',    label: 'States covered' },
+    { value: '12.4k', label: 'Verified citizens' },
+  ];
+
   return (
-    <div>
-      {pres && (
-        <Section title="President">
-          <OfficialCard
-            name={pres.name}
-            party={pres.party}
-            subtitle={[pres.ordinal, pres.role].filter(Boolean).join(' · ')}
-            meta={[
-              pres.serving_since ? `Serving since ${new Date(pres.serving_since).getFullYear()}` : null,
-              pres.term_end ? `Term ends ${new Date(pres.term_end).getFullYear()}` : null,
-            ].filter(Boolean)}
-            website={pres.website}
-            selectionMethod={pres.selection_method}
-            selectionDetail={pres.selection_detail}
-            big
-            onClick={onSelectPerson ? () => onSelectPerson(pres, 'president') : null}
-            followTarget={{ ...pres, role_type: 'president', chamber: 'Executive Branch' }}
-            onNotify={onNotify}
-            onCompareToggle={onCompareToggle}
-            compareIds={compareIds}
-          />
-        </Section>
-      )}
+    <section
+      style={{
+        padding: '40px 24px 32px',
+        background: 'var(--cl-card)',
+        borderBottom: '1px solid var(--cl-border)',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
+          gap: 32,
+          alignItems: 'center',
+        }}
+      >
+        <div>
+          <Eyebrow>National officials · 119th Congress</Eyebrow>
+          <h1
+            className="cl-h1"
+            style={{
+              margin: '8px 0 12px',
+              fontSize: 'var(--cl-text-3xl)',
+              fontWeight: 800,
+              lineHeight: 1.15,
+              letterSpacing: 'var(--cl-tracking-tight)',
+            }}
+          >
+            The people in{' '}
+            <span
+              style={{
+                background: 'var(--cl-warning-soft)',
+                padding: '0 6px',
+                borderRadius: 'var(--cl-radius-xs)',
+              }}
+            >
+              your federal government,
+            </span>{' '}
+            in one place.
+          </h1>
+          <p
+            className="cl-body"
+            style={{
+              color: 'var(--cl-text-light)',
+              maxWidth: 540,
+              margin: '0 0 20px',
+              lineHeight: 'var(--cl-leading-normal)',
+            }}
+          >
+            Browse the President, Vice President, Cabinet, Senate, House, and
+            your own state&rsquo;s delegation. Verify your address to follow
+            your reps and respond to what they say — in your district.
+          </p>
 
-      {vp && (
-        <Section title="Vice President" compact>
-          <OfficialCard
-            name={vp.name}
-            party={vp.party}
-            subtitle={vp.role}
-            meta={[
-              vp.serving_since ? `Serving since ${new Date(vp.serving_since).getFullYear()}` : null,
-              vp.term_end ? `Term ends ${new Date(vp.term_end).getFullYear()}` : null,
-            ].filter(Boolean)}
-            website={vp.website}
-            selectionMethod={vp.selection_method}
-            selectionDetail={vp.selection_detail}
-            onClick={onSelectPerson ? () => onSelectPerson(vp, 'vice_president') : null}
-            followTarget={{ ...vp, role_type: 'vice_president', chamber: 'Executive Branch' }}
-            onNotify={onNotify}
-            onCompareToggle={onCompareToggle}
-            compareIds={compareIds}
-          />
-        </Section>
-      )}
-
-      {cabinet.length > 0 && (
-        <Collapsible title="Cabinet" count={cabinet.length} defaultOpen>
-          <div style={{
-            fontSize: '0.74rem', color: 'var(--text-light)', padding: '2px 8px 8px',
-            lineHeight: 1.4,
-          }}>
-            Cabinet secretaries are nominated by the President and confirmed by
-            the Senate; they serve at the President&apos;s pleasure.
+          <button
+            type="button"
+            onClick={onVerifyClick}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              height: 44,
+              padding: '0 18px',
+              background: 'var(--cl-accent)',
+              color: 'var(--cl-text-on-dark)',
+              border: 'none',
+              borderRadius: 'var(--cl-radius-md)',
+              fontSize: 'var(--cl-text-md)',
+              fontWeight: 700,
+              fontFamily: 'var(--cl-font-sans)',
+              cursor: 'pointer',
+              boxShadow: 'var(--cl-shadow-sticky)',
+              transition: 'background var(--cl-duration-fast) var(--cl-ease-standard)',
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'var(--cl-accent-light)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = 'var(--cl-accent)'; }}
+          >
+            Find my reps
+            <ArrowRight size={14} active color="onDark" />
+          </button>
+          <div
+            style={{
+              marginTop: 8,
+              fontSize: 'var(--cl-text-2xs)',
+              color: 'var(--cl-text-muted)',
+            }}
+          >
+            Address used to match your district. Never shared, never sold.
           </div>
-          {cabinet.map((c) => (
-            <OfficialCard
-              key={c.id}
-              name={c.name}
-              party={c.party}
-              subtitle={c.role}
-              meta={[
-                c.serving_since ? `Serving since ${new Date(c.serving_since).toLocaleDateString(undefined, { year: 'numeric', month: 'short' })}` : null,
-                c.predecessor ? `Succeeded ${c.predecessor}` : null,
-              ].filter(Boolean)}
-              website={c.website}
-              selectionMethod={c.selection_method}
-              selectionDetail={c.selection_detail}
-              onClick={onSelectPerson ? () => onSelectPerson(c, 'cabinet') : null}
-              followTarget={{ ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
+
+          <div
+            style={{
+              marginTop: 28,
+              paddingTop: 20,
+              borderTop: '1px solid var(--cl-border)',
+              display: 'flex',
+              gap: 32,
+              flexWrap: 'wrap',
+            }}
+          >
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <div
+                  className="cl-num"
+                  style={{
+                    fontSize: 'var(--cl-text-2xl)',
+                    fontWeight: 800,
+                    color: 'var(--cl-text)',
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {s.value}
+                </div>
+                <div
+                  className="cl-eyebrow"
+                  style={{ marginTop: 2 }}
+                >
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Hero visual — magnify-lens-flag mark at large scale on a navy
+            tinted plate. Reads as iconic without being decorative. */}
+        <div
+          style={{
+            background: 'var(--cl-primary)',
+            borderRadius: 'var(--cl-radius-2xl)',
+            padding: 24,
+            aspectRatio: '1 / 1',
+            maxWidth: 360,
+            justifySelf: 'end',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          aria-hidden="true"
+        >
+          <CivicLensLogo size={220} variant="reverse" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 2. EXECUTIVE BRANCH
+// ─────────────────────────────────────────────────────────────────
+function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+  const pres = exec.president;
+  const vp = exec.vice_president;
+  const cabinet = exec.cabinet || [];
+
+  return (
+    <section style={{ padding: '32px 24px 16px' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="Article II"
+          title="Executive Branch"
+          subhead={
+            pres?.serving_since
+              ? `The administration in power · sworn in ${formatLongDate(pres.serving_since)}`
+              : 'The administration in power'
+          }
+          chip={null}
+        />
+
+        {/* President + VP — large hero-tier cards, 2 columns at desktop */}
+        {(pres || vp) && (
+          <div>
+            <SubsectionLabel>President &amp; Vice President</SubsectionLabel>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                gap: 16,
+              }}
+            >
+              {pres && (
+                <BigPersonCard
+                  person={pres}
+                  eyebrow="President of the United States"
+                  meta={
+                    pres.serving_since
+                      ? `Since ${new Date(pres.serving_since).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
+                      : null
+                  }
+                  onClick={onSelectPerson ? () => onSelectPerson(pres, 'president') : null}
+                  followTarget={{ ...pres, role_type: 'president', chamber: 'Executive Branch' }}
+                  onNotify={onNotify}
+                  onCompareToggle={onCompareToggle}
+                  compareIds={compareIds}
+                />
+              )}
+              {vp && (
+                <BigPersonCard
+                  person={vp}
+                  eyebrow="Vice President of the United States"
+                  meta={
+                    vp.serving_since
+                      ? `Since ${new Date(vp.serving_since).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
+                      : null
+                  }
+                  onClick={onSelectPerson ? () => onSelectPerson(vp, 'vice_president') : null}
+                  followTarget={{ ...vp, role_type: 'vice_president', chamber: 'Executive Branch' }}
+                  onNotify={onNotify}
+                  onCompareToggle={onCompareToggle}
+                  compareIds={compareIds}
+                />
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Cabinet — compact grid, 4 cols at desktop */}
+        {cabinet.length > 0 && (
+          <div style={{ marginTop: 20 }}>
+            <SubsectionLabel>
+              Cabinet
+              <span
+                style={{
+                  marginLeft: 8,
+                  color: 'var(--cl-text-muted)',
+                  fontWeight: 400,
+                  fontSize: 'var(--cl-text-2xs)',
+                  textTransform: 'none',
+                  letterSpacing: 0,
+                }}
+              >
+                Nominated by the President · confirmed by the Senate
+              </span>
+            </SubsectionLabel>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                gap: 10,
+              }}
+            >
+              {cabinet.map((c) => (
+                <CompactPersonCard
+                  key={c.id}
+                  person={c}
+                  eyebrow={c.role}
+                  onClick={onSelectPerson ? () => onSelectPerson(c, 'cabinet') : null}
+                  followTarget={{ ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
+                  onNotify={onNotify}
+                  onCompareToggle={onCompareToggle}
+                  compareIds={compareIds}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 3. SENATE LEADERSHIP
+// ─────────────────────────────────────────────────────────────────
+function SenateLeadershipSection({ senate, congressNumber, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+  const leadership = senate.leadership || [];
+  if (leadership.length === 0) return null;
+  const breakdown = senate.party_breakdown || {};
+  const total = (breakdown.R || 0) + (breakdown.D || 0) + (breakdown.I || 0);
+
+  return (
+    <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="Article I · Section 3"
+          title="Senate Leadership"
+          subhead={
+            total > 0
+              ? `${total} senators · ${breakdown.R || 0}R · ${breakdown.D || 0}D${breakdown.I ? ` · ${breakdown.I}I` : ''}`
+              : null
+          }
+          chip={<PartyBalanceChip breakdown={breakdown} />}
+        />
+        <LeadershipGrid
+          leadership={leadership}
+          chamber="U.S. Senate"
+          onSelectPerson={onSelectPerson}
+          onNotify={onNotify}
+          onCompareToggle={onCompareToggle}
+          compareIds={compareIds}
+        />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 4. HOUSE LEADERSHIP
+// ─────────────────────────────────────────────────────────────────
+function HouseLeadershipSection({ house, congressNumber, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+  const leadership = house.leadership || [];
+  if (leadership.length === 0) return null;
+  const breakdown = house.party_breakdown || {};
+  const total = (breakdown.R || 0) + (breakdown.D || 0) + (breakdown.I || 0);
+
+  return (
+    <section style={{ padding: '32px 24px 16px' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="Article I · Section 2"
+          title="House Leadership"
+          subhead={
+            total > 0
+              ? `${total} representatives · ${breakdown.R || 0}R · ${breakdown.D || 0}D${breakdown.I ? ` · ${breakdown.I}I` : ''}`
+              : null
+          }
+          chip={<PartyBalanceChip breakdown={breakdown} />}
+        />
+        <LeadershipGrid
+          leadership={leadership}
+          chamber="U.S. House of Representatives"
+          onSelectPerson={onSelectPerson}
+          onNotify={onNotify}
+          onCompareToggle={onCompareToggle}
+          compareIds={compareIds}
+        />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 5. SUPREME COURT
+// ─────────────────────────────────────────────────────────────────
+function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+  const justices = sc.members || [];
+  if (justices.length === 0) return null;
+
+  return (
+    <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="Article III"
+          title={sc.body_name || 'Supreme Court of the United States'}
+          subhead={
+            sc._note ||
+            'Justices are nominated by the President, confirmed by the Senate, and serve during good behavior.'
+          }
+          chip={null}
+        />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: 10,
+          }}
+        >
+          {justices.map((j) => (
+            <CompactPersonCard
+              key={j.id}
+              person={j}
+              eyebrow={j.role + (j.chief ? ' · presiding' : '')}
+              meta={j.appointed_by ? `Appointed by ${j.appointed_by}` : null}
+              onClick={onSelectPerson ? () => onSelectPerson(j, 'scotus') : null}
+              followTarget={{ ...j, role_type: 'scotus', chamber: sc.body_name || 'Supreme Court' }}
               onNotify={onNotify}
               onCompareToggle={onCompareToggle}
               compareIds={compareIds}
             />
           ))}
-        </Collapsible>
-      )}
-    </div>
-  );
-}
-
-// ─── Judicial ──────────────────────────────────────────────────────────
-function JudicialView({ jud, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
-  if (!jud) return null;
-  const sc = jud.supreme_court || {};
-  const justices = sc.members || [];
-  return (
-    <div>
-      <Section title={sc.body_name || 'Supreme Court of the United States'}>
-        <div style={{
-          fontSize: '0.76rem', color: 'var(--text-light)',
-          padding: '0 10px 10px', lineHeight: 1.5,
-        }}>
-          {sc._note || 'Justices are nominated by the President, confirmed by the Senate, and serve during good behavior.'}
-          {sc.website && (
-            <>
-              {' '}
-              <a
-                href={sc.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
-              >
-                supremecourt.gov ↗
-              </a>
-            </>
-          )}
         </div>
-        {justices.map((j) => (
-          <OfficialCard
-            key={j.id}
-            name={j.name}
-            subtitle={j.role + (j.chief ? ' (presiding)' : '')}
-            meta={[
-              j.appointed_by ? `Appointed by ${j.appointed_by}` : null,
-              j.appointed_on ? new Date(j.appointed_on).getFullYear() : null,
-            ].filter(Boolean)}
-            website={j.website}
-            selectionMethod={j.selection_method}
-            selectionDetail={j.selection_detail}
-            onClick={onSelectPerson ? () => onSelectPerson(j, 'scotus') : null}
-            followTarget={{ ...j, role_type: 'scotus', chamber: sc.body_name || 'Supreme Court' }}
-            onNotify={onNotify}
-            onCompareToggle={onCompareToggle}
-            compareIds={compareIds}
-          />
-        ))}
-      </Section>
-    </div>
+      </div>
+    </section>
   );
 }
 
-// ─── Congress ──────────────────────────────────────────────────────────
-function CongressView({ congress, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
-  if (!congress) return null;
-  const senate = congress.senate || {};
-  const house  = congress.house || {};
+// ─────────────────────────────────────────────────────────────────
+// 6. VERIFICATION CTA STRIP
+// ─────────────────────────────────────────────────────────────────
+function VerificationCTAStrip({ onVerifyClick }) {
   return (
-    <div>
-      <div style={{
-        fontSize: '0.76rem', color: 'var(--text-light)',
-        padding: '0 8px 12px', lineHeight: 1.5,
-      }}>
-        <strong style={{ color: 'var(--text)' }}>
-          {congress.congress_number}
-          {ordinalSuffix(congress.congress_number)} Congress
-        </strong>
-        {congress.session ? ` · ${congress.session}` : ''}
-        {congress._note ? ` · ${congress._note}` : ''}
-      </div>
-
-      {/* Senate */}
-      <Collapsible
-        title={senate.chamber || 'U.S. Senate'}
-        count={senate.seats_total || null}
-        defaultOpen
+    <section
+      style={{
+        padding: '40px 24px',
+        margin: '24px 24px 0',
+        maxWidth: 1180,
+        background: 'var(--cl-primary)',
+        color: 'var(--cl-text-on-dark)',
+        borderRadius: 'var(--cl-radius-2xl)',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, auto)',
+          gap: 32,
+          alignItems: 'center',
+        }}
       >
-        {senate.party_breakdown && <PartyBreakdown breakdown={senate.party_breakdown} />}
-        {senate.leadership?.length > 0 && (
-          <NestedCollapsible
-            title="Leadership"
-            count={senate.leadership.length}
-            defaultOpen
+        <div>
+          <h2
+            className="cl-h1"
+            style={{
+              color: 'var(--cl-text-on-dark)',
+              margin: '0 0 8px',
+              letterSpacing: 'var(--cl-tracking-tight)',
+            }}
           >
-            {senate.leadership.map((m) => (
-              <OfficialCard
-                key={m.id}
-                name={m.name}
-                party={m.party}
-                subtitle={[m.role, m.state].filter(Boolean).join(' · ')}
-                selectionMethod={m.selection_method}
-                selectionDetail={m.selection_detail}
-                onClick={onSelectPerson ? () => onSelectPerson(m, 'congress_leader') : null}
-                followTarget={{ ...m, role_type: 'congress_leader', chamber: m.chamber || 'U.S. Senate' }}
-                onNotify={onNotify}
-                onCompareToggle={onCompareToggle}
-                compareIds={compareIds}
-              />
-            ))}
-          </NestedCollapsible>
-        )}
-      </Collapsible>
-
-      {/* House */}
-      <Collapsible
-        title={house.chamber || 'U.S. House of Representatives'}
-        count={house.seats_total || null}
-      >
-        {house.party_breakdown && <PartyBreakdown breakdown={house.party_breakdown} />}
-        {house.leadership?.length > 0 && (
-          <NestedCollapsible
-            title="Leadership"
-            count={house.leadership.length}
-            defaultOpen
+            Make this your own.
+          </h2>
+          <p
+            className="cl-body-sm"
+            style={{
+              color: 'var(--cl-text-on-dark-soft)',
+              margin: 0,
+              maxWidth: 520,
+              lineHeight: 'var(--cl-leading-normal)',
+            }}
           >
-            {house.leadership.map((m) => (
-              <OfficialCard
-                key={m.id}
-                name={m.name}
-                party={m.party}
-                subtitle={[
-                  m.role,
-                  [m.state, m.district ? `Dist. ${m.district}` : null].filter(Boolean).join('-'),
-                ].filter(Boolean).join(' · ')}
-                selectionMethod={m.selection_method}
-                selectionDetail={m.selection_detail}
-                onClick={onSelectPerson ? () => onSelectPerson(m, 'congress_leader') : null}
-                followTarget={{ ...m, role_type: 'congress_leader', chamber: m.chamber || 'U.S. House of Representatives' }}
-                onNotify={onNotify}
-                onCompareToggle={onCompareToggle}
-                compareIds={compareIds}
-              />
-            ))}
-          </NestedCollapsible>
-        )}
-      </Collapsible>
-
-      <div style={{
-        fontSize: '0.74rem', color: 'var(--text-light)', fontStyle: 'italic',
-        padding: '6px 8px', lineHeight: 1.5,
-      }}>
-        Click a state on the map to see its senators + representatives.
-      </div>
-    </div>
-  );
-}
-
-function PartyBreakdown({ breakdown }) {
-  const total = ['R', 'D', 'I'].reduce((s, k) => s + (breakdown[k] || 0), 0);
-  if (!total) return null;
-  return (
-    <div style={{ padding: '0 10px 8px' }}>
-      <div style={{
-        display: 'flex',
-        borderRadius: 'var(--cl-radius-sm)',
-        overflow: 'hidden',
-        border: '1px solid var(--cl-border)',
-        height: 10,
-      }}>
-        {['R', 'D', 'I'].map((k) => {
-          const n = breakdown[k] || 0;
-          if (!n) return null;
-          const pct = (n / total) * 100;
-          return (
-            <div
-              key={k}
-              title={`${k === 'R' ? 'Republicans' : k === 'D' ? 'Democrats' : 'Independents'}: ${n}`}
-              style={{
-                width: `${pct}%`,
-                background: PARTY_COLORS[k],
-              }}
-            />
-          );
-        })}
-      </div>
-      <div style={{
-        marginTop: 6,
-        display: 'flex',
-        gap: 10,
-        flexWrap: 'wrap',
-        fontSize: 'var(--cl-text-xs)',
-        color: 'var(--cl-text-light)',
-        fontFamily: 'var(--cl-font-sans)',
-      }}>
-        {['R', 'D', 'I'].map((k) => (breakdown[k] ? (
-          <span key={k} style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-            <span style={{
-              display: 'inline-block',
-              width: 9, height: 9,
-              borderRadius: '50%',
-              background: PARTY_COLORS[k],
-            }} />
-            <strong className="cl-num" style={{ color: 'var(--cl-text)' }}>{breakdown[k]}</strong>
-            {k === 'R' ? 'Republicans' : k === 'D' ? 'Democrats' : 'Independents'}
-          </span>
-        ) : null))}
-      </div>
-      {breakdown._note && (
-        <div style={{
-          marginTop: 6,
-          fontSize: 'var(--cl-text-2xs)',
-          color: 'var(--cl-text-light)',
-          fontStyle: 'italic',
-          lineHeight: 1.4,
-        }}>
-          {breakdown._note}
+            Verify your home address to surface your senators, your
+            representative, your committees, and to track and respond to
+            what they say. CivicLens never shares or sells your address.
+          </p>
         </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Elections ─────────────────────────────────────────────────────────
-function ElectionsView({ elections, onNotify }) {
-  const upcoming = elections?.upcoming || [];
-  if (!upcoming.length) {
-    return (
-      <EmptyState>No upcoming federal elections on file.</EmptyState>
-    );
-  }
-  return (
-    <div>
-      <div style={{
-        fontSize: '0.76rem', color: 'var(--text-light)',
-        padding: '0 8px 10px', lineHeight: 1.5,
-      }}>
-        Upcoming federal election cycles. Click a state on the map for state-
-        and local-level races on its ballot.
-      </div>
-      {upcoming.map((e) => (
-        <div
-          key={e.id}
+        <button
+          type="button"
+          onClick={onVerifyClick}
           style={{
-            padding: '12px 14px', marginBottom: '8px', background: 'white',
-            border: '1px solid var(--border)', borderRadius: '10px',
-            display: 'flex', alignItems: 'flex-start', gap: '10px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            height: 48,
+            padding: '0 22px',
+            background: 'var(--cl-accent)',
+            color: 'var(--cl-text-on-dark)',
+            border: 'none',
+            borderRadius: 'var(--cl-radius-md)',
+            fontSize: 'var(--cl-text-md)',
+            fontWeight: 700,
+            fontFamily: 'var(--cl-font-sans)',
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'background var(--cl-duration-fast) var(--cl-ease-standard)',
+          }}
+          onMouseOver={(e) => { e.currentTarget.style.background = 'var(--cl-accent-light)'; }}
+          onMouseOut={(e) => { e.currentTarget.style.background = 'var(--cl-accent)'; }}
+        >
+          Verify your address
+          <ArrowRight size={14} active color="onDark" />
+        </button>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 7. FOOTER
+// ─────────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer
+      style={{
+        marginTop: 32,
+        padding: '32px 24px',
+        background: 'var(--cl-card)',
+        borderTop: '1px solid var(--cl-border)',
+      }}
+    >
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.4fr) repeat(3, minmax(0, 1fr))',
+            gap: 32,
+            marginBottom: 24,
           }}
         >
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{
-              fontSize: '0.68rem', fontWeight: 800, color: 'var(--accent)',
-              letterSpacing: '0.5px', textTransform: 'uppercase',
-            }}>
-              {e.date ? new Date(e.date + 'T12:00:00').toLocaleDateString(undefined, {
-                year: 'numeric', month: 'long', day: 'numeric',
-              }) : 'Date TBA'}
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                marginBottom: 10,
+              }}
+            >
+              <CivicLensLogo size={20} variant="color" />
+              <span
+                style={{
+                  fontFamily: 'var(--cl-font-display)',
+                  fontWeight: 700,
+                  fontSize: 'var(--cl-text-md)',
+                  color: 'var(--cl-text)',
+                }}
+              >
+                CivicLens
+              </span>
             </div>
-            <div style={{
-              fontSize: '0.96rem', fontWeight: 700, marginTop: '4px', color: 'var(--text)',
-            }}>
-              {e.name}
-            </div>
-            {e.description && (
-              <div style={{
-                fontSize: '0.82rem', color: 'var(--text-light)',
-                marginTop: '4px', lineHeight: 1.5,
-              }}>
-                {e.description}
-              </div>
-            )}
+            <p
+              style={{
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text-light)',
+                lineHeight: 'var(--cl-leading-normal)',
+                margin: 0,
+                maxWidth: 320,
+              }}
+            >
+              CivicLens does not endorse any candidate, party, or position.
+              We surface what officials say and do — and let citizens respond
+              in their own districts.
+            </p>
           </div>
-          <TrackElectionButton
-            election={{
-              id: e.id,
-              name: e.name,
-              date: e.date || null,
-              state: null,
-              type: e.type || 'federal',
-              level: 'federal',
-              candidates_count: e.candidates_count || 0,
-            }}
-            size="md"
-            onNotify={onNotify}
+          <FooterColumn
+            heading="Browse"
+            links={[
+              { label: 'Executive branch', onClick: null },
+              { label: 'Senate', onClick: null },
+              { label: 'House', onClick: null },
+              { label: 'Browse by state', onClick: null },
+            ]}
+          />
+          <FooterColumn
+            heading="Citizen"
+            links={[
+              { label: 'Verify your address', onClick: null },
+              { label: 'My tracked', onClick: null },
+              { label: 'Notifications', onClick: null },
+              { label: 'Subscribe to a rep', onClick: null },
+            ]}
+          />
+          <FooterColumn
+            heading="About"
+            links={[
+              { label: 'Methodology', onClick: null },
+              { label: 'Editorial standards', onClick: null },
+              { label: 'Privacy', onClick: null },
+              { label: 'Contact', onClick: null },
+            ]}
           />
         </div>
-      ))}
+        <div
+          style={{
+            paddingTop: 16,
+            borderTop: '1px solid var(--cl-border)',
+            fontSize: 'var(--cl-text-2xs)',
+            color: 'var(--cl-text-muted)',
+            display: 'flex',
+            gap: 12,
+            flexWrap: 'wrap',
+          }}
+        >
+          <span>© {new Date().getFullYear()} CivicLens</span>
+          <span>·</span>
+          <span>Data sourced from official chamber records, FEC filings, and verified office staff.</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterColumn({ heading, links }) {
+  return (
+    <div>
+      <Eyebrow style={{ marginBottom: 10 }}>{heading}</Eyebrow>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {links.map((l) => (
+          <li key={l.label}>
+            <button
+              type="button"
+              onClick={l.onClick || (() => {})}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+                fontSize: 'var(--cl-text-sm)',
+                color: 'var(--cl-text)',
+                fontFamily: 'var(--cl-font-sans)',
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              {l.label}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-// ─── Primitives (mirrors StatewideOfficialsTab) ────────────────────────
-function Section({ title, children, compact }) {
+// ─────────────────────────────────────────────────────────────────
+// Shared section header
+// ─────────────────────────────────────────────────────────────────
+function SectionHeader({ eyebrow, title, subhead, chip }) {
   return (
-    <div style={{ marginBottom: compact ? '10px' : '18px' }}>
-      <div style={{
-        fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 700,
-        textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 10px 8px',
-      }}>
-        {title}
+    <header style={{ marginBottom: 16 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: 12,
+          flexWrap: 'wrap',
+          marginBottom: 4,
+        }}
+      >
+        <Eyebrow tone="accent">{eyebrow}</Eyebrow>
+        {chip}
       </div>
+      <h2
+        className="cl-h1"
+        style={{
+          margin: 0,
+          fontSize: 'var(--cl-text-2xl)',
+          fontWeight: 700,
+          letterSpacing: 'var(--cl-tracking-tight)',
+        }}
+      >
+        {title}
+      </h2>
+      {subhead && (
+        <div
+          className="cl-body-sm"
+          style={{ color: 'var(--cl-text-light)', marginTop: 4 }}
+        >
+          {subhead}
+        </div>
+      )}
+    </header>
+  );
+}
+
+function SubsectionLabel({ children }) {
+  return (
+    <div
+      style={{
+        textTransform: 'uppercase',
+        letterSpacing: 'var(--cl-tracking-wider)',
+        fontSize: 'var(--cl-text-2xs)',
+        fontWeight: 800,
+        color: 'var(--cl-text-light)',
+        marginBottom: 8,
+        paddingBottom: 6,
+        borderBottom: '1px solid var(--cl-border)',
+      }}
+    >
       {children}
     </div>
   );
 }
 
-function Collapsible({ title, count, children, defaultOpen = false }) {
-  const [open, setOpen] = useState(defaultOpen);
+// ─────────────────────────────────────────────────────────────────
+// Party-balance chip (shown next to section eyebrow on Senate / House)
+// ─────────────────────────────────────────────────────────────────
+function PartyBalanceChip({ breakdown }) {
+  const r = breakdown.R || 0;
+  const d = breakdown.D || 0;
+  const i = breakdown.I || 0;
+  if (r + d + i === 0) return null;
   return (
-    <div style={{
-      marginBottom: '10px', border: '1px solid var(--border)', borderRadius: '10px',
-      background: 'white', overflow: 'hidden',
-    }}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        style={{
-          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          gap: '10px', padding: '10px 14px', background: open ? 'var(--bg)' : 'white',
-          border: 'none', borderBottom: open ? '1px solid var(--border)' : 'none',
-          cursor: 'pointer', textAlign: 'left',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{
-            fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 700,
-            textTransform: 'uppercase', letterSpacing: '0.5px',
-          }}>
-            {title}
-          </span>
-          {typeof count === 'number' && (
-            <span style={{
-              fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
-              background: 'var(--bg)', color: 'var(--text-light)', borderRadius: '10px',
-            }}>
-              {count}
-            </span>
-          )}
-        </div>
-        <span aria-hidden style={{
-          fontSize: '0.9rem', color: 'var(--text-light)',
-          transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s',
-        }}>
-          ›
-        </span>
-      </button>
-      {open && <div style={{ padding: '10px 10px 8px' }}>{children}</div>}
-    </div>
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '2px 10px',
+        background: 'var(--cl-bg-soft)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-pill)',
+      }}
+    >
+      <PartyDot color={PARTY_COLORS.R} count={r} label="R" />
+      <PartyDot color={PARTY_COLORS.D} count={d} label="D" />
+      {i > 0 && <PartyDot color={PARTY_COLORS.I} count={i} label="I" />}
+    </span>
   );
 }
 
-function NestedCollapsible({ title, count, children, defaultOpen = false }) {
-  const [open, setOpen] = useState(defaultOpen);
+function PartyDot({ color, count, label }) {
   return (
-    <div style={{ marginBottom: '6px' }}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+      <span
         style={{
-          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '6px 8px', background: 'transparent', border: 'none',
-          cursor: 'pointer', textAlign: 'left',
+          display: 'inline-block',
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: color,
+        }}
+        aria-hidden="true"
+      />
+      <span
+        className="cl-num"
+        style={{
+          fontSize: 'var(--cl-text-2xs)',
+          fontWeight: 700,
+          color: 'var(--cl-text)',
         }}
       >
-        <span style={{
-          fontSize: '0.7rem', color: 'var(--text-light)', fontWeight: 700,
-          textTransform: 'uppercase', letterSpacing: '0.4px',
-        }}>
-          {title}{typeof count === 'number' ? ` (${count})` : ''}
-        </span>
-        <span aria-hidden style={{
-          fontSize: '0.85rem', color: 'var(--text-light)',
-          transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s',
-        }}>
-          ›
-        </span>
-      </button>
-      {open && <div>{children}</div>}
-    </div>
+        {label} · {count}
+      </span>
+    </span>
   );
 }
 
-function OfficialCard({
-  name, party, subtitle, meta, website, big,
-  selectionMethod, selectionDetail, normallyElected,
-  onClick, followTarget, onNotify, onCompareToggle, compareIds,
-}) {
+// ─────────────────────────────────────────────────────────────────
+// Big person card — used for President + VP + Cabinet hero tier
+// ─────────────────────────────────────────────────────────────────
+function BigPersonCard({ person, eyebrow, meta, onClick, followTarget, onNotify, onCompareToggle, compareIds }) {
   const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);
   const isComparing = Boolean(compareIds && memberCmpId && compareIds.has(memberCmpId));
-  const partyColor = party ? (PARTY_COLORS[party] || 'var(--cl-text-light)') : null;
-  const partyBg = party && PARTY_SOFT[party] ? PARTY_SOFT[party] : 'var(--cl-bg-soft)';
   const clickable = typeof onClick === 'function';
   return (
-    <div
+    <article
       role={clickable ? 'button' : undefined}
       tabIndex={clickable ? 0 : undefined}
       onClick={clickable ? onClick : undefined}
       onKeyDown={
         clickable
-          ? (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                onClick();
-              }
-            }
+          ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }
           : undefined
       }
-      onMouseOver={clickable ? (e) => (e.currentTarget.style.background = 'var(--bg)') : undefined}
-      onMouseOut={clickable ? (e) => (e.currentTarget.style.background = 'white') : undefined}
       style={{
-        display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '10px 12px',
-        background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
-        marginBottom: '6px',
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-2xl)',
+        padding: 18,
         cursor: clickable ? 'pointer' : 'default',
-        transition: clickable ? 'background 0.15s' : undefined,
+        transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard), box-shadow var(--cl-duration-fast) var(--cl-ease-standard)',
       }}
+      onMouseOver={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; e.currentTarget.style.boxShadow = 'var(--cl-shadow-card)'; } : undefined}
+      onMouseOut={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.boxShadow = 'none'; } : undefined}
     >
-      <div
-        style={{
-          width: big ? '48px' : '36px', height: big ? '48px' : '36px',
-          borderRadius: '50%', background: partyBg || 'var(--bg)',
-          color: partyColor || 'var(--text-light)',
-          fontSize: big ? '1rem' : '0.82rem', fontWeight: 700,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        {name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
-      </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: big ? '0.98rem' : '0.88rem', fontWeight: 700, lineHeight: 1.2 }}>
-          {name}
-        </div>
-        {subtitle && (
-          <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', marginTop: '2px' }}>
-            {subtitle}
-          </div>
-        )}
-        {meta && meta.length > 0 && (
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '3px' }}>
-            {meta.join(' · ')}
-          </div>
-        )}
-        {selectionDetail && (
-          <div style={{
-            fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '3px',
-            fontStyle: 'italic', lineHeight: 1.4,
-          }}>
-            {selectionDetail}
-          </div>
-        )}
-        {website && (
-          <a
-            href={website} target="_blank" rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+      <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+        <Avatar name={person.name} party={person.party} size="xl" />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <Eyebrow tone="accent">{eyebrow}</Eyebrow>
+          <h3
             style={{
-              fontSize: '0.74rem', color: 'var(--accent)',
-              textDecoration: 'none', fontWeight: 600,
-              marginTop: '4px', display: 'inline-block',
+              margin: '4px 0 4px',
+              fontSize: 'var(--cl-text-xl)',
+              fontWeight: 700,
+              color: 'var(--cl-text)',
+              letterSpacing: 'var(--cl-tracking-tight)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              flexWrap: 'wrap',
             }}
           >
-            Official page ↗
-          </a>
-        )}
+            {person.name}
+            {person.party && <PartyChip party={person.party} size="sm" variant="soft" />}
+          </h3>
+          {meta && (
+            <div
+              style={{
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text-light)',
+              }}
+            >
+              {meta}
+            </div>
+          )}
+          {person.selection_method && (
+            <div style={{ marginTop: 6 }}>
+              <SelectionBadge method={person.selection_method} detail={person.selection_detail} />
+            </div>
+          )}
+        </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-        {party && (
-          <span style={{
-            padding: '2px 8px', borderRadius: '10px',
-            background: partyBg, color: partyColor,
-            fontSize: '0.68rem', fontWeight: 800,
-          }}>
-            {party}
-          </span>
-        )}
-        <SelectionBadge
-          method={selectionMethod}
-          detail={selectionDetail}
-          normallyElected={normallyElected}
-        />
-        {followTarget && (
-          <div
-            style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '2px' }}
-            onClick={(e) => e.stopPropagation()}
-          >
+      {(followTarget || compareIds) && (
+        <div
+          style={{
+            marginTop: 12,
+            paddingTop: 10,
+            borderTop: '1px solid var(--cl-divider)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            flexWrap: 'wrap',
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {followTarget && (
             <FollowButton member={followTarget} size="sm" onNotify={onNotify} />
+          )}
+          {onCompareToggle && memberCmpId && (
             <CompareButton
               member={followTarget}
-              size="sm"
               isComparing={isComparing}
               onCompareToggle={onCompareToggle}
+              size="sm"
             />
+          )}
+          {clickable && (
+            <span
+              style={{
+                marginLeft: 'auto',
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-accent)',
+                fontWeight: 600,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              View profile
+              <ArrowRight size={12} color="accent" active />
+            </span>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Compact person card — used for Cabinet, SCOTUS, leadership tiers
+// ─────────────────────────────────────────────────────────────────
+function CompactPersonCard({ person, eyebrow, meta, onClick, followTarget, onNotify, onCompareToggle, compareIds }) {
+  const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);
+  const isComparing = Boolean(compareIds && memberCmpId && compareIds.has(memberCmpId));
+  const clickable = typeof onClick === 'function';
+  return (
+    <article
+      role={clickable ? 'button' : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onClick={clickable ? onClick : undefined}
+      onKeyDown={
+        clickable
+          ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }
+          : undefined
+      }
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: 12,
+        cursor: clickable ? 'pointer' : 'default',
+        transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard)',
+      }}
+      onMouseOver={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; } : undefined}
+      onMouseOut={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; } : undefined}
+    >
+      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <Avatar name={person.name} party={person.party} size="md" />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {eyebrow && (
+            <div
+              className="cl-eyebrow"
+              style={{ color: 'var(--cl-text-light)' }}
+            >
+              {eyebrow}
+            </div>
+          )}
+          <div
+            style={{
+              fontSize: 'var(--cl-text-sm)',
+              fontWeight: 700,
+              color: 'var(--cl-text)',
+              marginTop: 2,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              minWidth: 0,
+            }}>
+              {person.name}
+            </span>
+            {person.party && <PartyChip party={person.party} size="xs" />}
           </div>
-        )}
+          {meta && (
+            <div
+              style={{
+                fontSize: 'var(--cl-text-2xs)',
+                color: 'var(--cl-text-light)',
+                marginTop: 2,
+              }}
+            >
+              {meta}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </article>
   );
 }
 
-function Loading({ children }) {
+// ─────────────────────────────────────────────────────────────────
+// Leadership grid — renders senate / house leadership in tiered rows.
+// Tier 1 (floor leadership): Speaker / Majority Leader / Minority Leader
+// Tier 2 (whips, caucus chairs, pro tempore, etc.): everyone else
+// ─────────────────────────────────────────────────────────────────
+function LeadershipGrid({ leadership, chamber, onSelectPerson, onNotify, onCompareToggle, compareIds }) {
+  // Sort floor leadership to the top tier — anything matching these
+  // role keywords. Everything else lands in the second tier.
+  const FLOOR_KEYWORDS = ['speaker', 'majority leader', 'minority leader', 'president pro tempore', 'pro tempore'];
+  const isFloorRole = (role) => {
+    if (!role) return false;
+    const r = role.toLowerCase();
+    return FLOOR_KEYWORDS.some((kw) => r.includes(kw));
+  };
+
+  const floor = leadership.filter((m) => isFloorRole(m.role));
+  const supporting = leadership.filter((m) => !isFloorRole(m.role));
+
   return (
-    <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-light)' }}>
-      {children}
+    <div>
+      {floor.length > 0 && (
+        <>
+          <SubsectionLabel>Floor leadership</SubsectionLabel>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: 12,
+              marginBottom: supporting.length > 0 ? 20 : 0,
+            }}
+          >
+            {floor.map((m) => (
+              <BigPersonCard
+                key={m.id}
+                person={m}
+                eyebrow={[m.role, m.state].filter(Boolean).join(' · ')}
+                meta={null}
+                onClick={onSelectPerson ? () => onSelectPerson(m, 'congress_leader') : null}
+                followTarget={{ ...m, role_type: 'congress_leader', chamber: m.chamber || chamber }}
+                onNotify={onNotify}
+                onCompareToggle={onCompareToggle}
+                compareIds={compareIds}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      {supporting.length > 0 && (
+        <>
+          <SubsectionLabel>
+            {chamber.includes('Senate') ? 'Whips & assistant leaders' : 'Whips & caucus chairs'}
+          </SubsectionLabel>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: 10,
+            }}
+          >
+            {supporting.map((m) => (
+              <CompactPersonCard
+                key={m.id}
+                person={m}
+                eyebrow={[m.role, m.state].filter(Boolean).join(' · ')}
+                onClick={onSelectPerson ? () => onSelectPerson(m, 'congress_leader') : null}
+                followTarget={{ ...m, role_type: 'congress_leader', chamber: m.chamber || chamber }}
+                onNotify={onNotify}
+                onCompareToggle={onCompareToggle}
+                compareIds={compareIds}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-function EmptyState({ children }) {
-  return (
-    <div style={{
-      margin: '20px 10px', padding: '18px 16px', textAlign: 'center',
-      background: 'var(--bg)', border: '1px dashed var(--border)', borderRadius: '12px',
-      color: 'var(--text-light)', fontSize: '0.84rem', lineHeight: 1.5,
-    }}>
-      {children}
-    </div>
-  );
-}
-
-function ordinalSuffix(n) {
-  if (!n) return '';
-  const s = ['th', 'st', 'nd', 'rd'];
-  const v = n % 100;
-  return s[(v - 20) % 10] || s[v] || s[0];
+// ─────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────
+function formatLongDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
