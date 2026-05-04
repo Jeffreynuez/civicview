@@ -52,7 +52,7 @@ export default function NotificationBellMenu() {
           <span style={{
             position: 'absolute', top: '4px', right: '4px',
             width: '8px', height: '8px', borderRadius: '50%',
-            background: '#ffba08', border: '2px solid var(--primary)',
+            background: '#ffba08', border: '2px solid var(--cl-primary)',
           }} />
         )}
       </button>
@@ -63,21 +63,21 @@ export default function NotificationBellMenu() {
           style={{
             position: 'absolute', top: 'calc(100% + 8px)', right: 0,
             width: '320px', maxHeight: '70vh', overflowY: 'auto',
-            background: 'white', color: 'var(--text)',
-            border: '1px solid var(--border)', borderRadius: '12px',
+            background: 'white', color: 'var(--cl-text)',
+            border: '1px solid var(--cl-border)', borderRadius: '12px',
             boxShadow: '0 12px 28px rgba(0,0,0,0.22)',
             zIndex: 200, padding: '10px 12px',
           }}
         >
           <div style={{
-            fontSize: '0.82rem', fontWeight: 800, color: 'var(--primary)',
+            fontSize: '0.82rem', fontWeight: 800, color: 'var(--cl-primary)',
             textTransform: 'uppercase', letterSpacing: '0.4px', padding: '4px 2px 8px',
           }}>
             Notifications
           </div>
 
           <div style={{
-            fontSize: '0.68rem', fontWeight: 800, color: 'var(--text-light)',
+            fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
             textTransform: 'uppercase', letterSpacing: '0.5px', margin: '4px 2px',
           }}>
             Delivery channels
@@ -94,7 +94,7 @@ export default function NotificationBellMenu() {
           ))}
 
           <div style={{
-            fontSize: '0.68rem', fontWeight: 800, color: 'var(--text-light)',
+            fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
             textTransform: 'uppercase', letterSpacing: '0.5px',
             margin: '10px 2px 4px',
           }}>
@@ -112,8 +112,8 @@ export default function NotificationBellMenu() {
           ))}
 
           <div style={{
-            fontSize: '0.68rem', color: 'var(--text-light)',
-            padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--border)',
+            fontSize: '0.68rem', color: 'var(--cl-text-light)',
+            padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--cl-border)',
             marginTop: '6px',
           }}>
             In-app toasts are live today. Desktop, email, SMS, and mobile push
@@ -140,7 +140,7 @@ function ChannelToggle({ label, description, checked, disabled, onChange }) {
         disabled={disabled}
         onChange={(e) => onChange(e.target.checked)}
         style={{
-          marginTop: '3px', accentColor: 'var(--accent)',
+          marginTop: '3px', accentColor: 'var(--cl-accent)',
           cursor: disabled ? 'not-allowed' : 'pointer',
         }}
       />
@@ -150,8 +150,8 @@ function ChannelToggle({ label, description, checked, disabled, onChange }) {
           {disabled && (
             <span style={{
               fontSize: '0.58rem', fontWeight: 800, padding: '1px 6px',
-              borderRadius: '8px', background: 'var(--bg)',
-              color: 'var(--text-light)', border: '1px solid var(--border)',
+              borderRadius: '8px', background: 'var(--cl-bg)',
+              color: 'var(--cl-text-light)', border: '1px solid var(--cl-border)',
               letterSpacing: '0.4px',
             }}>
               SOON
@@ -159,7 +159,7 @@ function ChannelToggle({ label, description, checked, disabled, onChange }) {
           )}
         </div>
         {description && (
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '1px', lineHeight: 1.35 }}>
+          <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
             {description}
           </div>
         )}
@@ -173,12 +173,12 @@ function Slider({ label, description, choices, value, onChange }) {
   return (
     <div style={{ padding: '6px 2px' }}>
       <div style={{ fontSize: '0.78rem', fontWeight: 700 }}>
-        {label}: <span style={{ color: 'var(--accent)', textTransform: 'capitalize' }}>
+        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: 'capitalize' }}>
           {String(value).replace(/_/g, ' ')}
         </span>
       </div>
       {description && (
-        <div style={{ fontSize: '0.68rem', color: 'var(--text-light)', marginTop: '1px', lineHeight: 1.35 }}>
+        <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
           {description}
         </div>
       )}
@@ -189,11 +189,11 @@ function Slider({ label, description, choices, value, onChange }) {
         step={1}
         value={idx}
         onChange={(e) => onChange(choices[Number(e.target.value)])}
-        style={{ width: '100%', marginTop: '4px', accentColor: 'var(--accent)', cursor: 'pointer' }}
+        style={{ width: '100%', marginTop: '4px', accentColor: 'var(--cl-accent)', cursor: 'pointer' }}
       />
       <div style={{
         display: 'flex', justifyContent: 'space-between',
-        fontSize: '0.62rem', color: 'var(--text-light)',
+        fontSize: '0.62rem', color: 'var(--cl-text-light)',
         textTransform: 'capitalize', marginTop: '2px', fontWeight: 600,
       }}>
         {choices.map((c) => <span key={c}>{String(c).replace(/_/g, ' ')}</span>)}

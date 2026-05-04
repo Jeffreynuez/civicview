@@ -97,8 +97,8 @@ export default function CandidateCompareView({ open, candidates, onClose }) {
         {/* Header */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 20px', borderBottom: '1px solid var(--border)',
-          background: 'var(--primary)', color: 'white',
+          padding: '14px 20px', borderBottom: '1px solid var(--cl-border)',
+          background: 'var(--cl-primary)', color: 'white',
         }}>
           <div>
             <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>Candidate Comparison</div>
@@ -124,14 +124,14 @@ export default function CandidateCompareView({ open, candidates, onClose }) {
         <div style={{
           display: 'grid',
           gridTemplateColumns: `140px repeat(${fullCandidates.length}, 1fr)`,
-          borderBottom: '1px solid var(--border)',
-          background: 'var(--bg)',
+          borderBottom: '1px solid var(--cl-border)',
+          background: 'var(--cl-bg)',
         }}>
           <div />
           {fullCandidates.map((c) => {
             const party = c.party || 'NP';
             return (
-              <div key={c.id} style={{ padding: '12px 14px', textAlign: 'center', borderLeft: '1px solid var(--border)' }}>
+              <div key={c.id} style={{ padding: '12px 14px', textAlign: 'center', borderLeft: '1px solid var(--cl-border)' }}>
                 <div style={{
                   width: '48px', height: '48px', borderRadius: '50%',
                   margin: '0 auto 6px', background: PARTY_BG[party] || '#eef',
@@ -142,10 +142,10 @@ export default function CandidateCompareView({ open, candidates, onClose }) {
                   {c.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
                 </div>
                 <div style={{ fontSize: '0.92rem', fontWeight: 700, lineHeight: 1.2 }}>{c.name}</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '3px' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '3px' }}>
                   {PARTY_NAMES[party] || party}
                 </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
                   {c.seeking_office}
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function CandidateCompareView({ open, candidates, onClose }) {
         {/* Scrollable compare body */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '10px 0' }}>
           {loading && (
-            <div style={{ padding: '30px', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.88rem' }}>
+            <div style={{ padding: '30px', textAlign: 'center', color: 'var(--cl-text-light)', fontSize: '0.88rem' }}>
               Loading full profiles…
             </div>
           )}
@@ -170,7 +170,7 @@ export default function CandidateCompareView({ open, candidates, onClose }) {
                 {topics.slice(0, 6).map((t, idx) => (
                   <span key={idx} style={{
                     fontSize: '0.7rem', fontWeight: 600, padding: '2px 8px',
-                    borderRadius: '10px', background: 'var(--bg)', color: 'var(--primary)',
+                    borderRadius: '10px', background: 'var(--cl-bg)', color: 'var(--cl-primary)',
                   }}>
                     {t}
                   </span>
@@ -275,21 +275,21 @@ function Row({ label, candidates, render }) {
     <div style={{
       display: 'grid',
       gridTemplateColumns: `140px repeat(${candidates.length}, 1fr)`,
-      borderBottom: '1px solid var(--border)',
+      borderBottom: '1px solid var(--cl-border)',
       alignItems: 'stretch',
     }}>
       <div style={{
         padding: '10px 14px', fontSize: '0.76rem',
-        fontWeight: 700, color: 'var(--text-light)',
+        fontWeight: 700, color: 'var(--cl-text-light)',
         textTransform: 'uppercase', letterSpacing: '0.4px',
-        background: 'var(--bg)',
+        background: 'var(--cl-bg)',
       }}>
         {label}
       </div>
       {candidates.map((c) => (
         <div key={c.id} style={{
-          padding: '10px 14px', fontSize: '0.84rem', color: 'var(--text)',
-          borderLeft: '1px solid var(--border)',
+          padding: '10px 14px', fontSize: '0.84rem', color: 'var(--cl-text)',
+          borderLeft: '1px solid var(--cl-border)',
         }}>
           {render(c)}
         </div>
@@ -302,9 +302,9 @@ function SectionDivider({ children }) {
   return (
     <div style={{
       padding: '14px 16px 6px',
-      fontSize: '0.78rem', color: 'var(--accent)', fontWeight: 700,
+      fontSize: '0.78rem', color: 'var(--cl-accent)', fontWeight: 700,
       textTransform: 'uppercase', letterSpacing: '0.6px',
-      borderTop: '1px solid var(--border)',
+      borderTop: '1px solid var(--cl-border)',
       background: 'white',
     }}>
       {children}
@@ -313,11 +313,11 @@ function SectionDivider({ children }) {
 }
 
 function Dash() {
-  return <span style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>—</span>;
+  return <span style={{ color: 'var(--cl-text-light)', fontStyle: 'italic' }}>—</span>;
 }
 
 function Strong({ children }) {
-  return <span style={{ fontWeight: 700, color: 'var(--primary)' }}>{children}</span>;
+  return <span style={{ fontWeight: 700, color: 'var(--cl-primary)' }}>{children}</span>;
 }
 
 function fmtMoney(n) {

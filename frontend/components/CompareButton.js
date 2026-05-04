@@ -48,9 +48,9 @@ export default function CompareButton({
       disabled={disabled}
       style={{
         width: `${dim}px`, height: `${dim}px`, borderRadius: '50%',
-        border: isComparing ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-        background: isComparing ? 'var(--accent)' : 'white',
-        color: isComparing ? 'white' : (disabled ? 'var(--border)' : 'var(--accent)'),
+        border: isComparing ? '1.5px solid var(--cl-accent)' : '1px solid var(--cl-border)',
+        background: isComparing ? 'var(--cl-accent)' : 'white',
+        color: isComparing ? 'white' : (disabled ? 'var(--cl-border)' : 'var(--cl-accent)'),
         cursor: disabled ? 'not-allowed' : 'pointer',
         padding: 0, flexShrink: 0,
         opacity: disabled ? 0.55 : 1,
@@ -59,14 +59,14 @@ export default function CompareButton({
       }}
       onMouseOver={(e) => {
         if (!disabled && !isComparing) {
-          e.currentTarget.style.background = 'var(--bg)';
-          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.background = 'var(--cl-bg)';
+          e.currentTarget.style.borderColor = 'var(--cl-accent)';
         }
       }}
       onMouseOut={(e) => {
         if (!disabled && !isComparing) {
           e.currentTarget.style.background = 'white';
-          e.currentTarget.style.borderColor = 'var(--border)';
+          e.currentTarget.style.borderColor = 'var(--cl-border)';
         }
       }}
     >

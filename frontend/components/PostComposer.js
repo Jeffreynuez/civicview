@@ -202,7 +202,7 @@ export default function PostComposer({
     <div
       style={{
         padding: '14px',
-        border: '1px solid var(--border)',
+        border: '1px solid var(--cl-border)',
         borderRadius: '12px',
         background: 'white',
         marginBottom: '16px',
@@ -212,7 +212,7 @@ export default function PostComposer({
         style={{
           fontSize: '0.8rem',
           fontWeight: 700,
-          color: 'var(--text-light)',
+          color: 'var(--cl-text-light)',
           textTransform: 'uppercase',
           letterSpacing: '0.4px',
           marginBottom: '8px',
@@ -228,9 +228,9 @@ export default function PostComposer({
         style={{
           width: '100%', resize: 'vertical',
           padding: '10px', borderRadius: '8px',
-          border: '1px solid var(--border)',
+          border: '1px solid var(--cl-border)',
           fontFamily: 'inherit', fontSize: '0.9rem',
-          color: 'var(--text)', background: 'var(--bg)',
+          color: 'var(--cl-text)', background: 'var(--cl-bg)',
           boxSizing: 'border-box',
         }}
       />
@@ -239,7 +239,7 @@ export default function PostComposer({
           display: 'flex',
           justifyContent: 'space-between',
           fontSize: '0.72rem',
-          color: 'var(--text-light)',
+          color: 'var(--cl-text-light)',
           marginTop: '4px',
         }}
       >
@@ -262,7 +262,7 @@ export default function PostComposer({
             title={images.length >= MAX_IMAGES ? `Max ${MAX_IMAGES} images per post` : 'Attach images'}
             style={{
               background: 'transparent', border: 'none',
-              color: images.length > 0 ? 'var(--accent)' : 'var(--text-light)',
+              color: images.length > 0 ? 'var(--cl-accent)' : 'var(--cl-text-light)',
               fontWeight: 600, fontSize: '0.78rem',
               cursor: (imageBusy || images.length >= MAX_IMAGES) ? 'not-allowed' : 'pointer',
               opacity: images.length >= MAX_IMAGES ? 0.6 : 1,
@@ -279,7 +279,7 @@ export default function PostComposer({
             onClick={() => setPollOpen((o) => !o)}
             style={{
               background: 'transparent', border: 'none',
-              color: pollOpen ? 'var(--accent)' : 'var(--text-light)',
+              color: pollOpen ? 'var(--cl-accent)' : 'var(--cl-text-light)',
               fontWeight: 600, fontSize: '0.78rem', cursor: 'pointer',
             }}
           >
@@ -304,7 +304,7 @@ export default function PostComposer({
                 position: 'relative',
                 width: '82px', height: '82px',
                 borderRadius: '8px', overflow: 'hidden',
-                border: '1px solid var(--border)',
+                border: '1px solid var(--cl-border)',
                 background: '#f5f5f5',
               }}
             >
@@ -341,9 +341,9 @@ export default function PostComposer({
           style={{
             marginTop: '10px',
             padding: '10px',
-            border: '1px dashed var(--border)',
+            border: '1px dashed var(--cl-border)',
             borderRadius: '10px',
-            background: 'var(--bg)',
+            background: 'var(--cl-bg)',
           }}
         >
           <input
@@ -353,8 +353,8 @@ export default function PostComposer({
             placeholder="Poll question (e.g. How should we vote on H.R. 9999?)"
             style={{
               width: '100%', padding: '8px 10px',
-              border: '1px solid var(--border)', borderRadius: '6px',
-              fontSize: '0.88rem', color: 'var(--text)', background: 'white',
+              border: '1px solid var(--cl-border)', borderRadius: '6px',
+              fontSize: '0.88rem', color: 'var(--cl-text)', background: 'white',
               boxSizing: 'border-box', marginBottom: '8px',
             }}
           />
@@ -367,8 +367,8 @@ export default function PostComposer({
                 placeholder={`Option ${idx + 1}`}
                 style={{
                   flex: 1, padding: '6px 10px',
-                  border: '1px solid var(--border)', borderRadius: '6px',
-                  fontSize: '0.85rem', color: 'var(--text)', background: 'white',
+                  border: '1px solid var(--cl-border)', borderRadius: '6px',
+                  fontSize: '0.85rem', color: 'var(--cl-text)', background: 'white',
                   boxSizing: 'border-box',
                 }}
               />
@@ -379,8 +379,8 @@ export default function PostComposer({
                   title="Remove option"
                   aria-label="Remove option"
                   style={{
-                    width: '30px', border: '1px solid var(--border)',
-                    background: 'white', color: 'var(--text-light)',
+                    width: '30px', border: '1px solid var(--cl-border)',
+                    background: 'white', color: 'var(--cl-text-light)',
                     borderRadius: '6px', cursor: 'pointer',
                   }}
                 >
@@ -395,7 +395,7 @@ export default function PostComposer({
               onClick={addOption}
               style={{
                 background: 'transparent', border: 'none',
-                color: 'var(--accent)', fontSize: '0.78rem',
+                color: 'var(--cl-accent)', fontSize: '0.78rem',
                 fontWeight: 600, cursor: 'pointer', padding: '2px 4px',
               }}
             >
@@ -407,10 +407,10 @@ export default function PostComposer({
               in the poll's results first. Viewers can override later
               (Phase 2); this is the initial view. We only expose
               scopes the rep's role actually supports. */}
-          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--border)' }}>
+          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--cl-border)' }}>
             <div
               style={{
-                fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-light)',
+                fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-text-light)',
                 textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '6px',
               }}
             >
@@ -429,9 +429,9 @@ export default function PostComposer({
                     style={{
                       padding: '5px 10px',
                       borderRadius: '999px',
-                      border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-                      background: active ? 'var(--accent)' : 'white',
-                      color: active ? 'white' : 'var(--text)',
+                      border: `1px solid ${active ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+                      background: active ? 'var(--cl-accent)' : 'white',
+                      color: active ? 'white' : 'var(--cl-text)',
                       fontSize: '0.74rem', fontWeight: active ? 700 : 500,
                       cursor: 'pointer',
                     }}
@@ -441,22 +441,22 @@ export default function PostComposer({
                 );
               })}
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '5px', fontStyle: 'italic' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '5px', fontStyle: 'italic' }}>
               {SCOPE_META[scope]?.hint || ''} — viewers will see these counts first.
             </div>
           </div>
 
           {/* Close time — timer OR specific date. Empty = stays open. */}
-          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--border)' }}>
+          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--cl-border)' }}>
             <div
               style={{
-                fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-light)',
+                fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-text-light)',
                 textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '6px',
               }}
             >
               When does this poll close?
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.82rem', color: 'var(--text)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.82rem', color: 'var(--cl-text)' }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
                 <input
                   type="radio" name="timing" value="none"
@@ -479,17 +479,17 @@ export default function PostComposer({
                   onChange={(e) => { setTiming('duration'); setDurationValue(e.target.value); }}
                   style={{
                     width: '60px', padding: '4px 6px',
-                    border: '1px solid var(--border)', borderRadius: '6px',
-                    fontSize: '0.82rem', background: 'white', color: 'var(--text)',
+                    border: '1px solid var(--cl-border)', borderRadius: '6px',
+                    fontSize: '0.82rem', background: 'white', color: 'var(--cl-text)',
                   }}
                 />
                 <select
                   value={durationUnit}
                   onChange={(e) => { setTiming('duration'); setDurationUnit(e.target.value); }}
                   style={{
-                    padding: '4px 6px', border: '1px solid var(--border)',
+                    padding: '4px 6px', border: '1px solid var(--cl-border)',
                     borderRadius: '6px', fontSize: '0.82rem', background: 'white',
-                    color: 'var(--text)',
+                    color: 'var(--cl-text)',
                   }}
                 >
                   <option value="minutes">minutes</option>
@@ -509,14 +509,14 @@ export default function PostComposer({
                   value={dateValue}
                   onChange={(e) => { setTiming('date'); setDateValue(e.target.value); }}
                   style={{
-                    padding: '4px 6px', border: '1px solid var(--border)',
+                    padding: '4px 6px', border: '1px solid var(--cl-border)',
                     borderRadius: '6px', fontSize: '0.82rem', background: 'white',
-                    color: 'var(--text)',
+                    color: 'var(--cl-text)',
                   }}
                 />
               </label>
               {timing !== 'none' && resolvedClosesAt && (
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+                <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
                   Closes {new Date(resolvedClosesAt).toLocaleString()}
                 </div>
               )}
@@ -529,10 +529,10 @@ export default function PostComposer({
           </div>
 
           {/* Results presentation */}
-          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--border)' }}>
+          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed var(--cl-border)' }}>
             <div
               style={{
-                fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-light)',
+                fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-text-light)',
                 textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '6px',
               }}
             >
@@ -553,9 +553,9 @@ export default function PostComposer({
                     style={{
                       padding: '5px 10px',
                       borderRadius: '999px',
-                      border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-                      background: active ? 'var(--accent)' : 'white',
-                      color: active ? 'white' : (locked ? 'var(--text-light)' : 'var(--text)'),
+                      border: `1px solid ${active ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+                      background: active ? 'var(--cl-accent)' : 'white',
+                      color: active ? 'white' : (locked ? 'var(--cl-text-light)' : 'var(--cl-text)'),
                       fontSize: '0.74rem', fontWeight: active ? 700 : 500,
                       cursor: locked ? 'not-allowed' : 'pointer',
                       opacity: locked ? 0.55 : 1,
@@ -566,7 +566,7 @@ export default function PostComposer({
                 );
               })}
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '5px', fontStyle: 'italic' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '5px', fontStyle: 'italic' }}>
               {PRESENTATION_META[presentationMode]?.hint || ''}
             </div>
             {revealRequiresClose && (
@@ -590,8 +590,8 @@ export default function PostComposer({
           onClick={reset}
           disabled={busy}
           style={{
-            border: '1px solid var(--border)', background: 'white',
-            color: 'var(--text-light)', padding: '8px 14px',
+            border: '1px solid var(--cl-border)', background: 'white',
+            color: 'var(--cl-text-light)', padding: '8px 14px',
             borderRadius: '8px', fontSize: '0.82rem', fontWeight: 600,
             cursor: busy ? 'wait' : 'pointer',
           }}
@@ -603,9 +603,9 @@ export default function PostComposer({
           onClick={handleSubmit}
           disabled={!canSubmit}
           style={{
-            border: '1px solid var(--accent)',
-            background: canSubmit ? 'var(--accent)' : 'var(--bg)',
-            color: canSubmit ? 'white' : 'var(--text-light)',
+            border: '1px solid var(--cl-accent)',
+            background: canSubmit ? 'var(--cl-accent)' : 'var(--cl-bg)',
+            color: canSubmit ? 'white' : 'var(--cl-text-light)',
             padding: '8px 18px', borderRadius: '8px',
             fontSize: '0.85rem', fontWeight: 700,
             cursor: canSubmit ? 'pointer' : 'not-allowed',

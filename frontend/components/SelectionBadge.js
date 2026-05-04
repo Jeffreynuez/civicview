@@ -18,7 +18,7 @@ export default function SelectionBadge({ method, detail, normallyElected, size =
   if (!method) return null;
   const style =
     SELECTION_STYLES[method] ||
-    { bg: 'var(--bg)', fg: 'var(--text-light)', label: String(method).toUpperCase() };
+    { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)', label: String(method).toUpperCase() };
   const small = size === 'sm';
   return (
     <span

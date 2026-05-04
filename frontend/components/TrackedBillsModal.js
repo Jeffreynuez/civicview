@@ -117,8 +117,8 @@ export default function TrackedBillsModal({ open, onClose, onMemberPick, onNotif
         {/* Header */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 20px', borderBottom: '1px solid var(--border)',
-          background: 'var(--primary)', color: 'white',
+          padding: '14px 20px', borderBottom: '1px solid var(--cl-border)',
+          background: 'var(--cl-primary)', color: 'white',
         }}>
           <div>
             <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>My Tracked Bills</div>
@@ -174,7 +174,7 @@ export default function TrackedBillsModal({ open, onClose, onMemberPick, onNotif
               padding: '8px 20px', fontSize: '0.78rem',
               background: changedKeys.size > 0 ? '#fff8e6' : '#eef7ee',
               color: changedKeys.size > 0 ? '#7a5a00' : '#1d5a2c',
-              borderBottom: '1px solid var(--border)',
+              borderBottom: '1px solid var(--cl-border)',
             }}
           >
             {changedKeys.size > 0
@@ -220,7 +220,7 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
     <div
       style={{
         padding: '12px 14px', borderRadius: '10px', marginBottom: '8px',
-        background: changed ? '#fff8e6' : 'var(--bg)',
+        background: changed ? '#fff8e6' : 'var(--cl-bg)',
         border: changed ? '1px solid #f4d35e' : '1px solid transparent',
       }}
     >
@@ -228,7 +228,7 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
             {citation && (
-              <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '0.78rem' }}>
+              <span style={{ fontWeight: 700, color: 'var(--cl-primary)', fontSize: '0.78rem' }}>
                 {citation}
               </span>
             )}
@@ -252,8 +252,8 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
           title="Stop tracking"
           style={{
             width: '26px', height: '26px', borderRadius: '50%',
-            background: 'white', color: 'var(--text-light)',
-            border: '1px solid var(--border)', cursor: 'pointer',
+            background: 'white', color: 'var(--cl-text-light)',
+            border: '1px solid var(--cl-border)', cursor: 'pointer',
             fontSize: '0.85rem', fontWeight: 700, flexShrink: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
@@ -263,14 +263,14 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
       </div>
 
       {bill.latest_action && (
-        <div style={{ fontSize: '0.78rem', color: changed ? '#7a5a00' : 'var(--text-light)', marginBottom: '4px', fontStyle: 'italic' }}>
+        <div style={{ fontSize: '0.78rem', color: changed ? '#7a5a00' : 'var(--cl-text-light)', marginBottom: '4px', fontStyle: 'italic' }}>
           {bill.latest_action}
           {bill.latest_action_date && ` (${bill.latest_action_date})`}
         </div>
       )}
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '6px' }}>
-        <div style={{ display: 'flex', gap: '12px', fontSize: '0.72rem', color: 'var(--text-light)', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '12px', fontSize: '0.72rem', color: 'var(--cl-text-light)', flexWrap: 'wrap' }}>
           {bill.sponsor_name && (
             <span>
               Sponsor:&nbsp;
@@ -279,7 +279,7 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
                   onClick={onSponsorClick}
                   style={{
                     background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                    color: 'var(--accent)', fontWeight: 600, fontSize: '0.72rem',
+                    color: 'var(--cl-accent)', fontWeight: 600, fontSize: '0.72rem',
                   }}
                 >
                   {bill.sponsor_name}
@@ -296,7 +296,7 @@ function TrackedBillRow({ bill, changed, onUntrack, onSponsorClick }) {
             href={bill.url}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ fontSize: '0.74rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+            style={{ fontSize: '0.74rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
           >
             View on Congress.gov →
           </a>

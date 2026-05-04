@@ -231,7 +231,7 @@ export default function PostCard({
       id={`post-${post.id}`}
       style={{
         padding: '14px',
-        border: '1px solid var(--border)',
+        border: '1px solid var(--cl-border)',
         borderRadius: '12px',
         background: 'white',
         marginBottom: '12px',
@@ -244,19 +244,19 @@ export default function PostCard({
           aria-hidden="true"
           style={{
             width: '40px', height: '40px', borderRadius: '50%',
-            background: 'var(--bg)',
+            background: 'var(--cl-bg)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '0.85rem', fontWeight: 700, color: 'var(--accent)',
-            border: '1px solid var(--border)', flexShrink: 0,
+            fontSize: '0.85rem', fontWeight: 700, color: 'var(--cl-accent)',
+            border: '1px solid var(--cl-border)', flexShrink: 0,
           }}
         >
           {initials || '•'}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text)' }}>
+          <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--cl-text)' }}>
             {author.display_name || 'Unknown'}
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)' }}>
             {author.role ? `${author.role} · ` : ''}{timeAgo(post.created_at)}
           </div>
         </div>
@@ -268,7 +268,7 @@ export default function PostCard({
             title="Delete this post"
             aria-label="Delete post"
             style={{
-              border: '1px solid var(--border)',
+              border: '1px solid var(--cl-border)',
               background: 'white',
               color: '#d63031',
               padding: '4px 10px',
@@ -289,7 +289,7 @@ export default function PostCard({
           marginTop: '10px',
           fontSize: '0.92rem',
           lineHeight: 1.55,
-          color: 'var(--text)',
+          color: 'var(--cl-text)',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
         }}
@@ -322,7 +322,7 @@ export default function PostCard({
         style={{
           marginTop: '12px',
           paddingTop: '10px',
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid var(--cl-border)',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
@@ -370,7 +370,7 @@ export default function PostCard({
         {!citizen && (
           <span
             style={{
-              fontSize: '0.72rem', color: 'var(--text-light)',
+              fontSize: '0.72rem', color: 'var(--cl-text-light)',
               marginLeft: 'auto',
             }}
           >
@@ -387,8 +387,8 @@ export default function PostCard({
           <div
             style={{
               display: 'flex', gap: '8px', alignItems: 'flex-start',
-              padding: '8px', border: '1px solid var(--border)',
-              borderRadius: '10px', background: 'var(--bg)',
+              padding: '8px', border: '1px solid var(--cl-border)',
+              borderRadius: '10px', background: 'var(--cl-bg)',
             }}
           >
             <textarea
@@ -400,9 +400,9 @@ export default function PostCard({
               style={{
                 flex: 1, resize: 'vertical', minHeight: '40px',
                 padding: '8px 10px',
-                border: '1px solid var(--border)', borderRadius: '8px',
+                border: '1px solid var(--cl-border)', borderRadius: '8px',
                 fontSize: '0.82rem', fontFamily: 'inherit',
-                color: 'var(--text)', background: 'white',
+                color: 'var(--cl-text)', background: 'white',
                 boxSizing: 'border-box',
               }}
               onFocus={() => { if (!citizen) onCitizenLoginRequired?.(); }}
@@ -412,9 +412,9 @@ export default function PostCard({
               onClick={handleSubmitComment}
               disabled={!citizen || commentBusy || !commentDraft.trim()}
               style={{
-                border: '1px solid var(--accent)',
-                background: citizen && commentDraft.trim() && !commentBusy ? 'var(--accent)' : 'var(--bg)',
-                color: citizen && commentDraft.trim() && !commentBusy ? 'white' : 'var(--text-light)',
+                border: '1px solid var(--cl-accent)',
+                background: citizen && commentDraft.trim() && !commentBusy ? 'var(--cl-accent)' : 'var(--cl-bg)',
+                color: citizen && commentDraft.trim() && !commentBusy ? 'white' : 'var(--cl-text-light)',
                 padding: '7px 14px',
                 borderRadius: '8px',
                 fontSize: '0.8rem', fontWeight: 700,
@@ -443,7 +443,7 @@ export default function PostCard({
           >
             <label
               htmlFor={`comment-sort-${post.id}`}
-              style={{ fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 600 }}
+              style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', fontWeight: 600 }}
             >
               Sort
             </label>
@@ -453,8 +453,8 @@ export default function PostCard({
               onChange={(e) => setCommentSort(e.target.value)}
               style={{
                 padding: '4px 26px 4px 10px',
-                border: '1px solid var(--border)', borderRadius: '999px',
-                background: 'white', color: 'var(--text)',
+                border: '1px solid var(--cl-border)', borderRadius: '999px',
+                background: 'white', color: 'var(--cl-text)',
                 fontSize: '0.76rem', cursor: 'pointer',
                 fontFamily: 'inherit',
               }}
@@ -475,12 +475,12 @@ export default function PostCard({
           {/* Comment list */}
           <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {commentsLoading && (
-              <div style={{ color: 'var(--text-light)', fontSize: '0.78rem', padding: '6px 4px' }}>
+              <div style={{ color: 'var(--cl-text-light)', fontSize: '0.78rem', padding: '6px 4px' }}>
                 Loading comments…
               </div>
             )}
             {!commentsLoading && comments?.length === 0 && (
-              <div style={{ color: 'var(--text-light)', fontSize: '0.78rem', padding: '6px 4px' }}>
+              <div style={{ color: 'var(--cl-text-light)', fontSize: '0.78rem', padding: '6px 4px' }}>
                 No comments yet.
               </div>
             )}
@@ -496,13 +496,13 @@ export default function PostCard({
                   key={c.id}
                   style={{
                     padding: '8px 10px',
-                    border: '1px solid var(--border)',
+                    border: '1px solid var(--cl-border)',
                     borderRadius: '8px',
                     background: 'white',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px' }}>
-                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text)' }}>
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cl-text)' }}>
                       {c.citizen_display_name}
                       <span
                         title="This identity is self-attested; verification ships in a later phase."
@@ -522,11 +522,11 @@ export default function PostCard({
                         Unverified
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-light)' }}>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)' }}>
                       {timeAgo(c.created_at)}
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text)', marginTop: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--cl-text)', marginTop: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                     {c.body}
                   </div>
                   <div
@@ -549,7 +549,7 @@ export default function PostCard({
                       onClick={() => handleCommentReact(c.id, 'down')}
                       title={citizen ? 'Dislike' : 'Sign in as a citizen to dislike'}
                     />
-                    <div style={{ fontSize: '0.68rem', color: 'var(--text-light)', marginLeft: '4px' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginLeft: '4px' }}>
                       {locLabel || c.scope_state || ''}
                     </div>
                     {canDelete && (

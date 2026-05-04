@@ -420,7 +420,7 @@ export default function ProfileView({
       <div
         style={{
           display: 'flex', alignItems: 'center', gap: '6px',
-          borderBottom: '1px solid var(--border)',
+          borderBottom: '1px solid var(--cl-border)',
         }}
       >
         <div
@@ -428,10 +428,10 @@ export default function ProfileView({
           style={{
             flex: 1, display: 'flex', alignItems: 'center', gap: '6px',
             padding: '10px 16px',
-            fontSize: '0.85rem', color: 'var(--accent)', cursor: 'pointer',
+            fontSize: '0.85rem', color: 'var(--cl-accent)', cursor: 'pointer',
             fontWeight: 500,
           }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'var(--bg)')}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'var(--cl-bg)')}
           onMouseOut={(e) => (e.currentTarget.style.background = 'none')}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6" /></svg>
@@ -444,11 +444,11 @@ export default function ProfileView({
             title="Close"
             style={{
               background: 'transparent', border: 'none', cursor: 'pointer',
-              color: 'var(--text-light)', padding: '8px 14px',
+              color: 'var(--cl-text-light)', padding: '8px 14px',
               fontSize: '1.15rem', lineHeight: 1,
             }}
-            onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text)')}
-            onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-light)')}
+            onMouseOver={(e) => (e.currentTarget.style.color = 'var(--cl-text)')}
+            onMouseOut={(e) => (e.currentTarget.style.color = 'var(--cl-text-light)')}
           >
             ×
           </button>
@@ -456,12 +456,12 @@ export default function ProfileView({
       </div>
 
       {/* Hero */}
-      <div style={{ textAlign: 'center', padding: '20px 20px 14px', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ textAlign: 'center', padding: '20px 20px 14px', borderBottom: '1px solid var(--cl-border)' }}>
         {member.photoUrl ? (
           <img
             src={member.photoUrl}
             alt={member.name}
-            style={{ width: '88px', height: '88px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--border)', marginBottom: '10px', background: '#e9ecef' }}
+            style={{ width: '88px', height: '88px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--cl-border)', marginBottom: '10px', background: '#e9ecef' }}
             onError={(e) => { e.target.style.display = 'none'; }}
           />
         ) : (
@@ -470,7 +470,7 @@ export default function ProfileView({
           </div>
         )}
         <h2 style={{ fontSize: '1.2rem', marginBottom: '4px', fontWeight: 700 }}>{member.name}</h2>
-        <p style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>
+        <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
           <span style={{
             display: 'inline-block', padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
             background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
@@ -501,23 +501,23 @@ export default function ProfileView({
         )}
         {member.selection_detail && (
           <p style={{
-            fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '6px',
+            fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '6px',
             padding: '0 12px', lineHeight: 1.4, fontStyle: 'italic',
           }}>
             {member.selection_detail}
           </p>
         )}
         {member.title && (
-          <p style={{ fontSize: '0.82rem', color: 'var(--text-light)', marginTop: '4px' }}>{member.title}</p>
+          <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>{member.title}</p>
         )}
         <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'center', gap: '6px' }}>
           <button
             onClick={toggleFollow}
             style={{
               padding: '7px 18px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s',
-              background: isFollowing ? 'white' : 'var(--accent)',
-              color: isFollowing ? 'var(--accent)' : 'white',
-              border: isFollowing ? '2px solid var(--accent)' : 'none',
+              background: isFollowing ? 'white' : 'var(--cl-accent)',
+              color: isFollowing ? 'var(--cl-accent)' : 'white',
+              border: isFollowing ? '2px solid var(--cl-accent)' : 'none',
             }}
           >
             {isFollowing ? '✓ Following' : '+ Follow'}
@@ -529,8 +529,8 @@ export default function ProfileView({
               style={{
                 padding: '7px 14px', borderRadius: '8px', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
                 background: isComparing ? `${PARTY_COLORS[party]}14` : 'white',
-                color: isComparing ? PARTY_COLORS[party] : 'var(--text)',
-                border: isComparing ? `1.5px solid ${PARTY_COLORS[party]}` : '1px solid var(--border)',
+                color: isComparing ? PARTY_COLORS[party] : 'var(--cl-text)',
+                border: isComparing ? `1.5px solid ${PARTY_COLORS[party]}` : '1px solid var(--cl-border)',
               }}
             >
               {isComparing ? '✓ In compare' : '+ Compare'}
@@ -551,8 +551,8 @@ export default function ProfileView({
               style={{
                 padding: '7px 14px', borderRadius: '8px',
                 fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
-                background: 'white', color: 'var(--text)',
-                border: '1px solid var(--border)',
+                background: 'white', color: 'var(--cl-text)',
+                border: '1px solid var(--cl-border)',
               }}
             >
               View Candidate
@@ -573,7 +573,7 @@ export default function ProfileView({
       </div>
 
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'white', flexShrink: 0 }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--cl-border)', background: 'white', flexShrink: 0 }}>
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -583,8 +583,8 @@ export default function ProfileView({
               style={{
                 flex: 1, padding: '10px 6px', fontSize: '0.8rem', fontWeight: 600,
                 background: 'none', border: 'none', cursor: 'pointer',
-                color: isActive ? 'var(--accent)' : 'var(--text-light)',
-                borderBottom: isActive ? '2px solid var(--accent)' : '2px solid transparent',
+                color: isActive ? 'var(--cl-accent)' : 'var(--cl-text-light)',
+                borderBottom: isActive ? '2px solid var(--cl-accent)' : '2px solid transparent',
                 marginBottom: '-1px',
                 transition: 'color 0.15s',
               }}
@@ -740,8 +740,8 @@ function OverviewTab({ member, role, statsState }) {
                     style={{
                       fontSize: '0.75rem', fontWeight: 600,
                       padding: '4px 10px', borderRadius: '14px',
-                      background: 'var(--bg)', color: 'var(--primary)',
-                      border: '1px solid var(--border)',
+                      background: 'var(--cl-bg)', color: 'var(--cl-primary)',
+                      border: '1px solid var(--cl-border)',
                     }}
                   >
                     {i.name}
@@ -776,7 +776,7 @@ function StatsBlock({ party, stats, loading }) {
       {/* Party-line % */}
       <div>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600 }}>
+          <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)', fontWeight: 600 }}>
             Party-line voting
           </div>
           {typeof pct === 'number' && (
@@ -787,10 +787,10 @@ function StatsBlock({ party, stats, loading }) {
         </div>
 
         {loading ? (
-          <div style={{ height: '8px', borderRadius: '4px', background: 'var(--bg)', overflow: 'hidden', position: 'relative' }}>
+          <div style={{ height: '8px', borderRadius: '4px', background: 'var(--cl-bg)', overflow: 'hidden', position: 'relative' }}>
             <div style={{
               position: 'absolute', inset: 0,
-              background: 'linear-gradient(90deg, transparent, var(--border), transparent)',
+              background: 'linear-gradient(90deg, transparent, var(--cl-border), transparent)',
               animation: 'civiclens-shimmer 1.2s linear infinite',
             }} />
             <style jsx>{`
@@ -799,19 +799,19 @@ function StatsBlock({ party, stats, loading }) {
           </div>
         ) : typeof pct === 'number' ? (
           <>
-            <div style={{ height: '8px', borderRadius: '4px', background: 'var(--bg)', overflow: 'hidden' }}>
+            <div style={{ height: '8px', borderRadius: '4px', background: 'var(--cl-bg)', overflow: 'hidden' }}>
               <div style={{
                 width: `${pct}%`, height: '100%', background: partyColor,
                 transition: 'width 0.4s ease',
               }} />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
               <span>{pctLabel}</span>
               <span>based on last {analyzed} votes</span>
             </div>
           </>
         ) : (
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontStyle: 'italic', padding: '4px 0' }}>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic', padding: '4px 0' }}>
             Not enough recent roll-call votes to compute.
           </div>
         )}
@@ -819,7 +819,7 @@ function StatsBlock({ party, stats, loading }) {
 
       {/* Key issues */}
       <div>
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600, marginBottom: '6px' }}>
+        <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)', fontWeight: 600, marginBottom: '6px' }}>
           Key issues
         </div>
         {loading ? (
@@ -829,7 +829,7 @@ function StatsBlock({ party, stats, loading }) {
                 key={i}
                 style={{
                   width: '70px', height: '22px', borderRadius: '12px',
-                  background: 'var(--bg)',
+                  background: 'var(--cl-bg)',
                 }}
               />
             ))}
@@ -843,8 +843,8 @@ function StatsBlock({ party, stats, loading }) {
                 style={{
                   padding: '4px 10px', borderRadius: '12px',
                   fontSize: '0.75rem', fontWeight: 600,
-                  background: 'var(--bg)', color: 'var(--primary)',
-                  border: '1px solid var(--border)',
+                  background: 'var(--cl-bg)', color: 'var(--cl-primary)',
+                  border: '1px solid var(--cl-border)',
                 }}
               >
                 {iss.name}
@@ -852,7 +852,7 @@ function StatsBlock({ party, stats, loading }) {
             ))}
           </div>
         ) : (
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontStyle: 'italic', padding: '4px 0' }}>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic', padding: '4px 0' }}>
             No issue signal from recent legislation yet.
           </div>
         )}
@@ -894,19 +894,19 @@ function IssuesTab({ member, role }) {
           key={idx}
           style={{
             marginBottom: '10px', padding: '12px 14px',
-            background: 'var(--bg)', borderRadius: '10px',
-            border: '1px solid var(--border)',
+            background: 'var(--cl-bg)', borderRadius: '10px',
+            border: '1px solid var(--cl-border)',
           }}
         >
           <div style={{
             fontSize: '0.86rem', fontWeight: 700,
-            color: 'var(--primary)', marginBottom: '4px',
+            color: 'var(--cl-primary)', marginBottom: '4px',
           }}>
             {issue.name}
           </div>
           {issue.stance && (
             <div style={{
-              fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--text)',
+              fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)',
             }}>
               {issue.stance}
             </div>
@@ -935,16 +935,16 @@ function ExperienceTab({ member }) {
           key={idx}
           style={{
             position: 'relative', paddingLeft: '20px', paddingBottom: '12px',
-            borderLeft: '2px solid var(--border)', marginLeft: '4px',
+            borderLeft: '2px solid var(--cl-border)', marginLeft: '4px',
           }}
         >
           <span style={{
             position: 'absolute', left: '-6px', top: '4px',
-            width: '10px', height: '10px', background: 'var(--accent)',
+            width: '10px', height: '10px', background: 'var(--cl-accent)',
             borderRadius: '50%', border: '2px solid white',
           }} />
           <div style={{
-            fontSize: '0.75rem', color: 'var(--text-light)', fontWeight: 600,
+            fontSize: '0.75rem', color: 'var(--cl-text-light)', fontWeight: 600,
           }}>
             {formatTenure(x.from, x.to)}
           </div>
@@ -953,7 +953,7 @@ function ExperienceTab({ member }) {
           </div>
           {x.note && (
             <div style={{
-              fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px',
+              fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px',
             }}>
               {x.note}
             </div>
@@ -1047,22 +1047,22 @@ function BillCard({ bill, member, onNotify }) {
   };
 
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
         {citation && (
-          <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 700, color: 'var(--cl-primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
             {citation}
           </span>
         )}
         {actionDate && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>{actionDate}</span>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>{actionDate}</span>
         )}
       </div>
       <div style={{ fontWeight: 500, marginBottom: '4px', lineHeight: '1.3' }}>
         {bill.title || 'Untitled bill'}
       </div>
       {bill.latest_action && (
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
           {bill.latest_action}
         </div>
       )}
@@ -1072,7 +1072,7 @@ function BillCard({ bill, member, onNotify }) {
             href={bill.url}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+            style={{ fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
           >
             View on Congress.gov →
           </a>
@@ -1084,9 +1084,9 @@ function BillCard({ bill, member, onNotify }) {
             style={{
               padding: '4px 10px', borderRadius: '12px', fontSize: '0.72rem',
               fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
-              background: tracked ? 'var(--accent)' : 'white',
-              color: tracked ? 'white' : 'var(--accent)',
-              border: tracked ? '1px solid var(--accent)' : '1px solid var(--accent)',
+              background: tracked ? 'var(--cl-accent)' : 'white',
+              color: tracked ? 'white' : 'var(--cl-accent)',
+              border: tracked ? '1px solid var(--cl-accent)' : '1px solid var(--cl-accent)',
               transition: 'background 0.15s, color 0.15s',
             }}
           >
@@ -1133,7 +1133,7 @@ function EventCard({ event }) {
   const typeColor = eventTypeColor(event.type);
 
   return (
-    <div style={{ padding: '12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '8px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '8px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
         <span
           style={{
@@ -1156,16 +1156,16 @@ function EventCard({ event }) {
       <div style={{ fontWeight: 600, marginBottom: '4px', lineHeight: '1.3' }}>
         {event.title}
       </div>
-      <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginBottom: '4px' }}>
+      <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginBottom: '4px' }}>
         📅 {dateLabel}
       </div>
       {event.location && (
-        <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginBottom: '4px' }}>
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginBottom: '4px' }}>
           📍 {event.location}
         </div>
       )}
       {event.description && (
-        <div style={{ fontSize: '0.78rem', color: 'var(--text)', marginTop: '6px', lineHeight: '1.4' }}>
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', marginTop: '6px', lineHeight: '1.4' }}>
           {event.description}
         </div>
       )}
@@ -1176,7 +1176,7 @@ function EventCard({ event }) {
           rel="noopener noreferrer"
           style={{
             display: 'inline-block', marginTop: '8px', padding: '5px 12px',
-            background: 'var(--accent)', color: 'white', textDecoration: 'none',
+            background: 'var(--cl-accent)', color: 'white', textDecoration: 'none',
             borderRadius: '6px', fontSize: '0.76rem', fontWeight: 600,
           }}
         >
@@ -1263,7 +1263,7 @@ function ContactTab({ state, fallbackOffice, fallbackPhone }) {
           {districtOffices.map((o, i) => (
             <div
               key={i}
-              style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}
+              style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}
             >
               {o.city && (
                 <div style={{ fontWeight: 600, marginBottom: '4px' }}>
@@ -1271,7 +1271,7 @@ function ContactTab({ state, fallbackOffice, fallbackPhone }) {
                 </div>
               )}
               {o.address && (
-                <div style={{ color: 'var(--text-light)', fontSize: '0.78rem', marginBottom: '2px' }}>
+                <div style={{ color: 'var(--cl-text-light)', fontSize: '0.78rem', marginBottom: '2px' }}>
                   {o.address}{o.suite ? `, ${o.suite}` : ''}
                   {o.zip ? ` ${o.zip}` : ''}
                 </div>
@@ -1317,9 +1317,9 @@ function SocialPill({ href, label }) {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        padding: '5px 12px', borderRadius: '14px', background: 'var(--bg)',
-        fontSize: '0.78rem', color: 'var(--accent)', fontWeight: 600, textDecoration: 'none',
-        border: '1px solid var(--border)',
+        padding: '5px 12px', borderRadius: '14px', background: 'var(--cl-bg)',
+        fontSize: '0.78rem', color: 'var(--cl-accent)', fontWeight: 600, textDecoration: 'none',
+        border: '1px solid var(--cl-border)',
       }}
     >
       {label}
@@ -1447,7 +1447,7 @@ function VotesTab({ role, member }) {
       {/* Filter bar */}
       <div style={{
         display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '10px',
-        padding: '10px', background: 'var(--bg)', borderRadius: '8px',
+        padding: '10px', background: 'var(--cl-bg)', borderRadius: '8px',
         alignItems: 'center',
       }}>
         <select
@@ -1482,20 +1482,20 @@ function VotesTab({ role, member }) {
           onChange={(e) => setSearch(e.target.value)}
           style={{
             flex: '1 1 160px', padding: '6px 10px', fontSize: '0.82rem',
-            border: '1px solid var(--border)', borderRadius: '6px',
-            background: 'var(--card)', color: 'var(--text)',
+            border: '1px solid var(--cl-border)', borderRadius: '6px',
+            background: 'var(--card)', color: 'var(--cl-text)',
           }}
         />
         <label style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
-          fontSize: '0.78rem', color: 'var(--text-light)', cursor: 'pointer',
+          fontSize: '0.78rem', color: 'var(--cl-text-light)', cursor: 'pointer',
           whiteSpace: 'nowrap',
         }}>
           <input
             type="checkbox"
             checked={showProcedural}
             onChange={(e) => setShowProcedural(e.target.checked)}
-            style={{ accentColor: 'var(--accent)' }}
+            style={{ accentColor: 'var(--cl-accent)' }}
           />
           Show procedural
         </label>
@@ -1503,8 +1503,8 @@ function VotesTab({ role, member }) {
 
       {/* Status line */}
       {!loading && votes !== null && (
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', marginBottom: '8px' }}>
-          Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong>
+        <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)', marginBottom: '8px' }}>
+          Showing <strong style={{ color: 'var(--cl-text)' }}>{filtered.length}</strong>
           {totalForYear > 0 && (
             <> of {totalForYear} vote{totalForYear === 1 ? '' : 's'} in {year}</>
           )}
@@ -1533,15 +1533,15 @@ function VotesTab({ role, member }) {
 
 const selectStyle = {
   padding: '6px 10px', fontSize: '0.82rem',
-  border: '1px solid var(--border)', borderRadius: '6px',
-  background: 'var(--card)', color: 'var(--text)',
+  border: '1px solid var(--cl-border)', borderRadius: '6px',
+  background: 'var(--card)', color: 'var(--cl-text)',
   cursor: 'pointer',
 };
 
 function VoteRow({ vote }) {
   const position = (vote.position || vote.vote || '').toString();
   const posLower = position.toLowerCase();
-  let posColor = 'var(--text-light)';
+  let posColor = 'var(--cl-text-light)';
   let posBg = '#eef0f2';
   if (posLower === 'yea' || posLower === 'aye' || posLower === 'yes') {
     posColor = '#1f6f1f'; posBg = '#e7f4e7';
@@ -1557,17 +1557,17 @@ function VoteRow({ vote }) {
   const bill = vote.bill;
 
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', marginBottom: '6px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           {bill?.display_number && (
-            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '2px', letterSpacing: '0.03em' }}>
+            <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-accent)', marginBottom: '2px', letterSpacing: '0.03em' }}>
               {bill.display_number}
             </div>
           )}
           <div style={{ fontWeight: 600, lineHeight: '1.35' }}>{title}</div>
           {bill?.title && bill.title !== title && (
-            <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', marginTop: '2px', lineHeight: 1.35 }}>
+            <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: '2px', lineHeight: 1.35 }}>
               {bill.title}
             </div>
           )}
@@ -1582,12 +1582,12 @@ function VoteRow({ vote }) {
           </span>
         )}
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', fontSize: '0.72rem', color: 'var(--text-light)', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', fontSize: '0.72rem', color: 'var(--cl-text-light)', alignItems: 'center' }}>
         {date && <span>{date}</span>}
         {catLabel && (
           <span style={{
             padding: '1px 7px', borderRadius: '8px',
-            background: 'var(--card)', border: '1px solid var(--border)',
+            background: 'var(--card)', border: '1px solid var(--cl-border)',
             fontWeight: 600, letterSpacing: '0.02em',
           }}>{catLabel}</span>
         )}
@@ -1598,7 +1598,7 @@ function VoteRow({ vote }) {
           href={vote.url}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
         >
           Vote details →
         </a>
@@ -1637,22 +1637,22 @@ function EOCard({ order }) {
   const number = order.eo_number ? `EO ${order.eo_number}` : order.citation;
   const date = order.signing_date || order.publication_date;
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
         {number && (
-          <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+          <span style={{ fontWeight: 700, color: 'var(--cl-primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
             {number}
           </span>
         )}
         {date && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>{date}</span>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>{date}</span>
         )}
       </div>
       <div style={{ fontWeight: 500, marginBottom: '4px', lineHeight: '1.3' }}>
         {order.title || 'Untitled executive order'}
       </div>
       {order.abstract && (
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', lineHeight: 1.4 }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', lineHeight: 1.4 }}>
           {order.abstract}
         </div>
       )}
@@ -1663,7 +1663,7 @@ function EOCard({ order }) {
               href={order.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+              style={{ fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
             >
               View on FederalRegister.gov →
             </a>
@@ -1673,7 +1673,7 @@ function EOCard({ order }) {
               href={order.pdf_url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: '0.75rem', color: 'var(--text-light)', textDecoration: 'none', fontWeight: 600 }}
+              style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)', textDecoration: 'none', fontWeight: 600 }}
             >
               PDF
             </a>
@@ -1735,11 +1735,11 @@ function PresActionCard({ bill, outcome }) {
     ? (bill.law_number ? `LAW ${bill.law_number}` : 'ENACTED')
     : 'VETOED';
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
         <div style={{ display: 'flex', gap: '6px', alignItems: 'baseline' }}>
           {citation && (
-            <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+            <span style={{ fontWeight: 700, color: 'var(--cl-primary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
               {citation}
             </span>
           )}
@@ -1752,14 +1752,14 @@ function PresActionCard({ bill, outcome }) {
           </span>
         </div>
         {actionDate && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>{actionDate}</span>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>{actionDate}</span>
         )}
       </div>
       <div style={{ fontWeight: 500, marginBottom: '4px', lineHeight: '1.3' }}>
         {bill.title || 'Untitled bill'}
       </div>
       {bill.latest_action && (
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
           {bill.latest_action}
         </div>
       )}
@@ -1768,7 +1768,7 @@ function PresActionCard({ bill, outcome }) {
           href={bill.url}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
         >
           View on Congress.gov →
         </a>
@@ -1803,29 +1803,29 @@ function SCOTUSCasesTab({ state, member }) {
 
 function CaseCard({ caseData }) {
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
         <span style={{ fontWeight: 600, lineHeight: '1.3' }}>
           {caseData.case_name || 'Untitled case'}
         </span>
         {caseData.date_filed && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap' }}>
             {caseData.date_filed}
           </span>
         )}
       </div>
       {caseData.docket_number && (
-        <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', marginBottom: '2px' }}>
+        <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginBottom: '2px' }}>
           Docket: {caseData.docket_number}
         </div>
       )}
       {caseData.precedential_status && (
-        <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', marginBottom: '2px' }}>
+        <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginBottom: '2px' }}>
           {caseData.precedential_status}
         </div>
       )}
       {caseData.judges && (
-        <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', marginTop: '4px', fontStyle: 'italic' }}>
+        <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginTop: '4px', fontStyle: 'italic' }}>
           Panel: {caseData.judges}
         </div>
       )}
@@ -1834,7 +1834,7 @@ function CaseCard({ caseData }) {
           href={caseData.url}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
         >
           View on CourtListener →
         </a>
@@ -1847,9 +1847,9 @@ function CaseCard({ caseData }) {
 function SectionHeader({ children }) {
   return (
     <h3 style={{
-      fontSize: '0.78rem', color: 'var(--primary-light)', textTransform: 'uppercase',
+      fontSize: '0.78rem', color: 'var(--cl-primary-light)', textTransform: 'uppercase',
       letterSpacing: '0.5px', marginBottom: '8px', paddingBottom: '4px',
-      borderBottom: '1px solid var(--border)',
+      borderBottom: '1px solid var(--cl-border)',
     }}>
       {children}
     </h3>
@@ -1857,12 +1857,12 @@ function SectionHeader({ children }) {
 }
 
 const rowStyle = { padding: '8px 0', borderBottom: '1px solid #f1f3f5', fontSize: '0.88rem' };
-const linkStyle = { color: 'var(--accent)', textDecoration: 'none', fontWeight: 500 };
+const linkStyle = { color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 500 };
 
 function Row({ label, value, last }) {
   return (
     <div style={{ ...rowStyle, borderBottom: last ? 'none' : rowStyle.borderBottom }}>
-      <div style={{ color: 'var(--text-light)', fontSize: '0.76rem' }}>{label}</div>
+      <div style={{ color: 'var(--cl-text-light)', fontSize: '0.76rem' }}>{label}</div>
       <div style={{ fontWeight: 500, marginTop: '2px' }}>{value}</div>
     </div>
   );
@@ -1870,10 +1870,10 @@ function Row({ label, value, last }) {
 
 function LoadingState({ label }) {
   return (
-    <div style={{ padding: '24px 8px', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.85rem' }}>
+    <div style={{ padding: '24px 8px', textAlign: 'center', color: 'var(--cl-text-light)', fontSize: '0.85rem' }}>
       <div style={{
         display: 'inline-block', width: '18px', height: '18px',
-        border: '2px solid var(--border)', borderTopColor: 'var(--accent)',
+        border: '2px solid var(--cl-border)', borderTopColor: 'var(--cl-accent)',
         borderRadius: '50%', animation: 'civiclens-spin 0.8s linear infinite',
         marginBottom: '8px',
       }} />
@@ -1888,8 +1888,8 @@ function LoadingState({ label }) {
 function EmptyState({ message }) {
   return (
     <div style={{
-      padding: '24px 12px', textAlign: 'center', color: 'var(--text-light)',
-      fontSize: '0.85rem', background: 'var(--bg)', borderRadius: '8px',
+      padding: '24px 12px', textAlign: 'center', color: 'var(--cl-text-light)',
+      fontSize: '0.85rem', background: 'var(--cl-bg)', borderRadius: '8px',
     }}>
       {message}
     </div>
@@ -1898,7 +1898,7 @@ function EmptyState({ message }) {
 
 function EmptyNote({ children }) {
   return (
-    <div style={{ padding: '8px 0', fontSize: '0.8rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+    <div style={{ padding: '8px 0', fontSize: '0.8rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
       {children}
     </div>
   );
@@ -1929,13 +1929,13 @@ function StateLegislatorBillsTab({ state, member }) {
 
 function StateBillCard({ bill }) {
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-        <span style={{ fontWeight: 700, color: 'var(--primary)' }}>
+        <span style={{ fontWeight: 700, color: 'var(--cl-primary)' }}>
           {bill.identifier || 'Bill'}
         </span>
         {bill.latest_action_date && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap' }}>
             {bill.latest_action_date}
           </span>
         )}
@@ -1946,7 +1946,7 @@ function StateBillCard({ bill }) {
         </div>
       )}
       {bill.latest_action && (
-        <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+        <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
           {bill.latest_action}
         </div>
       )}
@@ -1955,7 +1955,7 @@ function StateBillCard({ bill }) {
           href={bill.url}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
         >
           View on OpenStates →
         </a>
@@ -1991,19 +1991,19 @@ function StateVoteCard({ vote }) {
   const positionColor = {
     yes:  { bg: '#e8f5ec', fg: '#1f7a3a' },
     no:   { bg: '#fde8e8', fg: '#a12626' },
-    absent:  { bg: 'var(--bg)', fg: 'var(--text-light)' },
-    'not voting': { bg: 'var(--bg)', fg: 'var(--text-light)' },
+    absent:  { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)' },
+    'not voting': { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)' },
   };
   const mv = (vote.my_vote || '').toLowerCase();
-  const style = positionColor[mv] || { bg: 'var(--bg)', fg: 'var(--text-light)' };
+  const style = positionColor[mv] || { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)' };
   return (
-    <div style={{ padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
+    <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-        <span style={{ fontWeight: 700, color: 'var(--primary)' }}>
+        <span style={{ fontWeight: 700, color: 'var(--cl-primary)' }}>
           {vote.bill_id || 'Vote'}
         </span>
         {vote.date && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap' }}>
             {vote.date}
           </span>
         )}
@@ -2022,7 +2022,7 @@ function StateVoteCard({ vote }) {
           {vote.my_vote || '—'}
         </span>
         {vote.result && (
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
             Outcome: {vote.result}
           </span>
         )}

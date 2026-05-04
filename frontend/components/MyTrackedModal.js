@@ -131,8 +131,8 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
         {/* Header */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 20px', borderBottom: '1px solid var(--border)',
-          background: 'var(--primary)', color: 'white',
+          padding: '14px 20px', borderBottom: '1px solid var(--cl-border)',
+          background: 'var(--cl-primary)', color: 'white',
         }}>
           <div>
             <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>My Tracked</div>
@@ -217,8 +217,8 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
                 style={{
                   display: 'flex', alignItems: 'center', gap: '6px',
                   padding: '4px 10px', borderRadius: '8px',
-                  background: 'var(--bg)', color: 'var(--primary)',
-                  border: '1px solid var(--border)',
+                  background: 'var(--cl-bg)', color: 'var(--cl-primary)',
+                  border: '1px solid var(--cl-border)',
                   cursor: refreshing ? 'wait' : 'pointer',
                   fontSize: '0.74rem', fontWeight: 700,
                   opacity: refreshing ? 0.7 : 1,
@@ -233,7 +233,7 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
                 padding: '6px 10px', marginBottom: '6px', fontSize: '0.76rem',
                 background: changedBillKeys.size > 0 ? '#fff8e6' : '#eef7ee',
                 color: changedBillKeys.size > 0 ? '#7a5a00' : '#1d5a2c',
-                border: '1px solid var(--border)', borderRadius: '8px',
+                border: '1px solid var(--cl-border)', borderRadius: '8px',
               }}>
                 {changedBillKeys.size > 0
                   ? `${changedBillKeys.size} bill${changedBillKeys.size === 1 ? '' : 's'} had a status change.`
@@ -288,7 +288,7 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
 function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, children }) {
   return (
     <div style={{
-      marginBottom: '10px', border: '1px solid var(--border)',
+      marginBottom: '10px', border: '1px solid var(--cl-border)',
       borderRadius: '12px', background: 'white', overflow: 'hidden',
     }}>
       <button
@@ -297,26 +297,26 @@ function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, ch
         style={{
           width: '100%', display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', gap: '10px', padding: '12px 16px',
-          background: open ? 'var(--bg)' : 'white',
-          border: 'none', borderBottom: open ? '1px solid var(--border)' : 'none',
+          background: open ? 'var(--cl-bg)' : 'white',
+          border: 'none', borderBottom: open ? '1px solid var(--cl-border)' : 'none',
           cursor: 'pointer', textAlign: 'left',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{
-            fontSize: '0.88rem', fontWeight: 800, color: 'var(--primary)',
+            fontSize: '0.88rem', fontWeight: 800, color: 'var(--cl-primary)',
             textTransform: 'uppercase', letterSpacing: '0.4px',
           }}>{title}</span>
           <span style={{
             fontSize: '0.72rem', fontWeight: 700, padding: '2px 8px',
-            background: 'var(--bg)', color: 'var(--text-light)', borderRadius: '10px',
-            border: '1px solid var(--border)',
+            background: 'var(--cl-bg)', color: 'var(--cl-text-light)', borderRadius: '10px',
+            border: '1px solid var(--cl-border)',
           }}>{count}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {headerExtras}
           <span aria-hidden style={{
-            fontSize: '1rem', color: 'var(--text-light)',
+            fontSize: '1rem', color: 'var(--cl-text-light)',
             transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s',
           }}>›</span>
         </div>
@@ -326,8 +326,8 @@ function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, ch
           {count === 0 ? (
             <div style={{
               padding: '16px 14px', textAlign: 'center',
-              color: 'var(--text-light)', fontSize: '0.82rem', lineHeight: 1.5,
-              background: 'var(--bg)', border: '1px dashed var(--border)',
+              color: 'var(--cl-text-light)', fontSize: '0.82rem', lineHeight: 1.5,
+              background: 'var(--cl-bg)', border: '1px dashed var(--cl-border)',
               borderRadius: '10px',
             }}>
               {emptyHint}
@@ -350,12 +350,12 @@ function PrefCheckbox({ label, description, checked, onChange }) {
         type="checkbox"
         checked={Boolean(checked)}
         onChange={(e) => onChange(e.target.checked)}
-        style={{ marginTop: '3px', cursor: 'pointer', accentColor: 'var(--accent)' }}
+        style={{ marginTop: '3px', cursor: 'pointer', accentColor: 'var(--cl-accent)' }}
       />
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)' }}>{label}</div>
+        <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--cl-text)' }}>{label}</div>
         {description && (
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '1px', lineHeight: 1.35 }}>
+          <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
             {description}
           </div>
         )}
@@ -368,11 +368,11 @@ function PrefSlider({ label, description, choices, value, onChange }) {
   const idx = Math.max(0, choices.indexOf(value));
   return (
     <div style={{ padding: '6px 2px 10px' }}>
-      <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text)' }}>
-        {label}: <span style={{ color: 'var(--accent)', textTransform: 'capitalize' }}>{value}</span>
+      <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--cl-text)' }}>
+        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: 'capitalize' }}>{value}</span>
       </div>
       {description && (
-        <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '2px', lineHeight: 1.35 }}>
+        <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '2px', lineHeight: 1.35 }}>
           {description}
         </div>
       )}
@@ -384,13 +384,13 @@ function PrefSlider({ label, description, choices, value, onChange }) {
         value={idx}
         onChange={(e) => onChange(choices[Number(e.target.value)])}
         style={{
-          width: '100%', marginTop: '6px', accentColor: 'var(--accent)',
+          width: '100%', marginTop: '6px', accentColor: 'var(--cl-accent)',
           cursor: 'pointer',
         }}
       />
       <div style={{
         display: 'flex', justifyContent: 'space-between',
-        fontSize: '0.64rem', color: 'var(--text-light)',
+        fontSize: '0.64rem', color: 'var(--cl-text-light)',
         textTransform: 'capitalize', marginTop: '2px', fontWeight: 600,
       }}>
         {choices.map((c) => <span key={c}>{c}</span>)}
@@ -405,10 +405,10 @@ function PrefsPanel({ type, prefs, onPatch }) {
   return (
     <div style={{
       marginTop: '8px', padding: '8px 10px', borderRadius: '8px',
-      background: 'var(--bg)', border: '1px solid var(--border)',
+      background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
     }}>
       <div style={{
-        fontSize: '0.66rem', fontWeight: 800, color: 'var(--text-light)',
+        fontSize: '0.66rem', fontWeight: 800, color: 'var(--cl-text-light)',
         textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px',
       }}>
         Notify me when…
@@ -448,7 +448,7 @@ function OfficialRow({ official, onUntrack, onNameClick }) {
   return (
     <div style={{
       padding: '10px 12px', borderRadius: '10px', marginBottom: '6px',
-      background: 'var(--bg)', border: '1px solid transparent',
+      background: 'var(--cl-bg)', border: '1px solid transparent',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -456,14 +456,14 @@ function OfficialRow({ official, onUntrack, onNameClick }) {
             onClick={onNameClick}
             style={{
               background: 'none', border: 'none', padding: 0,
-              color: 'var(--primary)', fontWeight: 700,
+              color: 'var(--cl-primary)', fontWeight: 700,
               fontSize: '0.9rem', cursor: onNameClick ? 'pointer' : 'default',
               textAlign: 'left',
             }}
           >
             {official.name}
           </button>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {[
               official.title || official.role,
               official.chamber,
@@ -478,9 +478,9 @@ function OfficialRow({ official, onUntrack, onNameClick }) {
             onClick={() => setExpanded((v) => !v)}
             style={{
               padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--primary)' : 'white',
-              color: expanded ? 'white' : 'var(--primary)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: expanded ? 'var(--cl-primary)' : 'white',
+              color: expanded ? 'white' : 'var(--cl-primary)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.72rem', fontWeight: 700,
             }}
           >
@@ -492,8 +492,8 @@ function OfficialRow({ official, onUntrack, onNameClick }) {
             title="Stop following"
             style={{
               width: '24px', height: '24px', borderRadius: '50%',
-              background: 'white', color: 'var(--text-light)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: 'white', color: 'var(--cl-text-light)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.82rem', fontWeight: 700,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
@@ -521,14 +521,14 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
   return (
     <div style={{
       padding: '10px 12px', borderRadius: '10px', marginBottom: '6px',
-      background: changed ? '#fff8e6' : 'var(--bg)',
+      background: changed ? '#fff8e6' : 'var(--cl-bg)',
       border: changed ? '1px solid #f4d35e' : '1px solid transparent',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '2px' }}>
             {citation && (
-              <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '0.76rem' }}>
+              <span style={{ fontWeight: 700, color: 'var(--cl-primary)', fontSize: '0.76rem' }}>
                 {citation}
               </span>
             )}
@@ -545,13 +545,13 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
           </div>
           {bill.latest_action && (
             <div style={{
-              fontSize: '0.72rem', color: changed ? '#7a5a00' : 'var(--text-light)',
+              fontSize: '0.72rem', color: changed ? '#7a5a00' : 'var(--cl-text-light)',
               marginTop: '3px', fontStyle: 'italic',
             }}>
               {bill.latest_action}{bill.latest_action_date && ` (${bill.latest_action_date})`}
             </div>
           )}
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '4px', fontSize: '0.7rem', color: 'var(--text-light)' }}>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '4px', fontSize: '0.7rem', color: 'var(--cl-text-light)' }}>
             {bill.sponsor_name && (
               <span>
                 Sponsor:&nbsp;
@@ -560,7 +560,7 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
                     onClick={onSponsorClick}
                     style={{
                       background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                      color: 'var(--accent)', fontWeight: 600, fontSize: '0.7rem',
+                      color: 'var(--cl-accent)', fontWeight: 600, fontSize: '0.7rem',
                     }}
                   >{bill.sponsor_name}</button>
                 ) : (
@@ -570,7 +570,7 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
             )}
             {bill.url && (
               <a href={bill.url} target="_blank" rel="noopener noreferrer"
-                style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+                style={{ color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}>
                 Congress.gov →
               </a>
             )}
@@ -581,9 +581,9 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
             onClick={() => setExpanded((v) => !v)}
             style={{
               padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--primary)' : 'white',
-              color: expanded ? 'white' : 'var(--primary)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: expanded ? 'var(--cl-primary)' : 'white',
+              color: expanded ? 'white' : 'var(--cl-primary)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.72rem', fontWeight: 700,
             }}
           >{expanded ? 'Hide alerts' : 'Alerts'}</button>
@@ -593,8 +593,8 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick }) {
             title="Stop tracking"
             style={{
               width: '24px', height: '24px', borderRadius: '50%',
-              background: 'white', color: 'var(--text-light)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: 'white', color: 'var(--cl-text-light)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.82rem', fontWeight: 700,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
@@ -626,14 +626,14 @@ function ElectionRow({ election, onUntrack }) {
   return (
     <div style={{
       padding: '10px 12px', borderRadius: '10px', marginBottom: '6px',
-      background: 'var(--bg)', border: '1px solid transparent',
+      background: 'var(--cl-bg)', border: '1px solid transparent',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text)' }}>
+          <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--cl-text)' }}>
             {election.name || election.office || 'Election'}
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {[
               dateLabel,
               election.state,
@@ -651,9 +651,9 @@ function ElectionRow({ election, onUntrack }) {
             onClick={() => setExpanded((v) => !v)}
             style={{
               padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--primary)' : 'white',
-              color: expanded ? 'white' : 'var(--primary)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: expanded ? 'var(--cl-primary)' : 'white',
+              color: expanded ? 'white' : 'var(--cl-primary)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.72rem', fontWeight: 700,
             }}
           >{expanded ? 'Hide alerts' : 'Alerts'}</button>
@@ -663,8 +663,8 @@ function ElectionRow({ election, onUntrack }) {
             title="Stop tracking"
             style={{
               width: '24px', height: '24px', borderRadius: '50%',
-              background: 'white', color: 'var(--text-light)',
-              border: '1px solid var(--border)', cursor: 'pointer',
+              background: 'white', color: 'var(--cl-text-light)',
+              border: '1px solid var(--cl-border)', cursor: 'pointer',
               fontSize: '0.82rem', fontWeight: 700,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}

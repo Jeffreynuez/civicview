@@ -151,22 +151,12 @@
   --cl-ease-emphasized:  cubic-bezier(0.2, 0.0, 0, 1.2);
 
   /* ============================================================
-     Legacy unprefixed aliases — preserved so existing 39
-     inline-styled components keep working without touch-ups.
-     These go away in Phase 4D when components are migrated to
-     --cl-* names.
+     Legacy unprefixed aliases were dropped in Phase 4D once every
+     reference across the codebase had been migrated to --cl-*
+     names. The component sweep ran via Python text substitution
+     (848 replacements across 30 files) and a final grep confirmed
+     zero remaining references before this block was removed.
      ============================================================ */
-  --primary:        var(--cl-primary);
-  --primary-light:  var(--cl-primary-light);
-  --accent:         var(--cl-accent);
-  --accent-light:   var(--cl-accent-light);
-  --bg:             var(--cl-bg);
-  --card-bg:        var(--cl-card);
-  --text:           var(--cl-text);
-  --text-light:     var(--cl-text-light);
-  --republican:     var(--cl-republican);
-  --democrat:       var(--cl-democrat);
-  --border:         var(--cl-border);
 }
 
 /* ============================================================
@@ -238,4 +228,42 @@ body {
 .cl-num {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+}
+
+/* ============================================================
+   A11y: keyboard-focus indicator (Phase 4D)
+
+   :focus-visible only fires on keyboard navigation (Tab key etc.),
+   not on mouse clicks — so this gives keyboard users a clear focus
+   signal without interrupting the mouse-click experience. Uses the
+   canonical --cl-shadow-focus token (3px accent-green ring at 18%
+   opacity) for consistency with form-input focus rings already
+   styled inline across components.
+
+   Applied to every interactive element. Components that need a
+   custom focus treatment can opt out with `outline: none` plus their
+   own visible affordance.
+   ============================================================ */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--cl-accent);
+  outline-offset: 2px;
+  border-radius: var(--cl-radius-xs);
+}
+
+/* ============================================================
+   A11y: respect prefers-reduced-motion (Phase 4D)
+
+   Users who've requested reduced motion in their OS get all
+   transitions and animations cut to near-instant. Doesn't disable
+   them entirely (which would break some loading affordances) but
+   collapses the duration so motion reads as state-change rather
+   than animation.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

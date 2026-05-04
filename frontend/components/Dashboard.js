@@ -49,7 +49,7 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
     return (
       <div style={{
         padding: '40px', textAlign: 'center',
-        color: 'var(--text-light)', fontSize: '0.9rem',
+        color: 'var(--cl-text-light)', fontSize: '0.9rem',
       }}>
         Loading dashboard…
       </div>
@@ -80,11 +80,11 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
       <div style={{ marginBottom: '14px' }}>
         <div style={{
           fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.06em',
-          color: 'var(--text-light)', textTransform: 'uppercase',
+          color: 'var(--cl-text-light)', textTransform: 'uppercase',
         }}>
           Constituent Dashboard
         </div>
-        <div style={{ fontSize: '0.82rem', color: 'var(--text)', marginTop: '2px' }}>
+        <div style={{ fontSize: '0.82rem', color: 'var(--cl-text)', marginTop: '2px' }}>
           Engagement rollup across every post on your page. Currently
           showing <strong>{scopeLabel}</strong>.
         </div>
@@ -113,15 +113,15 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ fontSize: '1rem' }}>👍</span>
             <strong style={{ fontSize: '1.1rem', color: '#1877f2' }}>{rb.up_total || 0}</strong>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>likes</span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>likes</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ fontSize: '1rem' }}>👎</span>
             <strong style={{ fontSize: '1.1rem', color: '#c33333' }}>{rb.down_total || 0}</strong>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>dislikes</span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>dislikes</span>
           </div>
           {rb.up_total === 0 && rb.down_total === 0 && (
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+            <span style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
               No reactions at this scope yet.
             </span>
           )}
@@ -173,24 +173,24 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
                     style={{
                       width: '100%', textAlign: 'left', cursor: 'pointer',
                       padding: '10px', background: 'white',
-                      border: '1px solid var(--border)', borderRadius: '8px',
+                      border: '1px solid var(--cl-border)', borderRadius: '8px',
                       font: 'inherit', color: 'inherit',
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--accent)'}
-                    onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border)'}
+                    onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--cl-accent)'}
+                    onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--cl-border)'}
                   >
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px' }}>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent)' }}>
+                      <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--cl-accent)' }}>
                         #{idx + 1}
                       </span>
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
                         {new Date(p.created_at).toLocaleDateString()}
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.86rem', color: 'var(--text)', marginTop: '4px', lineHeight: 1.4 }}>
+                    <div style={{ fontSize: '0.86rem', color: 'var(--cl-text)', marginTop: '4px', lineHeight: 1.4 }}>
                       {p.body_preview}
                     </div>
-                    <div style={{ marginTop: '6px', display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '0.72rem', color: 'var(--text-light)', fontVariantNumeric: 'tabular-nums', alignItems: 'center' }}>
+                    <div style={{ marginTop: '6px', display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '0.72rem', color: 'var(--cl-text-light)', fontVariantNumeric: 'tabular-nums', alignItems: 'center' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                         <ThumbsUp size={11} active color="up" /> {p.up_count}
                       </span>
@@ -201,7 +201,7 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
                         <ChatText size={11} /> {p.comment_count}
                       </span>
                       <span>🗳 {p.poll_vote_count}</span>
-                      <span style={{ marginLeft: 'auto', fontWeight: 700, color: 'var(--text)' }}>
+                      <span style={{ marginLeft: 'auto', fontWeight: 700, color: 'var(--cl-text)' }}>
                         score {p.engagement_score}
                       </span>
                     </div>
@@ -221,21 +221,21 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
                 <li key={c.citizen_id} style={{
                   display: 'flex', alignItems: 'center', gap: '10px',
                   padding: '10px', background: 'white',
-                  border: '1px solid var(--border)', borderRadius: '8px',
+                  border: '1px solid var(--cl-border)', borderRadius: '8px',
                   marginBottom: '6px',
                 }}>
                   <span style={{
                     width: '22px', height: '22px', borderRadius: '50%',
-                    background: 'var(--bg)',
+                    background: 'var(--cl-bg)',
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent)',
+                    fontSize: '0.7rem', fontWeight: 800, color: 'var(--cl-accent)',
                     flexShrink: 0,
                   }}>
                     {idx + 1}
                   </span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                      <strong style={{ fontSize: '0.86rem', color: 'var(--text)' }}>
+                      <strong style={{ fontSize: '0.86rem', color: 'var(--cl-text)' }}>
                         {c.display_name}
                       </strong>
                       <span title="Self-attested identity in the demo" style={{
@@ -249,11 +249,11 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
                         Unverified
                       </span>
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '1px' }}>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px' }}>
                       {[c.scope_district, c.city, c.scope_state].filter(Boolean).join(' · ')}
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text)', fontVariantNumeric: 'tabular-nums' }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cl-text)', fontVariantNumeric: 'tabular-nums' }}>
                     {c.comment_count} {c.comment_count === 1 ? 'comment' : 'comments'}
                   </div>
                 </li>
@@ -272,23 +272,23 @@ function StatCard({ label, value, sublabel, accent }) {
     <div
       style={{
         padding: '12px', background: 'white',
-        border: '1px solid var(--border)', borderRadius: '10px',
+        border: '1px solid var(--cl-border)', borderRadius: '10px',
       }}
     >
       <div style={{
         fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.04em',
-        color: 'var(--text-light)', textTransform: 'uppercase',
+        color: 'var(--cl-text-light)', textTransform: 'uppercase',
       }}>
         {label}
       </div>
       <div style={{
-        fontSize: '1.5rem', fontWeight: 700, color: accent || 'var(--text)',
+        fontSize: '1.5rem', fontWeight: 700, color: accent || 'var(--cl-text)',
         marginTop: '2px', fontVariantNumeric: 'tabular-nums',
       }}>
         {value ?? 0}
       </div>
       {sublabel && (
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '1px' }}>
+        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '1px' }}>
           {sublabel}
         </div>
       )}
@@ -300,13 +300,13 @@ function SectionCard({ title, children }) {
   return (
     <div
       style={{
-        padding: '14px', background: 'var(--bg)',
-        border: '1px solid var(--border)', borderRadius: '12px',
+        padding: '14px', background: 'var(--cl-bg)',
+        border: '1px solid var(--cl-border)', borderRadius: '12px',
         marginBottom: '12px',
       }}
     >
       <div style={{
-        fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-light)',
+        fontSize: '0.74rem', fontWeight: 700, color: 'var(--cl-text-light)',
         textTransform: 'uppercase', letterSpacing: '0.04em',
         marginBottom: '8px',
       }}>
@@ -362,7 +362,7 @@ function EmptyNote({ children }) {
   return (
     <div style={{
       padding: '12px', textAlign: 'center',
-      color: 'var(--text-light)', fontSize: '0.82rem', fontStyle: 'italic',
+      color: 'var(--cl-text-light)', fontSize: '0.82rem', fontStyle: 'italic',
     }}>
       {children}
     </div>

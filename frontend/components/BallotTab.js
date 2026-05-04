@@ -150,7 +150,7 @@ export default function BallotTab({
   if (notSeeded) {
     return (
       <EmptyState>
-        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--text)' }}>
+        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
           Election data not yet available for {stateName || stateCode}
         </div>
         <div>We&apos;re building out the ballot state by state. Florida 2026 is fully seeded.</div>
@@ -165,7 +165,7 @@ export default function BallotTab({
       {hasPersonalGeo && (
         <div style={{
           display: 'flex', gap: '6px', padding: '8px 10px', marginBottom: '12px',
-          background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '12px',
+          background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '12px',
         }}>
           <ModeChip active={mode === 'personal'} onClick={() => setMode('personal')}>
             📍 Your Ballot
@@ -180,8 +180,8 @@ export default function BallotTab({
       {mode === 'personal' && view.geography && (
         <div style={{
           padding: '8px 12px', marginBottom: '12px', background: 'white',
-          border: '1px solid var(--border)', borderRadius: '10px',
-          fontSize: '0.76rem', color: 'var(--text-light)',
+          border: '1px solid var(--cl-border)', borderRadius: '10px',
+          fontSize: '0.76rem', color: 'var(--cl-text-light)',
         }}>
           Matched to:
           {view.geography.congressional_district && <Tag>CD-{view.geography.congressional_district}</Tag>}
@@ -206,7 +206,7 @@ export default function BallotTab({
       {/* Elections list */}
       {elections.length === 0 ? (
         <EmptyState>
-          <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--text)' }}>
+          <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
             No upcoming elections
           </div>
           <div>Check back as primary and general election dates approach.</div>
@@ -351,15 +351,15 @@ function ElectionCard({
 
   return (
     <div style={{
-      marginBottom: '12px', border: '1px solid var(--border)', borderRadius: '12px',
+      marginBottom: '12px', border: '1px solid var(--cl-border)', borderRadius: '12px',
       background: 'white', overflow: 'hidden',
     }}>
       <div
         style={{
           display: 'flex', alignItems: 'center', gap: '8px',
           padding: '14px 16px',
-          background: open ? 'var(--bg)' : 'white',
-          borderBottom: open ? '1px solid var(--border)' : 'none',
+          background: open ? 'var(--cl-bg)' : 'white',
+          borderBottom: open ? '1px solid var(--cl-border)' : 'none',
         }}
       >
         <button
@@ -383,7 +383,7 @@ function ElectionCard({
                 {isPrimary ? 'Primary' : 'General'}
               </span>
               {election.date && (
-                <span style={{ fontSize: '0.74rem', color: 'var(--text-light)', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', fontWeight: 600 }}>
                   {formatDate(election.date)}
                 </span>
               )}
@@ -391,13 +391,13 @@ function ElectionCard({
             <div style={{ fontSize: '0.96rem', fontWeight: 700, lineHeight: 1.3 }}>
               {election.title}
             </div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '4px' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
               {raceCount} race{raceCount === 1 ? '' : 's'}
               {measureCount > 0 && ` · ${measureCount} measure${measureCount === 1 ? '' : 's'}`}
             </div>
           </div>
           <span aria-hidden style={{
-            fontSize: '1rem', color: 'var(--text-light)',
+            fontSize: '1rem', color: 'var(--cl-text-light)',
             transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s',
           }}>
             ›
@@ -454,7 +454,7 @@ function ElectionCard({
             </Collapsible>
           ) : (
             <Collapsible title="Races" count={0}>
-              <div style={{ padding: '8px 4px', fontSize: '0.82rem', color: 'var(--text-light)', fontStyle: 'italic' }}>
+              <div style={{ padding: '8px 4px', fontSize: '0.82rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
                 No races on this ballot yet.
               </div>
             </Collapsible>
@@ -479,7 +479,7 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div style={{
-      marginBottom: '8px', border: '1px solid var(--border)', borderRadius: '10px',
+      marginBottom: '8px', border: '1px solid var(--cl-border)', borderRadius: '10px',
       background: 'white', overflow: 'hidden',
     }}>
       <button
@@ -488,14 +488,14 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
         style={{
           width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: '10px', padding: '9px 12px',
-          background: open ? 'var(--bg)' : 'white',
-          border: 'none', borderBottom: open ? '1px solid var(--border)' : 'none',
+          background: open ? 'var(--cl-bg)' : 'white',
+          border: 'none', borderBottom: open ? '1px solid var(--cl-border)' : 'none',
           cursor: 'pointer', textAlign: 'left',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{
-            fontSize: '0.76rem', color: 'var(--primary)', fontWeight: 700,
+            fontSize: '0.76rem', color: 'var(--cl-primary)', fontWeight: 700,
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
             {title}
@@ -503,14 +503,14 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
           {typeof count === 'number' && (
             <span style={{
               fontSize: '0.66rem', fontWeight: 700, padding: '1px 7px',
-              background: 'var(--bg)', color: 'var(--text-light)', borderRadius: '10px',
+              background: 'var(--cl-bg)', color: 'var(--cl-text-light)', borderRadius: '10px',
             }}>
               {count}
             </span>
           )}
         </div>
         <span aria-hidden style={{
-          fontSize: '0.9rem', color: 'var(--text-light)',
+          fontSize: '0.9rem', color: 'var(--cl-text-light)',
           transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s',
         }}>
           ›
@@ -547,7 +547,7 @@ function RaceCard({
   return (
     <div style={{
       marginBottom: '8px', padding: '11px 13px',
-      background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+      background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -571,7 +571,7 @@ function RaceCard({
             {incumbent && (
               <span style={{
                 fontSize: '0.64rem', fontWeight: 700, padding: '2px 7px',
-                borderRadius: '9px', background: 'var(--bg)', color: 'var(--text-light)',
+                borderRadius: '9px', background: 'var(--cl-bg)', color: 'var(--cl-text-light)',
               }}>
                 Incumbent: {incumbent.name}
               </span>
@@ -581,9 +581,9 @@ function RaceCard({
         <button
           onClick={() => setExpanded((v) => !v)}
           style={{
-            padding: '5px 10px', background: 'var(--bg)', border: '1px solid var(--border)',
+            padding: '5px 10px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
             borderRadius: '8px', fontSize: '0.72rem', fontWeight: 600,
-            cursor: 'pointer', color: 'var(--text-light)', whiteSpace: 'nowrap',
+            cursor: 'pointer', color: 'var(--cl-text-light)', whiteSpace: 'nowrap',
           }}
         >
           {expanded ? 'Hide' : `${candidates.length} candidate${candidates.length === 1 ? '' : 's'}`}
@@ -591,7 +591,7 @@ function RaceCard({
       </div>
 
       {race.notes && (
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', fontStyle: 'italic', marginTop: '6px' }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', fontStyle: 'italic', marginTop: '6px' }}>
           {race.notes}
         </div>
       )}
@@ -690,7 +690,7 @@ function CandidateRow({
       ref={rowRef}
       style={{
         display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 10px',
-        background: 'var(--bg)', borderRadius: '8px', marginBottom: '6px',
+        background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px',
         border: isIncumbent ? '1px solid #f4a261' : '1px solid transparent',
       }}
     >
@@ -721,7 +721,7 @@ function CandidateRow({
               </span>
             )}
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {candidate.current_office || candidate.hometown || ''}
           </div>
         </div>
@@ -779,7 +779,7 @@ function MeasureCard({ measure }) {
     <div
       style={{
         marginBottom: '8px', padding: '11px 13px',
-        background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+        background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
@@ -793,22 +793,22 @@ function MeasureCard({ measure }) {
               {measure.level === 'state' ? 'Statewide' : (measure.county ? `${measure.county} Co.` : 'Local')}
             </span>
             {measure.threshold && (
-              <span style={{ fontSize: '0.66rem', fontWeight: 700, color: 'var(--text-light)' }}>
+              <span style={{ fontSize: '0.66rem', fontWeight: 700, color: 'var(--cl-text-light)' }}>
                 Needs {measure.threshold}
               </span>
             )}
           </div>
           <div style={{ fontSize: '0.84rem', fontWeight: 700 }}>
-            {measure.number && <span style={{ color: 'var(--accent)' }}>{measure.number}: </span>}
+            {measure.number && <span style={{ color: 'var(--cl-accent)' }}>{measure.number}: </span>}
             {measure.title}
           </div>
         </div>
         <button
           onClick={() => setExpanded((v) => !v)}
           style={{
-            padding: '5px 10px', background: 'var(--bg)', border: '1px solid var(--border)',
+            padding: '5px 10px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
             borderRadius: '8px', fontSize: '0.72rem', fontWeight: 600, cursor: 'pointer',
-            color: 'var(--text-light)',
+            color: 'var(--cl-text-light)',
           }}
         >
           {expanded ? 'Hide' : 'Details'}
@@ -818,7 +818,7 @@ function MeasureCard({ measure }) {
       {expanded && (
         <div style={{ marginTop: '10px' }}>
           {measure.summary && (
-            <p style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--text)', marginBottom: '10px' }}>
+            <p style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)', marginBottom: '10px' }}>
               {measure.summary}
             </p>
           )}
@@ -828,8 +828,8 @@ function MeasureCard({ measure }) {
           </div>
           {measure.fiscal_impact && (
             <div style={{
-              marginTop: '8px', padding: '8px 10px', background: 'var(--bg)',
-              borderRadius: '8px', fontSize: '0.76rem', color: 'var(--text)',
+              marginTop: '8px', padding: '8px 10px', background: 'var(--cl-bg)',
+              borderRadius: '8px', fontSize: '0.76rem', color: 'var(--cl-text)',
             }}>
               <strong>Fiscal impact:</strong> {measure.fiscal_impact}
             </div>
@@ -843,16 +843,16 @@ function MeasureCard({ measure }) {
 function SupportOppose({ label, items, color }) {
   if (!items || items.length === 0) return (
     <div style={{
-      padding: '8px 10px', background: 'var(--bg)', borderRadius: '8px',
-      fontSize: '0.74rem', color: 'var(--text-light)', fontStyle: 'italic',
+      padding: '8px 10px', background: 'var(--cl-bg)', borderRadius: '8px',
+      fontSize: '0.74rem', color: 'var(--cl-text-light)', fontStyle: 'italic',
     }}>
       {label}: —
     </div>
   );
   return (
     <div style={{
-      padding: '8px 10px', background: 'var(--bg)', borderRadius: '8px',
-      fontSize: '0.76rem', color: 'var(--text)',
+      padding: '8px 10px', background: 'var(--cl-bg)', borderRadius: '8px',
+      fontSize: '0.76rem', color: 'var(--cl-text)',
     }}>
       <div style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.4px', color, marginBottom: '4px' }}>
         {label}
@@ -874,8 +874,8 @@ function ModeChip({ active, onClick, children }) {
       style={{
         flex: 1, padding: '7px 10px', fontSize: '0.76rem', fontWeight: 700,
         background: active ? 'white' : 'transparent',
-        color: active ? 'var(--primary)' : 'var(--text-light)',
-        border: active ? '1px solid var(--border)' : '1px solid transparent',
+        color: active ? 'var(--cl-primary)' : 'var(--cl-text-light)',
+        border: active ? '1px solid var(--cl-border)' : '1px solid transparent',
         borderRadius: '8px', cursor: 'pointer',
       }}
     >
@@ -1027,8 +1027,8 @@ function VoterInfoBlock({ loading, data, error, disabled }) {
     return (
       <div style={{
         padding: '10px 14px', marginBottom: '12px', background: 'white',
-        border: '1px solid var(--border)', borderRadius: '10px',
-        fontSize: '0.78rem', color: 'var(--text-light)',
+        border: '1px solid var(--cl-border)', borderRadius: '10px',
+        fontSize: '0.78rem', color: 'var(--cl-text-light)',
       }}>
         Looking up your polling place…
       </div>
@@ -1046,8 +1046,8 @@ function VoterInfoBlock({ loading, data, error, disabled }) {
     return (
       <div style={{
         padding: '10px 14px', marginBottom: '12px', background: 'white',
-        border: '1px solid var(--border)', borderRadius: '10px',
-        fontSize: '0.78rem', color: 'var(--text-light)',
+        border: '1px solid var(--cl-border)', borderRadius: '10px',
+        fontSize: '0.78rem', color: 'var(--cl-text-light)',
       }}>
         Couldn&apos;t load polling-place info right now. Check again later.
       </div>
@@ -1060,19 +1060,19 @@ function VoterInfoBlock({ loading, data, error, disabled }) {
     return (
       <div style={{
         padding: '12px 14px', marginBottom: '14px', background: 'white',
-        border: '1px solid var(--border)', borderRadius: '12px',
+        border: '1px solid var(--cl-border)', borderRadius: '12px',
       }}>
         <div style={{
           fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.5px',
-          textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '6px',
+          textTransform: 'uppercase', color: 'var(--cl-primary)', marginBottom: '6px',
         }}>
           Where to vote
         </div>
-        <div style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>
+        <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
           Polling places and early-vote sites will appear here as election day approaches.
           Google publishes this ~30–60 days before a state&apos;s next election.
         </div>
-        <div style={{ marginTop: '8px', fontSize: '0.68rem', color: 'var(--text-light)' }}>
+        <div style={{ marginTop: '8px', fontSize: '0.68rem', color: 'var(--cl-text-light)' }}>
           Source: Google Civic Information
         </div>
       </div>
@@ -1082,19 +1082,19 @@ function VoterInfoBlock({ loading, data, error, disabled }) {
   return (
     <div style={{
       padding: '12px 14px', marginBottom: '14px', background: 'white',
-      border: '1px solid var(--border)', borderRadius: '12px',
+      border: '1px solid var(--cl-border)', borderRadius: '12px',
     }}>
       <div style={{
         fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.5px',
-        textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '4px',
+        textTransform: 'uppercase', color: 'var(--cl-primary)', marginBottom: '4px',
       }}>
         Where to vote
       </div>
       {election && (
-        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)', marginBottom: '10px' }}>
+        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--cl-text)', marginBottom: '10px' }}>
           {election.name}
           {election.day && (
-            <span style={{ color: 'var(--text-light)', fontWeight: 400, marginLeft: '6px' }}>
+            <span style={{ color: 'var(--cl-text-light)', fontWeight: 400, marginLeft: '6px' }}>
               · {formatDate(election.day)}
             </span>
           )}
@@ -1111,7 +1111,7 @@ function VoterInfoBlock({ loading, data, error, disabled }) {
         <LocationGroup label="Ballot drop-off" locations={dropoff} />
       )}
 
-      <div style={{ marginTop: '8px', fontSize: '0.68rem', color: 'var(--text-light)' }}>
+      <div style={{ marginTop: '8px', fontSize: '0.68rem', color: 'var(--cl-text-light)' }}>
         Source: Google Civic Information
       </div>
     </div>
@@ -1126,7 +1126,7 @@ function LocationGroup({ label, locations }) {
   return (
     <div style={{ marginBottom: '8px' }}>
       <div style={{
-        fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-light)',
+        fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-text-light)',
         textTransform: 'uppercase', letterSpacing: '0.3px', marginBottom: '4px',
       }}>
         {label}
@@ -1140,7 +1140,7 @@ function LocationGroup({ label, locations }) {
             onClick={() => setExpanded((v) => !v)}
             style={{
               marginTop: '4px', background: 'none', border: 'none',
-              padding: 0, fontSize: '0.74rem', color: 'var(--primary)',
+              padding: 0, fontSize: '0.74rem', color: 'var(--cl-primary)',
               fontWeight: 600, cursor: 'pointer',
             }}
           >
@@ -1158,9 +1158,9 @@ function LocationRow({ loc }) {
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`
     : null;
   return (
-    <div style={{ padding: '6px 0', borderTop: '1px solid var(--border)' }}>
+    <div style={{ padding: '6px 0', borderTop: '1px solid var(--cl-border)' }}>
       {loc.name && (
-        <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text)' }}>
+        <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--cl-text)' }}>
           {loc.name}
         </div>
       )}
@@ -1170,21 +1170,21 @@ function LocationRow({ loc }) {
             href={mapsHref}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ fontSize: '0.78rem', color: 'var(--primary)', textDecoration: 'none' }}
+            style={{ fontSize: '0.78rem', color: 'var(--cl-primary)', textDecoration: 'none' }}
           >
             {loc.address}
           </a>
         ) : (
-          <div style={{ fontSize: '0.78rem', color: 'var(--text)' }}>{loc.address}</div>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)' }}>{loc.address}</div>
         )
       )}
       {loc.hours && (
-        <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', marginTop: '2px', whiteSpace: 'pre-wrap' }}>
+        <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginTop: '2px', whiteSpace: 'pre-wrap' }}>
           {loc.hours}
         </div>
       )}
       {(loc.start_date || loc.end_date) && (
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '2px' }}>
+        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
           {loc.start_date && formatDate(loc.start_date)}
           {loc.start_date && loc.end_date && ' – '}
           {loc.end_date && formatDate(loc.end_date)}

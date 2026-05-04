@@ -61,7 +61,7 @@ export default function PanelResizer({
         cursor: 'ew-resize',
         background: active ? 'var(--primary, #457b9d)' : 'transparent',
         opacity: active ? 0.6 : 1,
-        borderLeft: active ? 'none' : '1px solid var(--border)',
+        borderLeft: active ? 'none' : '1px solid var(--cl-border)',
         transition: 'background 0.15s ease, opacity 0.15s ease',
         position: 'relative',
         zIndex: 5,

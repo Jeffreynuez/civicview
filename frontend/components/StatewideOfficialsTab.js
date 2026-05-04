@@ -57,7 +57,7 @@ export default function StatewideOfficialsTab({
   if (notSeeded) {
     return (
       <EmptyState>
-        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--text)' }}>
+        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
           Statewide data not yet available for {stateName || stateCode}
         </div>
         <div>We&apos;re curating governor + state legislature data state by state. Florida is live — more states coming.</div>
@@ -109,7 +109,7 @@ export default function StatewideOfficialsTab({
             compareIds={compareIds}
           />
           {gov.bio && (
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-light)', lineHeight: 1.5, padding: '0 6px' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', lineHeight: 1.5, padding: '0 6px' }}>
               {gov.bio}
             </p>
           )}
@@ -292,7 +292,7 @@ export default function StatewideOfficialsTab({
       {scMembers.length > 0 && (
         <Collapsible title="Supreme Court" count={scMembers.length}>
           <div style={{
-            fontSize: '0.74rem', color: 'var(--text-light)', padding: '2px 8px 8px',
+            fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '2px 8px 8px',
             lineHeight: 1.4,
           }}>
             {sc?.body_name || 'Supreme Court'} · All justices are appointed by the Governor
@@ -325,7 +325,7 @@ export default function StatewideOfficialsTab({
       {dcas.length > 0 && (
         <Collapsible title="District Courts of Appeal" count={dcas.length}>
           <div style={{
-            fontSize: '0.74rem', color: 'var(--text-light)', padding: '2px 8px 8px',
+            fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '2px 8px 8px',
             lineHeight: 1.4,
           }}>
             Florida has 6 District Courts of Appeal. DCA judges are appointed by the
@@ -342,7 +342,7 @@ export default function StatewideOfficialsTab({
               >
                 {d.jurisdiction && (
                   <div style={{
-                    fontSize: '0.72rem', color: 'var(--text-light)', padding: '4px 8px 8px',
+                    fontSize: '0.72rem', color: 'var(--cl-text-light)', padding: '4px 8px 8px',
                     lineHeight: 1.5,
                   }}>
                     {d.jurisdiction}
@@ -381,12 +381,12 @@ export default function StatewideOfficialsTab({
                 ))}
                 {totalRemaining > 0 && (
                   <div style={{
-                    fontSize: '0.72rem', color: 'var(--text-light)', padding: '6px 8px',
+                    fontSize: '0.72rem', color: 'var(--cl-text-light)', padding: '6px 8px',
                     fontStyle: 'italic',
                   }}>
                     + {totalRemaining} additional judge{totalRemaining === 1 ? '' : 's'} not shown — full roster at{' '}
                     <a href={d.website} target="_blank" rel="noopener noreferrer"
-                      style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+                      style={{ color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}>
                       {(d.website || '').replace(/^https?:\/\//, '')}
                     </a>
                   </div>
@@ -404,20 +404,20 @@ export default function StatewideOfficialsTab({
 function Collapsible({ title, count, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div style={{ marginBottom: '10px', border: '1px solid var(--border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
+    <div style={{ marginBottom: '10px', border: '1px solid var(--cl-border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         style={{
           width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          gap: '10px', padding: '10px 14px', background: open ? 'var(--bg)' : 'white',
-          border: 'none', borderBottom: open ? '1px solid var(--border)' : 'none',
+          gap: '10px', padding: '10px 14px', background: open ? 'var(--cl-bg)' : 'white',
+          border: 'none', borderBottom: open ? '1px solid var(--cl-border)' : 'none',
           cursor: 'pointer', textAlign: 'left',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{
-            fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 700,
+            fontSize: '0.78rem', color: 'var(--cl-primary)', fontWeight: 700,
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
             {title}
@@ -425,13 +425,13 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
           {typeof count === 'number' && (
             <span style={{
               fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
-              background: 'var(--bg)', color: 'var(--text-light)', borderRadius: '10px',
+              background: 'var(--cl-bg)', color: 'var(--cl-text-light)', borderRadius: '10px',
             }}>
               {count}
             </span>
           )}
         </div>
-        <span aria-hidden style={{ fontSize: '0.9rem', color: 'var(--text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
+        <span aria-hidden style={{ fontSize: '0.9rem', color: 'var(--cl-text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
           ›
         </span>
       </button>
@@ -454,12 +454,12 @@ function NestedCollapsible({ title, count, children, defaultOpen = false }) {
         }}
       >
         <span style={{
-          fontSize: '0.7rem', color: 'var(--text-light)', fontWeight: 700,
+          fontSize: '0.7rem', color: 'var(--cl-text-light)', fontWeight: 700,
           textTransform: 'uppercase', letterSpacing: '0.4px',
         }}>
           {title}{typeof count === 'number' ? ` (${count})` : ''}
         </span>
-        <span aria-hidden style={{ fontSize: '0.85rem', color: 'var(--text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
+        <span aria-hidden style={{ fontSize: '0.85rem', color: 'var(--cl-text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
           ›
         </span>
       </button>
@@ -472,7 +472,7 @@ function Section({ title, children, compact }) {
   return (
     <div style={{ marginBottom: compact ? '10px' : '18px' }}>
       <div style={{
-        fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 700, textTransform: 'uppercase',
+        fontSize: '0.78rem', color: 'var(--cl-text-light)', fontWeight: 700, textTransform: 'uppercase',
         letterSpacing: '0.5px', padding: '2px 10px 8px',
       }}>
         {title}
@@ -492,7 +492,7 @@ const SELECTION_STYLES = {
 
 function SelectionBadge({ method, detail, normallyElected }) {
   if (!method) return null;
-  const style = SELECTION_STYLES[method] || { bg: 'var(--bg)', fg: 'var(--text-light)', label: method.toUpperCase() };
+  const style = SELECTION_STYLES[method] || { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)', label: method.toUpperCase() };
   return (
     <span
       title={detail || (normallyElected ? 'Office is normally filled by election' : undefined)}
@@ -534,11 +534,11 @@ function OfficialCard({
             }
           : undefined
       }
-      onMouseOver={clickable ? (e) => (e.currentTarget.style.background = 'var(--bg)') : undefined}
+      onMouseOver={clickable ? (e) => (e.currentTarget.style.background = 'var(--cl-bg)') : undefined}
       onMouseOut={clickable ? (e) => (e.currentTarget.style.background = 'white') : undefined}
       style={{
         display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '10px 12px',
-        background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+        background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
         marginBottom: '6px',
         cursor: clickable ? 'pointer' : 'default',
         transition: clickable ? 'background 0.15s' : undefined,
@@ -547,8 +547,8 @@ function OfficialCard({
       <div
         style={{
           width: big ? '48px' : '36px', height: big ? '48px' : '36px',
-          borderRadius: '50%', background: partyBg || 'var(--bg)',
-          color: partyColor || 'var(--text-light)', fontSize: big ? '1rem' : '0.82rem',
+          borderRadius: '50%', background: partyBg || 'var(--cl-bg)',
+          color: partyColor || 'var(--cl-text-light)', fontSize: big ? '1rem' : '0.82rem',
           fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0,
         }}
@@ -560,18 +560,18 @@ function OfficialCard({
           {name}
         </div>
         {subtitle && (
-          <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {subtitle}
           </div>
         )}
         {meta && meta.length > 0 && (
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '3px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '3px' }}>
             {meta.join(' · ')}
           </div>
         )}
         {selectionDetail && (
           <div style={{
-            fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '3px',
+            fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '3px',
             fontStyle: 'italic', lineHeight: 1.4,
           }}>
             {selectionDetail}
@@ -581,7 +581,7 @@ function OfficialCard({
           <a
             href={website} target="_blank" rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            style={{ fontSize: '0.74rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}
+            style={{ fontSize: '0.74rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}
           >
             Official page ↗
           </a>
@@ -623,7 +623,7 @@ function OfficialCard({
 
 function Loading({ children }) {
   return (
-    <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-light)' }}>
+    <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--cl-text-light)' }}>
       {children}
     </div>
   );
@@ -633,8 +633,8 @@ function EmptyState({ children }) {
   return (
     <div style={{
       margin: '20px 10px', padding: '18px 16px', textAlign: 'center',
-      background: 'var(--bg)', border: '1px dashed var(--border)', borderRadius: '12px',
-      color: 'var(--text-light)', fontSize: '0.84rem', lineHeight: 1.5,
+      background: 'var(--cl-bg)', border: '1px dashed var(--cl-border)', borderRadius: '12px',
+      color: 'var(--cl-text-light)', fontSize: '0.84rem', lineHeight: 1.5,
     }}>
       {children}
     </div>

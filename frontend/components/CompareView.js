@@ -196,15 +196,15 @@ export default function CompareView({ open, items, onClose }) {
         {/* Header */}
         <div
           style={{
-            padding: '14px 20px', borderBottom: '1px solid var(--border)',
-            background: 'var(--bg)', display: 'flex', alignItems: 'center', gap: '10px',
+            padding: '14px 20px', borderBottom: '1px solid var(--cl-border)',
+            background: 'var(--cl-bg)', display: 'flex', alignItems: 'center', gap: '10px',
           }}
         >
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--primary)' }}>
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--cl-primary)' }}>
               {headerLabel}
             </div>
-            <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
               {candidateCount === 0
                 ? 'Side-by-side stats, bills, and shared votes'
                 : officialCount === 0
@@ -216,8 +216,8 @@ export default function CompareView({ open, items, onClose }) {
             onClick={onClose}
             aria-label="Close"
             style={{
-              padding: '6px 10px', background: 'white', border: '1px solid var(--border)',
-              borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--text-light)',
+              padding: '6px 10px', background: 'white', border: '1px solid var(--cl-border)',
+              borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--cl-text-light)',
             }}
           >
             ✕
@@ -262,14 +262,14 @@ export default function CompareView({ open, items, onClose }) {
               <div
                 style={{
                   fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.5px', color: 'var(--text-light)', marginBottom: '8px',
+                  letterSpacing: '0.5px', color: 'var(--cl-text-light)', marginBottom: '8px',
                 }}
               >
                 Shared Topic Stances
               </div>
               <div
                 style={{
-                  border: '1px solid var(--border)', borderRadius: '10px',
+                  border: '1px solid var(--cl-border)', borderRadius: '10px',
                   overflow: 'hidden', background: 'white',
                 }}
               >
@@ -279,16 +279,16 @@ export default function CompareView({ open, items, onClose }) {
                     style={{
                       display: 'grid',
                       gridTemplateColumns: `160px repeat(${items.length}, 1fr)`,
-                      borderBottom: i === sharedTopics.length - 1 ? 'none' : '1px solid var(--border)',
+                      borderBottom: i === sharedTopics.length - 1 ? 'none' : '1px solid var(--cl-border)',
                       alignItems: 'stretch',
                     }}
                   >
                     <div
                       style={{
                         padding: '10px 12px', fontSize: '0.74rem',
-                        fontWeight: 700, color: 'var(--primary)',
+                        fontWeight: 700, color: 'var(--cl-primary)',
                         textTransform: 'uppercase', letterSpacing: '0.4px',
-                        background: 'var(--bg)',
+                        background: 'var(--cl-bg)',
                       }}
                     >
                       {row.name}
@@ -299,10 +299,10 @@ export default function CompareView({ open, items, onClose }) {
                       return (
                         <div key={k} style={{
                           padding: '10px 12px', fontSize: '0.8rem',
-                          lineHeight: 1.4, color: 'var(--text)',
-                          borderLeft: '1px solid var(--border)',
+                          lineHeight: 1.4, color: 'var(--cl-text)',
+                          borderLeft: '1px solid var(--cl-border)',
                         }}>
-                          {stance || <span style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>—</span>}
+                          {stance || <span style={{ color: 'var(--cl-text-light)', fontStyle: 'italic' }}>—</span>}
                         </div>
                       );
                     })}
@@ -320,7 +320,7 @@ export default function CompareView({ open, items, onClose }) {
               <div
                 style={{
                   fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.5px', color: 'var(--text-light)', marginBottom: '8px',
+                  letterSpacing: '0.5px', color: 'var(--cl-text-light)', marginBottom: '8px',
                   display: 'flex', alignItems: 'center', gap: '12px',
                 }}
               >
@@ -332,7 +332,7 @@ export default function CompareView({ open, items, onClose }) {
                   </span>
                 )}
                 {candidateCount > 0 && (
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-light)', textTransform: 'none', letterSpacing: 0, fontWeight: 500 }}>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', textTransform: 'none', letterSpacing: 0, fontWeight: 500 }}>
                     ({votingOfficials.length} with voting records)
                   </span>
                 )}
@@ -357,7 +357,7 @@ export default function CompareView({ open, items, onClose }) {
               {!loading && sharedVotes.length > 0 && (
                 <div
                   style={{
-                    border: '1px solid var(--border)', borderRadius: '10px',
+                    border: '1px solid var(--cl-border)', borderRadius: '10px',
                     overflow: 'hidden', background: 'white',
                   }}
                 >
@@ -380,9 +380,9 @@ export default function CompareView({ open, items, onClose }) {
             <div style={{ marginTop: '24px' }}>
               <div
                 style={{
-                  padding: '12px 14px', background: 'var(--bg)',
-                  border: '1px dashed var(--border)', borderRadius: '10px',
-                  fontSize: '0.8rem', color: 'var(--text-light)', lineHeight: 1.4,
+                  padding: '12px 14px', background: 'var(--cl-bg)',
+                  border: '1px dashed var(--cl-border)', borderRadius: '10px',
+                  fontSize: '0.8rem', color: 'var(--cl-text-light)', lineHeight: 1.4,
                 }}
               >
                 Ballot candidates don't have roll-call voting records yet — use the
@@ -405,13 +405,13 @@ function MemberColumn({ member, state, loading }) {
   return (
     <div
       style={{
-        border: `1px solid var(--border)`, borderRadius: '12px',
+        border: `1px solid var(--cl-border)`, borderRadius: '12px',
         background: 'white', overflow: 'hidden',
         borderTop: `3px solid ${partyColor}`,
       }}
     >
       {/* Header */}
-      <div style={{ padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid var(--cl-border)' }}>
         {member.photoUrl && (
           <img
             src={member.photoUrl}
@@ -421,10 +421,10 @@ function MemberColumn({ member, state, loading }) {
           />
         )}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {member.name}
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {member.title || member.role || ''} {member.state ? `· ${member.state}` : ''}
           </div>
         </div>
@@ -434,7 +434,7 @@ function MemberColumn({ member, state, loading }) {
       <Block label="Party-line voting">
         {loading && !stats && <Skeleton width="60%" />}
         {stats && stats.party_line_pct == null && (
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>No data yet</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>No data yet</div>
         )}
         {stats && stats.party_line_pct != null && (
           <div>
@@ -442,11 +442,11 @@ function MemberColumn({ member, state, loading }) {
               <div style={{ fontSize: '1.4rem', fontWeight: 800, color: partyColor }}>
                 {stats.party_line_pct}%
               </div>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
                 of {stats.votes_analyzed} votes
               </div>
             </div>
-            <div style={{ marginTop: '6px', height: '6px', background: 'var(--bg)', borderRadius: '4px', overflow: 'hidden' }}>
+            <div style={{ marginTop: '6px', height: '6px', background: 'var(--cl-bg)', borderRadius: '4px', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${stats.party_line_pct}%`, height: '100%',
@@ -457,7 +457,7 @@ function MemberColumn({ member, state, loading }) {
           </div>
         )}
         {!stats && !loading && (
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
             Not applicable for this role
           </div>
         )}
@@ -480,18 +480,18 @@ function MemberColumn({ member, state, loading }) {
                     key={idx}
                     style={{
                       padding: '7px 9px', borderRadius: '8px',
-                      background: 'var(--bg)', border: '1px solid var(--border)',
+                      background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
                     }}
                   >
                     <div style={{
                       fontSize: '0.74rem', fontWeight: 700,
-                      color: 'var(--primary)', marginBottom: '2px',
+                      color: 'var(--cl-primary)', marginBottom: '2px',
                     }}>
                       {iss.name}
                     </div>
                     {iss.stance && (
                       <div style={{
-                        fontSize: '0.72rem', lineHeight: 1.35, color: 'var(--text)',
+                        fontSize: '0.72rem', lineHeight: 1.35, color: 'var(--cl-text)',
                       }}>
                         {iss.stance}
                       </div>
@@ -504,7 +504,7 @@ function MemberColumn({ member, state, loading }) {
           const statsIssues = stats?.top_issues || [];
           if (statsIssues.length === 0) {
             return (
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
                 No issue positions on file.
               </div>
             );
@@ -512,7 +512,7 @@ function MemberColumn({ member, state, loading }) {
           return (
             <>
               <div style={{
-                fontSize: '0.7rem', color: 'var(--text-light)',
+                fontSize: '0.7rem', color: 'var(--cl-text-light)',
                 marginBottom: '4px', fontStyle: 'italic',
               }}>
                 Inferred from recent bill activity
@@ -523,8 +523,8 @@ function MemberColumn({ member, state, loading }) {
                     key={iss.name}
                     style={{
                       padding: '2px 8px', borderRadius: '999px',
-                      background: 'var(--bg)', border: '1px solid var(--border)',
-                      fontSize: '0.7rem', color: 'var(--text)', fontWeight: 500,
+                      background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
+                      fontSize: '0.7rem', color: 'var(--cl-text)', fontWeight: 500,
                     }}
                   >
                     {iss.name}
@@ -544,7 +544,7 @@ function MemberColumn({ member, state, loading }) {
             : [];
           if (exp.length === 0) {
             return (
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
                 No experience listed.
               </div>
             );
@@ -556,15 +556,15 @@ function MemberColumn({ member, state, loading }) {
                   key={idx}
                   style={{
                     fontSize: '0.76rem', lineHeight: 1.4,
-                    paddingLeft: '10px', borderLeft: '2px solid var(--border)',
+                    paddingLeft: '10px', borderLeft: '2px solid var(--cl-border)',
                   }}
                 >
                   <div style={{
-                    fontSize: '0.68rem', color: 'var(--text-light)', fontWeight: 600,
+                    fontSize: '0.68rem', color: 'var(--cl-text-light)', fontWeight: 600,
                   }}>
                     {formatCompareTenure(x.from, x.to)}
                   </div>
-                  <div style={{ color: 'var(--text)', fontWeight: 500 }}>
+                  <div style={{ color: 'var(--cl-text)', fontWeight: 500 }}>
                     {x.role}
                   </div>
                 </div>
@@ -577,18 +577,18 @@ function MemberColumn({ member, state, loading }) {
       <Block label="Recent sponsored bills">
         {loading && !bills && <Skeleton width="100%" />}
         {bills && (bills.sponsored || []).length === 0 && (
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>None recently</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>None recently</div>
         )}
         {bills && (bills.sponsored || []).slice(0, 4).map((b, i) => (
           <div
             key={i}
             style={{
-              padding: '6px 0', borderBottom: i === Math.min(3, bills.sponsored.length - 1) ? 'none' : '1px solid var(--border)',
-              fontSize: '0.78rem', color: 'var(--text)', lineHeight: 1.35,
+              padding: '6px 0', borderBottom: i === Math.min(3, bills.sponsored.length - 1) ? 'none' : '1px solid var(--cl-border)',
+              fontSize: '0.78rem', color: 'var(--cl-text)', lineHeight: 1.35,
             }}
           >
             <div style={{ fontWeight: 600 }}>{b.citation || 'Bill'}</div>
-            <div style={{ color: 'var(--text-light)', fontSize: '0.74rem', marginTop: '2px' }}>
+            <div style={{ color: 'var(--cl-text-light)', fontSize: '0.74rem', marginTop: '2px' }}>
               {b.title?.length > 80 ? b.title.slice(0, 80) + '…' : b.title}
             </div>
           </div>
@@ -607,13 +607,13 @@ function CandidateColumn({ candidate, loading }) {
   return (
     <div
       style={{
-        border: `1px solid var(--border)`, borderRadius: '12px',
+        border: `1px solid var(--cl-border)`, borderRadius: '12px',
         background: 'white', overflow: 'hidden',
         borderTop: `3px solid ${partyColor}`,
       }}
     >
       {/* Header */}
-      <div style={{ padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ padding: '14px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid var(--cl-border)' }}>
         <div
           style={{
             width: '48px', height: '48px', borderRadius: '50%',
@@ -627,7 +627,7 @@ function CandidateColumn({ candidate, loading }) {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {candidate.name}
             </div>
             <span
@@ -641,7 +641,7 @@ function CandidateColumn({ candidate, loading }) {
               🗳
             </span>
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {PARTY_NAMES[party] || party}
             {candidate.seeking_office ? ` · ${candidate.seeking_office}` : ''}
           </div>
@@ -652,14 +652,14 @@ function CandidateColumn({ candidate, loading }) {
       {(candidate.current_office || candidate.hometown) && (
         <Block label="Background">
           {candidate.current_office && (
-            <div style={{ fontSize: '0.8rem', color: 'var(--text)' }}>
-              <span style={{ color: 'var(--text-light)' }}>Current: </span>
+            <div style={{ fontSize: '0.8rem', color: 'var(--cl-text)' }}>
+              <span style={{ color: 'var(--cl-text-light)' }}>Current: </span>
               {candidate.current_office}
             </div>
           )}
           {candidate.hometown && (
-            <div style={{ fontSize: '0.8rem', color: 'var(--text)', marginTop: '2px' }}>
-              <span style={{ color: 'var(--text-light)' }}>Hometown: </span>
+            <div style={{ fontSize: '0.8rem', color: 'var(--cl-text)', marginTop: '2px' }}>
+              <span style={{ color: 'var(--cl-text-light)' }}>Hometown: </span>
               {candidate.hometown}
             </div>
           )}
@@ -674,7 +674,7 @@ function CandidateColumn({ candidate, loading }) {
             .map((t) => (typeof t === 'string' ? t : t.name || t.topic))
             .filter(Boolean);
           if (!topics.length) {
-            return <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>None listed.</div>;
+            return <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>None listed.</div>;
           }
           return (
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
@@ -683,7 +683,7 @@ function CandidateColumn({ candidate, loading }) {
                   key={idx}
                   style={{
                     fontSize: '0.7rem', fontWeight: 600, padding: '2px 8px',
-                    borderRadius: '10px', background: 'var(--bg)', color: 'var(--primary)',
+                    borderRadius: '10px', background: 'var(--cl-bg)', color: 'var(--cl-primary)',
                   }}
                 >
                   {t}
@@ -701,7 +701,7 @@ function CandidateColumn({ candidate, loading }) {
             .filter((i) => i && typeof i === 'object' && i.name && i.stance);
           if (curated.length === 0) {
             return (
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
                 No issue stances on file.
               </div>
             );
@@ -713,17 +713,17 @@ function CandidateColumn({ candidate, loading }) {
                   key={idx}
                   style={{
                     padding: '7px 9px', borderRadius: '8px',
-                    background: 'var(--bg)', border: '1px solid var(--border)',
+                    background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
                   }}
                 >
                   <div style={{
                     fontSize: '0.74rem', fontWeight: 700,
-                    color: 'var(--primary)', marginBottom: '2px',
+                    color: 'var(--cl-primary)', marginBottom: '2px',
                   }}>
                     {iss.name}
                   </div>
                   <div style={{
-                    fontSize: '0.72rem', lineHeight: 1.35, color: 'var(--text)',
+                    fontSize: '0.72rem', lineHeight: 1.35, color: 'var(--cl-text)',
                   }}>
                     {iss.stance}
                   </div>
@@ -739,7 +739,7 @@ function CandidateColumn({ candidate, loading }) {
         {(() => {
           const list = (candidate.endorsements || []).slice(0, 5);
           if (!list.length) {
-            return <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>None listed.</div>;
+            return <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>None listed.</div>;
           }
           return (
             <ul style={{ margin: 0, paddingLeft: '16px', lineHeight: 1.5, fontSize: '0.78rem' }}>
@@ -756,7 +756,7 @@ function CandidateColumn({ candidate, loading }) {
         {(() => {
           const exp = (candidate.experience || []).filter((x) => x && typeof x === 'object');
           if (!exp.length) {
-            return <div style={{ fontSize: '0.78rem', color: 'var(--text-light)' }}>No experience listed.</div>;
+            return <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>No experience listed.</div>;
           }
           return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -765,17 +765,17 @@ function CandidateColumn({ candidate, loading }) {
                   key={idx}
                   style={{
                     fontSize: '0.76rem', lineHeight: 1.4,
-                    paddingLeft: '10px', borderLeft: '2px solid var(--border)',
+                    paddingLeft: '10px', borderLeft: '2px solid var(--cl-border)',
                   }}
                 >
                   <div style={{
-                    fontSize: '0.68rem', color: 'var(--text-light)', fontWeight: 600,
+                    fontSize: '0.68rem', color: 'var(--cl-text-light)', fontWeight: 600,
                   }}>
                     {formatCompareTenure(x.from, x.to)}
                   </div>
-                  <div style={{ color: 'var(--text)', fontWeight: 500 }}>
+                  <div style={{ color: 'var(--cl-text)', fontWeight: 500 }}>
                     {x.role || x.title}
-                    {x.organization ? <span style={{ color: 'var(--text-light)', fontWeight: 400 }}> · {x.organization}</span> : null}
+                    {x.organization ? <span style={{ color: 'var(--cl-text-light)', fontWeight: 400 }}> · {x.organization}</span> : null}
                   </div>
                 </div>
               ))}
@@ -789,12 +789,12 @@ function CandidateColumn({ candidate, loading }) {
         <Block label="Fundraising">
           {candidate.fundraising.total_raised && (
             <div style={{ fontSize: '0.82rem', marginBottom: '4px' }}>
-              <span style={{ color: 'var(--text-light)' }}>Raised: </span>
-              <strong style={{ color: 'var(--primary)' }}>${fmtMoney(candidate.fundraising.total_raised)}</strong>
+              <span style={{ color: 'var(--cl-text-light)' }}>Raised: </span>
+              <strong style={{ color: 'var(--cl-primary)' }}>${fmtMoney(candidate.fundraising.total_raised)}</strong>
             </div>
           )}
           {candidate.fundraising.cash_on_hand && (
-            <div style={{ fontSize: '0.78rem', color: 'var(--text)' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)' }}>
               Cash on hand: ${fmtMoney(candidate.fundraising.cash_on_hand)}
             </div>
           )}
@@ -806,11 +806,11 @@ function CandidateColumn({ candidate, loading }) {
 
 function Block({ label, children }) {
   return (
-    <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--border)' }}>
+    <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--cl-border)' }}>
       <div
         style={{
           fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase',
-          letterSpacing: '0.5px', color: 'var(--text-light)', marginBottom: '6px',
+          letterSpacing: '0.5px', color: 'var(--cl-text-light)', marginBottom: '6px',
         }}
       >
         {label}
@@ -837,28 +837,28 @@ function SharedVoteRow({ vote, officials, isLast }) {
     ? { bg: '#f0fbf3', border: '#b7ebc6', label: '#1d8a4b', text: 'All agree' }
     : vote._agreement === 'disagree'
       ? { bg: '#fdf3f1', border: '#f4c8c0', label: '#c1311b', text: 'Disagreement' }
-      : { bg: 'white', border: 'var(--border)', label: 'var(--text-light)', text: 'Mixed' };
+      : { bg: 'white', border: 'var(--cl-border)', label: 'var(--cl-text-light)', text: 'Mixed' };
 
   return (
     <div
       style={{
         padding: '12px 14px',
-        borderBottom: isLast ? 'none' : '1px solid var(--border)',
+        borderBottom: isLast ? 'none' : '1px solid var(--cl-border)',
         background: tone.bg,
         borderLeft: `3px solid ${tone.border}`,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)', lineHeight: 1.35 }}>
+          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--cl-text)', lineHeight: 1.35 }}>
             {vote.question || 'Roll-call vote'}
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {vote.date} · {vote.chamber}
             {vote.url && (
               <>
                 {' · '}
-                <a href={vote.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>
+                <a href={vote.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cl-accent)' }}>
                   View vote ↗
                 </a>
               </>
@@ -888,11 +888,11 @@ function SharedVoteRow({ vote, officials, isLast }) {
               style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
                 padding: '3px 8px', borderRadius: '999px',
-                background: 'white', border: '1px solid var(--border)',
+                background: 'white', border: '1px solid var(--cl-border)',
                 fontSize: '0.72rem',
               }}
             >
-              <span style={{ fontWeight: 600, color: 'var(--text)' }}>{lastName(m.name)}</span>
+              <span style={{ fontWeight: 600, color: 'var(--cl-text)' }}>{lastName(m.name)}</span>
               <span
                 style={{
                   fontWeight: 700, color: pill.color,
@@ -924,7 +924,7 @@ function normalizeVote(raw) {
 function positionPill(norm) {
   if (norm === 'yea') return { label: 'Yea', color: '#1d8a4b', bg: '#e6f7ec' };
   if (norm === 'nay') return { label: 'Nay', color: '#c1311b', bg: '#fdecea' };
-  return { label: '—', color: 'var(--text-light)', bg: '#f1f3f5' };
+  return { label: '—', color: 'var(--cl-text-light)', bg: '#f1f3f5' };
 }
 
 function lastName(name) {

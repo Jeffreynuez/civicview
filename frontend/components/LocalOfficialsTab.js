@@ -128,7 +128,7 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
   if (!cities.length && !loadingCities) {
     return (
       <EmptyState>
-        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--text)' }}>
+        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
           Local data not yet available for {stateName || stateCode}
         </div>
         <div>We&apos;re curating mayors and city councils in the largest metros first. Florida&apos;s top 6 are live.</div>
@@ -206,7 +206,7 @@ function SubNav({ view, onChange }) {
   return (
     <div style={{
       display: 'flex', gap: '6px', padding: '6px', marginBottom: '12px',
-      background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '12px',
+      background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '12px',
     }}>
       {items.map((it) => (
         <button
@@ -215,8 +215,8 @@ function SubNav({ view, onChange }) {
           style={{
             flex: 1, padding: '6px 10px', fontSize: '0.78rem', fontWeight: 700,
             background: view === it.key ? 'white' : 'transparent',
-            color: view === it.key ? 'var(--primary)' : 'var(--text-light)',
-            border: view === it.key ? '1px solid var(--border)' : '1px solid transparent',
+            color: view === it.key ? 'var(--cl-primary)' : 'var(--cl-text-light)',
+            border: view === it.key ? '1px solid var(--cl-border)' : '1px solid transparent',
             borderRadius: '8px', cursor: 'pointer',
           }}
         >
@@ -286,7 +286,7 @@ function CitiesView({ cities, citySlug, onPick, cityData, cityNotFound, loading,
                 <CityRow key={c.slug} city={c} onClick={() => onPick(c.slug)} />
               ))
             ) : (
-              <div style={{ padding: '8px 12px', color: 'var(--text-light)', fontSize: '0.8rem' }}>
+              <div style={{ padding: '8px 12px', color: 'var(--cl-text-light)', fontSize: '0.8rem' }}>
                 {query
                   ? <>No major cities matched &ldquo;{query}&rdquo;.</>
                   : 'No major cities seeded.'}
@@ -300,7 +300,7 @@ function CitiesView({ cities, citySlug, onPick, cityData, cityNotFound, loading,
                 <CityRow key={c.slug} city={c} onClick={() => onPick(c.slug)} />
               ))
             ) : (
-              <div style={{ padding: '8px 12px', color: 'var(--text-light)', fontSize: '0.8rem' }}>
+              <div style={{ padding: '8px 12px', color: 'var(--cl-text-light)', fontSize: '0.8rem' }}>
                 {query
                   ? <>No cities matched &ldquo;{query}&rdquo;.</>
                   : 'No additional cities seeded.'}
@@ -336,26 +336,26 @@ function CityRow({ city, onClick }) {
       onClick={onClick}
       style={{
         width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '12px',
-        padding: '10px 12px', background: 'white', border: '1px solid var(--border)',
+        padding: '10px 12px', background: 'white', border: '1px solid var(--cl-border)',
         borderRadius: '10px', marginBottom: '6px', cursor: 'pointer',
       }}
-      onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.background = 'var(--bg)'; }}
-      onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'white'; }}
+      onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; e.currentTarget.style.background = 'var(--cl-bg)'; }}
+      onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.background = 'white'; }}
     >
       <div style={{
-        width: '34px', height: '34px', borderRadius: '10px', background: 'var(--bg)',
-        color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '34px', height: '34px', borderRadius: '10px', background: 'var(--cl-bg)',
+        color: 'var(--cl-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '1.05rem', flexShrink: 0,
       }}>
         🏛
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: '0.9rem', fontWeight: 700 }}>{city.city}</div>
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
           {city.county} County · pop. {city.population?.toLocaleString() || '—'}
         </div>
       </div>
-      <span style={{ fontSize: '0.72rem', color: 'var(--accent)', fontWeight: 700 }}>→</span>
+      <span style={{ fontSize: '0.72rem', color: 'var(--cl-accent)', fontWeight: 700 }}>→</span>
     </button>
   );
 }
@@ -427,17 +427,17 @@ function CityDetail({ city, stateCode, onNotify, onCompareToggle, compareIds }) 
 function CityBanner({ city }) {
   return (
     <div style={{
-      padding: '14px 16px', background: 'var(--bg)', border: '1px solid var(--border)',
+      padding: '14px 16px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
       borderRadius: '12px', marginBottom: '12px',
     }}>
       <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{city.city}</div>
-      <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px' }}>
+      <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
         {city.county} County · {city.government_type || 'Municipal government'}
       </div>
       {city.website && (
         <a
           href={city.website} target="_blank" rel="noopener noreferrer"
-          style={{ fontSize: '0.76rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}
+          style={{ fontSize: '0.76rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}
         >
           {city.website.replace(/^https?:\/\//, '')} ↗
         </a>
@@ -462,7 +462,7 @@ function CountiesView({ counties, selectedCounty, onPick, districts, judiciary, 
           onChange={setQuery}
         />
         <div style={{
-          fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 700,
+          fontSize: '0.72rem', color: 'var(--cl-text-light)', fontWeight: 700,
           textTransform: 'uppercase', letterSpacing: '0.5px', padding: '8px 10px',
         }}>
           Counties ({filtered.length})
@@ -474,26 +474,26 @@ function CountiesView({ counties, selectedCounty, onPick, districts, judiciary, 
               onClick={() => onPick(row.county)}
               style={{
                 width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '12px',
-                padding: '10px 12px', background: 'white', border: '1px solid var(--border)',
+                padding: '10px 12px', background: 'white', border: '1px solid var(--cl-border)',
                 borderRadius: '10px', marginBottom: '6px', cursor: 'pointer',
               }}
-              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.background = 'var(--bg)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'white'; }}
+              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; e.currentTarget.style.background = 'var(--cl-bg)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.background = 'white'; }}
             >
               <div style={{
-                width: '34px', height: '34px', borderRadius: '10px', background: 'var(--bg)',
-                color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: '34px', height: '34px', borderRadius: '10px', background: 'var(--cl-bg)',
+                color: 'var(--cl-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.05rem', flexShrink: 0,
               }}>
                 🗺
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '0.9rem', fontWeight: 700 }}>{row.county} County</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
                   {row.cities.length} {row.cities.length === 1 ? 'city' : 'cities'} seeded · pop. {row.population.toLocaleString()}
                 </div>
               </div>
-              <span style={{ fontSize: '0.72rem', color: 'var(--accent)', fontWeight: 700 }}>→</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--cl-accent)', fontWeight: 700 }}>→</span>
             </button>
           ))}
         </div>
@@ -509,16 +509,16 @@ function CountiesView({ counties, selectedCounty, onPick, districts, judiciary, 
       <BackButton onClick={() => onPick(null)}>← All counties</BackButton>
 
       <div style={{
-        padding: '14px 16px', background: 'var(--bg)', border: '1px solid var(--border)',
+        padding: '14px 16px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
         borderRadius: '12px', marginBottom: '12px',
       }}>
         <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{row.county} County</div>
-        <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px' }}>
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
           {row.cities.length} {row.cities.length === 1 ? 'city seeded' : 'cities seeded'} · pop. {row.population.toLocaleString()}
         </div>
       </div>
 
-      <div style={{ marginBottom: '10px', padding: '10px 14px', border: '1px dashed var(--border)', borderRadius: '10px', fontSize: '0.8rem', color: 'var(--text-light)', background: 'white' }}>
+      <div style={{ marginBottom: '10px', padding: '10px 14px', border: '1px dashed var(--cl-border)', borderRadius: '10px', fontSize: '0.8rem', color: 'var(--cl-text-light)', background: 'white' }}>
         County-level officials (county exec, sheriff, prosecutor) are not yet seeded. Showing derived data below.
       </div>
 
@@ -527,10 +527,10 @@ function CountiesView({ counties, selectedCounty, onPick, districts, judiciary, 
         {row.cities.map((c) => (
           <div key={c.slug} style={{
             padding: '8px 12px', background: 'white',
-            border: '1px solid var(--border)', borderRadius: '10px', marginBottom: '6px',
+            border: '1px solid var(--cl-border)', borderRadius: '10px', marginBottom: '6px',
           }}>
             <div style={{ fontSize: '0.86rem', fontWeight: 700 }}>{c.city}</div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
               pop. {c.population?.toLocaleString() || '—'}
             </div>
           </div>
@@ -597,7 +597,7 @@ function CountyJudiciary({ county, judiciary, stateCode, onNotify, onCompareTogg
       defaultOpen
     >
       <div style={{
-        fontSize: '0.72rem', color: 'var(--text-light)', padding: '2px 8px 10px',
+        fontSize: '0.72rem', color: 'var(--cl-text-light)', padding: '2px 8px 10px',
         lineHeight: 1.4,
       }}>
         Florida judges serve a layered system: County Court → Circuit Court →
@@ -708,10 +708,10 @@ function CountyJudiciary({ county, judiciary, stateCode, onNotify, onCompareTogg
             />
           )}
           {!chiefDca && dca.website && (
-            <div style={{ fontSize: '0.74rem', padding: '6px 10px', color: 'var(--text-light)' }}>
+            <div style={{ fontSize: '0.74rem', padding: '6px 10px', color: 'var(--cl-text-light)' }}>
               Chief judge not seeded yet — roster at{' '}
               <a href={dca.website} target="_blank" rel="noopener noreferrer"
-                style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+                style={{ color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}>
                 {dca.website.replace(/^https?:\/\//, '')}
               </a>
             </div>
@@ -722,7 +722,7 @@ function CountyJudiciary({ county, judiciary, stateCode, onNotify, onCompareTogg
       {/* County court isn't seeded */}
       {!countyCourt && (
         <div style={{
-          fontSize: '0.72rem', color: 'var(--text-light)', padding: '6px 10px',
+          fontSize: '0.72rem', color: 'var(--cl-text-light)', padding: '6px 10px',
           fontStyle: 'italic',
         }}>
           Chief county judge not yet seeded for {county} County.
@@ -824,10 +824,10 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
         <BackButton onClick={() => onPick(null)}>← All districts</BackButton>
 
         <div style={{
-          padding: '14px 16px', background: 'var(--bg)', border: '1px solid var(--border)',
+          padding: '14px 16px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
           borderRadius: '12px', marginBottom: '12px',
         }}>
-          <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.4px' }}>
+          <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.4px' }}>
             {selected.chamber}
           </div>
           <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>District {selected.district}</div>
@@ -859,15 +859,15 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
 
         {/* Cities likely in the district — best-effort from city→county mapping */}
         <Collapsible title="Cities likely in this district" count={cities.length}>
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', padding: '6px 10px' }}>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', padding: '6px 10px' }}>
             District boundary data isn&apos;t seeded yet — the full list is shown for reference.
           </div>
           {cities.slice(0, 20).map((c) => (
             <div key={c.slug} style={{
-              padding: '6px 12px', background: 'white', border: '1px solid var(--border)',
+              padding: '6px 12px', background: 'white', border: '1px solid var(--cl-border)',
               borderRadius: '8px', marginBottom: '4px', fontSize: '0.82rem',
             }}>
-              {c.city} <span style={{ color: 'var(--text-light)', fontSize: '0.74rem' }}>· {c.county} Co.</span>
+              {c.city} <span style={{ color: 'var(--cl-text-light)', fontSize: '0.74rem' }}>· {c.county} Co.</span>
             </div>
           ))}
         </Collapsible>
@@ -891,7 +891,7 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
       {/* Chamber toggle */}
       <div style={{
         display: 'flex', gap: '6px', padding: '4px', marginBottom: '10px',
-        background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+        background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
       }}>
         {['senate', 'house'].map((k) => (
           <button
@@ -899,8 +899,8 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
             onClick={() => setChamber(k)}
             style={{
               flex: 1, padding: '6px 10px', fontSize: '0.76rem', fontWeight: 700,
-              background: chamber === k ? 'var(--bg)' : 'transparent',
-              color: chamber === k ? 'var(--primary)' : 'var(--text-light)',
+              background: chamber === k ? 'var(--cl-bg)' : 'transparent',
+              color: chamber === k ? 'var(--cl-primary)' : 'var(--cl-text-light)',
               border: 'none', borderRadius: '6px', cursor: 'pointer',
             }}
           >
@@ -916,7 +916,7 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
       />
 
       <div style={{
-        fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 700,
+        fontSize: '0.72rem', color: 'var(--cl-text-light)', fontWeight: 700,
         textTransform: 'uppercase', letterSpacing: '0.5px', padding: '8px 10px',
       }}>
         Districts ({filtered.length})
@@ -928,28 +928,28 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
             onClick={() => onPick({ chamber: chamber === 'senate' ? 'State Senate' : 'State House', district: m.district })}
             style={{
               width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '10px',
-              padding: '8px 10px', background: 'white', border: '1px solid var(--border)',
+              padding: '8px 10px', background: 'white', border: '1px solid var(--cl-border)',
               borderRadius: '10px', marginBottom: '4px', cursor: 'pointer',
             }}
-            onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.background = 'var(--bg)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'white'; }}
+            onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; e.currentTarget.style.background = 'var(--cl-bg)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.background = 'white'; }}
           >
             <div style={{
               minWidth: '44px', padding: '4px 8px', borderRadius: '8px',
-              background: 'var(--bg)', color: 'var(--primary)',
+              background: 'var(--cl-bg)', color: 'var(--cl-primary)',
               fontWeight: 800, fontSize: '0.8rem', textAlign: 'center',
             }}>
               #{m.district}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: '0.86rem', fontWeight: 700 }}>{m.name}</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--text-light)' }}>{m.role}</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)' }}>{m.role}</div>
             </div>
             {m.party && <PartyPill party={m.party} />}
           </button>
         ))}
         {!filtered.length && (
-          <div style={{ padding: '10px 14px', color: 'var(--text-light)', fontSize: '0.82rem' }}>
+          <div style={{ padding: '10px 14px', color: 'var(--cl-text-light)', fontSize: '0.82rem' }}>
             No districts matched.
           </div>
         )}
@@ -962,7 +962,7 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
 function SectionLabel({ children }) {
   return (
     <div style={{
-      fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 700,
+      fontSize: '0.72rem', color: 'var(--cl-text-light)', fontWeight: 700,
       textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 10px 6px',
     }}>
       {children}
@@ -976,8 +976,8 @@ function BackButton({ children, onClick }) {
       onClick={onClick}
       style={{
         padding: '6px 12px', fontSize: '0.78rem', fontWeight: 600,
-        background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px',
-        cursor: 'pointer', color: 'var(--text-light)', marginBottom: '10px',
+        background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '8px',
+        cursor: 'pointer', color: 'var(--cl-text-light)', marginBottom: '10px',
       }}
     >
       {children}
@@ -991,7 +991,7 @@ function SearchInput({ value, onChange, placeholder }) {
       <svg
         aria-hidden
         width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"
-        style={{ position: 'absolute', top: '10px', left: '12px', color: 'var(--text-light)' }}
+        style={{ position: 'absolute', top: '10px', left: '12px', color: 'var(--cl-text-light)' }}
       >
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
@@ -1002,8 +1002,8 @@ function SearchInput({ value, onChange, placeholder }) {
         placeholder={placeholder}
         style={{
           width: '100%', padding: '8px 10px 8px 32px', fontSize: '0.84rem',
-          background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
-          outline: 'none', color: 'var(--text)',
+          background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
+          outline: 'none', color: 'var(--cl-text)',
         }}
       />
     </div>
@@ -1013,20 +1013,20 @@ function SearchInput({ value, onChange, placeholder }) {
 function Collapsible({ title, count, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div style={{ marginBottom: '10px', border: '1px solid var(--border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
+    <div style={{ marginBottom: '10px', border: '1px solid var(--cl-border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         style={{
           width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          gap: '10px', padding: '10px 14px', background: open ? 'var(--bg)' : 'white',
-          border: 'none', borderBottom: open ? '1px solid var(--border)' : 'none',
+          gap: '10px', padding: '10px 14px', background: open ? 'var(--cl-bg)' : 'white',
+          border: 'none', borderBottom: open ? '1px solid var(--cl-border)' : 'none',
           cursor: 'pointer', textAlign: 'left',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{
-            fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 700,
+            fontSize: '0.78rem', color: 'var(--cl-primary)', fontWeight: 700,
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>
             {title}
@@ -1034,13 +1034,13 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
           {typeof count === 'number' && (
             <span style={{
               fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
-              background: 'var(--bg)', color: 'var(--text-light)', borderRadius: '10px',
+              background: 'var(--cl-bg)', color: 'var(--cl-text-light)', borderRadius: '10px',
             }}>
               {count}
             </span>
           )}
         </div>
-        <span aria-hidden style={{ fontSize: '0.9rem', color: 'var(--text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
+        <span aria-hidden style={{ fontSize: '0.9rem', color: 'var(--cl-text-light)', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
           ›
         </span>
       </button>
@@ -1071,7 +1071,7 @@ const SELECTION_STYLES = {
 
 function SelectionBadge({ method, detail, normallyElected }) {
   if (!method) return null;
-  const style = SELECTION_STYLES[method] || { bg: 'var(--bg)', fg: 'var(--text-light)', label: method.toUpperCase() };
+  const style = SELECTION_STYLES[method] || { bg: 'var(--cl-bg)', fg: 'var(--cl-text-light)', label: method.toUpperCase() };
   return (
     <span
       title={detail || (normallyElected ? 'Office is normally filled by election' : undefined)}
@@ -1101,12 +1101,12 @@ function OfficialCard({
   return (
     <div style={{
       display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '10px 12px',
-      background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+      background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
       marginBottom: '6px',
     }}>
       <div style={{
         width: big ? '48px' : '36px', height: big ? '48px' : '36px', borderRadius: '50%',
-        background: partyBg || 'var(--bg)', color: partyColor || 'var(--text-light)',
+        background: partyBg || 'var(--cl-bg)', color: partyColor || 'var(--cl-text-light)',
         fontSize: big ? '1rem' : '0.82rem', fontWeight: 700,
         display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
       }}>
@@ -1115,18 +1115,18 @@ function OfficialCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: big ? '0.98rem' : '0.88rem', fontWeight: 700, lineHeight: 1.2 }}>{name}</div>
         {subtitle && (
-          <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {subtitle}
           </div>
         )}
         {meta && meta.length > 0 && (
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '3px' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '3px' }}>
             {meta.join(' · ')}
           </div>
         )}
         {selectionDetail && (
           <div style={{
-            fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '3px',
+            fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '3px',
             fontStyle: 'italic', lineHeight: 1.4,
           }}>
             {selectionDetail}
@@ -1134,7 +1134,7 @@ function OfficialCard({
         )}
         {website && (
           <a href={website} target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: '0.74rem', color: 'var(--accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}>
+            style={{ fontSize: '0.74rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, marginTop: '4px', display: 'inline-block' }}>
             Official page ↗
           </a>
         )}

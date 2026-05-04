@@ -90,7 +90,7 @@ export default function CandidateProfile({
   return (
     <div className="flex flex-col overflow-hidden bg-white" style={{ width: `${width}px`, flexShrink: 0 }}>
       {/* Header */}
-      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--border)', background: 'var(--primary)', color: 'white' }}>
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-primary)', color: 'white' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <button
             onClick={onBack}
@@ -245,15 +245,15 @@ export default function CandidateProfile({
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'white', overflowX: 'auto' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--cl-border)', background: 'white', overflowX: 'auto' }}>
         {tabs.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
             style={{
               padding: '10px 14px', textAlign: 'center', fontSize: '0.76rem', fontWeight: 600,
-              color: activeTab === key ? 'var(--primary)' : 'var(--text-light)',
-              borderBottom: activeTab === key ? '2px solid var(--accent)' : '2px solid transparent',
+              color: activeTab === key ? 'var(--cl-primary)' : 'var(--cl-text-light)',
+              borderBottom: activeTab === key ? '2px solid var(--cl-accent)' : '2px solid transparent',
               cursor: 'pointer', background: 'none', border: 'none',
               whiteSpace: 'nowrap',
             }}
@@ -268,7 +268,7 @@ export default function CandidateProfile({
         {activeTab === 'overview' && (
           <div>
             {c.bio && (
-              <p style={{ fontSize: '0.88rem', lineHeight: 1.5, color: 'var(--text)', marginBottom: '14px' }}>
+              <p style={{ fontSize: '0.88rem', lineHeight: 1.5, color: 'var(--cl-text)', marginBottom: '14px' }}>
                 {c.bio}
               </p>
             )}
@@ -291,8 +291,8 @@ export default function CandidateProfile({
                       key={idx}
                       style={{
                         fontSize: '0.75rem', fontWeight: 600, padding: '4px 10px',
-                        borderRadius: '14px', background: 'var(--bg)',
-                        color: 'var(--primary)', border: '1px solid var(--border)',
+                        borderRadius: '14px', background: 'var(--cl-bg)',
+                        color: 'var(--cl-primary)', border: '1px solid var(--cl-border)',
                       }}
                     >
                       {i.name || i}
@@ -310,7 +310,7 @@ export default function CandidateProfile({
                       key={platform}
                       style={{
                         fontSize: '0.72rem', padding: '4px 10px', borderRadius: '10px',
-                        background: 'var(--bg)', color: 'var(--text-light)',
+                        background: 'var(--cl-bg)', color: 'var(--cl-text-light)',
                       }}
                     >
                       {platform}: @{handle}
@@ -329,15 +329,15 @@ export default function CandidateProfile({
                 key={idx}
                 style={{
                   marginBottom: '10px', padding: '12px 14px',
-                  background: 'var(--bg)', borderRadius: '10px',
-                  border: '1px solid var(--border)',
+                  background: 'var(--cl-bg)', borderRadius: '10px',
+                  border: '1px solid var(--cl-border)',
                 }}
               >
-                <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '4px' }}>
+                <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--cl-primary)', marginBottom: '4px' }}>
                   {issue.name}
                 </div>
                 {issue.stance && (
-                  <div style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--text)' }}>
+                  <div style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)' }}>
                     {issue.stance}
                   </div>
                 )}
@@ -355,12 +355,12 @@ export default function CandidateProfile({
               <div
                 key={idx}
                 style={{
-                  padding: '10px 12px', background: 'var(--bg)', borderRadius: '8px',
+                  padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px',
                   marginBottom: '6px', fontSize: '0.85rem',
                 }}
               >
                 <div style={{ fontWeight: 600 }}>{e.name}</div>
-                {e.org && <div style={{ fontSize: '0.76rem', color: 'var(--text-light)' }}>{e.org}</div>}
+                {e.org && <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)' }}>{e.org}</div>}
               </div>
             ))}
             {(!c.endorsements || c.endorsements.length === 0) && (
@@ -376,19 +376,19 @@ export default function CandidateProfile({
                 key={idx}
                 style={{
                   position: 'relative', paddingLeft: '20px', paddingBottom: '12px',
-                  borderLeft: '2px solid var(--border)', marginLeft: '4px',
+                  borderLeft: '2px solid var(--cl-border)', marginLeft: '4px',
                 }}
               >
                 <span style={{
                   position: 'absolute', left: '-6px', top: '4px', width: '10px', height: '10px',
-                  background: 'var(--accent)', borderRadius: '50%', border: '2px solid white',
+                  background: 'var(--cl-accent)', borderRadius: '50%', border: '2px solid white',
                 }} />
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)', fontWeight: 600 }}>
                   {x.from}{x.to == null ? ' – Present' : (x.to !== x.from ? `–${x.to}` : '')}
                 </div>
                 <div style={{ fontSize: '0.88rem', fontWeight: 600, marginTop: '2px' }}>{x.role}</div>
                 {x.note && (
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
                     {x.note}
                   </div>
                 )}
@@ -414,7 +414,7 @@ export default function CandidateProfile({
                       : '—'
                   } />
                 </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '10px', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '10px', textAlign: 'center' }}>
                   As of {c.fundraising.as_of || 'latest filing'}
                 </div>
               </>
@@ -432,12 +432,12 @@ function StatCard({ label, value, big }) {
   return (
     <div style={{
       padding: '10px 12px', borderRadius: '10px',
-      background: 'var(--bg)', border: '1px solid var(--border)',
+      background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
     }}>
-      <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 600 }}>
+      <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 600 }}>
         {label}
       </div>
-      <div style={{ fontSize: big ? '1.1rem' : '0.88rem', fontWeight: 700, color: 'var(--primary)', marginTop: '3px', wordBreak: 'break-word' }}>
+      <div style={{ fontSize: big ? '1.1rem' : '0.88rem', fontWeight: 700, color: 'var(--cl-primary)', marginTop: '3px', wordBreak: 'break-word' }}>
         {value}
       </div>
     </div>
@@ -448,7 +448,7 @@ function SectionTitle({ children }) {
   return (
     <div style={{
       fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase',
-      letterSpacing: '0.5px', color: 'var(--text-light)',
+      letterSpacing: '0.5px', color: 'var(--cl-text-light)',
     }}>
       {children}
     </div>

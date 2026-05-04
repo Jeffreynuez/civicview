@@ -250,7 +250,7 @@ export default function PageView({
         position: 'fixed',
         top: 0, left: 0, right: 0, bottom: 0,
         zIndex: 1200,
-        background: 'var(--bg)',
+        background: 'var(--cl-bg)',
         display: 'flex', flexDirection: 'column',
         overflow: 'hidden',
       }}
@@ -262,7 +262,7 @@ export default function PageView({
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: '10px', padding: '10px 18px',
           background: 'white',
-          borderBottom: '1px solid var(--border)',
+          borderBottom: '1px solid var(--cl-border)',
         }}
       >
         <button
@@ -271,8 +271,8 @@ export default function PageView({
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
             padding: '6px 10px', borderRadius: '8px',
-            border: '1px solid var(--border)', background: 'white',
-            color: 'var(--text)', fontSize: '0.85rem', cursor: 'pointer',
+            border: '1px solid var(--cl-border)', background: 'white',
+            color: 'var(--cl-text)', fontSize: '0.85rem', cursor: 'pointer',
           }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -282,7 +282,7 @@ export default function PageView({
         </button>
         <div
           style={{
-            fontSize: '0.9rem', fontWeight: 700, color: 'var(--text)',
+            fontSize: '0.9rem', fontWeight: 700, color: 'var(--cl-text)',
             textAlign: 'center', flex: 1, minWidth: 0,
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
           }}
@@ -294,8 +294,8 @@ export default function PageView({
             <>
               <span
                 style={{
-                  fontSize: '0.78rem', color: 'var(--text-light)',
-                  padding: '6px 10px', border: '1px solid var(--border)',
+                  fontSize: '0.78rem', color: 'var(--cl-text-light)',
+                  padding: '6px 10px', border: '1px solid var(--cl-border)',
                   borderRadius: '8px', background: 'white',
                 }}
                 title={`Signed in as ${me.display_name}`}
@@ -310,8 +310,8 @@ export default function PageView({
                   aria-label="Sign out"
                   style={{
                     padding: '6px 10px', borderRadius: '8px',
-                    border: '1px solid var(--border)', background: 'white',
-                    color: 'var(--text-light)', fontSize: '0.78rem', fontWeight: 600,
+                    border: '1px solid var(--cl-border)', background: 'white',
+                    color: 'var(--cl-text-light)', fontSize: '0.78rem', fontWeight: 600,
                     cursor: 'pointer',
                   }}
                 >
@@ -325,8 +325,8 @@ export default function PageView({
               onClick={onRequestLogin}
               style={{
                 padding: '6px 12px', borderRadius: '8px',
-                border: '1px solid var(--accent)', background: 'white',
-                color: 'var(--accent)', fontSize: '0.82rem', fontWeight: 700,
+                border: '1px solid var(--cl-accent)', background: 'white',
+                color: 'var(--cl-accent)', fontSize: '0.82rem', fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
@@ -357,7 +357,7 @@ export default function PageView({
                 display: 'flex', alignItems: 'center', gap: '14px',
                 padding: '18px',
                 background: 'white',
-                border: '1px solid var(--border)',
+                border: '1px solid var(--cl-border)',
                 borderRadius: '14px',
                 marginBottom: '16px',
               }}
@@ -369,8 +369,8 @@ export default function PageView({
                   alt={ownerName}
                   style={{
                     width: '72px', height: '72px', borderRadius: '50%',
-                    objectFit: 'cover', border: '2px solid var(--border)',
-                    flexShrink: 0, background: 'var(--bg)',
+                    objectFit: 'cover', border: '2px solid var(--cl-border)',
+                    flexShrink: 0, background: 'var(--cl-bg)',
                   }}
                 />
               ) : (
@@ -378,10 +378,10 @@ export default function PageView({
                   aria-hidden="true"
                   style={{
                     width: '72px', height: '72px', borderRadius: '50%',
-                    background: 'var(--bg)',
+                    background: 'var(--cl-bg)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent)',
-                    border: '2px solid var(--border)', flexShrink: 0,
+                    fontSize: '1.6rem', fontWeight: 700, color: 'var(--cl-accent)',
+                    border: '2px solid var(--cl-border)', flexShrink: 0,
                   }}
                 >
                   {initials || '•'}
@@ -390,21 +390,21 @@ export default function PageView({
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div
                   style={{
-                    fontSize: '1.25rem', fontWeight: 700, color: 'var(--text)',
+                    fontSize: '1.25rem', fontWeight: 700, color: 'var(--cl-text)',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
                   }}
                 >
                   {ownerName}
                 </div>
                 {ownerRole && (
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
                     {ownerRole}
                   </div>
                 )}
                 <div
                   style={{
                     fontSize: '0.72rem', marginTop: '6px',
-                    color: claimed ? '#27ae60' : 'var(--text-light)',
+                    color: claimed ? '#27ae60' : 'var(--cl-text-light)',
                     display: 'inline-flex', alignItems: 'center', gap: '6px',
                   }}
                 >
@@ -425,7 +425,7 @@ export default function PageView({
                   onClick={onRequestClaim}
                   style={{
                     padding: '8px 14px', borderRadius: '8px',
-                    border: '1px solid var(--accent)', background: 'var(--accent)',
+                    border: '1px solid var(--cl-accent)', background: 'var(--cl-accent)',
                     color: 'white', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer',
                   }}
                 >
@@ -443,7 +443,7 @@ export default function PageView({
                 style={{
                   display: 'flex', gap: '6px', marginBottom: '10px',
                   padding: '4px',
-                  background: 'white', border: '1px solid var(--border)',
+                  background: 'white', border: '1px solid var(--cl-border)',
                   borderRadius: '999px',
                   width: 'fit-content',
                 }}
@@ -465,8 +465,8 @@ export default function PageView({
                       style={{
                         padding: '5px 14px', borderRadius: '999px',
                         border: 'none',
-                        background: active ? 'var(--accent)' : 'transparent',
-                        color: active ? 'white' : 'var(--text-light)',
+                        background: active ? 'var(--cl-accent)' : 'transparent',
+                        color: active ? 'white' : 'var(--cl-text-light)',
                         fontSize: '0.8rem', fontWeight: 700,
                         cursor: 'pointer',
                         transition: 'background 0.15s, color 0.15s',
@@ -590,7 +590,7 @@ export default function PageView({
           <aside
             style={{
               background: 'white',
-              border: '1px solid var(--border)',
+              border: '1px solid var(--cl-border)',
               borderRadius: '14px',
               padding: '16px',
               alignSelf: 'start',
@@ -606,14 +606,14 @@ export default function PageView({
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 letterSpacing: '0.4px',
-                color: 'var(--text-light)',
+                color: 'var(--cl-text-light)',
                 marginBottom: '10px',
               }}
             >
               Upcoming Events
             </div>
             {events.length === 0 ? (
-              <div style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>
+              <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
                 No upcoming events posted.
               </div>
             ) : (
@@ -630,13 +630,13 @@ export default function PageView({
                       key={evt.id}
                       style={{
                         padding: '10px 0',
-                        borderBottom: '1px solid var(--border)',
+                        borderBottom: '1px solid var(--cl-border)',
                       }}
                     >
-                      <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text)' }}>
+                      <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--cl-text)' }}>
                         {evt.title}
                       </div>
-                      <div style={{ fontSize: '0.76rem', color: 'var(--text-light)', marginTop: '2px' }}>
+                      <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
                         {when}
                         {evt.location ? ` · ${evt.location}` : ''}
                       </div>
@@ -647,7 +647,7 @@ export default function PageView({
                           rel="noopener noreferrer"
                           style={{
                             fontSize: '0.76rem',
-                            color: 'var(--accent)',
+                            color: 'var(--cl-accent)',
                             textDecoration: 'none',
                             marginTop: '4px',
                             display: 'inline-block',

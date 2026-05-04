@@ -154,7 +154,7 @@ export default function Navbar({
   return (
     <nav
       className="flex items-center justify-between px-6 py-3 shadow-sm border-b"
-      style={{ background: 'var(--primary)', height: '56px', position: 'relative', zIndex: 50 }}
+      style={{ background: 'var(--cl-primary)', height: '56px', position: 'relative', zIndex: 50 }}
     >
       {/* Logo — Phase 4-wiring: swap the prior clock-circle placeholder for
           the locked-in magnify-lens-with-flag mark. Reverse variant has the
@@ -224,18 +224,18 @@ export default function Navbar({
               position: 'absolute', top: 'calc(100% + 6px)', left: 0, right: 0,
               background: 'white', borderRadius: '10px',
               boxShadow: '0 12px 36px rgba(0,0,0,0.18)',
-              border: '1px solid var(--border)',
+              border: '1px solid var(--cl-border)',
               maxHeight: '440px', overflowY: 'auto',
               zIndex: 60,
             }}
           >
             {loading && results.length === 0 && (
-              <div style={{ padding: '14px', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.85rem' }}>
+              <div style={{ padding: '14px', textAlign: 'center', color: 'var(--cl-text-light)', fontSize: '0.85rem' }}>
                 Loading index…
               </div>
             )}
             {!loading && results.length === 0 && (
-              <div style={{ padding: '14px', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.85rem' }}>
+              <div style={{ padding: '14px', textAlign: 'center', color: 'var(--cl-text-light)', fontSize: '0.85rem' }}>
                 No matches for &ldquo;{query}&rdquo;.
               </div>
             )}
@@ -253,7 +253,7 @@ export default function Navbar({
                   style={{
                     display: 'flex', alignItems: 'center', gap: '10px',
                     width: '100%', padding: '10px 14px', border: 'none',
-                    background: i === activeIdx ? 'var(--bg)' : 'white',
+                    background: i === activeIdx ? 'var(--cl-bg)' : 'white',
                     cursor: 'pointer', textAlign: 'left',
                     borderBottom: i === results.length - 1 ? 'none' : '1px solid #f1f3f5',
                   }}
@@ -270,7 +270,7 @@ export default function Navbar({
                       style={{
                         width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
                         background: '#e9ecef', display: 'flex', alignItems: 'center',
-                        justifyContent: 'center', color: 'var(--text-light)',
+                        justifyContent: 'center', color: 'var(--cl-text-light)',
                         fontSize: '0.7rem', fontWeight: 700,
                       }}
                     >
@@ -278,10 +278,10 @@ export default function Navbar({
                     </div>
                   )}
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {item.name}
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {item.state && <span style={{ fontWeight: 600 }}>{item.state}</span>}
                       {item.state && ' · '}
                       {subtitle}
@@ -390,7 +390,7 @@ export default function Navbar({
             style={{
               display: 'flex', alignItems: 'center', gap: '6px',
               padding: '6px 12px', background: 'white',
-              color: 'var(--primary)', border: '1px solid white',
+              color: 'var(--cl-primary)', border: '1px solid white',
               borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700,
             }}
             onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.9)'; }}

@@ -193,11 +193,11 @@ export default function SidePanel({
       style={{ width: `${width}px`, flexShrink: 0 }}
     >
       {/* Header */}
-      <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg)' }}>
-        <h2 style={{ fontSize: '1.1rem', color: 'var(--primary)', marginBottom: '2px', fontWeight: 700 }}>
+      <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-bg)' }}>
+        <h2 style={{ fontSize: '1.1rem', color: 'var(--cl-primary)', marginBottom: '2px', fontWeight: 700 }}>
           {stateName || 'United States'}
         </h2>
-        <p style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>
+        <p style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
           {stateName
             ? `Elected officials and upcoming elections${isLive ? ' · Live data' : ''}`
             : 'National officials — look up your district or click a state on the map'}
@@ -212,16 +212,16 @@ export default function SidePanel({
               alignItems: 'center',
               gap: '8px',
               background: 'white',
-              border: '1px solid var(--border)',
+              border: '1px solid var(--cl-border)',
               borderRadius: '999px',
               padding: '5px 8px 5px 12px',
               fontSize: '0.78rem',
             }}
           >
-            <span style={{ color: 'var(--accent)', fontWeight: 700 }}>
+            <span style={{ color: 'var(--cl-accent)', fontWeight: 700 }}>
               {activeDistrict.districtLabel || `${activeDistrict.stateCode} — ${activeDistrict.district}`}
             </span>
-            <span style={{ color: 'var(--text-light)', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span style={{ color: 'var(--cl-text-light)', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {activeDistrict.address}
             </span>
             <button
@@ -229,16 +229,16 @@ export default function SidePanel({
               title="Show all representatives for this state"
               style={{
                 padding: '2px 8px',
-                background: 'var(--bg)',
-                border: '1px solid var(--border)',
+                background: 'var(--cl-bg)',
+                border: '1px solid var(--cl-border)',
                 borderRadius: '999px',
                 fontSize: '0.72rem',
-                color: 'var(--text-light)',
+                color: 'var(--cl-text-light)',
                 cursor: 'pointer',
                 fontWeight: 600,
               }}
-              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-light)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; e.currentTarget.style.color = 'var(--cl-accent)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.color = 'var(--cl-text-light)'; }}
             >
               Clear
             </button>
@@ -248,7 +248,7 @@ export default function SidePanel({
 
       {/* Tabs */}
       {stateData && (
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'white' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--cl-border)', background: 'white' }}>
           {[
             { key: 'congress', label: 'Congress' },
             { key: 'state', label: 'State' },
@@ -260,15 +260,15 @@ export default function SidePanel({
               onClick={() => setActiveTab(key)}
               style={{
                 flex: 1, padding: '10px', textAlign: 'center', fontSize: '0.8rem', fontWeight: 600,
-                color: activeTab === key ? 'var(--primary)' : 'var(--text-light)',
-                borderBottom: activeTab === key ? '2px solid var(--accent)' : '2px solid transparent',
+                color: activeTab === key ? 'var(--cl-primary)' : 'var(--cl-text-light)',
+                borderBottom: activeTab === key ? '2px solid var(--cl-accent)' : '2px solid transparent',
                 cursor: 'pointer', background: 'none', border: 'none',
                 borderBottomStyle: 'solid',
                 borderBottomWidth: '2px',
-                borderBottomColor: activeTab === key ? 'var(--accent)' : 'transparent',
+                borderBottomColor: activeTab === key ? 'var(--cl-accent)' : 'transparent',
                 transition: 'all 0.2s',
               }}
-              onMouseOver={(e) => (e.currentTarget.style.background = 'var(--bg)')}
+              onMouseOver={(e) => (e.currentTarget.style.background = 'var(--cl-bg)')}
               onMouseOut={(e) => (e.currentTarget.style.background = 'none')}
             >
               {label}
@@ -296,7 +296,7 @@ export default function SidePanel({
             />
 
             {/* Map hint — sits immediately below the address lookup */}
-            <div style={{ textAlign: 'center', padding: '4px 20px 14px', color: 'var(--text-light)' }}>
+            <div style={{ textAlign: 'center', padding: '4px 20px 14px', color: 'var(--cl-text-light)' }}>
               <p style={{ fontSize: '0.78rem', fontStyle: 'italic' }}>
                 or click any state on the map to browse all its elected officials.
               </p>
@@ -336,7 +336,7 @@ export default function SidePanel({
             {/* Persistent entry point: let the user search a different address */}
             {!activeDistrict && (
               showLookupInPanel ? (
-                <div style={{ border: '1px solid var(--border)', borderRadius: '10px', marginBottom: '10px', background: 'var(--bg)' }}>
+                <div style={{ border: '1px solid var(--cl-border)', borderRadius: '10px', marginBottom: '10px', background: 'var(--cl-bg)' }}>
                   <AddressLookup
                     onResult={(data) => {
                       setShowLookupInPanel(false);
@@ -353,10 +353,10 @@ export default function SidePanel({
                     padding: '10px 14px',
                     marginBottom: '10px',
                     background: 'white',
-                    border: '1px dashed var(--border)',
+                    border: '1px dashed var(--cl-border)',
                     borderRadius: '10px',
                     fontSize: '0.85rem',
-                    color: 'var(--accent)',
+                    color: 'var(--cl-accent)',
                     fontWeight: 600,
                     cursor: 'pointer',
                     textAlign: 'left',
@@ -377,7 +377,7 @@ export default function SidePanel({
 
             {districtSenators.length > 0 && (
               <div style={{ marginBottom: '16px' }}>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '4px 12px' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '4px 12px' }}>
                   {activeDistrict ? 'Your Senators' : `Senators (${districtSenators.length})`}
                 </div>
                 {districtSenators.map((m) => (
@@ -400,7 +400,7 @@ export default function SidePanel({
             )}
             {districtReps.length > 0 && (
               <div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '4px 12px' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '4px 12px' }}>
                   {activeDistrict
                     ? `Your Representative (District ${activeDistrict.district})`
                     : `Representatives (${districtReps.length})`}
@@ -435,7 +435,7 @@ export default function SidePanel({
               </div>
             )}
             {(!districtSenators.length && !districtReps.length && !activeDistrict) && (
-              <div style={{ textAlign: 'center', padding: '30px', color: 'var(--text-light)' }}>
+              <div style={{ textAlign: 'center', padding: '30px', color: 'var(--cl-text-light)' }}>
                 <p style={{ fontSize: '0.95rem', fontWeight: 500 }}>Data coming soon</p>
                 <p style={{ fontSize: '0.82rem', marginTop: '4px' }}>We&apos;re building out data coverage for this state.</p>
               </div>
@@ -503,14 +503,14 @@ function FilterBar({
       style={{
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px',
         padding: '8px 10px', marginBottom: '10px',
-        background: 'white', border: '1px solid var(--border)', borderRadius: '10px',
+        background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
       }}
     >
       <Chip label="All" active={partyFilter === 'all'} onClick={() => setPartyFilter('all')} />
       <Chip label="R" active={partyFilter === 'R'} onClick={() => setPartyFilter('R')} color="#e63946" />
       <Chip label="D" active={partyFilter === 'D'} onClick={() => setPartyFilter('D')} color="#457b9d" />
       <Chip label="I" active={partyFilter === 'I'} onClick={() => setPartyFilter('I')} color="#6c3ec1" />
-      <div style={{ width: '1px', height: '18px', background: 'var(--border)', margin: '0 4px' }} />
+      <div style={{ width: '1px', height: '18px', background: 'var(--cl-border)', margin: '0 4px' }} />
       <Chip label="Both" active={chamberFilter === 'all'} onClick={() => setChamberFilter('all')} />
       <Chip label="Senate" active={chamberFilter === 'Senate'} onClick={() => setChamberFilter('Senate')} />
       <Chip label="House" active={chamberFilter === 'House'} onClick={() => setChamberFilter('House')} />
@@ -521,8 +521,8 @@ function FilterBar({
         aria-label="Sort representatives"
         style={{
           fontSize: '0.74rem', fontWeight: 600, padding: '4px 8px',
-          border: '1px solid var(--border)', borderRadius: '14px',
-          background: 'white', color: 'var(--text)', cursor: 'pointer',
+          border: '1px solid var(--cl-border)', borderRadius: '14px',
+          background: 'white', color: 'var(--cl-text)', cursor: 'pointer',
         }}
       >
         <option value="name-asc">Name A-Z</option>
@@ -536,8 +536,8 @@ function FilterBar({
           title="Reset filters"
           style={{
             padding: '3px 10px', fontSize: '0.72rem', fontWeight: 600,
-            background: 'var(--bg)', border: '1px solid var(--border)',
-            borderRadius: '14px', color: 'var(--text-light)', cursor: 'pointer',
+            background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
+            borderRadius: '14px', color: 'var(--cl-text-light)', cursor: 'pointer',
           }}
         >
           Reset
@@ -555,10 +555,10 @@ function Chip({ label, active, onClick, color }) {
         padding: '3px 10px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.3px',
         borderRadius: '14px', cursor: 'pointer',
         border: active
-          ? `1.5px solid ${color || 'var(--accent)'}`
-          : '1px solid var(--border)',
-        background: active ? (color ? `${color}14` : 'var(--bg)') : 'white',
-        color: active ? (color || 'var(--accent)') : 'var(--text-light)',
+          ? `1.5px solid ${color || 'var(--cl-accent)'}`
+          : '1px solid var(--cl-border)',
+        background: active ? (color ? `${color}14` : 'var(--cl-bg)') : 'white',
+        color: active ? (color || 'var(--cl-accent)') : 'var(--cl-text-light)',
         transition: 'all 0.15s',
       }}
     >

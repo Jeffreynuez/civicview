@@ -88,11 +88,11 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
   };
 
   return (
-    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px dashed var(--border)' }}>
+    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px dashed var(--cl-border)' }}>
       {/* Your-events list with remove affordance */}
       {events.length > 0 && (
         <div style={{ marginBottom: '10px' }}>
-          <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '4px' }}>
+          <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '4px' }}>
             Your scheduled events
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.78rem' }}>
@@ -101,7 +101,7 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
                 key={evt.id}
                 style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '4px 0', gap: '6px', color: 'var(--text)',
+                  padding: '4px 0', gap: '6px', color: 'var(--cl-text)',
                 }}
               >
                 <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -135,8 +135,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
             placeholder="Event title (e.g. Town Hall — Naples)"
             style={{
               padding: '7px 9px', borderRadius: '6px',
-              border: '1px solid var(--border)', fontSize: '0.82rem',
-              color: 'var(--text)', background: 'white', boxSizing: 'border-box',
+              border: '1px solid var(--cl-border)', fontSize: '0.82rem',
+              color: 'var(--cl-text)', background: 'white', boxSizing: 'border-box',
             }}
           />
           <input
@@ -145,8 +145,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
             onChange={(e) => setStartAt(e.target.value)}
             style={{
               padding: '7px 9px', borderRadius: '6px',
-              border: '1px solid var(--border)', fontSize: '0.82rem',
-              color: 'var(--text)', background: 'white', boxSizing: 'border-box',
+              border: '1px solid var(--cl-border)', fontSize: '0.82rem',
+              color: 'var(--cl-text)', background: 'white', boxSizing: 'border-box',
             }}
           />
           <input
@@ -156,8 +156,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
             placeholder="Location (optional)"
             style={{
               padding: '7px 9px', borderRadius: '6px',
-              border: '1px solid var(--border)', fontSize: '0.82rem',
-              color: 'var(--text)', background: 'white', boxSizing: 'border-box',
+              border: '1px solid var(--cl-border)', fontSize: '0.82rem',
+              color: 'var(--cl-text)', background: 'white', boxSizing: 'border-box',
             }}
           />
           <input
@@ -167,8 +167,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
             placeholder="RSVP link (optional)"
             style={{
               padding: '7px 9px', borderRadius: '6px',
-              border: '1px solid var(--border)', fontSize: '0.82rem',
-              color: 'var(--text)', background: 'white', boxSizing: 'border-box',
+              border: '1px solid var(--cl-border)', fontSize: '0.82rem',
+              color: 'var(--cl-text)', background: 'white', boxSizing: 'border-box',
             }}
           />
           {err && (
@@ -180,8 +180,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
               onClick={reset}
               disabled={busy}
               style={{
-                border: '1px solid var(--border)', background: 'white',
-                color: 'var(--text-light)', padding: '6px 10px',
+                border: '1px solid var(--cl-border)', background: 'white',
+                color: 'var(--cl-text-light)', padding: '6px 10px',
                 borderRadius: '6px', fontSize: '0.76rem', fontWeight: 600,
                 cursor: busy ? 'wait' : 'pointer',
               }}
@@ -193,9 +193,9 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
               onClick={submit}
               disabled={!canSubmit}
               style={{
-                border: '1px solid var(--accent)',
-                background: canSubmit ? 'var(--accent)' : 'var(--bg)',
-                color: canSubmit ? 'white' : 'var(--text-light)',
+                border: '1px solid var(--cl-accent)',
+                background: canSubmit ? 'var(--cl-accent)' : 'var(--cl-bg)',
+                color: canSubmit ? 'white' : 'var(--cl-text-light)',
                 padding: '6px 12px', borderRadius: '6px',
                 fontSize: '0.78rem', fontWeight: 700,
                 cursor: canSubmit ? 'pointer' : 'not-allowed',
@@ -211,8 +211,8 @@ export default function RepEventComposer({ officialId, events = [], onCreated, o
           onClick={() => setOpen(true)}
           style={{
             width: '100%', padding: '8px 10px',
-            border: '1px dashed var(--accent)',
-            background: 'transparent', color: 'var(--accent)',
+            border: '1px dashed var(--cl-accent)',
+            background: 'transparent', color: 'var(--cl-accent)',
             fontSize: '0.8rem', fontWeight: 600,
             borderRadius: '8px', cursor: 'pointer',
           }}

@@ -23,7 +23,7 @@ export default function NotificationBanner({ message, onDismiss }) {
   return (
     <div
       style={{
-        background: 'var(--accent)', color: 'white', padding: '8px 20px',
+        background: 'var(--cl-accent)', color: 'white', padding: '8px 20px',
         fontSize: '0.85rem', display: 'flex', alignItems: 'center',
         justifyContent: 'center', gap: '8px', zIndex: 50,
       }}

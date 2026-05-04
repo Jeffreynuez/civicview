@@ -43,23 +43,23 @@ export default function FollowButton({ member, size = 'md', onNotify }) {
       aria-pressed={followed}
       style={{
         width: `${dim}px`, height: `${dim}px`, borderRadius: '50%',
-        border: followed ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-        background: followed ? 'var(--accent)' : 'white',
-        color: followed ? 'white' : 'var(--accent)',
+        border: followed ? '1.5px solid var(--cl-accent)' : '1px solid var(--cl-border)',
+        background: followed ? 'var(--cl-accent)' : 'white',
+        color: followed ? 'white' : 'var(--cl-accent)',
         cursor: 'pointer', padding: 0, flexShrink: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         transition: 'background 0.15s, border-color 0.15s',
       }}
       onMouseOver={(e) => {
         if (!followed) {
-          e.currentTarget.style.background = 'var(--bg)';
-          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.background = 'var(--cl-bg)';
+          e.currentTarget.style.borderColor = 'var(--cl-accent)';
         }
       }}
       onMouseOut={(e) => {
         if (!followed) {
           e.currentTarget.style.background = 'white';
-          e.currentTarget.style.borderColor = 'var(--border)';
+          e.currentTarget.style.borderColor = 'var(--cl-border)';
         }
       }}
     >

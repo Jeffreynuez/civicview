@@ -49,9 +49,9 @@ export default function PageButton({
         height: `${h}px`,
         padding: '0 10px',
         borderRadius: `${h / 2}px`,
-        border: '1px solid var(--accent)',
+        border: '1px solid var(--cl-accent)',
         background: disabled ? 'transparent' : 'white',
-        color: 'var(--accent)',
+        color: 'var(--cl-accent)',
         fontSize: '0.72rem',
         fontWeight: 700,
         letterSpacing: '0.2px',
@@ -66,13 +66,13 @@ export default function PageButton({
       }}
       onMouseOver={(e) => {
         if (disabled) return;
-        e.currentTarget.style.background = 'var(--accent)';
+        e.currentTarget.style.background = 'var(--cl-accent)';
         e.currentTarget.style.color = 'white';
       }}
       onMouseOut={(e) => {
         if (disabled) return;
         e.currentTarget.style.background = 'white';
-        e.currentTarget.style.color = 'var(--accent)';
+        e.currentTarget.style.color = 'var(--cl-accent)';
       }}
     >
       {/* Document-with-corner icon — visually distinct from Follow's bookmark. */}

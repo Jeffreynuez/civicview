@@ -55,23 +55,23 @@ export default function TrackElectionButton({ election, size = 'md', onNotify })
       aria-pressed={tracked}
       style={{
         width: `${dim}px`, height: `${dim}px`, borderRadius: '50%',
-        border: tracked ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-        background: tracked ? 'var(--accent)' : 'white',
-        color: tracked ? 'white' : 'var(--accent)',
+        border: tracked ? '1.5px solid var(--cl-accent)' : '1px solid var(--cl-border)',
+        background: tracked ? 'var(--cl-accent)' : 'white',
+        color: tracked ? 'white' : 'var(--cl-accent)',
         cursor: 'pointer', padding: 0, flexShrink: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         transition: 'background 0.15s, border-color 0.15s',
       }}
       onMouseOver={(e) => {
         if (!tracked) {
-          e.currentTarget.style.background = 'var(--bg)';
-          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.background = 'var(--cl-bg)';
+          e.currentTarget.style.borderColor = 'var(--cl-accent)';
         }
       }}
       onMouseOut={(e) => {
         if (!tracked) {
           e.currentTarget.style.background = 'white';
-          e.currentTarget.style.borderColor = 'var(--border)';
+          e.currentTarget.style.borderColor = 'var(--cl-border)';
         }
       }}
     >

@@ -62,8 +62,8 @@ export default function PersonCard({
         border: '1px solid transparent', marginBottom: '6px',
       }}
       onMouseOver={(e) => {
-        e.currentTarget.style.background = 'var(--bg)';
-        e.currentTarget.style.borderColor = 'var(--border)';
+        e.currentTarget.style.background = 'var(--cl-bg)';
+        e.currentTarget.style.borderColor = 'var(--cl-border)';
       }}
       onMouseOut={(e) => {
         e.currentTarget.style.background = 'none';
@@ -85,7 +85,7 @@ export default function PersonCard({
           alt={member.name}
           style={{
             width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover',
-            border: '2px solid var(--border)', flexShrink: 0, background: '#e9ecef',
+            border: '2px solid var(--cl-border)', flexShrink: 0, background: '#e9ecef',
           }}
           onError={(e) => {
             e.target.style.display = 'none';
@@ -105,10 +105,10 @@ export default function PersonCard({
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {member.name}
         </div>
-        <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '1px' }}>
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '1px' }}>
           {member.title || member.role || ''}
         </div>
       </div>

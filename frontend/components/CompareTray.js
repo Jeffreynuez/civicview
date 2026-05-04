@@ -17,7 +17,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
     <div
       style={{
         position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
-        background: 'white', border: '1px solid var(--border)',
+        background: 'white', border: '1px solid var(--cl-border)',
         borderRadius: '14px', boxShadow: '0 10px 32px rgba(0,0,0,0.18)',
         padding: '10px 12px', zIndex: 80,
         display: 'flex', alignItems: 'center', gap: '10px',
@@ -29,7 +29,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
       <div
         style={{
           fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase',
-          letterSpacing: '0.5px', color: 'var(--text-light)',
+          letterSpacing: '0.5px', color: 'var(--cl-text-light)',
           padding: '0 6px', flexShrink: 0,
         }}
       >
@@ -46,8 +46,8 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
               key={key}
               style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                padding: '4px 6px 4px 4px', background: 'var(--bg)',
-                border: '1px solid var(--border)', borderRadius: '24px',
+                padding: '4px 6px 4px 4px', background: 'var(--cl-bg)',
+                border: '1px solid var(--cl-border)', borderRadius: '24px',
                 flexShrink: 0,
               }}
             >
@@ -73,7 +73,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
               ) : (
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#e9ecef', flexShrink: 0 }} />
               )}
-              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--cl-text)', whiteSpace: 'nowrap', maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {m.name}
               </div>
               {/* Kind badge — so mixing candidates + officials stays visually
@@ -105,11 +105,11 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
                 title="Remove"
                 style={{
                   width: '20px', height: '20px', border: 'none', background: 'none',
-                  color: 'var(--text-light)', cursor: 'pointer', fontSize: '0.9rem',
+                  color: 'var(--cl-text-light)', cursor: 'pointer', fontSize: '0.9rem',
                   padding: 0, lineHeight: 1, borderRadius: '50%',
                 }}
                 onMouseOver={(e) => { e.currentTarget.style.background = '#f1f3f5'; e.currentTarget.style.color = '#e63946'; }}
-                onMouseOut={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--text-light)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--cl-text-light)'; }}
               >
                 ✕
               </button>
@@ -123,8 +123,8 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
           onClick={onClear}
           style={{
             padding: '6px 12px', fontSize: '0.78rem', fontWeight: 600,
-            background: 'white', border: '1px solid var(--border)',
-            borderRadius: '8px', color: 'var(--text-light)', cursor: 'pointer',
+            background: 'white', border: '1px solid var(--cl-border)',
+            borderRadius: '8px', color: 'var(--cl-text-light)', cursor: 'pointer',
           }}
         >
           Clear
@@ -134,7 +134,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
           disabled={!canCompare}
           style={{
             padding: '6px 14px', fontSize: '0.82rem', fontWeight: 700,
-            background: canCompare ? 'var(--accent)' : '#cbd2da',
+            background: canCompare ? 'var(--cl-accent)' : '#cbd2da',
             color: 'white', border: 'none', borderRadius: '8px',
             cursor: canCompare ? 'pointer' : 'not-allowed',
           }}

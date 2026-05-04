@@ -112,16 +112,16 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
         {/* Header */}
         <div
           style={{
-            padding: '16px 20px', borderBottom: '1px solid var(--border)',
+            padding: '16px 20px', borderBottom: '1px solid var(--cl-border)',
             display: 'flex', alignItems: 'center', gap: '12px',
-            background: 'var(--bg)',
+            background: 'var(--cl-bg)',
           }}
         >
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--primary)' }}>
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--cl-primary)' }}>
               Browse Committees
             </div>
-            <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '2px' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
               {loading ? 'Loading…' : `${committees.length} committees across House, Senate, and Joint`}
             </div>
           </div>
@@ -129,8 +129,8 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
             onClick={onClose}
             aria-label="Close"
             style={{
-              padding: '6px 10px', background: 'white', border: '1px solid var(--border)',
-              borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--text-light)',
+              padding: '6px 10px', background: 'white', border: '1px solid var(--cl-border)',
+              borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--cl-text-light)',
             }}
           >
             ✕
@@ -142,11 +142,11 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
           {/* Left pane — list */}
           <div
             style={{
-              width: '360px', borderRight: '1px solid var(--border)',
+              width: '360px', borderRight: '1px solid var(--cl-border)',
               display: 'flex', flexDirection: 'column', minHeight: 0,
             }}
           >
-            <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--border)' }}>
+            <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--cl-border)' }}>
               <input
                 type="text"
                 placeholder="Search committees…"
@@ -154,8 +154,8 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
                 onChange={(e) => setQuery(e.target.value)}
                 style={{
                   width: '100%', padding: '8px 10px', fontSize: '0.85rem',
-                  border: '1px solid var(--border)', borderRadius: '8px',
-                  outline: 'none', background: 'var(--bg)',
+                  border: '1px solid var(--cl-border)', borderRadius: '8px',
+                  outline: 'none', background: 'var(--cl-bg)',
                 }}
               />
               <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
@@ -166,9 +166,9 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
                     style={{
                       flex: 1, padding: '5px 8px', fontSize: '0.73rem', fontWeight: 600,
                       borderRadius: '8px', cursor: 'pointer',
-                      border: chamberTab === t ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+                      border: chamberTab === t ? '1.5px solid var(--cl-accent)' : '1px solid var(--cl-border)',
                       background: chamberTab === t ? 'rgba(29, 53, 87, 0.08)' : 'white',
-                      color: chamberTab === t ? 'var(--accent)' : 'var(--text-light)',
+                      color: chamberTab === t ? 'var(--cl-accent)' : 'var(--cl-text-light)',
                     }}
                   >
                     {t === 'all' ? 'All' : t}
@@ -199,7 +199,7 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
                       style={{
                         padding: '8px 14px 4px', fontSize: '0.7rem',
                         textTransform: 'uppercase', letterSpacing: '0.5px',
-                        color: 'var(--text-light)', fontWeight: 700,
+                        color: 'var(--cl-text-light)', fontWeight: 700,
                       }}
                     >
                       {CHAMBER_LABEL[ch]} ({grouped[ch].length})
@@ -272,7 +272,7 @@ function CommitteeRow({ committee, selectedId, expanded, onSelect, onToggleExpan
             aria-label={expanded ? 'Collapse' : 'Expand'}
             style={{
               width: '22px', height: '22px', border: 'none', background: 'none',
-              cursor: 'pointer', color: 'var(--text-light)', fontSize: '0.7rem',
+              cursor: 'pointer', color: 'var(--cl-text-light)', fontSize: '0.7rem',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
             }}
@@ -288,13 +288,13 @@ function CommitteeRow({ committee, selectedId, expanded, onSelect, onToggleExpan
             flex: 1, textAlign: 'left', padding: '8px 10px',
             border: 'none', borderRadius: '6px', cursor: 'pointer',
             background: isSelected ? 'rgba(230, 57, 70, 0.08)' : 'transparent',
-            color: isSelected ? 'var(--primary)' : 'var(--text)',
+            color: isSelected ? 'var(--cl-primary)' : 'var(--cl-text)',
             fontSize: '0.86rem', fontWeight: isSelected ? 600 : 500,
           }}
         >
           {committee.name}
           {hasSubs && (
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginLeft: '6px' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginLeft: '6px' }}>
               · {committee.subcommittees.length} sub
             </span>
           )}
@@ -313,7 +313,7 @@ function CommitteeRow({ committee, selectedId, expanded, onSelect, onToggleExpan
                   textAlign: 'left', padding: '6px 10px',
                   border: 'none', borderRadius: '6px', cursor: 'pointer',
                   background: subSelected ? 'rgba(230, 57, 70, 0.08)' : 'transparent',
-                  color: subSelected ? 'var(--primary)' : 'var(--text-light)',
+                  color: subSelected ? 'var(--cl-primary)' : 'var(--cl-text-light)',
                   fontSize: '0.8rem', fontWeight: subSelected ? 600 : 400,
                   display: 'block',
                 }}
@@ -338,14 +338,14 @@ function CommitteeDetail({ detail, onMemberPick }) {
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           {detail.parent && (
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', marginBottom: '4px' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)', marginBottom: '4px' }}>
               {detail.parent.name}
             </div>
           )}
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary)', lineHeight: 1.3 }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--cl-primary)', lineHeight: 1.3 }}>
             {detail.name}
           </h2>
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', marginTop: '4px' }}>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
             {detail.chamber} · {detail.members.length} members
             {detail.subcommittees?.length ? ` · ${detail.subcommittees.length} subcommittees` : ''}
           </div>
@@ -357,8 +357,8 @@ function CommitteeDetail({ detail, onMemberPick }) {
             rel="noopener noreferrer"
             style={{
               padding: '6px 12px', fontSize: '0.78rem', fontWeight: 600,
-              border: '1px solid var(--border)', borderRadius: '8px',
-              color: 'var(--accent)', background: 'white', textDecoration: 'none',
+              border: '1px solid var(--cl-border)', borderRadius: '8px',
+              color: 'var(--cl-accent)', background: 'white', textDecoration: 'none',
             }}
           >
             Committee site ↗
@@ -369,12 +369,12 @@ function CommitteeDetail({ detail, onMemberPick }) {
       {detail.jurisdiction && (
         <div
           style={{
-            marginTop: '14px', padding: '10px 12px', background: 'var(--bg)',
-            border: '1px solid var(--border)', borderRadius: '10px',
-            fontSize: '0.82rem', color: 'var(--text)', lineHeight: 1.5,
+            marginTop: '14px', padding: '10px 12px', background: 'var(--cl-bg)',
+            border: '1px solid var(--cl-border)', borderRadius: '10px',
+            fontSize: '0.82rem', color: 'var(--cl-text)', lineHeight: 1.5,
           }}
         >
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
             Jurisdiction
           </div>
           {detail.jurisdiction}
@@ -412,7 +412,7 @@ function Section({ title, children }) {
       <div
         style={{
           fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase',
-          letterSpacing: '0.5px', color: 'var(--text-light)', marginBottom: '8px',
+          letterSpacing: '0.5px', color: 'var(--cl-text-light)', marginBottom: '8px',
         }}
       >
         {title}
@@ -431,12 +431,12 @@ function MemberRow({ m, onPick, showTitle }) {
       onClick={() => onPick(m)}
       style={{
         display: 'flex', alignItems: 'center', gap: '10px',
-        padding: '8px 10px', border: '1px solid var(--border)',
+        padding: '8px 10px', border: '1px solid var(--cl-border)',
         borderRadius: '10px', background: 'white', cursor: 'pointer',
         textAlign: 'left', width: '100%',
       }}
       onMouseOver={(e) => (e.currentTarget.style.borderColor = partyColor)}
-      onMouseOut={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+      onMouseOut={(e) => (e.currentTarget.style.borderColor = 'var(--cl-border)')}
     >
       {m.photoUrl && (
         <img
@@ -447,10 +447,10 @@ function MemberRow({ m, onPick, showTitle }) {
         />
       )}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {m.name}
         </div>
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {m.state || '—'}
           {showTitle && m.title ? ` · ${m.title}` : ''}
         </div>
@@ -470,7 +470,7 @@ function MemberRow({ m, onPick, showTitle }) {
 
 function EmptyNote() {
   return (
-    <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', padding: '8px 4px' }}>
+    <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)', padding: '8px 4px' }}>
       No members listed.
     </div>
   );

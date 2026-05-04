@@ -90,7 +90,7 @@ export default function PollCard({
   // ── Shared bits ────────────────────────────────────────────────────
   const renderQuestionHeader = () => (
     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px' }}>
-      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text)', flex: 1, minWidth: 0 }}>
+      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--cl-text)', flex: 1, minWidth: 0 }}>
         {poll.question}
       </div>
       {!countsSuppressed && (
@@ -131,7 +131,7 @@ export default function PollCard({
           textAlign: 'left', display: 'block',
           position: 'relative',
           padding: '8px 10px',
-          border: isChoice ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+          border: isChoice ? '1.5px solid var(--cl-accent)' : '1px solid var(--cl-border)',
           borderRadius: '8px',
           background: 'white',
           overflow: 'hidden',
@@ -139,10 +139,10 @@ export default function PollCard({
           transition: 'border-color 0.15s',
         }}
         onMouseOver={clickable && !busy ? (e) => {
-          if (!isChoice) e.currentTarget.style.borderColor = 'var(--accent)';
+          if (!isChoice) e.currentTarget.style.borderColor = 'var(--cl-accent)';
         } : undefined}
         onMouseOut={clickable && !busy ? (e) => {
-          e.currentTarget.style.borderColor = isChoice ? 'var(--accent)' : 'var(--border)';
+          e.currentTarget.style.borderColor = isChoice ? 'var(--cl-accent)' : 'var(--cl-border)';
         } : undefined}
       >
         {showCount && (
@@ -167,16 +167,16 @@ export default function PollCard({
             fontSize: '0.82rem',
           }}
         >
-          <span style={{ color: 'var(--text)', fontWeight: isChoice ? 700 : 500 }}>
+          <span style={{ color: 'var(--cl-text)', fontWeight: isChoice ? 700 : 500 }}>
             {opt.text}
             {isChoice && (
-              <span style={{ marginLeft: '6px', color: 'var(--accent)', fontSize: '0.72rem' }}>
+              <span style={{ marginLeft: '6px', color: 'var(--cl-accent)', fontSize: '0.72rem' }}>
                 ✓ your vote
               </span>
             )}
           </span>
           {showCount ? (
-            <span style={{ color: 'var(--text-light)', fontVariantNumeric: 'tabular-nums' }}>
+            <span style={{ color: 'var(--cl-text-light)', fontVariantNumeric: 'tabular-nums' }}>
               {pct}% · {opt.vote_count || 0}
             </span>
           ) : null}
@@ -198,7 +198,7 @@ export default function PollCard({
   const renderFooter = ({ includeBreakdown = true } = {}) => (
     <div
       style={{
-        marginTop: '8px', fontSize: '0.72rem', color: 'var(--text-light)',
+        marginTop: '8px', fontSize: '0.72rem', color: 'var(--cl-text-light)',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         gap: '8px', flexWrap: 'wrap',
       }}
@@ -231,7 +231,7 @@ export default function PollCard({
     // sections so keyboard users get the right semantics for free.
     body = (
       <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <details style={{ border: '1px solid var(--border)', borderRadius: '8px', background: 'white' }}>
+        <details style={{ border: '1px solid var(--cl-border)', borderRadius: '8px', background: 'white' }}>
           <summary style={collapsibleSummary}>
             Cast a vote
             <span style={collapsibleHint}>{canClick ? 'pick an option' : isClosed ? 'closed' : 'preview'}</span>
@@ -242,7 +242,7 @@ export default function PollCard({
             )}
           </div>
         </details>
-        <details style={{ border: '1px solid var(--border)', borderRadius: '8px', background: 'white' }}>
+        <details style={{ border: '1px solid var(--cl-border)', borderRadius: '8px', background: 'white' }}>
           <summary style={collapsibleSummary}>
             Show results
             <span style={collapsibleHint}>{total} {total === 1 ? 'vote' : 'votes'}</span>
@@ -296,9 +296,9 @@ export default function PollCard({
       style={{
         marginTop: '10px',
         padding: '12px',
-        border: '1px solid var(--border)',
+        border: '1px solid var(--cl-border)',
         borderRadius: '10px',
-        background: 'var(--bg)',
+        background: 'var(--cl-bg)',
       }}
     >
       {renderQuestionHeader()}
@@ -312,13 +312,13 @@ export default function PollCard({
 const collapsibleSummary = {
   cursor: 'pointer',
   padding: '8px 10px',
-  fontSize: '0.82rem', fontWeight: 600, color: 'var(--text)',
+  fontSize: '0.82rem', fontWeight: 600, color: 'var(--cl-text)',
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
   gap: '8px',
   listStyle: 'none',
 };
 const collapsibleHint = {
-  fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 500,
+  fontSize: '0.72rem', color: 'var(--cl-text-light)', fontWeight: 500,
 };
 
 function formatRemaining(ms, closesAt) {
@@ -348,8 +348,8 @@ function ScopeChip({ scope, label, isDefault }) {
       style={{
         display: 'inline-flex', alignItems: 'center', gap: '5px',
         padding: '3px 8px', borderRadius: '10px',
-        background: 'white', border: '1px solid var(--border)',
-        fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-light)',
+        background: 'white', border: '1px solid var(--cl-border)',
+        fontSize: '0.7rem', fontWeight: 700, color: 'var(--cl-text-light)',
         letterSpacing: '0.02em',
         flexShrink: 0,
       }}
@@ -383,7 +383,7 @@ function ScopeBreakdown({ allowed, breakdown, activeScope }) {
           key={s}
           style={{
             fontWeight: s === activeScope ? 700 : 500,
-            color: s === activeScope ? 'var(--text)' : 'var(--text-light)',
+            color: s === activeScope ? 'var(--cl-text)' : 'var(--cl-text-light)',
           }}
         >
           {label}: {n}
