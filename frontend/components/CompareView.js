@@ -8,6 +8,7 @@ import {
   fetchMemberVotes,
   fetchCandidate,
 } from '@/lib/api';
+import { EmptyState, Newspaper } from './ui';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
@@ -338,21 +339,19 @@ export default function CompareView({ open, items, onClose }) {
               </div>
 
               {loading && (
-                <div style={{ padding: '20px', color: 'var(--text-light)', fontSize: '0.85rem' }}>
+                <div style={{ padding: '20px', color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
                   Loading shared votes…
                 </div>
               )}
 
               {!loading && sharedVotes.length === 0 && (
-                <div
-                  style={{
-                    padding: '14px', background: 'var(--bg)',
-                    border: '1px dashed var(--border)', borderRadius: '10px',
-                    fontSize: '0.85rem', color: 'var(--text-light)',
-                  }}
-                >
-                  No overlapping recent votes found across these members.
-                </div>
+                <EmptyState
+                  icon={<Newspaper size={32} active color="muted" />}
+                  headline="No overlapping votes"
+                  body="These members haven't been in shared sessions on the same bills recently."
+                  tone="muted"
+                  dense
+                />
               )}
 
               {!loading && sharedVotes.length > 0 && (

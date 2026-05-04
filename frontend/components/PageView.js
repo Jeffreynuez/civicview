@@ -9,6 +9,7 @@ import RepEventComposer from './RepEventComposer';
 import OwnerScopeFilter from './OwnerScopeFilter';
 import ViewerScopeFilter from './ViewerScopeFilter';
 import Dashboard from './Dashboard';
+import { Skeleton, EmptyState, ErrorState, Newspaper } from './ui';
 
 /**
  * Full-viewport page view for a single rep or candidate.
@@ -538,40 +539,33 @@ export default function PageView({
             {(!isOwner || ownerView === 'feed') && (
               <>
                 {loading && (
-                  <div
-                    style={{
-                      padding: '40px', textAlign: 'center',
-                      color: 'var(--text-light)', fontSize: '0.9rem',
-                    }}
-                  >
-                    Loading page…
+                  <div style={{ padding: '8px 0' }}>
+                    <Skeleton variant="list" count={3} />
                   </div>
                 )}
                 {error && !loading && (
-                  <div
-                    style={{
-                      padding: '16px', border: '1px solid #f5c2c7',
-                      background: '#f8d7da', color: '#842029',
-                      borderRadius: '10px', fontSize: '0.85rem',
-                    }}
-                  >
-                    Could not load this page: {error}
-                  </div>
+                  <ErrorState
+                    kind="network"
+                    headline="Couldn't load this page"
+                    body={error}
+                    cta={{ label: 'Retry', onClick: () => window.location.reload() }}
+                  />
                 )}
                 {!loading && !error && posts.length === 0 && (
-                  <div
-                    style={{
-                      padding: '32px', textAlign: 'center',
-                      background: 'white',
-                      border: '1px dashed var(--border)',
-                      borderRadius: '12px',
-                      color: 'var(--text-light)', fontSize: '0.9rem',
-                    }}
-                  >
-                    {isOwner
-                      ? 'No posts yet — write your first one above.'
-                      : `${ownerName} hasn’t posted anything yet.`}
-                  </div>
+                  <EmptyState
+                    icon={<Newspaper size={36} active color="muted" />}
+                    headline={
+                      isOwner
+                        ? 'No posts yet'
+                        : `${ownerName} hasn't posted yet`
+                    }
+                    body={
+                      isOwner
+                        ? 'Write your first one above. Posts appear here as soon as you publish.'
+                        : "We'll surface their first post here. Track this rep to get notified."
+                    }
+                    tone="muted"
+                  />
                 )}
                 {posts.map((post) => (
                   <PostCard
