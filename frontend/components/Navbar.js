@@ -6,6 +6,7 @@ import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
+import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 
@@ -19,9 +20,12 @@ export default function Navbar({
   // logged-in CitizenAccount (or null). When null we show a "Citizen
   // login" pill; when set we show the citizen's display name + Sign
   // out. onCitizenLogin / onCitizenLogout are the click handlers.
+  // onCitizenDashboard fires when the signed-in pill is clicked —
+  // opens ConstituentDashboard as a full-page overlay.
   citizen,
   onCitizenLogin,
   onCitizenLogout,
+  onCitizenDashboard,
 }) {
   const { list: trackedList } = useTrackedBills();
   const { list: trackedOfficialsList } = useTrackedOfficials();
@@ -152,12 +156,11 @@ export default function Navbar({
       className="flex items-center justify-between px-6 py-3 shadow-sm border-b"
       style={{ background: 'var(--primary)', height: '56px', position: 'relative', zIndex: 50 }}
     >
-      {/* Logo */}
+      {/* Logo — Phase 4-wiring: swap the prior clock-circle placeholder for
+          the locked-in magnify-lens-with-flag mark. Reverse variant has the
+          white lens ring/handle so it stands on the navy navbar. */}
       <div className="flex items-center gap-2">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
-        </svg>
+        <CivicLensLogo size={28} variant="reverse" />
         <span className="text-white font-semibold text-lg">CivicLens</span>
       </div>
 
@@ -326,13 +329,28 @@ export default function Navbar({
             reviewer can tell at a glance which demo identity they're on. */}
         {citizen ? (
           <>
-            <span
-              title={`Signed in as ${citizen.display_name} — ${citizen.city}, ${citizen.state}${citizen.congressional_district ? ` · ${citizen.congressional_district}` : ''}`}
+            {/* Citizen identity pill — clickable button that opens the
+                Constituent Dashboard overlay. Hover lightens (per design
+                system spec — never darkens). */}
+            <button
+              type="button"
+              onClick={() => onCitizenDashboard?.()}
+              title={`Open dashboard — ${citizen.display_name} · ${citizen.city}, ${citizen.state}${citizen.congressional_district ? ` · ${citizen.congressional_district}` : ''}`}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '6px',
                 padding: '6px 10px', background: 'rgba(255,255,255,0.14)',
                 color: 'white', border: '1px solid rgba(255,255,255,0.28)',
                 borderRadius: '8px', fontSize: '0.78rem', fontWeight: 600,
+                cursor: 'pointer', fontFamily: 'var(--cl-font-sans)',
+                transition: 'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard)',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.40)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.14)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)';
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
@@ -350,7 +368,7 @@ export default function Navbar({
                   {citizen.congressional_district}
                 </span>
               )}
-            </span>
+            </button>
             <button
               onClick={() => onCitizenLogout?.()}
               title="Sign out (citizen)"

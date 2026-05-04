@@ -16,6 +16,7 @@ import RepLoginModal from '@/components/RepLoginModal';
 import CitizenLoginModal from '@/components/CitizenLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import ClaimPageModal from '@/components/ClaimPageModal';
+import ConstituentDashboard from '@/components/ConstituentDashboard';
 import { fetchAllStateData, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
@@ -93,6 +94,12 @@ export default function Home() {
   // to gate writes + tag their requests with geography.
   const { citizen } = useCitizenAuth();
   const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
+  // ConstituentDashboard overlay — opens when a signed-in citizen clicks
+  // their identity pill in the Navbar. Auto-closes if the citizen signs out.
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  useEffect(() => {
+    if (!citizen && dashboardOpen) setDashboardOpen(false);
+  }, [citizen, dashboardOpen]);
   const handleCitizenLoginOpen = useCallback(() => setCitizenLoginOpen(true), []);
   const handleCitizenLoginSuccess = useCallback(() => setCitizenLoginOpen(false), []);
   const handleCitizenLogoutClick = useCallback(async () => {
@@ -585,6 +592,7 @@ export default function Home() {
         citizen={citizen}
         onCitizenLogin={handleCitizenLoginOpen}
         onCitizenLogout={handleCitizenLogoutClick}
+        onCitizenDashboard={() => setDashboardOpen(true)}
       />
       <CitizenLoginModal
         open={citizenLoginOpen}
@@ -692,6 +700,44 @@ export default function Home() {
           citizen={citizen}
           onCitizenLoginRequired={handleCitizenLoginOpen}
         />
+      )}
+      {/* ConstituentDashboard — full-page overlay for signed-in citizens.
+          Same z-index family as PageView so it sits above the map but
+          below modals. */}
+      {dashboardOpen && citizen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1200,
+            background: 'var(--cl-bg)',
+            overflowY: 'auto',
+          }}
+        >
+          <ConstituentDashboard
+            citizen={{
+              name: citizen.display_name,
+              email: citizen.email,
+              district: citizen.congressional_district,
+              state: citizen.state,
+              city: citizen.city,
+            }}
+            onClose={() => setDashboardOpen(false)}
+            onNavigate={{
+              manageTracked: () => {
+                setDashboardOpen(false);
+                setTrackedOpen(true);
+              },
+              browseReps: () => setDashboardOpen(false),
+              compareCandidates: () => setDashboardOpen(false),
+              accountSettings: () => setDashboardOpen(false),
+              pollingPlace: () => setDashboardOpen(false),
+              districtCalendar: () => setDashboardOpen(false),
+              viewActivity: () => setDashboardOpen(false),
+              ballot: () => setDashboardOpen(false),
+            }}
+          />
+        </div>
       )}
       {/* Rep login modal — hidden httpOnly cookie handles persistence; we
           just need to close the modal on success, and useAuth picks up
