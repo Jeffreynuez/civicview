@@ -117,6 +117,10 @@ export default function SidePanel({
   // Pages layer — forwarded to PersonCard/ProfileView/NationalOfficialsPanel
   // so every entrypoint can launch the full-page social view.
   onOpenPage,
+  // NOP hero / CTA-strip "Find my reps" / "Verify your address" —
+  // wired by parent to open CitizenLoginModal so unauth visitors can
+  // sign in. Forwarded only to NationalOfficialsPanel.
+  onRequestVerify,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -315,6 +319,7 @@ export default function SidePanel({
               onCompareToggle={onCompareToggle}
               compareIds={compareIds}
               onOpenPage={onOpenPage}
+              onRequestVerify={onRequestVerify}
             />
           </div>
         )}

@@ -667,6 +667,7 @@ export default function Home() {
             focusCandidateId={focusCandidateId}
             onFocusCandidateConsumed={handleFocusCandidateConsumed}
             onOpenPage={handleOpenPage}
+            onRequestVerify={handleCitizenLoginOpen}
           />
         )}
       </div>
@@ -729,12 +730,45 @@ export default function Home() {
                 setTrackedOpen(true);
               },
               browseReps: () => setDashboardOpen(false),
-              compareCandidates: () => setDashboardOpen(false),
-              accountSettings: () => setDashboardOpen(false),
-              pollingPlace: () => setDashboardOpen(false),
+              // Compare candidates — close dashboard, open the unified
+              // compare modal if the user has items queued; otherwise
+              // notify so they know how to add things.
+              compareCandidates: () => {
+                setDashboardOpen(false);
+                if (compareItems.length >= 2) {
+                  setCompareOpen(true);
+                } else {
+                  showNotification(
+                    'Add 2+ candidates to compare from any rep or candidate page.'
+                  );
+                }
+              },
+              // Polling place + ballot — both close the dashboard and
+              // route the citizen to the BallotTab in their SidePanel,
+              // where the polling place card lives. Switches the tab if
+              // a state is already selected.
+              pollingPlace: () => {
+                setDashboardOpen(false);
+                setSidePanelTab('ballot');
+                if (!selectedState) {
+                  showNotification('Click your state on the map to see your ballot and polling place.');
+                }
+              },
+              ballot: () => {
+                setDashboardOpen(false);
+                setSidePanelTab('ballot');
+                if (!selectedState) {
+                  showNotification('Click your state on the map to see your ballot.');
+                }
+              },
               districtCalendar: () => setDashboardOpen(false),
               viewActivity: () => setDashboardOpen(false),
-              ballot: () => setDashboardOpen(false),
+              // Account settings has no surface in Phase 1.5 — TODO:
+              // wire to a CitizenAccountModal once that ships.
+              accountSettings: () => {
+                setDashboardOpen(false);
+                showNotification('Account settings coming in the next phase.');
+              },
             }}
           />
         </div>
