@@ -607,6 +607,14 @@ function RaceCard({
   const candidates = displayCandidates || [];
   const badgeColor = race.level === 'federal' ? '#6c3ec1' : (race.level === 'local' ? '#e76f51' : '#457b9d');
 
+  // "Choose N" voting instruction. Per the BallotTab design review:
+  // every race row should display this so voters know how many to pick.
+  // Default to 1 (the vast majority of US races); curators can override
+  // via race.seats_to_fill on the seed (rare — at-large multi-seat
+  // council races, judicial slates, etc.).
+  const seatsToFill = Math.max(1, Number(race.seats_to_fill) || 1);
+  const chooseLabel = `Choose ${seatsToFill}`;
+
   // Group primary candidates by party for visual clarity
   const groupedPrimary = useMemo(() => {
     if (phase !== 'primary' || !race.primary_candidates) return null;
@@ -623,6 +631,26 @@ function RaceCard({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.3 }}>{race.office}</div>
+          {/* "Choose N" voting instruction — applies to general-election
+              races only. Primaries get per-party "Choose N" treatment
+              inside each grouped section below (so a voter sees
+              "Republican primary · Choose 1" / "Democratic primary ·
+              Choose 1" rather than a single ambiguous instruction at
+              the race level). */}
+          {phase !== 'primary' && (
+            <div
+              style={{
+                fontSize: 'var(--cl-text-2xs)',
+                fontWeight: 700,
+                color: 'var(--cl-text-light)',
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--cl-tracking-wide)',
+                marginTop: 4,
+              }}
+            >
+              {chooseLabel}
+            </div>
+          )}
           <div style={{ display: 'flex', gap: '6px', marginTop: '5px', flexWrap: 'wrap' }}>
             <span style={{
               fontSize: '0.64rem', fontWeight: 800, padding: '2px 7px',
@@ -672,12 +700,19 @@ function RaceCard({
           {groupedPrimary ? (
             groupedPrimary.map(([party, arr]) => (
               <div key={party} style={{ marginBottom: '6px' }}>
-                <div style={{
-                  fontSize: '0.66rem', color: PARTY_COLORS[party] || '#666',
-                  fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.4px',
-                  padding: '2px 0 4px',
-                }}>
+                <div
+                  style={{
+                    fontSize: 'var(--cl-text-2xs)',
+                    color: PARTY_COLORS[party] || 'var(--cl-text-light)',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: 'var(--cl-tracking-wide)',
+                    padding: '2px 0 4px',
+                  }}
+                >
                   {party === 'R' ? 'Republican primary' : party === 'D' ? 'Democratic primary' : `${party} primary`}
+                  {' · '}
+                  <span style={{ color: 'var(--cl-text-light)' }}>{chooseLabel}</span>
                 </div>
                 {(arr || []).map((c) => (
                   <CandidateRow
