@@ -74,6 +74,10 @@ export default function NationalOfficialsPanel({
   // handler. Wired through SidePanel → page.js's handleStateSelect
   // (a no-op if missing — grid still renders, clicks are inert).
   onStatePick,
+  // Currently signed-in citizen (or null if anonymous). Used by the
+  // National Activity section to swap "Sign in to participate" CTAs for
+  // a "View thread" affordance once the visitor is authenticated.
+  citizen,
 }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -167,7 +171,10 @@ export default function NationalOfficialsPanel({
         onOpenPage={onOpenPage}
       />
 
-      <NationalActivitySection onRequestVerify={handleVerifyClick} />
+      <NationalActivitySection
+        onRequestVerify={handleVerifyClick}
+        citizen={citizen}
+      />
 
       <BrowseByStateSection onStatePick={onStatePick} />
 
@@ -683,7 +690,14 @@ const NATIONAL_ACTIVITY_DEMO = [
   },
 ];
 
-function NationalActivitySection({ onRequestVerify }) {
+function NationalActivitySection({ onRequestVerify, citizen }) {
+  // When a citizen is signed in, the per-row "Sign in to participate" CTA
+  // and the section-level "Sign in to follow these reps" CTA are hidden —
+  // an authenticated user can already react / comment on each post via
+  // the rep's PageView and follow reps from the profile view. Anonymous
+  // visitors still see both CTAs as the primary entry point into the
+  // citizen-login flow.
+  const isAuthed = !!citizen;
   return (
     <section style={{ padding: '32px 24px 16px' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -695,36 +709,43 @@ function NationalActivitySection({ onRequestVerify }) {
         />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {NATIONAL_ACTIVITY_DEMO.map((post) => (
-            <ActivityPostRow key={post.id} post={post} onRequestVerify={onRequestVerify} />
+            <ActivityPostRow
+              key={post.id}
+              post={post}
+              onRequestVerify={onRequestVerify}
+              isAuthed={isAuthed}
+            />
           ))}
         </div>
-        <div style={{ textAlign: 'center', marginTop: 14 }}>
-          <button
-            type="button"
-            onClick={onRequestVerify}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--cl-accent)',
-              fontSize: 'var(--cl-text-sm)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: 'var(--cl-font-sans)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 4,
-            }}
-          >
-            Sign in to follow these reps
-            <ArrowRight size={12} active color="accent" />
-          </button>
-        </div>
+        {!isAuthed && (
+          <div style={{ textAlign: 'center', marginTop: 14 }}>
+            <button
+              type="button"
+              onClick={onRequestVerify}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--cl-accent)',
+                fontSize: 'var(--cl-text-sm)',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontFamily: 'var(--cl-font-sans)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              Sign in to follow these reps
+              <ArrowRight size={12} active color="accent" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function ActivityPostRow({ post, onRequestVerify }) {
+function ActivityPostRow({ post, onRequestVerify, isAuthed }) {
   return (
     <article
       style={{
@@ -778,22 +799,24 @@ function ActivityPostRow({ post, onRequestVerify }) {
             <span className="cl-num">{post.likes.toLocaleString()} reactions</span>
             <span aria-hidden="true">·</span>
             <span className="cl-num">{post.comments} comments</span>
-            <button
-              type="button"
-              onClick={onRequestVerify}
-              style={{
-                marginLeft: 'auto',
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--cl-accent)',
-                fontSize: 'var(--cl-text-xs)',
-                fontWeight: 600,
-                cursor: 'pointer',
-                fontFamily: 'var(--cl-font-sans)',
-              }}
-            >
-              Sign in to participate →
-            </button>
+            {!isAuthed && (
+              <button
+                type="button"
+                onClick={onRequestVerify}
+                style={{
+                  marginLeft: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--cl-accent)',
+                  fontSize: 'var(--cl-text-xs)',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  fontFamily: 'var(--cl-font-sans)',
+                }}
+              >
+                Sign in to participate →
+              </button>
+            )}
           </div>
         </div>
       </div>

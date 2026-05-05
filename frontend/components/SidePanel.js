@@ -330,6 +330,7 @@ export default function SidePanel({
               onOpenPage={onOpenPage}
               onRequestVerify={onRequestVerify}
               onStatePick={onStatePick}
+              citizen={citizen}
             />
           </div>
         )}
