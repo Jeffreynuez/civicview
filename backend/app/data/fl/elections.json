@@ -102,19 +102,29 @@
       "term_length_years": 4,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-james-uthmeier",
-      "notes": "Uthmeier was appointed in 2025 and is seeking a full term.",
+      "notes": "Uthmeier was appointed in 2025 and is seeking a full term. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates.",
       "primary_candidates": {
         "R": [
-          "fl-cand-james-uthmeier"
+          "fl-cand-james-uthmeier",
+          "fl-cand-steven-leskovich"
         ],
         "D": [
+          "fl-cand-jim-lewis",
           "fl-cand-jose-javier-rodriguez"
         ]
       },
       "general_candidates": [
         "fl-cand-james-uthmeier",
         "fl-cand-jose-javier-rodriguez"
-      ]
+      ],
+      "general_candidates_note": "Demo projection of the R / D primary winners (update after Aug 18). No NPA, minor-party, or write-in candidates have filed for AG, so the general ballot is just the two primary winners.",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
+        "observed": "2026-05-05",
+        "count": 4,
+        "note": "4 active filers as of 2026-05-05 (2 R, 2 D). List is fluid until the FL qualifying-period close (June 2026)."
+      }
     },
     {
       "id": "fl-2026-us-house-10",
