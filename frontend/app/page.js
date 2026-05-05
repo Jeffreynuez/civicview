@@ -72,19 +72,16 @@ export default function Home() {
   // Ensure the on-load tracked-bill check only runs once per session
   const trackedCheckedRef = useRef(false);
 
-  // ─── Side-panel scroll restoration ────────────────────────────────
-  // The right-side panel hosts a single scroll container that can show
-  // either NOP, a state's tabs, or (after a Back) the same view again.
-  // Without restoration, hitting Back from a ProfileView / CandidateProfile
-  // dropped the user at the top of that container — annoying after long
-  // scrolls (e.g. NOP → SCOTUS justice → Back).
-  //
-  // SidePanel writes the live scrollTop into `top` on every scroll event
-  // and reads it back when its scroll container next mounts AND
-  // `restoreOnNextMount` is true. The flag is set only by the explicit
-  // back/close handlers below — forward navigation (state pick, member
-  // select, etc.) leaves the flag false, so those still land at top.
-  const panelScrollRef = useRef({ top: 0, restoreOnNextMount: false });
+  // ─── Side-panel scroll preservation ────────────────────────────────
+  // The right-side panel hosts a single scroll container (NOP / state
+  // tabs / etc.). To preserve its scrollTop when the user opens a
+  // profile and then hits Back, we never unmount the SidePanel content:
+  //   - ProfileView is rendered as an absolute overlay inside SidePanel
+  //     (see SidePanel.js) so its scroll container stays mounted.
+  //   - When a candidate profile opens, SidePanel is hidden via
+  //     display:none rather than swapped out — the DOM (and therefore
+  //     scrollTop) is preserved. See the "panel area" wrapper below.
+  // No save/restore plumbing needed — the browser does it for free.
 
   // ─── Pages layer (phase 1) ─────────────────────────────────────────
   // When truthy, PageView mounts as a full-viewport overlay for that
@@ -232,7 +229,6 @@ export default function Home() {
   const handleCandidateBack = useCallback(() => {
     const prev = selectedCandidateRef.current;
     if (prev) setLastViewedCandidateId(prev.id || null);
-    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedCandidate(null);
   }, []);
 
@@ -313,7 +309,6 @@ export default function Home() {
   const handleBack = useCallback(() => {
     const prev = selectedMemberRef.current;
     if (prev) setLastViewedMemberId(prev.bioguide_id || prev.id || null);
-    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedMember(null);
   }, []);
 
@@ -325,7 +320,6 @@ export default function Home() {
     const prevC = selectedCandidateRef.current;
     if (prevM) setLastViewedMemberId(prevM.bioguide_id || prevM.id || null);
     if (prevC) setLastViewedCandidateId(prevC.id || null);
-    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedMember(null);
     setSelectedCandidate(null);
   }, []);
@@ -643,21 +637,15 @@ export default function Home() {
           <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
         </div>
         <PanelResizer onResize={setPanelWidth} minWidth={380} maxFraction={0.5} />
-        {selectedCandidate ? (
-          <CandidateProfile
-            candidate={selectedCandidate}
-            width={panelWidth}
-            onBack={handleCandidateBack}
-            onClose={handleCloseProfile}
-            backLabel={candidateBackLabel}
-            onNotify={showNotification}
-            onCompareToggle={handleCandidateCompareToggle}
-            isComparing={compareCandidateIds.has(selectedCandidate.id)}
-            onMemberPick={handleGlobalMemberPick}
-            onStatePersonPick={handleStatePersonPick}
-            onOpenPage={handleOpenPage}
-          />
-        ) : (
+        {/* SidePanel is ALWAYS mounted so its scroll container survives
+            the candidate-profile detour. When a candidate is open, we
+            hide SidePanel via display:none (preserves DOM + scrollTop)
+            and render CandidateProfile in its place. */}
+        <div
+          style={{
+            display: selectedCandidate ? 'none' : 'contents',
+          }}
+        >
           <SidePanel
             stateData={stateData}
             stateCode={selectedState}
@@ -694,7 +682,21 @@ export default function Home() {
             citizen={citizen}
             onOpenTracked={() => setTrackedOpen(true)}
             onSubscribe={() => handleRequestCitizenWaitlist('subscribe')}
-            panelScrollRef={panelScrollRef}
+          />
+        </div>
+        {selectedCandidate && (
+          <CandidateProfile
+            candidate={selectedCandidate}
+            width={panelWidth}
+            onBack={handleCandidateBack}
+            onClose={handleCloseProfile}
+            backLabel={candidateBackLabel}
+            onNotify={showNotification}
+            onCompareToggle={handleCandidateCompareToggle}
+            isComparing={compareCandidateIds.has(selectedCandidate.id)}
+            onMemberPick={handleGlobalMemberPick}
+            onStatePersonPick={handleStatePersonPick}
+            onOpenPage={handleOpenPage}
           />
         )}
       </div>

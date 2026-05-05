@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Skeleton } from './ui';
 import PersonCard from './PersonCard';
 import ProfileView from './ProfileView';
@@ -134,12 +134,6 @@ export default function SidePanel({
   // same name). Forwarded only to NationalOfficialsPanel.
   onOpenTracked,
   onSubscribe,
-  // Scroll-restoration ref shared with the parent so scroll position
-  // survives the SidePanel ↔ CandidateProfile swap and the ProfileView
-  // detour. Shape: { top: number, restoreOnNextMount: boolean }.
-  // Set restoreOnNextMount=true in the parent's Back handlers; we read +
-  // clear it here on the next mount of the scroll container.
-  panelScrollRef,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -153,51 +147,16 @@ export default function SidePanel({
   const [chamberFilter, setChamberFilter] = useState('all'); // 'all' | 'Senate' | 'House'
   const [sortBy, setSortBy] = useState('name-asc'); // 'name-asc'|'name-desc'|'tenure-long'|'tenure-short'
 
-  // ─── Scroll restoration ────────────────────────────────────────────
-  // The single scroll container below hosts NOP, the state's tabs, etc.
-  // We track its scrollTop on every scroll event and write it into the
-  // parent-owned `panelScrollRef`. When the container mounts AND the
-  // parent has flagged a Back navigation (`restoreOnNextMount`), we
-  // restore the saved scrollTop in a useLayoutEffect — which runs after
-  // DOM commit but before paint, so the user never sees a flash at top.
-  // Forward navigation (state pick, member select) leaves the flag false,
-  // so those still land at the top of their new view.
-  const scrollContainerRef = useRef(null);
-
-  const handleScroll = (e) => {
-    if (panelScrollRef && e?.currentTarget) {
-      panelScrollRef.current.top = e.currentTarget.scrollTop;
-    }
-  };
-
-  useLayoutEffect(() => {
-    if (!panelScrollRef || !scrollContainerRef.current) return;
-    if (panelScrollRef.current.restoreOnNextMount) {
-      scrollContainerRef.current.scrollTop = panelScrollRef.current.top;
-      panelScrollRef.current.restoreOnNextMount = false;
-    }
-    // Re-run when the early-return for selectedMember flips back to false
-    // (i.e. the user navigated Back from a profile inside this SidePanel).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMember]);
-
-  if (selectedMember) {
-    return (
-      <ProfileView
-        member={selectedMember}
-        width={width}
-        onBack={onBack}
-        onClose={onClose}
-        backLabel={backLabel}
-        onNotify={onNotify}
-        onCompareToggle={onCompareToggle}
-        isComparing={isInCompare(selectedMember)}
-        onCandidatePick={onCandidatePick}
-        onOnBallotClick={onOnBallotClick}
-        onOpenPage={onOpenPage}
-      />
-    );
-  }
+  // NOTE: ProfileView is rendered as an absolutely-positioned overlay at
+  // the bottom of this component (search for "ProfileView overlay" below)
+  // *instead of* via an early return. That way the SidePanel's scroll
+  // container — which hosts NOP and the state tabs — is never unmounted
+  // when the user opens a profile, so its scrollTop is preserved
+  // naturally and the user lands back exactly where they were on Back.
+  // (An earlier attempt used an early return + useLayoutEffect-based
+  // scroll restore, but NOP re-fetches on remount and the scroll
+  // container's height was too small to honor scrollTop until after the
+  // fetch resolved.)
 
   // When an address-lookup district is active, narrow the Congress list to just
   // that district's Representative (plus the state's two Senators).
@@ -241,7 +200,7 @@ export default function SidePanel({
   return (
     <div
       className="flex flex-col overflow-hidden bg-white"
-      style={{ width: `${width}px`, flexShrink: 0 }}
+      style={{ width: `${width}px`, flexShrink: 0, position: 'relative' }}
     >
       {/* Header */}
       <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-bg)' }}>
@@ -328,12 +287,12 @@ export default function SidePanel({
         </div>
       )}
 
-      {/* Content */}
-      <div
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
-        style={{ flex: 1, overflowY: 'auto', padding: '12px' }}
-      >
+      {/* Content — single scroll container that survives the
+          ProfileView overlay (member case) and the SidePanel-hidden
+          state (candidate case in page.js). Browser preserves its
+          scrollTop across both, so Back lands the user exactly where
+          they were. */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
         {loading && (
           <div style={{ padding: 16 }}>
             <Skeleton variant="list" count={3} />
@@ -548,6 +507,39 @@ export default function SidePanel({
           />
         )}
       </div>
+
+      {/* ProfileView overlay — covers the entire SidePanel chrome whenever
+          a member is selected. Critically, the SidePanel content above is
+          NOT torn down: its scroll container stays mounted with its
+          scrollTop intact, so when the user hits Back / × the panel
+          appears exactly where they left it (no remount, no refetch, no
+          jump to top). */}
+      {selectedMember && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            zIndex: 5,
+          }}
+        >
+          <ProfileView
+            member={selectedMember}
+            width={width}
+            onBack={onBack}
+            onClose={onClose}
+            backLabel={backLabel}
+            onNotify={onNotify}
+            onCompareToggle={onCompareToggle}
+            isComparing={isInCompare(selectedMember)}
+            onCandidatePick={onCandidatePick}
+            onOnBallotClick={onOnBallotClick}
+            onOpenPage={onOpenPage}
+          />
+        </div>
+      )}
     </div>
   );
 }
