@@ -142,13 +142,23 @@
           "fl-cand-maxwell-frost"
         ],
         "R": [
+          "fl-cand-vibert-white",
           "fl-cand-willie-montague"
         ]
       },
       "general_candidates": [
         "fl-cand-maxwell-frost",
         "fl-cand-willie-montague"
-      ]
+      ],
+      "general_candidates_note": "Frost is the only Democrat filed and advances to the general unopposed. Montague is the demo projection for the R primary winner — update after Aug 18.",
+      "notes": "Maxwell Frost (D) is the incumbent seeking reelection. The R primary between Montague and White (newcomer) decides who advances. No NPA / minor-party / write-in candidates have filed.",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR&District=10",
+        "observed": "2026-05-05",
+        "count": 3,
+        "note": "3 active filers as of 2026-05-05 (1 D incumbent, 2 R challengers). FEC and FL Division of Elections both track US House filers; the FL list is the ballot-access authority for FL congressional races."
+      }
     },
     {
       "id": "fl-2026-state-senate-40",
