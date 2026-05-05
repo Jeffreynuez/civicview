@@ -24,6 +24,7 @@
   --cl-primary:        #1b263b;   /* navy — navbar, primary copy emphasis */
   --cl-primary-light:  #415a77;   /* navy-2, used in icons + map fills */
   --cl-accent:         #2d6a4f;   /* deep green — primary CTAs, links */
+  --cl-accent-rgb:     45, 106, 79; /* same color, comma-separated for rgba() */
   --cl-accent-light:   #40916c;   /* hover / secondary accent */
   --cl-accent-soft:    #e6f3ec;   /* soft green tint for active surfaces */
 

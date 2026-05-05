@@ -610,16 +610,21 @@ export default function Home() {
         onMemberPick={handleGlobalMemberPick}
         onNotify={showNotification}
       />
-      <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
       <div className="flex flex-1 overflow-hidden">
-        <MapView
-          onStateSelect={handleStateSelect}
-          onStateDeselect={handleStateDeselect}
-          onDistrictSelect={handleDistrictSelect}
-          onDistrictBack={handleDistrictBack}
-          selectedState={selectedState}
-          activeDistrict={activeDistrict}
-        />
+        {/* Map view + banner wrapper — the notification banner is positioned
+            absolutely inside this wrapper so it overlays the map area only
+            (without pushing layout siblings down). */}
+        <div className="relative flex flex-1 overflow-hidden">
+          <MapView
+            onStateSelect={handleStateSelect}
+            onStateDeselect={handleStateDeselect}
+            onDistrictSelect={handleDistrictSelect}
+            onDistrictBack={handleDistrictBack}
+            selectedState={selectedState}
+            activeDistrict={activeDistrict}
+          />
+          <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
+        </div>
         <PanelResizer onResize={setPanelWidth} minWidth={380} maxFraction={0.5} />
         {selectedCandidate ? (
           <CandidateProfile
