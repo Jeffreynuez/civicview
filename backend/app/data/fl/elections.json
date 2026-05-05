@@ -4,6 +4,8 @@
   "state": "FL",
   "state_name": "Florida",
   "cycle": "2026",
+  "closed_primary": true,
+  "_closed_primary_note": "Florida is a closed-primary state — only voters registered with a recognized party can vote in that party's primary. Independent and No-Party-Affiliation voters can vote in nonpartisan primaries (judges, school board, county judge in some races) and on ballot measures, but not in the partisan primaries. The BallotTab disclosure key reads from this field.",
   "key_dates": {
     "primary": "2026-08-18",
     "general": "2026-11-03",

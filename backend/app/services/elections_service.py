@@ -128,6 +128,11 @@ class ElectionsService:
             "state": raw.get("state"),
             "state_name": raw.get("state_name"),
             "cycle": raw.get("cycle"),
+            # Closed-primary states (FL, NY, CT, etc.) only allow registered
+            # partisans to vote in their party's primary. The frontend uses
+            # this to gate the BallotTab closed-primary disclosure banner.
+            # Defaults to False — open-primary states leave it unset.
+            "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
             "races": [self._resolve_race(r) for r in raw.get("races", []) or []],
             "ballot_measures": raw.get("ballot_measures", {}),
@@ -231,6 +236,10 @@ class ElectionsService:
             "state": state,
             "state_name": raw.get("state_name"),
             "cycle": raw.get("cycle"),
+            # Mirror the same closed_primary signal here so personalized
+            # ballots gate the disclosure correctly. Same default behavior
+            # as get_elections — False unless explicitly set.
+            "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
             "geography": {
                 "state": state,

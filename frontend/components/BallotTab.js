@@ -297,12 +297,19 @@ function buildElections(view, mode, stateCode) {
     })
     .filter(Boolean);
 
+  // Closed-primary state? Backend returns this on the elections payload
+  // (see ElectionsService); we stamp it onto the primary election so the
+  // ElectionCard can gate the disclosure banner. Open-primary states
+  // (CA, GA, etc.) leave it false and the banner doesn't render.
+  const closedPrimary = Boolean(view.closed_primary);
+
   const out = [];
   if (primaryDate || primaryRaces.length > 0 || primaryMeasures.length > 0) {
     out.push({
       id: `${cycle}-primary`,
       title: `${cycle} ${stateCode || ''} Primary Election`.replace(/\s+/g, ' ').trim(),
       phase: 'primary',
+      closed_primary: closedPrimary,
       date: primaryDate,
       races: primaryRaces,
       measures: primaryMeasures,
@@ -435,8 +442,11 @@ function ElectionCard({
               NY, etc.) only let registered partisans vote in their
               party's primary; voters not registered with a party see
               a different ballot. The disclosure is non-removable and
-              always visible when a primary card is open. */}
-          {isPrimary && (
+              always visible when a closed-primary card is open. Open-
+              primary states (CA, GA, etc.) skip the banner entirely
+              since the warning would be misleading. Backend gates this
+              via election.closed_primary (see ElectionsService). */}
+          {isPrimary && election.closed_primary && (
             <div
               style={{
                 marginBottom: 12,
