@@ -5,6 +5,7 @@ import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
+import { useViewport } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -41,6 +42,45 @@ export default function Navbar({
   const [activeIdx, setActiveIdx] = useState(0);
   const containerRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Mobile compression — drives two pieces of state that only matter at
+  // ≤768px: a full-bar search overlay (the wide search input is too tall
+  // and wide for the navbar at phone widths), and a popover menu that
+  // collects the secondary actions (Subscribe / Committees / My Tracked)
+  // behind a hamburger so the navbar fits in one row.
+  const viewport = useViewport();
+  const isMobile = viewport === 'mobile';
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
+
+  // Close the mobile menu on outside click + Escape.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onDoc = (e) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    const onKey = (e) => { if (e.key === 'Escape') setMobileMenuOpen(false); };
+    document.addEventListener('mousedown', onDoc);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDoc);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [mobileMenuOpen]);
+
+  // When the search overlay opens on mobile, focus the input. When it
+  // closes, clear the query so reopening is a fresh slate.
+  useEffect(() => {
+    if (mobileSearchOpen) {
+      inputRef.current?.focus();
+    } else {
+      setQuery('');
+      setOpen(false);
+    }
+  }, [mobileSearchOpen]);
 
   // Lazy-load both indices on first focus. We search across sitting reps and
   // declared candidates in the same dropdown, dispatching to the right handler
@@ -130,6 +170,10 @@ export default function Navbar({
     setQuery('');
     setOpen(false);
     inputRef.current?.blur();
+    // On mobile, dismiss the full-bar search overlay too so the user
+    // returns to the map / panel after picking. On desktop the bar
+    // stays inline so we just close the dropdown.
+    setMobileSearchOpen(false);
     if (item?._kind === 'candidate') {
       onCandidatePick?.(item);
     } else {
@@ -153,22 +197,72 @@ export default function Navbar({
 
   return (
     <nav
-      className="flex items-center justify-between px-6 py-3 shadow-sm border-b"
+      className={`flex items-center justify-between shadow-sm border-b ${isMobile ? 'px-3 py-2 gap-2' : 'px-6 py-3'}`}
       style={{ background: 'var(--cl-primary)', height: '56px', position: 'relative', zIndex: 50 }}
     >
       {/* Logo — Phase 4-wiring: swap the prior clock-circle placeholder for
           the locked-in magnify-lens-with-flag mark. Reverse variant has the
-          white lens ring/handle so it stands on the navy navbar. */}
-      <div className="flex items-center gap-2">
+          white lens ring/handle so it stands on the navy navbar.
+          On mobile: hide the wordmark "CivicLens" — the lens icon alone
+          is recognizable enough and we need the horizontal space. */}
+      <div className="flex items-center gap-2" style={{ flexShrink: 0 }}>
         <CivicLensLogo size={28} variant="reverse" />
-        <span className="text-white font-semibold text-lg">CivicLens</span>
+        {!isMobile && <span className="text-white font-semibold text-lg">CivicLens</span>}
       </div>
 
-      {/* Search Bar */}
-      <div ref={containerRef} className="flex-1 mx-8" style={{ position: 'relative', maxWidth: '560px' }}>
+      {/* Search Bar — desktop / tablet renders inline. On mobile it
+          collapses to an icon button (rendered later in the actions
+          cluster) that toggles `mobileSearchOpen`; when open, the bar
+          takes over the whole navbar via `position: absolute`. */}
+      <div
+        ref={containerRef}
+        className={isMobile ? '' : 'flex-1 mx-8'}
+        style={
+          isMobile
+            ? {
+                // Mobile search overlay — covers the rest of the navbar
+                // when active; hidden otherwise. Matches the navbar
+                // height so it doesn't shift layout.
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                padding: '0 12px',
+                display: mobileSearchOpen ? 'flex' : 'none',
+                alignItems: 'center',
+                gap: 8,
+                background: 'var(--cl-primary)',
+                zIndex: 60,
+              }
+            : { position: 'relative', maxWidth: '560px' }
+        }
+      >
+        {/* Mobile back arrow — closes the search overlay. */}
+        {isMobile && mobileSearchOpen && (
+          <button
+            type="button"
+            onClick={() => setMobileSearchOpen(false)}
+            aria-label="Close search"
+            style={{
+              flexShrink: 0,
+              width: 36, height: 36,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 8,
+              color: 'white', cursor: 'pointer',
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+        )}
         <div
           className="relative"
           style={{
+            flex: isMobile ? 1 : undefined,
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(10px)',
             border: `1px solid ${focused ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.2)'}`,
@@ -187,7 +281,11 @@ export default function Navbar({
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search representatives or candidates by name, state, or office…"
+            placeholder={
+              isMobile
+                ? 'Search reps or candidates…'
+                : 'Search representatives or candidates by name, state, or office…'
+            }
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -201,9 +299,13 @@ export default function Navbar({
             onBlur={() => setFocused(false)}
             onKeyDown={handleKeyDown}
             className="w-full bg-transparent text-white outline-none py-2 pl-10 pr-14"
-            style={{ fontSize: '14px' }}
+            // 16px font on mobile prevents iOS Safari from auto-zooming
+            // when the input is focused. 14px stays the desktop default.
+            style={{ fontSize: isMobile ? '16px' : '14px' }}
           />
-          {!focused && (
+          {/* "/" keyboard hint — hidden on mobile because there's no
+              physical keyboard and the cue is meaningless. */}
+          {!focused && !isMobile && (
             <span
               style={{
                 position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
@@ -320,161 +422,404 @@ export default function Navbar({
         )}
       </div>
 
-      {/* Right-side actions */}
+      {/* Right-side actions
+          ────────────────────
+          Desktop: every action visible inline (Citizen-login → Subscribe
+          → Committees → My Tracked → Bell).
+          Mobile: only essentials visible inline (Search icon → Bell →
+          Citizen icon → Hamburger). Subscribe / Committees / My Tracked
+          + Sign out collapse into the hamburger popover. */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        {/* Citizen-login pill. Deliberately placed leftmost in the action
-            cluster so first-time visitors see "you can engage as a
-            citizen" before they see the secondary browse actions. Shows
-            the citizen's state+district in the signed-in state so the
-            reviewer can tell at a glance which demo identity they're on. */}
+        {/* Mobile-only search trigger — opens the full-bar search
+            overlay defined above. Hidden on desktop since the search
+            bar is always inline there. */}
+        {isMobile && (
+          <button
+            type="button"
+            onClick={() => setMobileSearchOpen(true)}
+            aria-label="Search"
+            title="Search"
+            style={{
+              width: 36, height: 36,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: 8,
+              color: 'white', cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+          </button>
+        )}
+
+        {/* Citizen-login pill. On desktop / tablet shows the full label
+            (or the citizen's display name + district when signed in).
+            On mobile compresses to an icon button: a circle with the
+            citizen's first initial when signed in, or a generic person
+            icon when signed out. */}
         {citizen ? (
           <>
-            {/* Citizen identity pill — clickable button that opens the
-                Constituent Dashboard overlay. Hover lightens (per design
-                system spec — never darkens). */}
             <button
               type="button"
               onClick={() => onCitizenDashboard?.()}
               title={`Open dashboard — ${citizen.display_name} · ${citizen.city}, ${citizen.state}${citizen.congressional_district ? ` · ${citizen.congressional_district}` : ''}`}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '6px',
-                padding: '6px 10px', background: 'rgba(255,255,255,0.14)',
-                color: 'white', border: '1px solid rgba(255,255,255,0.28)',
-                borderRadius: '8px', fontSize: '0.78rem', fontWeight: 600,
-                cursor: 'pointer', fontFamily: 'var(--cl-font-sans)',
-                transition: 'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard)',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.40)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.14)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)';
-              }}
+              style={
+                isMobile
+                  ? {
+                      width: 36, height: 36, padding: 0,
+                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                      background: 'rgba(255,255,255,0.14)',
+                      color: 'white', border: '1px solid rgba(255,255,255,0.28)',
+                      borderRadius: 999,
+                      fontSize: '0.78rem', fontWeight: 700,
+                      cursor: 'pointer', flexShrink: 0,
+                    }
+                  : {
+                      display: 'inline-flex', alignItems: 'center', gap: '6px',
+                      padding: '6px 10px', background: 'rgba(255,255,255,0.14)',
+                      color: 'white', border: '1px solid rgba(255,255,255,0.28)',
+                      borderRadius: '8px', fontSize: '0.78rem', fontWeight: 600,
+                      cursor: 'pointer', fontFamily: 'var(--cl-font-sans)',
+                      transition: 'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard)',
+                    }
+              }
+              onMouseOver={
+                isMobile
+                  ? undefined
+                  : (e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.40)';
+                    }
+              }
+              onMouseOut={
+                isMobile
+                  ? undefined
+                  : (e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.14)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)';
+                    }
+              }
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              {citizen.display_name}
-              {citizen.congressional_district && (
-                <span style={{
-                  fontSize: '0.66rem', fontWeight: 800,
-                  padding: '1px 5px', borderRadius: '9px',
-                  background: 'rgba(255,255,255,0.2)',
-                  color: 'white', letterSpacing: '0.02em',
-                }}>
-                  {citizen.congressional_district}
+              {isMobile ? (
+                // Initial-letter avatar — recognizable cue that the user
+                // is signed in without burning horizontal space.
+                <span aria-hidden="true">
+                  {(citizen.display_name || '?').trim().charAt(0).toUpperCase()}
                 </span>
+              ) : (
+                <>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  {citizen.display_name}
+                  {citizen.congressional_district && (
+                    <span style={{
+                      fontSize: '0.66rem', fontWeight: 800,
+                      padding: '1px 5px', borderRadius: '9px',
+                      background: 'rgba(255,255,255,0.2)',
+                      color: 'white', letterSpacing: '0.02em',
+                    }}>
+                      {citizen.congressional_district}
+                    </span>
+                  )}
+                </>
               )}
             </button>
-            <button
-              onClick={() => onCitizenLogout?.()}
-              title="Sign out (citizen)"
-              style={{
-                padding: '6px 10px', background: 'rgba(255,255,255,0.05)',
-                color: 'white', border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '8px', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600,
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')}
-              onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
-            >
-              Sign out
-            </button>
+            {/* Sign-out only on desktop / tablet inline. On mobile it
+                lives inside the hamburger popover. */}
+            {!isMobile && (
+              <button
+                onClick={() => onCitizenLogout?.()}
+                title="Sign out (citizen)"
+                style={{
+                  padding: '6px 10px', background: 'rgba(255,255,255,0.05)',
+                  color: 'white', border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '8px', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600,
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')}
+                onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+              >
+                Sign out
+              </button>
+            )}
           </>
         ) : (
           <button
             onClick={() => onCitizenLogin?.()}
             title="Sign in as a citizen to like, comment, and vote in polls"
-            style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              padding: '6px 12px', background: 'white',
-              color: 'var(--cl-primary)', border: '1px solid white',
-              borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700,
-            }}
-            onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.9)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.background = 'white'; }}
+            style={
+              isMobile
+                ? {
+                    width: 36, height: 36, padding: 0,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'white', color: 'var(--cl-primary)',
+                    border: '1px solid white', borderRadius: 999,
+                    cursor: 'pointer', flexShrink: 0,
+                  }
+                : {
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    padding: '6px 12px', background: 'white',
+                    color: 'var(--cl-primary)', border: '1px solid white',
+                    borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700,
+                  }
+            }
+            onMouseOver={
+              isMobile
+                ? undefined
+                : (e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.9)'; }
+            }
+            onMouseOut={
+              isMobile
+                ? undefined
+                : (e) => { e.currentTarget.style.background = 'white'; }
+            }
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+            <svg width={isMobile ? 16 : 14} height={isMobile ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            Citizen login
+            {!isMobile && 'Citizen login'}
           </button>
         )}
-        {/* Standalone Subscribe button — opens the citizen waitlist so
-            voters can get notified the moment verified accounts open up.
-            Intentionally lives next to Committees / My Tracked (not on
-            any rep's Follow button) so it reads as "subscribe to
-            CivicLens," not "subscribe to this person." */}
-        <button
-          onClick={() => onSubscribe?.()}
-          title="Get notified when verified citizen accounts open up"
-          style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            padding: '6px 12px', background: '#ffba08',
-            color: '#1d1d1d', border: '1px solid #ffba08',
-            borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700,
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = '#ffc733')}
-          onMouseOut={(e) => (e.currentTarget.style.background = '#ffba08')}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-            <path d="M4 4h16v16l-4-3-4 3-4-3-4 3z" />
-            <path d="M8 10h8M8 14h5" />
-          </svg>
-          Subscribe
-        </button>
-        <button
-          onClick={() => onOpenCommittees?.()}
-          title="Browse Committees"
-          style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            padding: '6px 12px', background: 'rgba(255,255,255,0.1)',
-            color: 'white', border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600,
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
-          </svg>
-          Committees
-        </button>
-        <button
-          onClick={() => onOpenTracked?.()}
-          title="My tracked subjects"
-          style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            padding: '6px 12px', background: 'rgba(255,255,255,0.1)',
-            color: 'white', border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600,
-            position: 'relative',
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-          </svg>
-          My Tracked
-          {trackedCount > 0 && (
-            <span
+
+        {/* Subscribe / Committees / My Tracked — desktop / tablet only.
+            Mobile collapses these into the hamburger popover below so
+            the navbar fits in one row on a phone. */}
+        {!isMobile && (
+          <>
+            <button
+              onClick={() => onSubscribe?.()}
+              title="Get notified when verified citizen accounts open up"
               style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '6px 12px', background: '#ffba08',
+                color: '#1d1d1d', border: '1px solid #ffba08',
+                borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 700,
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.background = '#ffc733')}
+              onMouseOut={(e) => (e.currentTarget.style.background = '#ffba08')}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                <path d="M4 4h16v16l-4-3-4 3-4-3-4 3z" />
+                <path d="M8 10h8M8 14h5" />
+              </svg>
+              Subscribe
+            </button>
+            <button
+              onClick={() => onOpenCommittees?.()}
+              title="Browse Committees"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '6px 12px', background: 'rgba(255,255,255,0.1)',
+                color: 'white', border: '1px solid rgba(255,255,255,0.25)',
+                borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600,
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+              onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
+              </svg>
+              Committees
+            </button>
+            <button
+              onClick={() => onOpenTracked?.()}
+              title="My tracked subjects"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '6px 12px', background: 'rgba(255,255,255,0.1)',
+                color: 'white', border: '1px solid rgba(255,255,255,0.25)',
+                borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600,
+                position: 'relative',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+              onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
+              My Tracked
+              {trackedCount > 0 && (
+                <span
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    minWidth: '18px', height: '18px', padding: '0 5px',
+                    background: '#ffba08', color: '#1d1d1d',
+                    borderRadius: '9px', fontSize: '0.7rem', fontWeight: 800,
+                  }}
+                >
+                  {trackedCount}
+                </span>
+              )}
+            </button>
+          </>
+        )}
+
+        {/* Notification bell — visible at every breakpoint. The bell's
+            own dropdown handles its mobile layout. */}
+        <NotificationBellMenu />
+
+        {/* Mobile-only hamburger menu — opens a popover with the
+            secondary actions that don't fit inline at phone widths.
+            Wears a yellow dot when something inside the menu has a
+            count (My Tracked) so the user knows it's not empty. */}
+        {isMobile && (
+          <div ref={mobileMenuRef} style={{ position: 'relative' }}>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label="More"
+              aria-expanded={mobileMenuOpen}
+              title="More"
+              style={{
+                width: 36, height: 36,
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                minWidth: '18px', height: '18px', padding: '0 5px',
-                background: '#ffba08', color: '#1d1d1d',
-                borderRadius: '9px', fontSize: '0.7rem', fontWeight: 800,
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.25)',
+                borderRadius: 8,
+                color: 'white', cursor: 'pointer',
+                flexShrink: 0, position: 'relative',
               }}
             >
-              {trackedCount}
-            </span>
-          )}
-        </button>
-        <NotificationBellMenu />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+              {trackedCount > 0 && (
+                <span
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    top: 4, right: 4,
+                    width: 8, height: 8,
+                    background: '#ffba08',
+                    borderRadius: 999,
+                  }}
+                />
+              )}
+            </button>
+            {mobileMenuOpen && (
+              <div
+                role="menu"
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  right: 0,
+                  minWidth: 220,
+                  background: 'white',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 10,
+                  boxShadow: '0 12px 36px rgba(0,0,0,0.18)',
+                  padding: 6,
+                  zIndex: 70,
+                }}
+              >
+                <MobileMenuItem
+                  icon={
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                      <path d="M4 4h16v16l-4-3-4 3-4-3-4 3z" />
+                      <path d="M8 10h8M8 14h5" />
+                    </svg>
+                  }
+                  label="Subscribe"
+                  accent="#ffba08"
+                  onClick={() => { setMobileMenuOpen(false); onSubscribe?.(); }}
+                />
+                <MobileMenuItem
+                  icon={
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
+                    </svg>
+                  }
+                  label="Committees"
+                  onClick={() => { setMobileMenuOpen(false); onOpenCommittees?.(); }}
+                />
+                <MobileMenuItem
+                  icon={
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                  }
+                  label="My Tracked"
+                  badge={trackedCount > 0 ? trackedCount : null}
+                  onClick={() => { setMobileMenuOpen(false); onOpenTracked?.(); }}
+                />
+                {citizen && (
+                  <>
+                    <div style={{ height: 1, background: 'var(--cl-border)', margin: '4px 6px' }} />
+                    <MobileMenuItem
+                      icon={
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                          <polyline points="16 17 21 12 16 7" />
+                          <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                      }
+                      label="Sign out"
+                      onClick={() => { setMobileMenuOpen(false); onCitizenLogout?.(); }}
+                    />
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </nav>
+  );
+}
+
+// ─── Mobile menu row ───────────────────────────────────────────────
+// Pure presentational helper used only by the mobile hamburger popover
+// above. Kept inside this file because it's tightly coupled to the
+// navbar's mobile compression and isn't reused elsewhere.
+function MobileMenuItem({ icon, label, badge, accent, onClick }) {
+  return (
+    <button
+      type="button"
+      role="menuitem"
+      onClick={onClick}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        width: '100%',
+        padding: '10px 12px',
+        background: 'transparent',
+        border: 'none',
+        borderRadius: 6,
+        cursor: 'pointer',
+        textAlign: 'left',
+        fontSize: '0.9rem',
+        fontWeight: 600,
+        color: accent || 'var(--cl-text)',
+        fontFamily: 'var(--cl-font-sans)',
+      }}
+      onMouseOver={(e) => (e.currentTarget.style.background = 'var(--cl-bg-soft)')}
+      onMouseOut={(e) => (e.currentTarget.style.background = 'transparent')}
+    >
+      <span style={{ flexShrink: 0, color: accent || 'var(--cl-text-light)', display: 'inline-flex' }}>
+        {icon}
+      </span>
+      <span style={{ flex: 1 }}>{label}</span>
+      {badge != null && (
+        <span
+          style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            minWidth: 20, height: 20, padding: '0 6px',
+            background: '#ffba08', color: '#1d1d1d',
+            borderRadius: 10, fontSize: '0.72rem', fontWeight: 800,
+          }}
+        >
+          {badge}
+        </span>
+      )}
+    </button>
   );
 }
