@@ -170,19 +170,25 @@
       "seat_type": "legislative",
       "term_length_years": 4,
       "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-ileana-garcia",
+      "incumbent_candidate_id": "fl-cand-ana-maria-rodriguez",
       "primary_candidates": {
         "R": [
-          "fl-cand-ileana-garcia"
+          "fl-cand-ana-maria-rodriguez"
         ],
-        "D": [
-          "fl-cand-raquel-pacheco"
-        ]
+        "D": []
       },
       "general_candidates": [
-        "fl-cand-ileana-garcia",
-        "fl-cand-raquel-pacheco"
-      ]
+        "fl-cand-ana-maria-rodriguez"
+      ],
+      "general_candidates_note": "No Democratic, NPA, minor-party, or write-in candidates have filed. Sen. Rodriguez (R, incumbent) is uncontested and advances to the general unopposed.",
+      "notes": "Sen. Ana Maria Rodriguez (R) is the incumbent. As of 2026-05-05 she is the only filer with the FL Division of Elections — no challenger in either party. The qualifying-period close in June may bring additional filers; check back closer to the deadline.",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STS&District=40",
+        "observed": "2026-05-05",
+        "count": 1,
+        "note": "1 active filer as of 2026-05-05 (Republican incumbent, uncontested)."
+      }
     },
     {
       "id": "fl-2026-state-house-42",
@@ -193,20 +199,29 @@
       "state_house_district": "42",
       "seat_type": "legislative",
       "term_length_years": 2,
-      "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-anna-eskamani",
+      "open_seat": true,
+      "incumbent_candidate_id": null,
       "primary_candidates": {
         "D": [
-          "fl-cand-anna-eskamani"
+          "fl-cand-felipe-sousa-lazaballet"
         ],
         "R": [
           "fl-cand-bonnie-jackson"
         ]
       },
       "general_candidates": [
-        "fl-cand-anna-eskamani",
+        "fl-cand-felipe-sousa-lazaballet",
         "fl-cand-bonnie-jackson"
-      ]
+      ],
+      "general_candidates_note": "Both primaries are uncontested as of 2026-05-05, so Sousa Lazaballet (D) and Jackson (R) project to advance to the Nov 3 general unless another filer enters before the qualifying deadline.",
+      "notes": "Open seat — Rep. Anna Eskamani (D) is not seeking re-election. Felipe Sousa Lazaballet (D) and Bonnie Jackson (R) are the only filers in either primary as of 2026-05-05.",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System (cross-referenced with Ballotpedia and Wikipedia 2026 FL House election coverage)",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STR&District=42",
+        "observed": "2026-05-05",
+        "count": 2,
+        "note": "2 active filers as of 2026-05-05 (1 D, 1 R). Open seat — Eskamani (D, incumbent) is not running."
+      }
     }
   ],
   "ballot_measures": {

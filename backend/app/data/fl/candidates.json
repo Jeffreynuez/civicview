@@ -512,111 +512,6 @@
       ],
       "data_status": "enriched"
     },
-    "fl-cand-ileana-garcia": {
-      "id": "fl-cand-ileana-garcia",
-      "name": "Ileana García",
-      "party": "R",
-      "seeking_office": "FL Senate Dist. 40",
-      "incumbent": true,
-      "current_office": "Florida State Senator, Dist. 40",
-      "official_id": "fl-sen-40",
-      "official_scope": "state",
-      "hometown": "Miami, FL",
-      "age": 58,
-      "website": "https://ileanaforflorida.com",
-      "social": {
-        "twitter": "ileanagarciaUSA"
-      },
-      "photo_url": null,
-      "bio": "Ileana García has represented Dist. 40 since 2020 and founded Latinas for Trump. She is seeking re-election on a platform of anti-authoritarianism, Cuban/Venezuelan policy, and consumer protection.",
-      "top_issues": [
-        {
-          "name": "Foreign Policy",
-          "stance": "Tightened sanctions on Cuba/Venezuela/Nicaragua regimes."
-        },
-        {
-          "name": "Insurance",
-          "stance": "Transparency mandates on insurer rate filings; consumer right-to-cure."
-        },
-        {
-          "name": "Condo Safety",
-          "stance": "Continue post-Surfside inspection and reserve-funding enforcement."
-        }
-      ],
-      "endorsements": [
-        {
-          "name": "Assembly of the Cuban Resistance"
-        }
-      ],
-      "fundraising": {
-        "total_raised": 940000,
-        "total_spent": 390000,
-        "cash_on_hand": 550000,
-        "as_of": "2026-03-31"
-      },
-      "experience": [
-        {
-          "role": "Florida State Senator, Dist. 40",
-          "from": 2020,
-          "to": null
-        },
-        {
-          "role": "Founder, Latinas for Trump",
-          "from": 2016,
-          "to": 2020
-        }
-      ],
-      "data_status": "enriched"
-    },
-    "fl-cand-raquel-pacheco": {
-      "id": "fl-cand-raquel-pacheco",
-      "name": "Raquel Pacheco",
-      "party": "D",
-      "seeking_office": "FL Senate Dist. 40",
-      "incumbent": false,
-      "current_office": "Attorney & community organizer",
-      "hometown": "Coral Gables, FL",
-      "age": 41,
-      "website": "https://raquelfordistrict40.com",
-      "social": {
-        "twitter": "raquelfordist40"
-      },
-      "photo_url": null,
-      "bio": "Raquel Pacheco is an immigration attorney and community organizer making her first run for state office, focused on housing affordability and healthcare expansion.",
-      "top_issues": [
-        {
-          "name": "Housing",
-          "stance": "Statewide rent stabilization pilot; expand SHIP program funding."
-        },
-        {
-          "name": "Healthcare",
-          "stance": "Expand Medicaid under the ACA; state-level reinsurance for marketplace plans."
-        },
-        {
-          "name": "Immigration",
-          "stance": "Repeal SB 1718 employment verification provisions."
-        }
-      ],
-      "endorsements": [
-        {
-          "name": "LatinoVictoryFund"
-        }
-      ],
-      "fundraising": {
-        "total_raised": 360000,
-        "total_spent": 110000,
-        "cash_on_hand": 250000,
-        "as_of": "2026-03-31"
-      },
-      "experience": [
-        {
-          "role": "Managing Attorney, South Florida Immigration Clinic",
-          "from": 2015,
-          "to": null
-        }
-      ],
-      "data_status": "enriched"
-    },
     "fl-cand-jay-collins": {
       "id": "fl-cand-jay-collins",
       "name": "Jay Collins",
@@ -1678,6 +1573,50 @@
       "name": "Vibert White",
       "party": "R",
       "seeking_office": "U.S. House, FL-10",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": null,
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": null,
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (active filer)",
+      "data_observed": "2026-05-05"
+    },
+    "fl-cand-ana-maria-rodriguez": {
+      "id": "fl-cand-ana-maria-rodriguez",
+      "name": "Ana Maria Rodriguez",
+      "party": "R",
+      "seeking_office": "FL Senate Dist. 40",
+      "incumbent": true,
+      "current_office": "Florida State Senator, Dist. 40 (incumbent)",
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": null,
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": null,
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (active filer)",
+      "data_observed": "2026-05-05"
+    },
+    "fl-cand-felipe-sousa-lazaballet": {
+      "id": "fl-cand-felipe-sousa-lazaballet",
+      "name": "Felipe Sousa Lazaballet",
+      "party": "D",
+      "seeking_office": "FL House Dist. 42",
       "incumbent": false,
       "current_office": null,
       "bioguide_id": null,
