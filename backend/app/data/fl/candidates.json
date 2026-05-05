@@ -1672,6 +1672,28 @@
       "data_status": "skeleton",
       "data_source": "FL Division of Elections (active filer)",
       "data_observed": "2026-05-05"
+    },
+    "fl-cand-vibert-white": {
+      "id": "fl-cand-vibert-white",
+      "name": "Vibert White",
+      "party": "R",
+      "seeking_office": "U.S. House, FL-10",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": null,
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": null,
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (active filer)",
+      "data_observed": "2026-05-05"
     }
   }
 }
