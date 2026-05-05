@@ -324,12 +324,19 @@ function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, ch
       {open && (
         <div style={{ padding: '10px 12px' }}>
           {count === 0 ? (
-            <div style={{
-              padding: '16px 14px', textAlign: 'center',
-              color: 'var(--cl-text-light)', fontSize: '0.82rem', lineHeight: 1.5,
-              background: 'var(--cl-bg)', border: '1px dashed var(--cl-border)',
-              borderRadius: '10px',
-            }}>
+            <div
+              style={{
+                padding: '16px 14px',
+                textAlign: 'center',
+                color: 'var(--cl-text-light)',
+                fontSize: 'var(--cl-text-sm)',
+                fontFamily: 'var(--cl-font-sans)',
+                lineHeight: 'var(--cl-leading-snug)',
+                background: 'var(--cl-bg)',
+                border: '1px dashed var(--cl-border)',
+                borderRadius: 'var(--cl-radius-lg)',
+              }}
+            >
               {emptyHint}
             </div>
           ) : children}

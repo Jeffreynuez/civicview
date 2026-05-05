@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { createPost, uploadPostImage, resolveImageUrl } from '../lib/pagesApi';
+import { Button } from './ui';
 
 const MAX_BODY = 5000;
 const MAX_OPT = 255;
@@ -581,39 +582,32 @@ export default function PostComposer({
       <div
         style={{
           display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
-          gap: '10px', marginTop: '12px',
+          gap: 8, marginTop: 12,
         }}
       >
-        {err && <span style={{ color: '#d63031', fontSize: '0.78rem', marginRight: 'auto' }}>{err}</span>}
-        <button
-          type="button"
-          onClick={reset}
-          disabled={busy}
-          style={{
-            border: '1px solid var(--cl-border)', background: 'white',
-            color: 'var(--cl-text-light)', padding: '8px 14px',
-            borderRadius: '8px', fontSize: '0.82rem', fontWeight: 600,
-            cursor: busy ? 'wait' : 'pointer',
-          }}
-        >
+        {err && (
+          <span
+            style={{
+              color: 'var(--cl-danger-text)',
+              fontSize: 'var(--cl-text-xs)',
+              marginRight: 'auto',
+            }}
+          >
+            {err}
+          </span>
+        )}
+        <Button variant="outline" size="md" onClick={reset} disabled={busy}>
           Clear
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="primary"
+          size="md"
           onClick={handleSubmit}
           disabled={!canSubmit}
-          style={{
-            border: '1px solid var(--cl-accent)',
-            background: canSubmit ? 'var(--cl-accent)' : 'var(--cl-bg)',
-            color: canSubmit ? 'white' : 'var(--cl-text-light)',
-            padding: '8px 18px', borderRadius: '8px',
-            fontSize: '0.85rem', fontWeight: 700,
-            cursor: canSubmit ? 'pointer' : 'not-allowed',
-            transition: 'background 0.15s, color 0.15s',
-          }}
+          loading={busy}
         >
-          {busy ? 'Posting…' : 'Publish'}
-        </button>
+          Publish
+        </Button>
       </div>
     </div>
   );

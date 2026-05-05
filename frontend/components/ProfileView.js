@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Spinner } from './ui';
 import {
   fetchExecutiveOrders,
   fetchGovernorActions,
@@ -1869,36 +1870,70 @@ function Row({ label, value, last }) {
 }
 
 function LoadingState({ label }) {
+  // Tab-internal loading affordance — small accent-green spinner with
+  // a label below. Swapped to the canonical Spinner primitive in the
+  // ProfileView primitives sweep so the keyframe + ring geometry
+  // matches every other loading affordance in the app.
   return (
-    <div style={{ padding: '24px 8px', textAlign: 'center', color: 'var(--cl-text-light)', fontSize: '0.85rem' }}>
-      <div style={{
-        display: 'inline-block', width: '18px', height: '18px',
-        border: '2px solid var(--cl-border)', borderTopColor: 'var(--cl-accent)',
-        borderRadius: '50%', animation: 'civiclens-spin 0.8s linear infinite',
-        marginBottom: '8px',
-      }} />
+    <div
+      style={{
+        padding: '24px 8px',
+        textAlign: 'center',
+        color: 'var(--cl-text-light)',
+        fontSize: 'var(--cl-text-sm)',
+        fontFamily: 'var(--cl-font-sans)',
+      }}
+    >
+      <div
+        style={{
+          display: 'inline-flex',
+          marginBottom: 8,
+          color: 'var(--cl-accent)',
+        }}
+      >
+        <Spinner size={18} />
+      </div>
       <div>{label}</div>
-      <style jsx>{`
-        @keyframes civiclens-spin { to { transform: rotate(360deg); } }
-      `}</style>
     </div>
   );
 }
 
 function EmptyState({ message }) {
+  // Tab-internal "no data" placeholder. Body-only (no headline / icon
+  // plate) because the surrounding tab heading provides context — a
+  // second headline here would be redundant. Callers that want the
+  // full hero-empty treatment use UIEmptyState from ./ui directly.
   return (
-    <div style={{
-      padding: '24px 12px', textAlign: 'center', color: 'var(--cl-text-light)',
-      fontSize: '0.85rem', background: 'var(--cl-bg)', borderRadius: '8px',
-    }}>
+    <div
+      style={{
+        padding: '24px 12px',
+        textAlign: 'center',
+        color: 'var(--cl-text-light)',
+        fontSize: 'var(--cl-text-sm)',
+        fontFamily: 'var(--cl-font-sans)',
+        background: 'var(--cl-bg)',
+        borderRadius: 'var(--cl-radius-md)',
+        lineHeight: 'var(--cl-leading-snug)',
+      }}
+    >
       {message}
     </div>
   );
 }
 
 function EmptyNote({ children }) {
+  // Inline "no data" microcopy — used when an empty state would over-
+  // decorate the surrounding row (e.g., between section dividers).
   return (
-    <div style={{ padding: '8px 0', fontSize: '0.8rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
+    <div
+      style={{
+        padding: '8px 0',
+        fontSize: 'var(--cl-text-sm)',
+        color: 'var(--cl-text-light)',
+        fontFamily: 'var(--cl-font-sans)',
+        fontStyle: 'italic',
+      }}
+    >
       {children}
     </div>
   );
