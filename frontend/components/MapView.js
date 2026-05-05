@@ -38,6 +38,14 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   const mapLoaded = useRef(false);
   const selectedStateRef = useRef(null);
   const hoveredDistrictId = useRef(null);
+  // Cache of every loaded state feature keyed by its 2-letter code. We need
+  // this because `querySourceFeatures` only returns features that fall within
+  // the *currently rendered* tiles — so once the map has zoomed into one
+  // state, picking a different state from outside that viewport (e.g. via
+  // the Browse-by-state grid) would silently fail to find the feature. The
+  // cache is populated once when the states source finishes loading and
+  // gives us O(1) lookups regardless of viewport.
+  const stateFeaturesByCode = useRef({});
   // Remember the last district we focused on so re-rendering with the same
   // (but freshly-constructed) activeDistrict object doesn't trigger another
   // redundant fly-to.
@@ -82,6 +90,38 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           type: 'geojson',
           data: 'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json',
         });
+
+        // Pre-fetch the same GeoJSON ourselves so we can build a cache keyed
+        // by state code. `querySourceFeatures` is viewport-bound and was
+        // missing far-off states once the map had zoomed in (e.g. selecting
+        // California from the Browse-by-state grid while zoomed into FL
+        // would not return the CA feature, so the map never zoomed). The
+        // cache fixes that — any state lookup is O(1) regardless of zoom.
+        // Includes DC because the upstream feature is named
+        // "District Of Columbia" which our STATE_NAME_TO_CODE table omits.
+        (async () => {
+          try {
+            const resp = await fetch(
+              'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json'
+            );
+            const fc = await resp.json();
+            const cache = {};
+            for (const feat of fc.features || []) {
+              const name = feat?.properties?.name;
+              if (!name) continue;
+              let code = STATE_NAME_TO_CODE[name];
+              if (!code && name.toLowerCase() === 'district of columbia') {
+                code = 'DC';
+              }
+              if (!code) continue;
+              cache[code] = feat;
+            }
+            stateFeaturesByCode.current = cache;
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.warn('MapView: failed to pre-cache state features', err);
+          }
+        })();
 
         // All districts for the currently-selected state (overview layer).
         map.current.addSource('state-districts', {
@@ -467,23 +507,90 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     return () => { cancelled = true; };
   }, [activeDistrict]);
 
-  // ─── React to selectedState prop (when set externally, e.g. via lookup) ──
+  // ─── React to selectedState prop (when set externally, e.g. via lookup ──
+  // or via the Browse-by-state grid). Two-step strategy:
+  //
+  //  1. Look up the target state's GeoJSON via our pre-built cache (so we
+  //     have its geometry regardless of which states are currently in the
+  //     viewport) and call fitBounds.
+  //
+  //  2. Setting the `selected` feature-state highlight needs maplibre's
+  //     auto-assigned feature id — which we can only get from
+  //     querySourceFeatures, and that's viewport-bound. We try once
+  //     immediately (works when the state was already partially rendered),
+  //     and if that fails we wait for the camera to settle on its new
+  //     center via 'idle' before re-querying.
   useEffect(() => {
     if (!map.current || !mapLoaded.current || !selectedState) return;
     if (activeDistrict) return;
-    const features = map.current.querySourceFeatures('states', {});
-    const match = features.find((f) => STATE_NAME_TO_CODE[f.properties.name] === selectedState);
-    if (!match) return;
-    if (selectedStateRef.current !== null) {
-      map.current.setFeatureState({ source: 'states', id: selectedStateRef.current }, { selected: false });
+
+    // Try cache first (works for any state regardless of viewport), then
+    // fall back to querySourceFeatures (works pre-cache while the upstream
+    // GeoJSON fetch is still in flight).
+    const cached = stateFeaturesByCode.current[selectedState];
+    let geomFeature = cached;
+    if (!geomFeature) {
+      const features = map.current.querySourceFeatures('states', {});
+      geomFeature = features.find(
+        (f) => STATE_NAME_TO_CODE[f?.properties?.name] === selectedState
+      );
     }
-    selectedStateRef.current = match.id;
-    map.current.setFeatureState({ source: 'states', id: match.id }, { selected: true });
+    if (!geomFeature) return;
+
+    // Clear any prior selected highlight.
+    if (selectedStateRef.current !== null) {
+      try {
+        map.current.setFeatureState(
+          { source: 'states', id: selectedStateRef.current },
+          { selected: false }
+        );
+      } catch { /* noop */ }
+      selectedStateRef.current = null;
+    }
+
+    // Try to apply the highlight immediately (works if the state is in the
+    // currently-rendered tile set).
+    const liveNow = map.current
+      .querySourceFeatures('states', {})
+      .find((f) => STATE_NAME_TO_CODE[f?.properties?.name] === selectedState);
+    if (liveNow && liveNow.id !== undefined) {
+      selectedStateRef.current = liveNow.id;
+      map.current.setFeatureState(
+        { source: 'states', id: liveNow.id },
+        { selected: true }
+      );
+    }
+
+    // Fly to the cached geometry — works for any state in the cache.
     try {
-      const [sw, ne] = geometryBounds(match.geometry);
+      const [sw, ne] = geometryBounds(geomFeature.geometry);
       map.current.fitBounds([sw, ne], { padding: 60, duration: 900, maxZoom: 7 });
     } catch { /* noop */ }
-    setCurrentLabel(match.properties.name);
+    setCurrentLabel(geomFeature.properties?.name || selectedState);
+
+    // If the highlight didn't apply yet (state was outside the viewport),
+    // re-query once the camera settles. 'idle' fires after the move + tile
+    // load completes, so the target feature is now guaranteed renderable.
+    if (!liveNow) {
+      const onIdle = () => {
+        if (!map.current) return;
+        const f = map.current
+          .querySourceFeatures('states', {})
+          .find(
+            (feat) =>
+              STATE_NAME_TO_CODE[feat?.properties?.name] === selectedState
+          );
+        if (f && f.id !== undefined) {
+          selectedStateRef.current = f.id;
+          map.current.setFeatureState(
+            { source: 'states', id: f.id },
+            { selected: true }
+          );
+        }
+        map.current.off('idle', onIdle);
+      };
+      map.current.on('idle', onIdle);
+    }
   }, [selectedState, activeDistrict]);
 
   // ─── Slider handler ───────────────────────────────────────────────

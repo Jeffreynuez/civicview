@@ -838,10 +838,14 @@ function BrowseByStateSection({ onStatePick }) {
           subhead="Pick a state to see its governor, senators, House delegation, and state legislature."
           chip={null}
         />
+        {/* Grid: keeps 2 columns even at narrow side-panel widths. The
+            minmax floor of 110px + auto-fit lets the panel fall back to
+            1 column only at extreme narrow widths (<~250px). At wider
+            widths it auto-expands to 3+ columns. */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
             gap: 6,
           }}
         >
