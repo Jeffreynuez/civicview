@@ -72,6 +72,20 @@ export default function Home() {
   // Ensure the on-load tracked-bill check only runs once per session
   const trackedCheckedRef = useRef(false);
 
+  // ─── Side-panel scroll restoration ────────────────────────────────
+  // The right-side panel hosts a single scroll container that can show
+  // either NOP, a state's tabs, or (after a Back) the same view again.
+  // Without restoration, hitting Back from a ProfileView / CandidateProfile
+  // dropped the user at the top of that container — annoying after long
+  // scrolls (e.g. NOP → SCOTUS justice → Back).
+  //
+  // SidePanel writes the live scrollTop into `top` on every scroll event
+  // and reads it back when its scroll container next mounts AND
+  // `restoreOnNextMount` is true. The flag is set only by the explicit
+  // back/close handlers below — forward navigation (state pick, member
+  // select, etc.) leaves the flag false, so those still land at top.
+  const panelScrollRef = useRef({ top: 0, restoreOnNextMount: false });
+
   // ─── Pages layer (phase 1) ─────────────────────────────────────────
   // When truthy, PageView mounts as a full-viewport overlay for that
   // official. The meta blob carries display name / role / photo so the
@@ -218,6 +232,7 @@ export default function Home() {
   const handleCandidateBack = useCallback(() => {
     const prev = selectedCandidateRef.current;
     if (prev) setLastViewedCandidateId(prev.id || null);
+    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedCandidate(null);
   }, []);
 
@@ -298,6 +313,7 @@ export default function Home() {
   const handleBack = useCallback(() => {
     const prev = selectedMemberRef.current;
     if (prev) setLastViewedMemberId(prev.bioguide_id || prev.id || null);
+    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedMember(null);
   }, []);
 
@@ -309,6 +325,7 @@ export default function Home() {
     const prevC = selectedCandidateRef.current;
     if (prevM) setLastViewedMemberId(prevM.bioguide_id || prevM.id || null);
     if (prevC) setLastViewedCandidateId(prevC.id || null);
+    panelScrollRef.current.restoreOnNextMount = true;
     setSelectedMember(null);
     setSelectedCandidate(null);
   }, []);
@@ -677,6 +694,7 @@ export default function Home() {
             citizen={citizen}
             onOpenTracked={() => setTrackedOpen(true)}
             onSubscribe={() => handleRequestCitizenWaitlist('subscribe')}
+            panelScrollRef={panelScrollRef}
           />
         )}
       </div>

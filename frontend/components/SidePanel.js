@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Skeleton } from './ui';
 import PersonCard from './PersonCard';
 import ProfileView from './ProfileView';
@@ -134,6 +134,12 @@ export default function SidePanel({
   // same name). Forwarded only to NationalOfficialsPanel.
   onOpenTracked,
   onSubscribe,
+  // Scroll-restoration ref shared with the parent so scroll position
+  // survives the SidePanel ↔ CandidateProfile swap and the ProfileView
+  // detour. Shape: { top: number, restoreOnNextMount: boolean }.
+  // Set restoreOnNextMount=true in the parent's Back handlers; we read +
+  // clear it here on the next mount of the scroll container.
+  panelScrollRef,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -146,6 +152,34 @@ export default function SidePanel({
   const [partyFilter, setPartyFilter] = useState('all'); // 'all' | 'R' | 'D' | 'I'
   const [chamberFilter, setChamberFilter] = useState('all'); // 'all' | 'Senate' | 'House'
   const [sortBy, setSortBy] = useState('name-asc'); // 'name-asc'|'name-desc'|'tenure-long'|'tenure-short'
+
+  // ─── Scroll restoration ────────────────────────────────────────────
+  // The single scroll container below hosts NOP, the state's tabs, etc.
+  // We track its scrollTop on every scroll event and write it into the
+  // parent-owned `panelScrollRef`. When the container mounts AND the
+  // parent has flagged a Back navigation (`restoreOnNextMount`), we
+  // restore the saved scrollTop in a useLayoutEffect — which runs after
+  // DOM commit but before paint, so the user never sees a flash at top.
+  // Forward navigation (state pick, member select) leaves the flag false,
+  // so those still land at the top of their new view.
+  const scrollContainerRef = useRef(null);
+
+  const handleScroll = (e) => {
+    if (panelScrollRef && e?.currentTarget) {
+      panelScrollRef.current.top = e.currentTarget.scrollTop;
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (!panelScrollRef || !scrollContainerRef.current) return;
+    if (panelScrollRef.current.restoreOnNextMount) {
+      scrollContainerRef.current.scrollTop = panelScrollRef.current.top;
+      panelScrollRef.current.restoreOnNextMount = false;
+    }
+    // Re-run when the early-return for selectedMember flips back to false
+    // (i.e. the user navigated Back from a profile inside this SidePanel).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMember]);
 
   if (selectedMember) {
     return (
@@ -295,7 +329,11 @@ export default function SidePanel({
       )}
 
       {/* Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        style={{ flex: 1, overflowY: 'auto', padding: '12px' }}
+      >
         {loading && (
           <div style={{ padding: 16 }}>
             <Skeleton variant="list" count={3} />
