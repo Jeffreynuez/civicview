@@ -96,11 +96,21 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           data: { type: 'FeatureCollection', features: [] },
         });
 
-        // State fill layer — selected state is dimmed because its districts
-        // render on top of it. Unselected states stay clickable everywhere.
-        // Phase 4B: per design system, hover/selected use accent-green tint
-        // (was previously a slate hover + dark-green selected mix). Resting
-        // is the neutral surface-100 token (#f1f3f5).
+        // State fill layer — at rest the state interior is fully transparent
+        // so the underlying map (cities, lakes, terrain, basemap labels)
+        // shows through. Hover and selected layer an accent-green tint on
+        // top while keeping the map readable. Selected state stays subtler
+        // than hover (6% vs 12%) because the 2px green border on selected
+        // does the heavy lifting for that signal.
+        //
+        // The fill IS still present — clicks and hover detection rely on
+        // a hit-testable surface — it's just transparent. Maplibre treats
+        // a 0-opacity fill as fully clickable, same as a solid fill.
+        //
+        // Earlier Phase 4B treatment used a solid #f1f3f5 (surface-100) at
+        // full opacity, which obscured the basemap entirely until hover.
+        // This change preserves the same hover/selected tints but lets the
+        // map breathe through at rest.
         map.current.addLayer({
           id: 'state-fills',
           type: 'fill',
@@ -112,13 +122,13 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
               '#2d6a4f', // --cl-accent
               ['boolean', ['feature-state', 'hover'], false],
               '#2d6a4f', // --cl-accent
-              '#f1f3f5', // --cl-bg-soft (surface-100)
+              '#2d6a4f', // unused at rest (opacity is 0) but a valid color
             ],
             'fill-opacity': [
               'case',
               ['boolean', ['feature-state', 'selected'], false], 0.06,
               ['boolean', ['feature-state', 'hover'], false], 0.12,
-              1.0,
+              0.0, // resting — fully transparent so the basemap shows through
             ],
           },
         });
