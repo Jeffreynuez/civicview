@@ -134,6 +134,10 @@ export default function SidePanel({
   // same name). Forwarded only to NationalOfficialsPanel.
   onOpenTracked,
   onSubscribe,
+  // True on viewports ≤768px. When set, SidePanel takes 100% width
+  // (the panel sits below the map in a vertical stack) and the panel-
+  // width prop is ignored.
+  isMobile = false,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -200,7 +204,11 @@ export default function SidePanel({
   return (
     <div
       className="flex flex-col overflow-hidden bg-white"
-      style={{ width: `${width}px`, flexShrink: 0, position: 'relative' }}
+      style={
+        isMobile
+          ? { width: '100%', flex: 1, minHeight: 0, position: 'relative' }
+          : { width: `${width}px`, flexShrink: 0, position: 'relative' }
+      }
     >
       {/* Header */}
       <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-bg)' }}>
@@ -528,6 +536,7 @@ export default function SidePanel({
           <ProfileView
             member={selectedMember}
             width={width}
+            isMobile={isMobile}
             onBack={onBack}
             onClose={onClose}
             backLabel={backLabel}

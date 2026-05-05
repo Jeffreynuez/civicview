@@ -170,6 +170,9 @@ export default function ProfileView({
   // next to Follow/Compare so the Pages entrypoint is always one click away.
   onOpenPage,
   width = 380,
+  // True on viewports ≤768px. When set, ProfileView fills its parent
+  // (SidePanel overlay) instead of using the desktop fixed width.
+  isMobile = false,
 }) {
   // Subscribe to the persistent trackedOfficials store so the hero Follow
   // button stays in sync with icon buttons elsewhere in the app (roster
@@ -426,7 +429,13 @@ export default function ProfileView({
   };
 
   return (
-    <div style={{ width: `${width}px`, background: 'white', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
+    <div
+      style={
+        isMobile
+          ? { width: '100%', flex: 1, minHeight: 0, background: 'white', display: 'flex', flexDirection: 'column', overflow: 'hidden' }
+          : { width: `${width}px`, background: 'white', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }
+      }
+    >
       {/* Back + Close row — the contextual back label tells the user exactly
           where Back will take them (e.g. "← Back to Congress"), and the ×
           on the right fully closes the profile. Useful when the panel has

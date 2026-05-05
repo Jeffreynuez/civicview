@@ -30,6 +30,10 @@ export default function CandidateProfile({
   // Pages layer: open this candidate's public page. Wired through from page.js.
   onOpenPage,
   width = 380,
+  // True on viewports ≤768px. When set, the profile takes 100% width
+  // (sits below the map in the vertical mobile stack) and the width
+  // prop is ignored.
+  isMobile = false,
 }) {
   const [full, setFull] = useState(candidate);
   const [activeTab, setActiveTab] = useState('overview');
@@ -88,7 +92,14 @@ export default function CandidateProfile({
   ];
 
   return (
-    <div className="flex flex-col overflow-hidden bg-white" style={{ width: `${width}px`, flexShrink: 0 }}>
+    <div
+      className="flex flex-col overflow-hidden bg-white"
+      style={
+        isMobile
+          ? { width: '100%', flex: 1, minHeight: 0 }
+          : { width: `${width}px`, flexShrink: 0 }
+      }
+    >
       {/* Header */}
       <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-primary)', color: 'white' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>

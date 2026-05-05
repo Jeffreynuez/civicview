@@ -22,8 +22,15 @@ import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
 import { useAuth, logoutRep } from '@/lib/auth';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
+import { useViewport } from '@/lib/useViewport';
 
 export default function Home() {
+  // Viewport drives the desktop ↔ mobile layout pivot. Computed once at
+  // the top so every layout decision below sees a consistent value.
+  // 'mobile' (≤768px), 'tablet' (≤1024px), 'desktop' (>1024px).
+  const viewport = useViewport();
+  const isMobile = viewport === 'mobile';
+
   const [selectedState, setSelectedState] = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -621,11 +628,26 @@ export default function Home() {
         onMemberPick={handleGlobalMemberPick}
         onNotify={showNotification}
       />
-      <div className="flex flex-1 overflow-hidden">
+      {/* Layout pivot — desktop / tablet show map and panel side-by-side
+          (flex row, map flex-1, panel a fixed dragable width). Mobile
+          stacks them vertically (flex column, map a fixed share of the
+          viewport on top, panel takes the rest below). The user's
+          stated goal for mobile: keep the panel always-visible so the
+          NOP / state tabs stay reachable without picking a state on a
+          tiny map first. */}
+      <div className={`flex flex-1 overflow-hidden ${isMobile ? 'flex-col' : ''}`}>
         {/* Map view + banner wrapper — the notification banner is positioned
             absolutely inside this wrapper so it overlays the map area only
-            (without pushing layout siblings down). */}
-        <div className="relative flex flex-1 overflow-hidden">
+            (without pushing layout siblings down). On mobile this wrapper
+            is a fixed-height row at the top (40vh) instead of stretching. */}
+        <div
+          className="relative flex overflow-hidden"
+          style={
+            isMobile
+              ? { height: '40vh', minHeight: 200, flexShrink: 0 }
+              : { flex: 1 }
+          }
+        >
           <MapView
             onStateSelect={handleStateSelect}
             onStateDeselect={handleStateDeselect}
@@ -636,7 +658,12 @@ export default function Home() {
           />
           <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
         </div>
-        <PanelResizer onResize={setPanelWidth} minWidth={380} maxFraction={0.5} />
+        {/* Resizer is a desktop / tablet affordance — drag to widen the
+            side panel. On mobile the split is fixed for now (M1); a drag
+            handle can come in a later phase if we want it. */}
+        {!isMobile && (
+          <PanelResizer onResize={setPanelWidth} minWidth={380} maxFraction={0.5} />
+        )}
         {/* SidePanel is ALWAYS mounted so its scroll container survives
             the candidate-profile detour. When a candidate is open, we
             hide SidePanel via display:none (preserves DOM + scrollTop)
@@ -652,6 +679,7 @@ export default function Home() {
             stateName={stateName}
             selectedMember={selectedMember}
             width={panelWidth}
+            isMobile={isMobile}
             onMemberSelect={handleMemberSelect}
             onBack={handleBack}
             onClose={handleCloseProfile}
@@ -688,6 +716,7 @@ export default function Home() {
           <CandidateProfile
             candidate={selectedCandidate}
             width={panelWidth}
+            isMobile={isMobile}
             onBack={handleCandidateBack}
             onClose={handleCloseProfile}
             backLabel={candidateBackLabel}
