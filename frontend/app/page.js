@@ -601,12 +601,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Temporary debug overlay — shows the live viewport classification
-          and window dimensions. Helps diagnose "why isn't mobile mode
-          firing" issues on real phones where browser DevTools isn't
-          available. Remove this block once layout is confirmed working. */}
-      <ViewportDebug viewport={viewport} />
-
       <Navbar
         onMemberPick={handleGlobalMemberPick}
         onCandidatePick={handleCandidateSelect}
@@ -866,39 +860,3 @@ export default function Home() {
   );
 }
 
-// Tiny diagnostic floating in the bottom-right corner — prints the
-// current viewport classification + live window.innerWidth so we can
-// see why mobile mode isn't firing on real phones. Remove this
-// component (and its <ViewportDebug /> usage above) once layout is
-// confirmed working on mobile.
-function ViewportDebug({ viewport }) {
-  const [size, setSize] = useState({ w: 0, h: 0 });
-  useEffect(() => {
-    const update = () => setSize({ w: window.innerWidth, h: window.innerHeight });
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: 8,
-        right: 8,
-        zIndex: 9999,
-        padding: '6px 10px',
-        background: 'rgba(0,0,0,0.78)',
-        color: '#fff',
-        fontFamily: 'monospace',
-        fontSize: 12,
-        borderRadius: 6,
-        pointerEvents: 'none',
-        lineHeight: 1.4,
-      }}
-    >
-      viewport: <b>{viewport}</b>
-      <br />
-      window: {size.w}×{size.h}
-    </div>
-  );
-}
