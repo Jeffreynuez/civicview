@@ -766,6 +766,11 @@ export default function Home() {
             selectedMember={selectedMember}
             width={panelWidth}
             isMobile={useStackedLayout}
+            // True when the user has dragged the mobile horizontal
+            // resizer all the way down (mapHeightPx === 0). Used by
+            // SidePanel to hide its header when the user has chosen
+            // to give the panel the entire vertical space.
+            mapCollapsed={useStackedLayout && mapHeightPx === 0}
             onMemberSelect={handleMemberSelect}
             onBack={handleBack}
             onClose={handleCloseProfile}

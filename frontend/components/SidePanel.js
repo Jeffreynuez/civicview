@@ -138,6 +138,11 @@ export default function SidePanel({
   // (the panel sits below the map in a vertical stack) and the panel-
   // width prop is ignored.
   isMobile = false,
+  // True when the user has dragged the mobile drag handle all the way
+  // down (map height = 0). Used together with scroll position to hide
+  // the panel header on mobile so the rep window gets the full vertical
+  // space. Has no effect on desktop, where the header is always shown.
+  mapCollapsed = false,
 }) {
   const isInCompare = (m) => Boolean(compareIds && m && compareIds.has(m.bioguide_id || m.id));
   // Controlled tab state when the parent lifts it (so selecting a candidate
@@ -151,22 +156,33 @@ export default function SidePanel({
   const [chamberFilter, setChamberFilter] = useState('all'); // 'all' | 'Senate' | 'House'
   const [sortBy, setSortBy] = useState('name-asc'); // 'name-asc'|'name-desc'|'tenure-long'|'tenure-short'
 
-  // Back-to-top FAB. The scroll container (line ~330) is the only element
-  // here that scrolls — both NOP and the state tabs render inside it. We
-  // attach a scroll listener that flips `showBackToTop` once the user has
-  // scrolled past 600px (about one viewport of content), and the FAB is
-  // a fixed-position button inside the SidePanel root that scrolls the
-  // container back to 0 on click. Hidden by default so it doesn't block
-  // the citizen-banner / footer at the bottom of short scrolls.
+  // Back-to-top FAB + collapsing header. The scroll container (line
+  // ~330) is the only element here that scrolls — both NOP and the
+  // state tabs render inside it. The same scroll listener powers two
+  // things:
+  //   - showBackToTop: scrollTop > 600 → render the bottom-right FAB
+  //   - scrolled:      scrollTop > 40  → hide the panel header on
+  //     mobile so the rep window gets the full vertical space (the
+  //     header is "United States · National officials …" or the
+  //     state name when one is selected, and is over-cumbersome on a
+  //     short mobile viewport once the user has started reading).
   const scrollRef = useRef(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const onScroll = () => setShowBackToTop(el.scrollTop > 600);
+    const onScroll = () => {
+      setShowBackToTop(el.scrollTop > 600);
+      setScrolled(el.scrollTop > 40);
+    };
     el.addEventListener('scroll', onScroll, { passive: true });
     return () => el.removeEventListener('scroll', onScroll);
   }, []);
+  // Header collapses on mobile when the user has scrolled into content
+  // OR when the map has been fully closed. Desktop always shows the
+  // header — the larger viewport doesn't have the same vertical squeeze.
+  const hideHeader = isMobile && (scrolled || mapCollapsed);
   const handleBackToTop = () => {
     const el = scrollRef.current;
     if (!el) return;
@@ -232,16 +248,37 @@ export default function SidePanel({
           : { width: `${width}px`, flexShrink: 0, position: 'relative' }
       }
     >
-      {/* Header */}
-      <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-bg)' }}>
-        <h2 style={{ fontSize: '1.1rem', color: 'var(--cl-primary)', marginBottom: '2px', fontWeight: 700 }}>
-          {stateName || 'United States'}
-        </h2>
-        <p style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
-          {stateName
-            ? `Elected officials and upcoming elections${isLive ? ' · Live data' : ''}`
-            : 'National officials — look up your district or click a state on the map'}
-        </p>
+      {/* Header — collapses on mobile when the user scrolls past 40px
+          OR when the map has been fully closed. The wrapping div uses
+          max-height + opacity transitions so the collapse is animated
+          rather than a hard cut. aria-hidden is toggled in lockstep
+          so screen readers don't read a "hidden" header. */}
+      <div
+        aria-hidden={hideHeader}
+        style={{
+          // Generous max-height for the open state — ~200px covers the
+          // worst case (state name + subtitle + active-district chip).
+          // 0 collapses to nothing.
+          maxHeight: hideHeader ? 0 : 200,
+          opacity: hideHeader ? 0 : 1,
+          overflow: 'hidden',
+          transition: 'max-height 0.22s ease, opacity 0.18s ease',
+          // Border + background only render in the open state — without
+          // this you'd see a thin border-line floating above tabs when
+          // collapsed.
+          borderBottom: hideHeader ? 'none' : '1px solid var(--cl-border)',
+          background: 'var(--cl-bg)',
+        }}
+      >
+        <div style={{ padding: '16px 20px' }}>
+          <h2 style={{ fontSize: '1.1rem', color: 'var(--cl-primary)', marginBottom: '2px', fontWeight: 700 }}>
+            {stateName || 'United States'}
+          </h2>
+          <p style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
+            {stateName
+              ? `Elected officials and upcoming elections${isLive ? ' · Live data' : ''}`
+              : 'National officials — look up your district or click a state on the map'}
+          </p>
 
         {/* District filter chip - shown when an address lookup is active */}
         {activeDistrict && (
@@ -284,6 +321,7 @@ export default function SidePanel({
             </button>
           </div>
         )}
+        </div>
       </div>
 
       {/* Tabs — Congress / State / Local / Elections. Mobile bumps
