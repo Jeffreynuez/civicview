@@ -332,7 +332,7 @@ export default function SidePanel({
                 here was redundant with the panel header subtitle ("National
                 officials — look up your district or click a state on the
                 map") and was burning ~38px of vertical space the panel
-                content needs more — removed. */}
+                content needs more — removed.
                 onOpenPage routes through to handleOpenPage in page.js so
                 the Page button on each card opens the rep's PageView. */}
             <NationalOfficialsPanel
