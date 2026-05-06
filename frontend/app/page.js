@@ -611,6 +611,7 @@ export default function Home() {
         onCitizenLogin={handleCitizenLoginOpen}
         onCitizenLogout={handleCitizenLogoutClick}
         onCitizenDashboard={() => setDashboardOpen(true)}
+        onHome={handleStateDeselect}
       />
       <CitizenLoginModal
         open={citizenLoginOpen}

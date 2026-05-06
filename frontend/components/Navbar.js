@@ -27,6 +27,11 @@ export default function Navbar({
   onCitizenLogin,
   onCitizenLogout,
   onCitizenDashboard,
+  // Click on the logo / wordmark — typically wired to a "go home"
+  // handler in page.js that clears selectedState, selectedMember,
+  // selectedCandidate, activeDistrict, etc. so the map zooms back
+  // out and NOP comes into view.
+  onHome,
 }) {
   const { list: trackedList } = useTrackedBills();
   const { list: trackedOfficialsList } = useTrackedOfficials();
@@ -205,10 +210,26 @@ export default function Navbar({
           white lens ring/handle so it stands on the navy navbar.
           On mobile: hide the wordmark "CivicLens" — the lens icon alone
           is recognizable enough and we need the horizontal space. */}
-      <div className="flex items-center gap-2" style={{ flexShrink: 0 }}>
+      {/* Logo + wordmark — clickable home link. Tapping resets the
+          app's selection state (selectedState / member / candidate /
+          activeDistrict) so the user lands back on the National
+          Officials view with the map zoomed out to the full US. */}
+      <button
+        type="button"
+        onClick={() => onHome?.()}
+        aria-label="CivicLens — home"
+        className="flex items-center gap-2"
+        style={{
+          flexShrink: 0,
+          background: 'transparent',
+          border: 'none',
+          padding: 0,
+          cursor: onHome ? 'pointer' : 'default',
+        }}
+      >
         <CivicLensLogo size={28} variant="reverse" />
         {!isMobile && <span className="text-white font-semibold text-lg">CivicLens</span>}
-      </div>
+      </button>
 
       {/* Search Bar — desktop / tablet renders inline. On mobile it
           collapses to an icon button (rendered later in the actions

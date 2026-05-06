@@ -719,12 +719,20 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         </div>
       )}
 
-      {/* State / district label — bottom center. Reflects hover when
-          available. Phase 4B: tokenized chrome (navy primary fill, white
-          text via --cl-text-on-dark). */}
+      {/* State / district label — top center.
+          Was bottom-center, but on phone-sized maps that pill overlaps
+          the bottom-left zoom dock (desktop) and the bottom-right
+          OpenStreetMap attribution badge. Top-center keeps the
+          attribution clearly readable and pairs naturally with the
+          MapLibre NavigationControl at top-right.
+
+          When a district is active, the back-to-state pill in the
+          top-left also lives in this row — they stay clear of each
+          other because the back pill is left-aligned and the label
+          is centered with `transform: translateX(-50%)`. */}
       <div
         style={{
-          position: 'absolute', bottom: 24, left: '50%',
+          position: 'absolute', top: 16, left: '50%',
           transform: 'translateX(-50%)',
           background: 'var(--cl-primary)',
           color: 'var(--cl-text-on-dark)',
@@ -736,6 +744,12 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           opacity: 0.9,
           zIndex: 10,
           pointerEvents: 'none',
+          // Cap the width so very long district labels don't push
+          // into the NavigationControl on the right at narrow widths.
+          maxWidth: 'calc(100% - 140px)',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         {hoveredDistrictLabel || hoveredState || currentLabel}
