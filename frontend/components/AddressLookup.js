@@ -6,21 +6,84 @@ import { lookupAddress } from '@/lib/api';
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
 
+// Reverse-geocodes a (lat, lon) pair to a postal address using OpenStreetMap's
+// free Nominatim service. We never log raw coordinates and never send the
+// address to a third party afterwards — the address goes straight back into
+// our own /api/address/lookup and never leaves the user's session.
+//
+// Why Nominatim:
+//   - Free, no API key
+//   - Decent US street-level coverage
+//   - Polite rate limit (1 req/s) is fine for a "click the button once" flow
+// Required attribution lives next to the button so we comply with their TOS.
+async function reverseGeocode(lat, lon) {
+  const url =
+    'https://nominatim.openstreetmap.org/reverse' +
+    `?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}` +
+    '&zoom=18&addressdetails=1';
+  const resp = await fetch(url, {
+    headers: {
+      // Nominatim asks for a non-default UA + a contact link
+      'Accept-Language': 'en-US,en',
+    },
+  });
+  if (!resp.ok) throw new Error(`Reverse geocode failed (${resp.status})`);
+  const data = await resp.json();
+  // Prefer the structured-address fields so we feed our backend a clean
+  // "street, city, ST zip" string. Nominatim's display_name is comma-separated
+  // and often includes things like neighborhood/county which our geocoder
+  // doesn't need; we strip down to street + city + state + postcode.
+  const a = data?.address || {};
+  const street = [a.house_number, a.road].filter(Boolean).join(' ');
+  const city = a.city || a.town || a.village || a.hamlet || a.suburb || '';
+  const stateAbbr = STATE_ABBR[(a.state || '').toLowerCase()] || a.state || '';
+  const postcode = a.postcode || '';
+  const parts = [street, [city, stateAbbr, postcode].filter(Boolean).join(' ')]
+    .map((s) => s && s.trim())
+    .filter(Boolean);
+  return parts.join(', ') || data?.display_name || '';
+}
+
+// Full-state-name → 2-letter abbreviation. Lowercased keys so the lookup
+// is case-insensitive (Nominatim sometimes returns "Florida" sometimes
+// "florida").
+const STATE_ABBR = {
+  alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA',
+  colorado: 'CO', connecticut: 'CT', delaware: 'DE', 'district of columbia': 'DC',
+  florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL',
+  indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA',
+  maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI',
+  minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT',
+  nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ',
+  'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC',
+  'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR',
+  pennsylvania: 'PA', 'rhode island': 'RI', 'south carolina': 'SC',
+  'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT',
+  vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV',
+  wisconsin: 'WI', wyoming: 'WY',
+};
+
 export default function AddressLookup({ onResult, onMemberSelect }) {
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  // Separate from `loading` so the input/submit disabled state isn't toggled
+  // by the geolocation phase — when the user clicks "Use my location" the
+  // address field actually fills in, then we submit, and during that submit
+  // the regular `loading` flag takes over.
+  const [locating, setLocating] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!address.trim()) return;
-
+  // Submits an address string. Used both by the form-submit handler and by
+  // the geolocation flow (which fills the input then submits programmatically
+  // so the user sees the address that was looked up).
+  const submitAddress = async (addr) => {
+    if (!addr || !addr.trim()) return;
     setLoading(true);
     setError(null);
     setResult(null);
 
-    const data = await lookupAddress(address.trim());
+    const data = await lookupAddress(addr.trim());
 
     if (data.success) {
       setResult(data);
@@ -30,6 +93,60 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
     }
 
     setLoading(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitAddress(address);
+  };
+
+  // Geolocation handler — wired to the "Use my location" pill.
+  // Gracefully degrades:
+  //   1. Browser unsupported  → show "Geolocation not supported"
+  //   2. User denies permission → "Location access denied. Type your address."
+  //   3. Reverse-geocode fails  → "Couldn't read your location. Type your address."
+  //   4. Success                → fill input + submit
+  const handleUseMyLocation = () => {
+    setError(null);
+    if (typeof navigator === 'undefined' || !navigator.geolocation) {
+      setError('Your browser doesn\'t support location lookup. Type your address instead.');
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const addr = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
+          if (!addr) {
+            setLocating(false);
+            setError('We couldn\'t read your location. Type your address instead.');
+            return;
+          }
+          setAddress(addr);
+          setLocating(false);
+          // Fire-and-forget submit so the input visibly populates first, then
+          // the loading spinner takes over from there.
+          submitAddress(addr);
+        } catch (err) {
+          setLocating(false);
+          setError('We couldn\'t read your location. Type your address instead.');
+        }
+      },
+      (err) => {
+        setLocating(false);
+        if (err && err.code === 1) {
+          // PERMISSION_DENIED
+          setError('Location access denied. Type your address instead.');
+        } else if (err && err.code === 3) {
+          // TIMEOUT
+          setError('Location lookup timed out. Type your address instead.');
+        } else {
+          setError('We couldn\'t read your location. Type your address instead.');
+        }
+      },
+      // 10s timeout, accept a 5-min cached fix (good enough for district lookup)
+      { timeout: 10000, maximumAge: 5 * 60 * 1000, enableHighAccuracy: false },
+    );
   };
 
   const MemberCard = ({ member, label }) => {
@@ -113,6 +230,80 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
           >
             {loading ? 'Looking up...' : 'Look Up'}
           </button>
+        </div>
+
+        {/* "Use my location" affordance — sits below the input row so it
+            doesn't compete with the primary Look Up CTA but is still
+            within easy thumb reach. The pin icon + minimal styling
+            keeps it visually quieter than the accent-blue submit button.
+            Nominatim attribution is rendered next to it (their TOS
+            requirement) in 11px muted text. */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 8,
+            gap: 8,
+            flexWrap: 'wrap',
+          }}
+        >
+          <button
+            type="button"
+            onClick={handleUseMyLocation}
+            disabled={locating || loading}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '6px 10px',
+              background: 'transparent',
+              color: 'var(--cl-accent)',
+              border: '1px solid var(--cl-border)',
+              borderRadius: 999,
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: locating || loading ? 'wait' : 'pointer',
+              opacity: locating || loading ? 0.6 : 1,
+              transition: 'border-color 0.15s, color 0.15s, background 0.15s',
+              fontFamily: 'var(--cl-font-sans)',
+            }}
+            onMouseOver={(e) => {
+              if (locating || loading) return;
+              e.currentTarget.style.borderColor = 'var(--cl-accent)';
+              e.currentTarget.style.background = 'var(--cl-accent-soft, rgba(69,123,157,0.08))';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = 'var(--cl-border)';
+              e.currentTarget.style.background = 'transparent';
+            }}
+            aria-label="Use my current location to find my reps"
+          >
+            <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 1.5C5.24 1.5 3 3.74 3 6.5c0 3.5 5 8 5 8s5-4.5 5-8c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"
+                fill="currentColor"
+              />
+            </svg>
+            {locating ? 'Locating…' : 'Use my location'}
+          </button>
+          <span
+            style={{
+              fontSize: '0.66rem',
+              color: 'var(--cl-text-muted)',
+              lineHeight: 1.3,
+            }}
+          >
+            Lookup by{' '}
+            <a
+              href="https://www.openstreetmap.org/copyright"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--cl-text-muted)', textDecoration: 'underline' }}
+            >
+              OpenStreetMap
+            </a>
+          </span>
         </div>
       </form>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Skeleton } from './ui';
 import PersonCard from './PersonCard';
 import ProfileView from './ProfileView';
@@ -150,6 +150,28 @@ export default function SidePanel({
   const [partyFilter, setPartyFilter] = useState('all'); // 'all' | 'R' | 'D' | 'I'
   const [chamberFilter, setChamberFilter] = useState('all'); // 'all' | 'Senate' | 'House'
   const [sortBy, setSortBy] = useState('name-asc'); // 'name-asc'|'name-desc'|'tenure-long'|'tenure-short'
+
+  // Back-to-top FAB. The scroll container (line ~330) is the only element
+  // here that scrolls — both NOP and the state tabs render inside it. We
+  // attach a scroll listener that flips `showBackToTop` once the user has
+  // scrolled past 600px (about one viewport of content), and the FAB is
+  // a fixed-position button inside the SidePanel root that scrolls the
+  // container back to 0 on click. Hidden by default so it doesn't block
+  // the citizen-banner / footer at the bottom of short scrolls.
+  const scrollRef = useRef(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => setShowBackToTop(el.scrollTop > 600);
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+  const handleBackToTop = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // NOTE: ProfileView is rendered as an absolutely-positioned overlay at
   // the bottom of this component (search for "ProfileView overlay" below)
@@ -309,7 +331,7 @@ export default function SidePanel({
           state (candidate case in page.js). Browser preserves its
           scrollTop across both, so Back lands the user exactly where
           they were. */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
+      <div ref={scrollRef} style={{ flex: 1, overflowY: 'auto', padding: '12px' }}>
         {loading && (
           <div style={{ padding: 16 }}>
             <Skeleton variant="list" count={3} />
@@ -522,6 +544,59 @@ export default function SidePanel({
           />
         )}
       </div>
+
+      {/* Back-to-top FAB — only renders once the user has scrolled past
+          ~600px in the scroll container above. Hidden when a profile is
+          open (the ProfileView overlay sits above this and has its own
+          back/close affordances). Position is bottom-right of the panel
+          with a generous offset so it doesn't crowd the citizen-banner /
+          mobile drag handle. Pointer-events:none on the wrapper so the
+          fade-out doesn't block clicks underneath. */}
+      {!selectedMember && (
+        <div
+          aria-hidden={!showBackToTop}
+          style={{
+            position: 'absolute',
+            right: 16,
+            bottom: 16,
+            pointerEvents: showBackToTop ? 'auto' : 'none',
+            opacity: showBackToTop ? 1 : 0,
+            transform: showBackToTop ? 'translateY(0)' : 'translateY(8px)',
+            transition: 'opacity 0.18s ease, transform 0.18s ease',
+            zIndex: 6,
+          }}
+        >
+          <button
+            type="button"
+            onClick={handleBackToTop}
+            aria-label="Back to top"
+            title="Back to top"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              background: 'var(--cl-primary, #1b263b)',
+              color: 'white',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.22)',
+              cursor: 'pointer',
+              fontFamily: 'var(--cl-font-sans)',
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'var(--cl-primary-light, #415a77)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = 'var(--cl-primary, #1b263b)'; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 3l5 5h-3v5H6V8H3l5-5z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* ProfileView overlay — covers the entire SidePanel chrome whenever
           a member is selected. Critically, the SidePanel content above is

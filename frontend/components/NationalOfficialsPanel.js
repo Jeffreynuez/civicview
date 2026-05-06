@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchFederalOfficials } from '@/lib/api';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
@@ -17,6 +17,42 @@ import {
   CheckCircle,
 } from './ui';
 import CivicLensLogo from './brand/CivicLensLogo';
+
+// ─────────────────────────────────────────────────────────────────
+// usePersistentToggle — localStorage-backed boolean state.
+//
+// SSR-safe: the first render (server + initial client) returns the
+// caller's default. On mount we read localStorage and update if a
+// stored value exists. Toggling writes the new value back so it
+// survives reloads. Used by every collapsible section on this surface
+// so a user who collapses Senate (or expands Browse-by-state) doesn't
+// have to do it again next visit.
+// ─────────────────────────────────────────────────────────────────
+function usePersistentToggle(key, defaultOpen) {
+  const [value, setValue] = useState(defaultOpen);
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(key);
+      if (stored === '1') setValue(true);
+      else if (stored === '0') setValue(false);
+    } catch {
+      // localStorage can throw in private-mode Safari; fall back to
+      // in-memory state silently.
+    }
+  }, [key]);
+  const toggle = useCallback(() => {
+    setValue((v) => {
+      const next = !v;
+      try {
+        window.localStorage.setItem(key, next ? '1' : '0');
+      } catch {
+        /* see above */
+      }
+      return next;
+    });
+  }, [key]);
+  return [value, toggle];
+}
 
 // ─────────────────────────────────────────────────────────────────
 // Color tables — resolve through the canonical --cl-* tokens. Soft
@@ -129,10 +165,18 @@ export default function NationalOfficialsPanel({
   };
 
   if (loading) {
+    // The Hero is data-independent (stats are static numbers), so we can
+    // render it immediately even while the federal-officials API is in
+    // flight. Below it we render section-shaped skeletons that match the
+    // alternating bg-soft / bg-card striping of the real page so the
+    // loaded state slots in without a layout shift.
     return (
-      <div style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <Skeleton variant="card" withThumbnail />
-        <Skeleton variant="list" count={3} />
+      <div style={{ fontFamily: 'var(--cl-font-sans)' }}>
+        <Hero onVerifyClick={handleVerifyClick} />
+        <SectionSkeleton eyebrow="Article II" title="Executive Branch" cardCount={6} bg="card" />
+        <SectionSkeleton eyebrow="Article I · Section 3" title="Senate Leadership" cardCount={4} bg="soft" />
+        <SectionSkeleton eyebrow="Article I · Section 2" title="House Leadership" cardCount={4} bg="card" />
+        <SectionSkeleton eyebrow="Article III" title="Supreme Court of the United States" cardCount={9} bg="soft" />
       </div>
     );
   }
@@ -249,8 +293,9 @@ function Hero({ onVerifyClick }) {
   // CivicLens Stats dropdown — starts collapsed per design feedback.
   // The numbers are a "nice to have" peek; collapsing them by default
   // moves the verify-address CTA closer to the fold and reduces
-  // first-paint cognitive load.
-  const [statsOpen, setStatsOpen] = useState(false);
+  // first-paint cognitive load. Persisted so a user who opens it once
+  // doesn't have to re-open it on every reload.
+  const [statsOpen, toggleStats] = usePersistentToggle('cl:nop:stats', false);
 
   // Container-width-aware layout. NOP renders inside the resizable
   // SidePanel, which can be anywhere from ~300px to full-viewport. When
@@ -395,7 +440,7 @@ function Hero({ onVerifyClick }) {
           >
             <button
               type="button"
-              onClick={() => setStatsOpen((v) => !v)}
+              onClick={toggleStats}
               aria-expanded={statsOpen}
               style={{
                 display: 'inline-flex',
@@ -506,7 +551,9 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
   // feel populated on first paint, not gated behind 4 chevrons. The
   // toggle exists so a user who's just looking for SCOTUS or Browse-
   // by-state can collapse the upstream sections to scroll less.
-  const [open, setOpen] = useState(true);
+  // Persisted to localStorage so a user's collapse choices survive
+  // reloads.
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:exec', true);
 
   return (
     <section style={{ padding: '32px 24px 16px' }}>
@@ -522,7 +569,7 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
           chip={null}
           collapsible
           open={open}
-          onToggle={() => setOpen((v) => !v)}
+          onToggle={toggleOpen}
         />
 
         {open && (<>
@@ -627,10 +674,10 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
 // ─────────────────────────────────────────────────────────────────
 function SenateLeadershipSection({ senate, congressNumber, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
   // Hooks first — Senate may render before data hydrates, in which case
-  // `leadership` is empty and we early-return null below. The useState
-  // call has to happen before any conditional return so React's hook
-  // order stays stable across renders.
-  const [open, setOpen] = useState(true);
+  // `leadership` is empty and we early-return null below. The hook call
+  // has to happen before any conditional return so React's hook order
+  // stays stable across renders.
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:senate', true);
   const leadership = senate.leadership || [];
   if (leadership.length === 0) return null;
   const breakdown = senate.party_breakdown || {};
@@ -650,7 +697,7 @@ function SenateLeadershipSection({ senate, congressNumber, onSelectPerson, onNot
           chip={<PartyBalanceChip breakdown={breakdown} />}
           collapsible
           open={open}
-          onToggle={() => setOpen((v) => !v)}
+          onToggle={toggleOpen}
         />
         {open && (
           <LeadershipGrid
@@ -674,7 +721,7 @@ function HouseLeadershipSection({ house, congressNumber, onSelectPerson, onNotif
   // See SenateLeadershipSection comment — hooks must precede the
   // conditional early return so we don't violate the rules of hooks
   // when leadership data hydrates from empty into populated.
-  const [open, setOpen] = useState(true);
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:house', true);
   const leadership = house.leadership || [];
   if (leadership.length === 0) return null;
   const breakdown = house.party_breakdown || {};
@@ -694,7 +741,7 @@ function HouseLeadershipSection({ house, congressNumber, onSelectPerson, onNotif
           chip={<PartyBalanceChip breakdown={breakdown} />}
           collapsible
           open={open}
-          onToggle={() => setOpen((v) => !v)}
+          onToggle={toggleOpen}
         />
         {open && (
           <LeadershipGrid
@@ -716,7 +763,7 @@ function HouseLeadershipSection({ house, congressNumber, onSelectPerson, onNotif
 // ─────────────────────────────────────────────────────────────────
 function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
   // Same hook-order contract as the leadership sections above.
-  const [open, setOpen] = useState(true);
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:scotus', true);
   const justices = sc.members || [];
   if (justices.length === 0) return null;
 
@@ -733,7 +780,7 @@ function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareI
           chip={null}
           collapsible
           open={open}
-          onToggle={() => setOpen((v) => !v)}
+          onToggle={toggleOpen}
         />
         {open && (
           <div
@@ -987,8 +1034,8 @@ function BrowseByStateSection({ onStatePick }) {
   // primary geographic entry point, and the 51-pill grid is a sizable
   // chunk of vertical real estate. Most visitors won't need to scan the
   // alphabetical fallback, so we hide it by default and let the curious
-  // tap the chevron to open it.
-  const [open, setOpen] = useState(false);
+  // tap the chevron to open it. Persisted across reloads.
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:browse', false);
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -999,7 +1046,7 @@ function BrowseByStateSection({ onStatePick }) {
           chip={null}
           collapsible
           open={open}
-          onToggle={() => setOpen((v) => !v)}
+          onToggle={toggleOpen}
         />
         {open && (
           /* Grid: keeps 2 columns even at narrow side-panel widths. The
@@ -1847,6 +1894,63 @@ function formatLongDate(iso) {
   if (!iso) return '';
   const d = new Date(iso);
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// Section-shaped loading skeleton — rendered while the federal-officials
+// API is in flight. Matches the SectionHeader + card-grid layout so the
+// real content can swap in without a layout jump. `bg="soft"` mirrors
+// the bg-soft striped sections (Senate, SCOTUS); `bg="card"` mirrors the
+// card-bg sections (Executive, House).
+function SectionSkeleton({ eyebrow, title, cardCount = 6, bg = 'card' }) {
+  return (
+    <section
+      style={{
+        padding: '32px 24px 16px',
+        background: bg === 'soft' ? 'var(--cl-bg-soft)' : undefined,
+      }}
+      aria-busy="true"
+      aria-live="polite"
+    >
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <header style={{ marginBottom: 16 }}>
+          <Eyebrow tone="accent">{eyebrow}</Eyebrow>
+          <h2
+            className="cl-h1"
+            style={{
+              margin: '4px 0 0',
+              fontSize: 'var(--cl-text-2xl)',
+              fontWeight: 700,
+              letterSpacing: 'var(--cl-tracking-tight)',
+              color: 'var(--cl-text-light)',
+            }}
+          >
+            {title}
+          </h2>
+        </header>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: 10,
+          }}
+        >
+          {Array.from({ length: cardCount }).map((_, i) => (
+            <div
+              key={i}
+              style={{
+                background: 'var(--cl-card)',
+                border: '1px solid var(--cl-border)',
+                borderRadius: 'var(--cl-radius-xl)',
+                padding: 12,
+              }}
+            >
+              <Skeleton variant="card" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 // Single-glyph chevron used by every collapsible header on this surface
