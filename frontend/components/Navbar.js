@@ -5,7 +5,7 @@ import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
-import { useViewport, useIsLandscape } from '@/lib/useViewport';
+import { useViewport } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -49,15 +49,17 @@ export default function Navbar({
   const inputRef = useRef(null);
 
   // Mobile compression — drives two pieces of state that only matter at
-  // ≤900px PORTRAIT: a full-bar search overlay (the wide search input is
-  // too tall and wide for the navbar at phone widths), and a popover
-  // menu that collects the secondary actions (Subscribe / Committees /
-  // My Tracked) behind a hamburger so the navbar fits in one row.
-  // Landscape phones get the desktop navbar layout because there's
-  // plenty of horizontal room for the inline search bar + nav buttons.
+  // ≤900px: a full-bar search overlay (the wide search input is too tall
+  // and wide for the navbar at phone widths), and a popover menu that
+  // collects the secondary actions (Subscribe / Committees / My Tracked)
+  // behind a hamburger so the navbar fits in one row.
+  //
+  // Landscape phones still use the compressed navbar — putting all four
+  // nav buttons + the inline search bar in a row at ~850px wide
+  // overflows the navbar past the viewport edge, which is what was
+  // causing the page to show white when zoomed out.
   const viewport = useViewport();
-  const isLandscape = useIsLandscape();
-  const isMobile = viewport === 'mobile' && !isLandscape;
+  const isMobile = viewport === 'mobile';
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);

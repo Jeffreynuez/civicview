@@ -29,6 +29,12 @@ export default function PanelResizer({
   orientation = 'vertical',
   onResize,
   label = 'Map',
+  // True on touch devices regardless of orientation. Drives the chunky
+  // navy chrome — wider/taller bar, primary fill, white indicator
+  // lines/label — so the handle is easy to grab with a thumb. False
+  // gives the desktop-pointer chrome (thin neutral 6px bar with a tiny
+  // rotated label).
+  isMobile = false,
   // Vertical-only (desktop panel-width resizing)
   minWidth = 380,
   maxFraction = 0.5,
@@ -117,45 +123,126 @@ export default function PanelResizer({
 
   const active = hovering || dragging;
 
-  // Layout / chrome differs by orientation. Vertical = thin column with
-  // a vertical accent line; horizontal = short row with a horizontal
-  // accent pill.
-  const containerStyle = isVertical
-    ? {
-        width: 6,
-        flexShrink: 0,
-        cursor: 'ew-resize',
-        position: 'relative',
-        zIndex: 5,
-        background: active ? 'var(--primary, #457b9d)' : 'transparent',
-        opacity: active ? 0.6 : 1,
-        borderLeft: active ? 'none' : '1px solid var(--cl-border)',
-        transition: 'background 0.15s ease, opacity 0.15s ease',
-        // On vertical we want the label pill to overflow the 6px-wide
-        // strip horizontally so it's actually readable.
-        overflow: 'visible',
-      }
-    : {
-        // Mobile horizontal drag handle. Bumped from 18 → 28 px tall
-        // so it's noticeably easier to land a thumb on, and switched
-        // from the light surface-soft fill to a navy-primary fill so
-        // the bar reads as a distinct affordance rather than blending
-        // into the panel content beneath. Active-state (drag/hover)
-        // lightens slightly so there's still a feedback flash.
-        height: 28,
-        flexShrink: 0,
-        cursor: 'ns-resize',
-        position: 'relative',
-        zIndex: 5,
-        background: active ? 'var(--cl-primary-light, #415a77)' : 'var(--cl-primary, #1b263b)',
-        borderTop: '1px solid var(--cl-primary, #1b263b)',
-        borderBottom: '1px solid var(--cl-primary, #1b263b)',
-        transition: 'background 0.15s ease',
-        // Touch-action: none so the OS doesn't interpret the swipe as
-        // a page-scroll while the user is actively resizing.
-        touchAction: 'none',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      };
+  // Three chrome variants — picked by orientation × isMobile:
+  //
+  //   1. vertical   + !isMobile  → "thin desktop bar" (6px neutral)
+  //   2. vertical   + isMobile   → "chunky navy column" (28px navy)
+  //   3. horizontal              → "chunky navy row" (28px tall navy)
+  //
+  // The chunky variants share the same fill / indicator / label
+  // treatment. They just differ in axis (column vs row) and orientation
+  // of the handle dashes + label.
+  const useChunkyChrome = isMobile || !isVertical;
+
+  let containerStyle;
+  if (isVertical && !isMobile) {
+    // Variant 1 — thin desktop bar.
+    containerStyle = {
+      width: 6,
+      flexShrink: 0,
+      cursor: 'ew-resize',
+      position: 'relative',
+      zIndex: 5,
+      background: active ? 'var(--primary, #457b9d)' : 'transparent',
+      opacity: active ? 0.6 : 1,
+      borderLeft: active ? 'none' : '1px solid var(--cl-border)',
+      transition: 'background 0.15s ease, opacity 0.15s ease',
+      // On vertical we want the label pill to overflow the 6px-wide
+      // strip horizontally so it's actually readable.
+      overflow: 'visible',
+    };
+  } else if (isVertical && isMobile) {
+    // Variant 2 — chunky navy column for mobile-landscape side-by-side
+    // mode. 28px wide so a thumb can land on it, navy fill, white
+    // indicator dashes and label so it reads as a distinct affordance
+    // instead of blending into the map or the panel.
+    containerStyle = {
+      width: 28,
+      flexShrink: 0,
+      cursor: 'ew-resize',
+      position: 'relative',
+      zIndex: 5,
+      background: active ? 'var(--cl-primary-light, #415a77)' : 'var(--cl-primary, #1b263b)',
+      borderLeft: '1px solid var(--cl-primary, #1b263b)',
+      borderRight: '1px solid var(--cl-primary, #1b263b)',
+      transition: 'background 0.15s ease',
+      touchAction: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
+  } else {
+    // Variant 3 — chunky navy row for mobile-portrait stacked mode.
+    containerStyle = {
+      height: 28,
+      flexShrink: 0,
+      cursor: 'ns-resize',
+      position: 'relative',
+      zIndex: 5,
+      background: active ? 'var(--cl-primary-light, #415a77)' : 'var(--cl-primary, #1b263b)',
+      borderTop: '1px solid var(--cl-primary, #1b263b)',
+      borderBottom: '1px solid var(--cl-primary, #1b263b)',
+      transition: 'background 0.15s ease',
+      touchAction: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
+  }
+
+  // Indicator + label sub-elements for the chunky variants. Layout
+  // direction flips by orientation so the same building blocks read
+  // correctly as a vertical column or a horizontal row.
+  const renderChunkyContent = () => (
+    <div
+      aria-hidden="true"
+      style={{
+        display: 'flex',
+        flexDirection: isVertical ? 'column' : 'row',
+        alignItems: 'center',
+        gap: 10,
+        pointerEvents: 'none',
+      }}
+    >
+      <div
+        style={{
+          width: isVertical ? 3 : 32,
+          height: isVertical ? 32 : 3,
+          borderRadius: 2,
+          background: 'rgba(255,255,255,0.85)',
+          opacity: active ? 1 : 0.7,
+          transition: 'opacity 0.15s ease',
+        }}
+      />
+      {label && (
+        <span
+          style={{
+            fontSize: 'var(--cl-text-xs)',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.92)',
+            // For vertical: rotate the label so it reads bottom-to-top
+            // alongside the column. Horizontal: leave upright.
+            writingMode: isVertical ? 'vertical-rl' : undefined,
+            transform: isVertical ? 'rotate(180deg)' : undefined,
+          }}
+        >
+          {label}
+        </span>
+      )}
+      <div
+        style={{
+          width: isVertical ? 3 : 32,
+          height: isVertical ? 32 : 3,
+          borderRadius: 2,
+          background: 'rgba(255,255,255,0.85)',
+          opacity: active ? 1 : 0.7,
+          transition: 'opacity 0.15s ease',
+        }}
+      />
+    </div>
+  );
 
   return (
     <div
@@ -168,11 +255,13 @@ export default function PanelResizer({
       role="separator"
       aria-orientation={isVertical ? 'vertical' : 'horizontal'}
     >
-      {isVertical ? (
+      {useChunkyChrome ? (
+        renderChunkyContent()
+      ) : (
         <>
-          {/* Vertical: a 2px line + a label pill that pokes out to the
-              left, where it sits over the map area without crowding
-              the panel. */}
+          {/* Variant 1 — thin neutral bar. A 2px line + a label pill
+              that pokes out to the left, where it sits over the map
+              area without crowding the panel. */}
           <div
             style={{
               position: 'absolute',
@@ -213,56 +302,6 @@ export default function PanelResizer({
               {label}
             </div>
           )}
-        </>
-      ) : (
-        <>
-          {/* Horizontal: a small grab-handle indicator + the same Map
-              label pill, both centered. */}
-          <div
-            aria-hidden="true"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              pointerEvents: 'none',
-            }}
-          >
-            <div
-              style={{
-                width: 32,
-                height: 3,
-                borderRadius: 2,
-                // White-on-navy for strong contrast against the new
-                // primary-fill background.
-                background: 'rgba(255,255,255,0.85)',
-                opacity: active ? 1 : 0.7,
-                transition: 'opacity 0.15s ease',
-              }}
-            />
-            {label && (
-              <span
-                style={{
-                  fontSize: 'var(--cl-text-xs)',
-                  fontWeight: 700,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.92)',
-                }}
-              >
-                {label}
-              </span>
-            )}
-            <div
-              style={{
-                width: 32,
-                height: 3,
-                borderRadius: 2,
-                background: 'rgba(255,255,255,0.85)',
-                opacity: active ? 1 : 0.7,
-                transition: 'opacity 0.15s ease',
-              }}
-            />
-          </div>
         </>
       )}
     </div>

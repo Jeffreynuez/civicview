@@ -34,7 +34,11 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css" />
       </head>
-      <body className="h-screen flex flex-col">{children}</body>
+      {/* overflow-x: hidden as a safety net so a transient layout
+          overflow (e.g. mid-orientation-change before the visualViewport
+          listener fires) can't expose horizontal scrollbars / white
+          gutters when the user pinch-zooms out. */}
+      <body className="h-screen flex flex-col" style={{ overflowX: 'hidden' }}>{children}</body>
     </html>
   );
 }

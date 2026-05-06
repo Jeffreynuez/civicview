@@ -728,6 +728,7 @@ export default function Home() {
             // navbar's height style.
             topOffset={56}
             label="Map"
+            isMobile={isMobile}
           />
         ) : (
           <PanelResizer
@@ -736,6 +737,10 @@ export default function Home() {
             minWidth={380}
             maxFraction={0.5}
             label="Map"
+            // Pass isMobile (touch viewport, not just stacked-layout)
+            // so landscape phones still get the chunky thumb-friendly
+            // chrome on the vertical resizer.
+            isMobile={isMobile}
           />
         )}
         {/* SidePanel is ALWAYS mounted so its scroll container survives
