@@ -67,3 +67,43 @@ export function useIsCompact() {
   const v = useViewport();
   return v === 'mobile' || v === 'tablet';
 }
+
+/**
+ * Reports whether the viewport is wider than it is tall — i.e. the user is
+ * holding a phone sideways (or has a short-and-wide window on desktop).
+ * Used to pivot the mobile layout: portrait stacks (map on top, panel
+ * below); landscape goes side-by-side like desktop because vertical real
+ * estate is too cramped for stacking on a 360–500px-tall viewport.
+ *
+ * SSR-safe: defaults to false on the first render, then updates on mount
+ * + on resize / orientationchange.
+ */
+export function useIsLandscape() {
+  const [landscape, setLandscape] = useState(false);
+
+  useEffect(() => {
+    const apply = () => {
+      // visualViewport is the most accurate signal on mobile (it excludes
+      // the URL bar overlay). Fall back to innerWidth/Height.
+      const vv = window.visualViewport;
+      const w = vv ? vv.width : window.innerWidth;
+      const h = vv ? vv.height : window.innerHeight;
+      setLandscape(w > h);
+    };
+    apply();
+    window.addEventListener('resize', apply);
+    window.addEventListener('orientationchange', apply);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', apply);
+    }
+    return () => {
+      window.removeEventListener('resize', apply);
+      window.removeEventListener('orientationchange', apply);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', apply);
+      }
+    };
+  }, []);
+
+  return landscape;
+}

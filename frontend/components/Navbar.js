@@ -5,7 +5,7 @@ import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
-import { useViewport } from '@/lib/useViewport';
+import { useViewport, useIsLandscape } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -49,12 +49,15 @@ export default function Navbar({
   const inputRef = useRef(null);
 
   // Mobile compression — drives two pieces of state that only matter at
-  // ≤768px: a full-bar search overlay (the wide search input is too tall
-  // and wide for the navbar at phone widths), and a popover menu that
-  // collects the secondary actions (Subscribe / Committees / My Tracked)
-  // behind a hamburger so the navbar fits in one row.
+  // ≤900px PORTRAIT: a full-bar search overlay (the wide search input is
+  // too tall and wide for the navbar at phone widths), and a popover
+  // menu that collects the secondary actions (Subscribe / Committees /
+  // My Tracked) behind a hamburger so the navbar fits in one row.
+  // Landscape phones get the desktop navbar layout because there's
+  // plenty of horizontal room for the inline search bar + nav buttons.
   const viewport = useViewport();
-  const isMobile = viewport === 'mobile';
+  const isLandscape = useIsLandscape();
+  const isMobile = viewport === 'mobile' && !isLandscape;
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);

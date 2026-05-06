@@ -22,14 +22,25 @@ import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
 import { useAuth, logoutRep } from '@/lib/auth';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
-import { useViewport } from '@/lib/useViewport';
+import { useViewport, useIsLandscape } from '@/lib/useViewport';
 
 export default function Home() {
   // Viewport drives the desktop ↔ mobile layout pivot. Computed once at
   // the top so every layout decision below sees a consistent value.
-  // 'mobile' (≤768px), 'tablet' (≤1024px), 'desktop' (>1024px).
+  // 'mobile' (≤900px), 'tablet' (≤1024px), 'desktop' (>1024px).
   const viewport = useViewport();
   const isMobile = viewport === 'mobile';
+  // True when the phone is held sideways (or any window where width >
+  // height). Used together with isMobile to decide between the stacked
+  // mobile layout (map on top, panel below) and the desktop side-by-
+  // side layout (map on left, panel on right). On a phone in landscape
+  // the viewport is too short (~360–500px) to stack a useful map AND
+  // a useful panel, so we pivot to the desktop layout instead.
+  const isLandscape = useIsLandscape();
+  // Single source of truth for "use the stacked / mobile-style layout"
+  // — only true when we're on a small screen AND in portrait. Landscape
+  // mobile gets the desktop side-by-side treatment.
+  const useStackedLayout = isMobile && !isLandscape;
 
   const [selectedState, setSelectedState] = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
@@ -669,22 +680,23 @@ export default function Home() {
         onMemberPick={handleGlobalMemberPick}
         onNotify={showNotification}
       />
-      {/* Layout pivot — desktop / tablet show map and panel side-by-side
-          (flex row, map flex-1, panel a fixed dragable width). Mobile
-          stacks them vertically (flex column, map a fixed share of the
-          viewport on top, panel takes the rest below). The user's
-          stated goal for mobile: keep the panel always-visible so the
-          NOP / state tabs stay reachable without picking a state on a
-          tiny map first. */}
-      <div className={`flex flex-1 overflow-hidden ${isMobile ? 'flex-col' : ''}`}>
-        {/* Map view + banner wrapper. Mobile: a draggable-height row at
-            the top, sized by mapHeightPx (defaulting to 40% viewport
-            height; user can drag the "Map" handle to shrink it to 0).
-            Desktop: stretches to fill remaining horizontal space. */}
+      {/* Layout pivot — desktop / tablet / mobile-landscape all show
+          map and panel side-by-side (flex row, map flex-1, panel a
+          fixed draggable width). Mobile-portrait stacks them
+          vertically (flex column, map a fixed share of the viewport
+          on top, panel takes the rest below). Landscape phones use
+          the side-by-side layout because a 360-500px-tall viewport
+          is too cramped to stack a useful map and a useful panel. */}
+      <div className={`flex flex-1 overflow-hidden ${useStackedLayout ? 'flex-col' : ''}`}>
+        {/* Map view + banner wrapper. Mobile-portrait: a draggable-
+            height row at the top, sized by mapHeightPx (defaulting to
+            40% viewport height; user can drag the "Map" handle to
+            shrink it to 0). Side-by-side mode: stretches to fill
+            remaining horizontal space. */}
         <div
           className="relative flex overflow-hidden"
           style={
-            isMobile
+            useStackedLayout
               ? { height: mapHeightPx, flexShrink: 0 }
               : { flex: 1 }
           }
@@ -700,11 +712,12 @@ export default function Home() {
           <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
         </div>
         {/* Draggable divider with a "Map" label.
-            Desktop: vertical bar between map (left) and panel (right) —
-              dragging widens / narrows the panel.
-            Mobile : horizontal bar between map (top) and panel (bottom) —
-              dragging up / down collapses or expands the map area. */}
-        {isMobile ? (
+            Side-by-side layout: vertical bar between map (left) and
+              panel (right) — dragging widens / narrows the panel.
+            Stacked (mobile-portrait): horizontal bar between map
+              (top) and panel (bottom) — dragging up / down collapses
+              or expands the map area. */}
+        {useStackedLayout ? (
           <PanelResizer
             orientation="horizontal"
             onResize={setMapHeightPx}
@@ -740,7 +753,7 @@ export default function Home() {
             stateName={stateName}
             selectedMember={selectedMember}
             width={panelWidth}
-            isMobile={isMobile}
+            isMobile={useStackedLayout}
             onMemberSelect={handleMemberSelect}
             onBack={handleBack}
             onClose={handleCloseProfile}
@@ -777,7 +790,7 @@ export default function Home() {
           <CandidateProfile
             candidate={selectedCandidate}
             width={panelWidth}
-            isMobile={isMobile}
+            isMobile={useStackedLayout}
             onBack={handleCandidateBack}
             onClose={handleCloseProfile}
             backLabel={candidateBackLabel}
