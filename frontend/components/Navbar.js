@@ -228,7 +228,13 @@ export default function Navbar({
         }}
       >
         <CivicLensLogo size={28} variant="reverse" />
-        {!isMobile && <span className="text-white font-semibold text-lg">CivicLens</span>}
+        {/* Wordmark — visible at every breakpoint. Originally hidden
+            on mobile in M1.5 to save horizontal space, but real-device
+            testing showed there's plenty of room next to the lens
+            icon on a 360-414px phone, and the wordmark adds important
+            brand recognition for a civic-tech app where users may
+            be unfamiliar. */}
+        <span className="text-white font-semibold text-lg">CivicLens</span>
       </button>
 
       {/* Search Bar — desktop / tablet renders inline. On mobile it

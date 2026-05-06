@@ -58,22 +58,44 @@ export default function Home() {
   // (= original fixed width) and is what we start with.
   const [panelWidth, setPanelWidth] = useState(380);
   // Mobile-only: pixel height of the map at the top of the screen.
-  // Defaults to 0 — the layout effect below recomputes it as 40% of
-  // the visible viewport on mount. Users can drag the "Map" handle up
+  // Defaults to 0 — the layout effect below recomputes it on mount
+  // based on the actual *visible* viewport height (visualViewport when
+  // available, since on Samsung Internet / Chrome Android
+  // `window.innerHeight` reports the layout viewport which includes
+  // the area behind the URL bar). We then subtract the navbar (56px)
+  // and the resizer bar (18px) and take 40% of the remaining
+  // space-available-to-the-split. Users can drag the "Map" handle up
   // to collapse the map (down to 0) but not down past the starting
   // height. Re-clamps on resize / orientation change so flipping to
-  // landscape doesn't strand the map at a stale height.
+  // landscape and back doesn't strand the map at a stale height.
   const [mapHeightPx, setMapHeightPx] = useState(0);
   const [mapMaxHeightPx, setMapMaxHeightPx] = useState(0);
   useEffect(() => {
+    const NAVBAR_PX = 56;
+    const RESIZER_PX = 18;
     const recompute = () => {
-      const max = Math.round(window.innerHeight * 0.4);
+      const visibleH = (typeof window !== 'undefined' && window.visualViewport)
+        ? window.visualViewport.height
+        : window.innerHeight;
+      const available = Math.max(0, visibleH - NAVBAR_PX - RESIZER_PX);
+      const max = Math.round(available * 0.4);
       setMapMaxHeightPx(max);
       setMapHeightPx((current) => (current === 0 || current > max ? max : current));
     };
     recompute();
     window.addEventListener('resize', recompute);
-    return () => window.removeEventListener('resize', recompute);
+    // visualViewport fires its own resize when the URL bar shows /
+    // hides — important so the map collapses cleanly when the user
+    // scrolls and the address bar slides in.
+    if (typeof window !== 'undefined' && window.visualViewport) {
+      window.visualViewport.addEventListener('resize', recompute);
+    }
+    return () => {
+      window.removeEventListener('resize', recompute);
+      if (typeof window !== 'undefined' && window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', recompute);
+      }
+    };
   }, []);
   // Return-to-list highlighting — after Back from a profile, we briefly pulse
   // the row the user was just viewing so they don't lose their place in a
