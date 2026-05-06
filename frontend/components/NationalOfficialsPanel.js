@@ -336,7 +336,12 @@ function Hero({ onVerifyClick }) {
     <section
       ref={containerRef}
       style={{
-        padding: '40px 24px 32px',
+        // Top padding trimmed (was 40) since AddressLookup sits directly
+        // above this and the stacked padding burned ~70px of whitespace
+        // between the "Use my location" pill and the "National officials
+        // · 119th Congress" eyebrow. 20 keeps a clean visual break
+        // without the air gap.
+        padding: '20px 24px 32px',
         background: 'var(--cl-card)',
         borderBottom: '1px solid var(--cl-border)',
       }}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { lookupAddress } from '@/lib/api';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -73,6 +73,17 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
   // address field actually fills in, then we submit, and during that submit
   // the regular `loading` flag takes over.
   const [locating, setLocating] = useState(false);
+
+  // Auto-dismiss any error banner after 10 seconds. Errors here are
+  // transient ("Could not find that address.", "Location access denied.",
+  // etc.) — once the user has read it once, leaving it parked indefinitely
+  // wastes vertical space in the panel. The cleanup cancels the timer if
+  // the error changes (or clears) before it fires.
+  useEffect(() => {
+    if (!error) return undefined;
+    const t = setTimeout(() => setError(null), 10000);
+    return () => clearTimeout(t);
+  }, [error]);
 
   // Submits an address string. Used both by the form-submit handler and by
   // the geolocation flow (which fills the input then submits programmatically
@@ -197,9 +208,16 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
   };
 
   return (
-    <div style={{ padding: '16px' }}>
-      {/* Search Form */}
-      <form onSubmit={handleSubmit} style={{ marginBottom: '16px' }}>
+    // Bottom padding is 0 (instead of 16) so the NOP Hero that renders
+    // immediately below sits closer to the lookup. Hero brings its own
+    // top padding for breathing room — stacking 16 + 16 + 40 was
+    // burning ~70px of empty space between the form and the NOP eyebrow.
+    <div style={{ padding: '16px 16px 0' }}>
+      {/* Search Form. marginBottom 12 (down from 16) keeps a small gap
+          between the form and any error/result block below it but
+          doesn't pad the no-results case unnecessarily — that case is
+          handled by the container padding + NOP's own top padding. */}
+      <form onSubmit={handleSubmit} style={{ marginBottom: '12px' }}>
         <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--cl-primary)', marginBottom: '8px' }}>
           Find Your Representatives
         </div>
