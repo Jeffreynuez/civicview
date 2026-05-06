@@ -24,6 +24,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Viewport meta tag — belt-and-suspenders alongside the
+            `viewport` metadata export above. Some Next.js setups
+            haven't been picking up the export reliably during dev,
+            and a missing viewport tag silently breaks the entire
+            mobile layout. Placing the raw <meta> here guarantees
+            the tag is in the HTML the phone receives, regardless
+            of what the metadata API does. */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css" />
       </head>
       <body className="h-screen flex flex-col">{children}</body>
