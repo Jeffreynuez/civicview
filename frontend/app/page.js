@@ -57,6 +57,24 @@ export default function Home() {
   // its left edge to grow it up to 50% of the viewport. 380 is the minimum
   // (= original fixed width) and is what we start with.
   const [panelWidth, setPanelWidth] = useState(380);
+  // Mobile-only: pixel height of the map at the top of the screen.
+  // Defaults to 0 — the layout effect below recomputes it as 40% of
+  // the visible viewport on mount. Users can drag the "Map" handle up
+  // to collapse the map (down to 0) but not down past the starting
+  // height. Re-clamps on resize / orientation change so flipping to
+  // landscape doesn't strand the map at a stale height.
+  const [mapHeightPx, setMapHeightPx] = useState(0);
+  const [mapMaxHeightPx, setMapMaxHeightPx] = useState(0);
+  useEffect(() => {
+    const recompute = () => {
+      const max = Math.round(window.innerHeight * 0.4);
+      setMapMaxHeightPx(max);
+      setMapHeightPx((current) => (current === 0 || current > max ? max : current));
+    };
+    recompute();
+    window.addEventListener('resize', recompute);
+    return () => window.removeEventListener('resize', recompute);
+  }, []);
   // Return-to-list highlighting — after Back from a profile, we briefly pulse
   // the row the user was just viewing so they don't lose their place in a
   // long list. Consumed + cleared by the list (SidePanel / BallotTab).
@@ -637,15 +655,15 @@ export default function Home() {
           NOP / state tabs stay reachable without picking a state on a
           tiny map first. */}
       <div className={`flex flex-1 overflow-hidden ${isMobile ? 'flex-col' : ''}`}>
-        {/* Map view + banner wrapper — the notification banner is positioned
-            absolutely inside this wrapper so it overlays the map area only
-            (without pushing layout siblings down). On mobile this wrapper
-            is a fixed-height row at the top (40vh) instead of stretching. */}
+        {/* Map view + banner wrapper. Mobile: a draggable-height row at
+            the top, sized by mapHeightPx (defaulting to 40% viewport
+            height; user can drag the "Map" handle to shrink it to 0).
+            Desktop: stretches to fill remaining horizontal space. */}
         <div
           className="relative flex overflow-hidden"
           style={
             isMobile
-              ? { height: '40vh', minHeight: 200, flexShrink: 0 }
+              ? { height: mapHeightPx, flexShrink: 0 }
               : { flex: 1 }
           }
         >
@@ -659,11 +677,31 @@ export default function Home() {
           />
           <NotificationBanner message={notification} onDismiss={() => setNotification(null)} />
         </div>
-        {/* Resizer is a desktop / tablet affordance — drag to widen the
-            side panel. On mobile the split is fixed for now (M1); a drag
-            handle can come in a later phase if we want it. */}
-        {!isMobile && (
-          <PanelResizer onResize={setPanelWidth} minWidth={380} maxFraction={0.5} />
+        {/* Draggable divider with a "Map" label.
+            Desktop: vertical bar between map (left) and panel (right) —
+              dragging widens / narrows the panel.
+            Mobile : horizontal bar between map (top) and panel (bottom) —
+              dragging up / down collapses or expands the map area. */}
+        {isMobile ? (
+          <PanelResizer
+            orientation="horizontal"
+            onResize={setMapHeightPx}
+            minHeight={0}
+            maxHeight={mapMaxHeightPx}
+            // Navbar is 56px tall — subtract that from touch Y so the
+            // bar visually tracks the finger. Keep in sync with the
+            // navbar's height style.
+            topOffset={56}
+            label="Map"
+          />
+        ) : (
+          <PanelResizer
+            orientation="vertical"
+            onResize={setPanelWidth}
+            minWidth={380}
+            maxFraction={0.5}
+            label="Map"
+          />
         )}
         {/* SidePanel is ALWAYS mounted so its scroll container survives
             the candidate-profile detour. When a candidate is open, we
