@@ -501,8 +501,12 @@ export default function Home() {
         return;
       }
       // 1. UI tweaks — apply immediately, no side-effects.
+      // mapHeightPx is intentionally NOT restored: its initial useState
+      // is 0 (which means "fully collapsed") and the recompute effect
+      // up top sets a sensible 40%-of-viewport default on mount. If we
+      // restore a stale 0 here AFTER recompute already set the
+      // default, the map ends up closed on reload.
       if (typeof saved.panelWidth === 'number') setPanelWidth(saved.panelWidth);
-      if (typeof saved.mapHeightPx === 'number') setMapHeightPx(saved.mapHeightPx);
       if (saved.sidePanelTab) setSidePanelTab(saved.sidePanelTab);
 
       // 2. Selected state — fires the state-data fetch synchronously.
@@ -548,6 +552,9 @@ export default function Home() {
   // restoration has applied it.
   useEffect(() => {
     if (!navStateRestoredRef.current) return;
+    // Note: mapHeightPx is intentionally not saved either. See the
+    // restoration block above — it's a transient UI state recomputed
+    // on every mount, not a user preference.
     saveNavState({
       selectedState,
       stateName,
@@ -558,13 +565,12 @@ export default function Home() {
       selectedPageOfficialId,
       pageMeta,
       panelWidth,
-      mapHeightPx,
     });
   }, [
     selectedState, stateName, sidePanelTab,
     selectedMember, selectedCandidate, activeDistrict,
     selectedPageOfficialId, pageMeta,
-    panelWidth, mapHeightPx,
+    panelWidth,
   ]);
 
   // ─── On-load: re-check tracked bills for status changes ────────────
