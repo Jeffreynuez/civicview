@@ -1,5 +1,8 @@
 'use client';
 
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
 

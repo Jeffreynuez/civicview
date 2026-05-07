@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 Google Civic Information API v2 — thin proxy for the endpoints that
 are still live as of April 2025+:

@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 Events router — serves the merged feed of curated (events.json) +
 rep-created (DB) events. The two sources use compatible shapes so the

@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 State-level live-data fetchers — thin proxies with in-memory caching for:
   • State legislator bills (OpenStates /bills, sponsor filter)

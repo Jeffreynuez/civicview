@@ -1,3 +1,6 @@
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 export const STATE_NAME_TO_CODE = {
   Alabama: 'AL',
   Alaska: 'AK',

@@ -1,5 +1,8 @@
 'use client';
 
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 import { useRef, useState } from 'react';
 import { createPost, uploadPostImage, resolveImageUrl } from '../lib/pagesApi';
 import { Button } from './ui';

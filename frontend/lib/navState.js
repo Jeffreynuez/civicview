@@ -1,3 +1,6 @@
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 /**
  * navState.js — persists the page-level "where am I?" state to
  * localStorage so a browser reload returns the user to the same view

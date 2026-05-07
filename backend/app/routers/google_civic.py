@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 Google Civic Information API routes. Fail-open design: if
 GOOGLE_CIVIC_API_KEY is unset, endpoints return an `enabled: False`

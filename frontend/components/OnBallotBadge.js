@@ -1,5 +1,8 @@
 'use client';
 
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 /**
  * Small pill indicating a sitting official is also a declared candidate in an
  * upcoming race. Driven by `member.active_candidacy` (emitted by the backend

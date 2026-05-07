@@ -1,5 +1,8 @@
 'use client';
 
+// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchPage } from '../lib/pagesApi';
 import { getVoterToken } from '../lib/voterToken';

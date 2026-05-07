@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 Geocoding & District Lookup Service
 Uses the free US Census Geocoder API (no key required) to convert addresses

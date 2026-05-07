@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 from fastapi import APIRouter, HTTPException
 from app.services.local_officials_service import LocalOfficialsService
 

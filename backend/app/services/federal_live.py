@@ -1,3 +1,6 @@
+# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Proprietary and confidential. See LICENSE at the repository root.
+
 """
 Federal live-data fetchers — thin proxies with in-memory caching for:
   • Executive orders (Federal Register API, public, no key)
