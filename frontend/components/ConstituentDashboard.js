@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useIsCompact } from '@/lib/useViewport';
 import {
   Avatar,
   PartyChip,
@@ -80,6 +81,10 @@ export default function ConstituentDashboard({
   const today = new Date();
   const greeting = greetingFor(today);
   const dateLabel = formatDate(today);
+  // Compact viewports (≤1024px) collapse the two-column layout into a
+  // single stack — otherwise the right rail's 1fr share becomes too
+  // narrow for the 2×2 stats grid in YourActivityCard, which overflows.
+  const isCompact = useIsCompact();
 
   return (
     <div
@@ -148,12 +153,16 @@ export default function ConstituentDashboard({
           onClose={onClose}
         />
 
-        {/* Two-column layout: left = My Reps + Upcoming + Recent, right = Ballot + Activity stats */}
+        {/* Two-column layout: left = My Reps + Upcoming + Recent, right
+            = Ballot + Activity stats. Desktop keeps the original 2:1
+            split. Compact viewports (mobile portrait + tablet) drop to
+            a single column so the right rail's stats grid + ballot
+            card aren't squeezed past their content width. */}
         <div
           style={{
             display: 'grid',
             gap: 24,
-            gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)',
+            gridTemplateColumns: isCompact ? '1fr' : 'minmax(0, 2fr) minmax(0, 1fr)',
           }}
         >
           {/* LEFT COLUMN */}

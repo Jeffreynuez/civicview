@@ -145,13 +145,22 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
           </button>
         </div>
 
-        {/* Body: two panes */}
+        {/* Body: two panes side-by-side on desktop / tablet, single
+            pane with click-to-detail navigation on mobile-portrait
+            (where a 360px modal can't fit a 360px list + a usable
+            detail pane). On mobile we hide whichever pane the user
+            isn't currently looking at. */}
         <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
-          {/* Left pane — list */}
+          {/* Left pane — list. Hidden on mobile when a committee is
+              selected. */}
           <div
             style={{
-              width: '360px', borderRight: '1px solid var(--cl-border)',
-              display: 'flex', flexDirection: 'column', minHeight: 0,
+              width: isMobile ? '100%' : '360px',
+              borderRight: isMobile ? 'none' : '1px solid var(--cl-border)',
+              display: isMobile && selectedId ? 'none' : 'flex',
+              flexDirection: 'column',
+              minHeight: 0,
+              flexShrink: 0,
             }}
           >
             <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--cl-border)' }}>
@@ -230,9 +239,54 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
             </div>
           </div>
 
-          {/* Right pane — detail */}
-          <div style={{ flex: 1, overflowY: 'auto', background: 'white' }}>
-            {!selectedId && (
+          {/* Right pane — detail. On mobile this pane takes 100% width
+              when a committee is selected and is hidden otherwise.
+              Includes a "Back to committees" affordance at the top
+              when in mobile single-pane mode. */}
+          <div
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              background: 'white',
+              display: isMobile && !selectedId ? 'none' : 'block',
+              minWidth: 0,
+            }}
+          >
+            {isMobile && selectedId && (
+              <div
+                style={{
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 1,
+                  padding: '10px 12px',
+                  background: 'white',
+                  borderBottom: '1px solid var(--cl-border)',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setSelectedId(null)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 10px',
+                    background: 'transparent',
+                    border: '1px solid var(--cl-border)',
+                    borderRadius: 999,
+                    color: 'var(--cl-accent)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--cl-font-sans)',
+                  }}
+                  aria-label="Back to committees list"
+                >
+                  ‹ Committees
+                </button>
+              </div>
+            )}
+            {!selectedId && !isMobile && (
               <EmptyState
                 icon={<Building size={36} active color="default" />}
                 headline="Select a committee to see its roster"

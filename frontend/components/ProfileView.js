@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Spinner } from './ui';
 import {
   fetchExecutiveOrders,
@@ -25,6 +25,7 @@ import {
 import SelectionBadge from './SelectionBadge';
 import OnBallotBadge from './OnBallotBadge';
 import PageButton from './PageButton';
+import TabStrip from './TabStrip';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -180,6 +181,28 @@ export default function ProfileView({
   useTrackedOfficials();
   const isFollowing = isOfficialTracked(member);
   const [activeTab, setActiveTab] = useState('overview');
+
+  // Hero collapse state — when true, the hero is condensed to a single
+  // row (back arrow + small avatar + name + party chip + ✕). Frees up
+  // vertical space so the tabs and tab content stay reachable on
+  // viewports where the full hero would take the entire fold (mobile
+  // landscape especially). Persisted across reloads as a user
+  // preference. Try/catch around localStorage so private-mode Safari
+  // doesn't throw.
+  const [heroCollapsed, setHeroCollapsed] = useState(false);
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem('cl:profile:hero-collapsed');
+      if (stored === '1') setHeroCollapsed(true);
+    } catch { /* ignore */ }
+  }, []);
+  const toggleHero = () => {
+    setHeroCollapsed((v) => {
+      const next = !v;
+      try { window.localStorage.setItem('cl:profile:hero-collapsed', next ? '1' : '0'); } catch { /* ignore */ }
+      return next;
+    });
+  };
 
   const role = resolveRole(member);
   const tabs = ROLE_TABS[role] || ROLE_TABS.congress;
@@ -438,8 +461,9 @@ export default function ProfileView({
     >
       {/* Back + Close row — the contextual back label tells the user exactly
           where Back will take them (e.g. "← Back to Congress"), and the ×
-          on the right fully closes the profile. Mobile bumps the row's
-          height and target sizes to clear the 44px minimum. */}
+          on the right fully closes the profile. The middle chevron toggle
+          collapses or expands the hero block below. Mobile bumps the
+          row's height and target sizes to clear the 44px minimum. */}
       <div
         style={{
           display: 'flex', alignItems: 'center', gap: '6px',
@@ -467,6 +491,45 @@ export default function ProfileView({
           <svg width={isMobile ? 18 : 16} height={isMobile ? 18 : 16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6" /></svg>
           {backLabel || 'Back to list'}
         </div>
+        {/* Hero collapse toggle — chevron rotates to indicate state.
+            Sits between Back and × so it's always reachable. Choice is
+            persisted to localStorage as cl:profile:hero-collapsed. */}
+        <button
+          type="button"
+          onClick={toggleHero}
+          aria-label={heroCollapsed ? 'Expand profile header' : 'Collapse profile header'}
+          aria-expanded={!heroCollapsed}
+          title={heroCollapsed ? 'Expand profile header' : 'Collapse profile header'}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--cl-text-light)',
+            padding: isMobile ? '12px 14px' : '8px 12px',
+            minWidth: isMobile ? 44 : undefined,
+            minHeight: isMobile ? 44 : undefined,
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.color = 'var(--cl-text)')}
+          onMouseOut={(e) => (e.currentTarget.style.color = 'var(--cl-text-light)')}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+            style={{
+              transform: heroCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+              transition: 'transform 0.18s ease',
+            }}
+          >
+            {/* Chevron pointing down by default — rotated 180° when hero
+                is open ("collapse" arrow). */}
+            <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </svg>
+        </button>
         {onClose && (
           <button
             onClick={onClose}
@@ -489,13 +552,81 @@ export default function ProfileView({
         )}
       </div>
 
-      {/* Hero */}
+      {/* Compact hero — visible when the user has collapsed the full
+          hero. Single row: small avatar + name + party chip. Tab strip
+          and tab content land right below, giving them the bulk of the
+          vertical space. */}
+      {heroCollapsed && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '8px 16px',
+            borderBottom: '1px solid var(--cl-border)',
+            background: 'white',
+          }}
+        >
+          {member.photoUrl ? (
+            <img
+              src={member.photoUrl}
+              alt=""
+              style={{
+                width: 36, height: 36, borderRadius: '50%', objectFit: 'cover',
+                border: '2px solid var(--cl-border)', background: '#e9ecef',
+                flexShrink: 0,
+              }}
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+          ) : (
+            <div style={{
+              width: 36, height: 36, borderRadius: '50%', background: '#e9ecef',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '0.85rem', fontWeight: 700, color: '#999', flexShrink: 0,
+            }}>
+              {member.name.split(' ').map((n) => n[0]).join('')}
+            </div>
+          )}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              fontSize: '0.95rem', fontWeight: 700, color: 'var(--cl-text)',
+              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            }}>
+              {member.name}
+            </div>
+            <div style={{
+              fontSize: '0.72rem', color: 'var(--cl-text-light)',
+              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            }}>
+              {member.chamber || member.title || ''}
+            </div>
+          </div>
+          <span style={{
+            display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
+            fontSize: '0.7rem', fontWeight: 700,
+            background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
+            color: PARTY_COLORS[party],
+            flexShrink: 0,
+          }}>
+            {party}
+          </span>
+        </div>
+      )}
+
+      {/* Hero — full version. Hidden when collapsed. */}
+      {!heroCollapsed && (
       <div style={{ textAlign: 'center', padding: '20px 20px 14px', borderBottom: '1px solid var(--cl-border)' }}>
         {member.photoUrl ? (
           <img
             src={member.photoUrl}
             alt={member.name}
-            style={{ width: '88px', height: '88px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--cl-border)', marginBottom: '10px', background: '#e9ecef' }}
+            // display:block + margin auto so the avatar reliably centers
+            // in the textAlign:center hero. Without these, the inline
+            // <img> picks up the parent's text-align centering on some
+            // browsers but not others — Chrome desktop in particular
+            // was rendering it left-aligned because of inherited flex
+            // behavior from upstream wrappers.
+            style={{ display: 'block', width: '88px', height: '88px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--cl-border)', margin: '0 auto 10px', background: '#e9ecef' }}
             onError={(e) => { e.target.style.display = 'none'; }}
           />
         ) : (
@@ -632,6 +763,7 @@ export default function ProfileView({
           )}
         </div>
       </div>
+      )}
 
       {/* Tab bar — desktop / tablet uses flex:1 per tab so all six fit
           edge-to-edge. On mobile that crushes labels at narrow widths,
@@ -640,48 +772,15 @@ export default function ProfileView({
           inline `scrollbarWidth`/`msOverflowStyle` (Firefox / IE) and
           a `cl-no-scrollbar` class for WebKit (defined in globals.css
           if needed; falls back to a thin scrollbar otherwise). */}
-      <div
-        style={{
-          display: 'flex',
-          borderBottom: '1px solid var(--cl-border)',
-          background: 'white',
-          flexShrink: 0,
-          overflowX: isMobile ? 'auto' : 'visible',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-        }}
-        className={isMobile ? 'cl-no-scrollbar' : ''}
-      >
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                flex: isMobile ? '0 0 auto' : 1,
-                minWidth: isMobile ? 92 : undefined,
-                padding: isMobile ? '14px 16px' : '10px 6px',
-                fontSize: isMobile ? '0.88rem' : '0.8rem',
-                fontWeight: 600,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                color: isActive ? 'var(--cl-accent)' : 'var(--cl-text-light)',
-                borderBottom: isActive ? '2px solid var(--cl-accent)' : '2px solid transparent',
-                marginBottom: '-1px',
-                transition: 'color 0.15s',
-                whiteSpace: 'nowrap',
-                minHeight: isMobile ? 44 : undefined,
-              }}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+      <TabStrip
+        isMobile={isMobile}
+        tabs={tabs}
+        activeId={activeTab}
+        onSelect={setActiveTab}
+      />
 
-      {/* Tab panel */}
+      {/* Tab panel — wrapped in relative container by the tab strip
+          above so fade indicators don't bleed into here. */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
         {activeTab === 'overview' && (
           <OverviewTab member={member} role={role} statsState={statsState} />

@@ -8,6 +8,7 @@ import {
   useTrackedOfficials,
 } from '../lib/trackedOfficials';
 import PageButton from './PageButton';
+import TabStrip from './TabStrip';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent', NP: 'Non-partisan' };
@@ -288,41 +289,15 @@ export default function CandidateProfile({
         </div>
       </div>
 
-      {/* Tabs — already overflow-scrolls, mobile bumps padding + min-
-          height to clear 44px tap targets and hides the native
-          scrollbar via the .cl-no-scrollbar utility. */}
-      <div
-        className={isMobile ? 'cl-no-scrollbar' : ''}
-        style={{
-          display: 'flex',
-          borderBottom: '1px solid var(--cl-border)',
-          background: 'white',
-          overflowX: 'auto',
-          scrollbarWidth: isMobile ? 'none' : undefined,
-          msOverflowStyle: isMobile ? 'none' : undefined,
-        }}
-      >
-        {tabs.map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setActiveTab(key)}
-            style={{
-              padding: isMobile ? '14px 18px' : '10px 14px',
-              textAlign: 'center',
-              fontSize: isMobile ? '0.88rem' : '0.76rem',
-              fontWeight: 600,
-              color: activeTab === key ? 'var(--cl-primary)' : 'var(--cl-text-light)',
-              borderBottom: activeTab === key ? '2px solid var(--cl-accent)' : '2px solid transparent',
-              cursor: 'pointer', background: 'none', border: 'none',
-              whiteSpace: 'nowrap',
-              minHeight: isMobile ? 44 : undefined,
-              minWidth: isMobile ? 92 : undefined,
-            }}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+      {/* Tabs — uses the shared TabStrip with horizontal-overflow fade
+          indicators. tabs.map normalizes `key` → `id` at the call
+          site since the rest of this file uses `key`. */}
+      <TabStrip
+        isMobile={isMobile}
+        tabs={tabs.map((t) => ({ id: t.key, label: t.label }))}
+        activeId={activeTab}
+        onSelect={setActiveTab}
+      />
 
       {/* Content */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px' }}>
