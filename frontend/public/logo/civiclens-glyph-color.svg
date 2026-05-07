@@ -1,5 +1,8 @@
 
+<!-- CivicView logo. Copyright (c) 2026 Jeffrey Nuez. All rights reserved. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CivicView">
+  <title>CivicView</title>
+  <desc>CivicView logo. Copyright (c) 2026 Jeffrey Nuez. All rights reserved.</desc>
   <defs>
     <clipPath id="cl-lens-c"><circle cx="26" cy="26" r="20.75"></circle></clipPath>
     <symbol id="cl-star-c" viewBox="-1 -1 2 2" overflow="visible">

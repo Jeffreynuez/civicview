@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="36" viewBox="0 0 180 36" fill="none">
+<!-- CivicView wordmark. Copyright (c) 2026 Jeffrey Nuez. All rights reserved. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="36" viewBox="0 0 180 36" fill="none" role="img" aria-label="CivicView">
+  <title>CivicView</title>
+  <desc>CivicView wordmark. Copyright (c) 2026 Jeffrey Nuez. All rights reserved.</desc>
   <g stroke="#1b263b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="18" cy="18" r="10" fill="none"></circle>
     <path d="M18 12v6l4 2" fill="none"></path>

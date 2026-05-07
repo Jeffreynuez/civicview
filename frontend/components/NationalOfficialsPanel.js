@@ -1352,7 +1352,7 @@ function Footer({
             flexWrap: 'wrap',
           }}
         >
-          <span>© {new Date().getFullYear()} CivicView</span>
+          <span>© {new Date().getFullYear()} CivicView — All rights reserved.</span>
           <span>·</span>
           <span>Data sourced from official chamber records, FEC filings, and verified office staff.</span>
         </div>

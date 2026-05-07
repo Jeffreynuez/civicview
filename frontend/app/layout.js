@@ -1,3 +1,7 @@
+// CivicView — frontend root layout.
+// Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Proprietary and confidential. See LICENSE at the repository root.
+
 import './globals.css';
 
 export const metadata = {
