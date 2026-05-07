@@ -483,18 +483,57 @@ export default function Home() {
   }, []);
 
   // ─── Restore navigation state on reload ────────────────────────────
-  // Reload should drop the user back where they were (selected state /
-  // open profile / address-lookup district / etc.) instead of always
-  // bouncing them to the NOP home surface. lib/navState.js owns the
-  // persistence; this effect runs once on mount, reads the saved
-  // payload, and reapplies each piece. A `navStateRestoredRef` gate
-  // below blocks the save-effect until restoration finishes, so we
-  // don't clobber the saved payload with the initial defaults during
-  // the restore.
+  // Two precedence levels:
+  //   1. URL search params (?state=FL&member=K000395&…) — authoritative
+  //      when present, since the user explicitly typed/shared that URL.
+  //   2. localStorage payload — fallback for "I just hit reload with no
+  //      query string and want to be where I was."
+  // Whichever wins, navStateRestoredRef gates the save-effect below so
+  // the initial defaults don't clobber the source of truth.
   const navStateRestoredRef = useRef(false);
   useEffect(() => {
     let cancelled = false;
     (async () => {
+      // ─── 1. URL params first ────────────────────────────────────
+      const url = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      const urlState     = url?.get('state');
+      const urlDistrict  = url?.get('district');
+      const urlMember    = url?.get('member');
+      const urlCandidate = url?.get('candidate');
+      const urlPage      = url?.get('page');
+      const hasUrlNav = Boolean(urlState || urlDistrict || urlMember || urlCandidate || urlPage);
+
+      if (hasUrlNav) {
+        // State first (loads side-panel data + clears activeDistrict).
+        if (urlState) {
+          const upper = urlState.toUpperCase();
+          // Reverse-lookup the state name so the panel header reads
+          // "Florida" not "FL".
+          const entry = Object.entries(STATE_NAME_TO_CODE).find(([, code]) => code === upper);
+          const stateName = entry ? entry[0] : upper;
+          try { await handleStateSelect(upper, stateName); } catch { /* ignore network */ }
+          if (cancelled) return;
+        }
+        // Member by bioguide_id — handleMemberSelect fetches detail
+        // when the member object lacks `.bio`.
+        if (urlMember) {
+          try { await handleMemberSelect({ bioguide_id: urlMember, name: '' }); } catch { /* ignore */ }
+          if (cancelled) return;
+        }
+        // Candidate by id — handleCandidateSelect fetches when the
+        // stub lacks `.top_issues`.
+        if (urlCandidate) {
+          try { await handleCandidateSelect({ id: urlCandidate }); } catch { /* ignore */ }
+          if (cancelled) return;
+        }
+        if (urlPage) {
+          handleOpenPage(urlPage, null);
+        }
+        navStateRestoredRef.current = true;
+        return;
+      }
+
+      // ─── 2. localStorage fallback ───────────────────────────────
       const saved = loadNavState();
       if (!saved) {
         navStateRestoredRef.current = true;
@@ -642,6 +681,26 @@ export default function Home() {
       candidateId: selectedCandidate ? selectedCandidate.id : null,
       tab: sidePanelTab,
     };
+
+    // Build the search-param URL that reflects the current nav state,
+    // so the address bar is share-friendly. Only includes the
+    // identifiers that have a clean string representation
+    // (state code, district number, member bioguide_id, candidate id,
+    // page id). Everything else stays in localStorage.
+    const params = new URLSearchParams();
+    if (selectedState) params.set('state', selectedState);
+    if (activeDistrict?.district) params.set('district', String(activeDistrict.district));
+    if (selectedMember) {
+      const id = selectedMember.bioguide_id || selectedMember.id;
+      if (id) params.set('member', id);
+    }
+    if (selectedCandidate?.id) params.set('candidate', selectedCandidate.id);
+    if (selectedPageOfficialId) params.set('page', selectedPageOfficialId);
+    const qs = params.toString();
+    const nextUrl = qs
+      ? `${window.location.pathname}?${qs}`
+      : window.location.pathname;
+
     // Skip pushing when the change was caused by a popstate (the browser is
     // already showing the right entry) or on initial mount.
     if (skipNextHistoryPushRef.current) {
@@ -653,7 +712,7 @@ export default function Home() {
     lastHistorySnapshotRef.current = snapshot;
     if (!prev) {
       // First run: replace so we don't accumulate a bogus initial entry.
-      window.history.replaceState(snapshot, '');
+      window.history.replaceState(snapshot, '', nextUrl);
       return;
     }
     // Only push when an overlay opened (memberId or candidateId became set).
@@ -661,11 +720,15 @@ export default function Home() {
       (snapshot.memberId && snapshot.memberId !== prev.memberId) ||
       (snapshot.candidateId && snapshot.candidateId !== prev.candidateId);
     if (opened) {
-      window.history.pushState(snapshot, '');
+      window.history.pushState(snapshot, '', nextUrl);
     } else {
-      window.history.replaceState(snapshot, '');
+      window.history.replaceState(snapshot, '', nextUrl);
     }
-  }, [selectedMember, selectedCandidate, sidePanelTab]);
+  }, [
+    selectedMember, selectedCandidate, sidePanelTab,
+    // Trigger on the additional URL-relevant pieces too.
+    selectedState, activeDistrict, selectedPageOfficialId,
+  ]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
