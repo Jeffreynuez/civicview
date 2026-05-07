@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+import { useIsMobile } from '@/lib/useViewport';
+
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
 
@@ -8,10 +11,83 @@ const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
  * list. Each entry is tagged with `_kind: 'official' | 'candidate'` by the
  * parent store, so mixing (e.g. President Trump + a ballot candidate) lands
  * in the same tray instead of spawning a second one.
+ *
+ * Mobile mini-mode: on phone-sized viewports the tray collapses to a
+ * compact pill (count badge + Compare button) until the user taps the
+ * chevron to expand. The full tray with chips is too tall (~80px) on
+ * a 360px-tall landscape viewport and was eating the bottom 1/3 of
+ * the visible area.
  */
 export default function CompareTray({ items, onRemove, onClear, onOpen }) {
+  const isMobile = useIsMobile();
+  const [collapsed, setCollapsed] = useState(true);
   if (!items || items.length === 0) return null;
   const canCompare = items.length >= 2;
+  const showMini = isMobile && collapsed;
+
+  // Compact mini-bar for mobile. Shows just the count + Compare CTA
+  // + an expand chevron. Full tray inflates when the user taps the
+  // expand button or anywhere on the badge.
+  if (showMini) {
+    return (
+      <div
+        role="region"
+        aria-label="Compare tray (collapsed)"
+        style={{
+          position: 'fixed', bottom: 16, right: 16,
+          background: 'white', border: '1px solid var(--cl-border)',
+          borderRadius: 999, boxShadow: '0 10px 32px rgba(0,0,0,0.18)',
+          padding: '6px 8px', zIndex: 80,
+          display: 'flex', alignItems: 'center', gap: 6,
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => setCollapsed(false)}
+          aria-label={`Expand compare tray — ${items.length} item${items.length === 1 ? '' : 's'}`}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'transparent', border: 'none', cursor: 'pointer',
+            padding: '4px 8px', borderRadius: 999,
+            fontSize: '0.78rem', fontWeight: 700, color: 'var(--cl-text)',
+            fontFamily: 'var(--cl-font-sans)',
+          }}
+        >
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              minWidth: 22, height: 22, borderRadius: 999,
+              background: 'var(--cl-accent)', color: 'white',
+              fontSize: '0.74rem', fontWeight: 800, padding: '0 6px',
+            }}
+          >
+            {items.length}
+          </span>
+          <span>Compare</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+            {/* Chevron up — expand back to full tray */}
+            <path d="M2 8l4-4 4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={onOpen}
+          disabled={!canCompare}
+          aria-label="Open side-by-side comparison"
+          title={canCompare ? 'Open side-by-side comparison' : 'Add at least 2 to compare'}
+          style={{
+            padding: '6px 12px', fontSize: '0.8rem', fontWeight: 700,
+            background: canCompare ? 'var(--cl-accent)' : '#cbd2da',
+            color: 'white', border: 'none', borderRadius: 999,
+            cursor: canCompare ? 'pointer' : 'not-allowed',
+          }}
+        >
+          →
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -142,6 +218,28 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
         >
           Compare →
         </button>
+        {/* Minimize chevron — only on mobile, where the tray's
+            ~80px height eats the bottom of the viewport. Tucks the
+            tray back into the compact pill above. */}
+        {isMobile && (
+          <button
+            type="button"
+            onClick={() => setCollapsed(true)}
+            aria-label="Minimize compare tray"
+            title="Minimize"
+            style={{
+              width: 32, height: 32, padding: 0,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              background: 'white', border: '1px solid var(--cl-border)',
+              borderRadius: 8, color: 'var(--cl-text-light)', cursor: 'pointer',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+              {/* Chevron down — collapse back to mini pill */}
+              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
