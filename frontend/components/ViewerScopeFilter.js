@@ -31,6 +31,10 @@ const SCOPE_META = {
 
 export default function ViewerScopeFilter({
   scopes, labels, value, onChange, ownerName,
+  // True when the parent feed has scrolled past ~60px. Hides the
+  // explanatory eyebrow + description + footer-italic so the rail
+  // shrinks to just the chip row, freeing vertical space.
+  collapsed = false,
 }) {
   if (!scopes || scopes.length <= 1) return null;
 
@@ -43,9 +47,10 @@ export default function ViewerScopeFilter({
         background: 'var(--cl-card)',
         border: '1px solid var(--cl-border)',
         borderRadius: 'var(--cl-radius-xl)',
-        padding: '10px 14px',
+        padding: collapsed ? '6px 14px' : '10px 14px',
         marginBottom: 12,
         boxShadow: 'var(--cl-shadow-sticky)',
+        transition: 'padding 0.2s ease',
       }}
     >
       <div
@@ -57,13 +62,15 @@ export default function ViewerScopeFilter({
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-          <span className="cl-eyebrow">Poll view</span>
-          <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
-            See how the poll looks at each level of{' '}
-            {ownerName ? `${ownerName}'s` : 'the rep’s'} jurisdiction
-          </span>
-        </div>
+        {!collapsed && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+            <span className="cl-eyebrow">Poll view</span>
+            <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
+              See how the poll looks at each level of{' '}
+              {ownerName ? `${ownerName}'s` : 'the rep’s'} jurisdiction
+            </span>
+          </div>
+        )}
         <div
           style={{
             display: 'flex',
@@ -146,18 +153,20 @@ export default function ViewerScopeFilter({
           )}
         </div>
       </div>
-      <div
-        style={{
-          fontSize: 'var(--cl-text-2xs)',
-          color: 'var(--cl-text-light)',
-          marginTop: 6,
-          fontStyle: 'italic',
-        }}
-      >
-        {overriding
-          ? `Overriding the author's default — all polls on this page now showing ${labels?.[value] || value}.`
-          : `Polls are showing the author's default view. Pick a level above to re-slice them.`}
-      </div>
+      {!collapsed && (
+        <div
+          style={{
+            fontSize: 'var(--cl-text-2xs)',
+            color: 'var(--cl-text-light)',
+            marginTop: 6,
+            fontStyle: 'italic',
+          }}
+        >
+          {overriding
+            ? `Overriding the author's default — all polls on this page now showing ${labels?.[value] || value}.`
+            : `Polls are showing the author's default view. Pick a level above to re-slice them.`}
+        </div>
+      )}
     </div>
   );
 }

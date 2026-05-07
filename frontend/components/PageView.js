@@ -10,6 +10,7 @@ import OwnerScopeFilter from './OwnerScopeFilter';
 import ViewerScopeFilter from './ViewerScopeFilter';
 import Dashboard from './Dashboard';
 import { Skeleton, EmptyState, ErrorState, Newspaper } from './ui';
+import { useIsCompact } from '@/lib/useViewport';
 
 /**
  * Full-viewport page view for a single rep or candidate.
@@ -78,6 +79,20 @@ export default function PageView({
   // it into view. Cleared after highlight consumed.
   const [highlightPostId, setHighlightPostId] = useState(null);
   const feedScrollRef = useRef(null);
+  // Compact viewports (mobile + tablet) drop the right-side Upcoming
+  // Events sticky sidebar to a single inline section after the main
+  // column. The sticky sidebar overlapped the main content on narrow
+  // viewports because the 300px reserved column was wider than the
+  // remaining horizontal room.
+  const isCompact = useIsCompact();
+  // On compact viewports the events sidebar shrinks to a "first 2"
+  // preview with a "Show all" toggle so it doesn't dominate the
+  // vertical scroll.
+  const [eventsExpanded, setEventsExpanded] = useState(false);
+  // Scroll-driven collapse for the OwnerScopeFilter / ViewerScopeFilter
+  // so the "POLL VIEW" / "FILTER constituent feedback" copy hides once
+  // the user has started reading the feed. The chip row stays visible.
+  const [scopeFilterCollapsed, setScopeFilterCollapsed] = useState(false);
 
   // Pick which scope to send with the page fetch. `is_owner` isn't
   // known here (it comes back in the payload), so we optimistically
@@ -338,6 +353,16 @@ export default function PageView({
 
       {/* Content */}
       <div
+        ref={feedScrollRef}
+        onScroll={(e) => {
+          // Collapse the scope filter once the user has scrolled past
+          // 60px in the feed. Restores when scrolled back near the
+          // top. Single listener, no rAF — this runs cheap (couple
+          // setState calls per tick) and React batches the no-op
+          // updates when the threshold isn't crossed.
+          const top = e.currentTarget.scrollTop;
+          setScopeFilterCollapsed(top > 60);
+        }}
         style={{
           flex: '1 1 auto', overflowY: 'auto',
           padding: '24px 18px',
@@ -346,7 +371,15 @@ export default function PageView({
         <div
           style={{
             maxWidth: '980px', margin: '0 auto',
-            display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 300px', gap: '24px',
+            // Compact viewports stack to a single column - the 300px
+            // sidebar was overlapping the main column when there
+            // wasn't horizontal room for both. The events block
+            // renders inline at the bottom of the main column on
+            // compact (see "Events inline" further below) instead of
+            // as a sticky sidebar.
+            display: 'grid',
+            gridTemplateColumns: isCompact ? '1fr' : 'minmax(0, 1fr) 300px',
+            gap: '24px',
           }}
         >
           {/* Main column */}
@@ -491,6 +524,7 @@ export default function PageView({
                 labels={payload?.engagement_scope_labels || {}}
                 value={ownerScope || 'country'}
                 onChange={(next) => setOwnerScope(next === 'country' ? null : next)}
+                collapsed={scopeFilterCollapsed}
               />
             )}
 
@@ -531,6 +565,7 @@ export default function PageView({
                 value={viewerScope}
                 onChange={setViewerScope}
                 ownerName={ownerName}
+                collapsed={scopeFilterCollapsed}
               />
             )}
 
@@ -584,9 +619,121 @@ export default function PageView({
                 ))}
               </>
             )}
+
+            {/* Events inline — only on compact viewports. Shows first 2
+                events with a "Show all" toggle so the section doesn't
+                dominate the vertical scroll on mobile. The sticky
+                desktop sidebar version below is hidden on compact. */}
+            {isCompact && (
+              <div
+                style={{
+                  marginTop: 16,
+                  background: 'white',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 14,
+                  padding: 16,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.4px',
+                    color: 'var(--cl-text-light)',
+                    marginBottom: 10,
+                  }}
+                >
+                  Upcoming Events
+                </div>
+                {events.length === 0 ? (
+                  <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
+                    No upcoming events posted.
+                  </div>
+                ) : (
+                  <>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                      {(eventsExpanded ? events : events.slice(0, 2)).map((evt) => {
+                        const d = evt.start_at ? new Date(evt.start_at.replace('Z', '')) : null;
+                        const when = d && !Number.isNaN(d.getTime())
+                          ? d.toLocaleString(undefined, {
+                              month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+                            })
+                          : evt.start_at;
+                        return (
+                          <li
+                            key={evt.id}
+                            style={{
+                              padding: '10px 0',
+                              borderBottom: '1px solid var(--cl-border)',
+                            }}
+                          >
+                            <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--cl-text)' }}>
+                              {evt.title}
+                            </div>
+                            <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
+                              {when}
+                              {evt.location ? ` · ${evt.location}` : ''}
+                            </div>
+                            {evt.url && (
+                              <a
+                                href={evt.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  fontSize: '0.76rem',
+                                  color: 'var(--cl-accent)',
+                                  textDecoration: 'none',
+                                  marginTop: '4px',
+                                  display: 'inline-block',
+                                }}
+                              >
+                                RSVP →
+                              </a>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {events.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => setEventsExpanded((v) => !v)}
+                        style={{
+                          marginTop: 8,
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--cl-accent)',
+                          fontSize: '0.82rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '4px 0',
+                          fontFamily: 'var(--cl-font-sans)',
+                        }}
+                      >
+                        {eventsExpanded
+                          ? 'Show fewer'
+                          : `Show all ${events.length} events →`}
+                      </button>
+                    )}
+                  </>
+                )}
+                {isOwner && (
+                  <RepEventComposer
+                    officialId={officialId}
+                    events={events.filter((e) => e?.source === 'rep')}
+                    onCreated={handleEventCreated}
+                    onDeleted={handleEventDeleted}
+                  />
+                )}
+              </div>
+            )}
           </main>
 
-          {/* Side column — upcoming events */}
+          {/* Side column — upcoming events. Hidden on compact (mobile +
+              tablet); the inline version above takes its place to avoid
+              the 300px sidebar overlapping the main column. */}
+          {!isCompact && (
           <aside
             style={{
               background: 'white',
@@ -674,6 +821,7 @@ export default function PageView({
               />
             )}
           </aside>
+          )}
         </div>
       </div>
     </div>

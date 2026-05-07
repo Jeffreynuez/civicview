@@ -28,6 +28,10 @@ const SCOPE_META = {
 
 export default function OwnerScopeFilter({
   scopes, labels, value, onChange,
+  // True once the parent feed has scrolled past ~60px. Hides the
+  // explanatory eyebrow + description + footer-italic so the rail
+  // shrinks to just the chip row, freeing vertical space for posts.
+  collapsed = false,
 }) {
   if (!scopes || scopes.length <= 1) return null;
 
@@ -38,9 +42,10 @@ export default function OwnerScopeFilter({
         background: 'var(--cl-card)',
         border: '1px solid var(--cl-border)',
         borderRadius: 'var(--cl-radius-xl)',
-        padding: '10px 14px',
+        padding: collapsed ? '6px 14px' : '10px 14px',
         marginBottom: 12,
         boxShadow: 'var(--cl-shadow-sticky)',
+        transition: 'padding 0.2s ease',
       }}
     >
       <div
@@ -52,12 +57,14 @@ export default function OwnerScopeFilter({
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-          <span className="cl-eyebrow">Your view</span>
-          <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
-            Filter constituent feedback across this page
-          </span>
-        </div>
+        {!collapsed && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+            <span className="cl-eyebrow">Your view</span>
+            <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
+              Filter constituent feedback across this page
+            </span>
+          </div>
+        )}
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {scopes.map((s) => {
             const active = s === value;
@@ -114,17 +121,19 @@ export default function OwnerScopeFilter({
           })}
         </div>
       </div>
-      <div
-        style={{
-          fontSize: 'var(--cl-text-2xs)',
-          color: 'var(--cl-text-light)',
-          marginTop: 6,
-          fontStyle: 'italic',
-        }}
-      >
-        Only you can see this filter. Visitors always see country-wide
-        engagement on your page.
-      </div>
+      {!collapsed && (
+        <div
+          style={{
+            fontSize: 'var(--cl-text-2xs)',
+            color: 'var(--cl-text-light)',
+            marginTop: 6,
+            fontStyle: 'italic',
+          }}
+        >
+          Only you can see this filter. Visitors always see country-wide
+          engagement on your page.
+        </div>
+      )}
     </div>
   );
 }
