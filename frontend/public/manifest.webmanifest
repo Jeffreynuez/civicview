@@ -1,0 +1,26 @@
+{
+  "name": "CivicLens",
+  "short_name": "CivicLens",
+  "description": "Track your federal, state, and local representatives — bills, votes, town halls, and what they say in your district.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f8f9fa",
+  "theme_color": "#1b263b",
+  "categories": ["government", "news", "social"],
+  "icons": [
+    {
+      "src": "/logo/civiclens-glyph-color.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo/civiclens-glyph-reverse.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
+    }
+  ]
+}

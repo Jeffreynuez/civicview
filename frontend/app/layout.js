@@ -3,6 +3,21 @@ import './globals.css';
 export const metadata = {
   title: 'CivicLens - Know Your Representatives',
   description: 'Track your elected officials, legislation, and upcoming elections',
+  // PWA hooks. The manifest is the primary signal that triggers the
+  // browser's "Add to Home Screen" prompt; theme-color drives the
+  // address-bar tint on Android Chrome and the title-bar tint when
+  // the app is installed standalone.
+  manifest: '/manifest.webmanifest',
+  themeColor: '#1b263b',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'CivicLens',
+  },
+  icons: {
+    icon: '/logo/civiclens-glyph-color.svg',
+    apple: '/logo/civiclens-glyph-color.svg',
+  },
 };
 
 // Viewport metadata — Next.js 14 App Router pattern. Without this,
