@@ -2010,31 +2010,47 @@ function SectionSkeleton({ eyebrow, title, cardCount = 6, bg = 'card' }) {
 }
 
 // Single-glyph chevron used by every collapsible header on this surface
-// (CivicLens Stats, Executive, Senate, House, SCOTUS, Browse-by-state).
-// Rotates 0° (collapsed) → 90° (open) on a fast standard easing, and
-// inherits color from the parent so it picks up the eyebrow/title hue.
+// (CivicView Stats, Executive, Senate, House, SCOTUS, National Activity,
+// Browse-by-state, and the Cabinet subsection). Wraps the chevron in a
+// circular accent-tinted pill so the toggle reads as a discoverable
+// affordance instead of fading into the title — matches the same green
+// pill treatment we use for the profile-hero collapse on rep pages.
+// Rotates 0° (collapsed) → 90° (open) on a fast standard easing.
 function Chevron({ open }) {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
+    <span
       aria-hidden="true"
       style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 24,
+        height: 24,
+        borderRadius: '50%',
+        background: 'var(--cl-accent-soft, rgba(46,125,50,0.10))',
+        border: '1px solid var(--cl-accent)',
+        color: 'var(--cl-accent)',
         flexShrink: 0,
-        transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
-        transition: 'transform var(--cl-duration-fast) var(--cl-ease-standard)',
-        color: 'var(--cl-text-light)',
       }}
     >
-      <path
-        d="M3 1.5L8 6L3 10.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </svg>
+      <svg
+        width="11"
+        height="11"
+        viewBox="0 0 12 12"
+        style={{
+          transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
+          transition: 'transform var(--cl-duration-fast) var(--cl-ease-standard)',
+        }}
+      >
+        <path
+          d="M3 1.5L8 6L3 10.5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </svg>
+    </span>
   );
 }
