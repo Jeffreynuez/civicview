@@ -562,6 +562,11 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
   // Persisted to localStorage so a user's collapse choices survive
   // reloads.
   const [open, toggleOpen] = usePersistentToggle('cl:nop:exec', true);
+  // Cabinet is its own collapsible inside Executive — defaults to
+  // collapsed because there are 15 cards and the President + VP are
+  // the headline content. Persisted so an open Cabinet survives
+  // reloads.
+  const [cabinetOpen, toggleCabinet] = usePersistentToggle('cl:nop:cabinet', false);
 
   return (
     <section style={{ padding: '32px 24px 16px' }}>
@@ -630,10 +635,16 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
           </div>
         )}
 
-        {/* Cabinet — compact grid, 4 cols at desktop */}
+        {/* Cabinet — compact grid, 4 cols at desktop. Collapsible
+            because the 15-card grid is a lot of vertical real estate
+            on top of President + VP. */}
         {cabinet.length > 0 && (
           <div style={{ marginTop: 20 }}>
-            <SubsectionLabel>
+            <SubsectionLabel
+              collapsible
+              open={cabinetOpen}
+              onToggle={toggleCabinet}
+            >
               Cabinet
               <span
                 style={{
@@ -648,27 +659,29 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
                 Nominated by the President · confirmed by the Senate
               </span>
             </SubsectionLabel>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-                gap: 10,
-              }}
-            >
-              {cabinet.map((c) => (
-                <CompactPersonCard
-                  key={c.id}
-                  person={c}
-                  eyebrow={c.role}
-                  onClick={onSelectPerson ? () => onSelectPerson(c, 'cabinet') : null}
-                  followTarget={{ ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
-                  onNotify={onNotify}
-                  onCompareToggle={onCompareToggle}
-                  compareIds={compareIds}
-                  onOpenPage={onOpenPage}
-                />
-              ))}
-            </div>
+            {cabinetOpen && (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                  gap: 10,
+                }}
+              >
+                {cabinet.map((c) => (
+                  <CompactPersonCard
+                    key={c.id}
+                    person={c}
+                    eyebrow={c.role}
+                    onClick={onSelectPerson ? () => onSelectPerson(c, 'cabinet') : null}
+                    followTarget={{ ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
+                    onNotify={onNotify}
+                    onCompareToggle={onCompareToggle}
+                    compareIds={compareIds}
+                    onOpenPage={onOpenPage}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
         </>)}
@@ -884,6 +897,11 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
   // visitors still see both CTAs as the primary entry point into the
   // citizen-login flow.
   const isAuthed = !!citizen;
+  // National Activity is collapsible like the rest of the NOP sections.
+  // Defaults to collapsed because the feed is six full-width post cards
+  // and tends to dominate the page below it; users who want to scan
+  // current activity can expand. Persisted across reloads.
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:activity', false);
   return (
     <section style={{ padding: '32px 24px 16px' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -892,39 +910,46 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
           title="National activity"
           subhead="What national leaders are saying right now · alternating R / D for balanced scan"
           chip={null}
+          collapsible
+          open={open}
+          onToggle={toggleOpen}
         />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {NATIONAL_ACTIVITY_DEMO.map((post) => (
-            <ActivityPostRow
-              key={post.id}
-              post={post}
-              onRequestVerify={onRequestVerify}
-              isAuthed={isAuthed}
-            />
-          ))}
-        </div>
-        {!isAuthed && (
-          <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button
-              type="button"
-              onClick={onRequestVerify}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--cl-accent)',
-                fontSize: 'var(--cl-text-sm)',
-                fontWeight: 600,
-                cursor: 'pointer',
-                fontFamily: 'var(--cl-font-sans)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4,
-              }}
-            >
-              Sign in to follow these reps
-              <ArrowRight size={12} active color="accent" />
-            </button>
-          </div>
+        {open && (
+          <>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {NATIONAL_ACTIVITY_DEMO.map((post) => (
+                <ActivityPostRow
+                  key={post.id}
+                  post={post}
+                  onRequestVerify={onRequestVerify}
+                  isAuthed={isAuthed}
+                />
+              ))}
+            </div>
+            {!isAuthed && (
+              <div style={{ textAlign: 'center', marginTop: 14 }}>
+                <button
+                  type="button"
+                  onClick={onRequestVerify}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--cl-accent)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--cl-font-sans)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                  }}
+                >
+                  Sign in to follow these reps
+                  <ArrowRight size={12} active color="accent" />
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
@@ -1499,23 +1524,46 @@ function SectionHeader({ eyebrow, title, subhead, chip, collapsible = false, ope
   return <header style={{ marginBottom: 16 }}>{headerInner}</header>;
 }
 
-function SubsectionLabel({ children }) {
-  return (
-    <div
-      style={{
-        textTransform: 'uppercase',
-        letterSpacing: 'var(--cl-tracking-wider)',
-        fontSize: 'var(--cl-text-2xs)',
-        fontWeight: 800,
-        color: 'var(--cl-text-light)',
-        marginBottom: 8,
-        paddingBottom: 6,
-        borderBottom: '1px solid var(--cl-border)',
-      }}
-    >
-      {children}
-    </div>
-  );
+function SubsectionLabel({ children, collapsible = false, open = true, onToggle }) {
+  // Shared visual style for both static and collapsible variants.
+  const baseStyle = {
+    textTransform: 'uppercase',
+    letterSpacing: 'var(--cl-tracking-wider)',
+    fontSize: 'var(--cl-text-2xs)',
+    fontWeight: 800,
+    color: 'var(--cl-text-light)',
+    marginBottom: open ? 8 : 0,
+    paddingBottom: 6,
+    borderBottom: '1px solid var(--cl-border)',
+  };
+
+  if (collapsible) {
+    return (
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        style={{
+          ...baseStyle,
+          width: '100%',
+          textAlign: 'left',
+          background: 'transparent',
+          border: 'none',
+          borderBottom: '1px solid var(--cl-border)',
+          cursor: 'pointer',
+          fontFamily: 'var(--cl-font-sans)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <Chevron open={open} />
+        <span style={{ flex: 1 }}>{children}</span>
+      </button>
+    );
+  }
+
+  return <div style={baseStyle}>{children}</div>;
 }
 
 // ─────────────────────────────────────────────────────────────────
