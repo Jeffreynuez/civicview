@@ -266,6 +266,11 @@ export default function NationalOfficialsPanel({
         citizen={citizen}
       />
 
+      <PopularPollsSection
+        onRequestVerify={handleVerifyClick}
+        citizen={citizen}
+      />
+
       <div ref={browseRef}>
         <BrowseByStateSection onStatePick={onStatePick} />
       </div>
@@ -1455,6 +1460,441 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
         )}
       </div>
     </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// POPULAR POLLS — demo content for the home page.
+//
+// Standalone demo data (no API), so we can show the surface to first-
+// time visitors before any real polls have been authored. Mix of
+// rep-authored and citizen-authored polls so this section also
+// previews the future "subscribed citizens post polls on unclaimed
+// rep pages" feature.
+//
+// Each entry has:
+//   id          — unique key
+//   authorType  — 'rep' | 'citizen' (drives the chip + avatar party)
+//   author      — display name
+//   role        — second-line context ('R-TX-22', 'Subscribed citizen · FL')
+//   party       — only set for rep authors (drives Avatar tint)
+//   when        — relative time string (demo)
+//   question    — 1-2 line poll prompt
+//   options     — array of { label, percent }; percents sum to 100
+//   votes       — total votes (number, for human-readable formatting)
+//   comments    — comment count
+// ─────────────────────────────────────────────────────────────────
+const POPULAR_POLLS_DEMO = [
+  {
+    id: 'pp-1',
+    authorType: 'rep',
+    author: 'Sen. Marisol Estévez',
+    role: 'D-WA',
+    party: 'D',
+    when: '22m ago',
+    question: 'Where should the next round of rural broadband audit funds go first?',
+    options: [
+      { label: 'Last-mile fiber to unserved households', percent: 47 },
+      { label: 'Tribal-land buildouts',                  percent: 28 },
+      { label: 'School & library upgrades',              percent: 17 },
+      { label: 'County-level digital-equity grants',     percent: 8 },
+    ],
+    votes: 12483, comments: 612,
+  },
+  {
+    id: 'pp-2',
+    authorType: 'citizen',
+    author: 'Subscribed citizen',
+    role: 'FL · Naples',
+    party: null,
+    when: '38m ago',
+    question: 'Would you prefer the IRS auto-fill your federal tax return each year?',
+    options: [
+      { label: 'Yes — let me review and file',          percent: 71 },
+      { label: 'No — keep the current opt-in process',  percent: 29 },
+    ],
+    votes: 8924, comments: 410,
+  },
+  {
+    id: 'pp-3',
+    authorType: 'rep',
+    author: 'Rep. Chase Holloway',
+    role: 'R-TN-7',
+    party: 'R',
+    when: '54m ago',
+    question: 'Which input cost is hurting your small business most right now?',
+    options: [
+      { label: 'Steel & metals',     percent: 38 },
+      { label: 'Lumber & building',  percent: 27 },
+      { label: 'Energy & fuel',      percent: 22 },
+      { label: 'Labor',              percent: 13 },
+    ],
+    votes: 5172, comments: 248,
+  },
+  {
+    id: 'pp-4',
+    authorType: 'citizen',
+    author: 'Subscribed citizen',
+    role: 'CA · Oakland',
+    party: null,
+    when: '1h ago',
+    question: 'How often do you actually contact your representative in a year?',
+    options: [
+      { label: 'Never',           percent: 41 },
+      { label: 'Once or twice',   percent: 33 },
+      { label: 'A few times',     percent: 18 },
+      { label: 'Monthly or more', percent: 8 },
+    ],
+    votes: 6402, comments: 295,
+  },
+  {
+    id: 'pp-5',
+    authorType: 'rep',
+    author: 'Rep. Aamir Desai',
+    role: 'D-NJ-3',
+    party: 'D',
+    when: '2h ago',
+    question: 'Most important amendment to the transit reauthorization bill?',
+    options: [
+      { label: 'Preserve direct grants for legacy systems', percent: 44 },
+      { label: 'Tie funding to on-time performance',        percent: 31 },
+      { label: 'Expand BRT pilot program',                  percent: 25 },
+    ],
+    votes: 3851, comments: 178,
+  },
+  {
+    id: 'pp-6',
+    authorType: 'citizen',
+    author: 'Subscribed citizen',
+    role: 'TX · Houston',
+    party: null,
+    when: '3h ago',
+    question: 'Should presidential debates require an independent live fact-check overlay?',
+    options: [
+      { label: 'Yes — always',                       percent: 64 },
+      { label: 'Only for moderator-flagged claims',  percent: 24 },
+      { label: 'No — leave debates as-is',           percent: 12 },
+    ],
+    votes: 9518, comments: 487,
+  },
+  {
+    id: 'pp-7',
+    authorType: 'rep',
+    author: 'Sen. Wendell Marsh',
+    role: 'R-WY',
+    party: 'R',
+    when: '4h ago',
+    question: 'Should federal-lands legislation require OMB cost estimates before any vote?',
+    options: [
+      { label: 'Yes — mandatory pre-vote estimates', percent: 78 },
+      { label: 'Only for bills above $1B',           percent: 14 },
+      { label: 'No — slows the process too much',    percent: 8 },
+    ],
+    votes: 4126, comments: 192,
+  },
+  {
+    id: 'pp-8',
+    authorType: 'citizen',
+    author: 'Subscribed citizen',
+    role: 'NY · Buffalo',
+    party: null,
+    when: '6h ago',
+    question: 'Best lever for reducing healthcare administrative cost?',
+    options: [
+      { label: 'Standardized claims forms',            percent: 36 },
+      { label: 'Single price-transparency database',   percent: 29 },
+      { label: 'Cap on prior-authorization windows',   percent: 22 },
+      { label: 'None — markets sort it out',           percent: 13 },
+    ],
+    votes: 7204, comments: 356,
+  },
+  {
+    id: 'pp-9',
+    authorType: 'rep',
+    author: 'Sen. Patricia Linn',
+    role: 'D-IL',
+    party: 'D',
+    when: '8h ago',
+    question: 'What would keep skilled workers from leaving manufacturing towns?',
+    options: [
+      { label: 'Higher base wages',           percent: 33 },
+      { label: 'Apprenticeship reauth',       percent: 27 },
+      { label: 'Childcare & housing support', percent: 24 },
+      { label: 'Tax incentives to relocate',  percent: 16 },
+    ],
+    votes: 5687, comments: 264,
+  },
+];
+
+// Format vote / comment counts in a feed-friendly way: 12483 → "12.5k",
+// 968 → "968". Mirrors the convention the rest of the app uses on
+// post engagement counters.
+function formatPollCount(n) {
+  if (n == null) return '0';
+  if (n < 1000) return String(n);
+  if (n < 10000) return `${(n / 1000).toFixed(1)}k`;
+  return `${Math.round(n / 1000)}k`;
+}
+
+function PopularPollsSection({ onRequestVerify, citizen }) {
+  const isAuthed = !!citizen;
+  // Same persistence pattern as every other NOP section. Defaults to
+  // collapsed: this is a 9-card grid of polls, large enough that
+  // forcing it open would push every section below it off the fold.
+  // Users who want to scan polls expand on demand.
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:popular-polls', false);
+
+  return (
+    <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="Trending now"
+          title="Popular polls"
+          subhead="The most-engaged polls from reps and citizens across the country"
+          chip={null}
+          collapsible
+          open={open}
+          onToggle={toggleOpen}
+        />
+        {open && (
+          <>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gap: 12,
+              }}
+            >
+              {POPULAR_POLLS_DEMO.map((poll) => (
+                <PopularPollCard
+                  key={poll.id}
+                  poll={poll}
+                  onRequestVerify={onRequestVerify}
+                  isAuthed={isAuthed}
+                />
+              ))}
+            </div>
+            {!isAuthed && (
+              <div style={{ textAlign: 'center', marginTop: 14 }}>
+                <button
+                  type="button"
+                  onClick={onRequestVerify}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--cl-accent)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--cl-font-sans)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                  }}
+                >
+                  Sign in to vote and join the discussion
+                  <ArrowRight size={12} active color="accent" />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// One card per poll. Lightweight, demo-only — does NOT call the
+// /api/polls vote endpoints (that's PollCard.js, used inside live
+// rep PageView). Bars + percentages render statically from the
+// demo payload.
+function PopularPollCard({ poll, onRequestVerify, isAuthed }) {
+  const isCitizenPoll = poll.authorType === 'citizen';
+  const handleVoteClick = () => {
+    if (!isAuthed && onRequestVerify) onRequestVerify();
+    // When authed, we'd normally open the source post / page in a
+    // future iteration. For demo this is a no-op so users don't get
+    // a dead-end.
+  };
+  return (
+    <article
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: 14,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+      }}
+    >
+      {/* Author row */}
+      <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+        <Avatar
+          name={poll.author}
+          party={isCitizenPoll ? null : poll.party}
+          size="sm"
+        />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span
+              style={{
+                fontWeight: 700,
+                fontSize: 'var(--cl-text-sm)',
+                color: 'var(--cl-text)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '100%',
+              }}
+            >
+              {poll.author}
+            </span>
+            {isCitizenPoll ? (
+              <span
+                style={{
+                  fontSize: 'var(--cl-text-2xs)',
+                  fontWeight: 700,
+                  padding: '2px 7px',
+                  borderRadius: 'var(--cl-radius-pill)',
+                  background: 'var(--cl-accent-soft)',
+                  color: 'var(--cl-accent)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                Citizen
+              </span>
+            ) : (
+              <PartyChip party={poll.party} />
+            )}
+          </div>
+          <div
+            style={{
+              fontSize: 'var(--cl-text-xs)',
+              color: 'var(--cl-text-muted)',
+            }}
+          >
+            {poll.role} · {poll.when}
+          </div>
+        </div>
+      </div>
+
+      {/* Question */}
+      <div
+        style={{
+          fontSize: 'var(--cl-text-md)',
+          fontWeight: 600,
+          color: 'var(--cl-text)',
+          lineHeight: 1.35,
+        }}
+      >
+        {poll.question}
+      </div>
+
+      {/* Options — horizontal bars with percentage on the right.
+          Tinted with cl-accent-soft so the bar stands out without
+          implying a tally is in progress (this is demo data). */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {poll.options.map((opt, i) => {
+          const isLeader = poll.options.every((o, j) => j === i || o.percent <= opt.percent);
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={handleVoteClick}
+              style={{
+                position: 'relative',
+                width: '100%',
+                textAlign: 'left',
+                background: 'var(--cl-bg-soft)',
+                border: `1px solid ${isLeader ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+                borderRadius: 'var(--cl-radius-md)',
+                padding: '8px 12px',
+                cursor: 'pointer',
+                fontFamily: 'var(--cl-font-sans)',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Filled bar (background tint scaled by percent). */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: `${opt.percent}%`,
+                  background: isLeader ? 'var(--cl-accent-soft)' : 'var(--cl-bg)',
+                  zIndex: 0,
+                  transition: 'width 200ms ease',
+                }}
+                aria-hidden
+              />
+              <div
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 8,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: isLeader ? 700 : 500,
+                    color: 'var(--cl-text)',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {opt.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 700,
+                    color: isLeader ? 'var(--cl-accent)' : 'var(--cl-text-muted)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {opt.percent}%
+                </span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Footer engagement: votes, comments. */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 14,
+          fontSize: 'var(--cl-text-xs)',
+          color: 'var(--cl-text-muted)',
+          paddingTop: 4,
+          borderTop: '1px solid var(--cl-border)',
+        }}
+      >
+        <span>
+          <strong style={{ color: 'var(--cl-text)' }}>{formatPollCount(poll.votes)}</strong> votes
+        </span>
+        <span>
+          <strong style={{ color: 'var(--cl-text)' }}>{formatPollCount(poll.comments)}</strong> comments
+        </span>
+      </div>
+    </article>
   );
 }
 
