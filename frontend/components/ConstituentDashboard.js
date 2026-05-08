@@ -21,6 +21,7 @@ import {
   ArrowRight,
 } from './ui';
 import { getAllTrackedOfficials } from '../lib/trackedOfficials';
+import { fetchMyCitizenPolls, closeCitizenPoll } from '../lib/pagesApi';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -173,6 +174,7 @@ export default function ConstituentDashboard({
             <MyRepresentatives reps={reps} onManage={onNavigate.manageTracked} onBrowse={onNavigate.browseReps} />
             <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
             <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
+            <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
           </div>
 
           {/* RIGHT RAIL */}
@@ -1046,3 +1048,268 @@ function prettyRaceLabel(key) {
   };
   return map[key] || key.replace(/_/g, ' ');
 }
+
+// ─────────────────────────────────────────────────────────────────
+// My polls — citizen's own polls authored on unclaimed rep pages.
+//
+// New tab in the dashboard's left column with two filter pills:
+// Active (still on the rep's page, votes still flowing) and Archived
+// (auto-archived because the rep claimed the page, the citizen
+// closed it, or the per-page cap superseded it).
+//
+// Renders nothing for anonymous viewers — the parent only mounts
+// the dashboard once a citizen is signed in, so we just bail to a
+// muted placeholder if the citizen prop arrives null somehow.
+// ─────────────────────────────────────────────────────────────────
+function MyPollsSection({ citizen, onOpenPage }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [filter, setFilter] = useState('active'); // 'active' | 'archived'
+  const [pendingClose, setPendingClose] = useState(null); // poll id
+
+  const reload = async () => {
+    setLoading(true);
+    setError(null);
+    const { data: d, error: e } = await fetchMyCitizenPolls({ status: 'all' });
+    if (e) {
+      setError(e);
+      setLoading(false);
+      return;
+    }
+    setData(d);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!citizen) return;
+    reload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [citizen?.id]);
+
+  if (!citizen) return null;
+
+  const active = data?.active || [];
+  const archived = data?.archived || [];
+  const visible = filter === 'active' ? active : archived;
+
+  const handleClose = async (poll) => {
+    if (!window.confirm("Close this poll? It'll move to your Archived list and you can post a new poll on this page.")) return;
+    setPendingClose(poll.id);
+    const { error: e } = await closeCitizenPoll(poll.id);
+    setPendingClose(null);
+    if (e) {
+      window.alert(`Couldn't close: ${e}`);
+      return;
+    }
+    reload();
+  };
+
+  return (
+    <section>
+      <SectionHeader
+        eyebrow="My polls"
+        rightLabel="Polls you've started on rep pages"
+      />
+
+      {/* Filter pills */}
+      <div
+        style={{
+          display: 'inline-flex',
+          gap: 4,
+          padding: 4,
+          background: 'var(--cl-card)',
+          border: '1px solid var(--cl-border)',
+          borderRadius: 'var(--cl-radius-pill)',
+          marginBottom: 12,
+        }}
+        role="tablist"
+        aria-label="Poll filter"
+      >
+        {[
+          { key: 'active',   label: `Active (${active.length})` },
+          { key: 'archived', label: `Archived (${archived.length})` },
+        ].map((p) => {
+          const isActive = filter === p.key;
+          return (
+            <button
+              key={p.key}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setFilter(p.key)}
+              style={{
+                padding: '6px 14px',
+                borderRadius: 'var(--cl-radius-pill)',
+                border: 'none',
+                background: isActive ? 'var(--cl-accent)' : 'transparent',
+                color: isActive ? 'white' : 'var(--cl-text-light)',
+                fontSize: 'var(--cl-text-sm)',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'var(--cl-font-sans)',
+              }}
+            >
+              {p.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {loading && (
+        <div style={{ color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
+          Loading your polls…
+        </div>
+      )}
+      {error && !loading && (
+        <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>
+          Couldn't load: {error}
+        </div>
+      )}
+      {!loading && !error && visible.length === 0 && (
+        <EmptyState
+          icon={<ChatCircleDots size={36} color="default" />}
+          headline={
+            filter === 'active'
+              ? "You haven't started a poll yet"
+              : 'Nothing in the archive'
+          }
+          body={
+            filter === 'active'
+              ? 'Find a rep whose page is unclaimed and start a poll on it. Your polls will live there until the rep joins CivicView.'
+              : 'When you close a poll — or a rep claims the page where you posted one — it shows up here.'
+          }
+          dense
+        />
+      )}
+      {!loading && !error && visible.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {visible.map((poll) => (
+            <MyPollRow
+              key={poll.id}
+              poll={poll}
+              filter={filter}
+              busy={pendingClose === poll.id}
+              onClose={() => handleClose(poll)}
+              onOpenPage={onOpenPage}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function MyPollRow({ poll, filter, busy, onClose, onOpenPage }) {
+  const inner = poll.poll || {};
+  const target = poll.target_official_id;
+  const archiveLabel = (() => {
+    switch (poll.archived_reason) {
+      case 'rep_claimed':    return 'Rep claimed page';
+      case 'citizen_closed': return 'You closed it';
+      case 'superseded':     return 'Auto-archived (page at cap)';
+      case 'reported':       return 'Removed by moderation';
+      default:               return 'Archived';
+    }
+  })();
+  return (
+    <div
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: 14,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', fontWeight: 700 }}>
+            {filter === 'active' ? 'Active on page' : archiveLabel}
+            {target && ` · ${target}`}
+          </div>
+          <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--cl-text)', marginTop: 4, lineHeight: 1.3 }}>
+            {inner.question || '(no question)'}
+          </div>
+        </div>
+      </div>
+      {/* Top option summary */}
+      {inner.options && inner.options.length > 0 && (
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
+          {(() => {
+            const total = inner.total_votes || 0;
+            const top = [...inner.options].sort((a, b) => (b.vote_count || 0) - (a.vote_count || 0))[0];
+            const pct = total > 0 ? Math.round((100 * (top.vote_count || 0)) / total) : 0;
+            return total > 0
+              ? `Leading: "${top.text}" · ${pct}% (${total} vote${total === 1 ? '' : 's'})`
+              : 'No votes yet';
+          })()}
+          {' · '}
+          {poll.comment_count || 0} comment{poll.comment_count === 1 ? '' : 's'}
+        </div>
+      )}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {filter === 'active' && (
+          <>
+            {onOpenPage && target && (
+              <button
+                type="button"
+                onClick={() => onOpenPage(target)}
+                style={myPollPrimaryBtn}
+              >
+                View on page →
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={busy}
+              style={myPollSecondaryBtn}
+            >
+              {busy ? 'Closing…' : 'Close poll'}
+            </button>
+          </>
+        )}
+        {filter === 'archived' && poll.archived_reason !== 'rep_claimed' && onOpenPage && target && (
+          // Pre-claim archives keep the "View on page" link until the
+          // rep claims; once rep_claimed, the link doesn't carry the
+          // user to the right place anymore (the page surface no
+          // longer shows citizen polls).
+          <button
+            type="button"
+            onClick={() => onOpenPage(target)}
+            style={myPollSecondaryBtn}
+          >
+            View on page →
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const myPollPrimaryBtn = {
+  padding: '6px 14px',
+  border: 'none',
+  borderRadius: 8,
+  background: 'var(--cl-accent)',
+  color: 'white',
+  fontWeight: 700,
+  fontSize: '0.78rem',
+  cursor: 'pointer',
+  fontFamily: 'var(--cl-font-sans)',
+};
+
+const myPollSecondaryBtn = {
+  padding: '6px 14px',
+  border: '1px solid var(--cl-border)',
+  borderRadius: 8,
+  background: 'white',
+  color: 'var(--cl-text)',
+  fontWeight: 600,
+  fontSize: '0.78rem',
+  cursor: 'pointer',
+  fontFamily: 'var(--cl-font-sans)',
+};

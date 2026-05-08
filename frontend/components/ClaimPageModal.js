@@ -4,7 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useState } from 'react';
-import { joinWaitlist } from '../lib/pagesApi';
+import { joinWaitlist, fetchCitizenPolls } from '../lib/pagesApi';
 import CivicLensLogo from './brand/CivicLensLogo';
 import { ModalShell, Button, EmptyState, CheckCircle } from './ui';
 
@@ -59,6 +59,12 @@ export default function ClaimPageModal({
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
   const [done, setDone] = useState(false);
+  // Number of in-flight citizen polls on this page. We surface the
+  // count + a brief explanation so a rep claiming the page knows
+  // those polls will move into a Pre-claim discussion archive once
+  // they're verified — no surprises after the fact. Fire-and-forget;
+  // a fetch failure just hides the section.
+  const [citizenPollCount, setCitizenPollCount] = useState(null);
 
   useEffect(() => {
     if (open) {
@@ -68,8 +74,21 @@ export default function ClaimPageModal({
       setErr(null);
       setBusy(false);
       setDone(false);
+      setCitizenPollCount(null);
+      if (officialId) {
+        let cancelled = false;
+        (async () => {
+          const { data } = await fetchCitizenPolls(officialId);
+          if (cancelled) return;
+          setCitizenPollCount(
+            data?.active_count != null ? data.active_count : (data?.active?.length ?? null),
+          );
+        })();
+        return () => { cancelled = true; };
+      }
     }
-  }, [open]);
+    return undefined;
+  }, [open, officialId]);
 
   if (!open) return null;
 
@@ -155,6 +174,32 @@ export default function ClaimPageModal({
             lands in the next phase; leave your details and we&rsquo;ll reach
             out.
           </p>
+
+          {/* Heads-up about pre-claim discussion. Hidden when the count
+              is null (still loading or fetch failed) or zero (nothing to
+              archive — common case for less-trafficked pages). */}
+          {citizenPollCount > 0 && (
+            <div
+              style={{
+                marginBottom: 12,
+                padding: '10px 12px',
+                background: 'var(--cl-accent-soft, #e6f4ea)',
+                border: '1px solid var(--cl-accent-soft, #d8eedd)',
+                borderRadius: 'var(--cl-radius-md)',
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text)',
+                lineHeight: 1.4,
+              }}
+            >
+              <strong>Heads up:</strong> {citizenPollCount} citizen
+              {citizenPollCount === 1 ? ' has' : 's have'} started{' '}
+              {citizenPollCount === 1 ? 'a poll' : 'polls'} on this page
+              already. After verification, {citizenPollCount === 1 ? 'it' : "they'll"} move into a
+              "Pre-claim discussion" archive on your page so you can see what
+              the community has been talking about. You can dismiss the
+              section with one click.
+            </div>
+          )}
 
           <label htmlFor="claim-name" style={FIELD_LABEL}>
             Your full legal name

@@ -12,6 +12,7 @@ import RepEventComposer from './RepEventComposer';
 import OwnerScopeFilter from './OwnerScopeFilter';
 import ViewerScopeFilter from './ViewerScopeFilter';
 import Dashboard from './Dashboard';
+import CitizenPollsSection from './CitizenPollsSection';
 import { Skeleton, EmptyState, ErrorState, Newspaper } from './ui';
 import { useIsCompact } from '@/lib/useViewport';
 
@@ -620,6 +621,25 @@ export default function PageView({
                     commentScope={isOwner ? ownerScope : null}
                   />
                 ))}
+
+                {/* Citizen-led polls. Component decides on its own
+                    whether to render based on claim status + caller
+                    role: full feed on unclaimed pages, "Pre-claim
+                    discussion" archive on claimed pages for the rep
+                    owner, hidden once the owner has dismissed the
+                    archive. Sits below the rep posts so a claimed
+                    page reads top-down: rep's own content first,
+                    pre-claim history at the bottom. */}
+                {!loading && !error && (
+                  <CitizenPollsSection
+                    officialId={officialId}
+                    ownerName={ownerName}
+                    citizen={citizen}
+                    isOwner={isOwner}
+                    pageClaimed={claimed}
+                    onCitizenLoginRequired={onCitizenLoginRequired}
+                  />
+                )}
               </>
             )}
 

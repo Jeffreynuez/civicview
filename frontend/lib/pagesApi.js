@@ -213,6 +213,68 @@ export async function fetchCitizenMe() {
   return request('/api/citizen-auth/me');
 }
 
+// ── Citizen polls (on unclaimed rep pages) ────────────────────────────
+// The page-scoped list endpoint returns active + archived buckets, the
+// caller's role, and the rate-limit signals (caller_has_active_poll,
+// active_count, active_cap) so the create button knows whether to
+// disable itself before the user types a question.
+export async function fetchCitizenPolls(officialId) {
+  if (!officialId) return { data: null, error: 'officialId is required', status: 0 };
+  return request(`/api/pages/${encodeURIComponent(officialId)}/citizen-polls`);
+}
+
+export async function createCitizenPoll(officialId, pollPayload) {
+  // pollPayload is the same shape as the rep PollCreate (question +
+  // options + closes_at + presentation_mode). The backend wraps it
+  // under a top-level `poll` key so the request shape stays parallel
+  // with PostCreate where polls hang under the post.
+  return request(`/api/pages/${encodeURIComponent(officialId)}/citizen-polls`, {
+    method: 'POST',
+    body: { poll: pollPayload },
+  });
+}
+
+export async function voteOnCitizenPoll(pollId, optionId) {
+  return request(`/api/citizen-polls/${pollId}/vote`, {
+    method: 'POST',
+    body: { option_id: optionId },
+  });
+}
+
+export async function closeCitizenPoll(pollId) {
+  return request(`/api/citizen-polls/${pollId}/close`, { method: 'POST' });
+}
+
+export async function reportCitizenPoll(pollId, { reason, detail } = {}) {
+  return request(`/api/citizen-polls/${pollId}/report`, {
+    method: 'POST',
+    body: { reason, detail: detail || null },
+  });
+}
+
+export async function listCitizenPollComments(pollId) {
+  return request(`/api/citizen-polls/${pollId}/comments`);
+}
+
+export async function createCitizenPollComment(pollId, body) {
+  return request(`/api/citizen-polls/${pollId}/comments`, {
+    method: 'POST',
+    body: { body },
+  });
+}
+
+export async function dismissPreClaimArchive(officialId) {
+  return request(
+    `/api/pages/${encodeURIComponent(officialId)}/citizen-polls/dismiss-archive`,
+    { method: 'POST' },
+  );
+}
+
+// "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.
+export async function fetchMyCitizenPolls({ status = 'all' } = {}) {
+  return request('/api/citizens/me/polls', { query: { status } });
+}
+
 // ── Citizen waitlist ──────────────────────────────────────────────────
 // `note` is used by the claim-this-page flow to carry the requester's
 // legal name + relationship to the official; the citizen waitlist path
