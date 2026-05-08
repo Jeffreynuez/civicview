@@ -448,6 +448,7 @@ export default function SidePanel({
               onOpenPage={onOpenPage}
               onRequestVerify={onRequestVerify}
               onStatePick={onStatePick}
+              onCandidatePick={onCandidatePick}
               citizen={citizen}
               onOpenTracked={onOpenTracked}
               onSubscribe={onSubscribe}
