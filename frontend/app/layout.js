@@ -52,32 +52,13 @@ export default function RootLayout({ children }) {
             of what the metadata API does. */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css" />
-        {/* Theme boot script — runs synchronously before the
-            stylesheet applies so we set <html data-theme="dark">
-            (or "light") before the first paint, preventing a
-            flash-of-wrong-theme when a returning dark-mode user
-            reloads. Reads the same localStorage key as
-            lib/useTheme.js. dangerouslySetInnerHTML is the
-            standard React pattern for this — the script is
-            inlined into the static HTML at build time. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function () {
-                try {
-                  var t = window.localStorage.getItem('civiclens:theme:v1');
-                  if (t === 'dark') {
-                    document.documentElement.dataset.theme = 'dark';
-                  } else {
-                    document.documentElement.dataset.theme = 'light';
-                  }
-                } catch (e) {
-                  document.documentElement.dataset.theme = 'light';
-                }
-              })();
-            `,
-          }}
-        />
+        {/* Theme boot script previously lived here for the in-app
+            dark-mode toggle. Removed in favor of letting the OS handle
+            dark mode at the chrome level — many components hardcode
+            white backgrounds and the half-themed result was worse than
+            no theming. globals.css explicitly declares `color-scheme:
+            light` on :root so the browser doesn't auto-darken native
+            form controls, even if the OS is in dark mode. */}
       </head>
       {/* overflow-x: hidden as a safety net so a transient layout
           overflow (e.g. mid-orientation-change before the visualViewport

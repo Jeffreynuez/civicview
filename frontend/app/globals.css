@@ -165,82 +165,13 @@
      zero remaining references before this block was removed.
      ============================================================ */
 
-  /* Light theme is the default declared above. The colors duplicate
-     here intentionally so [data-theme="light"] resolves the same way
-     [data-theme="dark"] does (see below) — useful when JS explicitly
-     sets the theme attribute. */
+  /* Pin to light scheme so the browser doesn't auto-darken native
+     form controls (selects, scrollbars, autofill) when the user's
+     OS is in dark mode. We don't ship our own dark theme — many
+     components hardcode white backgrounds and the half-themed
+     result was worse than not theming at all. The toggle was
+     removed; OS-level dark mode handles browser chrome on its own. */
   color-scheme: light;
-}
-
-/* ============================================================
-   Dark theme — opt-in via <html data-theme="dark">. Applied by
-   lib/useTheme.js + the inline boot script in app/layout.js.
-   We override surface and text tokens to a GitHub-dark-style
-   palette and drop saturation slightly on the soft party tints
-   so the chip-on-card contrast still reads. Brand navy + accent
-   green stay as-is so identity persists across themes.
-   Many inline-styled components hardcode `background: 'white'`
-   etc. — those won't pick up dark mode until they're swept onto
-   --cl-* tokens, but the bulk of the surface (NOP, ProfileView
-   tabs, side panel, NOP cards) flows through these tokens and
-   will switch correctly.
-   ============================================================ */
-[data-theme="dark"] {
-  color-scheme: dark;
-
-  /* Surfaces */
-  --cl-bg:            #0e1117;
-  --cl-card:          #161b22;
-  --cl-bg-soft:       #1c222b;
-  --cl-border:        #30363d;
-  --cl-border-strong: #484f58;
-  --cl-divider:       #21262d;
-
-  /* Text */
-  --cl-text:        #e6edf3;
-  --cl-text-light:  #b0b8c1;
-  --cl-text-muted:  #7d8590;
-
-  /* On-navy translucents — the navbar is already navy, so the
-     glass treatments only need to adjust opacity slightly so
-     contrast holds against the slightly different surrounding
-     surfaces. */
-  --cl-on-navy-glass-bg:       rgba(255,255,255,0.08);
-  --cl-on-navy-glass-bg-2:     rgba(255,255,255,0.14);
-  --cl-on-navy-glass-border:   rgba(255,255,255,0.18);
-  --cl-on-navy-glass-border-2: rgba(255,255,255,0.30);
-
-  /* Soft accent / status tints. Pulled WAY down from their
-     light-mode pastel values so they read as "tinted dark
-     surfaces" instead of glaring pastel rectangles. */
-  --cl-accent-soft:    #14302a;
-  --cl-republican-soft:#321a1d;
-  --cl-democrat-soft:  #1a2a35;
-  --cl-independent-soft: #281a35;
-  --cl-warning-soft:   #2e2410;
-  --cl-warning-border: #5a4520;
-  --cl-success-soft:   #14302a;
-  --cl-success-border: #1f5a45;
-  --cl-danger-soft:    #321a1d;
-  --cl-danger-bg:      #321a1d;
-  --cl-danger-border:  #5a2a30;
-
-  /* Up / down reaction — tone the soft fills down too. */
-  --cl-up-soft:   #122638;
-  --cl-up-border: #1f4060;
-  --cl-down-soft: #321a1d;
-  --cl-down-border: #5a2a30;
-
-  /* Shadows are cheap on dark — the contrast comes from the
-     surface delta rather than the cast shadow, but we still
-     keep a soft drop to mark elevation. */
-  --cl-shadow-sticky: 0 2px 6px rgba(0,0,0,0.5);
-  --cl-shadow-card:   0 1px 3px rgba(0,0,0,0.4);
-  --cl-shadow-pop:    0 12px 36px rgba(0,0,0,0.6);
-  --cl-shadow-modal:  0 20px 60px rgba(0,0,0,0.7);
-  /* Focus ring stays accent-green (keeps brand consistency) but
-     bumps opacity since dark surfaces eat low-opacity halos. */
-  --cl-shadow-focus:  0 0 0 3px rgba(45, 106, 79, 0.45);
 }
 
 /* ============================================================
@@ -409,9 +340,8 @@ body {
 }
 
 /* On dark surfaces (navy navbar, primary-colored CTAs) the same
-   accent green washes out. These overrides bump the ring to a
-   higher-contrast white-tinted version so the ring stays legible. */
-[data-theme="dark"] :focus-visible,
+   accent green washes out. The cl-on-navy override bumps the ring to
+   a higher-contrast white-tinted version so the ring stays legible. */
 .cl-on-navy :focus-visible {
   outline-color: rgba(255, 255, 255, 0.85);
 }

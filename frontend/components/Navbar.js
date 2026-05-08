@@ -9,7 +9,6 @@ import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
 import { useViewport } from '@/lib/useViewport';
-import { useTheme } from '@/lib/useTheme';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -65,13 +64,6 @@ export default function Navbar({
   const viewport = useViewport();
   const isMobile = viewport === 'mobile';
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-
-  // Theme toggle — small sun/moon button next to the bell. Hook
-  // returns [theme, toggleTheme]; the actual paint switch happens
-  // in lib/useTheme.js (writes <html data-theme="..."> + persists
-  // to localStorage). The boot script in app/layout.js applies the
-  // saved value before first paint, so the toggle never flashes.
-  const [theme, toggleTheme] = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);
 
@@ -702,58 +694,6 @@ export default function Navbar({
             </button>
           </>
         )}
-
-        {/* Theme toggle — sun (light) or moon (dark) glyph in the
-            same 36×36 glass-on-navy chrome as the hamburger. Visible
-            at every breakpoint so it's always one tap away. The
-            label flips with the current theme so the button reads
-            as "switch to dark" / "switch to light." */}
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          aria-pressed={theme === 'dark'}
-          title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          style={{
-            width: 36,
-            height: 36,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(255,255,255,0.10)',
-            border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: 8,
-            color: 'white',
-            cursor: 'pointer',
-            flexShrink: 0,
-            padding: 0,
-            transition: 'background 0.15s ease',
-          }}
-          onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.18)'; }}
-          onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
-        >
-          {theme === 'dark' ? (
-            // Sun glyph — visible when the page is currently dark
-            // (clicking it switches to light, where it'll matter).
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <line x1="12" y1="2" x2="12" y2="4" />
-              <line x1="12" y1="20" x2="12" y2="22" />
-              <line x1="4.93" y1="4.93" x2="6.34" y2="6.34" />
-              <line x1="17.66" y1="17.66" x2="19.07" y2="19.07" />
-              <line x1="2" y1="12" x2="4" y2="12" />
-              <line x1="20" y1="12" x2="22" y2="12" />
-              <line x1="4.93" y1="19.07" x2="6.34" y2="17.66" />
-              <line x1="17.66" y1="6.34" x2="19.07" y2="4.93" />
-            </svg>
-          ) : (
-            // Moon glyph — visible when the page is currently light
-            // (clicking switches to dark).
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          )}
-        </button>
 
         {/* Notification bell — visible at every breakpoint. The bell's
             own dropdown handles its mobile layout. */}
