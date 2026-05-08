@@ -333,13 +333,20 @@ export default function Home() {
     setNotification(text);
   }, []);
 
-  const handleStateSelect = useCallback(async (stateCode, name) => {
+  const handleStateSelect = useCallback(async (stateCode, name, options) => {
     // Clicking a state on the map clears any active district filter.
     setActiveDistrict(null);
     setSelectedState(stateCode);
     setStateName(name);
     setSelectedMember(null);
     setLoading(true);
+    // Optional tab override — used by the "View {state} page" button in
+    // OnTheBallotSection to land directly on the Elections tab instead
+    // of the default Congress view. Map clicks and Browse-by-state grid
+    // clicks omit this and keep the existing Congress-default behavior.
+    if (options?.tab) {
+      setSidePanelTab(options.tab);
+    }
 
     try {
       const result = await fetchAllStateData(stateCode);

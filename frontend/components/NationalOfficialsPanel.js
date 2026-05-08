@@ -1002,7 +1002,7 @@ function FeaturedRaceCards({ race, candidates, onCandidatePick, stateCode, state
             {canDeepLink && (
               <button
                 type="button"
-                onClick={() => onStatePick(stateCode, stateName)}
+                onClick={() => onStatePick(stateCode, stateName, { tab: 'ballot' })}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
