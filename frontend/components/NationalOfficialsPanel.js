@@ -3,8 +3,9 @@
 // CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { fetchFederalOfficials } from '@/lib/api';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { fetchAllCandidates, fetchElections, fetchFederalOfficials } from '@/lib/api';
+import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
@@ -113,9 +114,15 @@ export default function NationalOfficialsPanel({
   // handler. Wired through SidePanel → page.js's handleStateSelect
   // (a no-op if missing — grid still renders, clicks are inert).
   onStatePick,
+  // Click on a candidate card in the On-the-ballot section opens the
+  // candidate profile. Wired through SidePanel → page.js's
+  // handleCandidateSelect.
+  onCandidatePick,
   // Currently signed-in citizen (or null if anonymous). Used by the
   // National Activity section to swap "Sign in to participate" CTAs for
-  // a "View thread" affordance once the visitor is authenticated.
+  // a "View thread" affordance once the visitor is authenticated, and
+  // by the On-the-ballot section to determine which state's race to
+  // surface.
   citizen,
   // Footer Citizen-column wires. Both opt-in: if missing, the link is
   // rendered as inactive (no cursor + muted color).
@@ -202,6 +209,12 @@ export default function NationalOfficialsPanel({
   return (
     <div style={{ fontFamily: 'var(--cl-font-sans)' }}>
       <Hero onVerifyClick={handleVerifyClick} />
+
+      <OnTheBallotSection
+        citizen={citizen}
+        onCandidatePick={onCandidatePick}
+        onRequestVerify={handleVerifyClick}
+      />
 
       <div ref={executiveRef}>
         <ExecutiveBranchSection
@@ -545,6 +558,472 @@ function Hero({ onVerifyClick }) {
         )}
       </div>
     </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 1.5 ON THE BALLOT — Election center + featured state race.
+//
+// Two stacked blocks:
+//   A. Election center — text-only "It's election season" overview
+//      with key 2026 dates. State-specific dates if we have data
+//      for the citizen's state, federal-cycle fallback otherwise.
+//   B. Featured race — pulls the citizen's state's headline race
+//      (governor or first state-level race) and renders 6 candidate
+//      cards. Empty state for unseeded states; verify-address CTA
+//      for anonymous visitors.
+//
+// Lives between the Hero (CivicView Stats) and the Executive Branch
+// section per spec — elections is a primary product feature and
+// belongs above the institutional stack on first paint.
+// ─────────────────────────────────────────────────────────────────
+
+// Format a YYYY-MM-DD string as "Aug 18, 2026" for human display.
+// Handles invalid input gracefully — returns the raw string back.
+function formatBallotDate(iso) {
+  if (!iso) return '';
+  const d = new Date(`${iso}T12:00:00`); // noon to dodge timezone-fencepost
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+// Reverse the STATE_NAME_TO_CODE map so we can resolve "Florida" from "FL".
+function stateNameFor(code) {
+  if (!code) return '';
+  const upper = code.toUpperCase();
+  const entry = Object.entries(STATE_NAME_TO_CODE).find(([, c]) => c === upper);
+  return entry ? entry[0] : upper;
+}
+
+function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
+  const stateCode = citizen?.state ? citizen.state.toUpperCase() : null;
+  const stateName = stateNameFor(stateCode);
+
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:ballot', true);
+
+  // Two parallel fetches, both keyed off the citizen's state.
+  // Anonymous visitors (no stateCode) skip the fetch entirely — we
+  // render the "verify your address" prompt instead.
+  const [elections, setElections] = useState(null);
+  const [electionsLoading, setElectionsLoading] = useState(false);
+  const [candidatesIndex, setCandidatesIndex] = useState(null);
+
+  useEffect(() => {
+    if (!stateCode) {
+      setElections(null);
+      setCandidatesIndex(null);
+      return;
+    }
+    let cancelled = false;
+    setElectionsLoading(true);
+    Promise.all([
+      fetchElections(stateCode),
+      fetchAllCandidates(),
+    ]).then(([elec, cands]) => {
+      if (cancelled) return;
+      setElections(elec?.data || null);
+      // Build an id → candidate index for O(1) lookups when matching
+      // race.primary_candidates / general_candidates back to full
+      // candidate records.
+      const idx = new Map();
+      for (const c of (cands?.data || [])) idx.set(c.id, c);
+      setCandidatesIndex(idx);
+      setElectionsLoading(false);
+    }).catch(() => {
+      if (cancelled) return;
+      setElections(null);
+      setCandidatesIndex(null);
+      setElectionsLoading(false);
+    });
+    return () => { cancelled = true; };
+  }, [stateCode]);
+
+  // Pick the headline race. Preference order: open seat governor →
+  // any state-level executive seat → first race overall. The 2026 FL
+  // demo data has Governor as the marquee, which falls cleanly out
+  // of these rules.
+  const headlineRace = useMemo(() => {
+    if (!elections?.races?.length) return null;
+    const byOffice = elections.races.find((r) => /governor/i.test(r.office || ''));
+    if (byOffice) return byOffice;
+    const stateExec = elections.races.find(
+      (r) => r.level === 'state' && r.seat_type === 'executive'
+    );
+    return stateExec || elections.races[0];
+  }, [elections]);
+
+  // Resolve the IDs in the headline race to actual candidate objects.
+  // Cap at 6 cards for the home-page surface (full ballot lives in
+  // the side-panel BallotTab once a state is selected).
+  const featuredCandidates = useMemo(() => {
+    if (!headlineRace || !candidatesIndex) return [];
+    const ids = [
+      ...(headlineRace.primary_candidates?.R || []),
+      ...(headlineRace.primary_candidates?.D || []),
+      ...(headlineRace.primary_candidates?.I || []),
+      ...(headlineRace.general_candidates || []),
+    ];
+    const seen = new Set();
+    const out = [];
+    for (const id of ids) {
+      if (seen.has(id)) continue;
+      seen.add(id);
+      const c = candidatesIndex.get(id);
+      if (c) out.push(c);
+      if (out.length >= 6) break;
+    }
+    return out;
+  }, [headlineRace, candidatesIndex]);
+
+  return (
+    <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="2026 cycle"
+          title="On the ballot"
+          subhead="Key dates and candidates running in your district."
+          chip={null}
+          collapsible
+          open={open}
+          onToggle={toggleOpen}
+        />
+        {open && (
+          <>
+            {/* A. Election center — text-only "what's happening" block. */}
+            <ElectionCenter elections={elections} stateCode={stateCode} stateName={stateName} />
+
+            {/* B. Featured race — state's headline race. */}
+            <div style={{ marginTop: 20 }}>
+              <SubsectionLabel>Race in focus</SubsectionLabel>
+
+              {/* Anonymous: prompt for address verification. */}
+              {!stateCode && (
+                <FeaturedRaceVerifyPrompt onRequestVerify={onRequestVerify} />
+              )}
+
+              {/* Logged-in citizen: load + render race or empty state. */}
+              {stateCode && electionsLoading && (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                    gap: 10,
+                  }}
+                >
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: 'var(--cl-card)',
+                        border: '1px solid var(--cl-border)',
+                        borderRadius: 'var(--cl-radius-xl)',
+                        padding: 12,
+                      }}
+                    >
+                      <Skeleton variant="card" />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {stateCode && !electionsLoading && (!headlineRace || featuredCandidates.length === 0) && (
+                <FeaturedRaceEmpty stateName={stateName} />
+              )}
+
+              {stateCode && !electionsLoading && headlineRace && featuredCandidates.length > 0 && (
+                <FeaturedRaceCards
+                  race={headlineRace}
+                  candidates={featuredCandidates}
+                  onCandidatePick={onCandidatePick}
+                />
+              )}
+
+              {/* CTA — shown universally as a friendly close to the
+                  block. Wording matches the spec. */}
+              <div
+                style={{
+                  marginTop: 14,
+                  padding: '12px 14px',
+                  background: 'var(--cl-card)',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 'var(--cl-radius-md)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 12,
+                  flexWrap: 'wrap',
+                }}
+              >
+                <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
+                  Verify your address to see your complete ballot.
+                </span>
+                <button
+                  type="button"
+                  onClick={onRequestVerify}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 14px',
+                    background: 'var(--cl-accent)',
+                    color: 'var(--cl-text-on-dark)',
+                    border: 'none',
+                    borderRadius: 'var(--cl-radius-md)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 700,
+                    fontFamily: 'var(--cl-font-sans)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Verify your address
+                  <ArrowRight size={12} active color="onDark" />
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// Election-center sub-block — text-only "It's election season" with
+// 4 key dates. Uses state-specific dates if present, falls back to
+// just the federal general-election date when not.
+function ElectionCenter({ elections, stateCode, stateName }) {
+  const k = elections?.key_dates || null;
+  const dates = [
+    k?.primary && { label: 'Primary', value: formatBallotDate(k.primary) },
+    k?.general && { label: 'General', value: formatBallotDate(k.general) },
+    k?.voter_registration_deadline_general && {
+      label: 'Register by',
+      value: formatBallotDate(k.voter_registration_deadline_general),
+    },
+    k?.vote_by_mail_request_deadline_general && {
+      label: 'Vote-by-mail',
+      value: formatBallotDate(k.vote_by_mail_request_deadline_general),
+    },
+  ].filter(Boolean);
+
+  // Federal-cycle fallback when state has no curated dates yet.
+  const fallbackDates = [
+    { label: 'General', value: 'Nov 3, 2026' },
+  ];
+
+  const renderDates = dates.length > 0 ? dates : fallbackDates;
+  const headline = stateCode
+    ? `It's election season in ${stateName}.`
+    : "It's election season.";
+
+  return (
+    <div
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-2xl)',
+        padding: 16,
+      }}
+    >
+      <div className="cl-eyebrow">Election center</div>
+      <h3
+        style={{
+          margin: '6px 0 6px',
+          fontSize: 'var(--cl-text-lg)',
+          fontWeight: 700,
+          color: 'var(--cl-text)',
+          letterSpacing: 'var(--cl-tracking-tight)',
+        }}
+      >
+        {headline}
+      </h3>
+      <p
+        className="cl-body-sm"
+        style={{ color: 'var(--cl-text-light)', margin: '0 0 12px' }}
+      >
+        Track candidates running for federal, state, and local office. Bookmark
+        races, follow candidates, and get notified before key deadlines.
+      </p>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: 10,
+        }}
+      >
+        {renderDates.map((d) => (
+          <div
+            key={d.label}
+            style={{
+              padding: '10px 12px',
+              background: 'var(--cl-bg-soft)',
+              border: '1px solid var(--cl-border)',
+              borderRadius: 'var(--cl-radius-md)',
+            }}
+          >
+            <div className="cl-eyebrow" style={{ marginBottom: 2 }}>
+              {d.label}
+            </div>
+            <div
+              className="cl-num"
+              style={{
+                fontSize: 'var(--cl-text-md)',
+                fontWeight: 700,
+                color: 'var(--cl-text)',
+              }}
+            >
+              {d.value}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Anonymous-visitor empty state for the featured race — clear CTA
+// back to address verification. We don't try to fake a sample race
+// here; the user explicitly preferred a clean "we'll show you your
+// ballot once we know where you live" prompt.
+function FeaturedRaceVerifyPrompt({ onRequestVerify }) {
+  return (
+    <div
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px dashed var(--cl-border-strong)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: '24px 18px',
+        textAlign: 'center',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 'var(--cl-text-md)',
+          fontWeight: 600,
+          color: 'var(--cl-text)',
+          marginBottom: 4,
+        }}
+      >
+        Sign in to see your district's race.
+      </div>
+      <div
+        style={{
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text-light)',
+          marginBottom: 12,
+        }}
+      >
+        Verify your address to see your complete ballot — federal, state, and local.
+      </div>
+      <button
+        type="button"
+        onClick={onRequestVerify}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 6,
+          padding: '8px 16px',
+          background: 'var(--cl-accent)',
+          color: 'var(--cl-text-on-dark)',
+          border: 'none',
+          borderRadius: 'var(--cl-radius-md)',
+          fontSize: 'var(--cl-text-sm)',
+          fontWeight: 700,
+          fontFamily: 'var(--cl-font-sans)',
+          cursor: 'pointer',
+        }}
+      >
+        Verify your address
+        <ArrowRight size={12} active color="onDark" />
+      </button>
+    </div>
+  );
+}
+
+// Logged-in-citizen empty state — their state isn't seeded yet.
+function FeaturedRaceEmpty({ stateName }) {
+  return (
+    <EmptyState
+      icon={<Building size={32} active color="muted" />}
+      headline={`Election results coming soon for ${stateName || 'your state'}.`}
+      body="We're rolling out 2026 candidate data state by state. Tracked notifications will fire as soon as your races land."
+      tone="muted"
+    />
+  );
+}
+
+// The actual race card grid — header line + 6 candidate cards using
+// the same CompactPersonCard component as Cabinet / SCOTUS.
+function FeaturedRaceCards({ race, candidates, onCandidatePick }) {
+  return (
+    <div>
+      <div
+        style={{
+          marginBottom: 10,
+          padding: '8px 12px',
+          background: 'var(--cl-card)',
+          border: '1px solid var(--cl-border)',
+          borderRadius: 'var(--cl-radius-md)',
+          display: 'flex',
+          alignItems: 'baseline',
+          flexWrap: 'wrap',
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 'var(--cl-text-md)',
+            fontWeight: 700,
+            color: 'var(--cl-text)',
+          }}
+        >
+          {race.office}
+        </span>
+        {race.open_seat && (
+          <span
+            style={{
+              fontSize: 'var(--cl-text-2xs)',
+              fontWeight: 700,
+              padding: '2px 8px',
+              borderRadius: 'var(--cl-radius-pill)',
+              background: 'var(--cl-warning-soft)',
+              color: 'var(--cl-warning-text)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Open seat
+          </span>
+        )}
+        {candidates.length >= 6 && (
+          <span
+            style={{
+              marginLeft: 'auto',
+              fontSize: 'var(--cl-text-xs)',
+              color: 'var(--cl-text-muted)',
+            }}
+          >
+            Showing 6 — full field on the state page
+          </span>
+        )}
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+          gap: 10,
+        }}
+      >
+        {candidates.map((c) => (
+          <CompactPersonCard
+            key={c.id}
+            person={c}
+            eyebrow={`Candidate · ${c.party || 'NPA'}`}
+            meta={c.hometown || c.city || null}
+            onClick={onCandidatePick ? () => onCandidatePick(c) : null}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
