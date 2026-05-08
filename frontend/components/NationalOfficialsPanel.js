@@ -4,7 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { fetchAllCandidates, fetchElections, fetchFederalOfficials } from '@/lib/api';
+import { fetchElections, fetchFederalOfficials } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
@@ -601,38 +601,32 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
 
   const [open, toggleOpen] = usePersistentToggle('cl:nop:ballot', true);
 
-  // Two parallel fetches, both keyed off the citizen's state.
-  // Anonymous visitors (no stateCode) skip the fetch entirely — we
-  // render the "verify your address" prompt instead.
+  // Single fetch keyed off the citizen's state. The backend's
+  // /api/elections/{state} endpoint already EXPANDS candidate IDs
+  // into full candidate records inside each race's
+  // primary_candidates and general_candidates fields, so the
+  // frontend doesn't need a second pass to resolve the references.
+  // (Earlier attempt did a second fetchAllCandidates() + Map
+  // lookup; that was a no-op because the IDs had already been
+  // swapped for objects, so every lookup returned undefined and
+  // the empty state always rendered.)
   const [elections, setElections] = useState(null);
   const [electionsLoading, setElectionsLoading] = useState(false);
-  const [candidatesIndex, setCandidatesIndex] = useState(null);
 
   useEffect(() => {
     if (!stateCode) {
       setElections(null);
-      setCandidatesIndex(null);
       return;
     }
     let cancelled = false;
     setElectionsLoading(true);
-    Promise.all([
-      fetchElections(stateCode),
-      fetchAllCandidates(),
-    ]).then(([elec, cands]) => {
+    fetchElections(stateCode).then((elec) => {
       if (cancelled) return;
       setElections(elec?.data || null);
-      // Build an id → candidate index for O(1) lookups when matching
-      // race.primary_candidates / general_candidates back to full
-      // candidate records.
-      const idx = new Map();
-      for (const c of (cands?.data || [])) idx.set(c.id, c);
-      setCandidatesIndex(idx);
       setElectionsLoading(false);
     }).catch(() => {
       if (cancelled) return;
       setElections(null);
-      setCandidatesIndex(null);
       setElectionsLoading(false);
     });
     return () => { cancelled = true; };
@@ -652,12 +646,14 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
     return stateExec || elections.races[0];
   }, [elections]);
 
-  // Resolve the IDs in the headline race to actual candidate objects.
-  // Cap at 6 cards for the home-page surface (full ballot lives in
-  // the side-panel BallotTab once a state is selected).
+  // The /api/elections endpoint already expands candidate IDs into full
+  // candidate records server-side (see elections_service._resolve_race),
+  // so we can iterate the arrays directly. Cap at 6 cards for the
+  // home-page surface (full ballot lives in the side-panel BallotTab
+  // once a state is selected).
   const featuredCandidates = useMemo(() => {
-    if (!headlineRace || !candidatesIndex) return [];
-    const ids = [
+    if (!headlineRace) return [];
+    const all = [
       ...(headlineRace.primary_candidates?.R || []),
       ...(headlineRace.primary_candidates?.D || []),
       ...(headlineRace.primary_candidates?.I || []),
@@ -665,15 +661,14 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
     ];
     const seen = new Set();
     const out = [];
-    for (const id of ids) {
-      if (seen.has(id)) continue;
-      seen.add(id);
-      const c = candidatesIndex.get(id);
-      if (c) out.push(c);
+    for (const c of all) {
+      if (!c || !c.id || seen.has(c.id)) continue;
+      seen.add(c.id);
+      out.push(c);
       if (out.length >= 6) break;
     }
     return out;
-  }, [headlineRace, candidatesIndex]);
+  }, [headlineRace]);
 
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
@@ -737,48 +732,6 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
                   onCandidatePick={onCandidatePick}
                 />
               )}
-
-              {/* CTA — shown universally as a friendly close to the
-                  block. Wording matches the spec. */}
-              <div
-                style={{
-                  marginTop: 14,
-                  padding: '12px 14px',
-                  background: 'var(--cl-card)',
-                  border: '1px solid var(--cl-border)',
-                  borderRadius: 'var(--cl-radius-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 12,
-                  flexWrap: 'wrap',
-                }}
-              >
-                <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
-                  Verify your address to see your complete ballot.
-                </span>
-                <button
-                  type="button"
-                  onClick={onRequestVerify}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    padding: '8px 14px',
-                    background: 'var(--cl-accent)',
-                    color: 'var(--cl-text-on-dark)',
-                    border: 'none',
-                    borderRadius: 'var(--cl-radius-md)',
-                    fontSize: 'var(--cl-text-sm)',
-                    fontWeight: 700,
-                    fontFamily: 'var(--cl-font-sans)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Verify your address
-                  <ArrowRight size={12} active color="onDark" />
-                </button>
-              </div>
             </div>
           </>
         )}
