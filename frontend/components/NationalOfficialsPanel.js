@@ -214,6 +214,7 @@ export default function NationalOfficialsPanel({
         citizen={citizen}
         onCandidatePick={onCandidatePick}
         onRequestVerify={handleVerifyClick}
+        onStatePick={onStatePick}
       />
 
       <div ref={executiveRef}>
@@ -595,7 +596,7 @@ function stateNameFor(code) {
   return entry ? entry[0] : upper;
 }
 
-function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
+function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify, onStatePick }) {
   const stateCode = citizen?.state ? citizen.state.toUpperCase() : null;
   const stateName = stateNameFor(stateCode);
 
@@ -651,6 +652,21 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
   // so we can iterate the arrays directly. Cap at 6 cards for the
   // home-page surface (full ballot lives in the side-panel BallotTab
   // once a state is selected).
+  //
+  // We deliberately do NOT preserve the R → D → I → general order from
+  // the source JSON — that biased the 6-card preview toward whichever
+  // pool happened to come first (in FL's case, the 8-strong R primary
+  // pushed every other party off the home page). Instead we pool
+  // everything together, dedupe, and Fisher-Yates shuffle so each
+  // visit surfaces a different mix across parties (Rs, Ds, Is, NPAs,
+  // and general-election candidates). `shuffleTick` is a state
+  // variable we bump on a 12s interval below to keep the cards
+  // rotating while the user lingers on the page.
+  const [shuffleTick, setShuffleTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setShuffleTick((t) => t + 1), 12000);
+    return () => clearInterval(id);
+  }, []);
   const featuredCandidates = useMemo(() => {
     if (!headlineRace) return [];
     const all = [
@@ -659,16 +675,26 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
       ...(headlineRace.primary_candidates?.I || []),
       ...(headlineRace.general_candidates || []),
     ];
+    // Dedupe by id (a candidate listed in both a primary and the
+    // general should only appear once in the preview).
     const seen = new Set();
-    const out = [];
+    const unique = [];
     for (const c of all) {
       if (!c || !c.id || seen.has(c.id)) continue;
       seen.add(c.id);
-      out.push(c);
-      if (out.length >= 6) break;
+      unique.push(c);
     }
-    return out;
-  }, [headlineRace]);
+    // Fisher-Yates on a copy so we don't mutate the upstream array.
+    const shuffled = unique.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, 6);
+    // shuffleTick is intentionally a dep — bumping it on the interval
+    // re-runs this useMemo and reshuffles the visible 6.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [headlineRace, shuffleTick]);
 
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
@@ -730,6 +756,9 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify }) {
                   race={headlineRace}
                   candidates={featuredCandidates}
                   onCandidatePick={onCandidatePick}
+                  stateCode={stateCode}
+                  stateName={stateName}
+                  onStatePick={onStatePick}
                 />
               )}
             </div>
@@ -906,7 +935,12 @@ function FeaturedRaceEmpty({ stateName }) {
 
 // The actual race card grid — header line + 6 candidate cards using
 // the same CompactPersonCard component as Cabinet / SCOTUS.
-function FeaturedRaceCards({ race, candidates, onCandidatePick }) {
+function FeaturedRaceCards({ race, candidates, onCandidatePick, stateCode, stateName, onStatePick }) {
+  // The full-field link is only meaningful when we know which state
+  // to deep-link to AND we have a parent handler wired (page.js's
+  // handleStateSelect). If onStatePick is missing, fall back to the
+  // existing static caption.
+  const canDeepLink = !!(stateCode && onStatePick);
   return (
     <div>
       <div
@@ -948,15 +982,51 @@ function FeaturedRaceCards({ race, candidates, onCandidatePick }) {
           </span>
         )}
         {candidates.length >= 6 && (
-          <span
+          <div
             style={{
               marginLeft: 'auto',
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              flexWrap: 'wrap',
             }}
           >
-            Showing 6 — full field on the state page
-          </span>
+            <span
+              style={{
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text-muted)',
+              }}
+            >
+              Showing 6 — full field on the state page
+            </span>
+            {canDeepLink && (
+              <button
+                type="button"
+                onClick={() => onStatePick(stateCode, stateName)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '6px 12px',
+                  background: 'var(--cl-accent)',
+                  color: 'var(--cl-text-on-dark)',
+                  border: 'none',
+                  borderRadius: 'var(--cl-radius-pill)',
+                  fontSize: 'var(--cl-text-2xs)',
+                  fontWeight: 700,
+                  fontFamily: 'var(--cl-font-sans)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+                aria-label={`View full ballot for ${stateName || stateCode}`}
+              >
+                View {stateName || stateCode} page
+                <ArrowRight size={12} active color="onDark" />
+              </button>
+            )}
+          </div>
         )}
       </div>
       <div
