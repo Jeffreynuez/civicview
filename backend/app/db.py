@@ -216,30 +216,28 @@ def _repair_bad_now_defaults() -> None:
         _rebuild_sqlite_table(name)
 
 
+def _is_sqlite() -> bool:
+    return DATABASE_URL.startswith("sqlite")
+
+
 def _auto_migrate_new_columns() -> None:
     """Dev-ergonomics auto-migration.
 
     `Base.metadata.create_all` only creates tables that are missing —
     it never alters existing ones. When a model gains a new column
-    between runs (e.g. adding CitizenAccount.verified or
-    RepAccount.owner_state during Phase 1.5), the ORM's SELECT will
-    reference a column that doesn't exist on disk and every request
-    that touches that table will 500.
+    between runs (e.g. adding CitizenAccount.verified, RepAccount.
+    owner_state, or the citizen-poll author/archive columns), the
+    ORM's SELECT will reference a column that doesn't exist on disk
+    and every request that touches that table will 500.
 
     This pass inspects each declared model, compares its columns to
-    what SQLite (or Postgres) reports for the actual table, and
-    ALTER TABLE ADDs anything missing. We only run on SQLite and only
-    for NULL-safe, default-safe additions — if a new column is NOT
-    NULL without a server_default we skip it and log loudly so the
-    developer notices and either (a) adds a server_default to the
-    model or (b) deletes the DB and starts fresh.
-
-    Production: this function is a no-op on non-SQLite connections;
-    use Alembic there.
+    what the on-disk table reports, and ALTER TABLE ADDs anything
+    missing. Runs on both SQLite (dev) and Postgres (Render) — the
+    `ADD COLUMN` syntax is portable, and the dialect compiler in
+    `_render_server_default` produces correct defaults for each
+    backend. Skips columns that are NOT NULL without a default
+    (no safe way to backfill on existing rows).
     """
-    if not DATABASE_URL.startswith("sqlite"):
-        return
-
     inspector = inspect(engine)
     for mapper in Base.registry.mappers:
         table = mapper.local_table
@@ -252,21 +250,18 @@ def _auto_migrate_new_columns() -> None:
             if not col.nullable and col.server_default is None and col.default is None:
                 logger.warning(
                     "Auto-migrate skipped %s.%s — NOT NULL without a default. "
-                    "Delete civiclens.db or add a default, then restart.",
+                    "Add a server_default in the model or migrate manually.",
                     table.name, col.name,
                 )
                 continue
 
-            # Compose the column definition SQLite will accept.
+            # Compose the column definition. col.type.compile() uses the
+            # dialect compiler so VARCHAR/INTEGER/DATETIME render
+            # correctly on both SQLite and Postgres.
             col_type = col.type.compile(dialect=engine.dialect)
             parts = [f'"{col.name}"', col_type]
             if not col.nullable:
                 parts.append("NOT NULL")
-
-            # Resolve a literal default. Booleans serialize to 0/1 in
-            # SQLite, strings get SQL-quoted, NULL stays NULL. We never
-            # want to emit a bare word like `DEFAULT full` — SQLite
-            # parses that as an identifier and errors out.
             default_clause: str | None = _render_server_default(col)
             if default_clause is not None:
                 parts.append(f"DEFAULT {default_clause}")
@@ -278,26 +273,29 @@ def _auto_migrate_new_columns() -> None:
 
 
 def _auto_migrate_nullability_changes() -> None:
-    """Second auto-migration pass: handle columns whose nullability has
+    """Second auto-migration pass: relax columns whose nullability has
     loosened since the table was created.
 
-    Motivating case: `poll_votes.voter_token` was NOT NULL in Phase 1
-    (anonymous-only voting). In Phase 1.5 voter_token became optional
-    because citizen_id is the authoritative identity and we want
-    citizen rows to save voter_token=NULL. SQLite can't ALTER COLUMN a
-    constraint directly — we have to rebuild the table. This function
-    detects any `nullable in model but NOT NULL on disk` mismatch and
-    rebuilds the affected tables while preserving every row. Indexes
-    declared on the model are recreated automatically by
-    `Table.create()`. If the model *tightened* nullability (now NOT
-    NULL but NULLs on disk) we skip the rebuild and log loudly — the
-    dev can decide whether to wipe the data or add a backfill.
-    """
-    if not DATABASE_URL.startswith("sqlite"):
-        return
+    Motivating cases:
+      • `poll_votes.voter_token` was NOT NULL in Phase 1 (anonymous-
+        only voting); Phase 1.5 made it optional because citizen_id is
+        authoritative.
+      • `polls.post_id` was NOT NULL in Phase 1 (every poll attached
+        to a rep post); citizen polls are standalone and need
+        post_id=NULL.
 
+    SQLite can't ALTER COLUMN a constraint directly so we rebuild the
+    table while preserving rows. Postgres supports `ALTER COLUMN ...
+    DROP NOT NULL` natively — much cheaper, no copy required.
+
+    If the model *tightened* nullability (now NOT NULL but NULLs on
+    disk) we skip and log loudly — the dev decides whether to wipe
+    or backfill.
+    """
     inspector = inspect(engine)
     tables_to_rebuild: list[str] = []
+    pg_columns_to_relax: list[tuple[str, str]] = []
+    is_sqlite = _is_sqlite()
     for mapper in Base.registry.mappers:
         table = mapper.local_table
         if table is None or table.name not in inspector.get_table_names():
@@ -307,18 +305,29 @@ def _auto_migrate_nullability_changes() -> None:
             on_disk = on_disk_cols.get(col.name)
             if on_disk is None:
                 continue  # handled by the ADD COLUMN pass
-            # Relaxing: model says nullable, disk says NOT NULL → rebuild.
+            # Relaxing: model says nullable, disk says NOT NULL.
+            # SQLite needs a full table rebuild; Postgres can ALTER
+            # COLUMN ... DROP NOT NULL directly.
             if col.nullable and not on_disk["nullable"]:
                 logger.warning(
-                    "Auto-migrate: %s.%s is NOT NULL on disk but nullable in model — "
-                    "will rebuild %s to relax the constraint.",
-                    table.name, col.name, table.name,
+                    "Auto-migrate: %s.%s is NOT NULL on disk but nullable in model — relaxing.",
+                    table.name, col.name,
                 )
-                tables_to_rebuild.append(table.name)
-                break
+                if is_sqlite:
+                    tables_to_rebuild.append(table.name)
+                    break
+                else:
+                    pg_columns_to_relax.append((table.name, col.name))
 
     for name in tables_to_rebuild:
         _rebuild_sqlite_table(name)
+
+    if pg_columns_to_relax:
+        with engine.begin() as conn:
+            for table_name, col_name in pg_columns_to_relax:
+                ddl = f'ALTER TABLE "{table_name}" ALTER COLUMN "{col_name}" DROP NOT NULL'
+                logger.info("Auto-migrate: %s", ddl)
+                conn.execute(text(ddl))
 
 
 def _rebuild_sqlite_table(table_name: str) -> None:
