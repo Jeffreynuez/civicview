@@ -39,13 +39,27 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 from pathlib import Path
 from typing import Optional
 
+import urllib.request
+import urllib.error
+
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+# Disk cache for the legislators-current.json fetch — re-used across
+# restarts so we only pay the network round-trip on the first boot.
+LEGISLATORS_CACHE_PATH = DATA_DIR / "_cache" / "legislators_current.json"
+LEGISLATORS_URL = (
+    "https://unitedstates.github.io/congress-legislators/legislators-current.json"
+)
+# Max age (seconds) before we re-fetch on the next boot. 7 days — the
+# data changes rarely, and stale state/district info just degrades
+# scope filtering, never breaks anything.
+LEGISLATORS_CACHE_TTL = 7 * 24 * 3600
 
 # Exposed in-memory index. Module-level so it's shared across requests.
 _INDEX: dict[str, dict] = {}
@@ -197,6 +211,120 @@ def _ingest_candidates(state_code: str, payload: dict) -> None:
         _put(c.get("id"), state=state_code, district=district)
 
 
+def _ingest_sitting_congress(legislators: list) -> None:
+    """Index every sitting U.S. Senator and Representative from the
+    legislators-current.json roster. Each member's bioguide_id maps
+    to {state, district} so a citizen-poll page on, say, Senator Rick
+    Scott (S001227) gets country+state scope chips, and Rep. Maxwell
+    Frost (F000475) gets country+state+district.
+    """
+    if not isinstance(legislators, list):
+        return
+    count = 0
+    for entry in legislators:
+        try:
+            bioguide = (entry.get("id") or {}).get("bioguide")
+            if not bioguide:
+                continue
+            terms = entry.get("terms") or []
+            if not terms:
+                continue
+            latest = terms[-1] or {}
+            state = latest.get("state")
+            chamber = latest.get("type")  # 'sen' or 'rep'
+            district = None
+            if chamber == "rep":
+                d = latest.get("district")
+                if d is not None:
+                    district = (
+                        f"{state}-{int(d)}"
+                        if state and isinstance(d, (int, str)) and str(d).isdigit()
+                        else None
+                    )
+            _put(bioguide, state=state, district=district)
+            count += 1
+        except Exception:
+            # Don't let one malformed entry kill the whole import.
+            continue
+    if count:
+        logger.info("officials_index: ingested %d sitting Congress members", count)
+
+
+def _ingest_sample_congress() -> None:
+    """Fallback: ingest CongressService.SAMPLE_DATA so well-known
+    members (Rick Scott, Marco Rubio, etc.) work even when the live
+    legislators-current.json fetch isn't available — common during
+    cold starts on free-tier hosting and in offline dev.
+    """
+    try:
+        # Local import to avoid a circular at module load.
+        from app.services.congress_service import CongressService
+    except Exception:
+        return
+    sample = getattr(CongressService, "SAMPLE_DATA", None)
+    if not isinstance(sample, dict):
+        return
+    count = 0
+    for state_code, block in sample.items():
+        if not isinstance(block, dict):
+            continue
+        for m in block.get("congress") or []:
+            bioguide = m.get("bioguide_id")
+            if not bioguide:
+                continue
+            d = m.get("district")
+            district = (
+                f"{state_code}-{int(d)}"
+                if d is not None and str(d).isdigit() else None
+            )
+            _put(bioguide, state=state_code, district=district)
+            count += 1
+    if count:
+        logger.info("officials_index: ingested %d sample-data Congress members", count)
+
+
+def _load_legislators_current_synchronously() -> Optional[list]:
+    """One-shot synchronous fetch of legislators-current.json with a
+    disk cache. Network errors and parse errors are swallowed —
+    we just return None and the caller falls back to sample data.
+    Skipped entirely when CIVICVIEW_SKIP_LEGISLATORS_FETCH is truthy
+    (used in CI / offline dev to avoid the cold-start penalty).
+    """
+    if os.getenv("CIVICVIEW_SKIP_LEGISLATORS_FETCH", "").strip().lower() in {"1", "true", "yes"}:
+        return None
+    # Try the disk cache first.
+    try:
+        if LEGISLATORS_CACHE_PATH.exists():
+            mtime = LEGISLATORS_CACHE_PATH.stat().st_mtime
+            import time
+            if (time.time() - mtime) < LEGISLATORS_CACHE_TTL:
+                return json.loads(LEGISLATORS_CACHE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    try:
+        with urllib.request.urlopen(LEGISLATORS_URL, timeout=10) as resp:
+            payload = resp.read().decode("utf-8")
+        data = json.loads(payload)
+        try:
+            LEGISLATORS_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            LEGISLATORS_CACHE_PATH.write_text(payload, encoding="utf-8")
+        except OSError:
+            # Read-only filesystem (e.g. some serverless platforms) is
+            # fine — we just won't cache to disk this run.
+            pass
+        return data
+    except (urllib.error.URLError, OSError, json.JSONDecodeError, TimeoutError) as e:
+        logger.info("officials_index: legislators fetch unavailable (%s) — using sample fallback", e)
+        # Stale cache is better than nothing.
+        try:
+            if LEGISLATORS_CACHE_PATH.exists():
+                return json.loads(LEGISLATORS_CACHE_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            pass
+        return None
+
+
 def build_index() -> None:
     """Load every curated data file once. Idempotent — re-calling on
     an already-loaded index re-builds from disk (useful in tests)."""
@@ -213,7 +341,7 @@ def build_index() -> None:
     # Walk every state subdir for state_officials.json + candidates.json.
     if DATA_DIR.exists():
         for sub in DATA_DIR.iterdir():
-            if not sub.is_dir() or sub.name == "federal":
+            if not sub.is_dir() or sub.name in {"federal", "_cache"}:
                 continue
             state_code = sub.name.upper()
             for filename, ingestor in (
@@ -227,6 +355,15 @@ def build_index() -> None:
                     ingestor(state_code, json.loads(p.read_text(encoding="utf-8")))
                 except (OSError, json.JSONDecodeError) as e:
                     logger.warning("officials_index: failed to load %s: %s", p, e)
+
+    # Sitting Congress: try the live roster first, fall back to the
+    # CongressService SAMPLE_DATA so well-known members (Rick Scott,
+    # Marco Rubio, etc.) always resolve.
+    legislators = _load_legislators_current_synchronously()
+    if legislators:
+        _ingest_sitting_congress(legislators)
+    else:
+        _ingest_sample_congress()
 
     _LOADED = True
     logger.info("officials_index: built (%d entries)", len(_INDEX))

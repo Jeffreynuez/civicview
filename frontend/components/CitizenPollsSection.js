@@ -629,7 +629,12 @@ function CitizenPollCard({
         </div>
         {/* Per-card actions: report + close */}
         <div style={{ display: 'flex', gap: 6 }}>
-          {!archived && poll.can_close && (
+          {/* Close — defensive double-check: server-side can_close
+              already excludes everyone except the author, but we
+              also gate on a non-null citizen here so a stale
+              response or session edge case can't render the button
+              for someone who isn't even signed in as a citizen. */}
+          {!archived && !!citizen && poll.can_close && isMine && (
             <button
               type="button"
               onClick={() => onClosed(poll)}
@@ -639,7 +644,10 @@ function CitizenPollCard({
               Close
             </button>
           )}
-          {!isMine && !poll.my_report_filed && (
+          {/* Report — needs a citizen session (or rep) to actually
+              succeed; for anonymous viewers we skip the button
+              instead of letting them mash it for a 401. */}
+          {!isMine && !!citizen && !poll.my_report_filed && (
             <button
               type="button"
               onClick={onReportClick}
