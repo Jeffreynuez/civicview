@@ -218,9 +218,11 @@ export async function fetchCitizenMe() {
 // caller's role, and the rate-limit signals (caller_has_active_poll,
 // active_count, active_cap) so the create button knows whether to
 // disable itself before the user types a question.
-export async function fetchCitizenPolls(officialId) {
+export async function fetchCitizenPolls(officialId, { scope } = {}) {
   if (!officialId) return { data: null, error: 'officialId is required', status: 0 };
-  return request(`/api/pages/${encodeURIComponent(officialId)}/citizen-polls`);
+  return request(`/api/pages/${encodeURIComponent(officialId)}/citizen-polls`, {
+    query: { scope },
+  });
 }
 
 export async function createCitizenPoll(officialId, pollPayload) {

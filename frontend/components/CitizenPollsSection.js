@@ -63,10 +63,17 @@ export default function CitizenPollsSection({
   const [error, setError] = useState(null);
   const [createOpen, setCreateOpen] = useState(false);
   const [reportTarget, setReportTarget] = useState(null);
+  // Active scope chip — country / state / district / city. The
+  // backend tells us which scopes this page's office supports
+  // (allowed_scopes); the chip row only renders those.
+  const [activeScope, setActiveScope] = useState('country');
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (scopeOverride) => {
     setLoading(true);
-    const { data: d, error: e } = await fetchCitizenPolls(officialId);
+    const scope = scopeOverride ?? activeScope;
+    const { data: d, error: e } = await fetchCitizenPolls(
+      officialId, { scope: scope === 'country' ? undefined : scope },
+    );
     if (e) {
       setError(e);
       setLoading(false);
@@ -75,10 +82,18 @@ export default function CitizenPollsSection({
     setData(d);
     setError(null);
     setLoading(false);
-  }, [officialId]);
+  }, [officialId, activeScope]);
 
+  // Initial load + on officialId change.
   useEffect(() => {
     reload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [officialId]);
+
+  // Re-fetch when the user changes scope.
+  const handleScopeChange = useCallback((next) => {
+    setActiveScope(next);
+    reload(next);
   }, [reload]);
 
   // Optimistic vote — replace the poll in `active` with the server's
@@ -187,6 +202,14 @@ export default function CitizenPollsSection({
   // dismissed the archive (archived list is empty post-dismiss).
   if (pageClaimed && archived.length === 0) return null;
 
+  // Scope chip row — only render when the office supports more than
+  // country scope. President / VP / Cabinet / SCOTUS pages skip the
+  // row entirely (allowed_scopes is just ['country']) so we don't
+  // surface a single-chip "filter" with nothing to filter against.
+  const scopes = data?.allowed_scopes || ['country'];
+  const scopeLabels = data?.scope_labels || { country: 'United States' };
+  const showScopeFilter = scopes.length > 1;
+
   return (
     <div style={sectionStyle}>
       <SectionBanner
@@ -196,6 +219,15 @@ export default function CitizenPollsSection({
         isOwner={isOwner}
         onDismissArchive={handleDismissArchive}
       />
+
+      {showScopeFilter && (
+        <ScopeChipRow
+          scopes={scopes}
+          labels={scopeLabels}
+          active={activeScope}
+          onChange={handleScopeChange}
+        />
+      )}
 
       {!pageClaimed && (
         <div style={{ marginTop: 14, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
@@ -342,6 +374,94 @@ const sectionStyle = {
 // ─────────────────────────────────────────────────────────────────────
 // Banner — different copy for unclaimed vs. owner-on-claimed-page
 // ─────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// Scope chip row — Country / State / District / City. Only rendered
+// when the page's office supports more than country scope (so
+// Cabinet / SCOTUS / President / VP pages skip it entirely). Uses
+// the labels the backend computed from the curated officials index
+// — we don't redo that derivation here.
+// ─────────────────────────────────────────────────────────────────────
+function ScopeChipRow({ scopes, labels, active, onChange }) {
+  const TITLE = {
+    country: 'All US citizens',
+    state: 'Citizens in the state this office represents',
+    district: 'Citizens in the district this office represents',
+    city: 'Citizens in the city this office represents',
+  };
+  return (
+    <div
+      style={{
+        marginTop: 12,
+        marginBottom: 10,
+        display: 'flex',
+        gap: 8,
+        flexWrap: 'wrap',
+        alignItems: 'center',
+      }}
+      role="tablist"
+      aria-label="Filter poll vote counts by geographic scope"
+    >
+      <span
+        style={{
+          fontSize: '0.7rem',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.4px',
+          color: 'var(--cl-text-light)',
+        }}
+      >
+        Filter
+      </span>
+      {scopes.map((s) => {
+        const isActive = active === s;
+        const display = s === 'country' ? 'Country' : s.charAt(0).toUpperCase() + s.slice(1);
+        const label = labels[s];
+        return (
+          <button
+            key={s}
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(s)}
+            title={TITLE[s]}
+            style={{
+              padding: '5px 12px',
+              borderRadius: 999,
+              border: `1px solid ${isActive ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+              background: isActive ? 'var(--cl-accent)' : 'white',
+              color: isActive ? 'white' : 'var(--cl-text)',
+              fontSize: '0.78rem',
+              fontWeight: isActive ? 700 : 600,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+          >
+            {display}
+            {label && s !== 'country' && (
+              <span
+                style={{
+                  fontSize: '0.66rem',
+                  fontWeight: 700,
+                  padding: '1px 6px',
+                  borderRadius: 999,
+                  background: isActive ? 'rgba(255,255,255,0.22)' : 'var(--cl-bg)',
+                  color: isActive ? 'white' : 'var(--cl-text-light)',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {label}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function SectionBanner({ ownerName, pageClaimed, archivedCount, isOwner, onDismissArchive }) {
   if (pageClaimed && isOwner) {
     return (

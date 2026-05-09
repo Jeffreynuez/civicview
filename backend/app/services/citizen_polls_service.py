@@ -50,21 +50,61 @@ from app.schemas.pages import (
     PollRead,
     PollScopeBreakdown,
 )
+from app.services.officials_index import (
+    allowed_scopes_for_official,
+    lookup as lookup_official_geography,
+    scope_labels_for_official,
+)
+
+
+def _vote_matches_scope(vote, scope: str, geo: Optional[dict]) -> bool:
+    """Does a vote count under the given scope, given the page's
+    geographic context? Mirrors pages.py._engagement_matches_scope but
+    drives off a plain dict (the citizen-polls path doesn't have a
+    RepAccount to read from)."""
+    if scope == "country":
+        return True
+    if not geo:
+        return False
+    # Anonymous votes (citizen_id None) only roll up under country.
+    if getattr(vote, "citizen_id", 0) is None:
+        return False
+    if scope == "state":
+        return bool(geo.get("state")) and vote.scope_state == geo["state"]
+    if scope == "district":
+        return bool(geo.get("district")) and vote.scope_district == geo["district"]
+    if scope == "city":
+        return bool(geo.get("city")) and vote.scope_city == geo["city"]
+    return False
 
 
 # ── Serialization ─────────────────────────────────────────────────────
 def _poll_to_simple_read(
     poll: Poll,
     voter_choice_id: Optional[int] = None,
+    *,
+    active_scope: str = "country",
+    allowed_scopes: Optional[List[str]] = None,
+    scope_labels: Optional[dict] = None,
+    geo: Optional[dict] = None,
 ) -> PollRead:
-    """Lightweight poll-to-read for citizen polls.
+    """Serialize a citizen poll into the wire shape PollCard renders.
 
-    Citizen polls have no rep owner, so the 'owner geography' scope
-    concept (state / district / city) doesn't apply — every vote
-    rolls up under 'country'. We still return the same PollRead
-    shape the rep-poll surface uses so the frontend's PollCard
-    component can render it without forking on author kind.
+    Vote counts roll up to the requested `active_scope`. When the
+    scope is something other than `country`, votes are filtered to
+    only those whose denormalized geography matches the page's
+    context (e.g. for a House rep's page in scope='district', only
+    votes from citizens in that district count).
+
+    `allowed_scopes` and `scope_labels` are surfaced on the response
+    so the frontend can render the scope chip row without re-deriving
+    them — the same convention rep polls use on `/api/pages/{id}`.
     """
+    allowed_scopes = allowed_scopes or ["country"]
+    scope_labels = scope_labels or {"country": "United States"}
+    if active_scope not in allowed_scopes:
+        active_scope = "country"
+
     mode = (poll.presentation_mode or "full").lower()
     now = datetime.utcnow()
     poll_is_closed = poll.closes_at is not None and now >= poll.closes_at
@@ -73,18 +113,32 @@ def _poll_to_simple_read(
     # bypasses this, so suppression is binary.
     suppress_counts = mode == "reveal_after_close" and not poll_is_closed
 
+    # Compute the scope breakdown across all allowed scopes so the
+    # UI can show "X in district / Y statewide" simultaneously.
+    breakdown = PollScopeBreakdown()
     options_out: List[PollOptionRead] = []
     active_total = 0
     for opt in poll.options:
         votes = opt.votes or []
-        active_count = 0 if suppress_counts else len(votes)
+        if suppress_counts:
+            active_count = 0
+        else:
+            active_count = sum(1 for v in votes if _vote_matches_scope(v, active_scope, geo))
         active_total += active_count
         options_out.append(PollOptionRead(
             id=opt.id, text=opt.text, sort_order=opt.sort_order,
             vote_count=active_count,
         ))
-
-    breakdown = PollScopeBreakdown(country_total=active_total)
+        if suppress_counts:
+            continue
+        for v in votes:
+            breakdown.country_total += 1 if _vote_matches_scope(v, "country", geo) else 0
+            if "state" in allowed_scopes:
+                breakdown.state_total += 1 if _vote_matches_scope(v, "state", geo) else 0
+            if "district" in allowed_scopes:
+                breakdown.district_total += 1 if _vote_matches_scope(v, "district", geo) else 0
+            if "city" in allowed_scopes:
+                breakdown.city_total += 1 if _vote_matches_scope(v, "city", geo) else 0
 
     return PollRead(
         id=poll.id,
@@ -94,10 +148,10 @@ def _poll_to_simple_read(
         total_votes=active_total,
         voter_choice_id=voter_choice_id,
         default_visibility_scope="country",
-        active_scope="country",
-        allowed_scopes=["country"],
+        active_scope=active_scope,
+        allowed_scopes=allowed_scopes,
         scope_totals=breakdown,
-        active_scope_label=None,
+        active_scope_label=scope_labels.get(active_scope),
         presentation_mode=mode,
         counts_suppressed=suppress_counts,
     )
@@ -108,6 +162,11 @@ def serialize_citizen_poll(
     poll: Poll,
     me_citizen: Optional[CitizenAccount],
     me_rep: Optional[RepAccount],
+    *,
+    active_scope: str = "country",
+    allowed_scopes: Optional[List[str]] = None,
+    scope_labels: Optional[dict] = None,
+    geo: Optional[dict] = None,
 ) -> CitizenPollRead:
     """Compose a CitizenPollRead from a Poll + author lookup +
     counts (comments, reports, the caller's own state).
@@ -191,7 +250,14 @@ def serialize_citizen_poll(
         id=poll.id,
         target_official_id=poll.target_official_id or "",
         author=author_payload,
-        poll=_poll_to_simple_read(poll, voter_choice_id=voter_choice_id),
+        poll=_poll_to_simple_read(
+            poll,
+            voter_choice_id=voter_choice_id,
+            active_scope=active_scope,
+            allowed_scopes=allowed_scopes,
+            scope_labels=scope_labels,
+            geo=geo,
+        ),
         created_at=poll.created_at or datetime.utcnow(),
         archived_at=poll.archived_at,
         archived_reason=poll.archived_reason,

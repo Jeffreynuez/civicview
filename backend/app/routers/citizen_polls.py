@@ -93,6 +93,11 @@ from app.services.citizen_polls_service import (
     maybe_supersede_oldest_active_poll,
     serialize_citizen_poll,
 )
+from app.services.officials_index import (
+    allowed_scopes_for_official,
+    lookup as lookup_official_geography,
+    scope_labels_for_official,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -155,12 +160,19 @@ def _get_poll_or_404(db: Session, poll_id: int) -> Poll:
 
 
 # ── List + create on a specific page ──────────────────────────────────
+SCOPE_VALUES = ("country", "state", "district", "city")
+
+
 @router.get(
     "/pages/{official_id}/citizen-polls",
     response_model=CitizenPollListResponse,
 )
 def list_citizen_polls_on_page(
     official_id: str,
+    scope: Optional[str] = Query(
+        default=None,
+        description="Geographic scope to filter vote counts by. One of country/state/district/city. Defaults to country.",
+    ),
     db: Session = Depends(get_db),
     citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
@@ -170,9 +182,43 @@ def list_citizen_polls_on_page(
     always render to anyone (including unauth visitors); the archived
     set is gated to page owners since "Pre-claim discussion" is a
     rep-only UX affordance once the page is claimed.
+
+    Scope filter: when `scope` is set to state/district/city, vote
+    counts roll up only over citizens whose denormalized geography
+    matches the page's office context. The page's allowed scopes
+    come from the curated officials index — federal Senate pages
+    get country+state, House pages get country+state+district,
+    Cabinet/SCOTUS pages get country only.
     """
     owner = _load_owner(db, official_id)
     is_owner = bool(owner and me_rep and me_rep.id == owner.id)
+
+    # Resolve the page's geographic context. For claimed pages we
+    # prefer the RepAccount's own owner_state/owner_district so the
+    # owner can edit those without re-deploying. For unclaimed pages
+    # we fall back to the curated officials index.
+    if owner is not None:
+        geo = {
+            "state": owner.owner_state,
+            "district": owner.owner_district,
+            "city": owner.owner_city,
+        }
+        allowed = ["country"]
+        if owner.owner_state:    allowed.append("state")
+        if owner.owner_district: allowed.append("district")
+        if owner.owner_city:     allowed.append("city")
+        labels = {"country": "United States"}
+        if owner.owner_state:    labels["state"] = owner.owner_state
+        if owner.owner_district: labels["district"] = owner.owner_district
+        if owner.owner_city:     labels["city"] = owner.owner_city
+    else:
+        geo = lookup_official_geography(official_id) or {}
+        allowed = allowed_scopes_for_official(official_id)
+        labels = scope_labels_for_official(official_id)
+
+    # Validate the requested scope — fall back to country on anything
+    # we don't understand or don't support for this office.
+    active_scope = scope if scope in allowed else "country"
 
     active_polls = list_citizen_polls_for_page(db, official_id, active=True)
     archived_polls = (
@@ -180,12 +226,6 @@ def list_citizen_polls_on_page(
         if is_owner
         else []
     )
-
-    # If the rep has dismissed the archive, return an empty archived
-    # list to non-power-users while still allowing the owner to see it.
-    # Dismissed state is per-poll today (dismissed_by_owner_at) and we
-    # could surface a "this rep has hidden the archive" pill — for now
-    # we just hide dismissed rows from the response.
     if is_owner:
         archived_polls = [p for p in archived_polls if p.dismissed_by_owner_at is None]
 
@@ -199,11 +239,24 @@ def list_citizen_polls_on_page(
             citizen_has_active_poll_on_page(db, citizen.id, official_id)
             if citizen is not None else False
         ),
+        allowed_scopes=allowed,
+        scope_labels=labels,
+        active_scope=active_scope,
         active=[
-            serialize_citizen_poll(db, p, citizen, me_rep) for p in active_polls
+            serialize_citizen_poll(
+                db, p, citizen, me_rep,
+                active_scope=active_scope, allowed_scopes=allowed,
+                scope_labels=labels, geo=geo,
+            )
+            for p in active_polls
         ],
         archived=[
-            serialize_citizen_poll(db, p, citizen, me_rep) for p in archived_polls
+            serialize_citizen_poll(
+                db, p, citizen, me_rep,
+                active_scope=active_scope, allowed_scopes=allowed,
+                scope_labels=labels, geo=geo,
+            )
+            for p in archived_polls
         ],
     )
 

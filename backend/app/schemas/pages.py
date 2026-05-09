@@ -467,6 +467,21 @@ class CitizenPollListResponse(BaseModel):
     # and must close it before posting another (rate-limit rule:
     # 1 active per (citizen, page)).
     caller_has_active_poll: bool = False
+    # Geographic scopes this page's office supports — drives the
+    # Country/State/District chip row above the poll feed. Inferred
+    # from curated officials data on the backend (so the frontend
+    # doesn't need to know which office maps to which scopes). Empty
+    # for officials not in the curated index → frontend falls back to
+    # country-only.
+    allowed_scopes: List[str] = Field(default_factory=lambda: ["country"])
+    # Pretty-print labels for each scope, e.g. {state: "FL", district:
+    # "FL-19"}. country always reads "United States". Parallel-keyed
+    # to allowed_scopes.
+    scope_labels: dict = Field(default_factory=dict)
+    # Which scope the active vote counts in this response are
+    # filtered to. The caller's last-selected scope, or "country"
+    # for the default.
+    active_scope: str = "country"
     active: List[CitizenPollRead] = Field(default_factory=list)
     archived: List[CitizenPollRead] = Field(default_factory=list)
 
