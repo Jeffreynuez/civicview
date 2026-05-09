@@ -148,7 +148,10 @@ export default function CitizenPollsSection({
     setData((prev) => prev ? { ...prev, archived: [] } : prev);
   }, [isOwner, officialId]);
 
-  if (loading && !data) {
+  // Initial loading state — only block when we have nothing else to
+  // render. Once we've fetched once we keep the surface visible across
+  // refetches so it doesn't blink.
+  if (loading && !data && !error) {
     return (
       <div style={sectionStyle}>
         <div style={{ color: 'var(--cl-text-light)', fontSize: '0.85rem' }}>
@@ -158,15 +161,15 @@ export default function CitizenPollsSection({
     );
   }
 
-  // Silent bail when the backend can't be reached or doesn't have
-  // these endpoints yet (e.g. frontend deployed ahead of the backend).
-  // The section is purely additive — if we can't fetch, we render
-  // nothing rather than dumping a red error onto every rep page.
-  if (error) {
-    if (typeof console !== 'undefined') {
-      console.warn('CitizenPollsSection: hiding due to fetch error:', error);
-    }
-    return null;
+  // On fetch error we DON'T disappear the section — the banner +
+  // "Start a poll" CTA still render so a citizen on an unclaimed
+  // page can see the feature exists. The feed area swaps in a
+  // small inline notice. (A failed list endpoint usually just means
+  // the backend hasn't been redeployed with the new /api/citizen-
+  // polls routes yet; create attempts will surface the same error
+  // inline at submit time.)
+  if (error && typeof console !== 'undefined') {
+    console.warn('CitizenPollsSection: list fetch failed:', error);
   }
 
   const active = data?.active || [];
@@ -234,7 +237,11 @@ export default function CitizenPollsSection({
       )}
 
       {/* Active feed (unclaimed pages). On claimed pages this is empty
-          and we render the archive section instead. */}
+          and we render the archive section instead. We distinguish
+          three "feed empty" reasons: (a) genuine empty — invite the
+          user to be the first; (b) fetch failed — tell them so they
+          don't think the page is blank on purpose; (c) loading — quiet
+          dots. */}
       {!pageClaimed && active.length === 0 && (
         <div
           style={{
@@ -246,7 +253,11 @@ export default function CitizenPollsSection({
             color: 'var(--cl-text-light)',
           }}
         >
-          No citizen polls yet. Be the first — start a conversation about what you'd like to ask {ownerName} once they join.
+          {error
+            ? "Couldn't reach the citizen-polls service. Try again in a moment — your draft will go through once the connection is back."
+            : loading
+              ? 'Loading…'
+              : `No citizen polls yet. Be the first — start a conversation about what you'd like to ask ${ownerName} once they join.`}
         </div>
       )}
       {!pageClaimed && active.map((poll) => (
