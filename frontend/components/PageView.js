@@ -13,6 +13,7 @@ import OwnerScopeFilter from './OwnerScopeFilter';
 import ViewerScopeFilter from './ViewerScopeFilter';
 import Dashboard from './Dashboard';
 import CitizenPollsSection from './CitizenPollsSection';
+import Navbar from './Navbar';
 import { Skeleton, EmptyState, ErrorState, Newspaper } from './ui';
 import { useIsCompact } from '@/lib/useViewport';
 
@@ -60,6 +61,17 @@ export default function PageView({
   // engagement action routes to onCitizenLoginRequired().
   citizen,
   onCitizenLoginRequired,
+  // Compact-navbar wires (citizen-poll feature, Phase 2). Forwarded
+  // to the slim Navbar shown at the top of the PageView overlay so
+  // a user looking at a rep page can sign in / out, jump to their
+  // dashboard, open their tracked list, or hit Subscribe without
+  // having to back out of the page first. All optional — if a
+  // handler is missing the corresponding button is inert (or just
+  // doesn't render).
+  onCitizenLogout,
+  onCitizenDashboard,
+  onOpenTracked,
+  onSubscribe,
 }) {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -274,7 +286,28 @@ export default function PageView({
         overflow: 'hidden',
       }}
     >
-      {/* Top bar */}
+      {/* Compact app navbar — same chrome as the home page minus
+          the rep search and the Committees button (the user has
+          already drilled into a specific rep, so global rep search
+          + browse-by-committee aren't useful here). Citizen identity,
+          Subscribe, My Tracked stay reachable so a citizen can sign
+          in / out without backing out of the page first. The logo
+          click also calls onClose so it doubles as a "go home"
+          escape hatch. */}
+      <div style={{ flex: '0 0 auto' }}>
+        <Navbar
+          compact
+          citizen={citizen}
+          onCitizenLogin={onCitizenLoginRequired}
+          onCitizenLogout={onCitizenLogout}
+          onCitizenDashboard={onCitizenDashboard}
+          onOpenTracked={onOpenTracked}
+          onSubscribe={onSubscribe}
+          onHome={onClose}
+        />
+      </div>
+
+      {/* Page-level top bar — back to map, current rep name, Rep login. */}
       <div
         style={{
           flex: '0 0 auto',

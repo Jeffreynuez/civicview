@@ -158,14 +158,15 @@ export default function CitizenPollsSection({
     );
   }
 
+  // Silent bail when the backend can't be reached or doesn't have
+  // these endpoints yet (e.g. frontend deployed ahead of the backend).
+  // The section is purely additive — if we can't fetch, we render
+  // nothing rather than dumping a red error onto every rep page.
   if (error) {
-    return (
-      <div style={sectionStyle}>
-        <div style={{ color: '#c33333', fontSize: '0.85rem' }}>
-          Couldn't load citizen polls: {error}
-        </div>
-      </div>
-    );
+    if (typeof console !== 'undefined') {
+      console.warn('CitizenPollsSection: hiding due to fetch error:', error);
+    }
+    return null;
   }
 
   const active = data?.active || [];

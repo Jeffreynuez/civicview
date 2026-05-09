@@ -1027,6 +1027,10 @@ export default function Home() {
           onLogout={handleLogout}
           citizen={citizen}
           onCitizenLoginRequired={handleCitizenLoginOpen}
+          onCitizenLogout={handleCitizenLogoutClick}
+          onCitizenDashboard={() => setDashboardOpen(true)}
+          onOpenTracked={() => setTrackedOpen(true)}
+          onSubscribe={() => handleRequestCitizenWaitlist('subscribe')}
         />
       )}
       {/* ConstituentDashboard — full-page overlay for signed-in citizens.

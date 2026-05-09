@@ -35,6 +35,13 @@ export default function Navbar({
   // selectedCandidate, activeDistrict, etc. so the map zooms back
   // out and NOP comes into view.
   onHome,
+  // When true, render a slimmer navbar without the search bar and the
+  // Committees button. Used inside PageView (and similar full-screen
+  // takeovers) where global navigation chrome would compete with the
+  // page's own header. The citizen identity / login + Subscribe + My
+  // Tracked still render — those are the ones the user needs reach
+  // to without backing out of the page.
+  compact = false,
 }) {
   const { list: trackedList } = useTrackedBills();
   const { list: trackedOfficialsList } = useTrackedOfficials();
@@ -248,7 +255,11 @@ export default function Navbar({
       {/* Search Bar — desktop / tablet renders inline. On mobile it
           collapses to an icon button (rendered later in the actions
           cluster) that toggles `mobileSearchOpen`; when open, the bar
-          takes over the whole navbar via `position: absolute`. */}
+          takes over the whole navbar via `position: absolute`.
+          When `compact`, we skip the search entirely; PageView and
+          similar full-screen takeovers don't need global rep search
+          competing with the page's own scope. */}
+      {!compact && (
       <div
         ref={containerRef}
         className={isMobile ? '' : 'flex-1 mx-8'}
@@ -456,6 +467,7 @@ export default function Navbar({
           </div>
         )}
       </div>
+      )}
 
       {/* Right-side actions
           ────────────────────
@@ -467,8 +479,10 @@ export default function Navbar({
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
         {/* Mobile-only search trigger — opens the full-bar search
             overlay defined above. Hidden on desktop since the search
-            bar is always inline there. */}
-        {isMobile && (
+            bar is always inline there. Also hidden in compact mode
+            (PageView), where global search would compete with the
+            page's own scope. */}
+        {isMobile && !compact && (
           <button
             type="button"
             onClick={() => setMobileSearchOpen(true)}
@@ -645,6 +659,7 @@ export default function Navbar({
               </svg>
               Subscribe
             </button>
+            {!compact && (
             <button
               onClick={() => onOpenCommittees?.()}
               title="Browse Committees"
@@ -662,6 +677,7 @@ export default function Navbar({
               </svg>
               Committees
             </button>
+            )}
             <button
               onClick={() => onOpenTracked?.()}
               title="My tracked subjects"
@@ -766,15 +782,17 @@ export default function Navbar({
                   accent="#ffba08"
                   onClick={() => { setMobileMenuOpen(false); onSubscribe?.(); }}
                 />
-                <MobileMenuItem
-                  icon={
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
-                    </svg>
-                  }
-                  label="Committees"
-                  onClick={() => { setMobileMenuOpen(false); onOpenCommittees?.(); }}
-                />
+                {!compact && (
+                  <MobileMenuItem
+                    icon={
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
+                      </svg>
+                    }
+                    label="Committees"
+                    onClick={() => { setMobileMenuOpen(false); onOpenCommittees?.(); }}
+                  />
+                )}
                 <MobileMenuItem
                   icon={
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
