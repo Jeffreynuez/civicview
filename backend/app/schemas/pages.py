@@ -35,6 +35,13 @@ class MeResponse(BaseModel):
 class LoginResponse(BaseModel):
     rep: MeResponse
     csrf_token: str
+    # Bearer token mirror of the httpOnly session cookie. Returned so a
+    # frontend running in an environment that blocks cross-site cookies
+    # (mobile browsers, Safari ITP) can store it and forward it as
+    # `Authorization: Bearer <session_token>` on subsequent requests.
+    # The cookie is also set on the response; whichever auth path works
+    # in the caller's environment, the backend accepts.
+    session_token: str
 
 
 # ── Poll options / polls ──────────────────────────────────────────────
@@ -346,6 +353,11 @@ class CitizenMeResponse(BaseModel):
 
 class CitizenLoginResponse(BaseModel):
     citizen: CitizenMeResponse
+    # Bearer token mirror of the cl_citizen cookie. See LoginResponse
+    # for the rationale — same cross-site-cookie workaround for the
+    # citizen auth path. The frontend stores this and forwards it as
+    # `X-Citizen-Token: <token>` on requests that need citizen auth.
+    citizen_token: str
 
 
 # ── Citizen waitlist ──────────────────────────────────────────────────

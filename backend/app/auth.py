@@ -27,7 +27,7 @@ import logging
 from typing import Optional
 
 import bcrypt
-from fastapi import Cookie, Depends, HTTPException, Response, status
+from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy.orm import Session
 
@@ -122,18 +122,45 @@ def clear_session_cookie(response: Response) -> None:
     response.delete_cookie(key=SESSION_COOKIE_NAME, path="/")
 
 
+def _extract_bearer(authorization: Optional[str]) -> Optional[str]:
+    """Parse `Authorization: Bearer <token>` and return the token, or
+    None if the header is missing / malformed. Used as a fallback when
+    the session cookie isn't available — most notably on mobile
+    browsers (Samsung Internet, Safari/iOS ITP, etc.) that block
+    cross-site cookies by default. The frontend's API client stores
+    the token returned in the login response and forwards it on every
+    request, so cookie-restricted environments still get auth."""
+    if not authorization:
+        return None
+    parts = authorization.strip().split(None, 1)
+    if len(parts) != 2:
+        return None
+    scheme, token = parts
+    if scheme.lower() != "bearer" or not token:
+        return None
+    return token.strip()
+
+
 # ── FastAPI dependencies ──────────────────────────────────────────────
 def get_optional_rep(
     cl_session: Optional[str] = Cookie(default=None, alias=SESSION_COOKIE_NAME),
+    authorization: Optional[str] = Header(default=None),
     db: Session = Depends(get_db),
 ) -> Optional[RepAccount]:
     """Returns the logged-in RepAccount or None. Use this when a route
     behaves differently for logged-in vs. anonymous callers but doesn't
     *require* auth (e.g., a page read endpoint that hides composer UI
-    from anonymous callers but still returns posts)."""
-    if not cl_session:
+    from anonymous callers but still returns posts).
+
+    Reads the session token from EITHER the httpOnly cookie OR the
+    `Authorization: Bearer <token>` header. The header path is the
+    fallback for browsers (mobile in particular) that block
+    cross-site cookies; the cookie path stays the default everywhere
+    cookies work."""
+    token = cl_session or _extract_bearer(authorization)
+    if not token:
         return None
-    rep_id = read_session_token(cl_session)
+    rep_id = read_session_token(token)
     if rep_id is None:
         return None
     rep = db.get(RepAccount, rep_id)

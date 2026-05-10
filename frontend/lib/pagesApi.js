@@ -13,6 +13,50 @@
  */
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
+// ── Token storage ─────────────────────────────────────────────────────
+// Mobile browsers (Samsung Internet, Safari with ITP, etc.) block
+// cross-site cookies by default, so the httpOnly cl_session /
+// cl_citizen cookies the backend sets on civicview-api.onrender.com
+// never make it back when the frontend on civicview.app fetches.
+// As a fallback we mirror each login token into localStorage and
+// attach it via `Authorization: Bearer ...` (rep) or `X-Citizen-Token`
+// (citizen) on every request. The backend accepts either path.
+//
+// In-memory fallback handles SSR / private-mode Safari where
+// localStorage may throw.
+const REP_TOKEN_KEY = 'cl:rep_token';
+const CITIZEN_TOKEN_KEY = 'cl:citizen_token';
+const _memTokens = { rep: null, citizen: null };
+
+function _safeStorageGet(key) {
+  try {
+    if (typeof window === 'undefined') return null;
+    return window.localStorage.getItem(key);
+  } catch { return null; }
+}
+function _safeStorageSet(key, value) {
+  try {
+    if (typeof window === 'undefined') return;
+    if (value == null) window.localStorage.removeItem(key);
+    else window.localStorage.setItem(key, value);
+  } catch { /* ignore — fall back to in-memory */ }
+}
+
+export function getStoredRepToken() {
+  return _memTokens.rep || _safeStorageGet(REP_TOKEN_KEY) || null;
+}
+export function setStoredRepToken(token) {
+  _memTokens.rep = token || null;
+  _safeStorageSet(REP_TOKEN_KEY, token || null);
+}
+export function getStoredCitizenToken() {
+  return _memTokens.citizen || _safeStorageGet(CITIZEN_TOKEN_KEY) || null;
+}
+export function setStoredCitizenToken(token) {
+  _memTokens.citizen = token || null;
+  _safeStorageSet(CITIZEN_TOKEN_KEY, token || null);
+}
+
 async function request(path, { method = 'GET', body, query } = {}) {
   try {
     let url = `${API_BASE_URL}${path}`;
@@ -23,10 +67,20 @@ async function request(path, { method = 'GET', body, query } = {}) {
       const qs = q.toString();
       if (qs) url += `?${qs}`;
     }
+    // Build headers. Cookies still ride along via credentials:'include'
+    // wherever they work; the token headers are belt-and-suspenders for
+    // environments that strip cross-site cookies.
+    const headers = {};
+    if (body) headers['Content-Type'] = 'application/json';
+    const repToken = getStoredRepToken();
+    const citizenToken = getStoredCitizenToken();
+    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
+    if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
+
     const res = await fetch(url, {
       method,
       credentials: 'include',
-      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      headers: Object.keys(headers).length ? headers : undefined,
       body: body ? JSON.stringify(body) : undefined,
     });
     if (!res.ok) {
@@ -74,10 +128,17 @@ export async function uploadPostImage(file) {
   try {
     const form = new FormData();
     form.append('file', file);
+    // Same Authorization fallback as request() — mobile browsers
+    // strip cross-site cookies, so we have to carry the rep token in
+    // the Bearer header for the image upload to authenticate too.
+    const headers = {};
+    const repToken = getStoredRepToken();
+    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
     const res = await fetch(`${API_BASE_URL}/api/pages/images/upload`, {
       method: 'POST',
       credentials: 'include',
       body: form,
+      headers: Object.keys(headers).length ? headers : undefined,
       // NOTE: do NOT set Content-Type here — the browser will set the
       // multipart boundary automatically.
     });
@@ -181,13 +242,22 @@ export async function deleteRepEvent(eventId) {
 
 // ── Auth ──────────────────────────────────────────────────────────────
 export async function login(email, password) {
-  return request('/api/auth/login', {
+  const result = await request('/api/auth/login', {
     method: 'POST', body: { email, password },
   });
+  // Persist the mirror token so subsequent requests can authenticate
+  // via Authorization: Bearer when the httpOnly cookie path is
+  // blocked (cross-site cookie restrictions on mobile).
+  if (result?.data?.session_token) {
+    setStoredRepToken(result.data.session_token);
+  }
+  return result;
 }
 
 export async function logout() {
-  return request('/api/auth/logout', { method: 'POST' });
+  const result = await request('/api/auth/logout', { method: 'POST' });
+  setStoredRepToken(null);
+  return result;
 }
 
 export async function fetchMe() {
@@ -200,13 +270,19 @@ export async function fetchMe() {
 // can carry both at once and a component can ask "who's the rep?" and
 // "who's the citizen?" independently.
 export async function loginCitizenApi(email, password) {
-  return request('/api/citizen-auth/login', {
+  const result = await request('/api/citizen-auth/login', {
     method: 'POST', body: { email, password },
   });
+  if (result?.data?.citizen_token) {
+    setStoredCitizenToken(result.data.citizen_token);
+  }
+  return result;
 }
 
 export async function logoutCitizenApi() {
-  return request('/api/citizen-auth/logout', { method: 'POST' });
+  const result = await request('/api/citizen-auth/logout', { method: 'POST' });
+  setStoredCitizenToken(null);
+  return result;
 }
 
 export async function fetchCitizenMe() {

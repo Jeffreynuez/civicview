@@ -26,6 +26,7 @@ from app.auth import verify_password
 from app.auth_citizen import (
     clear_citizen_cookie,
     get_current_citizen,
+    issue_citizen_token,
     set_citizen_cookie,
 )
 from app.db import get_db
@@ -72,7 +73,12 @@ def login(
     db.commit()
     db.refresh(citizen)
 
-    return CitizenLoginResponse(citizen=CitizenMeResponse.model_validate(citizen))
+    return CitizenLoginResponse(
+        citizen=CitizenMeResponse.model_validate(citizen),
+        # Mirror token for cross-site-cookie-restricted environments.
+        # Identical to the value set in the cookie.
+        citizen_token=issue_citizen_token(citizen.id),
+    )
 
 
 @router.post("/logout")

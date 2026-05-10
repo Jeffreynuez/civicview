@@ -27,6 +27,7 @@ from app.auth import (
     clear_session_cookie,
     generate_csrf_token,
     get_current_rep,
+    issue_session_token,
     set_session_cookie,
     verify_password,
 )
@@ -77,6 +78,10 @@ def login(
     return LoginResponse(
         rep=MeResponse.model_validate(rep),
         csrf_token=generate_csrf_token(),
+        # Mirror token for cross-site-cookie-restricted environments.
+        # Identical to the value set in the cookie — whichever the
+        # browser delivers back, the backend accepts.
+        session_token=issue_session_token(rep.id),
     )
 
 

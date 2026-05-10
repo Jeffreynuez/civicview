@@ -22,7 +22,7 @@ import logging
 import os
 from typing import Optional
 
-from fastapi import Cookie, Depends, HTTPException, Response, status
+from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy.orm import Session
 
@@ -80,19 +80,48 @@ def clear_citizen_cookie(response: Response) -> None:
     response.delete_cookie(key=CITIZEN_COOKIE_NAME, path="/")
 
 
+def _extract_bearer(authorization: Optional[str]) -> Optional[str]:
+    """Parse `Authorization: Bearer <token>` — see app/auth.py for the
+    full rationale (mobile browsers blocking cross-site cookies). The
+    citizen path uses a different token salt than the rep path, so the
+    two tokens can't be confused."""
+    if not authorization:
+        return None
+    parts = authorization.strip().split(None, 1)
+    if len(parts) != 2:
+        return None
+    scheme, token = parts
+    if scheme.lower() != "bearer" or not token:
+        return None
+    return token.strip()
+
+
 # ── FastAPI dependencies ──────────────────────────────────────────────
 def get_optional_citizen(
     cl_citizen: Optional[str] = Cookie(default=None, alias=CITIZEN_COOKIE_NAME),
+    x_citizen_token: Optional[str] = Header(default=None, alias="X-Citizen-Token"),
+    authorization: Optional[str] = Header(default=None),
     db: Session = Depends(get_db),
 ) -> Optional[CitizenAccount]:
     """Returns the logged-in CitizenAccount or None. Use for endpoints
     that behave differently for authenticated citizens but don't
     *require* auth — e.g. a page-payload read that returns richer
     geography-resolved engagement metadata when the caller's identity
-    is known."""
-    if not cl_citizen:
+    is known.
+
+    Reads the citizen token from (in order):
+      1. The httpOnly `cl_citizen` cookie (default everywhere it works).
+      2. An `X-Citizen-Token: <token>` header — used by the frontend
+         alongside Authorization (which carries the rep token) so a
+         browser that's signed in as both a rep and a citizen can
+         present both tokens without collision.
+      3. `Authorization: Bearer <token>` — last-resort fallback for
+         single-identity sessions.
+    """
+    token = cl_citizen or x_citizen_token or _extract_bearer(authorization)
+    if not token:
         return None
-    cid = read_citizen_token(cl_citizen)
+    cid = read_citizen_token(token)
     if cid is None:
         return None
     citizen = db.get(CitizenAccount, cid)
