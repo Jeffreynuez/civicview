@@ -95,10 +95,7 @@ export default function ModalShell({
         // Top/left/right pin to layout viewport edges; height is
         // governed by cl-h-screen-visible (100dvh on mobile, 100vh
         // fallback) so the modal tracks the visible viewport when
-        // browser chrome shows / hides. Using inset:0 alone resolves
-        // to 100vh on mobile and lets the modal extend past the
-        // visible bottom — content (e.g. the demo logins list) ends
-        // up clipped behind the URL bar / nav buttons.
+        // browser chrome shows / hides.
         top: 0,
         left: 0,
         right: 0,
@@ -106,7 +103,17 @@ export default function ModalShell({
         zIndex: 1500,
         background: VARIANT_BACKDROP[variant] || VARIANT_BACKDROP.form,
         display: 'flex',
-        alignItems: isMobile ? 'stretch' : 'center',
+        // CRITICAL: align-items defaults to `stretch`, which on mobile
+        // shrinks the card to exactly the container's cross-axis size
+        // (100dvh). When content exceeds that — e.g. the citizen-login
+        // modal with the demo-logins list expanded — the overflow
+        // escapes the card's box because the card has no overflow
+        // clip, and the user sees content visually extending past the
+        // modal into the page behind. `flex-start` (cross-axis-wise,
+        // since the outer is a row) lets the card grow with its
+        // content, and the outer's overflow-y:auto handles scrolling
+        // when the card exceeds the visible viewport.
+        alignItems: isMobile ? 'flex-start' : 'center',
         justifyContent: 'center',
         padding: isMobile ? 0 : 16,
         overflowY: 'auto',
