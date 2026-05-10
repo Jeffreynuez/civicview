@@ -180,12 +180,27 @@ export default function SidePanel({
   const scrollRef = useRef(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Hysteresis range for the header-collapse threshold. A single
+  // threshold (e.g. scrollTop > 40) bounces erratically when content
+  // sits right at the boundary: the header's collapse shrinks the
+  // outer column, the scroll container grows by a few px, scrollTop
+  // crosses back below the threshold, the header reopens, the
+  // scroll container shrinks, scrollTop crosses back above, repeat.
+  // Two separate thresholds break the loop — once collapsed we don't
+  // re-expand until the user has clearly scrolled back near the top.
+  const HEAD_COLLAPSE_AT = 80;
+  const HEAD_EXPAND_AT = 8;
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     const onScroll = () => {
-      setShowBackToTop(el.scrollTop > 600);
-      setScrolled(el.scrollTop > 40);
+      const top = el.scrollTop;
+      setShowBackToTop(top > 600);
+      setScrolled((wasScrolled) => {
+        if (!wasScrolled && top > HEAD_COLLAPSE_AT) return true;
+        if (wasScrolled && top < HEAD_EXPAND_AT) return false;
+        return wasScrolled;
+      });
     };
     el.addEventListener('scroll', onScroll, { passive: true });
     return () => el.removeEventListener('scroll', onScroll);

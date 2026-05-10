@@ -817,7 +817,7 @@ export default function Home() {
   }, [selectedState, handleMemberSelect]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col cl-h-screen-visible">
       <Navbar
         onMemberPick={handleGlobalMemberPick}
         onCandidatePick={handleCandidateSelect}

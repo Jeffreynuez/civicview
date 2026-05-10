@@ -60,11 +60,23 @@ export default function RootLayout({ children }) {
             light` on :root so the browser doesn't auto-darken native
             form controls, even if the OS is in dark mode. */}
       </head>
-      {/* overflow-x: hidden as a safety net so a transient layout
+      {/* cl-h-screen-visible tracks the *visible* viewport on mobile
+          browsers via `dvh` (with a `vh` fallback). With h-screen
+          (100vh only) the navbar would slide above the visible top
+          edge after returning from a full-screen view like
+          CandidateProfile — the URL bar reappears but 100vh still
+          claims the larger "chrome collapsed" height, so the flex
+          column extends past the screen.
+          overflow-x: hidden is a safety net so a transient layout
           overflow (e.g. mid-orientation-change before the visualViewport
           listener fires) can't expose horizontal scrollbars / white
           gutters when the user pinch-zooms out. */}
-      <body className="h-screen flex flex-col" style={{ overflowX: 'hidden' }}>{children}</body>
+      <body
+        className="cl-h-screen-visible flex flex-col"
+        style={{ overflowX: 'hidden' }}
+      >
+        {children}
+      </body>
     </html>
   );
 }

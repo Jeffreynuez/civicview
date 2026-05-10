@@ -189,6 +189,37 @@ body {
 }
 
 /* ============================================================
+   Visible-viewport height utility.
+
+   `100vh` is the LAYOUT viewport on mobile browsers — it stays at
+   "the height with the address bar collapsed" regardless of
+   whether that bar is currently visible. So a container sized to
+   100vh ends up taller than what the user can actually see when
+   the URL bar reappears, which slides the navbar above the visible
+   top edge after returning from a full-screen view (e.g.
+   CandidateProfile back-out).
+
+   `dvh` is the DYNAMIC viewport unit — it adjusts to whatever
+   chrome the browser is currently showing. Shipping in iOS 15.4+ /
+   Chrome 108+ / Samsung Internet 21+, which covers every
+   currently-supported mobile browser. The two-line declaration is
+   a graceful fallback: any browser that doesn't understand `dvh`
+   ignores the second line and falls back to `100vh`.
+   ============================================================ */
+.cl-h-screen-visible {
+  height: 100vh;
+  height: 100dvh;
+}
+.cl-min-h-screen-visible {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.cl-max-h-screen-visible {
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+/* ============================================================
    Semantic typography classes — use `<h1 class="cl-h1">` rather
    than reaching for inline font-size / font-weight.
    ============================================================ */

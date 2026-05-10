@@ -89,10 +89,20 @@ export default function ModalShell({
       role="dialog"
       aria-modal="true"
       onClick={onBackdropClick}
-      className={className}
+      className={`${className} ${isMobile ? 'cl-h-screen-visible' : ''}`.trim()}
       style={{
         position: 'fixed',
-        inset: 0,
+        // Top/left/right pin to layout viewport edges; height is
+        // governed by cl-h-screen-visible (100dvh on mobile, 100vh
+        // fallback) so the modal tracks the visible viewport when
+        // browser chrome shows / hides. Using inset:0 alone resolves
+        // to 100vh on mobile and lets the modal extend past the
+        // visible bottom — content (e.g. the demo logins list) ends
+        // up clipped behind the URL bar / nav buttons.
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: isMobile ? undefined : 0,
         zIndex: 1500,
         background: VARIANT_BACKDROP[variant] || VARIANT_BACKDROP.form,
         display: 'flex',
@@ -100,10 +110,18 @@ export default function ModalShell({
         justifyContent: 'center',
         padding: isMobile ? 0 : 16,
         overflowY: 'auto',
+        // Prevents iOS rubber-band-scrolling from exposing the page
+        // behind the modal when the user pulls the scroll past either
+        // end. Harmless on Android.
+        overscrollBehavior: 'contain',
+        // Desktop fallback height — modal always covers the layout
+        // viewport. Mobile takes its height from the className.
+        ...(isMobile ? {} : { height: '100vh' }),
       }}
     >
       <div
         ref={cardRef}
+        className={isMobile ? 'cl-min-h-screen-visible' : ''}
         style={{
           position: 'relative',
           background: 'var(--cl-card)',
@@ -113,7 +131,6 @@ export default function ModalShell({
           boxShadow: isMobile ? 'none' : 'var(--cl-shadow-modal)',
           width: '100%',
           maxWidth: isMobile ? '100%' : width,
-          minHeight: isMobile ? '100vh' : undefined,
           // Slightly more padding on mobile for the close-X breathing
           // room and to keep content away from the screen edges.
           padding: isMobile ? '56px 20px 24px' : '24px 24px 16px',
