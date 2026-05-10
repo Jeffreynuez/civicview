@@ -12,27 +12,44 @@ congress = CongressService()
 
 @router.get("/lookup")
 async def lookup_address(
-    address: str = Query(..., description="Full US address (e.g., '1600 Pennsylvania Ave NW, Washington, DC 20500')")
+    address: str = Query(
+        ...,
+        description=(
+            "U.S. address-or-place query. Accepts full street addresses "
+            "(best accuracy), ZIP codes (5-digit or ZIP+4), city + state, "
+            "or just a city / town name."
+        ),
+    ),
 ):
     """
-    Look up an address to find:
-    - The congressional district
-    - The state's Congress members
-    - Which specific representative serves that district
+    Resolve an address-or-place query to:
+      • The congressional district (when the input is precise enough)
+      • The state's Congress members
+      • Which specific representative serves that district (when
+        district is known)
+
+    Loose inputs (ZIP-only, city-only, "Melbourne FL", etc.) go
+    through Nominatim / OpenStreetMap as a fallback to the Census
+    Geocoder. The response shape is the same in either case; clients
+    should check `district` to know whether they got a precise match
+    or just a state-level resolution.
     """
-    # Step 1: Geocode the address
     result = await geocode.lookup_address(address)
     if not result:
         raise HTTPException(
             status_code=404,
-            detail="Could not find that address. Please try a full US street address (e.g., '123 Main St, Springfield, IL 62701').",
+            detail=(
+                "Could not find that location. Try a full street address "
+                "(e.g., '123 Main St, Springfield, IL 62701'), a ZIP code, "
+                "or a city + state."
+            ),
         )
 
     state_code = result.get("stateCode")
     district = result.get("district")
 
     if not state_code:
-        raise HTTPException(status_code=404, detail="Could not determine the state for that address.")
+        raise HTTPException(status_code=404, detail="Could not determine the state for that location.")
 
     # Step 2: Get Congress members for the state
     members = await congress.get_members_by_state(state_code)

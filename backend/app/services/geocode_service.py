@@ -3,11 +3,26 @@
 
 """
 Geocoding & District Lookup Service
-Uses the free US Census Geocoder API (no key required) to convert addresses
-into geographic coordinates and congressional district information.
+
+Two-tier geocoder so the lookup accepts a wide range of inputs:
+
+  1. Census Geocoder (free, accurate for U.S. street addresses, no
+     key required). Best when the user provides a full address.
+     Strict: it rejects ZIP-only / city-only inputs.
+
+  2. Nominatim / OpenStreetMap fallback. Loose: accepts "Melbourne",
+     "32822", "Melbourne, FL", "Florida", etc. We use it ONLY to
+     resolve a free-form query to coordinates; we then hand those
+     coordinates back to the Census Geocoder for the actual
+     congressional-district lookup, since OSM doesn't have
+     congressional boundaries.
+
+The router calls `lookup_address` which transparently routes through
+both tiers — same response shape regardless of which tier matched.
 """
 
 import logging
+import re
 from typing import Optional
 
 import httpx
@@ -15,6 +30,17 @@ import httpx
 logger = logging.getLogger(__name__)
 
 CENSUS_GEOCODER_BASE = "https://geocoding.geo.census.gov/geocoder"
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+# Nominatim's terms require a contact User-Agent. Keeps us in their
+# acceptable-use range; the email is the same address that owns the
+# project's domain.
+NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; jeffreynuez1@gmail.com)"
+
+# A query is treated as "loose" (= ZIP / city / state only) when it
+# matches one of these shapes. We send loose queries straight to
+# Nominatim; full street addresses go to Census first.
+_ZIP_ONLY_RE = re.compile(r"^\s*\d{5}(?:-\d{4})?\s*$")
+_HAS_STREET_NUMBER_RE = re.compile(r"^\s*\d+\s+\S")
 
 
 class GeocodeService:
@@ -22,22 +48,53 @@ class GeocodeService:
 
     async def lookup_address(self, address: str) -> Optional[dict]:
         """
-        Takes a full US address string and returns:
-        - coordinates (lat/lng)
-        - state code
-        - congressional district number
-        - matched address
+        Resolve a free-form U.S. address-or-place string into:
+          • coordinates (lat/lng)
+          • state code
+          • congressional district number (when geography supports it)
+          • matched address (canonicalized)
+          • county / city / state-legislative-district context
 
-        Uses the Census Geocoder which is free and requires no API key.
+        Tries two geocoders in succession:
+          1. Census Geocoder for full street addresses (high
+             precision, but rejects ZIP-only / city-only inputs).
+          2. Nominatim (OpenStreetMap) for everything else — ZIPs,
+             city names, county names, "Melbourne FL", etc. Once
+             Nominatim returns coordinates, we still call Census's
+             /geographies/coordinates endpoint to resolve the
+             congressional district at that point.
+
+        Returns None when neither geocoder can match.
         """
-        # Step 1: Geocode the address to get coordinates
-        geo_result = await self._geocode_address(address)
+        normalized = (address or "").strip()
+        if not normalized:
+            return None
+
+        # Heuristic: ZIP-only or queries lacking a leading street
+        # number aren't valid for Census's onelineaddress endpoint —
+        # skip straight to Nominatim. Otherwise try Census first
+        # (it's more accurate for street-address district matching).
+        try_census_first = (
+            not _ZIP_ONLY_RE.match(normalized)
+            and bool(_HAS_STREET_NUMBER_RE.match(normalized))
+        )
+
+        geo_result = None
+        if try_census_first:
+            geo_result = await self._geocode_address(normalized)
+        if not geo_result:
+            geo_result = await self._geocode_nominatim(normalized)
+        # Defensive: if a non-street-number address still slipped past
+        # the heuristic (e.g. "1600 Pennsylvania Ave"), also try Census
+        # as a last resort before giving up.
+        if not geo_result and not try_census_first:
+            geo_result = await self._geocode_address(normalized)
         if not geo_result:
             return None
 
         lat = geo_result["coordinates"]["y"]
         lng = geo_result["coordinates"]["x"]
-        matched_address = geo_result.get("matchedAddress", address)
+        matched_address = geo_result.get("matchedAddress", normalized)
 
         # Step 2: Use coordinates to find the congressional district
         district_info = await self._get_district_from_coords(lat, lng)
@@ -101,6 +158,50 @@ class GeocodeService:
             "stateSenateDistrict": state_senate_district,
             "stateHouseDistrict": state_house_district,
         }
+
+    async def _geocode_nominatim(self, query: str) -> Optional[dict]:
+        """Geocode via Nominatim (OpenStreetMap). Looser than Census —
+        accepts ZIPs, city names, partial addresses. Returns the same
+        shape `_geocode_address` does so the caller can treat the two
+        interchangeably.
+
+        We restrict results to the U.S. (countrycodes=us) and ask for
+        the address breakdown so we can preserve the user-visible
+        "matched address" string. Errors / no-match returns None.
+        """
+        params = {
+            "q": query,
+            "format": "json",
+            "addressdetails": "1",
+            "limit": "1",
+            "countrycodes": "us",
+        }
+        headers = {"User-Agent": NOMINATIM_UA}
+        try:
+            async with httpx.AsyncClient(timeout=15.0, headers=headers) as client:
+                resp = await client.get(NOMINATIM_URL, params=params)
+                if resp.status_code != 200:
+                    logger.warning("Nominatim returned %s for %r", resp.status_code, query)
+                    return None
+                data = resp.json()
+                if not isinstance(data, list) or not data:
+                    logger.info("No Nominatim match for: %s", query)
+                    return None
+                hit = data[0]
+                try:
+                    lat = float(hit["lat"])
+                    lng = float(hit["lon"])
+                except (KeyError, TypeError, ValueError):
+                    return None
+                display = hit.get("display_name") or query
+                return {
+                    "coordinates": {"x": lng, "y": lat},
+                    "matchedAddress": display,
+                    "addressComponents": hit.get("address") or {},
+                }
+        except Exception as e:
+            logger.error("Nominatim geocoder error: %s", e)
+            return None
 
     async def _geocode_address(self, address: str) -> Optional[dict]:
         """Geocode an address using the Census Geocoder API."""
