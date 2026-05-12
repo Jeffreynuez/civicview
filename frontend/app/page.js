@@ -21,6 +21,7 @@ import CitizenLoginModal from '@/components/CitizenLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import ClaimPageModal from '@/components/ClaimPageModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
+import HelpBuildThisView from '@/components/HelpBuildThisView';
 import { fetchAllStateData, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
@@ -65,6 +66,9 @@ export default function Home() {
   const [activeDistrict, setActiveDistrict] = useState(null);
   const [committeesOpen, setCommitteesOpen] = useState(false);
   const [trackedOpen, setTrackedOpen] = useState(false);
+  // "Help build this" overlay — transparent project status + crowdfund
+  // CTA. Opened from the navbar.
+  const [helpBuildOpen, setHelpBuildOpen] = useState(false);
   // Lifted SidePanel tab so it survives the candidate-profile detour. Without
   // this, opening a candidate from Elections + clicking Back unmounts SidePanel
   // and resets the tab back to "congress".
@@ -829,6 +833,7 @@ export default function Home() {
         onCitizenLogout={handleCitizenLogoutClick}
         onCitizenDashboard={() => setDashboardOpen(true)}
         onHome={handleStateDeselect}
+        onOpenHelpBuild={() => setHelpBuildOpen(true)}
       />
       <CitizenLoginModal
         open={citizenLoginOpen}
@@ -1036,6 +1041,32 @@ export default function Home() {
       {/* ConstituentDashboard — full-page overlay for signed-in citizens.
           Same z-index family as PageView so it sits above the map but
           below modals. */}
+      {/* "Help build this" — transparent project status + crowdfund.
+          Same z-index family as PageView so it sits above the map but
+          below modals. */}
+      {helpBuildOpen && (
+        <HelpBuildThisView
+          onClose={() => setHelpBuildOpen(false)}
+          compactNavbarProps={{
+            citizen,
+            onCitizenLogin: handleCitizenLoginOpen,
+            onCitizenLogout: handleCitizenLogoutClick,
+            onCitizenDashboard: () => {
+              setHelpBuildOpen(false);
+              setDashboardOpen(true);
+            },
+            onOpenTracked: () => {
+              setHelpBuildOpen(false);
+              setTrackedOpen(true);
+            },
+            onSubscribe: () => {
+              setHelpBuildOpen(false);
+              handleRequestCitizenWaitlist('subscribe');
+            },
+          }}
+        />
+      )}
+
       {dashboardOpen && citizen && (
         <div
           style={{

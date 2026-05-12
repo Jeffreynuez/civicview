@@ -35,6 +35,10 @@ export default function Navbar({
   // selectedCandidate, activeDistrict, etc. so the map zooms back
   // out and NOP comes into view.
   onHome,
+  // Opens the "Help build this" overlay — the transparent status +
+  // crowdfund page. Wired through to page.js. When omitted, the
+  // navbar button is hidden (so this can be enabled progressively).
+  onOpenHelpBuild,
   // When true, render a slimmer navbar without the search bar and the
   // Committees button. Used inside PageView (and similar full-screen
   // takeovers) where global navigation chrome would compete with the
@@ -641,6 +645,32 @@ export default function Navbar({
             the navbar fits in one row on a phone. */}
         {!isMobile && (
           <>
+            {/* "Help build this" — accent-green pill so it reads as a
+                primary call-to-action (paired with the yellow Subscribe
+                button for visual variety). Hidden when no handler is
+                wired, which lets us roll this out progressively. */}
+            {onOpenHelpBuild && (
+              <button
+                onClick={() => onOpenHelpBuild?.()}
+                title="See what's done, in progress, and blocked on funding"
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  padding: '6px 12px',
+                  background: 'var(--cl-accent)',
+                  color: 'white',
+                  border: '1px solid var(--cl-accent)',
+                  borderRadius: '8px', cursor: 'pointer',
+                  fontSize: '0.82rem', fontWeight: 700,
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.opacity = '0.9')}
+                onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                  <path d="M12 2v6M12 22v-6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
+                </svg>
+                Help build this
+              </button>
+            )}
             <button
               onClick={() => onSubscribe?.()}
               title="Get notified when verified citizen accounts open up"
@@ -771,6 +801,18 @@ export default function Navbar({
                   zIndex: 70,
                 }}
               >
+                {onOpenHelpBuild && (
+                  <MobileMenuItem
+                    icon={
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                        <path d="M12 2v6M12 22v-6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
+                      </svg>
+                    }
+                    label="Help build this"
+                    accent="var(--cl-accent)"
+                    onClick={() => { setMobileMenuOpen(false); onOpenHelpBuild?.(); }}
+                  />
+                )}
                 <MobileMenuItem
                   icon={
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
