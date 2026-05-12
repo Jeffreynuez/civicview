@@ -279,6 +279,29 @@ export async function loginCitizenApi(email, password) {
   return result;
 }
 
+// Self-serve demo signup. Mints a fresh CitizenAccount (verified=False)
+// and auto-logs the caller in. Returns the freshly-generated email +
+// password alongside the standard login payload so the UI can show
+// the user their credentials (they're persisted; the user can come
+// back and sign in with them from any device).
+export async function signupDemoCitizen({
+  displayName, state, congressionalDistrict, city,
+} = {}) {
+  const result = await request('/api/citizen-auth/demo-signup', {
+    method: 'POST',
+    body: {
+      display_name: displayName,
+      state: state || null,
+      congressional_district: congressionalDistrict || null,
+      city: city || null,
+    },
+  });
+  if (result?.data?.citizen_token) {
+    setStoredCitizenToken(result.data.citizen_token);
+  }
+  return result;
+}
+
 export async function logoutCitizenApi() {
   const result = await request('/api/citizen-auth/logout', { method: 'POST' });
   setStoredCitizenToken(null);

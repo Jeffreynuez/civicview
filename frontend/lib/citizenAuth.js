@@ -27,6 +27,7 @@ import {
   fetchCitizenMe,
   loginCitizenApi,
   logoutCitizenApi,
+  signupDemoCitizen as signupDemoCitizenApi,
 } from './pagesApi';
 
 let currentCitizen = null;
@@ -80,6 +81,24 @@ export async function logoutCitizen() {
   currentCitizen = null;
   loaded = true;
   notify();
+}
+
+/**
+ * Mint a new demo citizen account and auto-sign them in.
+ * Returns:
+ *   { ok: true, email, password, citizen } on success — the modal
+ *     stashes email/password locally so the user can copy them.
+ *   { ok: false, error, status }           on failure (429, 400, etc.)
+ */
+export async function signupDemoCitizen(payload) {
+  const { data, error, status } = await signupDemoCitizenApi(payload);
+  if (data && data.citizen) {
+    currentCitizen = data.citizen;
+    loaded = true;
+    notify();
+    return { ok: true, email: data.email, password: data.password, citizen: data.citizen };
+  }
+  return { ok: false, error: error || 'Demo signup failed', status };
 }
 
 /**

@@ -4,9 +4,44 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useMemo, useState } from 'react';
-import { loginCitizen } from '../lib/citizenAuth';
+import { loginCitizen, signupDemoCitizen } from '../lib/citizenAuth';
 import CivicLensLogo from './brand/CivicLensLogo';
 import { ModalShell, Button } from './ui';
+
+// US states + DC + territories with congressional delegates. Same set
+// the backend validates against — keep in sync.
+const US_STATES = [
+  ['AL', 'Alabama'], ['AK', 'Alaska'], ['AZ', 'Arizona'], ['AR', 'Arkansas'],
+  ['CA', 'California'], ['CO', 'Colorado'], ['CT', 'Connecticut'],
+  ['DE', 'Delaware'], ['DC', 'District of Columbia'], ['FL', 'Florida'],
+  ['GA', 'Georgia'], ['HI', 'Hawaii'], ['ID', 'Idaho'], ['IL', 'Illinois'],
+  ['IN', 'Indiana'], ['IA', 'Iowa'], ['KS', 'Kansas'], ['KY', 'Kentucky'],
+  ['LA', 'Louisiana'], ['ME', 'Maine'], ['MD', 'Maryland'],
+  ['MA', 'Massachusetts'], ['MI', 'Michigan'], ['MN', 'Minnesota'],
+  ['MS', 'Mississippi'], ['MO', 'Missouri'], ['MT', 'Montana'],
+  ['NE', 'Nebraska'], ['NV', 'Nevada'], ['NH', 'New Hampshire'],
+  ['NJ', 'New Jersey'], ['NM', 'New Mexico'], ['NY', 'New York'],
+  ['NC', 'North Carolina'], ['ND', 'North Dakota'], ['OH', 'Ohio'],
+  ['OK', 'Oklahoma'], ['OR', 'Oregon'], ['PA', 'Pennsylvania'],
+  ['RI', 'Rhode Island'], ['SC', 'South Carolina'], ['SD', 'South Dakota'],
+  ['TN', 'Tennessee'], ['TX', 'Texas'], ['UT', 'Utah'], ['VT', 'Vermont'],
+  ['VA', 'Virginia'], ['WA', 'Washington'], ['WV', 'West Virginia'],
+  ['WI', 'Wisconsin'], ['WY', 'Wyoming'],
+  ['AS', 'American Samoa'], ['GU', 'Guam'], ['MP', 'Northern Mariana Islands'],
+  ['PR', 'Puerto Rico'], ['VI', 'U.S. Virgin Islands'],
+];
+
+// Max House district number per state, based on the 119th Congress
+// apportionment. States with a single at-large district are listed as
+// 1 (we'll surface that as "At-large" in the UI). Drives the district
+// dropdown so a user can't pick a number that doesn't exist.
+const STATE_HOUSE_DISTRICTS = {
+  AL: 7, AK: 1, AZ: 9, AR: 4, CA: 52, CO: 8, CT: 5, DE: 1, FL: 28, GA: 14,
+  HI: 2, ID: 2, IL: 17, IN: 9, IA: 4, KS: 4, KY: 6, LA: 6, ME: 2, MD: 8,
+  MA: 9, MI: 13, MN: 8, MS: 4, MO: 8, MT: 2, NE: 3, NV: 4, NH: 2, NJ: 12,
+  NM: 3, NY: 26, NC: 14, ND: 1, OH: 15, OK: 5, OR: 6, PA: 17, RI: 2, SC: 7,
+  SD: 1, TN: 9, TX: 38, UT: 4, VT: 1, VA: 11, WA: 10, WV: 2, WI: 8, WY: 1,
+};
 
 /**
  * Citizen login modal — parallel to RepLoginModal.
@@ -122,8 +157,23 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+
+  // Self-serve demo signup form state. Replaces the old fixed
+  // 60-account list — any visitor can mint their own demo citizen
+  // with a name + state + (optional) district + city.
   const [showDemo, setShowDemo] = useState(false);
-  const [demoFilter, setDemoFilter] = useState('');
+  const [demoDisplayName, setDemoDisplayName] = useState('');
+  const [demoState, setDemoState] = useState('FL');
+  const [demoDistrict, setDemoDistrict] = useState('');
+  const [demoCity, setDemoCity] = useState('');
+  const [demoBusy, setDemoBusy] = useState(false);
+  const [demoErr, setDemoErr] = useState(null);
+  // After a successful signup we surface the freshly-minted email +
+  // password so the user can copy them — they're the user's keys to
+  // sign back in from another device. The auto-login already
+  // happened (cookies + token set) so the modal also closes shortly
+  // after via onSuccess().
+  const [issuedCreds, setIssuedCreds] = useState(null);
 
   useEffect(() => {
     if (open) {
@@ -133,19 +183,35 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       setErr(null);
       setBusy(false);
       setShowDemo(false);
-      setDemoFilter('');
+      setDemoDisplayName('');
+      setDemoState('FL');
+      setDemoDistrict('');
+      setDemoCity('');
+      setDemoBusy(false);
+      setDemoErr(null);
+      setIssuedCreds(null);
     }
   }, [open]);
 
-  const filteredDemos = useMemo(() => {
-    const q = demoFilter.trim().toLowerCase();
-    if (!q) return DEMO_CITIZENS;
-    return DEMO_CITIZENS.filter((c) =>
-      c.label.toLowerCase().includes(q) ||
-      c.city.toLowerCase().includes(q) ||
-      c.cd.toLowerCase().includes(q)
-    );
-  }, [demoFilter]);
+  // Whenever the user changes states, clamp the district to whatever
+  // that state actually supports. Avoids "FL-19" sticking around
+  // after the user picks Vermont (which only has 1 at-large district).
+  useEffect(() => {
+    const max = STATE_HOUSE_DISTRICTS[demoState] || 0;
+    if (demoDistrict && parseInt(demoDistrict, 10) > max) {
+      setDemoDistrict('');
+    }
+  }, [demoState, demoDistrict]);
+
+  // District options for the dropdown — empty (use State only) plus
+  // 1..max. At-large states (max === 1) get an "At-large" label so
+  // it's clear there's no choice to make.
+  const districtOptions = useMemo(() => {
+    const max = STATE_HOUSE_DISTRICTS[demoState] || 0;
+    if (max <= 0) return [];
+    if (max === 1) return [['1', 'At-large']];
+    return Array.from({ length: max }, (_, i) => [String(i + 1), `District ${i + 1}`]);
+  }, [demoState]);
 
   if (!open) return null;
 
@@ -165,10 +231,46 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     if (onSuccess) onSuccess();
   };
 
-  const fillDemo = (account) => {
-    setEmail(account.email);
-    setPassword(DEMO_PASSWORD);
-    setErr(null);
+  // Submit the self-serve demo signup form. Backend mints a fresh
+  // CitizenAccount, returns the credentials, auto-logs the user in.
+  // We auto-fill the login form fields so the user can SEE the
+  // generated email + password (the user requested this — feels less
+  // magic than "you're suddenly signed in with no idea how"), then
+  // close the modal via onSuccess so they can start engaging.
+  const submitDemoSignup = async () => {
+    const name = demoDisplayName.trim();
+    if (!name) {
+      setDemoErr('Pick a display name.');
+      return;
+    }
+    setDemoBusy(true);
+    setDemoErr(null);
+    const result = await signupDemoCitizen({
+      displayName: name,
+      state: demoState || null,
+      congressionalDistrict: demoDistrict || null,
+      city: demoCity.trim() || null,
+    });
+    setDemoBusy(false);
+    if (!result.ok) {
+      setDemoErr(result.error || 'Could not create demo account.');
+      return;
+    }
+    // Stash the issued credentials so the user can see them; pre-fill
+    // the login form so it's obvious they can sign back in with these
+    // values from another device or after clearing cookies.
+    setIssuedCreds({ email: result.email, password: result.password });
+    setEmail(result.email);
+    setPassword(result.password);
+  };
+
+  // Auto-fill the standard login fields from a previously-issued set
+  // of demo credentials (used by the "Sign in with these" button on
+  // the post-signup confirmation screen). The user is already logged
+  // in via auto-login, but tapping this is reassurance — confirms
+  // the creds actually work end-to-end.
+  const proceedWithIssuedCreds = () => {
+    if (onSuccess) onSuccess();
   };
 
   return (
@@ -307,7 +409,11 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         Sign in
       </Button>
 
-      {/* Searchable demo accounts */}
+      {/* Self-serve demo signup — replaces the old fixed 60-account
+          list. The user picks a display name + state + (optional)
+          district + city; the backend mints a fresh CitizenAccount
+          (verified=false), returns the synthetic email + password,
+          and auto-signs them in. */}
       <div
         style={{
           marginTop: 14,
@@ -329,135 +435,154 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
             fontFamily: 'var(--cl-font-sans)',
           }}
         >
-          {showDemo
-            ? `▾ Hide demo logins (${DEMO_CITIZENS.length} accounts)`
-            : `▸ Show demo logins (${DEMO_CITIZENS.length} accounts)`}
+          {showDemo ? '▾ Hide demo account form' : '▸ Create a demo account'}
         </button>
-        {showDemo && (
-          <div style={{ marginTop: 10 }}>
-            <input
-              type="text"
-              value={demoFilter}
-              onChange={(e) => setDemoFilter(e.target.value)}
-              placeholder="Filter by name, city, or district (e.g. FL-19)"
-              style={{
-                width: '100%',
-                height: 34,
-                padding: '0 10px',
-                borderRadius: 'var(--cl-radius-sm)',
-                border: '1px solid var(--cl-border)',
-                fontSize: 'var(--cl-text-xs)',
-                fontFamily: 'var(--cl-font-sans)',
-                marginBottom: 8,
-                boxSizing: 'border-box',
-                color: 'var(--cl-text)',
-                background: 'var(--cl-card)',
-                outline: 'none',
-              }}
-            />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-                maxHeight: 260,
-                overflowY: 'auto',
-                paddingRight: 2,
-              }}
-            >
-              {filteredDemos.length === 0 ? (
-                <div
-                  style={{
-                    fontSize: 'var(--cl-text-xs)',
-                    color: 'var(--cl-text-light)',
-                    padding: '8px 4px',
-                  }}
-                >
-                  No matches.
-                </div>
-              ) : (
-                filteredDemos.map((a) => (
-                  <button
-                    key={a.email}
-                    type="button"
-                    onClick={() => fillDemo(a)}
-                    style={{
-                      textAlign: 'left',
-                      padding: '8px 10px',
-                      border: '1px solid var(--cl-border)',
-                      borderRadius: 'var(--cl-radius-sm)',
-                      background: 'var(--cl-bg)',
-                      color: 'var(--cl-text)',
-                      fontSize: 'var(--cl-text-xs)',
-                      cursor: 'pointer',
-                      fontFamily: 'var(--cl-font-sans)',
-                      transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard)',
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--cl-accent)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--cl-border)';
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 8,
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>{a.label}</span>
-                      <span
-                        style={{
-                          fontSize: 'var(--cl-text-2xs)',
-                          fontWeight: 700,
-                          padding: '1px 6px',
-                          borderRadius: 'var(--cl-radius-pill)',
-                          background: 'var(--cl-card)',
-                          border: '1px solid var(--cl-border)',
-                          color: 'var(--cl-text-light)',
-                          fontFamily: 'var(--cl-font-mono)',
-                        }}
-                      >
-                        {a.cd}
-                      </span>
-                    </div>
-                    <div
-                      style={{
-                        color: 'var(--cl-text-light)',
-                        fontSize: 'var(--cl-text-2xs)',
-                        marginTop: 2,
-                      }}
-                    >
-                      {a.city} · {a.email}
-                    </div>
-                  </button>
-                ))
-              )}
+        {showDemo && !issuedCreds && (
+          <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)' }}>
+              Demo accounts let anyone try CivicView's engagement features.
+              Identity is self-attested — every demo carries an
+              &ldquo;Unverified&rdquo; label on the engagement surfaces.
             </div>
-            <div
-              style={{
-                color: 'var(--cl-text-muted)',
-                fontSize: 'var(--cl-text-2xs)',
-                marginTop: 8,
-                fontStyle: 'italic',
-              }}
-            >
-              Shared demo password:{' '}
-              <code
+
+            <label htmlFor="demo-name" style={FIELD_LABEL}>
+              Display name
+            </label>
+            <input
+              id="demo-name"
+              type="text"
+              value={demoDisplayName}
+              onChange={(e) => setDemoDisplayName(e.target.value.slice(0, 80))}
+              placeholder="Pat Q. Citizen"
+              disabled={demoBusy}
+              maxLength={80}
+              style={FIELD_INPUT}
+            />
+
+            <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <label htmlFor="demo-state" style={FIELD_LABEL}>
+                  State
+                </label>
+                <select
+                  id="demo-state"
+                  value={demoState}
+                  onChange={(e) => setDemoState(e.target.value)}
+                  disabled={demoBusy}
+                  style={{ ...FIELD_INPUT, cursor: 'pointer' }}
+                >
+                  {US_STATES.map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {code} — {name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <label htmlFor="demo-district" style={FIELD_LABEL}>
+                  District
+                </label>
+                <select
+                  id="demo-district"
+                  value={demoDistrict}
+                  onChange={(e) => setDemoDistrict(e.target.value)}
+                  disabled={demoBusy || districtOptions.length === 0}
+                  style={{ ...FIELD_INPUT, cursor: 'pointer' }}
+                >
+                  <option value="">— none —</option>
+                  {districtOptions.map(([val, label]) => (
+                    <option key={val} value={val}>{label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <label htmlFor="demo-city" style={FIELD_LABEL}>
+              City <span style={{ color: 'var(--cl-text-light)', fontWeight: 400 }}>(optional)</span>
+            </label>
+            <input
+              id="demo-city"
+              type="text"
+              value={demoCity}
+              onChange={(e) => setDemoCity(e.target.value.slice(0, 128))}
+              placeholder="Naples"
+              disabled={demoBusy}
+              maxLength={128}
+              style={FIELD_INPUT}
+            />
+
+            {demoErr && (
+              <div
+                role="alert"
                 style={{
-                  fontSize: 'var(--cl-text-2xs)',
-                  fontFamily: 'var(--cl-font-mono)',
-                  background: 'var(--cl-bg-soft)',
-                  padding: '1px 5px',
-                  borderRadius: 'var(--cl-radius-xs)',
+                  padding: '8px 10px',
+                  background: 'var(--cl-danger-soft)',
+                  color: 'var(--cl-danger-text)',
+                  borderRadius: 'var(--cl-radius-md)',
+                  fontSize: 'var(--cl-text-xs)',
+                  border: '1px solid var(--cl-danger-border)',
                 }}
               >
-                {DEMO_PASSWORD}
-              </code>
+                {demoErr}
+              </div>
+            )}
+
+            <Button
+              variant="primary"
+              size="md"
+              onClick={submitDemoSignup}
+              loading={demoBusy}
+              disabled={!demoDisplayName.trim() || demoBusy}
+              style={{ width: '100%' }}
+            >
+              Create demo account &amp; sign in
+            </Button>
+          </div>
+        )}
+
+        {/* Post-signup credentials display. The user is already signed in
+            via the auto-login on the demo-signup response; this screen
+            shows them the email + password they can use to sign back in
+            from another device or after clearing cookies. */}
+        {showDemo && issuedCreds && (
+          <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div
+              style={{
+                padding: '10px 12px',
+                background: 'var(--cl-accent-soft)',
+                border: '1px solid var(--cl-accent-soft)',
+                borderRadius: 'var(--cl-radius-md)',
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text)',
+                lineHeight: 1.4,
+              }}
+            >
+              <strong>You&rsquo;re signed in.</strong> Save these credentials
+              if you want to sign back in from another device. They&rsquo;re
+              also pre-filled in the sign-in fields above.
             </div>
+            <div
+              style={{
+                background: 'var(--cl-bg-soft)',
+                borderRadius: 'var(--cl-radius-md)',
+                padding: 10,
+                fontFamily: 'var(--cl-font-mono)',
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text)',
+                lineHeight: 1.6,
+              }}
+            >
+              <div><strong>Email:</strong> {issuedCreds.email}</div>
+              <div><strong>Password:</strong> {issuedCreds.password}</div>
+            </div>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={proceedWithIssuedCreds}
+              style={{ width: '100%' }}
+            >
+              Continue
+            </Button>
           </div>
         )}
       </div>
