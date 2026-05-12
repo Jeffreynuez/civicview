@@ -22,6 +22,7 @@ import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import ClaimPageModal from '@/components/ClaimPageModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
 import HelpBuildThisView from '@/components/HelpBuildThisView';
+import FeedbackView from '@/components/FeedbackView';
 import { fetchAllStateData, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
@@ -69,6 +70,8 @@ export default function Home() {
   // "Help build this" overlay — transparent project status + crowdfund
   // CTA. Opened from the navbar.
   const [helpBuildOpen, setHelpBuildOpen] = useState(false);
+  // Feedback overlay — embedded Google Form. Same mount pattern.
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   // Lifted SidePanel tab so it survives the candidate-profile detour. Without
   // this, opening a candidate from Elections + clicking Back unmounts SidePanel
   // and resets the tab back to "congress".
@@ -834,6 +837,7 @@ export default function Home() {
         onCitizenDashboard={() => setDashboardOpen(true)}
         onHome={handleStateDeselect}
         onOpenHelpBuild={() => setHelpBuildOpen(true)}
+        onOpenFeedback={() => setFeedbackOpen(true)}
       />
       <CitizenLoginModal
         open={citizenLoginOpen}
@@ -1062,6 +1066,39 @@ export default function Home() {
             onSubscribe: () => {
               setHelpBuildOpen(false);
               handleRequestCitizenWaitlist('subscribe');
+            },
+            onOpenFeedback: () => {
+              setHelpBuildOpen(false);
+              setFeedbackOpen(true);
+            },
+          }}
+        />
+      )}
+
+      {/* Feedback overlay — embedded Google Form. Same z-index +
+          chrome pattern as the Help-build overlay. */}
+      {feedbackOpen && (
+        <FeedbackView
+          onClose={() => setFeedbackOpen(false)}
+          compactNavbarProps={{
+            citizen,
+            onCitizenLogin: handleCitizenLoginOpen,
+            onCitizenLogout: handleCitizenLogoutClick,
+            onCitizenDashboard: () => {
+              setFeedbackOpen(false);
+              setDashboardOpen(true);
+            },
+            onOpenTracked: () => {
+              setFeedbackOpen(false);
+              setTrackedOpen(true);
+            },
+            onSubscribe: () => {
+              setFeedbackOpen(false);
+              handleRequestCitizenWaitlist('subscribe');
+            },
+            onOpenHelpBuild: () => {
+              setFeedbackOpen(false);
+              setHelpBuildOpen(true);
             },
           }}
         />

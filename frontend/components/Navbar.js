@@ -39,6 +39,9 @@ export default function Navbar({
   // crowdfund page. Wired through to page.js. When omitted, the
   // navbar button is hidden (so this can be enabled progressively).
   onOpenHelpBuild,
+  // Opens the Feedback overlay (embedded Google Form). Same
+  // progressive-rollout pattern: hidden when not wired.
+  onOpenFeedback,
   // When true, render a slimmer navbar without the search bar and the
   // Committees button. Used inside PageView (and similar full-screen
   // takeovers) where global navigation chrome would compete with the
@@ -671,6 +674,31 @@ export default function Navbar({
                 Help build this
               </button>
             )}
+            {/* Feedback — outlined treatment so it visually de-emphasizes
+                vs the primary Help-build-this CTA. Hidden when no
+                handler is wired. */}
+            {onOpenFeedback && (
+              <button
+                onClick={() => onOpenFeedback?.()}
+                title="Send feedback, report a bug, or request a feature"
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  padding: '6px 12px',
+                  background: 'rgba(255,255,255,0.1)',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  borderRadius: '8px', cursor: 'pointer',
+                  fontSize: '0.82rem', fontWeight: 600,
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+                onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Feedback
+              </button>
+            )}
             <button
               onClick={() => onSubscribe?.()}
               title="Get notified when verified citizen accounts open up"
@@ -811,6 +839,17 @@ export default function Navbar({
                     label="Help build this"
                     accent="var(--cl-accent)"
                     onClick={() => { setMobileMenuOpen(false); onOpenHelpBuild?.(); }}
+                  />
+                )}
+                {onOpenFeedback && (
+                  <MobileMenuItem
+                    icon={
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                      </svg>
+                    }
+                    label="Feedback"
+                    onClick={() => { setMobileMenuOpen(false); onOpenFeedback?.(); }}
                   />
                 )}
                 <MobileMenuItem
