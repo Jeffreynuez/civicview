@@ -980,11 +980,15 @@ export default function Home() {
             width={panelWidth}
             isMobile={useStackedLayout}
             // Distinct from isMobile (which only flips for stacked
-            // mobile-portrait): true on ANY phone-sized viewport,
-            // including landscape side-by-side. Drives touch-only
-            // behaviors like the collapsing header on scroll, which
-            // we want active in both orientations.
-            isTouch={isMobile}
+            // mobile-portrait): true on ANY compact viewport — mobile
+            // OR tablet, portrait OR landscape. Drives touch-only
+            // behaviors like the collapsing header on scroll. Bound
+            // to isCompact rather than isMobile so phones reporting
+            // 901–1024px CSS width (Samsung Internet at certain
+            // chrome states, iPads in portrait) still get the
+            // collapse behavior — they're on the stacked layout via
+            // useStackedLayout and need the matching scroll affordance.
+            isTouch={isCompact}
             // True when the user has dragged the mobile horizontal
             // resizer all the way down (mapHeightPx === 0) OR
             // (in landscape) when the panel has been widened to
