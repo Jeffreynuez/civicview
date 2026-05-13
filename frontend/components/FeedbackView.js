@@ -41,12 +41,15 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 
-// Drop the Google Form's embed URL here once the form exists. The
-// `embedded=true` query param keeps the form's chrome minimal — no
-// Google branding, no "powered by" footer interfering with our
-// overlay's design.
-const FEEDBACK_FORM_URL = '';
-const FEEDBACK_FORM_LIVE = false;
+// Google Form embed URL. The `embedded=true` query param keeps the
+// form's chrome minimal — no Google branding, no "powered by"
+// footer interfering with our overlay's design. The long blob in
+// the URL path is the form's permanent ID; if we ever rebuild the
+// form from scratch (different field set, different forwarding
+// rules, etc.) the ID changes and this constant gets the new value.
+const FEEDBACK_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSd_3a9cpUj5c493OEQmeIk0fJ-7QSCLtjXcojxPjlBcqcrnVA/viewform?embedded=true';
+const FEEDBACK_FORM_LIVE = true;
 
 export default function FeedbackView({ onClose, compactNavbarProps = {} }) {
   // Lock background scroll while the overlay is up — same pattern as
