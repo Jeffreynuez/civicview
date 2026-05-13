@@ -37,17 +37,25 @@ export default function Home() {
   // 'mobile' (≤900px), 'tablet' (≤1024px), 'desktop' (>1024px).
   const viewport = useViewport();
   const isMobile = viewport === 'mobile';
+  // Includes tablet too. Phones in portrait sometimes report wider CSS
+  // widths than the ≤900px mobile threshold (Samsung Internet at certain
+  // chrome states reports 901–1024px); they need the stacked layout
+  // anyway. Real tablets in portrait also benefit from stacking —
+  // a 768–834px wide column of map + panel side-by-side leaves neither
+  // half enough room. We pivot back to side-by-side on landscape since
+  // the vertical room is then the limiting factor.
+  const isCompact = viewport === 'mobile' || viewport === 'tablet';
   // True when the phone is held sideways (or any window where width >
-  // height). Used together with isMobile to decide between the stacked
+  // height). Used together with isCompact to decide between the stacked
   // mobile layout (map on top, panel below) and the desktop side-by-
   // side layout (map on left, panel on right). On a phone in landscape
   // the viewport is too short (~360–500px) to stack a useful map AND
   // a useful panel, so we pivot to the desktop layout instead.
   const isLandscape = useIsLandscape();
   // Single source of truth for "use the stacked / mobile-style layout"
-  // — only true when we're on a small screen AND in portrait. Landscape
-  // mobile gets the desktop side-by-side treatment.
-  const useStackedLayout = isMobile && !isLandscape;
+  // — true on any compact-and-portrait viewport. Landscape compact
+  // (phones held sideways) gets the desktop side-by-side treatment.
+  const useStackedLayout = isCompact && !isLandscape;
 
   const [selectedState, setSelectedState] = useState(null);
   const [selectedMember, setSelectedMember] = useState(null);
@@ -904,6 +912,15 @@ export default function Home() {
             topOffset={56}
             label="Map"
             isMobile={isMobile}
+            // Binary open/close behavior on mobile portrait — the user
+            // explicitly preferred a snap-to-state interaction over
+            // free-form continuous dragging. The handle still has a
+            // "tug" because the move handler applies DRAG_RESISTANCE
+            // before committing the visual position; on release the
+            // gesture snaps to fully open or fully closed based on
+            // direction + threshold. A double-tap toggles instantly.
+            binaryMode
+            isOpen={mapHeightPx > 0}
           />
         ) : (
           <PanelResizer
