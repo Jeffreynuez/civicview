@@ -8,7 +8,7 @@ import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
-import { useViewport, useIsCompact } from '@/lib/useViewport';
+import { useIsCompact } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -75,13 +75,14 @@ export default function Navbar({
   // nav buttons + the inline search bar in a row at ~850px wide
   // overflows the navbar past the viewport edge, which is what was
   // causing the page to show white when zoomed out.
-  const viewport = useViewport();
-  const isMobile = viewport === 'mobile';
-  // Tablet + mobile = compact. Used to gate the *secondary* navbar
-  // CTAs (Help-build + Feedback) — they only render inline on true
-  // desktop because tablet widths (901–1024px) don't have room for
-  // both them and the existing Subscribe / Committees / My Tracked
-  // cluster without overflowing past the viewport edge.
+  // Compact = mobile + tablet (≤1024px). The whole navbar's
+  // mobile-vs-desktop density (inline cluster vs hamburger, full text
+  // vs icon, inline search bar vs collapse-to-icon) flips on this
+  // threshold. We used isMobile (≤900px) before, but tablet and
+  // landscape-phone widths (901–1024px) couldn't fit the full inline
+  // cluster + search bar without overflowing past the viewport edge.
+  // Bumping to 1024px gives the inline layout the room it needs on
+  // true desktops without leaving intermediate widths broken.
   const isCompact = useIsCompact();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -230,7 +231,7 @@ export default function Navbar({
 
   return (
     <nav
-      className={`flex items-center justify-between shadow-sm border-b ${isMobile ? 'px-3 py-2 gap-2' : 'px-6 py-3'}`}
+      className={`flex items-center justify-between shadow-sm border-b ${isCompact ? 'px-3 py-2 gap-2' : 'px-6 py-3'}`}
       style={{ background: 'var(--cl-primary)', height: '56px', position: 'relative', zIndex: 50 }}
     >
       {/* Logo — Phase 4-wiring: swap the prior clock-circle placeholder for
@@ -265,21 +266,28 @@ export default function Navbar({
         <span className="text-white font-semibold text-lg">CivicView</span>
       </button>
 
-      {/* Search Bar — desktop / tablet renders inline. On mobile it
-          collapses to an icon button (rendered later in the actions
-          cluster) that toggles `mobileSearchOpen`; when open, the bar
-          takes over the whole navbar via `position: absolute`.
-          When `compact`, we skip the search entirely; PageView and
-          similar full-screen takeovers don't need global rep search
-          competing with the page's own scope. */}
+      {/* Search Bar — true desktop (>1024px) renders the bar inline.
+          On compact viewports (mobile + tablet ≤1024px) it collapses
+          to an icon button (rendered later in the actions cluster)
+          that toggles `mobileSearchOpen`; when open, the bar takes
+          over the whole navbar via `position: absolute`.
+          When `compact` (the PROP — not the breakpoint hook), we
+          skip the search entirely; PageView and similar full-screen
+          takeovers don't need global rep search competing with the
+          page's own scope.
+          Note: this uses isCompact (≤1024px) rather than isMobile
+          (≤900px) so the inline search bar doesn't claim navbar
+          width on tablet / landscape phones that fall between those
+          two thresholds — that overflowed Citizen-login and the
+          hamburger off the right edge on real-device testing. */}
       {!compact && (
       <div
         ref={containerRef}
-        className={isMobile ? '' : 'flex-1 mx-8'}
+        className={isCompact ? '' : 'flex-1 mx-8'}
         style={
-          isMobile
+          isCompact
             ? {
-                // Mobile search overlay — covers the rest of the navbar
+                // Compact search overlay — covers the rest of the navbar
                 // when active; hidden otherwise. Matches the navbar
                 // height so it doesn't shift layout.
                 position: 'absolute',
@@ -297,8 +305,8 @@ export default function Navbar({
             : { position: 'relative', maxWidth: '560px' }
         }
       >
-        {/* Mobile back arrow — closes the search overlay. */}
-        {isMobile && mobileSearchOpen && (
+        {/* Compact-viewport back arrow — closes the search overlay. */}
+        {isCompact && mobileSearchOpen && (
           <button
             type="button"
             onClick={() => setMobileSearchOpen(false)}
@@ -321,7 +329,7 @@ export default function Navbar({
         <div
           className="relative"
           style={{
-            flex: isMobile ? 1 : undefined,
+            flex: isCompact ? 1 : undefined,
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(10px)',
             border: `1px solid ${focused ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.2)'}`,
@@ -341,7 +349,7 @@ export default function Navbar({
             ref={inputRef}
             type="text"
             placeholder={
-              isMobile
+              isCompact
                 ? 'Search reps or candidates…'
                 : 'Search representatives or candidates by name, state, or office…'
             }
@@ -360,11 +368,12 @@ export default function Navbar({
             className="w-full bg-transparent text-white outline-none py-2 pl-10 pr-14"
             // 16px font on mobile prevents iOS Safari from auto-zooming
             // when the input is focused. 14px stays the desktop default.
-            style={{ fontSize: isMobile ? '16px' : '14px' }}
+            style={{ fontSize: isCompact ? '16px' : '14px' }}
           />
-          {/* "/" keyboard hint — hidden on mobile because there's no
-              physical keyboard and the cue is meaningless. */}
-          {!focused && !isMobile && (
+          {/* "/" keyboard hint — hidden on compact (mobile + tablet)
+              because there's no physical keyboard and the cue is
+              meaningless. */}
+          {!focused && !isCompact && (
             <span
               style={{
                 position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
@@ -490,12 +499,12 @@ export default function Navbar({
           Citizen icon → Hamburger). Subscribe / Committees / My Tracked
           + Sign out collapse into the hamburger popover. */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        {/* Mobile-only search trigger — opens the full-bar search
-            overlay defined above. Hidden on desktop since the search
-            bar is always inline there. Also hidden in compact mode
-            (PageView), where global search would compete with the
-            page's own scope. */}
-        {isMobile && !compact && (
+        {/* Compact-viewport search trigger — opens the full-bar
+            search overlay defined above. Hidden on true desktop
+            since the search bar is always inline there. Also hidden
+            when the `compact` prop is set (PageView), where global
+            search would compete with the page's own scope. */}
+        {isCompact && !compact && (
           <button
             type="button"
             onClick={() => setMobileSearchOpen(true)}
