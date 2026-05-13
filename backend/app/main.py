@@ -25,6 +25,7 @@ from app.routers import (
     pages as pages_router,
     citizen_polls as citizen_polls_router,
     waitlist as waitlist_router,
+    feed as feed_router,
 )
 from app.db import init_db
 from app.seed import (
@@ -112,6 +113,7 @@ app.include_router(pages_router.router, prefix="/api/pages", tags=["Pages — Fe
 # "/api/citizen-polls" — the path parts come from the route decorators.
 app.include_router(citizen_polls_router.router, prefix="/api", tags=["Pages — Citizen Polls"])
 app.include_router(waitlist_router.router, prefix="/api/waitlist", tags=["Pages — Citizen Waitlist"])
+app.include_router(feed_router.router, prefix="/api/feed", tags=["Pages — Home Feed"])
 
 
 @app.get("/")

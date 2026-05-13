@@ -5,6 +5,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchElections, fetchFederalOfficials } from '@/lib/api';
+import { fetchNationalActivity, fetchPopularPolls } from '@/lib/pagesApi';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
@@ -1356,59 +1357,38 @@ function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareI
 // ─────────────────────────────────────────────────────────────────
 // 6. NATIONAL ACTIVITY FEED
 //
-// Seeded mock data for the demo — the design system spec calls for
-// a balanced (D/R alternating) feed of recent posts from federal
-// officials. Backend integration (a /api/feed/national endpoint
-// aggregating posts across federal RepAccounts) is deferred. The
-// fictional names + post bodies come from the National Officials
-// Panel design review brief; "Alternates 4D · 4R for balanced scan"
-// disclosure is preserved as a literal eyebrow line.
+// Live data via GET /api/feed/national-activity — recent non-deleted
+// posts authored by RepAccounts, ordered by created_at DESC. The
+// shape returned by the API uses `created_at` (ISO timestamp) and
+// `official_id`; we normalize to the shape ActivityPostRow expects
+// (`when` as a relative string) at the section boundary so the row
+// component stays generic.
+//
+// Empty-state behavior: when no rep has posted yet (fresh-launch
+// state), the API returns `items: []` and we render an explanatory
+// tile instead of the row list. The tile points at how the section
+// will populate so the surface still feels intentional.
 // ─────────────────────────────────────────────────────────────────
 
-const NATIONAL_ACTIVITY_DEMO = [
-  {
-    id: 'na-1', party: 'D',
-    author: 'Sen. Marisol Estévez', role: 'D-WA',
-    when: '14m ago',
-    body: 'Just finished oversight hearing on rural broadband subsidies. Three-year audit shows 41% of disbursed funds never reached households. Filed amendment requiring quarterly milestone reporting before next tranche. Full statement on the page.',
-    likes: 1842, comments: 184,
-  },
-  {
-    id: 'na-2', party: 'R',
-    author: 'Rep. Chase Holloway', role: 'R-TN-7',
-    when: '32m ago',
-    body: 'Heard from over 200 small-business owners at the district roundtable today. Top concern by a wide margin: input cost volatility, particularly steel and lumber. Bringing those numbers back to Ways & Means this week.',
-    likes: 967, comments: 92,
-  },
-  {
-    id: 'na-3', party: 'D',
-    author: 'Rep. Aamir Desai', role: 'D-NJ-3',
-    when: '1h ago',
-    body: 'Transit bill markup is moving Thursday. The amendment to preserve direct grants for legacy systems made it through committee 8–5. Long road ahead, but a real win for cities like Newark.',
-    likes: 612, comments: 38,
-  },
-  {
-    id: 'na-4', party: 'R',
-    author: 'Sen. Wendell Marsh', role: 'R-WY',
-    when: '2h ago',
-    body: 'Joined a bipartisan letter to OMB requesting clear cost estimates on the federal-lands package before any vote moves. Both sides of this debate deserve real numbers.',
-    likes: 528, comments: 47,
-  },
-  {
-    id: 'na-5', party: 'D',
-    author: 'Sen. Patricia Linn', role: 'D-IL',
-    when: '4h ago',
-    body: 'Statewide tour stop in Peoria today. Manufacturing town halls keep coming back to one question — how do we keep skilled workers from leaving for the coasts? Apprenticeship reauth is part of the answer.',
-    likes: 743, comments: 62,
-  },
-  {
-    id: 'na-6', party: 'R',
-    author: 'Rep. Tomas Reyna', role: 'R-TX-22',
-    when: '5h ago',
-    body: 'Briefing on the border-tech pilot this morning. Pilot has cut processing time per encounter by 38% — encouraging numbers but I want to see the next quarter\'s data before committing to scale.',
-    likes: 634, comments: 71,
-  },
-];
+// Convert an ISO-8601 timestamp from the API into a short relative-
+// time string ("14m ago", "2h ago", "Mar 4"). Mirrors the helper in
+// PostCard.js — kept inline because this file already has a number
+// of small render helpers and the duplication is cheaper than adding
+// a shared module.
+function nationalTimeAgo(iso) {
+  if (!iso) return '';
+  const then = new Date(iso);
+  if (Number.isNaN(then.getTime())) return '';
+  const secs = Math.floor((Date.now() - then.getTime()) / 1000);
+  if (secs < 60) return 'just now';
+  const mins = Math.floor(secs / 60);
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days}d ago`;
+  return then.toLocaleDateString();
+}
 
 function NationalActivitySection({ onRequestVerify, citizen }) {
   // When a citizen is signed in, the per-row "Sign in to participate" CTA
@@ -1423,13 +1403,42 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
   // and tends to dominate the page below it; users who want to scan
   // current activity can expand. Persisted across reloads.
   const [open, toggleOpen] = usePersistentToggle('cl:nop:activity', false);
+
+  // Lazy-fetch on first expand. Skipping the fetch while collapsed
+  // saves a round-trip on the (common) case of users who don't open
+  // the section. Once fetched, the result sticks until a reload — we
+  // don't bother with revalidation because the home-page feed is
+  // intentionally a lightly-stale summary.
+  const [items, setItems] = useState(null);   // null = not loaded yet
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!open || items !== null || loading) return;
+    let cancelled = false;
+    setLoading(true);
+    setError(false);
+    (async () => {
+      const { data, error: err } = await fetchNationalActivity({ limit: 6 });
+      if (cancelled) return;
+      if (err || !data) {
+        setError(true);
+        setItems([]);
+      } else {
+        setItems(Array.isArray(data.items) ? data.items : []);
+      }
+      setLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, [open, items, loading]);
+
   return (
     <section style={{ padding: '32px 24px 16px' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="Past 24 hours"
           title="National activity"
-          subhead="What national leaders are saying right now · alternating R / D for balanced scan"
+          subhead="Recent posts from reps across the country, newest first"
           chip={null}
           collapsible
           open={open}
@@ -1437,17 +1446,43 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
         />
         {open && (
           <>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {NATIONAL_ACTIVITY_DEMO.map((post) => (
-                <ActivityPostRow
-                  key={post.id}
-                  post={post}
-                  onRequestVerify={onRequestVerify}
-                  isAuthed={isAuthed}
-                />
-              ))}
-            </div>
-            {!isAuthed && (
+            {loading && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <Skeleton key={i} height={120} radius={16} />
+                ))}
+              </div>
+            )}
+            {!loading && items && items.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {items.map((apiPost) => (
+                  <ActivityPostRow
+                    key={apiPost.id}
+                    post={{
+                      // Normalize API shape to the row component's
+                      // contract. role / party may be null when the
+                      // rep isn't in the curated federal-officials
+                      // index; PartyChip + Avatar both handle null
+                      // by rendering a neutral chip / initials.
+                      id: apiPost.id,
+                      author: apiPost.author,
+                      role: apiPost.role || '',
+                      party: apiPost.party || null,
+                      body: apiPost.body,
+                      likes: apiPost.likes || 0,
+                      comments: apiPost.comments || 0,
+                      when: nationalTimeAgo(apiPost.created_at),
+                    }}
+                    onRequestVerify={onRequestVerify}
+                    isAuthed={isAuthed}
+                  />
+                ))}
+              </div>
+            )}
+            {!loading && items && items.length === 0 && (
+              <ActivityEmptyState error={error} />
+            )}
+            {!isAuthed && items && items.length > 0 && (
               <div style={{ textAlign: 'center', marginTop: 14 }}>
                 <button
                   type="button"
@@ -1477,179 +1512,80 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
   );
 }
 
+// Empty-state tile for National activity. Shown when no rep has
+// posted yet, OR when the API call failed (so the user always sees
+// something intentional instead of a blank gap). Error vs. empty is
+// reflected only in the body copy — the visual is the same so a
+// transient failure doesn't look catastrophic.
+function ActivityEmptyState({ error }) {
+  return (
+    <div
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px dashed var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: '28px 20px',
+        textAlign: 'center',
+      }}
+    >
+      <div
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: '50%',
+          background: 'var(--cl-accent-soft)',
+          margin: '0 auto 12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        aria-hidden
+      >
+        <Building size={22} active color="accent" />
+      </div>
+      <div
+        style={{
+          fontSize: 'var(--cl-text-md)',
+          fontWeight: 700,
+          color: 'var(--cl-text)',
+          marginBottom: 6,
+        }}
+      >
+        {error ? 'Activity unavailable right now' : 'No recent posts yet'}
+      </div>
+      <p
+        style={{
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text-light)',
+          margin: 0,
+          maxWidth: 540,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          lineHeight: 1.55,
+        }}
+      >
+        {error
+          ? 'We couldn’t reach the feed. Try again in a moment.'
+          : 'When verified reps claim their CivicView pages and start posting, the latest activity from across the country will surface here.'}
+      </p>
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────
-// POPULAR POLLS — demo content for the home page.
+// POPULAR POLLS — live data from GET /api/feed/popular-polls.
 //
-// Standalone demo data (no API), so we can show the surface to first-
-// time visitors before any real polls have been authored. Mix of
-// rep-authored and citizen-authored polls so this section also
-// previews the future "subscribed citizens post polls on unclaimed
-// rep pages" feature.
+// The endpoint returns the highest-vote-count active polls across
+// the whole app — a mix of rep-authored (attached to a Post) and
+// citizen-authored (standalone, on unclaimed rep pages). The API
+// shape uses `kind: 'rep'|'citizen'` and `created_at`; we normalize
+// to PopularPollCard's existing contract (`authorType`, `when`) at
+// the section boundary so the card component stays unchanged.
 //
-// Each entry has:
-//   id          — unique key
-//   authorType  — 'rep' | 'citizen' (drives the chip + avatar party)
-//   author      — display name
-//   role        — second-line context ('R-TX-22', 'Subscribed citizen · FL')
-//   party       — only set for rep authors (drives Avatar tint)
-//   when        — relative time string (demo)
-//   question    — 1-2 line poll prompt
-//   options     — array of { label, percent }; percents sum to 100
-//   votes       — total votes (number, for human-readable formatting)
-//   comments    — comment count
+// Empty-state behavior matches National activity: an explanatory
+// tile when no polls have any votes yet, an error variant of the
+// same tile when the API fetch fails.
 // ─────────────────────────────────────────────────────────────────
-const POPULAR_POLLS_DEMO = [
-  {
-    id: 'pp-1',
-    authorType: 'rep',
-    author: 'Sen. Marisol Estévez',
-    role: 'D-WA',
-    party: 'D',
-    when: '22m ago',
-    question: 'Where should the next round of rural broadband audit funds go first?',
-    options: [
-      { label: 'Last-mile fiber to unserved households', percent: 47 },
-      { label: 'Tribal-land buildouts',                  percent: 28 },
-      { label: 'School & library upgrades',              percent: 17 },
-      { label: 'County-level digital-equity grants',     percent: 8 },
-    ],
-    votes: 12483, comments: 612,
-  },
-  {
-    id: 'pp-2',
-    authorType: 'citizen',
-    // Real-name citizen — shows the default identity treatment.
-    // Maria Hernandez is a seeded demo account in Naples, FL.
-    author: 'Maria Hernandez',
-    role: 'FL · Naples',
-    party: null,
-    when: '38m ago',
-    question: 'Would you prefer the IRS auto-fill your federal tax return each year?',
-    options: [
-      { label: 'Yes — let me review and file',          percent: 71 },
-      { label: 'No — keep the current opt-in process',  percent: 29 },
-    ],
-    votes: 8924, comments: 410,
-  },
-  {
-    id: 'pp-3',
-    authorType: 'rep',
-    author: 'Rep. Chase Holloway',
-    role: 'R-TN-7',
-    party: 'R',
-    when: '54m ago',
-    question: 'Which input cost is hurting your small business most right now?',
-    options: [
-      { label: 'Steel & metals',     percent: 38 },
-      { label: 'Lumber & building',  percent: 27 },
-      { label: 'Energy & fuel',      percent: 22 },
-      { label: 'Labor',              percent: 13 },
-    ],
-    votes: 5172, comments: 248,
-  },
-  {
-    id: 'pp-4',
-    authorType: 'citizen',
-    // Nickname-only citizen — previews the future "verified but
-    // pseudonymous" feature where citizens can hide their legal
-    // name behind a chosen handle.
-    author: 'BallotBoomer',
-    role: 'CA · Los Angeles',
-    party: null,
-    when: '1h ago',
-    question: 'How often do you actually contact your representative in a year?',
-    options: [
-      { label: 'Never',           percent: 41 },
-      { label: 'Once or twice',   percent: 33 },
-      { label: 'A few times',     percent: 18 },
-      { label: 'Monthly or more', percent: 8 },
-    ],
-    votes: 6402, comments: 295,
-  },
-  {
-    id: 'pp-5',
-    authorType: 'rep',
-    author: 'Rep. Aamir Desai',
-    role: 'D-NJ-3',
-    party: 'D',
-    when: '2h ago',
-    question: 'Most important amendment to the transit reauthorization bill?',
-    options: [
-      { label: 'Preserve direct grants for legacy systems', percent: 44 },
-      { label: 'Tie funding to on-time performance',        percent: 31 },
-      { label: 'Expand BRT pilot program',                  percent: 25 },
-    ],
-    votes: 3851, comments: 178,
-  },
-  {
-    id: 'pp-6',
-    authorType: 'citizen',
-    // Real-name citizen — Daniel Reed is a seeded demo account in
-    // San Antonio, TX. Mixes with the nickname accounts above to
-    // show both privacy modes side by side.
-    author: 'Daniel Reed',
-    role: 'TX · San Antonio',
-    party: null,
-    when: '3h ago',
-    question: 'Should presidential debates require an independent live fact-check overlay?',
-    options: [
-      { label: 'Yes — always',                       percent: 64 },
-      { label: 'Only for moderator-flagged claims',  percent: 24 },
-      { label: 'No — leave debates as-is',           percent: 12 },
-    ],
-    votes: 9518, comments: 487,
-  },
-  {
-    id: 'pp-7',
-    authorType: 'rep',
-    author: 'Sen. Wendell Marsh',
-    role: 'R-WY',
-    party: 'R',
-    when: '4h ago',
-    question: 'Should federal-lands legislation require OMB cost estimates before any vote?',
-    options: [
-      { label: 'Yes — mandatory pre-vote estimates', percent: 78 },
-      { label: 'Only for bills above $1B',           percent: 14 },
-      { label: 'No — slows the process too much',    percent: 8 },
-    ],
-    votes: 4126, comments: 192,
-  },
-  {
-    id: 'pp-8',
-    authorType: 'citizen',
-    // Nickname-only citizen — second example of the pseudonym
-    // path. Different vibe from BallotBoomer to show it's not a
-    // template.
-    author: 'QuorumQuokka',
-    role: 'NY · New York',
-    party: null,
-    when: '6h ago',
-    question: 'Best lever for reducing healthcare administrative cost?',
-    options: [
-      { label: 'Standardized claims forms',            percent: 36 },
-      { label: 'Single price-transparency database',   percent: 29 },
-      { label: 'Cap on prior-authorization windows',   percent: 22 },
-      { label: 'None — markets sort it out',           percent: 13 },
-    ],
-    votes: 7204, comments: 356,
-  },
-  {
-    id: 'pp-9',
-    authorType: 'rep',
-    author: 'Sen. Patricia Linn',
-    role: 'D-IL',
-    party: 'D',
-    when: '8h ago',
-    question: 'What would keep skilled workers from leaving manufacturing towns?',
-    options: [
-      { label: 'Higher base wages',           percent: 33 },
-      { label: 'Apprenticeship reauth',       percent: 27 },
-      { label: 'Childcare & housing support', percent: 24 },
-      { label: 'Tax incentives to relocate',  percent: 16 },
-    ],
-    votes: 5687, comments: 264,
-  },
-];
 
 // Format vote / comment counts in a feed-friendly way: 12483 → "12.5k",
 // 968 → "968". Mirrors the convention the rest of the app uses on
@@ -1664,10 +1600,33 @@ function formatPollCount(n) {
 function PopularPollsSection({ onRequestVerify, citizen }) {
   const isAuthed = !!citizen;
   // Same persistence pattern as every other NOP section. Defaults to
-  // collapsed: this is a 9-card grid of polls, large enough that
-  // forcing it open would push every section below it off the fold.
-  // Users who want to scan polls expand on demand.
+  // collapsed: this is a multi-card grid, large enough that forcing
+  // it open would push every section below it off the fold.
   const [open, toggleOpen] = usePersistentToggle('cl:nop:popular-polls', false);
+
+  // Lazy-fetch on first expand — same pattern as NationalActivitySection.
+  const [items, setItems] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!open || items !== null || loading) return;
+    let cancelled = false;
+    setLoading(true);
+    setError(false);
+    (async () => {
+      const { data, error: err } = await fetchPopularPolls({ limit: 9 });
+      if (cancelled) return;
+      if (err || !data) {
+        setError(true);
+        setItems([]);
+      } else {
+        setItems(Array.isArray(data.items) ? data.items : []);
+      }
+      setLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, [open, items, loading]);
 
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
@@ -1675,7 +1634,7 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
         <SectionHeader
           eyebrow="Trending now"
           title="Popular polls"
-          subhead="The most-engaged polls from reps and citizens across the country"
+          subhead="The most-voted polls from reps and citizens across the country"
           chip={null}
           collapsible
           open={open}
@@ -1683,23 +1642,55 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
         />
         {open && (
           <>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: 12,
-              }}
-            >
-              {POPULAR_POLLS_DEMO.map((poll) => (
-                <PopularPollCard
-                  key={poll.id}
-                  poll={poll}
-                  onRequestVerify={onRequestVerify}
-                  isAuthed={isAuthed}
-                />
-              ))}
-            </div>
-            {!isAuthed && (
+            {loading && (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                  gap: 12,
+                }}
+              >
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <Skeleton key={i} height={220} radius={16} />
+                ))}
+              </div>
+            )}
+            {!loading && items && items.length > 0 && (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                  gap: 12,
+                }}
+              >
+                {items.map((apiPoll) => (
+                  <PopularPollCard
+                    key={apiPoll.id}
+                    poll={{
+                      // Normalize API → card shape. Card reads
+                      // poll.authorType ('rep' | 'citizen'); the API
+                      // returns poll.kind, same semantics.
+                      id: apiPoll.id,
+                      authorType: apiPoll.kind === 'citizen' ? 'citizen' : 'rep',
+                      author: apiPoll.author,
+                      role: apiPoll.role || '',
+                      party: apiPoll.party || null,
+                      when: nationalTimeAgo(apiPoll.created_at),
+                      question: apiPoll.question,
+                      options: Array.isArray(apiPoll.options) ? apiPoll.options : [],
+                      votes: apiPoll.votes || 0,
+                      comments: apiPoll.comments || 0,
+                    }}
+                    onRequestVerify={onRequestVerify}
+                    isAuthed={isAuthed}
+                  />
+                ))}
+              </div>
+            )}
+            {!loading && items && items.length === 0 && (
+              <PollsEmptyState error={error} />
+            )}
+            {!isAuthed && items && items.length > 0 && (
               <div style={{ textAlign: 'center', marginTop: 14 }}>
                 <button
                   type="button"
@@ -1729,10 +1720,69 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
   );
 }
 
-// One card per poll. Lightweight, demo-only — does NOT call the
-// /api/polls vote endpoints (that's PollCard.js, used inside live
-// rep PageView). Bars + percentages render statically from the
-// demo payload.
+// Empty-state tile for Popular polls. Same visual language as
+// ActivityEmptyState — different copy that nudges visitors toward
+// the citizen-led poll feature (which is how the app generates
+// engagement before reps have onboarded).
+function PollsEmptyState({ error }) {
+  return (
+    <div
+      style={{
+        background: 'var(--cl-card)',
+        border: '1px dashed var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)',
+        padding: '28px 20px',
+        textAlign: 'center',
+      }}
+    >
+      <div
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: '50%',
+          background: 'var(--cl-accent-soft)',
+          margin: '0 auto 12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        aria-hidden
+      >
+        <CheckCircle size={22} active color="accent" />
+      </div>
+      <div
+        style={{
+          fontSize: 'var(--cl-text-md)',
+          fontWeight: 700,
+          color: 'var(--cl-text)',
+          marginBottom: 6,
+        }}
+      >
+        {error ? 'Polls unavailable right now' : 'No polls yet — be the first.'}
+      </div>
+      <p
+        style={{
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text-light)',
+          margin: 0,
+          maxWidth: 540,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          lineHeight: 1.55,
+        }}
+      >
+        {error
+          ? 'We couldn’t reach the polls feed. Try again in a moment.'
+          : 'Polls authored by reps and by verified citizens on unclaimed rep pages will surface here, sorted by total votes. Open any rep’s page and start one to seed the feed.'}
+      </p>
+    </div>
+  );
+}
+
+// One card per poll. Renders bars + percentages from the API payload
+// (live data via /api/feed/popular-polls). Tapping a bar without
+// being authed prompts the citizen-login flow; future iterations
+// could deep-link to the source rep page for the authed case.
 function PopularPollCard({ poll, onRequestVerify, isAuthed }) {
   const isCitizenPoll = poll.authorType === 'citizen';
   const handleVoteClick = () => {

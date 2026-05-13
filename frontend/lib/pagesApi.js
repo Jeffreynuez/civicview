@@ -102,6 +102,20 @@ async function request(path, { method = 'GET', body, query } = {}) {
   }
 }
 
+// ── Home-page feed (National activity + Popular polls) ───────────────
+// Lightweight aggregates that power the two large landing-page
+// sections in NationalOfficialsPanel. Both return { items: [...] }
+// with an empty array when no data has been authored yet — the
+// frontend renders an empty state in that case instead of stale
+// demo content.
+export async function fetchNationalActivity({ limit = 6 } = {}) {
+  return request('/api/feed/national-activity', { query: { limit } });
+}
+
+export async function fetchPopularPolls({ limit = 9 } = {}) {
+  return request('/api/feed/popular-polls', { query: { limit } });
+}
+
 // ── Page payload ──────────────────────────────────────────────────────
 export async function fetchPage(officialId, { voterToken, scope } = {}) {
   if (!officialId) return { data: null, error: 'officialId is required', status: 0 };
