@@ -1414,7 +1414,12 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!open || items !== null || loading) return;
+    // Trigger once per (open transition × empty result). `loading` is
+    // intentionally NOT in the deps — having it there would re-run
+    // this effect when setLoading(true) flips the state, which
+    // cancels the in-flight fetch via the cleanup function before it
+    // can resolve (the symptom: skeleton tiles that never go away).
+    if (!open || items !== null) return;
     let cancelled = false;
     setLoading(true);
     setError(false);
@@ -1430,7 +1435,8 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
       setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, [open, items, loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, items]);
 
   return (
     <section style={{ padding: '32px 24px 16px' }}>
@@ -1605,12 +1611,14 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
   const [open, toggleOpen] = usePersistentToggle('cl:nop:popular-polls', false);
 
   // Lazy-fetch on first expand — same pattern as NationalActivitySection.
+  // `loading` is intentionally not in the effect deps; see the comment
+  // there for the cancellation-loop this avoids.
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!open || items !== null || loading) return;
+    if (!open || items !== null) return;
     let cancelled = false;
     setLoading(true);
     setError(false);
@@ -1626,7 +1634,8 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
       setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, [open, items, loading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, items]);
 
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
