@@ -8,7 +8,7 @@ import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
-import { useViewport } from '@/lib/useViewport';
+import { useViewport, useIsCompact } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicLensLogo from '@/components/brand/CivicLensLogo';
 
@@ -77,6 +77,12 @@ export default function Navbar({
   // causing the page to show white when zoomed out.
   const viewport = useViewport();
   const isMobile = viewport === 'mobile';
+  // Tablet + mobile = compact. Used to gate the *secondary* navbar
+  // CTAs (Help-build + Feedback) — they only render inline on true
+  // desktop because tablet widths (901–1024px) don't have room for
+  // both them and the existing Subscribe / Committees / My Tracked
+  // cluster without overflowing past the viewport edge.
+  const isCompact = useIsCompact();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);
@@ -524,7 +530,7 @@ export default function Navbar({
               onClick={() => onCitizenDashboard?.()}
               title={`Open dashboard — ${citizen.display_name} · ${citizen.city}, ${citizen.state}${citizen.congressional_district ? ` · ${citizen.congressional_district}` : ''}`}
               style={
-                isMobile
+                isCompact
                   ? {
                       width: 36, height: 36, padding: 0,
                       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -544,7 +550,7 @@ export default function Navbar({
                     }
               }
               onMouseOver={
-                isMobile
+                isCompact
                   ? undefined
                   : (e) => {
                       e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
@@ -552,7 +558,7 @@ export default function Navbar({
                     }
               }
               onMouseOut={
-                isMobile
+                isCompact
                   ? undefined
                   : (e) => {
                       e.currentTarget.style.background = 'rgba(255,255,255,0.14)';
@@ -560,7 +566,7 @@ export default function Navbar({
                     }
               }
             >
-              {isMobile ? (
+              {isCompact ? (
                 // Initial-letter avatar — recognizable cue that the user
                 // is signed in without burning horizontal space.
                 <span aria-hidden="true">
@@ -586,9 +592,10 @@ export default function Navbar({
                 </>
               )}
             </button>
-            {/* Sign-out only on desktop / tablet inline. On mobile it
-                lives inside the hamburger popover. */}
-            {!isMobile && (
+            {/* Sign-out only on true desktop inline. On compact
+                viewports (mobile + tablet) it lives inside the
+                hamburger popover. */}
+            {!isCompact && (
               <button
                 onClick={() => onCitizenLogout?.()}
                 title="Sign out (citizen)"
@@ -609,7 +616,7 @@ export default function Navbar({
             onClick={() => onCitizenLogin?.()}
             title="Sign in as a citizen to like, comment, and vote in polls"
             style={
-              isMobile
+              isCompact
                 ? {
                     width: 36, height: 36, padding: 0,
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -625,34 +632,46 @@ export default function Navbar({
                   }
             }
             onMouseOver={
-              isMobile
+              isCompact
                 ? undefined
                 : (e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.9)'; }
             }
             onMouseOut={
-              isMobile
+              isCompact
                 ? undefined
                 : (e) => { e.currentTarget.style.background = 'white'; }
             }
           >
-            <svg width={isMobile ? 16 : 14} height={isMobile ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+            <svg width={isCompact ? 16 : 14} height={isCompact ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            {!isMobile && 'Citizen login'}
+            {!isCompact && 'Citizen login'}
           </button>
         )}
 
-        {/* Subscribe / Committees / My Tracked — desktop / tablet only.
-            Mobile collapses these into the hamburger popover below so
-            the navbar fits in one row on a phone. */}
-        {!isMobile && (
+        {/* Subscribe / Committees / My Tracked / Help-build /
+            Feedback — desktop ONLY (>1024px). Tablet and mobile both
+            collapse the whole cluster into the hamburger popover
+            below so the navbar fits in one row at any width. The
+            previous mobile-only threshold (≤900px) was too narrow:
+            real-device testing on Samsung phones in landscape and
+            mid-range tablets (901–1024px) overflowed the cluster
+            past the viewport edge and clipped Citizen login. */}
+        {!isCompact && (
           <>
             {/* "Help build this" — accent-green pill so it reads as a
                 primary call-to-action (paired with the yellow Subscribe
                 button for visual variety). Hidden when no handler is
-                wired, which lets us roll this out progressively. */}
-            {onOpenHelpBuild && (
+                wired, which lets us roll this out progressively.
+                Also hidden on tablet / landscape-phone widths
+                (isCompact) — the existing Subscribe + Committees +
+                My Tracked cluster already pushes tablet navbars to
+                their horizontal budget; adding these two extras
+                overflows the viewport and clipped Citizen login on
+                real-device testing. Compact viewports get them via
+                the hamburger menu below. */}
+            {onOpenHelpBuild && !isCompact && (
               <button
                 onClick={() => onOpenHelpBuild?.()}
                 title="See what's done, in progress, and blocked on funding"
@@ -676,8 +695,9 @@ export default function Navbar({
             )}
             {/* Feedback — outlined treatment so it visually de-emphasizes
                 vs the primary Help-build-this CTA. Hidden when no
-                handler is wired. */}
-            {onOpenFeedback && (
+                handler is wired, and on compact viewports (same
+                rationale as Help-build above). */}
+            {onOpenFeedback && !isCompact && (
               <button
                 onClick={() => onOpenFeedback?.()}
                 title="Send feedback, report a bug, or request a feature"
@@ -777,7 +797,7 @@ export default function Navbar({
             secondary actions that don't fit inline at phone widths.
             Wears a yellow dot when something inside the menu has a
             count (My Tracked) so the user knows it's not empty. */}
-        {isMobile && (
+        {isCompact && (
           <div ref={mobileMenuRef} style={{ position: 'relative' }}>
             <button
               type="button"
