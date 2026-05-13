@@ -298,11 +298,18 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
 
 
 # ── Pre-launch fresh-start cleanup ───────────────────────────────────
+# Email domain of the retired Phase 1.5 seeded citizen accounts. The
+# wipe targets this domain exclusively so self-serve demo accounts
+# (which use @demo-citizens.civicview.app) are preserved across runs.
+_SEEDED_CITIZEN_EMAIL_DOMAIN = "@example.invalid"
+
+
 def wipe_rep_demo_data(db: Optional[Session] = None) -> Dict[str, int]:
     """One-shot wipe of all rep-side demo content + standalone citizen
-    polls. Triggered by the CIVICVIEW_WIPE_REP_DEMO env var on backend
-    startup so it runs exactly once per intentional opt-in (don't
-    leave the flag set in normal operation).
+    polls + retired seeded citizen accounts. Triggered by the
+    CIVICVIEW_WIPE_REP_DEMO env var on backend startup so it runs
+    exactly once per intentional opt-in (don't leave the flag set in
+    normal operation).
 
     What it deletes:
       • Every RepAccount row. This cascades through the existing
@@ -311,26 +318,33 @@ def wipe_rep_demo_data(db: Optional[Session] = None) -> Dict[str, int]:
         (which in turn cascades to its options + votes + comments +
         reports). After this runs, no rep page in the app is claimed.
       • Every standalone citizen Poll (author_kind='citizen'). These
-        also cascade to options + votes + comments + reports. Citizen
-        accounts themselves are NOT touched — the self-serve demo
-        flow can mint new accounts on demand.
+        also cascade to options + votes + comments + reports.
+      • Every CitizenAccount whose email ends in
+        @example.invalid — the retired Phase 1.5 fixed seed
+        list (Elena Park, Maria Hernandez, et al.). Self-serve demo
+        accounts (which use @demo-citizens.civicview.app) and any
+        future verified accounts are NOT touched.
 
     Why this exists:
       The original Phase 1 seeded a small set of rep accounts under
       real politicians' names + photos so reviewers could exercise
       the rep-side posting UI. That created an impersonation risk
       (screenshots of admin-authored posts circulating under real
-      reps' identities) we decided was too high. The fresh-start
-      wipes the demo data, the seed file is now empty, and the
-      app's engagement is driven entirely by citizen-led polls on
-      unclaimed pages until verified rep accounts ship.
+      reps' identities) we decided was too high. Phase 1.5 separately
+      seeded a 60-account citizen list to exercise the engagement
+      loop; that was retired in favor of self-serve demo signup so
+      every reviewer has their own identity instead of sharing a
+      pool of 60. The fresh-start wipes both demo sets, the seed
+      files are now empty, and the app's engagement is driven
+      entirely by citizen-led polls on unclaimed pages until
+      verified rep accounts ship.
 
-    Returns: { rep_accounts: N, citizen_polls: M } — counts of rows
-    deleted, useful for the startup log line.
+    Returns: { rep_accounts: N, citizen_polls: M, citizen_accounts: K }
+    — counts of rows deleted, useful for the startup log line.
     """
     owns_session = db is None
     db = db or SessionLocal()
-    deleted = {"rep_accounts": 0, "citizen_polls": 0}
+    deleted = {"rep_accounts": 0, "citizen_polls": 0, "citizen_accounts": 0}
     try:
         # Delete citizen polls first so their FK references (which
         # don't cascade from rep accounts) are tidied up regardless
@@ -345,11 +359,27 @@ def wipe_rep_demo_data(db: Optional[Session] = None) -> Dict[str, int]:
             db.delete(r)
         deleted["rep_accounts"] = len(rep_accounts)
 
+        # Seeded citizen accounts only — matched by the retired email
+        # domain. Self-serve demo accounts use @demo-citizens.civicview.app
+        # and survive the wipe, so any visitor mid-session keeps their
+        # account intact. SQLAlchemy's LIKE escape rules: '%' wildcards,
+        # case-insensitive via lower() on the column to handle any
+        # accidentally uppercased rows.
+        seeded_citizens = (
+            db.query(CitizenAccount)
+            .filter(CitizenAccount.email.ilike(f"%{_SEEDED_CITIZEN_EMAIL_DOMAIN}"))
+            .all()
+        )
+        for c in seeded_citizens:
+            db.delete(c)
+        deleted["citizen_accounts"] = len(seeded_citizens)
+
         db.commit()
         logger.warning(
-            "Fresh-start wipe complete: removed %d rep account(s) and %d citizen poll(s). "
-            "Unset CIVICVIEW_WIPE_REP_DEMO before the next boot so this doesn't run again.",
-            deleted["rep_accounts"], deleted["citizen_polls"],
+            "Fresh-start wipe complete: removed %d rep account(s), %d citizen poll(s), "
+            "and %d seeded citizen account(s). Unset CIVICVIEW_WIPE_REP_DEMO before "
+            "the next boot so this doesn't run again.",
+            deleted["rep_accounts"], deleted["citizen_polls"], deleted["citizen_accounts"],
         )
     except Exception:
         db.rollback()

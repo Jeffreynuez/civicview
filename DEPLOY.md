@@ -185,24 +185,47 @@ allow-list. `pnpm dev` / `npm run dev` / `uvicorn app.main:app
 ### One-shot pre-launch wipe: `CIVICVIEW_WIPE_REP_DEMO`
 
 The pre-launch refactor retired the seeded demo rep accounts
-(impersonation risk under real politicians' names). To clear the
-already-existing data on Render Postgres:
+(impersonation risk under real politicians' names) and the fixed
+60-account seeded citizen list (superseded by the self-serve demo
+signup flow). To clear the already-existing data on Render Postgres:
 
 1. Set `CIVICVIEW_WIPE_REP_DEMO=1` in Render env vars.
 2. Wait for Render to redeploy (~2 min). Check the deploy logs
-   for `Fresh-start wipe complete: removed N rep account(s) and
-   M citizen poll(s).`
+   for `Fresh-start wipe complete: removed N rep account(s),
+   M citizen poll(s), and K seeded citizen account(s).`
 3. **Unset the env var** (or set it to `0`). It's gated, but
    leaving the flag set means every cold start re-runs the wipe —
    harmless when nothing is left to delete, but noisy in the
    logs.
 
-The wipe removes: all `RepAccount` rows (cascades to `Post`,
-`RepEvent`, `PostImage`, `PostReaction`, `PostComment`, and rep-
-authored polls), plus all standalone `Poll` rows where
-`author_kind='citizen'` (cascades to their options, votes,
-comments, reports). Citizen accounts are NOT touched — the
-self-serve demo signup keeps working.
+The wipe removes:
+
+- All `RepAccount` rows (cascades to `Post`, `RepEvent`,
+  `PostImage`, `PostReaction`, `PostComment`, and rep-authored
+  polls).
+- All standalone `Poll` rows where `author_kind='citizen'`
+  (cascades to their options, votes, comments, reports).
+- All `CitizenAccount` rows whose email matches the retired
+  Phase 1.5 seed pattern `@example.invalid` (Elena Park,
+  Maria Hernandez, et al.).
+
+What is **NOT** touched:
+
+- Self-serve demo citizen accounts created via
+  `POST /api/citizen-auth/demo-signup`. These use the email
+  pattern `@demo-citizens.civicview.app` and survive the wipe so
+  any reviewer mid-session keeps their account.
+- Any future verified citizen accounts (post-ID.me).
+
+**After the wipe runs you may also need to clear your browser's
+site data for `civicview.app`.** Your browser still holds a
+session cookie + localStorage Bearer token for whatever citizen
+account you were logged into before the wipe. If that account
+was one of the retired seeded ones, it's gone from the DB but
+the stale token will keep ghost-logging you in until the token
+expires (or you clear it). Clear site data via DevTools →
+Application → Storage → Clear site data, or just open the app
+in an incognito tab to confirm the wipe worked.
 
 | Vercel env var | Value |
 |---|---|
