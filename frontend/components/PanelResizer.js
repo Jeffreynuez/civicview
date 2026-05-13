@@ -48,6 +48,17 @@ export default function PanelResizer({
                         // starts (navbar height). Subtracted from clientY
                         // so the height we report = current touch Y minus
                         // wherever the map area begins.
+  // Horizontal-only: when true, the resizer behaves as a binary
+  // open/close toggle instead of a continuous slider. Drag with
+  // resistance until the gesture passes a threshold, then snap to
+  // either fully open (maxHeight) or fully closed (0). A double-tap
+  // also toggles instantly. The continuous (analog) behavior stays
+  // on desktop because precision dragging works better with a mouse.
+  binaryMode = false,
+  // Required for binary mode — the current "is the map open?" boolean.
+  // Drives the snap-back target when the drag doesn't exceed threshold,
+  // and the double-tap action.
+  isOpen = true,
 }) {
   const [hovering, setHovering] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -56,8 +67,35 @@ export default function PanelResizer({
 
   const isVertical = orientation === 'vertical';
 
+  // Track the last tap time for double-tap detection (binary mode only).
+  // A double-tap toggles the open/closed state instantly without the
+  // user having to drag past the threshold. Stored in a ref so it
+  // survives renders without triggering them.
+  const lastTapTimeRef = useRef(0);
+
+  // Tuning constants for binary mode.
+  //   DRAG_RESISTANCE — how much the visible handle moves per pixel of
+  //     finger travel. 2.5 means a 100px finger drag yields a 40px
+  //     visual movement, giving the "tug" feel the user requested.
+  //   SNAP_THRESHOLD_FRAC — fraction of maxHeight the gesture must
+  //     accumulate (after resistance) before we commit the toggle on
+  //     release. 0.20 = ~20% of map height.
+  //   DOUBLE_TAP_MS — max gap between two taps that counts as a
+  //     double-tap. 350ms is roomy enough that a deliberate
+  //     double-tap registers without conflicting with a slow
+  //     press-and-release.
+  //   TAP_DRAG_THRESHOLD_PX — if the finger moves more than this
+  //     between touchstart and touchend, treat as a drag, not a tap.
+  const DRAG_RESISTANCE = 2.5;
+  const SNAP_THRESHOLD_FRAC = 0.20;
+  const DOUBLE_TAP_MS = 350;
+  const TAP_DRAG_THRESHOLD_PX = 6;
+
   // Single drag handler used by both mouse and touch — extracts a clientX
   // / clientY from either MouseEvent or TouchEvent and dispatches.
+  // In binary mode (horizontal-only), we apply resistance during the
+  // drag so the handle visually lags the finger, then snap to fully
+  // open / closed on release based on direction + threshold.
   const beginDrag = (clientX, clientY, fromTouch) => {
     setDragging(true);
 
@@ -66,18 +104,41 @@ export default function PanelResizer({
     document.body.style.userSelect = 'none';
     document.body.style.cursor = isVertical ? 'ew-resize' : 'ns-resize';
 
+    // For binary mode we accumulate the drag distance from start so
+    // the snap-on-release decision has a clean signed delta to read.
+    const startY = clientY;
+    const startHeight = isOpen ? maxHeight : 0;
+    let lastDelta = 0; // finger Y - startY, signed (positive = downward)
+    let dragExceededTapThreshold = false;
+
     const handleMove = (moveX, moveY) => {
       if (isVertical) {
         const maxW = Math.max(minWidth, window.innerWidth * maxFraction);
         const raw = window.innerWidth - moveX;
         const clamped = Math.min(maxW, Math.max(minWidth, raw));
         onResizeRef.current?.(clamped);
+        return;
+      }
+
+      // Horizontal axis. If binary mode is on, apply resistance.
+      // Visible height = startHeight + (fingerDelta / resistance),
+      // clamped to [0, maxHeight] so it can't visually leak past the
+      // ends. The actual commit to open / closed happens on release.
+      const fingerDelta = moveY - startY;
+      lastDelta = fingerDelta;
+      if (Math.abs(fingerDelta) > TAP_DRAG_THRESHOLD_PX) {
+        dragExceededTapThreshold = true;
+      }
+
+      if (binaryMode) {
+        const visualDelta = fingerDelta / DRAG_RESISTANCE;
+        const newHeight = Math.max(
+          minHeight,
+          Math.min(maxHeight, startHeight + visualDelta),
+        );
+        onResizeRef.current?.(newHeight);
       } else {
-        // Horizontal: new map height = touch Y minus the offset to
-        // the top of the map area (typically the navbar height). That
-        // way dragging the handle to clientY=300 with topOffset=56
-        // yields a map height of 244 — the bar visually follows the
-        // finger.
+        // Legacy continuous mode — finger position maps 1:1 to height.
         const raw = moveY - topOffset;
         const clamped = Math.min(maxHeight, Math.max(minHeight, raw));
         onResizeRef.current?.(clamped);
@@ -92,24 +153,66 @@ export default function PanelResizer({
       if (e.cancelable) e.preventDefault();
     };
 
-    const cleanup = () => {
+    const cleanup = (releasedNormally = true) => {
       setDragging(false);
       document.body.style.userSelect = prevBodyUserSelect;
       document.body.style.cursor = prevBodyCursor;
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', cleanup);
+      window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', cleanup);
-      window.removeEventListener('touchcancel', cleanup);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchCancel);
+
+      // Snap-on-release for binary horizontal mode.
+      // The drag direction has to match a sensible toggle:
+      //   open  → drag UP (negative delta) → close
+      //   closed → drag DOWN (positive delta) → open
+      // Threshold is a fraction of maxHeight; anything below it just
+      // snaps back to where it started so partial gestures don't
+      // commit by accident.
+      if (binaryMode && !isVertical) {
+        const threshold = maxHeight * SNAP_THRESHOLD_FRAC;
+        let target;
+        if (isOpen && lastDelta < -threshold) {
+          target = 0;       // close
+        } else if (!isOpen && lastDelta > threshold) {
+          target = maxHeight; // open
+        } else {
+          target = isOpen ? maxHeight : 0; // snap back
+        }
+        onResizeRef.current?.(target);
+
+        // Touchend without crossing the drag threshold = tap. We
+        // treat it as a double-tap candidate. Don't apply double-tap
+        // detection on mouse releases (desktop won't be in binary
+        // mode anyway, but be defensive) or on touchcancel (the
+        // system stole the gesture; that's not a user-intended tap).
+        if (releasedNormally && fromTouch && !dragExceededTapThreshold) {
+          const now = Date.now();
+          if (now - lastTapTimeRef.current < DOUBLE_TAP_MS) {
+            // Second tap landed inside the window — fire the toggle.
+            onResizeRef.current?.(isOpen ? 0 : maxHeight);
+            lastTapTimeRef.current = 0; // reset so a third tap doesn't toggle
+          } else {
+            lastTapTimeRef.current = now;
+          }
+        }
+      }
     };
+
+    // Wrap cleanup so the released-normally flag is set correctly per
+    // event source.
+    const onMouseUp = () => cleanup(true);
+    const onTouchEnd = () => cleanup(true);
+    const onTouchCancel = () => cleanup(false);
 
     if (fromTouch) {
       window.addEventListener('touchmove', onTouchMove, { passive: false });
-      window.addEventListener('touchend', cleanup);
-      window.addEventListener('touchcancel', cleanup);
+      window.addEventListener('touchend', onTouchEnd);
+      window.addEventListener('touchcancel', onTouchCancel);
     } else {
       window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', cleanup);
+      window.addEventListener('mouseup', onMouseUp);
     }
   };
 
