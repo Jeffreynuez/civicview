@@ -180,6 +180,29 @@ allow-list. `pnpm dev` / `npm run dev` / `uvicorn app.main:app
 | `COOKIE_SAMESITE` | none |
 | `CONGRESS_API_KEY` | from api.congress.gov |
 | `GOOGLE_CIVIC_API_KEY` | (optional) |
+| `CIVICVIEW_WIPE_REP_DEMO` | (one-shot — see below) |
+
+### One-shot pre-launch wipe: `CIVICVIEW_WIPE_REP_DEMO`
+
+The pre-launch refactor retired the seeded demo rep accounts
+(impersonation risk under real politicians' names). To clear the
+already-existing data on Render Postgres:
+
+1. Set `CIVICVIEW_WIPE_REP_DEMO=1` in Render env vars.
+2. Wait for Render to redeploy (~2 min). Check the deploy logs
+   for `Fresh-start wipe complete: removed N rep account(s) and
+   M citizen poll(s).`
+3. **Unset the env var** (or set it to `0`). It's gated, but
+   leaving the flag set means every cold start re-runs the wipe —
+   harmless when nothing is left to delete, but noisy in the
+   logs.
+
+The wipe removes: all `RepAccount` rows (cascades to `Post`,
+`RepEvent`, `PostImage`, `PostReaction`, `PostComment`, and rep-
+authored polls), plus all standalone `Poll` rows where
+`author_kind='citizen'` (cascades to their options, votes,
+comments, reports). Citizen accounts are NOT touched — the
+self-serve demo signup keeps working.
 
 | Vercel env var | Value |
 |---|---|

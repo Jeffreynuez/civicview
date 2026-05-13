@@ -56,6 +56,64 @@ Tracked in this list rather than as code TODOs:
   district-geometry helpers), spin those into a separate repo with
   an OSS license rather than trying to dual-license the monorepo.
 
+## Identity verification + demo migration plan
+
+The current build runs entirely on self-serve demo citizen accounts
+(any visitor picks a name + state + district and gets full
+engagement access, labeled "Unverified" everywhere). Real verified
+citizen accounts will ship once the ID.me Relying Party contract is
+funded — see the "Help build this" page for the dollar breakdown.
+
+**When ID.me ships, demo users get an opt-in migration:**
+
+1. Demo user hits the new "Verify my identity" CTA (in the citizen
+   dashboard or on any engagement surface that prompts for
+   verification).
+2. ID.me's flow runs in a popup / redirect. On success, ID.me
+   returns a verified identity claim (legal name, address, etc.).
+3. The CivicView frontend detects the demo session and presents
+   the user with a one-time choice:
+   - **Keep my demo activity** — polls, votes, comments, and
+     tracked reps carry over to the verified account. The existing
+     `CitizenAccount` row is updated in place (verified=True,
+     display name + city + district reconciled against ID.me),
+     and engagement surfaces stop labeling the user "Unverified."
+   - **Start fresh** — the demo account is archived and a new
+     verified `CitizenAccount` is created. Old polls / comments
+     keep their original demo authorship attribution (no
+     identity laundering); votes are wiped to avoid skewing
+     historical poll results.
+4. Default the toggle to "Start fresh" so accidental migration
+   doesn't preserve abuse, but make "Keep" a one-click option so
+   legitimate early users keep their work.
+
+**Why not just force one or the other?**
+
+Full migration is bad because demo accounts can be created by
+anyone (self-serve, IP-rate-limited but not identity-verified).
+Forcing migration would attach a real verified identity to whatever
+the demo account had been doing — including potential abuse. Worse,
+demo-user "Pat Q. Citizen" suddenly becoming "John Smith" on every
+past comment is a confusing UX and a content-moderation headache.
+
+Full reset is bad because legitimate demo users (your friends, the
+TikTok-live early adopters, the people who'll be most willing to
+verify) lose their engagement history just for upgrading. That's the
+worst possible message to send to early supporters.
+
+Opt-in with a sensible default threads the needle.
+
+**Implementation note for the future build:**
+
+- New endpoint `POST /api/citizen-auth/verify-and-merge` accepts
+  the ID.me identity claim + a `keep_demo_data: bool` flag.
+- Either updates `verified=True` on the existing row and
+  reconciles display/geo fields, or archives the old row and
+  creates a fresh one.
+- A migration service function handles FK reassignment if we
+  ever decide to migrate authorship attribution too (right now,
+  archived old rows preserve attribution as-is).
+
 ## Future product features
 
 Product ideas captured for a future release — not in scope for the

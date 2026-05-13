@@ -11,31 +11,41 @@ import { ModalShell, Button } from './ui';
 /**
  * Rep / candidate login modal.
  *
- * Phase 1 is demo-only: credentials come from the seeded demo_accounts.json
- * on the backend. The modal is a thin email/password form that hits
- * /api/auth/login, which sets a signed httpOnly session cookie and returns
- * the Me payload. Success bubbles the fresh `me` up via onSuccess.
+ * Current state (pre-ID.me): there are no rep accounts to sign into.
+ * The modal renders a contact-us panel pointing real reps at the
+ * civicview@gmail.com mailbox; we onboard them manually until the
+ * verified rep flow ships. The legacy credentials form is kept in
+ * the file (gated by REP_LOGIN_LIVE) so it can be re-enabled in one
+ * flag flip when verified rep auth lands.
  *
- * Demo credentials surface in a collapsed "Show demo logins" panel — hidden
- * by default so real users aren't confused.
- *
- * Phase 3A: restyled to use the design system. Combined "Email or password"
- * error message (security best practice — don't leak email existence).
+ * Why not just keep the demo form alive? Anyone with the seeded
+ * credentials could post as Byron Donalds, Rick Scott, etc. — and
+ * those posts were publicly visible to citizens. That's
+ * impersonation of real politicians (legal exposure: defamation,
+ * false light, no §230 shield because we'd be the publisher). The
+ * safer path until we can verify rep identity for real: no rep
+ * posting, only citizen-led polls on unclaimed pages.
  *
  * Props:
  *   open            — controls mount
  *   onClose()       — dismiss without signing in
- *   onSuccess(me)   — called after a successful login
- *   initialEmail    — optional pre-fill (e.g. when opened from a page's
- *                     "Claim this page" CTA we can suggest the rep's email)
+ *   onSuccess(me)   — called after a successful login (login form only)
+ *   initialEmail    — optional pre-fill for the login form
  */
-const DEMO_ACCOUNTS = [
-  { label: 'Rep. Byron Donalds (FL-19)', email: 'byron.donalds@civicview-demo.com' },
-  { label: 'Sen. Bernie Sanders (VT)', email: 'bernie.sanders@civicview-demo.com' },
-  { label: 'Gov. Ron DeSantis (FL)', email: 'ron.desantis@civicview-demo.com' },
-  { label: 'Donalds 2026 campaign', email: 'donalds.campaign@civicview-demo.com' },
-];
-const DEMO_PASSWORD = 'CivicViewDemo!2026';
+
+// Flip to true when verified rep accounts ship. Re-enables the
+// email + password form below the brand mark.
+const REP_LOGIN_LIVE = false;
+// Mailbox surfaced in the placeholder panel + the unclaimed-page
+// banner. Update this in one place to propagate.
+const REP_CONTACT_EMAIL = 'civicview@gmail.com';
+// Inert placeholders for the legacy demo-accounts UI inside the
+// REP_LOGIN_LIVE branch. The seed list and shared password were
+// retired when we removed demo rep accounts (see DEPLOY.md fresh-
+// start migration). Repopulate these once verified rep auth lands;
+// the existing legacy UI will then render against the live data.
+const DEMO_ACCOUNTS = [];
+const DEMO_PASSWORD = '';
 
 const FIELD_LABEL = {
   display: 'block',
@@ -126,7 +136,7 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
       </div>
 
       <h2 className="cl-h1" style={{ margin: 0, marginBottom: 6 }}>
-        Sign in to your page
+        {REP_LOGIN_LIVE ? 'Sign in to your page' : 'Rep login coming soon'}
       </h2>
       <p
         className="cl-body-sm"
@@ -135,6 +145,76 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
         Verified representatives and candidates can post updates, attach polls,
         and publish events.
       </p>
+
+      {!REP_LOGIN_LIVE && (
+        <>
+          <div
+            role="note"
+            style={{
+              marginBottom: 16,
+              padding: '14px 14px',
+              background: 'var(--cl-accent-soft)',
+              border: '1px solid var(--cl-accent-soft)',
+              borderRadius: 'var(--cl-radius-md)',
+              fontSize: 'var(--cl-text-sm)',
+              lineHeight: 1.55,
+              color: 'var(--cl-text)',
+            }}
+          >
+            We&rsquo;re building the verified-rep login on top of ID.me
+            identity verification. That work is blocked on funding —
+            see the &ldquo;Help build this&rdquo; tab for the cost
+            breakdown.
+            <br /><br />
+            <strong>If you&rsquo;re a U.S. representative or
+            candidate</strong> (or a staffer / comms director acting
+            on their behalf) and you&rsquo;d like to claim your
+            CivicView page, email us at:
+            <div
+              style={{
+                marginTop: 10,
+                padding: '8px 10px',
+                background: 'var(--cl-card)',
+                border: '1px solid var(--cl-border)',
+                borderRadius: 'var(--cl-radius-sm)',
+                fontFamily: 'var(--cl-font-mono)',
+                fontSize: 'var(--cl-text-sm)',
+                fontWeight: 700,
+                textAlign: 'center',
+                color: 'var(--cl-text)',
+              }}
+            >
+              <a
+                href={`mailto:${REP_CONTACT_EMAIL}?subject=Claim%20my%20CivicView%20page`}
+                style={{ color: 'var(--cl-accent)', textDecoration: 'none' }}
+              >
+                {REP_CONTACT_EMAIL}
+              </a>
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text-light)',
+              }}
+            >
+              We&rsquo;ll walk you through claiming the page over a
+              quick call and grant posting access manually until the
+              automated verification flow is live.
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={onClose}
+            style={{ width: '100%' }}
+          >
+            Got it
+          </Button>
+        </>
+      )}
+
+      {REP_LOGIN_LIVE && (<>
 
       {/* Email */}
       <label htmlFor="rep-login-email" style={FIELD_LABEL}>
@@ -305,6 +385,7 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
           </div>
         )}
       </div>
+      </>)}
     </ModalShell>
   );
 }

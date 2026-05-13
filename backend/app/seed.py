@@ -44,7 +44,7 @@ from sqlalchemy.orm import Session
 
 from app.auth import hash_password
 from app.db import SessionLocal
-from app.models.pages import CitizenAccount, RepAccount
+from app.models.pages import CitizenAccount, Poll, RepAccount
 
 
 logger = logging.getLogger(__name__)
@@ -294,3 +294,90 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
             db.close()
 
     return created
+
+
+
+# ── Pre-launch fresh-start cleanup ───────────────────────────────────
+def wipe_rep_demo_data(db: Optional[Session] = None) -> Dict[str, int]:
+    """One-shot wipe of all rep-side demo content + standalone citizen
+    polls. Triggered by the CIVICVIEW_WIPE_REP_DEMO env var on backend
+    startup so it runs exactly once per intentional opt-in (don't
+    leave the flag set in normal operation).
+
+    What it deletes:
+      • Every RepAccount row. This cascades through the existing
+        ON DELETE CASCADE FKs to also remove every Post, RepEvent,
+        PostImage, PostReaction, PostComment, and rep-authored Poll
+        (which in turn cascades to its options + votes + comments +
+        reports). After this runs, no rep page in the app is claimed.
+      • Every standalone citizen Poll (author_kind='citizen'). These
+        also cascade to options + votes + comments + reports. Citizen
+        accounts themselves are NOT touched — the self-serve demo
+        flow can mint new accounts on demand.
+
+    Why this exists:
+      The original Phase 1 seeded a small set of rep accounts under
+      real politicians' names + photos so reviewers could exercise
+      the rep-side posting UI. That created an impersonation risk
+      (screenshots of admin-authored posts circulating under real
+      reps' identities) we decided was too high. The fresh-start
+      wipes the demo data, the seed file is now empty, and the
+      app's engagement is driven entirely by citizen-led polls on
+      unclaimed pages until verified rep accounts ship.
+
+    Returns: { rep_accounts: N, citizen_polls: M } — counts of rows
+    deleted, useful for the startup log line.
+    """
+    owns_session = db is None
+    db = db or SessionLocal()
+    deleted = {"rep_accounts": 0, "citizen_polls": 0}
+    try:
+        # Delete citizen polls first so their FK references (which
+        # don't cascade from rep accounts) are tidied up regardless
+        # of order. Each delete cascades its own children.
+        citizen_polls = db.query(Poll).filter(Poll.author_kind == "citizen").all()
+        for p in citizen_polls:
+            db.delete(p)
+        deleted["citizen_polls"] = len(citizen_polls)
+
+        rep_accounts = db.query(RepAccount).all()
+        for r in rep_accounts:
+            db.delete(r)
+        deleted["rep_accounts"] = len(rep_accounts)
+
+        db.commit()
+        logger.warning(
+            "Fresh-start wipe complete: removed %d rep account(s) and %d citizen poll(s). "
+            "Unset CIVICVIEW_WIPE_REP_DEMO before the next boot so this doesn't run again.",
+            deleted["rep_accounts"], deleted["citizen_polls"],
+        )
+    except Exception:
+        db.rollback()
+        logger.exception("Fresh-start wipe failed — rolled back.")
+        raise
+    finally:
+        if owns_session:
+            db.close()
+    return deleted
+
+
+def maybe_run_fresh_start_wipe() -> None:
+    """Lifespan-startup hook: runs wipe_rep_demo_data() iff the
+    CIVICVIEW_WIPE_REP_DEMO env var is truthy. Designed to be called
+    from main.py's startup sequence. Idempotent in the sense that
+    re-running on an already-empty DB is a cheap no-op (the queries
+    return 0 rows).
+    """
+    flag = (os.getenv("CIVICVIEW_WIPE_REP_DEMO") or "").strip().lower()
+    if flag not in {"1", "true", "yes"}:
+        return
+    logger.warning(
+        "CIVICVIEW_WIPE_REP_DEMO is set — wiping rep accounts + citizen polls.",
+    )
+    try:
+        wipe_rep_demo_data()
+    except Exception:
+        # The lifespan already wraps init in try/except, but be
+        # defensive — a failure here shouldn't take the whole API
+        # down on the user's deploy.
+        logger.exception("Fresh-start wipe raised; continuing startup.")

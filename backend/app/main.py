@@ -27,7 +27,11 @@ from app.routers import (
     waitlist as waitlist_router,
 )
 from app.db import init_db
-from app.seed import seed_demo_accounts, seed_demo_citizens
+from app.seed import (
+    maybe_run_fresh_start_wipe,
+    seed_demo_accounts,
+    seed_demo_citizens,
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -42,6 +46,11 @@ async def lifespan(app: FastAPI):
     # without the pages schema.
     try:
         init_db()
+        # One-shot pre-launch cleanup gated by CIVICVIEW_WIPE_REP_DEMO.
+        # Runs BEFORE seed so a fresh-start deploy ends with empty
+        # tables, not "wiped and then re-seeded." Unset the env var
+        # after the wipe boot to prevent repeated runs.
+        maybe_run_fresh_start_wipe()
         seed_demo_accounts()
         seed_demo_citizens()
     except Exception:

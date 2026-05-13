@@ -504,6 +504,48 @@ export default function PageView({
               )}
             </div>
 
+            {/* Contact-us line for real reps. Visible on every
+                unclaimed page so a rep / staffer / comms director
+                who lands on their own page has a direct path to
+                claim it manually while the automated verified-rep
+                flow is still pre-launch. Hidden once the page is
+                claimed (the rep is already onboard). */}
+            {!claimed && (
+              <div
+                style={{
+                  marginTop: 10,
+                  marginBottom: 6,
+                  padding: '8px 12px',
+                  background: 'var(--cl-bg-soft)',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 'var(--cl-radius-md)',
+                  fontSize: '0.78rem',
+                  lineHeight: 1.5,
+                  color: 'var(--cl-text-light)',
+                }}
+              >
+                Are you{' '}
+                <strong style={{ color: 'var(--cl-text)' }}>
+                  {ownerName}
+                </strong>{' '}
+                (or working with their office)? Email{' '}
+                <a
+                  href={`mailto:civicview@gmail.com?subject=Claim%20${encodeURIComponent(
+                    ownerName,
+                  )}'s%20CivicView%20page`}
+                  style={{
+                    color: 'var(--cl-accent)',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                  }}
+                >
+                  civicview@gmail.com
+                </a>{' '}
+                to claim this page until automated verified-rep
+                sign-in ships.
+              </div>
+            )}
+
             {/* Owner-only view toggle — swaps the composer+feed for the
                 constituent dashboard (engagement rollup across all posts).
                 Hidden to non-owners so the control surface matches the

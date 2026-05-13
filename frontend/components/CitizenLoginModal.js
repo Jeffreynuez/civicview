@@ -302,9 +302,11 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         className="cl-body-sm"
         style={{ color: 'var(--cl-text-light)', margin: 0, marginBottom: 14 }}
       >
-        Verified US citizens can like, dislike, comment, and vote in polls.
-        Engagement is scoped by state and district so reps can filter what
-        their own constituents are saying.
+        Verified US citizens can like, dislike, and vote on polls.
+        Subscribed citizens can also comment and start polls on
+        unclaimed rep pages. Engagement is scoped by state and
+        district so reps can filter what their own constituents are
+        saying.
       </p>
 
       {/* Load-bearing yellow notice — preserved per design system rules */}
@@ -321,12 +323,15 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
           lineHeight: 1.5,
         }}
       >
-        <strong>Demo preview.</strong> Don&rsquo;t have an account?
-        Use &ldquo;Create a demo account&rdquo; below to mint one with a
-        name + state + district of your choice — instant access to the
-        full engagement experience. Demo identities are self-attested
-        and every engagement surface labels them &ldquo;Unverified&rdquo;
-        until real ID.me verification ships.
+        <strong>Demo preview.</strong> Real verified accounts ship
+        once ID.me identity verification is funded — until then,
+        create a demo account below with a name + state + district
+        of your choice. Demo accounts get the full experience
+        (vote, like, dislike, comment, start polls) as a preview.
+        Identities are self-attested, so every engagement surface
+        labels demo activity &ldquo;Unverified.&rdquo; When ID.me
+        ships, demo users will be offered an opt-in path to keep
+        their activity on a verified account.
       </div>
 
       {/* Email */}
