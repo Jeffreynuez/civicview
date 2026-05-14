@@ -5,6 +5,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchPage } from '../lib/pagesApi';
+import { useAuth } from '../lib/auth';
 import { getVoterToken } from '../lib/voterToken';
 import PostCard from './PostCard';
 import PostComposer from './PostComposer';
@@ -241,7 +242,20 @@ export default function PageView({
   }, []);
 
   // ── Derived ───────────────────────────────────────────────────────
-  const isOwner = !!payload?.is_owner;
+  // Defensive owner gate: the backend reports is_owner=true whenever
+  // the rep session validates against the page owner, BUT if the
+  // browser carries a stale rep token from a previous session (e.g.
+  // user signed out of the citizen flow but the rep token never got
+  // cleared in some pre-mutually-exclusive-sessions state), the
+  // backend will still happily report is_owner=true and the UI would
+  // surface rep-only affordances (post composer, comment Delete) to
+  // someone the user-facing app doesn't consider signed-in.
+  // We double-check against useAuth() so the UI gates strictly on
+  // the active client-side rep session.
+  const { me: repMe } = useAuth();
+  const isOwner = !!payload?.is_owner
+    && !!repMe
+    && repMe.official_id === official_id;
   const claimed = !!payload?.claimed;
   const ownerName = payload?.owner?.display_name || displayName || 'This official';
   const ownerRole = payload?.owner?.role || role || '';

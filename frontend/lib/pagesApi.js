@@ -285,7 +285,32 @@ export async function deleteRepEvent(eventId) {
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────
+// Session model: ONE active role per browser. The backend uses
+// distinct cookies (`cl_session` for reps, `cl_citizen` for citizens)
+// and we keep distinct Bearer tokens in localStorage, but on the
+// client we treat them as mutually exclusive — logging in as one
+// role explicitly tears down the other's session. Without this an
+// orphaned rep token from a previous session would leak through
+// every request the citizen makes, making the backend report
+// `is_owner=true` and surfacing rep-only affordances (the post
+// composer, comment Delete buttons) to non-rep viewers.
+//
+// To switch roles deliberately: sign out, then sign in as the
+// other role. Or use a second browser / incognito tab.
+async function _tearDownOtherRole(otherEndpoint, clearFn) {
+  // Fire-and-forget — we don't block the new login on whether the
+  // cleanup call succeeds. The localStorage clear happens
+  // regardless so a network failure doesn't leave a stale token
+  // in place client-side.
+  try {
+    await request(otherEndpoint, { method: 'POST' });
+  } catch { /* ignore */ }
+  clearFn(null);
+}
+
 export async function login(email, password) {
+  // Tear down any active citizen session before we mint a rep one.
+  await _tearDownOtherRole('/api/citizen-auth/logout', setStoredCitizenToken);
   const result = await request('/api/auth/login', {
     method: 'POST', body: { email, password },
   });
@@ -299,8 +324,12 @@ export async function login(email, password) {
 }
 
 export async function logout() {
+  // Belt-and-suspenders: clear BOTH role tokens on either logout
+  // path. Defensive against the case where a previous session was
+  // left in a half-clean state.
   const result = await request('/api/auth/logout', { method: 'POST' });
   setStoredRepToken(null);
+  await _tearDownOtherRole('/api/citizen-auth/logout', setStoredCitizenToken);
   return result;
 }
 
@@ -309,11 +338,11 @@ export async function fetchMe() {
 }
 
 // ── Citizen auth (demo) ───────────────────────────────────────────────
-// Parallel rep-auth surface — the two endpoints set distinct cookies
-// (`cl_session` for reps, `cl_citizen` for citizens) so the same browser
-// can carry both at once and a component can ask "who's the rep?" and
-// "who's the citizen?" independently.
+// Parallel rep-auth surface. See the comment block above _tearDownOtherRole
+// for the mutually-exclusive session contract — we tear down any active
+// rep session before minting a citizen one, and vice versa.
 export async function loginCitizenApi(email, password) {
+  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
   const result = await request('/api/citizen-auth/login', {
     method: 'POST', body: { email, password },
   });
@@ -331,6 +360,8 @@ export async function loginCitizenApi(email, password) {
 export async function signupDemoCitizen({
   displayName, state, congressionalDistrict, city,
 } = {}) {
+  // Same mutually-exclusive contract as loginCitizenApi.
+  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
   const result = await request('/api/citizen-auth/demo-signup', {
     method: 'POST',
     body: {
@@ -347,8 +378,11 @@ export async function signupDemoCitizen({
 }
 
 export async function logoutCitizenApi() {
+  // Same belt-and-suspenders cleanup as the rep logout: clear BOTH
+  // tokens so a previous half-clean state can't linger.
   const result = await request('/api/citizen-auth/logout', { method: 'POST' });
   setStoredCitizenToken(null);
+  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
   return result;
 }
 
