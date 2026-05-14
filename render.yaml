@@ -66,6 +66,12 @@ services:
       # to 0 to disable. Reports still accumulate either way.
       - key: REPORT_AUTO_HIDE_THRESHOLD
         sync: false
+      # Comma-separated list of email addresses with admin powers
+      # (access to /api/admin/* + the /admin page). Any rep or
+      # citizen account whose email matches gets in. Leaving this
+      # unset means NOBODY is admin — every admin endpoint 403s.
+      - key: ADMIN_EMAILS
+        sync: false
       - key: PYTHONUNBUFFERED
         value: "1"            # flush logs immediately so Render shows them in real time
 
