@@ -621,3 +621,65 @@ def unread_report_count(
     for cls in (PostReport, CommentReport, PollReport, PollCommentReport):
         n += db.query(func.count(cls.id)).filter(cls.acted_at.is_(None)).scalar() or 0
     return UnreadCountResponse(count=int(n))
+
+
+# ── Suspended users index ───────────────────────────────────────────
+class SuspendedUserRow(BaseModel):
+    """Normalized row for the suspended-users UI. Same row shape for
+    both rep and citizen accounts so the frontend renders one table."""
+    kind: Literal["rep", "citizen"]
+    id: int
+    email: str
+    display_name: str
+    suspended_at: datetime
+    suspended_reason: Optional[str] = None
+
+
+class SuspendedUserListResponse(BaseModel):
+    items: List[SuspendedUserRow]
+
+
+@router.get("/users/suspended", response_model=SuspendedUserListResponse)
+def list_suspended_users(
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+) -> SuspendedUserListResponse:
+    """List every rep + citizen account with suspended_at IS NOT NULL,
+    newest suspension first. Cap at 200 — beyond that an admin needs
+    a search / pagination UI which isn't built yet.
+    """
+    out: List[SuspendedUserRow] = []
+
+    rep_rows = (
+        db.query(RepAccount)
+        .filter(RepAccount.suspended_at.isnot(None))
+        .order_by(RepAccount.suspended_at.desc())
+        .limit(200)
+        .all()
+    )
+    for r in rep_rows:
+        out.append(SuspendedUserRow(
+            kind="rep", id=r.id, email=r.email,
+            display_name=r.display_name,
+            suspended_at=r.suspended_at,
+            suspended_reason=r.suspended_reason,
+        ))
+
+    cz_rows = (
+        db.query(CitizenAccount)
+        .filter(CitizenAccount.suspended_at.isnot(None))
+        .order_by(CitizenAccount.suspended_at.desc())
+        .limit(200)
+        .all()
+    )
+    for c in cz_rows:
+        out.append(SuspendedUserRow(
+            kind="citizen", id=c.id, email=c.email,
+            display_name=c.display_name,
+            suspended_at=c.suspended_at,
+            suspended_reason=c.suspended_reason,
+        ))
+
+    # Newest-first across both kinds, then cap.
+    out.sort(key=lambda u: u.suspended_at, reverse=True)
+    return SuspendedUserListResponse(items=out[:200])

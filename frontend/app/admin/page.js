@@ -146,9 +146,12 @@ export default function AdminPage() {
 
   return (
     <main style={{ padding: '24px 20px', fontFamily: 'var(--cl-font-sans)', maxWidth: 1200, margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 6 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 6, gap: 16 }}>
         <h1 style={{ fontSize: '1.4rem', fontWeight: 700, margin: 0 }}>Moderation queue</h1>
-        <a href="/" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>← Back to CivicView</a>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+          <a href="/admin/users" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>Suspended accounts →</a>
+          <a href="/" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>← CivicView home</a>
+        </div>
       </div>
       <p style={{ color: 'var(--cl-text-light)', fontSize: '0.9rem', marginTop: 0, marginBottom: 20 }}>
         Signed in as <strong>{me?.email}</strong> ({me?.kind}).

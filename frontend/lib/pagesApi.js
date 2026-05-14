@@ -225,6 +225,12 @@ export async function adminUnreadCount() {
   return request('/api/admin/reports/unread-count');
 }
 
+// List all suspended user accounts (rep + citizen) for the admin
+// /admin/users page. Newest suspension first, capped at 200.
+export async function adminListSuspendedUsers() {
+  return request('/api/admin/users/suspended');
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }
