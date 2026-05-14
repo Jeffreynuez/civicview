@@ -205,10 +205,12 @@ export async function adminUnhideTarget(kind, targetId) {
 
 // Suspend / unsuspend a user account. `kind` is 'rep' | 'citizen';
 // `userId` is the account row id (returned in ReportRow.target_author_id).
-export async function adminSuspendUser(kind, userId, { reason } = {}) {
+// `cascadeHide=true` ALSO soft-deletes every piece of content this user
+// has currently visible (posts, comments, citizen polls, poll comments).
+export async function adminSuspendUser(kind, userId, { reason, cascadeHide = false } = {}) {
   return request(
     `/api/admin/users/${encodeURIComponent(kind)}/${encodeURIComponent(userId)}/suspend`,
-    { method: 'POST', body: { reason } },
+    { method: 'POST', body: { reason, cascade_hide: cascadeHide } },
   );
 }
 

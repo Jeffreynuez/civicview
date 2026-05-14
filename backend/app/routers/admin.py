@@ -45,6 +45,7 @@ from app.models.pages import (
     PostComment,
     PostReport,
     RepAccount,
+    RepEvent,
 )
 from app.services.admin_auth import get_current_admin
 
@@ -508,11 +509,20 @@ UserKind = Literal["rep", "citizen"]
 
 class UserSuspendPayload(BaseModel):
     reason: Optional[str] = None
+    # When True, also soft-hide every piece of content the user
+    # currently has visible. See the suspend endpoint for the
+    # exact scope (posts, post-comments, polls, poll-comments).
+    # Default False — admin must opt in per-suspension.
+    cascade_hide: bool = False
 
 
 class UserActionResult(BaseModel):
     ok: bool = True
     suspended: bool
+    # Populated when cascade_hide=True. Empty dict otherwise.
+    # Useful for the UI to show "Suspended + hid N posts and M
+    # comments" after the action.
+    hidden_counts: dict = {}
 
 
 def _load_user_account_or_404(db: Session, kind: str, user_id: int):
@@ -564,12 +574,86 @@ def suspend_user(
         acc.suspended_at = datetime.utcnow()
     if payload.reason:
         acc.suspended_reason = payload.reason.strip()[:255]
+
+    hidden_counts: dict = {}
+    if payload.cascade_hide:
+        # Soft-hide all of this user's currently-visible content.
+        # "Visible" = not already deleted_at / archived_at. We skip
+        # already-hidden rows so re-running cascade doesn't reset
+        # the deleted_at timestamp on already-removed content.
+        #
+        # NOTE: this is intentionally one-way. Unsuspend does NOT
+        # automatically restore. Admin should review surviving
+        # reports + decide per-piece whether prior content was
+        # legitimate. Cascade-hide is for "this person clearly
+        # shouldn't have a public footprint right now"; surgical
+        # restore is for "and now we've reviewed it carefully."
+        now = datetime.utcnow()
+        if kind == "rep":
+            # Rep content: their authored Posts (which cascades to
+            # the attached Poll), plus any RepEvents they posted.
+            # No comments — reps don't author comments in the
+            # current data model.
+            posts = (
+                db.query(Post)
+                .filter(Post.author_id == user_id, Post.deleted_at.is_(None))
+                .all()
+            )
+            for p in posts:
+                p.deleted_at = now
+            hidden_counts["posts"] = len(posts)
+            events = (
+                db.query(RepEvent)
+                .filter(RepEvent.author_id == user_id, RepEvent.deleted_at.is_(None))
+                .all()
+            )
+            for e in events:
+                e.deleted_at = now
+            hidden_counts["events"] = len(events)
+        else:  # citizen
+            # Citizen content: post comments, citizen-authored polls
+            # (archived_at + reason='reported_user_suspended'), and
+            # comments on poll threads.
+            comments = (
+                db.query(PostComment)
+                .filter(PostComment.citizen_id == user_id, PostComment.deleted_at.is_(None))
+                .all()
+            )
+            for c in comments:
+                c.deleted_at = now
+            hidden_counts["post_comments"] = len(comments)
+            polls = (
+                db.query(Poll)
+                .filter(
+                    Poll.author_kind == "citizen",
+                    Poll.author_citizen_id == user_id,
+                    Poll.archived_at.is_(None),
+                )
+                .all()
+            )
+            for p in polls:
+                p.archived_at = now
+                p.archived_reason = "reported_user_suspended"
+            hidden_counts["polls"] = len(polls)
+            poll_comments = (
+                db.query(PollComment)
+                .filter(PollComment.citizen_id == user_id, PollComment.deleted_at.is_(None))
+                .all()
+            )
+            for pc in poll_comments:
+                pc.deleted_at = now
+            hidden_counts["poll_comments"] = len(poll_comments)
+
     db.commit()
     logger.warning(
-        "Admin %s suspended %s user_id=%d (reason=%r).",
+        "Admin %s suspended %s user_id=%d (reason=%r, cascade=%s, hidden=%s).",
         actor["email"], kind, user_id, acc.suspended_reason,
+        payload.cascade_hide, hidden_counts,
     )
-    return UserActionResult(ok=True, suspended=True)
+    return UserActionResult(
+        ok=True, suspended=True,
+        hidden_counts=hidden_counts,
+    )
 
 
 @router.post(

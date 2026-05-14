@@ -324,11 +324,16 @@ export default function AdminPage() {
                           />
                         )}
                         {/* Suspend the AUTHOR of the reported content,
-                            not the reporter. Confirms via window.confirm
-                            (no reason picker in this iteration — author
-                            name is enough context). Hidden for rep
-                            authors with admin emails because the backend
-                            will reject anyway; we skip the round-trip. */}
+                            not the reporter. Two-step confirmation:
+                            first confirms the suspension, then asks
+                            whether to ALSO hide all of their existing
+                            content (cascade). Splitting the prompts
+                            keeps the destructive-by-default ergonomic
+                            ("yes suspend" → "no don't cascade" is one
+                            extra click, but "yes suspend AND cascade"
+                            requires explicit confirmation).
+                            Hidden for rep authors with admin emails
+                            because the backend will reject anyway. */}
                         {r.target_author_id && r.target_author_kind && (
                           <ActionButton
                             label={`Suspend ${r.target_author_kind === 'citizen' ? 'citizen' : 'rep'}`}
@@ -337,8 +342,12 @@ export default function AdminPage() {
                                 `Suspend ${r.target_author_name}? They'll be signed out and unable to sign back in until you unsuspend them.`
                               );
                               if (!ok) return;
+                              const cascade = window.confirm(
+                                `ALSO hide every post / comment / poll ${r.target_author_name} has visible right now?\n\nClick OK to suspend AND hide all their content. Click Cancel to just suspend the account; their existing content stays visible.`
+                              );
                               runAction(key, () => adminSuspendUser(
-                                r.target_author_kind, r.target_author_id, { reason: r.reason },
+                                r.target_author_kind, r.target_author_id,
+                                { reason: r.reason, cascadeHide: cascade },
                               ));
                             }}
                             busy={isBusy}
