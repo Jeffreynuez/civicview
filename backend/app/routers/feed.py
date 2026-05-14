@@ -396,3 +396,154 @@ def popular_polls(
             }
         )
     return {"items": items}
+
+
+# ── /polls — full polls feed (the dedicated /polls page) ────────────
+@router.get("/polls")
+def polls_feed(
+    limit: int = Query(default=100, ge=1, le=300),
+    kind: Optional[str] = Query(default=None, description="Filter by 'rep' | 'citizen' | 'standalone'"),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Every active poll across the entire app, newest first.
+
+    Differs from /api/feed/popular-polls in three ways:
+      • Returns ALL active polls (capped at `limit`), not just the
+        top-engaged set.
+      • Includes a page_tag string per row (e.g. "BD · FL-19" or
+        "Standalone") so the /polls UI can render the source-page
+        chip without an extra round-trip per poll.
+      • Surfaces standalone polls (target_official_id IS NULL,
+        author_kind='citizen') — these don't appear on any rep
+        page and only exist in this feed.
+
+    Active = archived_at IS NULL. Rep polls don't archive normally
+    so they always appear here once authored; citizen polls drop
+    out when their rep claims the page or the citizen closes them.
+
+    Kind filter:
+      'rep'        → rep-authored polls only
+      'citizen'    → citizen polls tied to a rep page (target_official_id not null)
+      'standalone' → citizen polls with no target rep page
+      omitted      → everything
+    """
+    from app.services.page_tags import resolve_page_tag
+
+    q = db.query(Poll).filter(Poll.archived_at.is_(None))
+    if kind == "rep":
+        q = q.filter(Poll.author_kind == "rep")
+    elif kind == "citizen":
+        q = q.filter(
+            Poll.author_kind == "citizen",
+            Poll.target_official_id.is_not(None),
+        )
+    elif kind == "standalone":
+        q = q.filter(
+            Poll.author_kind == "citizen",
+            Poll.target_official_id.is_(None),
+        )
+
+    rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
+
+    items: List[Dict[str, Any]] = []
+    for poll in rows:
+        # Per-option vote counts (re-use the same query shape as
+        # popular_polls; this is N+1 over polls in the result set
+        # but with limit=100 it's fine).
+        option_rows = (
+            db.query(
+                PollOption.id,
+                PollOption.text,
+                PollOption.sort_order,
+                func.count(PollVote.id).label("vcnt"),
+            )
+            .outerjoin(PollVote, PollVote.option_id == PollOption.id)
+            .filter(PollOption.poll_id == poll.id)
+            .group_by(PollOption.id, PollOption.text, PollOption.sort_order)
+            .order_by(PollOption.sort_order)
+            .all()
+        )
+        total = sum(int(r.vcnt or 0) for r in option_rows)
+        options = []
+        for _oid, text, _so, vcnt in option_rows:
+            pct = round((int(vcnt or 0) / total) * 100) if total else 0
+            options.append({"label": text, "percent": pct, "count": int(vcnt or 0)})
+
+        # Comment count by author_kind.
+        if poll.author_kind == "citizen":
+            comments = (
+                db.query(func.count(PollComment.id))
+                .filter(PollComment.poll_id == poll.id)
+                .filter(PollComment.deleted_at.is_(None))
+                .scalar()
+                or 0
+            )
+        else:
+            comments = (
+                db.query(func.count(PostComment.id))
+                .filter(PostComment.post_id == poll.post_id)
+                .filter(PostComment.deleted_at.is_(None))
+                .scalar()
+                or 0
+            )
+
+        # Author resolution + display kind chip.
+        # display_kind: 'rep' | 'citizen' | 'standalone'
+        author = "(unknown)"
+        role = None
+        party = None
+        official_id: Optional[str] = None
+        if poll.author_kind == "citizen":
+            cz = (
+                db.query(CitizenAccount)
+                .filter(CitizenAccount.id == poll.author_citizen_id)
+                .first()
+            )
+            author = cz.display_name if cz else "Citizen"
+            role_parts: list[str] = []
+            if cz and cz.state:
+                role_parts.append(cz.state)
+            if cz and cz.city:
+                role_parts.append(cz.city)
+            role = " · ".join(role_parts) if role_parts else None
+            official_id = poll.target_official_id
+            display_kind = "standalone" if poll.target_official_id is None else "citizen"
+        else:
+            post = (
+                db.query(Post).filter(Post.id == poll.post_id).first()
+                if poll.post_id else None
+            )
+            rep = (
+                db.query(RepAccount).filter(RepAccount.id == post.author_id).first()
+                if post else None
+            )
+            author = rep.display_name if rep else "Representative"
+            role = rep.role if rep else None
+            official_id = post.official_id if post else None
+            display_kind = "rep"
+            # Party lookup — re-use the lazy index built for the
+            # National Activity feed earlier in this module.
+            party = _party_for(official_id) if official_id else None
+
+        # Page-tag for the chip. Standalone polls get the literal
+        # 'Standalone' string at the UI layer; this endpoint returns
+        # None for that case so the frontend can branch.
+        page_tag = resolve_page_tag(db, official_id) if official_id else None
+
+        items.append(
+            {
+                "id": poll.id,
+                "kind": display_kind,
+                "author": author,
+                "role": role,
+                "party": party,
+                "official_id": official_id,
+                "page_tag": page_tag,
+                "created_at": (poll.created_at.isoformat() if poll.created_at else None),
+                "question": poll.question,
+                "options": options,
+                "votes": total,
+                "comments": int(comments),
+            }
+        )
+    return {"items": items}
