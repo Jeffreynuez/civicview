@@ -168,6 +168,41 @@ export async function reportPollComment(commentId, { reason = 'other', detail } 
   });
 }
 
+// ── Admin moderation queue ──────────────────────────────────────────
+// Endpoints under /api/admin/* gated by an ADMIN_EMAILS env-var
+// allowlist server-side. The whoami probe is the cheapest signal
+// to gate UI on; the queue and actions are admin-only.
+export async function adminWhoami() {
+  return request('/api/admin/whoami');
+}
+
+export async function adminListReports({ includeActed = false } = {}) {
+  return request('/api/admin/reports', {
+    query: { include_acted: includeActed ? 'true' : undefined },
+  });
+}
+
+export async function adminDismissReport(kind, reportId) {
+  return request(
+    `/api/admin/reports/${encodeURIComponent(kind)}/${encodeURIComponent(reportId)}/dismiss`,
+    { method: 'POST' },
+  );
+}
+
+export async function adminHideTarget(kind, reportId) {
+  return request(
+    `/api/admin/reports/${encodeURIComponent(kind)}/${encodeURIComponent(reportId)}/hide`,
+    { method: 'POST' },
+  );
+}
+
+export async function adminUnhideTarget(kind, targetId) {
+  return request(
+    `/api/admin/targets/${encodeURIComponent(kind)}/${encodeURIComponent(targetId)}/unhide`,
+    { method: 'POST' },
+  );
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }
