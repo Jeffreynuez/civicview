@@ -119,7 +119,24 @@ def set_session_cookie(response: Response, rep_id: int) -> None:
 
 
 def clear_session_cookie(response: Response) -> None:
-    response.delete_cookie(key=SESSION_COOKIE_NAME, path="/")
+    # CRITICAL: pass the same samesite + secure attributes the cookie
+    # was originally set with. Starlette's delete_cookie() actually
+    # sets a NEW cookie with max-age=0 to overwrite the original;
+    # Chrome (and other modern browsers) require the SameSite +
+    # Secure attributes to match or they treat the deletion cookie
+    # as a different cookie and leave the original in place. The
+    # symptom: clicking "Sign out" in production didn't actually
+    # invalidate the session — the user would be silently re-
+    # authenticated on the next request because their browser still
+    # held the original cl_session cookie.
+    samesite = os.getenv("COOKIE_SAMESITE", "lax").lower()
+    secure = os.getenv("COOKIE_SECURE", "false").lower() == "true"
+    response.delete_cookie(
+        key=SESSION_COOKIE_NAME,
+        path="/",
+        samesite=samesite,
+        secure=secure,
+    )
 
 
 def _extract_bearer(authorization: Optional[str]) -> Optional[str]:

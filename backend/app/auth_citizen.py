@@ -77,7 +77,18 @@ def set_citizen_cookie(response: Response, citizen_id: int) -> None:
 
 
 def clear_citizen_cookie(response: Response) -> None:
-    response.delete_cookie(key=CITIZEN_COOKIE_NAME, path="/")
+    # See app/auth.py::clear_session_cookie for the full reasoning.
+    # Short version: the attributes must match the original set call
+    # or the browser ignores the deletion cookie and the session
+    # persists, defeating Sign-out in cross-origin production.
+    samesite = os.getenv("COOKIE_SAMESITE", "lax").lower()
+    secure = os.getenv("COOKIE_SECURE", "false").lower() == "true"
+    response.delete_cookie(
+        key=CITIZEN_COOKIE_NAME,
+        path="/",
+        samesite=samesite,
+        secure=secure,
+    )
 
 
 def _extract_bearer(authorization: Optional[str]) -> Optional[str]:
