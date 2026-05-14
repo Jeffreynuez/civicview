@@ -17,6 +17,8 @@ import {
   aiHealth,
   filterComments,
   summarizePost,
+  reportPost,
+  reportComment,
 } from '../lib/pagesApi';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
@@ -314,6 +316,56 @@ export default function PostCard({
     onCommentCountChanged?.(post.id, -1);
   };
 
+  // Comment-level Report. Session-scoped — once reported, the button
+  // flips to "Reported ✓" so the user knows it went through and to
+  // prevent re-fires. We don't re-render the comment list around it
+  // (the comment stays visible; admin review is async).
+  const [reportedCommentIds, setReportedCommentIds] = useState(() => new Set());
+  const handleReportComment = async (commentId) => {
+    // No native browser prompt — just fire-and-confirm. A reason picker
+    // is a follow-up if we want to differentiate spam vs. abuse vs.
+    // off-topic in the admin queue; for now everything goes in as
+    // 'other' and the admin reads the comment body for context.
+    const { data, error } = await reportComment(commentId);
+    if (error) {
+      setCommentErr(error);
+      return;
+    }
+    setReportedCommentIds((prev) => {
+      const next = new Set(prev);
+      next.add(commentId);
+      return next;
+    });
+    // already_reported=true comes back when the user already reported
+    // this comment in a previous session; show the same "Reported ✓"
+    // UI either way (no need to distinguish in copy — the admin saw
+    // it the first time).
+    if (data?.already_reported) {
+      // No-op visible state change; the flip above is enough.
+    }
+  };
+
+  // Post-level Report. Same shape as the comment-level one. Hidden
+  // when the viewer IS the page owner (reps don't report their own
+  // posts) or when the viewer isn't signed in.
+  const [postReported, setPostReported] = useState(false);
+  const [postReportBusy, setPostReportBusy] = useState(false);
+  const handleReportPost = async () => {
+    if (postReportBusy || postReported) return;
+    setPostReportBusy(true);
+    const { data, error } = await reportPost(post.id);
+    setPostReportBusy(false);
+    if (error) {
+      setErr(error);
+      return;
+    }
+    setPostReported(true);
+    // already_reported handled the same as a fresh report — visual
+    // state lands at "Reported ✓" either way.
+    void data;
+  };
+  const canReportPost = !isOwner && (!!citizen);
+
   return (
     <article
       id={`post-${post.id}`}
@@ -368,6 +420,43 @@ export default function PostCard({
           >
             Delete
           </button>
+        )}
+        {/* Report button for signed-in citizens on someone else's
+            post. Hidden when the viewer IS the page owner (reps
+            don't report their own posts — they'd just delete them)
+            and when the viewer is anonymous (no anon reporting to
+            keep spam pressure off the admin queue). */}
+        {canReportPost && !postReported && (
+          <button
+            type="button"
+            onClick={handleReportPost}
+            disabled={postReportBusy}
+            title="Flag this post for admin review"
+            style={{
+              border: '1px solid var(--cl-border)',
+              background: 'white',
+              color: 'var(--cl-text-light)',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              cursor: postReportBusy ? 'wait' : 'pointer',
+            }}
+          >
+            {postReportBusy ? '…' : 'Report'}
+          </button>
+        )}
+        {postReported && (
+          <span
+            style={{
+              padding: '4px 10px',
+              fontSize: '0.72rem',
+              color: 'var(--cl-text-muted)',
+              fontStyle: 'italic',
+            }}
+          >
+            Reported ✓
+          </span>
         )}
       </div>
 
@@ -800,11 +889,24 @@ export default function PostCard({
               </div>
             )}
             {comments?.filter((c) => aiFilterIds === null || aiFilterIds.has(c.id)).map((c) => {
-              const canDelete = isOwner || (citizen && c.citizen_display_name === citizen.display_name);
-              // ^ author-match by display_name is a soft heuristic because
-              // the GET comments endpoint doesn't return citizen_id to
-              // non-owners for privacy. The 403 from the backend is the
-              // real gate; this just decides whether to *show* the button.
+              // Delete: ONLY the comment's author. Reps used to be able
+              // to delete comments on their own page, but that's been
+              // retired — moderation goes through Report instead so
+              // reps can't unilaterally silence constituents.
+              // Author-match is a soft display heuristic (the list
+              // endpoint doesn't return citizen_id to non-owners for
+              // privacy); the backend 403 is the real gate.
+              const isMyComment = !!citizen && c.citizen_display_name === citizen.display_name;
+              const canDelete = isMyComment;
+              // Report: any signed-in user (rep or citizen) who's
+              // NOT the comment author. Anonymous viewers see nothing
+              // (no anon reporting → less spam-report abuse). Once
+              // the user has reported a comment in this session,
+              // canReport flips false to keep the button from
+              // re-firing the API.
+              const reporterSignedIn = !!citizen || isOwner;
+              const canReport = reporterSignedIn && !isMyComment && !reportedCommentIds.has(c.id);
+              const reportedThis = reportedCommentIds.has(c.id);
               const locLabel = [c.scope_district, c.scope_city].filter(Boolean).join(' · ');
               return (
                 <div
@@ -880,6 +982,32 @@ export default function PostCard({
                       >
                         Delete
                       </button>
+                    )}
+                    {canReport && (
+                      <button
+                        type="button"
+                        onClick={() => handleReportComment(c.id)}
+                        title="Flag this comment for admin review"
+                        style={{
+                          marginLeft: canDelete ? 0 : 'auto',
+                          border: 'none', background: 'transparent',
+                          color: 'var(--cl-text-light)', fontSize: '0.7rem',
+                          fontWeight: 600, cursor: 'pointer', padding: '2px 4px',
+                        }}
+                      >
+                        Report
+                      </button>
+                    )}
+                    {reportedThis && (
+                      <span
+                        style={{
+                          marginLeft: canDelete ? 0 : 'auto',
+                          color: 'var(--cl-text-muted)', fontSize: '0.68rem',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        Reported ✓
+                      </span>
                     )}
                   </div>
                 </div>

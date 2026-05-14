@@ -426,6 +426,68 @@ Index("uq_poll_report_citizen", PollReport.poll_id, PollReport.reporter_citizen_
 Index("uq_poll_report_rep", PollReport.poll_id, PollReport.reporter_rep_id, unique=True)
 
 
+# ── Post + comment reports ──────────────────────────────────────────
+# Same shape as PollReport, mirrored onto Post and PostComment so the
+# moderation surface is uniform across content types. Citizens can
+# report a rep's post; either reps or citizens can report a comment.
+# Anonymous viewers cannot report — the endpoint requires a session.
+class PostReport(Base):
+    """
+    User-submitted report on a rep-authored post. Used to flag spam,
+    abuse, doxxing, or other policy-violating content for human review
+    (no auto-action yet — admins triage via the report_count column,
+    same pattern as PollReport).
+    """
+    __tablename__ = "post_reports"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    post_id: Mapped[int] = mapped_column(ForeignKey("posts.id", ondelete="CASCADE"), index=True)
+    reporter_citizen_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reporter_rep_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reason: Mapped[str] = mapped_column(String(64))
+    detail: Mapped[Optional[str]] = mapped_column(String(1000), default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
+    acted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+Index("uq_post_report_citizen", PostReport.post_id, PostReport.reporter_citizen_id, unique=True)
+Index("uq_post_report_rep", PostReport.post_id, PostReport.reporter_rep_id, unique=True)
+
+
+class CommentReport(Base):
+    """
+    User-submitted report on a citizen-authored PostComment. Either a
+    rep (typically the page owner moderating their thread) or another
+    citizen can file one. Reps DO NOT have unilateral delete authority
+    on comments anymore — reports + admin review is the path. Comment
+    authors can still delete their own comments.
+    """
+    __tablename__ = "comment_reports"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    comment_id: Mapped[int] = mapped_column(
+        ForeignKey("post_comments.id", ondelete="CASCADE"), index=True,
+    )
+    reporter_citizen_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reporter_rep_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reason: Mapped[str] = mapped_column(String(64))
+    detail: Mapped[Optional[str]] = mapped_column(String(1000), default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
+    acted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+Index("uq_comment_report_citizen", CommentReport.comment_id, CommentReport.reporter_citizen_id, unique=True)
+Index("uq_comment_report_rep", CommentReport.comment_id, CommentReport.reporter_rep_id, unique=True)
+
+
 class PollOption(Base):
     __tablename__ = "poll_options"
 

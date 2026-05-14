@@ -132,6 +132,24 @@ export async function summarizePost(postId) {
   return request(`/api/ai/summarize-post/${encodeURIComponent(postId)}`);
 }
 
+// ── Reports (signed-in only) ─────────────────────────────────────────
+// Backend gates these to a valid rep or citizen session (401 anon).
+// Idempotent per (target, reporter) — re-clicking returns
+// already_reported=true rather than 500ing on the unique index.
+export async function reportPost(postId, { reason = 'other', detail } = {}) {
+  return request(`/api/pages/posts/${encodeURIComponent(postId)}/reports`, {
+    method: 'POST',
+    body: { reason, detail },
+  });
+}
+
+export async function reportComment(commentId, { reason = 'other', detail } = {}) {
+  return request(`/api/pages/comments/${encodeURIComponent(commentId)}/reports`, {
+    method: 'POST',
+    body: { reason, detail },
+  });
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }

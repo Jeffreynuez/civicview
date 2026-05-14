@@ -38,9 +38,11 @@ from sqlalchemy.orm import Session, selectinload
 from app.auth import get_current_rep, get_optional_rep
 from app.auth_citizen import get_current_citizen, get_optional_citizen
 from app.db import get_db
+from pydantic import BaseModel, Field
 from app.models.pages import (
     CitizenAccount,
     CommentReaction,
+    CommentReport,
     Poll,
     PollOption,
     PollVote,
@@ -48,6 +50,7 @@ from app.models.pages import (
     PostComment,
     PostImage,
     PostReaction,
+    PostReport,
     RepAccount,
     RepEvent,
 )
@@ -1043,31 +1046,148 @@ def create_comment(
 def delete_comment(
     comment_id: int,
     db: Session = Depends(get_db),
-    me: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
 ):
-    """Soft-delete a comment. Allowed for the comment's author (the
-    citizen) or for the rep who owns the page the comment is on."""
+    """Soft-delete a comment. Allowed ONLY for the comment's author.
+
+    Page-owner deletion was removed deliberately: reps shouldn't be
+    able to unilaterally silence constituent voices on their pages.
+    The path for moderating problematic comments is /reports — any
+    signed-in user (rep or citizen) can flag a comment for admin
+    review, and admins take action through a separate moderation
+    surface (TBD).
+    """
     comment = db.get(PostComment, comment_id)
     if not comment or comment.deleted_at is not None:
         raise HTTPException(status_code=404, detail="Comment not found")
 
     is_author = me_citizen is not None and comment.citizen_id == me_citizen.id
-    is_page_owner = False
-    if me is not None:
-        post = db.get(Post, comment.post_id)
-        if post and post.official_id:
-            is_page_owner = me.official_id == post.official_id
-
-    if not (is_author or is_page_owner):
+    if not is_author:
         raise HTTPException(
             status_code=403,
-            detail="Only the comment author or the page owner may delete.",
+            detail="Only the comment author may delete it. Use Report instead.",
         )
 
     comment.deleted_at = datetime.utcnow()
     db.commit()
     return
+
+
+# ── Report endpoints ─────────────────────────────────────────────────
+# Anyone signed in (citizen or rep) can report a post or comment.
+# Anonymous viewers cannot — both endpoints 401 if neither session
+# is present. We use the same dedupe pattern as PollReport: one row
+# per (target, reporter) enforced by a unique index; re-clicking
+# Report is an idempotent no-op rather than a duplicate row.
+
+
+class _ReportPayload(BaseModel):
+    """Shared request body for post + comment reports."""
+    reason: str = Field(..., min_length=1, max_length=64)
+    detail: Optional[str] = Field(default=None, max_length=1000)
+
+
+class _ReportStatus(BaseModel):
+    """Shared response — `already_reported` lets the UI distinguish a
+    first-time report from a duplicate click without a flicker."""
+    ok: bool = True
+    already_reported: bool = False
+
+
+def _require_signed_in(
+    rep: Optional[RepAccount],
+    citizen: Optional[CitizenAccount],
+) -> None:
+    """Both endpoints require ONE valid session. Raises 401 if neither."""
+    if rep is None and citizen is None:
+        raise HTTPException(
+            status_code=401,
+            detail="Sign in to report content.",
+        )
+
+
+@router.post("/posts/{post_id}/reports", response_model=_ReportStatus)
+def report_post(
+    post_id: int,
+    payload: _ReportPayload,
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+) -> _ReportStatus:
+    """Flag a rep-authored post for admin review. Idempotent per
+    (post, reporter): re-clicking returns already_reported=true
+    instead of creating a duplicate row.
+    """
+    _require_signed_in(me, me_citizen)
+    post = db.get(Post, post_id)
+    if not post or post.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Post not found")
+
+    # Dedupe: check the existing row for this (post, reporter) pair.
+    q = db.query(PostReport).filter(PostReport.post_id == post.id)
+    if me_citizen is not None:
+        q = q.filter(PostReport.reporter_citizen_id == me_citizen.id)
+    else:
+        q = q.filter(PostReport.reporter_rep_id == me.id)
+    if q.first() is not None:
+        return _ReportStatus(ok=True, already_reported=True)
+
+    db.add(
+        PostReport(
+            post_id=post.id,
+            reporter_citizen_id=me_citizen.id if me_citizen is not None else None,
+            reporter_rep_id=me.id if me is not None else None,
+            reason=payload.reason.strip(),
+            detail=(payload.detail or "").strip() or None,
+        )
+    )
+    db.commit()
+    return _ReportStatus(ok=True, already_reported=False)
+
+
+@router.post("/comments/{comment_id}/reports", response_model=_ReportStatus)
+def report_comment(
+    comment_id: int,
+    payload: _ReportPayload,
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+) -> _ReportStatus:
+    """Flag a comment for admin review. Anyone signed in EXCEPT the
+    comment's own author can report (you can't report yourself — if
+    you regret it, just delete it).
+    """
+    _require_signed_in(me, me_citizen)
+    comment = db.get(PostComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    # Self-report guard.
+    if me_citizen is not None and comment.citizen_id == me_citizen.id:
+        raise HTTPException(
+            status_code=400,
+            detail="You can't report your own comment. Delete it if you regret it.",
+        )
+
+    q = db.query(CommentReport).filter(CommentReport.comment_id == comment.id)
+    if me_citizen is not None:
+        q = q.filter(CommentReport.reporter_citizen_id == me_citizen.id)
+    else:
+        q = q.filter(CommentReport.reporter_rep_id == me.id)
+    if q.first() is not None:
+        return _ReportStatus(ok=True, already_reported=True)
+
+    db.add(
+        CommentReport(
+            comment_id=comment.id,
+            reporter_citizen_id=me_citizen.id if me_citizen is not None else None,
+            reporter_rep_id=me.id if me is not None else None,
+            reason=payload.reason.strip(),
+            detail=(payload.detail or "").strip() or None,
+        )
+    )
+    db.commit()
+    return _ReportStatus(ok=True, already_reported=False)
 
 
 # ── Post image upload / serve ────────────────────────────────────────

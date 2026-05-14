@@ -245,6 +245,29 @@ def demo_signup(
     if not display_name:
         raise HTTPException(status_code=400, detail="Display name is required.")
 
+    # Display-name uniqueness, case-insensitive. Two demo citizens
+    # with the same visible name break the @-mention semantics in
+    # the AI comment filter ("@Fred" can't disambiguate between
+    # multiple Freds) and create general identity confusion in
+    # threads. We use func.lower() for the compare so "Fred Smith"
+    # and "fred smith" are treated as the same name. Soft-deleted
+    # rows DO count (you can't squat on a name even after closing
+    # an account, mirroring most social-platform conventions).
+    from sqlalchemy import func as _sa_func
+    existing = (
+        db.query(CitizenAccount.id)
+        .filter(_sa_func.lower(CitizenAccount.display_name) == display_name.lower())
+        .first()
+    )
+    if existing is not None:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f'The display name "{display_name}" is already in use. '
+                "Try a variation (initials, middle name, location, etc.)."
+            ),
+        )
+
     state = (payload.state or "").strip().upper() or None
     if state and state not in _VALID_STATES:
         raise HTTPException(status_code=400, detail=f"Unknown state code: {state!r}")
