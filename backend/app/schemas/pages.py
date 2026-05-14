@@ -419,6 +419,16 @@ POLL_ARCHIVE_REASONS = (
 # generous so a popular unclaimed page stays lively without becoming
 # unreadable.
 PER_PAGE_ACTIVE_POLL_CAP = 20
+# Across all rep pages, how many active citizen-authored polls a
+# single citizen may have at once. Per-page cap of 1 still applies
+# independently — this is the aggregate ceiling so one citizen can't
+# carpet 30 pages with simultaneous polls.
+TOTAL_REP_PAGE_POLL_CAP_PER_CITIZEN = 20
+# How many active standalone polls a single citizen may have at
+# once. Tight (1) because standalone polls compete for attention
+# in the global /polls feed; we don't want a single citizen to
+# dominate the top of the feed.
+STANDALONE_POLL_CAP_PER_CITIZEN = 1
 
 
 class CitizenPollCreate(BaseModel):

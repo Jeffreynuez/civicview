@@ -294,6 +294,21 @@ def create_citizen_poll(
             detail="You already have an active poll on this page. Close it before posting another.",
         )
 
+    # Aggregate cap across ALL rep pages. The per-page cap of 1 above
+    # plus this 20-across-all-pages ceiling means a single citizen
+    # can't carpet 30 pages with simultaneous polls.
+    from app.schemas.pages import TOTAL_REP_PAGE_POLL_CAP_PER_CITIZEN
+    from app.services.citizen_polls_service import citizen_active_rep_page_poll_count
+    if citizen_active_rep_page_poll_count(db, citizen.id) >= TOTAL_REP_PAGE_POLL_CAP_PER_CITIZEN:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                f"You already have {TOTAL_REP_PAGE_POLL_CAP_PER_CITIZEN} active polls "
+                "across rep pages — the per-citizen ceiling. Close some before "
+                "starting more."
+            ),
+        )
+
     poll_payload = payload.poll
     presentation = (poll_payload.presentation_mode or "full").lower()
     if presentation not in PRESENTATION_MODES:
@@ -323,6 +338,88 @@ def create_citizen_poll(
     )
     db.add(poll)
     db.flush()  # populates poll.id for the option FKs
+
+    for sort_order, opt in enumerate(poll_payload.options):
+        db.add(PollOption(
+            poll_id=poll.id,
+            text=opt.text,
+            sort_order=sort_order,
+        ))
+    db.commit()
+    db.refresh(poll)
+    for o in poll.options:
+        db.refresh(o)
+
+    return serialize_citizen_poll(db, poll, citizen, None)
+
+
+# ── Standalone citizen poll (no target rep page) ─────────────────────
+@router.post(
+    "/citizen-polls",
+    response_model=CitizenPollRead,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_standalone_poll(
+    payload: CitizenPollCreate,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    """Create a citizen poll that isn't tied to any specific rep page.
+
+    Powers the 'Start a poll' affordance on /polls — useful for
+    federal-policy questions, cross-jurisdictional issues, or any
+    civic topic that spans all reps. The poll appears in the global
+    /polls feed tagged 'Standalone' instead of carrying a rep-page
+    tag.
+
+    Per-citizen cap of 1 (STANDALONE_POLL_CAP_PER_CITIZEN). Tight
+    because standalone polls compete for attention in the global
+    feed and we don't want a single citizen dominating the surface.
+    Once their standalone poll closes / archives, they can post
+    another.
+
+    The 20-rep-page-poll-total cap is INDEPENDENT of this — a
+    citizen can have 1 standalone AND up to 20 rep-page polls
+    active simultaneously.
+
+    TODO (Phase 2 / ID.me): add a `verified=True` AND
+    `subscribed=True` gate. Today every active CitizenAccount can
+    create (gated by get_current_citizen which already filters out
+    suspended accounts). Demo accounts have access by design.
+    """
+    from app.schemas.pages import STANDALONE_POLL_CAP_PER_CITIZEN
+    from app.services.citizen_polls_service import (
+        citizen_active_standalone_poll_count,
+    )
+    if citizen_active_standalone_poll_count(db, citizen.id) >= STANDALONE_POLL_CAP_PER_CITIZEN:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                "You already have an active standalone poll. Close it "
+                "before starting another."
+            ),
+        )
+
+    poll_payload = payload.poll
+    presentation = (poll_payload.presentation_mode or "full").lower()
+    if presentation not in PRESENTATION_MODES:
+        presentation = "full"
+    if presentation == "reveal_after_close" and poll_payload.closes_at is None:
+        presentation = "full"
+
+    poll = Poll(
+        post_id=None,
+        question=poll_payload.question,
+        closes_at=poll_payload.closes_at,
+        default_visibility_scope="country",  # standalone polls have no rep geography
+        presentation_mode=presentation,
+        author_kind="citizen",
+        author_citizen_id=citizen.id,
+        target_official_id=None,  # ← what makes this standalone
+        created_at=datetime.utcnow(),
+    )
+    db.add(poll)
+    db.flush()
 
     for sort_order, opt in enumerate(poll_payload.options):
         db.add(PollOption(

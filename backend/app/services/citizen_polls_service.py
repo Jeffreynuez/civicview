@@ -349,6 +349,41 @@ def active_poll_count_for_page(db: Session, target_official_id: str) -> int:
     ) or 0
 
 
+def citizen_active_rep_page_poll_count(db: Session, citizen_id: int) -> int:
+    """Aggregate count of a citizen's active citizen-authored polls
+    across every rep page they've ever posted on. Used by the new
+    aggregate quota (TOTAL_REP_PAGE_POLL_CAP_PER_CITIZEN) — the
+    per-page cap of 1 is still checked separately."""
+    return (
+        db.query(func.count(Poll.id))
+        .filter(
+            Poll.author_kind == "citizen",
+            Poll.author_citizen_id == citizen_id,
+            Poll.target_official_id.is_not(None),
+            Poll.archived_at.is_(None),
+        )
+        .scalar()
+    ) or 0
+
+
+def citizen_active_standalone_poll_count(db: Session, citizen_id: int) -> int:
+    """Count of the citizen's currently-active standalone polls (no
+    target_official_id, author_kind='citizen'). Standalone polls
+    live on /polls instead of a rep page. Cap is STANDALONE_POLL_
+    CAP_PER_CITIZEN — currently 1 — so this returning > 0 is the
+    block signal for a new standalone create."""
+    return (
+        db.query(func.count(Poll.id))
+        .filter(
+            Poll.author_kind == "citizen",
+            Poll.author_citizen_id == citizen_id,
+            Poll.target_official_id.is_(None),
+            Poll.archived_at.is_(None),
+        )
+        .scalar()
+    ) or 0
+
+
 # ── Mutations ─────────────────────────────────────────────────────────
 def archive_poll(
     db: Session,
