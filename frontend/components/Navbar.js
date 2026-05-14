@@ -777,6 +777,29 @@ export default function Navbar({
               Subscribe
             </button>
             {/* Committees moved to the hamburger popover. */}
+            {/* Polls — the global polls feed. Inline on desktop next
+                to My Tracked because it's a primary engagement
+                surface; mobile gets it via the hamburger. */}
+            {!isCompact && (
+              <a
+                href="/polls"
+                title="Browse every active poll across the app"
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  padding: '6px 12px', background: 'rgba(255,255,255,0.1)',
+                  color: 'white', border: '1px solid rgba(255,255,255,0.25)',
+                  borderRadius: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600,
+                  textDecoration: 'none',
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
+                onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M3 12h4l3 -9l4 18l3 -9h4" />
+                </svg>
+                Polls
+              </a>
+            )}
             <button
               onClick={() => onOpenTracked?.()}
               title="My tracked subjects"
@@ -960,6 +983,23 @@ export default function Navbar({
                     label="My Tracked"
                     badge={trackedCount > 0 ? trackedCount : null}
                     onClick={() => { setMobileMenuOpen(false); onOpenTracked?.(); }}
+                  />
+                )}
+                {/* Polls — inline on desktop, in the hamburger on
+                    compact viewports (matches the My Tracked
+                    distribution). */}
+                {isCompact && (
+                  <MobileMenuItem
+                    icon={
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 12h4l3 -9l4 18l3 -9h4" />
+                      </svg>
+                    }
+                    label="Polls"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (typeof window !== 'undefined') window.location.href = '/polls';
+                    }}
                   />
                 )}
                 {/* Admin — in the hamburger at every viewport per

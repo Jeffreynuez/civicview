@@ -247,6 +247,31 @@ export async function fetchPopularPolls({ limit = 9 } = {}) {
   return request('/api/feed/popular-polls', { query: { limit } });
 }
 
+// Full polls feed — every active poll across the app (rep + citizen +
+// standalone). Used by the /polls page. Supports a kind filter
+// ('rep' | 'citizen' | 'standalone'); omit to get everything.
+export async function fetchPollsFeed({ limit = 100, kind } = {}) {
+  return request('/api/feed/polls', { query: { limit, kind } });
+}
+
+// Create a standalone citizen poll (no target rep page). Returns the
+// freshly-created CitizenPollRead with vote counts at 0. Per-citizen
+// cap of 1 standalone active at a time is enforced server-side; a
+// 400 with a clear detail message comes back if the cap is hit.
+export async function createStandalonePoll({ question, options, closesAt, presentationMode } = {}) {
+  return request('/api/citizen-polls', {
+    method: 'POST',
+    body: {
+      poll: {
+        question,
+        options: options.map((label) => ({ text: label })),
+        closes_at: closesAt || null,
+        presentation_mode: presentationMode || 'full',
+      },
+    },
+  });
+}
+
 // ── Page payload ──────────────────────────────────────────────────────
 export async function fetchPage(officialId, { voterToken, scope } = {}) {
   if (!officialId) return { data: null, error: 'officialId is required', status: 0 };
