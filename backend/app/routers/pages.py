@@ -30,7 +30,7 @@ from typing import List, Optional
 import uuid
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, UploadFile, status
 from fastapi.responses import FileResponse
 from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
@@ -1008,6 +1008,7 @@ def clear_comment_reaction(
 def create_comment(
     post_id: int,
     payload: CommentCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     citizen: CitizenAccount = Depends(get_current_citizen),
 ):
@@ -1025,6 +1026,13 @@ def create_comment(
     db.add(comment)
     db.commit()
     db.refresh(comment)
+    # Kick off the AI classification as a background task — the
+    # comment is already committed and visible; the tags get applied
+    # ~1s later. If the AI is unconfigured or fails the task is a
+    # no-op and the comment stays in the unclassified pool (still
+    # visible, just not filterable on sentiment / tone).
+    from app.services.comment_classifier import classify_post_comment
+    bg_tasks.add_task(classify_post_comment, comment.id)
     # New comment has no reactions yet — _comment_to_read handles that,
     # and it gives the UI a consistent shape so it can drop the row
     # into the list without special-casing "freshly-created" comments.

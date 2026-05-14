@@ -14,6 +14,8 @@ import {
   deleteComment,
   reactToComment,
   resolveImageUrl,
+  aiHealth,
+  filterComments,
 } from '../lib/pagesApi';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
@@ -120,6 +122,58 @@ export default function PostCard({
   // for a single point of UX. Anonymous viewers and owners see a
   // trimmed option list (see OPTIONS below in the render).
   const [commentSort, setCommentSort] = useState('latest');
+
+  // ── AI-powered comment filter ─────────────────────────────────────
+  // `aiFilterIds` is the set of comment IDs that survived the active
+  // filter. `null` means no filter is applied (show everything);
+  // an empty array means the filter ran and matched nothing. We
+  // intentionally use Set for O(1) lookup in render. `aiAvailable`
+  // gates the affordance — if ANTHROPIC_API_KEY isn't set on the
+  // server, the chip row + free-form input hide entirely so we don't
+  // tease users with a broken feature.
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiFilterIds, setAiFilterIds] = useState(null);
+  const [aiFilterLabel, setAiFilterLabel] = useState('');
+  const [aiFilterBusy, setAiFilterBusy] = useState(false);
+  const [aiFilterErr, setAiFilterErr] = useState(null);
+  const [aiPrompt, setAiPrompt] = useState('');
+  // Probe AI availability once on first mount of any PostCard. The
+  // result is process-scoped — across all PostCards on the page —
+  // because aiHealth is cheap but not free, and the answer doesn't
+  // change within a session.
+  useEffect(() => {
+    let cancelled = false;
+    aiHealth().then(({ data }) => {
+      if (!cancelled && data) setAiAvailable(Boolean(data.configured));
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  const runFilter = async (prompt) => {
+    const trimmed = (prompt || '').trim();
+    if (!trimmed) return;
+    setAiFilterBusy(true);
+    setAiFilterErr(null);
+    const { data, error } = await filterComments({
+      source: 'post',
+      sourceId: post.id,
+      prompt: trimmed,
+    });
+    setAiFilterBusy(false);
+    if (error || !data) {
+      setAiFilterErr(error || 'Filter failed');
+      return;
+    }
+    setAiFilterIds(new Set(data.matched_ids || []));
+    setAiFilterLabel(data.explanation || `Filtered: ${trimmed}`);
+  };
+
+  const clearFilter = () => {
+    setAiFilterIds(null);
+    setAiFilterLabel('');
+    setAiFilterErr(null);
+    setAiPrompt('');
+  };
 
   const loadComments = async () => {
     setCommentsLoading(true);
@@ -475,6 +529,124 @@ export default function PostCard({
             </select>
           </div>
 
+          {/* AI-powered comment filter. Hidden entirely when the server
+              reports AI is not configured (so we never tease a broken
+              feature). Quick chips on the left + free-form prompt on
+              the right; an "Active filter" banner appears underneath
+              once a filter is applied so the user knows what list
+              they're looking at. */}
+          {aiAvailable && comments && comments.length > 1 && (
+            <div style={{ marginTop: 10 }}>
+              <div
+                style={{
+                  display: 'flex', flexWrap: 'wrap', gap: 6,
+                  alignItems: 'center',
+                }}
+              >
+                {[
+                  { label: 'Positive', prompt: 'positive comments' },
+                  { label: 'Critical', prompt: 'critical comments' },
+                  { label: 'Funny', prompt: 'funny comments' },
+                  { label: 'Supportive', prompt: 'supportive comments' },
+                  { label: 'Skeptical', prompt: 'skeptical comments questioning the data' },
+                ].map((chip) => (
+                  <button
+                    key={chip.label}
+                    type="button"
+                    onClick={() => runFilter(chip.prompt)}
+                    disabled={aiFilterBusy}
+                    style={{
+                      padding: '4px 10px',
+                      border: '1px solid var(--cl-border)',
+                      borderRadius: 999,
+                      background: 'white',
+                      color: 'var(--cl-text)',
+                      fontSize: '0.74rem', fontWeight: 600,
+                      cursor: aiFilterBusy ? 'wait' : 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {chip.label}
+                  </button>
+                ))}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    runFilter(aiPrompt);
+                  }}
+                  style={{ display: 'flex', gap: 6, flex: 1, minWidth: 200 }}
+                >
+                  <input
+                    type="text"
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value.slice(0, 300))}
+                    placeholder="✨ Filter comments… (e.g. 'show ones from @Fred')"
+                    disabled={aiFilterBusy}
+                    style={{
+                      flex: 1, minWidth: 0,
+                      padding: '4px 10px',
+                      border: '1px solid var(--cl-border)',
+                      borderRadius: 999,
+                      background: 'white', color: 'var(--cl-text)',
+                      fontSize: '0.74rem', fontFamily: 'inherit',
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={aiFilterBusy || !aiPrompt.trim()}
+                    style={{
+                      padding: '4px 12px',
+                      border: '1px solid var(--cl-accent)',
+                      background: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-bg)' : 'var(--cl-accent)',
+                      color: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-text-light)' : 'white',
+                      borderRadius: 999,
+                      fontSize: '0.74rem', fontWeight: 700,
+                      cursor: aiFilterBusy ? 'wait' : 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {aiFilterBusy ? '…' : 'Apply'}
+                  </button>
+                </form>
+              </div>
+              {aiFilterErr && (
+                <div style={{ color: '#d63031', fontSize: '0.72rem', marginTop: 6 }}>
+                  {aiFilterErr}
+                </div>
+              )}
+              {aiFilterIds !== null && (
+                <div
+                  style={{
+                    marginTop: 8,
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '6px 10px',
+                    background: 'var(--cl-accent-soft)',
+                    border: '1px solid var(--cl-accent-soft)',
+                    borderRadius: 8,
+                    fontSize: '0.74rem',
+                    color: 'var(--cl-text)',
+                  }}
+                >
+                  <span style={{ flex: 1 }}>
+                    {aiFilterLabel} — showing {aiFilterIds.size} of {comments.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={clearFilter}
+                    style={{
+                      background: 'transparent', border: 'none',
+                      color: 'var(--cl-accent)', cursor: 'pointer',
+                      fontSize: '0.74rem', fontWeight: 700,
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    Clear ✕
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Comment list */}
           <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {commentsLoading && (
@@ -487,7 +659,21 @@ export default function PostCard({
                 No comments yet.
               </div>
             )}
-            {comments?.map((c) => {
+            {!commentsLoading && comments?.length > 0 && aiFilterIds !== null && aiFilterIds.size === 0 && (
+              <div style={{ color: 'var(--cl-text-light)', fontSize: '0.78rem', padding: '6px 4px' }}>
+                No comments matched that filter. <button
+                  type="button"
+                  onClick={clearFilter}
+                  style={{
+                    background: 'transparent', border: 'none',
+                    color: 'var(--cl-accent)', cursor: 'pointer',
+                    fontSize: '0.78rem', fontWeight: 600, fontFamily: 'inherit',
+                    padding: 0, marginLeft: 4,
+                  }}
+                >Show all</button>
+              </div>
+            )}
+            {comments?.filter((c) => aiFilterIds === null || aiFilterIds.has(c.id)).map((c) => {
               const canDelete = isOwner || (citizen && c.citizen_display_name === citizen.display_name);
               // ^ author-match by display_name is a soft heuristic because
               // the GET comments endpoint doesn't return citizen_id to

@@ -53,7 +53,7 @@ from datetime import datetime
 import logging
 from typing import List, Literal, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 
@@ -488,6 +488,7 @@ def list_citizen_poll_comments(
 def create_citizen_poll_comment(
     poll_id: int,
     payload: PollCommentCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     citizen: CitizenAccount = Depends(get_current_citizen),
 ):
@@ -516,6 +517,10 @@ def create_citizen_poll_comment(
     db.add(comment)
     db.commit()
     db.refresh(comment)
+    # AI classification fires after commit — same pattern as
+    # create_comment on a rep post. No-op if AI isn't configured.
+    from app.services.comment_classifier import classify_poll_comment
+    bg_tasks.add_task(classify_poll_comment, comment.id)
     return PollCommentRead.model_validate(comment)
 
 

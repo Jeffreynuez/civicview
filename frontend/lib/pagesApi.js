@@ -102,6 +102,27 @@ async function request(path, { method = 'GET', body, query } = {}) {
   }
 }
 
+// ── AI features ───────────────────────────────────────────────────────
+// Lightweight client wrappers for /api/ai/*. The endpoints degrade
+// gracefully when ANTHROPIC_API_KEY isn't set on the server — they
+// return `error: 'not_configured'` and the UI shows a "Coming soon"
+// state. The frontend can short-circuit by checking aiHealth() first.
+export async function aiHealth() {
+  return request('/api/ai/health');
+}
+
+// Natural-language comment filter. Returns:
+//   { matched_ids: number[], method: 'author'|'structured'|'semantic'|'passthrough', explanation: string }
+// `method` lets the UI label the result accurately; the IDs are a
+// subset of the comment list the caller already has, so the frontend
+// can filter locally without re-fetching the thread.
+export async function filterComments({ source, sourceId, prompt }) {
+  return request('/api/ai/filter-comments', {
+    method: 'POST',
+    body: { source, source_id: sourceId, prompt },
+  });
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }

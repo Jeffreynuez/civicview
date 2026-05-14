@@ -206,6 +206,15 @@ class CommentRead(BaseModel):
     up_count: int = 0
     down_count: int = 0
     my_reaction: Optional[str] = None  # 'up' | 'down' | None
+    # AI classification. All optional — the classifier may not have run
+    # yet (NULL means pending) or may have failed (also NULL). The
+    # frontend uses these for quick-filter chips and shows a faint
+    # "classifying…" indicator when NULL + recently posted.
+    ai_sentiment: Optional[str] = None     # 'positive' | 'neutral' | 'negative'
+    ai_tones: Optional[str] = None         # comma-separated tags
+    ai_intensity: Optional[int] = None     # 1-5
+    ai_topic: Optional[str] = None         # 2-4 word gist
+    ai_classified_at: Optional[datetime] = None
 
 
 # Sort / filter modes for list_comments. Named enum-ish for the router
@@ -515,6 +524,13 @@ class PollCommentRead(BaseModel):
     scope_state: Optional[str] = None
     scope_district: Optional[str] = None
     scope_city: Optional[str] = None
+    # AI classification — see CommentRead for semantics. Same shape,
+    # same NULL-means-pending convention.
+    ai_sentiment: Optional[str] = None
+    ai_tones: Optional[str] = None
+    ai_intensity: Optional[int] = None
+    ai_topic: Optional[str] = None
+    ai_classified_at: Optional[datetime] = None
 
 
 class PollReportCreate(BaseModel):

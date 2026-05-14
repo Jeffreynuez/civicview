@@ -4,23 +4,29 @@
 """
 AI router — endpoints that call Claude.
 
-Only one endpoint right now (`/health`), used to confirm the
-ANTHROPIC_API_KEY is configured and the daily-spend cap has
-headroom. Feature endpoints (comment classification, post
-summaries, etc.) land in this router as they ship.
+Endpoints:
+  GET  /health           — readiness check, no Anthropic call
+  POST /filter-comments  — natural-language filter for comment threads
 
-Auth model: feature endpoints will scope to specific entities
-(post id, comment id, page id) and apply per-citizen rate limits
-in addition to the per-process daily cap in ai_service. The health
-endpoint is open by design — Render's health check hits it and
-the frontend may surface "AI features available?" to gate UI.
+Auth model: feature endpoints scope to specific entities (post id,
+poll id) and rely on the per-process daily cap in ai_service.
+The health endpoint is open by design — the frontend uses it to
+gate AI affordances.
 """
 from __future__ import annotations
 
+import json
 import logging
+import re
+from typing import List, Literal, Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
+from sqlalchemy import or_
+from sqlalchemy.orm import Session
 
+from app.db import get_db
+from app.models.pages import PollComment, PostComment
 from app.services import ai_service
 
 
@@ -47,3 +53,269 @@ def health() -> dict:
         "model_default": ai_service.DEFAULT_MODEL,
         "budget": ai_service.get_daily_spend(),
     }
+
+
+# ── /filter-comments ─────────────────────────────────────────────────
+class CommentFilterRequest(BaseModel):
+    source: Literal["post", "poll"]
+    source_id: int = Field(..., ge=1)
+    prompt: str = Field(..., min_length=1, max_length=300)
+
+
+class CommentFilterResponse(BaseModel):
+    matched_ids: List[int]
+    method: Literal["author", "structured", "semantic", "passthrough"]
+    explanation: str
+
+
+# Quick-filter keyword map. The router tries to short-circuit on these
+# before paying for an AI call. Order matters — we want "very positive"
+# to match the positive bucket, not the intensifier-only one.
+_SENTIMENT_KEYWORDS = {
+    "positive": ("positive", "supportive", "agreeing", "agree", "in favor", "favorable"),
+    "negative": ("negative", "critical", "against", "oppose", "opposing", "angry", "frustrated", "mad"),
+    "neutral":  ("neutral", "balanced", "factual"),
+}
+_TONE_KEYWORDS = {
+    # tone keyword → matching ai_tones value
+    "funny":       "funny",
+    "humorous":    "funny",
+    "joke":        "funny",
+    "supportive":  "supportive",
+    "encouraging": "supportive",
+    "critical":    "critical",
+    "pushback":    "critical",
+    "informative": "informative",
+    "informed":    "informative",
+    "factual":     "factual",
+    "skeptical":   "skeptical",
+    "doubt":       "skeptical",
+    "questioning": "skeptical",
+    "personal":    "personal",
+    "story":       "personal",
+    "rhetorical":  "rhetorical",
+    "angry":       "angry",
+    "civil":       "civil",
+    "polite":      "civil",
+}
+_AUTHOR_RE = re.compile(r"@(\w+)")
+
+
+def _load_comments(db: Session, source: str, source_id: int):
+    """Return all non-deleted comments for a post or citizen poll, plus
+    a label for use in error messages. Used by the structured-filter
+    branches AND as the source list for the semantic-filter call."""
+    if source == "post":
+        rows = (
+            db.query(PostComment)
+            .filter(PostComment.post_id == source_id)
+            .filter(PostComment.deleted_at.is_(None))
+            .all()
+        )
+        return rows, "post"
+    rows = (
+        db.query(PollComment)
+        .filter(PollComment.poll_id == source_id)
+        .filter(PollComment.deleted_at.is_(None))
+        .all()
+    )
+    return rows, "poll"
+
+
+def _try_author_filter(prompt: str, comments) -> Optional[List[int]]:
+    """If the prompt mentions @username(s), return the IDs of comments
+    whose display_name matches. Multi-name prompts ('@Fred or @Joe')
+    work because we collect ALL @names and OR them."""
+    handles = _AUTHOR_RE.findall(prompt)
+    if not handles:
+        return None
+    handles_lc = {h.lower() for h in handles}
+    matched = []
+    for c in comments:
+        name = (c.citizen_display_name or "").lower()
+        # Match against the whole name OR any whitespace-separated word.
+        # "@Fred" should match "Fred Smith" and "Fred"; "@FredSmith"
+        # should match "FredSmith" exactly.
+        words = set(re.findall(r"\w+", name))
+        if any(h in words or h == name.replace(" ", "") for h in handles_lc):
+            matched.append(c.id)
+    return matched
+
+
+def _try_structured_filter(prompt: str, comments) -> Optional[List[int]]:
+    """If the prompt clearly maps to sentiment/tone keywords, filter
+    against the AI columns directly. Returns None if no keyword
+    matched (caller falls through to the semantic branch)."""
+    pl = prompt.lower()
+    # Sentiment: only count if the keyword appears as a whole word.
+    matched_sentiment: Optional[str] = None
+    for bucket, keywords in _SENTIMENT_KEYWORDS.items():
+        if any(re.search(rf"\b{re.escape(kw)}\b", pl) for kw in keywords):
+            matched_sentiment = bucket
+            break
+    matched_tones: List[str] = []
+    for keyword, tone_value in _TONE_KEYWORDS.items():
+        if re.search(rf"\b{re.escape(keyword)}\b", pl):
+            if tone_value not in matched_tones:
+                matched_tones.append(tone_value)
+    if not matched_sentiment and not matched_tones:
+        return None
+
+    out: List[int] = []
+    for c in comments:
+        # Unclassified rows can't match a tag filter; skip them.
+        if c.ai_classified_at is None and c.ai_sentiment is None and not c.ai_tones:
+            continue
+        if matched_sentiment and (c.ai_sentiment or "") != matched_sentiment:
+            continue
+        if matched_tones:
+            comment_tones = set((c.ai_tones or "").split(",")) if c.ai_tones else set()
+            if not any(t in comment_tones for t in matched_tones):
+                continue
+        out.append(c.id)
+    return out
+
+
+def _explain_structured(prompt: str) -> str:
+    """Generate a short human-readable description of which structured
+    filter matched. Used as the response's `explanation` so the
+    frontend can surface 'Filtered to: positive · funny'."""
+    pl = prompt.lower()
+    bits: List[str] = []
+    for bucket, keywords in _SENTIMENT_KEYWORDS.items():
+        if any(re.search(rf"\b{re.escape(kw)}\b", pl) for kw in keywords):
+            bits.append(bucket)
+            break
+    for keyword, tone_value in _TONE_KEYWORDS.items():
+        if re.search(rf"\b{re.escape(keyword)}\b", pl):
+            if tone_value not in bits:
+                bits.append(tone_value)
+    return "Filtered to: " + " · ".join(bits) if bits else "Filtered."
+
+
+def _semantic_filter(prompt: str, comments) -> Optional[List[int]]:
+    """Fallback: send the prompt + a compact view of every classified
+    comment (id, sentiment, tones, topic, short body snippet) to
+    Claude and ask which IDs match the user's intent.
+
+    Returns None if the AI call fails or doesn't yield parsable IDs.
+    Caller treats that as 'no filter applied' and surfaces the
+    explanation accordingly."""
+    if not comments:
+        return []
+    # Build a compact line per comment. Body snippet kept short so
+    # 500 comments still fit comfortably in Haiku's input window.
+    lines = []
+    for c in comments:
+        snippet = (c.body or "").replace("\n", " ").strip()
+        if len(snippet) > 140:
+            snippet = snippet[:137] + "..."
+        lines.append(
+            f"{c.id}|{c.citizen_display_name or '?'}|"
+            f"{c.ai_sentiment or '?'}|"
+            f"{c.ai_tones or '?'}|"
+            f"{c.ai_topic or '?'}|"
+            f"{snippet}"
+        )
+    user_msg = (
+        "Comments are listed below, one per line:\n"
+        "id|author|sentiment|tones|topic|snippet\n"
+        + "\n".join(lines)
+        + "\n\nUser asked: \"" + prompt + "\"\n"
+        + "Return ONLY a JSON array of integer comment IDs that match. "
+        "If nothing matches, return []."
+    )
+    system = (
+        "You filter a comment thread by user intent. The user provides a "
+        "natural-language filter description and a list of pre-classified "
+        "comments. You must respond with ONLY a JSON array of integer "
+        "comment IDs from the list that match the user's intent. "
+        "No prose, no explanation, no code fences. Empty array is valid."
+    )
+    result = ai_service.chat(
+        system=system,
+        messages=[{"role": "user", "content": user_msg}],
+        # Output cap scales with comment count — at ~5 chars per ID
+        # comma-separated, 500 IDs ≈ 2.5KB ≈ 700 tokens. Cap at 1500
+        # for headroom; if we ever support threads bigger than this
+        # the endpoint can paginate the source list.
+        max_tokens=1500,
+        temperature=0.0,
+    )
+    if result.error or not result.text:
+        logger.info("filter-comments semantic fallback failed: %s", result.error)
+        return None
+    # Parse the JSON array. Defensive against trailing prose.
+    txt = result.text.strip()
+    m = re.search(r"\[[^\]]*\]", txt)
+    if not m:
+        return None
+    try:
+        parsed = json.loads(m.group(0))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(parsed, list):
+        return None
+    # Coerce to ints, filter to the source set so the model can't
+    # hallucinate IDs that don't exist.
+    source_ids = {c.id for c in comments}
+    out = [int(x) for x in parsed if isinstance(x, (int, float)) and int(x) in source_ids]
+    return out
+
+
+@router.post("/filter-comments", response_model=CommentFilterResponse)
+def filter_comments(
+    req: CommentFilterRequest,
+    db: Session = Depends(get_db),
+) -> CommentFilterResponse:
+    """Filter a post or poll's comments by a natural-language prompt.
+
+    Routing logic (cheapest path wins):
+      1. Author filter (@name)  — pure SQL, no AI call
+      2. Structured filter      — pure SQL on AI classification cols
+      3. Semantic filter        — Claude call against the comment set
+
+    Returns the matched comment IDs; the frontend filters its already-
+    fetched list locally instead of re-fetching. `method` tells the UI
+    which branch fired so it can label the result accurately
+    ('Filtered by author', 'Filtered by AI', etc.).
+    """
+    comments, _label = _load_comments(db, req.source, req.source_id)
+    # Nothing to filter — short-circuit before any AI call.
+    if not comments:
+        return CommentFilterResponse(matched_ids=[], method="passthrough", explanation="No comments yet.")
+
+    # 1. Author
+    author_ids = _try_author_filter(req.prompt, comments)
+    if author_ids is not None:
+        handles = sorted(set(_AUTHOR_RE.findall(req.prompt)))
+        return CommentFilterResponse(
+            matched_ids=author_ids,
+            method="author",
+            explanation=f"Filtered to comments from: @{', @'.join(handles)}",
+        )
+
+    # 2. Structured
+    structured_ids = _try_structured_filter(req.prompt, comments)
+    if structured_ids is not None:
+        return CommentFilterResponse(
+            matched_ids=structured_ids,
+            method="structured",
+            explanation=_explain_structured(req.prompt),
+        )
+
+    # 3. Semantic
+    semantic_ids = _semantic_filter(req.prompt, comments)
+    if semantic_ids is None:
+        # AI unavailable or failed — degrade to showing everything,
+        # with a clear explanation so the user knows what happened.
+        return CommentFilterResponse(
+            matched_ids=[c.id for c in comments],
+            method="passthrough",
+            explanation="Couldn't apply filter (AI unavailable). Showing all comments.",
+        )
+    return CommentFilterResponse(
+        matched_ids=semantic_ids,
+        method="semantic",
+        explanation=f'AI-filtered for: "{req.prompt}"',
+    )

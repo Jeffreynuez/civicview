@@ -194,6 +194,30 @@ class PostComment(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
+    # ── AI classification (populated async after comment create) ────
+    # All four columns are nullable: NULL means "not classified yet"
+    # (the background task hasn't run, or Claude was unavailable).
+    # The filter endpoint just excludes unclassified comments from
+    # tag-based filters; they're still visible in the unfiltered list.
+    ai_sentiment: Mapped[Optional[str]] = mapped_column(
+        String(16), default=None, index=True,
+    )  # 'positive' | 'neutral' | 'negative'
+    # Comma-separated tag list — small, readable, indexable enough
+    # for LIKE '%funny%' filtering. We cap to 5 tags per comment in
+    # the classifier so this never exceeds a couple hundred chars.
+    ai_tones: Mapped[Optional[str]] = mapped_column(
+        String(255), default=None,
+    )
+    ai_intensity: Mapped[Optional[int]] = mapped_column(
+        Integer, default=None,
+    )  # 1-5 — how strongly sentiment is expressed
+    ai_topic: Mapped[Optional[str]] = mapped_column(
+        String(80), default=None,
+    )  # 2-4 word gist, e.g. "broadband funding"
+    ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
     post: Mapped["Post"] = relationship(back_populates="comments")
     reactions: Mapped[List["CommentReaction"]] = relationship(
         back_populates="comment", cascade="all, delete-orphan",
@@ -344,6 +368,24 @@ class PollComment(Base):
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+    # AI classification — mirrors PostComment.ai_*. See that model for
+    # the full column docstring; the semantics are identical.
+    ai_sentiment: Mapped[Optional[str]] = mapped_column(
+        String(16), default=None, index=True,
+    )
+    ai_tones: Mapped[Optional[str]] = mapped_column(
+        String(255), default=None,
+    )
+    ai_intensity: Mapped[Optional[int]] = mapped_column(
+        Integer, default=None,
+    )
+    ai_topic: Mapped[Optional[str]] = mapped_column(
+        String(80), default=None,
+    )
+    ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
 
     poll: Mapped["Poll"] = relationship(back_populates="poll_comments")
 
