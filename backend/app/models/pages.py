@@ -357,6 +357,27 @@ class Poll(Base):
         DateTime, server_default=func.now(),
     )
 
+    # AI classification — same shape as PostComment.ai_*. Populated
+    # asynchronously after create by services/poll_classifier.py.
+    # NULL = pending (just posted) or unavailable (AI not configured).
+    # The /polls filter endpoint excludes NULLs from tag-based filters
+    # but still includes them in the unfiltered list.
+    ai_sentiment: Mapped[Optional[str]] = mapped_column(
+        String(16), default=None, index=True,
+    )  # 'positive' | 'neutral' | 'negative'
+    ai_tones: Mapped[Optional[str]] = mapped_column(
+        String(255), default=None,
+    )  # CSV: 'funny,supportive,...'
+    ai_intensity: Mapped[Optional[int]] = mapped_column(
+        Integer, default=None,
+    )  # 1-5
+    ai_topic: Mapped[Optional[str]] = mapped_column(
+        String(80), default=None,
+    )  # 2-4 word gist
+    ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
     post: Mapped[Optional["Post"]] = relationship(back_populates="poll")
     options: Mapped[List["PollOption"]] = relationship(
         back_populates="poll", cascade="all, delete-orphan",

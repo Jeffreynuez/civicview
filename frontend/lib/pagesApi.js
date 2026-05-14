@@ -123,6 +123,17 @@ export async function filterComments({ source, sourceId, prompt }) {
   });
 }
 
+// Natural-language filter for the /polls feed. Same response shape
+// as filterComments; `kind` (optional) narrows the search to a
+// specific poll kind ('rep' | 'citizen' | 'standalone') and mirrors
+// the chip-row selection on the /polls page.
+export async function filterPolls({ prompt, kind } = {}) {
+  return request('/api/ai/filter-polls', {
+    method: 'POST',
+    body: { prompt, kind },
+  });
+}
+
 // TL;DR of a single rep post. Returns:
 //   { summary: string, word_count_original: number, word_count_summary: number }
 // Endpoint returns 503 when AI is unconfigured / budget-exceeded; the

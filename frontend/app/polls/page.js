@@ -27,6 +27,8 @@ import Link from 'next/link';
 import {
   fetchPollsFeed,
   createStandalonePoll,
+  aiHealth,
+  filterPolls,
 } from '@/lib/pagesApi';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 
@@ -62,6 +64,21 @@ export default function PollsPage() {
   const [kindFilter, setKindFilter] = useState('all');
   const [composerOpen, setComposerOpen] = useState(false);
 
+  // AI filter state — same shape as the comment-thread filter.
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiFilterIds, setAiFilterIds] = useState(null); // Set<id> or null
+  const [aiFilterLabel, setAiFilterLabel] = useState('');
+  const [aiFilterBusy, setAiFilterBusy] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    aiHealth().then(({ data }) => {
+      if (!cancelled && data) setAiAvailable(Boolean(data.configured));
+    });
+    return () => { cancelled = true; };
+  }, []);
+
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -75,9 +92,41 @@ export default function PollsPage() {
       return;
     }
     setItems(data.items || []);
+    // Clear any active AI filter when the kind filter changes —
+    // the matched_ids set might reference polls that fell out of
+    // the new server response.
+    setAiFilterIds(null);
+    setAiFilterLabel('');
   }, [kindFilter]);
 
   useEffect(() => { load(); }, [load]);
+
+  const runAiFilter = async (prompt) => {
+    const trimmed = (prompt || '').trim();
+    if (!trimmed) return;
+    setAiFilterBusy(true);
+    const { data, error: err } = await filterPolls({
+      prompt: trimmed,
+      kind: kindFilter === 'all' ? undefined : kindFilter,
+    });
+    setAiFilterBusy(false);
+    if (err || !data) {
+      setError(err || 'AI filter failed.');
+      return;
+    }
+    setAiFilterIds(new Set(data.matched_ids || []));
+    setAiFilterLabel(data.explanation || `Filtered: ${trimmed}`);
+  };
+  const clearAiFilter = () => {
+    setAiFilterIds(null);
+    setAiFilterLabel('');
+    setAiPrompt('');
+  };
+
+  const visibleItems = useMemo(() => {
+    if (aiFilterIds === null) return items;
+    return items.filter((p) => aiFilterIds.has(p.id));
+  }, [items, aiFilterIds]);
 
   const onCreated = (poll) => {
     setComposerOpen(false);
@@ -160,6 +209,109 @@ export default function PollsPage() {
         )}
       </div>
 
+      {/* AI filter row — chip presets + free-form input. Only renders
+          when AI is configured server-side AND there are at least 2
+          polls to filter against (no point filtering a list of one). */}
+      {aiAvailable && items.length > 1 && (
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
+            {[
+              { label: 'Positive', prompt: 'positive polls' },
+              { label: 'Critical', prompt: 'critical polls' },
+              { label: 'Funny', prompt: 'funny polls' },
+              { label: 'Supportive', prompt: 'supportive polls' },
+              { label: 'Skeptical', prompt: 'skeptical polls questioning the data' },
+              { label: 'Informative', prompt: 'informative polls' },
+            ].map((chip) => (
+              <button
+                key={chip.label}
+                type="button"
+                onClick={() => runAiFilter(chip.prompt)}
+                disabled={aiFilterBusy}
+                style={{
+                  padding: '4px 10px',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 999,
+                  background: 'white',
+                  color: 'var(--cl-text)',
+                  fontSize: '0.74rem', fontWeight: 600,
+                  cursor: aiFilterBusy ? 'wait' : 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                {chip.label}
+              </button>
+            ))}
+            <form
+              onSubmit={(e) => { e.preventDefault(); runAiFilter(aiPrompt); }}
+              style={{ display: 'flex', gap: 6, flex: 1, minWidth: 220 }}
+            >
+              <input
+                type="text"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value.slice(0, 300))}
+                placeholder="✨ Filter polls… (e.g. 'about taxes' or 'from @Fred')"
+                disabled={aiFilterBusy}
+                style={{
+                  flex: 1, minWidth: 0,
+                  padding: '4px 10px',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 999,
+                  background: 'white', color: 'var(--cl-text)',
+                  fontSize: '0.74rem', fontFamily: 'inherit',
+                }}
+              />
+              <button
+                type="submit"
+                disabled={aiFilterBusy || !aiPrompt.trim()}
+                style={{
+                  padding: '4px 12px',
+                  border: '1px solid var(--cl-accent)',
+                  background: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-bg)' : 'var(--cl-accent)',
+                  color: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-text-light)' : 'white',
+                  borderRadius: 999,
+                  fontSize: '0.74rem', fontWeight: 700,
+                  cursor: aiFilterBusy ? 'wait' : 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                {aiFilterBusy ? '…' : 'Apply'}
+              </button>
+            </form>
+          </div>
+          {aiFilterIds !== null && (
+            <div
+              style={{
+                marginTop: 8,
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '6px 10px',
+                background: 'var(--cl-accent-soft)',
+                border: '1px solid var(--cl-accent-soft)',
+                borderRadius: 8,
+                fontSize: '0.74rem',
+                color: 'var(--cl-text)',
+              }}
+            >
+              <span style={{ flex: 1 }}>
+                {aiFilterLabel} — showing {aiFilterIds.size} of {items.length}
+              </span>
+              <button
+                type="button"
+                onClick={clearAiFilter}
+                style={{
+                  background: 'transparent', border: 'none',
+                  color: 'var(--cl-accent)', cursor: 'pointer',
+                  fontSize: '0.74rem', fontWeight: 700,
+                  fontFamily: 'inherit',
+                }}
+              >
+                Clear ✕
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
       {error && (
         <div
           role="alert"
@@ -203,7 +355,31 @@ export default function PollsPage() {
         </div>
       )}
 
-      {items.length > 0 && (
+      {items.length > 0 && visibleItems.length === 0 && aiFilterIds !== null && (
+        <div
+          style={{
+            border: '1px dashed var(--cl-border)',
+            borderRadius: 12,
+            padding: '24px',
+            textAlign: 'center',
+            color: 'var(--cl-text-light)',
+          }}
+        >
+          No polls matched that filter.{' '}
+          <button
+            type="button"
+            onClick={clearAiFilter}
+            style={{
+              background: 'transparent', border: 'none',
+              color: 'var(--cl-accent)', cursor: 'pointer',
+              fontWeight: 600, fontFamily: 'inherit', padding: 0,
+            }}
+          >
+            Show all
+          </button>
+        </div>
+      )}
+      {visibleItems.length > 0 && (
         <div
           style={{
             display: 'grid',
@@ -211,7 +387,7 @@ export default function PollsPage() {
             gap: 14,
           }}
         >
-          {items.map((p) => <PollFeedCard key={p.id} poll={p} />)}
+          {visibleItems.map((p) => <PollFeedCard key={p.id} poll={p} />)}
         </div>
       )}
 

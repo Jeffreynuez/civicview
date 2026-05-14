@@ -499,6 +499,7 @@ def get_page(
 def create_post(
     official_id: str,
     payload: PostCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     rep: RepAccount = Depends(get_current_rep),
 ):
@@ -512,8 +513,9 @@ def create_post(
     db.add(post)
     db.flush()  # populate post.id for the poll FK
 
+    attached_poll_id: Optional[int] = None
     if payload.poll is not None:
-        _attach_poll(db, post, payload.poll, owner=rep)
+        attached_poll_id = _attach_poll(db, post, payload.poll, owner=rep)
 
     # Claim uploaded images by post_id. We fetch all requested rows in
     # one query, then iterate the client's id list to preserve gallery
@@ -542,10 +544,19 @@ def create_post(
     db.refresh(post)
     if post.poll:
         db.refresh(post.poll)
+
+    # Kick off AI classification for the attached poll (if any) so
+    # the /polls feed picks up sentiment/tones/topic tags. Background
+    # task fires after the request returns — no latency hit for the
+    # rep posting. No-op when AI isn't configured server-side.
+    if attached_poll_id is not None:
+        from app.services.poll_classifier import classify_poll
+        bg_tasks.add_task(classify_poll, attached_poll_id)
+
     return _post_to_read(post, owner=rep, db=db, is_owner_viewing=True)
 
 
-def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount) -> None:
+def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount) -> Optional[int]:
     # Validate the requested default scope is one this office actually
     # supports. A senator can't demand a "district" default because they
     # don't have one; we silently clamp to 'country' rather than 400 so
@@ -580,6 +591,7 @@ def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount
             text=opt.text.strip(),
             sort_order=idx,
         ))
+    return poll.id
 
 
 @router.delete("/posts/{post_id}", status_code=204)

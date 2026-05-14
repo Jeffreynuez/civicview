@@ -271,6 +271,7 @@ def list_citizen_polls_on_page(
 def create_citizen_poll(
     official_id: str,
     payload: CitizenPollCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     citizen: CitizenAccount = Depends(get_current_citizen),
 ):
@@ -350,6 +351,11 @@ def create_citizen_poll(
     for o in poll.options:
         db.refresh(o)
 
+    # Kick off AI classification in the background — same pattern as
+    # comment classification. No-op if AI isn't configured.
+    from app.services.poll_classifier import classify_poll
+    bg_tasks.add_task(classify_poll, poll.id)
+
     return serialize_citizen_poll(db, poll, citizen, None)
 
 
@@ -361,6 +367,7 @@ def create_citizen_poll(
 )
 def create_standalone_poll(
     payload: CitizenPollCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     citizen: CitizenAccount = Depends(get_current_citizen),
 ):
@@ -431,6 +438,11 @@ def create_standalone_poll(
     db.refresh(poll)
     for o in poll.options:
         db.refresh(o)
+
+    # Classification kicks off in the background — same as per-page
+    # poll creation. The /polls feed picks up the tags once they land.
+    from app.services.poll_classifier import classify_poll
+    bg_tasks.add_task(classify_poll, poll.id)
 
     return serialize_citizen_poll(db, poll, citizen, None)
 

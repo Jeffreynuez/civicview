@@ -26,7 +26,14 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models.pages import PollComment, Post, PostComment
+from app.models.pages import (
+    CitizenAccount,
+    Poll,
+    PollComment,
+    Post,
+    PostComment,
+    RepAccount,
+)
 from app.services import ai_service
 
 
@@ -399,4 +406,218 @@ def summarize_post(
         summary=summary,
         word_count_original=len(body.split()),
         word_count_summary=len(summary.split()),
+    )
+
+
+# ── /filter-polls ────────────────────────────────────────────────────
+# Sibling of /filter-comments for the /polls global feed. Same hybrid
+# routing: author lookup → structured filter on stored ai_* columns →
+# semantic Claude call. Active polls only (archived_at IS NULL).
+class PollFilterRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, max_length=300)
+    # Optional kind narrowing — same shape as the /polls UI's chip
+    # row. Saves a per-poll-kind pre-filter on the client.
+    kind: Optional[Literal["rep", "citizen", "standalone"]] = None
+
+
+class PollFilterResponse(BaseModel):
+    matched_ids: List[int]
+    method: Literal["author", "structured", "semantic", "passthrough"]
+    explanation: str
+
+
+_POLL_AUTHOR_RE = re.compile(r"@(\w+)")
+
+
+def _load_active_polls(db: Session, kind: Optional[str]):
+    """Active polls only. The kind filter mirrors /api/feed/polls."""
+    q = db.query(Poll).filter(Poll.archived_at.is_(None))
+    if kind == "rep":
+        q = q.filter(Poll.author_kind == "rep")
+    elif kind == "citizen":
+        q = q.filter(
+            Poll.author_kind == "citizen",
+            Poll.target_official_id.is_not(None),
+        )
+    elif kind == "standalone":
+        q = q.filter(
+            Poll.author_kind == "citizen",
+            Poll.target_official_id.is_(None),
+        )
+    return q.order_by(Poll.created_at.desc()).limit(500).all()
+
+
+def _poll_author_label(db: Session, poll: Poll) -> str:
+    """Resolve a poll's author display name. Used by the @-mention
+    branch."""
+    if poll.author_kind == "citizen":
+        cz = (
+            db.query(CitizenAccount)
+            .filter(CitizenAccount.id == poll.author_citizen_id)
+            .first()
+        )
+        return cz.display_name if cz else ""
+    # Rep poll — author lives via the attached post.
+    if not poll.post_id:
+        return ""
+    post = db.get(Post, poll.post_id)
+    if post is None:
+        return ""
+    rep = db.get(RepAccount, post.author_id) if post.author_id else None
+    return rep.display_name if rep else ""
+
+
+def _try_poll_author_filter(prompt: str, polls) -> Optional[List[int]]:
+    handles = _POLL_AUTHOR_RE.findall(prompt)
+    if not handles:
+        return None
+    handles_lc = {h.lower() for h in handles}
+    matched: List[int] = []
+    # Need a DB session, but polls were loaded with one; we can pull
+    # it from the bind. Simpler: just iterate and look up author per
+    # poll. Bounded by limit=500 above so this is fine.
+    from app.db import SessionLocal as _SL
+    with _SL() as db2:
+        for p in polls:
+            name = _poll_author_label(db2, p).lower()
+            words = set(re.findall(r"\w+", name))
+            if any(h in words or h == name.replace(" ", "") for h in handles_lc):
+                matched.append(p.id)
+    return matched
+
+
+def _try_poll_structured_filter(prompt: str, polls) -> Optional[List[int]]:
+    """Translate prompt keywords to filters on the stored ai_* fields.
+    Reuses the same vocabulary as the comment filter so prompts work
+    uniformly across both surfaces."""
+    pl = prompt.lower()
+    matched_sentiment: Optional[str] = None
+    for bucket, keywords in _SENTIMENT_KEYWORDS.items():
+        if any(re.search(rf"\b{re.escape(kw)}\b", pl) for kw in keywords):
+            matched_sentiment = bucket
+            break
+    matched_tones: List[str] = []
+    for keyword, tone_value in _TONE_KEYWORDS.items():
+        if re.search(rf"\b{re.escape(keyword)}\b", pl):
+            if tone_value not in matched_tones:
+                matched_tones.append(tone_value)
+    if not matched_sentiment and not matched_tones:
+        return None
+
+    out: List[int] = []
+    for p in polls:
+        if p.ai_classified_at is None and p.ai_sentiment is None and not p.ai_tones:
+            continue
+        if matched_sentiment and (p.ai_sentiment or "") != matched_sentiment:
+            continue
+        if matched_tones:
+            poll_tones = set((p.ai_tones or "").split(",")) if p.ai_tones else set()
+            if not any(t in poll_tones for t in matched_tones):
+                continue
+        out.append(p.id)
+    return out
+
+
+def _semantic_poll_filter(prompt: str, polls) -> Optional[List[int]]:
+    """Fallback: send the prompt + a compact view of each poll
+    (id, sentiment, tones, topic, question snippet) to Claude and
+    ask which IDs match the user's intent. Returns None on parse
+    failure so the caller falls back to passthrough."""
+    if not polls:
+        return []
+    lines = []
+    for p in polls:
+        snippet = (p.question or "").replace("\n", " ").strip()
+        if len(snippet) > 140:
+            snippet = snippet[:137] + "..."
+        lines.append(
+            f"{p.id}|"
+            f"{p.ai_sentiment or '?'}|"
+            f"{p.ai_tones or '?'}|"
+            f"{p.ai_topic or '?'}|"
+            f"{snippet}"
+        )
+    user_msg = (
+        "Polls are listed below, one per line:\n"
+        "id|sentiment|tones|topic|question\n"
+        + "\n".join(lines)
+        + "\n\nUser asked: \"" + prompt + "\"\n"
+        + "Return ONLY a JSON array of integer poll IDs that match. "
+        "If nothing matches, return []."
+    )
+    system = (
+        "You filter a list of pre-classified civic polls by user "
+        "intent. Respond with ONLY a JSON array of integer poll IDs "
+        "from the list that match the user's intent. No prose, no "
+        "explanation, no code fences. Empty array is valid."
+    )
+    result = ai_service.chat(
+        system=system,
+        messages=[{"role": "user", "content": user_msg}],
+        max_tokens=1500,
+        temperature=0.0,
+    )
+    if result.error or not result.text:
+        logger.info("filter-polls semantic fallback failed: %s", result.error)
+        return None
+    txt = result.text.strip()
+    m = re.search(r"\[[^\]]*\]", txt)
+    if not m:
+        return None
+    try:
+        parsed = json.loads(m.group(0))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(parsed, list):
+        return None
+    source_ids = {p.id for p in polls}
+    return [int(x) for x in parsed if isinstance(x, (int, float)) and int(x) in source_ids]
+
+
+@router.post("/filter-polls", response_model=PollFilterResponse)
+def filter_polls(
+    req: PollFilterRequest,
+    db: Session = Depends(get_db),
+) -> PollFilterResponse:
+    """Filter the /polls feed by a natural-language prompt.
+
+    Routing (cheapest path wins):
+      1. Author filter (@name) — SQL-ish on display_name. No AI call.
+      2. Structured filter on ai_sentiment / ai_tones — no AI call.
+      3. Semantic filter — Claude examines the pre-classified set
+         and returns matching ids.
+    """
+    polls = _load_active_polls(db, req.kind)
+    if not polls:
+        return PollFilterResponse(matched_ids=[], method="passthrough", explanation="No polls in this view.")
+
+    author_ids = _try_poll_author_filter(req.prompt, polls)
+    if author_ids is not None:
+        handles = sorted(set(_POLL_AUTHOR_RE.findall(req.prompt)))
+        return PollFilterResponse(
+            matched_ids=author_ids,
+            method="author",
+            explanation=f"Filtered to polls from: @{', @'.join(handles)}",
+        )
+
+    structured_ids = _try_poll_structured_filter(req.prompt, polls)
+    if structured_ids is not None:
+        # Reuse the comment filter's explanation builder — same vocab.
+        return PollFilterResponse(
+            matched_ids=structured_ids,
+            method="structured",
+            explanation=_explain_structured(req.prompt),
+        )
+
+    semantic_ids = _semantic_poll_filter(req.prompt, polls)
+    if semantic_ids is None:
+        return PollFilterResponse(
+            matched_ids=[p.id for p in polls],
+            method="passthrough",
+            explanation="Couldn't apply filter (AI unavailable). Showing all polls.",
+        )
+    return PollFilterResponse(
+        matched_ids=semantic_ids,
+        method="semantic",
+        explanation=f'AI-filtered for: "{req.prompt}"',
     )
