@@ -26,3 +26,10 @@ python-multipart>=0.0.9,<1
 # `-binary` distribution avoids needing libpq + a C toolchain on
 # the build machine, which Render's free build tier doesn't have.
 psycopg2-binary>=2.9,<3
+# Anthropic API client — powers AI features (comment classification,
+# post summaries, etc.). The client is initialized lazily inside
+# app/services/ai_service.py so a missing ANTHROPIC_API_KEY at boot
+# just degrades the AI surfaces to "Coming soon" without taking the
+# whole API down. Version floor 0.40 is the first release with
+# native streaming + citations support; ceiling is the next major.
+anthropic>=0.40,<1
