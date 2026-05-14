@@ -47,6 +47,21 @@ services:
         value: "none"         # cross-origin cookie (frontend on Vercel)
       - key: GOOGLE_CIVIC_API_KEY
         sync: false           # optional — leave unset until BallotTab live data is needed
+      # AI features (comment classification, post summaries, etc.)
+      # are powered by Anthropic's Claude Haiku 4.5. The backend boots
+      # fine without this key — AI surfaces just degrade to a
+      # "Coming soon" state until the key is set. Get a key from
+      # https://console.anthropic.com → API Keys.
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # Optional per-day token caps in app/services/ai_service.py.
+      # Set both to 0 in dev if you want to disable the safeguard.
+      # Defaults are 60M input / 15M output tokens per day (roughly
+      # $135 worst-case at Haiku rates).
+      - key: AI_DAILY_INPUT_TOKEN_CAP
+        sync: false
+      - key: AI_DAILY_OUTPUT_TOKEN_CAP
+        sync: false
       - key: PYTHONUNBUFFERED
         value: "1"            # flush logs immediately so Render shows them in real time
 
