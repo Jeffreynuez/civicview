@@ -16,6 +16,7 @@ import {
   resolveImageUrl,
   aiHealth,
   filterComments,
+  summarizePost,
 } from '../lib/pagesApi';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
@@ -173,6 +174,36 @@ export default function PostCard({
     setAiFilterLabel('');
     setAiFilterErr(null);
     setAiPrompt('');
+  };
+
+  // ── AI summary ─────────────────────────────────────────────────────
+  // Only meaningful for long posts. We render the affordance when
+  // (a) AI is available AND (b) the post body is "long" (~300 words).
+  // 300 chosen empirically: shorter than a typical statement, longer
+  // than a one-liner update. `aiSummary` holds the result; `aiSummaryBusy`
+  // gates the button label.
+  const [aiSummary, setAiSummary] = useState(null);
+  const [aiSummaryBusy, setAiSummaryBusy] = useState(false);
+  const [aiSummaryErr, setAiSummaryErr] = useState(null);
+  const bodyWordCount = (post.body || '').trim().split(/\s+/).filter(Boolean).length;
+  const showSummarizeButton = aiAvailable && bodyWordCount >= 300;
+
+  const handleSummarize = async () => {
+    if (aiSummaryBusy) return;
+    setAiSummaryBusy(true);
+    setAiSummaryErr(null);
+    const { data, error } = await summarizePost(post.id);
+    setAiSummaryBusy(false);
+    if (error || !data) {
+      setAiSummaryErr(error || 'Summary failed');
+      return;
+    }
+    setAiSummary(data);
+  };
+
+  const clearSummary = () => {
+    setAiSummary(null);
+    setAiSummaryErr(null);
   };
 
   const loadComments = async () => {
@@ -339,6 +370,101 @@ export default function PostCard({
           </button>
         )}
       </div>
+
+      {/* AI Summary — long posts only. Tucked between header and body
+          so it reads as "here's the TL;DR" before the user dives into
+          the full text. Once requested, the summary card stays open
+          (the user can dismiss it) and the button is hidden so we
+          don't double-render the affordance. */}
+      {showSummarizeButton && !aiSummary && (
+        <div style={{ marginTop: 10 }}>
+          <button
+            type="button"
+            onClick={handleSummarize}
+            disabled={aiSummaryBusy}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '4px 10px',
+              border: '1px solid var(--cl-border)',
+              background: 'var(--cl-accent-soft)',
+              color: 'var(--cl-accent)',
+              borderRadius: 999,
+              fontSize: '0.74rem', fontWeight: 700,
+              cursor: aiSummaryBusy ? 'wait' : 'pointer',
+              fontFamily: 'inherit',
+            }}
+            title={`Summarize this ${bodyWordCount}-word post into a quick TL;DR`}
+          >
+            ✨ {aiSummaryBusy ? 'Summarizing…' : 'Summarize'}
+          </button>
+          {aiSummaryErr && (
+            <span style={{ color: '#d63031', fontSize: '0.72rem', marginLeft: 10 }}>
+              {aiSummaryErr}
+            </span>
+          )}
+        </div>
+      )}
+      {aiSummary && (
+        <div
+          style={{
+            marginTop: 10,
+            padding: '10px 12px',
+            background: 'var(--cl-accent-soft)',
+            border: '1px solid var(--cl-accent-soft)',
+            borderRadius: 10,
+          }}
+        >
+          <div
+            style={{
+              display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+              gap: 8, marginBottom: 4,
+            }}
+          >
+            <div
+              style={{
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                color: 'var(--cl-accent)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              ✨ AI summary
+            </div>
+            <button
+              type="button"
+              onClick={clearSummary}
+              style={{
+                background: 'transparent', border: 'none',
+                color: 'var(--cl-text-light)', cursor: 'pointer',
+                fontSize: '0.72rem', fontFamily: 'inherit',
+              }}
+            >
+              Dismiss
+            </button>
+          </div>
+          <div
+            style={{
+              fontSize: '0.86rem',
+              lineHeight: 1.55,
+              color: 'var(--cl-text)',
+              whiteSpace: 'pre-wrap',
+            }}
+          >
+            {aiSummary.summary}
+          </div>
+          <div
+            style={{
+              marginTop: 6,
+              fontSize: '0.7rem',
+              color: 'var(--cl-text-light)',
+              fontStyle: 'italic',
+            }}
+          >
+            Condensed {aiSummary.word_count_original} words → {aiSummary.word_count_summary} words. AI-generated; verify against the full post below.
+          </div>
+        </div>
+      )}
 
       {/* Body */}
       <div

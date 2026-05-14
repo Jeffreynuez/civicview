@@ -123,6 +123,15 @@ export async function filterComments({ source, sourceId, prompt }) {
   });
 }
 
+// TL;DR of a single rep post. Returns:
+//   { summary: string, word_count_original: number, word_count_summary: number }
+// Endpoint returns 503 when AI is unconfigured / budget-exceeded; the
+// UI surfaces those as "Summary unavailable" and hides the button on
+// subsequent loads via the aiHealth() probe.
+export async function summarizePost(postId) {
+  return request(`/api/ai/summarize-post/${encodeURIComponent(postId)}`);
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }

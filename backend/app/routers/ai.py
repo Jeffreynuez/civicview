@@ -26,7 +26,7 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models.pages import PollComment, PostComment
+from app.models.pages import PollComment, Post, PostComment
 from app.services import ai_service
 
 
@@ -318,4 +318,85 @@ def filter_comments(
         matched_ids=semantic_ids,
         method="semantic",
         explanation=f'AI-filtered for: "{req.prompt}"',
+    )
+
+
+# ── /summarize-post ─────────────────────────────────────────────────
+class PostSummaryResponse(BaseModel):
+    summary: str
+    word_count_original: int
+    word_count_summary: int
+    cached: bool = False  # reserved for future caching; always False today
+
+
+_SUMMARY_SYSTEM = """\
+You produce a TL;DR for a single post written by a US elected
+representative or candidate on CivicView (a civic-engagement app).
+
+Rules:
+- Write ONE short paragraph, 2-3 sentences, max ~50 words.
+- Use plain English. Translate jargon (committee names, bill numbers,
+  legislative terms) into what a constituent would understand.
+- Preserve concrete numbers and names when they appear in the post.
+- Do NOT inject opinion, fact-check, or context the post didn't include.
+- Do NOT start with "The representative" or "This post" — start with
+  the substance.
+- Output ONLY the summary. No preamble, no markdown, no bullet points.
+"""
+
+
+@router.get("/summarize-post/{post_id}", response_model=PostSummaryResponse)
+def summarize_post(
+    post_id: int,
+    db: Session = Depends(get_db),
+) -> PostSummaryResponse:
+    """One-shot non-streaming summary of a single post.
+
+    Public: no auth needed. The body is already public via
+    /api/pages/{official_id}, so anyone who can read the post can
+    summarize it. We don't gate behind login because the whole
+    point of summaries is to lower the bar to scanning a long
+    post — a sign-in wall undoes that.
+
+    Threshold: the frontend only renders the "Summarize" button
+    when the post is longer than ~300 words. Short posts don't
+    need summarization; we still allow the call though so a
+    user-driven feature like "summarize this short post anyway"
+    works without endpoint changes.
+
+    Cost note: at Haiku rates a 500-word post → ~750 input tokens +
+    50-100 output tokens ≈ $0.001 per call. Cheap, but a popular
+    post could rack up calls — caching on (post_id, body_hash) is
+    a follow-up if abuse shows up.
+    """
+    post = (
+        db.query(Post)
+        .filter(Post.id == post_id, Post.deleted_at.is_(None))
+        .first()
+    )
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+
+    body = (post.body or "").strip()
+    if not body:
+        raise HTTPException(status_code=400, detail="Post has no body to summarize")
+
+    result = ai_service.chat(
+        system=_SUMMARY_SYSTEM,
+        messages=[{"role": "user", "content": f"Post to summarize:\n\n{body}"}],
+        max_tokens=200,
+        temperature=0.2,
+    )
+    if result.error == "not_configured":
+        raise HTTPException(status_code=503, detail="AI is not configured on this deployment.")
+    if result.error == "budget_exceeded":
+        raise HTTPException(status_code=503, detail="Daily AI budget reached. Try again tomorrow.")
+    if result.error or not result.text:
+        raise HTTPException(status_code=502, detail="Summarization failed. Please try again.")
+
+    summary = result.text.strip()
+    return PostSummaryResponse(
+        summary=summary,
+        word_count_original=len(body.split()),
+        word_count_summary=len(summary.split()),
     )
