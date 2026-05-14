@@ -488,6 +488,34 @@ Index("uq_comment_report_citizen", CommentReport.comment_id, CommentReport.repor
 Index("uq_comment_report_rep", CommentReport.comment_id, CommentReport.reporter_rep_id, unique=True)
 
 
+class PollCommentReport(Base):
+    """Same shape as CommentReport — separate table so it FK's cleanly
+    to poll_comments rather than post_comments. Citizens and reps
+    can both report poll comments under the standard mutually-
+    exclusive-session contract.
+    """
+    __tablename__ = "poll_comment_reports"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    poll_comment_id: Mapped[int] = mapped_column(
+        ForeignKey("poll_comments.id", ondelete="CASCADE"), index=True,
+    )
+    reporter_citizen_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reporter_rep_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="SET NULL"), default=None, index=True,
+    )
+    reason: Mapped[str] = mapped_column(String(64))
+    detail: Mapped[Optional[str]] = mapped_column(String(1000), default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
+    acted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+Index("uq_poll_comment_report_citizen", PollCommentReport.poll_comment_id, PollCommentReport.reporter_citizen_id, unique=True)
+Index("uq_poll_comment_report_rep", PollCommentReport.poll_comment_id, PollCommentReport.reporter_rep_id, unique=True)
+
+
 class PollOption(Base):
     __tablename__ = "poll_options"
 

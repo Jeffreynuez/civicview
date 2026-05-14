@@ -35,7 +35,11 @@ import {
   reportCitizenPoll,
   listCitizenPollComments,
   createCitizenPollComment,
+  deletePollComment,
+  reportPollComment,
   dismissPreClaimArchive,
+  aiHealth,
+  filterComments,
 } from '../lib/pagesApi';
 
 const REPORT_REASONS = [
@@ -753,6 +757,7 @@ function CitizenPollCard({
           pollId={poll.id}
           citizen={citizen}
           archived={archived}
+          isOwner={isOwner}
           onCitizenLoginRequired={onCitizenLoginRequired}
         />
       )}
@@ -820,12 +825,24 @@ function relTime(iso) {
 // ─────────────────────────────────────────────────────────────────────
 // Comments thread
 // ─────────────────────────────────────────────────────────────────────
-function CommentsThread({ pollId, citizen, archived, onCitizenLoginRequired }) {
+function CommentsThread({ pollId, citizen, archived, isOwner, onCitizenLoginRequired }) {
   const [comments, setComments] = useState(null);
   const [loading, setLoading] = useState(true);
   const [draft, setDraft] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  // AI affordance + report state — same pattern as PostCard. The
+  // backend's /api/ai/filter-comments endpoint already supports
+  // source='poll', so we only need to pass that flag from the
+  // wrapper and otherwise mirror the PostCard UX.
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiFilterIds, setAiFilterIds] = useState(null);
+  const [aiFilterLabel, setAiFilterLabel] = useState('');
+  const [aiFilterBusy, setAiFilterBusy] = useState(false);
+  const [aiFilterErr, setAiFilterErr] = useState(null);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [reportedCommentIds, setReportedCommentIds] = useState(() => new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -837,6 +854,14 @@ function CommentsThread({ pollId, citizen, archived, onCitizenLoginRequired }) {
     })();
     return () => { cancelled = true; };
   }, [pollId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    aiHealth().then(({ data }) => {
+      if (!cancelled && data) setAiAvailable(Boolean(data.configured));
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -853,6 +878,67 @@ function CommentsThread({ pollId, citizen, archived, onCitizenLoginRequired }) {
     setComments((prev) => [data, ...(prev || [])]);
     setDraft('');
   };
+
+  // Author-only delete; reps + other citizens use Report instead.
+  const handleDelete = async (commentId) => {
+    const ok = typeof window !== 'undefined'
+      ? window.confirm('Delete this comment?') : true;
+    if (!ok) return;
+    const { error: err } = await deletePollComment(commentId);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setComments((prev) => (prev ? prev.filter((x) => x.id !== commentId) : prev));
+  };
+
+  // Sign-in-required report. Idempotent server-side; we mirror that
+  // by tracking IDs locally and flipping the button to "Reported ✓".
+  const handleReport = async (commentId) => {
+    const { error: err } = await reportPollComment(commentId);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setReportedCommentIds((prev) => {
+      const next = new Set(prev);
+      next.add(commentId);
+      return next;
+    });
+  };
+
+  // Natural-language filter. Backend routes to author / structured /
+  // semantic paths internally; we just send the prompt and apply the
+  // returned ID set as a render-time filter.
+  const runFilter = async (prompt) => {
+    const trimmed = (prompt || '').trim();
+    if (!trimmed) return;
+    setAiFilterBusy(true);
+    setAiFilterErr(null);
+    const { data, error: err } = await filterComments({
+      source: 'poll',
+      sourceId: pollId,
+      prompt: trimmed,
+    });
+    setAiFilterBusy(false);
+    if (err || !data) {
+      setAiFilterErr(err || 'Filter failed');
+      return;
+    }
+    setAiFilterIds(new Set(data.matched_ids || []));
+    setAiFilterLabel(data.explanation || `Filtered: ${trimmed}`);
+  };
+  const clearFilter = () => {
+    setAiFilterIds(null);
+    setAiFilterLabel('');
+    setAiFilterErr(null);
+    setAiPrompt('');
+  };
+
+  const reporterSignedIn = !!citizen || !!isOwner;
+  const visibleComments = comments
+    ? comments.filter((c) => aiFilterIds === null || aiFilterIds.has(c.id))
+    : comments;
 
   return (
     <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--cl-border)' }}>
@@ -909,6 +995,116 @@ function CommentsThread({ pollId, citizen, archived, onCitizenLoginRequired }) {
         )}
       </form>
 
+      {/* AI filter row — chips + free-form input. Mirrors PostCard;
+          hidden when AI isn't configured server-side OR when there
+          are too few comments to make filtering useful. */}
+      {aiAvailable && comments && comments.length > 1 && (
+        <div style={{ marginBottom: 10 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
+            {[
+              { label: 'Positive', prompt: 'positive comments' },
+              { label: 'Critical', prompt: 'critical comments' },
+              { label: 'Funny', prompt: 'funny comments' },
+              { label: 'Supportive', prompt: 'supportive comments' },
+              { label: 'Skeptical', prompt: 'skeptical comments questioning the data' },
+            ].map((chip) => (
+              <button
+                key={chip.label}
+                type="button"
+                onClick={() => runFilter(chip.prompt)}
+                disabled={aiFilterBusy}
+                style={{
+                  padding: '4px 10px',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 999,
+                  background: 'white',
+                  color: 'var(--cl-text)',
+                  fontSize: '0.74rem', fontWeight: 600,
+                  cursor: aiFilterBusy ? 'wait' : 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                {chip.label}
+              </button>
+            ))}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                runFilter(aiPrompt);
+              }}
+              style={{ display: 'flex', gap: 6, flex: 1, minWidth: 200 }}
+            >
+              <input
+                type="text"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value.slice(0, 300))}
+                placeholder="✨ Filter comments… (e.g. 'show ones from @Fred')"
+                disabled={aiFilterBusy}
+                style={{
+                  flex: 1, minWidth: 0,
+                  padding: '4px 10px',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 999,
+                  background: 'white', color: 'var(--cl-text)',
+                  fontSize: '0.74rem', fontFamily: 'inherit',
+                }}
+              />
+              <button
+                type="submit"
+                disabled={aiFilterBusy || !aiPrompt.trim()}
+                style={{
+                  padding: '4px 12px',
+                  border: '1px solid var(--cl-accent)',
+                  background: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-bg)' : 'var(--cl-accent)',
+                  color: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-text-light)' : 'white',
+                  borderRadius: 999,
+                  fontSize: '0.74rem', fontWeight: 700,
+                  cursor: aiFilterBusy ? 'wait' : 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                {aiFilterBusy ? '…' : 'Apply'}
+              </button>
+            </form>
+          </div>
+          {aiFilterErr && (
+            <div style={{ color: '#d63031', fontSize: '0.72rem', marginTop: 6 }}>
+              {aiFilterErr}
+            </div>
+          )}
+          {aiFilterIds !== null && (
+            <div
+              style={{
+                marginTop: 8,
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '6px 10px',
+                background: 'var(--cl-accent-soft)',
+                border: '1px solid var(--cl-accent-soft)',
+                borderRadius: 8,
+                fontSize: '0.74rem',
+                color: 'var(--cl-text)',
+              }}
+            >
+              <span style={{ flex: 1 }}>
+                {aiFilterLabel} — showing {aiFilterIds.size} of {comments.length}
+              </span>
+              <button
+                type="button"
+                onClick={clearFilter}
+                style={{
+                  background: 'transparent', border: 'none',
+                  color: 'var(--cl-accent)', cursor: 'pointer',
+                  fontSize: '0.74rem', fontWeight: 700,
+                  fontFamily: 'inherit',
+                }}
+              >
+                Clear ✕
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
       {loading && (
         <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>Loading comments…</div>
       )}
@@ -917,31 +1113,89 @@ function CommentsThread({ pollId, citizen, archived, onCitizenLoginRequired }) {
           Be the first to comment.
         </div>
       )}
-      {!loading && comments && comments.map((c) => (
-        <div
-          key={c.id}
-          style={{
-            padding: '8px 0',
-            borderBottom: '1px solid var(--cl-border)',
-            display: 'flex',
-            gap: 10,
-            alignItems: 'flex-start',
-          }}
-        >
-          <CitizenAvatar name={c.citizen_display_name} />
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cl-text)' }}>
-              {c.citizen_display_name}
-              <span style={{ fontWeight: 400, color: 'var(--cl-text-light)', fontSize: '0.74rem', marginLeft: 6 }}>
-                {[c.scope_district || c.scope_state, c.scope_city, relTime(c.created_at)].filter(Boolean).join(' · ')}
-              </span>
-            </div>
-            <div style={{ fontSize: '0.86rem', color: 'var(--cl-text)', marginTop: 2, whiteSpace: 'pre-wrap' }}>
-              {c.body}
+      {!loading && visibleComments && visibleComments.length === 0 && comments && comments.length > 0 && (
+        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
+          No comments matched that filter. <button
+            type="button"
+            onClick={clearFilter}
+            style={{
+              background: 'transparent', border: 'none',
+              color: 'var(--cl-accent)', cursor: 'pointer',
+              fontSize: '0.78rem', fontWeight: 600, fontFamily: 'inherit',
+              padding: 0, marginLeft: 4,
+            }}
+          >Show all</button>
+        </div>
+      )}
+      {!loading && visibleComments && visibleComments.map((c) => {
+        const isMyComment = !!citizen && c.citizen_display_name === citizen.display_name;
+        const canDelete = isMyComment;
+        const canReport = reporterSignedIn && !isMyComment && !reportedCommentIds.has(c.id);
+        const reportedThis = reportedCommentIds.has(c.id);
+        return (
+          <div
+            key={c.id}
+            style={{
+              padding: '8px 0',
+              borderBottom: '1px solid var(--cl-border)',
+              display: 'flex',
+              gap: 10,
+              alignItems: 'flex-start',
+            }}
+          >
+            <CitizenAvatar name={c.citizen_display_name} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cl-text)' }}>
+                {c.citizen_display_name}
+                <span style={{ fontWeight: 400, color: 'var(--cl-text-light)', fontSize: '0.74rem', marginLeft: 6 }}>
+                  {[c.scope_district || c.scope_state, c.scope_city, relTime(c.created_at)].filter(Boolean).join(' · ')}
+                </span>
+              </div>
+              <div style={{ fontSize: '0.86rem', color: 'var(--cl-text)', marginTop: 2, whiteSpace: 'pre-wrap' }}>
+                {c.body}
+              </div>
+              {(canDelete || canReport || reportedThis) && (
+                <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
+                  {canDelete && (
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(c.id)}
+                      style={{
+                        border: 'none', background: 'transparent',
+                        color: '#d63031', fontSize: '0.7rem',
+                        fontWeight: 600, cursor: 'pointer', padding: 0,
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      Delete
+                    </button>
+                  )}
+                  {canReport && (
+                    <button
+                      type="button"
+                      onClick={() => handleReport(c.id)}
+                      title="Flag this comment for admin review"
+                      style={{
+                        border: 'none', background: 'transparent',
+                        color: 'var(--cl-text-light)', fontSize: '0.7rem',
+                        fontWeight: 600, cursor: 'pointer', padding: 0,
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      Report
+                    </button>
+                  )}
+                  {reportedThis && (
+                    <span style={{ color: 'var(--cl-text-muted)', fontSize: '0.68rem', fontStyle: 'italic' }}>
+                      Reported ✓
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

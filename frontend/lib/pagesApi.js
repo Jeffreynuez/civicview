@@ -150,6 +150,24 @@ export async function reportComment(commentId, { reason = 'other', detail } = {}
   });
 }
 
+// Poll-comment moderation. Backend is /api/citizen-polls/comments/{id}
+// (delete) and /reports (report) — author-only delete, signed-in
+// non-self report, idempotent on dedup. Same shape as the rep-post
+// comment endpoints; we keep the helpers separate so the frontend
+// call sites stay readable.
+export async function deletePollComment(commentId) {
+  return request(`/api/citizen-polls/comments/${encodeURIComponent(commentId)}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function reportPollComment(commentId, { reason = 'other', detail } = {}) {
+  return request(`/api/citizen-polls/comments/${encodeURIComponent(commentId)}/reports`, {
+    method: 'POST',
+    body: { reason, detail },
+  });
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }

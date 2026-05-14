@@ -60,10 +60,12 @@ from sqlalchemy.orm import Session, selectinload
 from app.auth import get_optional_rep
 from app.auth_citizen import get_current_citizen, get_optional_citizen
 from app.db import get_db
+from pydantic import BaseModel, Field
 from app.models.pages import (
     CitizenAccount,
     Poll,
     PollComment,
+    PollCommentReport,
     PollOption,
     PollReport,
     PollVote,
@@ -522,6 +524,89 @@ def create_citizen_poll_comment(
     from app.services.comment_classifier import classify_poll_comment
     bg_tasks.add_task(classify_poll_comment, comment.id)
     return PollCommentRead.model_validate(comment)
+
+
+# ── Poll-comment delete + report (parity with rep-post comments) ─────
+@router.delete(
+    "/citizen-polls/comments/{comment_id}",
+    status_code=204,
+)
+def delete_poll_comment(
+    comment_id: int,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    """Soft-delete a poll comment. Author-only — matches the
+    PostComment rule. Page owners (once a rep claims the page)
+    use Report instead; admins act on aggregated reports."""
+    comment = db.get(PollComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    if comment.citizen_id != citizen.id:
+        raise HTTPException(
+            status_code=403,
+            detail="Only the comment author may delete it. Use Report instead.",
+        )
+    comment.deleted_at = datetime.utcnow()
+    db.commit()
+    return
+
+
+class _PollCommentReportPayload(BaseModel):
+    reason: str = Field(..., min_length=1, max_length=64)
+    detail: Optional[str] = Field(default=None, max_length=1000)
+
+
+class _PollCommentReportStatus(BaseModel):
+    ok: bool = True
+    already_reported: bool = False
+
+
+@router.post(
+    "/citizen-polls/comments/{comment_id}/reports",
+    response_model=_PollCommentReportStatus,
+)
+def report_poll_comment(
+    comment_id: int,
+    payload: _PollCommentReportPayload,
+    db: Session = Depends(get_db),
+    me: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+) -> _PollCommentReportStatus:
+    """Mirror of /api/pages/comments/{id}/reports for poll comments.
+    Sign-in required (401 anon), self-report disallowed (400),
+    duplicates idempotent (returns already_reported=true).
+    """
+    if me is None and me_citizen is None:
+        raise HTTPException(status_code=401, detail="Sign in to report content.")
+    comment = db.get(PollComment, comment_id)
+    if not comment or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    if me_citizen is not None and comment.citizen_id == me_citizen.id:
+        raise HTTPException(
+            status_code=400,
+            detail="You can't report your own comment. Delete it if you regret it.",
+        )
+
+    q = db.query(PollCommentReport).filter(PollCommentReport.poll_comment_id == comment.id)
+    if me_citizen is not None:
+        q = q.filter(PollCommentReport.reporter_citizen_id == me_citizen.id)
+    else:
+        q = q.filter(PollCommentReport.reporter_rep_id == me.id)
+    if q.first() is not None:
+        return _PollCommentReportStatus(ok=True, already_reported=True)
+
+    db.add(
+        PollCommentReport(
+            poll_comment_id=comment.id,
+            reporter_citizen_id=me_citizen.id if me_citizen is not None else None,
+            reporter_rep_id=me.id if me is not None else None,
+            reason=payload.reason.strip(),
+            detail=(payload.detail or "").strip() or None,
+        )
+    )
+    db.commit()
+    return _PollCommentReportStatus(ok=True, already_reported=False)
 
 
 # ── Owner: dismiss the archive ────────────────────────────────────────
