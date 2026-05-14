@@ -11,3 +11,11 @@ venv/
 civiclens.db
 civiclens.db-journal
 uploads/
+
+# Runtime cache files. officials_index.py fetches the upstream
+# legislators-current.json on first boot and caches it on disk so
+# subsequent boots are offline-tolerant. Cache is a derived artifact
+# (regenerated automatically when missing or stale per the 7-day TTL),
+# not source-of-truth — checking it in adds 50k+ lines of churn to
+# every PR that happened to trigger the fetch locally.
+app/data/_cache/
