@@ -412,6 +412,7 @@ def close_citizen_poll(
 def report_citizen_poll(
     poll_id: int,
     payload: PollReportCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
@@ -456,6 +457,31 @@ def report_citizen_poll(
     from app.services.moderation import record_report
     record_report(db, poll, kind="poll")
     db.commit()
+
+    # Notify admins. Context page differs by author kind: citizen-
+    # authored polls live on target_official_id; rep-authored polls
+    # live on the post's official_id.
+    if poll.author_kind == "citizen":
+        ctx_official = poll.target_official_id
+    else:
+        from app.models.pages import Post as _Post
+        parent_post = db.get(_Post, poll.post_id) if poll.post_id else None
+        ctx_official = parent_post.official_id if parent_post else None
+    reporter_name = (
+        citizen.display_name if citizen is not None
+        else (me_rep.display_name if me_rep is not None else "(unknown)")
+    )
+    from app.services.notifications import notify_new_report
+    bg_tasks.add_task(
+        notify_new_report,
+        kind="poll",
+        target_id=poll.id,
+        reason=payload.reason,
+        detail=payload.detail,
+        reporter_name=reporter_name,
+        target_preview=(poll.question or "")[:200],
+        context_official_id=ctx_official,
+    )
     return PollReportStatus(ok=True, already_reported=False)
 
 
@@ -573,6 +599,7 @@ class _PollCommentReportStatus(BaseModel):
 def report_poll_comment(
     comment_id: int,
     payload: _PollCommentReportPayload,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     me: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
@@ -612,6 +639,35 @@ def report_poll_comment(
     from app.services.moderation import record_report
     record_report(db, comment, kind="poll_comment")
     db.commit()
+
+    # Resolve the hosting page via the parent poll (citizen → target_
+    # official_id; rep → post.official_id) so the email's "view in
+    # context" link lands on the right rep page.
+    parent_poll = db.get(Poll, comment.poll_id) if comment.poll_id else None
+    ctx_official: Optional[str] = None
+    if parent_poll is not None:
+        if parent_poll.author_kind == "citizen":
+            ctx_official = parent_poll.target_official_id
+        elif parent_poll.post_id:
+            from app.models.pages import Post as _Post
+            parent_post = db.get(_Post, parent_poll.post_id)
+            if parent_post is not None:
+                ctx_official = parent_post.official_id
+    reporter_name = (
+        me_citizen.display_name if me_citizen is not None
+        else (me.display_name if me is not None else "(unknown)")
+    )
+    from app.services.notifications import notify_new_report
+    bg_tasks.add_task(
+        notify_new_report,
+        kind="poll_comment",
+        target_id=comment.id,
+        reason=payload.reason.strip(),
+        detail=(payload.detail or "").strip() or None,
+        reporter_name=reporter_name,
+        target_preview=(comment.body or "")[:200],
+        context_official_id=ctx_official,
+    )
     return _PollCommentReportStatus(ok=True, already_reported=False)
 
 

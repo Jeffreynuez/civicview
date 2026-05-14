@@ -82,6 +82,21 @@ services:
       # ADMIN_EMAILS. Idempotent on email.
       - key: DEMO_CITIZEN_ACCOUNTS_JSON
         sync: false
+      # Notifications — when a report comes in, email every ADMIN_EMAILS
+      # recipient. Powered by Resend (resend.com); set RESEND_API_KEY to
+      # enable. NOTIFICATION_FROM_EMAIL must be on a Resend-verified
+      # domain (or use onboarding@resend.dev for unverified testing).
+      # PUBLIC_APP_URL is spliced into the email's "open the queue" link.
+      # REPORT_NOTIFICATIONS_ENABLED is a kill-switch that doesn't
+      # require rotating the API key.
+      - key: RESEND_API_KEY
+        sync: false
+      - key: NOTIFICATION_FROM_EMAIL
+        sync: false
+      - key: PUBLIC_APP_URL
+        sync: false
+      - key: REPORT_NOTIFICATIONS_ENABLED
+        sync: false
       - key: PYTHONUNBUFFERED
         value: "1"            # flush logs immediately so Render shows them in real time
 

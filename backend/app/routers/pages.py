@@ -1110,6 +1110,7 @@ def _require_signed_in(
 def report_post(
     post_id: int,
     payload: _ReportPayload,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     me: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
@@ -1146,6 +1147,27 @@ def report_post(
     from app.services.moderation import record_report
     record_report(db, post, kind="post")
     db.commit()
+
+    # Fire-and-forget email notification to admins. Build the
+    # payload from the freshly-committed report context. Wrapped
+    # in BackgroundTasks so the reporter's request doesn't pay the
+    # email round-trip latency.
+    reporter_name = (
+        (me_citizen.display_name if me_citizen is not None
+         else (me.display_name if me is not None else "(unknown)"))
+    )
+    preview = (post.body or "")[:200]
+    from app.services.notifications import notify_new_report
+    bg_tasks.add_task(
+        notify_new_report,
+        kind="post",
+        target_id=post.id,
+        reason=payload.reason.strip(),
+        detail=(payload.detail or "").strip() or None,
+        reporter_name=reporter_name,
+        target_preview=preview,
+        context_official_id=post.official_id,
+    )
     return _ReportStatus(ok=True, already_reported=False)
 
 
@@ -1153,6 +1175,7 @@ def report_post(
 def report_comment(
     comment_id: int,
     payload: _ReportPayload,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     me: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
@@ -1193,6 +1216,25 @@ def report_comment(
     from app.services.moderation import record_report
     record_report(db, comment, kind="post_comment")
     db.commit()
+
+    # Notify admins (background task, never blocks the response).
+    reporter_name = (
+        (me_citizen.display_name if me_citizen is not None
+         else (me.display_name if me is not None else "(unknown)"))
+    )
+    # Resolve the hosting page for the context-url link.
+    parent_post = db.get(Post, comment.post_id) if comment.post_id else None
+    from app.services.notifications import notify_new_report
+    bg_tasks.add_task(
+        notify_new_report,
+        kind="post_comment",
+        target_id=comment.id,
+        reason=payload.reason.strip(),
+        detail=(payload.detail or "").strip() or None,
+        reporter_name=reporter_name,
+        target_preview=(comment.body or "")[:200],
+        context_official_id=parent_post.official_id if parent_post else None,
+    )
     return _ReportStatus(ok=True, already_reported=False)
 
 
