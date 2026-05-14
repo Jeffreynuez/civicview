@@ -62,6 +62,10 @@ services:
         sync: false
       - key: AI_DAILY_OUTPUT_TOKEN_CAP
         sync: false
+      # Auto-hide threshold for content reports. Defaults to 5; set
+      # to 0 to disable. Reports still accumulate either way.
+      - key: REPORT_AUTO_HIDE_THRESHOLD
+        sync: false
       - key: PYTHONUNBUFFERED
         value: "1"            # flush logs immediately so Render shows them in real time
 

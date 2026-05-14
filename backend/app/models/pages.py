@@ -81,6 +81,14 @@ class Post(Base):
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
     author: Mapped["RepAccount"] = relationship(back_populates="posts")
+    # Rolling moderation counter — bumped each time someone hits Report.
+    # Cached on the row (vs. counting rows in post_reports on each read)
+    # so list views can sort/filter without the join. The auto-hide
+    # threshold in the report endpoint compares against this column.
+    report_count: Mapped[int] = mapped_column(
+        Integer, default=0, server_default="0",
+    )
+
     poll: Mapped[Optional["Poll"]] = relationship(
         back_populates="post", uselist=False, cascade="all, delete-orphan",
     )
@@ -216,6 +224,12 @@ class PostComment(Base):
     )  # 2-4 word gist, e.g. "broadband funding"
     ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None,
+    )
+    # Rolling moderation counter — same semantics as Post.report_count
+    # and Poll.report_count. Cached for fast list-view sort/filter
+    # and as the comparand for the auto-hide threshold.
+    report_count: Mapped[int] = mapped_column(
+        Integer, default=0, server_default="0",
     )
 
     post: Mapped["Post"] = relationship(back_populates="comments")
@@ -385,6 +399,12 @@ class PollComment(Base):
     )
     ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None,
+    )
+    # Rolling moderation counter — auto-hide threshold compares
+    # against this. Defaulted to 0 server-side so the auto-migrate
+    # can ADD COLUMN on existing rows without backfill.
+    report_count: Mapped[int] = mapped_column(
+        Integer, default=0, server_default="0",
     )
 
     poll: Mapped["Poll"] = relationship(back_populates="poll_comments")

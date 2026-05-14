@@ -1141,6 +1141,10 @@ def report_post(
             detail=(payload.detail or "").strip() or None,
         )
     )
+    # Increment report_count + auto-hide if threshold crossed. The
+    # helper handles both — caller commits.
+    from app.services.moderation import record_report
+    record_report(db, post, kind="post")
     db.commit()
     return _ReportStatus(ok=True, already_reported=False)
 
@@ -1186,6 +1190,8 @@ def report_comment(
             detail=(payload.detail or "").strip() or None,
         )
     )
+    from app.services.moderation import record_report
+    record_report(db, comment, kind="post_comment")
     db.commit()
     return _ReportStatus(ok=True, already_reported=False)
 

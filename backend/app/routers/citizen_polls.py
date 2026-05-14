@@ -450,7 +450,11 @@ def report_citizen_poll(
         reason=payload.reason,
         detail=payload.detail,
     ))
-    poll.report_count = (poll.report_count or 0) + 1
+    # record_report() increments report_count AND auto-archives if
+    # the threshold is crossed (Poll uses archived_at + reason=
+    # 'reported' for its hide path rather than deleted_at).
+    from app.services.moderation import record_report
+    record_report(db, poll, kind="poll")
     db.commit()
     return PollReportStatus(ok=True, already_reported=False)
 
@@ -605,6 +609,8 @@ def report_poll_comment(
             detail=(payload.detail or "").strip() or None,
         )
     )
+    from app.services.moderation import record_report
+    record_report(db, comment, kind="poll_comment")
     db.commit()
     return _PollCommentReportStatus(ok=True, already_reported=False)
 
