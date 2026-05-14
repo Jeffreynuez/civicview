@@ -35,7 +35,15 @@ import { ModalShell, Button } from './ui';
 
 // Flip to true when verified rep accounts ship. Re-enables the
 // email + password form below the brand mark.
-const REP_LOGIN_LIVE = false;
+//
+// Currently TRUE so the internal test-rep account (provisioned via
+// DEMO_ACCOUNTS_JSON env var on Render) can sign in to exercise the
+// rep-posting + AI-comment-filter UI before real-rep onboarding
+// ships. The wider impersonation-risk reasoning still applies — no
+// rep accounts are seeded in the committed seed file; only the env-
+// var-supplied test account exists. Flip back to false (or rotate
+// the test rep's password) before opening the app to broader testers.
+const REP_LOGIN_LIVE = true;
 // Mailbox surfaced in the placeholder panel + the unclaimed-page
 // banner. Update this in one place to propagate.
 const REP_CONTACT_EMAIL = 'civicview@civicview.app';
