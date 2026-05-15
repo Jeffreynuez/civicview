@@ -455,6 +455,13 @@
   border-radius: 999px;
   background: var(--cl-warning);
 }
+.ad-kpi__dot--open    { background: var(--cl-warning); }
+.ad-kpi__dot--warning { background: var(--cl-warning); }
+.ad-kpi__dot--hidden  { background: var(--cl-danger); }
+.ad-kpi__dot--danger  { background: var(--cl-danger); }
+.ad-kpi__dot--resolved{ background: var(--cl-success); }
+.ad-kpi__dot--success { background: var(--cl-success); }
+.ad-kpi__dot--neutral { background: var(--cl-text-muted); }
 .ad-kpi--hidden .ad-kpi__dot { background: var(--cl-danger); }
 .ad-kpi--resolved .ad-kpi__dot { background: var(--cl-success); }
 .ad-kpi__num {
@@ -1408,6 +1415,440 @@ table.ad-table {
   border-radius: 4px;
   text-transform: uppercase;
   line-height: 1.4;
+}
+
+/* =========================================================
+   Appeals view — vertical card list
+   ========================================================= */
+.ad-appeals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ad-appeal {
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-left: 3px solid var(--cl-warning);
+  border-radius: var(--cl-radius-xl);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow var(--cl-duration-fast) var(--cl-ease-standard),
+              border-color var(--cl-duration-fast) var(--cl-ease-standard);
+}
+.ad-appeal:hover { box-shadow: var(--cl-shadow-card); border-color: var(--cl-border-strong); }
+.ad-appeal.is-granted {
+  border-left-color: var(--cl-success);
+  background: #fafdfb;
+}
+.ad-appeal.is-denied {
+  border-left-color: var(--cl-text-muted);
+  background: #fafbfc;
+  opacity: 0.92;
+}
+
+.ad-appeal__strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ad-appeal__strip-left { display: inline-flex; align-items: center; gap: 8px; }
+.ad-appeal__strip-right {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.ad-appeal__id {
+  font-family: var(--cl-font-mono);
+  font-size: 0.7rem;
+  color: var(--cl-text-muted);
+}
+.ad-appeal__filed {
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  font-weight: 600;
+}
+.ad-appeal__filed-abs {
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+}
+
+.ad-typechip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.ad-typechip--content {
+  background: var(--cl-democrat-soft);
+  color: var(--cl-democrat);
+  border-color: #c3dbe9;
+}
+.ad-typechip--suspension {
+  background: var(--cl-warning-soft);
+  color: var(--cl-warning-text);
+  border-color: var(--cl-warning-border);
+}
+
+.ad-kindpill {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.ad-kindpill--citizen {
+  background: var(--cl-bg-soft);
+  color: var(--cl-text-light);
+  border-color: var(--cl-border);
+}
+.ad-kindpill--rep {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: #c7dccd;
+}
+
+.ad-appeal__appellant {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ad-appeal__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+}
+.ad-appeal__avatar--citizen {
+  background: var(--cl-bg-soft);
+  color: var(--cl-text);
+  border: 1px solid var(--cl-border);
+}
+.ad-appeal__avatar--rep {
+  background: var(--cl-primary);
+  color: white;
+  border: 1px solid var(--cl-primary);
+}
+.ad-appeal__appellant-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ad-appeal__appellant-name {
+  font-weight: 700;
+  font-size: var(--cl-text-md);
+  color: var(--cl-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ad-appeal__appellant-email {
+  font-family: var(--cl-font-mono);
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+}
+
+.ad-appeal__details {
+  background: var(--cl-bg-soft);
+  border: 1px solid var(--cl-border);
+  border-left: 3px solid var(--cl-text-muted);
+  border-radius: var(--cl-radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ad-appeal__details-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cl-text-muted);
+}
+.ad-appeal__details-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+}
+.ad-appeal__details-target { font-weight: 600; }
+.ad-appeal__details-id { font-family: var(--cl-font-mono); font-size: var(--cl-text-xs); color: var(--cl-text-muted); }
+.ad-appeal__details-sep { color: var(--cl-text-muted); }
+.ad-appeal__details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--cl-text-xs);
+  font-weight: 600;
+  color: var(--cl-democrat);
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.ad-appeal__details-link:hover { background: white; text-decoration: underline; text-underline-offset: 2px; }
+.ad-appeal__details-preview {
+  font-style: italic;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  line-height: 1.5;
+  padding: 6px 0;
+  border-top: 1px dashed var(--cl-border);
+  border-bottom: 1px dashed var(--cl-border);
+}
+.ad-appeal__details-action {
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.ad-appeal__details-action strong { color: var(--cl-text); font-weight: 700; }
+
+.ad-appeal__rationale {
+  background: white;
+  border: 1px solid var(--cl-border);
+  border-left: 3px solid var(--cl-democrat);
+  border-radius: var(--cl-radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ad-appeal__rationale-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cl-democrat);
+}
+.ad-appeal__rationale-body {
+  font-style: italic;
+  font-size: var(--cl-text-md);
+  color: var(--cl-text);
+  line-height: 1.55;
+}
+
+.ad-appeal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--cl-divider);
+}
+
+.ad-appeal__resolved {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--cl-divider);
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-muted);
+}
+.ad-appeal__resolved-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.ad-appeal__resolved-badge--granted {
+  background: var(--cl-success-soft);
+  color: var(--cl-success-text);
+  border-color: var(--cl-success-border);
+}
+.ad-appeal__resolved-badge--denied {
+  background: var(--cl-bg-soft);
+  color: var(--cl-text-muted);
+  border-color: var(--cl-border);
+}
+.ad-appeal__resolved-note {
+  font-style: italic;
+  color: var(--cl-text-light);
+}
+
+/* =========================================================
+   Suspended accounts — table cells + appeal-pending tint
+   ========================================================= */
+.ad-table tbody tr.is-appeal td {
+  background: #fffbeb;
+}
+.ad-table tbody tr.is-appeal:hover td {
+  background: #fff5d4;
+}
+.ad-table tbody tr.is-appeal td:first-child {
+  border-left-color: var(--cl-warning);
+}
+
+.ad-card.is-appeal {
+  border-left-color: var(--cl-warning);
+  background: #fffbeb;
+}
+
+.ad-cell-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.ad-cell-account__name {
+  font-weight: 600;
+  color: var(--cl-text);
+  font-size: var(--cl-text-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.ad-cell-account__id {
+  font-family: var(--cl-font-mono);
+  font-size: 0.7rem;
+  color: var(--cl-text-muted);
+}
+.ad-cell-email {
+  font-family: var(--cl-font-mono);
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+.ad-reportcount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--cl-bg-soft);
+  border: 1px solid var(--cl-border);
+  font-weight: 700;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ad-account-avatar {
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ad-account-avatar--citizen {
+  background: var(--cl-bg-soft);
+  color: var(--cl-text);
+  border: 1px solid var(--cl-border);
+}
+.ad-account-avatar--rep {
+  background: var(--cl-primary);
+  color: white;
+  border: 1px solid var(--cl-primary);
+}
+
+.ad-appeal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--cl-text-xs);
+  font-weight: 700;
+  color: var(--cl-warning-text);
+  background: var(--cl-warning-soft);
+  border: 1px solid var(--cl-warning-border);
+  padding: 2px 9px 2px 7px;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+.ad-appeal-link:hover { background: #fff1c8; }
+.ad-appeal-link__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cl-warning);
+  animation: ad-pulse 1.6s infinite var(--cl-ease-standard);
+}
+@keyframes ad-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* Modal eyebrow variant for non-destructive (Grant / Unsuspend) actions */
+.ad-modal__eyebrow--success {
+  color: var(--cl-success-text);
+}
+.ad-modal__eyebrow--success::before { background: var(--cl-success); }
+
+/* Buttons — appeal-specific variants */
+.ad-btn--grant {
+  background: var(--cl-accent);
+  color: white;
+  border-color: var(--cl-accent);
+}
+.ad-btn--grant:hover { background: var(--cl-accent-light); border-color: var(--cl-accent-light); }
+.ad-btn--ghost-danger {
+  background: white;
+  color: var(--cl-danger-text);
+  border-color: var(--cl-danger-border);
+}
+.ad-btn--ghost-danger:hover { background: var(--cl-danger-soft); }
+
+.ad-actbtn--grant-solid {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: #c7dccd;
+}
+.ad-actbtn--grant-solid:hover { background: var(--cl-accent); color: white; border-color: var(--cl-accent); }
+
+/* Sort dropdown */
+.ad-sortselect {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--cl-border);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.ad-select {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: var(--cl-text-sm);
+  font-weight: 600;
+  color: var(--cl-text);
+  padding: 4px 4px 4px 0;
+  cursor: pointer;
+}
+
+.ad-modal__hint {
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-muted);
+  font-style: italic;
 }
 
 /* =========================================================

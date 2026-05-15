@@ -78,11 +78,25 @@ function AdminPage({
   const isMobile = variant === 'mobile';
   const isTablet = variant === 'tablet';
 
+  // Queue KPIs — array form for the shared <AdPageHead>.
+  const queueKpis = [
+    { label: 'Open reports', num: window.AD_KPIS.open, delta: '▲ 3 from yesterday', dotKind: 'open', deltaKind: 'up' },
+    { label: 'Hidden content', num: window.AD_KPIS.hidden, delta: '— no change this week', dotKind: 'hidden', deltaKind: 'flat' },
+    { label: 'Resolved this week', num: window.AD_KPIS.resolvedWeek, delta: '12% fewer than last week', dotKind: 'resolved', deltaKind: 'flat' },
+  ];
+
   return (
     <div className={`ad-root ad-root--${variant}`} style={{ position: 'relative' }}>
       <AdNavbar variant={variant} />
       <main className={`ad-main ad-main--${variant}`}>
-        <AdPageHead kpis={window.AD_KPIS} variant={variant} />
+        <AdPageHead
+          variant={variant}
+          crumb="Admin · Moderation"
+          title="Moderation queue"
+          subnav="queue"
+          subnavCounts={{ queue: 0, appeals: 3, suspended: 2 }}
+          kpis={queueKpis}
+        />
         <AdFilters
           variant={variant}
           includeResolved={includeResolved} onIncludeResolved={setIncludeResolved}

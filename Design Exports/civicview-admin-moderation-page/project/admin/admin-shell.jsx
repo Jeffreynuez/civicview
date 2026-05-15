@@ -1,4 +1,6 @@
 // Admin shell: Navbar, PageHeaderBand, KPIStrip, FilterRow, SubNav, ErrorBanner.
+// Page-specific config (crumb / title / KPIs / active tab) is passed in
+// as props — the shell is reused by Queue, Appeals, and Suspended.
 
 function AdNavbar({ variant = 'desktop' }) {
   const isMobile = variant === 'mobile';
@@ -13,7 +15,8 @@ function AdNavbar({ variant = 'desktop' }) {
       <div className="ad-nav__spacer" />
 
       {/* Right cluster — order matches live /polls navbar:
-          identity → Sign out → Subscribe → Polls → My Tracked → bell → hamburger */}
+          identity → Sign out → Subscribe → Polls → My Tracked → bell → hamburger.
+          On mobile, Sign out moves into the hamburger menu. */}
       <div className="ad-nav__identity">
         <span className="ad-nav__identity-badge">
           <AdGlyph.Person size={13} /> CivicView Admin
@@ -47,11 +50,14 @@ function AdNavbar({ variant = 'desktop' }) {
   );
 }
 
-function AdSubNav({ active = 'queue', variant = 'desktop' }) {
+// SubNav — pill tabs with optional numeric badges. Badge counts come from
+// the global system state so each tab shows the same pending count regardless
+// of which tab is active.
+function AdSubNav({ active = 'queue', counts = {}, variant = 'desktop' }) {
   const items = [
-    { id: 'queue', label: 'Queue' },
-    { id: 'appeals', label: 'Appeals', badge: 3 },
-    { id: 'suspended', label: 'Suspended users', badge: 2 },
+    { id: 'queue', label: 'Queue', badge: counts.queue },
+    { id: 'appeals', label: 'Appeals', badge: counts.appeals },
+    { id: 'suspended', label: 'Suspended users', badge: counts.suspended },
   ];
   const isMobile = variant === 'mobile';
 
@@ -64,7 +70,7 @@ function AdSubNav({ active = 'queue', variant = 'desktop' }) {
             className={`ad-subnav__item ${active === it.id ? 'ad-subnav__item--active' : ''}`}
           >
             {it.label}
-            {it.badge ? <span className="ad-subnav__badge">{it.badge}</span> : null}
+            {it.badge > 0 ? <span className="ad-subnav__badge">{it.badge}</span> : null}
           </button>
         ))}
       </nav>
@@ -75,41 +81,53 @@ function AdSubNav({ active = 'queue', variant = 'desktop' }) {
   );
 }
 
-function AdPageHead({ kpis, variant = 'desktop' }) {
+// AdKpi — single KPI tile. `dotKind` controls the colored dot
+// ('open'|'hidden'|'resolved'|'success'|'danger'|'warning').
+// `deltaKind` styles the delta line ('up'|'down'|'flat').
+function AdKpi({ label, num, delta, dotKind = 'open', deltaKind = 'flat', mobile = false }) {
+  const dotCls = `ad-kpi__dot ad-kpi__dot--${dotKind}`;
+  return (
+    <div className={`ad-kpi ${mobile ? 'ad-kpi--mobile' : ''}`}>
+      <div className="ad-kpi__label"><span className={dotCls}></span>{label}</div>
+      <div className="ad-kpi__num">{num}</div>
+      {delta && <div className={`ad-kpi__delta ad-kpi__delta--${deltaKind}`}>{delta}</div>}
+    </div>
+  );
+}
+
+// AdPageHead — fully configurable. kpis is an array of {label, num, delta, dotKind, deltaKind}.
+function AdPageHead({
+  crumb = 'Admin · Moderation',
+  title = 'Moderation queue',
+  email = 'jeff@example.com',
+  subnav = 'queue',
+  subnavCounts = { queue: 0, appeals: 3, suspended: 2 },
+  kpis = [],
+  variant = 'desktop',
+}) {
   const isMobile = variant === 'mobile';
   return (
     <div className="ad-pagehead">
       <div className="ad-pagehead__top">
-        <div className="ad-pagehead__crumb">Admin · Moderation</div>
-        <h1 className="ad-pagehead__title">Moderation queue</h1>
+        <div className="ad-pagehead__crumb">{crumb}</div>
+        <h1 className="ad-pagehead__title">{title}</h1>
         <div className="ad-pagehead__subline">
-          Signed in as <span className="ad-pagehead__subline-mono">jeff@example.com</span> · citizen account on ADMIN_EMAILS allowlist
+          Signed in as <span className="ad-pagehead__subline-mono">{email}</span> · citizen account on ADMIN_EMAILS allowlist
         </div>
       </div>
 
-      <AdSubNav active="queue" variant={variant} />
+      <AdSubNav active={subnav} counts={subnavCounts} variant={variant} />
 
       <div className={`ad-kpis ${isMobile ? 'ad-kpis--mobile' : ''}`}>
-        <div className={`ad-kpi ${isMobile ? 'ad-kpi--mobile' : ''}`}>
-          <div className="ad-kpi__label"><span className="ad-kpi__dot"></span>Open reports</div>
-          <div className="ad-kpi__num">{kpis.open}</div>
-          <div className="ad-kpi__delta ad-kpi__delta--up">▲ 3 from yesterday</div>
-        </div>
-        <div className={`ad-kpi ad-kpi--hidden ${isMobile ? 'ad-kpi--mobile' : ''}`}>
-          <div className="ad-kpi__label"><span className="ad-kpi__dot"></span>Hidden content</div>
-          <div className="ad-kpi__num">{kpis.hidden}</div>
-          <div className="ad-kpi__delta ad-kpi__delta--flat">— no change this week</div>
-        </div>
-        <div className={`ad-kpi ad-kpi--resolved ${isMobile ? 'ad-kpi--mobile' : ''}`}>
-          <div className="ad-kpi__label"><span className="ad-kpi__dot"></span>Resolved this week</div>
-          <div className="ad-kpi__num">{kpis.resolvedWeek}</div>
-          <div className="ad-kpi__delta ad-kpi__delta--flat">12% fewer than last week</div>
-        </div>
+        {kpis.map((k, i) => <AdKpi key={i} {...k} mobile={isMobile} />)}
       </div>
     </div>
   );
 }
 
+// AdFilters — Queue-specific filters. Appeals and Suspended each ship their
+// own filter component since their controls differ (the shell pattern stays
+// the same: white card, rounded-xl, padded, chips + toggles + search + refresh).
 function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterKind, onReporterKind, autoOnly, onAutoOnly, variant = 'desktop' }) {
   const kinds = [
     { id: 'all', label: 'All', count: 8 },
@@ -128,11 +146,7 @@ function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterK
   return (
     <div className="ad-filters">
       <label className="ad-toggle">
-        <input
-          type="checkbox"
-          checked={includeResolved}
-          onChange={(e) => onIncludeResolved(e.target.checked)}
-        />
+        <input type="checkbox" checked={includeResolved} onChange={(e) => onIncludeResolved(e.target.checked)} />
         <span className="ad-toggle__track" />
         Include resolved
       </label>
@@ -142,11 +156,7 @@ function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterK
       {!isMobile && <span className="ad-filters__label">Kind</span>}
       <div className="ad-filters__chips">
         {kinds.map((k) => (
-          <button
-            key={k.id}
-            className={`ad-chip ${kind === k.id ? 'ad-chip--active' : ''}`}
-            onClick={() => onKind(k.id)}
-          >
+          <button key={k.id} className={`ad-chip ${kind === k.id ? 'ad-chip--active' : ''}`} onClick={() => onKind(k.id)}>
             {k.label}
             <span className="ad-chip__count">{k.count}</span>
           </button>
@@ -159,11 +169,7 @@ function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterK
           <span className="ad-filters__label">Reporter</span>
           <div className="ad-filters__chips">
             {reporters.map((r) => (
-              <button
-                key={r.id}
-                className={`ad-chip ${reporterKind === r.id ? 'ad-chip--active' : ''}`}
-                onClick={() => onReporterKind(r.id)}
-              >
+              <button key={r.id} className={`ad-chip ${reporterKind === r.id ? 'ad-chip--active' : ''}`} onClick={() => onReporterKind(r.id)}>
                 {r.label}
               </button>
             ))}
@@ -172,11 +178,7 @@ function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterK
       )}
 
       <label className="ad-toggle">
-        <input
-          type="checkbox"
-          checked={autoOnly}
-          onChange={(e) => onAutoOnly(e.target.checked)}
-        />
+        <input type="checkbox" checked={autoOnly} onChange={(e) => onAutoOnly(e.target.checked)} />
         <span className="ad-toggle__track" />
         Auto-flagged only
       </label>
@@ -186,7 +188,7 @@ function AdFilters({ includeResolved, onIncludeResolved, kind, onKind, reporterK
       <div className="ad-search">
         <AdGlyph.Search size={14} />
         <input placeholder="Search reports…" />
-        <span className="ad-search__stub" title="Backend doesn't index reports yet — shipping with v2">Stub</span>
+        <span className="ad-stub" title="Backend doesn't index reports yet">Stub</span>
       </div>
 
       <button className="ad-iconbtn" title="Refresh queue">
@@ -210,4 +212,4 @@ function AdErrorBanner({ title, detail, onClose }) {
   );
 }
 
-Object.assign(window, { AdNavbar, AdSubNav, AdPageHead, AdFilters, AdErrorBanner });
+Object.assign(window, { AdNavbar, AdSubNav, AdPageHead, AdKpi, AdFilters, AdErrorBanner });
