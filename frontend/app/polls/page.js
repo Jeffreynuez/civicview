@@ -11,32 +11,70 @@
  * meaningful civic-engagement here. Shows every active poll across
  * the entire app — rep-authored, citizen-led on unclaimed pages, and
  * citizen standalone polls (no specific target). Filter chips switch
- * between kinds; a "Start a poll" affordance lets signed-in citizens
- * post a standalone poll (per-citizen cap of 1 active).
+ * between branches; an AI filter row offers preset tone chips and a
+ * free-form semantic-search input; a "Start a poll" affordance lets
+ * signed-in citizens post a standalone poll (per-citizen cap of 1
+ * active).
  *
  * Voting / commenting / detailed engagement still happens on the
  * source rep page (clicking a citizen-or-rep poll card jumps there).
  * Standalone polls have no source page; they live and die here.
  *
- * AI filter chips (Funny / Critical / Skeptical / etc.) land in
- * Phase C of the Polls feature — the chip row in this commit is
- * just the kind filter (All / Rep / Citizen / Standalone).
+ * Page chrome:
+ *   • Existing global Navbar at the top (citizen wires routed to
+ *     local modal state on this page so /polls doesn't depend on
+ *     the home orchestrator).
+ *   • Dark "grassroots" hero band with eyebrow + title + sub + 3
+ *     headline stats.
+ *   • Sticky two-row filter bar (branch chips + Start CTA, then
+ *     AI filter row with preset chips + free-form input).
+ *   • Auto-fill card grid (320px min) with two empty states:
+ *     full-empty for "no polls match the branch filter" and
+ *     in-grid compact empty for "AI filter returned 0".
+ *   • Bottom "Start a poll" CTA + mobile-only sticky FAB.
+ *
+ * Class names match the Claude Design export at
+ * /Design Exports/civicview-polls-page/. Styles live in ./polls.css.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   fetchPollsFeed,
   createStandalonePoll,
   aiHealth,
   filterPolls,
 } from '@/lib/pagesApi';
-import { useCitizenAuth } from '@/lib/citizenAuth';
+import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
+import Navbar from '@/components/Navbar';
+import CitizenLoginModal from '@/components/CitizenLoginModal';
+import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
+import MyTrackedModal from '@/components/MyTrackedModal';
+import ConstituentDashboard from '@/components/ConstituentDashboard';
+import './polls.css';
 
-const KIND_FILTERS = [
-  { id: 'all',        label: 'All polls' },
-  { id: 'rep',        label: 'From reps' },
-  { id: 'citizen',    label: 'From citizens (on rep pages)' },
-  { id: 'standalone', label: 'Standalone' },
+// Branch filters — replaces the old kind enum. Standalone is a
+// distinct visual tier (dashed border + warning dot prefix);
+// "From candidates" is rendered disabled with a "Soon" badge until
+// the candidates feature ships.
+const BRANCH_FILTERS = [
+  { id: 'all',        label: 'All polls',        glyph: 'AllPolls',       tier: 'normal' },
+  { id: 'bill',       label: 'Bill',             glyph: 'Bill',           tier: 'normal' },
+  { id: 'committee',  label: 'Committee',        glyph: 'Committee',      tier: 'normal' },
+  { id: 'executive',  label: 'Executive',        glyph: 'Executive',      tier: 'normal' },
+  { id: 'judicial',   label: 'Judicial',         glyph: 'Judicial',       tier: 'normal' },
+  { id: 'standalone', label: 'Standalone',       glyph: 'Standalone',     tier: 'standalone' },
+  { id: 'candidate',  label: 'From candidates',  glyph: 'FromCandidates', tier: 'normal', disabled: true },
+];
+
+// AI filter preset chips. Each label maps to a backend prompt that
+// the existing /api/polls/filter semantic endpoint can interpret.
+const AI_PRESETS = [
+  { id: 'positive',    label: 'Positive',    prompt: 'positive polls' },
+  { id: 'critical',    label: 'Critical',    prompt: 'critical polls' },
+  { id: 'funny',       label: 'Funny',       prompt: 'funny polls' },
+  { id: 'supportive',  label: 'Supportive',  prompt: 'supportive polls' },
+  { id: 'skeptical',   label: 'Skeptical',   prompt: 'skeptical polls questioning the data' },
+  { id: 'informative', label: 'Informative', prompt: 'informative polls' },
 ];
 
 function relTime(iso) {
@@ -52,24 +90,50 @@ function relTime(iso) {
 function formatCount(n) {
   if (n == null) return '0';
   if (n < 1000) return String(n);
-  if (n < 10000) return `${(n / 1000).toFixed(1)}k`;
+  if (n < 10000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k`;
   return `${Math.round(n / 1000)}k`;
 }
 
+// Map a poll's server-side `kind` to the design's branch enum.
+// `kind` is 'rep' | 'citizen' | 'standalone'. Branch metadata
+// (Bill / Executive / etc.) ships per-poll once that taxonomy is
+// wired into the backend; until then, rep / citizen polls share
+// the "all" bucket and only Standalone is a distinct branch.
+function pollBranch(poll) {
+  if (poll.kind === 'standalone') return 'standalone';
+  // Forward-compatible: if the backend later starts emitting a
+  // `branch` field on rep/citizen polls, prefer it. For now they
+  // count toward "all" only.
+  if (poll.branch) return poll.branch;
+  return null;
+}
+
 export default function PollsPage() {
+  const router = useRouter();
   const { citizen } = useCitizenAuth();
+  const signedIn = !!citizen;
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [kindFilter, setKindFilter] = useState('all');
+  const [branch, setBranch] = useState('all');
   const [composerOpen, setComposerOpen] = useState(false);
 
-  // AI filter state — same shape as the comment-thread filter.
+  // Local modal state — /polls doesn't share the home orchestrator's
+  // store, so the Navbar's citizen / Subscribe / My Tracked / Dashboard
+  // callbacks all route to local state here.
+  const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [trackedOpen, setTrackedOpen] = useState(false);
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+
+  // AI filter state.
   const [aiAvailable, setAiAvailable] = useState(false);
-  const [aiFilterIds, setAiFilterIds] = useState(null); // Set<id> or null
+  const [activeTags, setActiveTags] = useState([]); // preset chip ids
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiFilterIds, setAiFilterIds] = useState(null); // Set<id> | null
   const [aiFilterLabel, setAiFilterLabel] = useState('');
   const [aiFilterBusy, setAiFilterBusy] = useState(false);
-  const [aiPrompt, setAiPrompt] = useState('');
 
   useEffect(() => {
     let cancelled = false;
@@ -82,9 +146,7 @@ export default function PollsPage() {
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
-    const { data, error: err } = await fetchPollsFeed({
-      kind: kindFilter === 'all' ? undefined : kindFilter,
-    });
+    const { data, error: err } = await fetchPollsFeed({});
     setLoading(false);
     if (err || !data) {
       setError(err || 'Could not load polls.');
@@ -92,22 +154,65 @@ export default function PollsPage() {
       return;
     }
     setItems(data.items || []);
-    // Clear any active AI filter when the kind filter changes —
-    // the matched_ids set might reference polls that fell out of
-    // the new server response.
+    // Clear any active AI filter — matched_ids may reference polls
+    // that fell out of the new server response.
     setAiFilterIds(null);
     setAiFilterLabel('');
-  }, [kindFilter]);
+    setActiveTags([]);
+  }, []);
 
   useEffect(() => { load(); }, [load]);
 
-  const runAiFilter = async (prompt) => {
-    const trimmed = (prompt || '').trim();
-    if (!trimmed) return;
+  // Branch counts driven from the loaded items. Standalone counts
+  // are exact; the page-bound branches (Bill/Committee/Executive/
+  // Judicial) all read 0 today since the backend doesn't yet emit
+  // a branch field. The chips render anyway so the visual taxonomy
+  // is in place for when those counts go live.
+  const branchCounts = useMemo(() => {
+    const counts = {
+      all: items.length,
+      bill: 0, committee: 0, executive: 0, judicial: 0,
+      standalone: 0, candidate: 0,
+    };
+    for (const p of items) {
+      const b = pollBranch(p);
+      if (b && counts[b] != null) counts[b] += 1;
+    }
+    return counts;
+  }, [items]);
+
+  // Branch-filter pipeline. "All" passes everything; specific
+  // branches filter to that branch. The page is forward-compatible:
+  // when the backend starts emitting per-poll branches, the
+  // existing rep/citizen polls will start showing up under their
+  // matched chips.
+  const branchFiltered = useMemo(() => {
+    if (branch === 'all') return items;
+    return items.filter((p) => pollBranch(p) === branch);
+  }, [items, branch]);
+
+  const visibleItems = useMemo(() => {
+    if (aiFilterIds === null) return branchFiltered;
+    return branchFiltered.filter((p) => aiFilterIds.has(p.id));
+  }, [branchFiltered, aiFilterIds]);
+
+  const aiActive = aiFilterIds !== null;
+  const showActiveBanner = aiActive && visibleItems.length > 0;
+
+  // Two empty states — see polls.css comments. Branch filter alone
+  // returning zero shows the FULL empty state; AI filter returning
+  // zero (with a non-empty branch result behind it) shows the
+  // compact in-grid empty.
+  const isFullEmpty   = !loading && branchFiltered.length === 0;
+  const isInlineEmpty = !loading && !isFullEmpty && aiActive && visibleItems.length === 0;
+
+  const runAiFilter = async (promptOverride) => {
+    const finalPrompt = (promptOverride ?? aiPrompt).trim();
+    if (!finalPrompt) return;
     setAiFilterBusy(true);
     const { data, error: err } = await filterPolls({
-      prompt: trimmed,
-      kind: kindFilter === 'all' ? undefined : kindFilter,
+      prompt: finalPrompt,
+      kind: undefined,
     });
     setAiFilterBusy(false);
     if (err || !data) {
@@ -115,281 +220,201 @@ export default function PollsPage() {
       return;
     }
     setAiFilterIds(new Set(data.matched_ids || []));
-    setAiFilterLabel(data.explanation || `Filtered: ${trimmed}`);
+    setAiFilterLabel(data.explanation || `Filtered: ${finalPrompt}`);
+    if (promptOverride !== undefined) setAiPrompt(promptOverride);
   };
+
+  const togglePresetTag = (presetId) => {
+    const preset = AI_PRESETS.find((p) => p.id === presetId);
+    if (!preset) return;
+    if (aiFilterBusy) return;
+    if (activeTags.includes(presetId)) {
+      // Toggling off → clear the filter entirely (we only support
+      // one preset chip active at a time today; toggling switches
+      // between presets rather than ANDing them).
+      setActiveTags([]);
+      clearAiFilter();
+      return;
+    }
+    setActiveTags([presetId]);
+    runAiFilter(preset.prompt);
+  };
+
   const clearAiFilter = () => {
     setAiFilterIds(null);
     setAiFilterLabel('');
     setAiPrompt('');
+    setActiveTags([]);
   };
 
-  const visibleItems = useMemo(() => {
-    if (aiFilterIds === null) return items;
-    return items.filter((p) => aiFilterIds.has(p.id));
-  }, [items, aiFilterIds]);
+  const clearAllFilters = () => {
+    clearAiFilter();
+    setBranch('all');
+  };
 
   const onCreated = (poll) => {
     setComposerOpen(false);
-    // Optimistically prepend the freshly-created poll so the user
-    // sees it land at the top of the list without waiting for the
-    // full re-fetch.
     if (poll) {
       setItems((prev) => [normalizeCreatedPoll(poll, citizen), ...prev]);
     }
-    // Also refresh from the server so counts and ordering are in
-    // sync with whatever else may have happened in the interim.
     load();
   };
 
-  return (
-    <main style={{ padding: '24px 20px 60px', fontFamily: 'var(--cl-font-sans)', maxWidth: 1200, margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 16, marginBottom: 6 }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, fontFamily: 'var(--cl-font-display)' }}>
-          Polls
-        </h1>
-        <Link href="/" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>← CivicView home</Link>
-      </div>
-      <p style={{ color: 'var(--cl-text-light)', fontSize: '0.92rem', marginTop: 0, marginBottom: 16, lineHeight: 1.5 }}>
-        Every active poll on the site — what reps are asking constituents,
-        what citizens are asking each other and the officials who serve them,
-        and standalone polls on civic topics that don&rsquo;t belong to any
-        single page.
-      </p>
+  // Navbar handlers. Citizen modals live on this page so /polls
+  // works as a standalone destination, not just a deep-link from home.
+  const handleStartPoll = () => {
+    if (signedIn) setComposerOpen(true);
+    else setCitizenLoginOpen(true);
+  };
+  const handleHome = () => router.push('/');
+  const handleMemberPick = (m) => {
+    if (m?.bioguide_id) router.push(`/?member=${encodeURIComponent(m.bioguide_id)}`);
+    else router.push('/');
+  };
+  const handleCandidatePick = (c) => {
+    if (c?.id) router.push(`/?candidate=${encodeURIComponent(c.id)}`);
+    else router.push('/');
+  };
+  const handleCitizenLogout = async () => {
+    await logoutCitizen();
+    setDashboardOpen(false);
+  };
 
-      {/* Filter chips + Start-a-poll button */}
-      <div
-        style={{
-          display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center',
-          marginBottom: 16,
-        }}
-      >
-        {KIND_FILTERS.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            onClick={() => setKindFilter(f.id)}
+  return (
+    <div className="polls-page">
+      {/* Sticky navbar wrapper — the design's filter bar sticks at
+          top: 56px assuming a 56px-tall navbar pinned above it. The
+          shared Navbar component is position:relative by default; the
+          wrapper here promotes it to sticky so the filter bar's sticky
+          offset lines up with what's actually on screen. */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 100 }}>
+        <Navbar
+          onMemberPick={handleMemberPick}
+          onCandidatePick={handleCandidatePick}
+          onOpenTracked={() => setTrackedOpen(true)}
+          onSubscribe={() => setWaitlistOpen(true)}
+          citizen={citizen}
+          onCitizenLogin={() => setCitizenLoginOpen(true)}
+          onCitizenLogout={handleCitizenLogout}
+          onCitizenDashboard={() => setDashboardOpen(true)}
+          onHome={handleHome}
+        />
+      </div>
+
+      <PollsHero counts={branchCounts} />
+
+      <div className="polls-filters">
+        <div className="polls-wrap">
+          <div className="polls-filters__inner">
+            <div className="polls-kindrow">
+              <div className="polls-kindrow__chips">
+                {BRANCH_FILTERS.map((f) => (
+                  <BranchChip
+                    key={f.id}
+                    filter={f}
+                    active={branch === f.id}
+                    count={branchCounts[f.id] || 0}
+                    onClick={() => setBranch(f.id)}
+                  />
+                ))}
+              </div>
+              <div className="polls-kindrow__cta">
+                <StartButton signedIn={signedIn} onClick={handleStartPoll} />
+              </div>
+            </div>
+
+            {aiAvailable && (
+              <AIFilterRow
+                presets={AI_PRESETS}
+                activeTags={activeTags}
+                onToggleTag={togglePresetTag}
+                query={aiPrompt}
+                setQuery={setAiPrompt}
+                onApply={() => runAiFilter()}
+                busy={aiFilterBusy}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="polls-wrap">
+        {error && (
+          <div
+            role="alert"
             style={{
-              padding: '6px 12px',
-              border: `1px solid ${kindFilter === f.id ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
-              background: kindFilter === f.id ? 'var(--cl-accent)' : 'white',
-              color: kindFilter === f.id ? 'white' : 'var(--cl-text)',
-              borderRadius: 999,
-              fontSize: '0.84rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-            }}
-          >
-            {f.label}
-          </button>
-        ))}
-        <div style={{ flex: 1 }} />
-        {citizen ? (
-          <button
-            type="button"
-            onClick={() => setComposerOpen(true)}
-            style={{
-              padding: '6px 14px',
-              border: '1px solid var(--cl-accent)',
-              background: 'var(--cl-accent)',
-              color: 'white',
+              background: 'var(--cl-danger-soft)',
+              color: 'var(--cl-danger-text)',
+              border: '1px solid var(--cl-danger-border)',
+              padding: '10px 14px',
               borderRadius: 8,
+              margin: '16px 0 0',
               fontSize: '0.86rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
             }}
           >
-            ✨ Start a poll
-          </button>
-        ) : (
-          <span style={{ color: 'var(--cl-text-light)', fontSize: '0.84rem' }}>
-            Sign in to start a poll
-          </span>
+            {error}
+          </div>
+        )}
+
+        {showActiveBanner && (
+          <ActiveFilterBanner
+            label={aiFilterLabel}
+            shown={visibleItems.length}
+            total={branchFiltered.length}
+            onClear={clearAiFilter}
+          />
+        )}
+
+        <div className="polls-grid">
+          {loading && items.length === 0 && (
+            <>
+              <PollSkeleton optCount={3} />
+              <PollSkeleton optCount={4} />
+              <PollSkeleton optCount={3} />
+              <PollSkeleton optCount={2} />
+              <PollSkeleton optCount={4} />
+              <PollSkeleton optCount={3} />
+            </>
+          )}
+
+          {!loading && isFullEmpty && (
+            <FullEmpty
+              branch={branch}
+              onClearFilters={clearAllFilters}
+              onStartPoll={handleStartPoll}
+              signedIn={signedIn}
+            />
+          )}
+
+          {!loading && isInlineEmpty && (
+            <InlineEmpty
+              query={aiPrompt}
+              tags={activeTags}
+              onClear={clearAiFilter}
+              onStartMatching={handleStartPoll}
+              signedIn={signedIn}
+            />
+          )}
+
+          {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.map((p) => (
+            <PollCard key={p.id} poll={p} />
+          ))}
+        </div>
+
+        {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.length > 0 && (
+          <BottomStartCTA signedIn={signedIn} onClick={handleStartPoll} />
         )}
       </div>
 
-      {/* AI filter row — chip presets + free-form input. Only renders
-          when AI is configured server-side AND there are at least 2
-          polls to filter against (no point filtering a list of one). */}
-      {aiAvailable && items.length > 1 && (
-        <div style={{ marginBottom: 14 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
-            {[
-              { label: 'Positive', prompt: 'positive polls' },
-              { label: 'Critical', prompt: 'critical polls' },
-              { label: 'Funny', prompt: 'funny polls' },
-              { label: 'Supportive', prompt: 'supportive polls' },
-              { label: 'Skeptical', prompt: 'skeptical polls questioning the data' },
-              { label: 'Informative', prompt: 'informative polls' },
-            ].map((chip) => (
-              <button
-                key={chip.label}
-                type="button"
-                onClick={() => runAiFilter(chip.prompt)}
-                disabled={aiFilterBusy}
-                style={{
-                  padding: '4px 10px',
-                  border: '1px solid var(--cl-border)',
-                  borderRadius: 999,
-                  background: 'white',
-                  color: 'var(--cl-text)',
-                  fontSize: '0.74rem', fontWeight: 600,
-                  cursor: aiFilterBusy ? 'wait' : 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                {chip.label}
-              </button>
-            ))}
-            <form
-              onSubmit={(e) => { e.preventDefault(); runAiFilter(aiPrompt); }}
-              style={{ display: 'flex', gap: 6, flex: 1, minWidth: 220 }}
-            >
-              <input
-                type="text"
-                value={aiPrompt}
-                onChange={(e) => setAiPrompt(e.target.value.slice(0, 300))}
-                placeholder="✨ Filter polls… (e.g. 'about taxes' or 'from @Fred')"
-                disabled={aiFilterBusy}
-                style={{
-                  flex: 1, minWidth: 0,
-                  padding: '4px 10px',
-                  border: '1px solid var(--cl-border)',
-                  borderRadius: 999,
-                  background: 'white', color: 'var(--cl-text)',
-                  fontSize: '0.74rem', fontFamily: 'inherit',
-                }}
-              />
-              <button
-                type="submit"
-                disabled={aiFilterBusy || !aiPrompt.trim()}
-                style={{
-                  padding: '4px 12px',
-                  border: '1px solid var(--cl-accent)',
-                  background: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-bg)' : 'var(--cl-accent)',
-                  color: aiFilterBusy || !aiPrompt.trim() ? 'var(--cl-text-light)' : 'white',
-                  borderRadius: 999,
-                  fontSize: '0.74rem', fontWeight: 700,
-                  cursor: aiFilterBusy ? 'wait' : 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                {aiFilterBusy ? '…' : 'Apply'}
-              </button>
-            </form>
-          </div>
-          {aiFilterIds !== null && (
-            <div
-              style={{
-                marginTop: 8,
-                display: 'flex', alignItems: 'center', gap: 8,
-                padding: '6px 10px',
-                background: 'var(--cl-accent-soft)',
-                border: '1px solid var(--cl-accent-soft)',
-                borderRadius: 8,
-                fontSize: '0.74rem',
-                color: 'var(--cl-text)',
-              }}
-            >
-              <span style={{ flex: 1 }}>
-                {aiFilterLabel} — showing {aiFilterIds.size} of {items.length}
-              </span>
-              <button
-                type="button"
-                onClick={clearAiFilter}
-                style={{
-                  background: 'transparent', border: 'none',
-                  color: 'var(--cl-accent)', cursor: 'pointer',
-                  fontSize: '0.74rem', fontWeight: 700,
-                  fontFamily: 'inherit',
-                }}
-              >
-                Clear ✕
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {error && (
-        <div
-          role="alert"
-          style={{
-            background: 'var(--cl-danger-soft)',
-            color: 'var(--cl-danger-text)',
-            border: '1px solid var(--cl-danger-border)',
-            padding: '10px 14px',
-            borderRadius: 8,
-            marginBottom: 14,
-            fontSize: '0.86rem',
-          }}
-        >
-          {error}
-        </div>
-      )}
-
-      {loading && items.length === 0 && (
-        <div style={{ color: 'var(--cl-text-light)', padding: 30, textAlign: 'center' }}>
-          Loading polls…
-        </div>
-      )}
-      {!loading && items.length === 0 && (
-        <div
-          style={{
-            border: '1px dashed var(--cl-border)',
-            borderRadius: 12,
-            padding: '40px 24px',
-            textAlign: 'center',
-            color: 'var(--cl-text-light)',
-          }}
-        >
-          <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--cl-text)', marginBottom: 6 }}>
-            No polls in this view yet.
-          </div>
-          <p style={{ fontSize: '0.92rem', margin: '0 auto', maxWidth: 480, lineHeight: 1.55 }}>
-            {kindFilter === 'standalone'
-              ? 'Standalone polls live here when citizens ask broad civic questions that don’t belong on a single rep’s page.'
-              : 'When reps and citizens start posting polls, they’ll appear here. Click "Start a poll" to be the first.'}
-          </p>
-        </div>
-      )}
-
-      {items.length > 0 && visibleItems.length === 0 && aiFilterIds !== null && (
-        <div
-          style={{
-            border: '1px dashed var(--cl-border)',
-            borderRadius: 12,
-            padding: '24px',
-            textAlign: 'center',
-            color: 'var(--cl-text-light)',
-          }}
-        >
-          No polls matched that filter.{' '}
-          <button
-            type="button"
-            onClick={clearAiFilter}
-            style={{
-              background: 'transparent', border: 'none',
-              color: 'var(--cl-accent)', cursor: 'pointer',
-              fontWeight: 600, fontFamily: 'inherit', padding: 0,
-            }}
-          >
-            Show all
-          </button>
-        </div>
-      )}
-      {visibleItems.length > 0 && (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-            gap: 14,
-          }}
-        >
-          {visibleItems.map((p) => <PollFeedCard key={p.id} poll={p} />)}
-        </div>
-      )}
+      {/* Mobile-only sticky FAB. CSS scopes it to ≤600px container. */}
+      <button
+        type="button"
+        className={`polls-fab ${signedIn ? '' : 'is-muted'}`}
+        onClick={handleStartPoll}
+      >
+        {signedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
+        {signedIn ? 'Start a poll' : 'Sign in to start'}
+      </button>
 
       {composerOpen && (
         <StandaloneComposer
@@ -397,133 +422,408 @@ export default function PollsPage() {
           onCreated={onCreated}
         />
       )}
-    </main>
+
+      <CitizenLoginModal
+        open={citizenLoginOpen}
+        onClose={() => setCitizenLoginOpen(false)}
+        onSuccess={() => setCitizenLoginOpen(false)}
+      />
+      <CitizenWaitlistModal
+        open={waitlistOpen}
+        onClose={() => setWaitlistOpen(false)}
+        clickedFrom="subscribe"
+      />
+      <MyTrackedModal
+        open={trackedOpen}
+        onClose={() => setTrackedOpen(false)}
+        onMemberPick={handleMemberPick}
+      />
+      {dashboardOpen && citizen && (
+        <ConstituentDashboard
+          citizen={citizen}
+          onClose={() => setDashboardOpen(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Hero block — dark navy band with eyebrow + title + sub + three
+// headline stats. The stats are computed from the loaded item list:
+// live polls = total in feed; votes / states are derived. Numbers
+// are ballpark — the feed endpoint doesn't return aggregate site
+// totals today, so we display branch-derived counts that adapt as
+// the feed grows.
+// ─────────────────────────────────────────────────────────────────────
+function PollsHero({ counts }) {
+  return (
+    <section className="polls-hero" aria-label="Polls hero">
+      <div className="polls-wrap">
+        <div className="polls-hero__inner">
+          <div>
+            <div className="polls-hero__eyebrow">Civic polls · grassroots feed</div>
+            <h1 className="polls-hero__title">Polls</h1>
+            <p className="polls-hero__sub">
+              Every active poll on CivicView — what reps are asking constituents,
+              what citizens are asking each other and the officials who serve them,
+              and standalone polls on civic topics that don&rsquo;t belong to any
+              single page.
+            </p>
+          </div>
+          <div className="polls-hero__stats">
+            <div className="polls-hero__stat">
+              <span className="polls-hero__stat-num cl-num">{formatCount(counts.all || 0)}</span>
+              <span className="polls-hero__stat-label">Live polls</span>
+            </div>
+            <div className="polls-hero__stat">
+              <span className="polls-hero__stat-num cl-num">{formatCount(counts.standalone || 0)}</span>
+              <span className="polls-hero__stat-label">Standalone</span>
+            </div>
+            <div className="polls-hero__stat">
+              <span className="polls-hero__stat-num cl-num">{formatCount((counts.all || 0) - (counts.standalone || 0))}</span>
+              <span className="polls-hero__stat-label">On rep pages</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Branch chip — kind-row filter pill. Three tiers:
+//   normal     → white, accent-green when active
+//   standalone → dashed border + warning dot prefix
+//   disabled   → reduced-opacity, "Soon" badge, non-clickable
+// ─────────────────────────────────────────────────────────────────────
+function BranchChip({ filter, active, count, onClick }) {
+  const Glyph = BRANCH_GLYPHS[filter.glyph];
+  const tierClass = filter.tier === 'standalone' ? 'polls-chip--standalone' : '';
+  const disabledClass = filter.disabled ? 'is-disabled' : '';
+  return (
+    <button
+      type="button"
+      className={`polls-chip ${tierClass} ${active ? 'is-active' : ''} ${disabledClass}`}
+      onClick={filter.disabled ? undefined : onClick}
+      aria-pressed={active}
+      aria-disabled={filter.disabled || undefined}
+      title={filter.disabled ? 'Available when candidates launch' : undefined}
+    >
+      {Glyph && (
+        <span className="polls-chip__glyph"><Glyph size={15} /></span>
+      )}
+      <span>{filter.label}</span>
+      {filter.disabled
+        ? <span className="polls-chip__soon">Soon</span>
+        : <span className="polls-chip__count cl-num">{count}</span>}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Start-a-poll button. Two states: signed in → primary green; signed
+// out → muted white with a lock glyph that opens the citizen login
+// modal on click.
+// ─────────────────────────────────────────────────────────────────────
+function StartButton({ signedIn, onClick }) {
+  return (
+    <button
+      type="button"
+      className={`polls-start-btn ${signedIn ? '' : 'is-muted'}`}
+      onClick={onClick}
+    >
+      {signedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
+      {signedIn ? 'Start a poll' : 'Sign in to start a poll'}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI filter row — preset tone chips on the left, free-form input on
+// the right. Free-form Apply hits the same /api/polls/filter endpoint
+// the chips do.
+// ─────────────────────────────────────────────────────────────────────
+function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onApply, busy }) {
+  return (
+    <div className="polls-airow" role="group" aria-label="AI-powered filters">
+      <div className="polls-airow__inner">
+        <span className="polls-airow__label">
+          <SparkleGlyph size={13} /> AI tone filters
+        </span>
+        <div className="polls-airow__chips">
+          {presets.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className={`polls-aichip ${activeTags.includes(t.id) ? 'is-active' : ''}`}
+              onClick={() => onToggleTag(t.id)}
+              aria-pressed={activeTags.includes(t.id)}
+              disabled={busy}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <label className="polls-airow__field">
+          <span className="polls-airow__sparkle"><SparkleGlyph size={14} /></span>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value.slice(0, 300))}
+            placeholder="Filter polls… (e.g. 'about taxes' or 'from @Fred')"
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); onApply(); } }}
+            disabled={busy}
+          />
+          <button
+            type="button"
+            className="polls-airow__apply"
+            onClick={onApply}
+            disabled={busy || (!query.trim() && activeTags.length === 0)}
+          >
+            {busy ? '…' : 'Apply'}
+          </button>
+        </label>
+      </div>
+    </div>
+  );
+}
+
+function ActiveFilterBanner({ label, shown, total, onClear }) {
+  return (
+    <div className="polls-active-banner" role="status">
+      <span className="polls-active-banner__sparkle"><SparkleGlyph size={14} /></span>
+      <span className="polls-active-banner__text">
+        AI-filtered: <strong>{label}</strong>{' '}
+        <span className="polls-active-banner__count">— showing {shown} of {total}</span>
+      </span>
+      <button type="button" className="polls-active-banner__clear" onClick={onClear}>
+        Clear <CloseGlyph size={11} />
+      </button>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Empty states.
+//   FullEmpty   — used when the branch filter alone returns zero.
+//                 Big card, megaphone glyph, primary "Start a poll" CTA.
+//                 Rare in production but right for first-load.
+//   InlineEmpty — the common case. Compact, sits inside the grid as
+//                 one full-width row, echoes the filter text back, pairs
+//                 Clear filter + Start a poll matching this. Reads as
+//                 part of the feed, not a takeover.
+// ─────────────────────────────────────────────────────────────────────
+function FullEmpty({ branch, onClearFilters, onStartPoll, signedIn }) {
+  const branchLabel = BRANCH_FILTERS.find((b) => b.id === branch)?.label || 'this branch';
+  const isAll = branch === 'all';
+  return (
+    <div className="polls-empty">
+      <div className="polls-empty__glyph"><MegaphoneGlyph size={28} /></div>
+      <div className="polls-empty__title">
+        {isAll ? 'No polls live yet.' : `No ${branchLabel.toLowerCase()} polls match.`}
+      </div>
+      <div className="polls-empty__body">
+        {isAll
+          ? 'When reps and citizens start posting polls, they appear here. The feed is grassroots — what citizens ask is what other citizens see next.'
+          : 'Try clearing your filter — or start a poll yourself. The feed is grassroots: what citizens ask here is what other citizens see next.'}
+      </div>
+      <div className="polls-empty__actions">
+        {!isAll && (
+          <button className="polls-empty__btn polls-empty__btn--ghost" onClick={onClearFilters}>
+            Clear filters
+          </button>
+        )}
+        <button
+          className={`polls-empty__btn ${signedIn ? 'polls-empty__btn--primary' : 'polls-empty__btn--ghost'}`}
+          onClick={onStartPoll}
+        >
+          {signedIn
+            ? <><PlusGlyph size={13} color="white" /> Start a poll</>
+            : <><LockGlyph size={12} /> Sign in to start a poll</>}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function InlineEmpty({ query, tags, onClear, onStartMatching, signedIn }) {
+  const tagLabels = tags
+    .map((id) => AI_PRESETS.find((p) => p.id === id)?.label)
+    .filter(Boolean);
+  const filterStr = query?.trim() || tagLabels.join(' + ') || 'your filter';
+  return (
+    <div className="polls-empty polls-empty--inline">
+      <div className="polls-empty__glyph"><SparkleGlyph size={20} /></div>
+      <div className="polls-empty__body-wrap">
+        <div className="polls-empty__title">Nothing matches your AI filter yet.</div>
+        <div className="polls-empty__filter">
+          Filtered for <strong>&ldquo;{filterStr}&rdquo;</strong> — no polls in the current
+          feed match. Try a different angle, clear the filter, or start one yourself.
+        </div>
+      </div>
+      <div className="polls-empty__actions">
+        <button className="polls-empty__btn polls-empty__btn--ghost" onClick={onClear}>
+          Clear filter
+        </button>
+        <button
+          className={`polls-empty__btn ${signedIn ? 'polls-empty__btn--primary' : 'polls-empty__btn--ghost'}`}
+          onClick={onStartMatching}
+        >
+          {signedIn
+            ? <><PlusGlyph size={13} color="white" /> Start a poll matching this</>
+            : <><LockGlyph size={12} /> Sign in to start one</>}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function BottomStartCTA({ signedIn, onClick }) {
+  return (
+    <div className="polls-bottom-cta">
+      <div className="polls-bottom-cta__text">
+        <span className="polls-bottom-cta__title">Don&rsquo;t see your question?</span>
+        <span className="polls-bottom-cta__sub">
+          Start a poll — verified citizens can ask the rest of CivicView directly from this page.
+        </span>
+      </div>
+      <StartButton signedIn={signedIn} onClick={onClick} />
+    </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────
 // One poll card on /polls.
-// Lighter-weight than the rep-page PollCard — read-only, no in-place
-// voting. Standalone polls are also non-clickable since they have no
-// source page; rep-page polls deep-link to their source.
+// Read-only — voting / commenting still happens on the source page.
+// Standalone polls render as a non-clickable card (in-place voting
+// is a Phase C improvement); rep-page and citizen-on-rep-page polls
+// deep-link to their hosting page.
 // ─────────────────────────────────────────────────────────────────────
-function PollFeedCard({ poll }) {
+function PollCard({ poll }) {
   const isStandalone = poll.kind === 'standalone';
-  const isRep = poll.kind === 'rep';
   const href = !isStandalone && poll.official_id
     ? `/?page=${encodeURIComponent(poll.official_id)}`
     : null;
 
-  const cardBody = (
-    <article
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl, 14px)',
-        padding: 14,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        height: '100%',
-      }}
-    >
-      {/* Top row — author + kind / page tag */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--cl-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {poll.author}
+  const kindLabel = isStandalone ? 'Standalone' : poll.kind === 'rep' ? 'Rep' : 'Citizen';
+  const avatarTone = isStandalone ? 'standalone' : poll.kind;
+  const initials = (poll.author || '?').split(/\s+/).map((s) => s[0] || '').slice(0, 2).join('').toUpperCase();
+  const verified = poll.kind === 'rep'; // citizens are unverified until ID.me ships
+  const visibleOpts = (poll.options || []).slice(0, 4);
+  const overflow = (poll.options || []).length - visibleOpts.length;
+
+  // Mark the leading option for visual emphasis.
+  const maxPct = visibleOpts.reduce((m, o) => Math.max(m, o.percent || 0), 0);
+
+  const inner = (
+    <>
+      <div className="poll-card__chips">
+        <span className={`poll-kind poll-kind--${poll.kind}`}>{kindLabel}</span>
+        {poll.page_tag && <span className="poll-source">{poll.page_tag}</span>}
+        <span className="poll-card__time">{relTime(poll.created_at)}</span>
+      </div>
+
+      <div className="poll-card__author">
+        <div className={`poll-card__avatar poll-card__avatar--${avatarTone}`}>
+          {initials || '?'}
+        </div>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div className="poll-card__name">
+            <span>{poll.author || 'Anonymous'}</span>
+            {!verified && (
+              <span className="poll-card__unverified" title="This author hasn't been identity-verified yet">
+                Unverified
+              </span>
+            )}
           </div>
-          <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)' }}>
-            {poll.role || (isRep ? 'Representative' : 'Citizen')} · {relTime(poll.created_at)}
+          <div className="poll-card__role">
+            {poll.role || (poll.kind === 'rep' ? 'Representative' : 'Citizen')}
           </div>
         </div>
-        <KindTag kind={poll.kind} pageTag={poll.page_tag} party={poll.party} />
       </div>
 
-      {/* Question */}
-      <div style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--cl-text)', lineHeight: 1.4 }}>
-        {poll.question}
-      </div>
+      <div className="poll-card__q">{poll.question}</div>
 
-      {/* Option bars */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {(poll.options || []).map((opt, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'relative',
-              background: 'var(--cl-bg)',
-              border: '1px solid var(--cl-border)',
-              borderRadius: 8,
-              padding: '6px 10px',
-              fontSize: '0.84rem',
-              overflow: 'hidden',
-            }}
-          >
+      <div className="poll-card__opts">
+        {visibleOpts.map((o, i) => {
+          const pct = o.percent || 0;
+          const isLeading = pct === maxPct && pct > 0;
+          return (
             <div
-              aria-hidden
-              style={{
-                position: 'absolute',
-                top: 0, bottom: 0, left: 0,
-                width: `${opt.percent || 0}%`,
-                background: 'var(--cl-accent-soft)',
-                zIndex: 0,
-              }}
-            />
-            <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ color: 'var(--cl-text)' }}>{opt.label}</span>
-              <span style={{ color: 'var(--cl-text-light)', fontWeight: 600 }}>{opt.percent || 0}%</span>
+              key={i}
+              className={`poll-opt ${isLeading ? 'is-leading' : ''}`}
+            >
+              <span className="poll-opt__fill" style={{ width: `${pct}%` }} />
+              <span className="poll-opt__label">{o.label}</span>
+              <span className="poll-opt__pct">{pct}%</span>
+              {o.count != null && (
+                <span className="poll-opt__votes cl-num">{formatCount(o.count)}</span>
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
+        {overflow > 0 && (
+          <div className="poll-card__overflow">+{overflow} more option{overflow === 1 ? '' : 's'} — open page to vote</div>
+        )}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: 2 }}>
-        <span><strong style={{ color: 'var(--cl-text)' }}>{formatCount(poll.votes)}</strong> votes · <strong style={{ color: 'var(--cl-text)' }}>{formatCount(poll.comments)}</strong> comments</span>
-        {href && <span style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>Open page →</span>}
+      <div className="poll-card__footer">
+        <span className="poll-card__counts">
+          <VoteGlyph size={12} />
+          <span><strong className="cl-num">{formatCount(poll.votes)}</strong> votes</span>
+          <span style={{ opacity: 0.4 }}>·</span>
+          <ChatGlyph size={12} />
+          <span><strong className="cl-num">{formatCount(poll.comments)}</strong> comments</span>
+        </span>
+        {href && (
+          <span className="poll-card__deeplink">
+            Open page <ArrowGlyph size={12} />
+          </span>
+        )}
       </div>
-    </article>
+    </>
   );
 
-  // If we have a source page, wrap in a link. Standalone polls
-  // render as a non-clickable card today; in-place voting on the
-  // standalone is a Phase C improvement.
   if (href) {
     return (
-      <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-        {cardBody}
+      <a href={href} className="poll-card" aria-label={`Open page for ${poll.author}`}>
+        {inner}
       </a>
     );
   }
-  return cardBody;
+  return <article className="poll-card">{inner}</article>;
 }
 
-function KindTag({ kind, pageTag, party }) {
-  const label =
-    kind === 'standalone' ? 'Standalone'
-      : kind === 'rep' ? (pageTag || (party ? `Rep · ${party}` : 'Rep'))
-      : (pageTag || 'Citizen');
-  const tone =
-    kind === 'standalone' ? { bg: '#fff7e6', fg: '#8a6100', border: '#ffe1a3' }
-      : kind === 'rep' ? { bg: '#eef4ff', fg: '#1d4ed8', border: '#bcd4ff' }
-      : { bg: 'var(--cl-accent-soft)', fg: 'var(--cl-accent)', border: 'transparent' };
+// Skeleton card — shown during initial load.
+function PollSkeleton({ optCount = 3 }) {
+  const widths = [78, 56, 42, 34, 28];
   return (
-    <span
-      style={{
-        padding: '2px 8px',
-        background: tone.bg,
-        color: tone.fg,
-        border: `1px solid ${tone.border}`,
-        borderRadius: 999,
-        fontSize: '0.7rem',
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        letterSpacing: '0.04em',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      {label}
-    </span>
+    <div className="poll-skel" aria-hidden="true">
+      <div className="skel-row">
+        <div className="skel-bar" style={{ width: 38, height: 16 }} />
+        <div className="skel-bar" style={{ width: 68, height: 14 }} />
+        <div className="skel-bar" style={{ width: 44, height: 12, marginLeft: 'auto' }} />
+      </div>
+      <div className="skel-row">
+        <div className="skel-bar skel-circle" style={{ width: 36, height: 36 }} />
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div className="skel-bar" style={{ width: '60%', height: 12 }} />
+          <div className="skel-bar" style={{ width: '40%', height: 10 }} />
+        </div>
+      </div>
+      <div className="skel-bar" style={{ width: '92%', height: 14 }} />
+      <div className="skel-bar" style={{ width: '74%', height: 14 }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginTop: 2 }}>
+        {Array.from({ length: optCount }).map((_, i) => (
+          <div key={i} className="skel-opt" style={{ ['--w']: `${widths[i]}%` }} />
+        ))}
+      </div>
+      <div className="skel-row" style={{ paddingTop: 10, borderTop: '1px solid var(--cl-divider)' }}>
+        <div className="skel-bar" style={{ width: 110, height: 11 }} />
+        <div className="skel-bar" style={{ width: 70, height: 11, marginLeft: 'auto' }} />
+      </div>
+    </div>
   );
 }
 
@@ -549,9 +849,9 @@ function normalizeCreatedPoll(citizenPollRead, citizen) {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Standalone poll composer modal.
-// Minimal — just a question + 2-8 options. Closes-at and presentation
-// mode are deferred to a "More options" expander if/when users ask.
+// Standalone poll composer modal — unchanged from the previous
+// implementation. Question + 2-8 options. Closes-at and presentation
+// modes are deferred to a "More options" expander if/when users ask.
 // ─────────────────────────────────────────────────────────────────────
 function StandaloneComposer({ onCancel, onCreated }) {
   const [question, setQuestion] = useState('');
@@ -756,3 +1056,129 @@ function StandaloneComposer({ onCancel, onCreated }) {
     </div>
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// Glyphs — Phosphor-duotone-style icons, 24x24 viewBox, navy stroke
+// + 28% accent fill on duotone shapes. Lifted from the design export
+// at /Design Exports/civicview-polls-page/project/polls-glyphs.jsx.
+// Inlined here so the page is self-contained and doesn't pull in
+// another file across an import boundary.
+// ─────────────────────────────────────────────────────────────────────
+const AllPollsGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3" y="4" width="18" height="3.2" rx="1" fill={color} opacity="0.28" />
+    <rect x="3" y="10.4" width="18" height="3.2" rx="1" fill={color} opacity="0.28" />
+    <rect x="3" y="16.8" width="18" height="3.2" rx="1" fill={color} opacity="0.28" />
+    <rect x="3" y="4" width="18" height="3.2" rx="1" stroke={color} strokeWidth="1.6" />
+    <rect x="3" y="10.4" width="18" height="3.2" rx="1" stroke={color} strokeWidth="1.6" />
+    <rect x="3" y="16.8" width="18" height="3.2" rx="1" stroke={color} strokeWidth="1.6" />
+  </svg>
+);
+const BillGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M6 3 H15 L19 7 V21 H6 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" strokeLinejoin="miter" />
+    <path d="M15 3 V7 H19" stroke={color} strokeWidth="1.6" fill="none" strokeLinejoin="miter" />
+    <path d="M9 11 H16 M9 14 H16 M9 17 H13" stroke={color} strokeWidth="1.4" strokeLinecap="butt" />
+  </svg>
+);
+const CommitteeGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="5" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" />
+    <circle cx="12" cy="4" r="1.6" fill={color} />
+    <circle cx="12" cy="20" r="1.6" fill={color} />
+    <circle cx="4" cy="12" r="1.6" fill={color} />
+    <circle cx="20" cy="12" r="1.6" fill={color} />
+  </svg>
+);
+const ExecutiveGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 9 L12 4 L21 9 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" strokeLinejoin="miter" />
+    <rect x="4" y="9" width="16" height="2" fill={color} opacity="0.4" />
+    <rect x="6" y="11" width="2" height="8" fill={color} opacity="0.28" stroke={color} strokeWidth="1.4" />
+    <rect x="11" y="11" width="2" height="8" fill={color} opacity="0.28" stroke={color} strokeWidth="1.4" />
+    <rect x="16" y="11" width="2" height="8" fill={color} opacity="0.28" stroke={color} strokeWidth="1.4" />
+    <path d="M3 20 H21" stroke={color} strokeWidth="1.6" strokeLinecap="butt" />
+  </svg>
+);
+const JudicialGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 4 V20" stroke={color} strokeWidth="1.6" strokeLinecap="butt" />
+    <path d="M5 8 H19" stroke={color} strokeWidth="1.6" strokeLinecap="butt" />
+    <path d="M5 8 L3 13 H7 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.4" strokeLinejoin="miter" />
+    <path d="M19 8 L17 13 H21 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.4" strokeLinejoin="miter" />
+    <path d="M8 20 H16" stroke={color} strokeWidth="1.6" strokeLinecap="butt" />
+  </svg>
+);
+const StandaloneGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M4 5 H20 V16 H10 L6 20 V16 H4 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" strokeLinejoin="miter" />
+    <circle cx="8.5" cy="10.5" r="1" fill={color} />
+    <circle cx="12" cy="10.5" r="1" fill={color} />
+    <circle cx="15.5" cy="10.5" r="1" fill={color} />
+  </svg>
+);
+const FromCandidatesGlyph = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="9" cy="8" r="2.8" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" />
+    <path d="M3 20c0-3 2.7-5.4 6-5.4s6 2.4 6 5.4" stroke={color} strokeWidth="1.6" fill={color} fillOpacity="0.22" strokeLinecap="butt" />
+    <path d="M18 5 L19 8 L22 8.5 L19.5 10.5 L20.5 13.5 L18 12 L15.5 13.5 L16.5 10.5 L14 8.5 L17 8 Z" fill={color} opacity="0.85" />
+  </svg>
+);
+const PlusGlyph = ({ size = 14, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 4 L12 20 M4 12 L20 12" stroke={color} strokeWidth="2.2" strokeLinecap="butt" />
+  </svg>
+);
+const SparkleGlyph = ({ size = 14, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 3 L13.8 9.6 L20.4 11.4 L13.8 13.2 L12 19.8 L10.2 13.2 L3.6 11.4 L10.2 9.6 Z"
+          fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" strokeLinejoin="miter" />
+    <path d="M19 4 L19.6 6 L21.6 6.6 L19.6 7.2 L19 9.2 L18.4 7.2 L16.4 6.6 L18.4 6 Z" fill={color} />
+  </svg>
+);
+const CloseGlyph = ({ size = 12, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 5 L19 19 M19 5 L5 19" stroke={color} strokeWidth="2.2" strokeLinecap="butt" />
+  </svg>
+);
+const ChatGlyph = ({ size = 12, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M4 5 H20 V16 H10 L6 20 V16 H4 Z" stroke={color} strokeWidth="1.8" fill={color} fillOpacity="0.22" strokeLinejoin="miter" />
+  </svg>
+);
+const VoteGlyph = ({ size = 12, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M4 10 L4 20 L20 20 L20 10" stroke={color} strokeWidth="1.8" fill={color} fillOpacity="0.22" strokeLinejoin="miter" strokeLinecap="butt" />
+    <path d="M8 10 L8 6 L16 6 L16 10" stroke={color} strokeWidth="1.8" fill="none" />
+    <path d="M9 14 L11.5 16.5 L16 12" stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="butt" />
+  </svg>
+);
+const ArrowGlyph = ({ size = 12, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 12 L19 12 M13 6 L19 12 L13 18" stroke={color} strokeWidth="2" strokeLinecap="butt" strokeLinejoin="miter" fill="none" />
+  </svg>
+);
+const LockGlyph = ({ size = 14, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="9" rx="1" fill={color} opacity="0.28" stroke={color} strokeWidth="1.6" />
+    <path d="M8 11 V8 a4 4 0 0 1 8 0 V11" stroke={color} strokeWidth="1.6" fill="none" />
+  </svg>
+);
+const MegaphoneGlyph = ({ size = 24, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 9 L3 15 L8 15 L18 20 L18 4 Z" fill={color} opacity="0.28" stroke={color} strokeWidth="1.8" strokeLinejoin="miter" />
+    <path d="M21 9 L21 15" stroke={color} strokeWidth="1.8" strokeLinecap="butt" />
+    <path d="M8 15 L9 21 L12 21 L11 15" stroke={color} strokeWidth="1.8" fill={color} fillOpacity="0.28" />
+  </svg>
+);
+
+// Glyph lookup keyed by the BRANCH_FILTERS `glyph` field.
+const BRANCH_GLYPHS = {
+  AllPolls: AllPollsGlyph,
+  Bill: BillGlyph,
+  Committee: CommitteeGlyph,
+  Executive: ExecutiveGlyph,
+  Judicial: JudicialGlyph,
+  Standalone: StandaloneGlyph,
+  FromCandidates: FromCandidatesGlyph,
+};
