@@ -149,7 +149,8 @@ export default function AdminPage() {
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 6, gap: 16 }}>
         <h1 style={{ fontSize: '1.4rem', fontWeight: 700, margin: 0 }}>Moderation queue</h1>
         <div style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
-          <a href="/admin/users" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>Suspended accounts →</a>
+          <a href="/admin/appeals" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>Appeals →</a>
+          <a href="/admin/users" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>Suspended →</a>
           <a href="/" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>← CivicView home</a>
         </div>
       </div>

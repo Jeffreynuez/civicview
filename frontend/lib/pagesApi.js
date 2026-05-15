@@ -280,6 +280,30 @@ export async function adminListSuspendedUsers() {
   return request('/api/admin/users/suspended');
 }
 
+// Admin appeals queue. Pending first by default; pass
+// includeActed=true for the audit view.
+export async function adminListAppeals({ includeActed = false } = {}) {
+  return request('/api/admin/appeals', {
+    query: { include_acted: includeActed ? 'true' : undefined },
+  });
+}
+
+// Grant or deny an appeal. Both take an optional admin_note that
+// surfaces to the appellant in their dashboard view + decision email.
+export async function adminGrantAppeal(appealId, { adminNote } = {}) {
+  return request(`/api/admin/appeals/${encodeURIComponent(appealId)}/grant`, {
+    method: 'POST',
+    body: { admin_note: adminNote },
+  });
+}
+
+export async function adminDenyAppeal(appealId, { adminNote } = {}) {
+  return request(`/api/admin/appeals/${encodeURIComponent(appealId)}/deny`, {
+    method: 'POST',
+    body: { admin_note: adminNote },
+  });
+}
+
 // ── Home-page feed (National activity + Popular polls) ───────────────
 // Lightweight aggregates that power the two large landing-page
 // sections in NationalOfficialsPanel. Both return { items: [...] }

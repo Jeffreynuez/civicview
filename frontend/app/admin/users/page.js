@@ -127,6 +127,7 @@ export default function AdminUsersPage() {
         <h1 style={{ fontSize: '1.4rem', fontWeight: 700, margin: 0 }}>Suspended accounts</h1>
         <div style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
           <a href="/admin" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>← Moderation queue</a>
+          <a href="/admin/appeals" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>Appeals →</a>
           <a href="/" style={{ color: 'var(--cl-accent)', fontSize: '0.9rem', fontWeight: 600 }}>CivicView home</a>
         </div>
       </div>
