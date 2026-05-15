@@ -4,147 +4,193 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * HelpBuildThisView — full-page overlay that publishes the project's
- * transparent status: what's shipped, what's in progress, what's
- * blocked on real-dollar funding (with exact amounts and source
- * citations so backers can sanity-check the numbers), the future
- * product features list, and a primary CTA to the crowdfund.
+ * HelpBuildThisView — full-page overlay for the project's transparent
+ * status: what's shipped, what's in progress, what's blocked on
+ * real-dollar funding (with exact amounts and source citations so
+ * backers can sanity-check the numbers), the future product features
+ * list, and a primary CTA to the crowdfund.
  *
- * Why surface this so prominently? Civic-tech projects live or die on
- * trust. Backers need to see specific numbers tied to specific
+ * Why surface this so prominently? Civic-tech projects live or die
+ * on trust. Backers need to see specific numbers tied to specific
  * unlocks ("$1,050 → trademark filing" beats "help fund our growth"
  * by a wide margin), and visitors who can't or won't donate should
  * still be able to see exactly where the project is and where it's
  * going. That's the whole pitch of going grassroots over investor.
  *
+ * Layout follows the Claude Design export at
+ * /Design Exports/civicview-help-build-this-page/. Styles live in
+ * ./HelpBuildThisView.css.
+ *
  * Props:
  *   onClose() — collapse the overlay
- *   compactNavbar — the slim Navbar shown at the top of the overlay
- *                   for consistency with PageView's chrome.
+ *   compactNavbarProps — the slim Navbar shown at the top of the
+ *                       overlay (forwarded to <Navbar compact ... />)
  */
 import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
+import './HelpBuildThisView.css';
 
-// Placeholder until the user has the actual crowdfund URL. Updating
-// this in one place propagates through every CTA on the page.
+// Crowdfund link — flip CROWDFUND_LIVE to true once the campaign is up.
+// CTA copy + progress meter + per-line "Fund this line" buttons all
+// branch on this single flag.
 const CROWDFUND_URL = 'https://www.gofundme.com/civicview';
-const CROWDFUND_LIVE = false; // flip to true once the campaign is up
+const CROWDFUND_LIVE = false;
 
-// ── Content — single source of truth for what's done / WIP / blocked.
-// Keep entries short; long-form rationale lives in the README. Each
-// blocked-on-funding line carries an exact dollar amount and a source
-// the user can audit, which is the whole point of going transparent.
+// Goal — sum of one-time costs + first year of recurring (mid-range
+// for ranged costs). Rounded for storytelling.
+//   One-time:   2,400 + 1,050 +     6 =  3,456
+//   Year-1 mo: (500 + 100 + 350 + 15 + 20) * 12 = 11,820
+//   + domain   $15/yr
+//   ≈ 15,291  → goal $15,300
+const FUND_GOAL = 15300;
 
-const DONE = [
-  'Interactive U.S. map with all 50 states and 435 congressional districts',
-  'Federal officials directory: President, Vice President, Cabinet, SCOTUS, House + Senate leadership',
-  'Florida coverage: state senate + house, statewide executives, 2026 candidates, election dates',
-  'Address lookup that resolves a street address, ZIP, or city name to your specific representative',
-  'Rep pages with posts, polls (4 visibility modes), comments, reactions, an owner dashboard, and an engagement scope filter',
-  'Citizen-led polls on unclaimed rep pages: 1 active per user per page, 20 active polls per page cap, archive-on-claim, moderation reports',
-  '"On the ballot" home-page surface with key election dates and a featured race',
-  '"Popular polls" home-page surface mixing rep-authored and citizen-authored polls',
-  '"National activity" home-page surface alternating R/D posts',
-  'Self-serve demo citizen accounts — any visitor can pick a name + state + district and try the engagement features end-to-end',
-  'Mobile + desktop responsive layouts, including a draggable map/panel split on phones',
-  'Installable PWA on Android + iOS — pin to home screen for a near-app-store experience',
-  'Light-only theme that respects each component\'s design (OS dark mode handled at the chrome level)',
-  'Address verification waitlist, "Claim this page" waitlist for real reps',
+// ────────────────────────────────────────────────────────────────────
+// CONTENT — single source of truth. Keep entries concise; long-form
+// rationale lives in the README. Each blocked-on-funding line carries
+// an exact dollar amount and a source the user can audit, which is
+// the whole point of going transparent.
+// ────────────────────────────────────────────────────────────────────
+
+// What's shipped — 22 items. AI integration, moderation, appeals,
+// /polls feed, etc. all moved out of "future" and into the live
+// shipped list. Volume itself is a trust signal — don't truncate.
+const SHIPPED = [
+  ['Interactive U.S. map', 'All 50 states + 435 congressional districts, click to drill in.'],
+  ['Federal officials directory', 'President, VP, Cabinet, SCOTUS, House + Senate leadership.'],
+  ['Florida full coverage', 'State senate + house, statewide execs, 2026 candidates, election dates.'],
+  ['Address → rep lookup', 'Street / ZIP / city resolves to a specific representative.'],
+  ['Rep pages', 'Posts, polls (4 visibility modes), comments, reactions, owner dashboard, scope filter.'],
+  ['Citizen-led polls on unclaimed pages', 'Per-user / per-page caps, archive-on-claim.'],
+  ['Standalone citizen polls', 'Not tied to any rep page, global rate-limited.'],
+  ['Global /polls feed', 'Kind chips, comments, AI-powered semantic filter.'],
+  ['AI integration', 'Claude Haiku 4.5 — comment sentiment + tone, semantic filter chips, post summarization, poll classification.'],
+  ['Moderation system', 'Report flow on every surface, auto-hide threshold, admin queue: Dismiss / Hide / Unhide / Suspend, cascade-hide on suspension.'],
+  ['Appeals system', 'Citizens and reps can appeal hidden content + suspensions; admin queue with Grant / Deny + reason logging.'],
+  ['Email notifications', 'Resend-powered — moderation events, appeal submissions, decisions, suspension notices.'],
+  ['Mutually-exclusive sessions', 'Rep / citizen, proper cross-origin cookie handling.'],
+  ['"On the ballot" home surface', 'Key election dates + a featured race.'],
+  ['"Popular polls" home surface', 'Rep-authored and citizen-authored polls, mixed.'],
+  ['"National activity" home surface', 'Alternating R/D posts.'],
+  ['Demo citizen accounts', 'Pick a name + state + district and try the engagement features end-to-end.'],
+  ['Constituent dashboard', 'My tracked pages, my polls, my comments, my hidden-by-moderation with one-click appeals.'],
+  ['Responsive layouts', 'Mobile + desktop, including a draggable map / panel split on phones.'],
+  ['Installable PWA', 'Pin to home screen on Android + iOS for a near-app-store feel.'],
+  ['Light-only theme', 'Respects each component’s design; OS dark mode handled at the chrome level.'],
+  ['Two waitlists', 'Address verification + "Claim this page" for real reps.'],
 ];
 
-const WIP = [
-  'Filling out the remaining 49 states with full profile photos, issues, experience, state legislators, and local-rep data — content work, ongoing',
-  'Feedback inbox (next item on the build list)',
-  'Crowdfunding launch + tax / legal structure (forming an LLC, evaluating 501(c)(3))',
+const IN_PROGRESS = [
+  ['Filling out the remaining 49 states', 'Profile photos, issues, experience, state legislators, local-rep data — content work, ongoing.'],
+  ['Feedback inbox', 'Next item on the build list.'],
+  ['Crowdfunding launch + legal structure', 'Forming an LLC, evaluating 501(c)(3).'],
 ];
 
-// Funding items. Each has:
-//   item        — what the money buys
-//   cost        — display string with the exact figure
-//   citation    — where the number comes from, plus URL when applicable
-//   unlocks     — what the user / project gets when this is funded
-const FUNDING = [
+// Funding — grouped one-time vs recurring with cluster subtotals.
+const FUNDING_ONETIME = [
   {
-    item: 'Verified citizen identity (ID.me Relying Party contract)',
-    cost: '~$2,400 setup + ~$1.50 per verified user',
-    citation: 'ID.me business pricing for civic-tech Relying Parties (id.me/business)',
-    unlocks:
-      'Real "Verified citizen" badges replace today\'s "Unverified" labels. Vote integrity, district-scoped engagement, and abuse moderation all become meaningfully reliable.',
+    title: 'Verified citizen identity (ID.me Relying Party contract)',
+    cost: '$2,400',
+    costSuffix: 'setup + $1.50/verified user',
+    body: 'Real "Verified citizen" badges replace today’s "Unverified" labels. Vote integrity, district-scoped engagement, and abuse moderation all become meaningfully reliable.',
+    source: 'ID.me business pricing for civic-tech Relying Parties, id.me/business',
   },
   {
-    item: 'Federal trademark filing — CivicView wordmark + glyph',
-    cost: '$1,050 — three classes × $350 (TEAS Standard)',
-    citation: 'USPTO fee schedule, uspto.gov/learning-and-resources/fees-and-payment',
-    unlocks: 'Protects the CivicView name from copycats once the user base grows. Three classes cover software (9), SaaS (42), and online community services (45).',
+    title: 'Federal trademark filing (CivicView, 3 classes)',
+    cost: '$1,050',
+    costSuffix: 'one-time',
+    body: 'Protects the CivicView name from copycats once the user base grows. Three classes cover software (9), SaaS (42), and online community services (45).',
+    source: 'USPTO fee schedule, uspto.gov/learning-and-resources/fees-and-payment',
   },
   {
-    item: 'DMCA agent registration',
-    cost: '$6 every 3 years',
-    citation: 'dmca.copyright.gov',
-    unlocks: 'Required for §512 safe-harbor protection now that citizens can post polls and comments. Without it, the project carries personal liability for any user-generated content.',
-  },
-  {
-    item: 'ProPublica Congress API (Pro tier)',
-    cost: '$500 / month',
-    citation: 'projects.propublica.org/api-docs/congress-api/ — Pro tier for full historical + commercial use',
-    unlocks: 'Real-time bill text, sponsor lists, roll-call votes, committee membership across all 535 members. Currently we ship a curated snapshot.',
-  },
-  {
-    item: 'OpenStates API (Pro tier)',
-    cost: '$100 / month',
-    citation: 'openstates.org/pricing',
-    unlocks: 'State legislature data for all 50 states. Today we have Florida hand-curated; this unblocks the other 49 states\' state senators, reps, and bills.',
-  },
-  {
-    item: 'Google Civic Information API (paid tier at scale)',
-    cost: 'Free up to current usage; estimated $200–500 / month at scale',
-    citation: 'developers.google.com/civic-information',
-    unlocks: 'Polling-place lookup, sample-ballot data, official-rep contact info that stays current automatically.',
-  },
-  {
-    item: 'Domain renewal — civicview.app',
-    cost: '$15 / year',
-    citation: 'Cloudflare Registrar at-cost pricing',
-    unlocks: 'Keeps the project at its primary domain.',
-  },
-  {
-    item: 'Hosting — Render web service + Postgres (upgraded from free)',
-    cost: '~$15 / month combined',
-    citation: 'render.com/pricing — Starter plan eliminates the free-tier cold-start delay',
-    unlocks: 'No 50-second spin-up on first visit. Database stays warm.',
-  },
-  {
-    item: 'Vercel Pro (frontend) — only if free tier hits limits',
-    cost: '$20 / month',
-    citation: 'vercel.com/pricing',
-    unlocks: 'Higher bandwidth quotas, better cache-purge, team features. Defer until usage demands it.',
+    title: 'DMCA agent registration',
+    cost: '$6',
+    costSuffix: 'every 3 years',
+    body: 'Required for §512 safe-harbor protection now that citizens can post polls and comments. Without it, the project carries personal liability for any user-generated content.',
+    source: 'dmca.copyright.gov',
   },
 ];
 
-const FUTURE_FEATURES = [
+const FUNDING_RECURRING = [
+  {
+    title: 'ProPublica Congress API (Pro tier)',
+    cost: '$500',
+    costSuffix: '/ month',
+    body: 'Real-time bill text, sponsor lists, roll-call votes, committee membership across all 535 members. Currently we ship a curated snapshot.',
+    source: 'projects.propublica.org/api-docs/congress-api — Pro tier for full historical + commercial use',
+  },
+  {
+    title: 'OpenStates API (Pro tier)',
+    cost: '$100',
+    costSuffix: '/ month',
+    body: 'State legislature data for all 50 states. Today we have Florida hand-curated; this unblocks the other 49 states’ state senators, reps, and bills.',
+    source: 'openstates.org/pricing',
+  },
+  {
+    title: 'Google Civic Information API (paid tier at scale)',
+    cost: '$200–500',
+    costSuffix: '/ month at scale',
+    body: 'Polling-place lookup, sample-ballot data, official-rep contact info that stays current automatically. Free up to current usage.',
+    source: 'developers.google.com/civic-information',
+  },
+  {
+    title: 'Domain renewal — civicview.app',
+    cost: '$15',
+    costSuffix: '/ year',
+    body: 'Keeps the project at its primary domain.',
+    source: 'Cloudflare Registrar at-cost pricing',
+  },
+  {
+    title: 'Hosting — Render web service + Postgres (upgraded from free)',
+    cost: '~$15',
+    costSuffix: '/ month combined',
+    body: 'No 50-second spin-up on first visit. Database stays warm.',
+    source: 'render.com/pricing — Starter plan eliminates the free-tier cold-start delay',
+  },
+  {
+    title: 'Vercel Pro (frontend)',
+    cost: '$20',
+    costSuffix: '/ month, only if free tier hits limits',
+    body: 'Higher bandwidth + analytics. Held in reserve; the free tier is fine for now.',
+    source: 'vercel.com/pricing',
+  },
+];
+
+// Roadmap — aspirational features, no cost estimates yet. Dropped
+// the standalone "AI integration" entry because AI shipped (it now
+// lives in SHIPPED).
+const ROADMAP = [
   {
     title: 'Video posts on rep / candidate pages',
-    detail: 'Let verified reps attach video to their posts. Needs a transcoding pipeline (Mux or Cloudflare Stream), a size cap, and a moderation queue tied into the existing DMCA flow.',
+    body: 'Needs a transcoding pipeline (Mux or Cloudflare Stream), a sane size cap, and a moderation queue tied into the existing DMCA flow.',
+    icon: 'video',
+    tag: 'Needs infra',
   },
   {
     title: 'Live-streamed town halls',
-    detail: 'Rep goes Live, citizens get a push notification using the PWA stack already in place, the stream archives back into their post feed afterward. Pairs naturally with the existing Pages comment thread.',
+    body: 'A rep goes live, citizens get a PWA push notification, the stream archives back into the post feed when it ends.',
+    icon: 'live',
+    tag: 'Wish list',
   },
   {
     title: '1-on-1 live debates between reps / candidates',
-    detail: 'Request / accept flow where one official can challenge another to a scheduled live debate. Surfaced on both their pages and on the On-the-ballot home section while live. Same streaming infrastructure as town halls.',
+    body: 'Request / accept flow, surfaced on both pages and the On-the-ballot section while live. The high-trust use case for the streaming pipeline.',
+    icon: 'debate',
+    tag: 'Wish list',
   },
   {
     title: 'Optional citizen nicknames',
-    detail: 'Verified citizens can choose a display nickname instead of their legal name on every public surface. Identity verification still happens against the real name + address; the community just sees the user\'s chosen handle.',
+    body: 'Verified citizens can choose a display nickname instead of their legal name on public surfaces. Identity verification still happens against the real name underneath.',
+    icon: 'nickname',
+    tag: 'Privacy',
   },
 ];
 
-const AI_FEATURES = {
-  title: 'AI integration (planned — xAI / Grok)',
-  detail:
-    'Once funding allows, integrate an LLM (xAI Grok or comparable) for: bill-summary generation in plain English, personalized civic digests by user district, automatic detection of campaign-finance anomalies, and a "what changed since I last checked" feed. xAI has a public API — this is a regular dev integration, not a partnership ask.',
-};
+const ONETIME_TOTAL_LABEL = '$3,456 total one-time';
+const RECURRING_TOTAL_LABEL = '~$11,800 / first year';
+const LARGEST_PENDING = 'ProPublica · $500/mo';
+const LARGEST_PENDING_SUB = 'unlocks all-50-states bill data';
+
+const fmt$ = (n) => '$' + n.toLocaleString('en-US');
 
 export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) {
   // Lock background scroll while the overlay is up — same pattern as
@@ -156,6 +202,16 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
     return () => { document.body.style.overflow = prev; };
   }, []);
 
+  // Section open/close state — funding section opens by default
+  // (it's the trust artifact; receipts visible on first paint).
+  const [open, setOpen] = useState(new Set(['money']));
+  const toggle = (k) => setOpen((prev) => {
+    const next = new Set(prev);
+    if (next.has(k)) next.delete(k);
+    else next.add(k);
+    return next;
+  });
+
   return (
     <div
       role="dialog"
@@ -164,444 +220,290 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
         position: 'fixed',
         top: 0, left: 0, right: 0, bottom: 0,
         zIndex: 1200,
-        background: 'var(--cl-bg)',
-        display: 'flex', flexDirection: 'column',
-        overflow: 'hidden',
       }}
     >
-      {/* Compact navbar at the top — same chrome the PageView overlay
-          uses. The user can sign in / out, hit Subscribe, jump to My
-          Tracked from inside this view. */}
-      <div style={{ flex: '0 0 auto' }}>
+      <div className="hb-page">
+        {/* Compact navbar — same chrome as PageView. */}
         <Navbar compact {...compactNavbarProps} onHome={onClose} />
-      </div>
 
-      {/* Page-level top bar — Back to map, page title, no rep-login
-          because this isn't a rep page. */}
-      <div
-        style={{
-          flex: '0 0 auto',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          gap: 10, padding: '10px 18px',
-          background: 'white',
-          borderBottom: '1px solid var(--cl-border)',
-        }}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '6px 10px', borderRadius: 8,
-            border: '1px solid var(--cl-border)', background: 'white',
-            color: 'var(--cl-text)', fontSize: '0.85rem', cursor: 'pointer',
-            fontFamily: 'inherit',
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          Back
-        </button>
-        <div
-          style={{
-            fontSize: '0.9rem', fontWeight: 700, color: 'var(--cl-text)',
-            textAlign: 'center', flex: 1, minWidth: 0,
-            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}
-        >
-          Help build CivicView
+        {/* Page top bar — back to map, page title, spacer. */}
+        <div className="hb-topbar">
+          <button type="button" className="hb-topbar__back" onClick={onClose}>
+            <ArrowLeftIcon size={14} />
+            <span>Back</span>
+          </button>
+          <div className="hb-topbar__title">Help build CivicView</div>
+          <div className="hb-topbar__spacer" aria-hidden />
         </div>
-        <div style={{ width: 60 }} aria-hidden /> {/* spacer for layout balance */}
-      </div>
 
-      {/* Scrollable content. Each section is wrapped in a collapsible
-          so the page reads as a high-level summary first; visitors
-          drill into whichever section interests them. All start
-          collapsed except the funding breakdown, which is the
-          primary call-to-trust for backers — opening it by default
-          makes the dollar accountability visible on first paint. */}
-      <div style={{ flex: 1, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
-        <div style={{ maxWidth: 880, margin: '0 auto', padding: '32px 24px 64px' }}>
-          <HeroBlock />
+        <div className="hb-scroll">
+          <main className="hb-main">
+            <Hero />
+            <ProgressMeter />
 
-          <CollapsibleSection
-            eyebrow="What's shipped"
-            title="Already built"
-            count={DONE.length}
-          >
-            <CheckList items={DONE} icon="check" />
-          </CollapsibleSection>
-
-          <CollapsibleSection
-            eyebrow="What's next"
-            title="In progress"
-            count={WIP.length}
-          >
-            <CheckList items={WIP} icon="gear" />
-          </CollapsibleSection>
-
-          <CollapsibleSection
-            eyebrow="Where the money goes"
-            title="Blocked on funding"
-            count={FUNDING.length}
-            subtitle="Every line below is an exact cost with a citation. Backers can verify the numbers themselves; we'd rather over-disclose than handwave."
-            defaultOpen
-          >
-            <FundingTable rows={FUNDING} />
-          </CollapsibleSection>
-
-          <CollapsibleSection
-            eyebrow="On the roadmap"
-            title="Future product features"
-            count={FUTURE_FEATURES.length}
-            subtitle="What we want to build once the funding side gets stable. Each entry is a real feature with real infra implications, not a wish list."
-          >
-            <FeatureCardList items={FUTURE_FEATURES} />
-          </CollapsibleSection>
-
-          <CollapsibleSection
-            eyebrow="Future direction"
-            title={AI_FEATURES.title}
-          >
-            <p
-              style={{
-                fontSize: '0.95rem',
-                lineHeight: 1.55,
-                color: 'var(--cl-text)',
-                background: 'var(--cl-card)',
-                border: '1px solid var(--cl-border)',
-                borderRadius: 12,
-                padding: 16,
-                margin: 0,
-              }}
+            <Section
+              eyebrow="What's shipped"
+              title="Already built"
+              count={SHIPPED.length}
+              isOpen={open.has('shipped')}
+              onToggle={() => toggle('shipped')}
+              sub={open.has('shipped') ? null : 'Every feature already in production. The volume itself is the trust signal — expand to read the list.'}
             >
-              {AI_FEATURES.detail}
-            </p>
-          </CollapsibleSection>
+              <Checklist items={SHIPPED} kind="shipped" />
+            </Section>
 
-          {/* Footer CTA — second crack at the GoFundMe button after the
-              user has read the whole pitch. */}
-          <div style={{ marginTop: 40, textAlign: 'center' }}>
-            <FundButton inline />
-            <p
-              style={{
-                marginTop: 12,
-                fontSize: '0.78rem',
-                color: 'var(--cl-text-light)',
-                fontStyle: 'italic',
-              }}
+            <Section
+              eyebrow="What's next"
+              title="In progress"
+              count={IN_PROGRESS.length}
+              isOpen={open.has('progress')}
+              onToggle={() => toggle('progress')}
             >
-              Questions or feedback? Use the Feedback tab in the navbar —
-              we read every submission and either turn it into a fix, an
-              update, or a new entry on the future-features list.
-            </p>
-          </div>
+              <Checklist items={IN_PROGRESS} kind="progress" />
+            </Section>
+
+            <Section
+              modifier="hb-section--money"
+              eyebrow="Where the money goes"
+              title="Blocked on funding"
+              count={FUNDING_ONETIME.length + FUNDING_RECURRING.length}
+              isOpen={open.has('money')}
+              onToggle={() => toggle('money')}
+              sub="Every line below is an exact cost with a citation. Backers can verify the numbers themselves; we'd rather over-disclose than handwave."
+            >
+              <div className="hb-money-intro">
+                <span className="hb-money-intro__icon"><InfoIcon size={16} /></span>
+                <div>
+                  <strong>How to read this.</strong> Each row is one thing we can&rsquo;t ship without funding,
+                  paired with the actual contract or pricing page. Grouped into one-time costs (paid once)
+                  and recurring (paid every month or year, on top).
+                </div>
+              </div>
+              <MoneyCluster
+                title="One-time costs"
+                sub="paid once, then done"
+                items={FUNDING_ONETIME}
+                total={ONETIME_TOTAL_LABEL}
+              />
+              <MoneyCluster
+                title="Recurring costs"
+                sub="ongoing infra + data licenses"
+                items={FUNDING_RECURRING}
+                total={RECURRING_TOTAL_LABEL}
+              />
+            </Section>
+
+            <Section
+              eyebrow="On the roadmap"
+              title="Future product features"
+              count={ROADMAP.length}
+              isOpen={open.has('roadmap')}
+              onToggle={() => toggle('roadmap')}
+              sub={open.has('roadmap') ? 'Aspirational — no costs yet. These get a "Fund this" treatment only after we scope the infra.' : null}
+            >
+              <Roadmap />
+            </Section>
+
+            <Footer />
+          </main>
         </div>
+
+        <StickyMobileCTA />
       </div>
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Collapsible section wrapper. Each major content block on the page
-// lives inside one of these so the page reads as a quick scannable
-// outline up front; visitors expand whichever sections actually
-// interest them.
-//
-// Props:
-//   eyebrow    — small uppercase label above the title
-//   title      — section heading
-//   subtitle   — optional secondary copy below the title
-//   count      — optional number badge (e.g. "14") next to the title
-//   defaultOpen — start expanded; defaults to false
+// HERO
 // ─────────────────────────────────────────────────────────────────────
-function CollapsibleSection({ eyebrow, title, subtitle, count, defaultOpen = false, children }) {
-  const [open, setOpen] = useState(!!defaultOpen);
+function Hero() {
+  return (
+    <section className="hb-hero">
+      {/* Faint watermark behind the headline — radial circles forming a
+          large CIVIC·TECH glyph at low opacity. */}
+      <svg className="hb-hero__watermark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="48" fill="none" stroke="white" strokeWidth="0.8" />
+        <path d="M50 4 V96 M4 50 H96" stroke="white" strokeWidth="0.4" />
+        <circle cx="50" cy="50" r="32" fill="none" stroke="white" strokeWidth="0.4" />
+        <circle cx="50" cy="50" r="16" fill="none" stroke="white" strokeWidth="0.4" />
+        <text x="50" y="56" textAnchor="middle" fontSize="11" fontWeight="800" fill="white" fontFamily="Geist">
+          CIVIC&middot;TECH
+        </text>
+      </svg>
+
+      <div className="hb-hero__inner">
+        <div className="hb-hero__eyebrow">Grassroots Civic Tech</div>
+        <h1 className="hb-hero__headline">
+          Every civic app stops at <em>&ldquo;here&rsquo;s your rep.&rdquo;</em><br />
+          We&rsquo;re making politicians actually accessible.
+        </h1>
+        <p className="hb-hero__body">
+          CivicView gives every U.S. citizen a direct line to their representatives &mdash;
+          track their votes, see their posts, ask them questions in polls, push back in comments,
+          all scoped to the district they actually represent. Below is a transparent breakdown
+          of what&rsquo;s built, what&rsquo;s in progress, and what specific dollar amounts unlock the rest.
+          {' '}<strong>No equity, no ads, no investor carve-outs</strong> &mdash; just citizens funding citizen infrastructure.
+        </p>
+
+        <div className="hb-hero__cta-row">
+          {CROWDFUND_LIVE ? (
+            <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
+              <HeartIcon size={16} />
+              <span>Back the crowdfund</span>
+            </a>
+          ) : (
+            <span className="hb-cta hb-cta--pending" aria-disabled="true">
+              Crowdfund launching soon
+            </span>
+          )}
+          <a href="#money" className="hb-cta hb-cta--ghost">See where the money goes &rarr;</a>
+        </div>
+
+        <div className="hb-hero__assurance">
+          <span>One-time + year-1 recurring</span>
+          <span className="hb-hero__dot" />
+          <span>Every line cited</span>
+          <span className="hb-hero__dot" />
+          <span>Operated by one person, for now</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// PROGRESS METER
+// Pre-launch: hatched bar, "$X to fully unlock" framing, "Pre launch"
+// tile copy. Live: yellow fill, raised-amount, day countdown. The
+// raised amount + backers + days-left wire to the backend when the
+// crowdfund opens; today they're zero/placeholder.
+// ─────────────────────────────────────────────────────────────────────
+function ProgressMeter() {
+  const goal = FUND_GOAL;
+  const raised = CROWDFUND_LIVE ? 0 : 0;
+  const pct = CROWDFUND_LIVE && goal > 0 ? Math.round((raised / goal) * 100) : 0;
+  return (
+    <section className={`hb-progress ${CROWDFUND_LIVE ? '' : 'hb-progress--prelaunch'}`}>
+      <div>
+        <div className="hb-progress__nums">
+          {CROWDFUND_LIVE ? (
+            <>
+              <span className="hb-progress__raised">{fmt$(raised)}</span>
+              <span className="hb-progress__goal">
+                raised of <strong>{fmt$(goal)}</strong> to fully unlock CivicView
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="hb-progress__raised hb-progress__raised--muted">{fmt$(goal)}</span>
+              <span className="hb-progress__goal">
+                to fully unlock CivicView &mdash; <strong>one-time costs + first year of recurring</strong>
+              </span>
+            </>
+          )}
+        </div>
+        <div className="hb-progress__subline">
+          {CROWDFUND_LIVE
+            ? <>Covers ID.me setup, federal trademark, DMCA agent, and 12 months of ProPublica, OpenStates, Google Civic, hosting, and domain. Surplus rolls into year&nbsp;2.</>
+            : <>Bar fills in once the campaign opens. The total below is itemized, sourced, and broken into <em>&ldquo;fund this line&rdquo;</em>&nbsp;buttons.</>}
+        </div>
+        <div className="hb-progress__bar">
+          {CROWDFUND_LIVE && (
+            <>
+              <span
+                className="hb-progress__pct"
+                style={{ left: `${Math.min(Math.max(pct, 6), 94)}%` }}
+              >
+                {pct}%
+              </span>
+              <div className="hb-progress__fill" style={{ width: `${pct}%` }} />
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="hb-progress__tiles">
+        <div className="hb-tile">
+          <span className="hb-tile__eye">Backers</span>
+          {CROWDFUND_LIVE
+            ? <span className="hb-tile__num">0</span>
+            : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>&mdash;</span>}
+          <span className="hb-tile__sub">
+            {CROWDFUND_LIVE ? 'across the campaign' : 'opens with the campaign'}
+          </span>
+        </div>
+        <div className="hb-tile">
+          <span className="hb-tile__eye">Days remaining</span>
+          {CROWDFUND_LIVE
+            ? <span className="hb-tile__num">&mdash;</span>
+            : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>Pre&nbsp;launch</span>}
+          <span className="hb-tile__sub">
+            {CROWDFUND_LIVE ? 'until campaign close' : 'launch tba — subscribe to be notified'}
+          </span>
+        </div>
+        <div className="hb-tile">
+          <span className="hb-tile__eye">Largest unlock pending</span>
+          <span className="hb-tile__num hb-tile__num--sm">{LARGEST_PENDING}</span>
+          <span className="hb-tile__sub">{LARGEST_PENDING_SUB}</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// COLLAPSIBLE SECTION SHELL
+// ─────────────────────────────────────────────────────────────────────
+function Section({ eyebrow, title, count, sub, isOpen, onToggle, modifier = '', children }) {
   const headerId = `${title.replace(/\s+/g, '-').toLowerCase()}-header`;
   const panelId = `${title.replace(/\s+/g, '-').toLowerCase()}-panel`;
   return (
-    <section style={{ marginTop: 16 }}>
+    <section
+      id={modifier === 'hb-section--money' ? 'money' : undefined}
+      className={`hb-section ${modifier} ${isOpen ? 'is-open' : ''}`}
+    >
       <button
         type="button"
         id={headerId}
-        aria-expanded={open}
+        aria-expanded={isOpen}
         aria-controls={panelId}
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          width: '100%',
-          textAlign: 'left',
-          background: 'var(--cl-card)',
-          border: '1px solid var(--cl-border)',
-          borderRadius: 12,
-          padding: '16px 18px',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: 12,
-          fontFamily: 'inherit',
-          color: 'var(--cl-text)',
-          transition: 'border-color var(--cl-duration-fast) var(--cl-ease-standard)',
-        }}
-        onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--cl-accent)'; }}
-        onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; }}
+        className="hb-section__head"
+        onClick={onToggle}
       >
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {eyebrow && (
-            <div
-              style={{
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                color: 'var(--cl-accent)',
-                marginBottom: 4,
-              }}
-            >
-              {eyebrow}
-            </div>
-          )}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
-            <h2
-              style={{
-                fontSize: '1.15rem',
-                fontWeight: 700,
-                margin: 0,
-                color: 'var(--cl-text)',
-                fontFamily: 'var(--cl-font-display)',
-              }}
-            >
-              {title}
-            </h2>
-            {typeof count === 'number' && (
-              <span
-                style={{
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  padding: '2px 8px',
-                  borderRadius: 999,
-                  background: 'var(--cl-bg-soft)',
-                  color: 'var(--cl-text-light)',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {count}
-              </span>
-            )}
+        <div className="hb-section__head-text">
+          <div className="hb-section__eyebrow">{eyebrow}</div>
+          <div className="hb-section__title-row">
+            <h2 className="hb-section__title">{title}</h2>
+            {typeof count === 'number' && <span className="hb-section__count cl-num">{count}</span>}
           </div>
-          {subtitle && (
-            <p
-              style={{
-                fontSize: '0.85rem',
-                lineHeight: 1.5,
-                color: 'var(--cl-text-light)',
-                margin: 0,
-                marginTop: 6,
-              }}
-            >
-              {subtitle}
-            </p>
-          )}
+          {sub && <p className="hb-section__sub">{sub}</p>}
         </div>
-        {/* Chevron — rotates from "▶" (closed) to "▼" (open). 90deg
-            CSS rotation keeps the icon a single character without
-            having to swap SVGs. */}
-        <span
-          aria-hidden
-          style={{
-            flexShrink: 0,
-            width: 24,
-            height: 24,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--cl-text-light)',
-            transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
-            transition: 'transform 0.18s var(--cl-ease-standard)',
-            marginTop: 2,
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+        <span className="hb-section__chev" aria-hidden>
+          <ChevronDownIcon size={18} />
         </span>
       </button>
-      {open && (
-        <div
-          id={panelId}
-          role="region"
-          aria-labelledby={headerId}
-          style={{ marginTop: 12 }}
-        >
-          {children}
-        </div>
-      )}
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// Hero block — short mission statement + primary GoFundMe CTA.
-// ─────────────────────────────────────────────────────────────────────
-function HeroBlock() {
-  return (
-    <section
-      style={{
-        background: 'linear-gradient(135deg, var(--cl-primary), #2a3d5a)',
-        color: 'white',
-        borderRadius: 16,
-        padding: '28px 24px',
-        marginBottom: 28,
-      }}
-    >
-      <div
-        style={{
-          fontSize: '0.72rem',
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: '0.06em',
-          color: 'rgba(255,255,255,0.7)',
-          marginBottom: 8,
-        }}
-      >
-        Grassroots civic tech
+      <div id={panelId} role="region" aria-labelledby={headerId} className="hb-section__body">
+        {children}
       </div>
-      <h1
-        style={{
-          fontSize: '1.7rem',
-          fontWeight: 800,
-          margin: 0,
-          marginBottom: 12,
-          lineHeight: 1.2,
-          fontFamily: 'var(--cl-font-display)',
-        }}
-      >
-        Every civic app stops at &ldquo;here&apos;s your rep.&rdquo; <br />
-        We&rsquo;re making politicians actually accessible.
-      </h1>
-      <p
-        style={{
-          fontSize: '0.95rem',
-          lineHeight: 1.55,
-          margin: 0,
-          marginBottom: 20,
-          color: 'rgba(255,255,255,0.88)',
-        }}
-      >
-        CivicView gives every U.S. citizen a direct line to their
-        representatives — track their votes, see their posts, ask them
-        questions in polls, push back in comments, all scoped to the
-        district they actually represent. Below is a transparent breakdown
-        of what&rsquo;s built, what&rsquo;s in progress, and what specific
-        dollar amounts unlock the rest. No equity, no ads, no investor
-        carve-outs — just citizens funding citizen infrastructure.
-      </p>
-      <FundButton primary />
     </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Primary GoFundMe button. Disabled / grayed when the campaign isn't
-// live yet so visitors aren't sent to a 404 — clearer than hiding it.
+// CHECKLIST (shipped + in-progress)
 // ─────────────────────────────────────────────────────────────────────
-function FundButton({ primary = false, inline = false }) {
-  const label = CROWDFUND_LIVE ? 'Back the project on GoFundMe →' : 'Crowdfund launching soon';
-  const base = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 8,
-    padding: inline ? '12px 20px' : '12px 18px',
-    borderRadius: 999,
-    fontFamily: 'inherit',
-    fontWeight: 700,
-    fontSize: inline ? '1rem' : '0.95rem',
-    cursor: CROWDFUND_LIVE ? 'pointer' : 'not-allowed',
-    border: 'none',
-    textDecoration: 'none',
-    transition: 'transform 0.15s ease',
-  };
-  const variant = primary
-    ? {
-        background: 'var(--cl-warning, #ffba08)',
-        color: '#1a1a1a',
-      }
-    : {
-        background: 'var(--cl-accent)',
-        color: 'white',
-      };
-  const disabledStyle = CROWDFUND_LIVE
-    ? {}
-    : { opacity: 0.6, background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.85)' };
-
-  if (!CROWDFUND_LIVE) {
-    return (
-      <span
-        role="button"
-        aria-disabled
-        style={{ ...base, ...variant, ...disabledStyle }}
-      >
-        {label}
-      </span>
-    );
-  }
+function Checklist({ items, kind }) {
+  const Icon = kind === 'shipped' ? CheckIcon : GearIcon;
   return (
-    <a
-      href={CROWDFUND_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ ...base, ...variant }}
-    >
-      {label}
-    </a>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// Check / gear list — used for DONE and WIP.
-// ─────────────────────────────────────────────────────────────────────
-function CheckList({ items, icon }) {
-  const iconColor = icon === 'check' ? 'var(--cl-accent)' : 'var(--cl-warning-text, #b06b00)';
-  return (
-    <ul
-      style={{
-        listStyle: 'none',
-        padding: 0,
-        margin: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8,
-      }}
-    >
-      {items.map((text, i) => (
-        <li
-          key={i}
-          style={{
-            display: 'flex',
-            gap: 10,
-            alignItems: 'flex-start',
-            background: 'var(--cl-card)',
-            border: '1px solid var(--cl-border)',
-            borderRadius: 10,
-            padding: '10px 14px',
-            fontSize: '0.88rem',
-            lineHeight: 1.45,
-            color: 'var(--cl-text)',
-          }}
-        >
-          <span
-            aria-hidden
-            style={{
-              flexShrink: 0,
-              marginTop: 2,
-              color: iconColor,
-              fontWeight: 800,
-              fontSize: '0.95rem',
-            }}
-          >
-            {icon === 'check' ? '✓' : '⚙'}
-          </span>
-          <span>{text}</span>
+    <ul className="hb-checklist">
+      {items.map(([title, detail], i) => (
+        <li key={i} className={`hb-check hb-check--${kind}`}>
+          <span className="hb-check__icon"><Icon size={12} /></span>
+          <div className="hb-check__body">
+            <strong>{title}</strong>
+            <div className="hb-check__detail">{detail}</div>
+          </div>
         </li>
       ))}
     </ul>
@@ -609,118 +511,209 @@ function CheckList({ items, icon }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Funding table — line-by-line cost breakdown with citations.
+// MONEY CLUSTER (one-time / recurring)
 // ─────────────────────────────────────────────────────────────────────
-function FundingTable({ rows }) {
+function MoneyCluster({ title, sub, items, total }) {
   return (
-    <div
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}
-    >
-      {rows.map((r, i) => (
-        <div
-          key={i}
-          style={{
-            padding: '14px 16px',
-            borderTop: i === 0 ? 'none' : '1px solid var(--cl-border)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 6,
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              justifyContent: 'space-between',
-              gap: 12,
-              flexWrap: 'wrap',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '0.95rem',
-                fontWeight: 700,
-                color: 'var(--cl-text)',
-                flex: 1,
-                minWidth: 0,
-              }}
-            >
-              {r.item}
-            </div>
-            <div
-              style={{
-                fontSize: '0.95rem',
-                fontWeight: 700,
-                color: 'var(--cl-accent)',
-                whiteSpace: 'nowrap',
-                fontFamily: 'var(--cl-font-mono)',
-              }}
-            >
-              {r.cost}
-            </div>
-          </div>
-          <div style={{ fontSize: '0.82rem', color: 'var(--cl-text)', lineHeight: 1.5 }}>
-            {r.unlocks}
-          </div>
-          <div
-            style={{
-              fontSize: '0.72rem',
-              color: 'var(--cl-text-light)',
-              fontStyle: 'italic',
-            }}
-          >
-            Source: {r.citation}
-          </div>
+    <div className="hb-money-cluster">
+      <div className="hb-money-cluster__head">
+        <div className="hb-money-cluster__title">
+          {title}
+          {sub && <span className="hb-money-cluster__title-sub">&middot; {sub}</span>}
         </div>
+        <div className="hb-money-cluster__total">{total}</div>
+      </div>
+      {items.map((item, i) => (
+        <article key={i} className="hb-money">
+          <div className="hb-money__title">{item.title}</div>
+          <div className="hb-money__cost">
+            {item.cost}
+            <span className="hb-money__cost-suffix">{item.costSuffix}</span>
+          </div>
+          <p className="hb-money__body">{item.body}</p>
+          <div className="hb-money__footer">
+            <div className="hb-money__source">
+              <span className="hb-money__source-label">Source:</span>{item.source}
+            </div>
+            {CROWDFUND_LIVE ? (
+              <a
+                href={CROWDFUND_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hb-money__fund"
+              >
+                <HeartIcon size={12} />
+                <span>Fund this line</span>
+              </a>
+            ) : (
+              <span
+                className="hb-money__fund hb-money__fund--pending"
+                title="We'll route your donation here once the crowdfund opens"
+              >
+                Fund this line at launch
+              </span>
+            )}
+          </div>
+        </article>
       ))}
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Card list for the longer future-features descriptions.
+// ROADMAP
 // ─────────────────────────────────────────────────────────────────────
-function FeatureCardList({ items }) {
+function Roadmap() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {items.map((it, i) => (
-        <article
-          key={i}
-          style={{
-            background: 'var(--cl-card)',
-            border: '1px solid var(--cl-border)',
-            borderRadius: 12,
-            padding: 14,
-          }}
-        >
-          <h3
-            style={{
-              fontSize: '0.98rem',
-              fontWeight: 700,
-              margin: 0,
-              marginBottom: 6,
-              color: 'var(--cl-text)',
-            }}
-          >
-            {it.title}
-          </h3>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              lineHeight: 1.5,
-              color: 'var(--cl-text-light)',
-              margin: 0,
-            }}
-          >
-            {it.detail}
-          </p>
-        </article>
-      ))}
+    <div className="hb-roadmap">
+      {ROADMAP.map((feat, i) => {
+        const IconComp = ROADMAP_ICONS[feat.icon] || VideoIcon;
+        return (
+          <article key={i} className="hb-feature">
+            <span className="hb-feature__tag">{feat.tag}</span>
+            <div className="hb-feature__head">
+              <span className="hb-feature__icon"><IconComp size={18} /></span>
+              <div className="hb-feature__title">{feat.title}</div>
+            </div>
+            <p className="hb-feature__body">{feat.body}</p>
+          </article>
+        );
+      })}
     </div>
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// FOOTER + STICKY MOBILE CTA
+// ─────────────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <div className="hb-footer">
+      {CROWDFUND_LIVE ? (
+        <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
+          <HeartIcon size={16} />
+          <span>Back the crowdfund</span>
+        </a>
+      ) : (
+        <span className="hb-cta hb-cta--pending hb-cta--pending-light">
+          Crowdfund launching soon
+        </span>
+      )}
+      <p className="hb-footer__caption">
+        Questions or feedback? Use the Feedback tab in the navbar &mdash;
+        we read every submission and either turn it into a fix, an
+        update, or a new entry on the future-features list.
+      </p>
+    </div>
+  );
+}
+
+function StickyMobileCTA() {
+  return (
+    <div className="hb-sticky-cta">
+      <div className="hb-sticky-cta__inner">
+        {CROWDFUND_LIVE ? (
+          <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
+            <HeartIcon size={14} />
+            <span>Back the crowdfund</span>
+          </a>
+        ) : (
+          <span className="hb-cta hb-cta--pending hb-cta--pending-light">
+            Crowdfund launching soon
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// GLYPHS — lifted from /Design Exports/civicview-help-build-this-page/
+// project/help-build/Icons.jsx. Inlined here so the file is
+// self-contained.
+// ─────────────────────────────────────────────────────────────────────
+function ArrowLeftIcon({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path d="M14 6 L8 12 L14 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ChevronDownIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function CheckIcon({ size = 12 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path d="M5 12 l5 5 l9 -10" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function GearIcon({ size = 12 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <circle cx="12" cy="12" r="3.2" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 2.5 V5.5 M12 18.5 V21.5 M2.5 12 H5.5 M18.5 12 H21.5 M5.4 5.4 L7.5 7.5 M16.5 16.5 L18.6 18.6 M5.4 18.6 L7.5 16.5 M16.5 7.5 L18.6 5.4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+function HeartIcon({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8C19 16.5 12 21 12 21Z" />
+    </svg>
+  );
+}
+function InfoIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" fill="rgba(255,186,8,0.18)" />
+      <path d="M12 8 v.01 M12 11 v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+function VideoIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <rect x="3" y="6" width="13" height="12" rx="2" stroke="currentColor" strokeWidth="1.8" fill="rgba(65,90,119,0.18)" />
+      <path d="M16 10 L21 7 V17 L16 14 Z" fill="rgba(65,90,119,0.32)" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function LiveIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <circle cx="12" cy="12" r="3" fill="currentColor" />
+      <path d="M7.5 7.5 a6 6 0 0 0 0 9 M16.5 7.5 a6 6 0 0 1 0 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      <path d="M4.5 4.5 a10 10 0 0 0 0 15 M19.5 4.5 a10 10 0 0 1 0 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" opacity="0.55" />
+    </svg>
+  );
+}
+function DebateIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path d="M3 5 H12 V13 H7 L4 16 V13 H3 Z" fill="rgba(65,90,119,0.22)" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M21 9 H12 V17 H17 L20 20 V17 H21 Z" fill="rgba(45,106,79,0.22)" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function NicknameIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <circle cx="12" cy="9" r="3.5" stroke="currentColor" strokeWidth="1.8" fill="rgba(45,106,79,0.18)" />
+      <path d="M5 20c0-3 3-5.5 7-5.5s7 2.5 7 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="rgba(45,106,79,0.18)" />
+      <circle cx="12" cy="9" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
+const ROADMAP_ICONS = {
+  video: VideoIcon,
+  live: LiveIcon,
+  debate: DebateIcon,
+  nickname: NicknameIcon,
+};
