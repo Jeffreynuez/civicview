@@ -1155,3 +1155,483 @@ table.ad-table {
   animation: ad-spin 0.8s linear infinite;
 }
 @keyframes ad-spin { to { transform: rotate(360deg); } }
+
+/* ===============================================================
+   KPI DOT VARIANTS
+   The base ad-kpi already handles --hidden / --resolved; the new
+   appeals + suspended tabs use semantic-named variants so the
+   markup reads naturally per-view.
+   =============================================================== */
+.ad-kpi__dot--open { background: var(--cl-warning); }
+.ad-kpi__dot--hidden { background: var(--cl-danger); }
+.ad-kpi__dot--resolved { background: var(--cl-success); }
+.ad-kpi__dot--success { background: var(--cl-success); }
+.ad-kpi__dot--danger { background: var(--cl-danger); }
+.ad-kpi__dot--warning { background: var(--cl-warning); }
+
+/* ===============================================================
+   SHARED PILL TREATMENTS — kind pill + appeal-type chip + appeal link
+   =============================================================== */
+.ad-kindpill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  line-height: 1.4;
+}
+.ad-kindpill--citizen {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: rgba(45, 106, 79, 0.18);
+}
+.ad-kindpill--rep {
+  background: rgba(27, 38, 59, 0.06);
+  color: var(--cl-primary);
+  border-color: rgba(27, 38, 59, 0.18);
+}
+.ad-typechip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.ad-typechip--content {
+  background: #e3f0f7;
+  color: var(--cl-democrat);
+  border-color: #c3dbe9;
+}
+.ad-typechip--suspension {
+  background: var(--cl-warning-soft);
+  color: var(--cl-warning-text);
+  border-color: var(--cl-warning-border);
+}
+.ad-appeal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--cl-text-2xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cl-warning-text);
+  text-decoration: none;
+  background: var(--cl-warning-soft);
+  border: 1px solid var(--cl-warning-border);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.ad-appeal-link:hover { background: rgba(255, 186, 8, 0.18); }
+.ad-appeal-link__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cl-warning);
+}
+
+/* ===============================================================
+   APPEALS VIEW — vertical card list
+   =============================================================== */
+.ad-appeals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ad-appeals-list__count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-xl);
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ad-appeals-list__count strong { color: var(--cl-text); font-weight: 700; }
+
+.ad-appeal {
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-left: 3px solid var(--cl-warning);
+  border-radius: var(--cl-radius-xl);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow var(--cl-duration-fast) var(--cl-ease-standard);
+}
+.ad-appeal:hover { box-shadow: var(--cl-shadow-card); }
+.ad-appeal.is-granted {
+  border-left-color: var(--cl-success);
+  background: #f4faf6;
+}
+.ad-appeal.is-denied {
+  border-left-color: var(--cl-text-muted);
+  background: #fafbfc;
+  opacity: 0.92;
+}
+.ad-appeal__strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ad-appeal__strip-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ad-appeal__id {
+  font-family: var(--cl-font-mono);
+  font-size: 0.7rem;
+  color: var(--cl-text-muted);
+}
+.ad-appeal__strip-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  text-align: right;
+}
+.ad-appeal__filed {
+  font-size: var(--cl-text-xs);
+  font-weight: 700;
+  color: var(--cl-text);
+}
+.ad-appeal__filed-abs {
+  font-size: 0.62rem;
+  color: var(--cl-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ad-appeal__appellant {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ad-appeal__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+.ad-appeal__avatar--citizen {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: rgba(45, 106, 79, 0.18);
+}
+.ad-appeal__avatar--rep {
+  background: var(--cl-primary);
+  color: white;
+  border-color: var(--cl-primary);
+}
+.ad-appeal__appellant-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.ad-appeal__appellant-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--cl-text-sm);
+  font-weight: 700;
+  color: var(--cl-text);
+  flex-wrap: wrap;
+}
+.ad-appeal__appellant-email {
+  font-family: var(--cl-font-mono);
+  font-size: 0.72rem;
+  color: var(--cl-text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-appeal__details {
+  background: var(--cl-bg-soft);
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ad-appeal__details-label {
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cl-text-muted);
+}
+.ad-appeal__details-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+}
+.ad-appeal__details-target {
+  font-weight: 700;
+  color: var(--cl-text);
+  font-size: var(--cl-text-sm);
+}
+.ad-appeal__details-sep {
+  color: var(--cl-text-muted);
+}
+.ad-appeal__details-id {
+  font-family: var(--cl-font-mono);
+  color: var(--cl-text-muted);
+}
+.ad-appeal__details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--cl-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.ad-appeal__details-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+.ad-appeal__details-preview {
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  font-style: italic;
+  line-height: 1.5;
+}
+.ad-appeal__details-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+  flex-wrap: wrap;
+}
+.ad-appeal__details-action strong { color: var(--cl-text); font-weight: 700; }
+
+.ad-appeal__rationale {
+  background: white;
+  border: 1px solid var(--cl-border);
+  border-left: 3px solid var(--cl-accent);
+  border-radius: var(--cl-radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ad-appeal__rationale-label {
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cl-text-muted);
+}
+.ad-appeal__rationale-body {
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  line-height: 1.55;
+  font-style: italic;
+  white-space: pre-wrap;
+}
+
+.ad-appeal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--cl-divider);
+}
+.ad-appeal__resolved {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--cl-divider);
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+  flex-wrap: wrap;
+}
+.ad-appeal__resolved-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.ad-appeal__resolved-badge--granted {
+  background: var(--cl-success-soft);
+  color: var(--cl-success-text);
+  border-color: var(--cl-success-border);
+}
+.ad-appeal__resolved-badge--denied {
+  background: var(--cl-danger-soft);
+  color: var(--cl-danger-deep);
+  border-color: var(--cl-danger-border);
+}
+.ad-appeal__resolved-note {
+  font-style: italic;
+  color: var(--cl-text-muted);
+}
+
+/* Appeals empty state — reuses .ad-empty shell from queue. No new
+   classes needed; the SVG illustration lives inline in JSX. */
+
+/* ===============================================================
+   SUSPENDED-ACCOUNTS TABLE EXTRAS
+   =============================================================== */
+.ad-cell-account {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.ad-cell-account__name {
+  font-weight: 700;
+  color: var(--cl-text);
+  font-size: var(--cl-text-sm);
+}
+.ad-cell-account__id {
+  font-family: var(--cl-font-mono);
+  font-size: 0.66rem;
+  color: var(--cl-text-muted);
+}
+.ad-account-avatar {
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+.ad-account-avatar--citizen {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: rgba(45, 106, 79, 0.18);
+}
+.ad-account-avatar--rep {
+  background: var(--cl-primary);
+  color: white;
+  border-color: var(--cl-primary);
+}
+.ad-cell-email {
+  font-family: var(--cl-font-mono);
+  font-size: 0.72rem;
+  color: var(--cl-text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  white-space: nowrap;
+}
+.ad-reportcount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--cl-bg-soft);
+  border: 1px solid var(--cl-border);
+  font-size: var(--cl-text-xs);
+  font-weight: 700;
+  color: var(--cl-text);
+  font-variant-numeric: tabular-nums;
+}
+.ad-table tbody tr.is-appeal td {
+  background: #fffaf0;
+}
+.ad-table tbody tr.is-appeal:hover td {
+  background: #fff5e0;
+}
+
+/* Sort select */
+.ad-sortselect {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ad-select {
+  background: white;
+  border: 1px solid var(--cl-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text);
+  font-family: inherit;
+  cursor: pointer;
+}
+.ad-select:focus {
+  outline: none;
+  border-color: var(--cl-accent);
+  box-shadow: var(--cl-shadow-focus);
+}
+
+/* Grant-solid action button (Unsuspend in table row) */
+.ad-actbtn--grant-solid {
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  border-color: rgba(45, 106, 79, 0.22);
+}
+.ad-actbtn--grant-solid:hover {
+  background: var(--cl-accent);
+  color: white;
+  border-color: var(--cl-accent);
+}
+
+/* ===============================================================
+   APPEAL DECISION + UNSUSPEND MODAL — extras on top of the
+   existing .ad-modal shell.
+   =============================================================== */
+.ad-modal__eyebrow--success {
+  color: var(--cl-success-text);
+}
+.ad-modal__eyebrow--success::before {
+  background: var(--cl-success);
+}
+.ad-modal__hint {
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-muted);
+  font-style: italic;
+}
+.ad-btn--grant {
+  background: var(--cl-accent);
+  color: white;
+}
+.ad-btn--grant:hover { background: var(--cl-accent-light); }
+.ad-btn--ghost-danger {
+  background: white;
+  color: var(--cl-danger-text);
+  border-color: var(--cl-danger-border);
+}
+.ad-btn--ghost-danger:hover {
+  background: var(--cl-danger-soft);
+  color: var(--cl-danger-deep);
+}
