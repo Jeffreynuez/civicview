@@ -12,16 +12,24 @@ Examples of what we render:
   Donald J. Trump (President)        → "DT · EXEC"
   Mike Johnson (Speaker / LA)        → "MJ · HSE"
   Some SCOTUS justice                → "<initials> · SCOTUS"
+  Byron Donalds (FL Gov candidate)   → "BD · CAND-FL"
+  Generic CA candidate               → "<initials> · CAND-CA"
   Unknown / orphan official_id       → just "POLL" as a fallback
 
-Two input sources are stitched together:
-  1. The static officials_index (curated federal + state data).
-  2. The DB rep_accounts table (claimed pages with owner_state /
-     owner_district set on the row).
+Three input sources are stitched together (in priority order):
+  1. The DB rep_accounts table (claimed pages with owner_state /
+     owner_district set on the row) — wins for any official_id with a
+     row, because reps can edit their owner_* fields.
+  2. The ElectionsService candidates registry — a curated dict of
+     {candidate_id → full record}. Used for unclaimed candidate ids
+     so polls on candidate pages get a recognizable chip even before
+     candidate-account auth ships in Phase 3.
+  3. The static officials_index (curated federal + state rep data).
 
-DB wins when set, because reps can edit their owner_* fields and
-that's the authoritative current value; otherwise we fall back to
-the curated index.
+Candidates emit "CAND-<state>" in the geo slot to disambiguate from
+sitting reps. When candidate accounts ship in Phase 3+ and the
+candidate has claimed their page, the DB row will take over and the
+tag may shift to whatever owner_state the candidate set.
 """
 from __future__ import annotations
 
@@ -33,6 +41,12 @@ from sqlalchemy.orm import Session
 
 from app.models.pages import RepAccount
 from app.services.officials_index import lookup
+from app.services.elections_service import ElectionsService
+
+# Module-level singleton — same pattern the candidates router uses.
+# Cheap to instantiate (just loads the static JSON registries) but
+# we want it cached so every poll-feed render isn't re-parsing files.
+_elections = ElectionsService()
 
 
 logger = logging.getLogger(__name__)
@@ -133,6 +147,34 @@ def resolve_page_tag(db: Session, official_id: Optional[str]) -> Optional[str]:
         elif rep.owner_state:
             geo = rep.owner_state
 
+    # Candidate registry — covers any official_id that resolves to a
+    # candidate record in ElectionsService. Tagged "CAND-<state>" so
+    # the poll feed can render a distinct candidate-page chip.
+    is_candidate = False
+    if not display_name or not geo:
+        cand = _elections.get_candidate(official_id)
+        if cand is not None:
+            is_candidate = True
+            if not display_name:
+                display_name = cand.get("name")
+            if not geo:
+                # Candidate records carry hometown like "Naples, FL".
+                # Pull the state code out of (in priority order):
+                #   1. Curated state field if present
+                #   2. The trailing 2-char state code from hometown
+                #   3. The state prefix on the candidate id (e.g. fl-cand-…)
+                state = cand.get("state")
+                if not state:
+                    home = (cand.get("hometown") or "").strip()
+                    m = re.search(r",\s*([A-Z]{2})$", home)
+                    if m:
+                        state = m.group(1)
+                if not state:
+                    m = re.match(r"^([a-z]{2})-cand-", official_id)
+                    if m:
+                        state = m.group(1).upper()
+                geo = f"CAND-{state}" if state else "CAND"
+
     # Fall back to the curated index for non-claimed pages.
     if not display_name or not geo:
         idx = lookup(official_id) or {}
@@ -162,3 +204,13 @@ def resolve_page_tag(db: Session, official_id: Optional[str]) -> Optional[str]:
     if geo:
         return geo
     return "POLL"
+
+
+def is_candidate_id(official_id: Optional[str]) -> bool:
+    """Cheap predicate — does this official_id resolve to a candidate
+    record in the ElectionsService registry? Used by the polls feed
+    to support a 'candidate' kind filter without a full resolve_page_tag()
+    call per row."""
+    if not official_id:
+        return False
+    return _elections.get_candidate(official_id) is not None

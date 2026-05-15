@@ -54,8 +54,10 @@ import './polls.css';
 
 // Branch filters — replaces the old kind enum. Standalone is a
 // distinct visual tier (dashed border + warning dot prefix);
-// "From candidates" is rendered disabled with a "Soon" badge until
-// the candidates feature ships.
+// "From candidates" surfaces polls targeting candidate pages
+// (citizens asking candidates questions). Once candidate accounts
+// ship in Phase 3+, this chip will also include candidate-authored
+// polls — same backend filter, broader meaning.
 const BRANCH_FILTERS = [
   { id: 'all',        label: 'All polls',        glyph: 'AllPolls',       tier: 'normal' },
   { id: 'bill',       label: 'Bill',             glyph: 'Bill',           tier: 'normal' },
@@ -63,7 +65,7 @@ const BRANCH_FILTERS = [
   { id: 'executive',  label: 'Executive',        glyph: 'Executive',      tier: 'normal' },
   { id: 'judicial',   label: 'Judicial',         glyph: 'Judicial',       tier: 'normal' },
   { id: 'standalone', label: 'Standalone',       glyph: 'Standalone',     tier: 'standalone' },
-  { id: 'candidate',  label: 'From candidates',  glyph: 'FromCandidates', tier: 'normal', disabled: true },
+  { id: 'candidate',  label: 'From candidates',  glyph: 'FromCandidates', tier: 'normal' },
 ];
 
 // AI filter preset chips. Each label maps to a backend prompt that
@@ -95,12 +97,14 @@ function formatCount(n) {
 }
 
 // Map a poll's server-side `kind` to the design's branch enum.
-// `kind` is 'rep' | 'citizen' | 'standalone'. Branch metadata
-// (Bill / Executive / etc.) ships per-poll once that taxonomy is
-// wired into the backend; until then, rep / citizen polls share
-// the "all" bucket and only Standalone is a distinct branch.
+// `kind` is 'rep' | 'citizen' | 'candidate' | 'standalone'. Branch
+// metadata (Bill / Executive / etc.) ships per-poll once that
+// taxonomy is wired into the backend; until then rep / citizen
+// polls share the "all" bucket and Standalone + Candidate are the
+// distinct branches we can filter against today.
 function pollBranch(poll) {
   if (poll.kind === 'standalone') return 'standalone';
+  if (poll.kind === 'candidate') return 'candidate';
   // Forward-compatible: if the backend later starts emitting a
   // `branch` field on rep/citizen polls, prefer it. For now they
   // count toward "all" only.
@@ -726,12 +730,25 @@ function BottomStartCTA({ signedIn, onClick }) {
 // ─────────────────────────────────────────────────────────────────────
 function PollCard({ poll }) {
   const isStandalone = poll.kind === 'standalone';
+  const isCandidate = poll.kind === 'candidate';
   const href = !isStandalone && poll.official_id
     ? `/?page=${encodeURIComponent(poll.official_id)}`
     : null;
 
-  const kindLabel = isStandalone ? 'Standalone' : poll.kind === 'rep' ? 'Rep' : 'Citizen';
-  const avatarTone = isStandalone ? 'standalone' : poll.kind;
+  // Kind chip describes WHAT the poll is about (rep page / candidate
+  // page / standalone) rather than who authored it. Avatar tone
+  // describes the AUTHOR (rep, citizen, or unknown for standalone).
+  // Candidate-page polls are citizen-authored today (until candidate
+  // accounts ship), so the avatar uses the citizen palette.
+  const kindLabel =
+    isStandalone ? 'Standalone'
+    : isCandidate ? 'Candidate'
+    : poll.kind === 'rep' ? 'Rep'
+    : 'Citizen';
+  const avatarTone =
+    isStandalone ? 'standalone'
+    : isCandidate ? 'citizen'  // citizen-authored on a candidate page
+    : poll.kind;
   const initials = (poll.author || '?').split(/\s+/).map((s) => s[0] || '').slice(0, 2).join('').toUpperCase();
   const verified = poll.kind === 'rep'; // citizens are unverified until ID.me ships
   const visibleOpts = (poll.options || []).slice(0, 4);

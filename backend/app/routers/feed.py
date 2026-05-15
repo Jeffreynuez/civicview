@@ -402,7 +402,7 @@ def popular_polls(
 @router.get("/polls")
 def polls_feed(
     limit: int = Query(default=100, ge=1, le=300),
-    kind: Optional[str] = Query(default=None, description="Filter by 'rep' | 'citizen' | 'standalone'"),
+    kind: Optional[str] = Query(default=None, description="Filter by 'rep' | 'citizen' | 'standalone' | 'candidate'"),
     db: Session = Depends(get_db),
 ) -> dict:
     """Every active poll across the entire app, newest first.
@@ -423,16 +423,20 @@ def polls_feed(
 
     Kind filter:
       'rep'        → rep-authored polls only
-      'citizen'    → citizen polls tied to a rep page (target_official_id not null)
-      'standalone' → citizen polls with no target rep page
+      'citizen'    → citizen polls tied to a rep page (target_official_id is a rep id)
+      'standalone' → citizen polls with no target rep / candidate page
+      'candidate'  → polls targeting a candidate page (citizen-authored
+                     today since candidate accounts ship in Phase 3+)
       omitted      → everything
     """
-    from app.services.page_tags import resolve_page_tag
+    from app.services.page_tags import resolve_page_tag, is_candidate_id
 
     q = db.query(Poll).filter(Poll.archived_at.is_(None))
     if kind == "rep":
         q = q.filter(Poll.author_kind == "rep")
     elif kind == "citizen":
+        # Citizen polls on rep pages (not candidate pages — those get
+        # their own bucket so the chip count is meaningful).
         q = q.filter(
             Poll.author_kind == "citizen",
             Poll.target_official_id.is_not(None),
@@ -442,8 +446,21 @@ def polls_feed(
             Poll.author_kind == "citizen",
             Poll.target_official_id.is_(None),
         )
+    elif kind == "candidate":
+        q = q.filter(Poll.target_official_id.is_not(None))
 
     rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
+    # Candidate filter pulls everything with a target then filters in
+    # Python because ElectionsService is an in-memory dict — there's no
+    # SQL way to ask "is this id a candidate." With the result set
+    # capped at 300 this is trivially cheap.
+    if kind == "candidate":
+        rows = [p for p in rows if is_candidate_id(p.target_official_id)]
+    elif kind == "citizen":
+        # Conversely, the 'citizen' filter should EXCLUDE candidate-page
+        # polls so the rep-targeting chip count stays accurate now that
+        # candidate gets its own bucket.
+        rows = [p for p in rows if not is_candidate_id(p.target_official_id)]
 
     items: List[Dict[str, Any]] = []
     for poll in rows:
@@ -507,7 +524,16 @@ def polls_feed(
                 role_parts.append(cz.city)
             role = " · ".join(role_parts) if role_parts else None
             official_id = poll.target_official_id
-            display_kind = "standalone" if poll.target_official_id is None else "citizen"
+            # Three citizen-poll display kinds:
+            #   standalone — no target page at all
+            #   candidate  — target_official_id is a candidate registry id
+            #   citizen    — target_official_id is a rep id (default)
+            if poll.target_official_id is None:
+                display_kind = "standalone"
+            elif is_candidate_id(poll.target_official_id):
+                display_kind = "candidate"
+            else:
+                display_kind = "citizen"
         else:
             post = (
                 db.query(Post).filter(Post.id == poll.post_id).first()
