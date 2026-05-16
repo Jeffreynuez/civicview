@@ -39,12 +39,75 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
 import sys
 import urllib.parse
 from pathlib import Path
 from typing import Optional
 
 import httpx
+
+# Cap stored URLs to this width. The Avatar displays at 40-88px;
+# 2x retina is 176px. 250px gives crisp pixels with headroom for
+# the largest hero we render.
+#
+# Why 250 specifically: Wikipedia's thumbor service rejects arbitrary
+# widths with HTTP 400 — it only generates from a small bucket of
+# known sizes (250, 330, 500, 640, ...). Widths like 200/220/256/320
+# get rejected for some files. 250 has worked universally in testing
+# and matches the default "thumbnail" size the Wikipedia REST API
+# returns when it returns one. Bumping above 250 means picking from
+# the next bucket up (330) which is fine but uses ~2x the bytes
+# without visible improvement at our display sizes.
+THUMB_WIDTH = 250
+
+
+def to_thumbnail_url(url: str, width: int = THUMB_WIDTH) -> str:
+    """Transform any upload.wikimedia.org URL into a width-bounded
+    thumbnail. Wikipedia's URL scheme for sized thumbnails:
+
+        https://upload.wikimedia.org/wikipedia/commons/thumb/<h1>/<h2>/<file>/<W>px-<file>
+
+    Where <h1>/<h2> is the 1-char / 2-char MD5 prefix Wikipedia uses
+    to shard storage. We need to support two input shapes:
+
+    1. Already-thumbnailed: ".../thumb/X/XX/Foo.jpg/3840px-Foo.jpg"
+       → swap the leading "3840" for our target width.
+
+    2. Original file: ".../commons/X/XX/Foo.jpg"
+       → insert "/thumb/" and append "/<W>px-Foo.jpg".
+
+    Any URL that doesn't match either shape (or isn't on
+    upload.wikimedia.org at all) is returned unchanged.
+
+    Query strings (e.g. ?utm_source=...) are stripped — they're added
+    by Wikipedia's REST API for analytics and offer no functional
+    value here.
+    """
+    if not url:
+        return url
+    base = url.split("?", 1)[0]
+
+    # Shape 1: already a /thumb/ URL.
+    m = re.match(
+        r"^(https://upload\.wikimedia\.org/wikipedia/commons/thumb/[^/]+/[^/]+/[^/]+)/(\d+)px-(.+)$",
+        base,
+    )
+    if m:
+        prefix, _, suffix = m.groups()
+        return f"{prefix}/{width}px-{suffix}"
+
+    # Shape 2: direct file URL.
+    m = re.match(
+        r"^(https://upload\.wikimedia\.org/wikipedia/commons)/([^/]+)/([^/]+)/([^/?]+\.(?:jpg|jpeg|png|gif|webp))$",
+        base,
+        flags=re.IGNORECASE,
+    )
+    if m:
+        host, h1, h2, filename = m.groups()
+        return f"{host}/thumb/{h1}/{h2}/{filename}/{width}px-{filename}"
+
+    return base
 
 ROOT = Path(__file__).resolve().parents[1]
 OFFICIALS_PATH = ROOT / "app" / "data" / "federal" / "federal_officials.json"
@@ -104,12 +167,16 @@ async def fetch_thumbnail(client: httpx.AsyncClient, title: str) -> Optional[str
         data = r.json()
     except json.JSONDecodeError:
         return None
-    # Prefer the higher-resolution `originalimage` over the smaller
-    # `thumbnail` since we want crisp avatars at 56-96px display sizes
-    # on retina screens (and the avatar component scales down anyway).
+    # Prefer the `originalimage` URL so we know the canonical filename,
+    # then transform to a bounded thumbnail. The raw thumbnail field
+    # is sometimes already small (~320px), sometimes weirdly large
+    # (3840px for some entries) — normalizing through to_thumbnail_url
+    # gives us deterministic ~256px output regardless of which the
+    # API chose to return today.
     original = (data.get("originalimage") or {}).get("source")
     thumb = (data.get("thumbnail") or {}).get("source")
-    return original or thumb
+    chosen = original or thumb
+    return to_thumbnail_url(chosen) if chosen else None
 
 
 async def search_then_fetch(client: httpx.AsyncClient, name: str) -> Optional[str]:
@@ -189,9 +256,22 @@ async def annotate_officials(payload: dict) -> tuple[int, int]:
         if isinstance(leader, dict):
             targets.append(leader)
 
+    shrunk = 0
     async with httpx.AsyncClient(timeout=15.0) as client:
         for entry in targets:
-            if entry.get("photo_url"):
+            existing = entry.get("photo_url")
+            if existing:
+                # Retroactively normalize an existing URL to a small
+                # thumbnail. Cheap (string transform) and idempotent —
+                # a URL that's already at THUMB_WIDTH comes out
+                # unchanged. Earlier runs of this script stored
+                # 3840px-wide originals; this resizes them in place
+                # without re-fetching from Wikipedia.
+                shrunk_url = to_thumbnail_url(existing)
+                if shrunk_url != existing:
+                    entry["photo_url"] = shrunk_url
+                    shrunk += 1
+                    logger.info("↻ %s → resized to %dpx", entry.get("name"), THUMB_WIDTH)
                 continue
             name = entry.get("name")
             if not name:
@@ -205,6 +285,8 @@ async def annotate_officials(payload: dict) -> tuple[int, int]:
                 missing += 1
                 logger.warning("✗ %s — no Wikipedia thumbnail found", name)
 
+    if shrunk:
+        logger.info("Resized %d existing photo URLs to %dpx", shrunk, THUMB_WIDTH)
     return added, missing
 
 

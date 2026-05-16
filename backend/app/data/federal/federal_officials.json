@@ -74,7 +74,7 @@
           "to": "Present"
         }
       ],
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg/250px-Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg"
     },
     "vice_president": {
       "id": "us-vp-vance",
@@ -133,7 +133,7 @@
           "to": "2007"
         }
       ],
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg/250px-March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg"
     },
     "cabinet": [
       {
@@ -190,7 +190,7 @@
             "to": "1993"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg/3840px-Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg/250px-Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg"
       },
       {
         "id": "us-sec-treasury",
@@ -241,7 +241,7 @@
             "to": "2000"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg/250px-Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg"
       },
       {
         "id": "us-sec-defense",
@@ -292,7 +292,7 @@
             "to": "2005"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pete_Hegseth_Official_Portrait.jpg/3840px-Pete_Hegseth_Official_Portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pete_Hegseth_Official_Portrait.jpg/250px-Pete_Hegseth_Official_Portrait.jpg"
       },
       {
         "id": "us-ag",
@@ -343,7 +343,7 @@
             "to": "2003"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg"
       },
       {
         "id": "us-sec-interior",
@@ -395,7 +395,7 @@
             "to": "2015"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg/250px-Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg"
       },
       {
         "id": "us-sec-agriculture",
@@ -446,7 +446,7 @@
             "to": "2017"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Second_Portrait_of_Secretary_Rollins.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Second_Portrait_of_Secretary_Rollins.jpg/250px-Second_Portrait_of_Secretary_Rollins.jpg"
       },
       {
         "id": "us-sec-commerce",
@@ -497,7 +497,7 @@
             "to": "Present"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Howard_Lutnick_2025.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Howard_Lutnick_2025.jpg/250px-Howard_Lutnick_2025.jpg"
       },
       {
         "id": "us-sec-labor",
@@ -548,7 +548,7 @@
             "to": "2023"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg"
       },
       {
         "id": "us-sec-hhs",
@@ -599,7 +599,7 @@
             "to": "2014"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg/250px-Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg"
       },
       {
         "id": "us-sec-hud",
@@ -650,7 +650,7 @@
             "to": "1995"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Scott_Turner%2C_official_portrait_%282025%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Scott_Turner%2C_official_portrait_%282025%29.jpg/250px-Scott_Turner%2C_official_portrait_%282025%29.jpg"
       },
       {
         "id": "us-sec-transportation",
@@ -701,7 +701,7 @@
             "to": "2003"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg/250px-Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg"
       },
       {
         "id": "us-sec-energy",
@@ -752,7 +752,7 @@
             "to": "1992"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Secretary_Chris_Wright_Official_Portrait.png"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Secretary_Chris_Wright_Official_Portrait.png/250px-Secretary_Chris_Wright_Official_Portrait.png"
       },
       {
         "id": "us-sec-education",
@@ -803,7 +803,7 @@
             "to": "1998"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/ED_Sec_Linda_McMahon_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/ED_Sec_Linda_McMahon_%28cropped%29.jpg/250px-ED_Sec_Linda_McMahon_%28cropped%29.jpg"
       },
       {
         "id": "us-sec-va",
@@ -854,7 +854,7 @@
             "to": "2013"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg/250px-Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg"
       },
       {
         "id": "us-sec-dhs",
@@ -905,7 +905,7 @@
             "to": "2011"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/3840px-Official_Portrait_of_Secretary_Kristi_Noem.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg"
       }
     ]
   },

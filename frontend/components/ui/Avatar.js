@@ -73,11 +73,21 @@ export default function Avatar({
   if (src) {
     return (
       <span className={className} style={baseStyle} {...rest}>
+        {/* loading="lazy" defers the network fetch until the avatar
+            is close to the viewport. Critical for long lists like
+            the Cabinet (17 members) — without this, all 17 images
+            fire on initial mount even though only 3-4 are visible,
+            and the browser decode work on full-size portraits
+            (1 MB+ each from Wikipedia originals) causes scroll lag.
+            decoding="async" lets the decode happen off-main-thread
+            where browsers support it. */}
         <img
           src={src}
           alt={alt ?? name ?? ''}
           width={px}
           height={px}
+          loading="lazy"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           onError={(e) => {
             // Fall back to initials on broken image.
