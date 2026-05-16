@@ -21,6 +21,7 @@ import {
   fetchBillSummary,
   translateBillSummary,
   explainVote,
+  generateVoteExplanation,
 } from '../lib/api';
 import { billKey, isTracked as isBillTracked, trackBill, untrackBill, useTrackedBills } from '../lib/trackedBills';
 import {
@@ -2270,10 +2271,35 @@ function VoteRow({ vote }) {
   // Explainer state — collapsed by default. First expand fires the
   // template generator on the backend; subsequent toggles are
   // instant from component state.
+  //
+  // Two layers of explanation, mirroring the Bills CRS/AI pattern:
+  //   • Template — free, structured, instant, procedural-meaning
+  //   • AI — Haiku-generated, substantive, requires user click,
+  //          cached forever per vote_id after first generation
   const [explainOpen, setExplainOpen] = useState(false);
   const [explainer, setExplainer] = useState(null);
   const [explainerLoading, setExplainerLoading] = useState(false);
   const [explainerError, setExplainerError] = useState(null);
+  const [generatingAi, setGeneratingAi] = useState(false);
+  const [showAi, setShowAi] = useState(false);
+
+  // Build the request payload once so the explain / generate calls
+  // both send the same shape.
+  const votePayload = {
+    vote_id: vote.vote_id,
+    question: vote.question,
+    chamber: vote.chamber,
+    result: vote.result,
+    category: vote.category,
+    date: vote.date,
+    position: vote.position,
+    url: vote.url,
+    bill: vote.bill ? {
+      display_number: vote.bill.display_number,
+      title: vote.bill.title,
+      congress: vote.bill.congress,
+    } : null,
+  };
 
   const handleExplainToggle = async () => {
     const next = !explainOpen;
@@ -2281,38 +2307,47 @@ function VoteRow({ vote }) {
     if (!next || explainer) return;
     setExplainerLoading(true);
     setExplainerError(null);
-    const { data, error } = await explainVote({
-      vote_id: vote.vote_id,
-      question: vote.question,
-      chamber: vote.chamber,
-      result: vote.result,
-      category: vote.category,
-      date: vote.date,
-      position: vote.position,
-      url: vote.url,
-      bill: vote.bill ? {
-        display_number: vote.bill.display_number,
-        title: vote.bill.title,
-      } : null,
-    });
+    const { data, error } = await explainVote(votePayload);
     setExplainerLoading(false);
     if (error || !data) {
       setExplainerError(error || 'Could not load explainer.');
       return;
     }
     setExplainer(data);
+    // If an AI explanation already exists for this vote (cached from
+    // an earlier user click), default to showing it — it's the more
+    // substantive view and the user came looking for detail.
+    if (data.has_ai) setShowAi(true);
   };
 
-  // Pick the position-specific sentence the rep actually cast. Falls
-  // back to showing both YEA + NAY meanings when the position isn't
-  // known (rare — would happen on a present-not-voting record).
-  const positionMeaning = explainer
-    ? (posLower === 'yea' || posLower === 'aye' || posLower === 'yes'
-        ? explainer.what_yea_means
-        : posLower === 'nay' || posLower === 'no'
-          ? explainer.what_nay_means
-          : null)
-    : null;
+  const handleGenerateAi = async () => {
+    if (generatingAi) return;
+    setGeneratingAi(true);
+    setExplainerError(null);
+    const { data, error } = await generateVoteExplanation(votePayload);
+    setGeneratingAi(false);
+    if (error || !data) {
+      setExplainerError(error || 'AI generation failed.');
+      return;
+    }
+    setExplainer(data);
+    setShowAi(true);
+  };
+
+  // Pick the position-specific sentence the rep actually cast.
+  // Falls back to showing both YEA + NAY meanings when the position
+  // isn't known (rare — present-not-voting record). When the user
+  // is viewing the AI body, pull from the ai_* fields instead.
+  const positionFromBody = (body, isAi) => {
+    if (!body) return null;
+    const yeaText = isAi ? body.ai_what_yea_means : body.what_yea_means;
+    const nayText = isAi ? body.ai_what_nay_means : body.what_nay_means;
+    if (posLower === 'yea' || posLower === 'aye' || posLower === 'yes') return yeaText;
+    if (posLower === 'nay' || posLower === 'no') return nayText;
+    return null;
+  };
+  const positionMeaning = positionFromBody(explainer, showAi);
+  const showAiBody = explainer && showAi && explainer.has_ai;
 
   return (
     <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
@@ -2417,7 +2452,36 @@ function VoteRow({ vote }) {
           )}
           {!explainerLoading && !explainerError && explainer && (
             <>
-              <ExplainerSection label="What this vote was" body={explainer.what_was_voted} />
+              {/* Source pill — distinguishes template (procedural,
+                  standard) from AI (substantive, per-vote-generated). */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  fontSize: '0.62rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  color: showAiBody ? 'var(--cl-warning-deep)' : 'var(--cl-text-muted)',
+                  marginBottom: 8,
+                }}
+              >
+                <span
+                  style={{
+                    width: 6, height: 6, borderRadius: '50%',
+                    background: showAiBody ? 'var(--cl-warning)' : 'var(--cl-border-strong)',
+                  }}
+                />
+                {showAiBody
+                  ? 'Detailed AI explanation'
+                  : 'Standard procedural explainer'}
+              </div>
+
+              <ExplainerSection
+                label="What this vote was"
+                body={showAiBody ? explainer.ai_what_was_voted : explainer.what_was_voted}
+              />
               {positionMeaning ? (
                 <ExplainerSection
                   label={`What voting ${position.toUpperCase()} meant`}
@@ -2426,15 +2490,69 @@ function VoteRow({ vote }) {
                 />
               ) : (
                 <>
-                  <ExplainerSection label="What YEA meant" body={explainer.what_yea_means} />
-                  <ExplainerSection label="What NAY meant" body={explainer.what_nay_means} />
+                  <ExplainerSection
+                    label="What YEA meant"
+                    body={showAiBody ? explainer.ai_what_yea_means : explainer.what_yea_means}
+                  />
+                  <ExplainerSection
+                    label="What NAY meant"
+                    body={showAiBody ? explainer.ai_what_nay_means : explainer.what_nay_means}
+                  />
                 </>
               )}
-              <ExplainerSection label="Outcome" body={explainer.outcome_meaning} />
+              <ExplainerSection
+                label="Outcome"
+                body={showAiBody ? explainer.ai_outcome_meaning : explainer.outcome_meaning}
+              />
+
+              {/* Toggle + Generate buttons. Mirrors the Bills CRS/AI
+                  pattern: Generate AI exists when no AI body yet;
+                  toggle exists when both layers are present. */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10, alignItems: 'center' }}>
+                {explainer.has_ai ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowAi(!showAi)}
+                    style={{
+                      padding: '3px 10px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      background: 'white',
+                      color: 'var(--cl-accent)',
+                      border: '1px solid var(--cl-border)',
+                      borderRadius: 999,
+                      cursor: 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {showAi ? 'Show standard explainer' : 'Show AI explanation'}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleGenerateAi}
+                    disabled={generatingAi}
+                    style={{
+                      padding: '3px 10px',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      background: generatingAi ? 'var(--cl-bg-soft)' : 'var(--cl-warning)',
+                      color: 'var(--cl-text)',
+                      border: '1px solid var(--cl-warning-border)',
+                      borderRadius: 999,
+                      cursor: generatingAi ? 'wait' : 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {generatingAi ? 'Generating…' : '✨ Generate AI explanation'}
+                  </button>
+                )}
+              </div>
+
               <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginTop: 8 }}>
-                {explainer.source === 'template'
-                  ? 'Standard procedural explainer.'
-                  : 'AI-generated — verify with the official vote record.'}
+                {showAiBody
+                  ? 'AI-generated — verify with the official vote record.'
+                  : 'Standard procedural explainer.'}
               </div>
             </>
           )}

@@ -40,9 +40,17 @@ Response shape (BillSummary-style):
 """
 from __future__ import annotations
 
+import asyncio
+import json
 import logging
 import re
+from datetime import datetime
 from typing import Optional
+
+from sqlalchemy.orm import Session
+
+from app.models.pages import VoteExplainer
+from app.services import ai_service, bill_summary_service
 
 logger = logging.getLogger(__name__)
 
@@ -441,7 +449,7 @@ _TEMPLATES = {
 
 
 def explain_vote(vote: dict) -> dict:
-    """Generate the structured explainer payload for a single vote.
+    """Generate the structured template explainer payload for a single vote.
 
     `vote` is the dict shape the frontend already has — same fields
     returned by /api/congress/members/{bioguide}/votes (vote_id,
@@ -470,3 +478,221 @@ def explain_vote(vote: dict) -> dict:
         **body,
         "source": "template",
     }
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Haiku-powered detailed explainer.
+# Cached per vote_id in the vote_explainers table — first user to
+# click "Generate detailed explanation" pays the LLM round-trip
+# (~$0.001), subsequent users get the cached version forever.
+# ─────────────────────────────────────────────────────────────────────
+
+_AI_EXPLAINER_SYSTEM = """\
+You are a non-partisan civic explainer. Given a roll-call vote in the U.S.
+Congress, produce a substantive, plain-language breakdown of what the vote
+was actually about and what each position means in practice.
+
+You will receive (some of) these inputs:
+  • Vote question text — often carries the substantive subject
+  • Bill citation + title (when the vote attaches to a bill)
+  • Bill summary from the Congressional Research Service (when available — this
+    is the GROUND TRUTH for what the bill does; cite it heavily)
+  • Vote category (passage / amendment / cloture / procedural / etc.)
+  • Vote result (passed / failed)
+
+Produce a JSON object with EXACTLY these four string fields:
+
+{
+  "what_was_voted": "2-3 sentences. The substantive subject of the vote.
+    For amendments, what the amendment proposes (if discernible from the
+    question text). For final passage, what the bill itself does (lean on
+    the CRS summary heavily). For procedural motions, the practical
+    legislative effect. Be concrete — name the policy area, the affected
+    parties, the dollar figures or deadlines when present.",
+
+  "what_yea_means": "2-3 sentences. The concrete meaning of a YEA vote IN
+    THIS SPECIFIC CONTEXT — not the generic 'supports the bill.' For an
+    amendment, what the YEA voter would change. For cloture, what next
+    step they're enabling. For a motion to recommit, what fate they're
+    routing the bill to.",
+
+  "what_nay_means": "2-3 sentences. Same shape as what_yea_means but for
+    the NAY position. Be specific about what NAY voters are protecting,
+    blocking, or signaling.",
+
+  "outcome_meaning": "1-2 sentences. Given the result (passed / failed),
+    what concretely happens next. Is the bill law? Does it move to the
+    other chamber? Does the amendment get adopted? Does the procedural
+    block hold? Concrete next step."
+}
+
+RULES:
+- Output ONLY valid JSON. No preamble, no markdown fences.
+- Stay non-partisan. Don't characterize either position as right / wrong.
+- If the input doesn't give you enough info on a specific point, write
+  "Not specified in the available record" rather than inventing details.
+- Don't restate the procedural category at length — the template layer
+  already handles that. Focus on substance.
+- Don't speculate about the rep's motives or strategy.
+"""
+
+
+def _build_ai_prompt(vote: dict, crs_summary: Optional[str]) -> str:
+    """Assemble the user-message body for Haiku — vote payload + bill
+    context, structured so the model can lean on the substantive
+    fields rather than the procedural ones."""
+    bill = vote.get("bill") or {}
+    parts = []
+    if bill.get("display_number"):
+        parts.append(f"Bill citation: {bill['display_number']}")
+    if bill.get("title"):
+        parts.append(f"Bill title: {bill['title']}")
+    if crs_summary:
+        # Trim to a reasonable budget — Haiku is fine with 4-6k input
+        # tokens; cap CRS at ~3000 chars to stay well clear.
+        crs_clip = crs_summary[:3000]
+        parts.append(f"CRS summary of the bill:\n{crs_clip}")
+    if vote.get("category"):
+        parts.append(f"Vote category: {vote['category']}")
+    if vote.get("question"):
+        parts.append(f"Vote question (as recorded): {vote['question']}")
+    if vote.get("result"):
+        parts.append(f"Result: {vote['result']}")
+    if vote.get("date"):
+        parts.append(f"Date: {vote['date']}")
+    if vote.get("chamber"):
+        parts.append(f"Chamber: {vote['chamber']}")
+    return "\n\n".join(parts)
+
+
+def _parse_ai_json(text: str) -> Optional[dict]:
+    """Pull the four-field JSON out of Haiku's response. Defensive
+    against the model wrapping the JSON in a code fence despite the
+    prompt telling it not to."""
+    if not text:
+        return None
+    cleaned = text.strip()
+    # Strip ```json ... ``` fence if present.
+    if cleaned.startswith("```"):
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
+        cleaned = re.sub(r"\s*```\s*$", "", cleaned)
+    try:
+        obj = json.loads(cleaned)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(obj, dict):
+        return None
+    required = ("what_was_voted", "what_yea_means", "what_nay_means", "outcome_meaning")
+    if not all(isinstance(obj.get(k), str) and obj.get(k).strip() for k in required):
+        return None
+    return {k: obj[k].strip() for k in required}
+
+
+def get_cached_ai(db: Session, vote_id: str) -> Optional[VoteExplainer]:
+    """Return the cached AI explainer row for a vote, or None."""
+    if not vote_id:
+        return None
+    return db.query(VoteExplainer).filter(VoteExplainer.vote_id == vote_id).first()
+
+
+async def generate_ai_explainer(
+    db: Session, vote: dict, *, force: bool = False,
+) -> tuple[Optional[dict], Optional[str]]:
+    """Run Haiku against the vote + bill context. Returns (body, error).
+
+    On success the four-field body is BOTH returned to the caller AND
+    persisted to vote_explainers so subsequent users skip the LLM call.
+
+    The bill's CRS summary is pulled from the cache when the vote is
+    attached to a bill — that's the single biggest accuracy boost for
+    "what was actually being voted on" since it's the canonical
+    description of the underlying legislation.
+    """
+    vote_id = vote.get("vote_id")
+    if not vote_id:
+        return None, "missing_vote_id"
+
+    # Cache hit short-circuit (unless an admin forced regen).
+    if not force:
+        cached = get_cached_ai(db, vote_id)
+        if cached and cached.ai_what_was_voted:
+            return {
+                "what_was_voted": cached.ai_what_was_voted,
+                "what_yea_means": cached.ai_what_yea_means,
+                "what_nay_means": cached.ai_what_nay_means,
+                "outcome_meaning": cached.ai_outcome_meaning,
+            }, None
+
+    # Pull the bill's CRS summary as context if the vote is bound to a
+    # bill. Bypass on parse failure (e.g. display_number doesn't split
+    # cleanly) — Haiku can still produce something useful from the
+    # question text alone.
+    crs_summary: Optional[str] = None
+    bill = vote.get("bill") or {}
+    disp = (bill.get("display_number") or "").strip()
+    congress = vote.get("congress") or (
+        # The frontend doesn't always send congress on the vote payload;
+        # parse from the vote_id prefix as a fallback (e.g. h2026-100
+        # → 2026 → 119th Congress mapping is YEAR-2 / 2 + 110 roughly).
+        None
+    )
+    if disp and " " in disp:
+        # Convert "H.R. 8469" → ("HR", "8469").
+        bill_type_pretty, bill_number = disp.split(" ", 1)
+        bill_type_clean = bill_type_pretty.replace(".", "").upper()
+        # We need a congress number. The frontend usually doesn't have
+        # one on the vote row; try the bill record. If still missing,
+        # fall through without CRS context.
+        bill_congress = bill.get("congress") or congress
+        if bill_congress and bill_type_clean and bill_number:
+            try:
+                cached_bill = bill_summary_service.get_cached_row(
+                    db, int(bill_congress), bill_type_clean, bill_number,
+                )
+                if cached_bill and cached_bill.crs_summary:
+                    crs_summary = cached_bill.crs_summary
+            except (ValueError, TypeError):
+                pass
+
+    user_msg = _build_ai_prompt(vote, crs_summary)
+    result = await asyncio.to_thread(
+        ai_service.chat,
+        system=_AI_EXPLAINER_SYSTEM,
+        messages=[{"role": "user", "content": user_msg}],
+        max_tokens=900,
+        temperature=0.3,
+    )
+    if result.error:
+        logger.warning(
+            "AI vote explainer failed for vote_id=%s: %s",
+            vote_id, result.error,
+        )
+        return None, result.error
+    if not result.text:
+        return None, "empty"
+
+    body = _parse_ai_json(result.text)
+    if body is None:
+        logger.warning(
+            "AI vote explainer for vote_id=%s returned unparseable JSON: %r",
+            vote_id, result.text[:400],
+        )
+        return None, "parse_failed"
+
+    # Upsert. Keep the existing row if present (preserves created_at
+    # for audit purposes); otherwise insert.
+    now = datetime.utcnow()
+    row = get_cached_ai(db, vote_id)
+    if row is None:
+        row = VoteExplainer(vote_id=vote_id)
+        db.add(row)
+    row.ai_what_was_voted = body["what_was_voted"]
+    row.ai_what_yea_means = body["what_yea_means"]
+    row.ai_what_nay_means = body["what_nay_means"]
+    row.ai_outcome_meaning = body["outcome_meaning"]
+    row.ai_model = ai_service.DEFAULT_MODEL
+    row.ai_generated_at = now
+    row.updated_at = now
+    db.commit()
+    db.refresh(row)
+    return body, None

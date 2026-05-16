@@ -975,3 +975,54 @@ Index(
     BillSummary.congress, BillSummary.bill_type, BillSummary.number,
     unique=True,
 )
+
+
+# ── Vote explainers ──────────────────────────────────────────────────
+class VoteExplainer(Base):
+    """
+    Cached Haiku-generated explainer for a single roll-call vote.
+
+    Why a cache row at all (templates are free): for the AI-enhanced
+    "Explain in detail" upgrade, we want to pay the Haiku call ONCE
+    per vote and serve it to every subsequent user. Votes are
+    immutable (the question text, result, and procedural meaning
+    don't change after the vote is cast), so cached AI text is
+    valid forever.
+
+    Lookup is by GovTrack vote_id. Templates don't get a cache row —
+    they're regenerated on every request since they're deterministic
+    and microseconds-fast. Only the AI body sits in the DB.
+
+    Four content columns mirror the template shape:
+      ai_what_was_voted   — substantive description of the vote
+      ai_what_yea_means   — concrete meaning of a YEA position
+      ai_what_nay_means   — concrete meaning of a NAY position
+      ai_outcome_meaning  — what the result changes going forward
+    """
+    __tablename__ = "vote_explainers"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # GovTrack vote_id (e.g. "h2026-100" / "s2026-50"). Unique per
+    # vote — one cache row per vote regardless of which rep was
+    # voting (the position-specific framing happens client-side at
+    # render time).
+    vote_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+
+    ai_what_was_voted: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    ai_what_yea_means: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    ai_what_nay_means: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    ai_outcome_meaning: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
+    # Which model produced this — preserved on the row so an admin can
+    # invalidate / regenerate when we upgrade the model in the future.
+    ai_model: Mapped[Optional[str]] = mapped_column(String(64), default=None)
+    ai_generated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(),
+    )
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )

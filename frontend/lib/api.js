@@ -576,13 +576,14 @@ export async function fetchBillSummary(
 }
 
 // ─── Vote explainer ──────────────────────────────────────────────────
-// POST /api/votes/explain — takes the vote row payload, returns a
-// structured "what was this vote?" body (template-based, no LLM cost).
+// Two endpoints, mirroring the Bills CRS/AI pattern:
 //
-// The frontend calls this on demand when the user expands a vote's
-// "What was this vote?" pill. Each vote row already has the payload
-// the explainer needs (vote_id, question, category, result, position,
-// bill); just pass it through.
+//   explainVote(payload)         → template body + any cached AI body
+//   generateVoteExplanation(p)   → triggers Haiku, caches per vote_id
+//
+// The template body is always returned; the AI body is filled in when
+// a cached Haiku explanation exists for the same vote_id. The frontend
+// flips between them via a toggle once both are present.
 export async function explainVote(votePayload) {
   if (!votePayload) return { data: null, error: 'missing_vote' };
   try {
@@ -599,6 +600,28 @@ export async function explainVote(votePayload) {
     return { data, error: null };
   } catch (error) {
     console.warn('Vote explainer failed:', error.message);
+    return { data: null, error: error.message || 'network' };
+  }
+}
+
+export async function generateVoteExplanation(votePayload) {
+  if (!votePayload || !votePayload.vote_id) {
+    return { data: null, error: 'missing_vote_id' };
+  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/votes/explain/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(votePayload),
+    });
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({ detail: '' }));
+      return { data: null, error: detail.detail || `HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    console.warn('Vote AI explanation failed:', error.message);
     return { data: null, error: error.message || 'network' };
   }
 }
