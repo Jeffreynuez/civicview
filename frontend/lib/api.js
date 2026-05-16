@@ -536,6 +536,68 @@ export async function fetchBillSnapshot(congress, billType, number) {
   }
 }
 
+// ─── Bill summaries (CRS + Haiku translation) ────────────────────────
+// Two-stage cache:
+//  • GET  /api/bills/{congress}/{type}/{number}/summary
+//      Returns the cached BillSummary row (fetches CRS on first call).
+//  • POST /api/bills/{congress}/{type}/{number}/summary/translate
+//      Triggers the Haiku plain-English translation of the CRS body.
+//      Cached forever after first translation.
+//
+// Both pass through the bill's title + latest_action so the backend
+// can store them denormalized — saves the translate path a Congress.gov
+// round-trip when the user clicks Translate before expanding the row.
+export async function fetchBillSummary(
+  congress, billType, number, { title, latestAction } = {}
+) {
+  if (!congress || !billType || !number) {
+    return { data: null, error: 'missing_id' };
+  }
+  const bt = String(billType).toUpperCase();
+  const num = String(number);
+  const params = new URLSearchParams();
+  if (title) params.set('title', title);
+  if (latestAction) params.set('latest_action', latestAction);
+  const qs = params.toString() ? `?${params.toString()}` : '';
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary${qs}`,
+    );
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({ detail: '' }));
+      return { data: null, error: detail.detail || `HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    console.warn('Bill summary fetch failed:', error.message);
+    return { data: null, error: error.message || 'network' };
+  }
+}
+
+export async function translateBillSummary(congress, billType, number) {
+  if (!congress || !billType || !number) {
+    return { data: null, error: 'missing_id' };
+  }
+  const bt = String(billType).toUpperCase();
+  const num = String(number);
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary/translate`,
+      { method: 'POST' },
+    );
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({ detail: '' }));
+      return { data: null, error: detail.detail || `HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    console.warn('Bill summary translate failed:', error.message);
+    return { data: null, error: error.message || 'network' };
+  }
+}
+
 // ─── Federal officials (President, VP, Cabinet, SCOTUS, Congress lead) ─
 // Cached once for the session — the snapshot doesn't change per-state.
 let _federalOfficialsCache = null;

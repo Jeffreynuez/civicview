@@ -42,9 +42,11 @@ from typing import List, Dict, Any, Optional
 
 from sqlalchemy.orm import Session
 
+from datetime import datetime
+
 from app.auth import hash_password
 from app.db import SessionLocal
-from app.models.pages import CitizenAccount, Poll, RepAccount
+from app.models.pages import BillSummary, CitizenAccount, Poll, RepAccount
 
 
 logger = logging.getLogger(__name__)
@@ -52,6 +54,11 @@ logger = logging.getLogger(__name__)
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_SEED_PATH = BACKEND_DIR / "demo_accounts.json"
 DEFAULT_CITIZEN_SEED_PATH = BACKEND_DIR / "demo_citizen_accounts.json"
+# Pre-fetched CRS summaries for the bills users see on day one. Built
+# by backend/scripts/seed_bill_summaries.py and committed alongside
+# the code so production loads them on first boot — no Congress.gov
+# round-trips, no LLM calls.
+DEFAULT_BILL_SUMMARIES_PATH = BACKEND_DIR / "app" / "data" / "bill_summaries_seed.json"
 
 
 def _load_seed_payload() -> Optional[Dict[str, Any]]:
@@ -438,6 +445,101 @@ def wipe_rep_demo_data(db: Optional[Session] = None) -> Dict[str, int]:
         if owns_session:
             db.close()
     return deleted
+
+
+def seed_bill_summaries(db: Optional[Session] = None) -> int:
+    """Idempotent loader for the pre-fetched CRS bill-summary cache.
+
+    Reads backend/app/data/bill_summaries_seed.json (built by
+    scripts/seed_bill_summaries.py) and inserts any (congress,
+    bill_type, number) triples not already present in the DB.
+
+    The point: production starts with hundreds of CRS summaries
+    already cached, so users see instant bill-summary expansions
+    on day one without any Congress.gov round-trips. Subsequent
+    CRS refreshes happen on the regular freshness-check path in
+    bill_summary_service.
+
+    Returns the count of newly-inserted rows. Re-running with no
+    new entries returns 0; re-running on a fresh DB inserts all of
+    them. Never overwrites existing rows — if an admin manually
+    refreshed a summary or a user has already triggered a Haiku
+    translation on a bill, we leave that row alone.
+    """
+    if not DEFAULT_BILL_SUMMARIES_PATH.exists():
+        logger.info(
+            "No bill-summaries seed at %s — skipping (run scripts/seed_bill_summaries.py to build one).",
+            DEFAULT_BILL_SUMMARIES_PATH,
+        )
+        return 0
+    try:
+        with DEFAULT_BILL_SUMMARIES_PATH.open("r", encoding="utf-8") as fh:
+            payload = json.load(fh)
+    except (json.JSONDecodeError, OSError) as exc:
+        logger.error("bill_summaries_seed.json could not be read: %s", exc)
+        return 0
+    items = payload.get("items") or []
+    if not items:
+        logger.info("Bill-summaries seed file had no items — skipping.")
+        return 0
+
+    owns_session = db is None
+    db = db or SessionLocal()
+    inserted = 0
+    try:
+        # Pull existing triples in one query so we don't N+1 on inserts.
+        existing = {
+            (r.congress, r.bill_type, r.number)
+            for r in db.query(
+                BillSummary.congress, BillSummary.bill_type, BillSummary.number,
+            ).all()
+        }
+        now = datetime.utcnow()
+        for entry in items:
+            try:
+                congress = int(entry["congress"])
+                bill_type = str(entry["bill_type"]).upper()
+                number = str(entry["number"])
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (congress, bill_type, number)
+            if key in existing:
+                continue
+            row = BillSummary(
+                congress=congress,
+                bill_type=bill_type,
+                number=number,
+                title=entry.get("title"),
+                latest_action=entry.get("latest_action"),
+                crs_summary=entry.get("crs_summary"),
+                # Stamp crs_fetched_at so the freshness check doesn't
+                # immediately re-fetch every seeded row on first user
+                # request. A user-triggered refresh after the
+                # _CRS_REFRESH_AFTER window will still update the row.
+                crs_fetched_at=now if entry.get("crs_summary") else None,
+            )
+            db.add(row)
+            inserted += 1
+        if inserted:
+            db.commit()
+            logger.info(
+                "Seeded %d new bill summaries (%d in seed file, %d already in DB).",
+                inserted, len(items), len(existing),
+            )
+        else:
+            logger.info(
+                "Bill-summaries seed already current — %d rows on disk match %d DB rows.",
+                len(items), len(existing),
+            )
+    except Exception:
+        if owns_session:
+            db.rollback()
+        logger.exception("seed_bill_summaries failed; rolling back.")
+        return 0
+    finally:
+        if owns_session:
+            db.close()
+    return inserted
 
 
 def maybe_run_fresh_start_wipe() -> None:

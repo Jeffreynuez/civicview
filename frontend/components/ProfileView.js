@@ -18,6 +18,8 @@ import {
   fetchStateCourtCases,
   fetchStateLegislatorBills,
   fetchStateLegislatorVotes,
+  fetchBillSummary,
+  translateBillSummary,
 } from '../lib/api';
 import { billKey, isTracked as isBillTracked, trackBill, untrackBill, useTrackedBills } from '../lib/trackedBills';
 import {
@@ -1366,6 +1368,17 @@ function BillCard({ bill, member, onNotify }) {
   const key = billKey(bill.congress, bill.type, bill.number);
   const tracked = key ? isBillTracked(key) : false;
 
+  // Summary state — collapsed by default, populated lazily on first
+  // expand. Two stages of richness:
+  //   • CRS summary (free, free) — fetched on expand
+  //   • Plain-English translation (Haiku) — generated on user click
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const [summaryError, setSummaryError] = useState(null);
+  const [translating, setTranslating] = useState(false);
+  const [showPlain, setShowPlain] = useState(false);
+
   const handleTrack = (e) => {
     e.stopPropagation();
     if (!key) return;
@@ -1392,6 +1405,57 @@ function BillCard({ bill, member, onNotify }) {
     }
   };
 
+  // Expand the summary section — fires the CRS fetch on first open.
+  // Subsequent open/close toggles are instant since the data is cached
+  // in component state.
+  const handleSummaryToggle = async () => {
+    const next = !summaryOpen;
+    setSummaryOpen(next);
+    if (!next || summary) return;
+    if (!bill.congress || !bill.type || !bill.number) {
+      setSummaryError('Bill identifiers unavailable.');
+      return;
+    }
+    setSummaryLoading(true);
+    setSummaryError(null);
+    const { data, error } = await fetchBillSummary(
+      bill.congress, bill.type, bill.number,
+      { title: bill.title, latestAction: bill.latest_action },
+    );
+    setSummaryLoading(false);
+    if (error || !data) {
+      setSummaryError(error || 'Could not load summary.');
+      return;
+    }
+    setSummary(data);
+    // If a plain-English translation already exists (someone else hit
+    // Translate earlier), default to showing that — the user came
+    // looking for a summary and the plain version is more accessible.
+    if (data.has_plain_english) setShowPlain(true);
+  };
+
+  // Kick off Haiku translation. Cached on the backend after first
+  // success, so a second user clicking gets it instantly from the
+  // GET path.
+  const handleTranslate = async () => {
+    if (translating) return;
+    setTranslating(true);
+    setSummaryError(null);
+    const { data, error } = await translateBillSummary(
+      bill.congress, bill.type, bill.number,
+    );
+    setTranslating(false);
+    if (error || !data) {
+      setSummaryError(error || 'Translation failed.');
+      return;
+    }
+    setSummary(data);
+    setShowPlain(true);
+  };
+
+  const showCrs = summary?.has_crs && !showPlain;
+  const showPlainBody = summary?.has_plain_english && showPlain;
+
   return (
     <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
@@ -1412,6 +1476,169 @@ function BillCard({ bill, member, onNotify }) {
           {bill.latest_action}
         </div>
       )}
+
+      {/* Summary section — collapsed by default. On expand, fetches
+          the CRS summary (free, no LLM). User can then upgrade to a
+          Haiku plain-English translation via a separate button. */}
+      <div style={{ marginTop: '8px' }}>
+        <button
+          onClick={handleSummaryToggle}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '4px 10px',
+            borderRadius: '12px',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            background: summaryOpen ? 'var(--cl-accent-soft)' : 'white',
+            color: 'var(--cl-accent)',
+            border: '1px solid var(--cl-accent)',
+            fontFamily: 'inherit',
+            transition: 'background 0.15s',
+          }}
+          aria-expanded={summaryOpen}
+        >
+          <span aria-hidden style={{ display: 'inline-block', transform: summaryOpen ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.15s' }}>▸</span>
+          {summaryOpen ? 'Hide summary' : 'Summary'}
+        </button>
+
+        {summaryOpen && (
+          <div
+            style={{
+              marginTop: 8,
+              padding: '10px 12px',
+              background: 'white',
+              border: '1px solid var(--cl-border)',
+              borderRadius: 8,
+              fontSize: '0.82rem',
+              lineHeight: 1.5,
+              color: 'var(--cl-text)',
+            }}
+          >
+            {summaryLoading && (
+              <div style={{ color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
+                Loading summary…
+              </div>
+            )}
+            {summaryError && (
+              <div style={{ color: 'var(--cl-danger-text)', fontSize: '0.78rem' }}>
+                {summaryError}
+              </div>
+            )}
+
+            {!summaryLoading && !summaryError && summary && !summary.has_crs && !summary.has_plain_english && (
+              <div style={{ color: 'var(--cl-text-light)', fontStyle: 'italic', fontSize: '0.8rem' }}>
+                No summary is on file at Congress.gov yet for this bill — usually within
+                a few days of introduction. Check back soon.
+              </div>
+            )}
+
+            {!summaryLoading && showCrs && (
+              <>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: '0.66rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'var(--cl-text-muted)',
+                    marginBottom: 6,
+                  }}
+                >
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-accent)' }} />
+                  CRS summary
+                </div>
+                {/* CRS summaries come back as paragraph text (HTML stripped
+                    server-side). Split on double-newlines for paragraph
+                    breaks, preserve single newlines as soft breaks. */}
+                {summary.crs_summary.split(/\n\n+/).map((para, i) => (
+                  <p key={i} style={{ margin: i === 0 ? '0 0 8px' : '0 0 8px', whiteSpace: 'pre-wrap' }}>
+                    {para}
+                  </p>
+                ))}
+              </>
+            )}
+
+            {!summaryLoading && showPlainBody && (
+              <>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: '0.66rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'var(--cl-warning-deep)',
+                    marginBottom: 6,
+                  }}
+                >
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-warning)' }} />
+                  Plain English · AI-generated
+                </div>
+                <PlainEnglishBody markdown={summary.plain_english} />
+                <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginTop: 8 }}>
+                  AI translation — for the authoritative text, view on Congress.gov.
+                </div>
+              </>
+            )}
+
+            {/* Toggle row + Translate button. Visible whenever the
+                summary box is open and we have at least one body to
+                show or could fetch one. */}
+            {!summaryLoading && summary && (summary.has_crs || summary.has_plain_english) && (
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 10, alignItems: 'center' }}>
+                {summary.has_crs && summary.has_plain_english && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPlain(!showPlain)}
+                    style={{
+                      padding: '3px 10px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      background: 'white',
+                      color: 'var(--cl-accent)',
+                      border: '1px solid var(--cl-border)',
+                      borderRadius: 999,
+                      cursor: 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {showPlain ? 'Show CRS' : 'Show plain English'}
+                  </button>
+                )}
+                {!summary.has_plain_english && summary.has_crs && (
+                  <button
+                    type="button"
+                    onClick={handleTranslate}
+                    disabled={translating}
+                    style={{
+                      padding: '3px 10px',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      background: translating ? 'var(--cl-bg-soft)' : 'var(--cl-warning)',
+                      color: 'var(--cl-text)',
+                      border: '1px solid var(--cl-warning-border)',
+                      borderRadius: 999,
+                      cursor: translating ? 'wait' : 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {translating ? 'Translating…' : '✨ Translate to plain English'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '8px' }}>
         {bill.url ? (
           <a
@@ -1441,6 +1668,44 @@ function BillCard({ bill, member, onNotify }) {
         )}
       </div>
     </div>
+  );
+}
+
+// Plain-English summary body renderer. Haiku is prompted to produce
+// "paragraph + bullets" Markdown — first paragraph plus a "- " bullet
+// list. We do a light-weight render instead of pulling in a full
+// markdown library, since the prompt locks down the shape.
+function PlainEnglishBody({ markdown }) {
+  if (!markdown) return null;
+  const lines = markdown.split('\n');
+  const paras = [];
+  const bullets = [];
+  let inBullets = false;
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      inBullets = true;
+      bullets.push(line.slice(2).trim());
+    } else if (inBullets) {
+      bullets.push(line);
+    } else {
+      paras.push(line);
+    }
+  }
+  return (
+    <>
+      {paras.map((p, i) => (
+        <p key={`p-${i}`} style={{ margin: '0 0 8px' }}>{p}</p>
+      ))}
+      {bullets.length > 0 && (
+        <ul style={{ margin: '4px 0 0', paddingLeft: 20 }}>
+          {bullets.map((b, i) => (
+            <li key={`b-${i}`} style={{ marginBottom: 4 }}>{b}</li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 

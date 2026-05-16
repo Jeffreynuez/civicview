@@ -29,10 +29,12 @@ from app.routers import (
     ai as ai_router,
     admin as admin_router,
     appeals as appeals_router,
+    bills as bills_router,
 )
 from app.db import init_db
 from app.seed import (
     maybe_run_fresh_start_wipe,
+    seed_bill_summaries,
     seed_demo_accounts,
     seed_demo_citizens,
 )
@@ -57,6 +59,10 @@ async def lifespan(app: FastAPI):
         maybe_run_fresh_start_wipe()
         seed_demo_accounts()
         seed_demo_citizens()
+        # Pre-fetched CRS bill summaries — populates the bill_summaries
+        # cache so the rep-profile Bills tab gets instant Summary
+        # expansions on day one without Congress.gov round-trips.
+        seed_bill_summaries()
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
     yield
@@ -123,6 +129,8 @@ app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
 # /api/me/appeals AND /api/admin/appeals/... so we mount with
 # prefix="/api" rather than baking the segmentation into one prefix.
 app.include_router(appeals_router.router, prefix="/api", tags=["Appeals"])
+# Bills router — per-bill summary cache (CRS + Haiku translation).
+app.include_router(bills_router.router, prefix="/api/bills", tags=["Bills"])
 
 
 @app.get("/")

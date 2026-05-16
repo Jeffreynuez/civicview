@@ -338,6 +338,78 @@ class CongressService:
             self._set_cached(cache_key, result)
         return result
 
+    async def get_bill_summary(
+        self, congress: int, bill_type: str, number: str
+    ) -> Optional[dict]:
+        """Fetch the latest CRS summary for a bill from Congress.gov.
+
+        The /bill/{congress}/{type}/{number}/summaries endpoint returns
+        every summary version the bill has accumulated as it moves
+        through the legislative process (Introduced → Reported →
+        Engrossed → Enrolled). The CRS regenerates these after each
+        substantive change, so the *latest* one is the canonical
+        current view.
+
+        Returns:
+            {
+              "text": str,            # cleaned summary body
+              "version_code": str,    # e.g. "Introduced in House"
+              "action_date": str,     # ISO date
+              "action_desc": str,     # human-readable action
+            }
+        or None if no summary is on file yet (very common for bills
+        introduced in the last few days — CRS hasn't gotten to it).
+
+        We intentionally do NOT cache here; the bill_summary_service
+        handles caching with the right semantics for the cache table.
+        """
+        if not (congress and bill_type and number):
+            return None
+
+        bt = bill_type.lower()
+        data = await self._api_get(f"/bill/{congress}/{bt}/{number}/summaries")
+        if not data:
+            return None
+
+        summaries = data.get("summaries") or []
+        if not summaries:
+            return None
+
+        # Pick the most recent by actionDate. Fall back to last-in-list
+        # for the rare case where dates are missing.
+        def _sort_key(s):
+            d = s.get("actionDate") or ""
+            return d  # ISO yyyy-mm-dd sorts lexicographically
+        summaries = sorted(summaries, key=_sort_key)
+        latest = summaries[-1]
+
+        # The text field comes wrapped in <p> tags from the API.
+        # Strip them for cleaner display; the frontend can re-add
+        # paragraph breaks from double newlines.
+        raw_text = (latest.get("text") or "").strip()
+        cleaned = (
+            raw_text
+            .replace("<p>", "")
+            .replace("</p>", "\n\n")
+            .replace("<br>", "\n")
+            .replace("<br/>", "\n")
+            .replace("<br />", "\n")
+            .strip()
+        )
+        # Collapse runs of 3+ newlines back to 2.
+        while "\n\n\n" in cleaned:
+            cleaned = cleaned.replace("\n\n\n", "\n\n")
+
+        if not cleaned:
+            return None
+
+        return {
+            "text": cleaned,
+            "version_code": latest.get("versionCode") or "",
+            "action_date": latest.get("actionDate") or "",
+            "action_desc": latest.get("actionDesc") or "",
+        }
+
     @staticmethod
     def _public_bill_url(congress, bill_type: str, number) -> Optional[str]:
         """Build the human-facing congress.gov bill URL.
