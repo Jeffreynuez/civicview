@@ -37,9 +37,11 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_current_rep, get_optional_rep
 from app.auth_citizen import get_current_citizen, get_optional_citizen
+from app.auth_candidate import get_optional_candidate
 from app.db import get_db
 from pydantic import BaseModel, Field
 from app.models.pages import (
+    CandidateAccount,
     CitizenAccount,
     CommentReaction,
     CommentReport,
@@ -151,6 +153,12 @@ def _resolve_engager(
     different rep's page falls through to the citizen check; this
     keeps the engagement model "one identity per page", not "reps
     can engage anywhere they have an account."
+
+    Phase 4b note: candidate-as-page-owner engagement parity is
+    coming. For now engagement endpoints only recognize rep + citizen;
+    page-management endpoints (create_post / delete_post) use
+    _assert_page_ownership below which accepts either rep or
+    candidate. This split keeps the Phase 4a diff manageable.
     """
     if me_rep is not None and me_rep.official_id == page_official_id:
         return (None, me_rep)
@@ -159,6 +167,38 @@ def _resolve_engager(
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Sign in to engage with this content.",
+    )
+
+
+# Phase 4a: page-management endpoints (create_post, delete_post,
+# event create/delete) need to recognize either a rep or a candidate
+# as the page owner. This helper returns the (rep, candidate) pair —
+# exactly one is non-None — or raises 403 when the caller isn't the
+# owner of the named page.
+def _resolve_page_owner(
+    *,
+    me_rep: Optional["RepAccount"],
+    me_candidate: Optional["CandidateAccount"],
+    page_official_id: str,
+) -> tuple[Optional["RepAccount"], Optional["CandidateAccount"]]:
+    """Return (rep, candidate) with exactly one populated, or 403.
+
+    Rep wins if their RepAccount.official_id matches the page id.
+    Candidate wins if their CandidateAccount.candidate_id matches.
+    The two id spaces don't overlap, so a single page can only be
+    owned by one or the other at any time.
+
+    Used by routes that mutate page-level content (post creation,
+    deletion, event management). Engagement routes use the
+    citizen-friendly _resolve_engager instead.
+    """
+    if me_rep is not None and me_rep.official_id == page_official_id:
+        return (me_rep, None)
+    if me_candidate is not None and me_candidate.candidate_id == page_official_id:
+        return (None, me_candidate)
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="You can only manage the page for your own official_id / candidate_id.",
     )
 
 
@@ -420,12 +460,37 @@ def _post_to_read(
         for img in sorted(post.images or [], key=lambda i: i.sort_order)
     ]
 
+    # Author serialization. Rep-authored posts use the standard
+    # AuthorSummary mapping. Candidate-authored posts (Phase 4a) map
+    # candidate_id → official_id manually since AuthorSummary's
+    # field name is rep-flavoured; candidates have no `role`, so
+    # we leave it None.
+    if post.author is not None:
+        author_summary = AuthorSummary.model_validate(post.author)
+    elif getattr(post, "author_candidate", None) is not None:
+        author_summary = AuthorSummary(
+            id=post.author_candidate.id,
+            official_id=post.author_candidate.candidate_id,
+            display_name=post.author_candidate.display_name,
+            role=None,
+        )
+    else:
+        # Shouldn't happen in practice — every post is authored by
+        # one or the other. Fall back to a placeholder so the
+        # response shape stays valid rather than 500-ing.
+        author_summary = AuthorSummary(
+            id=0,
+            official_id=post.official_id,
+            display_name="(unknown author)",
+            role=None,
+        )
+
     return PostRead(
         id=post.id,
         official_id=post.official_id,
         body=post.body,
         created_at=post.created_at,
-        author=AuthorSummary.model_validate(post.author),
+        author=author_summary,
         poll=poll_read,
         reactions=_reaction_summary_for_post(
             post, me_citizen, engagement_scope=engagement_scope, owner=owner,
@@ -449,9 +514,30 @@ def _assert_owns_page(rep: RepAccount, official_id: str) -> None:
 
 
 def _load_owner(db: Session, official_id: str) -> Optional[RepAccount]:
+    """Look up the page's REP owner. Returns None for candidate-only
+    pages (unclaimed-by-rep-but-claimed-by-candidate) and for fully-
+    unclaimed pages. Existing call sites that need to distinguish
+    rep-owned from candidate-owned should also call _load_candidate_owner.
+    """
     return (
         db.query(RepAccount)
         .filter(RepAccount.official_id == official_id)
+        .first()
+    )
+
+
+def _load_candidate_owner(db: Session, official_id: str) -> Optional["CandidateAccount"]:
+    """Look up the page's CANDIDATE owner. Same string id space as
+    _load_owner — candidate ids and rep official_ids don't collide,
+    so passing the same value to both is safe. Returns None for
+    rep-owned + fully-unclaimed pages.
+
+    Lazy import to keep the helper near _load_owner without
+    reshuffling the module-level import block."""
+    from app.models.pages import CandidateAccount  # local — see docstring
+    return (
+        db.query(CandidateAccount)
+        .filter(CandidateAccount.candidate_id == official_id)
         .first()
     )
 
@@ -475,6 +561,7 @@ def get_page(
     db: Session = Depends(get_db),
     me: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ):
     """
     Return everything needed to render a rep/candidate page:
@@ -489,12 +576,24 @@ def get_page(
       scope       — override the poll default visibility scope for this
         render. Citizens use this to "show all" instead of the author's
         default.
+
+    is_owner determination (Phase 4a): the page may be rep-owned OR
+    candidate-owned. We probe both account types — whichever returns
+    a match becomes the owner, and the matching signed-in identity
+    flips is_owner=True for that session.
     """
     if scope and scope not in SCOPE_VALUES:
         raise HTTPException(status_code=400, detail=f"Unknown scope '{scope}'")
 
     owner = _load_owner(db, official_id)
-    is_owner = bool(owner and me and me.id == owner.id)
+    candidate_owner = _load_candidate_owner(db, official_id) if owner is None else None
+    # Resolve "am I the owner viewing my own page?" — rep path first,
+    # candidate path second. Only one can ever be true since the id
+    # spaces don't overlap.
+    is_owner = (
+        (owner is not None and me is not None and me.id == owner.id)
+        or (candidate_owner is not None and me_candidate is not None and me_candidate.id == candidate_owner.id)
+    )
 
     # Scope controls two different things:
     #   • `scope_override` drives the poll vote counts. This is public
@@ -513,6 +612,10 @@ def get_page(
         db.query(Post)
         .options(
             selectinload(Post.author),
+            # Phase 4a — eager-load the candidate author too so
+            # candidate-authored posts don't trigger N+1 queries
+            # in the serializer.
+            selectinload(Post.author_candidate),
             selectinload(Post.poll).selectinload(Poll.options).selectinload(PollOption.votes),
             selectinload(Post.reactions),
             selectinload(Post.images),
@@ -524,9 +627,15 @@ def get_page(
         .order_by(Post.created_at.desc())
         .limit(100)
     )
+    # Effective owner for scope rollups + AuthorSummary lookups. Both
+    # RepAccount and CandidateAccount expose the owner_state /
+    # owner_district / owner_city columns _engagement_matches_scope
+    # reads, so passing either through works without further
+    # branching.
+    effective_owner = owner if owner is not None else candidate_owner
     posts = [
         _post_to_read(
-            p, owner=owner, db=db, voter_token=voter_token,
+            p, owner=effective_owner, db=db, voter_token=voter_token,
             me_citizen=me_citizen,
             # Pass the rep session through so _post_to_read can:
             #   • surface the rep's own poll vote as voter_choice_id
@@ -559,15 +668,24 @@ def get_page(
     # 'country' as the always-available default. The rail itself is
     # hidden to non-owners, but we publish the list alongside the
     # payload so the frontend doesn't have to know about office roles.
-    allowed_scopes = _allowed_scopes_for_owner(owner) if owner else []
+    # Both RepAccount and CandidateAccount expose owner_state /
+    # owner_district / owner_city so the helpers work on either.
+    allowed_scopes = _allowed_scopes_for_owner(effective_owner) if effective_owner else []
     scope_labels = {
-        s: _scope_label(s, owner) for s in allowed_scopes
-    } if owner else {}
+        s: _scope_label(s, effective_owner) for s in allowed_scopes
+    } if effective_owner else {}
 
     return PageResponse(
         official_id=official_id,
-        claimed=owner is not None,
-        owner=PageOwnerInfo.model_validate(owner) if owner else None,
+        # A page is "claimed" when EITHER a rep or a candidate has
+        # taken ownership. The frontend uses this to gate the
+        # citizen-poll feature (only renders on unclaimed pages).
+        claimed=effective_owner is not None,
+        # PageOwnerInfo asks for {id, display_name, role}. CandidateAccount
+        # has no `role` column, so model_validate falls back to the
+        # schema's default of None for that field — same shape, no
+        # special-case branching needed here.
+        owner=PageOwnerInfo.model_validate(effective_owner) if effective_owner else None,
         is_owner=is_owner,
         posts=posts,
         upcoming_events=upcoming_events,
@@ -583,12 +701,22 @@ def create_post(
     payload: PostCreate,
     bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
-    rep: RepAccount = Depends(get_current_rep),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional["CandidateAccount"] = Depends(get_optional_candidate),
 ):
-    _assert_owns_page(rep, official_id)
+    """Create a post on the named page. Phase 4a: accepts either a
+    rep or a candidate session — whichever owns the page (matched by
+    official_id for reps, candidate_id for candidates). Writes
+    author_id for rep-authored posts, author_candidate_id for
+    candidate-authored ones; exactly one is set.
+    """
+    rep, candidate = _resolve_page_owner(
+        me_rep=me_rep, me_candidate=me_candidate, page_official_id=official_id,
+    )
 
     post = Post(
-        author_id=rep.id,
+        author_id=rep.id if rep is not None else None,
+        author_candidate_id=candidate.id if candidate is not None else None,
         official_id=official_id,
         body=payload.body.strip(),
     )
@@ -597,7 +725,15 @@ def create_post(
 
     attached_poll_id: Optional[int] = None
     if payload.poll is not None:
-        attached_poll_id = _attach_poll(db, post, payload.poll, owner=rep)
+        # _attach_poll's scope-validation reads owner.owner_state /
+        # owner_district / owner_city — both RepAccount and
+        # CandidateAccount expose those columns, so passing either
+        # works. The poll itself doesn't track its author's identity
+        # kind; that's carried by the parent post.
+        attached_poll_id = _attach_poll(
+            db, post, payload.poll,
+            owner=(rep if rep is not None else candidate),
+        )
 
     # Claim uploaded images by post_id. We fetch all requested rows in
     # one query, then iterate the client's id list to preserve gallery
@@ -607,7 +743,18 @@ def create_post(
     #   • Must still be an orphan (post_id IS NULL); reattaching is
     #     a bug in the client and we refuse rather than silently move
     #     an image across posts.
+    #
+    # Image upload is rep-only today; candidate-side image upload
+    # gets a parallel uploader_candidate_id column in a follow-up
+    # increment. For now we reject image_ids on candidate posts so
+    # we don't silently swallow images that would never resolve.
     if payload.image_ids:
+        if rep is None:
+            raise HTTPException(
+                400,
+                "Image attachments aren't supported on candidate posts yet — "
+                "post the text first, image upload is coming in a follow-up.",
+            )
         fetched = db.query(PostImage).filter(PostImage.id.in_(payload.image_ids)).all()
         by_id = {img.id: img for img in fetched}
         for idx, img_id in enumerate(payload.image_ids):
@@ -635,7 +782,11 @@ def create_post(
         from app.services.poll_classifier import classify_poll
         bg_tasks.add_task(classify_poll, attached_poll_id)
 
-    return _post_to_read(post, owner=rep, db=db, is_owner_viewing=True)
+    return _post_to_read(
+        post,
+        owner=(rep if rep is not None else candidate),
+        db=db, is_owner_viewing=True,
+    )
 
 
 def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount) -> Optional[int]:
@@ -680,12 +831,28 @@ def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount
 def delete_post(
     post_id: int,
     db: Session = Depends(get_db),
-    rep: RepAccount = Depends(get_current_rep),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ):
+    """Soft-delete a post. The author may delete their own —
+    'author' covers both rep-authored (author_id) and candidate-
+    authored (author_candidate_id) posts. Anyone else gets 403.
+    """
     post = db.get(Post, post_id)
     if not post or post.deleted_at is not None:
         raise HTTPException(status_code=404, detail="Post not found")
-    if post.author_id != rep.id:
+
+    is_rep_author = (
+        me_rep is not None
+        and post.author_id is not None
+        and post.author_id == me_rep.id
+    )
+    is_candidate_author = (
+        me_candidate is not None
+        and getattr(post, "author_candidate_id", None) is not None
+        and post.author_candidate_id == me_candidate.id
+    )
+    if not (is_rep_author or is_candidate_author):
         raise HTTPException(status_code=403, detail="You can only delete your own posts")
 
     post.deleted_at = datetime.utcnow()

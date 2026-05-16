@@ -141,18 +141,51 @@ class CandidateAccount(Base):
 
 # ── Posts + Polls ─────────────────────────────────────────────────────
 class Post(Base):
+    """
+    A page-author's post — rep posts (the original use case) or
+    candidate posts (Phase 4). Exactly ONE of author_id /
+    author_candidate_id is set per row — the XOR is enforced at
+    the route layer (create_post checks the caller's identity
+    type and writes the matching column).
+
+    official_id is the denormalized page identifier. For rep
+    posts it equals the rep's RepAccount.official_id; for
+    candidate posts it equals the candidate's
+    CandidateAccount.candidate_id. The two id spaces don't
+    overlap by design ("fl-cand-..." for candidates vs bioguide
+    ids for federal reps), so the string is unambiguous about
+    which kind of page the post lives on.
+    """
     __tablename__ = "posts"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    author_id: Mapped[int] = mapped_column(ForeignKey("rep_accounts.id", ondelete="CASCADE"), index=True)
-    # Denormalized so unauthenticated reads don't need to hit rep_accounts.
+    # Both author FKs are nullable now (Phase 4 made author_id nullable
+    # to accommodate candidate-authored posts). Auto-migrate handles
+    # the NOT NULL → NULL relaxation on existing deployments.
+    author_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    author_candidate_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("candidate_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    # Denormalized so unauthenticated reads don't need to hit
+    # rep_accounts OR candidate_accounts.
     official_id: Mapped[str] = mapped_column(String(64), index=True)
     body: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
-    # Soft-delete so reps can undo recent posts without leaking via polls.
+    # Soft-delete so reps + candidates can undo recent posts without
+    # leaking via polls.
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
-    author: Mapped["RepAccount"] = relationship(back_populates="posts")
+    # Rep-side relationship — None for candidate-authored posts.
+    author: Mapped[Optional["RepAccount"]] = relationship(back_populates="posts")
+    # Candidate-side relationship — None for rep-authored posts. No
+    # back_populates on CandidateAccount today (Phase 4a keeps the
+    # candidate side intentionally narrow); we'll add the reverse
+    # collection if dashboard rollups need it later.
+    author_candidate: Mapped[Optional["CandidateAccount"]] = relationship()
     # Rolling moderation counter — bumped each time someone hits Report.
     # Cached on the row (vs. counting rows in post_reports on each read)
     # so list views can sort/filter without the join. The auto-hide
