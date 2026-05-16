@@ -718,6 +718,29 @@ function CitizenPollCard({
                   {isChoice && (
                     <span style={{ marginLeft: 6, color: 'var(--cl-accent)', fontSize: '0.72rem' }}>✓ your vote</span>
                   )}
+                  {/* When the viewer IS the poll author and this is
+                      their choice, also surface an "Author" pill so
+                      it's visible that the creator did vote in their
+                      own poll. Transparency note: until we wire a
+                      backend field exposing the author's choice to
+                      everyone, this badge only renders for the
+                      author themselves — other viewers can't see
+                      which option the author picked. */}
+                  {isChoice && isMine && (
+                    <span
+                      style={{
+                        marginLeft: 6, padding: '1px 6px',
+                        borderRadius: 999,
+                        background: 'var(--cl-accent-soft, #e6f4ea)',
+                        color: 'var(--cl-accent)',
+                        fontSize: '0.62rem', fontWeight: 800,
+                        textTransform: 'uppercase', letterSpacing: '0.4px',
+                      }}
+                      title="You created this poll"
+                    >
+                      Author
+                    </span>
+                  )}
                 </span>
                 <span style={{ color: 'var(--cl-text-light)', fontVariantNumeric: 'tabular-nums' }}>
                   {pct}% · {opt.vote_count || 0}
@@ -755,6 +778,7 @@ function CitizenPollCard({
       {commentsOpen && (
         <CommentsThread
           pollId={poll.id}
+          pollAuthorId={author.id}
           citizen={citizen}
           archived={archived}
           isOwner={isOwner}
@@ -825,7 +849,12 @@ function relTime(iso) {
 // ─────────────────────────────────────────────────────────────────────
 // Comments thread
 // ─────────────────────────────────────────────────────────────────────
-function CommentsThread({ pollId, citizen, archived, isOwner, onCitizenLoginRequired }) {
+// pollAuthorId is the citizen id of the poll's creator. Used to stamp
+// an "Author" badge on comments they leave on their own poll, and
+// (in a later phase) to gate reply-thread permissions on a two-party
+// model. Optional — older call sites pass undefined and the badge
+// simply doesn't render.
+function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCitizenLoginRequired }) {
   const [comments, setComments] = useState(null);
   const [loading, setLoading] = useState(true);
   const [draft, setDraft] = useState('');
@@ -1128,7 +1157,25 @@ function CommentsThread({ pollId, citizen, archived, isOwner, onCitizenLoginRequ
         </div>
       )}
       {!loading && visibleComments && visibleComments.map((c) => {
-        const isMyComment = !!citizen && c.citizen_display_name === citizen.display_name;
+        // Prefer citizen_id comparison (canonical) when both sides
+        // have it. Fall back to display_name for any stale payload
+        // that pre-dates the citizen_id-in-CommentRead change so the
+        // delete affordance keeps working during the rollout window.
+        const isMyComment = !!citizen && (
+          c.citizen_id != null
+            ? c.citizen_id === citizen.id
+            : c.citizen_display_name === citizen.display_name
+        );
+        // Did the poll's author write this comment? Drives the small
+        // "Author" badge so other citizens know which voice in the
+        // thread belongs to the poll's creator. pollAuthorId is the
+        // citizen id of the poll's author; comparing IDs avoids the
+        // display-name collision risk.
+        const isAuthorComment = (
+          pollAuthorId != null &&
+          c.citizen_id != null &&
+          c.citizen_id === pollAuthorId
+        );
         const canDelete = isMyComment;
         const canReport = reporterSignedIn && !isMyComment && !reportedCommentIds.has(c.id);
         const reportedThis = reportedCommentIds.has(c.id);
@@ -1147,6 +1194,22 @@ function CommentsThread({ pollId, citizen, archived, isOwner, onCitizenLoginRequ
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cl-text)' }}>
                 {c.citizen_display_name}
+                {isAuthorComment && (
+                  <span
+                    style={{
+                      marginLeft: 6, padding: '1px 6px',
+                      borderRadius: 999,
+                      background: 'var(--cl-accent-soft, #e6f4ea)',
+                      color: 'var(--cl-accent)',
+                      fontSize: '0.62rem', fontWeight: 800,
+                      textTransform: 'uppercase', letterSpacing: '0.4px',
+                      verticalAlign: 'middle',
+                    }}
+                    title="Posted by the poll's creator"
+                  >
+                    Author
+                  </span>
+                )}
                 <span style={{ fontWeight: 400, color: 'var(--cl-text-light)', fontSize: '0.74rem', marginLeft: 6 }}>
                   {[c.scope_district || c.scope_state, c.scope_city, relTime(c.created_at)].filter(Boolean).join(' · ')}
                 </span>

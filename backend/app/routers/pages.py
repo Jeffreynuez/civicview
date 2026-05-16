@@ -813,6 +813,10 @@ def _comment_to_read(
     return CommentRead(
         id=c.id,
         post_id=c.post_id,
+        # citizen_id is required by CommentRead — the frontend uses it
+        # to render the "Author" badge and to gate the delete-my-own
+        # affordance. Mirrors the existing display_name field.
+        citizen_id=c.citizen_id,
         citizen_display_name=c.citizen_display_name,
         body=c.body,
         created_at=c.created_at,

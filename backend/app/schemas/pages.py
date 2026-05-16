@@ -193,6 +193,12 @@ class CommentRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     post_id: int
+    # Canonical author id. Needed by the frontend so it can distinguish
+    # the post creator's own comment from a citizen's with the same
+    # display_name (display_name collisions are rare but not impossible,
+    # and comparing IDs is the only correct way to render the "Author"
+    # badge or the "you wrote this" delete affordance).
+    citizen_id: int
     citizen_display_name: str
     body: str
     created_at: datetime
@@ -528,6 +534,11 @@ class PollCommentRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     poll_id: int
+    # Canonical author id. Same purpose as CommentRead.citizen_id —
+    # lets the frontend reliably detect the poll author's own
+    # comments for the 'Author' badge without relying on display_name
+    # equality.
+    citizen_id: int
     citizen_display_name: str
     body: str
     created_at: datetime
