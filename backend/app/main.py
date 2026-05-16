@@ -22,6 +22,7 @@ from app.routers import (
     google_civic,
     auth as auth_router,
     auth_citizen as auth_citizen_router,
+    auth_candidate as auth_candidate_router,
     pages as pages_router,
     citizen_polls as citizen_polls_router,
     waitlist as waitlist_router,
@@ -117,6 +118,7 @@ app.include_router(federal_officials.router, prefix="/api/federal-officials", ta
 app.include_router(google_civic.router, prefix="/api/google-civic", tags=["Google Civic"])
 app.include_router(auth_router.router, prefix="/api/auth", tags=["Pages — Auth"])
 app.include_router(auth_citizen_router.router, prefix="/api/citizen-auth", tags=["Pages — Citizen Auth"])
+app.include_router(auth_candidate_router.router, prefix="/api/candidate-auth", tags=["Pages — Candidate Auth"])
 app.include_router(pages_router.router, prefix="/api/pages", tags=["Pages — Feed"])
 # Citizen polls — endpoints are split between page-scoped routes
 # (/api/pages/{official_id}/citizen-polls) and standalone routes

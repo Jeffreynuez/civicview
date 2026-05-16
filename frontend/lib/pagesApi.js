@@ -16,17 +16,21 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 // ── Token storage ─────────────────────────────────────────────────────
 // Mobile browsers (Samsung Internet, Safari with ITP, etc.) block
 // cross-site cookies by default, so the httpOnly cl_session /
-// cl_citizen cookies the backend sets on civicview-api.onrender.com
-// never make it back when the frontend on civicview.app fetches.
-// As a fallback we mirror each login token into localStorage and
-// attach it via `Authorization: Bearer ...` (rep) or `X-Citizen-Token`
-// (citizen) on every request. The backend accepts either path.
+// cl_citizen / cl_candidate cookies the backend sets on
+// civicview-api.onrender.com never make it back when the frontend
+// on civicview.app fetches. As a fallback we mirror each login
+// token into localStorage and attach it via:
+//   • `Authorization: Bearer ...`   (rep)
+//   • `X-Citizen-Token: <token>`    (citizen)
+//   • `X-Candidate-Token: <token>`  (candidate)
+// on every request. The backend accepts either cookies or headers.
 //
 // In-memory fallback handles SSR / private-mode Safari where
 // localStorage may throw.
 const REP_TOKEN_KEY = 'cl:rep_token';
 const CITIZEN_TOKEN_KEY = 'cl:citizen_token';
-const _memTokens = { rep: null, citizen: null };
+const CANDIDATE_TOKEN_KEY = 'cl:candidate_token';
+const _memTokens = { rep: null, citizen: null, candidate: null };
 
 function _safeStorageGet(key) {
   try {
@@ -56,6 +60,13 @@ export function setStoredCitizenToken(token) {
   _memTokens.citizen = token || null;
   _safeStorageSet(CITIZEN_TOKEN_KEY, token || null);
 }
+export function getStoredCandidateToken() {
+  return _memTokens.candidate || _safeStorageGet(CANDIDATE_TOKEN_KEY) || null;
+}
+export function setStoredCandidateToken(token) {
+  _memTokens.candidate = token || null;
+  _safeStorageSet(CANDIDATE_TOKEN_KEY, token || null);
+}
 
 async function request(path, { method = 'GET', body, query } = {}) {
   try {
@@ -74,8 +85,10 @@ async function request(path, { method = 'GET', body, query } = {}) {
     if (body) headers['Content-Type'] = 'application/json';
     const repToken = getStoredRepToken();
     const citizenToken = getStoredCitizenToken();
+    const candidateToken = getStoredCandidateToken();
     if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
     if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
+    if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
 
     const res = await fetch(url, {
       method,
@@ -490,14 +503,15 @@ export async function deleteRepEvent(eventId) {
 
 // ── Auth ──────────────────────────────────────────────────────────────
 // Session model: ONE active role per browser. The backend uses
-// distinct cookies (`cl_session` for reps, `cl_citizen` for citizens)
-// and we keep distinct Bearer tokens in localStorage, but on the
-// client we treat them as mutually exclusive — logging in as one
-// role explicitly tears down the other's session. Without this an
-// orphaned rep token from a previous session would leak through
-// every request the citizen makes, making the backend report
-// `is_owner=true` and surfacing rep-only affordances (the post
-// composer, comment Delete buttons) to non-rep viewers.
+// distinct cookies (`cl_session` for reps, `cl_citizen` for citizens,
+// `cl_candidate` for candidates) and we keep distinct Bearer tokens
+// in localStorage, but on the client we treat them as mutually
+// exclusive — logging in as one role explicitly tears down the
+// other two. Without this an orphaned rep token from a previous
+// session would leak through every request the citizen makes,
+// making the backend report `is_owner=true` and surfacing rep-only
+// affordances (the post composer, comment Delete buttons) to
+// non-rep viewers.
 //
 // To switch roles deliberately: sign out, then sign in as the
 // other role. Or use a second browser / incognito tab.
@@ -512,9 +526,20 @@ async function _tearDownOtherRole(otherEndpoint, clearFn) {
   clearFn(null);
 }
 
+// Convenience — tear down BOTH non-current roles in parallel.
+// Used by every login + logout path so a previous session in any
+// other role can't ghost into the new identity.
+async function _tearDownTwoOtherRoles(a, b) {
+  await Promise.all([_tearDownOtherRole(...a), _tearDownOtherRole(...b)]);
+}
+
 export async function login(email, password) {
-  // Tear down any active citizen session before we mint a rep one.
-  await _tearDownOtherRole('/api/citizen-auth/logout', setStoredCitizenToken);
+  // Tear down any active citizen + candidate sessions before
+  // minting a rep one.
+  await _tearDownTwoOtherRoles(
+    ['/api/citizen-auth/logout', setStoredCitizenToken],
+    ['/api/candidate-auth/logout', setStoredCandidateToken],
+  );
   const result = await request('/api/auth/login', {
     method: 'POST', body: { email, password },
   });
@@ -528,12 +553,15 @@ export async function login(email, password) {
 }
 
 export async function logout() {
-  // Belt-and-suspenders: clear BOTH role tokens on either logout
+  // Belt-and-suspenders: clear ALL role tokens on either logout
   // path. Defensive against the case where a previous session was
   // left in a half-clean state.
   const result = await request('/api/auth/logout', { method: 'POST' });
   setStoredRepToken(null);
-  await _tearDownOtherRole('/api/citizen-auth/logout', setStoredCitizenToken);
+  await _tearDownTwoOtherRoles(
+    ['/api/citizen-auth/logout', setStoredCitizenToken],
+    ['/api/candidate-auth/logout', setStoredCandidateToken],
+  );
   return result;
 }
 
@@ -546,7 +574,11 @@ export async function fetchMe() {
 // for the mutually-exclusive session contract — we tear down any active
 // rep session before minting a citizen one, and vice versa.
 export async function loginCitizenApi(email, password) {
-  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
+  // Tear down rep AND candidate sessions before minting a citizen one.
+  await _tearDownTwoOtherRoles(
+    ['/api/auth/logout', setStoredRepToken],
+    ['/api/candidate-auth/logout', setStoredCandidateToken],
+  );
   const result = await request('/api/citizen-auth/login', {
     method: 'POST', body: { email, password },
   });
@@ -565,7 +597,10 @@ export async function signupDemoCitizen({
   displayName, state, congressionalDistrict, city,
 } = {}) {
   // Same mutually-exclusive contract as loginCitizenApi.
-  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
+  await _tearDownTwoOtherRoles(
+    ['/api/auth/logout', setStoredRepToken],
+    ['/api/candidate-auth/logout', setStoredCandidateToken],
+  );
   const result = await request('/api/citizen-auth/demo-signup', {
     method: 'POST',
     body: {
@@ -582,16 +617,54 @@ export async function signupDemoCitizen({
 }
 
 export async function logoutCitizenApi() {
-  // Same belt-and-suspenders cleanup as the rep logout: clear BOTH
+  // Same belt-and-suspenders cleanup as the rep logout: clear ALL
   // tokens so a previous half-clean state can't linger.
   const result = await request('/api/citizen-auth/logout', { method: 'POST' });
   setStoredCitizenToken(null);
-  await _tearDownOtherRole('/api/auth/logout', setStoredRepToken);
+  await _tearDownTwoOtherRoles(
+    ['/api/auth/logout', setStoredRepToken],
+    ['/api/candidate-auth/logout', setStoredCandidateToken],
+  );
   return result;
 }
 
 export async function fetchCitizenMe() {
   return request('/api/citizen-auth/me');
+}
+
+// ── Candidate auth ────────────────────────────────────────────────────
+// Parallel surface to loginCitizenApi / login (rep). Same mutual-
+// exclusivity rule: signing in as a candidate tears down any
+// existing rep + citizen session. The backend's /api/candidate-auth/
+// login endpoint refuses pending-approval and suspended accounts
+// with explicit 403s — the modal shows those messages verbatim
+// rather than collapsing into a generic 401.
+export async function loginCandidateApi(email, password) {
+  await _tearDownTwoOtherRoles(
+    ['/api/auth/logout', setStoredRepToken],
+    ['/api/citizen-auth/logout', setStoredCitizenToken],
+  );
+  const result = await request('/api/candidate-auth/login', {
+    method: 'POST', body: { email, password },
+  });
+  if (result?.data?.candidate_token) {
+    setStoredCandidateToken(result.data.candidate_token);
+  }
+  return result;
+}
+
+export async function logoutCandidateApi() {
+  const result = await request('/api/candidate-auth/logout', { method: 'POST' });
+  setStoredCandidateToken(null);
+  await _tearDownTwoOtherRoles(
+    ['/api/auth/logout', setStoredRepToken],
+    ['/api/citizen-auth/logout', setStoredCitizenToken],
+  );
+  return result;
+}
+
+export async function fetchCandidateMe() {
+  return request('/api/candidate-auth/me');
 }
 
 // ── Citizen polls (on unclaimed rep pages) ────────────────────────────

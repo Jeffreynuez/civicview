@@ -412,6 +412,43 @@ class CitizenLoginResponse(BaseModel):
     citizen_token: str
 
 
+# ── Candidate auth ───────────────────────────────────────────────────
+class CandidateLoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=1, max_length=256)
+
+
+class CandidateMeResponse(BaseModel):
+    """Public-facing candidate identity. The fields mirror what a rep
+    profile renders so a candidate's claimed page can use the same
+    component shape downstream.
+
+    claim_status: 'pending' accounts can authenticate at the cookie
+    layer but can't pass get_optional_candidate (which only accepts
+    'active'); this surface still echoes the status so a future
+    onboarding screen can show "Approval pending" without inventing
+    a separate endpoint."""
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    candidate_id: str
+    email: EmailStr
+    display_name: str
+    owner_state: Optional[str] = None
+    owner_district: Optional[str] = None
+    owner_city: Optional[str] = None
+    claim_status: str = "active"
+
+
+class CandidateLoginResponse(BaseModel):
+    candidate: CandidateMeResponse
+    # Bearer token mirror of cl_candidate cookie. The frontend
+    # forwards this as `X-Candidate-Token: <token>` on requests that
+    # need candidate auth — the third leg of the three-identity
+    # header bundle (rep / citizen / candidate) used in mobile
+    # browsers that block cross-site cookies.
+    candidate_token: str
+
+
 # ── Citizen waitlist ──────────────────────────────────────────────────
 class WaitlistSignup(BaseModel):
     email: EmailStr

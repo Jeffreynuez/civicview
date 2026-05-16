@@ -18,6 +18,7 @@ import MyTrackedModal from '@/components/MyTrackedModal';
 import PageView from '@/components/PageView';
 import RepLoginModal from '@/components/RepLoginModal';
 import CitizenLoginModal from '@/components/CitizenLoginModal';
+import CandidateLoginModal from '@/components/CandidateLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import ClaimPageModal from '@/components/ClaimPageModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
@@ -204,6 +205,11 @@ export default function Home() {
   // to gate writes + tag their requests with geography.
   const { citizen } = useCitizenAuth();
   const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
+  // Candidate auth modal — opens from the rep login modal's
+  // "I'm a candidate instead" affordance (Phase 3 wires the modal;
+  // Phase 4 adds first-class entry points in the navbar + page
+  // claim flow).
+  const [candidateLoginOpen, setCandidateLoginOpen] = useState(false);
   // ConstituentDashboard overlay — opens when a signed-in citizen clicks
   // their identity pill in the Navbar. Auto-closes if the citizen signs out.
   const [dashboardOpen, setDashboardOpen] = useState(false);
@@ -1223,6 +1229,24 @@ export default function Home() {
         onSuccess={() => {
           setLoginModalOpen(false);
           showNotification('Signed in. You can now post on your page.');
+        }}
+        // "I'm a candidate" path inside the rep modal. Closes the
+        // rep modal and opens the candidate one so users who landed
+        // on the wrong sign-in can switch in one click.
+        onSignInAsCandidate={() => {
+          setLoginModalOpen(false);
+          setCandidateLoginOpen(true);
+        }}
+      />
+      {/* Candidate login modal — Phase 3. The cookie + bearer token
+          plumbing handles persistence; useCandidateAuth picks up
+          the fresh identity via its listener. */}
+      <CandidateLoginModal
+        open={candidateLoginOpen}
+        onClose={() => setCandidateLoginOpen(false)}
+        onSuccess={() => {
+          setCandidateLoginOpen(false);
+          showNotification('Signed in as candidate. You can now manage your page.');
         }}
       />
       {/* Citizen waitlist modal — fires from comment CTAs or Subscribe. */}

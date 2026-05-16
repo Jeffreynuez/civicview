@@ -78,7 +78,16 @@ const FIELD_INPUT = {
   outline: 'none',
 };
 
-export default function RepLoginModal({ open, onClose, onSuccess, initialEmail = '' }) {
+export default function RepLoginModal({
+  open, onClose, onSuccess, initialEmail = '',
+  // Phase 3 candidate-auth integration. When provided, the modal
+  // surfaces a small "I'm a candidate" footer link that closes this
+  // modal and opens the candidate sign-in instead. Optional — when
+  // omitted, the link is hidden so call sites that don't have the
+  // candidate path wired (e.g. an older rep-only context) don't
+  // render a dead button.
+  onSignInAsCandidate,
+}) {
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -548,6 +557,45 @@ export default function RepLoginModal({ open, onClose, onSuccess, initialEmail =
                 {DEMO_PASSWORD}
               </code>
             </div>
+          </div>
+        )}
+        {/* Phase 3 candidate-auth handoff. Renders only when the
+            caller passed onSignInAsCandidate (page.js does; older
+            call sites that don't wire the candidate flow don't see
+            a dead link). One-click switch — closes this modal and
+            opens the candidate login. */}
+        {typeof onSignInAsCandidate === 'function' && (
+          <div
+            style={{
+              marginTop: 12,
+              paddingTop: 10,
+              borderTop: '1px solid var(--cl-border)',
+              fontSize: 'var(--cl-text-xs)',
+              color: 'var(--cl-text-light)',
+              textAlign: 'center',
+              lineHeight: 1.4,
+            }}
+          >
+            Running for office?{' '}
+            <button
+              type="button"
+              onClick={() => {
+                if (onClose) onClose();
+                onSignInAsCandidate();
+              }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--cl-accent)',
+                fontWeight: 700,
+                cursor: 'pointer',
+                padding: 0,
+                fontSize: 'inherit',
+                fontFamily: 'inherit',
+              }}
+            >
+              Sign in as a candidate instead →
+            </button>
           </div>
         )}
       </div>
