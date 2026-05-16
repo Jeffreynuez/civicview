@@ -977,6 +977,54 @@ Index(
 )
 
 
+# ── Executive-order summaries ────────────────────────────────────────
+class EoSummary(Base):
+    """
+    Cached Haiku-generated plain-English translation of an executive
+    order's Federal Register abstract.
+
+    The Federal Register API already exposes a free `abstract` field
+    on every EO — that's the canonical "what does this order do"
+    text written by the executive branch counsel's office (analogous
+    to a CRS bill summary). The abstract is NOT cached here; the
+    frontend renders it directly from the Federal Register response
+    every time. This table only stores the Haiku translation — the
+    "explain it like a citizen" upgrade.
+
+    Cache key is the Federal Register `document_number` (e.g.
+    "2025-12345"). Document numbers are immutable once an EO is
+    signed and published, so the translation is valid forever.
+    """
+    __tablename__ = "eo_summaries"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Federal Register document_number — unique, lowercase, hyphenated
+    # (e.g. "2025-12345"). Indexed for lookup.
+    document_number: Mapped[str] = mapped_column(
+        String(64), unique=True, index=True,
+    )
+
+    # Denormalized so the lookup endpoint can return a summary card
+    # without the caller having to also pass title/eo_number/url.
+    title: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    eo_number: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+
+    plain_english: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    plain_english_model: Mapped[Optional[str]] = mapped_column(
+        String(64), default=None,
+    )
+    plain_english_generated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(),
+    )
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
+
 # ── Vote explainers ──────────────────────────────────────────────────
 class VoteExplainer(Base):
     """

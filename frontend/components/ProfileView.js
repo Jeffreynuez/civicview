@@ -22,6 +22,8 @@ import {
   translateBillSummary,
   explainVote,
   generateVoteExplanation,
+  fetchEoSummary,
+  translateEoSummary,
 } from '../lib/api';
 import { billKey, isTracked as isBillTracked, trackBill, untrackBill, useTrackedBills } from '../lib/trackedBills';
 import {
@@ -386,7 +388,11 @@ export default function ProfileView({
       const slug = member.federal_register_slug;
       if (slug) {
         setEoState((s) => ({ ...s, loading: true }));
-        fetchExecutiveOrders(slug, 20).then(({ data, isLive }) => {
+        // Fetch the Federal Register max (100 per page). The tab
+        // still renders 10 inline by default with a Show-more button
+        // — bumping the fetch ceiling means the expansion is a
+        // pure client-side reveal with no second round-trip.
+        fetchExecutiveOrders(slug, 100).then(({ data, isLive }) => {
           setEoState({ loading: false, loaded: true, data, isLive });
         });
       } else {
@@ -2684,6 +2690,8 @@ function ExplainerSection({ label, body, accent }) {
 
 // ─── Executive orders (Federal Register) ──────────────────────────────
 function ExecutiveOrdersTab({ state, member }) {
+  const [showAll, setShowAll] = useState(false);
+
   if (!member.federal_register_slug) {
     return (
       <EmptyState
@@ -2698,12 +2706,28 @@ function ExecutiveOrdersTab({ state, member }) {
   if (orders.length === 0) {
     return <EmptyState message="No recent executive orders found." />;
   }
+
+  // Default render: first 10 inline. Show-more reveals the rest in
+  // place — fetch already pulled 100 so this is a pure client-side
+  // expansion, no extra round-trip.
+  const INITIAL_VISIBLE = 10;
+  const visible = showAll ? orders : orders.slice(0, INITIAL_VISIBLE);
+
   return (
     <div>
       <SectionHeader>Recent Executive Orders ({orders.length})</SectionHeader>
-      {orders.map((eo) => (
+      {visible.map((eo) => (
         <EOCard key={eo.document_number || eo.title} order={eo} />
       ))}
+      {orders.length > INITIAL_VISIBLE && (
+        <ShowMoreButton
+          showingAll={showAll}
+          total={orders.length}
+          visible={INITIAL_VISIBLE}
+          label="executive order"
+          onClick={() => setShowAll((v) => !v)}
+        />
+      )}
     </div>
   );
 }
@@ -2711,6 +2735,66 @@ function ExecutiveOrdersTab({ state, member }) {
 function EOCard({ order }) {
   const number = order.eo_number ? `EO ${order.eo_number}` : order.citation;
   const date = order.signing_date || order.publication_date;
+
+  // Summary state — collapsed by default. First expand reads the
+  // cached AI body from the backend (instant if someone else
+  // generated it earlier) so the toggle defaults to the AI view
+  // when one already exists.
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const [summaryError, setSummaryError] = useState(null);
+  const [translating, setTranslating] = useState(false);
+  const [generateError, setGenerateError] = useState(null);
+  const [showPlain, setShowPlain] = useState(false);
+
+  const eoPayload = {
+    title: order.title,
+    eoNumber: order.eo_number,
+    abstract: order.abstract,
+  };
+
+  const handleSummaryToggle = async () => {
+    const next = !summaryOpen;
+    setSummaryOpen(next);
+    if (!next || summary) return;
+    if (!order.document_number) {
+      setSummaryError('Federal Register document number unavailable.');
+      return;
+    }
+    setSummaryLoading(true);
+    setSummaryError(null);
+    const { data, error } = await fetchEoSummary(order.document_number, eoPayload);
+    setSummaryLoading(false);
+    if (error || !data) {
+      setSummaryError(error || 'Could not load summary.');
+      return;
+    }
+    setSummary(data);
+    if (data.has_plain_english) setShowPlain(true);
+  };
+
+  const handleTranslate = async () => {
+    if (translating) return;
+    setTranslating(true);
+    setGenerateError(null);
+    const { data, error } = await translateEoSummary(order.document_number, eoPayload);
+    setTranslating(false);
+    if (error || !data) {
+      const friendly =
+        error === 'budget_exceeded' ? 'Daily AI budget reached on this deployment. Try again tomorrow.'
+        : error === 'not_configured' ? 'AI is not configured on this deployment.'
+        : (error || 'AI generation failed. Please try again.');
+      setGenerateError(friendly);
+      return;
+    }
+    setSummary(data);
+    setShowPlain(true);
+  };
+
+  const hasAbstract = Boolean(order.abstract && order.abstract.trim());
+  const hasPlain = Boolean(summary?.has_plain_english);
+
   return (
     <div style={{ padding: '10px 12px', background: 'var(--cl-bg)', borderRadius: '8px', marginBottom: '6px', fontSize: '0.85rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
@@ -2726,11 +2810,185 @@ function EOCard({ order }) {
       <div style={{ fontWeight: 500, marginBottom: '4px', lineHeight: '1.3' }}>
         {order.title || 'Untitled executive order'}
       </div>
-      {order.abstract && (
-        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', lineHeight: 1.4 }}>
-          {order.abstract}
-        </div>
-      )}
+
+      {/* Summary pill — collapsed by default. First expand fetches
+          the cached AI row from the backend; subsequent toggles are
+          local. Two layers inside, mirroring the Bills CRS/AI
+          pattern:
+            • Federal Register abstract (already on the order) —
+              free, immediate, official.
+            • Haiku plain-English translation — generated on click,
+              cached forever per document_number. */}
+      <div style={{ marginTop: '6px' }}>
+        <button
+          type="button"
+          onClick={handleSummaryToggle}
+          aria-expanded={summaryOpen}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '3px 10px',
+            borderRadius: '12px',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            background: summaryOpen ? 'var(--cl-accent-soft)' : 'white',
+            color: 'var(--cl-accent)',
+            border: '1px solid var(--cl-accent)',
+            fontFamily: 'inherit',
+            transition: 'background 0.15s',
+          }}
+        >
+          <span aria-hidden style={{ display: 'inline-block', transform: summaryOpen ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.15s' }}>▸</span>
+          {summaryOpen ? 'Hide summary' : 'Summary'}
+        </button>
+
+        {summaryOpen && (
+          <div
+            style={{
+              marginTop: 8,
+              padding: '10px 12px',
+              background: 'white',
+              border: '1px solid var(--cl-border)',
+              borderRadius: 8,
+              fontSize: '0.82rem',
+              lineHeight: 1.5,
+              color: 'var(--cl-text)',
+            }}
+          >
+            {summaryLoading && (
+              <div style={{ color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
+                Loading summary…
+              </div>
+            )}
+            {summaryError && (
+              <div style={{ color: 'var(--cl-danger-text)', fontSize: '0.78rem' }}>
+                {summaryError}
+              </div>
+            )}
+
+            {!summaryLoading && !summaryError && !hasAbstract && !hasPlain && (
+              <>
+                <div style={{ color: 'var(--cl-text-light)', fontStyle: 'italic', fontSize: '0.8rem', marginBottom: 10 }}>
+                  Federal Register hasn&rsquo;t published an abstract for this
+                  order yet — these usually appear within a day of signing.
+                  You can still generate an AI summary from the title alone.
+                </div>
+                <button
+                  type="button"
+                  onClick={handleTranslate}
+                  disabled={translating}
+                  style={{
+                    padding: '5px 12px', fontSize: '0.72rem', fontWeight: 700,
+                    background: translating ? 'var(--cl-bg-soft)' : 'var(--cl-warning)',
+                    color: 'var(--cl-text)',
+                    border: '1px solid var(--cl-warning-border)',
+                    borderRadius: 999,
+                    cursor: translating ? 'wait' : 'pointer',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  {translating ? 'Generating…' : '✨ Generate AI summary'}
+                </button>
+              </>
+            )}
+
+            {!summaryLoading && !summaryError && hasAbstract && !showPlain && (
+              <>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: '0.66rem', fontWeight: 800, letterSpacing: '0.06em',
+                  textTransform: 'uppercase', color: 'var(--cl-text-muted)',
+                  marginBottom: 6,
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-accent)' }} />
+                  Federal Register abstract
+                </div>
+                {order.abstract.split(/\n\n+/).map((para, i) => (
+                  <p key={i} style={{ margin: i === 0 ? '0 0 8px' : '0 0 8px', whiteSpace: 'pre-wrap' }}>
+                    {para}
+                  </p>
+                ))}
+              </>
+            )}
+
+            {!summaryLoading && !summaryError && showPlain && hasPlain && (
+              <>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: '0.66rem', fontWeight: 800, letterSpacing: '0.06em',
+                  textTransform: 'uppercase', color: 'var(--cl-warning-deep)',
+                  marginBottom: 6,
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-warning)' }} />
+                  Plain English · AI-generated
+                </div>
+                <PlainEnglishBody markdown={summary.plain_english} />
+                <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginTop: 8 }}>
+                  AI translation — for the authoritative text, view on FederalRegister.gov.
+                </div>
+              </>
+            )}
+
+            {/* Toggle + Translate buttons. Mirrors the Bills CRS/AI
+                pattern: Translate appears when abstract exists but
+                no AI body yet; toggle appears when both exist. */}
+            {!summaryLoading && !summaryError && (hasAbstract || hasPlain) && (
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 10, alignItems: 'center' }}>
+                {hasAbstract && hasPlain && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPlain(!showPlain)}
+                    style={{
+                      padding: '3px 10px', fontSize: '0.7rem', fontWeight: 600,
+                      background: 'white', color: 'var(--cl-accent)',
+                      border: '1px solid var(--cl-border)', borderRadius: 999,
+                      cursor: 'pointer', fontFamily: 'inherit',
+                    }}
+                  >
+                    {showPlain ? 'Show abstract' : 'Show plain English'}
+                  </button>
+                )}
+                {hasAbstract && !hasPlain && (
+                  <button
+                    type="button"
+                    onClick={handleTranslate}
+                    disabled={translating}
+                    style={{
+                      padding: '3px 10px', fontSize: '0.7rem', fontWeight: 700,
+                      background: translating ? 'var(--cl-bg-soft)' : 'var(--cl-warning)',
+                      color: 'var(--cl-text)',
+                      border: '1px solid var(--cl-warning-border)',
+                      borderRadius: 999,
+                      cursor: translating ? 'wait' : 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    {translating ? 'Translating…' : '✨ Translate to plain English'}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {generateError && (
+              <div
+                style={{
+                  marginTop: 6, padding: '6px 10px',
+                  background: 'var(--cl-danger-soft)',
+                  border: '1px solid var(--cl-danger-border)',
+                  borderRadius: 6, fontSize: '0.72rem',
+                  color: 'var(--cl-danger-deep)', lineHeight: 1.4,
+                }}
+                role="alert"
+              >
+                {generateError}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       {(order.url || order.pdf_url) && (
         <div style={{ display: 'flex', gap: '10px', marginTop: '6px' }}>
           {order.url && (

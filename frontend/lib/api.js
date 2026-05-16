@@ -725,6 +725,65 @@ export async function fetchFederalPerson(personId) {
 // publication_date, citation, url, pdf_url, abstract }
 const _execOrdersCache = new Map();
 
+// ─── Executive-order AI summaries ────────────────────────────────────
+// Mirrors the Bills CRS/AI cache pattern. EOs always carry an
+// `abstract` field straight from Federal Register (free, no LLM
+// needed); the cached `plain_english` is the Haiku-generated
+// upgrade, fetched on demand and stored per document_number.
+export async function fetchEoSummary(documentNumber, { title, eoNumber, abstract } = {}) {
+  if (!documentNumber) return { data: null, error: 'missing_document_number' };
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/eos/${encodeURIComponent(documentNumber)}/summary`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title || null,
+          eo_number: eoNumber || null,
+          abstract: abstract || null,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({ detail: '' }));
+      return { data: null, error: detail.detail || `HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    console.warn('EO summary fetch failed:', error.message);
+    return { data: null, error: error.message || 'network' };
+  }
+}
+
+export async function translateEoSummary(documentNumber, { title, eoNumber, abstract } = {}) {
+  if (!documentNumber) return { data: null, error: 'missing_document_number' };
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/eos/${encodeURIComponent(documentNumber)}/summary/translate`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title || null,
+          eo_number: eoNumber || null,
+          abstract: abstract || null,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({ detail: '' }));
+      return { data: null, error: detail.detail || `HTTP ${response.status}` };
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    console.warn('EO summary translate failed:', error.message);
+    return { data: null, error: error.message || 'network' };
+  }
+}
+
 export async function fetchExecutiveOrders(presidentSlug, limit = 20) {
   if (!presidentSlug) return { data: [], isLive: false };
   const key = `${presidentSlug}::${limit}`;

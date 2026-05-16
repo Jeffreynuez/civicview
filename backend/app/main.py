@@ -31,6 +31,7 @@ from app.routers import (
     appeals as appeals_router,
     bills as bills_router,
     votes as votes_router,
+    eos as eos_router,
 )
 from app.db import init_db
 from app.seed import (
@@ -134,6 +135,8 @@ app.include_router(appeals_router.router, prefix="/api", tags=["Appeals"])
 app.include_router(bills_router.router, prefix="/api/bills", tags=["Bills"])
 # Votes router — per-vote "what was this vote?" explainer.
 app.include_router(votes_router.router, prefix="/api/votes", tags=["Votes"])
+# Executive orders router — per-EO Haiku plain-English summary cache.
+app.include_router(eos_router.router, prefix="/api/eos", tags=["Executive Orders"])
 
 
 @app.get("/")
