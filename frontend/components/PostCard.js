@@ -415,7 +415,7 @@ export default function PostCard({
   // top-level comment's id; backend enforces that this caller is
   // allowed to reply (post creator OR parent comment's author) and
   // that the parent itself is top-level (no reply-to-replies).
-  const handleSubmitReply = async (parentId) => {
+  const handleSubmitReply = async (parentId, asIdentity = null) => {
     if (!citizen && !isOwner) {
       onCitizenLoginRequired?.();
       return;
@@ -424,9 +424,12 @@ export default function PostCard({
     if (!body || replyBusy) return;
     setReplyBusy(true);
     setCommentErr(null);
-    // Phase 6: thread the picker-selected identity through.
+    // Phase 6: thread the picker-selected identity through. The
+    // caller passes the per-comment-row effective identity so a
+    // user replying to someone else's comment can't accidentally
+    // submit as a citizen who'd be 403'd by the two-party rule.
     const { data, error } = await createComment(
-      post.id, body, parentId, replyAsIdentity,
+      post.id, body, parentId, asIdentity || replyAsIdentity,
     );
     setReplyBusy(false);
     if (error) {
@@ -1146,15 +1149,41 @@ export default function PostCard({
     const reportedThis = reportedCommentIds.has(c.id);
     const locLabel = [c.scope_district, c.scope_city].filter(Boolean).join(' · ');
 
-    // Two-party reply gate (Phase 3). Only the page owner and the
-    // top-level comment's original author may reply. Replies don't
-    // get a Reply button — depth caps at 1.
+    // Two-party reply gate (Phase 3 + 6). Only the page owner AND
+    // the top-level comment's original author may reply. Phase 6
+    // refinement: when the viewer is signed in to multiple
+    // identities, each identity is checked INDIVIDUALLY — a citizen
+    // who didn't write this comment isn't allowed to reply just
+    // because they happen to also be signed in as the rep. The
+    // filtered list drives both the Reply-button visibility AND
+    // the PostingAsPicker's available identities, so a non-allowed
+    // identity never even shows up as a choice.
     const isTopLevel = depth === 0;
-    const viewerIsParentAuthor = (
-      (citizen && c.citizen_id != null && c.citizen_id === citizen.id) ||
-      (isOwner && (c.author_kind === 'rep' || c.author_kind === 'candidate'))
+    const replyAllowedIdentities = isTopLevel
+      ? activeIdentities.filter((id) => {
+          // The page-owning rep / candidate can reply to anyone's
+          // top-level comment on their page (post-creator path).
+          if ((id.kind === 'rep' || id.kind === 'candidate') && isOwner) {
+            return true;
+          }
+          // A citizen can reply only when they authored the parent
+          // top-level comment themselves (parent-author path).
+          if (id.kind === 'citizen' && citizen
+              && c.citizen_id != null && c.citizen_id === citizen.id) {
+            return true;
+          }
+          return false;
+        })
+      : [];
+    const canReplyHere = replyAllowedIdentities.length > 0;
+    // Pick an "effective" identity for the reply composer's
+    // PostingAsPicker. Falls back to the first allowed when the
+    // user's last-picked identity isn't allowed on THIS comment.
+    const effectiveReplyAs = (
+      replyAllowedIdentities.find((id) => id.kind === replyAsIdentity)?.kind
+      || replyAllowedIdentities[0]?.kind
+      || null
     );
-    const canReplyHere = isTopLevel && (isOwner || viewerIsParentAuthor);
 
     return (
       <div key={c.id}>
@@ -1332,13 +1361,16 @@ export default function PostCard({
               background: 'var(--cl-bg)',
             }}
           >
-            {/* Phase 6 "Posting as" picker — same shape as the
-                top-level comment composer. Multi-identity sees a
-                dropdown; single-identity sees a non-interactive pill. */}
-            {activeIdentities.length > 0 && (
+            {/* Phase 6 "Posting as" picker — per Phase-6.1 reply
+                gating, we pass the FILTERED replyAllowedIdentities
+                list rather than every active identity, so a citizen
+                who isn't allowed to reply to THIS comment never
+                appears as a choice. Multi-allowed shows a dropdown;
+                single-allowed shows a non-interactive pill. */}
+            {replyAllowedIdentities.length > 0 && (
               <PostingAsPicker
-                identities={activeIdentities}
-                value={replyAsIdentity}
+                identities={replyAllowedIdentities}
+                value={effectiveReplyAs}
                 onChange={setReplyAsIdentity}
               />
             )}
@@ -1379,7 +1411,7 @@ export default function PostCard({
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleSubmitReply(c.id)}
+                  onClick={() => handleSubmitReply(c.id, effectiveReplyAs)}
                   disabled={replyBusy || !replyDraft.trim()}
                   style={{
                     padding: '5px 12px', border: 'none',

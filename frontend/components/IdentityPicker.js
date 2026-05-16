@@ -29,7 +29,7 @@
  *   onPick(kind) — fired when the user selects an identity
  *   onClose()    — fired when the user clicks outside or presses Esc
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const KIND_BADGE = {
   citizen:   { label: 'Citizen',   color: '#1d3557' },
@@ -41,6 +41,32 @@ export default function IdentityPicker({
   open, identities = [], mode = 'pick', onPick, onClose,
 }) {
   const ref = useRef(null);
+
+  // Edge-aware placement. We start with the default (drop below + align
+  // left) and let a useLayoutEffect measure the rendered position. If
+  // the picker would overflow the viewport bottom or right, we flip
+  // to drop-above and/or right-align. useLayoutEffect fires before
+  // paint, so the corrected position is what the user sees — no
+  // visible flicker.
+  const [placement, setPlacement] = useState({ vertical: 'bottom', horizontal: 'left' });
+
+  useLayoutEffect(() => {
+    if (!open || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    const margin = 12;
+    const nextVertical = rect.bottom > vh - margin ? 'top' : 'bottom';
+    const nextHorizontal = rect.right > vw - margin ? 'right' : 'left';
+    if (nextVertical !== placement.vertical || nextHorizontal !== placement.horizontal) {
+      setPlacement({ vertical: nextVertical, horizontal: nextHorizontal });
+    }
+  // We deliberately re-measure on every open + on identities count
+  // change (different option counts → different heights). We DON'T
+  // depend on `placement` itself because the goal is to settle on
+  // the correct placement after one measure, not oscillate.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, identities.length]);
 
   // Close on click-outside + Escape. Wired only while open so the
   // listener doesn't fire on every render.
@@ -64,6 +90,18 @@ export default function IdentityPicker({
 
   if (!open || identities.length === 0) return null;
 
+  // Compose position styles from the resolved placement. We use
+  // `calc(100% + 4px)` so the picker hangs 4px outside the anchor
+  // (matches the original marginTop spacing).
+  const positionStyle = {
+    ...(placement.vertical === 'top'
+      ? { bottom: 'calc(100% + 4px)' }
+      : { top: 'calc(100% + 4px)' }),
+    ...(placement.horizontal === 'right'
+      ? { right: 0 }
+      : { left: 0 }),
+  };
+
   return (
     <div
       ref={ref}
@@ -72,13 +110,13 @@ export default function IdentityPicker({
       style={{
         position: 'absolute',
         zIndex: 1000,
-        marginTop: 4,
         minWidth: 200,
         background: 'white',
         border: '1px solid var(--cl-border)',
         borderRadius: 8,
         boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
         padding: 4,
+        ...positionStyle,
       }}
     >
       <div style={{
