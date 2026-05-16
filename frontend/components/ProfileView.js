@@ -278,6 +278,12 @@ export default function ProfileView({
 
   const party = member.party || 'I';
   const partyFull = PARTY_NAMES[party] || 'Independent';
+  // Photo URL — accept both naming conventions in use across the
+  // codebase. Congress members (congress_profiles.json + GovTrack) use
+  // photoUrl (camelCase). Executive branch officials + judiciary from
+  // federal_officials.json use photo_url (snake_case). Normalize once
+  // here so the rest of the component only needs to check one name.
+  const photoUrl = member.photoUrl || member.photo_url || null;
 
   // Reset tabs, hero collapse, and caches whenever the active person
   // changes. Without resetting heroCollapsed, navigating from one
@@ -654,9 +660,9 @@ export default function ProfileView({
             background: 'white',
           }}
         >
-          {member.photoUrl ? (
+          {photoUrl ? (
             <img
-              src={member.photoUrl}
+              src={photoUrl}
               alt=""
               style={{
                 width: 36, height: 36, borderRadius: '50%', objectFit: 'cover',
@@ -754,7 +760,7 @@ export default function ProfileView({
                 onClick={() => onOpenPage(member.bioguide_id || member.id, {
                   displayName: member.name,
                   role: member.title || member.role || '',
-                  photoUrl: member.photoUrl,
+                  photoUrl: photoUrl,
                 })}
               >
                 {/* Document icon. */}
@@ -785,9 +791,9 @@ export default function ProfileView({
       {/* Hero — full version. Hidden when collapsed. */}
       {!heroCollapsed && (
       <div style={{ textAlign: 'center', padding: '20px 20px 14px', borderBottom: '1px solid var(--cl-border)' }}>
-        {member.photoUrl ? (
+        {photoUrl ? (
           <img
-            src={member.photoUrl}
+            src={photoUrl}
             alt={member.name}
             // display:block + margin auto so the avatar reliably centers
             // in the textAlign:center hero. Without these, the inline
