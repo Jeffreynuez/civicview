@@ -412,9 +412,15 @@ export default function ProfileView({
         && (role === 'president' || role === 'vice_president')
         && !paState.loaded && !paState.loading) {
       setPaState((s) => ({ ...s, loading: true }));
+      // limit=100 is the backend cap — see federal_officials.py.
+      // A modern Congress runs ~250–500 public laws across the full
+      // two-year cycle, so 100 catches everything we're likely to
+      // show on a president's profile right now. The list renders
+      // with a Show-more pattern (initial 25 visible) below, so the
+      // up-front fetch doesn't translate into a wall of cards.
       Promise.all([
-        fetchPresidentialActions({ congress: 119, type: 'signed', limit: 15 }),
-        fetchPresidentialActions({ congress: 119, type: 'vetoed', limit: 15 }),
+        fetchPresidentialActions({ congress: 119, type: 'signed', limit: 100 }),
+        fetchPresidentialActions({ congress: 119, type: 'vetoed', limit: 100 }),
       ]).then(([signed, vetoed]) => {
         setPaState({
           loading: false,
@@ -3030,6 +3036,12 @@ function EOCard({ order }) {
 
 // ─── Presidential actions (signed laws + vetoes) ──────────────────────
 function PresidentialActionsTab({ state, role }) {
+  // Independent show-more state per section — users typically want
+  // to expand Signed (many) without affecting Vetoed (few/zero), and
+  // vice versa.
+  const [showAllSigned, setShowAllSigned] = useState(false);
+  const [showAllVetoed, setShowAllVetoed] = useState(false);
+
   if (state.loading || !state.loaded) {
     return <LoadingState label="Loading bill activity…" />;
   }
@@ -3046,15 +3058,35 @@ function PresidentialActionsTab({ state, role }) {
       />
     );
   }
+
+  // Mirror the EO tab — collapse long lists to the first N cards and
+  // reveal the rest with a Show-more button. Backend already pulled
+  // up to 100 of each in one call, so the toggle is pure client-side.
+  const INITIAL_SIGNED = 25;
+  const INITIAL_VETOED = 10;
+  const visibleSigned = showAllSigned ? signed : signed.slice(0, INITIAL_SIGNED);
+  const visibleVetoed = showAllVetoed ? vetoed : vetoed.slice(0, INITIAL_VETOED);
+
   return (
     <div>
       <SectionHeader>Signed into Law ({signed.length})</SectionHeader>
       {signed.length === 0 ? (
         <EmptyNote>No enacted laws yet this Congress.</EmptyNote>
       ) : (
-        signed.map((b, i) => (
-          <PresActionCard key={`s-${i}`} bill={b} outcome="signed" />
-        ))
+        <>
+          {visibleSigned.map((b, i) => (
+            <PresActionCard key={`s-${i}`} bill={b} outcome="signed" />
+          ))}
+          {signed.length > INITIAL_SIGNED && (
+            <ShowMoreButton
+              showingAll={showAllSigned}
+              total={signed.length}
+              visible={INITIAL_SIGNED}
+              label="signed law"
+              onClick={() => setShowAllSigned((v) => !v)}
+            />
+          )}
+        </>
       )}
 
       <div style={{ height: '16px' }} />
@@ -3062,9 +3094,20 @@ function PresidentialActionsTab({ state, role }) {
       {vetoed.length === 0 ? (
         <EmptyNote>No vetoes recorded this Congress.</EmptyNote>
       ) : (
-        vetoed.map((b, i) => (
-          <PresActionCard key={`v-${i}`} bill={b} outcome="vetoed" />
-        ))
+        <>
+          {visibleVetoed.map((b, i) => (
+            <PresActionCard key={`v-${i}`} bill={b} outcome="vetoed" />
+          ))}
+          {vetoed.length > INITIAL_VETOED && (
+            <ShowMoreButton
+              showingAll={showAllVetoed}
+              total={vetoed.length}
+              visible={INITIAL_VETOED}
+              label="veto"
+              onClick={() => setShowAllVetoed((v) => !v)}
+            />
+          )}
+        </>
       )}
     </div>
   );

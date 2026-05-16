@@ -817,7 +817,7 @@ const _presidentialActionsCache = new Map();
 export async function fetchPresidentialActions({
   congress = 119,
   type = 'signed',
-  limit = 20,
+  limit = 100,
 } = {}) {
   const key = `${congress}::${type}::${limit}`;
   if (_presidentialActionsCache.has(key)) {
