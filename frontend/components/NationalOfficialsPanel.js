@@ -2675,7 +2675,16 @@ function BigPersonCard({ person, eyebrow, meta, onClick, followTarget, onNotify,
       onMouseOut={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; e.currentTarget.style.boxShadow = 'none'; } : undefined}
     >
       <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-        <Avatar name={person.name} party={person.party} size="lg" />
+        {/* photo_url (snake_case from federal_officials.json) and
+            photoUrl (camelCase from elsewhere in the codebase) are
+            both supported. Avatar falls back to initials cleanly if
+            the URL 404s. */}
+        <Avatar
+          src={person.photo_url || person.photoUrl}
+          name={person.name}
+          party={person.party}
+          size="lg"
+        />
         <div style={{ flex: 1, minWidth: 0 }}>
           <Eyebrow tone="accent">{eyebrow}</Eyebrow>
           <h3
@@ -2743,7 +2752,7 @@ function BigPersonCard({ person, eyebrow, meta, onClick, followTarget, onNotify,
               onOpen={(id) => onOpenPage(id, {
                 displayName: person.name,
                 role: person.role || person.title || eyebrow || '',
-                photoUrl: person.photoUrl,
+                photoUrl: person.photo_url || person.photoUrl,
               })}
             />
           )}
@@ -2798,7 +2807,12 @@ function CompactPersonCard({ person, eyebrow, meta, onClick, followTarget, onNot
       onMouseOut={clickable ? (e) => { e.currentTarget.style.borderColor = 'var(--cl-border)'; } : undefined}
     >
       <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-        <Avatar name={person.name} party={person.party} size="md" />
+        <Avatar
+          src={person.photo_url || person.photoUrl}
+          name={person.name}
+          party={person.party}
+          size="md"
+        />
         <div style={{ flex: 1, minWidth: 0 }}>
           {eyebrow && (
             <div
@@ -2901,7 +2915,7 @@ function CompactPersonCard({ person, eyebrow, meta, onClick, followTarget, onNot
               onOpen={(id) => onOpenPage(id, {
                 displayName: person.name,
                 role: person.role || person.title || eyebrow || '',
-                photoUrl: person.photoUrl,
+                photoUrl: person.photo_url || person.photoUrl,
               })}
             />
           )}

@@ -33,17 +33,48 @@
         }
       },
       "top_issues": [
-        {"name": "Trade & Tariffs", "stance": "Advocates for protective tariffs and renegotiating trade agreements to prioritize American manufacturing."},
-        {"name": "Immigration", "stance": "Emphasizes border security, stricter enforcement, and limits on asylum and legal immigration pathways."},
-        {"name": "Energy Independence", "stance": "Promotes domestic oil, gas, and coal production while limiting environmental regulations."},
-        {"name": "Government Efficiency", "stance": "Supports reducing federal workforce and eliminating what he views as wasteful bureaucratic agencies."}
+        {
+          "name": "Trade & Tariffs",
+          "stance": "Advocates for protective tariffs and renegotiating trade agreements to prioritize American manufacturing."
+        },
+        {
+          "name": "Immigration",
+          "stance": "Emphasizes border security, stricter enforcement, and limits on asylum and legal immigration pathways."
+        },
+        {
+          "name": "Energy Independence",
+          "stance": "Promotes domestic oil, gas, and coal production while limiting environmental regulations."
+        },
+        {
+          "name": "Government Efficiency",
+          "stance": "Supports reducing federal workforce and eliminating what he views as wasteful bureaucratic agencies."
+        }
       ],
       "experience": [
-        {"role": "President of the United States", "from": "2017", "to": "2021"},
-        {"role": "Real Estate Developer & Business Owner", "from": "1971", "to": "2017", "note": "Trump Organization founder and CEO"},
-        {"role": "Television Personality", "from": "2004", "to": "2015", "note": "The Apprentice and Celebrity Apprentice host"},
-        {"role": "New York City Real Estate Investor", "from": "1971", "to": "Present"}
-      ]
+        {
+          "role": "President of the United States",
+          "from": "2017",
+          "to": "2021"
+        },
+        {
+          "role": "Real Estate Developer & Business Owner",
+          "from": "1971",
+          "to": "2017",
+          "note": "Trump Organization founder and CEO"
+        },
+        {
+          "role": "Television Personality",
+          "from": "2004",
+          "to": "2015",
+          "note": "The Apprentice and Celebrity Apprentice host"
+        },
+        {
+          "role": "New York City Real Estate Investor",
+          "from": "1971",
+          "to": "Present"
+        }
+      ],
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg"
     },
     "vice_president": {
       "id": "us-vp-vance",
@@ -65,16 +96,44 @@
         }
       },
       "top_issues": [
-        {"name": "Populism & Working Class", "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."},
-        {"name": "American Manufacturing", "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."},
-        {"name": "Cultural Issues", "stance": "Advocates for traditional values and skepticism of progressive cultural movements."}
+        {
+          "name": "Populism & Working Class",
+          "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."
+        },
+        {
+          "name": "American Manufacturing",
+          "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."
+        },
+        {
+          "name": "Cultural Issues",
+          "stance": "Advocates for traditional values and skepticism of progressive cultural movements."
+        }
       ],
       "experience": [
-        {"role": "U.S. Senator", "from": "2023", "to": "2025"},
-        {"role": "Author", "from": "2016", "to": "Present", "note": "Wrote 'Hillbilly Elegy'"},
-        {"role": "Venture Capitalist", "from": "2014", "to": "2022", "note": "Co-founder of Narya Capital"},
-        {"role": "U.S. Marine Corps", "from": "2003", "to": "2007"}
-      ]
+        {
+          "role": "U.S. Senator",
+          "from": "2023",
+          "to": "2025"
+        },
+        {
+          "role": "Author",
+          "from": "2016",
+          "to": "Present",
+          "note": "Wrote 'Hillbilly Elegy'"
+        },
+        {
+          "role": "Venture Capitalist",
+          "from": "2014",
+          "to": "2022",
+          "note": "Co-founder of Narya Capital"
+        },
+        {
+          "role": "U.S. Marine Corps",
+          "from": "2003",
+          "to": "2007"
+        }
+      ],
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg"
     },
     "cabinet": [
       {
@@ -96,16 +155,42 @@
           "official_website": "https://www.state.gov/secretary/"
         },
         "top_issues": [
-          {"name": "China Strategy", "stance": "Advocates for confronting Chinese geopolitical influence and economic competition through diplomatic pressure."},
-          {"name": "Latin America", "stance": "Prioritizes relations with Caribbean and Central American countries, particularly regarding Venezuela and Cuba."},
-          {"name": "Israel & Middle East", "stance": "Emphasizes strong U.S. support for Israel and opposition to Iranian influence in the region."}
+          {
+            "name": "China Strategy",
+            "stance": "Advocates for confronting Chinese geopolitical influence and economic competition through diplomatic pressure."
+          },
+          {
+            "name": "Latin America",
+            "stance": "Prioritizes relations with Caribbean and Central American countries, particularly regarding Venezuela and Cuba."
+          },
+          {
+            "name": "Israel & Middle East",
+            "stance": "Emphasizes strong U.S. support for Israel and opposition to Iranian influence in the region."
+          }
         ],
         "experience": [
-          {"role": "U.S. Senator from Florida", "from": "2011", "to": "2025"},
-          {"role": "Florida House of Representatives", "from": "2000", "to": "2008"},
-          {"role": "Attorney", "from": "1998", "to": "2000"},
-          {"role": "Legislative Aide, Miami-Dade County", "from": "1991", "to": "1993"}
-        ]
+          {
+            "role": "U.S. Senator from Florida",
+            "from": "2011",
+            "to": "2025"
+          },
+          {
+            "role": "Florida House of Representatives",
+            "from": "2000",
+            "to": "2008"
+          },
+          {
+            "role": "Attorney",
+            "from": "1998",
+            "to": "2000"
+          },
+          {
+            "role": "Legislative Aide, Miami-Dade County",
+            "from": "1991",
+            "to": "1993"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg/3840px-Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg"
       },
       {
         "id": "us-sec-treasury",
@@ -126,15 +211,37 @@
           "official_website": "https://home.treasury.gov/about/general-information/officials/secretary-of-the-treasury"
         },
         "top_issues": [
-          {"name": "Fiscal Policy", "stance": "Focuses on reducing government spending while managing debt and maintaining economic growth."},
-          {"name": "Currency Markets", "stance": "Works to stabilize the dollar and manage international currency relationships."},
-          {"name": "Financial Regulation", "stance": "Supports selective deregulation of financial institutions while maintaining systemic stability."}
+          {
+            "name": "Fiscal Policy",
+            "stance": "Focuses on reducing government spending while managing debt and maintaining economic growth."
+          },
+          {
+            "name": "Currency Markets",
+            "stance": "Works to stabilize the dollar and manage international currency relationships."
+          },
+          {
+            "name": "Financial Regulation",
+            "stance": "Supports selective deregulation of financial institutions while maintaining systemic stability."
+          }
         ],
         "experience": [
-          {"role": "Founder & CEO, Key Square Group", "from": "2012", "to": "2025"},
-          {"role": "Portfolio Manager, Soros Fund Management", "from": "2000", "to": "2012"},
-          {"role": "Managing Director, Tudor Investment Corporation", "from": "1983", "to": "2000"}
-        ]
+          {
+            "role": "Founder & CEO, Key Square Group",
+            "from": "2012",
+            "to": "2025"
+          },
+          {
+            "role": "Portfolio Manager, Soros Fund Management",
+            "from": "2000",
+            "to": "2012"
+          },
+          {
+            "role": "Managing Director, Tudor Investment Corporation",
+            "from": "1983",
+            "to": "2000"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-defense",
@@ -155,15 +262,37 @@
           "official_website": "https://www.defense.gov/About/Biographies/Biography/Article/4042469/"
         },
         "top_issues": [
-          {"name": "Military Readiness", "stance": "Prioritizes modernizing U.S. military capability and maintaining strategic advantages over near-peer competitors."},
-          {"name": "China & Deterrence", "stance": "Emphasizes military preparedness to deter Chinese aggression in the Indo-Pacific region."},
-          {"name": "Military Culture", "stance": "Advocates for merit-based advancement and traditional military values in service organization."}
+          {
+            "name": "Military Readiness",
+            "stance": "Prioritizes modernizing U.S. military capability and maintaining strategic advantages over near-peer competitors."
+          },
+          {
+            "name": "China & Deterrence",
+            "stance": "Emphasizes military preparedness to deter Chinese aggression in the Indo-Pacific region."
+          },
+          {
+            "name": "Military Culture",
+            "stance": "Advocates for merit-based advancement and traditional military values in service organization."
+          }
         ],
         "experience": [
-          {"role": "Host, Fox News Channel", "from": "2014", "to": "2025"},
-          {"role": "Major, Minnesota Army National Guard", "from": "2005", "to": "2021"},
-          {"role": "Ranger, U.S. Army", "from": "2002", "to": "2005"}
-        ]
+          {
+            "role": "Host, Fox News Channel",
+            "from": "2014",
+            "to": "2025"
+          },
+          {
+            "role": "Major, Minnesota Army National Guard",
+            "from": "2005",
+            "to": "2021"
+          },
+          {
+            "role": "Ranger, U.S. Army",
+            "from": "2002",
+            "to": "2005"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pete_Hegseth_Official_Portrait.jpg/3840px-Pete_Hegseth_Official_Portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
       },
       {
         "id": "us-ag",
@@ -184,15 +313,37 @@
           "official_website": "https://www.justice.gov/ag"
         },
         "top_issues": [
-          {"name": "Law & Order", "stance": "Prioritizes aggressive prosecution of crime and supports law enforcement with expanded investigative powers."},
-          {"name": "Election Integrity", "stance": "Emphasizes vigilance against voter fraud and election irregularities in federal elections."},
-          {"name": "Constitutional Rights", "stance": "Advocates for protections of Second Amendment rights and First Amendment speech protections."}
+          {
+            "name": "Law & Order",
+            "stance": "Prioritizes aggressive prosecution of crime and supports law enforcement with expanded investigative powers."
+          },
+          {
+            "name": "Election Integrity",
+            "stance": "Emphasizes vigilance against voter fraud and election irregularities in federal elections."
+          },
+          {
+            "name": "Constitutional Rights",
+            "stance": "Advocates for protections of Second Amendment rights and First Amendment speech protections."
+          }
         ],
         "experience": [
-          {"role": "Attorney General of Florida", "from": "2011", "to": "2019"},
-          {"role": "Appellate Prosecutor, Florida", "from": "2003", "to": "2011"},
-          {"role": "Private Practice Attorney", "from": "1994", "to": "2003"}
-        ]
+          {
+            "role": "Attorney General of Florida",
+            "from": "2011",
+            "to": "2019"
+          },
+          {
+            "role": "Appellate Prosecutor, Florida",
+            "from": "2003",
+            "to": "2011"
+          },
+          {
+            "role": "Private Practice Attorney",
+            "from": "1994",
+            "to": "2003"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-interior",
@@ -213,15 +364,38 @@
           "official_website": "https://www.doi.gov/secretary"
         },
         "top_issues": [
-          {"name": "Energy Extraction", "stance": "Supports increased oil, gas, and mineral leasing on federal lands to generate revenue and energy independence."},
-          {"name": "Tribal Relations", "stance": "Emphasizes partnership with tribal nations while balancing resource development and infrastructure needs."},
-          {"name": "Western Land Management", "stance": "Advocates for state-level input on federal land management decisions affecting rural communities."}
+          {
+            "name": "Energy Extraction",
+            "stance": "Supports increased oil, gas, and mineral leasing on federal lands to generate revenue and energy independence."
+          },
+          {
+            "name": "Tribal Relations",
+            "stance": "Emphasizes partnership with tribal nations while balancing resource development and infrastructure needs."
+          },
+          {
+            "name": "Western Land Management",
+            "stance": "Advocates for state-level input on federal land management decisions affecting rural communities."
+          }
         ],
         "experience": [
-          {"role": "Governor of North Dakota", "from": "2016", "to": "2024"},
-          {"role": "Entrepreneur & Tech CEO", "from": "1983", "to": "2016", "note": "Founded Great Plains Software"},
-          {"role": "Business Executive, Great Plains Software & Microsoft", "from": "1983", "to": "2015"}
-        ]
+          {
+            "role": "Governor of North Dakota",
+            "from": "2016",
+            "to": "2024"
+          },
+          {
+            "role": "Entrepreneur & Tech CEO",
+            "from": "1983",
+            "to": "2016",
+            "note": "Founded Great Plains Software"
+          },
+          {
+            "role": "Business Executive, Great Plains Software & Microsoft",
+            "from": "1983",
+            "to": "2015"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-agriculture",
@@ -242,15 +416,37 @@
           "official_website": "https://www.usda.gov/our-agency/about-usda/our-secretary"
         },
         "top_issues": [
-          {"name": "Farm Support", "stance": "Advocates for robust commodity support programs and direct assistance to agricultural producers."},
-          {"name": "Agricultural Trade", "stance": "Emphasizes fair trade practices and fighting unfair foreign competition for American farmers."},
-          {"name": "Rural Development", "stance": "Focuses on strengthening rural infrastructure and supporting small and mid-size farming operations."}
+          {
+            "name": "Farm Support",
+            "stance": "Advocates for robust commodity support programs and direct assistance to agricultural producers."
+          },
+          {
+            "name": "Agricultural Trade",
+            "stance": "Emphasizes fair trade practices and fighting unfair foreign competition for American farmers."
+          },
+          {
+            "name": "Rural Development",
+            "stance": "Focuses on strengthening rural infrastructure and supporting small and mid-size farming operations."
+          }
         ],
         "experience": [
-          {"role": "Director, America First Policy Institute", "from": "2021", "to": "2025"},
-          {"role": "White House Policy Advisor", "from": "2017", "to": "2021"},
-          {"role": "Texas Land Commissioner", "from": "2015", "to": "2017"}
-        ]
+          {
+            "role": "Director, America First Policy Institute",
+            "from": "2021",
+            "to": "2025"
+          },
+          {
+            "role": "White House Policy Advisor",
+            "from": "2017",
+            "to": "2021"
+          },
+          {
+            "role": "Texas Land Commissioner",
+            "from": "2015",
+            "to": "2017"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Second_Portrait_of_Secretary_Rollins.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-commerce",
@@ -271,15 +467,37 @@
           "official_website": "https://www.commerce.gov/about/leadership/howard-lutnick"
         },
         "top_issues": [
-          {"name": "Trade Policy", "stance": "Emphasizes negotiating favorable trade deals and protecting U.S. manufacturing through strategic tariffs."},
-          {"name": "Technology & Innovation", "stance": "Supports semiconductor industry investment and technology leadership against foreign competitors."},
-          {"name": "Business Growth", "stance": "Advocates for deregulation and creating a favorable environment for business expansion and job creation."}
+          {
+            "name": "Trade Policy",
+            "stance": "Emphasizes negotiating favorable trade deals and protecting U.S. manufacturing through strategic tariffs."
+          },
+          {
+            "name": "Technology & Innovation",
+            "stance": "Supports semiconductor industry investment and technology leadership against foreign competitors."
+          },
+          {
+            "name": "Business Growth",
+            "stance": "Advocates for deregulation and creating a favorable environment for business expansion and job creation."
+          }
         ],
         "experience": [
-          {"role": "Chairman & CEO, Cantor Fitzgerald", "from": "1999", "to": "Present"},
-          {"role": "Trader & Senior Executive, Cantor Fitzgerald", "from": "1983", "to": "1999"},
-          {"role": "Wall Street Trading Floor Executive", "from": "1983", "to": "Present"}
-        ]
+          {
+            "role": "Chairman & CEO, Cantor Fitzgerald",
+            "from": "1999",
+            "to": "Present"
+          },
+          {
+            "role": "Trader & Senior Executive, Cantor Fitzgerald",
+            "from": "1983",
+            "to": "1999"
+          },
+          {
+            "role": "Wall Street Trading Floor Executive",
+            "from": "1983",
+            "to": "Present"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Howard_Lutnick_2025.jpg"
       },
       {
         "id": "us-sec-labor",
@@ -300,15 +518,37 @@
           "official_website": "https://www.dol.gov/agencies/osec"
         },
         "top_issues": [
-          {"name": "Job Creation", "stance": "Focuses on removing regulatory barriers to job growth and supporting small business employment expansion."},
-          {"name": "Apprenticeships", "stance": "Advocates for expanding registered apprenticeship programs as alternative pathways to careers."},
-          {"name": "Wage Growth", "stance": "Emphasizes policies that support rising wages while maintaining business competitiveness."}
+          {
+            "name": "Job Creation",
+            "stance": "Focuses on removing regulatory barriers to job growth and supporting small business employment expansion."
+          },
+          {
+            "name": "Apprenticeships",
+            "stance": "Advocates for expanding registered apprenticeship programs as alternative pathways to careers."
+          },
+          {
+            "name": "Wage Growth",
+            "stance": "Emphasizes policies that support rising wages while maintaining business competitiveness."
+          }
         ],
         "experience": [
-          {"role": "U.S. Representative from Oregon", "from": "2023", "to": "2025"},
-          {"role": "Small Business Owner", "from": "1991", "to": "Present"},
-          {"role": "Oregon State Legislature", "from": "2017", "to": "2023"}
-        ]
+          {
+            "role": "U.S. Representative from Oregon",
+            "from": "2023",
+            "to": "2025"
+          },
+          {
+            "role": "Small Business Owner",
+            "from": "1991",
+            "to": "Present"
+          },
+          {
+            "role": "Oregon State Legislature",
+            "from": "2017",
+            "to": "2023"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-hhs",
@@ -329,15 +569,37 @@
           "official_website": "https://www.hhs.gov/about/leadership/secretary/index.html"
         },
         "top_issues": [
-          {"name": "Health Agencies Reform", "stance": "Advocates for restructuring federal health agencies and reducing what he views as regulatory overreach."},
-          {"name": "Chronic Disease", "stance": "Emphasizes environmental and nutritional factors in chronic disease prevention and research."},
-          {"name": "Pharmaceutical Industry", "stance": "Questions pharmaceutical industry practices and promotes transparency in drug development and approval."}
+          {
+            "name": "Health Agencies Reform",
+            "stance": "Advocates for restructuring federal health agencies and reducing what he views as regulatory overreach."
+          },
+          {
+            "name": "Chronic Disease",
+            "stance": "Emphasizes environmental and nutritional factors in chronic disease prevention and research."
+          },
+          {
+            "name": "Pharmaceutical Industry",
+            "stance": "Questions pharmaceutical industry practices and promotes transparency in drug development and approval."
+          }
         ],
         "experience": [
-          {"role": "Environmental Attorney & Activist", "from": "1984", "to": "Present"},
-          {"role": "Children's Health Defense President", "from": "2016", "to": "2025"},
-          {"role": "Riverkeeper Organization Leader", "from": "1982", "to": "2014"}
-        ]
+          {
+            "role": "Environmental Attorney & Activist",
+            "from": "1984",
+            "to": "Present"
+          },
+          {
+            "role": "Children's Health Defense President",
+            "from": "2016",
+            "to": "2025"
+          },
+          {
+            "role": "Riverkeeper Organization Leader",
+            "from": "1982",
+            "to": "2014"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-hud",
@@ -358,15 +620,37 @@
           "official_website": "https://www.hud.gov/about/leadership/scott_turner"
         },
         "top_issues": [
-          {"name": "Opportunity Zones", "stance": "Emphasizes economic development in disadvantaged communities through market-based revitalization strategies."},
-          {"name": "Housing Affordability", "stance": "Focuses on removing regulatory barriers to housing construction and homeownership."},
-          {"name": "Urban Renewal", "stance": "Advocates for community-led development and partnerships with local leadership in revitalization efforts."}
+          {
+            "name": "Opportunity Zones",
+            "stance": "Emphasizes economic development in disadvantaged communities through market-based revitalization strategies."
+          },
+          {
+            "name": "Housing Affordability",
+            "stance": "Focuses on removing regulatory barriers to housing construction and homeownership."
+          },
+          {
+            "name": "Urban Renewal",
+            "stance": "Advocates for community-led development and partnerships with local leadership in revitalization efforts."
+          }
         ],
         "experience": [
-          {"role": "Texas State Representative", "from": "2015", "to": "2023"},
-          {"role": "Director, Opportunity and Revitalization Council", "from": "2017", "to": "2021"},
-          {"role": "NFL Player, Dallas Cowboys", "from": "1992", "to": "1995"}
-        ]
+          {
+            "role": "Texas State Representative",
+            "from": "2015",
+            "to": "2023"
+          },
+          {
+            "role": "Director, Opportunity and Revitalization Council",
+            "from": "2017",
+            "to": "2021"
+          },
+          {
+            "role": "NFL Player, Dallas Cowboys",
+            "from": "1992",
+            "to": "1995"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Scott_Turner%2C_official_portrait_%282025%29.jpg"
       },
       {
         "id": "us-sec-transportation",
@@ -387,15 +671,37 @@
           "official_website": "https://www.transportation.gov/meet-secretary/secretary-sean-p-duffy"
         },
         "top_issues": [
-          {"name": "Infrastructure Investment", "stance": "Advocates for strategic infrastructure spending focused on real-world transportation needs and efficiency."},
-          {"name": "Regulatory Reform", "stance": "Pushes for streamlining transportation regulations to reduce barriers to project completion."},
-          {"name": "Safety & Standards", "stance": "Emphasizes maintaining transportation safety standards while reducing unnecessary compliance burdens."}
+          {
+            "name": "Infrastructure Investment",
+            "stance": "Advocates for strategic infrastructure spending focused on real-world transportation needs and efficiency."
+          },
+          {
+            "name": "Regulatory Reform",
+            "stance": "Pushes for streamlining transportation regulations to reduce barriers to project completion."
+          },
+          {
+            "name": "Safety & Standards",
+            "stance": "Emphasizes maintaining transportation safety standards while reducing unnecessary compliance burdens."
+          }
         ],
         "experience": [
-          {"role": "U.S. Representative from Wisconsin", "from": "2011", "to": "2019"},
-          {"role": "Wisconsin State Senator", "from": "2003", "to": "2011"},
-          {"role": "County Prosecutor, Ashland County", "from": "1999", "to": "2003"}
-        ]
+          {
+            "role": "U.S. Representative from Wisconsin",
+            "from": "2011",
+            "to": "2019"
+          },
+          {
+            "role": "Wisconsin State Senator",
+            "from": "2003",
+            "to": "2011"
+          },
+          {
+            "role": "County Prosecutor, Ashland County",
+            "from": "1999",
+            "to": "2003"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-energy",
@@ -416,15 +722,37 @@
           "official_website": "https://www.energy.gov/contributors/chris-wright"
         },
         "top_issues": [
-          {"name": "Energy Production", "stance": "Prioritizes maximizing domestic energy production from all sources to ensure American energy independence."},
-          {"name": "Oil & Gas Development", "stance": "Advocates for continued expansion of oil and gas development as essential to U.S. energy security."},
-          {"name": "Nuclear Energy", "stance": "Supports nuclear power expansion as part of a comprehensive American energy portfolio."}
+          {
+            "name": "Energy Production",
+            "stance": "Prioritizes maximizing domestic energy production from all sources to ensure American energy independence."
+          },
+          {
+            "name": "Oil & Gas Development",
+            "stance": "Advocates for continued expansion of oil and gas development as essential to U.S. energy security."
+          },
+          {
+            "name": "Nuclear Energy",
+            "stance": "Supports nuclear power expansion as part of a comprehensive American energy portfolio."
+          }
         ],
         "experience": [
-          {"role": "Founder & CEO, Liberty Energy", "from": "1992", "to": "Present"},
-          {"role": "Oil & Gas Industry Executive", "from": "1992", "to": "Present"},
-          {"role": "Energy Industry Entrepreneur", "from": "1985", "to": "1992"}
-        ]
+          {
+            "role": "Founder & CEO, Liberty Energy",
+            "from": "1992",
+            "to": "Present"
+          },
+          {
+            "role": "Oil & Gas Industry Executive",
+            "from": "1992",
+            "to": "Present"
+          },
+          {
+            "role": "Energy Industry Entrepreneur",
+            "from": "1985",
+            "to": "1992"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Secretary_Chris_Wright_Official_Portrait.png"
       },
       {
         "id": "us-sec-education",
@@ -445,15 +773,37 @@
           "official_website": "https://www.ed.gov/about/secretary"
         },
         "top_issues": [
-          {"name": "School Choice", "stance": "Advocates for expanding school choice options including private schools, charter schools, and homeschooling alternatives."},
-          {"name": "Parental Rights", "stance": "Emphasizes parental involvement in education decisions and objections to curriculum content."},
-          {"name": "Education Standards", "stance": "Supports higher academic standards and accountability in schools, along with reducing federal education bureaucracy."}
+          {
+            "name": "School Choice",
+            "stance": "Advocates for expanding school choice options including private schools, charter schools, and homeschooling alternatives."
+          },
+          {
+            "name": "Parental Rights",
+            "stance": "Emphasizes parental involvement in education decisions and objections to curriculum content."
+          },
+          {
+            "name": "Education Standards",
+            "stance": "Supports higher academic standards and accountability in schools, along with reducing federal education bureaucracy."
+          }
         ],
         "experience": [
-          {"role": "Co-founder & CEO, World Wrestling Entertainment (WWE)", "from": "1998", "to": "2022"},
-          {"role": "Administrator, Small Business Administration", "from": "2017", "to": "2019"},
-          {"role": "Business Executive & Entrepreneur", "from": "1980", "to": "1998"}
-        ]
+          {
+            "role": "Co-founder & CEO, World Wrestling Entertainment (WWE)",
+            "from": "1998",
+            "to": "2022"
+          },
+          {
+            "role": "Administrator, Small Business Administration",
+            "from": "2017",
+            "to": "2019"
+          },
+          {
+            "role": "Business Executive & Entrepreneur",
+            "from": "1980",
+            "to": "1998"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/ED_Sec_Linda_McMahon_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-va",
@@ -474,15 +824,37 @@
           "official_website": "https://www.va.gov/opa/bios/secva.asp"
         },
         "top_issues": [
-          {"name": "Veteran Benefits", "stance": "Prioritizes improving access to healthcare, benefits, and services for all veterans."},
-          {"name": "VA Modernization", "stance": "Focuses on modernizing VA systems and reducing bureaucratic inefficiencies in delivering services."},
-          {"name": "Military Community Support", "stance": "Emphasizes support for active duty, reserve, and retired military personnel and their families."}
+          {
+            "name": "Veteran Benefits",
+            "stance": "Prioritizes improving access to healthcare, benefits, and services for all veterans."
+          },
+          {
+            "name": "VA Modernization",
+            "stance": "Focuses on modernizing VA systems and reducing bureaucratic inefficiencies in delivering services."
+          },
+          {
+            "name": "Military Community Support",
+            "stance": "Emphasizes support for active duty, reserve, and retired military personnel and their families."
+          }
         ],
         "experience": [
-          {"role": "U.S. Representative from Georgia", "from": "2013", "to": "2021"},
-          {"role": "Major, U.S. Air Force Reserve Chaplain", "from": "2005", "to": "Present"},
-          {"role": "Georgia State Representative", "from": "2007", "to": "2013"}
-        ]
+          {
+            "role": "U.S. Representative from Georgia",
+            "from": "2013",
+            "to": "2021"
+          },
+          {
+            "role": "Major, U.S. Air Force Reserve Chaplain",
+            "from": "2005",
+            "to": "Present"
+          },
+          {
+            "role": "Georgia State Representative",
+            "from": "2007",
+            "to": "2013"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
       },
       {
         "id": "us-sec-dhs",
@@ -503,15 +875,37 @@
           "official_website": "https://www.dhs.gov/person/kristi-noem"
         },
         "top_issues": [
-          {"name": "Border Security", "stance": "Emphasizes strict border enforcement and stopping illegal immigration as national security priorities."},
-          {"name": "Immigration Enforcement", "stance": "Advocates for aggressive interior enforcement and cooperation with local law enforcement on immigration."},
-          {"name": "Cybersecurity", "stance": "Supports protecting critical infrastructure and federal systems from cyber threats and intrusions."}
+          {
+            "name": "Border Security",
+            "stance": "Emphasizes strict border enforcement and stopping illegal immigration as national security priorities."
+          },
+          {
+            "name": "Immigration Enforcement",
+            "stance": "Advocates for aggressive interior enforcement and cooperation with local law enforcement on immigration."
+          },
+          {
+            "name": "Cybersecurity",
+            "stance": "Supports protecting critical infrastructure and federal systems from cyber threats and intrusions."
+          }
         ],
         "experience": [
-          {"role": "Governor of South Dakota", "from": "2019", "to": "2025"},
-          {"role": "U.S. Representative from South Dakota", "from": "2011", "to": "2019"},
-          {"role": "South Dakota State Legislature", "from": "2007", "to": "2011"}
-        ]
+          {
+            "role": "Governor of South Dakota",
+            "from": "2019",
+            "to": "2025"
+          },
+          {
+            "role": "U.S. Representative from South Dakota",
+            "from": "2011",
+            "to": "2019"
+          },
+          {
+            "role": "South Dakota State Legislature",
+            "from": "2007",
+            "to": "2011"
+          }
+        ],
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/3840px-Official_Portrait_of_Secretary_Kristi_Noem.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
       }
     ]
   },
@@ -539,15 +933,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographyroberts.aspx"
           },
           "top_issues": [
-            {"name": "Constitutional Originalism", "stance": "Interprets the Constitution according to its original public meaning while considering historical context."},
-            {"name": "Judicial Restraint", "stance": "Emphasizes deference to elected branches and narrowly tailored judicial decisions with limited scope."},
-            {"name": "Federalism", "stance": "Protects state authority and limits federal power expansion in constitutional interpretation."}
+            {
+              "name": "Constitutional Originalism",
+              "stance": "Interprets the Constitution according to its original public meaning while considering historical context."
+            },
+            {
+              "name": "Judicial Restraint",
+              "stance": "Emphasizes deference to elected branches and narrowly tailored judicial decisions with limited scope."
+            },
+            {
+              "name": "Federalism",
+              "stance": "Protects state authority and limits federal power expansion in constitutional interpretation."
+            }
           ],
           "experience": [
-            {"role": "Chief Justice of the United States", "from": "2005", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (D.C. Circuit)", "from": "2003", "to": "2005"},
-            {"role": "Deputy Solicitor General, U.S. Department of Justice", "from": "1989", "to": "1993"},
-            {"role": "Private Practice Attorney, Arnold & Porter", "from": "1986", "to": "2003"}
+            {
+              "role": "Chief Justice of the United States",
+              "from": "2005",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (D.C. Circuit)",
+              "from": "2003",
+              "to": "2005"
+            },
+            {
+              "role": "Deputy Solicitor General, U.S. Department of Justice",
+              "from": "1989",
+              "to": "1993"
+            },
+            {
+              "role": "Private Practice Attorney, Arnold & Porter",
+              "from": "1986",
+              "to": "2003"
+            }
           ]
         },
         {
@@ -565,15 +984,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographythomas.aspx"
           },
           "top_issues": [
-            {"name": "Originalism & Textualism", "stance": "Strictly interprets constitutional text according to its original public meaning at the time of adoption."},
-            {"name": "Individual Liberty", "stance": "Prioritizes constitutional protections for individual freedoms and limits on government regulation."},
-            {"name": "Property Rights", "stance": "Emphasizes strong protection for private property and constitutional takings limitations."}
+            {
+              "name": "Originalism & Textualism",
+              "stance": "Strictly interprets constitutional text according to its original public meaning at the time of adoption."
+            },
+            {
+              "name": "Individual Liberty",
+              "stance": "Prioritizes constitutional protections for individual freedoms and limits on government regulation."
+            },
+            {
+              "name": "Property Rights",
+              "stance": "Emphasizes strong protection for private property and constitutional takings limitations."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "1991", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (D.C. Circuit)", "from": "1990", "to": "1991"},
-            {"role": "Chairman, Equal Employment Opportunity Commission", "from": "1982", "to": "1990"},
-            {"role": "Legislative Aide, U.S. Congress", "from": "1977", "to": "1979"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "1991",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (D.C. Circuit)",
+              "from": "1990",
+              "to": "1991"
+            },
+            {
+              "role": "Chairman, Equal Employment Opportunity Commission",
+              "from": "1982",
+              "to": "1990"
+            },
+            {
+              "role": "Legislative Aide, U.S. Congress",
+              "from": "1977",
+              "to": "1979"
+            }
           ]
         },
         {
@@ -591,15 +1035,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographyalito.aspx"
           },
           "top_issues": [
-            {"name": "Originalism", "stance": "Interprets the Constitution based on its original public meaning rather than evolving standards."},
-            {"name": "Religious Liberty", "stance": "Prioritizes protections for religious expression and conscience rights under the First Amendment."},
-            {"name": "Constitutional Separation of Powers", "stance": "Emphasizes strict adherence to constitutional boundaries between branches and levels of government."}
+            {
+              "name": "Originalism",
+              "stance": "Interprets the Constitution based on its original public meaning rather than evolving standards."
+            },
+            {
+              "name": "Religious Liberty",
+              "stance": "Prioritizes protections for religious expression and conscience rights under the First Amendment."
+            },
+            {
+              "name": "Constitutional Separation of Powers",
+              "stance": "Emphasizes strict adherence to constitutional boundaries between branches and levels of government."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2006", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (Third Circuit)", "from": "1990", "to": "2006"},
-            {"role": "Deputy Solicitor General, U.S. Department of Justice", "from": "1985", "to": "1986"},
-            {"role": "Attorney, U.S. Department of Justice Civil Division", "from": "1981", "to": "1985"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2006",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (Third Circuit)",
+              "from": "1990",
+              "to": "2006"
+            },
+            {
+              "role": "Deputy Solicitor General, U.S. Department of Justice",
+              "from": "1985",
+              "to": "1986"
+            },
+            {
+              "role": "Attorney, U.S. Department of Justice Civil Division",
+              "from": "1981",
+              "to": "1985"
+            }
           ]
         },
         {
@@ -617,15 +1086,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographysotomayor.aspx"
           },
           "top_issues": [
-            {"name": "Criminal Justice", "stance": "Advocates for defendant protections and scrutinizes government power in criminal procedure and Fourth Amendment cases."},
-            {"name": "Civil Rights", "stance": "Emphasizes constitutional protections against discrimination and safeguarding vulnerable populations."},
-            {"name": "Living Constitution", "stance": "Interprets constitutional provisions as evolving to meet contemporary values and social circumstances."}
+            {
+              "name": "Criminal Justice",
+              "stance": "Advocates for defendant protections and scrutinizes government power in criminal procedure and Fourth Amendment cases."
+            },
+            {
+              "name": "Civil Rights",
+              "stance": "Emphasizes constitutional protections against discrimination and safeguarding vulnerable populations."
+            },
+            {
+              "name": "Living Constitution",
+              "stance": "Interprets constitutional provisions as evolving to meet contemporary values and social circumstances."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2009", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (Second Circuit)", "from": "1998", "to": "2009"},
-            {"role": "Judge, New York State Supreme Court", "from": "1992", "to": "1998"},
-            {"role": "Assistant District Attorney, New York County", "from": "1979", "to": "1984"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2009",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (Second Circuit)",
+              "from": "1998",
+              "to": "2009"
+            },
+            {
+              "role": "Judge, New York State Supreme Court",
+              "from": "1992",
+              "to": "1998"
+            },
+            {
+              "role": "Assistant District Attorney, New York County",
+              "from": "1979",
+              "to": "1984"
+            }
           ]
         },
         {
@@ -643,15 +1137,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographykagan.aspx"
           },
           "top_issues": [
-            {"name": "First Amendment & Speech", "stance": "Advocates expansively for First Amendment protections and skepticism of government speech restrictions."},
-            {"name": "Administrative Law", "stance": "Considers statutory purpose and practical consequences in interpreting congressional intent and regulations."},
-            {"name": "Equal Protection", "stance": "Emphasizes dignity and equal treatment in constitutional interpretation of rights and classifications."}
+            {
+              "name": "First Amendment & Speech",
+              "stance": "Advocates expansively for First Amendment protections and skepticism of government speech restrictions."
+            },
+            {
+              "name": "Administrative Law",
+              "stance": "Considers statutory purpose and practical consequences in interpreting congressional intent and regulations."
+            },
+            {
+              "name": "Equal Protection",
+              "stance": "Emphasizes dignity and equal treatment in constitutional interpretation of rights and classifications."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2010", "to": "Present"},
-            {"role": "Solicitor General of the United States", "from": "2009", "to": "2010"},
-            {"role": "Dean, Harvard Law School", "from": "2003", "to": "2009"},
-            {"role": "Professor of Law, Harvard Law School", "from": "1999", "to": "2003"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2010",
+              "to": "Present"
+            },
+            {
+              "role": "Solicitor General of the United States",
+              "from": "2009",
+              "to": "2010"
+            },
+            {
+              "role": "Dean, Harvard Law School",
+              "from": "2003",
+              "to": "2009"
+            },
+            {
+              "role": "Professor of Law, Harvard Law School",
+              "from": "1999",
+              "to": "2003"
+            }
           ]
         },
         {
@@ -669,15 +1188,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographygorsuch.aspx"
           },
           "top_issues": [
-            {"name": "Textualism", "stance": "Focuses on the plain language and text of statutes and constitutional provisions without resort to legislative history."},
-            {"name": "Individual Rights", "stance": "Protects religious liberty, Native American rights, and individual freedoms against government overreach."},
-            {"name": "Separation of Powers", "stance": "Upholds constitutional limits on executive and legislative authority and protects judicial independence."}
+            {
+              "name": "Textualism",
+              "stance": "Focuses on the plain language and text of statutes and constitutional provisions without resort to legislative history."
+            },
+            {
+              "name": "Individual Rights",
+              "stance": "Protects religious liberty, Native American rights, and individual freedoms against government overreach."
+            },
+            {
+              "name": "Separation of Powers",
+              "stance": "Upholds constitutional limits on executive and legislative authority and protects judicial independence."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2017", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (Tenth Circuit)", "from": "2006", "to": "2017"},
-            {"role": "Private Practice Attorney, Boies Schiller Flexner", "from": "2005", "to": "2006"},
-            {"role": "Associate Attorney, Covington & Burling", "from": "1995", "to": "2005"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2017",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (Tenth Circuit)",
+              "from": "2006",
+              "to": "2017"
+            },
+            {
+              "role": "Private Practice Attorney, Boies Schiller Flexner",
+              "from": "2005",
+              "to": "2006"
+            },
+            {
+              "role": "Associate Attorney, Covington & Burling",
+              "from": "1995",
+              "to": "2005"
+            }
           ]
         },
         {
@@ -695,15 +1239,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographykavanaugh.aspx"
           },
           "top_issues": [
-            {"name": "Originalism", "stance": "Interprets the Constitution and statutes based on their original meaning and text."},
-            {"name": "Judicial Restraint", "stance": "Favors narrowly tailored decisions and deference to political branches on policy matters."},
-            {"name": "Administrative Law", "stance": "Emphasizes proper statutory interpretation and limitations on executive agency power and discretion."}
+            {
+              "name": "Originalism",
+              "stance": "Interprets the Constitution and statutes based on their original meaning and text."
+            },
+            {
+              "name": "Judicial Restraint",
+              "stance": "Favors narrowly tailored decisions and deference to political branches on policy matters."
+            },
+            {
+              "name": "Administrative Law",
+              "stance": "Emphasizes proper statutory interpretation and limitations on executive agency power and discretion."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2018", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (D.C. Circuit)", "from": "2006", "to": "2018"},
-            {"role": "Appellate Lawyer, Bushby & Brown", "from": "2004", "to": "2006"},
-            {"role": "White House Associate Counsel", "from": "2003", "to": "2004"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2018",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (D.C. Circuit)",
+              "from": "2006",
+              "to": "2018"
+            },
+            {
+              "role": "Appellate Lawyer, Bushby & Brown",
+              "from": "2004",
+              "to": "2006"
+            },
+            {
+              "role": "White House Associate Counsel",
+              "from": "2003",
+              "to": "2004"
+            }
           ]
         },
         {
@@ -721,15 +1290,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographybarrett.aspx"
           },
           "top_issues": [
-            {"name": "Originalism", "stance": "Interprets constitutional and statutory text according to its original public meaning at the time of adoption."},
-            {"name": "Religious Liberty", "stance": "Provides robust protection for religious practice and conscience objections under constitutional law."},
-            {"name": "Constitutional Structure", "stance": "Emphasizes proper separation of powers and enumerated powers limitations in constitutional interpretation."}
+            {
+              "name": "Originalism",
+              "stance": "Interprets constitutional and statutory text according to its original public meaning at the time of adoption."
+            },
+            {
+              "name": "Religious Liberty",
+              "stance": "Provides robust protection for religious practice and conscience objections under constitutional law."
+            },
+            {
+              "name": "Constitutional Structure",
+              "stance": "Emphasizes proper separation of powers and enumerated powers limitations in constitutional interpretation."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2020", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (Seventh Circuit)", "from": "2017", "to": "2020"},
-            {"role": "Professor of Law, University of Notre Dame", "from": "2010", "to": "2017"},
-            {"role": "Associate, Miller & Chevalier", "from": "2006", "to": "2010"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2020",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (Seventh Circuit)",
+              "from": "2017",
+              "to": "2020"
+            },
+            {
+              "role": "Professor of Law, University of Notre Dame",
+              "from": "2010",
+              "to": "2017"
+            },
+            {
+              "role": "Associate, Miller & Chevalier",
+              "from": "2006",
+              "to": "2010"
+            }
           ]
         },
         {
@@ -747,15 +1341,40 @@
             "official_website": "https://www.supremecourt.gov/about/biographyjackson.aspx"
           },
           "top_issues": [
-            {"name": "Criminal Justice", "stance": "Scrutinizes government power in criminal cases and advocates for defendant protections and fairness."},
-            {"name": "Civil Rights & Equity", "stance": "Emphasizes constitutional guarantees of equal protection and addresses systemic discrimination."},
-            {"name": "Public Interest Law", "stance": "Draws on public defender experience to shape jurisprudence around access to justice and representation."}
+            {
+              "name": "Criminal Justice",
+              "stance": "Scrutinizes government power in criminal cases and advocates for defendant protections and fairness."
+            },
+            {
+              "name": "Civil Rights & Equity",
+              "stance": "Emphasizes constitutional guarantees of equal protection and addresses systemic discrimination."
+            },
+            {
+              "name": "Public Interest Law",
+              "stance": "Draws on public defender experience to shape jurisprudence around access to justice and representation."
+            }
           ],
           "experience": [
-            {"role": "Associate Justice, U.S. Supreme Court", "from": "2022", "to": "Present"},
-            {"role": "Judge, U.S. Court of Appeals (D.C. Circuit)", "from": "2021", "to": "2022"},
-            {"role": "Public Defender, Federal Public Defender's Office (D.C.)", "from": "2014", "to": "2017"},
-            {"role": "Associate, Paul Hastings", "from": "2010", "to": "2014"}
+            {
+              "role": "Associate Justice, U.S. Supreme Court",
+              "from": "2022",
+              "to": "Present"
+            },
+            {
+              "role": "Judge, U.S. Court of Appeals (D.C. Circuit)",
+              "from": "2021",
+              "to": "2022"
+            },
+            {
+              "role": "Public Defender, Federal Public Defender's Office (D.C.)",
+              "from": "2014",
+              "to": "2017"
+            },
+            {
+              "role": "Associate, Paul Hastings",
+              "from": "2010",
+              "to": "2014"
+            }
           ]
         }
       ]
@@ -789,15 +1408,40 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Populism & Working Class", "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."},
-            {"name": "American Manufacturing", "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."},
-            {"name": "Senate Operations", "stance": "Presides over Senate proceedings and breaks tie votes as Vice President."}
+            {
+              "name": "Populism & Working Class",
+              "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."
+            },
+            {
+              "name": "American Manufacturing",
+              "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."
+            },
+            {
+              "name": "Senate Operations",
+              "stance": "Presides over Senate proceedings and breaks tie votes as Vice President."
+            }
           ],
           "experience": [
-            {"role": "Vice President of the United States", "from": "2025", "to": "Present"},
-            {"role": "U.S. Senator from Ohio", "from": "2023", "to": "2025"},
-            {"role": "Venture Capitalist", "from": "2014", "to": "2022"},
-            {"role": "U.S. Marine Corps", "from": "2003", "to": "2007"}
+            {
+              "role": "Vice President of the United States",
+              "from": "2025",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Senator from Ohio",
+              "from": "2023",
+              "to": "2025"
+            },
+            {
+              "role": "Venture Capitalist",
+              "from": "2014",
+              "to": "2022"
+            },
+            {
+              "role": "U.S. Marine Corps",
+              "from": "2003",
+              "to": "2007"
+            }
           ]
         },
         {
@@ -814,14 +1458,35 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Government Accountability", "stance": "Focuses on congressional oversight and investigative authority to hold executive branch accountable."},
-            {"name": "Agricultural Policy", "stance": "Advocates for farm support programs and rural economic development benefiting Iowa agriculture."},
-            {"name": "Fiscal Responsibility", "stance": "Emphasizes budget control and scrutiny of government spending patterns."}
+            {
+              "name": "Government Accountability",
+              "stance": "Focuses on congressional oversight and investigative authority to hold executive branch accountable."
+            },
+            {
+              "name": "Agricultural Policy",
+              "stance": "Advocates for farm support programs and rural economic development benefiting Iowa agriculture."
+            },
+            {
+              "name": "Fiscal Responsibility",
+              "stance": "Emphasizes budget control and scrutiny of government spending patterns."
+            }
           ],
           "experience": [
-            {"role": "U.S. Senator from Iowa", "from": "1981", "to": "Present"},
-            {"role": "Iowa House of Representatives", "from": "1959", "to": "1975"},
-            {"role": "Farmer", "from": "1960", "to": "Present"}
+            {
+              "role": "U.S. Senator from Iowa",
+              "from": "1981",
+              "to": "Present"
+            },
+            {
+              "role": "Iowa House of Representatives",
+              "from": "1959",
+              "to": "1975"
+            },
+            {
+              "role": "Farmer",
+              "from": "1960",
+              "to": "Present"
+            }
           ]
         },
         {
@@ -838,14 +1503,35 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Senate Leadership", "stance": "Manages Senate Republican agenda, schedules legislation, and coordinates party strategy."},
-            {"name": "Agricultural Policy", "stance": "Supports farm programs and rural development initiatives benefiting South Dakota farmers."},
-            {"name": "Fiscal & Trade Policy", "stance": "Advocates for balanced budgets and favorable trade arrangements for American workers."}
+            {
+              "name": "Senate Leadership",
+              "stance": "Manages Senate Republican agenda, schedules legislation, and coordinates party strategy."
+            },
+            {
+              "name": "Agricultural Policy",
+              "stance": "Supports farm programs and rural development initiatives benefiting South Dakota farmers."
+            },
+            {
+              "name": "Fiscal & Trade Policy",
+              "stance": "Advocates for balanced budgets and favorable trade arrangements for American workers."
+            }
           ],
           "experience": [
-            {"role": "U.S. Senator from South Dakota", "from": "2005", "to": "Present"},
-            {"role": "U.S. Representative from South Dakota", "from": "1997", "to": "2005"},
-            {"role": "South Dakota State Legislature", "from": "1991", "to": "1997"}
+            {
+              "role": "U.S. Senator from South Dakota",
+              "from": "2005",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from South Dakota",
+              "from": "1997",
+              "to": "2005"
+            },
+            {
+              "role": "South Dakota State Legislature",
+              "from": "1991",
+              "to": "1997"
+            }
           ]
         },
         {
@@ -862,14 +1548,35 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Energy Independence", "stance": "Advocates for expanded oil, gas, and coal production from domestic sources."},
-            {"name": "Environmental Policy", "stance": "Questions climate regulations and supports energy development over environmental restrictions."},
-            {"name": "Senate Operations", "stance": "Enforces party discipline and manages Republican member voting on key legislation as Whip."}
+            {
+              "name": "Energy Independence",
+              "stance": "Advocates for expanded oil, gas, and coal production from domestic sources."
+            },
+            {
+              "name": "Environmental Policy",
+              "stance": "Questions climate regulations and supports energy development over environmental restrictions."
+            },
+            {
+              "name": "Senate Operations",
+              "stance": "Enforces party discipline and manages Republican member voting on key legislation as Whip."
+            }
           ],
           "experience": [
-            {"role": "U.S. Senator from Wyoming", "from": "2007", "to": "Present"},
-            {"role": "Wyoming House of Representatives", "from": "1991", "to": "2002"},
-            {"role": "Physician", "from": "1981", "to": "2007"}
+            {
+              "role": "U.S. Senator from Wyoming",
+              "from": "2007",
+              "to": "Present"
+            },
+            {
+              "role": "Wyoming House of Representatives",
+              "from": "1991",
+              "to": "2002"
+            },
+            {
+              "role": "Physician",
+              "from": "1981",
+              "to": "2007"
+            }
           ]
         },
         {
@@ -886,14 +1593,35 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Social Programs", "stance": "Advocates for protecting Social Security, Medicare, and other social safety net programs."},
-            {"name": "Democracy & Voting Rights", "stance": "Emphasizes voting rights protections and opposition to voter suppression efforts."},
-            {"name": "Senate Operations", "stance": "Leads Democratic caucus strategy and negotiations with Republican leadership on legislation."}
+            {
+              "name": "Social Programs",
+              "stance": "Advocates for protecting Social Security, Medicare, and other social safety net programs."
+            },
+            {
+              "name": "Democracy & Voting Rights",
+              "stance": "Emphasizes voting rights protections and opposition to voter suppression efforts."
+            },
+            {
+              "name": "Senate Operations",
+              "stance": "Leads Democratic caucus strategy and negotiations with Republican leadership on legislation."
+            }
           ],
           "experience": [
-            {"role": "U.S. Senator from New York", "from": "1999", "to": "Present"},
-            {"role": "U.S. Representative from New York", "from": "1983", "to": "1999"},
-            {"role": "New York State Assembly", "from": "1974", "to": "1983"}
+            {
+              "role": "U.S. Senator from New York",
+              "from": "1999",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from New York",
+              "from": "1983",
+              "to": "1999"
+            },
+            {
+              "role": "New York State Assembly",
+              "from": "1974",
+              "to": "1983"
+            }
           ]
         },
         {
@@ -910,14 +1638,35 @@
             "official_website": "https://www.senate.gov/"
           },
           "top_issues": [
-            {"name": "Immigration Reform", "stance": "Advocates for comprehensive immigration reform including pathways to legal status for undocumented immigrants."},
-            {"name": "Judicial Oversight", "stance": "Emphasizes Senate Judiciary Committee role in confirming judges and scrutinizing executive actions."},
-            {"name": "Senate Operations", "stance": "Enforces Democratic party discipline and manages member support for legislation as Whip."}
+            {
+              "name": "Immigration Reform",
+              "stance": "Advocates for comprehensive immigration reform including pathways to legal status for undocumented immigrants."
+            },
+            {
+              "name": "Judicial Oversight",
+              "stance": "Emphasizes Senate Judiciary Committee role in confirming judges and scrutinizing executive actions."
+            },
+            {
+              "name": "Senate Operations",
+              "stance": "Enforces Democratic party discipline and manages member support for legislation as Whip."
+            }
           ],
           "experience": [
-            {"role": "U.S. Senator from Illinois", "from": "1997", "to": "Present"},
-            {"role": "U.S. Representative from Illinois", "from": "1983", "to": "1997"},
-            {"role": "Illinois State Senate", "from": "1981", "to": "1983"}
+            {
+              "role": "U.S. Senator from Illinois",
+              "from": "1997",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Illinois",
+              "from": "1983",
+              "to": "1997"
+            },
+            {
+              "role": "Illinois State Senate",
+              "from": "1981",
+              "to": "1983"
+            }
           ]
         }
       ]
@@ -946,14 +1695,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "Fiscal Responsibility", "stance": "Emphasizes budget control and reducing federal spending through committee oversight."},
-            {"name": "House Operations", "stance": "Presides over House proceedings and manages Republican legislative agenda and floor schedule."},
-            {"name": "Constitutional Government", "stance": "Advocates for strict constitutional limits on federal power and separation of powers."}
+            {
+              "name": "Fiscal Responsibility",
+              "stance": "Emphasizes budget control and reducing federal spending through committee oversight."
+            },
+            {
+              "name": "House Operations",
+              "stance": "Presides over House proceedings and manages Republican legislative agenda and floor schedule."
+            },
+            {
+              "name": "Constitutional Government",
+              "stance": "Advocates for strict constitutional limits on federal power and separation of powers."
+            }
           ],
           "experience": [
-            {"role": "Speaker of the House", "from": "2023", "to": "Present"},
-            {"role": "U.S. Representative from Louisiana", "from": "2017", "to": "Present"},
-            {"role": "Louisiana State Representative", "from": "2015", "to": "2017"}
+            {
+              "role": "Speaker of the House",
+              "from": "2023",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Louisiana",
+              "from": "2017",
+              "to": "Present"
+            },
+            {
+              "role": "Louisiana State Representative",
+              "from": "2015",
+              "to": "2017"
+            }
           ]
         },
         {
@@ -971,14 +1741,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "House Operations", "stance": "Manages House Republican legislative schedule and coordinates majority party strategy on bills."},
-            {"name": "Economic Growth", "stance": "Supports pro-business policies and tax reductions to stimulate economic expansion."},
-            {"name": "Energy Policy", "stance": "Advocates for domestic energy development and production from Louisiana's energy industry."}
+            {
+              "name": "House Operations",
+              "stance": "Manages House Republican legislative schedule and coordinates majority party strategy on bills."
+            },
+            {
+              "name": "Economic Growth",
+              "stance": "Supports pro-business policies and tax reductions to stimulate economic expansion."
+            },
+            {
+              "name": "Energy Policy",
+              "stance": "Advocates for domestic energy development and production from Louisiana's energy industry."
+            }
           ],
           "experience": [
-            {"role": "Majority Leader, U.S. House of Representatives", "from": "2023", "to": "Present"},
-            {"role": "U.S. Representative from Louisiana", "from": "2008", "to": "Present"},
-            {"role": "Louisiana House of Representatives", "from": "1996", "to": "2008"}
+            {
+              "role": "Majority Leader, U.S. House of Representatives",
+              "from": "2023",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Louisiana",
+              "from": "2008",
+              "to": "Present"
+            },
+            {
+              "role": "Louisiana House of Representatives",
+              "from": "1996",
+              "to": "2008"
+            }
           ]
         },
         {
@@ -996,14 +1787,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "House Operations", "stance": "Enforces Republican party discipline and manages member support for legislation as Whip."},
-            {"name": "Financial Services", "stance": "Supports fintech innovation and cryptocurrency development with appropriate regulatory framework."},
-            {"name": "Fiscal Policy", "stance": "Advocates for budget control and spending reduction measures in federal government."}
+            {
+              "name": "House Operations",
+              "stance": "Enforces Republican party discipline and manages member support for legislation as Whip."
+            },
+            {
+              "name": "Financial Services",
+              "stance": "Supports fintech innovation and cryptocurrency development with appropriate regulatory framework."
+            },
+            {
+              "name": "Fiscal Policy",
+              "stance": "Advocates for budget control and spending reduction measures in federal government."
+            }
           ],
           "experience": [
-            {"role": "Majority Whip, U.S. House of Representatives", "from": "2023", "to": "Present"},
-            {"role": "U.S. Representative from Minnesota", "from": "2015", "to": "Present"},
-            {"role": "Minnesota State House", "from": "2009", "to": "2014"}
+            {
+              "role": "Majority Whip, U.S. House of Representatives",
+              "from": "2023",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Minnesota",
+              "from": "2015",
+              "to": "Present"
+            },
+            {
+              "role": "Minnesota State House",
+              "from": "2009",
+              "to": "2014"
+            }
           ]
         },
         {
@@ -1021,14 +1833,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "Party Communication", "stance": "Represents Republican members' interests and communicates party positions to media and public."},
-            {"name": "Manufacturing & Trade", "stance": "Advocates for manufacturing support in the Great Lakes and opposition to unfair trade practices."},
-            {"name": "Job Creation", "stance": "Emphasizes policies supporting small business growth and employment in Michigan."}
+            {
+              "name": "Party Communication",
+              "stance": "Represents Republican members' interests and communicates party positions to media and public."
+            },
+            {
+              "name": "Manufacturing & Trade",
+              "stance": "Advocates for manufacturing support in the Great Lakes and opposition to unfair trade practices."
+            },
+            {
+              "name": "Job Creation",
+              "stance": "Emphasizes policies supporting small business growth and employment in Michigan."
+            }
           ],
           "experience": [
-            {"role": "Republican Conference Chair, U.S. House", "from": "2025", "to": "Present"},
-            {"role": "U.S. Representative from Michigan", "from": "2021", "to": "Present"},
-            {"role": "Business Executive", "from": "1992", "to": "2020"}
+            {
+              "role": "Republican Conference Chair, U.S. House",
+              "from": "2025",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Michigan",
+              "from": "2021",
+              "to": "Present"
+            },
+            {
+              "role": "Business Executive",
+              "from": "1992",
+              "to": "2020"
+            }
           ]
         },
         {
@@ -1046,14 +1879,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "Democracy & Rights", "stance": "Advocates for voting rights protection, civil rights enforcement, and democratic preservation."},
-            {"name": "Economic Justice", "stance": "Supports policies addressing income inequality and expanding economic opportunities for working people."},
-            {"name": "House Operations", "stance": "Leads Democratic caucus strategy and organizes minority party response to Republican legislation."}
+            {
+              "name": "Democracy & Rights",
+              "stance": "Advocates for voting rights protection, civil rights enforcement, and democratic preservation."
+            },
+            {
+              "name": "Economic Justice",
+              "stance": "Supports policies addressing income inequality and expanding economic opportunities for working people."
+            },
+            {
+              "name": "House Operations",
+              "stance": "Leads Democratic caucus strategy and organizes minority party response to Republican legislation."
+            }
           ],
           "experience": [
-            {"role": "Minority Leader, U.S. House of Representatives", "from": "2023", "to": "Present"},
-            {"role": "U.S. Representative from New York", "from": "2013", "to": "Present"},
-            {"role": "New York State Assembly", "from": "2007", "to": "2013"}
+            {
+              "role": "Minority Leader, U.S. House of Representatives",
+              "from": "2023",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from New York",
+              "from": "2013",
+              "to": "Present"
+            },
+            {
+              "role": "New York State Assembly",
+              "from": "2007",
+              "to": "2013"
+            }
           ]
         },
         {
@@ -1071,14 +1925,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "House Operations", "stance": "Enforces Democratic party discipline and manages member support for party legislation."},
-            {"name": "Climate & Environment", "stance": "Advocates for climate action and clean energy investment to address environmental challenges."},
-            {"name": "Social Policy", "stance": "Supports childcare assistance, family leave, and programs supporting working families."}
+            {
+              "name": "House Operations",
+              "stance": "Enforces Democratic party discipline and manages member support for party legislation."
+            },
+            {
+              "name": "Climate & Environment",
+              "stance": "Advocates for climate action and clean energy investment to address environmental challenges."
+            },
+            {
+              "name": "Social Policy",
+              "stance": "Supports childcare assistance, family leave, and programs supporting working families."
+            }
           ],
           "experience": [
-            {"role": "Minority Whip, U.S. House of Representatives", "from": "2023", "to": "Present"},
-            {"role": "U.S. Representative from Massachusetts", "from": "2013", "to": "Present"},
-            {"role": "Massachusetts State House", "from": "2009", "to": "2013"}
+            {
+              "role": "Minority Whip, U.S. House of Representatives",
+              "from": "2023",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from Massachusetts",
+              "from": "2013",
+              "to": "Present"
+            },
+            {
+              "role": "Massachusetts State House",
+              "from": "2009",
+              "to": "2013"
+            }
           ]
         },
         {
@@ -1096,14 +1971,35 @@
             "official_website": "https://www.house.gov/"
           },
           "top_issues": [
-            {"name": "Party Communication", "stance": "Communicates Democratic party messages and member perspectives to media and public audiences."},
-            {"name": "Immigration & Border Policy", "stance": "Advocates for comprehensive immigration reform with pathways to legal status for undocumented immigrants."},
-            {"name": "Economic Opportunity", "stance": "Supports infrastructure investment and policies expanding economic opportunities for working families."}
+            {
+              "name": "Party Communication",
+              "stance": "Communicates Democratic party messages and member perspectives to media and public audiences."
+            },
+            {
+              "name": "Immigration & Border Policy",
+              "stance": "Advocates for comprehensive immigration reform with pathways to legal status for undocumented immigrants."
+            },
+            {
+              "name": "Economic Opportunity",
+              "stance": "Supports infrastructure investment and policies expanding economic opportunities for working families."
+            }
           ],
           "experience": [
-            {"role": "Democratic Caucus Chair, U.S. House", "from": "2021", "to": "Present"},
-            {"role": "U.S. Representative from California", "from": "2015", "to": "Present"},
-            {"role": "San Bernardino Mayor & City Council", "from": "2010", "to": "2015"}
+            {
+              "role": "Democratic Caucus Chair, U.S. House",
+              "from": "2021",
+              "to": "Present"
+            },
+            {
+              "role": "U.S. Representative from California",
+              "from": "2015",
+              "to": "Present"
+            },
+            {
+              "role": "San Bernardino Mayor & City Council",
+              "from": "2010",
+              "to": "2015"
+            }
           ]
         }
       ]
