@@ -41,6 +41,8 @@ import {
   aiHealth,
   filterComments,
 } from '../lib/pagesApi';
+import IdentityPicker, { PostingAsPicker } from './IdentityPicker';
+import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 
 const REPORT_REASONS = [
   { value: 'spam',           label: 'Spam' },
@@ -552,25 +554,56 @@ function CitizenPollCard({
   const total = inner.total_votes || 0;
   const myChoice = inner.voter_choice_id || null;
   const isClosed = !!inner.closes_at && new Date(inner.closes_at).getTime() <= Date.now();
-  // Phase 2 self-engagement: rep owner of the page this poll lives
-  // on can also vote, in addition to any signed-in citizen.
+  // Phase 2/4c self-engagement: rep / candidate owner of the page
+  // this poll lives on can also vote, in addition to any signed-in
+  // citizen.
   const canVote = (!!citizen || isOwner) && !archived && !isClosed;
   const isMine = !!citizen && author.id === citizen.id;
 
-  const cast = async (optionId) => {
-    // Citizens need an active session before hitting the API; rep
-    // owners are already signed in via the rep cookie.
-    if (!citizen && !isOwner) return onCitizenLoginRequired?.();
-    if (!canVote || busy) return;
+  // Phase 6 multi-identity: same picker pattern as PollCard. Pull
+  // active identities + the per-identity voter_choices for this
+  // poll so we know who's already voted on which option.
+  const activeIdentities = useActiveIdentities({ isOwner });
+  const voterChoicesByIdentity = inner.voter_choices || {};
+  const [votePicker, setVotePicker] = useState(null);
+
+  const fireVote = async (optionId, asIdentity) => {
     setBusy(true);
     setError(null);
-    const { data, error: e } = await voteOnCitizenPoll(poll.id, optionId);
+    const { data, error: e } = await voteOnCitizenPoll(poll.id, optionId, asIdentity);
     setBusy(false);
     if (e) {
       setError(e);
       return;
     }
     if (data && onVoted) onVoted(data);
+  };
+
+  const cast = async (optionId) => {
+    if (!citizen && !isOwner) return onCitizenLoginRequired?.();
+    if (!canVote || busy) return;
+    // Build alreadyActed map for THIS option (per-option dedupe —
+    // a citizen who voted A can still vote B; that switches their
+    // vote, not blocks it).
+    const alreadyActed = {};
+    for (const id of activeIdentities) {
+      if (voterChoicesByIdentity[id.kind] === optionId) alreadyActed[id.kind] = true;
+    }
+    const decision = pickEngagementIdentity({
+      identities: activeIdentities, alreadyActed,
+    });
+    if (decision.none) return onCitizenLoginRequired?.();
+    if (decision.single) return fireVote(optionId, null);
+    if (decision.autoPick) return fireVote(optionId, decision.autoPick);
+    setVotePicker({
+      optionId, mode: decision.mode, identities: decision.showPicker,
+    });
+  };
+
+  const onVotePick = (asIdentity) => {
+    const optionId = votePicker?.optionId;
+    setVotePicker(null);
+    if (optionId != null) fireVote(optionId, asIdentity);
   };
 
   const maxVotes = useMemo(
@@ -685,8 +718,8 @@ function CitizenPollCard({
           const isChoice = myChoice === opt.id;
           const isLeader = total > 0 && (opt.vote_count || 0) === maxVotes && maxVotes > 0;
           return (
+            <div key={opt.id} style={{ position: 'relative' }}>
             <button
-              key={opt.id}
               type="button"
               onClick={() => cast(opt.id)}
               disabled={!canVote || busy}
@@ -751,6 +784,21 @@ function CitizenPollCard({
                 </span>
               </div>
             </button>
+            {/* Phase 6 — IdentityPicker anchors to this option's
+                wrapper when we need disambiguation. */}
+            {votePicker && votePicker.optionId === opt.id && (
+              <IdentityPicker
+                open
+                identities={(votePicker.identities || []).map((id) => ({
+                  ...id,
+                  currentState: voterChoicesByIdentity[id.kind] != null ? 'up' : null,
+                }))}
+                mode={votePicker.mode}
+                onPick={onVotePick}
+                onClose={() => setVotePicker(null)}
+              />
+            )}
+            </div>
           );
         })}
       </div>
@@ -871,6 +919,31 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
   const [replyDraft, setReplyDraft] = useState('');
   const [replyBusy, setReplyBusy] = useState(false);
 
+  // Phase 6 multi-identity — same composer-picker pattern as PostCard.
+  const activeIdentities = useActiveIdentities({ isOwner });
+  const [commentAsIdentity, setCommentAsIdentity] = useState(
+    activeIdentities[0]?.kind || null,
+  );
+  const [replyAsIdentity, setReplyAsIdentity] = useState(
+    activeIdentities[0]?.kind || null,
+  );
+  // Keep defaults synced with the live identity list.
+  useEffect(() => {
+    if (commentAsIdentity && !activeIdentities.some((i) => i.kind === commentAsIdentity)) {
+      setCommentAsIdentity(activeIdentities[0]?.kind || null);
+    }
+    if (replyAsIdentity && !activeIdentities.some((i) => i.kind === replyAsIdentity)) {
+      setReplyAsIdentity(activeIdentities[0]?.kind || null);
+    }
+    if (!commentAsIdentity && activeIdentities[0]) {
+      setCommentAsIdentity(activeIdentities[0].kind);
+    }
+    if (!replyAsIdentity && activeIdentities[0]) {
+      setReplyAsIdentity(activeIdentities[0].kind);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIdentities.map((i) => i.kind).join('|')]);
+
   // AI affordance + report state — same pattern as PostCard. The
   // backend's /api/ai/filter-comments endpoint already supports
   // source='poll', so we only need to pass that flag from the
@@ -912,7 +985,10 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
     if (!draft.trim() || submitting) return;
     setSubmitting(true);
     setError(null);
-    const { data, error: err } = await createCitizenPollComment(pollId, draft.trim());
+    // Phase 6: pass the picker-selected identity through.
+    const { data, error: err } = await createCitizenPollComment(
+      pollId, draft.trim(), null, commentAsIdentity,
+    );
     setSubmitting(false);
     if (err) {
       setError(err);
@@ -925,13 +1001,17 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
   // Phase 3 reply submit. Backend enforces the two-party rule (poll
   // creator OR parent comment's original author); the page-owning
   // rep also qualifies (parity with rep posts).
-  const handleSubmitReply = async (parentId) => {
+  // Phase 6: accepts an explicit as_identity per-comment so the per-
+  // row filtered identity wins over the shared replyAsIdentity state.
+  const handleSubmitReply = async (parentId, asIdentity = null) => {
     if (!citizen && !isOwner) return onCitizenLoginRequired?.();
     const body = (replyDraft || '').trim();
     if (!body || replyBusy) return;
     setReplyBusy(true);
     setError(null);
-    const { data, error: err } = await createCitizenPollComment(pollId, body, parentId);
+    const { data, error: err } = await createCitizenPollComment(
+      pollId, body, parentId, asIdentity || replyAsIdentity,
+    );
     setReplyBusy(false);
     if (err) {
       setError(err);
@@ -1013,6 +1093,15 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
 
       {/* Compose */}
       <form onSubmit={submit} style={{ marginBottom: 12 }}>
+        {/* Phase 6 "Posting as" picker — multi-identity sees a
+            dropdown, single-identity sees a non-interactive pill. */}
+        {activeIdentities.length > 0 && (
+          <PostingAsPicker
+            identities={activeIdentities}
+            value={commentAsIdentity}
+            onChange={setCommentAsIdentity}
+          />
+        )}
         <textarea
           value={draft}
           onChange={(e) => setDraft(e.target.value.slice(0, 1000))}
@@ -1260,19 +1349,31 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
     const canReport = reporterSignedIn && !isMyComment && !reportedCommentIds.has(c.id);
     const reportedThis = reportedCommentIds.has(c.id);
 
-    // Two-party reply gate: page owner or the parent commenter.
-    // Citizen poll creators also qualify — they're the "creator"
-    // for their poll. Only top-level comments get a Reply button.
+    // Two-party reply gate (Phase 3 + 6). Per-identity filter so a
+    // citizen who isn't allowed to reply to THIS comment doesn't
+    // even appear as a choice in the picker. Allowed identities:
+    //   • page-owning rep/candidate: always allowed (post-creator-
+    //     equivalent role for the page).
+    //   • the citizen who authored this poll: allowed on every
+    //     comment (poll-creator path).
+    //   • a citizen who authored THIS top-level comment: allowed
+    //     on their own subthread (parent-author path).
     const isTopLevel = depth === 0;
-    const viewerIsPollCreator = (
-      citizen != null && pollAuthorId != null && citizen.id === pollAuthorId
-    );
-    const viewerIsParentAuthor = (
-      (citizen && c.citizen_id != null && c.citizen_id === citizen.id) ||
-      (isOwner && (c.author_kind === 'rep' || c.author_kind === 'candidate'))
-    );
-    const canReplyHere = isTopLevel && !archived && (
-      isOwner || viewerIsPollCreator || viewerIsParentAuthor
+    const replyAllowedIdentities = (isTopLevel && !archived)
+      ? activeIdentities.filter((id) => {
+          if ((id.kind === 'rep' || id.kind === 'candidate') && isOwner) return true;
+          if (id.kind === 'citizen' && citizen) {
+            if (pollAuthorId != null && citizen.id === pollAuthorId) return true;
+            if (c.citizen_id != null && c.citizen_id === citizen.id) return true;
+          }
+          return false;
+        })
+      : [];
+    const canReplyHere = replyAllowedIdentities.length > 0;
+    const effectiveReplyAs = (
+      replyAllowedIdentities.find((id) => id.kind === replyAsIdentity)?.kind
+      || replyAllowedIdentities[0]?.kind
+      || null
     );
 
     return (
@@ -1396,14 +1497,20 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
               background: 'var(--cl-bg)',
             }}
           >
+            {/* Phase 6 "Posting as" picker, gated to the per-comment
+                replyAllowedIdentities — a citizen who can't reply to
+                THIS comment doesn't appear as a choice. */}
+            {replyAllowedIdentities.length > 0 && (
+              <PostingAsPicker
+                identities={replyAllowedIdentities}
+                value={effectiveReplyAs}
+                onChange={setReplyAsIdentity}
+              />
+            )}
             <textarea
               value={replyDraft}
               onChange={(e) => setReplyDraft(e.target.value.slice(0, 1000))}
-              placeholder={
-                isOwner ? 'Reply as the page owner…'
-                  : viewerIsPollCreator ? 'Reply as the poll author…'
-                  : 'Reply to your comment…'
-              }
+              placeholder="Reply…"
               rows={2}
               disabled={replyBusy}
               style={{
@@ -1433,7 +1540,7 @@ function CommentsThread({ pollId, pollAuthorId, citizen, archived, isOwner, onCi
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleSubmitReply(c.id)}
+                  onClick={() => handleSubmitReply(c.id, effectiveReplyAs)}
                   disabled={replyBusy || !replyDraft.trim()}
                   style={{
                     padding: '5px 12px', border: 'none',

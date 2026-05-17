@@ -351,15 +351,15 @@ export default function PostCard({
   // Reaction handler for a single comment. Reuses the toggle/flip
   // semantics from post reactions — the backend knows what to do
   // based on the caller's existing reaction.
-  const handleCommentReact = async (commentId, kind) => {
-    // Phase 2 self-engagement: rep can react to comments on their
-    // own page (including comments on their own posts) — backend
-    // _resolve_engager routes to the rep identity via session cookie.
-    if (!citizen && !isOwner) {
-      onCitizenLoginRequired?.();
-      return;
-    }
-    const { data, error } = await reactToComment(commentId, kind);
+  // Phase 6 comment-reaction picker state. Keyed by commentId so a
+  // user with two open pickers (clicking 👍 on different comments)
+  // would get the right one — but we only render one at a time
+  // since each comment row has its own picker positioned relative
+  // to its own button.
+  const [commentReactPicker, setCommentReactPicker] = useState(null);
+
+  const fireCommentReaction = async (commentId, kind, asIdentity) => {
+    const { data, error } = await reactToComment(commentId, kind, asIdentity);
     if (error) {
       setCommentErr(error);
       return;
@@ -374,11 +374,51 @@ export default function PostCard({
                   up_count: data.up_count,
                   down_count: data.down_count,
                   my_reaction: data.my_reaction,
+                  my_reactions: data.my_reactions || c.my_reactions,
                 }
               : c
           )
         : prev
     );
+  };
+
+  const handleCommentReact = async (commentId, kind, perCommentReactions) => {
+    if (activeIdentities.length === 0) {
+      onCitizenLoginRequired?.();
+      return;
+    }
+    // Same alreadyActed logic as post-level reactions: an identity
+    // counts as already-acted only when they have the SAME kind.
+    // A different kind should be allowed to flip the reaction.
+    const myReactionsByIdentity = perCommentReactions || {};
+    const alreadyActed = {};
+    for (const id of activeIdentities) {
+      if (myReactionsByIdentity[id.kind] === kind) alreadyActed[id.kind] = true;
+    }
+    const decision = pickEngagementIdentity({
+      identities: activeIdentities, alreadyActed,
+    });
+    if (decision.single) {
+      await fireCommentReaction(commentId, kind, null);
+      return;
+    }
+    if (decision.autoPick) {
+      await fireCommentReaction(commentId, kind, decision.autoPick);
+      return;
+    }
+    setCommentReactPicker({
+      commentId, kind,
+      mode: decision.mode,
+      identities: decision.showPicker.map((id) => ({
+        ...id, currentState: myReactionsByIdentity[id.kind] || null,
+      })),
+    });
+  };
+
+  const onCommentReactionPick = (asIdentity) => {
+    const pending = commentReactPicker;
+    setCommentReactPicker(null);
+    if (pending) fireCommentReaction(pending.commentId, pending.kind, asIdentity);
   };
 
   const handleSubmitComment = async () => {
@@ -1255,26 +1295,57 @@ export default function PostCard({
                       marginTop: '6px', gap: '6px', flexWrap: 'wrap',
                     }}
                   >
-                    <CommentReactionButton
-                      kind="up"
-                      count={c.up_count || 0}
-                      active={c.my_reaction === 'up'}
-                      onClick={() => handleCommentReact(c.id, 'up')}
-                      title={
-                        (citizen || isOwner) ? 'Like'
-                          : 'Sign in as a citizen to like'
-                      }
-                    />
-                    <CommentReactionButton
-                      kind="down"
-                      count={c.down_count || 0}
-                      active={c.my_reaction === 'down'}
-                      onClick={() => handleCommentReact(c.id, 'down')}
-                      title={
-                        (citizen || isOwner) ? 'Dislike'
-                          : 'Sign in as a citizen to dislike'
-                      }
-                    />
+                    {/* Phase 6: comment-level reactions get the same
+                        IdentityPicker treatment as post-level. Each
+                        comment owns its own picker state slot via
+                        commentReactPicker.commentId; we render the
+                        picker only when this row's id matches. */}
+                    <div style={{ position: 'relative', display: 'inline-flex' }}>
+                      <CommentReactionButton
+                        kind="up"
+                        count={c.up_count || 0}
+                        active={c.my_reaction === 'up'}
+                        onClick={() => handleCommentReact(c.id, 'up', c.my_reactions)}
+                        title={
+                          (citizen || isOwner) ? 'Like'
+                            : 'Sign in as a citizen to like'
+                        }
+                      />
+                      {commentReactPicker
+                        && commentReactPicker.commentId === c.id
+                        && commentReactPicker.kind === 'up' && (
+                        <IdentityPicker
+                          open
+                          identities={commentReactPicker.identities}
+                          mode={commentReactPicker.mode}
+                          onPick={onCommentReactionPick}
+                          onClose={() => setCommentReactPicker(null)}
+                        />
+                      )}
+                    </div>
+                    <div style={{ position: 'relative', display: 'inline-flex' }}>
+                      <CommentReactionButton
+                        kind="down"
+                        count={c.down_count || 0}
+                        active={c.my_reaction === 'down'}
+                        onClick={() => handleCommentReact(c.id, 'down', c.my_reactions)}
+                        title={
+                          (citizen || isOwner) ? 'Dislike'
+                            : 'Sign in as a citizen to dislike'
+                        }
+                      />
+                      {commentReactPicker
+                        && commentReactPicker.commentId === c.id
+                        && commentReactPicker.kind === 'down' && (
+                        <IdentityPicker
+                          open
+                          identities={commentReactPicker.identities}
+                          mode={commentReactPicker.mode}
+                          onPick={onCommentReactionPick}
+                          onClose={() => setCommentReactPicker(null)}
+                        />
+                      )}
+                    </div>
                     <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginLeft: '4px' }}>
                       {locLabel || c.scope_state || ''}
                     </div>
