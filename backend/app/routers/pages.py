@@ -980,12 +980,17 @@ def vote_on_poll(
     # Phase 6 multi-identity: honor the IdentityPicker's explicit
     # choice when sent. Narrows the candidate identities before
     # _resolve_engager picks one.
-    me_citizen, me_rep, me_candidate = _apply_as_identity_filter(
+    # Phase 6 fix — narrow which identity ACTS based on the picker's
+    # explicit choice, but DON'T overwrite the originals. The summary
+    # helpers below need ALL signed-in identities so my_reactions /
+    # voter_choices populate every slot the caller is signed in to,
+    # not just the one that fired this particular click.
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter(
         me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
-        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=official_id,
     )
 
@@ -1059,10 +1064,31 @@ def vote_on_poll(
         db.refresh(opt)
 
     owner = _load_owner(db, official_id)
+    # Phase 6 — build per-identity voter_choices across ALL signed-in
+    # identities (not just the one that fired this vote) so the
+    # frontend's picker can render ✓ markers on every identity that
+    # has voted. Same single-sweep pattern as _post_to_read.
+    per_identity_votes: dict = {}
+    if me_citizen is not None:
+        per_identity_votes["citizen"] = None
+    if me_rep is not None:
+        per_identity_votes["rep"] = None
+    if me_candidate is not None:
+        per_identity_votes["candidate"] = None
+    for opt in (poll.options or []):
+        for v in (opt.votes or []):
+            if me_citizen is not None and v.citizen_id == me_citizen.id:
+                per_identity_votes["citizen"] = v.option_id
+            if me_rep is not None and getattr(v, "author_rep_id", None) == me_rep.id:
+                per_identity_votes["rep"] = v.option_id
+            if me_candidate is not None and getattr(v, "author_candidate_id", None) == me_candidate.id:
+                per_identity_votes["candidate"] = v.option_id
+
     return _poll_to_read(
         poll, owner=owner,
         active_scope=(poll.default_visibility_scope or "country"),
         voter_choice_id=option.id,
+        voter_choices=per_identity_votes,
     )
 
 
@@ -1089,12 +1115,17 @@ def react_to_post(
     """
     post = _load_post_or_404(db, post_id)
     # Phase 6 multi-identity: narrow by as_identity when sent.
-    me_citizen, me_rep, me_candidate = _apply_as_identity_filter(
+    # Phase 6 fix — narrow which identity ACTS based on the picker's
+    # explicit choice, but DON'T overwrite the originals. The summary
+    # helpers below need ALL signed-in identities so my_reactions /
+    # voter_choices populate every slot the caller is signed in to,
+    # not just the one that fired this particular click.
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter(
         me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
-        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
 
@@ -1142,7 +1173,12 @@ def react_to_post(
     # Reload + recompute summary for response.
     db.refresh(post)
     return _reaction_summary_for_post(
-        post, me_citizen=citizen, me_rep=rep, me_candidate=candidate,
+        # Phase 6: pass ORIGINAL identities so my_reactions reports
+        # every signed-in identity's state, not just the one that
+        # fired this click. citizen/rep/candidate above are the
+        # acting tuple; me_* are the originals carried in from the
+        # request dependencies.
+        post, me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )
 
 
@@ -1172,7 +1208,12 @@ def clear_reaction(
         db.commit()
         db.refresh(post)
     return _reaction_summary_for_post(
-        post, me_citizen=citizen, me_rep=rep, me_candidate=candidate,
+        # Phase 6: pass ORIGINAL identities so my_reactions reports
+        # every signed-in identity's state, not just the one that
+        # fired this click. citizen/rep/candidate above are the
+        # acting tuple; me_* are the originals carried in from the
+        # request dependencies.
+        post, me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )
 
 
@@ -1418,12 +1459,17 @@ def react_to_comment(
     if post is None or post.deleted_at is not None:
         raise HTTPException(status_code=404, detail="Comment not found")
     # Phase 6 multi-identity: narrow by as_identity when sent.
-    me_citizen, me_rep, me_candidate = _apply_as_identity_filter(
+    # Phase 6 fix — narrow which identity ACTS based on the picker's
+    # explicit choice, but DON'T overwrite the originals. The summary
+    # helpers below need ALL signed-in identities so my_reactions /
+    # voter_choices populate every slot the caller is signed in to,
+    # not just the one that fired this particular click.
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter(
         me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
-        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
 
@@ -1461,7 +1507,10 @@ def react_to_comment(
     db.commit()
     db.refresh(comment)
     return _comment_reaction_summary(
-        comment, me_citizen=citizen, me_rep=rep, me_candidate=candidate,
+        # Phase 6: ORIGINAL identities — see react_to_post for the
+        # full rationale. my_reactions needs every signed-in slot
+        # populated, not just the acting one.
+        comment, me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )
 
 
@@ -1496,7 +1545,10 @@ def clear_comment_reaction(
         db.commit()
         db.refresh(comment)
     return _comment_reaction_summary(
-        comment, me_citizen=citizen, me_rep=rep, me_candidate=candidate,
+        # Phase 6: ORIGINAL identities — see react_to_post for the
+        # full rationale. my_reactions needs every signed-in slot
+        # populated, not just the acting one.
+        comment, me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )
 
 
@@ -1526,12 +1578,17 @@ def create_comment(
     post = _load_post_or_404(db, post_id)
     # Phase 6 multi-identity: narrow by as_identity when sent (from
     # the "Posting as: ▾" picker above the composer).
-    me_citizen, me_rep, me_candidate = _apply_as_identity_filter(
+    # Phase 6 fix — narrow which identity ACTS based on the picker's
+    # explicit choice, but DON'T overwrite the originals. The summary
+    # helpers below need ALL signed-in identities so my_reactions /
+    # voter_choices populate every slot the caller is signed in to,
+    # not just the one that fired this particular click.
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter(
         me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
-        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
 
@@ -1647,7 +1704,8 @@ def create_comment(
     # and it gives the UI a consistent shape so it can drop the row
     # into the list without special-casing "freshly-created" comments.
     return _comment_to_read(
-        comment, me_citizen=citizen, me_rep=rep, me_candidate=candidate,
+        # Phase 6: ORIGINAL identities — see react_to_post comment.
+        comment, me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )
 
 

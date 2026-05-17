@@ -481,26 +481,28 @@ def vote_on_citizen_poll(
         raise HTTPException(status_code=400, detail="Invalid option for this poll")
 
     # Phase 6 multi-identity: honor the IdentityPicker's explicit
-    # choice when sent. The filter zeroes out the un-picked
-    # identities so the resolution below picks the right one.
+    # choice for the ACT, but DON'T overwrite the originals — the
+    # response serializer below needs every signed-in identity so
+    # voter_choices reports all of them, not just the acting one.
+    acting_citizen, acting_rep, acting_candidate = me_citizen, me_rep, me_candidate
     if payload.as_identity == "citizen":
-        me_rep = me_candidate = None
+        acting_rep = acting_candidate = None
     elif payload.as_identity == "rep":
-        me_citizen = me_candidate = None
+        acting_citizen = acting_candidate = None
     elif payload.as_identity == "candidate":
-        me_citizen = me_rep = None
+        acting_citizen = acting_rep = None
 
     # Identity resolution: rep / candidate wins if they own the
     # target page; otherwise the citizen path applies. Citizen polls
     # live on a specific page (poll.target_official_id) so we know
     # which ownership to check.
     rep = candidate = citizen = None
-    if me_rep is not None and me_rep.official_id == poll.target_official_id:
-        rep = me_rep
-    elif me_candidate is not None and me_candidate.candidate_id == poll.target_official_id:
-        candidate = me_candidate
-    elif me_citizen is not None:
-        citizen = me_citizen
+    if acting_rep is not None and acting_rep.official_id == poll.target_official_id:
+        rep = acting_rep
+    elif acting_candidate is not None and acting_candidate.candidate_id == poll.target_official_id:
+        candidate = acting_candidate
+    elif acting_citizen is not None:
+        citizen = acting_citizen
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -542,7 +544,13 @@ def vote_on_citizen_poll(
     for opt in poll.options:
         db.refresh(opt)
 
-    return serialize_citizen_poll(db, poll, citizen, rep, me_candidate=candidate)
+    # Phase 6: pass the ORIGINAL identities so voter_choices reports
+    # every signed-in identity's vote state, not just the one that
+    # fired this click. citizen / rep / candidate above are the
+    # acting tuple; me_* are the originals from the request deps.
+    return serialize_citizen_poll(
+        db, poll, me_citizen, me_rep, me_candidate=me_candidate,
+    )
 
 
 @router.post("/citizen-polls/{poll_id}/close", response_model=CitizenPollRead)
@@ -706,26 +714,30 @@ def create_citizen_poll_comment(
         raise HTTPException(status_code=404, detail="Poll not found")
 
     # Phase 6 multi-identity: honor the explicit as_identity choice
-    # from the "Posting as: ▾" picker. Other identities get
-    # zeroed out before resolution.
+    # for the ACT, but keep the originals intact for response shape.
+    # PollComment response only carries the author identity, not
+    # multi-identity state, so the practical impact here is smaller
+    # than for vote endpoints — but the pattern is consistent with
+    # the rest of Phase 6.
+    acting_citizen, acting_rep, acting_candidate = me_citizen, me_rep, me_candidate
     if payload.as_identity == "citizen":
-        me_rep = me_candidate = None
+        acting_rep = acting_candidate = None
     elif payload.as_identity == "rep":
-        me_citizen = me_candidate = None
+        acting_citizen = acting_candidate = None
     elif payload.as_identity == "candidate":
-        me_citizen = me_rep = None
+        acting_citizen = acting_rep = None
 
     # Identity resolution — same triple-priority as the citizen-poll
     # vote endpoint above. Citizen poll knows its
     # target_official_id; rep / candidate wins only if they own
     # that page.
     rep = candidate = citizen = None
-    if me_rep is not None and me_rep.official_id == poll.target_official_id:
-        rep = me_rep
-    elif me_candidate is not None and me_candidate.candidate_id == poll.target_official_id:
-        candidate = me_candidate
-    elif me_citizen is not None:
-        citizen = me_citizen
+    if acting_rep is not None and acting_rep.official_id == poll.target_official_id:
+        rep = acting_rep
+    elif acting_candidate is not None and acting_candidate.candidate_id == poll.target_official_id:
+        candidate = acting_candidate
+    elif acting_citizen is not None:
+        citizen = acting_citizen
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
