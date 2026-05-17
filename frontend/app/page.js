@@ -605,14 +605,48 @@ export default function Home() {
         navStateRestoredRef.current = true;
         return;
       }
-      // 1. UI tweaks — apply immediately, no side-effects.
-      // mapHeightPx is intentionally NOT restored: its initial useState
-      // is 0 (which means "fully collapsed") and the recompute effect
-      // up top sets a sensible 40%-of-viewport default on mount. If we
-      // restore a stale 0 here AFTER recompute already set the
-      // default, the map ends up closed on reload.
+
+      // Distinguish *how* the user got here so we know whether to
+      // restore the deep navigation context. Typing the bare URL or
+      // clicking a bookmark / external link is a "take me home"
+      // signal — it would be confusing if the app silently jumped
+      // them to the last rep page they had open. Reloading mid-
+      // session (or coming back via the browser's history) does
+      // mean "I want my context back", so we DO restore there.
+      //
+      // performance.getEntriesByType('navigation')[0].type:
+      //   'navigate'      — typed URL, bookmark, external link, etc.
+      //   'reload'        — F5 / Cmd-R / browser reload button
+      //   'back_forward'  — back/forward button (history traversal)
+      //   'prerender'     — speculative prerender (rare)
+      //
+      // We treat only 'reload' as "restore deep state" — every other
+      // entry point is a fresh navigation that should respect the
+      // empty URL the user actually typed.
+      let navType = 'navigate';
+      try {
+        navType = (performance.getEntriesByType('navigation')[0] || {}).type || 'navigate';
+      } catch { /* older browsers — assume navigate */ }
+      const restoreDeepState = navType === 'reload';
+
+      // 1. UI tweaks — apply immediately, no side-effects. These
+      // are preferences, not navigation, so they restore regardless
+      // of how the user got here. mapHeightPx is intentionally NOT
+      // restored: its initial useState is 0 (= "fully collapsed")
+      // and the recompute effect up top sets a sensible 40%-of-
+      // viewport default on mount. If we restore a stale 0 here
+      // AFTER recompute already set the default, the map ends up
+      // closed on reload.
       if (typeof saved.panelWidth === 'number') setPanelWidth(saved.panelWidth);
       if (saved.sidePanelTab) setSidePanelTab(saved.sidePanelTab);
+
+      // Stop here for non-reload navigations — the user typed the
+      // URL fresh (or used a bookmark / external link), so the deep
+      // navigation context shouldn't auto-restore.
+      if (!restoreDeepState) {
+        navStateRestoredRef.current = true;
+        return;
+      }
 
       // 2. Selected state — fires the state-data fetch synchronously.
       //    handleStateSelect also clears activeDistrict + selectedMember,
