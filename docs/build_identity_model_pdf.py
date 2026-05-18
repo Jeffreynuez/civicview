@@ -116,25 +116,56 @@ def bullet(s, styles):
 
 
 def build_table(rows, styles, col_widths=None, header=True):
-    """Render a simple table with the brand accent header row."""
-    table = Table(rows, colWidths=col_widths, repeatRows=1 if header else 0)
+    """Render a simple table with the brand accent header row.
+
+    Every cell's text content is wrapped in a Paragraph before the table
+    is built so long strings wrap cleanly within their column instead
+    of bleeding into adjacent cells. Earlier versions passed plain
+    strings, which ReportLab renders without wrapping — anything wider
+    than its column would visibly overflow on top of the next cell's
+    text. Now any pre-built Paragraph (or other flowable) the caller
+    passes through is left alone, while bare strings get auto-wrapped
+    with the appropriate header/body style.
+    """
+    cell_body = ParagraphStyle(
+        "TableCellBody",
+        fontName="Helvetica", fontSize=9, leading=12,
+        textColor=CL_TEXT, spaceAfter=0, spaceBefore=0,
+    )
+    cell_header = ParagraphStyle(
+        "TableCellHeader",
+        fontName="Helvetica-Bold", fontSize=9, leading=12,
+        textColor=white, spaceAfter=0, spaceBefore=0,
+    )
+
+    wrapped_rows = []
+    for r_idx, row in enumerate(rows):
+        wrapped_row = []
+        for cell in row:
+            if isinstance(cell, str):
+                style_for_cell = cell_header if (header and r_idx == 0) else cell_body
+                wrapped_row.append(Paragraph(cell, style_for_cell))
+            else:
+                # Caller passed a Paragraph or other flowable directly;
+                # respect their choice.
+                wrapped_row.append(cell)
+        wrapped_rows.append(wrapped_row)
+
+    table = Table(wrapped_rows, colWidths=col_widths, repeatRows=1 if header else 0)
     style = [
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("ALIGN", (0, 0), (-1, -1), "LEFT"),
-        ("FONT", (0, 0), (-1, -1), "Helvetica", 9, 12),
+        # Font + text color now live on the cell Paragraphs, not the
+        # TableStyle — applying both would just be redundant.
         ("LEFTPADDING", (0, 0), (-1, -1), 8),
         ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
         ("ROWBACKGROUNDS", (0, 1), (-1, -1), [white, CL_BG_SOFT]),
         ("GRID", (0, 0), (-1, -1), 0.5, CL_BORDER),
     ]
     if header:
-        style.extend([
-            ("BACKGROUND", (0, 0), (-1, 0), CL_PRIMARY),
-            ("TEXTCOLOR", (0, 0), (-1, 0), white),
-            ("FONT", (0, 0), (-1, 0), "Helvetica-Bold", 9, 12),
-        ])
+        style.append(("BACKGROUND", (0, 0), (-1, 0), CL_PRIMARY))
     table.setStyle(TableStyle(style))
     return table
 
@@ -271,7 +302,13 @@ def build_story(styles):
     ]
     story.append(build_table(
         cap_rows, styles,
-        col_widths=[2.0 * inch, 1.0 * inch, 1.1 * inch, 1.2 * inch, 1.4 * inch],
+        # Action column trimmed slightly so Candidate + Representative
+        # get extra room — those two columns carry the longest cell
+        # text ("If post creator (own page)", "Own content on own
+        # page"), and previously they were the narrowest, which caused
+        # the worst overlap. Sum stays at 6.8" to fit the LETTER usable
+        # width (8.5" − 0.75" margins × 2 = 7.0").
+        col_widths=[1.7 * inch, 0.95 * inch, 1.05 * inch, 1.45 * inch, 1.65 * inch],
     ))
     story.append(Spacer(1, 0.05 * inch))
     story.append(Paragraph(
