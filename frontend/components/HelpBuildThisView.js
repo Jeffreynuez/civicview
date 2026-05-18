@@ -59,12 +59,14 @@ const FUND_GOAL = 25000;
 // the whole point of going transparent.
 // ────────────────────────────────────────────────────────────────────
 
-// What's shipped — 30 items. AI integration, moderation, appeals,
+// What's shipped — 34 items. AI integration, moderation, appeals,
 // /polls feed, self-engagement, reply threading, candidate slice
 // (auth + composer + dashboard + engagement parity), bill / vote /
-// EO AI summaries, official photos, identity-model spec — all in
-// the live shipped list. Volume itself is a trust signal — don't
-// truncate.
+// EO AI summaries, official photos, identity-model spec, plus
+// recent Phase 5 / 6 work (in-app notifications, multi-identity
+// engagement picker, events as a tab, candidate profile redesign,
+// congress photo backfill, feedback triage pipeline). Volume
+// itself is a trust signal — don't truncate.
 const SHIPPED = [
   ['Interactive U.S. map', 'All 50 states + 435 congressional districts, click to drill in.'],
   ['Federal officials directory', 'President, VP, Cabinet, SCOTUS, House + Senate leadership, all 535 Congress members with profile photos.'],
@@ -94,13 +96,19 @@ const SHIPPED = [
   ['Light-only theme', 'Respects each component’s design; OS dark mode handled at the chrome level.'],
   ['Two waitlists', 'Address verification + "Claim this page" for real reps.'],
   ['Identity model spec', 'Source-of-truth PDF in docs/identity-model.pdf covering the three-tier engagement ladder, verification gates, lifecycle transitions, and the election-win promotion path.'],
+  ['Phase 5 polish — in-app notifications, image uploads, long-post collapse', 'Notification bell + dropdown menu with cross-identity inbox; reps and candidates can attach images to posts; posts longer than ~400 characters collapse to a preview with an "Expand" pill in the corner; body is now optional so poll-only and image-only posts are supported.'],
+  ['Multi-identity engagement picker (Phase 6)', 'Users signed into multiple accounts (citizen + rep, or all three) see a small picker when reacting, voting, or commenting so they choose which identity engages. Per-identity ✓ markers on reactions and votes, edge-aware popover positioning, reply threading enforced per the two-party rule.'],
+  ['Events as a tab on rep + candidate pages', 'Upcoming events moved out of the bottom-of-feed position into a top tab strip alongside Feed (and Dashboard for owners), so events stay one tap from the hero regardless of post volume on mobile.'],
+  ['Candidate profile centered hero + collapse toggle', 'Candidates now have the same centered-hero layout + chevron-collapse treatment as reps, with their signature dark color preserved so the two profile types stay visually distinct at a glance.'],
+  ['Congress photo coverage backfill', 'Wikipedia-sourced portraits added for 91 sitting members of Congress missing from the community photo mirror — entire new 119th Congress class + mid-cycle appointees (Ashley Moody, John James, Mike Lawler, Nick Begich III, and ~87 others) now render with real photos instead of initials.'],
+  ['Feedback triage pipeline', 'In-product feedback collected via a Google Form → linked Sheet, with an instant Apps Script acknowledgement to submitters who included an email, plus a weekly Monday digest that classifies submissions (bug / feature / correction / praise / antagonistic / irrelevant) and drafts personalized reply emails for review.'],
 ];
 
 const IN_PROGRESS = [
   ['Filling out the remaining 49 states', 'Profile photos, issues, experience, state legislators, local-rep data — content work, ongoing.'],
-  ['In-app notifications', 'Web-push + in-app feed for replies, page-owner posts, poll-close alerts. Phase 6+ once the candidate slice fully bakes in.'],
-  ['Election-win promotion flow', 'Winning candidate → rep account transition (promote-in-place per the identity-model spec), defeated-rep archive to read-only public.'],
-  ['Feedback inbox', 'Next item on the build list.'],
+  ['In-product "Send feedback" surface', 'The feedback form + triage pipeline are live (see Shipped), but the form itself isn\'t yet linked from inside the app. Adding a discoverable Send-feedback button in the navbar / settings menu.'],
+  ['Email deliverability hardening', 'Adding SPF / DKIM / DMARC records on civicview.app so acknowledgement and notification emails clear Yahoo / Gmail / Outlook spam filters reliably. Setup happens in the Workspace admin console + DNS provider.'],
+  ['Election-win promotion flow (UI)', 'Backend endpoint shipped (admin can promote a winning candidate to a rep account and archive the defeated incumbent). UI surface for triggering the promotion + a confirmation flow still pending.'],
   ['Crowdfunding launch + legal structure', 'Forming an LLC, evaluating 501(c)(3).'],
 ];
 
