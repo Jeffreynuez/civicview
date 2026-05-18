@@ -67,12 +67,33 @@ the API behind Cloudflare changes that for $0.
      like SQL injection attempts, XSS payloads in URLs, known-malicious user
      agents).
 
-7. **Cloudflare** → Security → WAF → Rate limiting rules → Create rule:
-   - Name: "Admin endpoint protection"
-   - Match: `(http.request.uri.path contains "/api/admin/")`
-   - Action: Block when rate exceeds **10 requests per minute per IP**.
-   - This is your highest-value endpoint to rate-limit; brute-forcing admin auth
-     would be the obvious first attack.
+7. **Cloudflare** → Security → WAF → Rate limiting rules → Create rule.
+   The form has six sections; fill them out as follows:
+
+   - **Rule name**: `Admin endpoint protection`
+   - **When incoming requests match…**:
+     - Field: `URI Path`
+     - Operator: `contains`
+     - Value: `/api/admin/`
+     - (Equivalent if you click "Edit expression":
+       `(http.request.uri.path contains "/api/admin/")`)
+   - **With the same characteristics…**: leave as `IP` (default) — rate-limits
+     per source IP, so one bad actor doesn't lock out other users.
+   - **When rate exceeds…**:
+     - Requests: `10`
+     - Period: `1 minute`
+   - **Then take action…**:
+     - Choose action: `Block`
+   - **For duration…**: change from the `10 seconds` default to `1 minute` (or
+     `10 minutes` if you want to be more aggressive). The default 10s is too
+     short — an attacker just waits it out and resumes.
+
+   Click **Deploy**. Test by hitting any `/api/admin/*` endpoint 11 times in
+   60 seconds from one IP — the 11th request should return 429 (from
+   Cloudflare, not your backend).
+
+   This is your highest-value endpoint to rate-limit; brute-forcing admin auth
+   would be the obvious first attack.
 
 8. **Update the frontend** to point at `api.civicview.app` instead of the
    Render-hosted URL:
