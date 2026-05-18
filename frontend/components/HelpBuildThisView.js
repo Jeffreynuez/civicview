@@ -36,13 +36,21 @@ import './HelpBuildThisView.css';
 const CROWDFUND_URL = 'https://www.gofundme.com/civicview';
 const CROWDFUND_LIVE = false;
 
-// Goal — sum of one-time costs + first year of recurring (mid-range
-// for ranged costs). Rounded for storytelling.
-//   One-time:   2,400 + 1,050 +     6 =  3,456
-//   Year-1 mo: (500 + 100 + 350 + 15 + 20) * 12 = 11,820
-//   + domain   $15/yr
-//   ≈ 15,291  → goal $15,300
-const FUND_GOAL = 15300;
+// Goal — line-item costs + operating buffer that bridges us to
+// recurring subscription revenue. The 5-year financial model (in
+// docs/civicview_financial_model.xlsx) shows cumulative break-even
+// at the end of Year 3, once we hit ~50K users and ~1,500 paying
+// subscribers at the modeled 3% conversion rate. The buffer covers
+// ~6 months of Year-2 operations + LLC formation + a modest launch
+// push so we don't run out of runway while subscription revenue
+// ramps from $1.8K in Y1 to $90K in Y3.
+//   One-time line items:    2,400 + 1,050 + 6           =  3,456
+//   Year-1 recurring (12mo): (500 + 100 + 350 + 15 + 20)*12 + 15 = 11,835
+//                                                       = 15,291
+//   + Year-2 runway buffer (6 months)                   ≈  7,000
+//   + LLC formation + legal + launch outreach           ≈  2,700
+//                                                       ≈ 25,000
+const FUND_GOAL = 25000;
 
 // ────────────────────────────────────────────────────────────────────
 // CONTENT — single source of truth. Keep entries concise; long-form
@@ -166,6 +174,29 @@ const FUNDING_RECURRING = [
   },
 ];
 
+// Buffer cluster — bridges the gap between Year-1 line items and the
+// point at which subscription revenue covers recurring costs. The
+// 5-year financial model projects cumulative break-even at the end
+// of Year 3; raising buffer here means we don't have to do an
+// emergency top-up campaign in Y2 when paid-user count is still
+// climbing toward break-even.
+const FUNDING_BUFFER = [
+  {
+    title: 'Year-2 operating runway (6 months)',
+    cost: '$7,000',
+    costSuffix: 'one-time buffer',
+    body: 'Subscription revenue at the modeled 3% conversion is $1.8K in Y1 and $18K in Y2 — not enough to fully cover the growing ID.me verification bill + Render Pro tier yet. This 6-month cushion buys us through the ramp until paid users cross break-even (~end of Y2 at 300 paying subscribers).',
+    source: '5-year financial model — see docs/civicview_financial_model.xlsx',
+  },
+  {
+    title: 'LLC formation + legal + launch outreach',
+    cost: '$2,700',
+    costSuffix: 'one-time',
+    body: 'State LLC filing fee, registered agent, lawyer review of terms of service + privacy policy (required before holding subscription funds or signing the ID.me Relying Party contract), plus a modest civic-tech press / event budget for launch.',
+    source: 'Stripe Atlas / LegalZoom comparable pricing + civic-tech event fee schedules',
+  },
+];
+
 // Roadmap — aspirational features, no cost estimates yet. Dropped
 // the standalone "AI integration" entry because AI shipped (it now
 // lives in SHIPPED).
@@ -198,6 +229,7 @@ const ROADMAP = [
 
 const ONETIME_TOTAL_LABEL = '$3,456 total one-time';
 const RECURRING_TOTAL_LABEL = '~$11,800 / first year';
+const BUFFER_TOTAL_LABEL = '$9,700 operating buffer';
 const LARGEST_PENDING = 'ProPublica · $500/mo';
 const LARGEST_PENDING_SUB = 'unlocks all-50-states bill data';
 
@@ -277,7 +309,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
               modifier="hb-section--money"
               eyebrow="Where the money goes"
               title="Blocked on funding"
-              count={FUNDING_ONETIME.length + FUNDING_RECURRING.length}
+              count={FUNDING_ONETIME.length + FUNDING_RECURRING.length + FUNDING_BUFFER.length}
               isOpen={open.has('money')}
               onToggle={() => toggle('money')}
               sub="Every line below is an exact cost with a citation. Backers can verify the numbers themselves; we'd rather over-disclose than handwave."
@@ -286,8 +318,9 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
                 <span className="hb-money-intro__icon"><InfoIcon size={16} /></span>
                 <div>
                   <strong>How to read this.</strong> Each row is one thing we can&rsquo;t ship without funding,
-                  paired with the actual contract or pricing page. Grouped into one-time costs (paid once)
-                  and recurring (paid every month or year, on top).
+                  paired with the actual contract or pricing page. Grouped into one-time costs (paid once),
+                  recurring (paid every month or year, on top), and an operating buffer that bridges us to
+                  subscription-revenue break-even per our 5-year financial model.
                 </div>
               </div>
               <MoneyCluster
@@ -301,6 +334,12 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
                 sub="ongoing infra + data licenses"
                 items={FUNDING_RECURRING}
                 total={RECURRING_TOTAL_LABEL}
+              />
+              <MoneyCluster
+                title="Operating buffer"
+                sub="bridges us to subscription break-even"
+                items={FUNDING_BUFFER}
+                total={BUFFER_TOTAL_LABEL}
               />
             </Section>
 
@@ -372,7 +411,7 @@ function Hero() {
         </div>
 
         <div className="hb-hero__assurance">
-          <span>One-time + year-1 recurring</span>
+          <span>Costs + buffer to break-even</span>
           <span className="hb-hero__dot" />
           <span>Every line cited</span>
           <span className="hb-hero__dot" />
