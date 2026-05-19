@@ -4,7 +4,8 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useMemo, useState } from 'react';
-import { loginCitizen, signupDemoCitizen } from '../lib/citizenAuth';
+import { completeLoginCitizen, loginCitizen, signupDemoCitizen } from '../lib/citizenAuth';
+import LoginChallengeStep from './LoginChallengeStep';
 import { submitSuspensionAppeal } from '../lib/pagesApi';
 import CivicLensLogo from './brand/CivicLensLogo';
 import { ModalShell, Button } from './ui';
@@ -129,6 +130,11 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [appealBusy, setAppealBusy] = useState(false);
   const [appealResult, setAppealResult] = useState(null);
 
+  // 2FA challenge state (Task #62 Phase 3). When the backend returns
+  // two_factor_required, we swap the modal body to LoginChallengeStep
+  // until the code verifies.
+  const [twoFactorChallenge, setTwoFactorChallenge] = useState(null);
+
   useEffect(() => {
     if (open) {
       setEmail('');
@@ -151,6 +157,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       setAppealRationale('');
       setAppealBusy(false);
       setAppealResult(null);
+      setTwoFactorChallenge(null);
     }
   }, [open]);
 
@@ -182,22 +189,36 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     if (!canSubmit) return;
     setBusy(true);
     setErr(null);
-    const { ok, error, status } = await loginCitizen(email.trim(), password);
+    const result = await loginCitizen(email.trim(), password);
     setBusy(false);
-    if (ok) {
+    if (result.ok) {
       if (onSuccess) onSuccess();
+      return;
+    }
+    // 2FA gate (Task #62 Phase 3). Password verified — swap to the
+    // code-challenge step.
+    if (result.twoFactorRequired && result.challengeToken) {
+      setTwoFactorChallenge(result.challengeToken);
       return;
     }
     // 403 = account exists, password matched, but the account is
     // suspended. Switch the modal into appeal mode so the user can
     // file recourse without bouncing through a separate flow.
-    if (status === 403) {
-      setSuspendedMessage(error || 'This account has been suspended.');
+    if (result.status === 403) {
+      setSuspendedMessage(result.error || 'This account has been suspended.');
       return;
     }
     // Anything else is a generic auth failure — combined message so
     // we don't leak whether the email exists.
-    setErr(error || "Email or password didn't match. Try again or reset it.");
+    setErr(result.error || "Email or password didn't match. Try again or reset it.");
+  };
+
+  const handleTwoFactorVerify = async (code) => {
+    const result = await completeLoginCitizen(twoFactorChallenge, code);
+    if (result.ok) {
+      if (onSuccess) onSuccess();
+    }
+    return result;
   };
 
   const submitAppeal = async () => {
@@ -327,6 +348,19 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         their activity on a verified account.
       </div>
 
+      {/* 2FA challenge step — replaces the email+password form once
+          password has verified and the backend handed back a
+          challenge token. Restart kicks us back to email+password. */}
+      {twoFactorChallenge && (
+        <LoginChallengeStep
+          identityLabel="citizen"
+          onVerify={handleTwoFactorVerify}
+          onCancel={() => { setTwoFactorChallenge(null); setErr(null); }}
+        />
+      )}
+
+      {!twoFactorChallenge && <>
+
       {/* Email */}
       <label htmlFor="citizen-login-email" style={FIELD_LABEL}>
         Email
@@ -397,6 +431,8 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
           {err}
         </div>
       )}
+
+      </>}
 
       {/* Suspension-appeal flow. Triggered by a 403 from /api/citizen-
           auth/login — meaning credentials matched but the account is

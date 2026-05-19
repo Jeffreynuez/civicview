@@ -68,6 +68,15 @@ export async function hydrateCandidateAuth() {
 
 export async function loginCandidate(email, password) {
   const { data, error, status } = await loginCandidateApi(email, password);
+  // 2FA-required branch (Task #62 Phase 3). See lib/auth.js for
+  // matching rep flow.
+  if (data?.two_factor_required && data?.challenge_token) {
+    return {
+      ok: false,
+      twoFactorRequired: true,
+      challengeToken: data.challenge_token,
+    };
+  }
   if (data && data.candidate) {
     currentCandidate = data.candidate;
     loaded = true;
@@ -77,6 +86,23 @@ export async function loginCandidate(email, password) {
   // Surface the backend message verbatim so suspended / pending
   // accounts get a meaningful explanation instead of "Login failed".
   return { ok: false, error: error || 'Login failed', status };
+}
+
+/**
+ * Finish a 2FA-gated candidate login. Mirror of completeLoginRep.
+ */
+export async function completeLoginCandidate(challengeToken, code) {
+  const { verifyLoginChallenge } = await import('./twoFactorApi');
+  const { setStoredCandidateToken } = await import('./pagesApi');
+  const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
+  if (data && data.candidate) {
+    if (data.candidate_token) setStoredCandidateToken(data.candidate_token);
+    currentCandidate = data.candidate;
+    loaded = true;
+    notify();
+    return { ok: true };
+  }
+  return { ok: false, error: error || 'Code verification failed', status };
 }
 
 export async function logoutCandidate() {

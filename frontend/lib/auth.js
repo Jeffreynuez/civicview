@@ -58,6 +58,16 @@ export async function hydrateAuth() {
 
 export async function loginRep(email, password) {
   const { data, error, status } = await apiLogin(email, password);
+  // 2FA-required branch (Task #62 Phase 3). Backend returned a
+  // challenge token instead of a session — caller must collect the
+  // 6-digit code and call completeLoginRep() to finish.
+  if (data?.two_factor_required && data?.challenge_token) {
+    return {
+      ok: false,
+      twoFactorRequired: true,
+      challengeToken: data.challenge_token,
+    };
+  }
   if (data && data.rep) {
     currentMe = data.rep;
     loaded = true;
@@ -65,6 +75,28 @@ export async function loginRep(email, password) {
     return { ok: true };
   }
   return { ok: false, error: error || 'Login failed', status };
+}
+
+/**
+ * Finish a 2FA-gated rep login. Called from the rep login modal
+ * after the user enters their TOTP / recovery code. On success
+ * stores the bearer token, updates currentMe, and notifies
+ * subscribers — same end state as a successful plain loginRep().
+ */
+export async function completeLoginRep(challengeToken, code) {
+  // Lazy-import to keep the auth module's import graph minimal —
+  // twoFactorApi is only needed when a user actually has 2FA.
+  const { verifyLoginChallenge } = await import('./twoFactorApi');
+  const { setStoredRepToken } = await import('./pagesApi');
+  const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
+  if (data && data.rep) {
+    if (data.session_token) setStoredRepToken(data.session_token);
+    currentMe = data.rep;
+    loaded = true;
+    notify();
+    return { ok: true };
+  }
+  return { ok: false, error: error || 'Code verification failed', status };
 }
 
 export async function logoutRep() {

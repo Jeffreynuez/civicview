@@ -67,6 +67,15 @@ export async function hydrateCitizenAuth() {
 
 export async function loginCitizen(email, password) {
   const { data, error, status } = await loginCitizenApi(email, password);
+  // 2FA-required branch (Task #62 Phase 3). See lib/auth.js for the
+  // matching rep flow; same shape on the citizen side.
+  if (data?.two_factor_required && data?.challenge_token) {
+    return {
+      ok: false,
+      twoFactorRequired: true,
+      challengeToken: data.challenge_token,
+    };
+  }
   if (data && data.citizen) {
     currentCitizen = data.citizen;
     loaded = true;
@@ -74,6 +83,23 @@ export async function loginCitizen(email, password) {
     return { ok: true };
   }
   return { ok: false, error: error || 'Login failed', status };
+}
+
+/**
+ * Finish a 2FA-gated citizen login. Mirror of completeLoginRep.
+ */
+export async function completeLoginCitizen(challengeToken, code) {
+  const { verifyLoginChallenge } = await import('./twoFactorApi');
+  const { setStoredCitizenToken } = await import('./pagesApi');
+  const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
+  if (data && data.citizen) {
+    if (data.citizen_token) setStoredCitizenToken(data.citizen_token);
+    currentCitizen = data.citizen;
+    loaded = true;
+    notify();
+    return { ok: true };
+  }
+  return { ok: false, error: error || 'Code verification failed', status };
 }
 
 export async function logoutCitizen() {

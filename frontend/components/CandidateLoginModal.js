@@ -4,7 +4,8 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useState } from 'react';
-import { loginCandidate } from '../lib/candidateAuth';
+import { completeLoginCandidate, loginCandidate } from '../lib/candidateAuth';
+import LoginChallengeStep from './LoginChallengeStep';
 import CivicLensLogo from './brand/CivicLensLogo';
 import { ModalShell, Button } from './ui';
 
@@ -63,6 +64,9 @@ export default function CandidateLoginModal({
   const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+  // 2FA challenge state (Task #62 Phase 3). See RepLoginModal for the
+  // matching state on the rep side.
+  const [twoFactorChallenge, setTwoFactorChallenge] = useState(null);
 
   // Reset every field on open so a reopened modal doesn't carry
   // stale state from a previous attempt (especially the error message
@@ -75,6 +79,7 @@ export default function CandidateLoginModal({
       setShowPw(false);
       setErr(null);
       setBusy(false);
+      setTwoFactorChallenge(null);
     }
   }, [open, initialEmail]);
 
@@ -86,16 +91,31 @@ export default function CandidateLoginModal({
     if (!canSubmit) return;
     setBusy(true);
     setErr(null);
-    const { ok, error } = await loginCandidate(email.trim(), password);
+    const result = await loginCandidate(email.trim(), password);
     setBusy(false);
-    if (ok) {
+    if (result.ok) {
       if (onSuccess) onSuccess();
       else if (onClose) onClose();
       return;
     }
+    // 2FA gate (Task #62 Phase 3). Password verified — swap to the
+    // code-challenge step.
+    if (result.twoFactorRequired && result.challengeToken) {
+      setTwoFactorChallenge(result.challengeToken);
+      return;
+    }
     // The backend already formats user-friendly messages for the 403
     // paths (suspended + pending-approval). Render them verbatim.
-    setErr(error || 'Sign-in failed. Try again.');
+    setErr(result.error || 'Sign-in failed. Try again.');
+  };
+
+  const handleTwoFactorVerify = async (code) => {
+    const result = await completeLoginCandidate(twoFactorChallenge, code);
+    if (result.ok) {
+      if (onSuccess) onSuccess();
+      else if (onClose) onClose();
+    }
+    return result;
   };
 
   const onKeyDown = (e) => {
@@ -132,6 +152,18 @@ export default function CandidateLoginModal({
           </div>
         </div>
 
+        {/* 2FA challenge step — replaces the email+password form once
+            password has verified and the backend handed back a
+            challenge token. Restart kicks us back to email+password. */}
+        {twoFactorChallenge && (
+          <LoginChallengeStep
+            identityLabel="candidate"
+            onVerify={handleTwoFactorVerify}
+            onCancel={() => { setTwoFactorChallenge(null); setErr(null); }}
+          />
+        )}
+
+        {!twoFactorChallenge && (<>
         <div>
           <label htmlFor="cand-email" style={FIELD_LABEL}>Email</label>
           <input
@@ -232,6 +264,7 @@ export default function CandidateLoginModal({
           browser can hold all three sessions but only one is active at
           a time.
         </div>
+        </>)}
       </div>
     </ModalShell>
   );

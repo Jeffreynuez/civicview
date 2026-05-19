@@ -84,6 +84,20 @@ def login(
             ),
         )
 
+    # 2FA gate (Task #62 Phase 3). If this account has 2FA enrolled,
+    # pause the login here — DON'T set a cookie or mint a session
+    # token yet. Hand back a short-lived challenge token that the
+    # client passes to /api/2fa/login-challenge along with the user's
+    # 6-digit TOTP / recovery code. This makes a stolen-password
+    # attack insufficient on its own — the attacker also needs the
+    # second factor to complete the session.
+    if rep.totp_enabled_at is not None:
+        from app.routers.two_factor import issue_login_challenge
+        return LoginResponse(
+            two_factor_required=True,
+            challenge_token=issue_login_challenge("rep", rep.id),
+        )
+
     set_session_cookie(response, rep.id)
     rep.last_login_at = datetime.utcnow()
     db.commit()

@@ -4,7 +4,8 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useState } from 'react';
-import { loginRep } from '../lib/auth';
+import { completeLoginRep, loginRep } from '../lib/auth';
+import LoginChallengeStep from './LoginChallengeStep';
 import { submitSuspensionAppeal } from '../lib/pagesApi';
 import CivicLensLogo from './brand/CivicLensLogo';
 import { ModalShell, Button } from './ui';
@@ -104,6 +105,11 @@ export default function RepLoginModal({
   const [appealBusy, setAppealBusy] = useState(false);
   const [appealResult, setAppealResult] = useState(null);
 
+  // 2FA challenge state (Task #62 Phase 3). When the backend returns
+  // two_factor_required, we stash the challenge token here and swap
+  // the modal body to LoginChallengeStep until the code verifies.
+  const [twoFactorChallenge, setTwoFactorChallenge] = useState(null);
+
   useEffect(() => {
     if (open) {
       setEmail(initialEmail || '');
@@ -118,6 +124,7 @@ export default function RepLoginModal({
       setAppealRationale('');
       setAppealBusy(false);
       setAppealResult(null);
+      setTwoFactorChallenge(null);
     }
   }, [open, initialEmail]);
 
@@ -129,22 +136,40 @@ export default function RepLoginModal({
     if (!canSubmit) return;
     setBusy(true);
     setErr(null);
-    const { ok, error, status } = await loginRep(email.trim(), password);
+    const result = await loginRep(email.trim(), password);
     setBusy(false);
-    if (ok) {
+    if (result.ok) {
       if (onSuccess) onSuccess();
       return;
     }
-    if (status === 403) {
+    // 2FA gate (Task #62 Phase 3). Password verified but the account
+    // has 2FA enrolled — swap to the code-challenge step. Don't show
+    // an error; the LoginChallengeStep banner explains what's
+    // happening.
+    if (result.twoFactorRequired && result.challengeToken) {
+      setTwoFactorChallenge(result.challengeToken);
+      return;
+    }
+    if (result.status === 403) {
       // 403 = creds matched, account is suspended. Switch into the
       // appeal flow so the rep can file recourse without bouncing
       // through a separate page.
-      setSuspendedMessage(error || 'This account has been suspended.');
+      setSuspendedMessage(result.error || 'This account has been suspended.');
       return;
     }
     // Security note: do NOT reveal whether the email exists.
     // Combined message keeps enumeration attacks at bay.
-    setErr(error || "Email or password didn't match. Try again or reset it.");
+    setErr(result.error || "Email or password didn't match. Try again or reset it.");
+  };
+
+  // Code-verify handler passed to LoginChallengeStep. Returns the
+  // {ok, error} shape that LoginChallengeStep surfaces inline.
+  const handleTwoFactorVerify = async (code) => {
+    const result = await completeLoginRep(twoFactorChallenge, code);
+    if (result.ok) {
+      if (onSuccess) onSuccess();
+    }
+    return result;
   };
 
   const submitAppeal = async () => {
@@ -278,7 +303,18 @@ export default function RepLoginModal({
         </>
       )}
 
-      {REP_LOGIN_LIVE && (<>
+      {/* 2FA challenge step — replaces the email+password form once
+          the user's password verified and the backend returned a
+          challenge token. Restart kicks us back to email+password. */}
+      {REP_LOGIN_LIVE && twoFactorChallenge && (
+        <LoginChallengeStep
+          identityLabel="rep"
+          onVerify={handleTwoFactorVerify}
+          onCancel={() => { setTwoFactorChallenge(null); setErr(null); }}
+        />
+      )}
+
+      {REP_LOGIN_LIVE && !twoFactorChallenge && (<>
 
       {/* Email */}
       <label htmlFor="rep-login-email" style={FIELD_LABEL}>

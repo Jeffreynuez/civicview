@@ -201,6 +201,14 @@ def login(
             ),
         )
 
+    # 2FA gate (Task #62 Phase 3). See auth.py for the full rationale.
+    if citizen.totp_enabled_at is not None:
+        from app.routers.two_factor import issue_login_challenge
+        return CitizenLoginResponse(
+            two_factor_required=True,
+            challenge_token=issue_login_challenge("citizen", citizen.id),
+        )
+
     set_citizen_cookie(response, citizen.id)
     citizen.last_login_at = datetime.utcnow()
     db.commit()

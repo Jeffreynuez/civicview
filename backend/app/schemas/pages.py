@@ -33,15 +33,39 @@ class MeResponse(BaseModel):
 
 
 class LoginResponse(BaseModel):
-    rep: MeResponse
-    csrf_token: str
+    """Response from POST /api/auth/login.
+
+    Two possible shapes depending on whether 2FA is enrolled on the
+    account whose password just verified:
+
+      • Plain login (no 2FA): rep + csrf_token + session_token are
+        populated; two_factor_required is False.
+      • 2FA required: two_factor_required is True + challenge_token
+        is populated; rep / csrf_token / session_token are None. The
+        client then calls POST /api/2fa/login-challenge with the
+        challenge_token + the user's TOTP/recovery code to finish
+        the login.
+
+    The session cookie is also conditional — only set on the plain
+    login path. The 2FA path returns no cookie until the code
+    verifies, so a stolen-password attacker can't complete the
+    session without also producing a valid code.
+    """
+    rep: Optional[MeResponse] = None
+    csrf_token: Optional[str] = None
     # Bearer token mirror of the httpOnly session cookie. Returned so a
     # frontend running in an environment that blocks cross-site cookies
     # (mobile browsers, Safari ITP) can store it and forward it as
     # `Authorization: Bearer <session_token>` on subsequent requests.
     # The cookie is also set on the response; whichever auth path works
     # in the caller's environment, the backend accepts.
-    session_token: str
+    session_token: Optional[str] = None
+    # 2FA challenge fields — populated only when the password verified
+    # and the account has totp_enabled_at set. The challenge_token is
+    # a short-lived bearer the client passes back to /api/2fa/login-
+    # challenge along with the user's 6-digit TOTP or recovery code.
+    two_factor_required: bool = False
+    challenge_token: Optional[str] = None
 
 
 # ── Poll options / polls ──────────────────────────────────────────────
@@ -467,12 +491,18 @@ class CitizenMeResponse(BaseModel):
 
 
 class CitizenLoginResponse(BaseModel):
-    citizen: CitizenMeResponse
+    """Response shape mirrors LoginResponse. See LoginResponse docs
+    for the two-shape rationale (plain login vs. 2FA challenge)."""
+    citizen: Optional[CitizenMeResponse] = None
     # Bearer token mirror of the cl_citizen cookie. See LoginResponse
     # for the rationale — same cross-site-cookie workaround for the
     # citizen auth path. The frontend stores this and forwards it as
     # `X-Citizen-Token: <token>` on requests that need citizen auth.
-    citizen_token: str
+    citizen_token: Optional[str] = None
+    # 2FA challenge fields — populated when the citizen account has
+    # totp_enabled_at set (rare today; citizens enroll voluntarily).
+    two_factor_required: bool = False
+    challenge_token: Optional[str] = None
 
 
 # ── Candidate auth ───────────────────────────────────────────────────
@@ -503,13 +533,19 @@ class CandidateMeResponse(BaseModel):
 
 
 class CandidateLoginResponse(BaseModel):
-    candidate: CandidateMeResponse
+    """Response shape mirrors LoginResponse. See LoginResponse docs
+    for the two-shape rationale (plain login vs. 2FA challenge)."""
+    candidate: Optional[CandidateMeResponse] = None
     # Bearer token mirror of cl_candidate cookie. The frontend
     # forwards this as `X-Candidate-Token: <token>` on requests that
     # need candidate auth — the third leg of the three-identity
     # header bundle (rep / citizen / candidate) used in mobile
     # browsers that block cross-site cookies.
-    candidate_token: str
+    candidate_token: Optional[str] = None
+    # 2FA challenge fields — populated when the candidate account has
+    # totp_enabled_at set.
+    two_factor_required: bool = False
+    challenge_token: Optional[str] = None
 
 
 # ── Citizen waitlist ──────────────────────────────────────────────────

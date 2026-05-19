@@ -182,6 +182,19 @@ _PENDING_TTL = 10 * 60  # seconds — 10 minutes to scan QR + enter code
 _pending_lock = threading.Lock()
 _pending: dict[str, dict] = {}  # token → {secret, account_kind, account_id, created_at}
 
+# Login-challenge token store. The three auth routers' login endpoints
+# call _challenge_put when password verification succeeds AND the
+# account has totp_enabled_at set; that hands back a short-lived
+# bearer token the client passes to /api/2fa/login-challenge with
+# the user's 6-digit code. The token is single-use (popped on
+# consumption) and TTL is shorter than enrollment because the user
+# is expected to enter their code within ~30 seconds of submitting
+# their password — anything longer suggests they walked away and
+# we should make them re-prove the password to mint a new challenge.
+_LOGIN_CHALLENGE_TTL = 5 * 60  # seconds — 5 minutes for password→code
+_login_challenge_lock = threading.Lock()
+_login_challenges: dict[str, dict] = {}  # token → {account_kind, account_id, created_at}
+
 
 def _pending_put(account_kind: AccountKind, account_id: int, secret: str) -> str:
     """Stash a pending enrollment, return the bearer token."""
@@ -492,3 +505,173 @@ def admin_reset_2fa(
         kind, account_id, getattr(account, "email", "?"), had_2fa, deleted,
     )
     return {"reset": True, "had_2fa": had_2fa, "recovery_codes_wiped": deleted}
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Login-challenge helpers + endpoint (Task #62 Phase 3).
+#
+# Called from the three auth routers (auth.py / auth_citizen.py /
+# auth_candidate.py) when password verification succeeds AND the
+# account has 2FA enrolled. Issues a short-lived challenge token that
+# the client passes back to /api/2fa/login-challenge along with the
+# user's 6-digit code; on success the actual session cookie + bearer
+# token are minted by the router.
+# ─────────────────────────────────────────────────────────────────────
+
+
+def issue_login_challenge(account_kind: AccountKind, account_id: int) -> str:
+    """Mint a challenge token + stash the account binding. Returns the
+    opaque urlsafe-base64 token the client should send back to
+    /api/2fa/login-challenge. Token is single-use (popped on
+    consumption) and expires after _LOGIN_CHALLENGE_TTL seconds."""
+    token = _secrets.token_urlsafe(32)
+    with _login_challenge_lock:
+        _login_challenges[token] = {
+            "account_kind": account_kind,
+            "account_id": account_id,
+            "created_at": _time.time(),
+        }
+        # Opportunistic cleanup of expired entries.
+        cutoff = _time.time() - _LOGIN_CHALLENGE_TTL
+        stale = [t for t, e in _login_challenges.items() if e["created_at"] < cutoff]
+        for t in stale:
+            _login_challenges.pop(t, None)
+    return token
+
+
+def _consume_login_challenge(token: str) -> Optional[Tuple[AccountKind, int]]:
+    """Look up + pop a challenge token. Returns the (kind, id) tuple
+    on success, None if missing or expired. Single-use by design —
+    a token can't be replayed."""
+    if not token:
+        return None
+    with _login_challenge_lock:
+        entry = _login_challenges.pop(token, None)
+    if entry is None:
+        return None
+    if entry["created_at"] < _time.time() - _LOGIN_CHALLENGE_TTL:
+        return None
+    return entry["account_kind"], entry["account_id"]
+
+
+class LoginChallengeRequest(BaseModel):
+    model_config = ConfigDict(from_attributes=False)
+    challenge_token: str = Field(..., description="From the login response when two_factor_required is True.")
+    code: str = Field(..., description="6-digit TOTP code OR a recovery code.")
+
+
+@router.post("/api/2fa/login-challenge")
+def login_challenge(
+    body: LoginChallengeRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+) -> dict:
+    """Finish a login that paused for 2FA.
+
+    Mints the session cookie + bearer token that the regular login
+    endpoint would have issued, in the same response shape the
+    matching login endpoint returns when 2FA is not enrolled. The
+    client treats this response as if it had received it from the
+    initial login call — same `rep` / `citizen` / `candidate` payload
+    plus the matching token.
+
+    Doesn't require an existing session — the challenge_token is
+    self-contained proof that someone passed password verification
+    within the last _LOGIN_CHALLENGE_TTL seconds for that specific
+    account. The token is single-use; if the code mismatches, the
+    user must restart the login (re-enter password) to mint a fresh
+    challenge.
+    """
+    pair = _consume_login_challenge(body.challenge_token)
+    if pair is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Challenge token expired or invalid. Please log in again.",
+        )
+    account_kind, account_id = pair
+
+    model_by_kind = {
+        "citizen": CitizenAccount,
+        "rep": RepAccount,
+        "candidate": CandidateAccount,
+    }
+    Model = model_by_kind[account_kind]
+    account = db.get(Model, account_id)
+    if account is None or not getattr(account, "is_active", True):
+        # The account was deleted or deactivated between password
+        # verify and code submission. Bail without leaking which.
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Account is no longer available. Please log in again.",
+        )
+    if getattr(account, "suspended_at", None) is not None:
+        # Same paranoia: the account might have been suspended
+        # between the two halves of the login.
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=(
+                "This account has been suspended. "
+                "Contact civicview@civicview.app if you think this is in error."
+            ),
+        )
+
+    if not _verify_totp_or_recovery(db, account_kind, account, body.code):
+        # Challenge token was already popped; user must restart the
+        # full login flow (re-enter password) to mint a fresh one.
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Code didn't verify. Please log in again to retry.",
+        )
+
+    # Mint the session for this account kind. We import the auth
+    # helpers lazily here to avoid a circular import — the auth
+    # routers import this module to call issue_login_challenge.
+    from datetime import datetime as _dt
+    from fastapi.responses import JSONResponse
+
+    if account_kind == "rep":
+        from app.auth import issue_session_token, set_session_cookie
+        from app.schemas.pages import MeResponse
+        token = issue_session_token(account.id)
+        account.last_login_at = _dt.utcnow()
+        db.commit()
+        db.refresh(account)
+        payload = {
+            "rep": MeResponse.model_validate(account).model_dump(mode="json"),
+            "session_token": token,
+            "csrf_token": _secrets.token_urlsafe(16),
+            "two_factor_required": False,
+        }
+        resp = JSONResponse(content=payload)
+        set_session_cookie(resp, account.id)
+        return resp
+    if account_kind == "citizen":
+        from app.auth_citizen import issue_citizen_token, set_citizen_cookie
+        from app.schemas.pages import CitizenMeResponse
+        token = issue_citizen_token(account.id)
+        account.last_login_at = _dt.utcnow()
+        db.commit()
+        db.refresh(account)
+        payload = {
+            "citizen": CitizenMeResponse.model_validate(account).model_dump(mode="json"),
+            "citizen_token": token,
+            "two_factor_required": False,
+        }
+        resp = JSONResponse(content=payload)
+        set_citizen_cookie(resp, account.id)
+        return resp
+    # candidate
+    from app.auth_candidate import issue_candidate_token, set_candidate_cookie
+    from app.schemas.pages import CandidateMeResponse
+    token = issue_candidate_token(account.id)
+    account.last_login_at = _dt.utcnow()
+    db.commit()
+    db.refresh(account)
+    payload = {
+        "candidate": CandidateMeResponse.model_validate(account).model_dump(mode="json"),
+        "candidate_token": token,
+        "two_factor_required": False,
+    }
+    resp = JSONResponse(content=payload)
+    set_candidate_cookie(resp, account.id)
+    return resp

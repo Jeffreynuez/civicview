@@ -138,3 +138,25 @@ export function adminResetTwoFactor(kind, accountId) {
     { method: 'POST' },
   );
 }
+
+/**
+ * POST /api/2fa/login-challenge — completes a login that paused for
+ * 2FA. Called after the matching login endpoint returns
+ * `{ two_factor_required: true, challenge_token }`. On success the
+ * server sets the appropriate session cookie AND returns the same
+ * user payload the original login would have, plus the matching
+ * bearer token (session_token / citizen_token / candidate_token).
+ *
+ * The challenge token is single-use server-side — if the code
+ * verification fails, the user must restart the entire login flow
+ * (re-enter password) to mint a fresh challenge. We don't expose a
+ * retry-without-replay flow because the security model assumes a
+ * stolen-password attacker should be forced to re-prove the
+ * password between each code attempt.
+ */
+export function verifyLoginChallenge(challengeToken, code) {
+  return tfaRequest('/api/2fa/login-challenge', {
+    method: 'POST',
+    body: { challenge_token: challengeToken, code },
+  });
+}
