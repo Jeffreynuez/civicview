@@ -23,6 +23,8 @@ import {
 import { getAllTrackedOfficials } from '../lib/trackedOfficials';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent } from '../lib/pagesApi';
 import AppealModal from './AppealModal';
+import Navbar from './Navbar';
+import TwoFactorSection from './TwoFactorSection';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -67,6 +69,13 @@ export default function ConstituentDashboard({
   ballot = null,
   onNavigate = {},
   onClose,
+  // Navbar props — passed straight through to the embedded compact Navbar
+  // at the top of the dashboard. The parent (app/page.js) wires login /
+  // logout / tracked / subscribe / help-build / feedback so the user can
+  // jump anywhere without backing out of the dashboard first. We
+  // deliberately don't accept onCitizenDashboard (we're already here)
+  // or onOpenCommittees (deemed out-of-scope per design feedback).
+  navbarProps = {},
 }) {
   // Lazy-load tracked officials from localStorage if the parent didn't
   // supply them. The store is purely client-side, so we only touch it
@@ -100,26 +109,39 @@ export default function ConstituentDashboard({
         color: 'var(--cl-text)',
       }}
     >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '24px 24px 48px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-        }}
-      >
-        {/* Top-left back-to-map pill — primary escape hatch. The Close ×
-            in the welcome header is preserved as a secondary affordance,
-            but this pill is much more obvious. Mirrors the design system
-            "ambient floating chrome" treatment used on MapView. */}
-        {onClose && (
+      {/* Embedded navbar at the top of the dashboard. Uses `compact`
+          mode which hides the search bar + committees button per
+          design feedback. We deliberately don't forward
+          onCitizenDashboard (we're already in the dashboard) or
+          onOpenCommittees (omitted). The home/CivicView-logo click
+          falls through to onHome → onClose so it doubles as a back
+          affordance. */}
+      <Navbar compact {...navbarProps} onHome={onClose} />
+
+      {/* Sticky Back pill — pinned to the top of the scroll container
+          so the escape hatch stays reachable as the user scrolls
+          through tracked reps + activity. The dashboard mounts inside
+          a `position: fixed; overflowY: auto` wrapper (app/page.js),
+          so `position: sticky; top: 0` here anchors to that scroll
+          context. Renamed from "Back to map" to "Back" per design
+          feedback — the button returns to whichever surface the user
+          opened the dashboard from, not necessarily the map. */}
+      {onClose && (
+        <div
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+            background: 'var(--cl-bg)',
+            padding: '12px 24px 6px',
+            display: 'flex',
+            justifyContent: 'flex-start',
+          }}
+        >
           <button
             type="button"
             onClick={onClose}
             style={{
-              alignSelf: 'flex-start',
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
@@ -146,23 +168,41 @@ export default function ConstituentDashboard({
             }}
           >
             <ArrowLeft size={14} color="accent" active />
-            Back to map
+            Back
           </button>
-        )}
+        </div>
+      )}
 
-        {/* Welcome header */}
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: '0 auto',
+          padding: '6px 24px 48px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+        }}
+      >
+        {/* Welcome header — Close × button removed per design feedback;
+            the sticky Back button above + the navbar's home affordance
+            cover the same "dismiss this surface" intent. */}
         <WelcomeHeader
           citizen={citizen}
           greeting={greeting}
           dateLabel={dateLabel}
-          onClose={onClose}
         />
 
+        {/* Mobile: TwoFactorSection sits between the greeting and the
+            grid (i.e. before MY REPRESENTATIVES) per design feedback.
+            Desktop renders it inside the right rail below. */}
+        {isCompact && <TwoFactorSection />}
+
         {/* Two-column layout: left = My Reps + Upcoming + Recent, right
-            = Ballot + Activity stats. Desktop keeps the original 2:1
-            split. Compact viewports (mobile portrait + tablet) drop to
-            a single column so the right rail's stats grid + ballot
-            card aren't squeezed past their content width. */}
+            = TwoFactor + Ballot + Activity stats. Desktop keeps the
+            original 2:1 split. Compact viewports (mobile portrait +
+            tablet) drop to a single column so the right rail's stats
+            grid + ballot card aren't squeezed past their content
+            width. */}
         <div
           style={{
             display: 'grid',
@@ -179,8 +219,11 @@ export default function ConstituentDashboard({
             <HiddenByModerationSection citizen={citizen} />
           </div>
 
-          {/* RIGHT RAIL */}
+          {/* RIGHT RAIL — desktop only. TwoFactorSection sits at the
+              top per design feedback ("to the right above the Your
+              activity stats section"). */}
           <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {!isCompact && <TwoFactorSection />}
             {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
             <YourActivityCard reps={reps} />
             <QuickLinksCard onNavigate={onNavigate} />
@@ -194,7 +237,7 @@ export default function ConstituentDashboard({
 // ─────────────────────────────────────────────────────────────────
 // Welcome header
 // ─────────────────────────────────────────────────────────────────
-function WelcomeHeader({ citizen, greeting, dateLabel, onClose }) {
+function WelcomeHeader({ citizen, greeting, dateLabel }) {
   const firstName = (citizen?.name || '').split(' ')[0] || 'there';
   const district = citizen?.district || '—';
   const city = citizen?.city || '';
@@ -267,24 +310,6 @@ function WelcomeHeader({ citizen, greeting, dateLabel, onClose }) {
         >
           {dateLabel}
         </div>
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close dashboard"
-            style={{
-              marginTop: 10,
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--cl-text-light)',
-              fontSize: 'var(--cl-text-xs)',
-              cursor: 'pointer',
-              fontFamily: 'var(--cl-font-sans)',
-            }}
-          >
-            Close ×
-          </button>
-        )}
       </div>
     </header>
   );

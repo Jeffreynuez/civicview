@@ -18,8 +18,10 @@
  * the same surface they were started from.
  *
  * Pure presentation + state — the API calls live in lib/twoFactorApi.
- * Reusable: mount inside ConstituentDashboard, AccountSecurityView,
- * or anywhere else an account-settings affordance makes sense.
+ * Reusable: mounted inline in ConstituentDashboard (right rail on
+ * desktop, between greeting and rep-tracking on mobile). Drop into
+ * any other identity-aware surface where an account-settings
+ * affordance makes sense.
  *
  * Props:
  *   onClose() — optional; called when the user dismisses an inline

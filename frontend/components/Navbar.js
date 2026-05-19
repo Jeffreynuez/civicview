@@ -52,10 +52,6 @@ export default function Navbar({
   // Opens the Feedback overlay (embedded Google Form). Same
   // progressive-rollout pattern: hidden when not wired.
   onOpenFeedback,
-  // Opens the Account Security overlay (currently surfaces TOTP 2FA
-  // enrollment + recovery-code management). Same progressive-rollout
-  // pattern: hidden when not wired.
-  onOpenAccountSecurity,
   // When true, render a slimmer navbar without the search bar and the
   // Committees button. Used inside PageView (and similar full-screen
   // takeovers) where global navigation chrome would compete with the
@@ -1036,22 +1032,10 @@ export default function Navbar({
                     onClick={() => { setMobileMenuOpen(false); onOpenFeedback?.(); }}
                   />
                 )}
-                {/* Account security — manages 2FA enrollment + recovery
-                    codes for any of the three account types (citizen /
-                    rep / candidate). Hidden unless the parent wires
-                    the handler. */}
-                {onOpenAccountSecurity && (
-                  <MobileMenuItem
-                    icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <path d="M9 12l2 2 4-4" />
-                      </svg>
-                    }
-                    label="Account security"
-                    onClick={() => { setMobileMenuOpen(false); onOpenAccountSecurity?.(); }}
-                  />
-                )}
+                {/* Account security (TOTP 2FA enrollment) deliberately
+                    lives inside the Citizens Dashboard rather than
+                    in the navbar — keeps the navbar focused on
+                    navigation, not settings, per design feedback. */}
                 {/* Subscribe — inline on desktop, so only show in
                     hamburger on compact. */}
                 {isCompact && (

@@ -50,6 +50,8 @@ import CitizenLoginModal from '@/components/CitizenLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import MyTrackedModal from '@/components/MyTrackedModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
+import HelpBuildThisView from '@/components/HelpBuildThisView';
+import FeedbackView from '@/components/FeedbackView';
 import './polls.css';
 
 // Branch filters — replaces the old kind enum. Standalone is a
@@ -130,6 +132,8 @@ export default function PollsPage() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [trackedOpen, setTrackedOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [helpBuildOpen, setHelpBuildOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // AI filter state.
   const [aiAvailable, setAiAvailable] = useState(false);
@@ -307,6 +311,8 @@ export default function PollsPage() {
           onCitizenLogin={() => setCitizenLoginOpen(true)}
           onCitizenLogout={handleCitizenLogout}
           onCitizenDashboard={() => setDashboardOpen(true)}
+          onOpenHelpBuild={() => setHelpBuildOpen(true)}
+          onOpenFeedback={() => setFeedbackOpen(true)}
           onHome={handleHome}
         />
       </div>
@@ -466,10 +472,102 @@ export default function PollsPage() {
         onClose={() => setTrackedOpen(false)}
         onMemberPick={handleMemberPick}
       />
+      {/* ConstituentDashboard — wrapped in a fixed-position scroll
+          container per the home page pattern so it doesn't inherit
+          the polls page's existing scroll offset (which caused the
+          dashboard to open partway down the page). */}
       {dashboardOpen && citizen && (
-        <ConstituentDashboard
-          citizen={citizen}
-          onClose={() => setDashboardOpen(false)}
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1200,
+            background: 'var(--cl-bg)',
+            overflowY: 'auto',
+          }}
+        >
+          <ConstituentDashboard
+            citizen={citizen}
+            onClose={() => setDashboardOpen(false)}
+            navbarProps={{
+              citizen,
+              onCitizenLogin: () => setCitizenLoginOpen(true),
+              onCitizenLogout: handleCitizenLogout,
+              onOpenTracked: () => {
+                setDashboardOpen(false);
+                setTrackedOpen(true);
+              },
+              onSubscribe: () => {
+                setDashboardOpen(false);
+                setWaitlistOpen(true);
+              },
+              onOpenHelpBuild: () => {
+                setDashboardOpen(false);
+                setHelpBuildOpen(true);
+              },
+              onOpenFeedback: () => {
+                setDashboardOpen(false);
+                setFeedbackOpen(true);
+              },
+            }}
+          />
+        </div>
+      )}
+
+      {/* Help-build overlay — surfaced via the navbar hamburger and
+          forwarded through from the dashboard's embedded navbar. */}
+      {helpBuildOpen && (
+        <HelpBuildThisView
+          onClose={() => setHelpBuildOpen(false)}
+          compactNavbarProps={{
+            citizen,
+            onCitizenLogin: () => setCitizenLoginOpen(true),
+            onCitizenLogout: handleCitizenLogout,
+            onCitizenDashboard: () => {
+              setHelpBuildOpen(false);
+              setDashboardOpen(true);
+            },
+            onOpenTracked: () => {
+              setHelpBuildOpen(false);
+              setTrackedOpen(true);
+            },
+            onSubscribe: () => {
+              setHelpBuildOpen(false);
+              setWaitlistOpen(true);
+            },
+            onOpenFeedback: () => {
+              setHelpBuildOpen(false);
+              setFeedbackOpen(true);
+            },
+          }}
+        />
+      )}
+
+      {/* Feedback overlay — embedded Google Form. */}
+      {feedbackOpen && (
+        <FeedbackView
+          onClose={() => setFeedbackOpen(false)}
+          compactNavbarProps={{
+            citizen,
+            onCitizenLogin: () => setCitizenLoginOpen(true),
+            onCitizenLogout: handleCitizenLogout,
+            onCitizenDashboard: () => {
+              setFeedbackOpen(false);
+              setDashboardOpen(true);
+            },
+            onOpenTracked: () => {
+              setFeedbackOpen(false);
+              setTrackedOpen(true);
+            },
+            onSubscribe: () => {
+              setFeedbackOpen(false);
+              setWaitlistOpen(true);
+            },
+            onOpenHelpBuild: () => {
+              setFeedbackOpen(false);
+              setHelpBuildOpen(true);
+            },
+          }}
         />
       )}
     </div>

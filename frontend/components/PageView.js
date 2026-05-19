@@ -73,6 +73,12 @@ export default function PageView({
   onCitizenDashboard,
   onOpenTracked,
   onSubscribe,
+  // Help-build + Feedback overlays — same progressive-rollout pattern;
+  // forwarded to the embedded Navbar's hamburger so a user reading a
+  // rep page can hit "Help build this" or "Feedback" without backing
+  // out first. Both optional — if not wired, the items don't render.
+  onOpenHelpBuild,
+  onOpenFeedback,
 }) {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -316,6 +322,8 @@ export default function PageView({
           onCitizenDashboard={onCitizenDashboard}
           onOpenTracked={onOpenTracked}
           onSubscribe={onSubscribe}
+          onOpenHelpBuild={onOpenHelpBuild}
+          onOpenFeedback={onOpenFeedback}
           onHome={onClose}
         />
       </div>

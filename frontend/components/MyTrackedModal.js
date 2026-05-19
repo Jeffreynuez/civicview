@@ -128,7 +128,13 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
         alignItems: isMobile ? 'stretch' : 'center',
         justifyContent: 'center',
         padding: isMobile ? 0 : '24px',
-        zIndex: 100,
+        // Sits above PageView (zIndex 1200) + HelpBuild / Feedback /
+        // ConstituentDashboard overlays (also 1200) so that opening
+        // My Tracked from any of those surfaces actually surfaces
+        // above the parent overlay rather than getting hidden behind
+        // it. Was 100 before, which caused the modal to render behind
+        // a rep page when triggered from PageView's navbar.
+        zIndex: 1300,
       }}
     >
       <div style={{
