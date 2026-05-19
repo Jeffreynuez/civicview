@@ -199,9 +199,18 @@ export default function Navbar({
   // page that needs to suppress an identity.
   const { candidate: candidateAuto } = useCandidateAuth();
   const { citizen: citizenAuto } = useCitizenAuth();
-  const effectiveCandidate = candidate !== undefined ? candidate : candidateAuto;
-  const effectiveRep = rep !== undefined ? rep : repAuth;
-  const effectiveCitizen = citizen !== undefined ? citizen : citizenAuto;
+  // Truthy check (not `!== undefined`) so a stale `citizen={null}` /
+  // `rep={null}` / `candidate={null}` from a parent that didn't refresh
+  // its prop after hydration doesn't override a live auto-fetched
+  // session. This was hiding the citizen entry on ConstituentDashboard:
+  // navbarProps.citizen was momentarily null on a re-render and the
+  // `!== undefined` check let it win over the truthy useCitizenAuth()
+  // value, so IdentitySwitcher built entries without the citizen row
+  // (counter still said 3 because rep + candidate + a separate path
+  // populated other state — but the rendered dropdown only showed 2).
+  const effectiveCandidate = candidate || candidateAuto;
+  const effectiveRep = rep || repAuth;
+  const effectiveCitizen = citizen || citizenAuto;
   // Auto-fetch fallback handlers — if a consumer didn't pass an
   // explicit logout/dashboard handler, fall back to the lib-level
   // logout (which fires the matching DELETE endpoint + clears local
