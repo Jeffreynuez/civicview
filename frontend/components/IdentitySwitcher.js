@@ -43,10 +43,26 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
+// Colours have two contexts: the single-identity pill renders on the
+// dark navbar background, while the multi-identity dropdown rows
+// render on a white popover background. Citizen's translucent-white
+// scheme reads fine on navy but is white-on-white in the dropdown,
+// which is why citizen rows used to disappear there. We keep two
+// distinct palettes — onDark for the navbar pill, onLight for the
+// dropdown row — and pick per render path.
 const COLORS = {
-  citizen:   { bg: 'rgba(255,255,255,0.14)', border: 'rgba(255,255,255,0.28)', fg: 'white',  badgeBg: 'rgba(255,255,255,0.20)' },
-  rep:       { bg: '#1d3557',                border: '#1d3557',                fg: 'white',  badgeBg: 'rgba(255,255,255,0.22)' },
-  candidate: { bg: '#6c3ec1',                border: '#6c3ec1',                fg: 'white',  badgeBg: 'rgba(255,255,255,0.22)' },
+  citizen: {
+    onDark:  { bg: 'rgba(255,255,255,0.14)', border: 'rgba(255,255,255,0.28)', fg: 'white', badgeBg: 'rgba(255,255,255,0.20)' },
+    onLight: { bg: '#475569',                border: '#475569',                fg: 'white', badgeBg: 'rgba(255,255,255,0.22)' },
+  },
+  rep: {
+    onDark:  { bg: '#1d3557', border: '#1d3557', fg: 'white', badgeBg: 'rgba(255,255,255,0.22)' },
+    onLight: { bg: '#1d3557', border: '#1d3557', fg: 'white', badgeBg: 'rgba(255,255,255,0.22)' },
+  },
+  candidate: {
+    onDark:  { bg: '#6c3ec1', border: '#6c3ec1', fg: 'white', badgeBg: 'rgba(255,255,255,0.22)' },
+    onLight: { bg: '#6c3ec1', border: '#6c3ec1', fg: 'white', badgeBg: 'rgba(255,255,255,0.22)' },
+  },
 };
 
 const KIND_LABEL = {
@@ -132,7 +148,7 @@ export default function IdentitySwitcher({
   // ── Single-identity mode ────────────────────────────────────────
   if (entries.length === 1) {
     const e = entries[0];
-    const c = COLORS[e.kind];
+    const c = COLORS[e.kind].onDark;
     return (
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} ref={wrapRef}>
         <button
@@ -260,7 +276,7 @@ export default function IdentitySwitcher({
           }}
         >
           {entries.map((e, idx) => {
-            const c = COLORS[e.kind];
+            const c = COLORS[e.kind].onLight;
             return (
               <div
                 key={e.kind}

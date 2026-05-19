@@ -418,6 +418,7 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
     owns_session = db is None
     db = db or SessionLocal()
     created = 0
+    repointed = 0
     try:
         for entry in candidates:
             if not _validate_candidate(entry):
@@ -436,7 +437,27 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
             )
             if existing:
                 # Idempotent — leave hand-edited rows alone (especially
-                # password hashes the operator may have rotated).
+                # password hashes the operator may have rotated). One
+                # exception: if the email matches but the seed wants a
+                # different candidate_id than what's on the row, repoint
+                # the row to the new id. This catches the case where an
+                # earlier seed used a temp candidate_id (Claire Voyant
+                # / fl-cand-test-claire-voyant) and a later seed
+                # canonicalized it (CivicView Test Candidate /
+                # test-civicview-internal-candidate) — without this
+                # top-up the email lookup would 'find' the old row and
+                # the new candidate_id would never reach the DB, leaving
+                # the candidate page unable to claim ownership.
+                if (
+                    existing.email == email
+                    and existing.candidate_id != candidate_id
+                ):
+                    logger.info(
+                        "Re-pointing candidate_id %s → %s for existing seed email %s",
+                        existing.candidate_id, candidate_id, email,
+                    )
+                    existing.candidate_id = candidate_id
+                    repointed += 1
                 continue
 
             owner_state = (entry.get("owner_state") or "").strip().upper()[:2] or None
@@ -468,9 +489,12 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
                 candidate_id, email, claim_status,
             )
 
-        if created:
+        if created or repointed:
             db.commit()
-            logger.info("Candidate seed: %d new candidate account(s) inserted.", created)
+            logger.info(
+                "Candidate seed: %d new candidate account(s) inserted, %d re-pointed.",
+                created, repointed,
+            )
         else:
             logger.info("Demo candidate accounts already present — nothing to seed.")
     except Exception:

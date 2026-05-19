@@ -657,9 +657,21 @@ export default function PageView({
             {/* Dashboard takes over the main column when the owner
                 toggles into it. Feed content (composer + posts) is
                 hidden but not unmounted below the dashboard — we just
-                branch on activeView to render one or the other. */}
+                branch on activeView to render one or the other.
+
+                Account security (TwoFactorSection) renders ABOVE the
+                engagement stats so it sits directly under the tab
+                strip — per design feedback the 2FA panel should be
+                between Feed/Events/Dashboard and the stats section
+                rather than buried below them. Backend's
+                resolve_caller uses rep > candidate > citizen priority
+                so this panel manages whichever identity is active on
+                the page they own. */}
             {isOwner && activeView === 'dashboard' && (
               <>
+                <div style={{ marginBottom: 18 }}>
+                  <TwoFactorSection />
+                </div>
                 <Dashboard
                   officialId={officialId}
                   scope={ownerScope}
@@ -668,16 +680,6 @@ export default function PageView({
                     setHighlightPostId(postId);
                   }}
                 />
-                {/* Account security — 2FA enrollment + recovery codes
-                    for the page owner. The backend's resolve_caller
-                    uses rep > candidate > citizen priority, so this
-                    panel manages whichever identity is active on the
-                    page they own (rep on a rep page, candidate on a
-                    candidate page). Mirrors the placement on the
-                    citizen ConstituentDashboard. */}
-                <div style={{ marginTop: 18 }}>
-                  <TwoFactorSection />
-                </div>
               </>
             )}
 

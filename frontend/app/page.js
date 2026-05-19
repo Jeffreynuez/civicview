@@ -1331,6 +1331,26 @@ export default function Home() {
               citizen,
               onCitizenLogin: handleCitizenLoginOpen,
               onCitizenLogout: handleCitizenLogoutClick,
+              /* Unified IdentitySwitcher needs the rep + candidate
+                 jump handlers here too — otherwise clicking 'Open'
+                 on a rep / candidate row from the citizen dashboard
+                 navbar dropdown does nothing. Each closes the
+                 dashboard overlay first, then opens the matching
+                 page with the Dashboard tab pre-selected. */
+              onOpenRepDashboard: (r) => {
+                if (r?.official_id) {
+                  setDashboardOpen(false);
+                  handleOpenPage(r.official_id, { displayName: r.display_name, role: r.role });
+                  setActiveViewForNextPage('dashboard');
+                }
+              },
+              onOpenCandidateDashboard: (c) => {
+                if (c?.candidate_id) {
+                  setDashboardOpen(false);
+                  handleOpenPage(c.candidate_id, { displayName: c.display_name });
+                  setActiveViewForNextPage('dashboard');
+                }
+              },
               onOpenTracked: () => {
                 setDashboardOpen(false);
                 setTrackedOpen(true);
