@@ -267,7 +267,103 @@ active committer per month under GitHub Advanced Security.
 
 ---
 
-## 6. Reference — related docs
+## 6. Cloudflare R2 — durable object storage for post images
+
+The backend's post-image upload endpoint defaults to writing files into
+`backend/uploads/posts/` on the local filesystem. That's fine for local dev,
+but on Render the local disk is **ephemeral** — every restart or redeploy wipes
+the directory, leaving `PostImage` rows in the DB pointing at missing files.
+For prod we use Cloudflare R2 (S3-compatible object storage, zero egress fees).
+
+The storage layer is swappable — `app/services/image_storage.py` picks at
+runtime based on whether the R2 env vars are present. No code change is needed
+to switch backends; just set the env vars and restart.
+
+**One-time setup:**
+
+1. **Create the bucket in Cloudflare.** Dashboard → **R2** → Create bucket
+   (suggested name: `civicview-images`). Pick "Automatic" for location hint —
+   R2 routes globally; the hint just biases initial storage region.
+
+2. **Generate a scoped API token.** R2 → **Manage R2 API Tokens** → Create
+   token. Permissions: **Object Read & Write**. Restrict to **Specify bucket**
+   and pick `civicview-images`. Leave TTL as "Forever" (rotate manually if
+   compromised). Cloudflare shows you the **Access Key ID** + **Secret Access
+   Key** ONCE — copy both immediately.
+
+3. **Grab your Account ID.** R2 overview page → right sidebar shows the
+   account hex string.
+
+4. **Set four env vars on Render** (backend service → Environment):
+
+   ```
+   R2_ACCOUNT_ID=<account hex>
+   R2_ACCESS_KEY_ID=<from step 2>
+   R2_SECRET_ACCESS_KEY=<from step 2>
+   R2_BUCKET_NAME=civicview-images
+   ```
+
+   Optional fifth var for direct public URLs (skip unless you've enabled the
+   bucket's public access toggle OR wired a custom domain):
+
+   ```
+   R2_PUBLIC_BASE_URL=https://pub-<hash>.r2.dev
+   ```
+
+   When unset, the backend returns 1-hour-presigned GET URLs for image
+   requests — safer default that doesn't require flipping the bucket public.
+
+5. **Restart the backend.** Watch the startup log for:
+
+   ```
+   Image storage: R2 backend active (bucket=civicview-images, public=no (presigned))
+   ```
+
+   If you see `Image storage: LocalDisk backend active` instead, one of the
+   four env vars is missing or has a typo. Double-check + restart.
+
+**Security posture this gets you:**
+
+- **Credential isolation.** The API token is bucket-scoped — a compromised
+  token can read + write `civicview-images` only, not your other Cloudflare
+  resources.
+- **No PII on the local filesystem.** Post images live in R2; the backend
+  filesystem stays empty. Reduces blast radius if an attacker ever achieves
+  read access to the Render instance.
+- **DDoS-resistant reads.** R2 sits behind Cloudflare's edge — a flood of
+  image requests doesn't touch your Render backend bandwidth.
+- **Free egress.** Unlike S3, R2 charges nothing for bytes leaving the
+  bucket. A viral post around an election doesn't surprise-charge you.
+
+**Cost at scale** (from the financial model, moderate-ramp scenario):
+
+| Users | Approx storage | R2 monthly cost |
+|---:|---:|---:|
+| 10K  | ~5 GB   | Free (under 10 GB) |
+| 50K  | ~25 GB  | ~$0.23 |
+| 200K | ~100 GB | ~$1.35 |
+| 500K | ~300 GB | ~$4.35 |
+
+**Rotation cadence:**
+
+- Rotate the R2 API token annually or after any suspected compromise. Steps:
+  create a new token, update the Render env vars, restart, then delete the old
+  token in the Cloudflare dashboard.
+- The token is not stored in git or in the codebase — it lives only in Render's
+  encrypted env storage + your password manager.
+
+**Recovery if R2 is unavailable:**
+
+- The storage factory falls back to `LocalDiskStorage` if R2 init fails (e.g.
+  expired credentials, network issue). New uploads go to ephemeral disk and
+  will be lost on the next restart — surface a banner if this matters, but
+  it's better than dropping uploads outright.
+- The fallback is logged via `logger.exception` so the Render log shows when
+  it kicks in.
+
+---
+
+## 7. Reference — related docs
 
 - `DEPLOY.md` — how to deploy from scratch (Vercel + Render + Cloudflare DNS).
 - `INCIDENT-RESPONSE.md` — runbook for security incidents.
