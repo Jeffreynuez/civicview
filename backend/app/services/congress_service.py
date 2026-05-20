@@ -72,6 +72,32 @@ def _load_photo_overrides() -> dict:
     return _PHOTO_OVERRIDES_CACHE
 
 
+def _normalize_api_image_url(url: Optional[str]) -> Optional[str]:
+    """Defensive cleanup for Congress.gov's `depiction.imageUrl` values.
+
+    Some new appointees come back from the API with a doubled-prefix
+    URL like:
+        https://www.congress.gov/img/member/https://bioguide.congress.gov/photo/<id>.jpg
+    which 404s when the browser fetches it (Congress.gov's proxy
+    route treats the inner 'https://' as a path segment). Strip the
+    bogus prefix and surface the inner absolute URL. No-op for
+    correctly-formed values.
+
+    Observed example: M001244 (Ashley Moody, FL Senate appointee).
+    """
+    if not url:
+        return url
+    # Look for a SECOND 'https://' after position 8 (past the first
+    # scheme). If found, the URL is the wrapped variant — extract
+    # from the second scheme.
+    second_idx = url.find("https://", 8)
+    if second_idx == -1:
+        second_idx = url.find("http://", 8)
+    if second_idx != -1:
+        return url[second_idx:]
+    return url
+
+
 def _resolve_image_url(bioguide_id: Optional[str], api_image_url: Optional[str] = None) -> Optional[str]:
     """Single source of truth for "what photo URL should we send for
     this Congress member?".
@@ -79,13 +105,16 @@ def _resolve_image_url(bioguide_id: Optional[str], api_image_url: Optional[str] 
     Resolution order:
       1. API-provided URL (Congress.gov's `depiction.imageUrl`) — when
          present this is usually the official congressional headshot
-         hosted on bioguide / pictorial directories.
+         hosted on bioguide / pictorial directories. Run through
+         _normalize_api_image_url first to strip the doubled-prefix
+         bug Congress.gov occasionally returns for new appointees.
       2. Our Wikipedia override (for new members / appointees whose
          GitHub mirror entry doesn't exist yet).
       3. The unitedstates.github.io community mirror.
 
     Returns None when we have no bioguide_id at all (caller falls
     back to initials)."""
+    api_image_url = _normalize_api_image_url(api_image_url)
     if api_image_url:
         return api_image_url
     if not bioguide_id:

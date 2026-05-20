@@ -597,10 +597,11 @@ export default function PageView({
                   href="/account/delete"
                   style={{
                     fontSize: '0.72rem',
-                    color: 'var(--cl-text-light)',
+                    color: '#a3261c',
                     textDecoration: 'underline',
                     textDecorationStyle: 'dotted',
                     textUnderlineOffset: '3px',
+                    fontWeight: 600,
                     alignSelf: isCompact ? 'flex-end' : 'flex-end',
                     marginTop: isCompact ? -4 : 'auto',
                     marginLeft: isCompact ? 'auto' : 'auto',

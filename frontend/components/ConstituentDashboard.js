@@ -316,18 +316,20 @@ function WelcomeHeader({ citizen, greeting, dateLabel }) {
           </div>
         </div>
         {/* Self-serve account deletion (Task #81) — bottom-right of
-            the hero card per design feedback. Subtle small link
-            rather than a button; the destructive surface is on the
-            /account/delete page itself with full warnings + email
-            confirmation. */}
+            the hero card per design feedback. Red text so the
+            destructive intent is unambiguous at a glance, but still
+            a subtle dotted-underline link rather than a button.
+            The full warnings + email confirmation surface lives on
+            /account/delete itself. */}
         <a
           href="/account/delete"
           style={{
             fontSize: 'var(--cl-text-xs)',
-            color: 'var(--cl-text-light)',
+            color: '#a3261c',
             textDecoration: 'underline',
             textDecorationStyle: 'dotted',
             textUnderlineOffset: '3px',
+            fontWeight: 600,
           }}
         >
           Delete account
