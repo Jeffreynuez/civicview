@@ -988,6 +988,40 @@ class CitizenAccount(Base):
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
+# ── Password reset tokens (Task #87) ─────────────────────────────────
+class PasswordResetToken(Base):
+    """Single-use, time-bounded token issued when a user requests a
+    password reset.
+
+    Stored as a sha256 hash (not the raw token string) so a database
+    leak doesn't expose valid reset tokens. The user receives the raw
+    token in an email link; we hash the inbound token and look up the
+    row on the confirm endpoint.
+
+    Tied to (identity_kind, account_id) so the password reset for a
+    rep / citizen / candidate routes to the right table on confirmation.
+    A user with multiple identities at the same email address would
+    request resets for each separately — each gets its own token row.
+
+    Single-use: the row is deleted after a successful password change,
+    OR when it expires (cron-style purge from a startup hook similar
+    to soft-delete account purging). 1-hour TTL by default.
+    """
+    __tablename__ = "password_reset_tokens"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # sha256(raw_token + SESSION_SECRET salt). 64 hex chars. The raw
+    # token never lives in the DB — only its hash. Mirrors the
+    # verification archive's approach to one-way storage.
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    # Which identity this reset is for. Validates which table the
+    # confirm endpoint should update the password_hash on.
+    identity_kind: Mapped[str] = mapped_column(String(16))  # 'citizen' | 'rep' | 'candidate'
+    account_id: Mapped[int] = mapped_column(index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    expires_at: Mapped[datetime] = mapped_column(DateTime, index=True)
+
+
 # ── Verified-identity archive (Task #81) ─────────────────────────────
 class VerifiedIdentityArchive(Base):
     """Persists an opaque marker that a given email address was

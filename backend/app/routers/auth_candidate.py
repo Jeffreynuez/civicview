@@ -47,6 +47,9 @@ from app.schemas.pages import (
     CandidateMeResponse,
     DeleteAccountRequest,
     DeleteAccountResponse,
+    PasswordResetConfirmRequest,
+    PasswordResetGenericResponse,
+    PasswordResetRequestRequest,
 )
 
 
@@ -214,3 +217,40 @@ def recover_account(
     _recover(db, "candidate", candidate)
     db.refresh(candidate)
     return CandidateMeResponse.model_validate(candidate)
+
+
+# ── Password reset (Task #87) ───────────────────────────────────────
+# See app/routers/auth.py for the shared design + rationale; this is
+# the candidate-identity surface for the same flow.
+@router.post("/password-reset/request", response_model=PasswordResetGenericResponse)
+def request_reset(
+    payload: PasswordResetRequestRequest,
+    db: Session = Depends(get_db),
+):
+    """Step 1: mint + email a candidate reset token if the email
+    matches a CandidateAccount row. Anti-enumeration: 200 either way."""
+    from app.services.password_reset import request_password_reset
+    request_password_reset(db, "candidate", payload.email)
+    return PasswordResetGenericResponse(ok=True)
+
+
+@router.post("/password-reset/confirm", response_model=PasswordResetGenericResponse)
+def confirm_reset(
+    payload: PasswordResetConfirmRequest,
+    db: Session = Depends(get_db),
+):
+    """Step 2: validate the token + write the new bcrypt password
+    hash + send the confirmation email."""
+    from app.services.password_reset import confirm_password_reset, ResetConfirmResult
+    result = confirm_password_reset(db, "candidate", payload.token, payload.new_password)
+    if result == ResetConfirmResult.OK:
+        return PasswordResetGenericResponse(ok=True)
+    if result == ResetConfirmResult.INVALID_PASSWORD:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password must be at least 8 characters.",
+        )
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="This reset link is invalid or has expired. Request a new one.",
+    )

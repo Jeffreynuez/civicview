@@ -791,3 +791,41 @@ export async function recoverCitizenAccount() {
 export async function recoverCandidateAccount() {
   return request('/api/candidate-auth/recover', { method: 'POST' });
 }
+
+// ── Password reset (Task #87) ─────────────────────────────────────────
+// One shared frontend page (/password-reset) handles all three identity
+// kinds — kind is carried in the URL search params. These wrappers map
+// kind → backend route so the page only knows about a single helper.
+//
+// Backend ALWAYS returns 200/{ok:true} on the request endpoint regardless
+// of whether the email matches an account — see the anti-enumeration
+// note on services/password_reset.request_password_reset. The frontend
+// shows a single neutral "if that email exists, we sent a link" message
+// either way to mirror that protection.
+const _RESET_PATHS = {
+  rep: '/api/auth/password-reset',
+  citizen: '/api/citizen-auth/password-reset',
+  candidate: '/api/candidate-auth/password-reset',
+};
+
+export async function requestPasswordReset({ identityKind, email } = {}) {
+  const base = _RESET_PATHS[identityKind];
+  if (!base) {
+    return { data: null, error: `Unknown identity kind: ${identityKind}`, status: 0 };
+  }
+  return request(`${base}/request`, {
+    method: 'POST',
+    body: { email },
+  });
+}
+
+export async function confirmPasswordReset({ identityKind, token, newPassword } = {}) {
+  const base = _RESET_PATHS[identityKind];
+  if (!base) {
+    return { data: null, error: `Unknown identity kind: ${identityKind}`, status: 0 };
+  }
+  return request(`${base}/confirm`, {
+    method: 'POST',
+    body: { token, new_password: newPassword },
+  });
+}

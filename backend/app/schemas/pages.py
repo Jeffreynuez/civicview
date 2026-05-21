@@ -51,6 +51,41 @@ class DeleteAccountResponse(BaseModel):
     purge_after: Optional[datetime] = None
 
 
+# ── Password reset (Task #87) ─────────────────────────────────────────
+class PasswordResetRequestRequest(BaseModel):
+    """Body for POST /api/{identity-auth}/password-reset/request.
+
+    Endpoint ALWAYS returns 200 regardless of whether the email maps to
+    a real account — see services/password_reset.request_password_reset
+    for the anti-enumeration rationale. Only the email is required;
+    the identity kind is implicit in the route path (rep / citizen /
+    candidate) so the same address can hold an account in each space
+    without ambiguity."""
+    email: EmailStr
+
+
+class PasswordResetConfirmRequest(BaseModel):
+    """Body for POST /api/{identity-auth}/password-reset/confirm.
+
+    token is the raw URL-safe string the user pasted from the email
+    link (not the sha256 hash stored in the DB — the backend re-hashes
+    it for comparison). new_password is the cleartext that gets bcrypt-
+    hashed and written to the account row.
+
+    Min length 8 enforced server-side too; we set it here so the API
+    rejects the obviously-too-short cases before bcrypt runs."""
+    token: str = Field(..., min_length=1, max_length=128)
+    new_password: str = Field(..., min_length=8, max_length=256)
+
+
+class PasswordResetGenericResponse(BaseModel):
+    """Returned by both /request and /confirm. ok=True on the request
+    path means 'we accepted the request' — NOT 'an email was sent'
+    (see anti-enumeration note). On the confirm path ok=True means the
+    password was actually updated."""
+    ok: bool
+
+
 class MeResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int

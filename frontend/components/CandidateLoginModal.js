@@ -254,6 +254,28 @@ export default function CandidateLoginModal({
           </Button>
         </div>
 
+        {/* Forgot password? — opens /password-reset?kind=candidate in
+            a new tab so the half-typed login form stays around.
+            (Task #87) */}
+        <div style={{
+          textAlign: 'center',
+          fontSize: 'var(--cl-text-xs)',
+        }}>
+          <a
+            href="/password-reset?kind=candidate"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--cl-accent)',
+              fontWeight: 600,
+              textDecoration: 'none',
+              fontFamily: 'var(--cl-font-sans)',
+            }}
+          >
+            Forgot password?
+          </a>
+        </div>
+
         <div style={{
           fontSize: 'var(--cl-text-xs)',
           color: 'var(--cl-text-muted)',

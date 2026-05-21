@@ -510,6 +510,33 @@ export default function RepLoginModal({
         </Button>
       )}
 
+      {/* Forgot password? — only shown during the email+password phase
+          (not during 2FA challenge or appeal flow). The link opens
+          /password-reset?kind=rep in a new tab so the user can recover
+          without losing the half-typed login form. (Task #87) */}
+      {!suspendedMessage && !appealResult && (
+        <div style={{
+          textAlign: 'center',
+          marginTop: 4,
+          marginBottom: 4,
+          fontSize: 'var(--cl-text-xs)',
+        }}>
+          <a
+            href="/password-reset?kind=rep"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--cl-accent)',
+              fontWeight: 600,
+              textDecoration: 'none',
+              fontFamily: 'var(--cl-font-sans)',
+            }}
+          >
+            Forgot password?
+          </a>
+        </div>
+      )}
+
       {/* Demo accounts — collapsed by default */}
       <div
         style={{

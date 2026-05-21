@@ -566,6 +566,32 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         </Button>
       )}
 
+      {/* Forgot password? — only during the email+password phase. Opens
+          /password-reset?kind=citizen in a new tab so the user can
+          recover without losing the half-typed login form. (Task #87) */}
+      {!suspendedMessage && !appealResult && (
+        <div style={{
+          textAlign: 'center',
+          marginTop: 4,
+          marginBottom: 4,
+          fontSize: 'var(--cl-text-xs)',
+        }}>
+          <a
+            href="/password-reset?kind=citizen"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--cl-accent)',
+              fontWeight: 600,
+              textDecoration: 'none',
+              fontFamily: 'var(--cl-font-sans)',
+            }}
+          >
+            Forgot password?
+          </a>
+        </div>
+      )}
+
       {/* Self-serve demo signup — replaces the old fixed 60-account
           list. The user picks a display name + state + (optional)
           district + city; the backend mints a fresh CitizenAccount

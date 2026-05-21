@@ -79,6 +79,18 @@ async def lifespan(app: FastAPI):
             purge_expired_accounts()
         except Exception:
             logger.exception("Soft-delete purge failed — non-fatal, will retry next boot.")
+        # Task #87 — purge expired password-reset tokens. Cheap O(N)
+        # delete over a tiny table; same boot-time pattern as the
+        # soft-delete purge above so we don't accumulate orphans.
+        # Independent try/except so a token-purge failure can't take
+        # down account-purge or vice versa.
+        try:
+            from app.services.password_reset import purge_expired_password_reset_tokens
+            purge_expired_password_reset_tokens()
+        except Exception:
+            logger.exception(
+                "Password-reset token purge failed — non-fatal, will retry next boot.",
+            )
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
     yield

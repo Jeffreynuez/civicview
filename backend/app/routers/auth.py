@@ -41,6 +41,9 @@ from app.schemas.pages import (
     LoginRequest,
     LoginResponse,
     MeResponse,
+    PasswordResetConfirmRequest,
+    PasswordResetGenericResponse,
+    PasswordResetRequestRequest,
 )
 
 
@@ -203,3 +206,50 @@ def recover_account(
     _recover(db, "rep", rep)
     db.refresh(rep)
     return MeResponse.model_validate(rep)
+
+
+# ── Password reset (Task #87) ───────────────────────────────────────
+# Both endpoints intentionally return the same {ok: true} shape on
+# success + failure paths so a network observer can't distinguish
+# "valid email" from "no such email" by response code alone. The
+# 'confirm' endpoint is the only one that returns 400 on bad input —
+# and only when the password fails basic length validation (a check
+# the frontend has already done, so an attacker probing here learns
+# nothing about token validity).
+@router.post("/password-reset/request", response_model=PasswordResetGenericResponse)
+def request_reset(
+    payload: PasswordResetRequestRequest,
+    db: Session = Depends(get_db),
+):
+    """Step 1 of the reset flow for rep accounts. Anti-enumeration:
+    we ALWAYS return 200/ok regardless of whether the email matches.
+    The service helper handles the conditional mint-and-email."""
+    from app.services.password_reset import request_password_reset
+    request_password_reset(db, "rep", payload.email)
+    return PasswordResetGenericResponse(ok=True)
+
+
+@router.post("/password-reset/confirm", response_model=PasswordResetGenericResponse)
+def confirm_reset(
+    payload: PasswordResetConfirmRequest,
+    db: Session = Depends(get_db),
+):
+    """Step 2 of the reset flow for rep accounts. Returns 400 on
+    invalid/expired token + on too-short passwords so the frontend
+    can render specific feedback. Successful confirm triggers a
+    courtesy 'your password was changed' email."""
+    from app.services.password_reset import confirm_password_reset, ResetConfirmResult
+    result = confirm_password_reset(db, "rep", payload.token, payload.new_password)
+    if result == ResetConfirmResult.OK:
+        return PasswordResetGenericResponse(ok=True)
+    if result == ResetConfirmResult.INVALID_PASSWORD:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password must be at least 8 characters.",
+        )
+    # INVALID_TOKEN — generic so we don't tell the attacker which row
+    # failed (expired vs. wrong-kind vs. nonexistent all collapse).
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="This reset link is invalid or has expired. Request a new one.",
+    )
