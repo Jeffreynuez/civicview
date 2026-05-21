@@ -1045,6 +1045,45 @@ class CitizenAccount(Base):
         nullable=False,
     )
 
+    # ── Identity verification (Task #89) ─────────────────────────────
+    # ID.me is the canonical verification path for citizens. The
+    # existing `verified` boolean (above) is the gate the rest of the
+    # app reads. These columns add the supporting metadata so the UI
+    # can show "Verified since ...", the cost-skip lookup can find
+    # the same person across re-signups, and the verified address
+    # acts as ground truth for state + congressional_district.
+    #
+    # PII handling:
+    #   • verified_legal_name_encrypted — Fernet-encrypted via the
+    #     same SESSION_SECRET-derived key the TOTP secrets use.
+    #     Plaintext name never lives in the DB. Decrypted only when
+    #     the UI needs to display "Verified as <name>" or when the
+    #     cost-skip path needs to hash + match against the archive.
+    #   • verified_address_hash — sha256(normalized_address +
+    #     SESSION_SECRET). One-way: we can match an inbound address
+    #     against this hash, but never reconstruct the address from
+    #     the row. Used for duplicate-address detection across
+    #     accounts (one verified citizen per real residence).
+    #
+    # No DOB / SSN persisted. ID.me retains those itself; we just
+    # take the boolean "ID.me says yes" + the address + the legal
+    # name and let ID.me hold everything else.
+    verified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+    # 'id.me' once real verification ships. 'demo' on demo signups
+    # so the UI can render "Verified — demo" instead of pretending
+    # they passed real ID.me checks. NULL on unverified rows.
+    verified_method: Mapped[Optional[str]] = mapped_column(
+        String(16), default=None,
+    )
+    verified_legal_name_encrypted: Mapped[Optional[str]] = mapped_column(
+        String(512), default=None,
+    )
+    verified_address_hash: Mapped[Optional[str]] = mapped_column(
+        String(64), default=None, index=True,
+    )
+
     @property
     def has_billing_account(self) -> bool:
         """Surfaced on CitizenMeResponse so the UI knows whether to
@@ -1111,7 +1150,33 @@ class VerifiedIdentityArchive(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # sha256(normalized_email + SESSION_SECRET salt). 64 hex chars.
+    # Primary lookup key — most re-signups happen at the same email,
+    # so this hits first + cheapest.
     email_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    # ── Secondary lookup key (Task #89) ──
+    # sha256(normalized_legal_name + SESSION_SECRET salt). Catches the
+    # "same person, different email" re-signup case — a user who
+    # deleted their account and signs up with a fresh address still
+    # has the same legal name on file at ID.me, so the verified
+    # callback's name hash will match this column and we can skip
+    # the $1.50 charge anyway. NULL on pre-#89 archive rows.
+    #
+    # Not unique-indexed: name collisions exist (two real "John
+    # Smith"s legitimately need separate verifications). The
+    # cost-skip path treats a name hit as a strong signal but
+    # confirms with at least one other attribute (currently
+    # verified_address_hash if available) before granting the skip.
+    legal_name_hash: Mapped[Optional[str]] = mapped_column(
+        String(64), default=None, index=True,
+    )
+    # sha256(normalized_verified_address + SESSION_SECRET salt).
+    # Stored on the archive so the legal-name-only match can
+    # cross-check with address — defending against two real John
+    # Smiths sharing the cost-skip incorrectly. NULL on pre-#89
+    # archive rows.
+    address_hash: Mapped[Optional[str]] = mapped_column(
+        String(64), default=None, index=True,
+    )
     # When the user originally completed ID.me verification.
     verified_at: Mapped[datetime] = mapped_column(DateTime)
     # When the underlying account was deleted and the archive row

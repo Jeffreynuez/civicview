@@ -1391,6 +1391,12 @@ export default function Home() {
               subscription_status: citizen.subscription_status || null,
               current_period_end: citizen.current_period_end || null,
               has_billing_account: !!citizen.has_billing_account,
+              // Verification state (Task #89) — VerificationSection
+              // reads these to pick verified / demo / unverified /
+              // coming-soon branches.
+              verified: !!citizen.verified,
+              verified_at: citizen.verified_at || null,
+              verified_method: citizen.verified_method || null,
             }}
             onClose={() => setDashboardOpen(false)}
             onNavigate={{

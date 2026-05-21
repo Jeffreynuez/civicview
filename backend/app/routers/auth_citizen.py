@@ -339,6 +339,15 @@ def demo_signup(
         # billing goes live.
         is_subscribed=True,
         subscription_status="demo",
+        # ── Verification method tag (Task #89) ──
+        # Marks this row as a demo-flavored grant so the UI can
+        # render "Demo access" badges on the verification card,
+        # parallel to the Stripe demo grant. `verified` stays
+        # False per the existing demo policy — demo accounts never
+        # claim to have passed ID.me, only the engagement features
+        # are unlocked. REMOVE alongside the is_subscribed line
+        # above once ID.me ships.
+        verified_method="demo",
     )
     db.add(citizen)
     db.commit()

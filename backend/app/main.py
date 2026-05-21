@@ -36,6 +36,7 @@ from app.routers import (
     notifications as notifications_router,
     two_factor as two_factor_router,
     billing as billing_router,
+    identity_verification as idme_router,
 )
 from app.db import init_db
 from app.seed import (
@@ -185,6 +186,15 @@ app.include_router(two_factor_router.router, tags=["2FA"])
 # under /api/billing/*. Webhook endpoint is unauthenticated by design
 # (Stripe authenticates itself via the Stripe-Signature header).
 app.include_router(billing_router.router, prefix="/api/billing", tags=["Billing"])
+
+# Identity verification (Task #89) — ID.me OAuth start + callback
+# under /api/identity-verification/*. Callback is unauthenticated by
+# design (ID.me's redirect carries a signed state token instead).
+app.include_router(
+    idme_router.router,
+    prefix="/api/identity-verification",
+    tags=["Identity Verification"],
+)
 
 
 @app.get("/")

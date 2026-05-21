@@ -26,6 +26,7 @@ import AppealModal from './AppealModal';
 import Navbar from './Navbar';
 import TwoFactorSection from './TwoFactorSection';
 import BillingSection from './BillingSection';
+import VerificationSection from './VerificationSection';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -193,12 +194,13 @@ export default function ConstituentDashboard({
           dateLabel={dateLabel}
         />
 
-        {/* Mobile: TwoFactorSection + BillingSection sit between the
-            greeting and the grid (i.e. before MY REPRESENTATIVES) per
-            design feedback. Desktop renders both inside the right rail
-            below. BillingSection (Task #88) sits BELOW TwoFactor so the
-            security-first hierarchy stays intact. */}
+        {/* Mobile: TwoFactor + Verification + Billing sit between the
+            greeting and the grid (before MY REPRESENTATIVES). Desktop
+            renders the same trio inside the right rail below. Order is
+            security → identity → billing so the most-sensitive surface
+            sits highest. */}
         {isCompact && <TwoFactorSection />}
+        {isCompact && <VerificationSection citizen={citizen} />}
         {isCompact && <BillingSection citizen={citizen} />}
 
         {/* Two-column layout: left = My Reps + Upcoming + Recent, right
@@ -223,13 +225,13 @@ export default function ConstituentDashboard({
             <HiddenByModerationSection citizen={citizen} />
           </div>
 
-          {/* RIGHT RAIL — desktop only. TwoFactorSection sits at the
-              top per design feedback ("to the right above the Your
-              activity stats section"). BillingSection (Task #88) sits
-              directly below it — same security/account-management
-              cluster, kept above the activity/quick-links readouts. */}
+          {/* RIGHT RAIL — desktop only. Order: security → identity →
+              billing, then ballot/activity/quick-links below. The
+              account-management trio sits at the top so users land on
+              the most-sensitive surface first. */}
           <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             {!isCompact && <TwoFactorSection />}
+            {!isCompact && <VerificationSection citizen={citizen} />}
             {!isCompact && <BillingSection citizen={citizen} />}
             {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
             <YourActivityCard reps={reps} />

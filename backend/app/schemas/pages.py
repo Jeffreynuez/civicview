@@ -591,6 +591,13 @@ class CitizenMeResponse(BaseModel):
     # to manage. Stripped of the actual ID (no need to leak it to
     # the client).
     has_billing_account: bool = False
+    # Identity verification (Task #89). `verified` (above) is the
+    # gate. These supporting fields let the UI show "Verified via
+    # ID.me · since May 2026" without exposing the encrypted legal
+    # name. verified_method is 'id.me' for real verifications,
+    # 'id.me-archive' for cost-skip grants, 'demo' on demo signups.
+    verified_at: Optional[datetime] = None
+    verified_method: Optional[str] = None
 
     @field_validator("is_subscribed", "has_billing_account", mode="before")
     @classmethod

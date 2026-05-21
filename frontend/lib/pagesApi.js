@@ -866,3 +866,31 @@ export async function startPortalSession({ returnUrl } = {}) {
     body: { return_url: returnUrl || null },
   });
 }
+
+// ── Identity verification (Task #89) ─────────────────────────────────
+// ID.me OAuth flow wrappers. Same configured-vs-dev pattern as the
+// billing wrappers — if {configured: false} comes back, the URL is
+// an `about:blank` placeholder and the UI should render a
+// "verification not yet activated" message instead of redirecting.
+//
+// Usage:
+//   const { data, error } = await startVerification();
+//   if (error) return showError(error);
+//   if (!data.configured) return showComingSoonMessage();
+//   window.location.assign(data.url);
+//
+// The /start endpoint also handles the cost-skip case — if the
+// citizen's email matches a row in the verified-identity archive
+// (left behind by a previously-deleted account), the backend flips
+// `verified=True` immediately and returns a URL that bounces the
+// user back to the dashboard without an ID.me round-trip. The
+// `&via=archive` query param in the returned URL lets the frontend
+// optionally surface a "Restored from your previous verification"
+// notice.
+export async function fetchVerificationStatus() {
+  return request('/api/identity-verification/status');
+}
+
+export async function startVerification() {
+  return request('/api/identity-verification/start', { method: 'POST' });
+}
