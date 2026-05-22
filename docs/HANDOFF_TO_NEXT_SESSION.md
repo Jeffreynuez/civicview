@@ -9,7 +9,7 @@ context windows). Starting fresh in a new chat to avoid memory degradation.
 ## How to use this file
 
 Open a new Cowork chat with the same `US apps` folder mounted, then paste
-the **"Bootstrap prompt"** section below s your first message. Claude will
+the **"Bootstrap prompt"** section below as your first message. Claude will
 read this file + the README + the financial model + the codebase as needed.
 
 ---
