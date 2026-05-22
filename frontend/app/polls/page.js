@@ -43,6 +43,8 @@ import {
   createStandalonePoll,
   aiHealth,
   filterPolls,
+  voteOnCitizenPoll,
+  closeCitizenPoll,
 } from '@/lib/pagesApi';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import Navbar from '@/components/Navbar';
@@ -431,7 +433,13 @@ export default function PollsPage() {
           )}
 
           {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.map((p) => (
-            <PollCard key={p.id} poll={p} />
+            <PollCard
+              key={p.id}
+              poll={p}
+              signedIn={signedIn}
+              onLoginRequired={() => setCitizenLoginOpen(true)}
+              onMutated={load}
+            />
           ))}
         </div>
 
@@ -826,12 +834,58 @@ function BottomStartCTA({ signedIn, onClick }) {
 // is a Phase C improvement); rep-page and citizen-on-rep-page polls
 // deep-link to their hosting page.
 // ─────────────────────────────────────────────────────────────────────
-function PollCard({ poll }) {
+function PollCard({ poll, signedIn = false, onLoginRequired, onMutated }) {
   const isStandalone = poll.kind === 'standalone';
   const isCandidate = poll.kind === 'candidate';
   const href = !isStandalone && poll.official_id
     ? `/?page=${encodeURIComponent(poll.official_id)}`
     : null;
+
+  // Standalone-only interactivity state. Vote + close go through the
+  // /api/citizen-polls endpoints; the rep / candidate / standalone-
+  // hosted-on-page polls keep their existing 'Open page' link behavior
+  // (the full interactive PollCard renders on the rep page itself).
+  const viewer = poll.viewer || { voter_choice_id: null, is_author: false };
+  const [busy, setBusy] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const handleVote = async (optionId) => {
+    if (busy) return;
+    if (!signedIn) {
+      onLoginRequired?.();
+      return;
+    }
+    setBusy(true);
+    setErrorMsg(null);
+    const { error: err } = await voteOnCitizenPoll(poll.id, optionId);
+    setBusy(false);
+    if (err) {
+      setErrorMsg(typeof err === 'string' ? err : 'Could not record vote.');
+      return;
+    }
+    onMutated?.();
+  };
+
+  const handleClose = async () => {
+    if (busy) return;
+    // Backend enforces author-only; this confirm is a UX-only guard.
+    if (!window.confirm(
+      'Close this poll? It will move to the archived section of your '
+      + 'dashboard and the standalone-poll slot will free up so you '
+      + 'can post another.'
+    )) {
+      return;
+    }
+    setBusy(true);
+    setErrorMsg(null);
+    const { error: err } = await closeCitizenPoll(poll.id);
+    setBusy(false);
+    if (err) {
+      setErrorMsg(typeof err === 'string' ? err : 'Could not close poll.');
+      return;
+    }
+    onMutated?.();
+  };
 
   // Kind chip describes WHAT the poll is about (rep page / candidate
   // page / standalone) rather than who authored it. Avatar tone
@@ -888,22 +942,64 @@ function PollCard({ poll }) {
         {visibleOpts.map((o, i) => {
           const pct = o.percent || 0;
           const isLeading = pct === maxPct && pct > 0;
-          return (
-            <div
-              key={i}
-              className={`poll-opt ${isLeading ? 'is-leading' : ''}`}
-            >
+          const isMyVote = isStandalone && viewer.voter_choice_id != null && o.id === viewer.voter_choice_id;
+          const className = `poll-opt ${isLeading ? 'is-leading' : ''} ${isMyVote ? 'is-my-vote' : ''}`.trim();
+          // Standalone polls are interactive inline (no parent page to
+          // navigate to). All other polls stay display-only here and
+          // users open the parent page to interact.
+          const inner = (
+            <>
               <span className="poll-opt__fill" style={{ width: `${pct}%` }} />
-              <span className="poll-opt__label">{o.label}</span>
+              <span className="poll-opt__label">
+                {o.label}
+                {isMyVote && (
+                  <span style={{ marginLeft: 6, fontSize: '0.7em', fontWeight: 700, color: 'var(--cl-up)' }}>
+                    ✓ your vote
+                  </span>
+                )}
+              </span>
               <span className="poll-opt__pct">{pct}%</span>
               {o.count != null && (
                 <span className="poll-opt__votes cl-num">{formatCount(o.count)}</span>
               )}
+            </>
+          );
+          if (isStandalone) {
+            return (
+              <button
+                key={i}
+                type="button"
+                className={className}
+                onClick={() => handleVote(o.id)}
+                disabled={busy || o.id == null}
+                aria-pressed={isMyVote}
+                style={{
+                  textAlign: 'left',
+                  font: 'inherit',
+                  cursor: busy ? 'wait' : 'pointer',
+                  width: '100%',
+                  border: 'none',
+                  padding: 0,
+                  background: 'transparent',
+                }}
+              >
+                {inner}
+              </button>
+            );
+          }
+          return (
+            <div key={i} className={className}>
+              {inner}
             </div>
           );
         })}
         {overflow > 0 && (
           <div className="poll-card__overflow">+{overflow} more option{overflow === 1 ? '' : 's'} — open page to vote</div>
+        )}
+        {errorMsg && (
+          <div role="alert" style={{ marginTop: 8, padding: '6px 10px', fontSize: '0.8rem', color: 'var(--cl-down)', background: 'var(--cl-down-soft)', borderRadius: 6 }}>
+            {errorMsg}
+          </div>
         )}
       </div>
 
@@ -919,6 +1015,27 @@ function PollCard({ poll }) {
           <span className="poll-card__deeplink">
             Open page <ArrowGlyph size={12} />
           </span>
+        )}
+        {isStandalone && viewer.is_author && (
+          <button
+            type="button"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleClose(); }}
+            disabled={busy}
+            title="Close this poll and free your standalone-poll slot. The poll moves to the archived section of your dashboard."
+            style={{
+              marginLeft: 'auto',
+              padding: '4px 10px',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: 'var(--cl-down)',
+              background: 'var(--cl-down-soft)',
+              border: '1px solid var(--cl-down-border)',
+              borderRadius: 999,
+              cursor: busy ? 'wait' : 'pointer',
+            }}
+          >
+            Close poll
+          </button>
         )}
       </div>
     </>

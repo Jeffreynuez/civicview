@@ -41,7 +41,11 @@ from sqlalchemy import case, func
 from sqlalchemy.orm import Session
 
 from app.db import get_db
+from app.auth import get_optional_rep
+from app.auth_candidate import get_optional_candidate
+from app.auth_citizen import get_optional_citizen
 from app.models.pages import (
+    CandidateAccount,
     CitizenAccount,
     Poll,
     PollComment,
@@ -404,6 +408,9 @@ def polls_feed(
     limit: int = Query(default=100, ge=1, le=300),
     kind: Optional[str] = Query(default=None, description="Filter by 'rep' | 'citizen' | 'standalone' | 'candidate'"),
     db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ) -> dict:
     """Every active poll across the entire app, newest first.
 
@@ -450,6 +457,34 @@ def polls_feed(
         q = q.filter(Poll.target_official_id.is_not(None))
 
     rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
+
+    # Pre-compute the viewer's vote per poll so the UI can render a
+    # 'your vote' indicator + know whether the click would CAST or
+    # SWITCH. Single batched query across the result set — at the
+    # cap of 300 polls this is one SELECT, much cheaper than the
+    # N+1 alternative of querying per-poll in the items loop below.
+    # Multi-identity callers: prefer citizen, fall back to rep, then
+    # candidate (matches the engagement-write side's _primary_tracker).
+    viewer_votes: Dict[int, int] = {}  # poll_id -> option_id
+    poll_ids = [p.id for p in rows]
+    if poll_ids and (me_citizen or me_rep or me_candidate):
+        vq = db.query(PollVote.poll_id, PollVote.option_id).filter(
+            PollVote.poll_id.in_(poll_ids)
+        )
+        if me_citizen is not None:
+            vq_self = vq.filter(PollVote.citizen_id == me_citizen.id)
+            for pid, oid in vq_self.all():
+                viewer_votes[int(pid)] = int(oid)
+        if me_rep is not None:
+            vq_rep = vq.filter(PollVote.author_rep_id == me_rep.id)
+            for pid, oid in vq_rep.all():
+                # Don't overwrite a citizen vote (citizen wins per the
+                # primary-tracker precedence; matches what the UI shows).
+                viewer_votes.setdefault(int(pid), int(oid))
+        if me_candidate is not None:
+            vq_cand = vq.filter(PollVote.author_candidate_id == me_candidate.id)
+            for pid, oid in vq_cand.all():
+                viewer_votes.setdefault(int(pid), int(oid))
     # Candidate filter pulls everything with a target then filters in
     # Python because ElectionsService is an in-memory dict — there's no
     # SQL way to ask "is this id a candidate." With the result set
@@ -484,7 +519,12 @@ def polls_feed(
         options = []
         for _oid, text, _so, vcnt in option_rows:
             pct = round((int(vcnt or 0) / total) * 100) if total else 0
-            options.append({"label": text, "percent": pct, "count": int(vcnt or 0)})
+            options.append({
+                "id": int(_oid),
+                "label": text,
+                "percent": pct,
+                "count": int(vcnt or 0),
+            })
 
         # Comment count by author_kind.
         if poll.author_kind == "citizen":
@@ -556,6 +596,22 @@ def polls_feed(
         # None for that case so the frontend can branch.
         page_tag = resolve_page_tag(db, official_id) if official_id else None
 
+        # Per-viewer context. Anonymous viewers get is_author=False
+        # and voter_choice_id=None. Citizens see is_author=True on
+        # their own standalone / page-scoped polls (only citizens
+        # author citizen polls today, so the comparison is single-
+        # identity safe). Reps + candidates don't author citizen
+        # polls today so is_author is always False for them.
+        is_author = bool(
+            me_citizen is not None
+            and poll.author_kind == "citizen"
+            and poll.author_citizen_id == me_citizen.id
+        )
+        viewer = {
+            "voter_choice_id": viewer_votes.get(int(poll.id)),
+            "is_author": is_author,
+        }
+
         items.append(
             {
                 "id": poll.id,
@@ -570,6 +626,7 @@ def polls_feed(
                 "options": options,
                 "votes": total,
                 "comments": int(comments),
+                "viewer": viewer,
             }
         )
     return {"items": items}
