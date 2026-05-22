@@ -1,5 +1,7 @@
 'use client';
 
+
+import { Check, BarChart3 } from 'lucide-react';
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
@@ -75,23 +77,10 @@ export default function CompareButton({
     >
       {isComparing ? (
         // checkmark
-        <svg
-          width={icon} height={icon} viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth="3"
-          strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
-        >
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
+        <Check size={14} strokeWidth={2.4} />
       ) : (
         // two-bar "compare" icon (parallel columns)
-        <svg
-          width={icon} height={icon} viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth="2.2"
-          strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
-        >
-          <rect x="4"  y="6"  width="6" height="14" rx="1.3" />
-          <rect x="14" y="3"  width="6" height="17" rx="1.3" />
-        </svg>
+        <BarChart3 size={14} strokeWidth={2} />
       )}
     </button>
   );

@@ -1,5 +1,7 @@
 'use client';
 
+
+import { ChevronLeft } from 'lucide-react';
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
@@ -67,9 +69,7 @@ export default function LegalPageLayout({ title, eyebrow, lastUpdated, children 
             fontFamily: 'var(--cl-font-sans)',
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <ChevronLeft size={14} strokeWidth={2.5} />
           Back
         </button>
       </div>

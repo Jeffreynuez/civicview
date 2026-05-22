@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useState } from 'react';
+import { MapPin } from 'lucide-react';
 import { lookupAddress } from '@/lib/api';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -300,12 +301,7 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
             }}
             aria-label="Use my current location to find my reps"
           >
-            <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M8 1.5C5.24 1.5 3 3.74 3 6.5c0 3.5 5 8 5 8s5-4.5 5-8c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"
-                fill="currentColor"
-              />
-            </svg>
+            <MapPin size={12} fill="currentColor" strokeWidth={0} />
             {locating ? 'Locating…' : 'Use my location'}
           </button>
           <span
