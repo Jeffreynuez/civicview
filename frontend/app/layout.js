@@ -25,8 +25,8 @@ export const metadata = {
     title: 'CivicView',
   },
   icons: {
-    icon: '/logo/civiclens-glyph-color.svg',
-    apple: '/logo/civiclens-glyph-color.svg',
+    icon: '/logo/civicview-glyph-color.svg',
+    apple: '/logo/civicview-glyph-color.svg',
   },
 };
 

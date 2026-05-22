@@ -15,7 +15,7 @@ import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
 import { useIsCompact } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
-import CivicLensLogo from '@/components/brand/CivicLensLogo';
+import CivicViewLogo from '@/components/brand/CivicViewLogo';
 import IdentitySwitcher from '@/components/IdentitySwitcher';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -385,7 +385,7 @@ export default function Navbar({
           cursor: onHome ? 'pointer' : 'default',
         }}
       >
-        <CivicLensLogo size={28} variant="reverse" />
+        <CivicViewLogo size={28} variant="reverse" />
         {/* Wordmark — visible at every breakpoint. Originally hidden
             on mobile in M1.5 to save horizontal space, but real-device
             testing showed there's plenty of room next to the lens

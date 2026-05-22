@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { completeLoginRep, loginRep } from '../lib/auth';
 import LoginChallengeStep from './LoginChallengeStep';
 import { submitSuspensionAppeal } from '../lib/pagesApi';
-import CivicLensLogo from './brand/CivicLensLogo';
+import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button } from './ui';
 
 /**
@@ -211,7 +211,7 @@ export default function RepLoginModal({
     >
       {/* Brand mark + heading */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <CivicLensLogo size={28} variant="color" />
+        <CivicViewLogo size={28} variant="color" />
         <span
           style={{
             fontFamily: 'var(--cl-font-display)',

@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { joinWaitlist, fetchCitizenPolls } from '../lib/pagesApi';
-import CivicLensLogo from './brand/CivicLensLogo';
+import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button, EmptyState, CheckCircle } from './ui';
 
 /**
@@ -132,7 +132,7 @@ export default function ClaimPageModal({
     >
       {/* Brand mark */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <CivicLensLogo size={28} variant="color" />
+        <CivicViewLogo size={28} variant="color" />
         <span
           style={{
             fontFamily: 'var(--cl-font-display)',

@@ -11,13 +11,13 @@
   "categories": ["government", "news", "social"],
   "icons": [
     {
-      "src": "/logo/civiclens-glyph-color.svg",
+      "src": "/logo/civicview-glyph-color.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "any"
     },
     {
-      "src": "/logo/civiclens-glyph-reverse.svg",
+      "src": "/logo/civicview-glyph-reverse.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "maskable"

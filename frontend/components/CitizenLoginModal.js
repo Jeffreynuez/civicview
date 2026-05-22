@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { completeLoginCitizen, loginCitizen, signupDemoCitizen } from '../lib/citizenAuth';
 import LoginChallengeStep from './LoginChallengeStep';
 import { submitSuspensionAppeal } from '../lib/pagesApi';
-import CivicLensLogo from './brand/CivicLensLogo';
+import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button } from './ui';
 
 // US states + DC + territories with congressional delegates. Same set
@@ -296,7 +296,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     >
       {/* Brand mark + heading */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <CivicLensLogo size={28} variant="color" />
+        <CivicViewLogo size={28} variant="color" />
         <span
           style={{
             fontFamily: 'var(--cl-font-display)',

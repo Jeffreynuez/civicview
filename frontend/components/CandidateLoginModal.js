@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import { completeLoginCandidate, loginCandidate } from '../lib/candidateAuth';
 import LoginChallengeStep from './LoginChallengeStep';
-import CivicLensLogo from './brand/CivicLensLogo';
+import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button } from './ui';
 
 /**
@@ -126,7 +126,7 @@ export default function CandidateLoginModal({
     <ModalShell open={open} onClose={onClose} width={420}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '4px 0' }}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <CivicLensLogo height={28} />
+          <CivicViewLogo height={28} />
         </div>
 
         <div style={{ textAlign: 'center' }}>

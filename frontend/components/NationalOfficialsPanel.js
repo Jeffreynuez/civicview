@@ -21,7 +21,7 @@ import {
   Building,
   CheckCircle,
 } from './ui';
-import CivicLensLogo from './brand/CivicLensLogo';
+import CivicViewLogo from './brand/CivicViewLogo';
 
 // ─────────────────────────────────────────────────────────────────
 // usePersistentToggle — localStorage-backed boolean state.
@@ -554,7 +554,7 @@ function Hero({ onVerifyClick }) {
             }}
             aria-hidden="true"
           >
-            <CivicLensLogo
+            <CivicViewLogo
               size={visualSize}
               variant="reverse"
               style={{
@@ -2329,7 +2329,7 @@ function Footer({
                 marginBottom: 10,
               }}
             >
-              <CivicLensLogo size={20} variant="color" />
+              <CivicViewLogo size={20} variant="color" />
               <span
                 style={{
                   fontFamily: 'var(--cl-font-display)',
