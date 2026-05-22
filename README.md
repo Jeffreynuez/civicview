@@ -13,7 +13,7 @@ they can post, run polls, manage events, and engage their constituents
 through a moderated, district-scoped channel.
 
 CivicView is filed as a **Florida Benefit Corporation** (initial Profit
-Corporation filing on the books — tracking #600474907136; Benefit Corp
+Corporation filing on the books — tracking #800474911808; Benefit Corp
 Amendment pending). No ads, no venture capital, no partisan agenda. The
 revenue model is a $5/month consumer subscription for engagement features;
 browsing is free forever.
@@ -368,7 +368,7 @@ categories:
 | --- | --- | --- | --- |
 | 58 | Add financial-model link to help-build page | pending (deferred) | Surface the `docs/civicview_financial_model.xlsx` from /help-build so visitors can audit the math directly |
 | 84 | Wrap web app into iOS + Android native via Capacitor | pending | Apple Dev $99/yr + Google Play $25 one-time; ~2-4 weeks for first submission; revenue share considerations covered in financial model |
-| 90 | File Articles of Amendment for Benefit Corp status | pending | Sunbiz; waiting for initial Profit Corp filing (#600474907136) to process. Language is in `docs/civicview_benefit_corp_filing.pdf` |
+| 90 | File Articles of Amendment for Benefit Corp status | pending | Sunbiz; waiting for initial Profit Corp filing (#800474911808) to process. Language is in `docs/civicview_benefit_corp_filing.pdf` |
 
 ---
 

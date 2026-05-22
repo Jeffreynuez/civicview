@@ -45,11 +45,11 @@ const CROWDFUND_LIVE = false;
 // push so we don't run out of runway while subscription revenue
 // ramps from $1.8K in Y1 to $90K in Y3.
 //   One-time line items:    2,400 + 1,050 + 6           =  3,456
-//   Year-1 recurring (12mo): (500 + 100 + 350 + 15 + 20)*12 + 15 = 11,835
-//                                                       = 15,291
+//   Year-1 recurring (12mo): (500 + 100 + 350 + 25 + 20)*12 + 15 = 11,955
+//                                                       = 15,411
 //   + Year-2 runway buffer (6 months)                   ≈  7,000
 //   + LLC formation + legal + launch outreach           ≈  2,700
-//                                                       ≈ 25,000
+//                                                       ≈ 25,000 (rounded — small overage absorbs into the buffer)
 const FUND_GOAL = 25000;
 
 // ────────────────────────────────────────────────────────────────────
@@ -167,11 +167,11 @@ const FUNDING_RECURRING = [
     source: 'Cloudflare Registrar at-cost pricing',
   },
   {
-    title: 'Hosting — Render web service + Postgres (upgraded from free)',
-    cost: '~$15',
+    title: 'Hosting — Render web service + Postgres (Pro tier)',
+    cost: '$25',
     costSuffix: '/ month combined',
-    body: 'No 50-second spin-up on first visit. Database stays warm.',
-    source: 'render.com/pricing — Starter plan eliminates the free-tier cold-start delay',
+    body: 'No 50-second cold-start on first visit; database stays warm. Currently running on the Pro tier funded out of pocket — the campaign moves this onto the project so it doesn’t depend on the founder absorbing it.',
+    source: 'render.com/pricing — Pro plan eliminates the free-tier cold-start delay',
   },
   {
     title: 'Vercel Pro (frontend)',
@@ -764,6 +764,17 @@ function NicknameIcon({ size = 18 }) {
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
       <circle cx="12" cy="9" r="3.5" stroke="currentColor" strokeWidth="1.8" fill="rgba(45,106,79,0.18)" />
       <path d="M5 20c0-3 3-5.5 7-5.5s7 2.5 7 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="rgba(45,106,79,0.18)" />
+      <circle cx="12" cy="9" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
+const ROADMAP_ICONS = {
+  video: VideoIcon,
+  live: LiveIcon,
+  debate: DebateIcon,
+  nickname: NicknameIcon,
+};
       <circle cx="12" cy="9" r="1.4" fill="currentColor" />
     </svg>
   );

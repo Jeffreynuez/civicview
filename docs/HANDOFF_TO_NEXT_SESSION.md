@@ -47,7 +47,7 @@ read this file + the README + the financial model + the codebase as needed.
 >   where it's due, but the architecture decisions, product direction,
 >   and business accountability are mine.
 > - The app is filed as a **Florida Benefit Corporation** (initial Profit
->   Corp filing on the books, tracking #600474907136; Benefit Corp
+>   Corp filing on the books, tracking #800474911808; Benefit Corp
 >   Amendment is pending — Task #90).
 > - Three identity tracks (citizen / verified rep / candidate). Same
 >   person can hold all three concurrently in one browser. Engagement
