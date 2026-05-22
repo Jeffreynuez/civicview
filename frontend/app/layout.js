@@ -5,6 +5,10 @@
 import './globals.css';
 import Force2FAGate from '@/components/Force2FAGate';
 import RecoveryBanner from '@/components/RecoveryBanner';
+// One-time wipe of the legacy tracked-items localStorage keys. Mounts
+// at the root layout so it runs once per browser on first page load
+// after the cross-account fix lands. Renders nothing visible.
+import LegacyStorageCleanup from '@/components/LegacyStorageCleanup';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -89,6 +93,7 @@ export default function RootLayout({ children }) {
             so a soft-deleted user sees their recovery prompt first,
             before any 2FA enrollment surface. Both render at top
             of every route via this layout wrapping. */}
+        <LegacyStorageCleanup />
         <RecoveryBanner />
         <Force2FAGate>
           {children}

@@ -10,6 +10,13 @@ import {
   markNotificationRead,
   markAllNotificationsRead,
 } from '@/lib/pagesApi';
+// Subscribe to the three identity hooks so the bell can re-fetch the
+// notification inbox the moment the active identity changes — without
+// this, the badge can show the prior user's unread count for up to
+// 60s after login / logout (a real UX bug and an App Store red flag).
+import { useAuth } from '@/lib/auth';
+import { useCitizenAuth } from '@/lib/citizenAuth';
+import { useCandidateAuth } from '@/lib/candidateAuth';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -57,6 +64,30 @@ export default function NotificationBellMenu() {
     if (open) refreshNotifs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  // Refresh immediately when the active identity changes (login,
+  // logout, identity-switch). Each hook publishes the current user
+  // record (or null when signed out); watching the .id keys means
+  // the effect only fires on actual identity transitions, not on
+  // every component re-render. Also clears stale local state on
+  // logout so the badge drops to zero instantly instead of after
+  // the next 60s poll.
+  const { me: repMe } = useAuth();
+  const { citizen } = useCitizenAuth();
+  const { candidate } = useCandidateAuth();
+  useEffect(() => {
+    // If no identity is signed in, zero out the local view so the
+    // badge doesn't display a previous user's count. The refresh
+    // call still happens — /api/notifications returns empty when
+    // anonymous — but the optimistic clear avoids the in-between
+    // frame.
+    if (!repMe && !citizen && !candidate) {
+      setNotifItems([]);
+      setUnreadCount(0);
+    }
+    refreshNotifs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [repMe?.id, citizen?.id, candidate?.id]);
 
   const onClickNotif = async (n) => {
     if (!n.read_at) {
