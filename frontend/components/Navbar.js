@@ -17,6 +17,25 @@ import { useIsCompact } from '@/lib/useViewport';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicViewLogo from '@/components/brand/CivicViewLogo';
 import IdentitySwitcher from '@/components/IdentitySwitcher';
+// Lucide icon set — Phase 1 of the icon migration. Replaces hand-rolled
+// inline SVGs in this file. Per docs/Design Exports/civicview-brand-logo/
+// assets/lucide.md: 14px in chips, 18px in navbar search, strokeWidth
+// 2 default (2.4 on small icons against the navy navbar so the outline
+// still reads). stroke='currentColor' so color flows from the parent.
+import {
+  ChevronLeft,
+  Search,
+  User,
+  Shield,
+  Home,
+  Sun,
+  MailPlus,
+  Activity,
+  Bookmark,
+  Menu,
+  MessageSquare,
+  Landmark,
+} from 'lucide-react';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 
@@ -450,9 +469,7 @@ export default function Navbar({
               color: 'white', cursor: 'pointer',
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-              <path d="m15 18-6-6 6-6" />
-            </svg>
+            <ChevronLeft size={18} strokeWidth={2.4} />
           </button>
         )}
         <div
@@ -466,14 +483,12 @@ export default function Navbar({
             transition: 'border-color 0.15s',
           }}
         >
-          <svg
+          <Search
             className="absolute left-3 top-1/2 transform -translate-y-1/2"
-            width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="rgba(255, 255, 255, 0.6)" strokeWidth="2"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
+            size={18}
+            strokeWidth={2}
+            color="rgba(255, 255, 255, 0.6)"
+          />
           <input
             ref={inputRef}
             type="text"
@@ -649,10 +664,7 @@ export default function Navbar({
               flexShrink: 0,
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
+            <Search size={18} strokeWidth={2} />
           </button>
         )}
 
@@ -719,10 +731,7 @@ export default function Navbar({
                 : (e) => { e.currentTarget.style.background = 'white'; }
             }
           >
-            <svg width={isCompact ? 16 : 14} height={isCompact ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+            <User size={isCompact ? 16 : 14} strokeWidth={2.4} />
             {!isCompact && 'Citizen login'}
           </button>
         )}
@@ -763,9 +772,7 @@ export default function Navbar({
                 : (e) => { e.currentTarget.style.background = '#1d3557'; e.currentTarget.style.borderColor = '#1d3557'; }
             }
           >
-            <svg width={isCompact ? 16 : 14} height={isCompact ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
+            <Shield size={isCompact ? 16 : 14} strokeWidth={2.4} />
             {!isCompact && 'Rep Login'}
           </button>
         )}
@@ -806,9 +813,7 @@ export default function Navbar({
                 : (e) => { e.currentTarget.style.background = '#6c3ec1'; e.currentTarget.style.borderColor = '#6c3ec1'; }
             }
           >
-            <svg width={isCompact ? 16 : 14} height={isCompact ? 16 : 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-              <path d="M3 21h18M5 21V11l7-4 7 4v10M9 21v-6h6v6" />
-            </svg>
+            <Home size={isCompact ? 16 : 14} strokeWidth={2.4} />
             {!isCompact && 'Candidate Login'}
           </button>
         )}
@@ -850,9 +855,7 @@ export default function Navbar({
                 onMouseOver={(e) => (e.currentTarget.style.opacity = '0.9')}
                 onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                  <path d="M12 2v6M12 22v-6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
-                </svg>
+                <Sun size={14} strokeWidth={2.4} aria-hidden="true" />
                 Help build this
               </button>
             )}
@@ -872,10 +875,7 @@ export default function Navbar({
               onMouseOver={(e) => (e.currentTarget.style.background = '#ffc733')}
               onMouseOut={(e) => (e.currentTarget.style.background = '#ffba08')}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                <path d="M4 4h16v16l-4-3-4 3-4-3-4 3z" />
-                <path d="M8 10h8M8 14h5" />
-              </svg>
+              <MailPlus size={14} strokeWidth={2.4} />
               Subscribe
             </button>
             {/* Committees moved to the hamburger popover. */}
@@ -898,9 +898,7 @@ export default function Navbar({
                 onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
                 onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 12h4l3 -9l4 18l3 -9h4" />
-                </svg>
+                <Activity size={14} strokeWidth={2} />
                 Polls
               </a>
             )}
@@ -917,9 +915,7 @@ export default function Navbar({
               onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.18)')}
               onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg>
+              <Bookmark size={14} strokeWidth={2} />
               My Tracked
               {trackedCount > 0 && (
                 <span
@@ -971,11 +967,7 @@ export default function Navbar({
                 flexShrink: 0, position: 'relative',
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
+              <Menu size={18} strokeWidth={2.2} />
               {/* Admin open-reports dot takes priority over tracked
                   dot because moderation queue is more time-sensitive
                   than a personal tracked-list signal. Falls through
@@ -1026,9 +1018,7 @@ export default function Navbar({
                 {onOpenHelpBuild && isCompact && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                        <path d="M12 2v6M12 22v-6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24" />
-                      </svg>
+                      <Sun size={16} strokeWidth={2.4} />
                     }
                     label="Help build this"
                     accent="var(--cl-accent)"
@@ -1040,9 +1030,7 @@ export default function Navbar({
                 {onOpenFeedback && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                      </svg>
+                      <MessageSquare size={16} strokeWidth={2.4} />
                     }
                     label="Feedback"
                     onClick={() => { setMobileMenuOpen(false); onOpenFeedback?.(); }}
@@ -1057,10 +1045,7 @@ export default function Navbar({
                 {isCompact && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                        <path d="M4 4h16v16l-4-3-4 3-4-3-4 3z" />
-                        <path d="M8 10h8M8 14h5" />
-                      </svg>
+                      <MailPlus size={16} strokeWidth={2.4} />
                     }
                     label="Subscribe"
                     accent="#ffba08"
@@ -1071,9 +1056,7 @@ export default function Navbar({
                 {!compact && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1" />
-                      </svg>
+                      <Landmark size={16} strokeWidth={2} />
                     }
                     label="Committees"
                     onClick={() => { setMobileMenuOpen(false); onOpenCommittees?.(); }}
@@ -1084,9 +1067,7 @@ export default function Navbar({
                 {isCompact && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                      </svg>
+                      <Bookmark size={16} strokeWidth={2} />
                     }
                     label="My Tracked"
                     badge={trackedCount > 0 ? trackedCount : null}
@@ -1100,9 +1081,7 @@ export default function Navbar({
                 {isCompact && !hidePollsLink && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 12h4l3 -9l4 18l3 -9h4" />
-                      </svg>
+                      <Activity size={16} strokeWidth={2} />
                     }
                     label="Polls"
                     onClick={() => {
@@ -1118,9 +1097,7 @@ export default function Navbar({
                 {isAdmin && (
                   <MobileMenuItem
                     icon={
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      </svg>
+                      <Shield size={16} strokeWidth={2} />
                     }
                     label="Admin"
                     badge={unreadReports > 0 ? unreadReports : null}
