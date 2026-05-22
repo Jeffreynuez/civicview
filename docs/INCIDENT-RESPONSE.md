@@ -220,7 +220,7 @@ We recommend you:
 If you have questions, please reply to this email or contact us at
 civicview@civicview.app.
 
-— Jeffrey Nuez, Founder, CivicView
+— Jeffrey De La Nuez, Founder, CivicView
 ```
 
 **Public statement** (if the incident becomes public):

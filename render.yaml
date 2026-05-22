@@ -1,5 +1,5 @@
 # CivicView — Render deployment blueprint.
-# Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 #
 # Render auto-creates the resources defined here when you "New +" →
 # "Blueprint" and point it at this repo. Two pieces:

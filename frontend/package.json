@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "CivicView — track your federal, state, and local representatives.",
-  "author": "Jeffrey Nuez <jeffreynuez1@gmail.com>",
+  "author": "Jeffrey De La Nuez <jeffreynuez1@gmail.com>",
   "license": "UNLICENSED",
-  "copyright": "Copyright (c) 2026 Jeffrey Nuez. All rights reserved.",
+  "copyright": "Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

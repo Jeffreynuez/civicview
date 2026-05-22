@@ -1,7 +1,7 @@
 'use client';
 
 // CivicView — top-level page (the orchestrator).
-// Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useState, useCallback, useRef } from 'react';

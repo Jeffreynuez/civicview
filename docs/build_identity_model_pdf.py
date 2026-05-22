@@ -180,7 +180,7 @@ def build_story(styles):
         styles["Subtitle"],
     ))
     story.append(Paragraph(
-        "Owner: Jeffrey Nuez &nbsp;&nbsp;|&nbsp;&nbsp; Status: Phase 3 (Candidate auth) shipped; Phase 4+ pending against this spec",
+        "Owner: Jeffrey De La Nuez &nbsp;&nbsp;|&nbsp;&nbsp; Status: Phase 3 (Candidate auth) shipped; Phase 4+ pending against this spec",
         styles["FooterMeta"],
     ))
     story.append(Spacer(1, 0.25 * inch))
@@ -553,7 +553,7 @@ def main():
         leftMargin=0.75 * inch, rightMargin=0.75 * inch,
         topMargin=0.75 * inch, bottomMargin=0.75 * inch,
         title="CivicView Identity Model",
-        author="Jeffrey Nuez",
+        author="Jeffrey De La Nuez",
     )
     doc.build(build_story(styles))
     print(f"Wrote {out}")

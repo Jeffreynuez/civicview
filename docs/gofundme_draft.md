@@ -132,7 +132,7 @@
 >
 > ### About the builder
 >
-> CivicView is built by **Jeffrey Nuez**, an independent developer based in Florida.
+> CivicView is built by **Jeffrey De La Nuez**, an independent developer based in Florida.
 >
 > The idea for this app started years ago. I'd been listening — to representatives, to reporters, to social-media influencers — and at first I was genuinely enamored by the talk of change. But after years of it, I noticed something: nobody actually had a good way to connect with each other or surface real solutions to any of the problems that kept getting raised. Even people who followed political news closely couldn't name their own representatives, didn't know which bills were moving, and didn't really understand how the governing system worked.
 >
@@ -359,7 +359,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 > Campaign: [GoFundMe link]
 >
 > Thank you,
-> Jeffrey Nuez
+> Jeffrey De La Nuez
 > Founder, CivicView
 
 ---
@@ -389,7 +389,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > [Cut to founder, on camera, plain background.]
 >
-> I'm Jeffrey Nuez. I built this myself over the last six months. The $25K we're raising covers Year 2 of operations — that's it. If you care about civic infrastructure that isn't owned by anyone, help me ship it.
+> I'm Jeffrey De La Nuez. I built this myself over the last six months. The $25K we're raising covers Year 2 of operations — that's it. If you care about civic infrastructure that isn't owned by anyone, help me ship it.
 >
 > [End card: civicview.app + GoFundMe link]
 

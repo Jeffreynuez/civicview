@@ -1,4 +1,4 @@
-# CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+# CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 # Proprietary and confidential. See LICENSE at the repository root.
 
 """
@@ -127,7 +127,7 @@ class VerifiedAttributes:
     compute the verified_attributes_hash (for the secondary cost-
     skip lookup) before discarding them.
     """
-    legal_name: str          # "Jeffrey Nuez"
+    legal_name: str          # "Jeffrey De La Nuez"
     address_line1: str       # "123 Main St"
     address_city: str        # "Naples"
     address_state: str       # "FL"

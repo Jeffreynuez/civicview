@@ -33,7 +33,7 @@ below for the staged rollout plan.
 
 ## Built by
 
-CivicView is built and maintained by **Jeffrey Nuez**
+CivicView is built and maintained by **Jeffrey De La Nuez**
 ([jeffreynuez1@gmail.com](mailto:jeffreynuez1@gmail.com)) — sole creator,
 founder, and owner of the business.
 
@@ -529,7 +529,7 @@ Tracked here so it stays visible across sessions:
 ## License
 
 CivicView is **proprietary software**. All source code, designs,
-content, and assets are © 2026 Jeffrey Nuez. All rights reserved.
+content, and assets are © 2026 Jeffrey De La Nuez. All rights reserved.
 
 No part of this repository may be copied, modified, distributed, or
 otherwise used without the express written permission of the copyright

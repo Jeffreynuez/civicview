@@ -1,6 +1,6 @@
 'use client';
 
-// CivicView — Copyright (c) 2026 Jeffrey Nuez. All rights reserved.
+// CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
@@ -764,17 +764,6 @@ function NicknameIcon({ size = 18 }) {
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
       <circle cx="12" cy="9" r="3.5" stroke="currentColor" strokeWidth="1.8" fill="rgba(45,106,79,0.18)" />
       <path d="M5 20c0-3 3-5.5 7-5.5s7 2.5 7 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="rgba(45,106,79,0.18)" />
-      <circle cx="12" cy="9" r="1.4" fill="currentColor" />
-    </svg>
-  );
-}
-
-const ROADMAP_ICONS = {
-  video: VideoIcon,
-  live: LiveIcon,
-  debate: DebateIcon,
-  nickname: NicknameIcon,
-};
       <circle cx="12" cy="9" r="1.4" fill="currentColor" />
     </svg>
   );
