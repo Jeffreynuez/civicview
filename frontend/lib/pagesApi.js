@@ -72,9 +72,22 @@ async function request(path, { method = 'GET', body, query } = {}) {
   try {
     let url = `${API_BASE_URL}${path}`;
     if (query) {
-      const q = new URLSearchParams(
-        Object.entries(query).filter(([, v]) => v !== undefined && v !== null && v !== ''),
-      );
+      // Build the query string by hand so array values append repeated
+      // params (e.g. { kind: ['rep', 'standalone'] } → "?kind=rep&kind=standalone").
+      // URLSearchParams's array support is implementation-specific, so
+      // we iterate explicitly to keep behavior identical across runtimes.
+      const q = new URLSearchParams();
+      for (const [k, v] of Object.entries(query)) {
+        if (v === undefined || v === null || v === '') continue;
+        if (Array.isArray(v)) {
+          for (const item of v) {
+            if (item === undefined || item === null || item === '') continue;
+            q.append(k, String(item));
+          }
+        } else {
+          q.append(k, String(v));
+        }
+      }
       const qs = q.toString();
       if (qs) url += `?${qs}`;
     }
@@ -332,10 +345,34 @@ export async function fetchPopularPolls({ limit = 9 } = {}) {
 }
 
 // Full polls feed — every active poll across the app (rep + citizen +
-// standalone). Used by the /polls page. Supports a kind filter
-// ('rep' | 'citizen' | 'standalone'); omit to get everything.
-export async function fetchPollsFeed({ limit = 100, kind } = {}) {
-  return request('/api/feed/polls', { query: { limit, kind } });
+// standalone + candidate). Used by the /polls page.
+//
+// `kinds` accepts an ARRAY for additive multi-select
+//   (e.g. ['rep', 'standalone'] returns rep polls + standalone polls).
+// `kind` (singular) is still accepted as a string for backwards-compat;
+//   callers that already pass `kind: 'rep'` keep working.
+// `state` is a 2-letter code — filters to polls whose author lives in
+//   (citizen polls) or represents (rep + candidate polls) that state.
+export async function fetchPollsFeed({ limit = 100, kind, kinds, state } = {}) {
+  // Normalize the kind param: array wins; fall back to scalar.
+  const kindParam = Array.isArray(kinds) && kinds.length
+    ? kinds
+    : (kind || undefined);
+  return request('/api/feed/polls', {
+    query: { limit, kind: kindParam, state: state || undefined },
+  });
+}
+
+// Full posts feed — every non-deleted post from verified reps +
+// candidates. Used by the /posts page (PR #3 wires it). Same filter
+// surface as fetchPollsFeed except `kinds` is ['rep' | 'candidate'].
+// Sort is engagement-score DESC server-side; the response items
+// already arrive in display order.
+export async function fetchPostsFeed({ limit = 100, kinds, state } = {}) {
+  const kindParam = Array.isArray(kinds) && kinds.length ? kinds : undefined;
+  return request('/api/feed/posts', {
+    query: { limit, kind: kindParam, state: state || undefined },
+  });
 }
 
 // Create a standalone citizen poll (no target rep page). Returns the
