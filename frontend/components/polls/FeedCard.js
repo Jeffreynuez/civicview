@@ -35,7 +35,17 @@
  */
 
 import { useState } from 'react';
-import { voteOnCitizenPoll, closeCitizenPoll } from '../../lib/pagesApi';
+import {
+  voteOnCitizenPoll,
+  closeCitizenPoll,
+  votePoll,
+  reactToPost,
+  clearReaction,
+} from '../../lib/pagesApi';
+import { getVoterToken } from '../../lib/voterToken';
+import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
+import IdentityPicker from '../IdentityPicker';
+import { ThumbsUp, ThumbsDown, ChatText } from '../ui';
 import CommentsThread from './CommentsThread';
 
 export default function FeedCard({
@@ -62,32 +72,78 @@ export default function FeedCard({
   // and stay collapsed by default. Same pattern the rep page uses.
   const [expanded, setExpanded] = useState(false);
 
+  // Multi-identity picker state. The /polls + /posts feed treats
+  // every viewer as the "owner" for picker purposes — when 2+
+  // identities are signed in, every engagement action (vote, like,
+  // dislike, comment) routes through the picker so the user is
+  // explicit about which identity is acting. The backend rejects
+  // invalid combinations (e.g. rep self-engaging on another rep's
+  // post) and we surface the error inline.
+  const activeIdentities = useActiveIdentities({ isOwner: true });
+  // votePicker = { optionId, identities } when open, null otherwise.
+  // reactPicker = { kind: 'up'|'down', identities } when open.
+  const [votePicker, setVotePicker] = useState(null);
+  const [reactPicker, setReactPicker] = useState(null);
+
   // ── handlers ────────────────────────────────────────────────────
-  const handleVote = async (optionId) => {
-    if (busy) return;
-    if (!signedIn) { onLoginRequired?.(); return; }
-    // Vote is wired through /api/citizen-polls today (the only
-    // endpoint that accepts /polls-feed votes). Rep + candidate
-    // polls deep-link to their page where the page-side voting UI
-    // handles the cast.
-    if (card.kind === 'rep' || card.kind === 'candidate') {
-      // Open the parent page so the existing vote UI takes over —
-      // matches the brief's "deep-links to parent page for
-      // rep/candidate cards" guidance.
-      if (card.official_id) {
-        window.location.href = `/?page=${encodeURIComponent(card.official_id)}`;
-      }
-      return;
-    }
+  // Fire the actual vote against the right backend endpoint for the
+  // card kind. Rep + candidate polls live under the page's poll
+  // endpoint; citizen + standalone polls live under /api/citizen-polls.
+  const fireVote = async (optionId, asIdentity) => {
     setBusy(true);
     setErrorMsg(null);
-    const { error: err } = await voteOnCitizenPoll(card.id, optionId);
+    let err;
+    if (card.kind === 'rep' || card.kind === 'candidate') {
+      if (!card.official_id) {
+        setBusy(false);
+        setErrorMsg('Missing page reference for this poll.');
+        return;
+      }
+      const res = await votePoll(card.official_id, card.id, {
+        optionId,
+        voterToken: getVoterToken(),
+        asIdentity,
+      });
+      err = res.error;
+    } else {
+      const res = await voteOnCitizenPoll(card.id, optionId, asIdentity);
+      err = res.error;
+    }
     setBusy(false);
     if (err) {
       setErrorMsg(typeof err === 'string' ? err : 'Could not record vote.');
       return;
     }
     onMutated?.();
+  };
+
+  const handleVote = (optionId) => {
+    if (busy) return;
+    if (!signedIn) { onLoginRequired?.(); return; }
+    const decision = pickEngagementIdentity({ identities: activeIdentities });
+    if (decision.none) {
+      onLoginRequired?.();
+      return;
+    }
+    if (decision.single) {
+      // Single identity — fire directly, no picker needed.
+      fireVote(optionId, decision.single);
+      return;
+    }
+    // Multi-identity — pop the picker. The user picks who's casting.
+    setVotePicker({
+      optionId,
+      identities: decision.showPicker.map((id) => ({
+        ...id,
+        currentState: viewer.voter_choice_id === optionId ? 'voted' : null,
+      })),
+    });
+  };
+
+  const onVotePick = (asIdentity) => {
+    const optionId = votePicker?.optionId;
+    setVotePicker(null);
+    if (optionId != null) fireVote(optionId, asIdentity);
   };
 
   const handleConfirmClose = async () => {
@@ -102,6 +158,71 @@ export default function FeedCard({
       return;
     }
     onMutated?.();
+  };
+
+  // ── Reactions (like / dislike) ─────────────────────────────────
+  // Three cases:
+  //   • Post card (kind='post')          → reactToPost(card.id)
+  //   • Poll w/ parent post (rep polls)  → reactToPost(parent_post_id)
+  //   • Citizen / standalone poll         → no-op (PollReaction model
+  //                                           not yet wired; future PR)
+  // The picker pops when 2+ identities are signed in, identical to
+  // the vote pattern above.
+  const reactablePostId = kind === 'post'
+    ? card.id
+    : (card.parent_post_id || null);
+
+  const fireReact = async (rxnKind, asIdentity, currentlyActive) => {
+    if (!reactablePostId) {
+      // Citizen poll without a parent post — silently no-op for
+      // now; CommentsThread surfaces the same constraint with a
+      // tooltip for AI filter, react picker stays disabled until
+      // PollReaction lands.
+      return;
+    }
+    setBusy(true);
+    setErrorMsg(null);
+    const res = currentlyActive
+      ? await clearReaction(reactablePostId, asIdentity)
+      : await reactToPost(reactablePostId, rxnKind, asIdentity);
+    setBusy(false);
+    if (res.error) {
+      setErrorMsg(typeof res.error === 'string' ? res.error : 'Could not record reaction.');
+      return;
+    }
+    onMutated?.();
+  };
+
+  const handleReact = (rxnKind) => {
+    if (busy) return;
+    if (!signedIn) { onLoginRequired?.(); return; }
+    if (!reactablePostId) {
+      // Citizen-poll like/dislike isn't wired yet. Silently no-op so
+      // the click feels responsive but doesn't error.
+      return;
+    }
+    const decision = pickEngagementIdentity({ identities: activeIdentities });
+    if (decision.none) {
+      onLoginRequired?.();
+      return;
+    }
+    // viewer.my_reaction isn't on the feed item shape yet — best-effort
+    // toggle: assume not-currently-active. Server is the source of
+    // truth; the response refresh corrects any drift.
+    if (decision.single) {
+      fireReact(rxnKind, decision.single, false);
+      return;
+    }
+    setReactPicker({
+      kind: rxnKind,
+      identities: decision.showPicker.map((id) => ({ ...id, currentState: null })),
+    });
+  };
+
+  const onReactPick = (asIdentity) => {
+    const rxnKind = reactPicker?.kind;
+    setReactPicker(null);
+    if (rxnKind) fireReact(rxnKind, asIdentity, false);
   };
 
   // ── label / chrome helpers ──────────────────────────────────────
@@ -194,20 +315,27 @@ export default function FeedCard({
               {(card.options || []).map((o) => {
                 const mine = viewer.voter_choice_id === o.id;
                 return (
-                  <button
-                    key={o.id}
-                    type="button"
-                    className={`poll-opt2 ${mine ? 'is-mine' : ''}`}
-                    onClick={() => handleVote(o.id)}
-                    disabled={busy}
-                  >
-                    <span className="poll-opt2__fill" style={{ width: `${o.percent || 0}%` }} />
-                    <span className="poll-opt2__label">
-                      <strong>{o.label}</strong>
-                      {mine && <span className="poll-opt2__your-vote">✓ your vote</span>}
-                    </span>
-                    <span className="poll-opt2__pct">{o.percent || 0}% · {formatCount(o.count || 0)}</span>
-                  </button>
+                  <div key={o.id} className="poll-opt2-wrap">
+                    <button
+                      type="button"
+                      className={`poll-opt2 ${mine ? 'is-mine' : ''}`}
+                      onClick={() => handleVote(o.id)}
+                      disabled={busy}
+                    >
+                      <span className="poll-opt2__fill" style={{ width: `${o.percent || 0}%` }} />
+                      <span className="poll-opt2__label">
+                        <strong>{o.label}</strong>
+                        {mine && <span className="poll-opt2__your-vote">✓ your vote</span>}
+                      </span>
+                      <span className="poll-opt2__pct">{o.percent || 0}% · {formatCount(o.count || 0)}</span>
+                    </button>
+                    <IdentityPicker
+                      open={votePicker?.optionId === o.id}
+                      identities={votePicker?.optionId === o.id ? votePicker.identities : []}
+                      onPick={onVotePick}
+                      onClose={() => setVotePicker(null)}
+                    />
+                  </div>
                 );
               })}
             </div>
@@ -277,27 +405,57 @@ export default function FeedCard({
       )}
 
       <div className="feed-card__actions">
-        <button
-          type="button"
-          className={`feed-act feed-act--like ${(card.likes || 0) > 0 ? 'is-active' : ''}`}
-          aria-label="Like"
-        >
-          ▲ <span>{formatCount(card.likes || 0)}</span>
-        </button>
-        <button
-          type="button"
-          className={`feed-act feed-act--dislike ${(card.dislikes || 0) > 0 ? 'is-active' : ''}`}
-          aria-label="Dislike"
-        >
-          ▼ <span>{formatCount(card.dislikes || 0)}</span>
-        </button>
+        {/* Like — blue thumbs-up, active when the viewer's own
+            reaction is 'up'. The feed item shape doesn't include
+            the viewer's reaction yet (TODO in a follow-up), so the
+            active state is currently driven by count > 0; once the
+            backend surfaces my_reaction we'll switch to that. */}
+        <div className="feed-act-wrap">
+          <button
+            type="button"
+            className={`feed-act feed-act--like ${(card.likes || 0) > 0 ? 'is-active' : ''}`}
+            onClick={() => handleReact('up')}
+            disabled={busy}
+            aria-label="Like"
+            title={reactablePostId ? 'Like' : 'Likes coming soon for citizen polls'}
+          >
+            <ThumbsUp size={14} />
+            <span>{formatCount(card.likes || 0)}</span>
+          </button>
+          <IdentityPicker
+            open={reactPicker?.kind === 'up'}
+            identities={reactPicker?.kind === 'up' ? reactPicker.identities : []}
+            onPick={onReactPick}
+            onClose={() => setReactPicker(null)}
+          />
+        </div>
+        <div className="feed-act-wrap">
+          <button
+            type="button"
+            className={`feed-act feed-act--dislike ${(card.dislikes || 0) > 0 ? 'is-active' : ''}`}
+            onClick={() => handleReact('down')}
+            disabled={busy}
+            aria-label="Dislike"
+            title={reactablePostId ? 'Dislike' : 'Dislikes coming soon for citizen polls'}
+          >
+            <ThumbsDown size={14} />
+            <span>{formatCount(card.dislikes || 0)}</span>
+          </button>
+          <IdentityPicker
+            open={reactPicker?.kind === 'down'}
+            identities={reactPicker?.kind === 'down' ? reactPicker.identities : []}
+            onPick={onReactPick}
+            onClose={() => setReactPicker(null)}
+          />
+        </div>
         <button
           type="button"
           className={`feed-act feed-act--comments ${isCommentsOpen ? 'is-active' : ''}`}
           onClick={onToggleComments}
           aria-expanded={isCommentsOpen}
         >
-          💬 Comments (<span>{formatCount(card.comments || 0)}</span>)
+          <ChatText size={14} />
+          <span>Comments (<span>{formatCount(card.comments || 0)}</span>)</span>
         </button>
       </div>
 

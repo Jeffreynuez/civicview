@@ -471,7 +471,21 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                       <StateDropdown
                         selected={stateFilter}
                         onSelect={setStateFilter}
-                        onClose={() => setStateDropdownOpen(false)}
+                        onClose={() => {
+                          setStateDropdownOpen(false);
+                          // If the user closed the dropdown without
+                          // picking a state, deactivate the States
+                          // chip too — a state-less States chip is
+                          // meaningless (all states are in the pool
+                          // by default). Falls back to ['all'] if
+                          // that was the only active chip.
+                          if (!stateFilter) {
+                            setBranches((prev) => {
+                              const next = prev.filter((b) => b !== 'states');
+                              return next.length === 0 ? ['all'] : next;
+                            });
+                          }
+                        }}
                       />
                     )}
                   </div>

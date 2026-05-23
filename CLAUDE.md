@@ -85,6 +85,57 @@ cohort exercises the full engagement model. Two lines in
 removal once real billing + ID.me go live. Don't ship them to
 production by accident.
 
+## The "Act as" multi-identity pattern (foundational)
+
+When a viewer is signed in to 2+ identities (citizen + rep + candidate)
+in the same browser, every engagement action — comment, vote, like,
+dislike, react — routes through an explicit identity picker. The
+viewer always knows which identity is acting, the backend records
+the action against the right column, and analytics never conflate
+self-engagement from different identity tracks.
+
+How it shows up in code:
+
+  • `useActiveIdentities({ isOwner })` (`frontend/lib/activeIdentities.js`)
+    returns the list of signed-in identities. `isOwner=false` returns
+    just the citizen on a page the viewer doesn't own; `isOwner=true`
+    returns all signed-in identities (used on the /polls feed since
+    every card is "the viewer's territory").
+  • `pickEngagementIdentity({ identities })` returns one of:
+      { single: kind }              — only one identity, fire directly
+      { showPicker: [...identities] } — 2+ identities, always show picker
+      { none: true }                 — no identities, prompt login
+  • `IdentityPicker` (`frontend/components/IdentityPicker.js`) is the
+    popover. Renders absolutely-positioned under the trigger button;
+    click-outside + Esc close it.
+
+How it shows up in the UI:
+
+  • CommentsThread composer: identity badge becomes a dropdown when
+    2+ identities are signed in, with "Act as" header. The chosen
+    identity rides on every comment via `as_identity`.
+  • FeedCard like/dislike: clicking pops the picker; chosen identity
+    fires `reactToPost(..., asIdentity)`.
+  • FeedCard vote: clicking a poll option pops the picker; chosen
+    identity fires `votePoll(...)` (rep polls) or `voteOnCitizenPoll(...)`
+    (citizen + standalone polls).
+  • Rep page PostCard / PollCard / CitizenPollsSection: same pattern
+    via PostingAsPicker (a sibling component) for the composer +
+    IdentityPicker for action buttons.
+
+Backend contract: every write endpoint that takes engagement accepts
+an optional `as_identity` body field — one of `'citizen' | 'rep' |
+'candidate'`. When the viewer is signed in to multiple identities and
+the picker hasn't been shown (single-identity path), the backend
+resolves identity from the request's bearer tokens / cookies using
+citizen → rep → candidate precedence.
+
+If you're adding a new engagement surface (new button, new modal, new
+feature), wire it through this pattern. Don't roll a one-off
+identity-resolution shortcut.
+
+---
+
 ## Sandbox tooling quirks worth knowing
 
 Repeated bites in past sessions; full workarounds in

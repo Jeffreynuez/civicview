@@ -41,6 +41,7 @@ const US_STATES = [
 
 export default function StateDropdown({ selected, onSelect, onClose, anchor = 'inline' }) {
   const scrollRef = useRef(null);
+  const rootRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
 
@@ -60,17 +61,30 @@ export default function StateDropdown({ selected, onSelect, onClose, anchor = 'i
     handleScroll();
   }, [handleScroll]);
 
-  // Esc closes the dropdown — matches the rest of the navbar surface.
+  // Esc + click-outside close the dropdown. Click-outside is the
+  // primary UX affordance for "I didn't mean to open this" — when
+  // it fires AND the user hasn't picked a state, the parent
+  // deactivates the States chip via onCloseNoSelect so the chip
+  // doesn't sit active with no narrow applied.
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') onClose?.();
     };
+    const onMouseDown = (e) => {
+      if (rootRef.current && !rootRef.current.contains(e.target)) {
+        onClose?.();
+      }
+    };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onMouseDown);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onMouseDown);
+    };
   }, [onClose]);
 
   return (
-    <div className={`states-dd states-dd--${anchor}`} role="listbox" aria-label="Filter by state">
+    <div ref={rootRef} className={`states-dd states-dd--${anchor}`} role="listbox" aria-label="Filter by state">
       <div className="states-dd__head">
         <span className="states-dd__title">Filter by state</span>
         {selected && (
