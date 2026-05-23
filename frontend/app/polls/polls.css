@@ -1504,3 +1504,56 @@ a.poll-card { display: flex; }
 .feed-card__crosslink--inline {
   margin-top: 6px;
 }
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #4 polish — multi-identity picker inside CommentsThread
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Click-to-pick identity selector. Renders inline as a static badge
+   when only one identity is signed in; becomes a dropdown when two
+   or more are signed in. The user's choice persists for the life of
+   the thread and rides on the comment as `as_identity`. */
+.thread__identity--picker {
+  position: relative;
+}
+.thread__identity-trigger {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; border: 0;
+  padding: 2px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.thread__identity-trigger:hover { background: var(--cl-hover, #f9fafb); }
+.thread__identity-chev {
+  font-size: 10px;
+  color: var(--cl-text-muted, #6b7280);
+}
+.thread__identity-menu {
+  position: absolute;
+  top: 100%; left: 0;
+  margin-top: 4px;
+  z-index: 90;
+  min-width: 220px;
+  background: var(--cl-surface, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 4px;
+  display: flex; flex-direction: column;
+}
+.thread__identity-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px;
+  background: transparent; border: 0;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.thread__identity-item:hover { background: var(--cl-hover, #f9fafb); }
+.thread__identity-item.is-selected { background: var(--cl-accent-soft, #ecfdf3); }
+.thread__identity-check {
+  margin-left: auto;
+  color: var(--cl-accent, #18794e);
+  font-weight: 700;
+}

@@ -52,6 +52,8 @@ import {
   reportPollComment,
 } from '../../lib/pagesApi';
 import { useCitizenAuth } from '../../lib/citizenAuth';
+import { useAuth as useRepAuth } from '../../lib/auth';
+import { useCandidateAuth } from '../../lib/candidateAuth';
 
 // AI tone presets — same labels + ids the page-level filter uses.
 const TONE_PRESETS = [
@@ -82,6 +84,39 @@ export default function CommentsThread({
   onMutated,
 }) {
   const { citizen } = useCitizenAuth();
+  const { me: rep } = useRepAuth();
+  const { candidate } = useCandidateAuth();
+
+  // Build the set of identities the user can author as. The order is
+  // citizen → rep → candidate, mirroring the engagement-write
+  // precedence the rest of the app uses; the picker defaults to
+  // whatever's first in this list.
+  const availableIdentities = [];
+  if (citizen) availableIdentities.push({ id: 'citizen',   label: 'Citizen',   tone: 'citizen',   name: citizen.display_name });
+  if (rep)     availableIdentities.push({ id: 'rep',       label: 'Rep',       tone: 'rep',       name: rep.display_name });
+  if (candidate) availableIdentities.push({ id: 'candidate', label: 'Candidate', tone: 'candidate', name: candidate.display_name });
+
+  // The active identity for new comments. Sticks to the user's choice
+  // until they sign out of that identity; if the chosen identity goes
+  // away mid-session, fall back to the first available one.
+  const [activeIdentity, setActiveIdentity] = useState(null);
+  useEffect(() => {
+    if (!availableIdentities.length) {
+      setActiveIdentity(null);
+      return;
+    }
+    if (!availableIdentities.find((i) => i.id === activeIdentity)) {
+      setActiveIdentity(availableIdentities[0].id);
+    }
+    // We deliberately omit availableIdentities from the deps — it
+    // rebuilds on every render and would re-fire this effect even
+    // when nothing meaningful changed. The citizen/rep/candidate
+    // refs cover what we actually care about.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [citizen, rep, candidate]);
+
+  const [identityMenuOpen, setIdentityMenuOpen] = useState(false);
+  const activeIdentityRecord = availableIdentities.find((i) => i.id === activeIdentity) || availableIdentities[0];
 
   const [comments, setComments] = useState(null);     // null = loading
   const [error, setError] = useState(null);
@@ -152,8 +187,8 @@ export default function CommentsThread({
     setPosting(true);
     setPostError(null);
     const create = mode === 'poll'
-      ? createCitizenPollComment(pollId, text, parentId)
-      : createComment(postId, text, parentId);
+      ? createCitizenPollComment(pollId, text, parentId, activeIdentity)
+      : createComment(postId, text, parentId, activeIdentity);
     const { error: err } = await create;
     setPosting(false);
     if (err) {
@@ -252,17 +287,61 @@ export default function CommentsThread({
   // ── render ────────────────────────────────────────────────────────
   return (
     <div className="thread">
-      {/* Identity badge — placeholder for the multi-identity picker
-          (citizen only today; rep/candidate identities will surface
-          when those auth providers are wired into /polls). */}
-      <div className="thread__identity">
-        <span className="thread__identity-badge thread__identity-badge--citizen">
-          {citizen ? 'CITIZEN' : 'GUEST'}
-        </span>
-        <span className="thread__identity-name">
-          {citizen?.display_name || 'Sign in to comment'}
-        </span>
-      </div>
+      {/* Identity picker — when 2+ identities are signed in the
+          badge becomes a click-to-pick dropdown. Single-identity
+          users see a static badge; signed-out users see "Guest". */}
+      {availableIdentities.length === 0 ? (
+        <div className="thread__identity">
+          <span className="thread__identity-badge">GUEST</span>
+          <span className="thread__identity-name">Sign in to comment</span>
+        </div>
+      ) : availableIdentities.length === 1 ? (
+        <div className="thread__identity">
+          <span className={`thread__identity-badge thread__identity-badge--${activeIdentityRecord.tone}`}>
+            {activeIdentityRecord.label.toUpperCase()}
+          </span>
+          <span className="thread__identity-name">{activeIdentityRecord.name}</span>
+        </div>
+      ) : (
+        <div className="thread__identity thread__identity--picker">
+          <button
+            type="button"
+            className="thread__identity-trigger"
+            onClick={() => setIdentityMenuOpen((open) => !open)}
+            aria-haspopup="listbox"
+            aria-expanded={identityMenuOpen}
+          >
+            <span className={`thread__identity-badge thread__identity-badge--${activeIdentityRecord.tone}`}>
+              {activeIdentityRecord.label.toUpperCase()}
+            </span>
+            <span className="thread__identity-name">{activeIdentityRecord.name}</span>
+            <span className="thread__identity-chev" aria-hidden="true">▾</span>
+          </button>
+          {identityMenuOpen && (
+            <div className="thread__identity-menu" role="listbox">
+              {availableIdentities.map((i) => (
+                <button
+                  key={i.id}
+                  type="button"
+                  role="option"
+                  aria-selected={activeIdentity === i.id}
+                  className={`thread__identity-item ${activeIdentity === i.id ? 'is-selected' : ''}`}
+                  onClick={() => {
+                    setActiveIdentity(i.id);
+                    setIdentityMenuOpen(false);
+                  }}
+                >
+                  <span className={`thread__identity-badge thread__identity-badge--${i.tone}`}>
+                    {i.label.toUpperCase()}
+                  </span>
+                  <span className="thread__identity-name">{i.name}</span>
+                  {activeIdentity === i.id && <span className="thread__identity-check">✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Composer */}
       <div className="thread__composer">
