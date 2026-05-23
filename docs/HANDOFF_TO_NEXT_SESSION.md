@@ -222,6 +222,36 @@ that folder if pruning; engineering PRs cite it.
 
 ---
 
+## The "Act as" multi-identity pattern
+
+A foundational concept. When the viewer is signed in to 2+ identities
+(citizen + rep + candidate) in the same browser, every engagement
+action routes through an explicit identity picker — they always know
+which identity is doing what, and the backend records correctly.
+
+Quick reference (full details in CLAUDE.md's "Act as" section):
+
+  • Helper: `useActiveIdentities({ isOwner })` (frontend/lib/activeIdentities.js)
+  • Decision: `pickEngagementIdentity({ identities })` returns
+    `{single}`, `{showPicker}`, or `{none}`
+  • UI component: `IdentityPicker` (popover with "Act as" header)
+  • Backend contract: write endpoints accept optional `as_identity`
+    body field. Single-identity path resolves from cookies/tokens
+    with citizen → rep → candidate precedence.
+
+The picker is wired into:
+
+  • Rep page: PostCard / PollCard / CitizenPollsSection (composer +
+    actions)
+  • /polls feed: CommentsThread composer; FeedCard vote + like +
+    dislike (PR #5)
+
+When adding a new engagement surface (button, modal, feature), wire
+it through `useActiveIdentities` + `pickEngagementIdentity` +
+`IdentityPicker`. Don't roll a one-off identity-resolution shortcut.
+
+---
+
 ## Sandbox tooling quirks worth knowing
 
 These bit us repeatedly in this session and the workarounds are durable.

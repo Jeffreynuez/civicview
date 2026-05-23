@@ -1557,3 +1557,50 @@ a.poll-card { display: flex; }
   color: var(--cl-accent, #18794e);
   font-weight: 700;
 }
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #5 polish — colored thumb states + IdentityPicker anchoring
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Wrap div around each feed action button so the absolutely-positioned
+   IdentityPicker hangs from the button. Same trick used for vote
+   options. */
+.feed-act-wrap,
+.poll-opt2-wrap {
+  position: relative;
+  display: inline-block;
+}
+.poll-opt2-wrap {
+  display: block;
+  width: 100%;
+}
+
+/* Colored thumbs. Up is the design-system "up" blue; down is the
+   "down" burgundy. Both states pick up a soft-bg pill border when
+   the count is > 0 (i.e. someone has reacted). */
+.feed-act { transition: color 120ms, background 120ms, border-color 120ms; }
+.feed-act svg {
+  width: 14px; height: 14px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+.feed-act--like.is-active {
+  color: var(--cl-up, #1877f2);
+  background: var(--cl-up-soft, #e7f0fe);
+}
+.feed-act--like:hover:not(:disabled) {
+  color: var(--cl-up, #1877f2);
+  background: var(--cl-up-soft, #e7f0fe);
+}
+.feed-act--dislike.is-active {
+  color: var(--cl-down, #8c2929);
+  background: var(--cl-down-soft, #fde9e9);
+}
+.feed-act--dislike:hover:not(:disabled) {
+  color: var(--cl-down, #8c2929);
+  background: var(--cl-down-soft, #fde9e9);
+}
+.feed-act:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
