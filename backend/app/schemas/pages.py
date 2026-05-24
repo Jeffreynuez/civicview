@@ -414,6 +414,11 @@ class CommentRead(BaseModel):
     up_count: int = 0
     down_count: int = 0
     my_reaction: Optional[str] = None  # 'up' | 'down' | None
+    # Phase 6 multi-identity per-comment reactions. Slots populated
+    # only for identities the caller is signed in to; the
+    # IdentityPicker reads this to stamp ✓ Liked / ✓ Disliked per
+    # identity. Same shape as ReactionSummary.my_reactions.
+    my_reactions: dict = Field(default_factory=dict)
     # AI classification. All optional — the classifier may not have run
     # yet (NULL means pending) or may have failed (also NULL). The
     # frontend uses these for quick-filter chips and shows a faint
@@ -860,6 +865,12 @@ class PollCommentRead(BaseModel):
     scope_state: Optional[str] = None
     scope_district: Optional[str] = None
     scope_city: Optional[str] = None
+    # Reactions on the comment. Same shape as CommentRead's reaction
+    # block — PollCommentReaction (Phase 9) is the source of truth.
+    up_count: int = 0
+    down_count: int = 0
+    my_reaction: Optional[str] = None  # 'up' | 'down' | None
+    my_reactions: dict = Field(default_factory=dict)
     # AI classification — see CommentRead for semantics. Same shape,
     # same NULL-means-pending convention.
     ai_sentiment: Optional[str] = None

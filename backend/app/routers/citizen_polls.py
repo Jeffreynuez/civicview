@@ -67,6 +67,7 @@ from app.models.pages import (
     CitizenAccount,
     Poll,
     PollComment,
+    PollCommentReaction,
     PollCommentReport,
     PollOption,
     PollReaction,
@@ -495,14 +496,18 @@ def vote_on_citizen_poll(
     elif payload.as_identity == "candidate":
         acting_citizen = acting_rep = None
 
-    # Identity resolution: rep / candidate wins if they own the
-    # target page; otherwise the citizen path applies. Citizen polls
-    # live on a specific page (poll.target_official_id) so we know
-    # which ownership to check.
+    # Identity resolution — any signed-in identity can vote on a
+    # citizen poll. The previous rep-on-own-page / candidate-on-own-
+    # page rule made sense in the rep-page dashboard context but not
+    # on the /polls grassroots feed where reps + candidates engage
+    # across the whole surface. The IdentityPicker's `as_identity`
+    # explicitly chooses which identity acts when multiple are signed
+    # in; without it, rep → candidate → citizen precedence applies.
+    # Mirrors react_to_citizen_poll (PR #7).
     rep = candidate = citizen = None
-    if acting_rep is not None and acting_rep.official_id == poll.target_official_id:
+    if acting_rep is not None:
         rep = acting_rep
-    elif acting_candidate is not None and acting_candidate.candidate_id == poll.target_official_id:
+    elif acting_candidate is not None:
         candidate = acting_candidate
     elif acting_citizen is not None:
         citizen = acting_citizen
@@ -659,9 +664,17 @@ def report_citizen_poll(
 def list_citizen_poll_comments(
     poll_id: int,
     db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ):
-    """Public list — no auth needed. Soft-deleted rows are filtered
-    out at the SQL layer."""
+    """Public list — no auth needed for reads, but the response is
+    identity-aware: when the caller is signed in, each comment
+    surfaces their per-identity reaction state (up_count, down_count,
+    my_reaction, my_reactions) so the CommentsThread IdentityPicker
+    can stamp ✓ Liked / ✓ Disliked correctly.
+    Soft-deleted rows are filtered out at the SQL layer.
+    """
     # Lightweight existence check so 404s differ from "no comments yet".
     if not db.query(Poll.id).filter(
         Poll.id == poll_id, Poll.author_kind == "citizen",
@@ -675,7 +688,76 @@ def list_citizen_poll_comments(
         .limit(200)
         .all()
     )
-    return [PollCommentRead.model_validate(c) for c in rows]
+
+    # Batch-load per-comment reactions in one query keyed by the
+    # comment ids in this page (caps at 200 per the limit above).
+    comment_ids = [c.id for c in rows]
+    rxns_by_comment: dict = {}
+    if comment_ids:
+        for r in (
+            db.query(PollCommentReaction)
+            .filter(PollCommentReaction.poll_comment_id.in_(comment_ids))
+            .all()
+        ):
+            rxns_by_comment.setdefault(int(r.poll_comment_id), []).append(r)
+
+    def _serialize(c: PollComment) -> PollCommentRead:
+        rxns = rxns_by_comment.get(int(c.id), [])
+        up = down = 0
+        mine: Optional[str] = None
+        per_identity: dict = {}
+        if me_citizen is not None:
+            per_identity["citizen"] = None
+        if me_rep is not None:
+            per_identity["rep"] = None
+        if me_candidate is not None:
+            per_identity["candidate"] = None
+        for r in rxns:
+            if r.kind == "up":
+                up += 1
+            elif r.kind == "down":
+                down += 1
+            if me_citizen is not None and r.citizen_id == me_citizen.id:
+                mine = r.kind
+                per_identity["citizen"] = r.kind
+            if me_rep is not None and r.author_rep_id == me_rep.id:
+                mine = r.kind
+                per_identity["rep"] = r.kind
+            if me_candidate is not None and r.author_candidate_id == me_candidate.id:
+                mine = r.kind
+                per_identity["candidate"] = r.kind
+        if c.author_rep_id is not None:
+            author_kind = "rep"
+        elif c.author_candidate_id is not None:
+            author_kind = "candidate"
+        else:
+            author_kind = "citizen"
+        return PollCommentRead(
+            id=c.id,
+            poll_id=c.poll_id,
+            parent_comment_id=c.parent_comment_id,
+            citizen_id=c.citizen_id,
+            author_rep_id=c.author_rep_id,
+            author_candidate_id=c.author_candidate_id,
+            author_kind=author_kind,
+            citizen_display_name=c.citizen_display_name,
+            body=c.body,
+            created_at=c.created_at,
+            scope_state=c.scope_state,
+            scope_district=c.scope_district,
+            scope_city=c.scope_city,
+            up_count=up,
+            down_count=down,
+            my_reaction=mine,
+            my_reactions=per_identity,
+            ai_sentiment=c.ai_sentiment,
+            ai_tones=c.ai_tones,
+            ai_intensity=c.ai_intensity,
+            ai_topic=c.ai_topic,
+            ai_classified_at=c.ai_classified_at,
+        )
+
+    return [_serialize(c) for c in rows]
 
 
 @router.post(
@@ -1235,5 +1317,173 @@ def clear_citizen_poll_reaction(
         db.refresh(poll)
     return _reaction_summary_for_citizen_poll(
         poll, db,
+        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+    )
+
+
+# ── Reactions on PollComments (parity with /api/pages/comments/.../reactions) ─
+def _reaction_summary_for_poll_comment(
+    poll_comment: PollComment,
+    db: Session,
+    me_citizen: Optional[CitizenAccount] = None,
+    me_rep: Optional[RepAccount] = None,
+    me_candidate: Optional[CandidateAccount] = None,
+) -> ReactionSummary:
+    """Aggregate a poll-comment's reactions into the ReactionSummary
+    shape CommentsThread + FeedCard consume. Mirrors
+    _reaction_summary_for_post but reads from PollCommentReaction.
+    Per-identity slots only populate for identities the caller is
+    signed in to.
+    """
+    per_identity: dict = {}
+    if me_citizen is not None:
+        per_identity["citizen"] = None
+    if me_rep is not None:
+        per_identity["rep"] = None
+    if me_candidate is not None:
+        per_identity["candidate"] = None
+
+    rows = (
+        db.query(PollCommentReaction)
+        .filter(PollCommentReaction.poll_comment_id == poll_comment.id)
+        .all()
+    )
+    up = down = 0
+    mine: Optional[str] = None
+    for r in rows:
+        if me_citizen is not None and r.citizen_id == me_citizen.id:
+            mine = r.kind
+            per_identity["citizen"] = r.kind
+        if me_rep is not None and r.author_rep_id == me_rep.id:
+            mine = r.kind
+            per_identity["rep"] = r.kind
+        if me_candidate is not None and r.author_candidate_id == me_candidate.id:
+            mine = r.kind
+            per_identity["candidate"] = r.kind
+        if r.kind == "up":
+            up += 1
+        elif r.kind == "down":
+            down += 1
+    return ReactionSummary(
+        up_count=up, down_count=down,
+        my_reaction=mine, my_reactions=per_identity,
+    )
+
+
+@router.post(
+    "/citizen-polls/comments/{comment_id}/reactions",
+    response_model=ReactionSummary,
+    summary="Add / flip / remove a reaction on a citizen-poll comment",
+)
+def react_to_poll_comment(
+    comment_id: int,
+    payload: ReactionRequest,
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    """Create, flip, or toggle-off the caller's reaction on a poll
+    comment. Mirrors react_to_comment in pages.py; semantics:
+
+      • First call with kind='up'    → insert 'up'.
+      • kind='down' while 'up' active → flip to 'down'.
+      • kind='up'   while 'up' active → remove (toggle off).
+    """
+    comment = db.get(PollComment, comment_id)
+    if comment is None or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter_poll(
+        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        as_identity=payload.as_identity,
+    )
+    if acting_citizen is None and acting_rep is None and acting_candidate is None:
+        raise HTTPException(status_code=401, detail="Sign in to react")
+
+    q = db.query(PollCommentReaction).filter(
+        PollCommentReaction.poll_comment_id == comment.id
+    )
+    if acting_rep is not None:
+        q = q.filter(PollCommentReaction.author_rep_id == acting_rep.id)
+    elif acting_candidate is not None:
+        q = q.filter(PollCommentReaction.author_candidate_id == acting_candidate.id)
+    else:
+        q = q.filter(PollCommentReaction.citizen_id == acting_citizen.id)
+    existing = q.first()
+
+    if existing:
+        if existing.kind == payload.kind:
+            db.delete(existing)
+        else:
+            existing.kind = payload.kind
+            if acting_citizen is not None:
+                existing.scope_state = acting_citizen.state
+                existing.scope_district = acting_citizen.congressional_district
+                existing.scope_city = acting_citizen.city
+                existing.scope_county = acting_citizen.county
+    else:
+        db.add(PollCommentReaction(
+            poll_comment_id=comment.id,
+            citizen_id=acting_citizen.id if acting_citizen is not None else None,
+            author_rep_id=acting_rep.id if acting_rep is not None else None,
+            author_candidate_id=acting_candidate.id if acting_candidate is not None else None,
+            kind=payload.kind,
+            scope_state=acting_citizen.state if acting_citizen is not None else None,
+            scope_district=acting_citizen.congressional_district if acting_citizen is not None else None,
+            scope_city=acting_citizen.city if acting_citizen is not None else None,
+            scope_county=acting_citizen.county if acting_citizen is not None else None,
+        ))
+
+    db.commit()
+    db.refresh(comment)
+    return _reaction_summary_for_poll_comment(
+        comment, db,
+        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+    )
+
+
+@router.delete(
+    "/citizen-polls/comments/{comment_id}/reactions",
+    response_model=ReactionSummary,
+    summary="Clear the caller's reaction on a citizen-poll comment",
+)
+def clear_poll_comment_reaction(
+    comment_id: int,
+    as_identity: Optional[str] = None,
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    """Clear the caller's reaction. `as_identity` query param narrows
+    to the picker's exact chosen identity."""
+    comment = db.get(PollComment, comment_id)
+    if comment is None or comment.deleted_at is not None:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    acting_citizen, acting_rep, acting_candidate = _apply_as_identity_filter_poll(
+        me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+        as_identity=as_identity,
+    )
+    if acting_citizen is None and acting_rep is None and acting_candidate is None:
+        raise HTTPException(status_code=401, detail="Sign in to react")
+
+    q = db.query(PollCommentReaction).filter(
+        PollCommentReaction.poll_comment_id == comment.id
+    )
+    if acting_rep is not None:
+        q = q.filter(PollCommentReaction.author_rep_id == acting_rep.id)
+    elif acting_candidate is not None:
+        q = q.filter(PollCommentReaction.author_candidate_id == acting_candidate.id)
+    else:
+        q = q.filter(PollCommentReaction.citizen_id == acting_citizen.id)
+    existing = q.first()
+    if existing:
+        db.delete(existing)
+        db.commit()
+        db.refresh(comment)
+    return _reaction_summary_for_poll_comment(
+        comment, db,
         me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
     )

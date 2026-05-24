@@ -1250,6 +1250,17 @@ def _comment_to_read(
     """
     up = down = 0
     mine: Optional[str] = None
+    # Phase 6 multi-identity: per-identity reaction tracking. Slots
+    # populated only for identities the caller is signed in to so the
+    # frontend IdentityPicker can stamp ✓ Liked / ✓ Disliked per
+    # identity on the comment-row picker.
+    per_identity: dict = {}
+    if me_citizen is not None:
+        per_identity["citizen"] = None
+    if me_rep is not None:
+        per_identity["rep"] = None
+    if me_candidate is not None:
+        per_identity["candidate"] = None
     for r in (c.reactions or []):
         if r.kind == "up":
             up += 1
@@ -1257,10 +1268,13 @@ def _comment_to_read(
             down += 1
         if me_citizen is not None and r.citizen_id == me_citizen.id:
             mine = r.kind
+            per_identity["citizen"] = r.kind
         if me_rep is not None and getattr(r, "author_rep_id", None) == me_rep.id:
             mine = r.kind
+            per_identity["rep"] = r.kind
         if me_candidate is not None and getattr(r, "author_candidate_id", None) == me_candidate.id:
             mine = r.kind
+            per_identity["candidate"] = r.kind
     rep_id = getattr(c, "author_rep_id", None)
     candidate_id = getattr(c, "author_candidate_id", None)
     if rep_id is not None:
@@ -1289,6 +1303,7 @@ def _comment_to_read(
         up_count=up,
         down_count=down,
         my_reaction=mine,
+        my_reactions=per_identity,
     )
 
 

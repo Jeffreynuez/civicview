@@ -765,6 +765,22 @@ export async function clearCitizenPollReaction(pollId, asIdentity = null) {
   });
 }
 
+
+// ── Reactions on PollComments (PR #9 — parity with reactToComment) ──
+export async function reactToPollComment(commentId, kind, asIdentity = null) {
+  return request(`/api/citizen-polls/comments/${commentId}/reactions`, {
+    method: 'POST',
+    body: { kind, as_identity: asIdentity || undefined },
+  });
+}
+
+export async function clearPollCommentReaction(commentId, asIdentity = null) {
+  return request(`/api/citizen-polls/comments/${commentId}/reactions`, {
+    method: 'DELETE',
+    query: asIdentity ? { as_identity: asIdentity } : undefined,
+  });
+}
+
 export async function reportCitizenPoll(pollId, { reason, detail } = {}) {
   return request(`/api/citizen-polls/${pollId}/report`, {
     method: 'POST',

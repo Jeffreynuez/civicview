@@ -43,7 +43,10 @@ import {
   clearReaction,
   reactToCitizenPoll,
   clearCitizenPollReaction,
+  deletePost,
 } from '../../lib/pagesApi';
+import { useAuth as useRepAuth } from '../../lib/auth';
+import { useCandidateAuth } from '../../lib/candidateAuth';
 import { getVoterToken } from '../../lib/voterToken';
 import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
 import IdentityPicker from '../IdentityPicker';
@@ -67,12 +70,40 @@ export default function FeedCard({
   onLoginRequired,
   citizenViewer = null,
 }) {
-  // Standalone-poll author-only close X (top-right). The viewer is
-  // the author when their citizen id matches the poll's
-  // viewer.is_author flag the backend set.
+  // Self-delete X (top-right). Three ownership paths:
+  //   • Standalone poll authored by the viewing citizen (existing)
+  //   • Rep-authored post / poll viewed by that rep
+  //   • Candidate-authored post / poll viewed by that candidate
+  // The backend rejects requests from the wrong identity, so the UI
+  // gate is a hint — but rendering the X only when ownership is
+  // plausible keeps it out of view for non-authors.
   const isStandalone = card.kind === 'standalone';
   const viewer = card.viewer || { voter_choice_id: null, is_author: false };
-  const showCloseX = kind === 'poll' && isStandalone && viewer.is_author;
+  const { me: rep } = useRepAuth();
+  const { candidate } = useCandidateAuth();
+  const isCitizenAuthor = kind === 'poll' && isStandalone && viewer.is_author;
+  const isRepAuthor = !!(
+    rep && card.official_id && rep.official_id === card.official_id
+  );
+  const isCandidateAuthor = !!(
+    candidate && card.official_id && candidate.candidate_id === card.official_id
+  );
+  // The card itself dictates whether deletion uses closeCitizenPoll
+  // (standalone) or deletePost (rep / candidate posts + polls — rep
+  // polls cascade-delete with their parent post). Compute once.
+  const deletionTarget = (() => {
+    if (isCitizenAuthor) return { kind: 'citizen-poll' };
+    if (kind === 'post' && (isRepAuthor || isCandidateAuthor)) {
+      return { kind: 'post', id: card.id };
+    }
+    // Rep / candidate polls attach to a parent post — delete the post
+    // and the poll goes with it.
+    if (kind === 'poll' && (isRepAuthor || isCandidateAuthor) && card.parent_post_id) {
+      return { kind: 'post', id: card.parent_post_id };
+    }
+    return null;
+  })();
+  const showCloseX = !!deletionTarget;
 
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -173,16 +204,29 @@ export default function FeedCard({
   };
 
   const handleConfirmClose = async () => {
-    if (busy) return;
+    if (busy || !deletionTarget) return;
     setBusy(true);
     setErrorMsg(null);
-    const { error: err } = await closeCitizenPoll(card.id);
+    let res;
+    if (deletionTarget.kind === 'citizen-poll') {
+      res = await closeCitizenPoll(card.id);
+    } else {
+      // 'post' — covers rep/candidate post cards AND rep/candidate
+      // polls (whose parent post is the target).
+      res = await deletePost(deletionTarget.id);
+    }
     setBusy(false);
     setConfirmingClose(false);
-    if (err) {
-      setErrorMsg(typeof err === 'string' ? err : 'Could not close poll.');
+    if (res?.error) {
+      setErrorMsg(
+        typeof res.error === 'string'
+          ? res.error
+          : (deletionTarget.kind === 'citizen-poll' ? 'Could not close poll.' : 'Could not delete this.')
+      );
       return;
     }
+    // Destructive — the row disappears entirely; a full feed reload
+    // is the cheapest path. (onCardUpdated can't express "remove me".)
     onMutated?.();
   };
 
@@ -395,9 +439,12 @@ export default function FeedCard({
           {confirmingClose && (
             <div className="feed-card__confirm">
               <p>
-                Close this poll? It moves to the archived section of
-                your dashboard and frees your standalone-poll slot
-                so you can post another.
+                {deletionTarget?.kind === 'citizen-poll'
+                  ? 'Close this poll? It moves to the archived section of your dashboard and frees your standalone-poll slot so you can post another.'
+                  : (kind === 'post'
+                      ? 'Delete this post? This action cannot be undone — the post and any attached poll will be removed for everyone.'
+                      : 'Delete this poll? The poll and its parent post will be removed for everyone.')
+                }
               </p>
               <div className="feed-card__confirm-row">
                 <button
@@ -413,7 +460,9 @@ export default function FeedCard({
                   onClick={handleConfirmClose}
                   disabled={busy}
                 >
-                  {busy ? 'Closing…' : 'Close poll'}
+                  {busy
+                    ? (deletionTarget?.kind === 'citizen-poll' ? 'Closing…' : 'Deleting…')
+                    : (deletionTarget?.kind === 'citizen-poll' ? 'Close poll' : 'Delete')}
                 </button>
               </div>
             </div>

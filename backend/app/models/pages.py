@@ -866,6 +866,46 @@ Index("uq_poll_comment_report_citizen", PollCommentReport.poll_comment_id, PollC
 Index("uq_poll_comment_report_rep", PollCommentReport.poll_comment_id, PollCommentReport.reporter_rep_id, unique=True)
 
 
+# ── PollComment reactions (parallel of CommentReaction) ──────────────
+class PollCommentReaction(Base):
+    """Up/down reaction on a single citizen-poll comment. Mirrors
+    CommentReaction exactly — same three-XOR identity columns
+    (citizen / rep / candidate), same kind, same geography rollup
+    columns, three parallel unique indexes keyed on
+    (poll_comment_id, identity). Lives in its own table because
+    PollComment.id is a separate space from PostComment.id.
+    """
+    __tablename__ = "poll_comment_reactions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    poll_comment_id: Mapped[int] = mapped_column(
+        ForeignKey("poll_comments.id", ondelete="CASCADE"), index=True,
+    )
+    citizen_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    author_rep_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    author_candidate_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("candidate_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    kind: Mapped[str] = mapped_column(String(8))  # 'up' | 'down'
+    scope_state: Mapped[Optional[str]] = mapped_column(String(2), default=None, index=True)
+    scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
+    scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
+    scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+Index("uq_pollcomment_reaction_citizen",   PollCommentReaction.poll_comment_id, PollCommentReaction.citizen_id,   unique=True)
+Index("uq_pollcomment_reaction_rep",       PollCommentReaction.poll_comment_id, PollCommentReaction.author_rep_id, unique=True)
+Index("uq_pollcomment_reaction_candidate", PollCommentReaction.poll_comment_id, PollCommentReaction.author_candidate_id, unique=True)
+
+
 class PollOption(Base):
     __tablename__ = "poll_options"
 

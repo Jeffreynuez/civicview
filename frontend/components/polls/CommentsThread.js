@@ -51,6 +51,8 @@ import {
   createCitizenPollComment,
   deletePollComment,
   reportPollComment,
+  reactToPollComment,
+  clearPollCommentReaction,
 } from '../../lib/pagesApi';
 import { useCitizenAuth } from '../../lib/citizenAuth';
 import { useAuth as useRepAuth } from '../../lib/auth';
@@ -223,7 +225,11 @@ export default function CommentsThread({
     setDraft('');
     setReplyingTo(null);
     await load();
-    onMutated?.();
+    // Deliberately NOT calling onMutated here — the comment was
+    // posted; the local thread refreshes above. Calling the parent's
+    // load() would refetch the entire feed and visibly scroll-jump
+    // the user back to the top. The feed's comment count will be
+    // slightly stale until its next natural refresh, which is fine.
   };
 
   const handleDelete = async (commentId) => {
@@ -258,10 +264,13 @@ export default function CommentsThread({
     // surface (mode='post'). Poll-comments would need a parallel
     // /api/citizen-polls/comments/{id}/reactions surface that doesn't
     // exist yet — silent no-op until that lands.
-    if (mode === 'poll') return;
-    const fn = currentlyActive
-      ? clearCommentReaction(commentId, activeIdentity)
-      : reactToComment(commentId, kind, activeIdentity);
+    const fn = mode === 'poll'
+      ? (currentlyActive
+          ? clearPollCommentReaction(commentId, activeIdentity)
+          : reactToPollComment(commentId, kind, activeIdentity))
+      : (currentlyActive
+          ? clearCommentReaction(commentId, activeIdentity)
+          : reactToComment(commentId, kind, activeIdentity));
     const { error: err } = await fn;
     if (err) {
       setError(typeof err === 'string' ? err : 'Could not record reaction.');
