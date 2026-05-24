@@ -219,7 +219,7 @@ export default function PageView({
   useEffect(() => {
     loadPage();
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [loadPage, me?.id, citizen?.id]);
+  }, [loadPage, me?.id, citizen?.id, candidate?.id]);
 
   // ── Optimistic mutations keep the feed snappy ─────────────────────
   const handlePostCreated = useCallback((post) => {
