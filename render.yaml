@@ -4,7 +4,8 @@
 # Render auto-creates the resources defined here when you "New +" →
 # "Blueprint" and point it at this repo. Two pieces:
 #
-#   1. civicview-api   — FastAPI backend (Python, free tier)
+#   1. civicview-api   — FastAPI backend (Python, Standard $25/mo —
+#                        always-on, 2GB RAM, 1 CPU)
 #   2. civicview-db    — Postgres (free tier, 1GB, retained 30 days)
 #
 # After first deploy:
@@ -16,17 +17,22 @@
 #     "https://civicview.app,https://www.civicview.app").
 #   • Set GOOGLE_CIVIC_API_KEY if/when you wire BallotTab live data.
 #
-# Free-tier note: services sleep after 15 minutes of inactivity and
-# wake on the next request (~30s cold start). Fine for a demo URL;
-# upgrade to Starter ($7/mo) for always-on if you start showing the
-# app to actual investors.
+# Plan note: Standard ($25/mo) is the published prod plan. NEVER set
+# this to `free` — the blueprint sync on every deploy will drag the
+# live dashboard's plan back to whatever's here, which means a free-
+# tier downgrade would silently revert any manual upgrade and put
+# api.civicview.app back to "spins down after 15min, ~30s cold
+# starts." If you genuinely need to downgrade, change this AND
+# confirm in the dashboard on the next sync.
 
 services:
   - type: web
     name: civicview-api
     env: python
     region: oregon            # closest US region to Vercel default
-    plan: free
+    plan: standard            # $25/mo — 2GB RAM, 1 CPU, always-on.
+                              # DO NOT change to `free` without coordination
+                              # (see the Plan note at the top of this file).
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
