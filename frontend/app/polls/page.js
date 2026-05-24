@@ -1083,20 +1083,62 @@ function normalizeCreatedPoll(citizenPollRead, citizen) {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Standalone poll composer modal — unchanged from the previous
-// implementation. Question + 2-8 options. Closes-at and presentation
-// modes are deferred to a "More options" expander if/when users ask.
+// Standalone poll composer modal — question + 2-8 options + close
+// timing + presentation mode. Mirrors the on-page citizen-poll
+// composer (CreateCitizenPollModal in CitizenPollsSection.js) so a
+// citizen authoring a standalone poll gets the same control surface
+// as authoring one on a rep / candidate page.
 // ─────────────────────────────────────────────────────────────────────
 function StandaloneComposer({ onCancel, onCreated }) {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
+  // Close timing — 'none' = stays open indefinitely; 'duration' =
+  // closes N minutes/hours/days from now; 'date' = closes at an
+  // explicit datetime the user picks.
+  const [timing, setTiming] = useState('none');
+  const [durationValue, setDurationValue] = useState('1');
+  const [durationUnit, setDurationUnit] = useState('days');
+  const [dateValue, setDateValue] = useState('');
+  // Result-display — same three modes the backend accepts:
+  //   'full'                 — counts visible from the moment the
+  //                            first vote lands.
+  //   'hidden'               — viewer toggles "show results" manually.
+  //   'reveal_after_close'   — counts are blacked out until close,
+  //                            then revealed to everyone. Requires a
+  //                            close time (the close radio is disabled
+  //                            when timing === 'none').
+  const [presentation, setPresentation] = useState('full');
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState(null);
 
+  // Resolve the chosen timing to an ISO string the backend expects.
+  // Returns null when timing is 'none' OR when the user picked a
+  // mode but hasn't entered a valid value yet.
+  const closesAtIso = useMemo(() => {
+    if (timing === 'none') return null;
+    if (timing === 'duration') {
+      const n = parseFloat(durationValue);
+      if (!Number.isFinite(n) || n <= 0) return null;
+      const unitMs = { minutes: 60_000, hours: 3_600_000, days: 86_400_000 }[durationUnit] || 0;
+      return new Date(Date.now() + n * unitMs).toISOString();
+    }
+    if (timing === 'date') {
+      if (!dateValue) return null;
+      const t = new Date(dateValue).getTime();
+      if (Number.isNaN(t) || t <= Date.now()) return null;
+      return new Date(t).toISOString();
+    }
+    return null;
+  }, [timing, durationValue, durationUnit, dateValue]);
+
+  // Submit gate — question + ≥2 options always required; if the
+  // user picked a timing mode (not 'none'), the resolved ISO has to
+  // be valid (future + parseable) before they can publish.
   const canSubmit =
     question.trim().length > 0 &&
     options.filter((o) => o.trim()).length >= 2 &&
-    !submitting;
+    !submitting &&
+    (timing === 'none' || !!closesAtIso);
 
   const setOption = (i, value) => {
     setOptions((prev) => prev.map((o, idx) => (idx === i ? value : o)));
@@ -1119,6 +1161,8 @@ function StandaloneComposer({ onCancel, onCreated }) {
     const { data, error } = await createStandalonePoll({
       question: question.trim(),
       options: cleanOptions,
+      closesAt: closesAtIso,
+      presentationMode: presentation,
     });
     setSubmitting(false);
     if (error || !data) {
@@ -1247,6 +1291,83 @@ function StandaloneComposer({ onCancel, onCreated }) {
               + Add option
             </button>
           )}
+        </div>
+
+        {/* Close timing — parallel to CreateCitizenPollModal so a
+            citizen authoring a standalone poll sees the same set of
+            close-time choices they'd see authoring one on a rep page. */}
+        <div style={{ paddingTop: 12, borderTop: '1px dashed var(--cl-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>When does this poll close?</span>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem' }}>
+            <input type="radio" name="sp-timing" checked={timing === 'none'} onChange={() => setTiming('none')} />
+            <span>No close time — stays open</span>
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem', flexWrap: 'wrap' }}>
+            <input type="radio" name="sp-timing" checked={timing === 'duration'} onChange={() => setTiming('duration')} />
+            <span>After</span>
+            <input
+              type="number"
+              min="1"
+              value={durationValue}
+              onChange={(e) => { setTiming('duration'); setDurationValue(e.target.value); }}
+              style={{ width: 70, padding: '5px 8px', border: '1px solid var(--cl-border)', borderRadius: 6, fontSize: '0.85rem', fontFamily: 'inherit' }}
+            />
+            <select
+              value={durationUnit}
+              onChange={(e) => { setTiming('duration'); setDurationUnit(e.target.value); }}
+              style={{ padding: '5px 8px', border: '1px solid var(--cl-border)', borderRadius: 6, fontSize: '0.85rem', fontFamily: 'inherit' }}
+            >
+              <option value="minutes">minutes</option>
+              <option value="hours">hours</option>
+              <option value="days">days</option>
+            </select>
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem', flexWrap: 'wrap' }}>
+            <input type="radio" name="sp-timing" checked={timing === 'date'} onChange={() => setTiming('date')} />
+            <span>On</span>
+            <input
+              type="datetime-local"
+              value={dateValue}
+              onChange={(e) => { setTiming('date'); setDateValue(e.target.value); }}
+              style={{ padding: '5px 8px', border: '1px solid var(--cl-border)', borderRadius: 6, fontSize: '0.85rem', fontFamily: 'inherit' }}
+            />
+          </label>
+          {timing !== 'none' && closesAtIso && (
+            <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
+              Closes {new Date(closesAtIso).toLocaleString()}
+            </span>
+          )}
+          {timing !== 'none' && !closesAtIso && (
+            <span style={{ fontSize: '0.72rem', color: '#c33333', fontStyle: 'italic' }}>
+              Pick a moment in the future.
+            </span>
+          )}
+        </div>
+
+        {/* Result-display mode. reveal_after_close is disabled when
+            timing is 'none' — backend rejects it without a close
+            time, and the disabled state surfaces that constraint
+            up front instead of as a form error after submit. */}
+        <div style={{ paddingTop: 12, borderTop: '1px dashed var(--cl-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>Show results?</span>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem' }}>
+            <input type="radio" name="sp-pres" checked={presentation === 'full'} onChange={() => setPresentation('full')} />
+            <span>Show vote percentages right away</span>
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem' }}>
+            <input type="radio" name="sp-pres" checked={presentation === 'hidden'} onChange={() => setPresentation('hidden')} />
+            <span>Hide results until viewer chooses to see them</span>
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem', opacity: timing === 'none' ? 0.4 : 1 }}>
+            <input
+              type="radio"
+              name="sp-pres"
+              checked={presentation === 'reveal_after_close'}
+              disabled={timing === 'none'}
+              onChange={() => setPresentation('reveal_after_close')}
+            />
+            <span>Hide until poll closes (requires a close time)</span>
+          </label>
         </div>
 
         {err && (
