@@ -273,15 +273,28 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // Judicial) all read 0 today since the backend doesn't yet emit
   // a branch field. The chips render anyway so the visual taxonomy
   // is in place for when those counts go live.
+  //
+  // We additionally tally by author kind (rep / citizen / candidate /
+  // standalone) directly from item.kind — that's what the hero stats
+  // use. pollBranch() intentionally returns null for rep + citizen
+  // (they're forward-compat to a future branch field), so without
+  // this extra pass the hero's "From reps" stat would always read 0.
   const branchCounts = useMemo(() => {
     const counts = {
       all: items.length,
       bill: 0, committee: 0, executive: 0, judicial: 0,
       standalone: 0, candidate: 0,
+      // Author-kind tallies for the hero stat row.
+      rep: 0, citizen: 0,
     };
     for (const p of items) {
       const b = pollBranch(p);
       if (b && counts[b] != null) counts[b] += 1;
+      // Author-kind pass for rep + citizen only — pollBranch already
+      // tallies standalone + candidate via the b!=null branch above,
+      // so re-counting them here would double them.
+      const k = p && p.kind;
+      if (k === 'rep' || k === 'citizen') counts[k] += 1;
     }
     return counts;
   }, [items]);
@@ -771,10 +784,14 @@ function PollsHero({ counts, tab = 'polls' }) {
     : 'Every active poll on CivicView — what reps are asking constituents, what citizens are asking each other and the officials who serve them, and standalone polls on civic topics that don\u2019t belong to any single page.';
   const stat1Label = isPosts ? 'Total posts' : 'Live polls';
   const stat2Label = isPosts ? 'From reps' : 'Standalone';
-  const stat3Label = isPosts ? 'From candidates' : 'On rep pages';
+  const stat3Label = isPosts ? 'From candidates' : 'From candidates';
   const stat1 = counts.all || 0;
   const stat2 = isPosts ? (counts.rep || 0) : (counts.standalone || 0);
-  const stat3 = isPosts ? (counts.candidate || 0) : ((counts.all || 0) - (counts.standalone || 0));
+  // Candidate-authored counts on both tabs — Posts surfaces candidate
+  // post counts, Polls surfaces candidate poll counts. branchCounts
+  // tallies p.kind === 'candidate' on either feed shape, so the same
+  // bucket works for both.
+  const stat3 = counts.candidate || 0;
   return (
     <section className="polls-hero" aria-label={`${title} hero`}>
       <div className="polls-wrap">
