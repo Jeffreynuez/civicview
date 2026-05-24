@@ -1,5 +1,0 @@
-{
-  "_note": "Demo rep account seeds — INTENTIONALLY EMPTY. Phase 1 originally seeded a handful of real-rep accounts (Byron Donalds, Bernie Sanders, Ron DeSantis, Donalds campaign) with a shared demo password so reviewers could exercise the rep-posting UI. Those were retired because posting under a real politician's name and photo without authorization is impersonation — even in a demo context, screenshots can circulate and create defamation / false-light exposure. The platform engagement loop is now seeded entirely through the citizen-led polls feature on unclaimed rep pages (any subscribed citizen can start a poll, vote, comment). Real reps onboard manually via civicview@civicview.app until the verified-rep flow (ID.me + identity check) ships.",
-  "_history": "If you need to restore the original seeded accounts for local development, the git history at HEAD~ contains the previous payload.",
-  "accounts": []
-}
