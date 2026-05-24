@@ -37,7 +37,7 @@
  * we don't keep stale state around.
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ThumbsUp, ThumbsDown } from '../ui';
 import {
   listComments,
@@ -122,6 +122,30 @@ export default function CommentsThread({
 
   const [identityMenuOpen, setIdentityMenuOpen] = useState(false);
   const activeIdentityRecord = availableIdentities.find((i) => i.id === activeIdentity) || availableIdentities[0];
+
+  // Close the "Posting as" menu when the user clicks anywhere outside
+  // it. Matches the dismissal pattern every other dropdown in the app
+  // already follows (IdentityPicker, PostingAsPicker, StateDropdown).
+  // Listener is only registered while the menu is open so we don't
+  // pay the cost on every render.
+  const identityMenuRef = useRef(null);
+  useEffect(() => {
+    if (!identityMenuOpen) return undefined;
+    const onDown = (e) => {
+      if (identityMenuRef.current && !identityMenuRef.current.contains(e.target)) {
+        setIdentityMenuOpen(false);
+      }
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') setIdentityMenuOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [identityMenuOpen]);
 
   const [comments, setComments] = useState(null);     // null = loading
   const [error, setError] = useState(null);
@@ -407,7 +431,7 @@ export default function CommentsThread({
           <span className="thread__identity-name">{activeIdentityRecord.name}</span>
         </div>
       ) : (
-        <div className="thread__identity thread__identity--picker">
+        <div ref={identityMenuRef} className="thread__identity thread__identity--picker">
           <button
             type="button"
             className="thread__identity-trigger"
@@ -744,7 +768,6 @@ function CommentRow({
                   citizen={citizen}
                   rep={rep}
                   candidate={candidate}
-                  replyingTo={replyingTo}
                   setReplyingTo={setReplyingTo}
                   onReact={onReact}
                   onDelete={onDelete}
