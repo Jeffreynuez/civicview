@@ -136,6 +136,41 @@ identity-resolution shortcut.
 
 ---
 
+## Cross-session memory via Pinecone (optional layer)
+
+Jeffrey installed a Cowork plugin called **pinecone-memory** that
+wires the official `@pinecone-database/mcp` server into every session.
+When it's loaded, you'll have `mcp__pinecone__*` tools available —
+most importantly `search-records` and `upsert-records` against the
+`claude-memory` index (1024-dim, cosine, serverless aws us-east-1,
+embedding model `multilingual-e5-large`).
+
+**Convention** (full version lives in the plugin's SKILL.md, summary
+here so this manifest stays self-sufficient):
+
+1. **Start of session, after Jeffrey's first substantive message:**
+   `search-records` the `claude-memory` index with the topic of his
+   message, `top_k=5`. If anything ≥ 0.70 comes back, briefly mention
+   it before answering ("picking up where we left off on X"). If
+   nothing relevant, proceed silently — don't narrate empty results.
+2. **After substantive work:** `upsert-records` a memory whenever a
+   commit lands, a design decision is made, a blocker is identified,
+   a user preference is stated, or a non-obvious quirk surfaces. Use
+   the metadata shape: `{text, kind, area, date, commit?}` where
+   `kind ∈ {decision, fix, preference, quirk, fact, commit, blocker}`.
+3. **Don't save:** secrets, raw code (link the commit SHA instead),
+   long transcripts, anything Jeffrey says to forget.
+4. **CLAUDE.md vs Pinecone:** This file is the authoritative manifest.
+   If a Pinecone record contradicts CLAUDE.md, CLAUDE.md wins; the
+   stale memory should be overwritten or deleted.
+
+**If the MCP isn't loaded** (plugin not installed in this session,
+key rotated, Pinecone down): proceed without it. The plugin is a
+recall enhancement, not a hard dependency. The Read-the-handoff-doc
+flow above is the baseline; Pinecone augments it.
+
+---
+
 ## Sandbox tooling quirks worth knowing
 
 Repeated bites in past sessions; full workarounds in
