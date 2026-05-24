@@ -50,6 +50,8 @@ import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
+import { useAuth as useRepAuth } from '@/lib/auth';
+import { useCandidateAuth } from '@/lib/candidateAuth';
 import Navbar from '@/components/Navbar';
 import CitizenLoginModal from '@/components/CitizenLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
@@ -132,7 +134,17 @@ function pollBranch(poll) {
 export function GrassrootsFeed({ tab = 'polls' }) {
   const router = useRouter();
   const { citizen } = useCitizenAuth();
-  const signedIn = !!citizen;
+  const { me: repMe } = useRepAuth();
+  const { candidate } = useCandidateAuth();
+  // signedIn is the engagement gate for FeedCard + CommentsThread —
+  // any signed-in identity (citizen / rep / candidate) can react,
+  // vote, comment, etc. on the /polls + /posts feed. PR #11 fix:
+  // the prior gate was citizen-only, which sent rep + candidate
+  // users to the citizen-login modal when they tried to interact.
+  const signedIn = !!citizen || !!repMe || !!candidate;
+  // Citizen-only gate kept separate for the Start a poll button —
+  // posts only get created from the rep/candidate's own page.
+  const citizenSignedIn = !!citizen;
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -365,7 +377,10 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // Navbar handlers. Citizen modals live on this page so /polls
   // works as a standalone destination, not just a deep-link from home.
   const handleStartPoll = () => {
-    if (signedIn) setComposerOpen(true);
+    // Start a poll is citizen-only — rep + candidate users get pushed
+    // through citizen login if they want a standalone poll on this
+    // feed (or they can use their own page's composer).
+    if (citizenSignedIn) setComposerOpen(true);
     else setCitizenLoginOpen(true);
   };
   const handleHome = () => router.push('/');
@@ -492,7 +507,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                 ))}
               </div>
               <div className="polls-kindrow__cta">
-                <StartButton signedIn={signedIn} onClick={handleStartPoll} />
+                <StartButton signedIn={citizenSignedIn} onClick={handleStartPoll} />
               </div>
             </div>
 
@@ -556,7 +571,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               branch={branches.length === 1 ? branches[0] : 'all'}
               onClearFilters={clearAllFilters}
               onStartPoll={handleStartPoll}
-              signedIn={signedIn}
+              signedIn={citizenSignedIn}
             />
           )}
 
@@ -566,7 +581,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               tags={activeTags}
               onClear={clearAiFilter}
               onStartMatching={handleStartPoll}
-              signedIn={signedIn}
+              signedIn={citizenSignedIn}
             />
           )}
 
@@ -598,18 +613,18 @@ export function GrassrootsFeed({ tab = 'polls' }) {
         </TabContent>
 
         {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.length > 0 && tab !== 'posts' && (
-          <BottomStartCTA signedIn={signedIn} onClick={handleStartPoll} />
+          <BottomStartCTA signedIn={citizenSignedIn} onClick={handleStartPoll} />
         )}
       </div>
 
       {/* Mobile-only sticky FAB. CSS scopes it to ≤600px container. */}
       <button
         type="button"
-        className={`polls-fab ${signedIn ? '' : 'is-muted'}`}
+        className={`polls-fab ${citizenSignedIn ? '' : 'is-muted'}`}
         onClick={handleStartPoll}
       >
-        {signedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
-        {signedIn ? 'Start a poll' : 'Sign in to start'}
+        {citizenSignedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
+        {citizenSignedIn ? 'Start a poll' : 'Sign in to start'}
       </button>
 
       {composerOpen && (

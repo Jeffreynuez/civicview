@@ -162,6 +162,14 @@ export default function PostCard({
 
   // ── Comments ───────────────────────────────────────────────────────
   const [commentsOpen, setCommentsOpen] = useState(false);
+  // PR #10 — composer + AI filter start COLLAPSED behind dropdown
+  // triggers ("Add comment ▾" and "AI filter ▾"). Keeps the comments
+  // section lighter on first open; the user opts in to either tool.
+  // CRITICAL: these MUST be declared at PostCard scope — they are
+  // referenced from JSX rendered inside the same component. The
+  // useEffect below toggles pcComposerOpen when replyOpenFor changes.
+  const [pcComposerOpen, setPcComposerOpen] = useState(false);
+  const [pcAiFilterOpen, setPcAiFilterOpen] = useState(false);
   const [comments, setComments] = useState(null); // null = not loaded yet
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [commentDraft, setCommentDraft] = useState('');
