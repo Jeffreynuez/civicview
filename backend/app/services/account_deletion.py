@@ -31,7 +31,7 @@ import hashlib
 import logging
 import os
 from datetime import datetime, timedelta
-from typing import Literal, Optional, Tuple
+from typing import Literal, Optional
 
 from sqlalchemy.orm import Session
 

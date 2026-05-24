@@ -36,7 +36,7 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime, timezone
-from typing import List, Literal, Optional
+from typing import List, Literal
 
 import bcrypt
 from sqlalchemy.orm import Session

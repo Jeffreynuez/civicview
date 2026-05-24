@@ -50,11 +50,6 @@ from app.schemas.pages import (
     PollRead,
     PollScopeBreakdown,
 )
-from app.services.officials_index import (
-    allowed_scopes_for_official,
-    lookup as lookup_official_geography,
-    scope_labels_for_official,
-)
 
 
 def _vote_matches_scope(vote, scope: str, geo: Optional[dict]) -> bool:

@@ -174,9 +174,9 @@ class RecoveryCodesResponse(BaseModel):
 # (c) avoiding a DB write keeps the "show secret only if user
 # completes verify" guarantee airtight.
 # ─────────────────────────────────────────────────────────────────────
-import secrets as _secrets
-import threading
-import time as _time
+import secrets as _secrets  # noqa: E402
+import threading  # noqa: E402
+import time as _time  # noqa: E402
 
 _PENDING_TTL = 10 * 60  # seconds — 10 minutes to scan QR + enter code
 _pending_lock = threading.Lock()

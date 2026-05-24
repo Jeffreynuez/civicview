@@ -16,7 +16,7 @@ Citizen Jane Doe in another without juggling logins.
 """
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 import re
 import secrets
@@ -31,7 +31,6 @@ from sqlalchemy.orm import Session
 from app.auth import hash_password, verify_password
 from app.auth_citizen import (
     clear_citizen_cookie,
-    get_current_citizen,
     get_optional_citizen_including_deleted,
     issue_citizen_token,
     set_citizen_cookie,

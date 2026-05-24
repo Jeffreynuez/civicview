@@ -25,7 +25,7 @@ import logging
 from datetime import datetime
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -37,7 +37,6 @@ from app.services.idme_service import (
     DEFAULT_POST_AUTH_REDIRECT,
     IdMeError,
     cost_skip_match,
-    cost_skip_match_by_attributes,
     encrypt_legal_name,
     get_verification_service,
     hash_address,

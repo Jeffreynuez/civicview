@@ -28,7 +28,6 @@ import logging
 from typing import List, Optional
 
 import uuid
-from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, UploadFile, status
 from fastapi.responses import FileResponse, RedirectResponse
@@ -36,7 +35,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_current_rep, get_optional_rep
-from app.auth_citizen import get_current_citizen, get_optional_citizen
+from app.auth_citizen import get_optional_citizen
 from app.auth_candidate import get_optional_candidate
 from app.db import get_db
 from pydantic import BaseModel, Field

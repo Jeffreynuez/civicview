@@ -49,12 +49,12 @@ import time
 from datetime import datetime, timedelta
 from typing import List, Literal, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.auth import get_optional_rep, hash_password, verify_password
+from app.auth import get_optional_rep, verify_password
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
 from app.models.pages import (

@@ -150,11 +150,9 @@ def resolve_page_tag(db: Session, official_id: Optional[str]) -> Optional[str]:
     # Candidate registry — covers any official_id that resolves to a
     # candidate record in ElectionsService. Tagged "CAND-<state>" so
     # the poll feed can render a distinct candidate-page chip.
-    is_candidate = False
     if not display_name or not geo:
         cand = _elections.get_candidate(official_id)
         if cand is not None:
-            is_candidate = True
             if not display_name:
                 display_name = cand.get("name")
             if not geo:

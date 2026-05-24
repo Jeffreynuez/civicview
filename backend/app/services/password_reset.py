@@ -32,7 +32,7 @@ import logging
 import os
 import secrets
 from datetime import datetime, timedelta
-from typing import Literal, Optional, Tuple
+from typing import Literal, Optional
 
 from sqlalchemy.orm import Session
 

@@ -154,10 +154,10 @@ def _explain_passage(vote: dict) -> dict:
             f"the bill to the other chamber (or, if both chambers have passed it, "
             f"to the President's desk).",
         "what_yea_means":
-            f"Voting YEA means supporting the bill becoming law.",
+            "Voting YEA means supporting the bill becoming law.",
         "what_nay_means":
-            f"Voting NAY means opposing the bill — either on its merits or "
-            f"because the member wants different text.",
+            "Voting NAY means opposing the bill — either on its merits or "
+            "because the member wants different text.",
         "outcome_meaning":
             f"The measure {result_word}; it {next_step}.",
     }
@@ -174,11 +174,11 @@ def _explain_passage_suspension(vote: dict) -> dict:
             f"it skips amendments and limits debate, but requires a two-thirds "
             f"supermajority to pass.",
         "what_yea_means":
-            f"Voting YEA means supporting passage AND agreeing the bill is "
-            f"non-controversial enough for fast-track treatment.",
+            "Voting YEA means supporting passage AND agreeing the bill is "
+            "non-controversial enough for fast-track treatment.",
         "what_nay_means":
-            f"Voting NAY means either opposing the bill, OR opposing the "
-            f"fast-track procedure (the member may want amendments / fuller debate).",
+            "Voting NAY means either opposing the bill, OR opposing the "
+            "fast-track procedure (the member may want amendments / fuller debate).",
         "outcome_meaning":
             f"The measure {result_word}. Suspension requires 2/3, so even a "
             f"majority can fail.",
@@ -197,12 +197,12 @@ def _explain_cloture(vote: dict) -> dict:
             f"final vote can happen — without it, opponents can filibuster "
             f"indefinitely. Requires 60 votes to invoke.",
         "what_yea_means":
-            f"Voting YEA means supporting moving to a final vote. It does NOT "
-            f"mean supporting the underlying bill — many senators vote yes on "
-            f"cloture to allow a vote even on bills they plan to oppose.",
+            "Voting YEA means supporting moving to a final vote. It does NOT "
+            "mean supporting the underlying bill — many senators vote yes on "
+            "cloture to allow a vote even on bills they plan to oppose.",
         "what_nay_means":
-            f"Voting NAY means supporting continued debate (effectively, "
-            f"blocking the final vote via filibuster).",
+            "Voting NAY means supporting continued debate (effectively, "
+            "blocking the final vote via filibuster).",
         "outcome_meaning":
             f"Cloture {result_word}. " + (
                 "Debate ends and the chamber moves to a final vote."
@@ -223,11 +223,11 @@ def _explain_conference(vote: dict) -> dict:
             f"negotiate a single reconciled text. This vote approves or rejects "
             f"that final negotiated version.",
         "what_yea_means":
-            f"Voting YEA means supporting the final negotiated text.",
+            "Voting YEA means supporting the final negotiated text.",
         "what_nay_means":
-            f"Voting NAY means rejecting the negotiated compromise. Sometimes "
-            f"members vote against a conference report whose underlying bill "
-            f"they supported, when the negotiation moved too far the other way.",
+            "Voting NAY means rejecting the negotiated compromise. Sometimes "
+            "members vote against a conference report whose underlying bill "
+            "they supported, when the negotiation moved too far the other way.",
         "outcome_meaning":
             f"The conference report {result_word}. " + (
                 "The reconciled bill now goes to the President's desk for signature."
@@ -247,11 +247,11 @@ def _explain_veto_override(vote: dict) -> dict:
             f"requires a two-thirds supermajority in BOTH chambers; if either "
             f"falls short, the veto stands and the bill dies.",
         "what_yea_means":
-            f"Voting YEA means supporting the bill becoming law over the "
-            f"President's objection.",
+            "Voting YEA means supporting the bill becoming law over the "
+            "President's objection.",
         "what_nay_means":
-            f"Voting NAY means letting the veto stand — the bill does not "
-            f"become law.",
+            "Voting NAY means letting the veto stand — the bill does not "
+            "become law.",
         "outcome_meaning":
             f"The override {result_word}. " + (
                 "The bill becomes law without the President's signature."
@@ -272,12 +272,12 @@ def _explain_amendment(vote: dict) -> dict:
             f"An amendment{subject} — a proposed change to the bill's text "
             f"before it gets a final passage vote.{detail}",
         "what_yea_means":
-            f"Voting YEA means supporting adding this amendment to the bill. "
-            f"It doesn't necessarily mean supporting the bill itself — members "
-            f"often vote on amendments separately from the underlying bill.",
+            "Voting YEA means supporting adding this amendment to the bill. "
+            "It doesn't necessarily mean supporting the bill itself — members "
+            "often vote on amendments separately from the underlying bill.",
         "what_nay_means":
-            f"Voting NAY means opposing the amendment (either keeping the bill "
-            f"as-is, or wanting a different change).",
+            "Voting NAY means opposing the amendment (either keeping the bill "
+            "as-is, or wanting a different change).",
         "outcome_meaning":
             f"The amendment {result_word}. " + (
                 "The bill text changes to include it before the final passage vote."
@@ -297,9 +297,9 @@ def _explain_nomination(vote: dict) -> dict:
             f"presidential nominations to executive-branch positions, federal "
             f"judgeships, and certain other roles. Simple majority needed.",
         "what_yea_means":
-            f"Voting YEA means supporting the nominee's confirmation.",
+            "Voting YEA means supporting the nominee's confirmation.",
         "what_nay_means":
-            f"Voting NAY means opposing the nominee.",
+            "Voting NAY means opposing the nominee.",
         "outcome_meaning":
             f"The nomination was {result_word}. " + (
                 "The nominee can now be sworn in."
@@ -314,14 +314,14 @@ def _explain_impeachment(vote: dict) -> dict:
     result_word = _result_outcome_word(vote.get("result") or "")
     return {
         "what_was_voted":
-            f"A vote on an article of impeachment. "
+            "A vote on an article of impeachment. "
             + (f"This article concerns: {stripped}." if stripped else ""),
         "what_yea_means":
-            f"Voting YEA means supporting the impeachment article (in the House, "
-            f"this is a charge; in the Senate, this is a conviction).",
+            "Voting YEA means supporting the impeachment article (in the House, "
+            "this is a charge; in the Senate, this is a conviction).",
         "what_nay_means":
-            f"Voting NAY means opposing the article — declining to charge "
-            f"(House) or to convict (Senate).",
+            "Voting NAY means opposing the article — declining to charge "
+            "(House) or to convict (Senate).",
         "outcome_meaning":
             f"The article {result_word}.",
     }
@@ -341,9 +341,9 @@ def _explain_treaty(vote: dict) -> dict:
             f"Senate ratification of {subject}. Treaties require a two-thirds "
             f"supermajority — substantially harder than a simple bill.",
         "what_yea_means":
-            f"Voting YEA means consenting to the treaty's ratification.",
+            "Voting YEA means consenting to the treaty's ratification.",
         "what_nay_means":
-            f"Voting NAY means opposing the treaty.",
+            "Voting NAY means opposing the treaty.",
         "outcome_meaning":
             f"Ratification {result_word}.",
     }
@@ -364,11 +364,11 @@ def _explain_procedural(vote: dict) -> dict:
             f"affect how / whether legislation moves forward, but don't take "
             f"a position on the bill's substance.",
         "what_yea_means":
-            f"Voting YEA means supporting whatever the motion proposes — often "
-            f"these are tactical, so YEA doesn't necessarily reflect support "
-            f"for the underlying bill.",
+            "Voting YEA means supporting whatever the motion proposes — often "
+            "these are tactical, so YEA doesn't necessarily reflect support "
+            "for the underlying bill.",
         "what_nay_means":
-            f"Voting NAY means opposing the procedural maneuver.",
+            "Voting NAY means opposing the procedural maneuver.",
         "outcome_meaning":
             f"The motion {result_word}. Procedural outcomes shape what comes "
             f"next on the floor schedule.",
@@ -402,9 +402,9 @@ def _explain_leadership(vote: dict) -> dict:
             f"These determine who fills key institutional roles (Speaker, "
             f"leader, etc.) or how the chamber organizes itself.",
         "what_yea_means":
-            f"Voting YEA means supporting the proposed leader / organization.",
+            "Voting YEA means supporting the proposed leader / organization.",
         "what_nay_means":
-            f"Voting NAY means opposing it.",
+            "Voting NAY means opposing it.",
         "outcome_meaning":
             f"The motion {result_word}.",
     }
@@ -423,9 +423,9 @@ def _explain_fallback(vote: dict) -> dict:
         "what_was_voted":
             f"A roll-call vote{citation_clause}: {subject}.",
         "what_yea_means":
-            f"Voting YEA means supporting the motion as worded above.",
+            "Voting YEA means supporting the motion as worded above.",
         "what_nay_means":
-            f"Voting NAY means opposing it.",
+            "Voting NAY means opposing it.",
         "outcome_meaning":
             f"The vote {result_word}.",
     }

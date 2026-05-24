@@ -54,7 +54,6 @@ import logging
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
-from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_optional_rep
@@ -77,7 +76,6 @@ from app.models.pages import (
 )
 from app.schemas.pages import (
     PER_PAGE_ACTIVE_POLL_CAP,
-    POLL_ARCHIVE_REASONS,
     POLL_REPORT_REASONS,
     PRESENTATION_MODES,
     CitizenPollCreate,
@@ -93,7 +91,6 @@ from app.schemas.pages import (
     ReactionSummary,
 )
 from app.services.citizen_polls_service import (
-    active_poll_count_for_page,
     archive_poll,
     citizen_has_active_poll_on_page,
     list_citizen_polls_for_citizen,
@@ -211,14 +208,16 @@ def list_citizen_polls_on_page(
             "district": owner.owner_district,
             "city": owner.owner_city,
         }
+        # Deliberately columnar one-liners — easier to scan than the
+        # multi-line `if x: ...` shape. noqa: E701 across the block.
         allowed = ["country"]
-        if owner.owner_state:    allowed.append("state")
-        if owner.owner_district: allowed.append("district")
-        if owner.owner_city:     allowed.append("city")
+        if owner.owner_state:    allowed.append("state")       # noqa: E701
+        if owner.owner_district: allowed.append("district")    # noqa: E701
+        if owner.owner_city:     allowed.append("city")        # noqa: E701
         labels = {"country": "United States"}
-        if owner.owner_state:    labels["state"] = owner.owner_state
-        if owner.owner_district: labels["district"] = owner.owner_district
-        if owner.owner_city:     labels["city"] = owner.owner_city
+        if owner.owner_state:    labels["state"] = owner.owner_state          # noqa: E701
+        if owner.owner_district: labels["district"] = owner.owner_district    # noqa: E701
+        if owner.owner_city:     labels["city"] = owner.owner_city            # noqa: E701
     else:
         geo = lookup_official_geography(official_id) or {}
         allowed = allowed_scopes_for_official(official_id)

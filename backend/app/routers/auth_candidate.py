@@ -34,7 +34,6 @@ from sqlalchemy.orm import Session
 from app.auth import verify_password
 from app.auth_candidate import (
     clear_candidate_cookie,
-    get_current_candidate,
     get_optional_candidate_including_deleted,
     issue_candidate_token,
     set_candidate_cookie,
