@@ -862,6 +862,32 @@ export default function PostCard({
       {/* Comments panel */}
       {commentsOpen && (
         <div style={{ marginTop: '10px' }}>
+          {/* Composer toggle — composer starts collapsed behind this
+              trigger, matching the /polls CommentsThread treatment
+              (CommentsThread.js:474-487). Replying via a comment-row's
+              Reply button auto-expands the composer through the
+              existing useEffect at PostCard.js:187. */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
+            <button
+              type="button"
+              onClick={() => setPcComposerOpen((v) => !v)}
+              aria-expanded={pcComposerOpen}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 4,
+                padding: '4px 12px',
+                background: pcComposerOpen ? 'var(--cl-accent-soft)' : 'transparent',
+                color: pcComposerOpen ? 'var(--cl-accent)' : 'var(--cl-text)',
+                border: `1px solid ${pcComposerOpen ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
+                borderRadius: 999,
+                fontSize: '0.74rem', fontWeight: 600, fontFamily: 'inherit',
+                cursor: 'pointer',
+              }}
+            >
+              {pcComposerOpen ? '▾' : '▸'} {replyOpenFor ? 'Reply' : 'Add comment'}
+            </button>
+          </div>
+          {pcComposerOpen && (
+          <>
           {/* Composer */}
           <div
             style={{
@@ -929,6 +955,8 @@ export default function PostCard({
               {commentErr}
             </div>
           )}
+          </>
+          )}{/* /pcComposerOpen */}
 
           {/* Sort / filter dropdown. my_district / my_state are
               citizen-only filters — hidden from anonymous viewers and
@@ -978,7 +1006,7 @@ export default function PostCard({
               once a filter is applied so the user knows what list
               they're looking at. */}
           {/* AI filter — PR #10: trigger + collapsible body */}
-          {aiAvailable && comments && comments.length > 1 && (
+          {aiAvailable && comments && comments.length >= 1 && (
             <div style={{ marginTop: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '6px' }}>
                 <button
