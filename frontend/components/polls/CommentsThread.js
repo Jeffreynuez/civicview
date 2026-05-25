@@ -58,7 +58,7 @@ import { useCitizenAuth } from '../../lib/citizenAuth';
 import { useAuth as useRepAuth } from '../../lib/auth';
 import { useCandidateAuth } from '../../lib/candidateAuth';
 import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
-import IdentityPicker from '../IdentityPicker';
+import IdentityPicker, { PostingAsPicker } from '../IdentityPicker';
 
 // AI tone presets — same labels + ids the page-level filter uses.
 const TONE_PRESETS = [
@@ -87,6 +87,12 @@ export default function CommentsThread({
   // Tells the parent (FeedCard) to refetch the feed-item count after
   // a write — so the "Comments (N)" pill stays in sync.
   onMutated,
+  // Two-party reply gate inputs — passed in by FeedCard so we can
+  // mirror the rep/candidate-page rule on the /polls + /posts feed:
+  // only the page owner (rep / candidate whose official_id matches
+  // ownerOfficialId) and the parent comment's author may reply.
+  ownerOfficialId = null,
+  ownerKind = null, // 'rep' | 'candidate' | 'citizen' | 'standalone' | null
 }) {
   const { citizen } = useCitizenAuth();
   const { me: rep } = useRepAuth();
@@ -176,6 +182,10 @@ export default function CommentsThread({
   const [replyDraft, setReplyDraft] = useState('');
   const [replyBusy, setReplyBusy] = useState(false);
   const [replyError, setReplyError] = useState(null);
+  // Identity for the inline reply composer — separate from the top
+  // composer's activeIdentity so the user's identity choice for a
+  // reply doesn't leak into a new top-level comment (and vice versa).
+  const [replyAsIdentity, setReplyAsIdentity] = useState(null);
 
   // ── load thread on mount, refetch when sort changes ───────────────
   const load = useCallback(async () => {
@@ -296,8 +306,8 @@ export default function CommentsThread({
     setReplyBusy(true);
     setReplyError(null);
     const create = mode === 'poll'
-      ? createCitizenPollComment(pollId, text, parentId, activeIdentity)
-      : createComment(postId, text, parentId, activeIdentity);
+      ? createCitizenPollComment(pollId, text, parentId, replyAsIdentity || activeIdentity)
+      : createComment(postId, text, parentId, replyAsIdentity || activeIdentity);
     const { error: err } = await create;
     setReplyBusy(false);
     if (err) {
@@ -623,6 +633,11 @@ export default function CommentsThread({
               citizen={citizen}
               rep={rep}
               candidate={candidate}
+              ownerOfficialId={ownerOfficialId}
+              ownerKind={ownerKind}
+              engageIdentities={engageIdentities}
+              replyAsIdentity={replyAsIdentity}
+              setReplyAsIdentity={setReplyAsIdentity}
               replyingTo={replyingTo}
               setReplyingTo={setReplyingTo}
               replyDraft={replyDraft}
@@ -673,6 +688,11 @@ function CommentRow({
   citizen,
   rep,
   candidate,
+  ownerOfficialId,
+  ownerKind,
+  engageIdentities = [],
+  replyAsIdentity,
+  setReplyAsIdentity,
   replyingTo,
   setReplyingTo,
   replyDraft,
@@ -792,10 +812,50 @@ function CommentRow({
       </div>
       {/* Inline reply composer — renders just under the target
           comment so the user can see what they're replying to.
-          Only on top-level comments (replies-to-replies aren't
-          supported per the Phase 3 rule). */}
-      {!isReply && replyingTo === c.id && (
+          Two-party gate: only the page owner (rep / candidate whose
+          id matches ownerOfficialId) and the parent comment's
+          author may reply. The filtered list drives the
+          PostingAsPicker's options so a non-allowed identity
+          never appears as a choice. */}
+      {!isReply && replyingTo === c.id && (() => {
+        const repOwnsThisPage = !!(rep && ownerOfficialId && rep.official_id === ownerOfficialId);
+        const candOwnsThisPage = !!(candidate && ownerOfficialId && candidate.candidate_id === ownerOfficialId);
+        const isCommentAuthor = !!(citizen && c.citizen_id != null && c.citizen_id === citizen.id);
+        const replyAllowed = (engageIdentities || []).filter((id) => {
+          if (id.kind === 'rep' && repOwnsThisPage) return true;
+          if (id.kind === 'candidate' && candOwnsThisPage) return true;
+          if (id.kind === 'citizen' && isCommentAuthor) return true;
+          return false;
+        });
+        const effectiveReplyAs = (
+          replyAllowed.find((id) => id.kind === replyAsIdentity)?.kind
+          || replyAllowed[0]?.kind
+          || null
+        );
+        if (replyAllowed.length === 0) {
+          return (
+            <div className="thread__inline-reply">
+              <div className="thread__inline-reply-empty">
+                Only the page owner and this comment's author can reply.
+                <button
+                  type="button"
+                  className="thread__inline-reply-cancel"
+                  onClick={() => { setReplyingTo(null); setReplyDraft(''); }}
+                  style={{ marginLeft: 8 }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          );
+        }
+        return (
         <div className="thread__inline-reply">
+          <PostingAsPicker
+            identities={replyAllowed}
+            value={effectiveReplyAs}
+            onChange={setReplyAsIdentity}
+          />
           <textarea
             rows="2"
             className="thread__textarea thread__textarea--inline"
@@ -820,7 +880,12 @@ function CommentRow({
             <button
               type="button"
               className="thread__inline-reply-post"
-              onClick={() => onPostReply(c.id)}
+              onClick={() => {
+                if (effectiveReplyAs && replyAsIdentity !== effectiveReplyAs) {
+                  setReplyAsIdentity(effectiveReplyAs);
+                }
+                onPostReply(c.id);
+              }}
               disabled={!signedIn || replyBusy || !(replyDraft || '').trim()}
             >
               {replyBusy ? 'Posting…' : 'Post reply'}
@@ -830,7 +895,8 @@ function CommentRow({
             <div className="thread__inline-reply-error">{replyError}</div>
           )}
         </div>
-      )}
+        );
+      })()}
       {/* "Show replies" toggle + nested children. Only on top-level
           comments with at least one reply. */}
       {!isReply && replies.length > 0 && (

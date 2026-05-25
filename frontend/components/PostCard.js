@@ -1241,14 +1241,23 @@ export default function PostCard({
     // filtered list drives both the Reply-button visibility AND
     // the PostingAsPicker's available identities, so a non-allowed
     // identity never even shows up as a choice.
+    //
+    // PER-IDENTITY OWNERSHIP: `isOwner` is true when EITHER the rep
+    // OR the candidate owns this page — useful for surface-level
+    // gating but too permissive for THIS reply filter. We need to
+    // know whether the SPECIFIC identity (rep, candidate) owns the
+    // page. Compare each identity's id field against post.official_id.
+    // Pre-fix this filter accepted a candidate identity reply on a
+    // rep's page just because the rep was also signed in.
+    const repOwnsThisPage = !!(rep && post.official_id && rep.official_id === post.official_id);
+    const candidateOwnsThisPage = !!(candidate && post.official_id && candidate.candidate_id === post.official_id);
     const isTopLevel = depth === 0;
     const replyAllowedIdentities = isTopLevel
       ? activeIdentities.filter((id) => {
-          // The page-owning rep / candidate can reply to anyone's
-          // top-level comment on their page (post-creator path).
-          if ((id.kind === 'rep' || id.kind === 'candidate') && isOwner) {
-            return true;
-          }
+          // The page-owning rep can reply on their own page.
+          if (id.kind === 'rep' && repOwnsThisPage) return true;
+          // The page-owning candidate can reply on their own page.
+          if (id.kind === 'candidate' && candidateOwnsThisPage) return true;
           // A citizen can reply only when they authored the parent
           // top-level comment themselves (parent-author path).
           if (id.kind === 'citizen' && citizen
