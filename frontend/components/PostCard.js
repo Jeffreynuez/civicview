@@ -181,12 +181,14 @@ export default function PostCard({
   // in-flight reply text. Only one composer is open at a time so
   // the thread doesn't visually fork.
   const [replyOpenFor, setReplyOpenFor] = useState(null);
-  // PR #10 — clicking Reply on any row auto-expands the composer.
-  // Otherwise the user clicks Reply and sees nothing happen
-  // (the composer is collapsed by default).
-  useEffect(() => {
-    if (replyOpenFor != null) setPcComposerOpen(true);
-  }, [replyOpenFor]);
+  // Reply UX (post-unification): clicking Reply on a comment row
+  // renders an inline reply composer UNDER the target comment (see
+  // the replyOpenFor === c.id block further down). The top "Add
+  // comment" composer no longer reacts to replyOpenFor — it stays
+  // dedicated to authoring a new top-level comment, and the inline
+  // composer handles every Reply. The auto-expand useEffect that
+  // previously toggled pcComposerOpen has been removed.
+  // (See the related CommentsThread.js change in the same commit.)
   // PR #10 — per-parent "Show replies" toggle. Tracks which
   // top-level comment ids have their reply pool currently
   // expanded. Sticks for the life of the thread (closing the
@@ -883,7 +885,7 @@ export default function PostCard({
                 cursor: 'pointer',
               }}
             >
-              {pcComposerOpen ? '▾' : '▸'} {replyOpenFor ? 'Reply' : 'Add comment'}
+              {pcComposerOpen ? '▾' : '▸'} Add comment
             </button>
           </div>
           {pcComposerOpen && (

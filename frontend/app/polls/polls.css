@@ -1646,6 +1646,66 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
   color: var(--cl-accent, #18794e);
   cursor: pointer;
 }
+
+/* Inline reply composer — rendered under the target comment by
+   CommentRow when replyingTo === c.id. Mirrors the rep/candidate
+   page treatment so the two surfaces match. */
+.thread__inline-reply {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+  background: var(--cl-bg-soft, #f9fafb);
+}
+.thread__textarea--inline {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.84rem;
+  padding: 6px 8px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 40px;
+}
+.thread__inline-reply-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 6px;
+}
+.thread__inline-reply-count {
+  font-size: 0.7rem;
+  color: var(--cl-text-light, #6b7280);
+  margin-right: auto;
+}
+.thread__inline-reply-cancel,
+.thread__inline-reply-post {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.thread__inline-reply-cancel {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  background: white;
+  color: var(--cl-text, #111);
+}
+.thread__inline-reply-post {
+  border: 1px solid var(--cl-accent, #18794e);
+  background: var(--cl-accent, #18794e);
+  color: white;
+}
+.thread__inline-reply-post:disabled {
+  background: var(--cl-border, #e5e7eb);
+  border-color: var(--cl-border, #e5e7eb);
+  cursor: not-allowed;
+}
+.thread__inline-reply-error {
+  margin-top: 6px;
+  color: #d63031;
+  font-size: 0.72rem;
+}
 .feed-card__crosslink--inline {
   margin-top: 6px;
 }

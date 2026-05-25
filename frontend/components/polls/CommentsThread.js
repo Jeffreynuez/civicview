@@ -167,13 +167,15 @@ export default function CommentsThread({
 
   const [shown, setShown] = useState(PAGE_SIZE);
   const [replyingTo, setReplyingTo] = useState(null); // commentId
-  // Auto-expand the composer when the user clicks Reply on a comment
-  // row. Keeps the collapsed-by-default UX out of the way for the
-  // common case (scanning) but doesn't surprise the user who just
-  // clicked an obvious "I want to reply" affordance.
-  useEffect(() => {
-    if (replyingTo != null) setComposerOpen(true);
-  }, [replyingTo]);
+  // Reply UX (post-unification): clicking Reply on a comment row
+  // renders an inline reply composer UNDER the target comment in
+  // CommentRow. The top "Add comment" composer is dedicated to
+  // creating new top-level comments and no longer reacts to
+  // replyingTo. The earlier auto-expand useEffect has been removed.
+  // Inline reply state below.
+  const [replyDraft, setReplyDraft] = useState('');
+  const [replyBusy, setReplyBusy] = useState(false);
+  const [replyError, setReplyError] = useState(null);
 
   // ── load thread on mount, refetch when sort changes ───────────────
   const load = useCallback(async () => {
@@ -281,6 +283,30 @@ export default function CommentsThread({
     // load() would refetch the entire feed and visibly scroll-jump
     // the user back to the top. The feed's comment count will be
     // slightly stale until its next natural refresh, which is fine.
+  };
+
+  // Inline reply submission. Mirrors handlePost above but uses the
+  // per-row replyDraft state instead of the top composer's draft, so
+  // the two composers don't share text. Called from the CommentRow's
+  // inline reply form.
+  const handlePostReply = async (parentId) => {
+    if (!signedIn) { onLoginRequired?.(); return; }
+    const text = (replyDraft || '').trim();
+    if (!text || replyBusy || parentId == null) return;
+    setReplyBusy(true);
+    setReplyError(null);
+    const create = mode === 'poll'
+      ? createCitizenPollComment(pollId, text, parentId, activeIdentity)
+      : createComment(postId, text, parentId, activeIdentity);
+    const { error: err } = await create;
+    setReplyBusy(false);
+    if (err) {
+      setReplyError(typeof err === 'string' ? err : 'Could not post reply.');
+      return;
+    }
+    setReplyDraft('');
+    setReplyingTo(null);
+    await load();
   };
 
   const handleDelete = async (commentId) => {
@@ -482,7 +508,7 @@ export default function CommentsThread({
           onClick={() => setComposerOpen((v) => !v)}
           aria-expanded={composerOpen}
         >
-          {composerOpen ? '▾' : '▸'} {replyingTo ? 'Reply' : 'Add comment'}
+          {composerOpen ? '▾' : '▸'} Add comment
         </button>
       </div>
       {composerOpen && (
@@ -499,10 +525,10 @@ export default function CommentsThread({
             <button
               type="button"
               className="thread__post-btn"
-              onClick={() => handlePost(replyingTo)}
+              onClick={() => handlePost(null)}
               disabled={!signedIn || posting || !draft.trim()}
             >
-              {posting ? 'Posting…' : (replyingTo ? 'Reply' : 'Post')}
+              {posting ? 'Posting…' : 'Post'}
             </button>
           </div>
           {postError && <div className="thread__post-error">{postError}</div>}
@@ -599,6 +625,12 @@ export default function CommentsThread({
               candidate={candidate}
               replyingTo={replyingTo}
               setReplyingTo={setReplyingTo}
+              replyDraft={replyDraft}
+              setReplyDraft={setReplyDraft}
+              replyBusy={replyBusy}
+              replyError={replyError}
+              onPostReply={handlePostReply}
+              signedIn={signedIn}
               onReact={handleReact}
               onDelete={handleDelete}
               onReport={handleReport}
@@ -643,6 +675,12 @@ function CommentRow({
   candidate,
   replyingTo,
   setReplyingTo,
+  replyDraft,
+  setReplyDraft,
+  replyBusy,
+  replyError,
+  onPostReply,
+  signedIn,
   onReact,
   onDelete,
   onReport,
@@ -736,16 +774,63 @@ function CommentRow({
             type="button"
             className="thread__c-link thread__c-link--accent"
             onClick={() => {
-              setReplyingTo(c.id);
-              setTimeout(() => {
-                document.querySelector('.thread__textarea')?.focus();
-              }, 0);
+              // Toggle: clicking Reply on the open row cancels;
+              // clicking on any other row switches the inline
+              // composer to that row.
+              if (replyingTo === c.id) {
+                setReplyingTo(null);
+                setReplyDraft('');
+              } else {
+                setReplyingTo(c.id);
+                setReplyDraft('');
+              }
             }}
           >
-            {replyingTo === c.id ? 'Replying…' : 'Reply'}
+            {replyingTo === c.id ? 'Cancel reply' : 'Reply'}
           </button>
         )}
       </div>
+      {/* Inline reply composer — renders just under the target
+          comment so the user can see what they're replying to.
+          Only on top-level comments (replies-to-replies aren't
+          supported per the Phase 3 rule). */}
+      {!isReply && replyingTo === c.id && (
+        <div className="thread__inline-reply">
+          <textarea
+            rows="2"
+            className="thread__textarea thread__textarea--inline"
+            placeholder={signedIn
+              ? `Reply to ${c.citizen_display_name || c.author || 'this comment'}…`
+              : 'Sign in to reply'}
+            value={replyDraft}
+            onChange={(e) => setReplyDraft(e.target.value.slice(0, 1000))}
+            disabled={!signedIn || replyBusy}
+            autoFocus
+          />
+          <div className="thread__inline-reply-row">
+            <span className="thread__inline-reply-count">{(replyDraft || '').length}/1000</span>
+            <button
+              type="button"
+              className="thread__inline-reply-cancel"
+              onClick={() => { setReplyingTo(null); setReplyDraft(''); }}
+              disabled={replyBusy}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="thread__inline-reply-post"
+              onClick={() => onPostReply(c.id)}
+              disabled={!signedIn || replyBusy || !(replyDraft || '').trim()}
+            >
+              {replyBusy ? 'Posting…' : 'Post reply'}
+            </button>
+          </div>
+          {replyError && (
+            <div className="thread__inline-reply-error">{replyError}</div>
+          )}
+        </div>
+      )}
       {/* "Show replies" toggle + nested children. Only on top-level
           comments with at least one reply. */}
       {!isReply && replies.length > 0 && (
