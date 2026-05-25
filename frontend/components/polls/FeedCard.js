@@ -406,11 +406,22 @@ export default function FeedCard({
             <div className="poll-block__opts">
               {(card.options || []).map((o) => {
                 const mine = viewer.voter_choice_id === o.id;
+                // Leader = the option with the highest vote count
+                // (excluding the viewer's own vote — that already gets
+                // its own treatment). Mirrors PollCard.js:67 (maxVotes)
+                // so /polls bars match the rep/candidate treatment:
+                // own vote = blue strong, leader = blue soft, loser = gray.
+                const _maxCount = (card.options || []).reduce(
+                  (m, x) => Math.max(m, x.count || 0), 0,
+                );
+                const isLeader = !mine
+                  && _maxCount > 0
+                  && (o.count || 0) === _maxCount;
                 return (
                   <div key={o.id} className="poll-opt2-wrap">
                     <button
                       type="button"
-                      className={`poll-opt2 ${mine ? 'is-mine' : ''}`}
+                      className={`poll-opt2 ${mine ? 'is-mine' : ''} ${isLeader ? 'is-leader' : ''}`}
                       onClick={() => handleVote(o.id)}
                       disabled={busy}
                     >
@@ -552,7 +563,10 @@ export default function FeedCard({
           aria-expanded={isCommentsOpen}
         >
           <ChatText size={14} />
-          <span>Comments (<span>{formatCount(card.comments || 0)}</span>)</span>
+          {/* Toggle label matches PostCard.js:846 — when the thread is
+              expanded, the button reads 'Hide (N)' instead of
+              'Comments (N)' so the action's semantics are explicit. */}
+          <span>{isCommentsOpen ? 'Hide' : 'Comments'} (<span>{formatCount(card.comments || 0)}</span>)</span>
         </button>
       </div>
 
