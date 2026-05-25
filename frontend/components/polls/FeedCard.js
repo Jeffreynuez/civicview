@@ -335,7 +335,12 @@ export default function FeedCard({
     candidate: 'CANDIDATE',
   })[card.kind] || card.kind.toUpperCase();
 
-  const pageTag = card.page_tag || (isStandalone ? 'Standalone' : '');
+  // Standalone polls used to render the page-tag chip as "Standalone",
+  // which read as a redundant copy of the red STANDALONE kind chip
+  // sitting right next to it. "Citizen" is the more useful label —
+  // the kind chip signals "this poll has no page", and the page-tag
+  // chip signals "the author is a citizen".
+  const pageTag = card.page_tag || (isStandalone ? 'Citizen' : '');
   const author = card.author || 'Citizen';
   const initials = (author
     .split(/\s+/)
@@ -352,7 +357,17 @@ export default function FeedCard({
   return (
     <article className={`feed-card feed-card--${kind} ${isCommentsOpen ? 'is-thread-open' : ''}`}>
       <header className="feed-card__top">
-        <span className={`feed-card__kind feed-card__kind--${card.kind}`}>{kindLabel}</span>
+        {/* Tag chip is a link to the author's page for rep + candidate
+            cards. Citizen + standalone cards stay as plain text — the
+            citizen author doesn't have a profile page. */}
+        {(card.kind === 'rep' || card.kind === 'candidate') && card.official_id ? (
+          <a
+            className={`feed-card__kind feed-card__kind--${card.kind} feed-card__kind--link`}
+            href={`/?page=${encodeURIComponent(card.official_id)}`}
+          >{kindLabel}</a>
+        ) : (
+          <span className={`feed-card__kind feed-card__kind--${card.kind}`}>{kindLabel}</span>
+        )}
         {pageTag && <span className="feed-card__page-tag">{pageTag}</span>}
         <span className="feed-card__time">{relTime(card.created_at)}</span>
         {showCloseX && (
@@ -376,7 +391,13 @@ export default function FeedCard({
       {card.parent_post_id && (
         <a
           className="feed-card__crosslink"
-          href={card.official_id ? `/?page=${encodeURIComponent(card.official_id)}` : '#'}
+          /* Deep-link to the parent post within the rep/candidate page.
+             PageView can scroll to the #post-<id> anchor on arrival;
+             if it doesn't (yet), the URL stays well-formed and the
+             scroll behavior is a deferred polish. */
+          href={card.official_id
+            ? `/?page=${encodeURIComponent(card.official_id)}#post-${card.parent_post_id}`
+            : '#'}
         >
           <span className="feed-card__crosslink-dot" aria-hidden="true">●</span>
           <span>From a post</span>
@@ -390,7 +411,16 @@ export default function FeedCard({
         </div>
         <div className="feed-card__author-text">
           <div className="feed-card__name">
-            <span>{author}</span>
+            {/* Author name links to the author's page for rep + candidate.
+                Citizen + standalone keep plain text (no profile page). */}
+            {(card.kind === 'rep' || card.kind === 'candidate') && card.official_id ? (
+              <a
+                className="feed-card__name-link"
+                href={`/?page=${encodeURIComponent(card.official_id)}`}
+              >{author}</a>
+            ) : (
+              <span>{author}</span>
+            )}
             {/* Citizen + candidate polls flag unverified authors.
                 Rep polls don't show the pill (reps are verified by
                 claim). The backend doesn't surface a per-item

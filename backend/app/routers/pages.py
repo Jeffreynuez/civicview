@@ -890,12 +890,19 @@ def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount
     if mode == "reveal_after_close" and payload.closes_at is None:
         mode = "full"
 
+    # Author-kind comes from the parent post's author identity. Without
+    # this, every poll defaults to 'rep' (model default at
+    # models/pages.py:594), and the /polls feed downstream can't
+    # distinguish candidate-authored polls from rep-authored ones.
+    # Mirrors the /posts endpoint branching at routers/feed.py:1086.
+    author_kind_from_post = "candidate" if post.author_candidate_id else "rep"
     poll = Poll(
         post_id=post.id,
         question=payload.question.strip(),
         closes_at=payload.closes_at,
         default_visibility_scope=scope,
         presentation_mode=mode,
+        author_kind=author_kind_from_post,
     )
     db.add(poll)
     db.flush()

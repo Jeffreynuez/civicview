@@ -739,21 +739,45 @@ def polls_feed(
             else:
                 display_kind = "citizen"
         else:
+            # Rep- or candidate-authored poll attached to a Post. Branch
+            # on the Post's author fields (mirrors the /posts endpoint at
+            # feed.py:1086) — candidate posts populate author_candidate_id,
+            # rep posts populate author_id. Pre-fix, this branch hardcoded
+            # display_kind='rep' which mis-labeled every candidate poll
+            # on the /polls feed (and fell back to the literal string
+            # "Representative" for the author name because the
+            # RepAccount lookup returned None for a candidate's post).
             post = (
                 db.query(Post).filter(Post.id == poll.post_id).first()
                 if poll.post_id else None
             )
-            rep = (
-                db.query(RepAccount).filter(RepAccount.id == post.author_id).first()
-                if post else None
-            )
-            author = rep.display_name if rep else "Representative"
-            role = rep.role if rep else None
-            official_id = post.official_id if post else None
-            display_kind = "rep"
-            # Party lookup — re-use the lazy index built for the
-            # National Activity feed earlier in this module.
-            party = _party_for(official_id) if official_id else None
+            if post and post.author_candidate_id:
+                cand = (
+                    db.query(CandidateAccount)
+                    .filter(CandidateAccount.id == post.author_candidate_id)
+                    .first()
+                )
+                author = cand.display_name if cand else "Candidate"
+                # CandidateAccount has no role column by design (see model
+                # docstring) — seeking_office lives in the registry and
+                # would drift if cached here. Leave role None; the
+                # page_tag chip carries the candidate context.
+                role = None
+                official_id = post.official_id
+                display_kind = "candidate"
+                party = _party_for(official_id) if official_id else None
+            else:
+                rep = (
+                    db.query(RepAccount).filter(RepAccount.id == post.author_id).first()
+                    if post else None
+                )
+                author = rep.display_name if rep else "Representative"
+                role = rep.role if rep else None
+                official_id = post.official_id if post else None
+                display_kind = "rep"
+                # Party lookup — re-use the lazy index built for the
+                # National Activity feed earlier in this module.
+                party = _party_for(official_id) if official_id else None
 
         # Page-tag for the chip. Standalone polls get the literal
         # 'Standalone' string at the UI layer; this endpoint returns

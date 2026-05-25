@@ -801,15 +801,22 @@ function PollsHero({ counts, tab = 'polls' }) {
     ? "Every post from verified reps and candidates — see what they're saying without scrolling each page individually."
     : 'Every active poll on CivicView — what reps are asking constituents, what citizens are asking each other and the officials who serve them, and standalone polls on civic topics that don\u2019t belong to any single page.';
   const stat1Label = isPosts ? 'Total posts' : 'Live polls';
-  const stat2Label = isPosts ? 'From reps' : 'Standalone';
-  const stat3Label = isPosts ? 'From candidates' : 'From candidates';
+  const stat2Label = 'From reps';
+  const stat3Label = 'From candidates';
+  // Posts tab keeps the original 3-stat layout (citizens can't author
+  // posts). Polls tab adds a 4th stat — 'From citizens' rolls citizen
+  // polls (kind='citizen', citizen-targeting-a-page) AND standalone
+  // polls (citizen-authored, no page) into a single citizen bucket so
+  // the breakdown reads cleanly as author-kind.
+  const stat4Label = isPosts ? null : 'From citizens';
   const stat1 = counts.all || 0;
-  const stat2 = isPosts ? (counts.rep || 0) : (counts.standalone || 0);
+  const stat2 = counts.rep || 0;
   // Candidate-authored counts on both tabs — Posts surfaces candidate
   // post counts, Polls surfaces candidate poll counts. branchCounts
   // tallies p.kind === 'candidate' on either feed shape, so the same
   // bucket works for both.
   const stat3 = counts.candidate || 0;
+  const stat4 = isPosts ? null : ((counts.citizen || 0) + (counts.standalone || 0));
   return (
     <section className="polls-hero" aria-label={`${title} hero`}>
       <div className="polls-wrap">
@@ -832,6 +839,12 @@ function PollsHero({ counts, tab = 'polls' }) {
               <span className="polls-hero__stat-num cl-num">{formatCount(stat3)}</span>
               <span className="polls-hero__stat-label">{stat3Label}</span>
             </div>
+            {stat4Label && (
+              <div className="polls-hero__stat">
+                <span className="polls-hero__stat-num cl-num">{formatCount(stat4)}</span>
+                <span className="polls-hero__stat-label">{stat4Label}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
