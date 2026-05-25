@@ -209,8 +209,33 @@ export async function reportPollComment(commentId, { reason = 'other', detail } 
 // Endpoints under /api/admin/* gated by an ADMIN_EMAILS env-var
 // allowlist server-side. The whoami probe is the cheapest signal
 // to gate UI on; the queue and actions are admin-only.
+//
+// In-flight dedupe: adminWhoami fires from Force2FAGate (root layout),
+// Navbar (mounted 10+ places — main page, polls, PageView, dashboard,
+// FeedbackView, HelpBuildThisView, LegalPageLayout, /admin landing,
+// account/delete branches, etc.), and the /admin page itself. On a
+// typical signed-in page load that's 3-4 simultaneous identical
+// requests in the same tick. They overwhelm uvicorn's request queue
+// on Render and a fraction return 429 from Render's edge — and edge
+// 429s ship without our FastAPI CORSMiddleware headers, so the
+// browser flags them as CORS errors. Hence "429 + CORS storm" in
+// DevTools when really it's a frontend over-fetch.
+//
+// Fix: a module-level in-flight promise. When N callers race in the
+// same tick, the first one creates the fetch promise; the next N-1
+// receive the same promise. Once it resolves (success OR failure),
+// `_adminWhoamiInFlight` clears via .finally() so the next sequential
+// caller (e.g. a 60s polling tick) gets a fresh request. No TTL, no
+// staleness, no invalidation needed on login/logout — the dedupe only
+// lives for the duration of one in-flight request.
+let _adminWhoamiInFlight = null;
 export async function adminWhoami() {
-  return request('/api/admin/whoami');
+  if (_adminWhoamiInFlight) return _adminWhoamiInFlight;
+  const p = request('/api/admin/whoami').finally(() => {
+    _adminWhoamiInFlight = null;
+  });
+  _adminWhoamiInFlight = p;
+  return p;
 }
 
 export async function adminListReports({ includeActed = false } = {}) {
@@ -260,8 +285,19 @@ export async function adminUnsuspendUser(kind, userId) {
 
 // Lightweight count for the navbar badge. Polled every ~30s when
 // an admin is signed in; doesn't pull the full report list.
+// Same in-flight dedupe as adminWhoami above. Each mounted Navbar
+// runs its own setInterval(60_000) polling adminUnreadCount when
+// the viewer is admin — without dedupe, every interval tick fires
+// N simultaneous identical requests (one per mount) and re-creates
+// the 429 storm on a 60s cadence.
+let _adminUnreadCountInFlight = null;
 export async function adminUnreadCount() {
-  return request('/api/admin/reports/unread-count');
+  if (_adminUnreadCountInFlight) return _adminUnreadCountInFlight;
+  const p = request('/api/admin/reports/unread-count').finally(() => {
+    _adminUnreadCountInFlight = null;
+  });
+  _adminUnreadCountInFlight = p;
+  return p;
 }
 
 // ── Appeals (user side) ─────────────────────────────────────────────
