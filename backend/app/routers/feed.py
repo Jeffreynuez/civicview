@@ -716,6 +716,14 @@ def polls_feed(
         role = None
         party = None
         official_id: Optional[str] = None
+        # Branch override default — only the rep path below sets a
+        # non-None value (currently 'congress' for Congress reps).
+        # Citizen / candidate / standalone polls keep branch=None.
+        # Without this default, the rep path's conditional assignment
+        # left _branch_override unbound for non-rep polls and the
+        # items.append below raised UnboundLocalError → /polls 500
+        # ("Failed to fetch" on the frontend after 3beeb44).
+        _branch_override = None
         if poll.author_kind == "citizen":
             cz = (
                 db.query(CitizenAccount)

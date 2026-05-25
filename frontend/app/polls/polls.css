@@ -1550,8 +1550,15 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
 }
 /* Pill variant — green CTA-style button anchored bottom-right of the
    body so it reads as the primary next action. Mirrors PostCard.js's
-   PostBody treatment so /posts cards and rep/candidate pages match. */
-.feed-card__expand--pill {
+   PostBody treatment so /posts cards and rep/candidate pages match.
+   Chained selector (.feed-card__expand.feed-card__expand--pill) bumps
+   specificity above the legacy .feed-card__expand rule below — same-
+   specificity ties resolved by source order, and the legacy rule
+   lives further down in this file (kept for callers that don't pass
+   the --pill modifier). Without the chain, every pill rendered as
+   transparent-bg green text (the legacy default) because the cascade
+   handed the win to whichever rule came later. */
+.feed-card__expand.feed-card__expand--pill {
   position: absolute;
   right: 4px;
   bottom: 4px;
@@ -1567,7 +1574,7 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   z-index: 2;
 }
-.feed-card__expand--pill:hover { filter: brightness(0.95); }
+.feed-card__expand.feed-card__expand--pill:hover { filter: brightness(0.95); }
 /* AI Summarize affordance — pill button above the body. Same accent
    colors as PostCard.js:646. */
 .feed-card__ai-summarize-row {
