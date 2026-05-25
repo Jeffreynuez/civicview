@@ -406,17 +406,22 @@ export default function FeedCard({
             <div className="poll-block__opts">
               {(card.options || []).map((o) => {
                 const mine = viewer.voter_choice_id === o.id;
-                // Leader = the option with the highest vote count
+                // Leader = the option with the highest share
                 // (excluding the viewer's own vote — that already gets
                 // its own treatment). Mirrors PollCard.js:67 (maxVotes)
                 // so /polls bars match the rep/candidate treatment:
                 // own vote = blue strong, leader = blue soft, loser = gray.
-                const _maxCount = (card.options || []).reduce(
-                  (m, x) => Math.max(m, x.count || 0), 0,
+                // NOTE: we compare on `percent` (not `count`) because the
+                // /api/polls/feed payload returns {label, percent} only —
+                // see backend/app/routers/feed.py:332. The percent field
+                // is populated for every kind (rep / candidate / citizen /
+                // standalone) so this works uniformly across the feed.
+                const _maxPct = (card.options || []).reduce(
+                  (m, x) => Math.max(m, x.percent || 0), 0,
                 );
                 const isLeader = !mine
-                  && _maxCount > 0
-                  && (o.count || 0) === _maxCount;
+                  && _maxPct > 0
+                  && (o.percent || 0) === _maxPct;
                 return (
                   <div key={o.id} className="poll-opt2-wrap">
                     <button

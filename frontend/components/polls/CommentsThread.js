@@ -682,7 +682,7 @@ function CommentRow({
             onClick={() => onReact(c.id, 'up', upActive)}
             aria-label="Like"
           >
-            <ThumbsUp size={13} />
+            <ThumbsUp size={13} active={upActive} color="up" />
             <span>{c.up_count || 0}</span>
           </button>
           <IdentityPicker
@@ -699,7 +699,7 @@ function CommentRow({
             onClick={() => onReact(c.id, 'down', downActive)}
             aria-label="Dislike"
           >
-            <ThumbsDown size={13} />
+            <ThumbsDown size={13} active={downActive} color="down" />
             <span>{c.down_count || 0}</span>
           </button>
           <IdentityPicker
