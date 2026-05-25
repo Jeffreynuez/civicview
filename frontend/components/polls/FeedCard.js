@@ -79,6 +79,16 @@ export default function FeedCard({
   // plausible keeps it out of view for non-authors.
   const isStandalone = card.kind === 'standalone';
   const viewer = card.viewer || { voter_choice_id: null, is_author: false };
+  // Like/dislike active state. Backend ships viewer.my_reactions as a
+  // per-identity map ({citizen: 'up', rep: 'down', ...}) — the button
+  // is "active" when ANY of the viewer's identities has reacted with
+  // that kind. Falls back to the legacy single viewer.my_reaction for
+  // freshly-merged responses (mergeViewerReactionSummary sets the
+  // legacy field; this OR covers both pre-click and post-click state).
+  const _myRxns = viewer.my_reactions || {};
+  const _rxnValues = Object.values(_myRxns);
+  const upActive = _rxnValues.includes('up') || viewer.my_reaction === 'up';
+  const downActive = _rxnValues.includes('down') || viewer.my_reaction === 'down';
   const { me: rep } = useRepAuth();
   const { candidate } = useCandidateAuth();
   const isCitizenAuthor = kind === 'poll' && isStandalone && viewer.is_author;
@@ -518,21 +528,20 @@ export default function FeedCard({
       )}
 
       <div className="feed-card__actions">
-        {/* Like — blue thumbs-up, active when the viewer's own
-            reaction is 'up'. The feed item shape doesn't include
-            the viewer's reaction yet (TODO in a follow-up), so the
-            active state is currently driven by count > 0; once the
-            backend surfaces my_reaction we'll switch to that. */}
+        {/* Like — blue thumbs-up. Active when the VIEWER has reacted
+            'up' (not when the count is > 0). Mirrors PostCard.js:782
+            (active={myReaction === 'up'}). The icon flips to fully-
+            filled blue via PhosphorIcon's active prop. */}
         <div className="feed-act-wrap">
           <button
             type="button"
-            className={`feed-act feed-act--like ${(card.likes || 0) > 0 ? 'is-active' : ''}`}
+            className={`feed-act feed-act--like ${upActive ? 'is-active' : ''}`}
             onClick={() => handleReact('up')}
             disabled={busy}
             aria-label="Like"
             title="Like"
           >
-            <ThumbsUp size={14} />
+            <ThumbsUp size={14} active={upActive} color="up" />
             <span>{formatCount(card.likes || 0)}</span>
           </button>
           <IdentityPicker
@@ -545,13 +554,13 @@ export default function FeedCard({
         <div className="feed-act-wrap">
           <button
             type="button"
-            className={`feed-act feed-act--dislike ${(card.dislikes || 0) > 0 ? 'is-active' : ''}`}
+            className={`feed-act feed-act--dislike ${downActive ? 'is-active' : ''}`}
             onClick={() => handleReact('down')}
             disabled={busy}
             aria-label="Dislike"
             title="Dislike"
           >
-            <ThumbsDown size={14} />
+            <ThumbsDown size={14} active={downActive} color="down" />
             <span>{formatCount(card.dislikes || 0)}</span>
           </button>
           <IdentityPicker
