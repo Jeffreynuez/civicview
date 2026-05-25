@@ -1191,15 +1191,26 @@ a.poll-card { display: flex; }
   padding-top: 10px;
   border-top: 1px solid var(--cl-border, #e5e7eb);
 }
+/* Pill-style action buttons — bordered, white background, accent-tinted
+   when active. Matches the rep/candidate page treatment (PostCard's
+   ReactionButton at PostCard.js:1646 and the Hide/Comments button at
+   PostCard.js:827) so the /polls feed and the rep/candidate pages
+   render the like / dislike / comments controls identically. */
 .feed-act {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: transparent; border: 0; padding: 4px 6px;
-  font-size: 13px; font-weight: 600;
-  color: var(--cl-text-muted, #6b7280);
-  cursor: pointer; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  height: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cl-text, #111);
+  background: var(--cl-card, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: var(--cl-radius-pill, 999px);
+  cursor: pointer;
+  font-family: inherit;
 }
-.feed-act:hover { background: var(--cl-hover, #f9fafb); }
-.feed-act.is-active { color: var(--cl-text, #111); }
+.feed-act:hover:not(:disabled) { background: var(--cl-hover, #f9fafb); }
+.feed-act.is-active { font-weight: 700; }
 .feed-act--comments { margin-left: auto; }
 .feed-card__thread {
   margin: 12px -18px -16px;
@@ -1227,10 +1238,23 @@ a.poll-card { display: flex; }
   cursor: pointer;
 }
 .poll-opt2.is-mine { border-color: var(--cl-accent, #18794e); }
+/* State-aware bar fill — matches PollCard.js:200 so /polls cards and
+   rep/candidate page polls render the same visual hierarchy:
+     • own vote → blue 18% (rgba(24,119,242,.18))
+     • leader (not own) → blue 8%
+     • loser → neutral gray 4%
+   Default below is the loser color; .is-leader and .is-mine override. */
 .poll-opt2__fill {
   position: absolute; top: 0; left: 0; bottom: 0;
-  background: var(--cl-accent-soft, #ecfdf3);
+  background: rgba(0, 0, 0, 0.04);
   z-index: 0;
+  transition: width 0.3s ease;
+}
+.poll-opt2.is-leader .poll-opt2__fill {
+  background: rgba(24, 119, 242, 0.08);
+}
+.poll-opt2.is-mine .poll-opt2__fill {
+  background: rgba(24, 119, 242, 0.18);
 }
 .poll-opt2__label,
 .poll-opt2__pct {
@@ -1587,18 +1611,22 @@ a.poll-card { display: flex; }
 .feed-act--like.is-active {
   color: var(--cl-up, #1877f2);
   background: var(--cl-up-soft, #e7f0fe);
+  border-color: var(--cl-up, #1877f2);
 }
 .feed-act--like:hover:not(:disabled) {
   color: var(--cl-up, #1877f2);
   background: var(--cl-up-soft, #e7f0fe);
+  border-color: var(--cl-up, #1877f2);
 }
 .feed-act--dislike.is-active {
   color: var(--cl-down, #8c2929);
   background: var(--cl-down-soft, #fde9e9);
+  border-color: var(--cl-down, #8c2929);
 }
 .feed-act--dislike:hover:not(:disabled) {
   color: var(--cl-down, #8c2929);
   background: var(--cl-down-soft, #fde9e9);
+  border-color: var(--cl-down, #8c2929);
 }
 .feed-act:disabled {
   opacity: 0.55;
