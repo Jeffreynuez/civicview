@@ -1521,6 +1521,9 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
    to a preview height with an Expand pill. Attached-poll inline
    badge uses the same accent treatment as the cross-feed "From a
    post" link on the polls tab. */
+/* Long-post body — clipped + gradient-faded when collapsed; opens to
+   full height when expanded. Position:relative so the Expand pill can
+   anchor to the bottom-right. */
 .feed-card__post-body {
   font-size: 14px; line-height: 1.5;
   white-space: pre-wrap;
@@ -1534,7 +1537,93 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
   max-height: none;
   mask-image: none;
   -webkit-mask-image: none;
+  /* Reserve a gutter at the bottom so the absolute-positioned
+     Show less pill doesn't overlap the last line of text. */
+  padding-bottom: 36px;
 }
+/* Pill variant — green CTA-style button anchored bottom-right of the
+   body so it reads as the primary next action. Mirrors PostCard.js's
+   PostBody treatment so /posts cards and rep/candidate pages match. */
+.feed-card__expand--pill {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--cl-accent, #18794e);
+  background: var(--cl-accent, #18794e);
+  color: white;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+.feed-card__expand--pill:hover { filter: brightness(0.95); }
+/* AI Summarize affordance — pill button above the body. Same accent
+   colors as PostCard.js:646. */
+.feed-card__ai-summarize-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.feed-card__ai-summarize-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  background: var(--cl-accent-soft, #e6f3ec);
+  color: var(--cl-accent, #18794e);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.feed-card__ai-summarize-btn:disabled { cursor: wait; opacity: 0.7; }
+.feed-card__ai-summarize-err {
+  color: #d63031;
+  font-size: 0.72rem;
+}
+.feed-card__ai-summary {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--cl-accent-soft, #e6f3ec);
+  background: var(--cl-accent-soft, #e6f3ec);
+}
+.feed-card__ai-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.feed-card__ai-summary-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cl-accent, #18794e);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.feed-card__ai-summary-dismiss {
+  background: transparent; border: none;
+  color: var(--cl-text-light, #6b7280);
+  font-family: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.feed-card__ai-summary-text {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--cl-text, #111);
+  white-space: pre-wrap;
+}
+/* Legacy plain-text Expand — kept for callers that don't pass the
+   --pill modifier. The pill modifier above wins via absolute
+   positioning + higher specificity (.feed-card__expand--pill). */
 .feed-card__expand {
   align-self: flex-start;
   background: transparent; border: 0;

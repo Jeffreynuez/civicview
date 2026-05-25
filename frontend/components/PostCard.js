@@ -1590,6 +1590,11 @@ function PostBody({ body }) {
           maxHeight: expanded ? 'none' : `${BODY_COLLAPSED_HEIGHT_PX}px`,
           overflow: 'hidden',
           transition: 'max-height 0.25s ease',
+          // Reserve a gutter at the bottom for the absolute-positioned
+          // Expand/Show less pill so the pill never overlaps the last
+          // line of text. ~36px = pill height + bottom anchor +
+          // breathing room.
+          paddingBottom: expanded ? '40px' : 0,
         }}
       >
         {body}

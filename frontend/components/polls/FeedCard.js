@@ -34,7 +34,7 @@
  *   citizenViewer    — citizen | null        used for Delete affordance
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   voteOnCitizenPoll,
   closeCitizenPoll,
@@ -44,6 +44,8 @@ import {
   reactToCitizenPoll,
   clearCitizenPollReaction,
   deletePost,
+  summarizePost,
+  aiHealth,
 } from '../../lib/pagesApi';
 import { useAuth as useRepAuth } from '../../lib/auth';
 import { useCandidateAuth } from '../../lib/candidateAuth';
@@ -121,6 +123,37 @@ export default function FeedCard({
   // Post-body collapse — long bodies (>400 chars) show an Expand pill
   // and stay collapsed by default. Same pattern the rep page uses.
   const [expanded, setExpanded] = useState(false);
+
+  // AI summarize — long posts only. Mirrors PostCard.js:283-311 so the
+  // /posts feed exposes the same TL;DR affordance as the rep page.
+  // Probe aiHealth once per FeedCard mount; the answer is cheap and
+  // stable for the session.
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiSummary, setAiSummary] = useState(null);
+  const [aiSummaryBusy, setAiSummaryBusy] = useState(false);
+  const [aiSummaryErr, setAiSummaryErr] = useState(null);
+  useEffect(() => {
+    if (kind !== 'post') return undefined;
+    let cancelled = false;
+    aiHealth().then(({ data }) => {
+      if (!cancelled && data) setAiAvailable(Boolean(data.configured));
+    });
+    return () => { cancelled = true; };
+  }, [kind]);
+  const _bodyWordCount = ((card.body || '').trim().match(/\S+/g) || []).length;
+  const _showSummarize = aiAvailable && kind === 'post' && _bodyWordCount >= 300;
+  const _handleSummarize = async () => {
+    if (aiSummaryBusy) return;
+    setAiSummaryBusy(true);
+    setAiSummaryErr(null);
+    const { data, error } = await summarizePost(card.id);
+    setAiSummaryBusy(false);
+    if (error || !data) {
+      setAiSummaryErr(error || 'Summary failed');
+      return;
+    }
+    setAiSummary(data);
+  };
 
   // Multi-identity picker state. The /polls + /posts feed treats
   // every viewer as the "owner" for picker purposes — when 2+
@@ -529,19 +562,60 @@ export default function FeedCard({
       {/* Post body — kind='post' on the /posts feed. Long bodies
           collapse to a preview with an Expand affordance; attached
           polls render an inline "+ poll attached" badge that
-          deep-links to the page where the poll can be voted. */}
+          deep-links to the page where the poll can be voted.
+          Long posts also surface an AI Summarize affordance,
+          mirroring PostCard.js:646 on the rep/candidate pages. */}
       {kind === 'post' && (
         <div className="feed-card__body">
+          {/* AI Summarize button — visible only when AI is configured,
+              the post is long enough (>=300 words), and a summary
+              hasn't been fetched yet. */}
+          {_showSummarize && !aiSummary && (
+            <div className="feed-card__ai-summarize-row">
+              <button
+                type="button"
+                className="feed-card__ai-summarize-btn"
+                onClick={_handleSummarize}
+                disabled={aiSummaryBusy}
+                title={`Summarize this ${_bodyWordCount}-word post into a quick TL;DR`}
+              >
+                ✨ {aiSummaryBusy ? 'Summarizing…' : 'Summarize'}
+              </button>
+              {aiSummaryErr && (
+                <span className="feed-card__ai-summarize-err">{aiSummaryErr}</span>
+              )}
+            </div>
+          )}
+          {/* AI summary card — sits above the body with a dismiss
+              affordance, so the user always has access to the full
+              text underneath. */}
+          {aiSummary && (
+            <div className="feed-card__ai-summary">
+              <div className="feed-card__ai-summary-head">
+                <span className="feed-card__ai-summary-label">✨ AI summary</span>
+                <button
+                  type="button"
+                  className="feed-card__ai-summary-dismiss"
+                  onClick={() => { setAiSummary(null); setAiSummaryErr(null); }}
+                >
+                  Dismiss
+                </button>
+              </div>
+              <div className="feed-card__ai-summary-text">
+                {typeof aiSummary === 'string' ? aiSummary : (aiSummary.summary || '')}
+              </div>
+            </div>
+          )}
           <div className={`feed-card__post-body ${expanded ? 'is-expanded' : ''}`}>
             {card.body}
           </div>
-          {card.body && card.body.length > 400 && !expanded && (
+          {card.body && card.body.length > 400 && (
             <button
               type="button"
-              className="feed-card__expand"
-              onClick={() => setExpanded(true)}
+              className="feed-card__expand feed-card__expand--pill"
+              onClick={() => setExpanded((v) => !v)}
             >
-              Expand
+              {expanded ? 'Show less' : 'Expand'}
             </button>
           )}
           {card.has_attached_poll && (
