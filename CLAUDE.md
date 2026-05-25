@@ -145,6 +145,17 @@ most importantly `search-records` and `upsert-records` against the
 `claude-memory` index (1024-dim, cosine, serverless aws us-east-1,
 embedding model `multilingual-e5-large`).
 
+**Pinecone namespace for this project:** `default`. CivicView's ~69
+records live in the `default` namespace. (Legacy name preserved
+to avoid a full 69-record migration — Pinecone doesn't support
+namespace rename in place.) Cross-project records (Jeffrey's
+working-style preferences, sandbox-tooling quirks, Pinecone MCP
+conventions) live in the `shared` namespace. The pinecone-memory
+plugin's SKILL.md (v0.3.0+) instructs sessions to search BOTH
+this project's namespace AND `shared` on the first substantive
+message, so cross-project lessons surface automatically alongside
+CivicView-specific ones.
+
 **Convention** (full version lives in the plugin's SKILL.md, summary
 here so this manifest stays self-sufficient):
 
