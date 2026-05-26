@@ -518,33 +518,44 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                         setStateFilter(null);
                       }}
                     />
-                    {f.id === 'states' && stateDropdownOpen && (
-                      <StateDropdown
-                        selected={stateFilter}
-                        onSelect={setStateFilter}
-                        onClose={() => {
-                          setStateDropdownOpen(false);
-                          // If the user closed the dropdown without
-                          // picking a state, deactivate the States
-                          // chip too — a state-less States chip is
-                          // meaningless (all states are in the pool
-                          // by default). Falls back to ['all'] if
-                          // that was the only active chip.
-                          if (!stateFilter) {
-                            setBranches((prev) => {
-                              const next = prev.filter((b) => b !== 'states');
-                              return next.length === 0 ? ['all'] : next;
-                            });
-                          }
-                        }}
-                      />
-                    )}
                   </div>
                 ))}
               </div>
               <div className="polls-kindrow__cta">
                 <StartButton signedIn={citizenSignedIn} onClick={handleStartPoll} />
               </div>
+              {/* StateDropdown rendered as a SIBLING of .polls-kindrow__chips
+                  rather than inside the chips .map() loop. Reason: on mobile
+                  .polls-kindrow__chips sets `overflow-x: auto` which (per CSS
+                  spec) forces `overflow-y` to non-visible too — that clips any
+                  descendant opening downward, including this dropdown, before
+                  z-index can rescue it. Anchored here to .polls-kindrow
+                  (position:relative + z-index:2 from the prior CSS fix in this
+                  branch) so the dropdown paints above neighboring rows.
+                  Visual trade-off: dropdown opens at the LEFT EDGE below the
+                  chip row instead of directly under the States chip.
+                  Acceptable since the chip row scrolls horizontally on mobile
+                  anyway, so a "directly under" anchor would drift off-screen. */}
+              {stateDropdownOpen && (
+                <StateDropdown
+                  selected={stateFilter}
+                  onSelect={setStateFilter}
+                  onClose={() => {
+                    setStateDropdownOpen(false);
+                    // If the user closed the dropdown without picking a
+                    // state, deactivate the States chip too — a state-less
+                    // States chip is meaningless (all states are in the pool
+                    // by default). Falls back to ['all'] if that was the
+                    // only active chip.
+                    if (!stateFilter) {
+                      setBranches((prev) => {
+                        const next = prev.filter((b) => b !== 'states');
+                        return next.length === 0 ? ['all'] : next;
+                      });
+                    }
+                  }}
+                />
+              )}
             </div>
 
             {aiAvailable && (
