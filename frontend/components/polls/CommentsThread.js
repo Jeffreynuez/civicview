@@ -43,6 +43,7 @@ import {
   listComments,
   createComment,
   deleteComment,
+  updateComment,
   reactToComment,
   clearCommentReaction,
   reportComment,
@@ -317,6 +318,16 @@ export default function CommentsThread({
     setReplyDraft('');
     setReplyingTo(null);
     await load();
+  };
+
+  // Comment edit saved — update the matching row in-place so the
+  // body + edited_at re-render without a full thread refetch.
+  const handleEditSaved = (updated) => {
+    setComments((prev) => (
+      Array.isArray(prev)
+        ? prev.map((x) => (x.id === updated.id ? updated : x))
+        : prev
+    ));
   };
 
   const handleDelete = async (commentId) => {
@@ -648,6 +659,7 @@ export default function CommentsThread({
               signedIn={signedIn}
               onReact={handleReact}
               onDelete={handleDelete}
+              onEditSaved={handleEditSaved}
               onReport={handleReport}
               reactPicker={commentReactPicker}
               onReactPick={onCommentReactPick}
@@ -703,6 +715,7 @@ function CommentRow({
   signedIn,
   onReact,
   onDelete,
+  onEditSaved,
   onReport,
   reactPicker,
   onReactPick,
@@ -711,6 +724,43 @@ function CommentRow({
   showReplies = false,
   onToggleReplies,
 }) {
+  // Local edit state (Task #41) — kept inside CommentRow so only the
+  // row being edited rerenders on every keystroke. Save bubbles the
+  // updated comment up via onEditSaved so the parent thread can
+  // refresh its row.
+  const [isEditing, setIsEditing] = useState(false);
+  const [editDraft, setEditDraft] = useState('');
+  const [editBusy, setEditBusy] = useState(false);
+  const [editErr, setEditErr] = useState(null);
+
+  const beginEdit = () => {
+    setIsEditing(true);
+    setEditDraft(c.body || '');
+    setEditErr(null);
+  };
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setEditDraft('');
+    setEditErr(null);
+  };
+  const saveEdit = async () => {
+    const trimmed = (editDraft || '').trim();
+    if (!trimmed) {
+      setEditErr('Comment cannot be empty.');
+      return;
+    }
+    setEditBusy(true);
+    const { data, error } = await updateComment(c.id, trimmed);
+    setEditBusy(false);
+    if (error) {
+      setEditErr(error);
+      return;
+    }
+    setIsEditing(false);
+    setEditDraft('');
+    if (typeof onEditSaved === 'function') onEditSaved(data);
+  };
+
   // isMine across all three identity columns — a rep / candidate
   // viewing their own comment sees Delete; everyone else sees Report.
   const isMine = !!(
@@ -731,8 +781,72 @@ function CommentRow({
         <span className="thread__c-name">{c.citizen_display_name || c.author || 'Citizen'}</span>
         {c.verified === false && <span className="thread__c-unverified">Unverified</span>}
         <span className="thread__c-date">{relTime(c.created_at)}</span>
+        {c.edited_at && (
+          <span
+            className="thread__c-edited"
+            title={`Edited ${relTime(c.edited_at)}`}
+            style={{ marginLeft: '4px', fontSize: '0.7rem', fontStyle: 'italic', color: 'var(--cl-text-light)' }}
+          >
+            · edited
+          </span>
+        )}
       </div>
-      <div className="thread__c-body">{c.body}</div>
+      {isEditing ? (
+        <div className="thread__c-body" style={{ margin: '4px 0' }}>
+          <textarea
+            value={editDraft}
+            onChange={(e) => setEditDraft(e.target.value)}
+            rows={3}
+            maxLength={1000}
+            disabled={editBusy}
+            style={{
+              width: '100%', padding: '6px', borderRadius: '6px',
+              border: '1px solid var(--cl-border)',
+              fontFamily: 'inherit', fontSize: '0.85rem',
+              resize: 'vertical', boxSizing: 'border-box',
+            }}
+          />
+          <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
+            <button
+              type="button"
+              onClick={saveEdit}
+              disabled={editBusy || !(editDraft || '').trim()}
+              className="thread__c-link"
+              style={{
+                padding: '3px 10px', borderRadius: '6px',
+                border: '1px solid var(--cl-accent)',
+                background: 'var(--cl-accent)', color: 'white',
+                fontWeight: 600,
+                cursor: editBusy ? 'wait' : 'pointer',
+              }}
+            >
+              {editBusy ? 'Saving…' : 'Save'}
+            </button>
+            <button
+              type="button"
+              onClick={cancelEdit}
+              disabled={editBusy}
+              className="thread__c-link"
+              style={{
+                padding: '3px 10px', borderRadius: '6px',
+                border: '1px solid var(--cl-border)',
+                background: 'white', color: 'var(--cl-text)',
+                fontWeight: 600,
+                cursor: editBusy ? 'wait' : 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+          {editErr && (
+            <div style={{ marginTop: '4px', color: '#d63031', fontSize: '0.72rem' }}>
+              {editErr}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="thread__c-body">{c.body}</div>
+      )}
       <div className="thread__c-actions">
         <span style={{ position: 'relative', display: 'inline-flex' }}>
           <button
@@ -769,6 +883,17 @@ function CommentRow({
         </span>
         {loc && <span className="thread__c-location">{loc}</span>}
         <span className="thread__c-spacer" />
+        {isMine && !isEditing && (
+          <button
+            type="button"
+            className="thread__c-link"
+            onClick={beginEdit}
+            disabled={editBusy}
+            title="Edit this comment (until first reply, after 60s grace)"
+          >
+            Edit
+          </button>
+        )}
         {isMine ? (
           <button
             type="button"
