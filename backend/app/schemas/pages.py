@@ -624,6 +624,11 @@ class CitizenLoginResponse(BaseModel):
     # citizen auth path. The frontend stores this and forwards it as
     # `X-Citizen-Token: <token>` on requests that need citizen auth.
     citizen_token: Optional[str] = None
+    # CSRF token derived from citizen_token (HMAC-SHA256). The frontend
+    # echoes it back as `X-CSRF-Token` on every non-GET request that's
+    # citizen-authenticated. See compute_csrf_token in app/auth.py and
+    # the validator in app/middleware/csrf.py (Task #31).
+    csrf_token: Optional[str] = None
     # 2FA challenge fields — populated when the citizen account has
     # totp_enabled_at set (rare today; citizens enroll voluntarily).
     two_factor_required: bool = False
@@ -676,6 +681,9 @@ class CandidateLoginResponse(BaseModel):
     # header bundle (rep / citizen / candidate) used in mobile
     # browsers that block cross-site cookies.
     candidate_token: Optional[str] = None
+    # CSRF token derived from candidate_token (HMAC-SHA256). See
+    # compute_csrf_token in app/auth.py and app/middleware/csrf.py.
+    csrf_token: Optional[str] = None
     # 2FA challenge fields — populated when the candidate account has
     # totp_enabled_at set.
     two_factor_required: bool = False

@@ -28,7 +28,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
-from app.auth import hash_password, verify_password
+from app.auth import compute_csrf_token, hash_password, verify_password
 from app.auth_citizen import (
     clear_citizen_cookie,
     get_optional_citizen_including_deleted,
@@ -272,11 +272,16 @@ def login(
     db.commit()
     db.refresh(citizen)
 
+    # Session-tied CSRF (Task #31). See app/routers/auth.py for the
+    # rationale — same HMAC-of-session-token pattern across all three
+    # identity tracks.
+    citizen_tok = issue_citizen_token(citizen.id)
     return CitizenLoginResponse(
         citizen=CitizenMeResponse.model_validate(citizen),
         # Mirror token for cross-site-cookie-restricted environments.
         # Identical to the value set in the cookie.
-        citizen_token=issue_citizen_token(citizen.id),
+        citizen_token=citizen_tok,
+        csrf_token=compute_csrf_token(citizen_tok),
     )
 
 

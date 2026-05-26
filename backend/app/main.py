@@ -6,6 +6,8 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.middleware.csrf import CsrfMiddleware
 from contextlib import asynccontextmanager
 import logging
 
@@ -38,6 +40,7 @@ from app.routers import (
     two_factor as two_factor_router,
     billing as billing_router,
     identity_verification as idme_router,
+    csrf as csrf_router,
 )
 from app.db import init_db
 from app.seed import (
@@ -142,6 +145,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# CSRF middleware (Task #31, Phase 2). Validates X-CSRF-Token on
+# state-changing requests against the HMAC of any currently-active
+# session token. Registered AFTER CORS so CORS stays the outermost
+# layer — preflight OPTIONS responses bypass CSRF entirely, and CORS
+# response headers wrap any 403 we emit. See app/middleware/csrf.py
+# for the skip rules (safe methods, exempt paths, no-session paths).
+app.add_middleware(CsrfMiddleware)
+
+
 app.include_router(congress.router, prefix="/api/congress", tags=["Congress"])
 app.include_router(states.router, prefix="/api/states", tags=["States"])
 app.include_router(address.router, prefix="/api/address", tags=["Address Lookup"])
@@ -155,6 +167,7 @@ app.include_router(google_civic.router, prefix="/api/google-civic", tags=["Googl
 app.include_router(auth_router.router, prefix="/api/auth", tags=["Pages — Auth"])
 app.include_router(auth_citizen_router.router, prefix="/api/citizen-auth", tags=["Pages — Citizen Auth"])
 app.include_router(auth_candidate_router.router, prefix="/api/candidate-auth", tags=["Pages — Candidate Auth"])
+app.include_router(csrf_router.router, prefix="/api/csrf", tags=["Pages — CSRF"])
 app.include_router(pages_router.router, prefix="/api/pages", tags=["Pages — Feed"])
 # Citizen polls — endpoints are split between page-scoped routes
 # (/api/pages/{official_id}/citizen-polls) and standalone routes

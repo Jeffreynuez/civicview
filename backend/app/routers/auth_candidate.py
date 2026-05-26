@@ -31,7 +31,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
-from app.auth import verify_password
+from app.auth import compute_csrf_token, verify_password
 from app.auth_candidate import (
     clear_candidate_cookie,
     get_optional_candidate_including_deleted,
@@ -195,12 +195,19 @@ def login(
     db.commit()
     db.refresh(candidate)
 
+    # Session-tied CSRF (Task #31). See app/routers/auth.py for the
+    # rationale. Same HMAC-of-session-token pattern; the validator in
+    # app/middleware/csrf.py accepts X-CSRF-Token from any active
+    # identity, so a candidate signed in alongside a citizen can pick
+    # either token.
+    candidate_tok = issue_candidate_token(candidate.id)
     return CandidateLoginResponse(
         candidate=CandidateMeResponse.model_validate(candidate),
         # Mirror token — same value as the cookie. Used by browsers
         # that block cross-site cookies; the frontend forwards it as
         # X-Candidate-Token on every request after login.
-        candidate_token=issue_candidate_token(candidate.id),
+        candidate_token=candidate_tok,
+        csrf_token=compute_csrf_token(candidate_tok),
     )
 
 

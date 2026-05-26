@@ -23,6 +23,8 @@ from __future__ import annotations
 
 import os
 import secrets
+import hashlib
+import hmac
 import logging
 from typing import Optional
 
@@ -242,8 +244,66 @@ def get_current_rep(
     return rep
 
 
-# ── CSRF-lite ─────────────────────────────────────────────────────────
+# ── CSRF (Task #31, Phase 2) ─────────────────────────────────────────
+# Stateless: each CSRF token is HMAC-SHA256(SESSION_SECRET, session_token).
+# Re-derivable server-side from the session token, so no DB row, no
+# extra cache lookup at request time. Invalidating a session (logout,
+# expiry, rotation) automatically invalidates its CSRF. Three identity
+# tracks each get their own CSRF derived from their own session token;
+# the validator accepts X-CSRF-Token if it matches the CSRF derived
+# from ANY currently-active session in the request (see middleware/csrf.py).
+#
+# Why HMAC rather than "send the random token at login, store on the
+# session row": we don't have a session-row table — sessions are
+# carried entirely in the signed cookie. Adding a sessions table just
+# to hold CSRF would be a bigger change than HMAC. The HMAC approach
+# trades zero state for one round of CPU per validate, which is
+# negligible.
+
+
+def compute_csrf_token(session_token: str) -> str:
+    """Derive the CSRF token for a given session token.
+
+    HMAC-SHA256 over the session_token, keyed by SESSION_SECRET. The
+    same session_token always produces the same CSRF — by design, so
+    the frontend can stash the CSRF alongside the session_token and
+    the server can re-derive on every request without keeping state.
+    Returns the hex digest (deterministic length, URL-safe characters)."""
+    return hmac.new(
+        _SECRET.encode("utf-8"),
+        session_token.encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
+
+
+def verify_csrf_match(provided: str, candidate_session_tokens) -> bool:
+    """Constant-time compare `provided` against the CSRF derived from
+    each candidate session_token. Returns True if ANY match.
+
+    The browser can hold rep + citizen + candidate cookies at once
+    (and the matching Bearer tokens), so the middleware passes in all
+    of the active session tokens it can resolve and we accept the
+    request if X-CSRF-Token matches one. `provided` empty or None →
+    always False (anonymous + missing-header paths handled by the
+    middleware before reaching here).
+
+    Uses hmac.compare_digest for constant-time comparison so an
+    attacker can't time-leak the expected token character-by-character."""
+    if not provided:
+        return False
+    for token in candidate_session_tokens:
+        if not token:
+            continue
+        expected = compute_csrf_token(token)
+        if hmac.compare_digest(provided, expected):
+            return True
+    return False
+
+
 def generate_csrf_token() -> str:
-    """Returned on login; the frontend echoes it back via `X-CSRF-Token`
-    on unsafe methods. Phase 2 replaces this with per-session tokens."""
+    """DEPRECATED — Phase 1 random-token. Use compute_csrf_token(session_token)
+    instead so the value is verifiable. Kept as a thin shim for any
+    caller that hasn't been migrated yet. Returns a random string that
+    will NOT validate against the middleware — the only safe caller is
+    a test path or a route that doesn't gate state changes."""
     return secrets.token_urlsafe(32)

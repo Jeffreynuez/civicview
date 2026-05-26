@@ -68,6 +68,115 @@ export function setStoredCandidateToken(token) {
   _safeStorageSet(CANDIDATE_TOKEN_KEY, token || null);
 }
 
+// ── CSRF storage (Task #31) ──────────────────────────────────────────
+// Per-identity CSRF tokens. Each is HMAC(SESSION_SECRET, session_token)
+// computed by the backend at login time and on /api/csrf. The frontend
+// stores all three and attaches the appropriate one as X-CSRF-Token on
+// non-GET fetches. If the request carries multiple auth tokens (multi-
+// identity browser), preference order is rep → citizen → candidate —
+// arbitrary but stable; the backend's middleware accepts a match
+// against any active session.
+const REP_CSRF_KEY = 'cl:rep_csrf';
+const CITIZEN_CSRF_KEY = 'cl:citizen_csrf';
+const CANDIDATE_CSRF_KEY = 'cl:candidate_csrf';
+const _memCsrfs = { rep: null, citizen: null, candidate: null };
+
+export function getStoredRepCsrf() {
+  return _memCsrfs.rep || _safeStorageGet(REP_CSRF_KEY) || null;
+}
+export function setStoredRepCsrf(value) {
+  _memCsrfs.rep = value || null;
+  _safeStorageSet(REP_CSRF_KEY, value || null);
+}
+export function getStoredCitizenCsrf() {
+  return _memCsrfs.citizen || _safeStorageGet(CITIZEN_CSRF_KEY) || null;
+}
+export function setStoredCitizenCsrf(value) {
+  _memCsrfs.citizen = value || null;
+  _safeStorageSet(CITIZEN_CSRF_KEY, value || null);
+}
+export function getStoredCandidateCsrf() {
+  return _memCsrfs.candidate || _safeStorageGet(CANDIDATE_CSRF_KEY) || null;
+}
+export function setStoredCandidateCsrf(value) {
+  _memCsrfs.candidate = value || null;
+  _safeStorageSet(CANDIDATE_CSRF_KEY, value || null);
+}
+
+// Pick the right CSRF for a request based on which auth tokens are
+// loaded. Returns null when no identity is signed in (anonymous
+// requests don't need a CSRF — the backend middleware skips the
+// check on no-session paths). Preference order matches the auth
+// header attachment order in request() below.
+function _pickActiveCsrf() {
+  if (getStoredRepToken() && getStoredRepCsrf()) return getStoredRepCsrf();
+  if (getStoredCitizenToken() && getStoredCitizenCsrf()) return getStoredCitizenCsrf();
+  if (getStoredCandidateToken() && getStoredCandidateCsrf()) return getStoredCandidateCsrf();
+  return null;
+}
+
+// Fetch /api/csrf and persist all three tokens. Called on:
+//   • A 403 csrf_token_mismatch response (auto-recovery, see request()).
+//   • Explicit invocation from auth flows after login / logout to keep
+//     the CSRF store fresh alongside the session tokens themselves.
+// Safe to call at any time. Always returns a Promise that resolves
+// once storage is updated (or quietly resolves on network error so
+// callers can retry on their own schedule).
+export async function fetchCsrf() {
+  try {
+    const repToken = getStoredRepToken();
+    const citizenToken = getStoredCitizenToken();
+    const candidateToken = getStoredCandidateToken();
+    const headers = {};
+    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
+    if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
+    if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
+    const res = await fetch(`${API_BASE_URL}/api/csrf`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: Object.keys(headers).length ? headers : undefined,
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    setStoredRepCsrf(data?.rep_csrf || null);
+    setStoredCitizenCsrf(data?.citizen_csrf || null);
+    setStoredCandidateCsrf(data?.candidate_csrf || null);
+  } catch {
+    // Network error — leave whatever's in storage. Next non-GET
+    // attempt will retry via the 403-recovery path in request().
+  }
+}
+
+// Methods that need CSRF protection on the client side. GET/HEAD/OPTIONS
+// don't carry CSRF — the backend skips the check on safe methods.
+const _UNSAFE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+
+// Internal worker that does the actual fetch. Pulled out of request()
+// so the csrf-mismatch retry path can re-invoke it without re-running
+// the URL/query-string assembly.
+async function _doFetch(url, method, body, extraCsrfOverride) {
+  const headers = {};
+  if (body) headers['Content-Type'] = 'application/json';
+  const repToken = getStoredRepToken();
+  const citizenToken = getStoredCitizenToken();
+  const candidateToken = getStoredCandidateToken();
+  if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
+  if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
+  if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
+  // Attach CSRF on non-GET. extraCsrfOverride lets the retry path
+  // force-use a freshly-fetched token without re-reading storage.
+  if (_UNSAFE_METHODS.has(method.toUpperCase())) {
+    const csrf = extraCsrfOverride !== undefined ? extraCsrfOverride : _pickActiveCsrf();
+    if (csrf) headers['X-CSRF-Token'] = csrf;
+  }
+  return fetch(url, {
+    method,
+    credentials: 'include',
+    headers: Object.keys(headers).length ? headers : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+}
+
 async function request(path, { method = 'GET', body, query } = {}) {
   try {
     let url = `${API_BASE_URL}${path}`;
@@ -91,24 +200,27 @@ async function request(path, { method = 'GET', body, query } = {}) {
       const qs = q.toString();
       if (qs) url += `?${qs}`;
     }
-    // Build headers. Cookies still ride along via credentials:'include'
-    // wherever they work; the token headers are belt-and-suspenders for
-    // environments that strip cross-site cookies.
-    const headers = {};
-    if (body) headers['Content-Type'] = 'application/json';
-    const repToken = getStoredRepToken();
-    const citizenToken = getStoredCitizenToken();
-    const candidateToken = getStoredCandidateToken();
-    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
-    if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
-    if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
+    let res = await _doFetch(url, method, body);
 
-    const res = await fetch(url, {
-      method,
-      credentials: 'include',
-      headers: Object.keys(headers).length ? headers : undefined,
-      body: body ? JSON.stringify(body) : undefined,
-    });
+    // CSRF auto-recovery (Task #31). If the backend rejects with
+    // 403 + code='csrf_token_mismatch' (stale stored CSRF, session
+    // rotated, fresh browser tab on an existing session, etc.),
+    // fetch a fresh batch from /api/csrf and retry the original
+    // request ONCE. If the retry still fails, fall through to the
+    // normal error path so the caller sees a real failure.
+    if (res.status === 403 && _UNSAFE_METHODS.has(method.toUpperCase())) {
+      let code = null;
+      // Peek at the body without consuming res twice — clone.
+      try {
+        const peek = await res.clone().json();
+        code = peek?.code || null;
+      } catch { /* not JSON, fall through */ }
+      if (code === 'csrf_token_mismatch') {
+        await fetchCsrf();
+        res = await _doFetch(url, method, body);
+      }
+    }
+
     if (!res.ok) {
       let detail = '';
       try {

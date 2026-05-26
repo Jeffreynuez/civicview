@@ -109,10 +109,11 @@ export async function loginCandidate(email, password) {
  */
 export async function completeLoginCandidate(challengeToken, code) {
   const { verifyLoginChallenge } = await import('./twoFactorApi');
-  const { setStoredCandidateToken } = await import('./pagesApi');
+  const { setStoredCandidateToken, setStoredCandidateCsrf } = await import('./pagesApi');
   const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
   if (data && data.candidate) {
     if (data.candidate_token) setStoredCandidateToken(data.candidate_token);
+    if (data.csrf_token) setStoredCandidateCsrf(data.csrf_token);
     currentCandidate = data.candidate;
     loaded = true;
     notify();

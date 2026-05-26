@@ -117,10 +117,11 @@ export async function loginCitizen(email, password) {
  */
 export async function completeLoginCitizen(challengeToken, code) {
   const { verifyLoginChallenge } = await import('./twoFactorApi');
-  const { setStoredCitizenToken } = await import('./pagesApi');
+  const { setStoredCitizenToken, setStoredCitizenCsrf } = await import('./pagesApi');
   const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
   if (data && data.citizen) {
     if (data.citizen_token) setStoredCitizenToken(data.citizen_token);
+    if (data.csrf_token) setStoredCitizenCsrf(data.csrf_token);
     currentCitizen = data.citizen;
     loaded = true;
     notify();

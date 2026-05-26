@@ -106,10 +106,11 @@ export async function completeLoginRep(challengeToken, code) {
   // Lazy-import to keep the auth module's import graph minimal —
   // twoFactorApi is only needed when a user actually has 2FA.
   const { verifyLoginChallenge } = await import('./twoFactorApi');
-  const { setStoredRepToken } = await import('./pagesApi');
+  const { setStoredRepToken, setStoredRepCsrf } = await import('./pagesApi');
   const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
   if (data && data.rep) {
     if (data.session_token) setStoredRepToken(data.session_token);
+    if (data.csrf_token) setStoredRepCsrf(data.csrf_token);
     currentMe = data.rep;
     loaded = true;
     notify();

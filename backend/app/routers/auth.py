@@ -26,6 +26,7 @@ from sqlalchemy.orm import Session
 
 from app.auth import (
     clear_session_cookie,
+    compute_csrf_token,
     generate_csrf_token,
     get_optional_rep_including_deleted,
     issue_session_token,
@@ -184,13 +185,19 @@ def login(
     db.commit()
     db.refresh(rep)
 
+    # Session-tied CSRF token (Task #31 Phase 2). Derived from the
+    # session_token via HMAC, so the middleware can re-verify on every
+    # subsequent request without state. The same session_token always
+    # produces the same CSRF, so this is safe to compute twice (here
+    # and in /api/csrf).
+    session_tok = issue_session_token(rep.id)
     return LoginResponse(
         rep=MeResponse.model_validate(rep),
-        csrf_token=generate_csrf_token(),
+        csrf_token=compute_csrf_token(session_tok),
         # Mirror token for cross-site-cookie-restricted environments.
         # Identical to the value set in the cookie — whichever the
         # browser delivers back, the backend accepts.
-        session_token=issue_session_token(rep.id),
+        session_token=session_tok,
     )
 
 
