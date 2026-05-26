@@ -688,6 +688,29 @@ export async function deletePost(postId) {
   return request(`/api/pages/posts/${postId}`, { method: 'DELETE' });
 }
 
+// ── Edit (Task #41) ───────────────────────────────────────────────────
+// PATCH a post's body. Backend enforces author + 24h window + body
+// non-empty. Returns the updated post (PostRead).
+export async function updatePost(post_id, body) {
+  return request(`/api/pages/posts/${post_id}`, {
+    method: 'PATCH',
+    body: { body },
+  });
+}
+
+// PATCH a comment's body. Backend enforces author + lock-on-reply (with
+// 60s grace) + body non-empty. Returns the updated comment (CommentRead).
+// Edits within 60s of creation are silent on the server (edited_at stays
+// NULL); after 60s the response will have edited_at set and the UI
+// should render the "Edited" chip.
+export async function updateComment(comment_id, body) {
+  return request(`/api/pages/comments/${comment_id}`, {
+    method: 'PATCH',
+    body: { body },
+  });
+}
+
+
 // ── Poll vote (multi-identity, Phase 6) ──────────────────────────────
 export async function votePoll(officialId, pollId, { optionId, voterToken, asIdentity }) {
   return request(

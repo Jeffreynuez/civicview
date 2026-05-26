@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react';
 import PollCard from './PollCard';
 import {
   deletePost,
+  updatePost,
   reactToPost,
   clearReaction,
   listComments,
   createComment,
   deleteComment,
+  updateComment,
   reactToComment,
   resolveImageUrl,
   aiHealth,
@@ -498,13 +500,87 @@ export default function PostCard({
     const ok = typeof window !== 'undefined'
       ? window.confirm('Delete this comment?') : true;
     if (!ok) return;
-    const { error } = await deleteComment(comment.id);
+    const { error, data } = await deleteComment(comment.id);
     if (error) {
       setCommentErr(error);
       return;
     }
+    // Backend may TOMBSTONE this comment (Task #41) instead of hard-
+    // deleting when it has non-deleted replies — the row stays so
+    // the thread structure renders, body becomes "[deleted by author]".
+    // We can't tell from a 204 response which happened, so we
+    // optimistically refresh the comments list to pick up either
+    // outcome correctly.
     setComments((prev) => (prev ? prev.filter((x) => x.id !== comment.id) : prev));
     onCommentCountChanged?.(post.id, -1);
+  };
+
+  // ── Edit state (Task #41) ───────────────────────────────────────────
+  // Post body edit: when truthy, the post body renders as an inline
+  // textarea. The string IS the draft body; null/undefined means not
+  // editing. Save resets to null; Cancel resets to null.
+  const [editingPostBody, setEditingPostBody] = useState(null);
+  // Comment edit: tracks which comment id is currently in edit mode
+  // and the draft body for it. Only one comment can be edited at a
+  // time per post card.
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentBody, setEditingCommentBody] = useState('');
+  const [editBusy, setEditBusy] = useState(false);
+
+  const beginEditPost = () => {
+    setEditingPostBody(post.body || '');
+  };
+  const cancelEditPost = () => {
+    setEditingPostBody(null);
+  };
+  const handleSavePost = async () => {
+    const draft = (editingPostBody || '').trim();
+    if (!draft) {
+      setCommentErr('Post body cannot be empty.');
+      return;
+    }
+    setEditBusy(true);
+    const { data, error } = await updatePost(post.id, draft);
+    setEditBusy(false);
+    if (error) {
+      setCommentErr(error);
+      return;
+    }
+    // The parent owns `post`; we can't mutate it directly. Bubble the
+    // updated body + edited_at via onMutated so the surface holding
+    // the list can re-render. If no onMutated handler is wired,
+    // tracker stays stale until next list refresh — degrades
+    // gracefully rather than breaking the save itself.
+    setEditingPostBody(null);
+    if (typeof onMutated === 'function') {
+      onMutated({ kind: 'post-edited', post: data });
+    }
+  };
+
+  const beginEditComment = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditingCommentBody(comment.body || '');
+  };
+  const cancelEditComment = () => {
+    setEditingCommentId(null);
+    setEditingCommentBody('');
+  };
+  const handleSaveComment = async () => {
+    const draft = (editingCommentBody || '').trim();
+    if (!draft || editingCommentId == null) return;
+    setEditBusy(true);
+    const { data, error } = await updateComment(editingCommentId, draft);
+    setEditBusy(false);
+    if (error) {
+      setCommentErr(error);
+      return;
+    }
+    // Replace the comment in-place with the updated row from the API.
+    setComments((prev) => (
+      prev ? prev.map((x) => (x.id === editingCommentId ? data : x)) : prev
+    ));
+    setEditingCommentId(null);
+    setEditingCommentBody('');
   };
 
   // Comment-level Report. Session-scoped — once reported, the button
@@ -589,8 +665,41 @@ export default function PostCard({
           </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--cl-text-light)' }}>
             {author.role ? `${author.role} · ` : ''}{timeAgo(post.created_at)}
+            {post.edited_at && (
+              <span
+                title={`Edited ${timeAgo(post.edited_at)}`}
+                className="edited-chip"
+                style={{
+                  marginLeft: '6px', fontSize: '0.7rem', fontStyle: 'italic',
+                  color: 'var(--cl-text-light)',
+                }}
+              >
+                · edited
+              </span>
+            )}
           </div>
         </div>
+        {isOwner && editingPostBody == null && (
+          <button
+            type="button"
+            onClick={beginEditPost}
+            disabled={busy || editBusy}
+            title="Edit this post (within 24h of creation)"
+            aria-label="Edit post"
+            style={{
+              border: '1px solid var(--cl-border)',
+              background: 'white',
+              color: 'var(--cl-text)',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              cursor: (busy || editBusy) ? 'wait' : 'pointer',
+            }}
+          >
+            Edit
+          </button>
+        )}
         {isOwner && (
           <button
             type="button"
@@ -750,7 +859,52 @@ export default function PostCard({
           image-only. Without this guard, an empty post.body still
           rendered the wrapper div with marginTop: 10px, leaving a
           dead gap above the poll / image. */}
-      {(post.body || '').trim() && (
+      {editingPostBody != null ? (
+        <div style={{ margin: '8px 0' }}>
+          <textarea
+            value={editingPostBody}
+            onChange={(e) => setEditingPostBody(e.target.value)}
+            rows={6}
+            disabled={editBusy}
+            style={{
+              width: '100%', padding: '8px', borderRadius: '6px',
+              border: '1px solid var(--cl-border)',
+              fontFamily: 'inherit', fontSize: '0.95rem',
+              resize: 'vertical', boxSizing: 'border-box',
+            }}
+          />
+          <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
+            <button
+              type="button"
+              onClick={handleSavePost}
+              disabled={editBusy || !(editingPostBody || '').trim()}
+              style={{
+                padding: '6px 14px', borderRadius: '6px',
+                border: '1px solid var(--cl-accent)',
+                background: 'var(--cl-accent)', color: 'white',
+                fontSize: '0.78rem', fontWeight: 600,
+                cursor: editBusy ? 'wait' : 'pointer',
+              }}
+            >
+              {editBusy ? 'Saving…' : 'Save'}
+            </button>
+            <button
+              type="button"
+              onClick={cancelEditPost}
+              disabled={editBusy}
+              style={{
+                padding: '6px 14px', borderRadius: '6px',
+                border: '1px solid var(--cl-border)',
+                background: 'white', color: 'var(--cl-text)',
+                fontSize: '0.78rem', fontWeight: 600,
+                cursor: editBusy ? 'wait' : 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ) : (post.body || '').trim() && (
         <PostBody body={post.body} />
       )}
 
@@ -1347,11 +1501,68 @@ export default function PostCard({
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)' }}>
                       {timeAgo(c.created_at)}
+                      {c.edited_at && (
+                        <span
+                          title={`Edited ${timeAgo(c.edited_at)}`}
+                          className="edited-chip"
+                          style={{ marginLeft: '4px', fontStyle: 'italic' }}
+                        >
+                          · edited
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--cl-text)', marginTop: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-                    {c.body}
-                  </div>
+                  {editingCommentId === c.id ? (
+                    <div style={{ marginTop: '4px' }}>
+                      <textarea
+                        value={editingCommentBody}
+                        onChange={(e) => setEditingCommentBody(e.target.value)}
+                        rows={3}
+                        maxLength={1000}
+                        disabled={editBusy}
+                        style={{
+                          width: '100%', padding: '6px', borderRadius: '6px',
+                          border: '1px solid var(--cl-border)',
+                          fontFamily: 'inherit', fontSize: '0.85rem',
+                          resize: 'vertical', boxSizing: 'border-box',
+                        }}
+                      />
+                      <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
+                        <button
+                          type="button"
+                          onClick={handleSaveComment}
+                          disabled={editBusy || !(editingCommentBody || '').trim()}
+                          style={{
+                            padding: '3px 10px', borderRadius: '6px',
+                            border: '1px solid var(--cl-accent)',
+                            background: 'var(--cl-accent)', color: 'white',
+                            fontSize: '0.72rem', fontWeight: 600,
+                            cursor: editBusy ? 'wait' : 'pointer',
+                          }}
+                        >
+                          {editBusy ? 'Saving…' : 'Save'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={cancelEditComment}
+                          disabled={editBusy}
+                          style={{
+                            padding: '3px 10px', borderRadius: '6px',
+                            border: '1px solid var(--cl-border)',
+                            background: 'white', color: 'var(--cl-text)',
+                            fontSize: '0.72rem', fontWeight: 600,
+                            cursor: editBusy ? 'wait' : 'pointer',
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: '0.82rem', color: 'var(--cl-text)', marginTop: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                      {c.body}
+                    </div>
+                  )}
                   <div
                     style={{
                       display: 'flex', alignItems: 'center',
@@ -1412,12 +1623,28 @@ export default function PostCard({
                     <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginLeft: '4px' }}>
                       {locLabel || c.scope_state || ''}
                     </div>
+                    {canDelete && editingCommentId !== c.id && (
+                      <button
+                        type="button"
+                        onClick={() => beginEditComment(c)}
+                        disabled={editBusy}
+                        title="Edit this comment (until first reply, after 60s grace)"
+                        style={{
+                          marginLeft: 'auto',
+                          border: 'none', background: 'transparent',
+                          color: 'var(--cl-text-light)', fontSize: '0.7rem',
+                          fontWeight: 600, cursor: editBusy ? 'wait' : 'pointer', padding: '2px 4px',
+                        }}
+                      >
+                        Edit
+                      </button>
+                    )}
                     {canDelete && (
                       <button
                         type="button"
                         onClick={() => handleDeleteComment(c)}
                         style={{
-                          marginLeft: 'auto',
+                          marginLeft: canDelete && editingCommentId !== c.id ? '0' : 'auto',
                           border: 'none', background: 'transparent',
                           color: '#d63031', fontSize: '0.7rem',
                           fontWeight: 600, cursor: 'pointer', padding: '2px 4px',
