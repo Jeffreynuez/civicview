@@ -291,17 +291,17 @@ export function PostingAsPicker({ identities = [], value, onChange }) {
   // picker independently so two open at once never happens.
   const [open, setOpen] = useState(false);
 
-  // Close on outside-click.
-  useEffect(() => {
-    if (!open) return undefined;
-    const onDown = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
-  }, [open]);
+  // NOTE: no duplicate click-outside handler here.
+  // IdentityPicker (which we delegate the dropdown rendering to)
+  // already runs a portal-aware click-outside check internally and
+  // calls onClose. The earlier wrapRef-based handler intercepted
+  // clicks on the portaled IdentityPicker DOM (which lives in
+  // document.body, OUTSIDE wrapRef) and fired setOpen(false) BEFORE
+  // the option's onPick could run. Net effect: clicking a different
+  // identity in the dropdown closed the popover but never committed
+  // the selection — the pill always reverted to citizen.
+  // Removing this handler lets the portal-aware path in IdentityPicker
+  // handle dismissal correctly via onClose below.
 
   if (!identities || identities.length === 0) return null;
   if (identities.length === 1) {

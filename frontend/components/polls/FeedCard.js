@@ -707,6 +707,10 @@ export default function FeedCard({
             signedIn={signedIn}
             onLoginRequired={onLoginRequired}
             onMutated={onMutated}
+            // Two-party reply gate inputs (FeedCard knows the
+            // page-owner context the thread itself doesn't have).
+            ownerOfficialId={card.official_id || null}
+            ownerKind={card.kind || null}
           />
         </div>
       )}
