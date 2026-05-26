@@ -23,6 +23,12 @@ import {
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 import IdentityPicker, { PostingAsPicker } from './IdentityPicker';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
+// Raw identity hooks — needed alongside useActiveIdentities so the
+// per-identity ownership check (rep.official_id === post.official_id)
+// can run for the two-party reply gate. activeIdentities itself
+// doesn't surface each identity's underlying id field.
+import { useAuth } from '../lib/auth';
+import { useCandidateAuth } from '../lib/candidateAuth';
 
 function timeAgo(iso) {
   if (!iso) return '';
@@ -109,6 +115,11 @@ export default function PostCard({
   // page this includes citizen + rep/candidate; on someone else's
   // page just the citizen (rep/candidate self-engagement is
   // scoped to their own page).
+  // Raw identity sessions — used for the per-identity reply-gate
+  // ownership check below. Same hooks useActiveIdentities calls
+  // internally; declaring them here keeps the call stack flat.
+  const { me } = useAuth();
+  const { candidate } = useCandidateAuth();
   const activeIdentities = useActiveIdentities({ isOwner });
 
   // ── Reactions ──────────────────────────────────────────────────────
@@ -1249,7 +1260,7 @@ export default function PostCard({
     // page. Compare each identity's id field against post.official_id.
     // Pre-fix this filter accepted a candidate identity reply on a
     // rep's page just because the rep was also signed in.
-    const repOwnsThisPage = !!(rep && post.official_id && rep.official_id === post.official_id);
+    const repOwnsThisPage = !!(me && post.official_id && me.official_id === post.official_id);
     const candidateOwnsThisPage = !!(candidate && post.official_id && candidate.candidate_id === post.official_id);
     const isTopLevel = depth === 0;
     const replyAllowedIdentities = isTopLevel
