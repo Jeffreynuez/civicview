@@ -41,7 +41,12 @@ export default function ViewerScopeFilter({
 }) {
   if (!scopes || scopes.length <= 1) return null;
 
-  const overriding = value !== null && value !== undefined;
+  // Visual default: when no override is set, show Country as active.
+  // Mirrors OwnerScopeFilter's "value || 'country'" trick — null in
+  // state means "no override" (so the backend returns each poll at
+  // the author's chosen default), but the user still sees Country
+  // highlighted so the rail doesn't read as "nothing selected".
+  const displayValue = value || 'country';
 
   return (
     <div
@@ -67,10 +72,9 @@ export default function ViewerScopeFilter({
       >
         {!collapsed && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-            <span className="cl-eyebrow">Poll view</span>
+            <span className="cl-eyebrow">Your view</span>
             <span style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>
-              See how the poll looks at each level of{' '}
-              {ownerName ? `${ownerName}'s` : 'the rep’s'} jurisdiction
+              Filter poll results across this page
             </span>
           </div>
         )}
@@ -83,7 +87,7 @@ export default function ViewerScopeFilter({
           }}
         >
           {scopes.map((s) => {
-            const active = overriding && s === value;
+            const active = s === displayValue;
             const meta = SCOPE_META[s] || { name: s, Icon: null };
             const label = labels?.[s];
             const { Icon } = meta;
@@ -135,25 +139,10 @@ export default function ViewerScopeFilter({
               </button>
             );
           })}
-          {overriding && (
-            <button
-              type="button"
-              onClick={() => onChange(null)}
-              title="Go back to the view the author chose"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--cl-accent)',
-                fontSize: 'var(--cl-text-xs)',
-                fontWeight: 600,
-                cursor: 'pointer',
-                padding: '4px 6px',
-                fontFamily: 'var(--cl-font-sans)',
-              }}
-            >
-              Reset
-            </button>
-          )}
+          {/* Reset button retired — clicking Country IS the new reset
+              (PageView wraps onChange so a Country click sets state
+              to null, the same "no override" sentinel the backend
+              already understood). */}
         </div>
       </div>
       {!collapsed && (
@@ -165,9 +154,8 @@ export default function ViewerScopeFilter({
             fontStyle: 'italic',
           }}
         >
-          {overriding
-            ? `Overriding the author's default — all polls on this page now showing ${labels?.[value] || value}.`
-            : `Polls are showing the author's default view. Pick a level above to re-slice them.`}
+          Filtering slices poll vote counts only.
+          Reaction and comment counts stay country-wide for visitors.
         </div>
       )}
     </div>

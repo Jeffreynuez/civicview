@@ -769,7 +769,7 @@ export default function PageView({
                 scopes={payload?.allowed_engagement_scopes || []}
                 labels={payload?.engagement_scope_labels || {}}
                 value={viewerScope}
-                onChange={setViewerScope}
+                onChange={(next) => setViewerScope(next === 'country' ? null : next)}
                 ownerName={ownerName}
                 collapsed={scopeFilterCollapsed}
               />
