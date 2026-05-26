@@ -28,7 +28,7 @@ from datetime import datetime
 import logging
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
 from app.auth import verify_password
@@ -50,6 +50,7 @@ from app.schemas.pages import (
     PasswordResetGenericResponse,
     PasswordResetRequestRequest,
 )
+from app.services import login_attempts
 
 
 logger = logging.getLogger(__name__)
@@ -65,6 +66,7 @@ _DUMMY_BCRYPT = "$2b$12$invalidhashinvalidhashinvalidhashinvalidhashinvalidhashi
 @router.post("/login", response_model=CandidateLoginResponse)
 def login(
     payload: CandidateLoginRequest,
+    request: Request,
     response: Response,
     db: Session = Depends(get_db),
 ):
@@ -72,16 +74,36 @@ def login(
 
     Failure modes (mapped to status codes):
       • 401 — email unknown OR password wrong (same message, so an
-              attacker can't enumerate registered emails).
+              attacker can't enumerate registered emails). Also the
+              shape returned when the account is currently locked
+              (Task #29) — lockout state is hidden from the API to
+              avoid the enumeration oracle.
       • 403 — account suspended (credentials WERE correct; admin
               has the account in suspended state).
       • 403 — account in claim_status='pending' (the admin hasn't
               approved this claim yet; we tell the user explicitly
               rather than pretending the credentials are wrong,
               since the password DID verify).
+
+    Lockout: 3 failed-password attempts → escalating window
+    (15min → 1hr → 24h). See services/login_attempts.py.
     """
+    ip, ua = login_attempts.extract_client_signals(request)
     email = payload.email.strip().lower()
     candidate = db.query(CandidateAccount).filter(CandidateAccount.email == email).first()
+
+    # Lockout gate.
+    if candidate is not None and login_attempts.is_locked(candidate):
+        verify_password(payload.password, _DUMMY_BCRYPT)
+        login_attempts.register_locked_out(
+            db, account=candidate, identity_kind="candidate",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
 
     valid = False
     if candidate is not None and candidate.is_active:
@@ -93,12 +115,35 @@ def login(
         verify_password(payload.password, _DUMMY_BCRYPT)
 
     if not candidate or not valid or not candidate.is_active:
+        if candidate is None:
+            login_attempts.register_no_account(
+                db, identity_kind="candidate", email_attempted=email,
+                ip_address=ip, user_agent=ua,
+            )
+        elif not valid:
+            login_attempts.register_failure(
+                db, account=candidate, identity_kind="candidate",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+            )
+        else:
+            login_attempts.register_blocked(
+                db, account=candidate, identity_kind="candidate",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+                reason="inactive",
+            )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
 
     if candidate.suspended_at is not None:
+        login_attempts.register_blocked(
+            db, account=candidate, identity_kind="candidate",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+            reason="suspended",
+        )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=(
@@ -112,6 +157,12 @@ def login(
     # knows what to do (wait for approval / follow up) rather than
     # getting a generic 401 that suggests bad credentials.
     if candidate.claim_status != "active":
+        login_attempts.register_blocked(
+            db, account=candidate, identity_kind="candidate",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+            reason="claim_pending",
+        )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=(
@@ -123,12 +174,22 @@ def login(
 
     # 2FA gate (Task #62 Phase 3). See auth.py for the full rationale.
     if candidate.totp_enabled_at is not None:
+        login_attempts.register_two_factor_required(
+            db, account=candidate, identity_kind="candidate",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
         from app.routers.two_factor import issue_login_challenge
         return CandidateLoginResponse(
             two_factor_required=True,
             challenge_token=issue_login_challenge("candidate", candidate.id),
         )
 
+    # Full sign-in success — reset counters + set cookie.
+    login_attempts.register_success(
+        db, account=candidate, identity_kind="candidate",
+        email_attempted=email, ip_address=ip, user_agent=ua,
+    )
     set_candidate_cookie(response, candidate.id)
     candidate.last_login_at = datetime.utcnow()
     db.commit()

@@ -293,3 +293,88 @@ If you DIDN'T change your password, your account may be compromised. Please:
 — The CivicView team
 """
     return subject, body
+
+
+def render_lockout_alert_email(
+    *, identity_kind: str, ip_address: Optional[str], lockout_minutes: int,
+) -> tuple[str, str]:
+    """Security alert email (Task #29). Fires when an account hits
+    its failed-login threshold and gets locked. Goal is two-fold:
+      • Tell a legit user "your sign-in failed because we just locked
+        the account — try again in N minutes, or reset your password."
+        We deliberately surface this via email rather than in the API
+        response (the API returns the same generic 401 as a wrong
+        password to prevent enumeration).
+      • Tell a user whose account is being brute-forced "someone tried
+        to sign in N times and we shut it down" so they can change
+        their password if they're worried.
+    """
+    kind_label = {
+        "citizen": "citizen",
+        "rep": "representative",
+        "candidate": "candidate",
+    }.get(identity_kind, "account")
+
+    # Pretty-print the lockout duration so the email isn't ugly when
+    # the window is exactly 60 or 1440 minutes.
+    if lockout_minutes >= 1440:
+        window_phrase = f"{lockout_minutes // 1440} day{'s' if lockout_minutes // 1440 != 1 else ''}"
+    elif lockout_minutes >= 60:
+        hours = lockout_minutes // 60
+        window_phrase = f"{hours} hour{'s' if hours != 1 else ''}"
+    else:
+        window_phrase = f"{lockout_minutes} minutes"
+
+    ip_line = (
+        f"  • Originating IP address: {ip_address}\n"
+        if ip_address else ""
+    )
+
+    subject = "Sign-in attempts locked your CivicView account"
+    body = f"""Hi,
+
+We just locked your CivicView {kind_label} account after several failed sign-in attempts.
+
+  • The account will unlock automatically in {window_phrase}.
+{ip_line}
+If THAT WAS YOU:
+  Just wait the lockout window out, or reset your password right now to sign in immediately:
+  https://civicview.app/forgot-password
+
+If THAT WASN'T YOU:
+  Someone may be trying to access your account. We recommend:
+    1. Reset your password to a value you haven't used anywhere else.
+    2. Turn on two-factor authentication (Dashboard → Account security).
+    3. Email civicview@civicview.app and we'll help secure the account.
+
+— The CivicView team
+"""
+    return subject, body
+
+
+def send_lockout_alert_email(
+    *,
+    to_email: str,
+    identity_kind: str,
+    ip_address: Optional[str],
+    lockout_minutes: int,
+) -> bool:
+    """Convenience wrapper used by services/login_attempts.py so the
+    caller doesn't have to know how the template + transport plug
+    together. Returns the transport's success bool. NEVER raises —
+    a failed lockout email must not unwind a transactional lockout."""
+    try:
+        subject, body = render_lockout_alert_email(
+            identity_kind=identity_kind,
+            ip_address=ip_address,
+            lockout_minutes=lockout_minutes,
+        )
+        return get_email_service().send(
+            to=to_email, subject=subject, text_body=body,
+        )
+    except Exception:
+        logger.exception(
+            "send_lockout_alert_email failed unexpectedly (to=%s, identity_kind=%s)",
+            to_email, identity_kind,
+        )
+        return False

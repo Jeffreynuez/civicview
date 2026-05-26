@@ -235,6 +235,13 @@ def confirm_password_reset(
     # Hash the new password + update. Delete the token row so it
     # can't be replayed.
     account.password_hash = hash_password(new_password)
+    # Lockout reset (Task #29). A successful password reset means
+    # the user has demonstrated control of the email — any stale
+    # lockout counters from someone brute-forcing this account
+    # should be cleared. Otherwise a legit user could reset their
+    # password but still be locked out for another 24h.
+    from app.services.login_attempts import reset_counters
+    reset_counters(account)
     db.delete(row)
     db.commit()
     logger.info(

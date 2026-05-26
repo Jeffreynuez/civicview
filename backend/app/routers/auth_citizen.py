@@ -47,6 +47,7 @@ from app.schemas.pages import (
     PasswordResetGenericResponse,
     PasswordResetRequestRequest,
 )
+from app.services import login_attempts
 
 
 logger = logging.getLogger(__name__)
@@ -176,11 +177,30 @@ def _generate_credentials(display_name: str) -> tuple[str, str]:
 @router.post("/login", response_model=CitizenLoginResponse)
 def login(
     payload: CitizenLoginRequest,
+    request: Request,
     response: Response,
     db: Session = Depends(get_db),
 ):
+    """Citizen login with lockout enforcement (Task #29).
+    Threshold is 5 attempts (vs. 3 for reps/candidates) — citizens
+    are general users with a less-elevated trust surface. See
+    services/login_attempts.py for the full state-machine."""
+    ip, ua = login_attempts.extract_client_signals(request)
     email = payload.email.strip().lower()
     citizen = db.query(CitizenAccount).filter(CitizenAccount.email == email).first()
+
+    # Lockout gate — same generic 401 to avoid leaking state.
+    if citizen is not None and login_attempts.is_locked(citizen):
+        verify_password(payload.password, _DUMMY_BCRYPT)
+        login_attempts.register_locked_out(
+            db, account=citizen, identity_kind="citizen",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
 
     valid = False
     if citizen is not None and citizen.is_active:
@@ -189,6 +209,23 @@ def login(
         verify_password(payload.password, _DUMMY_BCRYPT)
 
     if not citizen or not valid or not citizen.is_active:
+        if citizen is None:
+            login_attempts.register_no_account(
+                db, identity_kind="citizen", email_attempted=email,
+                ip_address=ip, user_agent=ua,
+            )
+        elif not valid:
+            login_attempts.register_failure(
+                db, account=citizen, identity_kind="citizen",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+            )
+        else:
+            login_attempts.register_blocked(
+                db, account=citizen, identity_kind="citizen",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+                reason="inactive",
+            )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
@@ -198,6 +235,12 @@ def login(
     # the user knows the credentials were correct but the account is
     # in a suspended state — see the rep login for the same pattern.
     if citizen.suspended_at is not None:
+        login_attempts.register_blocked(
+            db, account=citizen, identity_kind="citizen",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+            reason="suspended",
+        )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=(
@@ -208,12 +251,22 @@ def login(
 
     # 2FA gate (Task #62 Phase 3). See auth.py for the full rationale.
     if citizen.totp_enabled_at is not None:
+        login_attempts.register_two_factor_required(
+            db, account=citizen, identity_kind="citizen",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
         from app.routers.two_factor import issue_login_challenge
         return CitizenLoginResponse(
             two_factor_required=True,
             challenge_token=issue_login_challenge("citizen", citizen.id),
         )
 
+    # Full sign-in success — reset counters + set cookie.
+    login_attempts.register_success(
+        db, account=citizen, identity_kind="citizen",
+        email_attempted=email, ip_address=ip, user_agent=ua,
+    )
     set_citizen_cookie(response, citizen.id)
     citizen.last_login_at = datetime.utcnow()
     db.commit()

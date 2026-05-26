@@ -21,7 +21,7 @@ from datetime import datetime
 import logging
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
 from app.auth import (
@@ -44,6 +44,7 @@ from app.schemas.pages import (
     PasswordResetGenericResponse,
     PasswordResetRequestRequest,
 )
+from app.services import login_attempts
 
 
 logger = logging.getLogger(__name__)
@@ -53,12 +54,47 @@ router = APIRouter()
 @router.post("/login", response_model=LoginResponse)
 def login(
     payload: LoginRequest,
+    request: Request,
     response: Response,
     db: Session = Depends(get_db),
 ):
-    """Exchange email + password for a session cookie."""
+    """Exchange email + password for a session cookie.
+
+    Login-attempt + lockout flow (Task #29):
+      1. Look up account by email.
+      2. If account exists AND currently locked (locked_until > now) →
+         log a 'locked_out' attempt and return the generic 401 (same
+         shape as a wrong password, so the lockout state isn't
+         visible to an enumeration attack).
+      3. Verify password (with constant-time dummy when no account
+         exists, to blunt the timing oracle).
+      4. On wrong password: increment the per-window counter; when
+         threshold (3 for reps) hits, apply escalating lockout
+         (15min → 1hr → 24h) and fire the security-alert email.
+      5. On suspended / 2FA-required: log + branch, counter NOT reset
+         until full sign-in completes.
+      6. On full success: reset counters + set cookie.
+    """
+    ip, ua = login_attempts.extract_client_signals(request)
     email = payload.email.strip().lower()
     rep = db.query(RepAccount).filter(RepAccount.email == email).first()
+
+    # Lockout gate: if the account is already inside its lockout
+    # window, short-circuit BEFORE bcrypt. We still run a dummy
+    # bcrypt check below to preserve constant-ish timing across the
+    # locked / not-locked branches.
+    if rep is not None and login_attempts.is_locked(rep):
+        # Maintain timing parity with the bcrypt path.
+        verify_password(payload.password, "$2b$12$invalidhashinvalidhashinvalidhashinvalidhashinvalidhashinvalid")
+        login_attempts.register_locked_out(
+            db, account=rep, identity_kind="rep",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
 
     # Constant-ish-time failure: even when the account is missing we
     # still run bcrypt once to blunt a timing oracle. `verify_password`
@@ -71,6 +107,29 @@ def login(
         verify_password(payload.password, "$2b$12$invalidhashinvalidhashinvalidhashinvalidhashinvalidhashinvalid")
 
     if not rep or not valid or not rep.is_active:
+        # Log the failure to the correct outcome bucket.
+        if rep is None:
+            login_attempts.register_no_account(
+                db, identity_kind="rep", email_attempted=email,
+                ip_address=ip, user_agent=ua,
+            )
+        elif not valid:
+            # Wrong password on a known account — increments + maybe
+            # locks out.
+            login_attempts.register_failure(
+                db, account=rep, identity_kind="rep",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+            )
+        else:
+            # Account exists but is_active=False (never-activated or
+            # admin-deactivated). Password was right; don't bump the
+            # counter.
+            login_attempts.register_blocked(
+                db, account=rep, identity_kind="rep",
+                email_attempted=email, ip_address=ip, user_agent=ua,
+                reason="inactive",
+            )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
@@ -82,6 +141,12 @@ def login(
     # something happened and can appeal. The 403 status differentiates
     # from generic auth failure.
     if rep.suspended_at is not None:
+        login_attempts.register_blocked(
+            db, account=rep, identity_kind="rep",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+            reason="suspended",
+        )
+        db.commit()
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=(
@@ -98,12 +163,22 @@ def login(
     # attack insufficient on its own — the attacker also needs the
     # second factor to complete the session.
     if rep.totp_enabled_at is not None:
+        login_attempts.register_two_factor_required(
+            db, account=rep, identity_kind="rep",
+            email_attempted=email, ip_address=ip, user_agent=ua,
+        )
+        db.commit()
         from app.routers.two_factor import issue_login_challenge
         return LoginResponse(
             two_factor_required=True,
             challenge_token=issue_login_challenge("rep", rep.id),
         )
 
+    # Full sign-in success.
+    login_attempts.register_success(
+        db, account=rep, identity_kind="rep",
+        email_attempted=email, ip_address=ip, user_agent=ua,
+    )
     set_session_cookie(response, rep.id)
     rep.last_login_at = datetime.utcnow()
     db.commit()

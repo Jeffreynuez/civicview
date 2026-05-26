@@ -88,6 +88,16 @@ class RepAccount(Base):
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
+    # Login attempt tracking + lockout (Task #29). Counter is bumped on
+    # each wrong-password attempt; when it hits the per-identity-kind
+    # threshold (3 for reps/candidates, 5 for citizens), locked_until
+    # is set to an escalating window (15min → 1hr → 24h based on
+    # consecutive_lockout_count). Reset on successful sign-in OR
+    # successful password reset. See services/login_attempts.py.
+    failed_login_count: Mapped[int] = mapped_column(Integer, default=0)
+    locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    consecutive_lockout_count: Mapped[int] = mapped_column(Integer, default=0)
+
     posts: Mapped[List["Post"]] = relationship(
         back_populates="author", cascade="all, delete-orphan",
     )
@@ -167,6 +177,16 @@ class CandidateAccount(Base):
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+    # Login attempt tracking + lockout (Task #29). Counter is bumped on
+    # each wrong-password attempt; when it hits the per-identity-kind
+    # threshold (3 for reps/candidates, 5 for citizens), locked_until
+    # is set to an escalating window (15min → 1hr → 24h based on
+    # consecutive_lockout_count). Reset on successful sign-in OR
+    # successful password reset. See services/login_attempts.py.
+    failed_login_count: Mapped[int] = mapped_column(Integer, default=0)
+    locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    consecutive_lockout_count: Mapped[int] = mapped_column(Integer, default=0)
 
 
 # ── Posts + Polls ─────────────────────────────────────────────────────
@@ -1074,6 +1094,16 @@ class CitizenAccount(Base):
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
+    # Login attempt tracking + lockout (Task #29). Counter is bumped on
+    # each wrong-password attempt; when it hits the per-identity-kind
+    # threshold (3 for reps/candidates, 5 for citizens), locked_until
+    # is set to an escalating window (15min → 1hr → 24h based on
+    # consecutive_lockout_count). Reset on successful sign-in OR
+    # successful password reset. See services/login_attempts.py.
+    failed_login_count: Mapped[int] = mapped_column(Integer, default=0)
+    locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    consecutive_lockout_count: Mapped[int] = mapped_column(Integer, default=0)
+
     # ── Subscription (Task #88) ─────────────────────────────────────
     # Only citizens subscribe ($5/mo consumer tier). Reps + candidates
     # remain free. These columns hold the link between this account
@@ -1738,4 +1768,57 @@ class TrackedElection(Base):
     prefs_json: Mapped[str] = mapped_column(Text, default="{}")
     tracked_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(),
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Login attempts audit table (Task #29)
+# ─────────────────────────────────────────────────────────────────────
+class LoginAttempt(Base):
+    """Per-attempt audit record for every login across the three
+    identity types (rep, candidate, citizen).
+
+    Why a flat unified table instead of three per-identity tables:
+    the schema is identical and we routinely want to ask cross-cutting
+    questions ("show me every login attempt from IP X in the last
+    hour" — across all three identity types). Filtered by
+    `identity_kind` when we need to scope by type.
+
+    `identity_id` is nullable because we still log attempts that
+    didn't match any account (so we can detect enumeration sweeps).
+    `email_attempted` is always populated so we can correlate even
+    when no account matched.
+
+    Retention: we keep these indefinitely for now. Once volume grows,
+    add a startup job that prunes rows older than N days, and/or
+    summarizes them into per-account counters before deletion. Pruning
+    keeps email and ip_address out of long-term storage.
+    """
+    __tablename__ = "login_attempts"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # 'rep' | 'candidate' | 'citizen'. Stored as a short string rather
+    # than an enum so we don't have to wrangle ALTER TYPE migrations
+    # if we add a new identity track later.
+    identity_kind: Mapped[str] = mapped_column(String(16), index=True)
+    # NULL when no account matched the email — that's still useful to
+    # log so an attacker spraying random emails leaves an audit trail.
+    identity_id: Mapped[Optional[int]] = mapped_column(Integer, default=None, index=True)
+    # Always populated (the email the client supplied), regardless of
+    # whether it matched an account.
+    email_attempted: Mapped[str] = mapped_column(String(255), index=True)
+    # IPv6-friendly (max length 45). NULLABLE because not all transports
+    # supply a client IP (some FastAPI test-client paths drop it).
+    ip_address: Mapped[Optional[str]] = mapped_column(String(45), default=None)
+    user_agent: Mapped[Optional[str]] = mapped_column(String(512), default=None)
+    # True only on full sign-in success (cookie set, no further gates).
+    # 2FA-required success returns False here — the attempt isn't
+    # "successful" until 2FA also passes.
+    success: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Short string instead of enum, same reason as identity_kind.
+    # Values used: no_account, bad_password, locked_out, suspended,
+    # claim_pending, self_deleted, inactive, 2fa_required, success.
+    fail_reason: Mapped[Optional[str]] = mapped_column(String(32), default=None)
+    occurred_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(), index=True,
     )

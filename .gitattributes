@@ -1,0 +1,21 @@
+# Normalize line endings to LF for all text files on commit, regardless of platform.
+# Prevents Windows toolchain churn from re-introducing CRLF and showing 400+ phantom-modified files.
+* text=auto eol=lf
+
+# Binary safelist — never touched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.mp4 binary
+*.mp3 binary
+*.wav binary
