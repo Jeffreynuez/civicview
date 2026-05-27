@@ -223,14 +223,29 @@ async function request(path, { method = 'GET', body, query } = {}) {
 
     if (!res.ok) {
       let detail = '';
+      let parsedPayload = null;
       try {
-        const payload = await res.json();
-        detail = payload?.detail || payload?.error || res.statusText;
-        if (Array.isArray(detail)) detail = detail.map((d) => d.msg || JSON.stringify(d)).join('; ');
+        parsedPayload = await res.json();
+        detail = parsedPayload?.detail || parsedPayload?.error || res.statusText;
+        if (Array.isArray(detail)) {
+          detail = detail.map((d) => d.msg || JSON.stringify(d)).join('; ');
+        }
+        // Structured detail (Task #56 revision — 423 Locked carries
+        // {message, code, locked_until} so the UI can render a
+        // countdown). Extract a string for the `error` field; the
+        // full object is still available via `payload` below.
+        if (detail && typeof detail === 'object') {
+          detail = detail.message || detail.detail || JSON.stringify(detail);
+        }
       } catch {
         detail = res.statusText;
       }
-      return { data: null, error: detail || `HTTP ${res.status}`, status: res.status };
+      return {
+        data: null,
+        error: detail || `HTTP ${res.status}`,
+        status: res.status,
+        payload: parsedPayload,
+      };
     }
     if (res.status === 204) return { data: null, error: null, status: 204 };
     const data = await res.json();

@@ -75,7 +75,7 @@ export async function refreshAuth() {
 }
 
 export async function loginRep(email, password) {
-  const { data, error, status } = await apiLogin(email, password);
+  const { data, error, status, payload } = await apiLogin(email, password);
   // 2FA-required branch (Task #62 Phase 3). Backend returned a
   // challenge token instead of a session — caller must collect the
   // 6-digit code and call completeLoginRep() to finish.
@@ -93,7 +93,7 @@ export async function loginRep(email, password) {
     loadAllTracked().catch(() => {});
     return { ok: true };
   }
-  return { ok: false, error: error || 'Login failed', status };
+  return { ok: false, error: error || 'Login failed', status, payload };
 }
 
 /**
@@ -107,7 +107,7 @@ export async function completeLoginRep(challengeToken, code) {
   // twoFactorApi is only needed when a user actually has 2FA.
   const { verifyLoginChallenge } = await import('./twoFactorApi');
   const { setStoredRepToken, setStoredRepCsrf } = await import('./pagesApi');
-  const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
+  const { data, error, status, payload } = await verifyLoginChallenge(challengeToken, code);
   if (data && data.rep) {
     if (data.session_token) setStoredRepToken(data.session_token);
     if (data.csrf_token) setStoredRepCsrf(data.csrf_token);
@@ -116,7 +116,7 @@ export async function completeLoginRep(challengeToken, code) {
     notify();
     return { ok: true };
   }
-  return { ok: false, error: error || 'Code verification failed', status };
+  return { ok: false, error: error || 'Code verification failed', status, payload };
 }
 
 export async function logoutRep() {

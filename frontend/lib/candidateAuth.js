@@ -82,7 +82,7 @@ export async function refreshCandidateAuth() {
 }
 
 export async function loginCandidate(email, password) {
-  const { data, error, status } = await loginCandidateApi(email, password);
+  const { data, error, status, payload } = await loginCandidateApi(email, password);
   // 2FA-required branch (Task #62 Phase 3). See lib/auth.js for
   // matching rep flow.
   if (data?.two_factor_required && data?.challenge_token) {
@@ -101,7 +101,7 @@ export async function loginCandidate(email, password) {
   }
   // Surface the backend message verbatim so suspended / pending
   // accounts get a meaningful explanation instead of "Login failed".
-  return { ok: false, error: error || 'Login failed', status };
+  return { ok: false, error: error || 'Login failed', status, payload };
 }
 
 /**
@@ -119,7 +119,7 @@ export async function completeLoginCandidate(challengeToken, code) {
     notify();
     return { ok: true };
   }
-  return { ok: false, error: error || 'Code verification failed', status };
+  return { ok: false, error: error || 'Code verification failed', status, payload };
 }
 
 export async function logoutCandidate() {

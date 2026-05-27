@@ -92,9 +92,12 @@ def login(
             email_attempted=email, ip_address=ip, user_agent=ua,
         )
         db.commit()
+        # Lockout transparency (Task #56 revision). The earlier silent-
+        # 401 design changed because the compensating Postmark email
+        # isn't live yet — see lockout_response_detail() docstring.
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
+            status_code=status.HTTP_423_LOCKED,
+            detail=login_attempts.lockout_response_detail(rep),
         )
 
     # Constant-ish-time failure: even when the account is missing we
@@ -131,6 +134,16 @@ def login(
                 reason="inactive",
             )
         db.commit()
+        # If THIS failed-password attempt just tripped the lockout,
+        # surface the 423 instead of the generic 401 so the UI can
+        # render the countdown immediately on the locking attempt
+        # (not just on the NEXT attempt against an already-locked
+        # account).
+        if rep is not None and login_attempts.is_locked(rep):
+            raise HTTPException(
+                status_code=status.HTTP_423_LOCKED,
+                detail=login_attempts.lockout_response_detail(rep),
+            )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",

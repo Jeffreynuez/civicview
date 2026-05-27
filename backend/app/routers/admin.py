@@ -1184,3 +1184,58 @@ def promote_candidate(
         defeated_rep_account_id=defeated_rep_id,
         migrated=migrated,
     )
+
+
+# ── Lockout management (Task #56 revision) ───────────────────────────
+from pydantic import BaseModel as _UnlockBaseModel
+from typing import Literal as _UnlockLiteral
+
+
+class _AdminUnlockRequest(_UnlockBaseModel):
+    """Body for admin unlock. identity_kind picks which model to load."""
+    identity_kind: _UnlockLiteral["rep", "candidate", "citizen"]
+    account_id: int
+
+
+@router.post("/lockout/unlock")
+def admin_unlock_account(
+    payload: _AdminUnlockRequest,
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+):
+    """Admin-only: clear lockout state on a specific account.
+
+    Resets failed_login_count + consecutive_lockout_count to 0 and
+    sets locked_until to NULL via login_attempts.reset_counters().
+    Use case: a legit user got locked out and called for support
+    before the lockout window expired; admin can unlock immediately.
+
+    Audit: doesn't write a separate admin-action row today; the
+    LoginAttempt history retains the lockout events for reference.
+    Layered admin audit (who unlocked whom + when) is a Phase 2
+    follow-up if the team grows beyond one admin.
+    """
+    from app.services import login_attempts as _la
+    from app.models.pages import (
+        RepAccount as _Rep,
+        CandidateAccount as _Cand,
+        CitizenAccount as _Cit,
+    )
+    model_for_kind = {
+        "rep": _Rep,
+        "candidate": _Cand,
+        "citizen": _Cit,
+    }[payload.identity_kind]
+    account = db.get(model_for_kind, payload.account_id)
+    if account is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"{payload.identity_kind} account {payload.account_id} not found",
+        )
+    _la.reset_counters(account)
+    db.commit()
+    return {
+        "ok": True,
+        "identity_kind": payload.identity_kind,
+        "account_id": payload.account_id,
+    }

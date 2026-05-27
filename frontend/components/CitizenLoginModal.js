@@ -101,6 +101,10 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   // so we can surface a 'Reset your password' nudge after 3+
   // failures without confirming whether the account exists.
   const [failCount, setFailCount] = useState(0);
+  // Lockout banner state (Task #56 revision). Populated when the
+  // backend returns 423 Locked. Banner auto-hides once lockedUntil
+  // passes — no live tick, render-time check only.
+  const [lockedUntil, setLockedUntil] = useState(null);
 
   // Self-serve demo signup form state. Replaces the old fixed
   // 60-account list — any visitor can mint their own demo citizen
@@ -193,6 +197,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     if (!canSubmit) return;
     setBusy(true);
     setErr(null);
+    setLockedUntil(null);
     const result = await loginCitizen(email.trim(), password);
     setBusy(false);
     if (result.ok) {
@@ -216,6 +221,16 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     // Anything else is a generic auth failure — combined message so
     // we don't leak whether the email exists.
     setErr(result.error || "Email or password didn't match. Try again or reset it.");
+    // 423 Locked — parse the locked_until + render the lockout banner.
+    if (result.status === 423) {
+      const lockedUntilIso = result.payload?.detail?.locked_until;
+      if (lockedUntilIso) {
+        const parsed = new Date(lockedUntilIso);
+        if (!Number.isNaN(parsed.getTime())) {
+          setLockedUntil(parsed);
+        }
+      }
+    }
     setFailCount((c) => c + 1);
   };
 
@@ -438,30 +453,46 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         </div>
       )}
 
-      {failCount >= 3 && (
+      {lockedUntil && lockedUntil > new Date() && (
         <div
-          role="status"
+          role="alert"
           style={{
             marginBottom: 12,
-            padding: '8px 10px',
-            background: '#fffbeb',
-            color: 'var(--cl-text)',
+            padding: '10px 12px',
+            background: '#fef3c7',
+            color: '#78350f',
             borderRadius: 'var(--cl-radius-md)',
             fontSize: 'var(--cl-text-xs)',
             border: '1px solid #fde68a',
+            lineHeight: 1.45,
           }}
         >
-          Trouble signing in?{' '}
+          <strong>Account temporarily locked.</strong>{' '}
+          Too many failed sign-in attempts. Try again in{' '}
+          {(() => {
+            const ms = lockedUntil.getTime() - Date.now();
+            const mins = Math.max(1, Math.ceil(ms / 60000));
+            if (mins >= 60) {
+              const hours = Math.ceil(mins / 60);
+              return hours === 1 ? 'about 1 hour' : `about ${hours} hours`;
+            }
+            return mins === 1 ? '1 minute' : `${mins} minutes`;
+          })()}{' '}
+          (~{lockedUntil.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}),
+          or{' '}
           <a
             href="/password-reset?kind=citizen"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--cl-accent)', fontWeight: 600, textDecoration: 'underline' }}
           >
-            Reset your password →
-          </a>
+            reset your password
+          </a>{' '}
+          to unlock now.
         </div>
       )}
+
+
 
 
       </>}

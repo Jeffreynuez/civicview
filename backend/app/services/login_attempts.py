@@ -340,6 +340,41 @@ def register_success(
     )
 
 
+def lockout_response_detail(account: AccountRow) -> dict:
+    """Build the body for a 423 Locked response.
+
+    Returns a dict with the keys the login routers raise inside an
+    HTTPException(status_code=423, detail=...). Schema:
+      • message      — human-readable text for the UI's banner.
+      • code         — stable string the frontend keys off
+                        ("account_locked").
+      • locked_until — ISO-8601 UTC timestamp string. Frontend
+                        renders the remaining-time countdown from it.
+
+    Decision (Jeffrey, 2026-05-26): we surface lockout state directly
+    to the API caller. The earlier design returned a generic 401 to
+    avoid account enumeration; in practice the silent UX was too
+    opaque for legit users (since the compensating Postmark email
+    isn't live yet — see launch step #20). Tradeoff accepted: an
+    attacker who watches for 423 vs. generic 401 can confirm whether
+    an email is registered. Mitigations: the lockout windows
+    themselves still rate-limit brute-force; admin can revoke via
+    POST /api/admin/lockout/unlock.
+    """
+    locked_until_iso = ""
+    if account.locked_until is not None:
+        # `Z` suffix marks UTC for the frontend's Date() parser.
+        locked_until_iso = account.locked_until.isoformat() + "Z"
+    return {
+        "message": (
+            "Your account has been temporarily locked due to too many "
+            "failed sign-in attempts. Try again later or reset your password."
+        ),
+        "code": "account_locked",
+        "locked_until": locked_until_iso,
+    }
+
+
 def reset_counters(account: AccountRow) -> None:
     """Called from password-reset/confirm. Clears lockout state and
     counters so a legit user who successfully reset their password

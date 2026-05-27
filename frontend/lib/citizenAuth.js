@@ -91,7 +91,7 @@ export async function refreshCitizenAuth() {
 }
 
 export async function loginCitizen(email, password) {
-  const { data, error, status } = await loginCitizenApi(email, password);
+  const { data, error, status, payload } = await loginCitizenApi(email, password);
   // 2FA-required branch (Task #62 Phase 3). See lib/auth.js for the
   // matching rep flow; same shape on the citizen side.
   if (data?.two_factor_required && data?.challenge_token) {
@@ -109,7 +109,7 @@ export async function loginCitizen(email, password) {
     loadAllTracked().catch(() => {});
     return { ok: true };
   }
-  return { ok: false, error: error || 'Login failed', status };
+  return { ok: false, error: error || 'Login failed', status, payload };
 }
 
 /**
@@ -128,7 +128,7 @@ export async function completeLoginCitizen(challengeToken, code) {
     loadAllTracked().catch(() => {});
     return { ok: true };
   }
-  return { ok: false, error: error || 'Code verification failed', status };
+  return { ok: false, error: error || 'Code verification failed', status, payload };
 }
 
 export async function logoutCitizen() {
@@ -157,7 +157,7 @@ export async function signupDemoCitizen(payload) {
     loadAllTracked().catch(() => {});
     return { ok: true, email: data.email, password: data.password, citizen: data.citizen };
   }
-  return { ok: false, error: error || 'Demo signup failed', status };
+  return { ok: false, error: error || 'Demo signup failed', status, payload };
 }
 
 /**
