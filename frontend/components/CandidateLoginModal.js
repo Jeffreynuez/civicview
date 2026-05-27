@@ -64,6 +64,10 @@ export default function CandidateLoginModal({
   const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+  // Soft sign-in hint (Task #56). Tracks consecutive 401 responses
+  // so we can surface a 'Reset your password' nudge after 3+
+  // failures without confirming whether the account exists.
+  const [failCount, setFailCount] = useState(0);
   // 2FA challenge state (Task #62 Phase 3). See RepLoginModal for the
   // matching state on the rep side.
   const [twoFactorChallenge, setTwoFactorChallenge] = useState(null);
@@ -94,6 +98,7 @@ export default function CandidateLoginModal({
     const result = await loginCandidate(email.trim(), password);
     setBusy(false);
     if (result.ok) {
+      setFailCount(0);
       if (onSuccess) onSuccess();
       else if (onClose) onClose();
       return;
@@ -107,6 +112,7 @@ export default function CandidateLoginModal({
     // The backend already formats user-friendly messages for the 403
     // paths (suspended + pending-approval). Render them verbatim.
     setErr(result.error || 'Sign-in failed. Try again.');
+    setFailCount((c) => c + 1);
   };
 
   const handleTwoFactorVerify = async (code) => {
@@ -232,6 +238,32 @@ export default function CandidateLoginModal({
             {err}
           </div>
         )}
+
+      {failCount >= 3 && (
+        <div
+          role="status"
+          style={{
+            marginBottom: 12,
+            padding: '8px 10px',
+            background: '#fffbeb',
+            color: 'var(--cl-text)',
+            borderRadius: 'var(--cl-radius-md)',
+            fontSize: 'var(--cl-text-xs)',
+            border: '1px solid #fde68a',
+          }}
+        >
+          Trouble signing in?{' '}
+          <a
+            href="/password-reset?kind=candidate"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--cl-accent)', fontWeight: 600, textDecoration: 'underline' }}
+          >
+            Reset your password →
+          </a>
+        </div>
+      )}
+
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Button

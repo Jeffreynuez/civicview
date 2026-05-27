@@ -97,6 +97,10 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+  // Soft sign-in hint (Task #56). Tracks consecutive 401 responses
+  // so we can surface a 'Reset your password' nudge after 3+
+  // failures without confirming whether the account exists.
+  const [failCount, setFailCount] = useState(0);
 
   // Self-serve demo signup form state. Replaces the old fixed
   // 60-account list — any visitor can mint their own demo citizen
@@ -192,6 +196,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     const result = await loginCitizen(email.trim(), password);
     setBusy(false);
     if (result.ok) {
+      setFailCount(0);
       if (onSuccess) onSuccess();
       return;
     }
@@ -211,6 +216,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     // Anything else is a generic auth failure — combined message so
     // we don't leak whether the email exists.
     setErr(result.error || "Email or password didn't match. Try again or reset it.");
+    setFailCount((c) => c + 1);
   };
 
   const handleTwoFactorVerify = async (code) => {
@@ -431,6 +437,32 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
           {err}
         </div>
       )}
+
+      {failCount >= 3 && (
+        <div
+          role="status"
+          style={{
+            marginBottom: 12,
+            padding: '8px 10px',
+            background: '#fffbeb',
+            color: 'var(--cl-text)',
+            borderRadius: 'var(--cl-radius-md)',
+            fontSize: 'var(--cl-text-xs)',
+            border: '1px solid #fde68a',
+          }}
+        >
+          Trouble signing in?{' '}
+          <a
+            href="/password-reset?kind=citizen"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--cl-accent)', fontWeight: 600, textDecoration: 'underline' }}
+          >
+            Reset your password →
+          </a>
+        </div>
+      )}
+
 
       </>}
 
