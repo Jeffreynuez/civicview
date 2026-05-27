@@ -469,6 +469,23 @@ export async function adminListSuspendedUsers() {
   return request('/api/admin/users/suspended');
 }
 
+// ── Admin: account lockouts (Task #60) ──────────────────────────────
+// List every account currently in its lockout window. Used by
+// /admin?tab=lockouts. Returns {items: [{identity_kind, account_id,
+// email, display_name, locked_until, consecutive_lockout_count}]}.
+export async function adminListLockouts() {
+  return request('/api/admin/lockouts');
+}
+
+// Clear lockout state on a specific account. Admin can use this when
+// a legit user calls in before their lockout window expires.
+export async function adminUnlockAccount(identityKind, accountId) {
+  return request('/api/admin/lockout/unlock', {
+    method: 'POST',
+    body: { identity_kind: identityKind, account_id: accountId },
+  });
+}
+
 // Admin appeals queue. Pending first by default; pass
 // includeActed=true for the audit view.
 export async function adminListAppeals({ includeActed = false } = {}) {

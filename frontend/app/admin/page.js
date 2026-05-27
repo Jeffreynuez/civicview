@@ -48,10 +48,12 @@ import {
   adminDenyAppeal,
   adminListSuspendedUsers,
   adminUnsuspendUser,
+  adminListLockouts,
+  adminUnlockAccount,
 } from '@/lib/pagesApi';
 import './admin.css';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -183,6 +185,10 @@ function AdminPageInner() {
   const [appealsLoading, setAppealsLoading] = useState(false);
   const [suspended, setSuspended] = useState([]);
   const [suspendedLoading, setSuspendedLoading] = useState(false);
+  // Lockouts tab (Task #60) — currently-locked accounts across all
+  // three identity tracks. Polled fresh on tab switch.
+  const [lockouts, setLockouts] = useState([]);
+  const [lockoutsLoading, setLockoutsLoading] = useState(false);
 
   // Filter state — separate per tab so toggling Queue's "include resolved"
   // doesn't affect Appeals's equivalent toggle.
@@ -275,6 +281,21 @@ function AdminPageInner() {
     setSuspended(data.items || []);
   }, []);
 
+  const loadLockouts = useCallback(async () => {
+    setLockoutsLoading(true);
+    const { data, error: err } = await adminListLockouts();
+    setLockoutsLoading(false);
+    if (err) {
+      setError(err || 'Could not load lockouts.');
+      return;
+    }
+    setLockouts(data?.items || []);
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'lockouts') loadLockouts();
+  }, [activeTab, loadLockouts]);
+
   // Initial load — prime ALL three on mount so the sub-nav badges
   // are accurate immediately, regardless of which tab the URL points
   // at. Subsequent reloads are per-tab.
@@ -283,6 +304,7 @@ function AdminPageInner() {
     loadReports();
     loadAppeals();
     loadSuspended();
+    loadLockouts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authState]);
 
@@ -305,7 +327,8 @@ function AdminPageInner() {
     queue:     reports.filter((r) => reportStatus(r) === 'open').length,
     appeals:   appeals.filter((a) => appealStatus(a) === 'pending').length,
     suspended: suspended.length,
-  }), [reports, appeals, suspended]);
+    lockouts: lockouts.length,
+  }), [reports, appeals, suspended, lockouts]);
 
   // Action handlers — Dismiss / Unhide stay one-click. Hide / Suspend /
   // Grant / Deny / Unsuspend route through real modals.
@@ -440,6 +463,7 @@ function AdminPageInner() {
     queue:     { crumb: 'Admin · Moderation',  title: 'Moderation queue' },
     appeals:   { crumb: 'Admin · Appeals',     title: 'Appeals queue' },
     suspended: { crumb: 'Admin · Suspended users', title: 'Suspended accounts' },
+    lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
   }[activeTab];
 
   // Per-tab KPI strip.
@@ -488,6 +512,16 @@ function AdminPageInner() {
       { label: 'Suspended this week', value: suspendedThisWeek, dot: 'danger' },
       { label: 'Reps suspended', value: suspended.filter((u) => u.kind === 'rep').length, dot: 'hidden' },
     ];
+  } else if (activeTab === 'lockouts') {
+    // Lockouts — three tiles, parallel to Suspended.
+    const repsLocked = lockouts.filter((l) => l.identity_kind === 'rep').length;
+    const candidatesLocked = lockouts.filter((l) => l.identity_kind === 'candidate').length;
+    const citizensLocked = lockouts.filter((l) => l.identity_kind === 'citizen').length;
+    kpis = [
+      { label: 'Currently locked', value: lockouts.length, dot: 'warning' },
+      { label: 'Reps + candidates', value: repsLocked + candidatesLocked, dot: 'danger' },
+      { label: 'Citizens', value: citizensLocked, dot: 'hidden' },
+    ];
   }
 
   return (
@@ -509,6 +543,7 @@ function AdminPageInner() {
               <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
               <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
               <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
+              <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
             </nav>
             <a className="ad-subnav__home" href="/">
               <span aria-hidden="true">←</span> CivicView home
@@ -586,6 +621,77 @@ function AdminPageInner() {
             onUnsuspend={(u) => setUnsuspendModal(u)}
             onViewAppeal={() => switchTab('appeals')}
           />
+        )}
+
+        {activeTab === 'lockouts' && (
+          <section className="ad-tab-body">
+            <div className="ad-toolbar" style={{ marginBottom: 12 }}>
+              <button
+                type="button"
+                className="ad-btn"
+                onClick={loadLockouts}
+                disabled={lockoutsLoading}
+              >
+                {lockoutsLoading ? 'Refreshing…' : 'Refresh'}
+              </button>
+            </div>
+            {lockoutsLoading && lockouts.length === 0 ? (
+              <div className="ad-empty">Loading lockouts…</div>
+            ) : lockouts.length === 0 ? (
+              <div className="ad-empty">No accounts are currently locked out. ✓</div>
+            ) : (
+              <div className="ad-tablewrap">
+                <table className="ad-table">
+                  <thead>
+                    <tr>
+                      <th>Identity</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Locked until</th>
+                      <th>Time left</th>
+                      <th title="Consecutive lockouts without a successful sign-in in between">Consec.</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {lockouts.map((row) => {
+                      const lu = new Date(row.locked_until);
+                      const ms = lu.getTime() - Date.now();
+                      const mins = Math.max(0, Math.ceil(ms / 60000));
+                      const timeLeft = mins <= 0 ? 'expiring…'
+                        : mins >= 60 ? `~${Math.ceil(mins / 60)} hr`
+                        : `${mins} min`;
+                      const actionId = `unlock-${row.identity_kind}-${row.account_id}`;
+                      return (
+                        <tr key={actionId}>
+                          <td><span className={`ad-pill ad-pill--${row.identity_kind}`}>{row.identity_kind}</span></td>
+                          <td>{row.display_name}</td>
+                          <td className="ad-mono">{row.email}</td>
+                          <td>{lu.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</td>
+                          <td>{timeLeft}</td>
+                          <td>{row.consecutive_lockout_count}</td>
+                          <td>
+                            <button
+                              type="button"
+                              className="ad-btn ad-btn--primary"
+                              disabled={busyId === actionId}
+                              onClick={() => runAction(
+                                actionId,
+                                () => adminUnlockAccount(row.identity_kind, row.account_id),
+                                loadLockouts,
+                              )}
+                            >
+                              {busyId === actionId ? 'Unlocking…' : 'Unlock'}
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
         )}
       </main>
 

@@ -1197,6 +1197,47 @@ class _AdminUnlockRequest(_UnlockBaseModel):
     account_id: int
 
 
+@router.get("/lockouts")
+def list_lockouts(
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+):
+    """Admin-only: list every account currently inside its lockout
+    window. Used by the /admin?tab=lockouts UI to show who's locked
+    out and offer per-row unlock.
+
+    Returns rows across all three identity tracks (rep, candidate,
+    citizen) so the admin sees one consolidated list. Sorted by
+    locked_until ascending so the soonest-to-expire shows first.
+    """
+    from app.models.pages import (
+        RepAccount as _Rep,
+        CandidateAccount as _Cand,
+        CitizenAccount as _Cit,
+    )
+    now = datetime.utcnow()
+    items = []
+    for kind, Model in (("rep", _Rep), ("candidate", _Cand), ("citizen", _Cit)):
+        rows = (
+            db.query(Model)
+            .filter(Model.locked_until.isnot(None))
+            .filter(Model.locked_until > now)
+            .order_by(Model.locked_until.asc())
+            .all()
+        )
+        for row in rows:
+            items.append({
+                "identity_kind": kind,
+                "account_id": row.id,
+                "email": row.email,
+                "display_name": getattr(row, "display_name", None) or row.email,
+                "locked_until": row.locked_until.isoformat() + "Z",
+                "consecutive_lockout_count": int(getattr(row, "consecutive_lockout_count", 0) or 0),
+            })
+    items.sort(key=lambda x: x["locked_until"])
+    return {"items": items}
+
+
 @router.post("/lockout/unlock")
 def admin_unlock_account(
     payload: _AdminUnlockRequest,
