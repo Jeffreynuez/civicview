@@ -50,6 +50,7 @@ import {
   adminUnsuspendUser,
   adminListLockouts,
   adminUnlockAccount,
+  adminLoadDashboard,
 } from '@/lib/pagesApi';
 import './admin.css';
 
@@ -296,15 +297,29 @@ function AdminPageInner() {
     if (activeTab === 'lockouts') loadLockouts();
   }, [activeTab, loadLockouts]);
 
-  // Initial load — prime ALL three on mount so the sub-nav badges
-  // are accurate immediately, regardless of which tab the URL points
-  // at. Subsequent reloads are per-tab.
+  // Initial load — single consolidated call (Task #63). Returns all
+  // four datasets in one round-trip via /api/admin/dashboard. This
+  // replaced the prior pattern of firing 4 parallel calls (which
+  // tripped Cloudflare's WAF burst limit per Task #62) AND the
+  // intermediate sequential-await pattern (which worked but cost
+  // ~300ms of serialized round-trip latency).
+  //
+  // Per-tab refresh after a user action still uses the individual
+  // loaders (loadReports / loadAppeals / loadSuspended / loadLockouts)
+  // so action-driven reloads stay focused on the relevant dataset.
   useEffect(() => {
     if (authState !== 'allowed') return;
-    loadReports();
-    loadAppeals();
-    loadSuspended();
-    loadLockouts();
+    (async () => {
+      const { data, error: err } = await adminLoadDashboard();
+      if (err) {
+        setError(err || 'Could not load admin dashboard.');
+        return;
+      }
+      setReports(data?.reports?.items || []);
+      setAppeals(data?.appeals?.items || []);
+      setSuspended(data?.suspended?.items || []);
+      setLockouts(data?.lockouts?.items || []);
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authState]);
 

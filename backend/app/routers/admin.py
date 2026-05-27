@@ -1197,6 +1197,44 @@ class _AdminUnlockRequest(_UnlockBaseModel):
     account_id: int
 
 
+# ── Consolidated dashboard load (Task #63) ──────────────────────────
+@router.get("/dashboard")
+def admin_dashboard(
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+):
+    """Single-call dashboard load — returns the four datasets the
+    /admin page renders on initial mount, in one request.
+
+    Replaces the prior pattern where the page fired four separate
+    GETs in parallel — which was triggering Cloudflare's WAF burst
+    rate-limit (Task #62). Per-tab refresh after a user action still
+    hits the individual endpoints (/reports, /appeals,
+    /users/suspended, /lockouts) so action-driven reloads stay
+    narrow and fast.
+
+    Internally calls each list function — no duplicated query
+    logic. Each list function already has its own get_current_admin
+    dependency; passing the resolved actor through avoids re-running
+    the admin check four times.
+
+    Response shape (each subfield is the same shape the per-endpoint
+    response would have returned):
+        {
+          "reports":   {"items": [...]},
+          "appeals":   {"items": [...]},
+          "suspended": {"items": [...]},
+          "lockouts":  {"items": [...]}
+        }
+    """
+    return {
+        "reports":   list_reports(include_acted=False, db=db, _actor=_actor),
+        "appeals":   list_appeals(include_acted=False, db=db, _actor=_actor),
+        "suspended": list_suspended_users(db=db, _actor=_actor),
+        "lockouts":  list_lockouts(db=db, _actor=_actor),
+    }
+
+
 @router.get("/lockouts")
 def list_lockouts(
     db: Session = Depends(get_db),

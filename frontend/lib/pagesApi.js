@@ -469,6 +469,17 @@ export async function adminListSuspendedUsers() {
   return request('/api/admin/users/suspended');
 }
 
+// ── Admin: consolidated dashboard load (Task #63) ──────────────────
+// Single-call replacement for the four parallel admin-list calls
+// previously fired on the /admin page mount. Returns
+// {reports:{items}, appeals:{items}, suspended:{items}, lockouts:{items}}.
+// Per-tab refresh after a user action still uses the individual
+// endpoints (adminListReports, adminListAppeals, adminListSuspendedUsers,
+// adminListLockouts) so action-driven reloads stay narrow.
+export async function adminLoadDashboard() {
+  return request('/api/admin/dashboard');
+}
+
 // ── Admin: account lockouts (Task #60) ──────────────────────────────
 // List every account currently in its lockout window. Used by
 // /admin?tab=lockouts. Returns {items: [{identity_kind, account_id,
