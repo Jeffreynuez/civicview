@@ -1226,10 +1226,16 @@ def admin_dashboard(
           "suspended": {"items": [...]},
           "lockouts":  {"items": [...]}
         }
+
+    Note: list_appeals lives in app/routers/appeals.py — imported
+    inside the function so the module-load order doesn\'t matter and
+    we avoid any future circular-import surface if appeals.py ever
+    needs to import from admin.py.
     """
+    from app.routers.appeals import list_appeals as _list_appeals
     return {
         "reports":   list_reports(include_acted=False, db=db, _actor=_actor),
-        "appeals":   list_appeals(include_acted=False, db=db, _actor=_actor),
+        "appeals":   _list_appeals(include_acted=False, db=db, _actor=_actor),
         "suspended": list_suspended_users(db=db, _actor=_actor),
         "lockouts":  list_lockouts(db=db, _actor=_actor),
     }
