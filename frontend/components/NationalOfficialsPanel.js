@@ -6,7 +6,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { fetchElections, fetchFederalOfficials, fetchStatsSummary } from '@/lib/api';
-import { fetchNationalActivity, fetchPopularPolls } from '@/lib/pagesApi';
+import { fetchPopularPolls, fetchPostsFeed } from '@/lib/pagesApi';
+import { useAuth as useRepAuth } from '@/lib/auth';
+import { useCandidateAuth } from '@/lib/candidateAuth';
+import FeedCard from './polls/FeedCard';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import SelectionBadge from './SelectionBadge';
 import FollowButton from './FollowButton';
@@ -1448,17 +1451,22 @@ function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareI
 // ─────────────────────────────────────────────────────────────────
 // 6. NATIONAL ACTIVITY FEED
 //
-// Live data via GET /api/feed/national-activity — recent non-deleted
-// posts authored by RepAccounts, ordered by created_at DESC. The
-// shape returned by the API uses `created_at` (ISO timestamp) and
-// `official_id`; we normalize to the shape ActivityPostRow expects
-// (`when` as a relative string) at the section boundary so the row
-// component stays generic.
+// Live data via GET /api/feed/posts — the same endpoint /posts uses
+// for its canonical feed, capped to 3 items for the home-page
+// sample. Reusing the endpoint guarantees the cards here look and
+// behave identically to /posts (likes, comments accordion, edit /
+// delete affordances, login-required gating) — single source of
+// truth for the post-feed shape.
 //
-// Empty-state behavior: when no rep has posted yet (fresh-launch
-// state), the API returns `items: []` and we render an explanatory
-// tile instead of the row list. The tile points at how the section
-// will populate so the surface still feels intentional.
+// Cards render through the shared FeedCard component (kind='post')
+// so every fix to the canonical feed lands here for free. Singleton
+// comments-open state lives at the section level so opening one
+// thread closes any other already-open thread.
+//
+// Empty-state behavior: when the API returns `items: []` (fresh-
+// launch state) or errors, the explanatory ActivityEmptyState tile
+// renders instead of the card list. An "All posts →" link lives
+// below the cards as the overflow path to the canonical feed.
 // ─────────────────────────────────────────────────────────────────
 
 // Convert an ISO-8601 timestamp from the API into a short relative-
@@ -1482,27 +1490,60 @@ function nationalTimeAgo(iso) {
 }
 
 function NationalActivitySection({ onRequestVerify, citizen }) {
-  // When a citizen is signed in, the per-row "Sign in to participate" CTA
-  // and the section-level "Sign in to follow these reps" CTA are hidden —
-  // an authenticated user can already react / comment on each post via
-  // the rep's PageView and follow reps from the profile view. Anonymous
-  // visitors still see both CTAs as the primary entry point into the
-  // citizen-login flow.
-  const isAuthed = !!citizen;
+  // Sign-in computation mirrors GrassrootsFeed (/polls + /posts): any
+  // identity (citizen / rep / candidate) counts. FeedCard uses signedIn
+  // as the engagement gate — react / comment actions require it.
+  // We pull rep + candidate auth here (citizen is already a prop) so a
+  // rep or candidate visiting the home page can still interact with
+  // posts in the National activity section without bouncing through
+  // the citizen-login modal.
+  const { me: rep } = useRepAuth();
+  const { candidate } = useCandidateAuth();
+  const signedIn = !!citizen || !!rep || !!candidate;
+
   // National Activity is collapsible like the rest of the NOP sections.
-  // Defaults to collapsed because the feed is six full-width post cards
-  // and tends to dominate the page below it; users who want to scan
-  // current activity can expand. Persisted across reloads.
+  // Defaults to collapsed because the feed is full-fat FeedCards now —
+  // even three of them push the page tall on first load. Users who
+  // want to scan current activity expand the section; their choice
+  // persists across reloads.
   const [open, toggleOpen] = usePersistentToggle('cl:nop:activity', false);
 
   // Lazy-fetch on first expand. Skipping the fetch while collapsed
   // saves a round-trip on the (common) case of users who don't open
   // the section. Once fetched, the result sticks until a reload — we
   // don't bother with revalidation because the home-page feed is
-  // intentionally a lightly-stale summary.
-  const [items, setItems] = useState(null);   // null = not loaded yet
+  // intentionally a lightly-stale summary. `null` = not loaded yet.
+  const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  // Singleton comments accordion — only one card's thread is open at
+  // a time. Same pattern GrassrootsFeed uses on /polls + /posts so the
+  // home-page National activity behaves identically to the canonical
+  // feed when a user opens a comment thread.
+  const [openCommentId, setOpenCommentId] = useState(null);
+  const toggleComments = useCallback((cardId) => {
+    setOpenCommentId((prev) => (prev === cardId ? null : cardId));
+  }, []);
+
+  // Shared loader. Splitting it out of useEffect so the FeedCard
+  // onMutated callback (fired by destructive actions like delete-post)
+  // can re-trigger a full reload.
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    // Same endpoint /posts uses, capped to the home-page sample size.
+    // No `kinds` or `state` filter — National activity is a broad
+    // sweep across rep + candidate authors nationwide.
+    const { data, error: err } = await fetchPostsFeed({ limit: 3 });
+    if (err || !data) {
+      setError(true);
+      setItems([]);
+    } else {
+      setItems(Array.isArray(data.items) ? data.items : []);
+    }
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     // Trigger once per (open transition × empty result). `loading` is
@@ -1512,22 +1553,28 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
     // can resolve (the symptom: skeleton tiles that never go away).
     if (!open || items !== null) return;
     let cancelled = false;
-    setLoading(true);
-    setError(false);
     (async () => {
-      const { data, error: err } = await fetchNationalActivity({ limit: 6 });
+      await load();
+      // No cancel-aware setState here — load() owns its own state
+      // updates and a short fetch + cheap setItems is fine to apply
+      // even on a fast unmount.
       if (cancelled) return;
-      if (err || !data) {
-        setError(true);
-        setItems([]);
-      } else {
-        setItems(Array.isArray(data.items) ? data.items : []);
-      }
-      setLoading(false);
     })();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, items]);
+
+  // In-place patch for a single card (preferred over a full reload —
+  // no scroll jump, only the touched card re-renders). Mirrors
+  // GrassrootsFeed's onCardUpdated implementation exactly so the two
+  // surfaces stay behaviorally identical.
+  const handleCardUpdated = useCallback((cardId, patch) => {
+    setItems((prev) => (prev || []).map((it) => (
+      it.id === cardId
+        ? { ...it, ...patch, viewer: { ...(it.viewer || {}), ...(patch.viewer || {}) } }
+        : it
+    )));
+  }, []);
 
   return (
     <section style={{ padding: '32px 24px 16px' }}>
@@ -1535,7 +1582,7 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
         <SectionHeader
           eyebrow="Past 24 hours"
           title="National activity"
-          subhead="Recent posts from reps across the country, newest first"
+          subhead="Recent posts from reps and candidates across the country"
           chip={null}
           collapsible
           open={open}
@@ -1546,32 +1593,24 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
             {loading && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {Array.from({ length: 3 }).map((_, i) => (
-                  <Skeleton key={i} height={120} radius={16} />
+                  <Skeleton key={i} height={200} radius={16} />
                 ))}
               </div>
             )}
             {!loading && items && items.length > 0 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {items.map((apiPost) => (
-                  <ActivityPostRow
-                    key={apiPost.id}
-                    post={{
-                      // Normalize API shape to the row component's
-                      // contract. role / party may be null when the
-                      // rep isn't in the curated federal-officials
-                      // index; PartyChip + Avatar both handle null
-                      // by rendering a neutral chip / initials.
-                      id: apiPost.id,
-                      author: apiPost.author,
-                      role: apiPost.role || '',
-                      party: apiPost.party || null,
-                      body: apiPost.body,
-                      likes: apiPost.likes || 0,
-                      comments: apiPost.comments || 0,
-                      when: nationalTimeAgo(apiPost.created_at),
-                    }}
-                    onRequestVerify={onRequestVerify}
-                    isAuthed={isAuthed}
+                {items.map((p) => (
+                  <FeedCard
+                    key={p.id}
+                    card={p}
+                    kind="post"
+                    isCommentsOpen={openCommentId === p.id}
+                    onToggleComments={() => toggleComments(p.id)}
+                    signedIn={signedIn}
+                    onLoginRequired={onRequestVerify}
+                    onCardUpdated={handleCardUpdated}
+                    onMutated={load}
+                    citizenViewer={citizen}
                   />
                 ))}
               </div>
@@ -1579,27 +1618,29 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
             {!loading && items && items.length === 0 && (
               <ActivityEmptyState error={error} />
             )}
-            {!isAuthed && items && items.length > 0 && (
+            {/* "All posts →" — entry point to the /posts canonical
+                feed. Always rendered when items exist, regardless of
+                auth state — anyone can browse /posts, the FeedCards
+                there gate interaction the same way these do. */}
+            {!loading && items && items.length > 0 && (
               <div style={{ textAlign: 'center', marginTop: 14 }}>
-                <button
-                  type="button"
-                  onClick={onRequestVerify}
+                <Link
+                  href="/posts"
                   style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'var(--cl-accent)',
-                    fontSize: 'var(--cl-text-sm)',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontFamily: 'var(--cl-font-sans)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 4,
+                    background: 'transparent',
+                    color: 'var(--cl-accent)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontFamily: 'var(--cl-font-sans)',
                   }}
                 >
-                  Sign in to follow these reps
+                  All posts
                   <ArrowRight size={12} active color="accent" />
-                </button>
+                </Link>
               </div>
             )}
           </>
@@ -2073,84 +2114,12 @@ function PopularPollCard({ poll, onRequestVerify, isAuthed }) {
   );
 }
 
-function ActivityPostRow({ post, onRequestVerify, isAuthed }) {
-  return (
-    <article
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl)',
-        padding: 14,
-      }}
-    >
-      <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-        <Avatar name={post.author} party={post.party} size="sm" />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: 6,
-              flexWrap: 'wrap',
-              fontSize: 'var(--cl-text-sm)',
-            }}
-          >
-            <span style={{ fontWeight: 700, color: 'var(--cl-text)' }}>
-              {post.author}
-            </span>
-            <PartyChip party={post.party} size="xs" />
-            <span style={{ color: 'var(--cl-text-light)' }}>· {post.role}</span>
-            <span style={{ color: 'var(--cl-text-muted)', marginLeft: 'auto' }}>
-              {post.when}
-            </span>
-          </div>
-          <p
-            className="cl-body-sm"
-            style={{
-              margin: '8px 0 0',
-              color: 'var(--cl-text)',
-              lineHeight: 'var(--cl-leading-normal)',
-            }}
-          >
-            {post.body}
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              marginTop: 10,
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-muted)',
-            }}
-          >
-            <span className="cl-num">{post.likes.toLocaleString()} reactions</span>
-            <span aria-hidden="true">·</span>
-            <span className="cl-num">{post.comments} comments</span>
-            {!isAuthed && (
-              <button
-                type="button"
-                onClick={onRequestVerify}
-                style={{
-                  marginLeft: 'auto',
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--cl-accent)',
-                  fontSize: 'var(--cl-text-xs)',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  fontFamily: 'var(--cl-font-sans)',
-                }}
-              >
-                Sign in to participate →
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
+// NOTE: The previous ActivityPostRow component was removed when
+// NationalActivitySection switched to rendering the shared FeedCard
+// (kind='post') in PR #72. The home-page National activity cards
+// now match the /posts canonical feed bit-for-bit — likes, comments
+// accordion, edit / delete, login gating — instead of a stripped
+// row with a "Sign in to participate →" link.
 
 // ─────────────────────────────────────────────────────────────────
 // 7. BROWSE BY STATE
