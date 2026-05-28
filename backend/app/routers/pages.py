@@ -53,6 +53,7 @@ from app.models.pages import (
     PostReaction,
     PostReport,
     RepAccount,
+    SavedItem,
     RepEvent,
 )
 from app.schemas.pages import (
@@ -438,6 +439,7 @@ def _post_to_read(
     scope_override: Optional[str] = None,
     engagement_scope: Optional[str] = None,
     is_owner_viewing: bool = False,
+    saved_post_ids: Optional[set] = None,
 ) -> PostRead:
     poll_read: Optional[PollRead] = None
     if post.poll is not None:
@@ -572,6 +574,17 @@ def _post_to_read(
             role=None,
         )
 
+    if saved_post_ids is not None:
+        _is_saved = post.id in saved_post_ids
+    elif me_citizen is not None:
+        _is_saved = db.query(SavedItem.id).filter(
+            SavedItem.tracker_kind == "citizen",
+            SavedItem.tracker_id == me_citizen.id,
+            SavedItem.item_type == "post",
+            SavedItem.item_id == post.id,
+        ).first() is not None
+    else:
+        _is_saved = False
     return PostRead(
         id=post.id,
         official_id=post.official_id,
@@ -593,6 +606,7 @@ def _post_to_read(
         images=images,
         # Edit feature (Task #41) — same reason as _comment_to_read.
         edited_at=getattr(post, "edited_at", None),
+        is_saved=_is_saved,
     )
 
 
@@ -735,6 +749,17 @@ def get_page(
     posts_next_cursor = None
     if posts_has_more and _post_rows and _post_rows[-1].created_at is not None:
         posts_next_cursor = _encode_cursor(_post_rows[-1].created_at, _post_rows[-1].id)
+    _saved_post_ids = set()
+    if me_citizen is not None and _post_rows:
+        _saved_post_ids = {
+            int(i)
+            for (i,) in db.query(SavedItem.item_id).filter(
+                SavedItem.tracker_kind == "citizen",
+                SavedItem.tracker_id == me_citizen.id,
+                SavedItem.item_type == "post",
+                SavedItem.item_id.in_([p.id for p in _post_rows]),
+            ).all()
+        }
     posts = [
         _post_to_read(
             p, owner=effective_owner, db=db, voter_token=voter_token,
@@ -749,6 +774,7 @@ def get_page(
             scope_override=poll_scope_override,
             engagement_scope=engagement_scope,
             is_owner_viewing=is_owner,
+            saved_post_ids=_saved_post_ids,
         )
         for p in _post_rows
     ]
@@ -867,6 +893,17 @@ def get_page_posts(
     next_cursor = None
     if has_more and rows and rows[-1].created_at is not None:
         next_cursor = _encode_cursor(rows[-1].created_at, rows[-1].id)
+    _saved_post_ids = set()
+    if me_citizen is not None and rows:
+        _saved_post_ids = {
+            int(i)
+            for (i,) in db.query(SavedItem.item_id).filter(
+                SavedItem.tracker_kind == "citizen",
+                SavedItem.tracker_id == me_citizen.id,
+                SavedItem.item_type == "post",
+                SavedItem.item_id.in_([p.id for p in rows]),
+            ).all()
+        }
     items = [
         _post_to_read(
             p, owner=effective_owner, db=db, voter_token=voter_token,
@@ -876,6 +913,7 @@ def get_page_posts(
             scope_override=poll_scope_override,
             engagement_scope=engagement_scope,
             is_owner_viewing=is_owner,
+            saved_post_ids=_saved_post_ids,
         )
         for p in rows
     ]

@@ -544,7 +544,7 @@ export async function fetchPopularPolls({ limit = 9 } = {}) {
 //   callers that already pass `kind: 'rep'` keep working.
 // `state` is a 2-letter code — filters to polls whose author lives in
 //   (citizen polls) or represents (rep + candidate polls) that state.
-export async function fetchPollsFeed({ limit = 100, kind, kinds, state, cursor } = {}) {
+export async function fetchPollsFeed({ limit = 100, kind, kinds, state, cursor, ids } = {}) {
   // Normalize the kind param: array wins; fall back to scalar.
   const kindParam = Array.isArray(kinds) && kinds.length
     ? kinds
@@ -553,7 +553,7 @@ export async function fetchPollsFeed({ limit = 100, kind, kinds, state, cursor }
   // next_cursor (omit for the first page). Response carries
   // next_cursor + has_more for infinite scroll.
   return request('/api/feed/polls', {
-    query: { limit, kind: kindParam, state: state || undefined, cursor: cursor || undefined },
+    query: { limit, kind: kindParam, state: state || undefined, cursor: cursor || undefined, ids: ids && ids.length ? ids : undefined },
   });
 }
 
@@ -562,13 +562,13 @@ export async function fetchPollsFeed({ limit = 100, kind, kinds, state, cursor }
 // surface as fetchPollsFeed except `kinds` is ['rep' | 'candidate'].
 // Sort is engagement-score DESC server-side; the response items
 // already arrive in display order.
-export async function fetchPostsFeed({ limit = 100, kinds, state, offset } = {}) {
+export async function fetchPostsFeed({ limit = 100, kinds, state, offset, ids } = {}) {
   const kindParam = Array.isArray(kinds) && kinds.length ? kinds : undefined;
   // `offset` slices the engagement-ranked list (the /posts feed ranks
   // in Python, so it pages by offset, not a keyset cursor). Response
   // carries next_offset + has_more for infinite scroll.
   return request('/api/feed/posts', {
-    query: { limit, kind: kindParam, state: state || undefined, offset: offset || undefined },
+    query: { limit, kind: kindParam, state: state || undefined, offset: offset || undefined, ids: ids && ids.length ? ids : undefined },
   });
 }
 
@@ -584,6 +584,32 @@ export async function fetchPagePosts(officialId, { cursor, limit = 20, voterToke
       voter_token: voterToken || undefined,
       scope: scope || undefined,
     },
+  });
+}
+
+// ── Saved items (Task #16) ────────────────────────────────────────────
+// Verified citizens bookmark posts/polls to their dashboard "Saved"
+// section. saveItem / unsaveItem are idempotent. fetchSaved returns
+// lightweight refs ({item_type, item_id, saved_at}) keyset-paginated by
+// saved_at (newest-saved first); the dashboard then re-fetches live
+// cards via fetchPollsFeed / fetchPostsFeed with { ids } so vote/comment
+// counts stay fresh.
+export async function saveItem({ itemType, itemId } = {}) {
+  return request('/api/saved', {
+    method: 'POST',
+    body: { item_type: itemType, item_id: itemId },
+  });
+}
+
+export async function unsaveItem({ itemType, itemId } = {}) {
+  return request(`/api/saved/${encodeURIComponent(itemType)}/${encodeURIComponent(itemId)}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function fetchSaved({ itemType, cursor, limit = 20 } = {}) {
+  return request('/api/saved', {
+    query: { item_type: itemType, cursor: cursor || undefined, limit },
   });
 }
 

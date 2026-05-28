@@ -57,6 +57,8 @@ import {
   reportPost,
   summarizePost,
   aiHealth,
+  saveItem,
+  unsaveItem,
 } from '../../lib/pagesApi';
 import { useAuth as useRepAuth } from '../../lib/auth';
 import { useCandidateAuth } from '../../lib/candidateAuth';
@@ -130,6 +132,25 @@ export default function FeedCard({
   const showCloseX = !!deletionTarget;
 
   const [busy, setBusy] = useState(false);
+  const [savingBusy, setSavingBusy] = useState(false);
+  // Save / unsave this card to the viewing citizen's dashboard
+  // (Task #16). Optimistic: patch viewer.is_saved immediately and
+  // revert on error. Only verified citizens get the action (the
+  // kebab item is gated on citizenViewer below).
+  const handleToggleSave = async () => {
+    if (savingBusy) return;
+    const currentlySaved = !!viewer.is_saved;
+    const args = { itemType: kind === 'post' ? 'post' : 'poll', itemId: card.id };
+    setSavingBusy(true);
+    if (typeof onCardUpdated === 'function') {
+      onCardUpdated(card.id, { viewer: { is_saved: !currentlySaved } });
+    }
+    const { error } = await (currentlySaved ? unsaveItem(args) : saveItem(args));
+    setSavingBusy(false);
+    if (error && typeof onCardUpdated === 'function') {
+      onCardUpdated(card.id, { viewer: { is_saved: currentlySaved } });
+    }
+  };
   const [errorMsg, setErrorMsg] = useState(null);
   const [confirmingClose, setConfirmingClose] = useState(false);
   // Post-body collapse — long bodies (>400 chars) show an Expand pill
@@ -523,6 +544,12 @@ export default function FeedCard({
           <PostActionsMenu
             ariaLabel="Post actions"
             items={[
+              citizenViewer && {
+                id: 'save',
+                label: viewer.is_saved ? 'Saved ✓' : 'Save',
+                onClick: handleToggleSave,
+                disabled: savingBusy,
+              },
               _canEditPost && editingPostBody == null && {
                 id: 'edit',
                 label: 'Edit',

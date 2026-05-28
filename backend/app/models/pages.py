@@ -1798,6 +1798,41 @@ class TrackedElection(Base):
     )
 
 
+class SavedItem(Base):
+    """A post or poll a citizen saved/bookmarked to their dashboard
+    (Task #16). Same per-identity polymorphic owner shape as the
+    Tracked* tables above (tracker_kind + tracker_id) — today only
+    verified citizens save, but the schema doesn't foreclose rep /
+    candidate saving later.
+
+    We store only a REFERENCE (item_type + item_id), not a snapshot:
+    the dashboard re-serializes the live post/poll on load so saved
+    cards always show current vote/comment counts and stay fully
+    interactive. Dangling saves (the post/poll was later deleted or
+    archived) are skipped at list time rather than pruned eagerly.
+    """
+
+    __tablename__ = "saved_items"
+    __table_args__ = (
+        UniqueConstraint(
+            "tracker_kind", "tracker_id", "item_type", "item_id",
+            name="uq_saved_items_owner_item",
+        ),
+        Index("ix_saved_items_owner", "tracker_kind", "tracker_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # 'citizen' | 'rep' | 'candidate' — application-level FK pair.
+    tracker_kind: Mapped[str] = mapped_column(String(16))
+    tracker_id: Mapped[int] = mapped_column(Integer)
+    # 'post' | 'poll' — which feed entity this save points at.
+    item_type: Mapped[str] = mapped_column(String(8))
+    item_id: Mapped[int] = mapped_column(Integer)
+    saved_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(),
+    )
+
+
 # ─────────────────────────────────────────────────────────────────────
 # Login attempts audit table (Task #29)
 # ─────────────────────────────────────────────────────────────────────

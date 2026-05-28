@@ -3,7 +3,7 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useIsCompact } from '@/lib/useViewport';
 import {
   Avatar,
@@ -21,7 +21,8 @@ import {
   ArrowRight,
 } from './ui';
 import { getAllTrackedOfficials } from '../lib/trackedOfficials';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed } from '../lib/pagesApi';
+import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
 import TwoFactorSection from './TwoFactorSection';
@@ -222,6 +223,7 @@ export default function ConstituentDashboard({
             <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
             <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
             <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
+            <SavedSection citizen={citizen} />
             <HiddenByModerationSection citizen={citizen} />
           </div>
 
@@ -1302,6 +1304,186 @@ function ShieldIcon() {
     </svg>
   );
 }
+
+// ── Saved section (Task #16) ──────────────────────────────────────────
+// Posts + polls the citizen bookmarked, rendered as live FeedCards so
+// vote/comment counts stay current and the cards stay interactive.
+// GET /api/saved returns refs (item_type + item_id) keyset-paginated by
+// saved_at; we then re-fetch the live cards via fetchPollsFeed /
+// fetchPostsFeed with { ids } and re-order to the saved order. Unsaving
+// a card from here (its kebab) removes it from the list immediately.
+function SavedSection({ citizen }) {
+  const [itemType, setItemType] = useState('poll'); // 'poll' | 'post'
+  const [items, setItems] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [savedCursor, setSavedCursor] = useState(null);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [openCommentId, setOpenCommentId] = useState(null);
+  const sentinelRef = useRef(null);
+
+  // Given a page of saved refs, fetch the live cards for those ids and
+  // re-order them to match the saved order (the feed endpoints don't
+  // guarantee saved_at order).
+  const _cardsForRefs = useCallback(async (refs) => {
+    const ids = (refs.items || []).map((r) => r.item_id);
+    if (!ids.length) return [];
+    const feedFn = itemType === 'post' ? fetchPostsFeed : fetchPollsFeed;
+    const { data: feed } = await feedFn({ ids, limit: ids.length });
+    const byId = new Map((feed?.items || []).map((c) => [c.id, c]));
+    return ids.map((id) => byId.get(id)).filter(Boolean);
+  }, [itemType]);
+
+  const load = useCallback(async () => {
+    if (!citizen) return;
+    setLoading(true);
+    setError(null);
+    const { data: refs, error: e } = await fetchSaved({ itemType, limit: 10 });
+    if (e || !refs) {
+      setError(e || 'Could not load saved items.');
+      setItems([]); setHasMore(false); setSavedCursor(null);
+      setLoading(false);
+      return;
+    }
+    setItems(await _cardsForRefs(refs));
+    setSavedCursor(refs.next_cursor || null);
+    setHasMore(!!refs.has_more);
+    setLoading(false);
+  }, [citizen?.id, itemType, _cardsForRefs]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const loadMore = useCallback(async () => {
+    if (loadingMore || loading || !hasMore || !savedCursor) return;
+    setLoadingMore(true);
+    const { data: refs } = await fetchSaved({ itemType, cursor: savedCursor, limit: 10 });
+    if (!refs) { setHasMore(false); setLoadingMore(false); return; }
+    const cards = await _cardsForRefs(refs);
+    setItems((prev) => [...(prev || []), ...cards]);
+    setSavedCursor(refs.next_cursor || null);
+    setHasMore(!!refs.has_more);
+    setLoadingMore(false);
+  }, [loadingMore, loading, hasMore, savedCursor, itemType, _cardsForRefs]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(
+      (entries) => { if (entries[0]?.isIntersecting) loadMore(); },
+      { rootMargin: '500px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [loadMore]);
+
+  const toggleComments = useCallback((id) => {
+    setOpenCommentId((prev) => (prev === id ? null : id));
+  }, []);
+
+  // In-place patch. If a card is unsaved from its kebab here, drop it
+  // from the list so the Saved view reflects the action immediately.
+  const handleCardUpdated = useCallback((cardId, patch) => {
+    if (patch && patch.viewer && patch.viewer.is_saved === false) {
+      setItems((prev) => (prev || []).filter((it) => it.id !== cardId));
+      return;
+    }
+    setItems((prev) => (prev || []).map((it) => (
+      it.id === cardId
+        ? { ...it, ...patch, viewer: { ...(it.viewer || {}), ...(patch.viewer || {}) } }
+        : it
+    )));
+  }, []);
+
+  if (!citizen) return null;
+
+  return (
+    <section>
+      <SectionHeader eyebrow="Saved" rightLabel="Posts and polls you've bookmarked" />
+
+      <div
+        style={{
+          display: 'inline-flex', gap: 4, padding: 4,
+          background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
+          borderRadius: 'var(--cl-radius-pill)', marginBottom: 12,
+        }}
+        role="tablist"
+        aria-label="Saved filter"
+      >
+        {[{ key: 'poll', label: 'Polls' }, { key: 'post', label: 'Posts' }].map((t) => {
+          const on = itemType === t.key;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              onClick={() => { if (t.key !== itemType) { setItemType(t.key); setItems(null); } }}
+              style={{
+                padding: '6px 14px', borderRadius: 'var(--cl-radius-pill)', border: 'none',
+                background: on ? 'var(--cl-accent)' : 'transparent',
+                color: on ? 'white' : 'var(--cl-text-light)',
+                fontSize: 'var(--cl-text-sm)', fontWeight: 700, cursor: 'pointer',
+                fontFamily: 'var(--cl-font-sans)',
+              }}
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {loading && (
+        <div style={{ color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
+          Loading your saved {itemType === 'post' ? 'posts' : 'polls'}…
+        </div>
+      )}
+      {error && !loading && (
+        <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>
+          Couldn't load: {error}
+        </div>
+      )}
+      {!loading && !error && items && items.length === 0 && (
+        <EmptyState
+          icon={<ChatCircleDots size={36} color="default" />}
+          headline={itemType === 'post' ? 'No saved posts yet' : 'No saved polls yet'}
+          body={'Tap the ⋮ menu on any post or poll and choose Save. Your bookmarks collect here so you can find them later.'}
+          dense
+        />
+      )}
+      {!loading && !error && items && items.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {items.map((card) => (
+            <FeedCard
+              key={card.id}
+              card={card}
+              kind={itemType}
+              isCommentsOpen={openCommentId === card.id}
+              onToggleComments={() => toggleComments(card.id)}
+              signedIn={!!citizen}
+              onLoginRequired={() => {}}
+              onCardUpdated={handleCardUpdated}
+              onMutated={load}
+              citizenViewer={citizen}
+            />
+          ))}
+          {hasMore && (
+            <div
+              ref={sentinelRef}
+              style={{
+                padding: '12px 0', textAlign: 'center',
+                color: 'var(--cl-text-light)', fontSize: '0.85rem',
+              }}
+            >
+              {loadingMore ? 'Loading more…' : ''}
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 
 function MyPollsSection({ citizen, onOpenPage }) {
   const [data, setData] = useState(null);

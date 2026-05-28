@@ -58,6 +58,7 @@ from app.models.pages import (
     PostComment,
     PostReaction,
     RepAccount,
+    SavedItem,
 )
 
 
@@ -268,6 +269,21 @@ def _serialize_poll_feed_items(
     candidate-narrowed; this helper preserves that order in the result.
     """
     from app.services.page_tags import resolve_page_tag, is_candidate_id
+
+    # Batched: which of these polls the viewing citizen has saved
+    # (Task #16). Empty when there's no citizen session — reps /
+    # candidates don't have a Saved surface yet.
+    saved_poll_ids: set = set()
+    if me_citizen is not None and rows:
+        saved_poll_ids = {
+            int(i)
+            for (i,) in db.query(SavedItem.item_id).filter(
+                SavedItem.tracker_kind == "citizen",
+                SavedItem.tracker_id == me_citizen.id,
+                SavedItem.item_type == "poll",
+                SavedItem.item_id.in_([p.id for p in rows]),
+            ).all()
+        }
 
     # Pre-compute parent-post like/dislike counts in a single batched
     # query so the rep-poll items can render the engagement footer
@@ -564,6 +580,7 @@ def _serialize_poll_feed_items(
             "voter_choices": per_identity_votes,
             "my_reactions": per_identity_rxns,
             "is_author": is_author,
+            "is_saved": int(poll.id) in saved_poll_ids,
         }
 
         # Engagement counters. Likes + dislikes are sourced from the
@@ -700,6 +717,10 @@ def polls_feed(
         default=None,
         description="Opaque keyset cursor from a previous page's next_cursor. Omit for the first page.",
     ),
+    ids: Optional[List[int]] = Query(
+        default=None,
+        description="Restrict to these poll ids (the Saved dashboard renders saved cards by id). Repeat the param.",
+    ),
     kind: Optional[List[str]] = Query(
         default=None,
         description=(
@@ -821,6 +842,10 @@ def polls_feed(
             )
         )
 
+    # Restrict to specific ids (the Saved dashboard renders saved
+    # cards by id; cursor is omitted in that mode).
+    if ids:
+        q = q.filter(Poll.id.in_(ids))
     # Keyset (cursor) pagination: order by (created_at, id) DESC and,
     # when a cursor is supplied, fetch only rows strictly older than it.
     # We pull limit+1 to detect has_more, and derive next_cursor from the
@@ -902,6 +927,10 @@ def posts_feed(
     offset: int = Query(
         default=0, ge=0,
         description="Engagement-ranked posts to skip (slice pagination). Use next_offset from the previous page.",
+    ),
+    ids: Optional[List[int]] = Query(
+        default=None,
+        description="Restrict to these post ids (the Saved dashboard renders saved cards by id). Repeat the param.",
     ),
     kind: Optional[List[str]] = Query(
         default=None,
@@ -1013,12 +1042,26 @@ def posts_feed(
     # ordering by created_at and chopping before engagement entered
     # the picture. Within the cap (300) this is a few hundred rows
     # tops with current usage.
+    if ids:
+        q = q.filter(Post.id.in_(ids))
     posts = q.all()
 
     if not posts:
         return {"items": [], "has_more": False, "next_offset": None}
 
     post_ids = [p.id for p in posts]
+    # Batched: which of these posts the viewing citizen has saved (Task #16).
+    saved_post_ids: set = set()
+    if me_citizen is not None:
+        saved_post_ids = {
+            int(i)
+            for (i,) in db.query(SavedItem.item_id).filter(
+                SavedItem.tracker_kind == "citizen",
+                SavedItem.tracker_id == me_citizen.id,
+                SavedItem.item_type == "post",
+                SavedItem.item_id.in_(post_ids),
+            ).all()
+        }
 
     # Batched: reaction counts per post (up + down separately).
     rxn_rows = (
@@ -1215,6 +1258,7 @@ def posts_feed(
                     # Phase 6 multi-identity contract.
                     "my_reaction": _resolved_reaction(p.id),
                     "my_reactions": viewer_rxns_by_identity.get(int(p.id), {}),
+                    "is_saved": int(p.id) in saved_post_ids,
                 },
             }
         )

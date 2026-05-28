@@ -37,6 +37,7 @@ from app.routers import (
     eos as eos_router,
     notifications as notifications_router,
     tracked as tracked_router,
+    saved as saved_router,
     two_factor as two_factor_router,
     billing as billing_router,
     identity_verification as idme_router,
@@ -197,6 +198,7 @@ app.include_router(eos_router.router, prefix="/api/eos", tags=["Executive Orders
 # Tracked items — per-identity tracked bills / officials / elections.
 # Replaces the prior localStorage-singleton store that survived logout.
 app.include_router(tracked_router.router, prefix="/api/tracked", tags=["Tracked"])
+app.include_router(saved_router.router, prefix="/api/saved", tags=["Saved"])
 
 # In-app notifications — bell badge + dropdown feed.
 app.include_router(notifications_router.router, prefix="/api/notifications", tags=["Notifications"])

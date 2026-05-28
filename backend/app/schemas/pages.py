@@ -316,6 +316,9 @@ class PostRead(BaseModel):
     # Attached images, ordered by sort_order ascending. Empty list
     # when the post has no images.
     images: List[PostImageRead] = Field(default_factory=list)
+    # Task #16 — true when the viewing citizen has saved this post.
+    # Always false for anonymous / rep / candidate viewers.
+    is_saved: bool = False
 
 
 # ── Poll vote ─────────────────────────────────────────────────────────

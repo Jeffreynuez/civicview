@@ -21,6 +21,8 @@ import {
   summarizePost,
   reportPost,
   reportComment,
+  saveItem,
+  unsaveItem,
 } from '../lib/pagesApi';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 import IdentityPicker, { PostingAsPicker } from './IdentityPicker';
@@ -85,6 +87,24 @@ export default function PostCard({
   commentScope = null,
 }) {
   const [busy, setBusy] = useState(false);
+  // Save / unsave this post to the viewing citizen's dashboard
+  // (Task #16). Local optimistic override so we don't need a parent
+  // patch callback; reverts on error. Only verified citizens get
+  // the action (kebab item gated on `citizen` below).
+  const [savedOverride, setSavedOverride] = useState(null);
+  const [savingBusy, setSavingBusy] = useState(false);
+  const isSaved = savedOverride !== null ? savedOverride : !!post.is_saved;
+  const handleToggleSave = async () => {
+    if (savingBusy) return;
+    const next = !isSaved;
+    setSavingBusy(true);
+    setSavedOverride(next);
+    const { error } = await (next
+      ? saveItem({ itemType: 'post', itemId: post.id })
+      : unsaveItem({ itemType: 'post', itemId: post.id }));
+    setSavingBusy(false);
+    if (error) setSavedOverride(!next);
+  };
   const [err, setErr] = useState(null);
 
   const handleDelete = async () => {
@@ -719,6 +739,12 @@ export default function PostCard({
         <PostActionsMenu
           ariaLabel="Post actions"
           items={[
+            citizen && {
+              id: 'save',
+              label: isSaved ? 'Saved ✓' : 'Save',
+              onClick: handleToggleSave,
+              disabled: savingBusy,
+            },
             isOwner && editingPostBody == null && {
               id: 'edit',
               label: 'Edit',
