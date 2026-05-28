@@ -266,19 +266,37 @@ def main() -> int:
         items = r.json()["items"]
         assert len(items) == 4, f"phase 1: expected 4 polls, got {len(items)}"
 
-        # Phase 2 — kind=rep returns only the rep polls (2).
+        # Phase 2 — kind=rep returns ONLY rep-authored polls. The seed's
+        # "rep_poll_sl" is actually CANDIDATE-authored (its parent post
+        # carries author_candidate_id), so it renders as kind='candidate'
+        # and must NOT appear here — only Byron Donalds' rep poll does.
+        # (Pre-fix this leaked because the SQL clause filters on the
+        # Poll.author_kind column, which reads 'rep' for candidate-
+        # attached polls; the endpoint now narrows on effective display
+        # kind. See feed.py _effective_kind.)
         r = c.get("/api/feed/polls?limit=100&kind=rep")
         items = r.json()["items"]
-        assert len(items) == 2, f"phase 2: expected 2 rep polls, got {len(items)}"
+        assert len(items) == 1, f"phase 2: expected 1 rep poll, got {len(items)}: {[(i['kind'], i['author']) for i in items]}"
         assert all(i["kind"] == "rep" for i in items), f"phase 2: non-rep leaked: {items}"
+        assert items[0]["author"] == "Byron Donalds", f"phase 2: unexpected rep author {items[0]['author']}"
+
+        # Phase 2b — kind=candidate returns the candidate-authored poll
+        # (Sarah-Jane Liu). Guards the OTHER half of the ?kind=rep leak
+        # fix: candidate-authored polls (target_official_id NULL,
+        # author_kind=='rep') were previously dropped by the candidate
+        # bucket too; they must now surface under kind=candidate.
+        r = c.get("/api/feed/polls?limit=100&kind=candidate")
+        items = r.json()["items"]
+        assert all(i["kind"] == "candidate" for i in items), f"phase 2b: non-candidate leaked: {[(i['kind'], i['author']) for i in items]}"
+        assert any(i["author"] == "Sarah-Jane Liu" for i in items), f"phase 2b: candidate-authored poll missing: {[(i['kind'], i['author']) for i in items]}"
 
         # Phase 3 — multi-kind union: kind=rep&kind=standalone returns
-        # 2 rep polls + 1 standalone poll = 3 total.
+        # 1 rep poll (Byron Donalds) + 1 standalone poll (Andre) = 2.
         r = c.get("/api/feed/polls?limit=100&kind=rep&kind=standalone")
         items = r.json()["items"]
-        assert len(items) == 3, f"phase 3: expected 3 polls (2 rep + 1 standalone), got {len(items)}: kinds={[i['kind'] for i in items]}"
+        assert len(items) == 2, f"phase 3: expected 2 polls (1 rep + 1 standalone), got {len(items)}: kinds={[i['kind'] for i in items]}"
         kinds = sorted(i["kind"] for i in items)
-        assert kinds == ["rep", "rep", "standalone"], f"phase 3: kinds={kinds}"
+        assert kinds == ["rep", "standalone"], f"phase 3: kinds={kinds}"
 
         # Phase 4 — state filter FL returns only FL-author polls:
         # rep_poll_bd (BD owner_state=FL) + citizen_poll_marisol (citizen.state=FL).
@@ -297,24 +315,38 @@ def main() -> int:
             assert "likes" in i and "dislikes" in i and "parent_post_id" in i, \
                 f"phase 5: item missing new fields: {list(i.keys())}"
 
-        # Phase 6 — parent_post_id non-null on rep polls, null on citizen polls.
+        # Phase 6 — parent_post_id is non-null for POST-ATTACHED polls and
+        # null for citizen-authored polls. Rep-authored AND candidate-
+        # authored polls ride on a parent post (a candidate's poll is
+        # attached to their post), so both carry a parent_post_id;
+        # citizen polls (citizen + standalone) have no parent post.
+        # (Pre-fix this lumped the candidate-authored poll in with the
+        # citizen polls and wrongly expected parent_post_id=None.)
         rep_polls = [i for i in items if i["kind"] == "rep"]
-        for i in rep_polls:
+        post_attached = [i for i in items if i["kind"] in ("rep", "candidate")]
+        citizen_authored = [i for i in items if i["kind"] in ("citizen", "standalone")]
+        for i in post_attached:
             assert i["parent_post_id"] is not None, \
-                f"phase 6: rep poll {i['id']} has null parent_post_id"
-        non_rep_polls = [i for i in items if i["kind"] != "rep"]
-        for i in non_rep_polls:
+                f"phase 6: {i['kind']} poll {i['id']} has null parent_post_id"
+        for i in citizen_authored:
             assert i["parent_post_id"] is None, \
                 f"phase 6: {i['kind']} poll {i['id']} has parent_post_id={i['parent_post_id']}"
 
-        # Phase 7 — likes/dislikes propagate from parent post for rep polls.
-        # rep_poll_bd's parent post has 3 ups + 1 down (after fix).
+        # Phase 7 — likes/dislikes propagate from the parent post for
+        # POST-ATTACHED polls (rep- AND candidate-authored). rep_poll_bd's
+        # post has 3 ups + 1 down; the candidate-authored poll's parent
+        # post (post_sl) has 1 up — so it reports 1/0, NOT 0/0. (Pre-fix
+        # this poll was treated as a citizen poll and expected 0/0.)
         rpbd = next(i for i in rep_polls if i["author"] == "Byron Donalds")
         assert rpbd["likes"] == 3, f"phase 7: rpbd likes={rpbd['likes']}"
         assert rpbd["dislikes"] == 1, f"phase 7: rpbd dislikes={rpbd['dislikes']}"
+        cand_authored = next(i for i in items if i["author"] == "Sarah-Jane Liu")
+        assert cand_authored["likes"] == 1 and cand_authored["dislikes"] == 0, \
+            f"phase 7: candidate-authored poll engagement={cand_authored['likes']}/{cand_authored['dislikes']}"
 
-        # Citizen polls always report 0/0 today.
-        for i in non_rep_polls:
+        # Citizen-authored polls (citizen + standalone) report 0/0 today
+        # (no PollReaction rows seeded).
+        for i in citizen_authored:
             assert i["likes"] == 0 and i["dislikes"] == 0, \
                 f"phase 7: citizen poll has non-zero engagement: {i}"
 

@@ -760,8 +760,15 @@ def polls_feed(
         if k == "standalone":
             return (Poll.author_kind == "citizen") & (Poll.target_official_id.is_(None))
         if k == "candidate":
-            # Same superset story as 'citizen' — Python narrows.
-            return Poll.target_official_id.is_not(None)
+            # Superset narrowed in Python by _effective_kind below. Two
+            # sources of display_kind=='candidate': (a) citizen polls
+            # targeting a candidate page (target_official_id is a
+            # candidate id) and (b) candidate-AUTHORED polls (attached to
+            # a post whose author_candidate_id is set — these carry
+            # target_official_id NULL and author_kind=='rep'). We union
+            # the rep-kind rows in here so (b) survives the SQL pass; the
+            # Python narrowing then keeps only the truly candidate ones.
+            return (Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
         return None
 
     q = db.query(Poll).filter(Poll.archived_at.is_(None))
@@ -793,30 +800,50 @@ def polls_feed(
 
     rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
 
-    # Candidate-id narrowing — ElectionsService is an in-memory dict so
-    # there's no SQL way to ask "is this id a candidate." We do this in
-    # Python after the SQL pass. Three cases to handle in multi-kind mode:
+    # Precise per-kind narrowing. The SQL pass above is a SUPERSET for
+    # the 'citizen' / 'candidate' / 'rep' buckets; we refine here using
+    # the SAME effective-display-kind logic the serializer applies, so
+    # the kind filter and the rendered chip can never disagree.
     #
-    #   • 'candidate' present, 'citizen' absent → keep only candidate-tagged.
-    #   • 'citizen' present,  'candidate' absent → drop candidate-tagged.
-    #   • both (or neither) present → keep everything from the SQL pass.
-    #
-    # With the result set capped at 300 this is trivially cheap.
+    # Two facts the SQL filter can't express:
+    #   • whether target_official_id points at a candidate page
+    #     (ElectionsService is an in-memory dict — no SQL join), and
+    #   • whether a post-attached poll is candidate-AUTHORED (its parent
+    #     post carries author_candidate_id). Those rows have
+    #     author_kind=='rep' + target_official_id NULL, so SQL alone
+    #     mislabels them as rep polls — the ?kind=rep leak this fixes,
+    #     and the reason ?kind=candidate previously dropped them.
+    # Both are resolved in Python after the (capped) SQL pass.
     if kinds:
-        has_candidate = "candidate" in kinds
-        has_citizen = "citizen" in kinds
-        if has_candidate and not has_citizen:
-            # Only candidate-page polls should remain from the union.
-            # rep + standalone polls (if requested) pass through unchanged.
-            rows = [
-                p for p in rows
-                if (p.author_kind == "rep")
-                or (p.author_kind == "citizen" and p.target_official_id is None and "standalone" in kinds)
-                or is_candidate_id(p.target_official_id)
-            ]
-        elif has_citizen and not has_candidate:
-            # Citizen on rep pages only — drop candidate-page polls.
-            rows = [p for p in rows if not is_candidate_id(p.target_official_id)]
+        # Parent posts that are candidate-authored → effective display
+        # kind 'candidate' even though Poll.author_kind reads 'rep'.
+        post_ids = [p.post_id for p in rows if p.post_id]
+        cand_post_ids: set[int] = set()
+        if post_ids:
+            cand_post_ids = {
+                int(pid)
+                for (pid,) in db.query(Post.id)
+                .filter(Post.id.in_(post_ids), Post.author_candidate_id.is_not(None))
+                .all()
+            }
+
+        def _effective_kind(p) -> str:
+            """Mirror the serializer's display_kind so the filter agrees
+            with the rendered chip."""
+            if p.author_kind == "citizen":
+                if p.target_official_id is None:
+                    return "standalone"
+                if is_candidate_id(p.target_official_id):
+                    return "candidate"
+                return "citizen"
+            # Post-attached poll: candidate-authored if the parent post
+            # carries author_candidate_id, otherwise a rep poll.
+            if p.post_id in cand_post_ids:
+                return "candidate"
+            return "rep"
+
+        requested = set(kinds)
+        rows = [p for p in rows if _effective_kind(p) in requested]
 
     return {"items": _serialize_poll_feed_items(db, rows, me_citizen, me_rep, me_candidate)}
 
