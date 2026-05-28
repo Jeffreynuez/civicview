@@ -546,7 +546,7 @@ export default function FeedCard({
             items={[
               citizenViewer && {
                 id: 'save',
-                label: viewer.is_saved ? 'Saved ✓' : 'Save',
+                label: viewer.is_saved ? 'Saved ✓ · Remove' : 'Save',
                 onClick: handleToggleSave,
                 disabled: savingBusy,
               },
