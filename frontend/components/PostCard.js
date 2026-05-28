@@ -741,7 +741,7 @@ export default function PostCard({
           items={[
             citizen && {
               id: 'save',
-              label: isSaved ? 'Saved ✓' : 'Save',
+              label: isSaved ? 'Saved ✓ · Remove' : 'Save',
               onClick: handleToggleSave,
               disabled: savingBusy,
             },
