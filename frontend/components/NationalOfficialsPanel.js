@@ -4,7 +4,8 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { fetchElections, fetchFederalOfficials } from '@/lib/api';
+import Link from 'next/link';
+import { fetchElections, fetchFederalOfficials, fetchStatsSummary } from '@/lib/api';
 import { fetchNationalActivity, fetchPopularPolls } from '@/lib/pagesApi';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import SelectionBadge from './SelectionBadge';
@@ -22,6 +23,34 @@ import {
   CheckCircle,
 } from './ui';
 import CivicViewLogo from './brand/CivicViewLogo';
+
+// ─────────────────────────────────────────────────────────────────
+// formatCount — render an integer as a tile-friendly short label.
+//
+// We want the CivicView Stats tiles to stay roughly the same visual
+// width regardless of the underlying count, so a viral demo-signup
+// spike to 12,438 doesn't blow out the row layout. Rules:
+//
+//   < 1,000             →  "0".."999"        (literal)
+//   1,000 .. 9,999      →  "1.2k"            (one decimal, drop .0)
+//   10,000 .. 999,999   →  "12k", "415k"     (no decimal)
+//   1,000,000+          →  "1.2M", "3M"      (one decimal, drop .0)
+//
+// Anything non-finite or negative renders as "0" so a transient
+// fetch failure can't push "NaN" into the hero.
+// ─────────────────────────────────────────────────────────────────
+function formatCount(n) {
+  const num = Number(n);
+  if (!Number.isFinite(num) || num < 0) return '0';
+  if (num < 1000) return String(Math.trunc(num));
+  if (num < 10000) {
+    const v = (num / 1000).toFixed(1);
+    return `${v.endsWith('.0') ? v.slice(0, -2) : v}k`;
+  }
+  if (num < 1_000_000) return `${Math.trunc(num / 1000)}k`;
+  const v = (num / 1_000_000).toFixed(1);
+  return `${v.endsWith('.0') ? v.slice(0, -2) : v}M`;
+}
 
 // ─────────────────────────────────────────────────────────────────
 // usePersistentToggle — localStorage-backed boolean state.
@@ -295,23 +324,61 @@ export default function NationalOfficialsPanel({
 // 1. HERO
 // ─────────────────────────────────────────────────────────────────
 function Hero({ onVerifyClick }) {
-  // Stats are demo placeholders — production should pull live counts
-  // from /api/all-members + a verified-citizens count from the citizen
-  // auth backend. Hardcoding here so the hero feels populated even when
-  // the backend is offline.
+  // Stats bundle is fetched from GET /api/stats/summary on mount.
+  // Endpoint returns:
+  //   - structural counts (Senators / Representatives / SCOTUS) — these
+  //     are constitutional facts baked into the backend, not COUNT()s,
+  //     so they don't flicker when our data layer reseeds.
+  //   - reps_joined: live COUNT(RepAccount.is_active)
+  //   - verified_citizens: live COUNT(CitizenAccount.verified=True).
+  //     Will read 0 until ID.me ships — that's an honest signal.
+  //   - demo_accounts_created: live COUNT(CitizenAccount.verified=False).
+  //     Temporary tile while we're pre-verification; will be retired
+  //     to /stats after ID.me launches.
   //
-  // "States covered" was dropped (50 is implicit for any US-civic app);
-  // replaced with chamber + SCOTUS counts that give the visitor a
-  // meaningful sense of the surface area covered. "Reps joined" is a
-  // fake CivicView-side stat (officials with a claimed Page on the
-  // platform) — same scaffolding pattern as "Verified citizens".
-  const STATS = [
-    { value: '100',   label: 'Senators' },
-    { value: '435',   label: 'Representatives' },
-    { value: '9',     label: 'SCOTUS Justices' },
-    { value: '47',    label: 'Reps joined' },
-    { value: '12.4k', label: 'Verified citizens' },
-  ];
+  // The fetch falls back to structural defaults (100 / 435 / 9 + 0s)
+  // if the backend is offline so the hero still renders. We compact
+  // big counts to human-friendly suffixes (12.4k, 1.2M) so a viral
+  // demo-signup spike doesn't blow out the tile width.
+  const [statsData, setStatsData] = useState(null);
+  useEffect(() => {
+    let mounted = true;
+    fetchStatsSummary()
+      .then(({ data }) => {
+        if (mounted) setStatsData(data);
+      })
+      .catch(() => {
+        // fetchStatsSummary already returns fallback on error — this
+        // catch is defensive only.
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const STATS = useMemo(() => {
+    const s = statsData || {
+      senators: 100,
+      representatives: 435,
+      scotus_justices: 9,
+      reps_joined: 0,
+      verified_citizens: 0,
+      demo_accounts_created: 0,
+    };
+    return [
+      { value: formatCount(s.senators),               label: 'Senators' },
+      { value: formatCount(s.representatives),        label: 'Representatives' },
+      { value: formatCount(s.scotus_justices),        label: 'SCOTUS Justices' },
+      { value: formatCount(s.reps_joined),            label: 'Reps joined' },
+      { value: formatCount(s.verified_citizens),      label: 'Verified citizens' },
+      // Demo accounts tile is intentionally placed last so it's the
+      // first thing to drop off the row at narrow widths. Removed
+      // when ID.me verification ships and `verified_citizens` becomes
+      // a meaningful non-zero number (Task #71 will absorb the
+      // detail breakdown into the expanded /stats page).
+      { value: formatCount(s.demo_accounts_created),  label: 'Demo accounts created' },
+    ];
+  }, [statsData]);
 
   // CivicView Stats dropdown — starts collapsed per design feedback.
   // The numbers are a "nice to have" peek; collapsing them by default
@@ -495,36 +562,60 @@ function Hero({ onVerifyClick }) {
               </span>
             </button>
             {statsOpen && (
-              <div
-                style={{
-                  marginTop: 14,
-                  display: 'flex',
-                  gap: 32,
-                  flexWrap: 'wrap',
-                }}
-              >
-                {STATS.map((s) => (
-                  <div key={s.label}>
-                    <div
-                      className="cl-num"
-                      style={{
-                        fontSize: 'var(--cl-text-2xl)',
-                        fontWeight: 800,
-                        color: 'var(--cl-text)',
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      {s.value}
+              <>
+                <div
+                  style={{
+                    marginTop: 14,
+                    display: 'flex',
+                    gap: 32,
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {STATS.map((s) => (
+                    <div key={s.label}>
+                      <div
+                        className="cl-num"
+                        style={{
+                          fontSize: 'var(--cl-text-2xl)',
+                          fontWeight: 800,
+                          color: 'var(--cl-text)',
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {s.value}
+                      </div>
+                      <div
+                        className="cl-eyebrow"
+                        style={{ marginTop: 2 }}
+                      >
+                        {s.label}
+                      </div>
                     </div>
-                    <div
-                      className="cl-eyebrow"
-                      style={{ marginTop: 2 }}
-                    >
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+                {/* "More stats →" — entry point to the future /stats
+                    expanded analytics page (Task #71). Sized
+                    deliberately small so the tiles remain the visual
+                    anchor; the link is a quiet follow-up affordance,
+                    not a call-to-action. */}
+                <div style={{ marginTop: 14 }}>
+                  <Link
+                    href="/stats"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      fontSize: 'var(--cl-text-sm)',
+                      fontWeight: 600,
+                      color: 'var(--cl-accent)',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--cl-font-sans)',
+                    }}
+                  >
+                    More stats <ArrowRight size={12} active />
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </div>

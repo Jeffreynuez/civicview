@@ -1315,6 +1315,38 @@ export async function fetchStateInfo(stateCode) {
   }
 }
 
+// ─── Public stats (home hero "CivicView Stats" tiles) ───────────────
+// Returns the small stats bundle the National Officials hero renders:
+// structural counts (Senators / Representatives / SCOTUS Justices)
+// plus CivicView-side activity counts (reps joined, verified citizens,
+// demo accounts created). Backend endpoint is unauthenticated — no
+// PII, just aggregate counts — so this fetch needs no credentials.
+//
+// Returns `{ data, isLive }`. On any failure we hand back a sensible
+// set of structural defaults (100 / 435 / 9 + zeroes) with isLive=false
+// so the hero still renders and the caller can flag the stale-state
+// case if it wants to. The placeholder demo counter ("12.4k") is gone
+// — if the backend is down we'd rather show 0 than fabricate.
+export async function fetchStatsSummary() {
+  const FALLBACK = {
+    senators: 100,
+    representatives: 435,
+    scotus_justices: 9,
+    reps_joined: 0,
+    verified_citizens: 0,
+    demo_accounts_created: 0,
+  };
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/stats/summary`);
+    if (!response.ok) throw new Error(`API Error ${response.status}`);
+    const data = await response.json();
+    return { data: { ...FALLBACK, ...data }, isLive: true };
+  } catch (error) {
+    console.warn('Stats summary unavailable, using fallback:', error.message);
+    return { data: FALLBACK, isLive: false };
+  }
+}
+
 // ─── Sample / Fallback Data ──────────────────────────────────────────
 // Historically this object carried a hand-curated snapshot of a few
 // senators + reps per sample state so the UI had *something* to show

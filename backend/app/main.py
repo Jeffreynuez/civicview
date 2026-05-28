@@ -41,6 +41,7 @@ from app.routers import (
     billing as billing_router,
     identity_verification as idme_router,
     csrf as csrf_router,
+    stats as stats_router,
 )
 from app.db import init_db
 from app.seed import (
@@ -219,6 +220,12 @@ app.include_router(
     tags=["Identity Verification"],
 )
 
+# Public stats (Task #70) — small bundle of structural + activity
+# counts powering the "CivicView Stats" tiles in the National
+# Officials hero. Unauthenticated by design — these are public-facing
+# marketing numbers, no PII.
+app.include_router(stats_router.router, prefix="/api/stats", tags=["Stats"])
+
 
 @app.get("/")
 async def root():
@@ -272,5 +279,6 @@ async def root():
             "page_create_event": "POST /api/pages/{official_id}/events",
             "page_delete_event": "DELETE /api/pages/events/{event_id}",
             "citizen_waitlist_signup": "POST /api/waitlist",
+            "stats_summary": "GET /api/stats/summary",
         },
     }
