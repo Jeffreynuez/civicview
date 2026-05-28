@@ -227,303 +227,28 @@ def national_activity(
     return {"items": items}
 
 
-# ── /popular-polls ───────────────────────────────────────────────────
-@router.get("/popular-polls")
-def popular_polls(
-    limit: int = Query(default=9, ge=1, le=30),
-    db: Session = Depends(get_db),
-) -> dict:
-    """Return active polls ordered by total vote count DESC.
+# ── poll feed serialization (shared by /popular-polls + /polls) ─────
+def _serialize_poll_feed_items(
+    db: Session,
+    rows: List[Poll],
+    me_citizen: Optional[CitizenAccount],
+    me_rep: Optional[RepAccount],
+    me_candidate: Optional[CandidateAccount],
+) -> List[Dict[str, Any]]:
+    """Serialize Poll rows into the rich feed-item shape FeedCard kind='poll' reads.
 
-    "Active" = archived_at IS NULL (catches both rep polls — which
-    don't archive — and live citizen polls). Closes-at expiration is
-    not yet enforced anywhere else in the codebase, so we don't
-    filter on it here either; if `closes_at` ever starts driving UI
-    we can add the filter in one place.
+    Extracted from the /polls feed loop (Task: home-page Popular polls
+    parity, 2026-05-28) so /popular-polls returns the EXACT same shape
+    — per-identity viewer votes, option ids, reactions, display_kind,
+    page_tag, engagement counters. The only thing that differs between
+    the two endpoints now is how `rows` is built + ordered:
+      • /polls          — filtered + newest-first
+      • /popular-polls  — most-voted-first
 
-    Result mixes rep-authored and citizen-authored polls. The kind
-    field tells the frontend which path to render:
-      kind='rep'      → author/role/party come from RepAccount via the
-                        attached Post
-      kind='citizen'  → author comes from CitizenAccount.display_name,
-                        role is the citizen's state+city, party is null
-
-    Each item shape (matches PopularPollCard's expectations):
-
-      {
-        id: int,
-        kind: 'rep' | 'citizen',
-        author: str,
-        role: str | null,
-        party: 'R'|'D'|'I'|null,
-        official_id: str | null,   # target page (citizen polls only)
-        created_at: iso8601,
-        question: str,
-        options: [{label: str, percent: int}],
-        votes: int,
-        comments: int,
-      }
-
-    Empty array if no polls have any votes yet — the frontend renders
-    an explanatory empty state instead of stale demo data.
-    """
-    # Subquery: vote count per poll, computed via PollOption join so
-    # we get a per-poll total (PollVote keys to PollOption, not Poll).
-    vote_counts = (
-        db.query(
-            PollOption.poll_id.label("pid"),
-            func.count(PollVote.id).label("vcnt"),
-            PollOption.id.label("oid"),
-        )
-        .outerjoin(PollVote, PollVote.option_id == PollOption.id)
-        .group_by(PollOption.poll_id, PollOption.id)
-        .subquery()
-    )
-    # Aggregate the per-option totals up to per-poll totals so we can
-    # order by them. Two passes is simpler than a single window query
-    # and SQLite-portable.
-    totals_by_poll = (
-        db.query(
-            vote_counts.c.pid.label("pid"),
-            func.sum(vote_counts.c.vcnt).label("total"),
-        )
-        .group_by(vote_counts.c.pid)
-        .subquery()
-    )
-
-    # Get the top N poll ids. We INCLUDE polls with zero votes so the
-    # surface isn't completely barren when the app first launches —
-    # but they sort to the bottom because total=0 < any positive total.
-    poll_rows = (
-        db.query(Poll, totals_by_poll.c.total)
-        .outerjoin(totals_by_poll, totals_by_poll.c.pid == Poll.id)
-        .filter(Poll.archived_at.is_(None))
-        # Tiebreaker on Poll.created_at descending. NULLs (legacy rows
-        # before this column was added) sort to the end either way on
-        # SQLite + Postgres — fine for the tail.
-        .order_by(
-            func.coalesce(totals_by_poll.c.total, 0).desc(),
-            Poll.created_at.desc(),
-        )
-        .limit(limit)
-        .all()
-    )
-
-    items: List[Dict[str, Any]] = []
-    for poll, total in poll_rows:
-        total = int(total or 0)
-        # Per-option breakdown for the bars on the card.
-        option_rows = (
-            db.query(
-                PollOption.id,
-                PollOption.text,
-                PollOption.sort_order,
-                func.count(PollVote.id).label("vcnt"),
-            )
-            .outerjoin(PollVote, PollVote.option_id == PollOption.id)
-            .filter(PollOption.poll_id == poll.id)
-            .group_by(PollOption.id, PollOption.text, PollOption.sort_order)
-            .order_by(PollOption.sort_order)
-            .all()
-        )
-        options = []
-        for _oid, text, _so, vcnt in option_rows:
-            pct = round((int(vcnt or 0) / total) * 100) if total else 0
-            options.append({"label": text, "percent": pct})
-
-        # Comment count — PollComment for citizen polls, PostComment for
-        # rep polls (attached via post_id).
-        if poll.author_kind == "citizen":
-            comments = (
-                db.query(func.count(PollComment.id))
-                .filter(PollComment.poll_id == poll.id)
-                .filter(PollComment.deleted_at.is_(None))
-                .scalar()
-                or 0
-            )
-        else:
-            comments = (
-                db.query(func.count(PostComment.id))
-                .filter(PostComment.post_id == poll.post_id)
-                .filter(PostComment.deleted_at.is_(None))
-                .scalar()
-                or 0
-            )
-
-        # Author resolution branches on author_kind.
-        # Default — only the rep branch sets a branch override below.
-        _branch_override = None
-        if poll.author_kind == "citizen":
-            cz = (
-                db.query(CitizenAccount)
-                .filter(CitizenAccount.id == poll.author_citizen_id)
-                .first()
-            )
-            author = cz.display_name if cz else "Citizen"
-            role_parts = []
-            if cz and cz.state:
-                role_parts.append(cz.state)
-            if cz and cz.city:
-                role_parts.append(cz.city)
-            role = " · ".join(role_parts) if role_parts else None
-            party = None
-            official_id = poll.target_official_id
-        else:
-            # Rep poll — author is the rep that authored the attached post.
-            post = (
-                db.query(Post)
-                .filter(Post.id == poll.post_id)
-                .first()
-                if poll.post_id else None
-            )
-            rep = (
-                db.query(RepAccount)
-                .filter(RepAccount.id == post.author_id)
-                .first()
-                if post else None
-            )
-            author = rep.display_name if rep else "Representative"
-            role = rep.role if rep else None
-            official_id = post.official_id if post else None
-            party = _party_for(official_id)
-
-        items.append(
-            {
-                "id": poll.id,
-                "kind": poll.author_kind,
-                "author": author,
-                "role": role,
-                "party": party,
-                "official_id": official_id,
-                "created_at": (poll.created_at.isoformat() if poll.created_at else None),
-                "question": poll.question,
-                "options": options,
-                "votes": total,
-                "comments": int(comments),
-            }
-        )
-    return {"items": items}
-
-
-# ── /polls — full polls feed (the dedicated /polls page) ────────────
-@router.get("/polls")
-def polls_feed(
-    limit: int = Query(default=100, ge=1, le=300),
-    kind: Optional[List[str]] = Query(
-        default=None,
-        description=(
-            "Filter by one or more of 'rep' | 'citizen' | 'standalone' | 'candidate'. "
-            "Repeat the parameter for additive multi-select "
-            "(e.g. ?kind=rep&kind=standalone). Omit for the unfiltered feed."
-        ),
-    ),
-    state: Optional[str] = Query(
-        default=None,
-        min_length=2,
-        max_length=2,
-        pattern=r"^[A-Za-z]{2}$",
-        description=(
-            "Filter to polls whose author lives in (citizen polls) or "
-            "represents (rep + candidate polls) the given 2-letter state. "
-            "Case-insensitive; normalized to upper-case server-side."
-        ),
-    ),
-    db: Session = Depends(get_db),
-    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
-    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
-    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
-) -> dict:
-    """Every active poll across the entire app, newest first.
-
-    Differs from /api/feed/popular-polls in three ways:
-      • Returns ALL active polls (capped at `limit`), not just the
-        top-engaged set.
-      • Includes a page_tag string per row (e.g. "BD · FL-19" or
-        "Standalone") so the /polls UI can render the source-page
-        chip without an extra round-trip per poll.
-      • Surfaces standalone polls (target_official_id IS NULL,
-        author_kind='citizen') — these don't appear on any rep
-        page and only exist in this feed.
-
-    Active = archived_at IS NULL. Rep polls don't archive normally
-    so they always appear here once authored; citizen polls drop
-    out when their rep claims the page or the citizen closes them.
-
-    Kind filter (additive — repeat the param to union):
-      'rep'        → rep-authored polls only
-      'citizen'    → citizen polls tied to a rep page (target_official_id is a rep id)
-      'standalone' → citizen polls with no target rep / candidate page
-      'candidate'  → polls targeting a candidate page (citizen-authored
-                     today since candidate accounts ship in Phase 3+)
-      omitted      → everything
-    Multiple values return the union (e.g. ?kind=rep&kind=standalone
-    returns rep polls + standalone citizen polls).
-
-    State filter:
-      Restricts the feed to authors associated with the given state.
-        • Rep polls   → matches when post.author.owner_state == state
-                        (covers rep-authored posts) OR
-                        post.author_candidate.owner_state == state
-                        (covers candidate-authored posts once those land).
-        • Citizen polls → matches when author_citizen.state == state.
-      States are 2-letter codes (case-insensitive).
+    Callers pass `rows` already filtered, ordered, and (for /polls)
+    candidate-narrowed; this helper preserves that order in the result.
     """
     from app.services.page_tags import resolve_page_tag, is_candidate_id
-    from sqlalchemy import or_
-
-    # Normalize the kind param. FastAPI hands us a list with one item
-    # for the single-value form (?kind=rep) and a multi-item list for
-    # repeated params. None for the unfiltered case.
-    kinds: List[str] = [k for k in (kind or []) if k] or []
-
-    def _kind_clause(k: str):
-        """Map a single kind string to its SQLAlchemy filter clause."""
-        if k == "rep":
-            return Poll.author_kind == "rep"
-        if k == "citizen":
-            # Citizen polls on rep pages (not candidate pages — those
-            # get their own bucket so the chip count is meaningful).
-            # The candidate-id exclusion still has to happen in Python
-            # because candidate ids are an in-memory dict; the SQL here
-            # is a superset that the Python post-filter narrows.
-            return (
-                (Poll.author_kind == "citizen") & (Poll.target_official_id.is_not(None))
-            )
-        if k == "standalone":
-            return (Poll.author_kind == "citizen") & (Poll.target_official_id.is_(None))
-        if k == "candidate":
-            # Same superset story as 'citizen' — Python narrows.
-            return Poll.target_official_id.is_not(None)
-        return None
-
-    q = db.query(Poll).filter(Poll.archived_at.is_(None))
-    if kinds:
-        clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
-        if clauses:
-            q = q.filter(or_(*clauses))
-
-    # State filter — applies across both author paths. Joins are LEFT
-    # so polls without a matching join row stay in the result set as
-    # NULL on the relevant column; the WHERE then uses COALESCE so
-    # one of the three (rep, candidate, citizen) wins per row.
-    state_upper = state.upper() if state else None
-    if state_upper:
-        q = (
-            q.outerjoin(Post, Post.id == Poll.post_id)
-            .outerjoin(RepAccount, RepAccount.id == Post.author_id)
-            .outerjoin(CandidateAccount, CandidateAccount.id == Post.author_candidate_id)
-            .outerjoin(CitizenAccount, CitizenAccount.id == Poll.author_citizen_id)
-            .filter(
-                func.coalesce(
-                    RepAccount.owner_state,
-                    CandidateAccount.owner_state,
-                    CitizenAccount.state,
-                )
-                == state_upper
-            )
-        )
-
-    rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
 
     # Pre-compute parent-post like/dislike counts in a single batched
     # query so the rep-poll items can render the engagement footer
@@ -638,30 +363,6 @@ def polls_feed(
             if me_candidate is not None:
                 for pid, k in prq.filter(PollReaction.author_candidate_id == me_candidate.id).all():
                     my_reactions_by_poll.setdefault(int(pid), {})["candidate"] = k
-    # Candidate-id narrowing — ElectionsService is an in-memory dict so
-    # there's no SQL way to ask "is this id a candidate." We do this in
-    # Python after the SQL pass. Three cases to handle in multi-kind mode:
-    #
-    #   • 'candidate' present, 'citizen' absent → keep only candidate-tagged.
-    #   • 'citizen' present,  'candidate' absent → drop candidate-tagged.
-    #   • both (or neither) present → keep everything from the SQL pass.
-    #
-    # With the result set capped at 300 this is trivially cheap.
-    if kinds:
-        has_candidate = "candidate" in kinds
-        has_citizen = "citizen" in kinds
-        if has_candidate and not has_citizen:
-            # Only candidate-page polls should remain from the union.
-            # rep + standalone polls (if requested) pass through unchanged.
-            rows = [
-                p for p in rows
-                if (p.author_kind == "rep")
-                or (p.author_kind == "citizen" and p.target_official_id is None and "standalone" in kinds)
-                or is_candidate_id(p.target_official_id)
-            ]
-        elif has_citizen and not has_candidate:
-            # Citizen on rep pages only — drop candidate-page polls.
-            rows = [p for p in rows if not is_candidate_id(p.target_official_id)]
 
     items: List[Dict[str, Any]] = []
     for poll in rows:
@@ -892,7 +593,232 @@ def polls_feed(
                 "viewer": viewer,
             }
         )
-    return {"items": items}
+    return items
+
+
+# ── /popular-polls ───────────────────────────────────
+@router.get("/popular-polls")
+def popular_polls(
+    limit: int = Query(default=9, ge=1, le=30),
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+) -> dict:
+    """Return active polls ordered by total vote count DESC.
+
+    "Active" = archived_at IS NULL (catches both rep polls — which
+    don't archive — and live citizen polls). Closes-at expiration is
+    not yet enforced anywhere else in the codebase, so we don't filter
+    on it here either.
+
+    Item shape is identical to the /polls feed (see
+    _serialize_poll_feed_items): the home-page "Popular polls" section
+    renders these through the same FeedCard kind='poll' component the
+    rep pages + /polls feed use, so a viewer can vote / like / comment
+    inline with full per-identity ("Act as") support. Optional-auth
+    deps resolve the viewer block; anonymous viewers get is_author=
+    False + empty vote/reaction maps and fall through to the
+    citizen-login modal on any engagement action.
+
+    Empty array if no polls exist yet — the frontend renders an
+    explanatory empty state instead of stale demo data.
+    """
+    # Subquery: vote count per poll, computed via PollOption join so
+    # we get a per-poll total (PollVote keys to PollOption, not Poll).
+    vote_counts = (
+        db.query(
+            PollOption.poll_id.label("pid"),
+            func.count(PollVote.id).label("vcnt"),
+            PollOption.id.label("oid"),
+        )
+        .outerjoin(PollVote, PollVote.option_id == PollOption.id)
+        .group_by(PollOption.poll_id, PollOption.id)
+        .subquery()
+    )
+    # Aggregate the per-option totals up to per-poll totals so we can
+    # order by them. Two passes is simpler than a single window query
+    # and SQLite-portable.
+    totals_by_poll = (
+        db.query(
+            vote_counts.c.pid.label("pid"),
+            func.sum(vote_counts.c.vcnt).label("total"),
+        )
+        .group_by(vote_counts.c.pid)
+        .subquery()
+    )
+
+    # Get the top N poll ids. We INCLUDE polls with zero votes so the
+    # surface isn't completely barren when the app first launches —
+    # but they sort to the bottom because total=0 < any positive total.
+    poll_rows = (
+        db.query(Poll, totals_by_poll.c.total)
+        .outerjoin(totals_by_poll, totals_by_poll.c.pid == Poll.id)
+        .filter(Poll.archived_at.is_(None))
+        # Tiebreaker on Poll.created_at descending. NULLs (legacy rows
+        # before this column was added) sort to the end either way on
+        # SQLite + Postgres — fine for the tail.
+        .order_by(
+            func.coalesce(totals_by_poll.c.total, 0).desc(),
+            Poll.created_at.desc(),
+        )
+        .limit(limit)
+        .all()
+    )
+
+    # Strip the per-poll vote totals (used only for ordering) and hand
+    # the ordered Poll rows to the shared serializer. Order is
+    # preserved: the serializer appends items in `rows` order.
+    rows = [poll for poll, _total in poll_rows]
+    return {"items": _serialize_poll_feed_items(db, rows, me_citizen, me_rep, me_candidate)}
+
+
+# ── /polls — full polls feed (the dedicated /polls page) ────────────
+@router.get("/polls")
+def polls_feed(
+    limit: int = Query(default=100, ge=1, le=300),
+    kind: Optional[List[str]] = Query(
+        default=None,
+        description=(
+            "Filter by one or more of 'rep' | 'citizen' | 'standalone' | 'candidate'. "
+            "Repeat the parameter for additive multi-select "
+            "(e.g. ?kind=rep&kind=standalone). Omit for the unfiltered feed."
+        ),
+    ),
+    state: Optional[str] = Query(
+        default=None,
+        min_length=2,
+        max_length=2,
+        pattern=r"^[A-Za-z]{2}$",
+        description=(
+            "Filter to polls whose author lives in (citizen polls) or "
+            "represents (rep + candidate polls) the given 2-letter state. "
+            "Case-insensitive; normalized to upper-case server-side."
+        ),
+    ),
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+) -> dict:
+    """Every active poll across the entire app, newest first.
+
+    Differs from /api/feed/popular-polls in three ways:
+      • Returns ALL active polls (capped at `limit`), not just the
+        top-engaged set.
+      • Includes a page_tag string per row (e.g. "BD · FL-19" or
+        "Standalone") so the /polls UI can render the source-page
+        chip without an extra round-trip per poll.
+      • Surfaces standalone polls (target_official_id IS NULL,
+        author_kind='citizen') — these don't appear on any rep
+        page and only exist in this feed.
+
+    Active = archived_at IS NULL. Rep polls don't archive normally
+    so they always appear here once authored; citizen polls drop
+    out when their rep claims the page or the citizen closes them.
+
+    Kind filter (additive — repeat the param to union):
+      'rep'        → rep-authored polls only
+      'citizen'    → citizen polls tied to a rep page (target_official_id is a rep id)
+      'standalone' → citizen polls with no target rep / candidate page
+      'candidate'  → polls targeting a candidate page (citizen-authored
+                     today since candidate accounts ship in Phase 3+)
+      omitted      → everything
+    Multiple values return the union (e.g. ?kind=rep&kind=standalone
+    returns rep polls + standalone citizen polls).
+
+    State filter:
+      Restricts the feed to authors associated with the given state.
+        • Rep polls   → matches when post.author.owner_state == state
+                        (covers rep-authored posts) OR
+                        post.author_candidate.owner_state == state
+                        (covers candidate-authored posts once those land).
+        • Citizen polls → matches when author_citizen.state == state.
+      States are 2-letter codes (case-insensitive).
+    """
+    from app.services.page_tags import is_candidate_id
+    from sqlalchemy import or_
+
+    # Normalize the kind param. FastAPI hands us a list with one item
+    # for the single-value form (?kind=rep) and a multi-item list for
+    # repeated params. None for the unfiltered case.
+    kinds: List[str] = [k for k in (kind or []) if k] or []
+
+    def _kind_clause(k: str):
+        """Map a single kind string to its SQLAlchemy filter clause."""
+        if k == "rep":
+            return Poll.author_kind == "rep"
+        if k == "citizen":
+            # Citizen polls on rep pages (not candidate pages — those
+            # get their own bucket so the chip count is meaningful).
+            # The candidate-id exclusion still has to happen in Python
+            # because candidate ids are an in-memory dict; the SQL here
+            # is a superset that the Python post-filter narrows.
+            return (
+                (Poll.author_kind == "citizen") & (Poll.target_official_id.is_not(None))
+            )
+        if k == "standalone":
+            return (Poll.author_kind == "citizen") & (Poll.target_official_id.is_(None))
+        if k == "candidate":
+            # Same superset story as 'citizen' — Python narrows.
+            return Poll.target_official_id.is_not(None)
+        return None
+
+    q = db.query(Poll).filter(Poll.archived_at.is_(None))
+    if kinds:
+        clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
+        if clauses:
+            q = q.filter(or_(*clauses))
+
+    # State filter — applies across both author paths. Joins are LEFT
+    # so polls without a matching join row stay in the result set as
+    # NULL on the relevant column; the WHERE then uses COALESCE so
+    # one of the three (rep, candidate, citizen) wins per row.
+    state_upper = state.upper() if state else None
+    if state_upper:
+        q = (
+            q.outerjoin(Post, Post.id == Poll.post_id)
+            .outerjoin(RepAccount, RepAccount.id == Post.author_id)
+            .outerjoin(CandidateAccount, CandidateAccount.id == Post.author_candidate_id)
+            .outerjoin(CitizenAccount, CitizenAccount.id == Poll.author_citizen_id)
+            .filter(
+                func.coalesce(
+                    RepAccount.owner_state,
+                    CandidateAccount.owner_state,
+                    CitizenAccount.state,
+                )
+                == state_upper
+            )
+        )
+
+    rows = q.order_by(Poll.created_at.desc()).limit(limit).all()
+
+    # Candidate-id narrowing — ElectionsService is an in-memory dict so
+    # there's no SQL way to ask "is this id a candidate." We do this in
+    # Python after the SQL pass. Three cases to handle in multi-kind mode:
+    #
+    #   • 'candidate' present, 'citizen' absent → keep only candidate-tagged.
+    #   • 'citizen' present,  'candidate' absent → drop candidate-tagged.
+    #   • both (or neither) present → keep everything from the SQL pass.
+    #
+    # With the result set capped at 300 this is trivially cheap.
+    if kinds:
+        has_candidate = "candidate" in kinds
+        has_citizen = "citizen" in kinds
+        if has_candidate and not has_citizen:
+            # Only candidate-page polls should remain from the union.
+            # rep + standalone polls (if requested) pass through unchanged.
+            rows = [
+                p for p in rows
+                if (p.author_kind == "rep")
+                or (p.author_kind == "citizen" and p.target_official_id is None and "standalone" in kinds)
+                or is_candidate_id(p.target_official_id)
+            ]
+        elif has_citizen and not has_candidate:
+            # Citizen on rep pages only — drop candidate-page polls.
+            rows = [p for p in rows if not is_candidate_id(p.target_official_id)]
+
+    return {"items": _serialize_poll_feed_items(db, rows, me_citizen, me_rep, me_candidate)}
 
 
 # ── /posts — full posts feed (the new /posts tab on the redesign) ───

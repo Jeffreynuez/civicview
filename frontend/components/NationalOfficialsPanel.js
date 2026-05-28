@@ -1469,26 +1469,6 @@ function SCOTUSSection({ sc, onSelectPerson, onNotify, onCompareToggle, compareI
 // below the cards as the overflow path to the canonical feed.
 // ─────────────────────────────────────────────────────────────────
 
-// Convert an ISO-8601 timestamp from the API into a short relative-
-// time string ("14m ago", "2h ago", "Mar 4"). Mirrors the helper in
-// PostCard.js — kept inline because this file already has a number
-// of small render helpers and the duplication is cheaper than adding
-// a shared module.
-function nationalTimeAgo(iso) {
-  if (!iso) return '';
-  const then = new Date(iso);
-  if (Number.isNaN(then.getTime())) return '';
-  const secs = Math.floor((Date.now() - then.getTime()) / 1000);
-  if (secs < 60) return 'just now';
-  const mins = Math.floor(secs / 60);
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  const days = Math.floor(hrs / 24);
-  if (days < 7) return `${days}d ago`;
-  return then.toLocaleDateString();
-}
-
 function NationalActivitySection({ onRequestVerify, citizen }) {
   // Sign-in computation mirrors GrassrootsFeed (/polls + /posts): any
   // identity (citizen / rep / candidate) counts. FeedCard uses signedIn
@@ -1712,64 +1692,92 @@ function ActivityEmptyState({ error }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────────
 // POPULAR POLLS — live data from GET /api/feed/popular-polls.
 //
-// The endpoint returns the highest-vote-count active polls across
-// the whole app — a mix of rep-authored (attached to a Post) and
-// citizen-authored (standalone, on unclaimed rep pages). The API
-// shape uses `kind: 'rep'|'citizen'` and `created_at`; we normalize
-// to PopularPollCard's existing contract (`authorType`, `when`) at
-// the section boundary so the card component stays unchanged.
+// The endpoint now returns the SAME rich feed-item shape as the
+// /polls feed (ordered by total votes instead of recency), so this
+// section renders through the shared FeedCard component (kind='poll')
+// exactly like the /polls page and the rep/candidate pages. Voting,
+// like / dislike, the comments accordion, the kebab menu, and the
+// "Act as" identity picker all work inline — no more static bar-chart
+// preview. Every fix that lands on FeedCard ships here for free.
 //
-// Empty-state behavior matches National activity: an explanatory
-// tile when no polls have any votes yet, an error variant of the
-// same tile when the API fetch fails.
-// ─────────────────────────────────────────────────────────────────
-
-// Format vote / comment counts in a feed-friendly way: 12483 → "12.5k",
-// 968 → "968". Mirrors the convention the rest of the app uses on
-// post engagement counters.
-function formatPollCount(n) {
-  if (n == null) return '0';
-  if (n < 1000) return String(n);
-  if (n < 10000) return `${(n / 1000).toFixed(1)}k`;
-  return `${Math.round(n / 1000)}k`;
-}
+// Empty-state behavior matches National activity: PollsEmptyState
+// renders when the API returns `items: []` (fresh-launch state) or
+// errors. An "All polls →" link below the cards is the overflow path
+// to the canonical /polls feed; anonymous viewers fall through
+// FeedCard's onLoginRequired gate on any engagement action.
+// ────────────────────────────────────────────────────────────────
 
 function PopularPollsSection({ onRequestVerify, citizen }) {
-  const isAuthed = !!citizen;
-  // Same persistence pattern as every other NOP section. Defaults to
-  // collapsed: this is a multi-card grid, large enough that forcing
-  // it open would push every section below it off the fold.
+  // Sign-in computation mirrors NationalActivitySection (and
+  // GrassrootsFeed on /polls): any identity — citizen, rep, or
+  // candidate — counts as signed in for FeedCard's engagement gate.
+  // We pull rep + candidate auth here so a rep or candidate visiting
+  // the home page can vote / like / comment on a popular poll without
+  // bouncing through the citizen-login modal.
+  const { me: rep } = useRepAuth();
+  const { candidate } = useCandidateAuth();
+  const signedIn = !!citizen || !!rep || !!candidate;
+
+  // Collapsible like every NOP section. Defaults collapsed: the feed
+  // is now full-fat FeedCards (tall) rather than the old compact
+  // bar-chart grid, so forcing it open would push the sections below
+  // it well off the fold.
   const [open, toggleOpen] = usePersistentToggle('cl:nop:popular-polls', false);
 
-  // Lazy-fetch on first expand — same pattern as NationalActivitySection.
-  // `loading` is intentionally not in the effect deps; see the comment
-  // there for the cancellation-loop this avoids.
+  // Lazy-fetch on first expand. `loading` is intentionally NOT in the
+  // effect deps — see NationalActivitySection for the cancellation
+  // loop this avoids. `null` = not loaded yet.
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  // Singleton comments accordion — one open thread at a time, matching
+  // /polls and the National activity section.
+  const [openCommentId, setOpenCommentId] = useState(null);
+  const toggleComments = useCallback((cardId) => {
+    setOpenCommentId((prev) => (prev === cardId ? null : cardId));
+  }, []);
+
+  // Shared loader so FeedCard's onMutated (destructive actions like
+  // close-poll) can re-trigger a full reload.
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    // Rich feed items ordered by total votes. Five cards — matches the
+    // National activity sample size (Jeffrey's May 28 call).
+    const { data, error: err } = await fetchPopularPolls({ limit: 5 });
+    if (err || !data) {
+      setError(true);
+      setItems([]);
+    } else {
+      setItems(Array.isArray(data.items) ? data.items : []);
+    }
+    setLoading(false);
+  }, []);
+
   useEffect(() => {
     if (!open || items !== null) return;
     let cancelled = false;
-    setLoading(true);
-    setError(false);
     (async () => {
-      const { data, error: err } = await fetchPopularPolls({ limit: 9 });
+      await load();
       if (cancelled) return;
-      if (err || !data) {
-        setError(true);
-        setItems([]);
-      } else {
-        setItems(Array.isArray(data.items) ? data.items : []);
-      }
-      setLoading(false);
     })();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, items]);
+
+  // In-place patch for one card — no scroll jump, only the touched
+  // card re-renders. Mirrors NationalActivitySection / GrassrootsFeed.
+  const handleCardUpdated = useCallback((cardId, patch) => {
+    setItems((prev) => (prev || []).map((it) => (
+      it.id === cardId
+        ? { ...it, ...patch, viewer: { ...(it.viewer || {}), ...(patch.viewer || {}) } }
+        : it
+    )));
+  }, []);
 
   return (
     <section style={{ padding: '32px 24px 16px', background: 'var(--cl-bg-soft)' }}>
@@ -1786,46 +1794,26 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
         {open && (
           <>
             {loading && (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                  gap: 12,
-                }}
-              >
-                {Array.from({ length: 6 }).map((_, i) => (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} height={220} radius={16} />
                 ))}
               </div>
             )}
             {!loading && items && items.length > 0 && (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                  gap: 12,
-                }}
-              >
-                {items.map((apiPoll) => (
-                  <PopularPollCard
-                    key={apiPoll.id}
-                    poll={{
-                      // Normalize API → card shape. Card reads
-                      // poll.authorType ('rep' | 'citizen'); the API
-                      // returns poll.kind, same semantics.
-                      id: apiPoll.id,
-                      authorType: apiPoll.kind === 'citizen' ? 'citizen' : 'rep',
-                      author: apiPoll.author,
-                      role: apiPoll.role || '',
-                      party: apiPoll.party || null,
-                      when: nationalTimeAgo(apiPoll.created_at),
-                      question: apiPoll.question,
-                      options: Array.isArray(apiPoll.options) ? apiPoll.options : [],
-                      votes: apiPoll.votes || 0,
-                      comments: apiPoll.comments || 0,
-                    }}
-                    onRequestVerify={onRequestVerify}
-                    isAuthed={isAuthed}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {items.map((p) => (
+                  <FeedCard
+                    key={p.id}
+                    card={p}
+                    kind="poll"
+                    isCommentsOpen={openCommentId === p.id}
+                    onToggleComments={() => toggleComments(p.id)}
+                    signedIn={signedIn}
+                    onLoginRequired={onRequestVerify}
+                    onCardUpdated={handleCardUpdated}
+                    onMutated={load}
+                    citizenViewer={citizen}
                   />
                 ))}
               </div>
@@ -1833,27 +1821,31 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
             {!loading && items && items.length === 0 && (
               <PollsEmptyState error={error} />
             )}
-            {!isAuthed && items && items.length > 0 && (
+            {/* "All polls →" — entry point to the /polls canonical feed.
+                Always rendered when items exist, regardless of auth state:
+                anyone can browse /polls, and the FeedCards there gate
+                interaction the same way these do. Replaces the old
+                "Sign in to vote" CTA, which was dead weight once FeedCard
+                started handling anonymous viewers via onLoginRequired. */}
+            {!loading && items && items.length > 0 && (
               <div style={{ textAlign: 'center', marginTop: 14 }}>
-                <button
-                  type="button"
-                  onClick={onRequestVerify}
+                <Link
+                  href="/polls"
                   style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'var(--cl-accent)',
-                    fontSize: 'var(--cl-text-sm)',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontFamily: 'var(--cl-font-sans)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 4,
+                    background: 'transparent',
+                    color: 'var(--cl-accent)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontFamily: 'var(--cl-font-sans)',
                   }}
                 >
-                  Sign in to vote and join the discussion
+                  All polls
                   <ArrowRight size={12} active color="accent" />
-                </button>
+                </Link>
               </div>
             )}
           </>
@@ -1922,199 +1914,6 @@ function PollsEmptyState({ error }) {
   );
 }
 
-// One card per poll. Renders bars + percentages from the API payload
-// (live data via /api/feed/popular-polls). Tapping a bar without
-// being authed prompts the citizen-login flow; future iterations
-// could deep-link to the source rep page for the authed case.
-function PopularPollCard({ poll, onRequestVerify, isAuthed }) {
-  const isCitizenPoll = poll.authorType === 'citizen';
-  const handleVoteClick = () => {
-    if (!isAuthed && onRequestVerify) onRequestVerify();
-    // When authed, we'd normally open the source post / page in a
-    // future iteration. For demo this is a no-op so users don't get
-    // a dead-end.
-  };
-  return (
-    <article
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl)',
-        padding: 14,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-      }}
-    >
-      {/* Author row */}
-      <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-        <Avatar
-          name={poll.author}
-          party={isCitizenPoll ? null : poll.party}
-          size="sm"
-        />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              flexWrap: 'wrap',
-            }}
-          >
-            <span
-              style={{
-                fontWeight: 700,
-                fontSize: 'var(--cl-text-sm)',
-                color: 'var(--cl-text)',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100%',
-              }}
-            >
-              {poll.author}
-            </span>
-            {isCitizenPoll ? (
-              <span
-                style={{
-                  fontSize: 'var(--cl-text-2xs)',
-                  fontWeight: 700,
-                  padding: '2px 7px',
-                  borderRadius: 'var(--cl-radius-pill)',
-                  background: 'var(--cl-accent-soft)',
-                  color: 'var(--cl-accent)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                Citizen
-              </span>
-            ) : (
-              <PartyChip party={poll.party} />
-            )}
-          </div>
-          <div
-            style={{
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-muted)',
-            }}
-          >
-            {poll.role} · {poll.when}
-          </div>
-        </div>
-      </div>
-
-      {/* Question */}
-      <div
-        style={{
-          fontSize: 'var(--cl-text-md)',
-          fontWeight: 600,
-          color: 'var(--cl-text)',
-          lineHeight: 1.35,
-        }}
-      >
-        {poll.question}
-      </div>
-
-      {/* Options — horizontal bars with percentage on the right.
-          Tinted with cl-accent-soft so the bar stands out without
-          implying a tally is in progress (this is demo data). */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {poll.options.map((opt, i) => {
-          const isLeader = poll.options.every((o, j) => j === i || o.percent <= opt.percent);
-          return (
-            <button
-              key={i}
-              type="button"
-              onClick={handleVoteClick}
-              style={{
-                position: 'relative',
-                width: '100%',
-                textAlign: 'left',
-                background: 'var(--cl-bg-soft)',
-                border: `1px solid ${isLeader ? 'var(--cl-accent)' : 'var(--cl-border)'}`,
-                borderRadius: 'var(--cl-radius-md)',
-                padding: '8px 12px',
-                cursor: 'pointer',
-                fontFamily: 'var(--cl-font-sans)',
-                overflow: 'hidden',
-              }}
-            >
-              {/* Filled bar (background tint scaled by percent). */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  width: `${opt.percent}%`,
-                  background: isLeader ? 'var(--cl-accent-soft)' : 'var(--cl-bg)',
-                  zIndex: 0,
-                  transition: 'width 200ms ease',
-                }}
-                aria-hidden
-              />
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 8,
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 'var(--cl-text-sm)',
-                    fontWeight: isLeader ? 700 : 500,
-                    color: 'var(--cl-text)',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {opt.label}
-                </span>
-                <span
-                  style={{
-                    fontSize: 'var(--cl-text-sm)',
-                    fontWeight: 700,
-                    color: isLeader ? 'var(--cl-accent)' : 'var(--cl-text-muted)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {opt.percent}%
-                </span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Footer engagement: votes, comments. */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          fontSize: 'var(--cl-text-xs)',
-          color: 'var(--cl-text-muted)',
-          paddingTop: 4,
-          borderTop: '1px solid var(--cl-border)',
-        }}
-      >
-        <span>
-          <strong style={{ color: 'var(--cl-text)' }}>{formatPollCount(poll.votes)}</strong> votes
-        </span>
-        <span>
-          <strong style={{ color: 'var(--cl-text)' }}>{formatPollCount(poll.comments)}</strong> comments
-        </span>
-      </div>
-    </article>
-  );
-}
 
 // NOTE: The previous ActivityPostRow component was removed when
 // NationalActivitySection switched to rendering the shared FeedCard
