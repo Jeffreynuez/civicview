@@ -1534,8 +1534,10 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
     setError(false);
     // Same endpoint /posts uses, capped to the home-page sample size.
     // No `kinds` or `state` filter — National activity is a broad
-    // sweep across rep + candidate authors nationwide.
-    const { data, error: err } = await fetchPostsFeed({ limit: 3 });
+    // sweep across rep + candidate authors nationwide. Five cards
+    // (Jeffrey's call, May 28) — enough sampling to feel like real
+    // activity without dominating the page.
+    const { data, error: err } = await fetchPostsFeed({ limit: 5 });
     if (err || !data) {
       setError(true);
       setItems([]);
@@ -1592,7 +1594,7 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
           <>
             {loading && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {Array.from({ length: 3 }).map((_, i) => (
+                {Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} height={200} radius={16} />
                 ))}
               </div>

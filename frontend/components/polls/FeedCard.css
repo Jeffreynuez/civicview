@@ -1,0 +1,753 @@
+/*
+ * CivicView — FeedCard + CommentsThread component styles.
+ * Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
+ *
+ * Co-located with components/polls/FeedCard.js so the styles
+ * travel with the component anywhere it renders. Extracted from
+ * app/polls/polls.css in Task #74 — previously, the home page
+ * National activity section couldn't load these rules because
+ * polls.css only got imported by the /polls + /posts page
+ * routes. Importing FeedCard.css from the component itself
+ * fixes that for every caller.
+ *
+ * Includes:
+ *   • .feed-card__*       — card shell, header, body, expand,
+ *                            AI summarize affordance
+ *   • .feed-act*          — like / dislike / Comments pill row
+ *   • .poll-block, .poll-opt2*  — poll rendering inside cards
+ *   • .thread__*          — CommentsThread composer + list +
+ *                            comment rows + nested replies
+ */
+
+.feed-card {
+  background: var(--cl-surface, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 120ms, box-shadow 120ms;
+}
+.feed-card.is-thread-open {
+  border-color: var(--cl-accent-soft-border, #bbf7d0);
+  box-shadow: 0 0 0 4px var(--cl-accent-soft, #ecfdf3);
+}
+.feed-card__top {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px;
+}
+.feed-card__kind {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--cl-text-muted-soft, #f3f4f6);
+  color: var(--cl-text, #111);
+  border-radius: 4px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.03em;
+}
+.feed-card__kind--rep        { background: #ddeaff; color: #1d4ed8; }
+.feed-card__kind--citizen    { background: #fff4d6; color: #92400e; }
+.feed-card__kind--standalone { background: #fce7f3; color: #9d174d; }
+.feed-card__kind--candidate  { background: #ede9fe; color: #5b21b6; }
+/* Anchor variant — keeps the chip's color/background while making it
+   selectable. Used on rep + candidate cards to link to the author's
+   page. Hover bumps the chip's opacity instead of underlining text. */
+a.feed-card__kind--link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+a.feed-card__kind--link:hover { filter: brightness(0.95); }
+.feed-card__page-tag {
+  font-weight: 600; color: var(--cl-text, #111);
+}
+.feed-card__time {
+  color: var(--cl-text-muted, #6b7280);
+  font-variant-numeric: tabular-nums;
+}
+.feed-card__close {
+  margin-left: auto;
+  width: 24px; height: 24px;
+  background: transparent;
+  border: 1.5px solid var(--cl-down, #dc2626);
+  color: var(--cl-down, #dc2626);
+  border-radius: 50%;
+  font-size: 14px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.feed-card__close:hover { background: var(--cl-down-soft, #fee2e2); }
+.feed-card__close:disabled { opacity: 0.5; cursor: default; }
+.feed-card__crosslink {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  color: var(--cl-accent, #18794e);
+  text-decoration: none;
+}
+.feed-card__crosslink-dot { color: var(--cl-accent, #18794e); }
+.feed-card__crosslink-arrow { color: var(--cl-text-muted, #6b7280); font-weight: 500; }
+.feed-card__author { display: flex; align-items: center; gap: 12px; }
+.feed-card__avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--cl-text-muted-soft, #f3f4f6);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+  color: var(--cl-text, #111);
+}
+.feed-card__avatar--rep        { background: #ddeaff; color: #1d4ed8; }
+.feed-card__avatar--citizen    { background: #fff4d6; color: #92400e; }
+.feed-card__avatar--standalone { background: #fce7f3; color: #9d174d; }
+.feed-card__avatar--candidate  { background: #ede9fe; color: #5b21b6; }
+/* Anchor variant of the name — color-inherits so the link blends with
+   surrounding text, with a subtle hover underline so the affordance is
+   discoverable. Used on rep + candidate cards. */
+.feed-card__name-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.feed-card__name-link:hover { text-decoration: underline; }
+.feed-card__name {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 14px;
+}
+.feed-card__unverified {
+  padding: 1px 6px;
+  background: var(--cl-warn-soft, #fef3c7);
+  color: var(--cl-warn, #92400e);
+  border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+}
+.feed-card__role {
+  font-size: 12px; color: var(--cl-text-muted, #6b7280);
+}
+.feed-card__error,
+.feed-card__confirm {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--cl-down-soft, #fee2e2);
+  border: 1px solid var(--cl-down, #dc2626);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--cl-down, #991b1b);
+}
+.feed-card__confirm-row {
+  display: flex; gap: 8px; margin-top: 8px;
+}
+.feed-card__confirm-cancel {
+  background: transparent;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 6px 12px; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+}
+.feed-card__confirm-go {
+  background: var(--cl-down, #dc2626);
+  color: #fff; border: 0;
+  border-radius: 8px;
+  padding: 6px 12px; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+}
+.feed-card__confirm-go:disabled { opacity: 0.6; cursor: default; }
+.feed-card__actions {
+  display: flex; align-items: center; gap: 18px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cl-border, #e5e7eb);
+}
+/* Pill-style action buttons — bordered, white background, accent-tinted
+   when active. Matches the rep/candidate page treatment (PostCard's
+   ReactionButton at PostCard.js:1646 and the Hide/Comments button at
+   PostCard.js:827) so the /polls feed and the rep/candidate pages
+   render the like / dislike / comments controls identically. */
+.feed-act {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  height: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cl-text, #111);
+  background: var(--cl-card, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: var(--cl-radius-pill, 999px);
+  cursor: pointer;
+  font-family: inherit;
+}
+.feed-act:hover:not(:disabled) { background: var(--cl-hover, #f9fafb); }
+.feed-act.is-active { font-weight: 700; }
+.feed-act--comments { margin-left: auto; }
+.feed-card__thread {
+  margin: 12px -18px -16px;
+  padding: 12px 18px;
+  background: var(--cl-thread-bg, #f9fafb);
+  border-top: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 0 0 14px 14px;
+}
+
+/* Embedded PollBlock inside FeedCard (poll variant). */
+.poll-block { display: flex; flex-direction: column; gap: 8px; }
+.poll-block__q { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.poll-block__opts { display: flex; flex-direction: column; gap: 6px; }
+.poll-opt2 {
+  position: relative;
+  display: flex; align-items: center;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  text-align: left;
+  overflow: hidden;
+  cursor: pointer;
+}
+.poll-opt2.is-mine { border-color: var(--cl-accent, #18794e); }
+/* State-aware bar fill — matches PollCard.js:200 so /polls cards and
+   rep/candidate page polls render the same visual hierarchy:
+     • own vote → blue 18% (rgba(24,119,242,.18))
+     • leader (not own) → blue 8%
+     • loser → neutral gray 4%
+   Default below is the loser color; .is-leader and .is-mine override. */
+.poll-opt2__fill {
+  position: absolute; top: 0; left: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.04);
+  z-index: 0;
+  transition: width 0.3s ease;
+}
+.poll-opt2.is-leader .poll-opt2__fill {
+  background: rgba(24, 119, 242, 0.08);
+}
+.poll-opt2.is-mine .poll-opt2__fill {
+  background: rgba(24, 119, 242, 0.18);
+}
+.poll-opt2__label,
+.poll-opt2__pct {
+  position: relative; z-index: 1;
+}
+.poll-opt2__label { display: inline-flex; align-items: center; gap: 8px; flex: 1; }
+.poll-opt2__your-vote {
+  font-size: 11px; font-weight: 700;
+  color: var(--cl-accent, #18794e);
+}
+.poll-opt2__pct {
+  font-variant-numeric: tabular-nums;
+  color: var(--cl-text-muted, #6b7280);
+}
+.poll-block__total {
+  font-size: 12px;
+  color: var(--cl-text-muted, #6b7280);
+}
+
+/* CommentsThread — inline accordion under each FeedCard. */
+.thread { display: flex; flex-direction: column; gap: 10px; }
+.thread__identity {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--cl-text-muted, #6b7280);
+}
+.thread__identity-badge {
+  padding: 1px 6px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
+  background: var(--cl-text-muted-soft, #f3f4f6); color: var(--cl-text, #111);
+}
+.thread__identity-badge--citizen { background: #fff4d6; color: #92400e; }
+.thread__identity-badge--rep     { background: #ddeaff; color: #1d4ed8; }
+.thread__identity-badge--candidate { background: #ede9fe; color: #5b21b6; }
+.thread__composer {
+  display: flex; gap: 8px;
+  align-items: flex-end;
+}
+.thread__textarea {
+  flex: 1;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px; font-family: inherit;
+  resize: vertical;
+}
+.thread__textarea:disabled { background: var(--cl-text-muted-soft, #f3f4f6); cursor: not-allowed; }
+.thread__post-btn {
+  padding: 8px 16px;
+  background: var(--cl-accent, #18794e);
+  color: #fff; border: 0;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+}
+.thread__post-btn:disabled { opacity: 0.5; cursor: default; }
+.thread__post-error,
+.thread__error {
+  font-size: 12px;
+  color: var(--cl-down, #991b1b);
+  padding: 6px 8px;
+  background: var(--cl-down-soft, #fee2e2);
+  border-radius: 6px;
+}
+.thread__controls {
+  display: flex; align-items: center;
+  font-size: 12px;
+}
+.thread__sort { display: inline-flex; align-items: center; gap: 6px; }
+.thread__sort-label { color: var(--cl-text-muted, #6b7280); }
+.thread__sort-select {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  background: var(--cl-surface, #fff);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.thread__filters {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+}
+.thread__tone-chips {
+  display: inline-flex; gap: 4px; flex-wrap: wrap;
+}
+.thread__tone-chip {
+  background: transparent;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px; font-weight: 600;
+  cursor: pointer;
+}
+.thread__tone-chip.is-active {
+  background: var(--cl-text, #111);
+  color: #fff;
+  border-color: var(--cl-text, #111);
+}
+.thread__sem-input {
+  flex: 1; min-width: 160px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.thread__apply,
+.thread__clear-filter {
+  padding: 4px 10px;
+  background: var(--cl-surface, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+  cursor: pointer;
+}
+.thread__apply:disabled { opacity: 0.5; cursor: default; }
+.thread__list { display: flex; flex-direction: column; gap: 10px; }
+.thread__loading,
+.thread__empty {
+  font-size: 12px;
+  color: var(--cl-text-muted, #6b7280);
+  padding: 8px;
+}
+.thread__comment {
+  padding: 10px 12px;
+  background: var(--cl-surface, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+}
+.thread__c-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.thread__c-name { font-weight: 700; }
+.thread__c-unverified {
+  padding: 1px 5px;
+  background: var(--cl-warn-soft, #fef3c7);
+  color: var(--cl-warn, #92400e);
+  border-radius: 4px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.02em;
+}
+.thread__c-date {
+  margin-left: auto;
+  color: var(--cl-text-muted, #6b7280);
+}
+.thread__c-body { font-size: 13px; line-height: 1.45; }
+.thread__c-actions {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.thread__c-react {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: transparent; border: 0;
+  padding: 2px 4px;
+  font-size: 11px; font-weight: 600;
+  color: var(--cl-text-muted, #6b7280);
+  cursor: pointer;
+}
+.thread__c-react.is-active.up { color: var(--cl-accent, #18794e); }
+.thread__c-react.is-active.down { color: var(--cl-down, #dc2626); }
+.thread__c-location { color: var(--cl-text-muted, #6b7280); }
+.thread__c-spacer { flex: 1; }
+.thread__c-link {
+  background: transparent; border: 0;
+  padding: 0;
+  font-size: 11px; font-weight: 600;
+  color: var(--cl-text-muted, #6b7280);
+  cursor: pointer;
+}
+.thread__c-link:hover { color: var(--cl-text, #111); }
+.thread__c-link--del { color: var(--cl-down, #dc2626); }
+.thread__c-link--accent { color: var(--cl-accent, #18794e); }
+.thread__more {
+  align-self: flex-start;
+  background: transparent; border: 0;
+  padding: 6px 0;
+  font-size: 12px; font-weight: 600;
+  color: var(--cl-accent, #18794e);
+  cursor: pointer;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #3 — TabStrip + post variant of FeedCard
+   ─────────────────────────────────────────────────────────────────── */
+
+/* TabStrip — Polls / Posts segmented pill control between hero +
+   filter row. Active = solid accent; inactive = outlined. Full-width
+   on mobile so the 44pt min hit-target is comfortable. */
+
+
+/* FeedCard — post variant body (kind='post'). Long bodies collapse
+   to a preview height with an Expand pill. Attached-poll inline
+   badge uses the same accent treatment as the cross-feed "From a
+   post" link on the polls tab. */
+/* Body wrapper — position:relative so the absolute-positioned
+   Expand/Show less pill anchors to the post's body region instead of
+   bubbling up to a far ancestor. Without this rule the pill rendered
+   in the bottom-right corner of the whole page (regression introduced
+   in c17ff06). */
+.feed-card__body {
+  position: relative;
+}
+/* Long-post body — clipped + gradient-faded when collapsed; opens to
+   full height when expanded. */
+.feed-card__post-body {
+  font-size: 14px; line-height: 1.5;
+  white-space: pre-wrap;
+  max-height: 9.5em;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+}
+.feed-card__post-body.is-expanded {
+  max-height: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+  /* Reserve a gutter at the bottom so the absolute-positioned
+     Show less pill doesn't overlap the last line of text. */
+  padding-bottom: 36px;
+}
+/* Pill variant — green CTA-style button anchored bottom-right of the
+   body so it reads as the primary next action. Mirrors PostCard.js's
+   PostBody treatment so /posts cards and rep/candidate pages match.
+   Chained selector (.feed-card__expand.feed-card__expand--pill) bumps
+   specificity above the legacy .feed-card__expand rule below — same-
+   specificity ties resolved by source order, and the legacy rule
+   lives further down in this file (kept for callers that don't pass
+   the --pill modifier). Without the chain, every pill rendered as
+   transparent-bg green text (the legacy default) because the cascade
+   handed the win to whichever rule came later. */
+.feed-card__expand.feed-card__expand--pill {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--cl-accent, #18794e);
+  background: var(--cl-accent, #18794e);
+  color: white;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+.feed-card__expand.feed-card__expand--pill:hover { filter: brightness(0.95); }
+/* AI Summarize affordance — pill button above the body. Same accent
+   colors as PostCard.js:646. */
+.feed-card__ai-summarize-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.feed-card__ai-summarize-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  background: var(--cl-accent-soft, #e6f3ec);
+  color: var(--cl-accent, #18794e);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.feed-card__ai-summarize-btn:disabled { cursor: wait; opacity: 0.7; }
+.feed-card__ai-summarize-err {
+  color: #d63031;
+  font-size: 0.72rem;
+}
+.feed-card__ai-summary {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--cl-accent-soft, #e6f3ec);
+  background: var(--cl-accent-soft, #e6f3ec);
+}
+.feed-card__ai-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.feed-card__ai-summary-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cl-accent, #18794e);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.feed-card__ai-summary-dismiss {
+  background: transparent; border: none;
+  color: var(--cl-text-light, #6b7280);
+  font-family: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.feed-card__ai-summary-text {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--cl-text, #111);
+  white-space: pre-wrap;
+}
+/* Legacy plain-text Expand — kept for callers that don't pass the
+   --pill modifier. The pill modifier above wins via absolute
+   positioning + higher specificity (.feed-card__expand--pill). */
+.feed-card__expand {
+  align-self: flex-start;
+  background: transparent; border: 0;
+  padding: 6px 0 0;
+  font-size: 12px; font-weight: 600;
+  color: var(--cl-accent, #18794e);
+  cursor: pointer;
+}
+
+/* Inline reply composer — rendered under the target comment by
+   CommentRow when replyingTo === c.id. Mirrors the rep/candidate
+   page treatment so the two surfaces match. */
+.thread__inline-reply {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+  background: var(--cl-bg-soft, #f9fafb);
+}
+.thread__textarea--inline {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.84rem;
+  padding: 6px 8px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 40px;
+}
+.thread__inline-reply-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 6px;
+}
+.thread__inline-reply-count {
+  font-size: 0.7rem;
+  color: var(--cl-text-light, #6b7280);
+  margin-right: auto;
+}
+.thread__inline-reply-cancel,
+.thread__inline-reply-post {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.thread__inline-reply-cancel {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  background: white;
+  color: var(--cl-text, #111);
+}
+.thread__inline-reply-post {
+  border: 1px solid var(--cl-accent, #18794e);
+  background: var(--cl-accent, #18794e);
+  color: white;
+}
+.thread__inline-reply-post:disabled {
+  background: var(--cl-border, #e5e7eb);
+  border-color: var(--cl-border, #e5e7eb);
+  cursor: not-allowed;
+}
+.thread__inline-reply-error {
+  margin-top: 6px;
+  color: #d63031;
+  font-size: 0.72rem;
+}
+.feed-card__crosslink--inline {
+  margin-top: 6px;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #4 polish — multi-identity picker inside CommentsThread
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Click-to-pick identity selector. Renders inline as a static badge
+   when only one identity is signed in; becomes a dropdown when two
+   or more are signed in. The user's choice persists for the life of
+   the thread and rides on the comment as `as_identity`. */
+.thread__identity--picker {
+  position: relative;
+}
+.thread__identity-trigger {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; border: 0;
+  padding: 2px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.thread__identity-trigger:hover { background: var(--cl-hover, #f9fafb); }
+.thread__identity-chev {
+  font-size: 10px;
+  color: var(--cl-text-muted, #6b7280);
+}
+.thread__identity-menu {
+  position: absolute;
+  top: 100%; left: 0;
+  margin-top: 4px;
+  z-index: 90;
+  min-width: 220px;
+  background: var(--cl-surface, #fff);
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 4px;
+  display: flex; flex-direction: column;
+}
+.thread__identity-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px;
+  background: transparent; border: 0;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.thread__identity-item:hover { background: var(--cl-hover, #f9fafb); }
+.thread__identity-item.is-selected { background: var(--cl-accent-soft, #ecfdf3); }
+.thread__identity-check {
+  margin-left: auto;
+  color: var(--cl-accent, #18794e);
+  font-weight: 700;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #5 polish — colored thumb states + IdentityPicker anchoring
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Wrap div around each feed action button so the absolutely-positioned
+   IdentityPicker hangs from the button. Same trick used for vote
+   options. */
+.feed-act-wrap,
+.poll-opt2-wrap {
+  position: relative;
+  display: inline-block;
+}
+.poll-opt2-wrap {
+  display: block;
+  width: 100%;
+}
+
+/* Colored thumbs. Up is the design-system "up" blue; down is the
+   "down" burgundy. Both states pick up a soft-bg pill border when
+   the count is > 0 (i.e. someone has reacted). */
+.feed-act { transition: color 120ms, background 120ms, border-color 120ms; }
+.feed-act svg {
+  width: 14px; height: 14px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+.feed-act--like.is-active {
+  color: var(--cl-up, #1877f2);
+  background: var(--cl-up-soft, #e7f0fe);
+  border-color: var(--cl-up, #1877f2);
+}
+.feed-act--like:hover:not(:disabled) {
+  color: var(--cl-up, #1877f2);
+  background: var(--cl-up-soft, #e7f0fe);
+  border-color: var(--cl-up, #1877f2);
+}
+.feed-act--dislike.is-active {
+  color: var(--cl-down, #8c2929);
+  background: var(--cl-down-soft, #fde9e9);
+  border-color: var(--cl-down, #8c2929);
+}
+.feed-act--dislike:hover:not(:disabled) {
+  color: var(--cl-down, #8c2929);
+  background: var(--cl-down-soft, #fde9e9);
+  border-color: var(--cl-down, #8c2929);
+}
+.feed-act:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   PR #8 — CommentsThread nested replies + thumb-icon buttons
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Thumb icons inside comment-row react buttons inherit the same
+   colored treatment as feed-card reactions. */
+.thread__c-react {
+  display: inline-flex; align-items: center; gap: 3px;
+}
+.thread__c-react svg {
+  width: 13px; height: 13px;
+  stroke-width: 2;
+}
+.thread__c-react.is-active.up {
+  color: var(--cl-up, #1877f2);
+}
+.thread__c-react.is-active.down {
+  color: var(--cl-down, #8c2929);
+}
+.thread__c-react:hover {
+  color: var(--cl-text, #111);
+}
+
+/* Reply nesting. The replies block indents under the parent +
+   gets a left border that visually links it to the parent. */
+.thread__replies {
+  margin: 8px 0 0 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--cl-border, #e5e7eb);
+}
+.thread__replies-toggle {
+  background: transparent; border: 0;
+  padding: 4px 0;
+  font-size: 11px; font-weight: 600;
+  color: var(--cl-accent, #18794e);
+  cursor: pointer;
+}
+.thread__replies-toggle:hover {
+  text-decoration: underline;
+}
+.thread__replies-list {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: 6px;
+}
+.thread__comment.is-reply {
+  background: var(--cl-surface, #fff);
+  padding: 8px 10px;
+}

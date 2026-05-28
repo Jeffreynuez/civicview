@@ -24,6 +24,7 @@ import {
 } from '../lib/pagesApi';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 import IdentityPicker, { PostingAsPicker } from './IdentityPicker';
+import PostActionsMenu from './PostActionsMenu';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 // Raw identity hooks — needed alongside useActiveIdentities so the
 // per-identity ownership check (rep.official_id === post.official_id)
@@ -695,77 +696,18 @@ export default function PostCard({
             )}
           </div>
         </div>
-        {isOwner && editingPostBody == null && (
-          <button
-            type="button"
-            onClick={beginEditPost}
-            disabled={busy || editBusy}
-            title="Edit this post (within 24h of creation)"
-            aria-label="Edit post"
-            style={{
-              border: '1px solid var(--cl-border)',
-              background: 'white',
-              color: 'var(--cl-text)',
-              padding: '4px 10px',
-              borderRadius: '6px',
-              fontSize: '0.72rem',
-              fontWeight: 600,
-              cursor: (busy || editBusy) ? 'wait' : 'pointer',
-            }}
-          >
-            Edit
-          </button>
-        )}
-        {isOwner && (
-          <button
-            type="button"
-            onClick={handleDelete}
-            disabled={busy}
-            title="Delete this post"
-            aria-label="Delete post"
-            style={{
-              border: '1px solid var(--cl-border)',
-              background: 'white',
-              color: '#d63031',
-              padding: '4px 10px',
-              borderRadius: '6px',
-              fontSize: '0.72rem',
-              fontWeight: 600,
-              cursor: busy ? 'wait' : 'pointer',
-            }}
-          >
-            Delete
-          </button>
-        )}
-        {/* Report button for signed-in citizens on someone else's
-            post. Hidden when the viewer IS the page owner (reps
-            don't report their own posts — they'd just delete them)
-            and when the viewer is anonymous (no anon reporting to
-            keep spam pressure off the admin queue). */}
-        {canReportPost && !postReported && (
-          <button
-            type="button"
-            onClick={handleReportPost}
-            disabled={postReportBusy}
-            title="Flag this post for admin review"
-            style={{
-              border: '1px solid var(--cl-border)',
-              background: 'white',
-              color: 'var(--cl-text-light)',
-              padding: '4px 10px',
-              borderRadius: '6px',
-              fontSize: '0.72rem',
-              fontWeight: 600,
-              cursor: postReportBusy ? 'wait' : 'pointer',
-            }}
-          >
-            {postReportBusy ? '…' : 'Report'}
-          </button>
-        )}
+        {/* Kebab actions menu (Task #77). Consolidates Edit + Delete
+            (for the post owner) + Report (for signed-in non-owners)
+            into one top-right trigger so the card header stays clean.
+            "Reported ✓" indicator sits inline next to the kebab so a
+            viewer who already flagged the post sees the receipt
+            without having to re-open the menu. Anonymous viewers
+            see a grayed-out trigger — no actions available to them
+            (Report requires a citizen identity to keep spam pressure
+            off the admin queue). */}
         {postReported && (
           <span
             style={{
-              padding: '4px 10px',
               fontSize: '0.72rem',
               color: 'var(--cl-text-muted)',
               fontStyle: 'italic',
@@ -774,6 +716,30 @@ export default function PostCard({
             Reported ✓
           </span>
         )}
+        <PostActionsMenu
+          ariaLabel="Post actions"
+          items={[
+            isOwner && editingPostBody == null && {
+              id: 'edit',
+              label: 'Edit',
+              onClick: beginEditPost,
+              disabled: busy || editBusy,
+            },
+            isOwner && {
+              id: 'delete',
+              label: 'Delete',
+              onClick: handleDelete,
+              disabled: busy,
+              destructive: true,
+            },
+            canReportPost && !postReported && {
+              id: 'report',
+              label: postReportBusy ? 'Reporting…' : 'Report',
+              onClick: handleReportPost,
+              disabled: postReportBusy,
+            },
+          ]}
+        />
       </div>
 
       {/* AI Summary — long posts only. Tucked between header and body

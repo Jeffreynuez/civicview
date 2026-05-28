@@ -35,19 +35,15 @@
  */
 
 import { useEffect, useState } from 'react';
-// Co-located stylesheet import. polls.css is ALSO imported by
-// app/polls/page.js — Next.js dedupes via the CSS hash, so importing
-// it from here is idempotent. Why import from the component at all:
-// FeedCard is now used outside the /polls + /posts routes (the home
-// page's National activity section, via NationalOfficialsPanel), and
-// the page-route import didn't reach those callers — the card
-// rendered as unstyled stacked text. Pulling polls.css in from the
-// component itself guarantees the styles travel with it no matter
-// where it renders. Follow-up Task #74 will extract the
-// .feed-card__* / .feed-act / .comments-thread blocks into a
-// co-located FeedCard.css so this import doesn't drag the entire
-// polls-page stylesheet along.
-import '../../app/polls/polls.css';
+// Co-located stylesheet. FeedCard.css contains every .feed-card__*,
+// .feed-act, .poll-block, .poll-opt2, and .thread__ rule that this
+// component (and its CommentsThread child) need. Extracted from
+// app/polls/polls.css in Task #74 so the styles travel with the
+// component anywhere it renders — the home page National activity
+// section, /polls, /posts. The /polls page-route still imports its
+// own polls.css for page-chrome styles (hero, tabstrip, branch
+// chips, etc.).
+import './FeedCard.css';
 import {
   voteOnCitizenPoll,
   closeCitizenPoll,
@@ -58,6 +54,7 @@ import {
   clearCitizenPollReaction,
   deletePost,
   updatePost,
+  reportPost,
   summarizePost,
   aiHealth,
 } from '../../lib/pagesApi';
@@ -67,6 +64,7 @@ import { getVoterToken } from '../../lib/voterToken';
 import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
 import IdentityPicker from '../IdentityPicker';
 import { ThumbsUp, ThumbsDown, ChatText } from '../ui';
+import PostActionsMenu from '../PostActionsMenu';
 import CommentsThread from './CommentsThread';
 
 export default function FeedCard({
@@ -215,6 +213,33 @@ export default function FeedCard({
     } else if (typeof onMutated === 'function') {
       onMutated();
     }
+  };
+
+  // ── Report-post handlers (Task #76) ─────────────────────────────
+  // Mirrors PostCard.handleReportPost. A signed-in viewer who is NOT
+  // the author can flag a post; the backend dedupes against the
+  // citizen identity so a re-flag returns already_reported, which we
+  // treat as success (the visual state lands at "Reported ✓" either
+  // way). Anonymous viewers route through onLoginRequired instead —
+  // mirrors the like/dislike behavior so Report fits the same gate.
+  const [postReported, setPostReported] = useState(false);
+  const [postReportBusy, setPostReportBusy] = useState(false);
+  const _isPostOwner = isRepAuthor || isCandidateAuthor || isCitizenAuthor;
+  const _canReportPost = !_isPostOwner && kind === 'post';
+  const handleReportPost = async () => {
+    if (postReportBusy || postReported) return;
+    if (!signedIn) {
+      if (typeof onLoginRequired === 'function') onLoginRequired();
+      return;
+    }
+    setPostReportBusy(true);
+    const { error } = await reportPost(card.id);
+    setPostReportBusy(false);
+    if (error) {
+      setErrorMsg(error);
+      return;
+    }
+    setPostReported(true);
   };
 
   // Multi-identity picker state. The /polls + /posts feed treats
@@ -477,38 +502,54 @@ export default function FeedCard({
             · edited
           </span>
         )}
-        {_canEditPost && editingPostBody == null && (
-          <button
-            type="button"
-            className="feed-card__edit"
-            aria-label="Edit this post"
-            onClick={beginEditPost}
-            disabled={busy || editBusy}
-            title="Edit this post (within 24h of creation)"
-            style={{
-              marginLeft: 'auto',
-              border: '1px solid var(--cl-border)',
-              background: 'white', color: 'var(--cl-text)',
-              padding: '2px 8px', borderRadius: '6px',
-              fontSize: '0.72rem', fontWeight: 600,
-              cursor: (busy || editBusy) ? 'wait' : 'pointer',
-            }}
-          >
-            Edit
-          </button>
-        )}
-        {showCloseX && (
-          <button
-            type="button"
-            className="feed-card__close"
-            aria-label="Close this poll"
-            onClick={() => setConfirmingClose(true)}
-            disabled={busy}
-            title="Close this poll"
-          >
-            ×
-          </button>
-        )}
+        {/* Kebab actions menu (Task #76). Consolidates Edit + Delete
+            (for the author) + Report (for non-authors) into one
+            top-right trigger so the card top-row stays clean. The
+            "Reported ✓" indicator stays inline next to the kebab so
+            a viewer who already flagged the post sees the receipt
+            without having to re-open the menu. */}
+        <div style={{ marginLeft: 'auto', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          {postReported && (
+            <span
+              style={{
+                fontSize: '0.72rem',
+                color: 'var(--cl-text-muted)',
+                fontStyle: 'italic',
+              }}
+            >
+              Reported ✓
+            </span>
+          )}
+          <PostActionsMenu
+            ariaLabel="Post actions"
+            items={[
+              _canEditPost && editingPostBody == null && {
+                id: 'edit',
+                label: 'Edit',
+                onClick: beginEditPost,
+                disabled: busy || editBusy,
+              },
+              showCloseX && {
+                id: 'delete',
+                // "Close" reads more naturally for a citizen-authored
+                // standalone poll (which stays in the feed as a closed
+                // result); "Delete" for everything else. Same handler
+                // either way — setConfirmingClose triggers the inline
+                // confirmation row below.
+                label: isStandalone ? 'Close poll' : 'Delete',
+                onClick: () => setConfirmingClose(true),
+                disabled: busy,
+                destructive: true,
+              },
+              _canReportPost && !postReported && {
+                id: 'report',
+                label: postReportBusy ? 'Reporting…' : 'Report',
+                onClick: handleReportPost,
+                disabled: postReportBusy,
+              },
+            ]}
+          />
+        </div>
       </header>
 
       {/* Cross-feed badge — poll item flagged as part of a post.
