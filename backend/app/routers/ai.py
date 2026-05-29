@@ -620,3 +620,93 @@ def filter_polls(
         method="semantic",
         explanation=f'AI-filtered for: "{req.prompt}"',
     )
+
+
+# ── /filter-items (generic: bills, votes — any {id, text} list) ───────
+# Powers the AI-search toggle on the rep-profile Bills + Votes tabs.
+# Those datasets aren't in our DB (they come from Congress.gov / the
+# votes API and are loaded client-side), so the client sends the loaded
+# items here and we semantic-filter them. Index-based model output keeps
+# the call cheap and avoids the model mangling long id strings.
+class FilterItem(BaseModel):
+    id: str = Field(..., max_length=128)
+    text: str = Field(default="", max_length=2000)
+
+
+class ItemFilterRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, max_length=300)
+    items: List[FilterItem] = Field(default_factory=list)
+
+
+class ItemFilterResponse(BaseModel):
+    matched_ids: List[str]
+    method: Literal["ai", "passthrough"]
+    explanation: str
+
+
+_ITEMS_MAX = 200
+_ITEM_TEXT_MAX = 400
+
+
+@router.post("/filter-items", response_model=ItemFilterResponse)
+def filter_items(req: ItemFilterRequest) -> ItemFilterResponse:
+    """Semantic filter over a caller-supplied {id, text} list.
+
+    Fail-open: if AI is unavailable / unparseable, returns
+    method='passthrough' with ALL ids so the UI shows everything rather
+    than erroring. Scoped to whatever the client sent (the loaded set).
+    """
+    items = req.items[:_ITEMS_MAX]
+    all_ids = [it.id for it in items]
+    if not items:
+        return ItemFilterResponse(matched_ids=[], method="passthrough", explanation="Nothing to filter.")
+
+    catalog = "\n".join(
+        f"{idx}: {(it.text or '')[:_ITEM_TEXT_MAX]}" for idx, it in enumerate(items)
+    )
+    system = (
+        "You filter a list of U.S. legislative items (bills or roll-call "
+        "votes) by how well each matches the user's search query. Return "
+        "ONLY a JSON array of the integer INDICES that match, most-relevant "
+        "first. No prose, no code fences. An empty array is valid. Be "
+        "inclusive on topical matches (synonyms, related policy areas) but "
+        "exclude clearly-unrelated items."
+    )
+    user = f'Search query: "{req.prompt.strip()}"\n\nItems (index: text):\n{catalog}'
+
+    result = ai_service.chat(
+        system=system,
+        messages=[{"role": "user", "content": user}],
+        max_tokens=400,
+        temperature=0.0,
+    )
+    if result.error or not result.text:
+        return ItemFilterResponse(
+            matched_ids=all_ids, method="passthrough",
+            explanation="AI unavailable — showing all results.",
+        )
+    m = re.search(r"\[.*\]", result.text, re.S)
+    if not m:
+        return ItemFilterResponse(
+            matched_ids=all_ids, method="passthrough",
+            explanation="Couldn't apply AI filter — showing all results.",
+        )
+    try:
+        idxs = json.loads(m.group(0))
+    except Exception:
+        return ItemFilterResponse(
+            matched_ids=all_ids, method="passthrough",
+            explanation="Couldn't apply AI filter — showing all results.",
+        )
+    matched: List[str] = []
+    seen = set()
+    for i in idxs:
+        if isinstance(i, bool):
+            continue
+        if isinstance(i, int) and 0 <= i < len(items) and i not in seen:
+            seen.add(i)
+            matched.append(items[i].id)
+    return ItemFilterResponse(
+        matched_ids=matched, method="ai",
+        explanation=f'AI-filtered for: "{req.prompt.strip()}"',
+    )

@@ -24,6 +24,8 @@ import {
   generateVoteExplanation,
   fetchEoSummary,
   translateEoSummary,
+  aiHealth,
+  filterItems,
 } from '../lib/api';
 import { billKey, isTracked as isBillTracked, trackBill, untrackBill, useTrackedBills } from '../lib/trackedBills';
 import {
@@ -1362,6 +1364,21 @@ function BillsTab({ state, member, onNotify }) {
   useTrackedBills();
   const [sponsoredShowAll, setSponsoredShowAll] = useState(false);
   const [cosponsoredShowAll, setCosponsoredShowAll] = useState(false);
+  // Search (item 3) + AI toggle (item 4). Plain mode = live substring
+  // filter; AI mode = explicit Apply that semantic-filters the loaded
+  // bills via /api/ai/filter-items (scoped to what's loaded).
+  const [search, setSearch] = useState('');
+  const [aiMode, setAiMode] = useState(false);
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiBusy, setAiBusy] = useState(false);
+  const [aiMatched, setAiMatched] = useState(null); // Set<billKey> | null
+  const [aiLabel, setAiLabel] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    aiHealth().then((h) => { if (!cancelled) setAiAvailable(!!(h && h.configured)); });
+    return () => { cancelled = true; };
+  }, []);
 
   if (state.loading || !state.loaded) {
     return <LoadingState label="Loading bills…" />;
@@ -1373,24 +1390,59 @@ function BillsTab({ state, member, onNotify }) {
     return <EmptyState message="No bills found for this member in the current Congress." />;
   }
 
+  const billText = (b) => [b.type, b.number, b.title, b.latest_action && b.latest_action.text].filter(Boolean).join(' ');
+  const matchBill = (b) => {
+    if (aiMode) {
+      if (aiMatched === null) return true; // not applied yet
+      return aiMatched.has(billKey(b));
+    }
+    const q = search.trim().toLowerCase();
+    if (!q) return true;
+    return billText(b).toLowerCase().includes(q);
+  };
+  const runAi = async () => {
+    const q = search.trim();
+    if (!q) { setAiMatched(null); setAiLabel(''); return; }
+    setAiBusy(true);
+    const items = [...sponsored, ...cosponsored].map((b) => ({ id: billKey(b), text: billText(b) }));
+    const res = await filterItems({ prompt: q, items });
+    setAiBusy(false);
+    if (!res || res.error) { setAiMatched(new Set()); setAiLabel('AI search unavailable — try Text search.'); return; }
+    setAiMatched(new Set(res.matched_ids || []));
+    setAiLabel(res.explanation || '');
+  };
+  const clearAi = () => { setAiMatched(null); setAiLabel(''); };
+
   const INITIAL_VISIBLE = 10;
-  const sponsoredVisible = sponsoredShowAll ? sponsored : sponsored.slice(0, INITIAL_VISIBLE);
-  const cosponsoredVisible = cosponsoredShowAll ? cosponsored : cosponsored.slice(0, INITIAL_VISIBLE);
+  const fSponsored = sponsored.filter(matchBill);
+  const fCosponsored = cosponsored.filter(matchBill);
+  const sponsoredVisible = sponsoredShowAll ? fSponsored : fSponsored.slice(0, INITIAL_VISIBLE);
+  const cosponsoredVisible = cosponsoredShowAll ? fCosponsored : fCosponsored.slice(0, INITIAL_VISIBLE);
+  const searchActive = !!search.trim() || aiMode;
 
   return (
     <div>
-      <SectionHeader>Sponsored ({sponsored.length})</SectionHeader>
-      {sponsored.length === 0 ? (
-        <EmptyNote>No sponsored bills.</EmptyNote>
+      <SearchModeBar
+        search={search} setSearch={setSearch}
+        placeholder="Search bills by number or text…"
+        aiAvailable={aiAvailable} aiMode={aiMode}
+        onModeChange={(wantAi) => { setAiMode(wantAi); clearAi(); }}
+        aiBusy={aiBusy} aiApplied={aiMatched !== null}
+        onApply={runAi} onClear={clearAi} aiLabel={aiLabel}
+      />
+
+      <SectionHeader>Sponsored ({fSponsored.length})</SectionHeader>
+      {fSponsored.length === 0 ? (
+        <EmptyNote>{searchActive ? 'No sponsored bills match.' : 'No sponsored bills.'}</EmptyNote>
       ) : (
         <>
           {sponsoredVisible.map((b, i) => (
             <BillCard key={`s-${i}`} bill={b} member={member} onNotify={onNotify} />
           ))}
-          {sponsored.length > INITIAL_VISIBLE && (
+          {fSponsored.length > INITIAL_VISIBLE && (
             <ShowMoreButton
               showingAll={sponsoredShowAll}
-              total={sponsored.length}
+              total={fSponsored.length}
               visible={INITIAL_VISIBLE}
               label="sponsored bill"
               onClick={() => setSponsoredShowAll((v) => !v)}
@@ -1401,18 +1453,18 @@ function BillsTab({ state, member, onNotify }) {
 
       <div style={{ height: '16px' }} />
 
-      <SectionHeader>Cosponsored ({cosponsored.length})</SectionHeader>
-      {cosponsored.length === 0 ? (
-        <EmptyNote>No cosponsored bills.</EmptyNote>
+      <SectionHeader>Cosponsored ({fCosponsored.length})</SectionHeader>
+      {fCosponsored.length === 0 ? (
+        <EmptyNote>{searchActive ? 'No cosponsored bills match.' : 'No cosponsored bills.'}</EmptyNote>
       ) : (
         <>
           {cosponsoredVisible.map((b, i) => (
             <BillCard key={`c-${i}`} bill={b} member={member} onNotify={onNotify} />
           ))}
-          {cosponsored.length > INITIAL_VISIBLE && (
+          {fCosponsored.length > INITIAL_VISIBLE && (
             <ShowMoreButton
               showingAll={cosponsoredShowAll}
-              total={cosponsored.length}
+              total={fCosponsored.length}
               visible={INITIAL_VISIBLE}
               label="cosponsored bill"
               onClick={() => setCosponsoredShowAll((v) => !v)}
@@ -1420,6 +1472,88 @@ function BillsTab({ state, member, onNotify }) {
           )}
         </>
       )}
+    </div>
+  );
+}
+
+// Shared search bar + plain/AI mode toggle for the Bills & Votes tabs.
+// Plain mode filters live as the user types (handled by the caller via
+// `search`); AI mode requires an explicit Apply (slower, one Claude call)
+// and filters the loaded set by /api/ai/filter-items matches.
+function SearchModeBar({
+  search, setSearch, placeholder, aiAvailable, aiMode, onModeChange,
+  aiBusy, aiApplied, onApply, onClear, aiLabel, children,
+}) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <input
+          type="search"
+          placeholder={aiMode ? 'Describe what you’re looking for…' : placeholder}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => { if (aiMode && e.key === 'Enter') onApply(); }}
+          style={{
+            flex: '1 1 200px', padding: '6px 10px', fontSize: '0.82rem',
+            border: '1px solid var(--cl-border)', borderRadius: 6,
+            background: 'var(--card)', color: 'var(--cl-text)',
+          }}
+        />
+        {children}
+        {aiAvailable && (
+          <div role="tablist" aria-label="Search mode" style={{
+            display: 'inline-flex', border: '1px solid var(--cl-border)',
+            borderRadius: 'var(--cl-radius-pill)', overflow: 'hidden', flexShrink: 0,
+          }}>
+            {[['text', 'Text'], ['ai', '✨ AI']].map(([key, label]) => {
+              const on = (key === 'ai') === aiMode;
+              return (
+                <button
+                  key={key} type="button" role="tab" aria-selected={on}
+                  onClick={() => { const wantAi = key === 'ai'; if (wantAi !== aiMode) onModeChange(wantAi); }}
+                  style={{
+                    padding: '6px 12px', border: 'none', cursor: 'pointer',
+                    fontFamily: 'inherit', fontSize: '0.76rem', fontWeight: 700,
+                    background: on ? 'var(--cl-accent)' : 'transparent',
+                    color: on ? 'white' : 'var(--cl-text-light)',
+                  }}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {aiMode && aiAvailable && (
+          <button
+            type="button" onClick={onApply} disabled={aiBusy || !search.trim()}
+            style={{
+              padding: '6px 14px', borderRadius: 6, border: 'none',
+              background: 'var(--cl-accent)', color: 'white', fontWeight: 700,
+              fontSize: '0.8rem', fontFamily: 'inherit',
+              cursor: (aiBusy || !search.trim()) ? 'default' : 'pointer',
+              opacity: (aiBusy || !search.trim()) ? 0.6 : 1,
+            }}
+          >
+            {aiBusy ? 'Searching…' : 'Apply'}
+          </button>
+        )}
+        {aiMode && aiApplied && !aiBusy && (
+          <button
+            type="button" onClick={onClear}
+            style={{
+              padding: '6px 10px', borderRadius: 6, border: '1px solid var(--cl-border)',
+              background: 'var(--card)', color: 'var(--cl-text-light)',
+              fontSize: '0.76rem', cursor: 'pointer', fontFamily: 'inherit',
+            }}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+      {aiMode && aiLabel ? (
+        <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', marginTop: 6 }}>{aiLabel}</div>
+      ) : null}
     </div>
   );
 }
@@ -2166,8 +2300,10 @@ function VotesTab({ role, member }) {
       const mm = (v.date || '').slice(5, 7);
       if (mm !== String(month).padStart(2, '0')) return false;
     }
-    // Search filter (question text + bill number/title).
-    if (search.trim()) {
+    // Search filter — AI mode (matched ids) or plain substring.
+    if (aiMode) {
+      if (aiMatched !== null && !aiMatched.has(voteKey(v))) return false;
+    } else if (search.trim()) {
       const needle = search.trim().toLowerCase();
       const hay = [
         v.question || '',
@@ -2225,15 +2361,42 @@ function VotesTab({ role, member }) {
         </select>
         <input
           type="search"
-          placeholder="Search bill # or text…"
+          placeholder={aiMode ? 'Describe the votes you want…' : 'Search bill # or text…'}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => { if (aiMode && e.key === 'Enter') runAi(); }}
           style={{
             flex: '1 1 160px', padding: '6px 10px', fontSize: '0.82rem',
             border: '1px solid var(--cl-border)', borderRadius: '6px',
             background: 'var(--card)', color: 'var(--cl-text)',
           }}
         />
+        {aiAvailable && (
+          <div role="tablist" aria-label="Search mode" style={{ display: 'inline-flex', border: '1px solid var(--cl-border)', borderRadius: 'var(--cl-radius-pill)', overflow: 'hidden', flexShrink: 0 }}>
+            {[['text', 'Text'], ['ai', '✨ AI']].map(([key, label]) => {
+              const on = (key === 'ai') === aiMode;
+              return (
+                <button key={key} type="button" role="tab" aria-selected={on}
+                  onClick={() => { const wantAi = key === 'ai'; if (wantAi !== aiMode) { setAiMode(wantAi); setAiMatched(null); setAiLabel(''); } }}
+                  style={{ padding: '6px 12px', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '0.76rem', fontWeight: 700, background: on ? 'var(--cl-accent)' : 'transparent', color: on ? 'white' : 'var(--cl-text-light)' }}>
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {aiMode && aiAvailable && (
+          <button type="button" onClick={runAi} disabled={aiBusy || !search.trim()}
+            style={{ padding: '6px 14px', borderRadius: 6, border: 'none', background: 'var(--cl-accent)', color: 'white', fontWeight: 700, fontSize: '0.8rem', fontFamily: 'inherit', cursor: (aiBusy || !search.trim()) ? 'default' : 'pointer', opacity: (aiBusy || !search.trim()) ? 0.6 : 1 }}>
+            {aiBusy ? 'Searching…' : 'Apply'}
+          </button>
+        )}
+        {aiMode && aiMatched !== null && !aiBusy && (
+          <button type="button" onClick={() => { setAiMatched(null); setAiLabel(''); }}
+            style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid var(--cl-border)', background: 'var(--card)', color: 'var(--cl-text-light)', fontSize: '0.76rem', cursor: 'pointer', fontFamily: 'inherit' }}>
+            Clear
+          </button>
+        )}
         <label style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
           fontSize: '0.78rem', color: 'var(--cl-text-light)', cursor: 'pointer',

@@ -112,6 +112,38 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
 
       map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
+      // Reset-view control — a button stacked directly under the zoom
+      // controls (top-right) on every layout. Recenters to the default
+      // US framing for the current viewport. resetView is also called
+      // from the background-click deselect handler below.
+      const resetView = () => {
+        const mobileNow = window.innerWidth <= 900;
+        map.current.flyTo({
+          center: mobileNow ? [-93, 37] : [-98.5, 39.8],
+          zoom: mobileNow ? 2 : 3,
+          duration: 700,
+        });
+      };
+      const resetControl = {
+        onAdd: () => {
+          const c = document.createElement('div');
+          c.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.title = 'Reset map view';
+          btn.setAttribute('aria-label', 'Reset map view');
+          btn.style.display = 'flex';
+          btn.style.alignItems = 'center';
+          btn.style.justifyContent = 'center';
+          btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/></svg>';
+          btn.addEventListener('click', () => resetView());
+          c.appendChild(btn);
+          return c;
+        },
+        onRemove: () => {},
+      };
+      map.current.addControl(resetControl, 'top-right');
+
       let hoveredStateId = null;
 
       map.current.on('load', () => {
@@ -431,7 +463,8 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
               return;
             }
             // True background click — no layer handler fired for it.
-            if (selectedStateRef.current !== null) {
+            const wasSelected = selectedStateRef.current !== null;
+            if (wasSelected) {
               map.current.setFeatureState(
                 { source: 'states', id: selectedStateRef.current },
                 { selected: false }
@@ -440,6 +473,9 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
             }
             setCurrentLabel('United States');
             if (onStateDeselectRef.current) onStateDeselectRef.current();
+            // Deselecting by clicking outside the US also resets the
+            // camera to the default national view (per product spec).
+            if (wasSelected) resetView();
           }, 0);
         });
 

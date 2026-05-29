@@ -1369,3 +1369,32 @@ const SAMPLE_DATA = new Proxy({}, {
   get: () => EMPTY_STATE_FALLBACK,
   has: () => false,
 });
+
+// ── AI search (rep-profile Bills + Votes tabs) ────────────────────────
+// aiHealth gates the AI-search toggle; filterItems runs a scoped
+// semantic filter over a caller-supplied {id, text} list (the loaded
+// bills / votes). Both are best-effort: they resolve to a safe shape on
+// any network/error so the caller can fall back to plain text search.
+export async function aiHealth() {
+  try {
+    const r = await fetch(`${API_BASE_URL}/api/ai/health`);
+    if (!r.ok) return { configured: false };
+    return await r.json();
+  } catch {
+    return { configured: false };
+  }
+}
+
+export async function filterItems({ prompt, items } = {}) {
+  try {
+    const r = await fetch(`${API_BASE_URL}/api/ai/filter-items`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, items: items || [] }),
+    });
+    if (!r.ok) return { error: `HTTP ${r.status}`, matched_ids: null };
+    return await r.json();
+  } catch (e) {
+    return { error: String(e), matched_ids: null };
+  }
+}

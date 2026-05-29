@@ -303,30 +303,19 @@ export default function PanelResizer({
   // The chunky variants share the same fill / indicator / label
   // treatment. They just differ in axis (column vs row) and orientation
   // of the handle dashes + label.
-  const useChunkyChrome = isMobile || !isVertical;
+  // Chunky navy chrome on ALL variants now — desktop's vertical divider
+  // adopts the mobile look (label inside the bar) instead of the old thin
+  // 6px bar with a 'MAP' pill poking out. Drag behavior is unchanged
+  // (continuous on desktop, binary on touch); only the chrome is shared.
+  const useChunkyChrome = true;
 
   let containerStyle;
-  if (isVertical && !isMobile) {
-    // Variant 1 — thin desktop bar.
-    containerStyle = {
-      width: 6,
-      flexShrink: 0,
-      cursor: 'ew-resize',
-      position: 'relative',
-      zIndex: 5,
-      background: active ? 'var(--primary, #457b9d)' : 'transparent',
-      opacity: active ? 0.6 : 1,
-      borderLeft: active ? 'none' : '1px solid var(--cl-border)',
-      transition: 'background 0.15s ease, opacity 0.15s ease',
-      // On vertical we want the label pill to overflow the 6px-wide
-      // strip horizontally so it's actually readable.
-      overflow: 'visible',
-    };
-  } else if (isVertical && isMobile) {
-    // Variant 2 — chunky navy column for mobile-landscape side-by-side
-    // mode. 28px wide so a thumb can land on it, navy fill, white
-    // indicator dashes and label so it reads as a distinct affordance
-    // instead of blending into the map or the panel.
+  if (isVertical) {
+    // Chunky navy column for the vertical divider — used on BOTH desktop
+    // (continuous drag) and mobile-landscape (binary). 28px wide so it's
+    // an easy target and a distinct affordance; the label sits INSIDE the
+    // bar (no more poking-out pill on desktop). Drag behavior is decided
+    // separately by binaryMode/isMobile, not by this chrome.
     containerStyle = {
       width: 28,
       flexShrink: 0,
