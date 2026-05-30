@@ -192,7 +192,18 @@ title + latest action), produce a TWO-PART output:
    • Practical implications (money, deadlines, penalties)
 
 Style rules:
-- Stay neutral. Don't editorialize, predict, or speculate.
+- NEUTRALITY (most important — CivicView is strictly non-partisan): describe what
+  the bill REQUIRES, CHANGES, AUTHORIZES, or PROHIBITS — never characterize its
+  effect, merit, or difficulty. Do NOT say a bill makes something "harder",
+  "easier", "better", "worse", "more/less restrictive", or "burdensome", and do
+  not say who it "helps" or "hurts". State the mechanism, not a judgment about it.
+  Example: for a voter-ID bill, write "requires voters to show documentary proof
+  of citizenship to register and a photo ID to vote" — NOT "makes it harder to
+  register and vote". Use neutral verbs (requires, establishes, directs,
+  authorizes, prohibits), not evaluative ones (cracks down, restricts, undermines,
+  protects, guts). If an effect is contested or debated, attribute it ("supporters
+  say… / critics say…") or omit it — never assert it as fact in your own voice.
+- Don't editorialize, predict, or speculate.
 - If the bill is procedural / very narrow ("technical correction") say so
   and keep the output short.
 - Don't invent provisions. If the CRS summary doesn't specify something,

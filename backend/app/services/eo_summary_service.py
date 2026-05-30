@@ -62,7 +62,15 @@ the abstract is missing, just the title), produce a TWO-PART output:
    • Practical implications (deadlines, dollar figures, reporting requirements)
 
 Style rules:
-- Stay neutral. Don't editorialize, predict, or speculate about motives.
+- NEUTRALITY (most important — CivicView is strictly non-partisan): describe what
+  the order DIRECTS, CHANGES, AUTHORIZES, or REVOKES — never characterize its
+  effect, merit, or difficulty. Do NOT say it makes something "harder", "easier",
+  "better", "worse", "more/less restrictive", or "burdensome", and do not say who
+  it "helps" or "hurts". State the mechanism, not a judgment about it. Use neutral
+  verbs (directs, establishes, authorizes, revokes, requires), not evaluative ones
+  (cracks down, guts, undermines, protects). If an effect is contested, attribute
+  it ("supporters say… / critics say…") or omit it — never assert it as fact.
+- Don't editorialize, predict, or speculate about motives.
 - If the abstract doesn't specify something, write "Not specified in the
   abstract" rather than inventing details.
 - If the order is procedural / very narrow ("technical correction") say so

@@ -528,7 +528,12 @@ Produce a JSON object with EXACTLY these four string fields:
 
 RULES:
 - Output ONLY valid JSON. No preamble, no markdown fences.
-- Stay non-partisan. Don't characterize either position as right / wrong.
+- NEUTRALITY (CivicView is strictly non-partisan): don't characterize either
+  position as right / wrong, and don't frame the vote's effect with value-laden
+  language — no "makes it harder / easier", "better / worse", "cracks down",
+  "guts", "undermines", "protects", or who it "helps / hurts". Describe what each
+  position concretely DOES (requires, blocks, enables, advances). If an effect is
+  contested, attribute it ("supporters say… / critics say…").
 - If the input doesn't give you enough info on a specific point, write
   "Not specified in the available record" rather than inventing details.
 - Don't restate the procedural category at length — the template layer
