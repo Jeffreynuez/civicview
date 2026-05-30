@@ -1391,10 +1391,14 @@ function BillsTab({ state, member, onNotify }) {
   }
 
   const billText = (b) => [b.type, b.number, b.title, b.latest_action && b.latest_action.text].filter(Boolean).join(' ');
+  // billKey takes (congress, type, number) — NOT a bill object — and
+  // returns null if any are missing. Build a stable id with a fallback
+  // so AI items always carry a non-null id (a null id 422s the API).
+  const bk = (b) => billKey(b.congress, b.type, b.number) || `${b.type || ''}-${b.number || ''}`;
   const matchBill = (b) => {
     if (aiMode) {
       if (aiMatched === null) return true; // not applied yet
-      return aiMatched.has(billKey(b));
+      return aiMatched.has(bk(b));
     }
     const q = search.trim().toLowerCase();
     if (!q) return true;
@@ -1404,7 +1408,7 @@ function BillsTab({ state, member, onNotify }) {
     const q = search.trim();
     if (!q) { setAiMatched(null); setAiLabel(''); return; }
     setAiBusy(true);
-    const items = [...sponsored, ...cosponsored].map((b) => ({ id: billKey(b), text: billText(b) }));
+    const items = [...sponsored, ...cosponsored].map((b) => ({ id: bk(b), text: billText(b) }));
     const res = await filterItems({ prompt: q, items });
     setAiBusy(false);
     if (!res || res.error) { setAiMatched(new Set()); setAiLabel('AI search unavailable — try Text search.'); return; }

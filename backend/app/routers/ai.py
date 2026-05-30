@@ -21,7 +21,7 @@ import re
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -629,12 +629,20 @@ def filter_polls(
 # items here and we semantic-filter them. Index-based model output keeps
 # the call cheap and avoids the model mangling long id strings.
 class FilterItem(BaseModel):
-    id: str = Field(..., max_length=128)
-    text: str = Field(default="", max_length=2000)
+    # Lenient by design — defaults + a None->"" coercion + server-side
+    # truncation rather than strict constraints, so a stray null/oversized
+    # field degrades to a skipped item instead of 422-ing the request.
+    id: str = ""
+    text: str = ""
+
+    @field_validator("id", "text", mode="before")
+    @classmethod
+    def _none_to_empty(cls, v):
+        return "" if v is None else v
 
 
 class ItemFilterRequest(BaseModel):
-    prompt: str = Field(..., min_length=1, max_length=300)
+    prompt: str = ""
     items: List[FilterItem] = Field(default_factory=list)
 
 
@@ -656,6 +664,8 @@ def filter_items(req: ItemFilterRequest) -> ItemFilterResponse:
     method='passthrough' with ALL ids so the UI shows everything rather
     than erroring. Scoped to whatever the client sent (the loaded set).
     """
+    if not (req.prompt or "").strip():
+        return ItemFilterResponse(matched_ids=[], method="passthrough", explanation="Enter a search query.")
     items = req.items[:_ITEMS_MAX]
     all_ids = [it.id for it in items]
     if not items:
