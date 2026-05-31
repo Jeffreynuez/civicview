@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CivicView · Bills & Votes (/bills)</title>
+  <link rel="stylesheet" href="bills/bills.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <rect width="64" height="64" fill="#1b263b"/>
+      <path d="M10 44 A22 22 0 0 1 54 44 Z" fill="none"/>
+      <g fill="#457b9d"><rect x="14" y="38" width="5" height="5" rx="1.2"/><rect x="22" y="32" width="5" height="5" rx="1.2"/><rect x="30" y="29" width="5" height="5" rx="1.2"/></g>
+      <g fill="#e63946"><rect x="38" y="32" width="5" height="5" rx="1.2"/><rect x="46" y="38" width="5" height="5" rx="1.2"/><rect x="30" y="40" width="5" height="5" rx="1.2"/></g>
+    </svg>
+  </template>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="bills/data.js"></script>
+  <script type="text/babel" src="bills/tweaks-panel.jsx"></script>
+  <script type="text/babel" src="bills/seatchart.jsx"></script>
+  <script type="text/babel" src="bills/minicard.jsx"></script>
+  <script type="text/babel" src="bills/components.jsx"></script>
+  <script type="text/babel" src="bills/annotations.jsx"></script>
+  <script type="text/babel" src="bills/app.jsx"></script>
+</body>
+</html>
