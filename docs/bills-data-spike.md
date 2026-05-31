@@ -104,18 +104,40 @@ The chamber decides where the signal lives:
 
 ---
 
-## The one open item — enumerating *recent House* votes
+## The House recent-list item — RESOLVED (2026-05-31)
 
-The **Senate** has a perfect recent-list feed (`vote_menu`). The **House** does
-not expose an equivalent single "recent votes" XML — the per-roll XML is rock
-solid, but you need to know which roll numbers are recent.
+The **Senate** has a perfect recent-list feed (`vote_menu`). The **House** has no
+equivalent XML — but the **Congress.gov API House Roll Call Vote endpoints**
+(beta, 118th Congress onward; LoC + House Clerk partnership) close the gap and
+are now wired in as the primary House enumerator.
 
-**Recommended:** enumerate via the **Congress.gov API** (the `CONGRESS_API_KEY`
-is already configured) house roll-call list endpoint to get the latest roll
-numbers + basic metadata, then fetch the official Clerk per-roll XML for the
-authoritative per-member detail. **Fallbacks:** GovTrack's recent-House-votes
-list, or read the Clerk EVS yearly index page. Confirm the exact Congress.gov
-endpoint shape during implementation — it's the only unverified piece.
+Endpoints (confirmed against the official docs):
+- **List:** `GET /v3/house-vote/{congress}/{session}` — newest votes with
+  `rollCallNumber`, `startDate`, `result` (Passed/Failed/Agreed to),
+  `legislationType` (HR/HJRES/HCONRES/HRES) + `legislationNumber`, `voteType`.
+  (No per-vote question or tally at the list level — those are item/member level.)
+- **Members:** `GET /v3/house-vote/{congress}/{session}/{num}/members` — per-member
+  `bioguideId` + `voteCast` (Aye/Nay/Present/Not Voting) + `voteParty` + `voteState`,
+  plus `voteQuestion` / `result` / `legislationType` at the top. **bioguide is
+  native** — no name mapping needed.
+
+Integration (in `official_votes_service.py`, all gated behind `CONGRESS_API_KEY`
+with fallbacks so it can't break the working feature):
+- House recent enumeration → **Congress.gov list (primary)**, GovTrack (deprecated)
+  as last-resort fallback. The list has no tally, so the lead row's tally +
+  question are enriched from its per-vote detail (one bounded extra fetch — that
+  row feeds the home Bills card).
+- House per-member detail → **Clerk EVS XML (primary, already tested)**, with the
+  **Congress.gov members endpoint as a second official fallback**.
+- Amendment votes (`HAMDT`) and non-House bill types filtered out; rows sorted
+  newest-first by roll number.
+- `current_congress_session()` derives congress/session from the date (replaces
+  the pinned 119/2); `year_for()` replaces the hardcoded 2025/2026 EVS-year map.
+
+**Parsers unit-tested offline** (`backend/tests/test_official_votes.py`, +18
+assertions against doc-derived fixtures). **Still needs a live check** against
+`api.congress.gov` with the real key to confirm JSON wrapping — but the tested
+Clerk-XML + GovTrack fallbacks keep the feature working regardless.
 
 ---
 

@@ -32,7 +32,11 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.services import vote_explainer_service
-from app.services.official_votes_service import get_service, parse_vote_id
+from app.services.official_votes_service import (
+    get_service,
+    parse_vote_id,
+    current_congress_session,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -182,9 +186,9 @@ async def generate_explain(
 # this is public civic data and carries no engagement gate.
 # ---------------------------------------------------------------------------
 
-# 119th Congress, 2nd session (2026). TODO: derive instead of pinning.
-CURRENT_CONGRESS = 119
-CURRENT_SESSION = 2
+# Derived from today's date (e.g. 119th Congress, 2nd session in 2026).
+# A server restart picks up the new congress/session at the year boundary.
+CURRENT_CONGRESS, CURRENT_SESSION = current_congress_session()
 
 
 class RecentVoteItem(BaseModel):

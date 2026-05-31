@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import time
 from pathlib import Path
 from typing import Optional
@@ -54,6 +55,13 @@ SENATE_VOTE_URL = (
     "vote{congress}{session}/vote_{congress}_{session}_{num:05d}.xml"
 )
 GOVTRACK_VOTE_LIST = "https://www.govtrack.us/api/v2/vote"
+
+# Congress.gov House roll-call vote API (official; replaces the GovTrack
+# enumeration stopgap). Beta endpoint, 118th Congress onward. Requires an
+# api key (CONGRESS_API_KEY); falls back to GovTrack when unset/unavailable.
+CONGRESS_API_BASE = "https://api.congress.gov/v3"
+HOUSE_VOTE_LIST_URL = CONGRESS_API_BASE + "/house-vote/{congress}/{session}"
+HOUSE_VOTE_MEMBERS_URL = CONGRESS_API_BASE + "/house-vote/{congress}/{session}/{num}/members"
 
 RECENT_TTL = 600  # 10 minutes — new votes land during a session
 
@@ -402,6 +410,124 @@ def parse_vote_id(vote_id: str) -> dict:
     }
 
 
+# --- congress/session derivation + Congress.gov House parsers ---------------
+def current_congress_session() -> tuple[int, int]:
+    """Derive (congress, session) from today's date. Congress N spans years
+    [1789 + 2*(N-1) .. +1]; session 1 = odd (first) year, 2 = even year."""
+    import datetime as _dt
+
+    y = _dt.date.today().year
+    return (y - 1789) // 2 + 1, (1 if y % 2 == 1 else 2)
+
+
+def year_for(congress: int, session: int) -> int:
+    """Calendar year for a congress + session (House Clerk EVS paths)."""
+    return 1789 + 2 * (congress - 1) + (session - 1)
+
+
+_HOUSE_BILL_TYPES = {"HR", "HJRES", "HCONRES", "HRES"}
+_HOUSE_CITE = {
+    "HR": "H.R.", "HJRES": "H.J.Res.", "HCONRES": "H.Con.Res.", "HRES": "H.Res.",
+}
+
+
+def _congress_house_cite(leg_type: Optional[str], leg_num) -> str:
+    """Congress.gov legislation code -> display cite (HR 1041 -> H.R. 1041)."""
+    pre = _HOUSE_CITE.get((leg_type or "").upper(), (leg_type or "").upper())
+    return (pre + " " + str(leg_num)).strip() if leg_num not in (None, "") else pre
+
+
+def parse_house_vote_list(payload: dict, congress: int, session: int) -> list[dict]:
+    """Parse a Congress.gov /house-vote/{c}/{s} list response into recent rows,
+    newest first. Keeps legislative votes (bill types, not amendments). The list
+    level carries no vote question or tally — those are filled lazily from the
+    per-vote detail (see _enrich_house_row)."""
+    votes = (payload or {}).get("houseRollCallVotes") or []
+    rows = []
+    for v in votes:
+        if v.get("amendmentType") or v.get("amendmentNumber"):
+            continue  # amendment votes are out of v1 scope
+        leg_type = (v.get("legislationType") or "").upper()
+        if leg_type and leg_type not in _HOUSE_BILL_TYPES:
+            continue
+        num = v.get("rollCallNumber")
+        if num is None:
+            continue
+        rows.append(
+            {
+                "vote_id": f"h-{congress}-{session}-{int(num)}",
+                "chamber": "house",
+                "congress": congress,
+                "session": session,
+                "rollcall": int(num),
+                "date": (v.get("startDate") or "")[:10],
+                "issue": _congress_house_cite(leg_type, v.get("legislationNumber")),
+                "question": "",
+                "kind": "passage",
+                "result": (v.get("result") or "").strip(),
+            }
+        )
+    rows.sort(key=lambda r: r["rollcall"], reverse=True)
+    return rows
+
+
+def parse_house_vote_members(payload: dict) -> Optional[dict]:
+    """Parse a Congress.gov /house-vote/{c}/{s}/{num}/members response into the
+    normalized per-vote dict (same shape as parse_house_roll). Tolerant of the
+    JSON wrapping variants Congress.gov uses for the members list."""
+    root = (payload or {}).get("houseRollCallVoteMemberVotes") or payload or {}
+    results = root.get("results")
+    if isinstance(results, dict):
+        items = results.get("item") or results.get("results") or []
+    elif isinstance(results, list):
+        items = results
+    else:
+        items = root.get("votes") or []
+    if not items:
+        return None
+    congress = int(root.get("congress") or 0)
+    session = int(root.get("sessionNumber") or root.get("session") or 0)
+    rollcall = int(root.get("rollCallNumber") or 0)
+    members = []
+    by_party: dict[str, dict] = {}
+    totals = {"yea": 0, "nay": 0, "present": 0, "not_voting": 0}
+    for m in items:
+        bio = m.get("bioguideId") or m.get("bioguideID")
+        letter = party_letter(m.get("voteParty"))
+        position = normalize_position(m.get("voteCast"))
+        full = " ".join(p for p in (m.get("firstName"), m.get("lastName")) if p)
+        members.append(
+            {
+                "bioguide_id": bio,
+                "name": _enrich_name(bio, full or None),
+                "state": m.get("voteState"),
+                "party": letter,
+                "position": position,
+            }
+        )
+        key = {"Yea": "yea", "Nay": "nay", "Present": "present"}.get(position, "not_voting")
+        totals[key] += 1
+        if letter:
+            b = by_party.setdefault(letter, {"yea": 0, "nay": 0, "present": 0, "not_voting": 0})
+            b[key] += 1
+    leg_type = (root.get("legislationType") or "").upper()
+    return {
+        "vote_id": f"h-{congress}-{session}-{rollcall}",
+        "chamber": "house",
+        "congress": congress,
+        "session": session,
+        "rollcall": rollcall,
+        "legis_num": _congress_house_cite(leg_type, root.get("legislationNumber")),
+        "question": (root.get("voteQuestion") or "").strip(),
+        "vote_type": (root.get("voteType") or "").strip(),
+        "result": (root.get("result") or "").strip(),
+        "date": (root.get("startDate") or "").strip(),
+        "totals": totals,
+        "by_party": by_party,
+        "members": members,
+    }
+
+
 # --- async service (network) ------------------------------------------------
 class OfficialVotesService:
     """Fetch + cache wrapper around the pure parsers. Per-vote detail cached
@@ -429,11 +555,17 @@ class OfficialVotesService:
         if vote_id in self._detail:
             return self._detail[vote_id]
         ref = parse_vote_id(vote_id)
-        year = 2025 if ref["session"] == 1 else 2026  # 119th Congress mapping
         if ref["chamber"] == "house":
+            # Primary: official House Clerk EVS XML (legislator name-id = bioguide).
+            year = year_for(ref["congress"], ref["session"])
             url = HOUSE_ROLL_URL.format(year=year, roll=ref["number"])
             text = await self._get(url)
             data = parse_house_roll(text) if text else None
+            if data is None:
+                # Fallback: official Congress.gov members endpoint.
+                data = await self._house_members_congress(
+                    ref["congress"], ref["session"], ref["number"]
+                )
         else:
             url = SENATE_VOTE_URL.format(
                 congress=ref["congress"], session=ref["session"], num=ref["number"]
@@ -465,11 +597,62 @@ class OfficialVotesService:
             self._recent[cache_key] = (time.time(), rows)
         return rows
 
+    async def _congress_get_json(self, url: str, params: Optional[dict] = None):
+        """GET a Congress.gov API endpoint as JSON. Returns None when the key
+        is unset or the call fails (caller falls back)."""
+        import httpx
+
+        key = os.getenv("CONGRESS_API_KEY")
+        if not key:
+            return None
+        p = dict(params or {})
+        p["api_key"] = key
+        p.setdefault("format", "json")
+        try:
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                resp = await client.get(url, params=p, headers={"User-Agent": "CivicView/1.0"})
+                if resp.status_code == 200:
+                    return resp.json()
+                logger.warning("congress.gov %s -> %s", url, resp.status_code)
+        except Exception as exc:
+            logger.error("congress.gov fetch failed %s: %s", url, exc)
+        return None
+
+    async def _house_members_congress(self, congress: int, session: int, num: int) -> Optional[dict]:
+        url = HOUSE_VOTE_MEMBERS_URL.format(congress=congress, session=session, num=num)
+        payload = await self._congress_get_json(url)
+        return parse_house_vote_members(payload) if payload else None
+
+    async def _enrich_house_row(self, rows: list[dict]) -> None:
+        """Fill the lead row's tally + question from its per-vote detail (the
+        list level carries neither). Bounded to one extra fetch — that lead row
+        is the only one that needs a tally (the home Bills card)."""
+        if not rows:
+            return
+        detail = await self.get_vote_members(rows[0]["vote_id"])
+        if detail:
+            t = detail.get("totals") or {}
+            rows[0]["tally"] = {"yea": t.get("yea", 0), "nay": t.get("nay", 0)}
+            if detail.get("question") and not rows[0].get("question"):
+                rows[0]["question"] = detail["question"]
+
     async def _house_recent(self, congress: int, session: int, limit: int) -> list[dict]:
-        """Enumerate recent House passage votes via GovTrack (no official
-        recent-list feed exists for the House). Per-member truth still comes
-        from the official Clerk XML on /members. TODO: swap to the Congress.gov
-        house-vote endpoint once confirmed."""
+        """Enumerate recent House legislative votes. Primary source is the
+        official Congress.gov house-vote list; GovTrack (deprecated API) is the
+        last-resort fallback."""
+        url = HOUSE_VOTE_LIST_URL.format(congress=congress, session=session)
+        payload = await self._congress_get_json(
+            url, params={"limit": min(max(limit * 2, 40), 250)}
+        )
+        rows = parse_house_vote_list(payload, congress, session) if payload else []
+        if rows:
+            rows = rows[:limit]
+            await self._enrich_house_row(rows)
+            return rows
+        return await self._house_recent_govtrack(congress, session, limit)
+
+    async def _house_recent_govtrack(self, congress: int, session: int, limit: int) -> list[dict]:
+        """Fallback enumerator — GovTrack's (deprecated) vote list."""
         import httpx
 
         try:
