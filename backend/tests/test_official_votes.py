@@ -118,11 +118,14 @@ house_members = {
         "voteType": "Yea and Nay", "result": "Passed",
         "legislationType": "HR", "legislationNumber": 1041,
         "voteQuestion": "On Passage", "startDate": "2026-05-20T13:00:00-04:00",
-        "results": {"item": [
-            {"bioguideId": "D000032", "voteCast": "Aye", "firstName": "Byron", "lastName": "Donalds", "voteParty": "R", "voteState": "FL"},
-            {"bioguideId": "P000197", "voteCast": "No", "firstName": "Nancy", "lastName": "Pelosi", "voteParty": "D", "voteState": "CA"},
-            {"bioguideId": "X000001", "voteCast": "Not Voting", "firstName": "Test", "lastName": "Member", "voteParty": "D", "voteState": "TX"},
-        ]},
+        # Live Congress.gov shape: results is a DIRECT array; the member id key
+        # is "bioguideID" (capital ID). The parser also accepts "bioguideId" and
+        # a {"item": [...]} wrapper.
+        "results": [
+            {"bioguideID": "D000032", "voteCast": "Aye", "firstName": "Byron", "lastName": "Donalds", "voteParty": "R", "voteState": "FL"},
+            {"bioguideID": "P000197", "voteCast": "No", "firstName": "Nancy", "lastName": "Pelosi", "voteParty": "D", "voteState": "CA"},
+            {"bioguideID": "X000001", "voteCast": "Not Voting", "firstName": "Test", "lastName": "Member", "voteParty": "D", "voteState": "TX"},
+        ],
     }
 }
 hm = ov.parse_house_vote_members(house_members)

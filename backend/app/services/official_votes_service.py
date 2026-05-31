@@ -425,9 +425,13 @@ def year_for(congress: int, session: int) -> int:
     return 1789 + 2 * (congress - 1) + (session - 1)
 
 
-_HOUSE_BILL_TYPES = {"HR", "HJRES", "HCONRES", "HRES"}
+_HOUSE_BILL_TYPES = {
+    "HR", "HJRES", "HCONRES", "HRES",  # House-originated measures
+    "S", "SJRES", "SCONRES", "SRES",   # Senate bills voted on the House floor
+}
 _HOUSE_CITE = {
     "HR": "H.R.", "HJRES": "H.J.Res.", "HCONRES": "H.Con.Res.", "HRES": "H.Res.",
+    "S": "S.", "SJRES": "S.J.Res.", "SCONRES": "S.Con.Res.", "SRES": "S.Res.",
 }
 
 
