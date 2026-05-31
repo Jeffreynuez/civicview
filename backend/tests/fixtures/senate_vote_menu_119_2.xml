@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><vote_summary>
+  <congress>119</congress>
+  <session>2</session>
+  <congress_year>2026</congress_year>
+  <votes>
+    <vote><vote_number>00054</vote_number><vote_date>12-Mar</vote_date><issue>H.R. 7147</issue><question>On Cloture on the Motion to Proceed</question><result>Rejected</result><vote_tally><yeas>51</yeas><nays>46</nays></vote_tally><title>Cloture on MTP H.R. 7147</title></vote>
+    <vote><vote_number>00053</vote_number><vote_date>12-Mar</vote_date><issue>H.R. 6644</issue><question>On Passage of the Bill</question><result>Passed</result><vote_tally><yeas>89</yeas><nays>10</nays></vote_tally><title>H.R. 6644, as amended</title></vote>
+    <vote><vote_number>00051</vote_number><vote_date>11-Mar</vote_date><issue>H.R. 6644</issue><question>On the Amendment</question><result>Agreed to</result><vote_tally><yeas>84</yeas><nays>10</nays></vote_tally><title>Scott Amdt 4308</title></vote>
+    <vote><vote_number>00049</vote_number><vote_date>10-Mar</vote_date><issue>PN711</issue><question>On the Nomination</question><result>Confirmed</result><vote_tally><yeas>71</yeas><nays>29</nays></vote_tally><title>Confirmation: Lt. Gen. Joshua M. Rudd</title></vote>
+    <vote><vote_number>00045</vote_number><vote_date>04-Mar</vote_date><issue>H.R. 6644</issue><question>On the Motion to Proceed</question><result>Agreed to</result><vote_tally><yeas>90</yeas><nays>8</nays></vote_tally><title>MTP H.R. 6644</title></vote>
+    <vote><vote_number>00037</vote_number><vote_date>12-Feb</vote_date><issue>H.J.Res. 142</issue><question>On the Joint Resolution</question><result>Passed</result><vote_tally><yeas>49</yeas><nays>47</nays></vote_tally><title>H. J. Res. 142</title></vote>
+    <vote><vote_number>00017</vote_number><vote_date>30-Jan</vote_date><issue>H.R. 7148</issue><question>On the Motion to Table</question><result>Agreed to</result><vote_tally><yeas>58</yeas><nays>42</nays></vote_tally><title>Motion to Table</title></vote>
+  </votes>
+</vote_summary>

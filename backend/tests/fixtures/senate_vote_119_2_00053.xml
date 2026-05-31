@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><roll_call_vote>
+  <congress>119</congress>
+  <session>2</session>
+  <congress_year>2026</congress_year>
+  <vote_number>53</vote_number>
+  <vote_date>March 12, 2026,  11:33 AM</vote_date>
+  <question>On Passage of the Bill</question>
+  <vote_title>H.R. 6644, as amended</vote_title>
+  <vote_result>Bill Passed</vote_result>
+  <document>
+    <document_type>H.R.</document_type>
+    <document_number>6644</document_number>
+    <document_title>A bill to increase the supply of housing in America, and for other purposes.</document_title>
+  </document>
+  <count>
+    <yeas>89</yeas>
+    <nays>10</nays>
+    <present/>
+    <absent>1</absent>
+  </count>
+  <members>
+    <member><member_full>Cantwell (D-WA)</member_full><last_name>Cantwell</last_name><first_name>Maria</first_name><party>D</party><state>WA</state><vote_cast>Yea</vote_cast><lis_member_id>S275</lis_member_id></member>
+    <member><member_full>Budd (R-NC)</member_full><last_name>Budd</last_name><first_name>Ted</first_name><party>R</party><state>NC</state><vote_cast>Nay</vote_cast><lis_member_id>S417</lis_member_id></member>
+    <member><member_full>Blackburn (R-TN)</member_full><last_name>Blackburn</last_name><first_name>Marsha</first_name><party>R</party><state>TN</state><vote_cast>Not Voting</vote_cast><lis_member_id>S396</lis_member_id></member>
+    <member><member_full>Cruz (R-TX)</member_full><last_name>Cruz</last_name><first_name>Ted</first_name><party>R</party><state>TX</state><vote_cast>Nay</vote_cast><lis_member_id>S355</lis_member_id></member>
+    <member><member_full>King (I-ME)</member_full><last_name>King</last_name><first_name>Angus</first_name><party>I</party><state>ME</state><vote_cast>Yea</vote_cast><lis_member_id>S363</lis_member_id></member>
+    <member><member_full>Sanders (I-VT)</member_full><last_name>Sanders</last_name><first_name>Bernie</first_name><party>I</party><state>VT</state><vote_cast>Yea</vote_cast><lis_member_id>S313</lis_member_id></member>
+    <member><member_full>Schumer (D-NY)</member_full><last_name>Schumer</last_name><first_name>Charles</first_name><party>D</party><state>NY</state><vote_cast>Yea</vote_cast><lis_member_id>S270</lis_member_id></member>
+  </members>
+</roll_call_vote>

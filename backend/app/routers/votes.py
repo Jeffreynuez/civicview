@@ -26,12 +26,13 @@ from __future__ import annotations
 import logging
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.services import vote_explainer_service
+from app.services.official_votes_service import get_service, parse_vote_id
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -170,3 +171,93 @@ async def generate_explain(
             cached.ai_generated_at.isoformat() if cached.ai_generated_at else None
         )
     return VoteExplainResponse(**response)
+
+
+# ---------------------------------------------------------------------------
+# Federal Bills & Votes — chamber-wide recent list + per-vote seat-chart data
+# (Phase A; see docs/bills-feature-prd.md + docs/bills-data-spike.md).
+#
+# Official source-of-truth: House Clerk + Senate LIS roll-call XML, with
+# GovTrack as the House-enumeration fallback. Read-only + unauthenticated —
+# this is public civic data and carries no engagement gate.
+# ---------------------------------------------------------------------------
+
+# 119th Congress, 2nd session (2026). TODO: derive instead of pinning.
+CURRENT_CONGRESS = 119
+CURRENT_SESSION = 2
+
+
+class RecentVoteItem(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    vote_id: str
+    chamber: str
+    rollcall: int
+    date: Optional[str] = None
+    issue: Optional[str] = None
+    question: Optional[str] = None
+    kind: Optional[str] = None
+    result: Optional[str] = None
+    title: Optional[str] = None
+    tally: Optional[dict] = None
+
+
+class RecentVotesResponse(BaseModel):
+    chamber: str
+    congress: int
+    session: int
+    votes: list[RecentVoteItem]
+
+
+class VoteMemberItem(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    bioguide_id: Optional[str] = None
+    name: Optional[str] = None
+    state: Optional[str] = None
+    party: Optional[str] = None
+    position: str
+
+
+class VoteMembersResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    vote_id: str
+    chamber: str
+    congress: int
+    rollcall: int
+    question: Optional[str] = None
+    result: Optional[str] = None
+    date: Optional[str] = None
+    totals: dict
+    by_party: dict
+    members: list[VoteMemberItem]
+
+
+@router.get("/recent", response_model=RecentVotesResponse)
+async def recent_votes(
+    chamber: str = Query(..., pattern="^(house|senate)$"),
+    limit: int = Query(20, ge=1, le=100),
+    congress: int = CURRENT_CONGRESS,
+    session: int = CURRENT_SESSION,
+) -> RecentVotesResponse:
+    """Most recent in-scope (passage + nomination) roll-call votes for a
+    chamber, newest first. Senate comes from the official vote_menu; House is
+    enumerated via GovTrack (per-member truth still comes from the official
+    Clerk XML on /{vote_id}/members)."""
+    rows = await get_service().get_recent(chamber, congress, session, limit)
+    return RecentVotesResponse(
+        chamber=chamber, congress=congress, session=session, votes=rows
+    )
+
+
+@router.get("/{vote_id}/members", response_model=VoteMembersResponse)
+async def vote_members(vote_id: str) -> VoteMembersResponse:
+    """Every member's position on a single roll-call — the seat-chart
+    backbone. House: legislator name-id = bioguide (direct). Senate:
+    lis_member_id -> bioguide via the legislators crosswalk."""
+    try:
+        parse_vote_id(vote_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Malformed vote_id.")
+    data = await get_service().get_vote_members(vote_id)
+    if data is None:
+        raise HTTPException(status_code=502, detail="Couldn't load this vote.")
+    return VoteMembersResponse(**data)
