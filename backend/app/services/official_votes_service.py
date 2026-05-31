@@ -257,17 +257,25 @@ def parse_house_roll(xml_text: str) -> dict:
     rollnum = int(mt("rollcall-num") or 0)
     congress = int(mt("congress") or 0)
     session = (mt("session") or "").strip()
+    legis = (mt("legis-num") or "").strip()
+    _toks = legis.split()
+    source_url = (
+        congress_bill_url(congress, "".join(_toks[:-1]), _toks[-1])
+        if len(_toks) >= 2 and _toks[-1].isdigit()
+        else None
+    )
     return {
         "vote_id": f"h-{congress}-{_session_num(session)}-{rollnum}",
         "chamber": "house",
         "congress": congress,
         "session": session,
         "rollcall": rollnum,
-        "legis_num": (mt("legis-num") or "").strip(),
+        "legis_num": legis,
         "question": (mt("vote-question") or "").strip(),
         "vote_type": (mt("vote-type") or "").strip(),
         "result": (mt("vote-result") or "").strip(),
         "date": (mt("action-date") or "").strip(),
+        "source_url": source_url,
         "totals": totals,
         "by_party": by_party,
         "members": members,
@@ -344,6 +352,7 @@ def parse_senate_vote(xml_text: str) -> dict:
         "date": (rt("vote_date") or "").strip(),
         "title": (rt("vote_title") or "").strip(),
         "bill": bill,
+        "source_url": congress_bill_url(congress, bill["type"], bill["number"]) if bill else None,
         "totals": totals,
         "by_party": by_party,
         "members": members,
@@ -356,6 +365,7 @@ def parse_senate_menu(xml_text: str, in_scope_only: bool = True) -> list[dict]:
     root = ET.fromstring(xml_text)
     congress = int(root.findtext("congress") or 0)
     session = int(root.findtext("session") or 0)
+    cyear = (root.findtext("congress_year") or "").strip()  # the menu omits the year on each row
     out = []
     for v in root.findall("votes/vote"):
         question = (v.findtext("question") or "").strip()
@@ -367,6 +377,9 @@ def parse_senate_menu(xml_text: str, in_scope_only: bool = True) -> list[dict]:
         except ValueError:
             continue
         tally = v.find("vote_tally")
+        vdate = (v.findtext("vote_date") or "").strip()
+        if vdate and cyear and not vdate.endswith(cyear):
+            vdate = f"{vdate}-{cyear}"  # "12-Mar" -> "12-Mar-2026" (year-aware; avoids JS defaulting to 2001)
         out.append(
             {
                 "vote_id": f"s-{congress}-{session}-{num}",
@@ -374,7 +387,7 @@ def parse_senate_menu(xml_text: str, in_scope_only: bool = True) -> list[dict]:
                 "congress": congress,
                 "session": session,
                 "rollcall": num,
-                "date": (v.findtext("vote_date") or "").strip(),
+                "date": vdate,
                 "issue": (v.findtext("issue") or "").strip(),
                 "question": question,
                 "kind": kind,
@@ -439,6 +452,24 @@ def _congress_house_cite(leg_type: Optional[str], leg_num) -> str:
     """Congress.gov legislation code -> display cite (HR 1041 -> H.R. 1041)."""
     pre = _HOUSE_CITE.get((leg_type or "").upper(), (leg_type or "").upper())
     return (pre + " " + str(leg_num)).strip() if leg_num not in (None, "") else pre
+
+
+_BILL_SLUG = {
+    "HR": "house-bill", "S": "senate-bill",
+    "HJRES": "house-joint-resolution", "SJRES": "senate-joint-resolution",
+    "HCONRES": "house-concurrent-resolution", "SCONRES": "senate-concurrent-resolution",
+    "HRES": "house-resolution", "SRES": "senate-resolution",
+}
+
+
+def congress_bill_url(congress, type_code, number) -> Optional[str]:
+    """Public 'source of the bill' link — the congress.gov bill page. Accepts
+    type codes in any form (HR / H R / H.R.); returns None for non-bill votes."""
+    code = (type_code or "").upper().replace(".", "").replace(" ", "")
+    slug = _BILL_SLUG.get(code)
+    if not slug or number in (None, "") or not congress:
+        return None
+    return f"https://www.congress.gov/bill/{int(congress)}th-congress/{slug}/{number}"
 
 
 def parse_house_vote_list(payload: dict, congress: int, session: int) -> list[dict]:
@@ -522,6 +553,7 @@ def parse_house_vote_members(payload: dict) -> Optional[dict]:
         "session": session,
         "rollcall": rollcall,
         "legis_num": _congress_house_cite(leg_type, root.get("legislationNumber")),
+        "source_url": root.get("legislationUrl") or congress_bill_url(congress, leg_type, root.get("legislationNumber")),
         "question": (root.get("voteQuestion") or "").strip(),
         "vote_type": (root.get("voteType") or "").strip(),
         "result": (root.get("result") or "").strip(),
@@ -643,17 +675,27 @@ class OfficialVotesService:
     async def _house_recent(self, congress: int, session: int, limit: int) -> list[dict]:
         """Enumerate recent House legislative votes. Primary source is the
         official Congress.gov house-vote list; GovTrack (deprecated API) is the
-        last-resort fallback."""
+        last-resort fallback.
+
+        The beta list returns OLDEST-first and ignores ?sort, so we page to the
+        end (via pagination.count) to surface the newest votes."""
         url = HOUSE_VOTE_LIST_URL.format(congress=congress, session=session)
-        payload = await self._congress_get_json(
-            url, params={"limit": min(max(limit * 2, 40), 250)}
-        )
-        rows = parse_house_vote_list(payload, congress, session) if payload else []
-        if rows:
-            rows = rows[:limit]
-            await self._enrich_house_row(rows)
-            return rows
-        return await self._house_recent_govtrack(congress, session, limit)
+        page = 250  # api max page size
+        first = await self._congress_get_json(url, params={"limit": page, "offset": 0})
+        if not first:
+            return await self._house_recent_govtrack(congress, session, limit)
+        count = (first.get("pagination") or {}).get("count") or 0
+        payload = first
+        if count > page:
+            tail = await self._congress_get_json(
+                url, params={"limit": page, "offset": max(0, count - page)}
+            )
+            if tail:
+                payload = tail
+        rows = parse_house_vote_list(payload, congress, session)  # sorted newest-first
+        rows = rows[:limit]
+        await self._enrich_house_row(rows)
+        return rows
 
     async def _house_recent_govtrack(self, congress: int, session: int, limit: int) -> list[dict]:
         """Fallback enumerator — GovTrack's (deprecated) vote list."""

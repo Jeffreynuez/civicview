@@ -60,6 +60,8 @@
 .cv-header__byparty { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: var(--cl-text-sm); color: var(--cl-text-light); }
 .cv-header__date { color: var(--cl-text-muted); }
 .cv-header__caucus { margin: 8px 0 0; font-size: var(--cl-text-xs); color: var(--cl-text-muted); font-style: italic; }
+.cv-header__src { display: inline-block; margin: -4px 0 12px; font-size: var(--cl-text-sm); color: var(--cl-accent); font-weight: 600; text-decoration: none; }
+.cv-header__src:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- tally bar ---------- */
 .cv-tally { display: flex; flex-direction: column; gap: 9px; }
