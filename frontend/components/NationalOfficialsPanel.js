@@ -1935,10 +1935,10 @@ function HomeVoteCard({ vote }) {
         </p>
       )}
       <div style={{ display: 'flex', height: 20, borderRadius: 'var(--cl-radius-sm)', overflow: 'hidden', border: '1px solid var(--cl-border)' }}>
-        <div style={{ width: yeaPct + '%', background: '#2d6a4f', color: '#fff', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+        <div style={{ width: yeaPct + '%', background: '#34435c', color: '#fff', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
           {yeaPct > 16 ? 'Yea ' + yea : ''}
         </div>
-        <div style={{ width: (100 - yeaPct) + '%', background: '#d63031', color: '#fff', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+        <div style={{ width: (100 - yeaPct) + '%', background: '#c2b1a0', color: '#3a2f26', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
           {100 - yeaPct > 16 ? 'Nay ' + nay : ''}
         </div>
       </div>

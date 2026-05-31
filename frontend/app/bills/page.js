@@ -22,7 +22,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { fetchRecentVotes, fetchVoteMembers } from '@/lib/api';
+import { fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import SeatChart from '@/components/bills/SeatChart';
@@ -39,7 +39,9 @@ import { STATE_NAMES } from '@/lib/usStates';
 import './bills.css';
 
 const PARTY_HUES = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
-const TONES = { yea: '#2d6a4f', yeaFg: '#fff', nay: '#d63031', nayFg: '#fff', nv: '#dde1e6', nvFg: '#6c757d' };
+// Slate tally tones (Jeffrey's pick — softer than classic green/red, kept
+// distinct from the seat encoding): deep slate-navy Yea / warm clay Nay.
+const TONES = { yea: '#34435c', yeaFg: '#fff', nay: '#c2b1a0', nayFg: '#3a2f26', nv: '#edf0f2', nvFg: '#6c757d' };
 const PAGE_SIZE = 100;
 const SEAT_BASE = 10; // "small" seats (locked) so state labels fit
 function seatPxFor(chamber) {
@@ -123,6 +125,9 @@ function mapVote(detail, recentRaw, chamber) {
     title,
     question: synthQuestion(chamber, cite, type),
     result: normalizeResult(detail.result),
+    resultRaw: detail.result || '',
+    rawQuestion: detail.question || '',
+    congress: detail.congress || null,
     date: formatDate(detail.date),
     tally: { yea, nay, present, nv, byParty: bp },
     total: yea + nay + present + nv,
@@ -250,6 +255,97 @@ function TallyBar({ vote }) {
   );
 }
 
+function ExplainBlock({ title, text }) {
+  if (!text) return null;
+  return (
+    <div className="cv-explain__blk">
+      <p className="cv-explain__blk-t">{title}</p>
+      <p className="cv-explain__blk-b">{text}</p>
+    </div>
+  );
+}
+
+// Inline "what did this vote mean?" explainer. Expands to the always-free
+// template explanation (POST /api/votes/explain); an "Explain with AI"
+// button triggers the cached Haiku detail (POST /api/votes/explain/generate).
+function VoteExplainer({ vote }) {
+  const [open, setOpen] = useState(false);
+  const [body, setBody] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState(false);
+
+  const payload = useMemo(
+    () => ({
+      vote_id: vote.id,
+      question: vote.rawQuestion || vote.question,
+      chamber: (vote.chamber || '').toLowerCase(),
+      result: vote.resultRaw || vote.result,
+      category: vote.type,
+      date: vote.date,
+      bill: { display_number: vote.cite, title: vote.title || vote.cite, congress: vote.congress },
+    }),
+    [vote]
+  );
+
+  useEffect(() => { setOpen(false); setBody(null); setAiError(false); }, [vote.id]);
+
+  const toggle = async () => {
+    const next = !open;
+    setOpen(next);
+    if (next && !body) {
+      setLoading(true);
+      const { data } = await explainVote(payload);
+      setBody(data || null);
+      setLoading(false);
+    }
+  };
+
+  const runAI = async () => {
+    setAiLoading(true);
+    setAiError(false);
+    const { data, error } = await generateVoteExplanation(payload);
+    if (error || !data) { setAiError(true); setAiLoading(false); return; }
+    setBody(data);
+    setAiLoading(false);
+  };
+
+  const showAI = !!(body && body.has_ai);
+
+  return (
+    <div className="cv-explain">
+      <button type="button" className="cv-explain__toggle" aria-expanded={open} onClick={toggle}>
+        <span aria-hidden="true" className="cv-explain__chev">{open ? '▴' : '▾'}</span>
+        {open ? 'Hide explanation' : 'What did this vote mean?'}
+      </button>
+      {open && (
+        <div className="cv-explain__body">
+          {loading && <p className="cv-explain__muted">Loading…</p>}
+          {!loading && body && (
+            <>
+              <ExplainBlock title="What was voted on" text={showAI ? body.ai_what_was_voted : body.what_was_voted} />
+              <ExplainBlock title="What a Yea means" text={showAI ? body.ai_what_yea_means : body.what_yea_means} />
+              <ExplainBlock title="What a Nay means" text={showAI ? body.ai_what_nay_means : body.what_nay_means} />
+              <ExplainBlock title="What the outcome means" text={showAI ? body.ai_outcome_meaning : body.outcome_meaning} />
+              <div className="cv-explain__foot">
+                {showAI ? (
+                  <span className="cv-explain__src">{'AI explanation' + (body.ai_model ? ' · ' + body.ai_model : '')}</span>
+                ) : (
+                  <button type="button" className="cv-explain__ai" onClick={runAI} disabled={aiLoading}>
+                    {aiLoading ? 'Generating…' : '✨ Explain with AI'}
+                  </button>
+                )}
+                {aiError && <span className="cv-explain__err">Couldn’t generate right now.</span>}
+              </div>
+            </>
+          )}
+          {!loading && !body && <p className="cv-explain__muted">Explanation unavailable.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function VoteHeader({ vote }) {
   const bp = vote.tally.byParty;
   const seg = (p) => bp[p].yea + '–' + bp[p].nay;
@@ -282,6 +378,7 @@ function VoteHeader({ vote }) {
         <span className="cv-header__date">{vote.date}</span>
       </div>
       {vote.indCaucusNote && hasI ? <p className="cv-header__caucus">{vote.indCaucusNote}</p> : null}
+      <VoteExplainer vote={vote} />
     </section>
   );
 }
@@ -479,6 +576,12 @@ export default function BillsPage() {
   const [error, setError] = useState(null);
   const [sel, setSel] = useState({ idx: null, anchor: null });
   const [isMobile, setIsMobile] = useState(false);
+  // One-time deep-link target from ?vote= (e.g. /bills?vote=h-119-2-1).
+  const deepLinkRef = useRef(
+    typeof window !== 'undefined'
+      ? new URLSearchParams(window.location.search).get('vote')
+      : null
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
@@ -498,6 +601,10 @@ export default function BillsPage() {
     setVote(mapVote(data, recentRaw, chamberCap));
     setActiveId(voteId);
     setLoading(false);
+    if (typeof window !== 'undefined') {
+      // Keep the URL shareable/deep-linkable without a full navigation.
+      window.history.replaceState(null, '', '/bills?vote=' + encodeURIComponent(voteId));
+    }
   }, []);
 
   useEffect(() => {
@@ -514,6 +621,17 @@ export default function BillsPage() {
       const mapped = rows.map(mapRecentItem);
       setRecent(mapped);
       if (!mapped.length) { setLoading(false); setError('recess'); return; }
+      // Deep link: if ?vote= points at a vote, switch to its chamber and load
+      // it; otherwise default to the most recent. Consumed once.
+      const target = deepLinkRef.current;
+      if (target) {
+        const targetChamber = target.startsWith('s-') ? 'Senate' : 'House';
+        if (targetChamber !== chamber) { setChamber(targetChamber); return; }
+        deepLinkRef.current = null;
+        const found = mapped.find((m) => m.id === target);
+        await loadVote(target, found && found.raw, chamber);
+        return;
+      }
       await loadVote(mapped[0].id, mapped[0].raw, chamber);
     })();
     return () => { cancelled = true; };
