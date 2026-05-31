@@ -76,10 +76,10 @@ export default function SeatChart({
   const isHouse = vote.chamber === 'House';
   const rows = isHouse ? 13 : 4;
   const VBW = 820;
-  const VBH = isHouse ? 446 : 372;
+  const VBH = isHouse ? 446 : 408; // Senate taller + smaller arc so the top row clears the viewBox edge
   const cx = VBW / 2;
   const cy = VBH - 30;
-  const maxR = VBW * (isHouse ? 0.455 : 0.42);
+  const maxR = VBW * (isHouse ? 0.455 : 0.40);
   const r0 = isHouse ? 0.4 : 0.48;
 
   const geo = useMemo(

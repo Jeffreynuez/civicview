@@ -392,13 +392,23 @@ function VoteList({ vote, onPick, mobilePrimary }) {
           <div className="cv-search">
             <span aria-hidden="true" className="cv-search__ic">⌕</span>
             <input
-              type="search"
+              type="text"
               value={q}
               placeholder={'Search all ' + vote.total + ' — name or state'}
               aria-label={'Search the full ' + vote.chamber + ' record'}
               onChange={(e) => setQ(e.target.value)}
             />
           </div>
+          {q && (
+            <button
+              type="button"
+              className="cv-clear"
+              onClick={() => setQ('')}
+              aria-label="Clear search"
+            >
+              Clear
+            </button>
+          )}
         </div>
       </div>
 
@@ -519,7 +529,7 @@ export default function BillsPage() {
     loadVote(activeId, cur && cur.raw, chamber);
   };
 
-  const chartInteractive = !isMobile;
+  const chartInteractive = true; // seats tappable on mobile too (Jeffrey's call); mobile chart stays scrollable
   const parties = chamber === 'Senate' ? ['R', 'D', 'I'] : ['R', 'D'];
   const seatPx = seatPxFor(chamber);
 
@@ -605,9 +615,9 @@ export default function BillsPage() {
                 <div>
                   <p className="cl-eyebrow">{chamber + ' roll-call'}</p>
                   <p className="cv-chartcard__sub">
-                    {chartInteractive
-                      ? 'Democrats left · Republicans right, sorted by state. Click or arrow-key a seat.'
-                      : 'At-a-glance outcome — scroll to read state labels; use the list below to open a member.'}
+                    {isMobile
+                      ? 'Democrats left · Republicans right, sorted by state. Scroll and tap a seat — or use the full record below.'
+                      : 'Democrats left · Republicans right, sorted by state. Click or arrow-key a seat.'}
                   </p>
                 </div>
               </div>
