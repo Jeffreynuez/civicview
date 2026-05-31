@@ -128,6 +128,7 @@ function mapVote(detail, recentRaw, chamber) {
     resultRaw: detail.result || '',
     rawQuestion: detail.question || '',
     congress: detail.congress || null,
+    sourceUrl: detail.source_url || null,
     date: formatDate(detail.date),
     tally: { yea, nay, present, nv, byParty: bp },
     total: yea + nay + present + nv,
@@ -361,6 +362,16 @@ function VoteHeader({ vote }) {
       </div>
       {vote.title ? <p className="cv-header__title">{vote.title}</p> : null}
       <p className="cv-header__q">{vote.question}</p>
+      {vote.sourceUrl && (
+        <a
+          className="cv-header__src"
+          href={vote.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View the bill on Congress.gov <span aria-hidden="true">↗</span>
+        </a>
+      )}
       <TallyBar vote={vote} />
       <div className="cv-header__byparty">
         <span className="cl-num">
@@ -746,7 +757,7 @@ export default function BillsPage() {
             <VoteList vote={vote} onPick={pick} mobilePrimary={isMobile} />
 
             <p className="cv-foot">
-              {vote.cite} · seats encode hue = party, fill = position · {chamber === 'House' ? '435 seats' : '100 seats'}
+              {vote.cite} · seats encode hue = party, fill = position · {vote.seats.length + ' members recorded'}
             </p>
           </>
         )}
