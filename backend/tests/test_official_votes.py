@@ -81,6 +81,61 @@ check("parse_vote_id round-trip", ov.parse_vote_id("s-119-2-53") ==
 check("classify_house QUORUM excluded", ov.classify_house_vote("QUORUM", "Call of the House") is None)
 check("classify_house passage", ov.classify_house_vote("RECORDED VOTE", "On Passage of the Bill") == "passage")
 
+# --- congress/session derivation ---
+print("Congress/session derivation:")
+check("year_for 119/2 -> 2026", ov.year_for(119, 2) == 2026)
+check("year_for 119/1 -> 2025", ov.year_for(119, 1) == 2025)
+check("year_for 118/2 -> 2024", ov.year_for(118, 2) == 2024)
+cc, cs = ov.current_congress_session()
+check("current_congress_session sane", isinstance(cc, int) and cs in (1, 2) and cc >= 119, f"{cc},{cs}")
+
+# --- Congress.gov House list parser ---
+print("Congress.gov House list parser:")
+house_list = {
+    "houseRollCallVotes": [
+        {"rollCallNumber": 145, "startDate": "2026-05-20T13:00:00-04:00", "result": "Passed",
+         "legislationType": "HR", "legislationNumber": 1041, "voteType": "Yea and Nay"},
+        {"rollCallNumber": 150, "startDate": "2026-05-22T10:00:00-04:00", "result": "Agreed to",
+         "legislationType": "HJRES", "legislationNumber": 142},
+        {"rollCallNumber": 149, "startDate": "2026-05-21T10:00:00-04:00", "result": "Failed",
+         "amendmentType": "HAMDT", "amendmentNumber": 6},
+        {"rollCallNumber": 148, "startDate": "2026-05-21T09:00:00-04:00", "result": "Passed",
+         "legislationType": "SCONRES", "legislationNumber": 9},
+    ]
+}
+hrows = ov.parse_house_vote_list(house_list, 119, 2)
+check("list drops amendment + non-house types (keeps 2)", len(hrows) == 2, str(len(hrows)))
+check("list newest-first (150 before 145)", [r["rollcall"] for r in hrows] == [150, 145], str([r["rollcall"] for r in hrows]))
+check("list cite formats H.J.Res. 142", hrows[0]["issue"] == "H.J.Res. 142", hrows[0]["issue"])
+check("list cite formats H.R. 1041", hrows[1]["issue"] == "H.R. 1041", hrows[1]["issue"])
+check("list vote_id scheme", hrows[1]["vote_id"] == "h-119-2-145", hrows[1]["vote_id"])
+
+# --- Congress.gov House members parser ---
+print("Congress.gov House members parser:")
+house_members = {
+    "houseRollCallVoteMemberVotes": {
+        "congress": 119, "sessionNumber": 2, "rollCallNumber": 145,
+        "voteType": "Yea and Nay", "result": "Passed",
+        "legislationType": "HR", "legislationNumber": 1041,
+        "voteQuestion": "On Passage", "startDate": "2026-05-20T13:00:00-04:00",
+        "results": {"item": [
+            {"bioguideId": "D000032", "voteCast": "Aye", "firstName": "Byron", "lastName": "Donalds", "voteParty": "R", "voteState": "FL"},
+            {"bioguideId": "P000197", "voteCast": "No", "firstName": "Nancy", "lastName": "Pelosi", "voteParty": "D", "voteState": "CA"},
+            {"bioguideId": "X000001", "voteCast": "Not Voting", "firstName": "Test", "lastName": "Member", "voteParty": "D", "voteState": "TX"},
+        ]},
+    }
+}
+hm = ov.parse_house_vote_members(house_members)
+check("members vote_id", hm["vote_id"] == "h-119-2-145", hm["vote_id"])
+check("members question", hm["question"] == "On Passage")
+check("members legis_num H.R. 1041", hm["legis_num"] == "H.R. 1041", hm["legis_num"])
+check("members Aye normalized to Yea", hm["members"][0]["position"] == "Yea")
+check("members No normalized to Nay", hm["members"][1]["position"] == "Nay")
+check("members bioguide preserved", hm["members"][0]["bioguide_id"] == "D000032")
+check("members totals yea=1 nay=1 nv=1", hm["totals"] == {"yea": 1, "nay": 1, "present": 0, "not_voting": 1}, str(hm["totals"]))
+check("members by_party R yea=1", hm["by_party"]["R"]["yea"] == 1, str(hm["by_party"]))
+check("members empty -> None", ov.parse_house_vote_members({"houseRollCallVoteMemberVotes": {"results": {"item": []}}}) is None)
+
 print()
 if _failures:
     print(f"RESULT: {len(_failures)} FAILED -> {_failures}")
