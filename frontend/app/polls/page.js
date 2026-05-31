@@ -76,8 +76,9 @@ const BRANCH_FILTERS = [
   { id: 'all',        label: 'All polls',        glyph: 'AllPolls',       tier: 'normal' },
   { id: 'states',     label: 'States',           glyph: 'Bill',           tier: 'normal' },
   { id: 'congress',   label: 'Congress',         glyph: 'Committee',      tier: 'normal' },
-  { id: 'executive',  label: 'Executive',        glyph: 'Executive',      tier: 'normal' },
-  { id: 'judicial',   label: 'Judicial',         glyph: 'Judicial',       tier: 'normal' },
+  // 'executive' + 'judicial' branch chips removed (Task #92): they have no
+  // backing data — the backend only emits a `branch` value for Congress reps,
+  // so these always counted 0. Re-add when the backend emits their branch.
   { id: 'standalone', label: 'Standalone',       glyph: 'Standalone',     tier: 'standalone' },
   { id: 'candidate',  label: 'From candidates',  glyph: 'FromCandidates', tier: 'normal' },
 ];
@@ -343,7 +344,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
       // in the PR #2 redesign; counts hadn't been updated). Without
       // the new keys present, `counts[b] != null` evaluated false
       // and chips showed 0 even when polls matched.
-      states: 0, congress: 0, executive: 0, judicial: 0,
+      states: 0, congress: 0,
       standalone: 0, candidate: 0,
       // Author-kind tallies for the hero stat row.
       rep: 0, citizen: 0,
