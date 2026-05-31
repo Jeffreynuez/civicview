@@ -2358,6 +2358,17 @@ function Footer({
   onOpenTracked,
   onSubscribe,
 }) {
+  // On phones the 4-column footer compresses badly, so we stack the
+  // CivicView brand/disclosure block full-width above the link columns.
+  const [isNarrow, setIsNarrow] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const on = () => setIsNarrow(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
   return (
     <footer
       style={{
@@ -2371,12 +2382,14 @@ function Footer({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.4fr) repeat(3, minmax(0, 1fr))',
-            gap: 32,
+            gridTemplateColumns: isNarrow
+              ? '1fr 1fr 1fr'
+              : 'minmax(0, 1.4fr) repeat(3, minmax(0, 1fr))',
+            gap: isNarrow ? 20 : 32,
             marginBottom: 24,
           }}
         >
-          <div>
+          <div style={{ gridColumn: isNarrow ? '1 / -1' : 'auto' }}>
             <div
               style={{
                 display: 'flex',
@@ -2403,7 +2416,7 @@ function Footer({
                 color: 'var(--cl-text-light)',
                 lineHeight: 'var(--cl-leading-normal)',
                 margin: 0,
-                maxWidth: 320,
+                maxWidth: isNarrow ? 'none' : 320,
               }}
             >
               CivicView does not endorse any candidate, party, or position.
