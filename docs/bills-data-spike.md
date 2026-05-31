@@ -134,10 +134,21 @@ with fallbacks so it can't break the working feature):
 - `current_congress_session()` derives congress/session from the date (replaces
   the pinned 119/2); `year_for()` replaces the hardcoded 2025/2026 EVS-year map.
 
-**Parsers unit-tested offline** (`backend/tests/test_official_votes.py`, +18
-assertions against doc-derived fixtures). **Still needs a live check** against
-`api.congress.gov` with the real key to confirm JSON wrapping — but the tested
-Clerk-XML + GovTrack fallbacks keep the feature working regardless.
+**Parsers unit-tested offline** (`backend/tests/test_official_votes.py`) AND
+**live-validated** against `api.congress.gov` (2026-05-31, real key):
+- List `GET /v3/house-vote/119/2` returned the documented shape
+  (`houseRollCallVotes[]` with `rollCallNumber`/`legislationType`/
+  `legislationNumber`/`result`/`startDate`/`voteType`). Surfaced one real case:
+  the House also votes on **Senate-originated bills** (`legislationType: "S"`),
+  now included in the filter (+ S./S.J.Res. cites).
+- Members `GET /v3/house-vote/119/2/{n}/members` wraps members as
+  **`houseRollCallVoteMemberVotes.results` = a direct array** (not `results.item`),
+  with member fields **`bioguideID`** (capital ID), `voteCast` (full words —
+  "Yea"/"Not Voting"…), `voteParty`, `voteState`, `firstName`, `lastName`. The
+  parser handles this exactly (defensive `bioguideId|bioguideID`, list/`item`
+  branch, `normalize_position`); proven against the live shape.
+
+The tested Clerk-XML + GovTrack fallbacks remain in place as a safety net.
 
 ---
 
