@@ -5,7 +5,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { fetchElections, fetchFederalOfficials, fetchStatsSummary } from '@/lib/api';
+import { fetchElections, fetchFederalOfficials, fetchStatsSummary, fetchRecentVotes } from '@/lib/api';
 import { fetchPopularPolls, fetchPostsFeed } from '@/lib/pagesApi';
 import { useAuth as useRepAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
@@ -303,6 +303,8 @@ export default function NationalOfficialsPanel({
         onRequestVerify={handleVerifyClick}
         citizen={citizen}
       />
+
+      <HomeBillsSection />
 
       <div ref={browseRef}>
         <BrowseByStateSection onStatePick={onStatePick} />
@@ -1844,6 +1846,199 @@ function PopularPollsSection({ onRequestVerify, citizen }) {
                   }}
                 >
                   All polls
+                  <ArrowRight size={12} active color="accent" />
+                </Link>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// HomeBillsSection — "Bills" home-page section (Phase B). Surfaces the
+// latest Senate + House roll-call vote as compact cards that link into
+// the /bills page. Lightweight: uses the recent-votes list only (cite +
+// status + tally + date) — no per-member fetch. Sits between Popular
+// polls and Browse by state.
+// ─────────────────────────────────────────────────────────────────
+function homeVoteStatus(result) {
+  const s = (result || '').toLowerCase();
+  if (s.includes('confirm')) return { label: 'Confirmed', good: true };
+  if (s.includes('reject')) return { label: 'Rejected', good: false };
+  if (s.includes('fail')) return { label: 'Failed', good: false };
+  if (s.includes('pass') || s.includes('agreed') || s.includes('well taken')) return { label: 'Passed', good: true };
+  return { label: result || 'Result', good: true };
+}
+
+function HomeVoteCard({ vote }) {
+  const st = homeVoteStatus(vote.result);
+  const chamber = vote.chamber === 'senate' ? 'Senate' : 'House';
+  const cite = vote.issue || vote.title || ('Roll ' + vote.rollcall);
+  const yea = (vote.tally && vote.tally.yea) || 0;
+  const nay = (vote.tally && vote.tally.nay) || 0;
+  const total = (yea + nay) || 1;
+  const yeaPct = (yea / total) * 100;
+  return (
+    <Link
+      href="/bills"
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+        color: 'inherit',
+        background: 'var(--cl-card)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-2xl)',
+        boxShadow: 'var(--cl-shadow-card)',
+        padding: '14px 16px',
+        fontFamily: 'var(--cl-font-sans)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+        <Eyebrow tone="accent">{chamber + ' · ' + (vote.kind === 'nomination' ? 'Nomination' : 'Passage')}</Eyebrow>
+        <span
+          style={{
+            display: 'inline-block',
+            padding: '3px 10px',
+            borderRadius: 'var(--cl-radius-pill)',
+            fontSize: '0.68rem',
+            fontWeight: 800,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            background: st.good ? 'var(--cl-success-soft)' : 'var(--cl-danger-soft)',
+            color: st.good ? 'var(--cl-success-text)' : 'var(--cl-danger-text)',
+            border: '1px solid ' + (st.good ? 'var(--cl-success-border)' : 'var(--cl-danger-border)'),
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {st.label}
+        </span>
+      </div>
+      <div style={{ marginTop: 6, display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 'var(--cl-text-lg)', fontWeight: 700, letterSpacing: '-0.01em' }}>{cite}</span>
+        {vote.date && <span style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-muted)' }}>{vote.date}</span>}
+      </div>
+      {vote.question && (
+        <p
+          style={{
+            margin: '4px 0 10px',
+            fontSize: 'var(--cl-text-sm)',
+            color: 'var(--cl-text-light)',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {vote.question}
+        </p>
+      )}
+      <div style={{ display: 'flex', height: 20, borderRadius: 'var(--cl-radius-sm)', overflow: 'hidden', border: '1px solid var(--cl-border)' }}>
+        <div style={{ width: yeaPct + '%', background: '#2d6a4f', color: '#fff', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+          {yeaPct > 16 ? 'Yea ' + yea : ''}
+        </div>
+        <div style={{ width: (100 - yeaPct) + '%', background: '#d63031', color: '#fff', fontSize: '0.66rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+          {100 - yeaPct > 16 ? 'Nay ' + nay : ''}
+        </div>
+      </div>
+      <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-muted)' }}>{'Yea ' + yea + ' · Nay ' + nay}</span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--cl-accent)', fontSize: 'var(--cl-text-sm)', fontWeight: 600 }}>
+          View chart
+          <ArrowRight size={12} active color="accent" />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function HomeBillsSection() {
+  const [open, setOpen] = useState(true);
+  const [senate, setSenate] = useState(null);
+  const [house, setHouse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    const [s, h] = await Promise.all([
+      fetchRecentVotes('senate', 1),
+      fetchRecentVotes('house', 1),
+    ]);
+    const sv = (s.data && s.data[0]) || null;
+    const hv = (h.data && h.data[0]) || null;
+    setSenate(sv);
+    setHouse(hv);
+    if (!sv && !hv) setError(true);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const hasAny = !!(senate || house);
+
+  return (
+    <section style={{ padding: '32px 24px 16px' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="On the floor"
+          title="Bills"
+          subhead="The latest roll-call votes in the Senate and House."
+          chip={null}
+          collapsible
+          open={open}
+          onToggle={() => setOpen((o) => !o)}
+        />
+        {open && (
+          <>
+            {loading && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <Skeleton height={132} radius={16} />
+                <Skeleton height={132} radius={16} />
+              </div>
+            )}
+            {!loading && hasAny && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {senate && <HomeVoteCard vote={senate} />}
+                {house && <HomeVoteCard vote={house} />}
+              </div>
+            )}
+            {!loading && error && (
+              <div
+                style={{
+                  background: 'var(--cl-card)',
+                  border: '1px solid var(--cl-border)',
+                  borderRadius: 'var(--cl-radius-2xl)',
+                  padding: '22px 16px',
+                  textAlign: 'center',
+                  color: 'var(--cl-text-muted)',
+                  fontSize: 'var(--cl-text-sm)',
+                }}
+              >
+                No recent floor votes right now. Check back when Congress is in session.
+              </div>
+            )}
+            {!loading && hasAny && (
+              <div style={{ textAlign: 'center', marginTop: 14 }}>
+                <Link
+                  href="/bills"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    background: 'transparent',
+                    color: 'var(--cl-accent)',
+                    fontSize: 'var(--cl-text-sm)',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontFamily: 'var(--cl-font-sans)',
+                  }}
+                >
+                  View all votes
                   <ArrowRight size={12} active color="accent" />
                 </Link>
               </div>
