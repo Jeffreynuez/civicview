@@ -405,6 +405,47 @@ export async function fetchMemberVotes(bioguideId, opts = {}) {
   }
 }
 
+// ─── Federal Bills & Votes (official roll-call data) ─────────────────
+// Backs the /bills page. Public, unauthenticated GETs against the
+// official-source endpoints (House Clerk + Senate LIS, GovTrack fallback).
+// See docs/bills-feature-prd.md + docs/bills-data-spike.md.
+
+// Per-vote member detail is immutable once a roll-call is recorded, so we
+// cache it in-module by vote_id (mirrors the backend's indefinite cache).
+const _voteMembersCache = new Map();
+
+export async function fetchRecentVotes(chamber, limit = 20) {
+  try {
+    const qs = new URLSearchParams({ chamber, limit: String(limit) }).toString();
+    const response = await fetch(`${API_BASE_URL}/api/votes/recent?${qs}`);
+    if (!response.ok) throw new Error(`API Error ${response.status}`);
+    const data = await response.json();
+    return { data: data.votes || [], isLive: true };
+  } catch (error) {
+    console.warn('Recent votes API unavailable:', error.message);
+    return { data: [], isLive: false };
+  }
+}
+
+export async function fetchVoteMembers(voteId) {
+  if (!voteId) return { data: null, isLive: false };
+  if (_voteMembersCache.has(voteId)) {
+    return { data: _voteMembersCache.get(voteId), isLive: true };
+  }
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/votes/${encodeURIComponent(voteId)}/members`
+    );
+    if (!response.ok) throw new Error(`API Error ${response.status}`);
+    const data = await response.json();
+    _voteMembersCache.set(voteId, data);
+    return { data, isLive: true };
+  } catch (error) {
+    console.warn('Vote members API unavailable:', error.message);
+    return { data: null, isLive: false };
+  }
+}
+
 // ─── Member stats (party-line % + top issue areas) ──────────────────
 // Returns { party_line_pct: int|null, votes_analyzed: int, top_issues: [{name, count}] }
 export async function fetchMemberStats(bioguideId, party = null) {
