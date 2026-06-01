@@ -561,7 +561,7 @@ function CitizenPollCard({
   // Phase 6 multi-identity: same picker pattern as PollCard. Pull
   // active identities + the per-identity voter_choices for this
   // poll so we know who's already voted on which option.
-  const activeIdentities = useActiveIdentities({ isOwner });
+  const activeIdentities = useActiveIdentities({ isOwner: true });
   const voterChoicesByIdentity = inner.voter_choices || {};
   const [votePicker, setVotePicker] = useState(null);
 

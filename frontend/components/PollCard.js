@@ -77,7 +77,7 @@ export default function PollCard({
   // Phase 6 multi-identity: identities the viewer is signed in to,
   // plus the per-identity voter_choices from the server so we can
   // tell who's already voted on each option.
-  const activeIdentities = useActiveIdentities({ isOwner });
+  const activeIdentities = useActiveIdentities({ isOwner: true });
   const voterChoicesByIdentity = poll.voter_choices || {};
   // Picker state — when set, holds the pending optionId + the
   // narrowed identity list. Renders the IdentityPicker absolutely

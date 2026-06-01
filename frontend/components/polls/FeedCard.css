@@ -751,3 +751,56 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
   background: var(--cl-surface, #fff);
   padding: 8px 10px;
 }
+/* ── Task #93 follow-up — unify thread chrome across all surfaces ──
+   When CommentsThread moved off the per-page inline styles onto the
+   shared component, the trigger buttons (Add comment / AI filter /
+   Posting-as) and the comment reaction buttons lost their pill
+   outlines. Restore them here so every surface (feed, rep/candidate
+   page, citizen polls) matches the original rep-page treatment. */
+.thread__composer-toggle,
+.thread__filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cl-text, #111);
+  font-size: 0.74rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+.thread__composer-toggle:hover,
+.thread__filter-toggle:hover { background: var(--cl-hover, #f9fafb); }
+.thread__composer-toggle.is-open,
+.thread__filter-toggle.is-open {
+  border-color: var(--cl-accent, #18794e);
+  background: var(--cl-accent-soft, #e6f4ea);
+  color: var(--cl-accent, #18794e);
+}
+
+/* Posting-as identity trigger → pill outline (was borderless). */
+.thread__identity-trigger {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* Comment like/dislike → bordered pill, mirroring the post/poll
+   ReactionButton treatment. */
+.thread__c-react {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: var(--cl-radius-pill, 999px);
+  background: var(--cl-card, #fff);
+  padding: 3px 9px;
+}
+.thread__c-react.is-active.up {
+  border-color: var(--cl-up, #1877f2);
+  background: var(--cl-up-soft, #e8f1fe);
+}
+.thread__c-react.is-active.down {
+  border-color: var(--cl-down, #8c2929);
+  background: var(--cl-down-soft, #f7ebeb);
+}

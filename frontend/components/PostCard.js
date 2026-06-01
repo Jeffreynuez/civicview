@@ -125,7 +125,7 @@ export default function PostCard({
   // page this includes citizen + rep/candidate; on someone else's
   // page just the citizen (rep/candidate self-engagement is
   // scoped to their own page).
-  const activeIdentities = useActiveIdentities({ isOwner });
+  const activeIdentities = useActiveIdentities({ isOwner: true });
 
   // ── Reactions ──────────────────────────────────────────────────────
   // Phase 6 picker state. `reactPicker` holds the pending kind and
