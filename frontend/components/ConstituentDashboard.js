@@ -223,7 +223,7 @@ export default function ConstituentDashboard({
             <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
             <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
             <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
-            <SavedSection citizen={citizen} />
+            <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} />
             <HiddenByModerationSection citizen={citizen} />
           </div>
 
@@ -1312,87 +1312,142 @@ function ShieldIcon() {
   );
 }
 
-// ── Saved section (Task #16) ──────────────────────────────────────────
-// Posts + polls the citizen bookmarked, rendered as live FeedCards so
-// vote/comment counts stay current and the cards stay interactive.
-// GET /api/saved returns refs (item_type + item_id) keyset-paginated by
-// saved_at; we then re-fetch the live cards via fetchPollsFeed /
-// fetchPostsFeed with { ids } and re-order to the saved order. Unsaving
-// a card from here (its kebab) removes it from the list immediately.
-function SavedSection({ citizen }) {
-  const [itemType, setItemType] = useState('poll'); // 'poll' | 'post'
+// ── Saved & archived (Task #16 + consolidation) ───────────────
+// One bounded module for everything the citizen set aside: saved polls,
+// saved posts, and their archived polls. Each tab renders a fixed-height
+// "shelf" of compact tiles (no infinite page growth) that scrolls
+// internally with a top+bottom fade; a "Show more" button pulls the next
+// saved page. Selecting a tile expands that one item inline above the
+// shelf as the full interactive card (FeedCard for saved, MyPollRow for
+// archived). The citizen's ACTIVE polls stay in their own section above.
+//
+// Saved data: GET /api/saved returns refs (item_type + item_id) keyset-
+// paginated by saved_at; we re-fetch live cards via fetchPollsFeed /
+// fetchPostsFeed and re-order to saved order. Archived data: the
+// citizen's closed/auto-archived polls from fetchMyCitizenPolls.
+
+const SAVED_TABS = [
+  { key: 'poll',     label: 'Polls' },
+  { key: 'post',     label: 'Posts' },
+  { key: 'archived', label: 'Archived' },
+];
+
+const POLL_KIND_LABEL = { rep: 'Rep', candidate: 'Candidate', citizen: 'Citizen', standalone: 'Standalone' };
+
+const SHELF_STYLE = {
+  maxHeight: 330,
+  overflowY: 'auto',
+  paddingRight: 4,
+  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0, #000 16px, #000 calc(100% - 44px), transparent 100%)',
+  maskImage: 'linear-gradient(to bottom, transparent 0, #000 16px, #000 calc(100% - 44px), transparent 100%)',
+};
+
+function CompactTile({ tag, title, author, meta, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 8,
+        padding: '10px 11px', minHeight: 104,
+        background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-xl)', cursor: 'pointer', fontFamily: 'inherit',
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 6 }}>
+        <span style={{
+          fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em',
+          padding: '2px 7px', borderRadius: 999,
+          background: 'var(--cl-accent-soft, #e6f4ea)', color: 'var(--cl-accent)',
+        }}>{tag}</span>
+        <span style={{ fontSize: '0.62rem', color: 'var(--cl-text-light)' }}>Open ›</span>
+      </div>
+      <div style={{
+        fontSize: '0.82rem', fontWeight: 700, lineHeight: 1.35, color: 'var(--cl-text)',
+        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+      }}>{title}</div>
+      <div style={{ marginTop: 'auto', fontSize: '0.7rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {author}{meta ? ` · ${meta}` : ''}
+      </div>
+    </button>
+  );
+}
+
+function SavedSection({ citizen, onOpenPage }) {
+  const [tab, setTab] = useState('poll');           // 'poll' | 'post' | 'archived'
+  // Saved (poll/post) state
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [savedCursor, setSavedCursor] = useState(null);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  // Archived state (loaded lazily on first Archived-tab open)
+  const [archived, setArchived] = useState(null);
+  const [archLoading, setArchLoading] = useState(false);
+  const [archError, setArchError] = useState(null);
+  // Shared
+  const [expandedId, setExpandedId] = useState(null);
   const [openCommentId, setOpenCommentId] = useState(null);
-  const sentinelRef = useRef(null);
 
-  // Given a page of saved refs, fetch the live cards for those ids and
-  // re-order them to match the saved order (the feed endpoints don't
-  // guarantee saved_at order).
+  const isSavedTab = tab === 'poll' || tab === 'post';
+
   const _cardsForRefs = useCallback(async (refs) => {
     const ids = (refs.items || []).map((r) => r.item_id);
     if (!ids.length) return [];
-    const feedFn = itemType === 'post' ? fetchPostsFeed : fetchPollsFeed;
+    const feedFn = tab === 'post' ? fetchPostsFeed : fetchPollsFeed;
     const { data: feed } = await feedFn({ ids, limit: ids.length });
     const byId = new Map((feed?.items || []).map((c) => [c.id, c]));
     return ids.map((id) => byId.get(id)).filter(Boolean);
-  }, [itemType]);
+  }, [tab]);
 
-  const load = useCallback(async () => {
+  const loadSaved = useCallback(async () => {
     if (!citizen) return;
-    setLoading(true);
-    setError(null);
-    const { data: refs, error: e } = await fetchSaved({ itemType, limit: 10 });
+    setLoading(true); setError(null);
+    const { data: refs, error: e } = await fetchSaved({ itemType: tab, limit: 10 });
     if (e || !refs) {
       setError(e || 'Could not load saved items.');
-      setItems([]); setHasMore(false); setSavedCursor(null);
-      setLoading(false);
+      setItems([]); setHasMore(false); setSavedCursor(null); setLoading(false);
       return;
     }
     setItems(await _cardsForRefs(refs));
     setSavedCursor(refs.next_cursor || null);
     setHasMore(!!refs.has_more);
     setLoading(false);
-  }, [citizen?.id, itemType, _cardsForRefs]);
+  }, [citizen?.id, tab, _cardsForRefs]);
 
-  useEffect(() => { load(); }, [load]);
+  const loadArchived = useCallback(async () => {
+    if (!citizen) return;
+    setArchLoading(true); setArchError(null);
+    const { data, error: e } = await fetchMyCitizenPolls({ status: 'all' });
+    if (e) { setArchError(e); setArchLoading(false); return; }
+    setArchived(data?.archived || []);
+    setArchLoading(false);
+  }, [citizen?.id]);
+
+  useEffect(() => {
+    setExpandedId(null);
+    if (tab === 'archived') { if (archived === null) loadArchived(); }
+    else { loadSaved(); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, citizen?.id]);
 
   const loadMore = useCallback(async () => {
     if (loadingMore || loading || !hasMore || !savedCursor) return;
     setLoadingMore(true);
-    const { data: refs } = await fetchSaved({ itemType, cursor: savedCursor, limit: 10 });
+    const { data: refs } = await fetchSaved({ itemType: tab, cursor: savedCursor, limit: 10 });
     if (!refs) { setHasMore(false); setLoadingMore(false); return; }
     const cards = await _cardsForRefs(refs);
     setItems((prev) => [...(prev || []), ...cards]);
     setSavedCursor(refs.next_cursor || null);
     setHasMore(!!refs.has_more);
     setLoadingMore(false);
-  }, [loadingMore, loading, hasMore, savedCursor, itemType, _cardsForRefs]);
+  }, [loadingMore, loading, hasMore, savedCursor, tab, _cardsForRefs]);
 
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el) return undefined;
-    const io = new IntersectionObserver(
-      (entries) => { if (entries[0]?.isIntersecting) loadMore(); },
-      { rootMargin: '500px' },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [loadMore]);
-
-  const toggleComments = useCallback((id) => {
-    setOpenCommentId((prev) => (prev === id ? null : id));
-  }, []);
-
-  // In-place patch. If a card is unsaved from its kebab here, drop it
-  // from the list so the Saved view reflects the action immediately.
   const handleCardUpdated = useCallback((cardId, patch) => {
     if (patch && patch.viewer && patch.viewer.is_saved === false) {
       setItems((prev) => (prev || []).filter((it) => it.id !== cardId));
+      setExpandedId((cur) => (cur === cardId ? null : cur));
       return;
     }
     setItems((prev) => (prev || []).map((it) => (
@@ -1404,28 +1459,24 @@ function SavedSection({ citizen }) {
 
   if (!citizen) return null;
 
+  const expandedCard = isSavedTab && expandedId != null
+    ? (items || []).find((c) => c.id === expandedId) : null;
+  const expandedArchived = tab === 'archived' && expandedId != null
+    ? (archived || []).find((pp) => pp.id === expandedId) : null;
+  const archivedCount = archived ? archived.length : null;
+
   return (
     <section>
-      <SectionHeader eyebrow="Saved" rightLabel="Posts and polls you've bookmarked" />
+      <SectionHeader eyebrow="Saved & archived" rightLabel="Bookmarks and your archived polls" />
 
-      <div
-        style={{
-          display: 'inline-flex', gap: 4, padding: 4,
-          background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
-          borderRadius: 'var(--cl-radius-pill)', marginBottom: 12,
-        }}
-        role="tablist"
-        aria-label="Saved filter"
-      >
-        {[{ key: 'poll', label: 'Polls' }, { key: 'post', label: 'Posts' }].map((t) => {
-          const on = itemType === t.key;
+      <div style={savedTabRowStyle} role="tablist" aria-label="Saved and archived filter">
+        {SAVED_TABS.map((t) => {
+          const on = tab === t.key;
+          const label = (t.key === 'archived' && archivedCount != null) ? `Archived (${archivedCount})` : t.label;
           return (
             <button
-              key={t.key}
-              type="button"
-              role="tab"
-              aria-selected={on}
-              onClick={() => { if (t.key !== itemType) { setItemType(t.key); setItems(null); } }}
+              key={t.key} type="button" role="tab" aria-selected={on}
+              onClick={() => { if (t.key !== tab) setTab(t.key); }}
               style={{
                 padding: '6px 14px', borderRadius: 'var(--cl-radius-pill)', border: 'none',
                 background: on ? 'var(--cl-accent)' : 'transparent',
@@ -1433,70 +1484,142 @@ function SavedSection({ citizen }) {
                 fontSize: 'var(--cl-text-sm)', fontWeight: 700, cursor: 'pointer',
                 fontFamily: 'var(--cl-font-sans)',
               }}
-            >
-              {t.label}
-            </button>
+            >{label}</button>
           );
         })}
       </div>
 
-      {loading && (
-        <div style={{ color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
-          Loading your saved {itemType === 'post' ? 'posts' : 'polls'}…
+      {expandedCard && (
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
+            <button type="button" onClick={() => setExpandedId(null)} style={savedCloseBtn}>✕ Close</button>
+          </div>
+          <FeedCard
+            card={expandedCard}
+            kind={tab}
+            isCommentsOpen={openCommentId === expandedCard.id}
+            onToggleComments={() => setOpenCommentId((prev) => (prev === expandedCard.id ? null : expandedCard.id))}
+            signedIn={!!citizen}
+            onLoginRequired={() => {}}
+            onCardUpdated={handleCardUpdated}
+            onMutated={loadSaved}
+            citizenViewer={citizen}
+          />
         </div>
       )}
-      {error && !loading && (
-        <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>
-          Couldn't load: {error}
+      {expandedArchived && (
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
+            <button type="button" onClick={() => setExpandedId(null)} style={savedCloseBtn}>✕ Close</button>
+          </div>
+          <MyPollRow poll={expandedArchived} filter="archived" busy={false} onClose={() => {}} onOpenPage={onOpenPage} />
         </div>
       )}
-      {!loading && !error && items && items.length === 0 && (
-        <EmptyState
-          icon={<ChatCircleDots size={36} color="default" />}
-          headline={itemType === 'post' ? 'No saved posts yet' : 'No saved polls yet'}
-          body={'Tap the ⋮ menu on any post or poll and choose Save. Your bookmarks collect here so you can find them later.'}
-          dense
-        />
-      )}
-      {!loading && !error && items && items.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {items.map((card) => (
-            <FeedCard
-              key={card.id}
-              card={card}
-              kind={itemType}
-              isCommentsOpen={openCommentId === card.id}
-              onToggleComments={() => toggleComments(card.id)}
-              signedIn={!!citizen}
-              onLoginRequired={() => {}}
-              onCardUpdated={handleCardUpdated}
-              onMutated={load}
-              citizenViewer={citizen}
+
+      {isSavedTab && (
+        <>
+          {loading && <div style={savedMutedStyle}>Loading your saved {tab === 'post' ? 'posts' : 'polls'}…</div>}
+          {error && !loading && <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>Couldn't load: {error}</div>}
+          {!loading && !error && items && items.length === 0 && (
+            <EmptyState
+              icon={<ChatCircleDots size={36} color="default" />}
+              headline={tab === 'post' ? 'No saved posts yet' : 'No saved polls yet'}
+              body={'Tap the ⋮ menu on any post or poll and choose Save. Your bookmarks collect here so you can find them later.'}
+              dense
             />
-          ))}
-          {hasMore && (
-            <div
-              ref={sentinelRef}
-              style={{
-                padding: '12px 0', textAlign: 'center',
-                color: 'var(--cl-text-light)', fontSize: '0.85rem',
-              }}
-            >
-              {loadingMore ? 'Loading more…' : ''}
+          )}
+          {!loading && !error && items && items.length > 0 && (
+            <>
+              <div style={SHELF_STYLE}>
+                <div style={savedGridStyle}>
+                  {items.map((card) => (
+                    <CompactTile
+                      key={card.id}
+                      tag={POLL_KIND_LABEL[card.kind] || (tab === 'post' ? 'Post' : 'Poll')}
+                      title={tab === 'post' ? (card.body || '(no text)') : (card.question || '(no question)')}
+                      author={card.author || 'Citizen'}
+                      meta={tab === 'post'
+                        ? `${card.comment_count || 0} comment${card.comment_count === 1 ? '' : 's'}`
+                        : `${card.total_votes || 0} vote${card.total_votes === 1 ? '' : 's'}`}
+                      onClick={() => setExpandedId((prev) => (prev === card.id ? null : card.id))}
+                    />
+                  ))}
+                </div>
+              </div>
+              {hasMore && (
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+                  <button type="button" onClick={loadMore} disabled={loadingMore} style={savedShowMoreBtn}>
+                    {loadingMore ? 'Loading…' : 'Show more'}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </>
+      )}
+
+      {tab === 'archived' && (
+        <>
+          {archLoading && <div style={savedMutedStyle}>Loading your archived polls…</div>}
+          {archError && !archLoading && <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>Couldn't load: {archError}</div>}
+          {!archLoading && !archError && archived && archived.length === 0 && (
+            <EmptyState
+              icon={<ChatCircleDots size={36} color="default" />}
+              headline="Nothing in the archive"
+              body="When you close a poll — or a rep claims the page where you posted one — it shows up here."
+              dense
+            />
+          )}
+          {!archLoading && !archError && archived && archived.length > 0 && (
+            <div style={SHELF_STYLE}>
+              <div style={savedGridStyle}>
+                {archived.map((poll) => {
+                  const inner = poll.poll || {};
+                  return (
+                    <CompactTile
+                      key={poll.id}
+                      tag="Archived"
+                      title={inner.question || '(no question)'}
+                      author={poll.target_official_id || 'rep page'}
+                      meta={`${inner.total_votes || 0} vote${inner.total_votes === 1 ? '' : 's'}`}
+                      onClick={() => setExpandedId((prev) => (prev === poll.id ? null : poll.id))}
+                    />
+                  );
+                })}
+              </div>
             </div>
           )}
-        </div>
+        </>
       )}
     </section>
   );
 }
+
+const savedTabRowStyle = {
+  display: 'inline-flex', gap: 4, padding: 4,
+  background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
+  borderRadius: 'var(--cl-radius-pill)', marginBottom: 12,
+};
+const savedGridStyle = {
+  display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 10, padding: 2,
+};
+const savedMutedStyle = { color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' };
+const savedShowMoreBtn = {
+  padding: '6px 16px', border: '1px solid var(--cl-border)', background: 'var(--cl-card)',
+  color: 'var(--cl-text)', borderRadius: 'var(--cl-radius-pill)', fontSize: '0.8rem',
+  fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--cl-font-sans)',
+};
+const savedCloseBtn = {
+  padding: '4px 12px', border: '1px solid var(--cl-border)', background: 'var(--cl-card)',
+  color: 'var(--cl-text-light)', borderRadius: 999, fontSize: '0.72rem', fontWeight: 700,
+  cursor: 'pointer', fontFamily: 'var(--cl-font-sans)',
+};
 
 
 function MyPollsSection({ citizen, onOpenPage }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('active'); // 'active' | 'archived'
   const [pendingClose, setPendingClose] = useState(null); // poll id
 
   const reload = async () => {
@@ -1521,8 +1644,7 @@ function MyPollsSection({ citizen, onOpenPage }) {
   if (!citizen) return null;
 
   const active = data?.active || [];
-  const archived = data?.archived || [];
-  const visible = filter === 'active' ? active : archived;
+  const visible = active;
 
   const handleClose = async (poll) => {
     if (!window.confirm("Close this poll? It'll move to your Archived list and you can post a new poll on this page.")) return;
@@ -1540,52 +1662,8 @@ function MyPollsSection({ citizen, onOpenPage }) {
     <section>
       <SectionHeader
         eyebrow="My polls"
-        rightLabel="Polls you've started on rep pages"
+        rightLabel="Your active polls on rep pages"
       />
-
-      {/* Filter pills */}
-      <div
-        style={{
-          display: 'inline-flex',
-          gap: 4,
-          padding: 4,
-          background: 'var(--cl-card)',
-          border: '1px solid var(--cl-border)',
-          borderRadius: 'var(--cl-radius-pill)',
-          marginBottom: 12,
-        }}
-        role="tablist"
-        aria-label="Poll filter"
-      >
-        {[
-          { key: 'active',   label: `Active (${active.length})` },
-          { key: 'archived', label: `Archived (${archived.length})` },
-        ].map((p) => {
-          const isActive = filter === p.key;
-          return (
-            <button
-              key={p.key}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => setFilter(p.key)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: 'var(--cl-radius-pill)',
-                border: 'none',
-                background: isActive ? 'var(--cl-accent)' : 'transparent',
-                color: isActive ? 'white' : 'var(--cl-text-light)',
-                fontSize: 'var(--cl-text-sm)',
-                fontWeight: 700,
-                cursor: 'pointer',
-                fontFamily: 'var(--cl-font-sans)',
-              }}
-            >
-              {p.label}
-            </button>
-          );
-        })}
-      </div>
 
       {loading && (
         <div style={{ color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
@@ -1600,16 +1678,8 @@ function MyPollsSection({ citizen, onOpenPage }) {
       {!loading && !error && visible.length === 0 && (
         <EmptyState
           icon={<ChatCircleDots size={36} color="default" />}
-          headline={
-            filter === 'active'
-              ? "You haven't started a poll yet"
-              : 'Nothing in the archive'
-          }
-          body={
-            filter === 'active'
-              ? 'Find a rep whose page is unclaimed and start a poll on it. Your polls will live there until the rep joins CivicView.'
-              : 'When you close a poll — or a rep claims the page where you posted one — it shows up here.'
-          }
+          headline="You haven't started a poll yet"
+          body="Find a rep whose page is unclaimed and start a poll on it. Your polls live there until the rep joins CivicView. Closed and archived polls move to your Saved & archived section below."
           dense
         />
       )}
@@ -1619,7 +1689,7 @@ function MyPollsSection({ citizen, onOpenPage }) {
             <MyPollRow
               key={poll.id}
               poll={poll}
-              filter={filter}
+              filter="active"
               busy={pendingClose === poll.id}
               onClose={() => handleClose(poll)}
               onOpenPage={onOpenPage}
