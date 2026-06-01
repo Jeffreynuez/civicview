@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useState } from 'react';
+import HScroll from './HScroll';
 import { useIsMobile } from '@/lib/useViewport';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
@@ -115,7 +116,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
         Compare ({items.length}/3)
       </div>
 
-      <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', maxWidth: '520px' }}>
+      <HScroll style={{ maxWidth: '520px' }} scrollerStyle={{ gap: '6px' }} itemCount={items.length}>
         {items.map((m) => {
           const isCandidate = m._kind === 'candidate';
           const party = m.party || (isCandidate ? 'NP' : 'I');
@@ -195,7 +196,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
             </div>
           );
         })}
-      </div>
+      </HScroll>
 
       <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
         <button

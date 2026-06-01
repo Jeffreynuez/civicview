@@ -3,6 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
+import HScroll from './HScroll';
+
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
 
@@ -38,7 +40,7 @@ export default function CandidateCompareTray({ candidates, onRemove, onClear, on
         🗳 Candidates ({candidates.length}/3)
       </div>
 
-      <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', maxWidth: '520px' }}>
+      <HScroll style={{ maxWidth: '520px' }} scrollerStyle={{ gap: '6px' }} itemCount={candidates.length}>
         {candidates.map((c) => {
           const party = c.party || 'NP';
           return (
@@ -91,7 +93,7 @@ export default function CandidateCompareTray({ candidates, onRemove, onClear, on
             </div>
           );
         })}
-      </div>
+      </HScroll>
 
       <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
         <button
