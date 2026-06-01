@@ -61,6 +61,10 @@ import { useCandidateAuth } from '../../lib/candidateAuth';
 import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
 import IdentityPicker, { PostingAsPicker } from '../IdentityPicker';
 import PostActionsMenu from '../PostActionsMenu';
+// Thread chrome styles live in FeedCard.css; import here so the
+// shared thread is styled on every surface it mounts (rep/candidate
+// pages + citizen polls), not just inside FeedCard.
+import './FeedCard.css';
 
 // AI tone presets — same labels + ids the page-level filter uses.
 const TONE_PRESETS = [

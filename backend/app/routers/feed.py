@@ -132,6 +132,68 @@ def _party_for(official_id: Optional[str]) -> Optional[str]:
     return _PARTY_BY_OFFICIAL_ID.get(official_id)
 
 
+# Build a static map official_id → branch ('executive' | 'judicial' |
+# 'congress') from the SAME curated federal_officials.json file, keyed
+# off its top-level office groupings. This is the source of truth for
+# the /polls + /posts page branch chips — far more reliable than parsing
+# the free-form `role` string (which collides, e.g. "Council President"
+# vs "President of the United States", "Environmental Justice Advocate"
+# vs a Supreme Court "Justice"). Extensible: as state/local officials
+# (school boards, sheriffs, …) arrive in their own grouped data, add
+# group→branch entries here.
+_BRANCH_GROUPS = {
+    "executive": "executive",
+    "judiciary": "judicial",   # frontend chip id is 'judicial'
+    "congress": "congress",
+}
+_BRANCH_BY_OFFICIAL_ID: Dict[str, str] = {}
+_BRANCH_INDEX_BUILT = False
+
+
+def _walk_for_ids(node: Any, branch: str) -> None:
+    """Record every leaf id within a branch subtree → branch."""
+    if isinstance(node, dict):
+        oid = node.get("id") or node.get("official_id")
+        if oid and isinstance(oid, str):
+            _BRANCH_BY_OFFICIAL_ID[oid] = branch
+        for v in node.values():
+            _walk_for_ids(v, branch)
+    elif isinstance(node, list):
+        for item in node:
+            _walk_for_ids(item, branch)
+
+
+def _ensure_branch_index() -> None:
+    global _BRANCH_INDEX_BUILT
+    if _BRANCH_INDEX_BUILT:
+        return
+    try:
+        with _FEDERAL_OFFICIALS_PATH.open() as f:
+            payload = json.load(f)
+        for grp, branch in _BRANCH_GROUPS.items():
+            if grp in payload:
+                _walk_for_ids(payload[grp], branch)
+        logger.info(
+            "Feed branch index built: %d officials mapped to a branch.",
+            len(_BRANCH_BY_OFFICIAL_ID),
+        )
+    except FileNotFoundError:
+        logger.warning(
+            "federal_officials.json not found at %s — branch falls back to the role heuristic.",
+            _FEDERAL_OFFICIALS_PATH,
+        )
+    except Exception:
+        logger.exception("Failed to build branch index — falling back to role heuristic.")
+    _BRANCH_INDEX_BUILT = True
+
+
+def _branch_for(official_id: Optional[str]) -> Optional[str]:
+    if not official_id:
+        return None
+    _ensure_branch_index()
+    return _BRANCH_BY_OFFICIAL_ID.get(official_id)
+
+
 # ── /national-activity ──────────────────────────────────────────────
 @router.get("/national-activity")
 def national_activity(
@@ -533,7 +595,13 @@ def _serialize_poll_feed_items(
                 # (official_id='test-civicview-internal') is seeded with
                 # owner_district='FL-19' + role='U.S. Representative'
                 # so this rule catches it without a special-case branch.
-                if rep is not None:
+                # Prefer the curated branch from federal_officials.json
+                # (executive / judicial / congress). Fall back to the
+                # role/district heuristic so the seeded test rep + any
+                # official not yet in the curated index still bucket into
+                # Congress when their role says so.
+                _branch_override = _branch_for(official_id)
+                if _branch_override is None and rep is not None:
                     _r = (rep.role or "").lower()
                     if rep.owner_district or any(
                         kw in _r for kw in (
@@ -542,10 +610,6 @@ def _serialize_poll_feed_items(
                         )
                     ):
                         _branch_override = "congress"
-                    else:
-                        _branch_override = None
-                else:
-                    _branch_override = None
 
         # Page-tag for the chip. Standalone polls get the literal
         # 'Standalone' string at the UI layer; this endpoint returns
