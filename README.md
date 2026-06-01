@@ -361,6 +361,40 @@ categories:
 
 ---
 
+## Shipped this session — 2026-05-31 (Claude Opus 4.8, 1M)
+
+Local/uncommitted unless pushed — Jeffrey decides the commits.
+
+- **Bills & Votes feature (new).** Home-page "Bills" section (between Popular
+  polls and Browse by state) + interactive `/bills` page: govtrack-style
+  selectable seat hemicycle (Senate/House toggle, seat → mini-card → rep
+  profile link), recent-vote selector, slate tally bar, inline AI vote
+  explainer, deep-linkable vote URLs, and a "View the bill on Congress.gov"
+  source link. Reachable via the navbar hamburger as **"Floor Bills"**.
+  - Backend: `backend/app/services/official_votes_service.py`
+    (House Clerk EVS XML + Senate LIS XML parsers, `lis→bioguide` crosswalk,
+    Congress.gov beta House Roll Call API integration, GovTrack fallback,
+    caching) + `GET /api/votes/recent` and `GET /api/votes/{vote_id}/members`
+    (`backend/app/routers/votes.py`). 51 offline parser assertions in
+    `backend/tests/test_official_votes.py`.
+  - Frontend: `frontend/app/bills/page.js`, `frontend/components/bills/*`,
+    `frontend/app/bills/bills.css`, plus the home section in
+    `NationalOfficialsPanel.js` and the navbar entry.
+  - Docs: `docs/bills-feature-prd.md`, `docs/bills-feature-design-handoff.md`,
+    `docs/bills-data-spike.md` (GO verdict, Congress.gov LIVE-validated).
+  - Polish/fixes: slate tally tones (was harsh green/red), full member names in
+    the list, small seats to fit state labels, tappable mobile seats, Senate
+    chart top-clip fix, visible "Clear" button, mobile footer reorder, House
+    vacancy caption (431), Senate menu date year-parse fix, House list
+    newest-first ordering.
+- **Task #92 — done.** Removed the inert executive/judicial branch chips from
+  `frontend/app/polls/page.js` (see Pending table for the deliberate non-changes).
+- **Task #93 — increment 1.** Added an `archived` read-only prop to the shared
+  `components/polls/CommentsThread.js` (prep for consolidating the 3-way comment
+  fork; increments 2 + 3 are scoped in the Pending table).
+
+---
+
 ## Shipped this session — 2026-05-28 (Claude Opus 4.8)
 
 Local/uncommitted unless pushed — Jeffrey decides the commits.
@@ -409,9 +443,11 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 84 | Wrap web app into iOS + Android native via Capacitor | pending | Apple Dev $99/yr + Google Play $25 one-time; ~2-4 weeks for first submission; revenue share considerations covered in financial model |
 | 90 | File Articles of Amendment for Benefit Corp status | pending | Sunbiz; waiting for initial Profit Corp filing (#800474911808) to process. Language is in `docs/civicview_benefit_corp_filing.pdf` |
 | 91 | Evaluate Vercel AI Gateway for backend AI calls | pending | Post-launch / deferred. Not urgent: current AI (comment classification + post summaries in `backend/app/services/ai_service.py`) is single-provider Anthropic and already degrades gracefully. The Gateway's OpenAI-compatible endpoint makes adoption a `base_url` + key swap in `ai_service.py` (no SDK rewrite). Adopt when AI spend warrants cost/usage dashboards, when provider failover matters, or to mix models (cheap classification + stronger summaries). Pricing: $5/mo free credit, then provider list prices at zero markup (BYOK also no markup). Caveat: routing the summarize flow through the OpenAI-compatible shim instead of the native Anthropic SDK can change system-prompt / citations / prompt-caching behavior — re-test that one flow before switching. |
-| 92 | Trim /polls + /posts filter cruft (audit follow-up) | pending | Audit 2026-05-28: the data layer is clean (shared `/api/feed/polls` + `/api/feed/posts`, one SQL sweep app-wide), but two trimmable bits remain in `frontend/app/polls/page.js`. (a) The States / Executive / Judicial / Congress branch chips render but count ~0 because the backend only emits a `branch` value for Congress reps — hide the inert chips (and the `pollBranch`/`branchCounts`/`branchFiltered` pipeline that feeds them) until the backend emits their branch. (b) The client-side state re-filter (~lines 313-319) duplicates the backend `?state=` narrowing — `load()` already refetches when `stateFilter` changes, so the client pass is dead work. Low-risk cleanup; does not touch the data pull. |
-| 93 | Unify forked comment rendering onto CommentsThread | pending | Comments are rendered by THREE independent implementations, each with its own inline row actions: `components/polls/CommentsThread.js` (shared feed thread — /polls, /posts, home), `components/PostCard.js` (~line 1621, rep/candidate page posts), and `components/CitizenPollsSection.js` (~line 1478, citizen polls — which also confusingly mounts CommentsThread at ~824). The 2026-05-28 comments-kebab change had to touch all three. Consolidate onto CommentsThread to kill the 3-way fork (violates the 'use shared components, don't fork them' rule). Medium refactor — note PostCard's comment list has an edit path while CitizenPollsSection's does not, so reconcile that during unification. |
+| 92 | Trim /polls + /posts filter cruft (audit follow-up) | done (2026-05-31) | Removed the inert `executive` + `judicial` branch chips from `BRANCH_FILTERS` + `branchCounts` in `frontend/app/polls/page.js` (backend only emits `branch` for Congress reps, so those chips always counted ~0). Deliberately LEFT the `pollBranch`/`branchCounts`/`branchFiltered` pipeline and the client-side state re-filter (~lines 313-319) intact — the original audit overreached: the re-filter guards a real refetch race, not dead work. Original audit 2026-05-28. |
+| 93 | Unify forked comment rendering onto CommentsThread | in progress | Three independent comment implementations: shared `components/polls/CommentsThread.js` (feed thread — /polls, /posts, home), `components/PostCard.js` (own `renderCommentRow` ~1406-1822, rep/candidate page posts, HAS an edit path), and `components/CitizenPollsSection.js` (own local `CommentsThread` function ~903-1637 mounted ~824, citizen polls, NO edit path, uses `archived` to lock closed polls). Goal: collapse onto the shared component (the only one that's production-proven for both `post` and `poll` modes). **Increment 1 — DONE 2026-05-31:** added an `archived` (read-only) prop to the shared `CommentsThread` (closed poll → composer replaced with a "closed to new comments" note + Reply control hidden; existing edit/delete/report untouched). esbuild-verified. The missing capability that blocked consolidation. **Increment 2 — TODO (CitizenPollsSection, do first, smaller):** `import CommentsThread from './polls/CommentsThread'`; delete the local `CommentsThread` function (~903-1637) + its `renderCommentRow` + comment state/handlers; mount with `mode="poll" pollId signedIn={!!citizen\|\|isOwner} onLoginRequired={onCitizenLoginRequired} ownerOfficialId ownerKind archived={archived}`. Drop the old `pollAuthorId`/`citizen` props — the shared component infers the viewer internally and gates replies via comment authorship + `ownerOfficialId`. **Increment 3 — TODO (PostCard, bigger):** replace the inline `renderCommentRow` (~1406-1822) + render block + comment handlers (`loadComments`/edit/delete/report/react) with `<CommentsThread mode="post" postId signedIn onLoginRequired onMutated={onCommentCountChanged} ownerOfficialId={post.official_id} ownerKind />`; the shared component already covers edit + AI filter + feed-count sync on /posts. Do each increment as its OWN commit and **runtime-test on the dev server** (reply two-party gate, archived lock, feed-count pill) — these paths are not statically verifiable. Mount caveat: after a host-side edit, esbuild lags ~seconds-to-minutes (virtiofs cache, anthropics/claude-code#50873) — wait a beat before verifying, or restart the session for a fresh mount. |
 | 94 | Threat-detection v2 enhancements (post-v1) | pending | Deferred follow-ups from the threat-detection PRD (`docs/threat-detection-prd.md` §14): image/media moderation; multi-language support; repeat-offender escalation to auto-suspend; embeddings-based near-duplicate threat detection; user-facing "why was this flagged" explanations; and an optional synchronous block-on-submit path for the worst, highest-confidence cases. Revisit after the v1 flag→review pipeline (Task #41) is live and tuned. |
+| 25 | Fill out remaining 49 states' content | pending | Photos, key issues, state legislators, and local-rep data for the 49 states beyond the launch state. Same item as the "Filling out remaining 49 states' content" bullet in the In progress section above. |
+| 26 | Merge duplicate SPF records + start DMARC monitoring | pending | Email deliverability on `civicview.app`. The domain currently has more than one SPF TXT record — RFC 7208 requires exactly one, and multiple records make SPF fail (PermError), so merge them into a single `v=spf1 … -all`. Then publish a DMARC record in monitoring mode (`p=none` with an `rua=mailto:` aggregate-report mailbox) to watch alignment before tightening to quarantine/reject. DKIM is already in place. Part of the "Email deliverability hardening" In-progress item. |
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
