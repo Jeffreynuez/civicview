@@ -3,14 +3,16 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useHScroll } from '../lib/useHScroll';
+import { EdgeArrow } from './HScroll';
 
 /**
- * TabStrip — horizontally-scrollable row of tab buttons with fade
- * indicators on the left/right edges when more content is hidden in
- * that direction. Universal across viewports: fades only render when
- * actual overflow exists, so on a wide desktop where every tab fits
- * they're invisible.
+ * TabStrip — horizontally-scrollable row of tab buttons with the
+ * standard green edge arrows when content is clipped left/right. Built
+ * on the shared useHScroll hook + EdgeArrow so its overflow detection,
+ * arrow affordance, and desktop click-drag match every other scrollable
+ * row in the app (see lib/useHScroll.js + components/HScroll.js).
  *
  * Props:
  *   tabs       — [{ id, label }, ...]   — id used as key + onSelect arg
@@ -20,19 +22,16 @@ import { useEffect, useRef, useState } from 'react';
  *                targets clear the 44px minimum on touch.
  *   useFlexFill — when true (default), desktop tabs share the row equally
  *                via flex:1. When false, tabs are auto-width on every
- *                viewport (rarely needed; the default works for both
- *                short and long tab labels).
+ *                viewport.
  *
  * Behavior:
- *   - Always allows horizontalscroll on the strip itself.
- *   - Hides the native scrollbar via the cl-no-scrollbar utility (defined
- *     in globals.css) so the fades are the only visual cue.
- *   - Listens to scroll + ResizeObserver to keep overflow flags fresh.
- *   - Each fade is a clickable button that scroll-snaps the strip 120px
- *     in that direction so the user can advance one tab at a time
- *     without dragging.
- *   - tabIndex on the fade buttons toggles to -1 when overflow doesn't
- *     exist on that side, keeping keyboard tab-order clean.
+ *   - Always allows horizontal scroll on the strip itself; native scrollbar
+ *     hidden via cl-no-scrollbar so the green arrows are the only cue.
+ *   - Arrows fade in only when real overflow exists on that side and are
+ *     clickable to advance ~one tab; arrow tab-order is dropped at the end.
+ *   - Desktop click-hold-drag scrolls the strip (mouse only); mobile keeps
+ *     native touch scroll. A drag never fires a tab selection.
+ *   - Roving tabindex + ←/→/Home/End keyboard nav per WAI-ARIA tablist.
  */
 export default function TabStrip({
   tabs,
@@ -42,43 +41,11 @@ export default function TabStrip({
   useFlexFill = true,
 }) {
   const scrollerRef = useRef(null);
-  const [overflow, setOverflow] = useState({ left: false, right: false });
+  const { overflow, scrollByDir, dragHandlers } = useHScroll(scrollerRef, {
+    step: 120,
+    deps: [tabs.length],
+  });
 
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const update = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      // 4px slack to avoid flicker at the exact boundary (subpixel
-      // rounding can leave 0.5–2px of residue otherwise).
-      setOverflow({
-        left: scrollLeft > 4,
-        right: scrollLeft + clientWidth < scrollWidth - 4,
-      });
-    };
-    update();
-    el.addEventListener('scroll', update, { passive: true });
-    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(update) : null;
-    if (ro) ro.observe(el);
-    return () => {
-      el.removeEventListener('scroll', update);
-      if (ro) ro.disconnect();
-    };
-  }, [tabs.length]);
-
-  const scrollByOne = (dir) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * 120, behavior: 'smooth' });
-  };
-
-  // Keyboard navigation per the ARIA tablist authoring practices:
-  //   ←/→     move focus to prev/next tab
-  //   Home    jump to first tab
-  //   End     jump to last tab
-  // We also activate-on-arrow (call onSelect immediately) which is the
-  // automatic-activation pattern; works well for our shallow tab
-  // panels that don't trigger heavy network work on selection.
   const handleKeyDown = (e) => {
     const i = tabs.findIndex((t) => t.id === activeId);
     if (i < 0) return;
@@ -107,7 +74,9 @@ export default function TabStrip({
           overflowX: 'auto',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
+          cursor: 'grab',
         }}
+        {...dragHandlers}
       >
         {tabs.map((tab) => {
           const isActive = activeId === tab.id;
@@ -116,9 +85,6 @@ export default function TabStrip({
               key={tab.id}
               role="tab"
               aria-selected={isActive}
-              // tabIndex per the WAI-ARIA "roving tabindex" pattern:
-              // only the active tab is in the keyboard tab order; the
-              // others are reachable via arrow keys (handled above).
               tabIndex={isActive ? 0 : -1}
               onClick={() => onSelect(tab.id)}
               style={{
@@ -144,65 +110,8 @@ export default function TabStrip({
         })}
       </div>
 
-      {/* Left-edge fade — visible when scrollLeft > 4. */}
-      <button
-        type="button"
-        aria-label="Scroll tabs left"
-        tabIndex={overflow.left ? 0 : -1}
-        onClick={() => scrollByOne(-1)}
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 1,
-          left: 0,
-          width: 32,
-          background: 'linear-gradient(to right, white 30%, rgba(255,255,255,0))',
-          border: 'none',
-          padding: '0 0 0 4px',
-          cursor: 'pointer',
-          opacity: overflow.left ? 1 : 0,
-          pointerEvents: overflow.left ? 'auto' : 'none',
-          transition: 'opacity 0.18s ease',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          color: 'var(--cl-text-light)',
-        }}
-      >
-        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-          <path d="M8 1.5L3 6l5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </svg>
-      </button>
-
-      {/* Right-edge fade. */}
-      <button
-        type="button"
-        aria-label="Scroll tabs right"
-        tabIndex={overflow.right ? 0 : -1}
-        onClick={() => scrollByOne(1)}
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 1,
-          right: 0,
-          width: 32,
-          background: 'linear-gradient(to left, white 30%, rgba(255,255,255,0))',
-          border: 'none',
-          padding: '0 4px 0 0',
-          cursor: 'pointer',
-          opacity: overflow.right ? 1 : 0,
-          pointerEvents: overflow.right ? 'auto' : 'none',
-          transition: 'opacity 0.18s ease',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          color: 'var(--cl-text-light)',
-        }}
-      >
-        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-          <path d="M4 1.5L9 6l-5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </svg>
-      </button>
+      <EdgeArrow side="left" show={overflow.left} onClick={() => scrollByDir(-1)} label="Scroll tabs left" />
+      <EdgeArrow side="right" show={overflow.right} onClick={() => scrollByDir(1)} label="Scroll tabs right" />
     </div>
   );
 }

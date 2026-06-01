@@ -48,6 +48,8 @@ import {
 import FeedCard from '@/components/polls/FeedCard';
 import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
+import { useHScroll } from '@/lib/useHScroll';
+import { EdgeArrow } from '@/components/HScroll';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useAuth as useRepAuth } from '@/lib/auth';
@@ -219,6 +221,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     ? BRANCH_FILTERS.filter((f) => f.id !== 'standalone')
     : BRANCH_FILTERS;
   const [composerOpen, setComposerOpen] = useState(false);
+  // Edge-arrow scroll affordance for the branch-chip row (it scrolls
+  // horizontally on mobile; wraps on desktop so arrows stay hidden there).
+  const kindChipsRef = useRef(null);
+  const { overflow: chipsOverflow, scrollByDir: chipsScrollBy, dragHandlers: chipsDrag } =
+    useHScroll(kindChipsRef, { step: 160, deps: [activeBranchFilters.length, tab] });
 
   // Local modal state — /polls doesn't share the home orchestrator's
   // store, so the Navbar's citizen / Subscribe / My Tracked / Dashboard
@@ -564,7 +571,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
         <div className="polls-wrap">
           <div className="polls-filters__inner">
             <div className="polls-kindrow">
-              <div className="polls-kindrow__chips">
+              <div className="polls-kindrow__chips" ref={kindChipsRef} {...chipsDrag}>
                 {activeBranchFilters.map((f) => (
                   <div key={f.id} className={f.id === 'states' ? 'polls-kindrow__states-wrap' : ''}>
                     <BranchChipV2
@@ -628,6 +635,8 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                   }}
                 />
               )}
+              <EdgeArrow side="left" show={chipsOverflow.left} onClick={() => chipsScrollBy(-1)} />
+              <EdgeArrow side="right" show={chipsOverflow.right} onClick={() => chipsScrollBy(1)} />
             </div>
 
             {aiAvailable && (

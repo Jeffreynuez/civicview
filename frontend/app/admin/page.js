@@ -53,6 +53,7 @@ import {
   adminLoadDashboard,
 } from '@/lib/pagesApi';
 import './admin.css';
+import HScroll from '@/components/HScroll';
 
 const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts']);
 
@@ -940,7 +941,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspe
           </button>
         </span>
       </div>
-      <div className="ad-tablewrap__scroll">
+      <HScroll scrollerClassName="ad-tablewrap__scroll" itemCount={rows.length}>
         <table className="ad-table">
           <thead>
             <tr>
@@ -1017,7 +1018,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspe
             })}
           </tbody>
         </table>
-      </div>
+      </HScroll>
     </div>
   );
 }
@@ -1506,7 +1507,7 @@ function SuspendedTable({ rows, onUnsuspend, onViewAppeal }) {
           Showing <strong>{rows.length}</strong> {rows.length === 1 ? 'account' : 'accounts'}
         </span>
       </div>
-      <div className="ad-tablewrap__scroll">
+      <HScroll scrollerClassName="ad-tablewrap__scroll" itemCount={rows.length}>
         <table className="ad-table">
           <thead>
             <tr>
@@ -1580,7 +1581,7 @@ function SuspendedTable({ rows, onUnsuspend, onViewAppeal }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </HScroll>
     </div>
   );
 }
