@@ -72,10 +72,28 @@ const TONE_PRESETS = [
   { id: 'informative', label: 'Informative' },
 ];
 
-const SORT_OPTIONS = [
+// Sort vocab differs by mode. POST comments are sorted SERVER-side by
+// the /api/pages/posts/{id}/comments endpoint, whose COMMENT_SORTS are
+// latest / oldest / most_liked / most_disliked (backend/app/schemas/
+// pages.py). POLL comments have no server sort, so they keep the
+// original client-side latest/oldest/liked set.
+const SORT_OPTIONS_POST = [
+  { id: 'latest',        label: 'Latest' },
+  { id: 'oldest',        label: 'Oldest' },
+  { id: 'most_liked',    label: 'Most liked' },
+  { id: 'most_disliked', label: 'Most disliked' },
+];
+const SORT_OPTIONS_POLL = [
   { id: 'latest', label: 'Latest' },
   { id: 'oldest', label: 'Oldest' },
   { id: 'liked',  label: 'Most liked' },
+];
+// Citizen-only server-side filters (post mode). Map to the backend's
+// COMMENT_FILTERS (my_district / my_state); selecting one pins the
+// list to the caller's own district/state and forces sort=latest.
+const POST_CITIZEN_FILTERS = [
+  { id: 'my_district', label: 'From my district' },
+  { id: 'my_state',    label: 'From my state' },
 ];
 
 const PAGE_SIZE = 5;
@@ -99,6 +117,16 @@ export default function CommentsThread({
   // readable but no new comments or replies are allowed. Used by closed
   // citizen polls (the read view + existing replies remain visible).
   archived = false,
+  // Owner-only (mode='post'): narrows comments to a geographic scope
+  // server-side. Passed straight through to listComments. null = no
+  // scope filter (the path every non-owner caller takes).
+  commentScope = null,
+  // Optional exact count-sync hook. Called with +1 on a successful
+  // add (comment or reply) and -1 on delete so a parent that tracks
+  // its own comment_count (e.g. PostCard's "Comments (N)" pill) stays
+  // precise without a full refetch. Independent of onMutated, which
+  // FeedCard uses for a full feed reload.
+  onCountChange,
 }) {
   const { citizen } = useCitizenAuth();
   const { me: rep } = useRepAuth();
@@ -200,7 +228,15 @@ export default function CommentsThread({
     if (mode === 'poll') {
       ({ data, error: err } = await listCitizenPollComments(pollId));
     } else {
-      ({ data, error: err } = await listComments(postId, { sort }));
+      // my_district / my_state ride the same dropdown as sort but map
+      // to the backend's filter_by (citizen-only); when one is picked
+      // the server sort falls back to latest, matching PostCard.
+      const isFilter = sort === 'my_district' || sort === 'my_state';
+      ({ data, error: err } = await listComments(postId, {
+        scope: commentScope || undefined,
+        sort: isFilter ? 'latest' : sort,
+        filterBy: isFilter ? sort : undefined,
+      }));
     }
     if (err) {
       setError(typeof err === 'string' ? err : 'Could not load comments.');
@@ -212,7 +248,7 @@ export default function CommentsThread({
     const items = Array.isArray(data) ? data : (data?.items || []);
     setComments(items);
     setFilterIds(null);  // reset AI filter on every reload
-  }, [mode, pollId, postId, sort]);
+  }, [mode, pollId, postId, sort, commentScope]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -224,17 +260,23 @@ export default function CommentsThread({
       const allow = new Set(filterIds);
       list = list.filter((c) => allow.has(c.id));
     }
-    if (sort === 'oldest') {
-      list = [...list].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-    } else if (sort === 'liked') {
-      list = [...list].sort(
-        (a, b) => (b.reactions_up || 0) - (a.reactions_up || 0),
-      );
-    } else {
-      list = [...list].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    // POST mode: the server already applied sort + filter_by + scope,
+    // so preserve its order here (client re-sort would fight it and the
+    // most_liked/most_disliked tokens have no client equivalent). POLL
+    // mode keeps the original client-side sort (no server sort there).
+    if (mode === 'poll') {
+      if (sort === 'oldest') {
+        list = [...list].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      } else if (sort === 'liked') {
+        list = [...list].sort(
+          (a, b) => (b.reactions_up || 0) - (a.reactions_up || 0),
+        );
+      } else {
+        list = [...list].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      }
     }
     return list;
-  }, [comments, sort, filterIds]);
+  }, [comments, sort, filterIds, mode]);
 
   // Bucket the flat comment list into top-level + a map of
   // parent_comment_id → replies. Top-level are comments whose
@@ -294,6 +336,7 @@ export default function CommentsThread({
     setDraft('');
     setReplyingTo(null);
     await load();
+    onCountChange?.(1);
     // Deliberately NOT calling onMutated here — the comment was
     // posted; the local thread refreshes above. Calling the parent's
     // load() would refetch the entire feed and visibly scroll-jump
@@ -323,6 +366,7 @@ export default function CommentsThread({
     setReplyDraft('');
     setReplyingTo(null);
     await load();
+    onCountChange?.(1);
   };
 
   // Comment edit saved — update the matching row in-place so the
@@ -345,6 +389,7 @@ export default function CommentsThread({
     }
     await load();
     onMutated?.();
+    onCountChange?.(-1);
   };
 
   const handleReport = async (commentId) => {
@@ -581,8 +626,15 @@ export default function CommentsThread({
             value={sort}
             onChange={(e) => setSort(e.target.value)}
           >
-            {SORT_OPTIONS.map((o) => (
+            {(mode === 'post' ? SORT_OPTIONS_POST : SORT_OPTIONS_POLL).map((o) => (
               <option key={o.id} value={o.id}>{o.label}</option>
+            ))}
+            {mode === 'post' && citizen && POST_CITIZEN_FILTERS.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.id === 'my_district'
+                  ? `From my district${citizen.congressional_district ? ` (${citizen.congressional_district})` : ''}`
+                  : `From my state${citizen.state ? ` (${citizen.state})` : ''}`}
+              </option>
             ))}
           </select>
         </label>
