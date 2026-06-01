@@ -95,6 +95,10 @@ export default function CommentsThread({
   // ownerOfficialId) and the parent comment's author may reply.
   ownerOfficialId = null,
   ownerKind = null, // 'rep' | 'candidate' | 'citizen' | 'standalone' | null
+  // When true the parent entity is closed/archived: the thread stays
+  // readable but no new comments or replies are allowed. Used by closed
+  // citizen polls (the read view + existing replies remain visible).
+  archived = false,
 }) {
   const { citizen } = useCitizenAuth();
   const { me: rep } = useRepAuth();
@@ -523,37 +527,48 @@ export default function CommentsThread({
           trigger next to the identity badge. Replying via a comment-
           row's Reply button auto-expands the composer (see the Reply
           onClick handler below). */}
-      <div className="thread__composer-row">
-        <button
-          type="button"
-          className={`thread__composer-toggle ${composerOpen ? 'is-open' : ''}`}
-          onClick={() => setComposerOpen((v) => !v)}
-          aria-expanded={composerOpen}
+      {archived ? (
+        <div
+          className="thread__closed"
+          style={{ padding: '8px 0', fontSize: '0.8rem', color: 'var(--cl-text-muted)', fontStyle: 'italic' }}
         >
-          {composerOpen ? '▾' : '▸'} Add comment
-        </button>
-      </div>
-      {composerOpen && (
+          This poll is closed to new comments.
+        </div>
+      ) : (
         <>
-          <div className="thread__composer">
-            <textarea
-              rows="2"
-              className="thread__textarea"
-              placeholder={signedIn ? 'Add a comment…' : 'Sign in to comment'}
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              disabled={!signedIn || posting}
-            />
+          <div className="thread__composer-row">
             <button
               type="button"
-              className="thread__post-btn"
-              onClick={() => handlePost(null)}
-              disabled={!signedIn || posting || !draft.trim()}
+              className={`thread__composer-toggle ${composerOpen ? 'is-open' : ''}`}
+              onClick={() => setComposerOpen((v) => !v)}
+              aria-expanded={composerOpen}
             >
-              {posting ? 'Posting…' : 'Post'}
+              {composerOpen ? '▾' : '▸'} Add comment
             </button>
           </div>
-          {postError && <div className="thread__post-error">{postError}</div>}
+          {composerOpen && (
+            <>
+              <div className="thread__composer">
+                <textarea
+                  rows="2"
+                  className="thread__textarea"
+                  placeholder={signedIn ? 'Add a comment…' : 'Sign in to comment'}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  disabled={!signedIn || posting}
+                />
+                <button
+                  type="button"
+                  className="thread__post-btn"
+                  onClick={() => handlePost(null)}
+                  disabled={!signedIn || posting || !draft.trim()}
+                >
+                  {posting ? 'Posting…' : 'Post'}
+                </button>
+              </div>
+              {postError && <div className="thread__post-error">{postError}</div>}
+            </>
+          )}
         </>
       )}
 
@@ -642,6 +657,7 @@ export default function CommentsThread({
               key={c.id}
               c={c}
               isReply={false}
+              archived={archived}
               citizen={citizen}
               rep={rep}
               candidate={candidate}
@@ -698,6 +714,7 @@ export default function CommentsThread({
 function CommentRow({
   c,
   isReply,
+  archived,
   citizen,
   rep,
   candidate,
@@ -909,7 +926,7 @@ function CommentRow({
         {/* Reply only appears on top-level comments (Phase 3 rule:
             replies-to-replies aren't supported, threads stay one
             level deep). */}
-        {!isReply && (
+        {!isReply && !archived && (
           <button
             type="button"
             className="thread__c-link thread__c-link--accent"
