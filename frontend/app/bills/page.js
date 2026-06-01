@@ -21,6 +21,8 @@
  * chart + single-column list.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useHScroll } from '@/lib/useHScroll';
+import { EdgeArrow } from '@/components/HScroll';
 import { useRouter } from 'next/navigation';
 import { fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation } from '@/lib/api';
 import Navbar from '@/components/Navbar';
@@ -563,14 +565,17 @@ function VoteList({ vote, onPick, mobilePrimary }) {
 
 function ChartScroller({ children, chamber }) {
   const ref = useRef(null);
-  const by = (d) => { if (ref.current) ref.current.scrollBy({ left: d, behavior: 'smooth' }); };
+  const { overflow, scrollByDir, dragHandlers } = useHScroll(ref, { step: 240, deps: [chamber] });
   return (
     <div className="cv-scrollwrap">
-      <div className={'cv-scroll cv-scroll--' + chamber.toLowerCase()} ref={ref}>{children}</div>
-      <div className="cv-scroll__fade cv-scroll__fade--l" aria-hidden="true" />
-      <div className="cv-scroll__fade cv-scroll__fade--r" aria-hidden="true" />
-      <button className="cv-scroll__arw cv-scroll__arw--l" aria-label="Scroll chart left" onClick={() => by(-240)}>‹</button>
-      <button className="cv-scroll__arw cv-scroll__arw--r" aria-label="Scroll chart right" onClick={() => by(240)}>›</button>
+      <div
+        className={'cv-scroll cv-scroll--' + chamber.toLowerCase()}
+        ref={ref}
+        style={{ cursor: 'grab' }}
+        {...dragHandlers}
+      >{children}</div>
+      <EdgeArrow side="left" show={overflow.left} onClick={() => scrollByDir(-1)} label="Scroll chart left" />
+      <EdgeArrow side="right" show={overflow.right} onClick={() => scrollByDir(1)} label="Scroll chart right" />
     </div>
   );
 }
