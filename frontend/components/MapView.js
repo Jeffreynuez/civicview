@@ -74,6 +74,10 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   // its on('zoom') handler updates this state in response, so the
   // slider catches up on the client without a hydration warning.
   const [zoomPct, setZoomPct] = useState(zoomToPct(3));
+  // True only when we restored a saved camera on mount — used to skip the
+  // first selectedState fitBounds so we don't yank the user off the view
+  // they left (camera persistence, request 2026-06-01).
+  const cameraRestoredRef = useRef(false);
   // On mobile we hide the bottom-left zoom dock (MapLibre's built-in
   // NavigationControl + native pinch-zoom cover the same affordance
   // and don't burn screen space the panel needs more than the map).
@@ -98,8 +102,18 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
       // original [center, zoom 3] which fits the US comfortably in
       // the larger desktop map area.
       const isMobileInit = window.innerWidth <= 900;
-      const initialCenter = isMobileInit ? [-93, 37] : [-98.5, 39.8];
-      const initialZoom = isMobileInit ? 2 : 3;
+      let initialCenter = isMobileInit ? [-93, 37] : [-98.5, 39.8];
+      let initialZoom = isMobileInit ? 2 : 3;
+      // Restore the user's last camera so navigating away + back keeps
+      // where they left the map instead of snapping to the default US view.
+      try {
+        const saved = JSON.parse(window.sessionStorage.getItem('cl:map:camera') || 'null');
+        if (saved && Number.isFinite(saved.lng) && Number.isFinite(saved.lat) && Number.isFinite(saved.zoom)) {
+          initialCenter = [saved.lng, saved.lat];
+          initialZoom = saved.zoom;
+          cameraRestoredRef.current = true;
+        }
+      } catch { /* private mode / bad JSON — fall back to defaults */ }
 
       map.current = new maplibregl.Map({
         container: mapContainer.current,
@@ -484,6 +498,19 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         map.current.on('zoom', updateZoom);
         map.current.on('zoomend', updateZoom);
         updateZoom();
+
+        // Persist the camera (center + zoom) on every settle so a remount
+        // (navigating away + back) can restore it.
+        const saveCamera = () => {
+          try {
+            const c = map.current.getCenter();
+            window.sessionStorage.setItem(
+              'cl:map:camera',
+              JSON.stringify({ lng: c.lng, lat: c.lat, zoom: map.current.getZoom() }),
+            );
+          } catch { /* private mode */ }
+        };
+        map.current.on('moveend', saveCamera);
       });
     };
 
@@ -629,10 +656,17 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     }
 
     // Fly to the cached geometry — works for any state in the cache.
-    try {
-      const [sw, ne] = geometryBounds(geomFeature.geometry);
-      map.current.fitBounds([sw, ne], { padding: 60, duration: 900, maxZoom: 7 });
-    } catch { /* noop */ }
+    // Skip ONCE if we just restored a saved camera on mount, so we keep
+    // the user's prior view instead of snapping to the state bounds. The
+    // highlight above still applies; only the camera move is skipped.
+    if (cameraRestoredRef.current) {
+      cameraRestoredRef.current = false;
+    } else {
+      try {
+        const [sw, ne] = geometryBounds(geomFeature.geometry);
+        map.current.fitBounds([sw, ne], { padding: 60, duration: 900, maxZoom: 7 });
+      } catch { /* noop */ }
+    }
     setCurrentLabel(geomFeature.properties?.name || selectedState);
 
     // If the highlight didn't apply yet (state was outside the viewport),

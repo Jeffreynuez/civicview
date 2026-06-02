@@ -49,7 +49,7 @@ import FeedCard from '@/components/polls/FeedCard';
 import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
 import { useHScroll } from '@/lib/useHScroll';
-import { EdgeArrow } from '@/components/HScroll';
+import HScroll, { EdgeArrow } from '@/components/HScroll';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useAuth as useRepAuth } from '@/lib/auth';
@@ -1033,7 +1033,7 @@ function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onAppl
         <span className="polls-airow__label">
           <SparkleGlyph size={13} /> AI tone filters
         </span>
-        <div className="polls-airow__chips">
+        <HScroll className="polls-airow__chips-wrap" scrollerClassName="polls-airow__chips" itemCount={presets.length}>
           {presets.map((t) => (
             <button
               key={t.id}
@@ -1046,7 +1046,7 @@ function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onAppl
               {t.label}
             </button>
           ))}
-        </div>
+        </HScroll>
         <label className="polls-airow__field">
           <span className="polls-airow__sparkle"><SparkleGlyph size={14} /></span>
           <input
