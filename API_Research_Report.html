@@ -49,6 +49,9 @@
 
 <h1>Civic Data API Research Report</h1>
 <p class="subtitle">US Political Tracking App &mdash; Research Phase 1 &mdash; April 2, 2026</p>
+<div class="rec" style="background:#fff3cd;border-color:#ffe69c;">
+  <strong>Revision &mdash; June 2, 2026 (Claude Cowork):</strong> Re-checked the landscape during launch prep. Additions below: a <strong>Vote Smart</strong> source for the missing <em>issue-positions</em> field; free <strong>Wikidata / Wikipedia</strong> narrative bios; the <strong>Congress.gov committees</strong> endpoint (auto-fillable); and a concrete <strong>Cicero / Google Divisions OCD-ID</strong> replacement for the deprecated Google Civic Representatives lookup. The app now auto-derives a rep's <em>bio + congressional experience</em> live from the Congress.gov member <code>terms</code>, so only issue <em>stances</em> remain hand-curated. See the new "Profile Content" section + the updated gap table.
+</div>
 
 <!-- ============================================ -->
 <h2>1. Federal-Level Data (Congress)</h2>
@@ -86,6 +89,37 @@
 </div>
 
 <!-- ============================================ -->
+<h2>1b. Profile Content &mdash; Bios, Issue Positions &amp; Committees</h2>
+<p style="color:#555;margin-bottom:1rem;">The fields a rep profile shows beyond name/party/votes. Congress.gov gives us a factual bio + congressional experience automatically (the app derives both from the member <code>terms</code>). The harder, editorial pieces &mdash; <strong>issue positions / stances</strong> and richer narrative bios &mdash; have no single complete free source; the options below fill that gap.</p>
+
+<div class="card free">
+  <h3>Vote Smart API (Project Vote Smart) <span class="badge free">FREE (non-commercial)</span> <span class="badge partial">PARTIAL COVERAGE</span></h3>
+  <p><strong>What it covers:</strong> The strongest free source for <em>issue positions</em>. Non-partisan; provides biographies, issue positions via the <strong>Political Courage Test (PCT)</strong>, voting records, interest-group ratings, campaign finance, and public statements &mdash; for President, Congress, Governor, and state legislature.</p>
+  <p><strong>Why it matters here:</strong> The one profile field Congress.gov can't give us. PCT positions are non-partisan and candidate-submitted.</p>
+  <p><strong>Caveat:</strong> <span class="warn">Coverage is incomplete</span> &mdash; many incumbents decline the PCT, so positions exist for some members but not all. Use as a supplement (fill where available), not a complete feed. API access is by request for non-commercial use; confirm commercial terms before relying on it in production.</p>
+  <p><a href="https://www.votesmart.org/votesmart-api">Vote Smart API</a> | <a href="https://justfacts.votesmart.org/about/political-courage-test/">About the PCT</a></p>
+</div>
+
+<div class="card free">
+  <h3>Wikidata REST API + Wikipedia REST API <span class="badge free">FREE / CC0</span></h3>
+  <p><strong>What it covers:</strong> Free narrative bios + structured facts (education, prior offices, dates) for essentially every member of Congress. Technique: fuzzy-match the name to a Wikipedia article, grab the Wikidata QID, read structured statements; the Wikipedia REST API adds a plain-text summary + thumbnail.</p>
+  <p><strong>Why it matters here:</strong> A richer "About" than the auto one-liner, plus pre-Congress facts the Congress.gov API lacks. <span class="warn">Caveat:</span> community-edited &mdash; verify before publishing on a civic platform.</p>
+  <p><a href="https://www.wikidata.org/wiki/Wikidata:REST_API">Wikidata REST API</a></p>
+</div>
+
+<div class="card free">
+  <h3>Biographical Directory of the U.S. Congress (bioguide) <span class="badge free">FREE / PUBLIC DOMAIN</span></h3>
+  <p><strong>What it covers:</strong> Official short biographies for current + historical members, keyed by the same Bioguide ID we already use for photos and the Congress.gov API. Authoritative and neutral.</p>
+  <p><a href="https://bioguide.congress.gov/">bioguide.congress.gov</a></p>
+</div>
+
+<div class="card free">
+  <h3>Congress.gov &mdash; Committee Assignments + Sponsored-bill Subjects <span class="badge free">FREE</span></h3>
+  <p><strong>What it covers:</strong> Two things we have access to but aren't fully using: (1) <strong>committee / subcommittee assignments</strong> per member (the profile's Committees list, currently empty, can be auto-filled like bio/experience now are); (2) the <strong>policy areas / legislative subjects</strong> of a member's sponsored bills &mdash; a complete-coverage, derivable signal of "what they actually work on" that can seed the Issues tab even where no curated PCT positions exist.</p>
+  <p><a href="https://github.com/LibraryOfCongress/api.congress.gov">Congress.gov API docs</a></p>
+</div>
+
+<!-- ============================================ -->
 <h2>2. State-Level Data (Governors, State Legislators)</h2>
 
 <div class="card free">
@@ -119,6 +153,14 @@
   <p><strong>CRITICAL CHANGE:</strong> <span class="gap">The Representatives API was turned down in April 2025.</span> The Elections and Divisions APIs continue to work. You can still look up elections and divisions by address, but direct representative lookups may be limited.</p>
   <p><strong>Gaps:</strong> Coverage of local officials is inconsistent. Some districts have full data, others are empty.</p>
   <p><a href="https://developers.google.com/civic-information">Documentation</a></p>
+</div>
+
+<div class="card paid">
+  <h3>Cicero API (Azavea) <span class="badge paid">PAID</span></h3>
+  <p><strong>What it covers:</strong> The recommended replacement for Google Civic's turned-down Representatives lookup. Address &rarr; legislative-district matching + elected-official lookup at federal, state, and local levels, with contact info, social handles, and district geometry.</p>
+  <p><strong>Why it matters here:</strong> Our address-to-rep feature leans on Google Civic, whose Representatives API was turned down (April 2025) &mdash; <span class="gap">a migration is needed.</span> Free bridge: Google's <strong>Divisions API</strong> now returns <strong>OCD-IDs</strong> for an address, which we can map to officials in our own + Congress.gov data (federal + state) without a paid vendor; Cicero (or BallotReady / Ballotpedia) covers the local tier we can't assemble for free.</p>
+  <p><strong>Cost:</strong> Contact for pricing (tiered by lookups).</p>
+  <p><a href="https://www.cicerodata.com/api/">Cicero API</a></p>
 </div>
 
 <div class="card paid">
@@ -205,6 +247,26 @@
     <td>Campaign finance data</td>
     <td style="color:#2d6a4f;">OpenFEC + WhoBoughtMyRep</td>
     <td style="color:#2d6a4f;">Complete</td>
+  </tr>
+  <tr>
+    <td>Rep bios + congressional experience</td>
+    <td style="color:#2d6a4f;">Congress.gov terms (auto-derived) + Wikidata</td>
+    <td style="color:#2d6a4f;">Complete (factual baseline)</td>
+  </tr>
+  <tr>
+    <td>Committee assignments</td>
+    <td style="color:#2d6a4f;">Congress.gov committees endpoint</td>
+    <td style="color:#2d6a4f;">Available (not yet wired)</td>
+  </tr>
+  <tr>
+    <td>Rep issue positions / stances</td>
+    <td style="color:#e9c46a;">Vote Smart (partial) + derive from sponsored bills</td>
+    <td style="color:#e9c46a;">Partial &mdash; curate where no PCT</td>
+  </tr>
+  <tr>
+    <td>Address &rarr; representatives lookup</td>
+    <td style="color:#e9c46a;">Google Divisions OCD-ID bridge; Cicero (paid) for local</td>
+    <td style="color:#e9c46a;">Google reps API retired Apr 2025</td>
   </tr>
   <tr>
     <td>State legislators</td>
