@@ -978,7 +978,7 @@ export default function ProfileView({
           <OverviewTab member={member} role={role} statsState={statsState} />
         )}
         {activeTab === 'issues' && (
-          <IssuesTab member={member} role={role} />
+          <IssuesTab member={member} role={role} statsState={statsState} />
         )}
         {activeTab === 'experience' && (
           <ExperienceTab member={member} />
@@ -1241,7 +1241,7 @@ function StatsBlock({ party, stats, loading }) {
 // ─── Issues (curated top_issues with stance) ─────────────────────────
 // Shared across every role. Renders the curated `member.top_issues` array
 // of `{name, stance}` objects with the same card styling candidates use.
-function IssuesTab({ member, role }) {
+function IssuesTab({ member, role, statsState }) {
   const issues = Array.isArray(member?.top_issues)
     ? member.top_issues.filter((i) => i && typeof i === 'object' && i.name)
     : [];
@@ -1251,6 +1251,18 @@ function IssuesTab({ member, role }) {
       'scotus', 'state_scotus', 'state_dca',
       'state_circuit_judge', 'state_county_judge',
     ]);
+
+    // No curated stances on file. For Congress members we still have a
+    // factual fallback: the policy areas their sponsored/cosponsored bills
+    // are tagged with. Surface those as DERIVED areas of focus — explicitly
+    // not stated positions — so the tab isn't empty where the data exists.
+    const derived = Array.isArray(statsState?.data?.top_issues)
+      ? statsState.data.top_issues.filter((i) => i && i.name)
+      : [];
+    if (!judicialRoles.has(role) && derived.length > 0) {
+      return <DerivedIssueAreas areas={derived} />;
+    }
+
     const msg = judicialRoles.has(role)
       ? 'No judicial focus areas on file yet.'
       : 'No issue positions listed yet.';
@@ -1290,6 +1302,42 @@ function IssuesTab({ member, role }) {
           )}
         </div>
       ))}
+    </div>
+  );
+}
+
+// Derived (not curated) fallback for the Issues tab: the policy areas a
+// member's sponsored/cosponsored bills are tagged with. Clearly labeled as
+// legislative focus — NOT stated positions — to keep the non-partisan
+// promise. Shown only when no curated stances exist for the member.
+function DerivedIssueAreas({ areas }) {
+  return (
+    <div>
+      <SectionHeader>Areas of Legislative Focus</SectionHeader>
+      <div style={{
+        fontSize: '0.78rem', color: 'var(--cl-text-light)',
+        lineHeight: 1.5, marginBottom: '12px',
+      }}>
+        Derived from the policy areas of this member&rsquo;s sponsored and
+        cosponsored bills. These reflect what they legislate on &mdash; not
+        stated positions or endorsements.
+      </div>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        {areas.map((a) => (
+          <span
+            key={a.name}
+            title={`${a.count} bill${a.count === 1 ? '' : 's'} tagged ${a.name}`}
+            style={{
+              padding: '6px 12px', borderRadius: '14px',
+              fontSize: '0.8rem', fontWeight: 600,
+              background: 'var(--cl-bg)', color: 'var(--cl-primary)',
+              border: '1px solid var(--cl-border)',
+            }}
+          >
+            {a.name}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

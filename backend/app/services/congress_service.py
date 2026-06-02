@@ -39,6 +39,15 @@ LEGISLATORS_DISTRICT_OFFICES_URL = "https://unitedstates.github.io/congress-legi
 LEGISLATORS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/legislators-current.json"
 COMMITTEES_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/committees-current.json"
 COMMITTEE_MEMBERSHIP_URL = "https://unitedstates.github.io/congress-legislators/committee-membership-current.json"
+
+# CRS policy areas that carry little "what they work on" signal: procedural,
+# commemorative, and private-relief bills. Excluded from the *derived*
+# issue-area chips (get_member_stats) so a member whose sponsored list is
+# mostly commemorative resolutions doesn't surface "Congress" as their #1
+# issue. These are derived approximations, not stated positions — filtering
+# noise keeps the signal honest. Does not affect the curated top_issues
+# sidecar (stated stances), which is a separate field.
+_NON_SUBSTANTIVE_POLICY_AREAS = {"Congress", "Private Legislation"}
 CACHE_TTL = 1800  # 30 minutes
 LEGISLATORS_CACHE_TTL = 86400  # 24h — this data changes rarely
 IMAGE_BASE = "https://unitedstates.github.io/images/congress/225x275"
@@ -186,6 +195,78 @@ def _term_chamber(term: dict) -> str:
     return "Senate" if "Senate" in str(term.get("chamber", "")) else "House"
 
 
+def _term_start_year(term: dict) -> str:
+    """Start year of a term, tolerant of both API term shapes.
+
+    The Congress.gov ``/member/{bioguide}`` detail endpoint returns
+    ``startYear`` (int); some other shapes / our test fixtures use
+    ``start`` (a date string). Return the 4-char year or "".
+    """
+    for k in ("startYear", "start", "begin"):
+        v = term.get(k)
+        if v:
+            return str(v)[:4]
+    return ""
+
+
+def _term_state(term: dict) -> Optional[str]:
+    """State of a term, tolerant of both API term shapes.
+
+    The detail endpoint returns ``stateCode`` ("FL") + ``stateName``
+    ("Florida"); other shapes / fixtures use ``state``. ``_state_label``
+    normalizes whichever we hand it to a full state name.
+    """
+    for k in ("stateCode", "state", "stateName"):
+        v = term.get(k)
+        if v:
+            return v
+    return None
+
+
+def _short_committee_name(name: str) -> str:
+    """Trim the chamber + boilerplate prefix off a committee name.
+
+    "House Committee on Foreign Affairs"            -> "Foreign Affairs"
+    "Senate Committee on Armed Services"            -> "Armed Services"
+    "House Permanent Select Committee on Intelligence" -> "Intelligence"
+    "Joint Committee on Taxation"                   -> "Taxation"
+    Leaves anything that doesn't match untouched.
+    """
+    if not name:
+        return ""
+    s = str(name).strip()
+    for chamber in ("House ", "Senate ", "Joint "):
+        if s.startswith(chamber):
+            s = s[len(chamber):]
+            break
+    for prefix in (
+        "Permanent Select Committee on ",
+        "Special Committee on ",
+        "Select Committee on ",
+        "Committee on the ",
+        "Committee on ",
+    ):
+        if s.startswith(prefix):
+            s = s[len(prefix):]
+            break
+    return s.strip() or str(name).strip()
+
+
+def _committee_leadership_label(title: str) -> Optional[str]:
+    """Map a membership ``title`` to a short leadership label, or None for
+    rank-and-file members. Factual roles only — no characterization."""
+    t = (title or "").lower()
+    if not t:
+        return None
+    if "ranking" in t:
+        return "Ranking Member"
+    if "vice" in t and "chair" in t:
+        return "Vice Chair"
+    if "chair" in t:  # "Chair" / "Chairman" / "Chairwoman"
+        return "Chair"
+    return None
+
+
 def _derive_experience(terms: list) -> list:
     """Build a {role, from, to} timeline of congressional service from the
     API terms. Consecutive same chamber/state/district terms collapse into
@@ -195,13 +276,13 @@ def _derive_experience(terms: list) -> list:
     if not terms:
         return []
     try:
-        ordered = sorted(terms, key=lambda t: _term_year(t, "start") or "0")
+        ordered = sorted(terms, key=lambda t: _term_start_year(t) or "0")
         runs = []
         for t in ordered:
             chamber = _term_chamber(t)
-            state = _state_label(t.get("state"))
+            state = _state_label(_term_state(t))
             district = t.get("district") if chamber == "House" else None
-            start = _term_year(t, "start")
+            start = _term_start_year(t)
             key = (chamber, state, str(district))
             if runs and runs[-1]["key"] == key:
                 continue  # same ongoing stint — keep its original start
@@ -229,11 +310,11 @@ def _derive_bio(name: str, terms: list) -> str:
     if not terms:
         return f"{name} serves in the United States Congress."
     try:
-        ordered = sorted(terms, key=lambda t: _term_year(t, "start") or "0")
+        ordered = sorted(terms, key=lambda t: _term_start_year(t) or "0")
         latest = ordered[-1]
-        first_year = _term_year(ordered[0], "start")
+        first_year = _term_start_year(ordered[0])
         chamber = _term_chamber(latest)
-        state = _state_label(latest.get("state"))
+        state = _state_label(_term_state(latest))
         since = f", serving since {first_year}" if first_year else ""
         if chamber == "Senate":
             return f"{name} is a United States Senator from {state}{since}.".replace(" from .", ".")
@@ -923,11 +1004,11 @@ class CongressService:
         counter: Counter = Counter()
         for b in sponsored or []:
             pa = (b.get("policy_area") or "").strip()
-            if pa:
+            if pa and pa not in _NON_SUBSTANTIVE_POLICY_AREAS:
                 counter[pa] += 2
         for b in cosponsored or []:
             pa = (b.get("policy_area") or "").strip()
-            if pa:
+            if pa and pa not in _NON_SUBSTANTIVE_POLICY_AREAS:
                 counter[pa] += 1
 
         top_issues = [
@@ -1118,6 +1199,93 @@ class CongressService:
         return await self._fetch_and_cache_json(
             "committee_membership", COMMITTEE_MEMBERSHIP_URL, ttl=LEGISLATORS_CACHE_TTL
         )
+
+    async def _build_member_committee_index(self) -> dict:
+        """Inverse of committee-membership-current.json: bioguide_id -> list
+        of the member's *parent* committee seats.
+
+        committee-membership-current.json is keyed by committee id, where a
+        subcommittee key is the parent id + its sub id (e.g. "HSAG15" is
+        Forestry under "HSAG" Agriculture). For the profile's top-level
+        Committees list we surface only the parent committees (subcommittee
+        sprawl makes the joined string unreadable), annotating any chair /
+        ranking-member leadership role.
+
+        Returns: {bioguide_id: [{"name", "type", "rank", "title"}, ...]}.
+        Cached 24h alongside the other committee data.
+        """
+        cache_key = "member_committee_index"
+        cached = self._get_cached_long(cache_key)
+        if cached is not None:
+            return cached
+
+        committees = await self._fetch_committees_current()
+        membership = await self._fetch_committee_membership()
+        if not committees or not membership:
+            return {}
+
+        # parent thomas_id -> {short name, chamber type}. Subcommittees are
+        # NOT in this map, so any membership key absent here is a sub seat we
+        # intentionally skip for the top-level list.
+        parents: dict = {}
+        for c in committees:
+            tid = c.get("thomas_id")
+            if tid:
+                parents[tid] = {
+                    "name": _short_committee_name(c.get("name") or ""),
+                    "type": c.get("type") or "",
+                }
+
+        index: dict = {}
+        for cid, members in (membership or {}).items():
+            parent = parents.get(cid)
+            if not parent:
+                continue  # subcommittee or unknown id — skip for top-level
+            for m in members or []:
+                bg = m.get("bioguide")
+                if not bg:
+                    continue
+                index.setdefault(bg, []).append({
+                    "name": parent["name"],
+                    "type": parent["type"],
+                    "rank": m.get("rank") or 999,
+                    "title": m.get("title") or "",
+                })
+
+        self._set_cached_long(cache_key, index)
+        logger.info(f"Built committee index for {len(index)} members")
+        return index
+
+    async def get_member_committees(self, bioguide_id: str) -> list:
+        """Parent committee assignments for a member, as display strings.
+
+        Leadership roles are annotated factually, e.g.
+        "Foreign Affairs (Chair)" / "Armed Services (Ranking Member)".
+        Returns [] when the member isn't found in the community roster
+        (e.g. a brand-new member not yet listed) so the caller leaves the
+        profile's committees:[] empty rather than guessing.
+        """
+        index = await self._build_member_committee_index()
+        seats = index.get(bioguide_id) or []
+        if not seats:
+            return []
+
+        # Leadership first, then alphabetical by committee name.
+        def _sort_key(s):
+            label = _committee_leadership_label(s.get("title"))
+            lead_rank = {"Chair": 0, "Ranking Member": 1, "Vice Chair": 2}.get(label, 3)
+            return (lead_rank, s.get("name") or "")
+
+        out = []
+        seen = set()
+        for s in sorted(seats, key=_sort_key):
+            name = s.get("name")
+            if not name or name in seen:
+                continue
+            seen.add(name)
+            label = _committee_leadership_label(s.get("title"))
+            out.append(f"{name} ({label})" if label else name)
+        return out
 
     # ------------------------------------------------------------------
     # Long-TTL cache helpers (24h) — used for committee data which changes
@@ -1627,7 +1795,7 @@ class CongressService:
                 "phone": phone or "N/A",
                 "bio": _derive_bio(name, terms),
                 "experience": _derive_experience(terms),
-                "committees": [],
+                "committees": await self.get_member_committees(bioguide_id),
                 "bills": bills,
                 "votes": [],
             }
