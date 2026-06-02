@@ -93,6 +93,22 @@ def _bill_title(vote: dict) -> Optional[str]:
     return title or None
 
 
+def _congress_from_vote_id(vote_id: Optional[str]) -> Optional[int]:
+    """Parse the congress number out of a vote_id of the form
+    '{h|s}-{congress}-{session}-{num}' (e.g. 'h-119-2-235' -> 119).
+    The frontend rarely sends congress on the vote row, but the vote_id
+    always carries it, so this is the reliable fallback."""
+    if not vote_id:
+        return None
+    parts = str(vote_id).split("-")
+    if len(parts) >= 2:
+        try:
+            return int(parts[1])
+        except (ValueError, TypeError):
+            return None
+    return None
+
+
 def _result_outcome_word(result: str) -> str:
     """Normalize the GovTrack result string ('Passed', 'Failed', etc.)
     into something usable inside template prose. We lean on the GovTrack
@@ -635,29 +651,39 @@ async def generate_ai_explainer(
     crs_summary: Optional[str] = None
     bill = vote.get("bill") or {}
     disp = (bill.get("display_number") or "").strip()
-    congress = vote.get("congress") or (
-        # The frontend doesn't always send congress on the vote payload;
-        # parse from the vote_id prefix as a fallback (e.g. h2026-100
-        # → 2026 → 119th Congress mapping is YEAR-2 / 2 + 110 roughly).
-        None
+    # Resolve the congress number: prefer the bill record / vote payload,
+    # then fall back to parsing the vote_id prefix (which always carries
+    # it). Without this the CRS lookup below was skipped for nearly every
+    # vote, so the explainer had no idea what the bill actually did.
+    bill_congress = (
+        bill.get("congress")
+        or vote.get("congress")
+        or _congress_from_vote_id(vote_id)
     )
-    if disp and " " in disp:
+    if disp and " " in disp and bill_congress:
         # Convert "H.R. 8469" → ("HR", "8469").
         bill_type_pretty, bill_number = disp.split(" ", 1)
         bill_type_clean = bill_type_pretty.replace(".", "").upper()
-        # We need a congress number. The frontend usually doesn't have
-        # one on the vote row; try the bill record. If still missing,
-        # fall through without CRS context.
-        bill_congress = bill.get("congress") or congress
-        if bill_congress and bill_type_clean and bill_number:
+        bill_number = bill_number.strip()
+        if bill_type_clean and bill_number:
             try:
-                cached_bill = bill_summary_service.get_cached_row(
+                # Fetch-on-demand (NOT cache-only): the CRS summary is the
+                # single biggest accuracy boost for "what was voted on", so
+                # pull it from Congress.gov if it isn't cached yet.
+                # get_or_fetch_summary is idempotent + caches for next time.
+                bill_row = await bill_summary_service.get_or_fetch_summary(
                     db, int(bill_congress), bill_type_clean, bill_number,
+                    bill_title=bill.get("title") or None,
                 )
-                if cached_bill and cached_bill.crs_summary:
-                    crs_summary = cached_bill.crs_summary
+                if bill_row and bill_row.crs_summary:
+                    crs_summary = bill_row.crs_summary
             except (ValueError, TypeError):
                 pass
+            except Exception as e:  # noqa: BLE001 — network/parse; degrade gracefully
+                logger.warning(
+                    "CRS fetch for vote explainer failed (%s %s %s): %s",
+                    bill_congress, bill_type_clean, bill_number, e,
+                )
 
     user_msg = _build_ai_prompt(vote, crs_summary)
     result = await asyncio.to_thread(
