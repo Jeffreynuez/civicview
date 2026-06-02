@@ -27,7 +27,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  */
 export function useHScroll(scrollerRef, { step = 160, deps = [] } = {}) {
   const [overflow, setOverflow] = useState({ left: false, right: false });
-  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
+  const drag = useRef({ pending: false, active: false, startX: 0, startLeft: 0, moved: false, pointerId: null });
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -58,29 +58,47 @@ export function useHScroll(scrollerRef, { step = 160, deps = [] } = {}) {
   // Desktop click-drag. Mouse only: on touch/pen we leave the browser's
   // native horizontal scroll alone so momentum + overscroll feel right.
   const onPointerDown = useCallback((e) => {
+    // Mouse only — touch/pen keep native scroll. Critically we do NOT
+    // capture the pointer or mark a drag here: a plain click must reach
+    // the tab/card underneath. Capturing on pointerdown swallowed the
+    // click on desktop (tabs couldn't be selected). Dragging only begins
+    // once the pointer moves past a small threshold (see onPointerMove).
     if (e.pointerType !== 'mouse') return;
     const el = scrollerRef.current;
     if (!el) return;
-    drag.current = { active: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
-    try { el.setPointerCapture(e.pointerId); } catch (_) { /* noop */ }
+    drag.current = {
+      pending: true, active: false, moved: false,
+      startX: e.clientX, startLeft: el.scrollLeft, pointerId: e.pointerId,
+    };
   }, [scrollerRef]);
 
   const onPointerMove = useCallback((e) => {
     const d = drag.current;
-    if (!d.active) return;
+    if (!d.pending && !d.active) return;
     const el = scrollerRef.current;
     if (!el) return;
     const dx = e.clientX - d.startX;
-    if (Math.abs(dx) > 3) d.moved = true;
+    if (!d.active) {
+      // Below the threshold this is still a potential click — don't
+      // hijack it or capture the pointer.
+      if (Math.abs(dx) < 5) return;
+      d.active = true;
+      d.moved = true;
+      try { el.setPointerCapture(d.pointerId); } catch (_) { /* noop */ }
+    }
     el.scrollLeft = d.startLeft - dx;
   }, [scrollerRef]);
 
   const endDrag = useCallback((e) => {
+    const d = drag.current;
     const el = scrollerRef.current;
-    if (drag.current.active && el && e.pointerId != null) {
+    if (d.active && el && e.pointerId != null) {
       try { el.releasePointerCapture(e.pointerId); } catch (_) { /* noop */ }
     }
-    drag.current.active = false;
+    d.pending = false;
+    d.active = false;
+    // d.moved is left as-is so the click immediately following a real
+    // drag is suppressed by onClickCapture (which resets it).
   }, [scrollerRef]);
 
   // Swallow the click that fires at the end of a drag (capture phase, so
