@@ -654,13 +654,34 @@ export default function Home() {
         // Member by bioguide_id — handleMemberSelect fetches detail
         // when the member object lacks `.bio`.
         if (urlMember) {
-          try { await handleMemberSelect({ bioguide_id: urlMember, name: '' }); } catch { /* ignore */ }
+          // Reload keeps ?member= in the URL, but that only gives us a
+          // bioguide_id — and a detail fetch returns nothing for non-
+          // congress officials (President/VP/SCOTUS), blanking the
+          // profile. Prefer the FULL member object saved in nav state
+          // last session (written on every navigation); fall back to a
+          // detail fetch only when there's no matching saved object
+          // (shared link / fresh tab).
+          const savedNav = loadNavState();
+          const savedM = savedNav?.selectedMember;
+          if (savedM && (savedM.bioguide_id || savedM.id) === urlMember) {
+            setSelectedMember(savedM);
+          } else {
+            try { await handleMemberSelect({ bioguide_id: urlMember, name: '' }); } catch { /* ignore */ }
+          }
           if (cancelled) return;
         }
         // Candidate by id — handleCandidateSelect fetches when the
         // stub lacks `.top_issues`.
         if (urlCandidate) {
-          try { await handleCandidateSelect({ id: urlCandidate }); } catch { /* ignore */ }
+          // Same as urlMember above: restore the full saved candidate
+          // object on reload instead of re-fetching from just the id.
+          const savedNav = loadNavState();
+          const savedC = savedNav?.selectedCandidate;
+          if (savedC && savedC.id === urlCandidate) {
+            setSelectedCandidate(savedC);
+          } else {
+            try { await handleCandidateSelect({ id: urlCandidate }); } catch { /* ignore */ }
+          }
           if (cancelled) return;
         }
         if (urlPage) {
