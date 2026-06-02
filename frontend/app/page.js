@@ -641,6 +641,13 @@ export default function Home() {
       const hasUrlNav = Boolean(urlState || urlDistrict || urlMember || urlCandidate || urlPage);
 
       if (hasUrlNav) {
+        // Layout prefs (desktop panel width) live in nav state, not the
+        // URL. Restore them here too: this URL-params branch returns
+        // before the localStorage-fallback path that normally re-applies
+        // them, so without this a reload on a profile (?member=/?page=)
+        // snapped the map/panel split back to the default width.
+        const savedLayout = loadNavState();
+        if (typeof savedLayout?.panelWidth === 'number') setPanelWidth(savedLayout.panelWidth);
         // State first (loads side-panel data + clears activeDistrict).
         if (urlState) {
           const upper = urlState.toUpperCase();
