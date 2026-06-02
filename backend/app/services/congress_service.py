@@ -126,6 +126,125 @@ def _resolve_image_url(bioguide_id: Optional[str], api_image_url: Optional[str] 
     return f"{IMAGE_BASE}/{bioguide_id}.jpg"
 
 
+# ─────────────────────────────────────────────────────────────────────
+# Live profile derivation from the Congress.gov member `terms` array.
+# Experience + a factual bio are derivable from the API for EVERY member,
+# so they fill in automatically across all 50 states. The curated
+# congress_profiles.json sidecar only needs to override these when we
+# have richer editorial content (pre-Congress roles, a fuller bio) or
+# the API can't help (top-issue stances). See _merge_profile.
+# ─────────────────────────────────────────────────────────────────────
+_STATE_NAMES = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
+    "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware",
+    "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho",
+    "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas",
+    "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi",
+    "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
+    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
+    "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
+    "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah",
+    "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
+    "WI": "Wisconsin", "WY": "Wyoming", "DC": "District of Columbia",
+    "PR": "Puerto Rico", "GU": "Guam", "VI": "U.S. Virgin Islands",
+    "AS": "American Samoa", "MP": "Northern Mariana Islands",
+}
+
+
+def _state_label(value: Optional[str]) -> str:
+    """Full state name from whatever the API gives ('FL' or 'Florida')."""
+    if not value:
+        return ""
+    v = str(value).strip()
+    if len(v) == 2:
+        return _STATE_NAMES.get(v.upper(), v.upper())
+    return v
+
+
+def _term_year(term: dict, key: str) -> str:
+    raw = term.get(key)
+    if raw is None:
+        return ""
+    return str(raw)[:4]
+
+
+def _ordinal(n) -> str:
+    try:
+        n = int(n)
+    except (ValueError, TypeError):
+        return str(n)
+    if 10 <= (n % 100) <= 20:
+        suf = "th"
+    else:
+        suf = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suf}"
+
+
+def _term_chamber(term: dict) -> str:
+    return "Senate" if "Senate" in str(term.get("chamber", "")) else "House"
+
+
+def _derive_experience(terms: list) -> list:
+    """Build a {role, from, to} timeline of congressional service from the
+    API terms. Consecutive same chamber/state/district terms collapse into
+    one stint; a stint's end is the start of the next stint, and the most
+    recent stint is 'Present'. Returns most-recent-first. Pre-Congress
+    roles aren't in the API — those come from the curated sidecar."""
+    if not terms:
+        return []
+    try:
+        ordered = sorted(terms, key=lambda t: _term_year(t, "start") or "0")
+        runs = []
+        for t in ordered:
+            chamber = _term_chamber(t)
+            state = _state_label(t.get("state"))
+            district = t.get("district") if chamber == "House" else None
+            start = _term_year(t, "start")
+            key = (chamber, state, str(district))
+            if runs and runs[-1]["key"] == key:
+                continue  # same ongoing stint — keep its original start
+            runs.append({"key": key, "chamber": chamber, "state": state,
+                         "district": district, "from": start})
+        out = []
+        for i, r in enumerate(runs):
+            to = "Present" if i == len(runs) - 1 else (runs[i + 1]["from"] or "")
+            if r["chamber"] == "Senate":
+                role = f"U.S. Senator, {r['state']}".rstrip(", ")
+            else:
+                role = f"U.S. Representative, {r['state']}".rstrip(", ")
+                if r["district"] and str(r["district"]).lower() not in ("0", "at-large"):
+                    role += f" (District {r['district']})"
+            out.append({"role": role, "from": r["from"], "to": to})
+        out.reverse()
+        return out
+    except Exception:
+        return []
+
+
+def _derive_bio(name: str, terms: list) -> str:
+    """A neutral, factual one-liner from the API terms. Curated sidecar
+    bios override this (see _merge_profile)."""
+    if not terms:
+        return f"{name} serves in the United States Congress."
+    try:
+        ordered = sorted(terms, key=lambda t: _term_year(t, "start") or "0")
+        latest = ordered[-1]
+        first_year = _term_year(ordered[0], "start")
+        chamber = _term_chamber(latest)
+        state = _state_label(latest.get("state"))
+        since = f", serving since {first_year}" if first_year else ""
+        if chamber == "Senate":
+            return f"{name} is a United States Senator from {state}{since}.".replace(" from .", ".")
+        district = latest.get("district")
+        if district and str(district).lower() not in ("0", "at-large"):
+            return f"{name} represents {state}'s {_ordinal(district)} congressional district in the U.S. House of Representatives{since}."
+        return f"{name} represents {state} in the U.S. House of Representatives{since}."
+    except Exception:
+        return f"{name} serves in the United States Congress."
+
+
 # Matches the bill-number prefix of a GovTrack vote question, e.g.
 #   "H.R. 1681: Expediting Federal Broadband Deployment Reviews Act"
 #   "H.R. 7024 (118th): Tax Relief for American Families and Workers Act"
@@ -263,19 +382,26 @@ class CongressService:
         candidacy = self._candidacies_by_bioguide.get(bg)
         sidecar = self._profiles_sidecar.get(bg)
 
-        # top_issues: candidate > sidecar
+        # top_issues: candidate > sidecar (no API source — curated only).
         if not detail.get("top_issues"):
             if candidacy and candidacy.get("top_issues"):
                 detail["top_issues"] = candidacy["top_issues"]
             elif sidecar and sidecar.get("top_issues"):
                 detail["top_issues"] = sidecar["top_issues"]
 
-        # experience: candidate > sidecar
-        if not detail.get("experience"):
-            if candidacy and candidacy.get("experience"):
-                detail["experience"] = candidacy["experience"]
-            elif sidecar and sidecar.get("experience"):
-                detail["experience"] = sidecar["experience"]
+        # experience: curated (candidate > sidecar) OVERRIDES the API-derived
+        # baseline already on `detail` (so pre-Congress roles win when we
+        # have them; otherwise the auto timeline stands).
+        if candidacy and candidacy.get("experience"):
+            detail["experience"] = candidacy["experience"]
+        elif sidecar and sidecar.get("experience"):
+            detail["experience"] = sidecar["experience"]
+
+        # bio: curated (sidecar > candidate) OVERRIDES the API-derived bio.
+        if sidecar and sidecar.get("bio"):
+            detail["bio"] = sidecar["bio"]
+        elif candidacy and candidacy.get("bio"):
+            detail["bio"] = candidacy["bio"]
 
         # Cross-nav pointer — minimal shape; the frontend hydrates as needed
         if candidacy and not detail.get("active_candidacy"):
@@ -1499,15 +1625,12 @@ class CongressService:
                 "image": _resolve_image_url(bioguide_id, api_image_url),
                 "office": office or "Washington, D.C.",
                 "phone": phone or "N/A",
-                "bio": m.get("directOrderName", name) + f" serves in the U.S. {chamber}.",
+                "bio": _derive_bio(name, terms),
+                "experience": _derive_experience(terms),
                 "committees": [],
                 "bills": bills,
                 "votes": [],
             }
-
-            # Try to get committees
-            if m.get("depiction", {}).get("attribution"):
-                detail["bio"] = m["depiction"]["attribution"]
 
             return detail
         except Exception as e:
