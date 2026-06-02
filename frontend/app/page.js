@@ -137,6 +137,10 @@ export default function Home() {
   // because the recompute couldn't tell "user closed it" from
   // "first run, no value set yet."
   const mapHeightInitialized = useRef(false);
+  // True when the current PageView overlay was reached by navigating IN
+  // from another view (e.g. the /polls feed opens official pages via a
+  // full-page link with ?page=). Drives context-aware Back below.
+  const pageOpenedViaUrlRef = useRef(false);
   useEffect(() => {
     const NAVBAR_PX = 56;
     const RESIZER_PX = 28;
@@ -151,9 +155,12 @@ export default function Home() {
       mapHeightInitialized.current = true;
       setMapHeightPx((current) => {
         if (wasFirstRun) {
-          // Fresh page load → default to open at the freshly-computed
-          // 40% height.
-          return max;
+          // Fresh page load: default OPEN at the 40% height, but honor a
+          // remembered collapse choice so the map stays shut across
+          // reloads / navigation if the user dragged it closed (request).
+          let collapsed = false;
+          try { collapsed = window.localStorage.getItem('cl:map:collapsed') === '1'; } catch { /* private mode */ }
+          return collapsed ? 0 : max;
         }
         // Subsequent recomputes (orientation flip, URL bar show/hide):
         // preserve the binary open/closed state. 0 stays 0 (user
@@ -177,6 +184,14 @@ export default function Home() {
       }
     };
   }, []);
+  // Persist the mobile map's open/closed choice so a drag-to-close
+  // survives reloads + navigation (default open on first ever visit).
+  useEffect(() => {
+    if (!mapHeightInitialized.current) return;
+    try {
+      window.localStorage.setItem('cl:map:collapsed', mapHeightPx === 0 ? '1' : '0');
+    } catch { /* private mode */ }
+  }, [mapHeightPx]);
   // Return-to-list highlighting — after Back from a profile, we briefly pulse
   // the row the user was just viewing so they don't lose their place in a
   // long list. Consumed + cleared by the list (SidePanel / BallotTab).
@@ -281,6 +296,22 @@ export default function Home() {
     setPageMeta(meta || null);
   }, []);
   const handleClosePage = useCallback(() => {
+    // Context-aware Back: if this page was reached by navigating in from
+    // another in-app view (the /polls or /posts feed links here via a
+    // full-page ?page= load), return THERE via browser history instead of
+    // just revealing home. Only do so when there's a same-origin history
+    // entry to go back to; otherwise (deep link / fresh tab) close the
+    // overlay to home as before.
+    if (pageOpenedViaUrlRef.current && typeof window !== 'undefined') {
+      const ref = document.referrer || '';
+      const sameOrigin = ref.startsWith(window.location.origin);
+      if (sameOrigin && window.history.length > 1) {
+        pageOpenedViaUrlRef.current = false;
+        window.history.back();
+        return;
+      }
+    }
+    pageOpenedViaUrlRef.current = false;
     setSelectedPageOfficialId(null);
     setPageMeta(null);
   }, []);
@@ -656,6 +687,7 @@ export default function Home() {
           const savedMeta = savedForReload?.selectedPageOfficialId === urlPage
             ? savedForReload?.pageMeta
             : null;
+          pageOpenedViaUrlRef.current = true;
           handleOpenPage(urlPage, savedMeta || null);
           if (!savedMeta) {
             (async () => {

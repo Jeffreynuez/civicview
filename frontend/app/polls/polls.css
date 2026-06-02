@@ -924,6 +924,7 @@ a.poll-card { display: flex; }
   }
   .polls-airow { padding: 10px 14px; }
   .polls-airow__chips { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  .polls-airow__chips-wrap { width: 100%; }
   .polls-airow__chips::-webkit-scrollbar { display: none; }
   .polls-aichip { flex-shrink: 0; }
   .polls-wrap { padding: 0 14px; }

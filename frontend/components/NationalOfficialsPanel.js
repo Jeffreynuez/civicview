@@ -1954,7 +1954,9 @@ function HomeVoteCard({ vote }) {
 }
 
 function HomeBillsSection() {
-  const [open, setOpen] = useState(true);
+  // Persisted like every other NOP section so a user's collapse choice
+  // survives reloads (was plain useState(true) -> reopened every load).
+  const [open, toggleOpen] = usePersistentToggle('cl:nop:bills', true);
   const [senate, setSenate] = useState(null);
   const [house, setHouse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -1991,7 +1993,7 @@ function HomeBillsSection() {
           chip={null}
           collapsible
           open={open}
-          onToggle={() => setOpen((o) => !o)}
+          onToggle={toggleOpen}
         />
         {open && (
           <>

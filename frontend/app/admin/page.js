@@ -555,12 +555,12 @@ function AdminPageInner() {
           </div>
 
           <div className="ad-subnav-row">
-            <nav className="ad-subnav" aria-label="Admin sections">
+            <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={4}>
               <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
               <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
               <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
               <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
-            </nav>
+            </HScroll>
             <a className="ad-subnav__home" href="/">
               <span aria-hidden="true">←</span> CivicView home
             </a>
