@@ -1848,13 +1848,13 @@ class CongressService:
         "FL": {
             "congress": [
                 {
-                    "bioguide_id": "S001227",
+                    "bioguide_id": "S001217",
                     "name": "Rick Scott",
                     "party": "R",
                     "chamber": "Senate",
                     "district": None,
                     "role": "Senator",
-                    "image": f"{IMAGE_BASE}/S001227.jpg",
+                    "image": f"{IMAGE_BASE}/S001217.jpg",
                     "office": "502 Hart Senate Office Building",
                     "phone": "(202) 224-5274",
                     "bio": "Rick Scott is the senior United States senator from Florida, serving since 2019. He previously served as the 45th governor of Florida from 2011 to 2019.",
