@@ -180,6 +180,13 @@ const FUNDING_RECURRING = [
     body: 'Higher bandwidth + analytics. Held in reserve; the free tier is fine for now.',
     source: 'vercel.com/pricing',
   },
+  {
+    title: 'Vote Smart API — issue positions (optional, future add-on)',
+    cost: '$4,850',
+    costSuffix: '/ year (Public-Facing Platform License)',
+    body: 'Non-partisan, candidate-submitted issue positions (Political Courage Test) for officials and candidates \u2014 the one profile field no free API fully provides. Strictly optional: today we ship neutral, sourced issue summaries derived from each official\u2019s legislative record, and that stays free. This license would layer in stated stances where available. Deferred until post-launch budget allows; quoted June 2026.',
+    source: 'votesmart.org/votesmart-api \u2014 Public-Facing Platform License, 1-year subscription',
+  },
 ];
 
 // Buffer cluster — bridges the gap between Year-1 line items and the
