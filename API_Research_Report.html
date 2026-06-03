@@ -22,6 +22,8 @@
   .badge.paid { background: #fde8e4; color: #9b2226; }
   .badge.partial { background: #fef3cd; color: #856404; }
   .badge.shutdown { background: #eee; color: #666; }
+  .badge.inuse { background: #d8f3dc; color: #0b4f30; border: 1px solid #2d6a4f; }
+  .badge.future { background: #cfe2ff; color: #084298; border: 1px solid #3c78d8; }
   table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
   th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #dee2e6; }
   th { background: #e9ecef; font-weight: 600; color: #1b263b; }
@@ -52,12 +54,15 @@
 <div class="rec" style="background:#fff3cd;border-color:#ffe69c;">
   <strong>Revision &mdash; June 2, 2026 (Claude Cowork):</strong> Re-checked the landscape during launch prep. Additions below: a <strong>Vote Smart</strong> source for the missing <em>issue-positions</em> field; free <strong>Wikidata / Wikipedia</strong> narrative bios; the <strong>Congress.gov committees</strong> endpoint (auto-fillable); and a concrete <strong>Cicero / Google Divisions OCD-ID</strong> replacement for the deprecated Google Civic Representatives lookup. The app now auto-derives a rep's <em>bio + congressional experience</em> live from the Congress.gov member <code>terms</code>, so only issue <em>stances</em> remain hand-curated. See the new "Profile Content" section + the updated gap table.
 </div>
+<div class="rec" style="background:#e7f0ff;border-color:#b6cff5;">
+  <strong>Revision &mdash; June 3, 2026 (Claude Cowork):</strong> Added a <strong>CourtListener / Free Law Project</strong> card (state judiciary). Each source is now tagged: <span class="badge inuse">IN USE</span> = wired into the app today, <span class="badge future">PLANNED</span> = on the roadmap (budget/scope permitting). Vote Smart pricing updated with the June-2026 quote.
+</div>
 
 <!-- ============================================ -->
 <h2>1. Federal-Level Data (Congress)</h2>
 
 <div class="card free">
-  <h3>Congress.gov API <span class="badge free">FREE</span></h3>
+  <h3>Congress.gov API <span class="badge free">FREE</span> <span class="badge inuse">IN USE</span></h3>
   <p><strong>What it covers:</strong> Members of Congress (House &amp; Senate), bills, amendments, votes, nominations, treaties, committee reports, and summaries. This is now the official replacement for the retired ProPublica Congress API.</p>
   <p><strong>Data includes:</strong> Member biographical info, party, state, sponsored/cosponsored legislation, voting records (including individual roll-call votes), bill text and status.</p>
   <p><strong>Access:</strong> Free API key via <a href="https://api.data.gov/signup/">Data.gov</a>. Returns JSON or XML.</p>
@@ -67,7 +72,7 @@
 </div>
 
 <div class="card free">
-  <h3>United States Congress Images <span class="badge free">FREE / PUBLIC DOMAIN</span></h3>
+  <h3>United States Congress Images <span class="badge free">FREE / PUBLIC DOMAIN</span> <span class="badge inuse">IN USE</span></h3>
   <p><strong>What it covers:</strong> Headshot photos of all current and many past members of Congress.</p>
   <p><strong>How it works:</strong> Photos hosted at predictable URLs by Bioguide ID:<br>
   <code>https://unitedstates.github.io/images/congress/450x550/{bioguide_id}.jpg</code></p>
@@ -93,10 +98,10 @@
 <p style="color:#555;margin-bottom:1rem;">The fields a rep profile shows beyond name/party/votes. Congress.gov gives us a factual bio + congressional experience automatically (the app derives both from the member <code>terms</code>). The harder, editorial pieces &mdash; <strong>issue positions / stances</strong> and richer narrative bios &mdash; have no single complete free source; the options below fill that gap.</p>
 
 <div class="card free">
-  <h3>Vote Smart API (Project Vote Smart) <span class="badge free">FREE (non-commercial)</span> <span class="badge partial">PARTIAL COVERAGE</span></h3>
+  <h3>Vote Smart API (Project Vote Smart) <span class="badge partial">PARTIAL COVERAGE</span> <span class="badge future">PLANNED (budget permitting)</span></h3>
   <p><strong>What it covers:</strong> The strongest free source for <em>issue positions</em>. Non-partisan; provides biographies, issue positions via the <strong>Political Courage Test (PCT)</strong>, voting records, interest-group ratings, campaign finance, and public statements &mdash; for President, Congress, Governor, and state legislature.</p>
   <p><strong>Why it matters here:</strong> The one profile field Congress.gov can't give us. PCT positions are non-partisan and candidate-submitted.</p>
-  <p><strong>Caveat:</strong> <span class="warn">Coverage is incomplete</span> &mdash; many incumbents decline the PCT, so positions exist for some members but not all. Use as a supplement (fill where available), not a complete feed. API access is by request for non-commercial use; confirm commercial terms before relying on it in production.</p>
+  <p><strong>Caveat:</strong> <span class="warn">Coverage is incomplete</span> &mdash; many incumbents decline the PCT, so positions exist for some members but not all. Use as a supplement (fill where available), not a complete feed. API access for a public-facing product requires a paid subscription &mdash; quoted June 2026 at <strong>$4,850/year</strong> for the Public-Facing Platform License (developer/testing tiers $350/mo, $1,000/3mo, $1,900/6mo, non-public only). Deferred until post-launch budget allows; we ship neutral, sourced issue summaries derived from legislative records in the meantime.</p>
   <p><a href="https://www.votesmart.org/votesmart-api">Vote Smart API</a> | <a href="https://justfacts.votesmart.org/about/political-courage-test/">About the PCT</a></p>
 </div>
 
@@ -123,13 +128,24 @@
 <h2>2. State-Level Data (Governors, State Legislators)</h2>
 
 <div class="card free">
-  <h3>Open States / Plural API <span class="badge free">FREE (with limits)</span></h3>
+  <h3>Open States / Plural API <span class="badge free">FREE (with limits)</span> <span class="badge inuse">IN USE</span></h3>
   <p><strong>What it covers:</strong> State legislators for all 50 states + DC + Puerto Rico. Includes bills, votes, committees, and legislator profiles.</p>
   <p><strong>Data includes:</strong> Legislator names, party, district, contact info, committee assignments, bill sponsorship, vote records.</p>
   <p><strong>Access:</strong> Free API key from <a href="https://open.pluralpolicy.com/">open.pluralpolicy.com</a>. Also offers bulk data downloads.</p>
   <p><strong>Limits:</strong> Free tier designed for most users. Higher usage may require contact with Plural.</p>
   <p><strong>Gaps:</strong> <span class="partial">Limited municipal coverage</span>. Does not cover sheriffs, judges, DAs, or school board members.</p>
   <p><a href="https://docs.openstates.org/api-v3/">API v3 Documentation</a></p>
+</div>
+
+<!-- ============================================ -->
+<h3>State Judiciary &mdash; State Supreme &amp; Appellate Courts</h3>
+<div class="card free">
+  <h3>CourtListener / Free Law Project <span class="badge free">FREE</span> <span class="badge inuse">IN USE (opinions)</span> <span class="badge future">PLANNED (judges)</span></h3>
+  <p><strong>What it covers:</strong> A People/Judges database of <strong>~16,000+ federal and state judges</strong> &mdash; biographical and educational background, courts and positions held, political affiliation, ABA ratings, and authored opinions &mdash; plus full case-law/opinions. Strongest for <em>state supreme and intermediate appellate courts</em>; thinner for trial / circuit / county judges.</p>
+  <p><strong>Why it matters here:</strong> The app already uses CourtListener for <em>state supreme-court opinions</em> (see <code>state_live.py</code>, <code>STATE_SUPREME_COURT_CODES</code> + <code>COURTLISTENER_TOKEN</code>). The People API is the planned source to populate the <code>judiciary.supreme_court</code> roster for the big states, mirroring Florida's existing judiciary block.</p>
+  <p><strong>Access:</strong> Free, non-profit (Free Law Project, 501(c)(3)). REST API v4 + bulk data. <span class="warn">Caveat:</span> as of May 2026, full API access is tied to a Free Law Project membership; default/free rates remain for light use.</p>
+  <p><strong>Gaps:</strong> <span class="gap">No trial/county judges or DAs</span> &mdash; that tier remains a Ballotpedia (paid) / curated gap, same as local officials.</p>
+  <p><a href="https://www.courtlistener.com/help/api/rest/judges/">Judges API docs</a> | <a href="https://free.law/projects/courtlistener/">Free Law Project</a></p>
 </div>
 
 <!-- ============================================ -->
@@ -146,7 +162,7 @@
 </div>
 
 <div class="card partial">
-  <h3>Google Civic Information API <span class="badge free">FREE</span> <span class="badge partial">PARTIAL DATA</span></h3>
+  <h3>Google Civic Information API <span class="badge free">FREE</span> <span class="badge partial">PARTIAL DATA</span> <span class="badge inuse">IN USE (elections/divisions)</span></h3>
   <p><strong>What it covers:</strong> Address-based lookup of elected officials at all levels. Enter an address, get back officials from federal down to local.</p>
   <p><strong>Data includes:</strong> Official names, office titles, party, contact info, photo URLs, social media links, websites.</p>
   <p><strong>Limits:</strong> 25,000 queries/day free.</p>
@@ -156,7 +172,7 @@
 </div>
 
 <div class="card paid">
-  <h3>Cicero API (Azavea) <span class="badge paid">PAID</span></h3>
+  <h3>Cicero API (Azavea) <span class="badge paid">PAID</span> <span class="badge future">PLANNED (local tier)</span></h3>
   <p><strong>What it covers:</strong> The recommended replacement for Google Civic's turned-down Representatives lookup. Address &rarr; legislative-district matching + elected-official lookup at federal, state, and local levels, with contact info, social handles, and district geometry.</p>
   <p><strong>Why it matters here:</strong> Our address-to-rep feature leans on Google Civic, whose Representatives API was turned down (April 2025) &mdash; <span class="gap">a migration is needed.</span> Free bridge: Google's <strong>Divisions API</strong> now returns <strong>OCD-IDs</strong> for an address, which we can map to officials in our own + Congress.gov data (federal + state) without a paid vendor; Cicero (or BallotReady / Ballotpedia) covers the local tier we can't assemble for free.</p>
   <p><strong>Cost:</strong> Contact for pricing (tiered by lookups).</p>
@@ -204,7 +220,7 @@
 <h2>5. Map &amp; Geographic Data</h2>
 
 <div class="card free">
-  <h3>US Census Bureau TIGER/Line Shapefiles <span class="badge free">FREE / PUBLIC DOMAIN</span></h3>
+  <h3>US Census Bureau TIGER/Line Shapefiles <span class="badge free">FREE / PUBLIC DOMAIN</span> <span class="badge inuse">IN USE</span></h3>
   <p><strong>What it covers:</strong> Official boundary data for congressional districts, state legislative districts, counties, cities, school districts, voting precincts, and more.</p>
   <p><strong>Formats:</strong> Shapefile, KML, GeoPackage. Can be converted to GeoJSON.</p>
   <p><strong>Latest:</strong> 2025 TIGER/Line files released September 2025 (boundaries as of January 1, 2025).</p>
