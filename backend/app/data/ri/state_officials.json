@@ -1,0 +1,1840 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "RI",
+  "state_name": "Rhode Island",
+  "executive": {
+    "governor": {
+      "id": "ri-exec-gov",
+      "name": "Daniel McKee",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2021",
+      "website": "https://governor.ri.gov",
+      "photo_url": null,
+      "bio": "Daniel McKee is the Governor of Rhode Island, serving since 2021.",
+      "sources": [
+        "https://governor.ri.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Rhode Island State Senate",
+    "members": [
+      {
+        "id": "ri-sen-1",
+        "openstates_id": "ocd-person/e9b6ecf5-de39-4026-83fa-3766ed43cc49",
+        "name": "Jake Bissaillon",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/62d5679913ecdf027fe552fe/d50030ca-d566-4d1d-a60a-8f2ddb95b187/Jake+Bissaillon+Cropped+background.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/bissaillon/Pages/Biography.aspx",
+          "email": "sen-bissaillon@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-2",
+        "openstates_id": "ocd-person/a857e27b-7ced-43ad-bd08-a954e5f781ac",
+        "name": "Ana Quezada",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/senators/pictures/quezada.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-quezada@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-3",
+        "openstates_id": "ocd-person/3a4fd015-1c56-4d7b-9e57-1a2a6b9b4c9b",
+        "name": "Sam Zurier",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Zurier-2022.jpg?csf=1&e=5y4LAP",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/zurier/Pages/Biography.aspx",
+          "email": "sen-zurier@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-4",
+        "openstates_id": "ocd-person/a2ff0de0-40d1-4ac1-a347-e1e9dedb6d30",
+        "name": "Stefano Famiglietti",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/stefano_famiglietti.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/famiglietti/Pages/Biography.aspx",
+          "email": "sen-famiglietti@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-5",
+        "openstates_id": "ocd-person/8d466b6a-ea53-46bb-aa86-3131ac76533f",
+        "name": "Sam Bell",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/bell.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-bell@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-6",
+        "openstates_id": "ocd-person/b3d5296c-05df-46f5-9a93-4caf96121a84",
+        "name": "Tiara Mack",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://media3.s-nbcnews.com/j/newscms/2020_47/3429284/201118-MAIN-tiara-mack-benjamin-branchaud-ew-1140a_41fc9dcc361b3077b5b335fab1dc4a55.fit-760w.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-mack@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-7",
+        "openstates_id": "ocd-person/d688b16c-5bf2-41df-b1c9-e8c5de7e437c",
+        "name": "Frank Ciccone",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/ciccone.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-ciccone@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-8",
+        "openstates_id": "ocd-person/e676d270-0470-40c2-ab57-e8ced3471005",
+        "name": "Lori Urso",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://rhodeislandcurrent.com/wp-content/uploads/2024/09/1-Lori-Urso-09.24-1024x776.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/senators/Urso/Pages/Biography.aspx",
+          "email": "sen-urso@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-9",
+        "openstates_id": "ocd-person/a5f646b2-0370-494c-aebc-25869f019a1b",
+        "name": "John Burke",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/pictures/burke.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-burke@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-10",
+        "openstates_id": "ocd-person/037e3b02-7f48-4cab-bb04-2524aa9a883d",
+        "name": "Walter Felag",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Felag%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-felag@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-11",
+        "openstates_id": "ocd-person/825b006a-e38e-4f0c-81b7-4df73e2a90fa",
+        "name": "Linda Ujifusa",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Ujifusa%20FINAL.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/Senators/ujifusa/pages/biography.aspx",
+          "email": "sen-ujifusa@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-12",
+        "openstates_id": "ocd-person/71da5365-46a9-4f2c-abc8-308bde2577ec",
+        "name": "Lou DiPalma",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/dipalma.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-dipalma@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-13",
+        "openstates_id": "ocd-person/b747e057-fdd2-480a-beb9-c4ef37ae1e12",
+        "name": "Dawn Euer",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/senators/pictures/euer.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-euer@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-14",
+        "openstates_id": "ocd-person/bfb76f36-00b6-47da-89da-e1db5421ff55",
+        "name": "Val Lawson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/valarie_lawson.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-lawson@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-15",
+        "openstates_id": "ocd-person/2cd8c21d-f576-4060-a311-0459e01ffef6",
+        "name": "Meghan Kallman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/pictures/kallman.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/kallman/default.aspx",
+          "email": "sen-kallman@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-16",
+        "openstates_id": "ocd-person/23ac0ada-a340-4539-a4c9-33e4c437add6",
+        "name": "Jonathon Acosta",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://d2gjqh9j26unp0.cloudfront.net/profilepic/35446a34e894fdf32e04c9a2069c7915",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/acosta/default.aspx",
+          "email": "sen-acosta@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-17",
+        "openstates_id": "ocd-person/285c33e3-5c40-44d8-9c16-22e49b6a0a81",
+        "name": "Thomas Paolino",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Paolino%202022.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-paolino@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-18",
+        "openstates_id": "ocd-person/01ddc920-772c-4098-b9f8-8704783940e5",
+        "name": "Bob Britto",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Britto%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/britor/Pages/Biography.aspx",
+          "email": "sen-britto@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-19",
+        "openstates_id": "ocd-person/1378a3d6-95fe-4a21-8fcb-11fefdb97d84",
+        "name": "Ryan Pearson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/pearson.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-pearson@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-20",
+        "openstates_id": "ocd-person/177cd512-2835-4b9b-b77c-60fe178ec26e",
+        "name": "Brian Thompson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/830443/830443.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/senators/Thompson/Pages/Biography.aspx",
+          "email": "sen-thompson@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-21",
+        "openstates_id": "ocd-person/961061c2-4ce9-4ac4-85c4-28b20c800e9d",
+        "name": "Gordon Rogers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/gordon_rogers.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-rogers@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-22",
+        "openstates_id": "ocd-person/63bb0194-1993-4149-b39d-23f229c3040e",
+        "name": "David Tikoian",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Tikoian%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/Senators/tikoian/pages/biography.aspx",
+          "email": "sen-tikoian@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-23",
+        "openstates_id": "ocd-person/03fdc4f3-715d-4f83-ab31-1a63f86a4dcf",
+        "name": "Jessica de la Cruz",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/de%20la%20cruz%20NEW%202022.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-delacruz@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-24",
+        "openstates_id": "ocd-person/e7d41b59-5619-4a67-a1ec-221fdc24e6c3",
+        "name": "Melissa Murray",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/murray.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-murray@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-25",
+        "openstates_id": "ocd-person/89fadd1c-b02c-45aa-b008-bf31d3fea4a1",
+        "name": "Andrew Dimitri",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/830447/830447.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/senators/Dimitri/Pages/Biography.aspx",
+          "email": "sen-dimitri@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-26",
+        "openstates_id": "ocd-person/9f4a0209-d8b0-42e5-9217-d4fd2f0d67e6",
+        "name": "Todd Patalano",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://rilegislature.gov/LegislationPictures/todd_patalano.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/senators/Patalano/Pages/Biography.aspx",
+          "email": "sen-patalano@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-27",
+        "openstates_id": "ocd-person/75750ad6-0bec-4d81-8561-85036c0d99df",
+        "name": "Hanna Gallo",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/gallo.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-gallo@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-28",
+        "openstates_id": "ocd-person/5ab817c5-d86c-4bf0-9a8f-78ca20cdc56b",
+        "name": "Lammis Vargas",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://lammisvargas.com/wp-content/uploads/2024/07/Lammis-Headshot-1536x1536.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/senators/Vargas/Pages/Biography.aspx",
+          "email": "sen-vargas@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-29",
+        "openstates_id": "ocd-person/66e402e8-4f13-44f3-b029-7d1c3aab99b7",
+        "name": "Pete Appollonio",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/peter_appollonio.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/Appollonio/Pages/Biography.aspx",
+          "email": "sen-appollonio@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-30",
+        "openstates_id": "ocd-person/580b2e15-faff-4b83-bbea-fb6110a9f975",
+        "name": "Mark McKenney",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/McKenney%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/mckenney/Pages/Biography.aspx",
+          "email": "sen-mckenney@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-31",
+        "openstates_id": "ocd-person/57b194bd-2b6a-46b8-a7b4-35b629bb0b04",
+        "name": "Matt LaMountain",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/LaMountain%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/Senators/lamountain/pages/biography.aspx",
+          "email": "sen-lamountain@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-32",
+        "openstates_id": "ocd-person/c5991f11-e719-473e-93c4-cfc52fae3e6d",
+        "name": "Pam Lauria",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Lauria%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/Senators/lauria/pages/biography.aspx",
+          "email": "sen-lauria@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-33",
+        "openstates_id": "ocd-person/ef7ddd55-3351-4ca9-adfc-aef71505ec95",
+        "name": "Lou Raptakis",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/raptakis.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-raptakis@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-34",
+        "openstates_id": "ocd-person/6913b936-2e96-414a-80d6-6518f5accb7e",
+        "name": "Elaine Morgan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/morgan.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-morgan@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-35",
+        "openstates_id": "ocd-person/80931d0d-c52e-492a-8b92-c191aa00c03f",
+        "name": "Bridget Valverde",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/valverde.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-valverde@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-36",
+        "openstates_id": "ocd-person/9dbec823-aab4-40bb-a26a-e51a896dcc1f",
+        "name": "Alana DiMario",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/pictures/dimario.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-dimario@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-37",
+        "openstates_id": "ocd-person/c5757781-d437-4b9b-b7a1-9bb96c9b74ab",
+        "name": "Sue Sosnowski",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/sosnowski.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+          "email": "sen-sosnowski@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-sen-38",
+        "openstates_id": "ocd-person/afeed427-2ef1-4197-840d-7ab06883e186",
+        "name": "Victoria Gu",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.rilegislature.gov/senators/Pictures/Gu%202023.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/Senators/gu/Pages/biography.aspx",
+          "email": "sen-gu@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Rhode Island State House",
+    "members": [
+      {
+        "id": "ri-rep-1",
+        "openstates_id": "ocd-person/e073b501-75f0-4fc6-9e61-392b9931f070",
+        "name": "Edith Ajello",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/ajello.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/ajello/default.aspx",
+          "email": "rep-ajello@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-2",
+        "openstates_id": "ocd-person/a9ba95ac-22f3-4aeb-8fdd-eb236675d8d4",
+        "name": "Chris Blazejewski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/blazejewski.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/blazejewski/default.aspx",
+          "email": "rep-blazejewski@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-3",
+        "openstates_id": "ocd-person/39bdc05c-bda5-4ea9-b4ad-4cc7172adf56",
+        "name": "Nathan Biah",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/biah.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/biah/default.aspx",
+          "email": "rep-biah@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-4",
+        "openstates_id": "ocd-person/dd5636ac-e9a1-4d98-8f21-6376b8977706",
+        "name": "Rebecca Kislak",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kislak.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-kislak@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-5",
+        "openstates_id": "ocd-person/b9359c6a-fbb2-4165-af9b-a6c63290d851",
+        "name": "Anthony DeSimone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/DeSimone.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/desimone/Pages/Biography.aspx",
+          "email": "rep-desimone@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-6",
+        "openstates_id": "ocd-person/da9a4b15-1cbf-4645-bd98-58ce413b68e1",
+        "name": "Raymond Hull",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/hull.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-hull@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-7",
+        "openstates_id": "ocd-person/75bd1298-3fc9-42cc-87c6-23bdc20a7b56",
+        "name": "David Morales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Morales.JPG",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-morales@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-8",
+        "openstates_id": "ocd-person/f9877000-1919-4f5b-a8b7-f05a1092bdab",
+        "name": "John Lombardi",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/lombardi.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-lombardi@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-9",
+        "openstates_id": "ocd-person/e70e3449-7587-4a64-a940-922d543f5a2d",
+        "name": "Enrique Sanchez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Sanchez.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/sanchez/Pages/biography.aspx",
+          "email": "rep-sanchez@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-10",
+        "openstates_id": "ocd-person/1cd78f67-6adb-47c6-98cd-f49ca8eb603f",
+        "name": "Scott Slater",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/slater.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-slater@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-11",
+        "openstates_id": "ocd-person/44424388-03a6-452b-992b-3c082949f62f",
+        "name": "Grace Diaz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/diaz.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-diaz@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-12",
+        "openstates_id": "ocd-person/be85e7a9-0455-4e02-92f7-834710d0e401",
+        "name": "Jose Batista",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/batista.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/batista/default.aspx",
+          "email": "rep-batista@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-13",
+        "openstates_id": "ocd-person/181465b6-b392-4222-acec-456182d23aa5",
+        "name": "Ramon Perez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/perez.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-perez@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-14",
+        "openstates_id": "ocd-person/8fad7738-c303-432e-9442-ce2b6dfe87e5",
+        "name": "Charlene Lima",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/lima.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-lima@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-15",
+        "openstates_id": "ocd-person/4f6ac85b-f69f-4916-beaf-a30087ba1214",
+        "name": "Chris Paplauskas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.cranstonri.gov/_resources/common/userfiles/image/IMG-0103.JPG",
+        "contact": {
+          "official_website": "https://rilegislature.gov/representatives/Paplauskas/Pages/Biography.aspx",
+          "email": "rep-paplauskas@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-16",
+        "openstates_id": "ocd-person/6ddaaa6f-48c9-468e-a744-714728251586",
+        "name": "Brandon Potter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/potter.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-potter@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-17",
+        "openstates_id": "ocd-person/c2b18728-5409-42b0-a789-d7f5bd717780",
+        "name": "Jackie Baginski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Baginski.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/baginski/default.aspx",
+          "email": "rep-baginski@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-18",
+        "openstates_id": "ocd-person/6d4c7be7-4e68-4aa1-9262-81995fcc231e",
+        "name": "Arthur Handy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/handy.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-handy@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-19",
+        "openstates_id": "ocd-person/ce92c860-ad04-4cc5-91eb-52add74c98e5",
+        "name": "Joseph McNamara",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/mcnamara.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-mcnamara@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-20",
+        "openstates_id": "ocd-person/b12f1651-fc9e-440c-9bc3-ff326505cca4",
+        "name": "David Bennett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/bennett.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/bennett/default.aspx",
+          "email": "rep-bennett@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-21",
+        "openstates_id": "ocd-person/bc0b7591-fb22-44c1-9766-49ea0d70d894",
+        "name": "Marie Hopkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MarieHopkins.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/representatives/Hopkins/Pages/Biography.aspx",
+          "email": "rep-hopkins@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-22",
+        "openstates_id": "ocd-person/0b700db6-fe30-4fb4-a988-05ae0d618720",
+        "name": "Joseph Solomon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/solomon.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-solomon@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-23",
+        "openstates_id": "ocd-person/00644fec-e128-4e7f-9af0-8e79d0903da3",
+        "name": "Joe Shekarchi",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/shekarchi.jpg",
+        "contact": {
+          "official_website": "https://joeshekarchi.com/",
+          "email": "rep-shekarchi@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-24",
+        "openstates_id": "ocd-person/c5f9a1f5-502b-41b6-8848-bfa359b1bad9",
+        "name": "Evan Shanley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/shanley.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-shanley@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-25",
+        "openstates_id": "ocd-person/1f8f3c9b-ba19-45de-af45-b0501d0607f0",
+        "name": "Tom Noret",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/noret.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-noret@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-26",
+        "openstates_id": "ocd-person/6e9979b1-f131-4d71-8146-71f10bd06e57",
+        "name": "Earl Read",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/ricentral.com/content/tncms/assets/v3/editorial/4/30/4303801c-a298-11ef-872c-ffd5089fe627/67360f284e7b9.image.jpg?resize=415%2C500",
+        "contact": {
+          "official_website": "https://rilegislature.gov/representatives/Read/Pages/Biography.aspx",
+          "email": "rep-read@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-27",
+        "openstates_id": "ocd-person/45fd70a7-613e-405d-959f-2900eea0f264",
+        "name": "Pat Serpa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/serpa.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-serpa@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-28",
+        "openstates_id": "ocd-person/5d976bb8-2481-45d2-bae9-df4b565d9526",
+        "name": "George Nardone",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/nardone.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-nardone@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-29",
+        "openstates_id": "ocd-person/6c7285bd-fdd3-4629-be6f-4a01d19e9c25",
+        "name": "Sherry Roberts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/roberts.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-roberts@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-30",
+        "openstates_id": "ocd-person/38c539f2-0698-4fa2-a761-477608365838",
+        "name": "Justine Caldwell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/caldwell.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/caldwell/default.aspx",
+          "email": "rep-caldwell@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-31",
+        "openstates_id": "ocd-person/6e1cd170-ab5c-4095-9fb2-8e92138f6db3",
+        "name": "Julie Casimiro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/casimiro.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-casimiro@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-32",
+        "openstates_id": "ocd-person/a6d519b0-89bd-45d5-9067-3ae0b421eee7",
+        "name": "Robert Craven",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/craven.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-craven@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-33",
+        "openstates_id": "ocd-person/7daab32c-5d7f-4db2-b141-026d3595f69f",
+        "name": "Carol McEntee",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/McEntee.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-mcentee@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-34",
+        "openstates_id": "ocd-person/bdccc3f1-4b2d-4f64-8653-ada4322d6a10",
+        "name": "Teresa Tanzi",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/tanzi.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-tanzi@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-35",
+        "openstates_id": "ocd-person/570c899e-34b2-4e30-93e2-79f588ff8aef",
+        "name": "Kathleen Fogarty",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/fogarty.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-fogarty@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-36",
+        "openstates_id": "ocd-person/2c3d82e7-8bdc-4da9-bbab-e42bb5e223fb",
+        "name": "Tina Spears",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Tina%20Spears.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/spears/pages/biography.aspx",
+          "email": "rep-spears@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-37",
+        "openstates_id": "ocd-person/c9229f5a-b4ac-4cf2-b227-a0b4e56cca2f",
+        "name": "Sam Azzinaro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/azzinaro.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/azzinaro/default.aspx",
+          "email": "rep-azzinaro@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-38",
+        "openstates_id": "ocd-person/632b3bf0-a3f8-4c0d-9818-d03c861318dc",
+        "name": "Brian Kennedy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kennedy.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-kennedy@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-39",
+        "openstates_id": "ocd-person/4ad02cf0-3ead-4bc4-84e3-d1c08c3aa11a",
+        "name": "Megan Cotter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Cotter.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/cotter/Pages/Biography.aspx",
+          "email": "rep-cotter@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-40",
+        "openstates_id": "ocd-person/02f4f018-3639-4fb1-aced-f8684161121d",
+        "name": "Mike Chippendale",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/chippendale.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-chippendale@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-41",
+        "openstates_id": "ocd-person/11bc8a51-bee7-422d-8bb7-6a9177e55735",
+        "name": "Bob Quattrocchi",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/robert_quattrocchi.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-quattrocchi@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-42",
+        "openstates_id": "ocd-person/0065fe7b-08cf-4d17-b358-c0c04ab45616",
+        "name": "Dick Fascia",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Fascia_20240808_092707.png",
+        "contact": {
+          "official_website": "https://fasciarep42.com/",
+          "email": "rep-fascia@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-43",
+        "openstates_id": "ocd-person/3efcf2f9-f7f8-4441-9ec7-4f6d8c17940f",
+        "name": "Deb Fellela",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/fellela.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-fellela@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-44",
+        "openstates_id": "ocd-person/4b45cbc5-99f3-4a08-a154-cac0cc90ae1a",
+        "name": "Greg Costantino",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/costantino.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-costantino@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-45",
+        "openstates_id": "ocd-person/7c4d8cad-55e5-474d-ac05-8db9a59da7fd",
+        "name": "Mia Ackerman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/ackerman.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/ackerman/default.aspx",
+          "email": "rep-ackerman@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-46",
+        "openstates_id": "ocd-person/20543a6c-f763-4297-a19b-c670fbe8a68b",
+        "name": "Mary Ann Shallcross-Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/shallcross%20smith.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-shallcross-smith@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-47",
+        "openstates_id": "ocd-person/785df766-de25-496b-a823-e4ad64c462cb",
+        "name": "David Place",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/place.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-place@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-48",
+        "openstates_id": "ocd-person/397f8729-c37c-4882-af7e-d7235e9f06f2",
+        "name": "Brian Newberry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/newberry.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-newberry@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-49",
+        "openstates_id": "ocd-person/89e9f600-0af5-471c-89bb-b27142def4c9",
+        "name": "Jon Brien",
+        "party": "I",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Brien.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/brien/Pages/biography.aspx",
+          "email": "rep-brien@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-50",
+        "openstates_id": "ocd-person/0b20a11e-e90b-4ff2-aa25-5334a8592071",
+        "name": "Stephen Casey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/casey.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-casey@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-51",
+        "openstates_id": "ocd-person/53f07987-a534-4194-ba51-2fcd62f0f63e",
+        "name": "Bob Phillips",
+        "party": "D",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/phillips.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-phillips@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-52",
+        "openstates_id": "ocd-person/7769ff96-3f6e-4747-b14b-de0a8648af61",
+        "name": "Alex Marszalkowski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/marszalkowski.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-marszalkowski@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-53",
+        "openstates_id": "ocd-person/d28514b2-da9f-4c03-9590-781d3c1529ad",
+        "name": "Paul Santucci",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://static.votesmart.org/static/canphoto/195096.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/representatives/Santucci/Pages/Biography.aspx",
+          "email": "rep-santucci@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-54",
+        "openstates_id": "ocd-person/4352dbd3-90e5-4cf3-9bf6-accff7592c33",
+        "name": "Bill O'Brien",
+        "party": "D",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/o'brien.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-obrien@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-55",
+        "openstates_id": "ocd-person/6cb1ca03-2ea8-4ee8-9ecb-faa37f4c5966",
+        "name": "Doc Corvese",
+        "party": "D",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/corvese.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-corvese@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-56",
+        "openstates_id": "ocd-person/b6a9a38c-0f39-4150-b041-fd6c75f9c8ad",
+        "name": "Joshua Giraldo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Giraldo.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-giraldo@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-57",
+        "openstates_id": "ocd-person/f0206346-2c07-4316-a556-cee7fe595e9a",
+        "name": "Brandon Voas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Brandon%20Voas.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/voas/pages/biography.aspx",
+          "email": "rep-voas@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-58",
+        "openstates_id": "ocd-person/386a8117-95b5-441f-91d0-665effac1af4",
+        "name": "Cherie Cruz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Cruz%20preferred%20pic.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/cruz/Pages/Biography.aspx",
+          "email": "rep-cruz@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-59",
+        "openstates_id": "ocd-person/c11b7057-fe39-42b6-8a38-91d9e7349118",
+        "name": "Jennifer Stewart",
+        "party": "D",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Stewart.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/stewart/pages/biography.aspx",
+          "email": "rep-stewart@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-60",
+        "openstates_id": "ocd-person/016b40cf-1be0-4e66-acdf-78a029822e1c",
+        "name": "Karen Alzate",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/alzate.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/alzate/default.aspx",
+          "email": "rep-alzate@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-61",
+        "openstates_id": "ocd-person/ad453635-2239-4a63-a153-a9f925b32621",
+        "name": "Leo Felix",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Felix.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-felix@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-62",
+        "openstates_id": "ocd-person/cad61cfb-b3e8-417a-934e-1add601d4cba",
+        "name": "Mary Messier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/messier.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-messier@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-63",
+        "openstates_id": "ocd-person/bd30e693-11a2-412f-b81a-bebc78d91145",
+        "name": "Katie Kazarian",
+        "party": "D",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kazarian.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-kazarian@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-64",
+        "openstates_id": "ocd-person/c937560c-277e-4c48-9656-bb385a7910f3",
+        "name": "Jenni Furtado",
+        "party": "D",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://rhodeislandcurrent.com/wp-content/uploads/2024/09/272274786_329286515874430_6351954859366181023_n-1-1024x1024.jpg",
+        "contact": {
+          "official_website": "https://rilegislature.gov/representatives/Furtado/Pages/Biography.aspx",
+          "email": "rep-furtado@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-65",
+        "openstates_id": "ocd-person/bffdb553-5c5c-403e-8e2c-47b34a7b50f5",
+        "name": "Matthew Dawson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.lynchpine.com/wp-content/uploads/sites/1101520/2020/04/dawson_matthew_s.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/dawson/Pages/Biography.aspx",
+          "email": "rep-dawson@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-66",
+        "openstates_id": "ocd-person/32458c0f-8b82-4f49-a191-90d68c3f375f",
+        "name": "Jennifer Boylan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/LegislationPictures/jennifer_boylan.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/boylan/Pages/Biography.aspx",
+          "email": "rep-boylan@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-67",
+        "openstates_id": "ocd-person/cef11d28-cbbb-4ffd-b8f2-23c71e73f1b3",
+        "name": "Jason Knight",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.jasonknightlaw.com/wp-content/uploads/2025/01/about-img.webp",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-knight@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-68",
+        "openstates_id": "ocd-person/9386224e-9603-4695-8f46-a1033d8534a5",
+        "name": "June Speakman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/speakman.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-speakman@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-69",
+        "openstates_id": "ocd-person/160de7ca-e70f-4cd4-b218-e9600c24a5aa",
+        "name": "Susan Donovan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/donovan.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-donovan@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-70",
+        "openstates_id": "ocd-person/85b2ef21-1f02-4d9e-9f74-a40a2e942f7c",
+        "name": "Jay Edwards",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/edwards.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-edwards@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-71",
+        "openstates_id": "ocd-person/8318a7d4-6d81-4825-8821-4e7aed69b4dc",
+        "name": "Michelle McGaw",
+        "party": "D",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/mcgaw.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-mcgaw@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-72",
+        "openstates_id": "ocd-person/0e459c44-8d77-408e-9db6-c0e0b79274fd",
+        "name": "Terri Cortvriend",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/cortvriend.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-cortvriend@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-73",
+        "openstates_id": "ocd-person/ed735cca-8f53-4304-a1ec-9e212744ec17",
+        "name": "Marvin Abney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/abney.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/abney/default.aspx",
+          "email": "rep-abney@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-74",
+        "openstates_id": "ocd-person/202a1def-abb3-4f77-8ef1-5c453d2d5423",
+        "name": "Alex Finkelman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Alex%20Finkelman.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/finkelman/Pages/biography.aspx",
+          "email": "rep-finkelman@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ri-rep-75",
+        "openstates_id": "ocd-person/320f08df-f7d3-4ebe-a696-9c2b8d98f75b",
+        "name": "Lauren Carson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "http://www.rilegislature.gov/representatives/pictures/carson.jpg",
+        "contact": {
+          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+          "email": "rep-carson@rilegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

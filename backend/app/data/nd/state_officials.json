@@ -1,0 +1,2301 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "ND",
+  "state_name": "North Dakota",
+  "executive": {
+    "governor": {
+      "id": "nd-exec-gov",
+      "name": "Kelly Armstrong",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2025",
+      "website": "https://www.governor.nd.gov",
+      "photo_url": null,
+      "bio": "Kelly Armstrong is the Governor of North Dakota, serving since 2025.",
+      "sources": [
+        "https://www.governor.nd.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "nd-exec-lieutenant-governor",
+      "name": "Michelle Strinden",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://www.governor.nd.gov/sites/www/files/documents/portraits/LtGovMichelleStrinden.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "nd-exec-attorney-general",
+        "name": "Drew Wrigley",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/02/ag-ND-Wrigley-Drew.png"
+      },
+      {
+        "id": "nd-exec-secretary-of-state",
+        "name": "Michael Howe",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://sos.nd.gov/files/images/michael-howe-2023.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "North Dakota State Senate",
+    "members": [
+      {
+        "id": "nd-sen-1",
+        "openstates_id": "ocd-person/86d15ce1-f1e9-40f8-894c-490f3d960e15",
+        "name": "Brad Bekkedahl",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bbekkedahl2023_0.jpg?itok=VB17jlNw",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/brad-bekkedahl",
+          "email": "bbekkedahl@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-2",
+        "openstates_id": "ocd-person/157a41fd-5329-42f2-a5c7-d0cc81336f07",
+        "name": "Mark Enget",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://markenget.com/wp-content/uploads/2024/01/mark-enget-main.png",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mark-enget",
+          "email": "menget@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-3",
+        "openstates_id": "ocd-person/983f512c-6f3f-4243-b6c8-b83d9d4f3696",
+        "name": "Bob Paulson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bpaulson2023.jpg?itok=SDpdNURV",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/bob-paulson",
+          "email": "bpaulson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-4",
+        "openstates_id": "ocd-person/43e25c66-8935-4938-8634-b8666bfdb876",
+        "name": "Chuck Walen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://static.votesmart.org/static/canphoto/216618.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/chuck-walen",
+          "email": "cwalen@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-5",
+        "openstates_id": "ocd-person/c7d25cc2-0a28-4001-b046-df3e3a996f21",
+        "name": "Randy Burckhard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/raburckhard2023_2.jpg?itok=-URLZovB",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/randy-a-burckhard",
+          "email": "raburckhard@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-6",
+        "openstates_id": "ocd-person/960f301d-59c2-4047-96ca-8f026c7cc096",
+        "name": "Paul Thomas",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/paulthomas2023.jpg?itok=B81Ruz_Z",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/paul-j-thomas",
+          "email": "paulthomas@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-7",
+        "openstates_id": "ocd-person/281253e2-e075-4cde-92dd-20d097bc2b3b",
+        "name": "Michelle Axtman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/maxtman2023.jpg?itok=RtENCCkC",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/michelle-axtman",
+          "email": "maxtman@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-8",
+        "openstates_id": "ocd-person/9c20611f-bea1-4176-b98f-3b20537e6818",
+        "name": "Jeff Magrum",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jmagrum2023.jpg?itok=nshWDgsW",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jeffery-j-magrum",
+          "email": "jmagrum@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-9",
+        "openstates_id": "ocd-person/d87ed27e-35a2-4272-aa04-edf0a2893004",
+        "name": "Richard Marcellais",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.nd.gov/files/styles/medium/public/person/photo/rmarcellais.jpg?itok=0dcpvpyI",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/richard-marcellais",
+          "email": "rmarcellais@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-10",
+        "openstates_id": "ocd-person/66b053e6-9766-40f0-8da3-2a40f517d9e1",
+        "name": "Ryan Braunberger",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/rbraunberger2023.jpg?itok=jt9B_X6q",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/ryan-braunberger",
+          "email": "rbraunberger@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-11",
+        "openstates_id": "ocd-person/f715b93a-dcf7-4a67-b466-10c2cfad8a60",
+        "name": "Tim Mathern",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/tmathern2023.jpg?itok=pMFcb5S4",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/tim-mathern",
+          "email": "tmathern@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-12",
+        "openstates_id": "ocd-person/3b75961c-1c9e-4150-84ee-965ffb59fafa",
+        "name": "Cole Conley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/cconley2023.jpg?itok=BTF7DH8T",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/cole-conley",
+          "email": "cconley@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-13",
+        "openstates_id": "ocd-person/75e58364-853b-4b08-b902-7c84deb98e4a",
+        "name": "Judy Lee",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jlee2023.jpg?itok=Om_GrVrc",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/judy-lee",
+          "email": "jlee@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-14",
+        "openstates_id": "ocd-person/714275ca-f81c-4fae-af2e-248a5ba4d697",
+        "name": "Jerry Klein",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jklein2023.jpg?itok=tB7GzeMl",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jerry-klein",
+          "email": "jklein@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-15",
+        "openstates_id": "ocd-person/f1041f2b-2e6e-41b0-9313-9767f7c03dbe",
+        "name": "Kent Weston",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kweston2023.jpg?itok=uNPsAGmo",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kent-weston",
+          "email": "kweston@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-16",
+        "openstates_id": "ocd-person/e93f45b9-72c9-4e10-bc05-4896381f29f4",
+        "name": "David Clemens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dclemens2023.jpg?itok=suQ6Tlaw",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/david-a-clemens",
+          "email": "dclemens@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-17",
+        "openstates_id": "ocd-person/e0da9b3a-45c3-4776-b6cc-eebd3d64d785",
+        "name": "Jonathan Sickler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jlsickler2023.jpg?itok=fCgcmLaT",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jonathan-sickler",
+          "email": "jlsickler@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-18",
+        "openstates_id": "ocd-person/5bcd9ecd-d547-4336-aa69-b4b258085802",
+        "name": "Scott Meyer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/scottmeyer2023.jpg?itok=1CtjZ6FW",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/scott-meyer",
+          "email": "scottmeyer@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-19",
+        "openstates_id": "ocd-person/4a64529e-c299-4979-a564-909dc9f2edd2",
+        "name": "Janne Myrdal",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jmyrdal.jpg?itok=w1QxJMzq",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/janne-myrdal",
+          "email": "jmyrdal@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-20",
+        "openstates_id": "ocd-person/c8e63920-e054-4bb3-aff3-e9caeb012d2c",
+        "name": "Randy Lemm",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/rlemm2023.jpg?itok=7pnwdctH",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/randy-d-lemm",
+          "email": "rlemm@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-21",
+        "openstates_id": "ocd-person/03924b26-a081-4722-947b-2738200f9063",
+        "name": "Kathy Hogan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/khogan2023.jpg?itok=kb5LgV9d",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kathy-hogan",
+          "email": "khogan@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-22",
+        "openstates_id": "ocd-person/450cf40c-eb15-4f0d-843f-3a3e071d54fc",
+        "name": "Mark Weber",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/markweber2023.jpg?itok=ae8Xlskt",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mark-f-weber",
+          "email": "markweber@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-23",
+        "openstates_id": "ocd-person/f01e3e40-01d3-4290-a85b-760683d4292e",
+        "name": "Todd Beard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/tbeard2023.jpg?itok=tC5PWQQL",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/todd-beard",
+          "email": "tbeard@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-24",
+        "openstates_id": "ocd-person/a5665c05-d239-4297-a3dc-08557280d5f8",
+        "name": "Mike Wobbema",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mwobbema2023.jpg?itok=-RzV9t-2",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/michael-a-wobbema",
+          "email": "mwobbema@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-25",
+        "openstates_id": "ocd-person/bbce3e80-9e27-4dfe-a7db-0c2b3bcc0b94",
+        "name": "Larry Luick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lluick2023.jpg?itok=JQtt6TTF",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/larry-luick",
+          "email": "lluick@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-26",
+        "openstates_id": "ocd-person/ffc100fb-2fbe-47d1-bfde-a2e4b0acae3c",
+        "name": "Dale Patten",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dpatten2023.jpg?itok=wc6NP5DG",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dale-patten",
+          "email": "dpatten@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-27",
+        "openstates_id": "ocd-person/dd6fc6e2-9b7f-405a-9121-28afd911ecdd",
+        "name": "Kristin Roers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kroers2023_2.jpg?itok=aijums9Q",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kristin-roers",
+          "email": "kroers@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-28",
+        "openstates_id": "ocd-person/e3f498cc-b127-4f43-be89-1ad84b3b4e78",
+        "name": "Robert Erbele",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/rerbele2023.jpg?itok=o4UUUAGp",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/robert-erbele",
+          "email": "rerbele@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-29",
+        "openstates_id": "ocd-person/b40f2559-d9ae-41c2-b539-bd9c673cd90d",
+        "name": "Terry Wanzek",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/tmwanzek2023.jpg?itok=LOr-WCkO",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/terry-m-wanzek",
+          "email": "tmwanzek@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-30",
+        "openstates_id": "ocd-person/9844a188-809c-4711-8147-2c30206721ee",
+        "name": "Diane Larson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dlarson2023.jpg?itok=Yi-S-Uyp",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/diane-larson",
+          "email": "dlarson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-31",
+        "openstates_id": "ocd-person/93c8011d-d8c2-4e7e-80ee-3b1cab991039",
+        "name": "Don Schaible",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dgschaible2023.jpg?itok=Zjq3ZT4x",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/donald-schaible",
+          "email": "dgschaible@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-32",
+        "openstates_id": "ocd-person/afb1de56-a1cf-439a-8a9f-3fcaa73c691a",
+        "name": "Dick Dever",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/ddever2023.jpg?itok=W1J0-NtI",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dick-dever",
+          "email": "ddever@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-33",
+        "openstates_id": "ocd-person/61200f69-4501-4cfb-a9cf-a37e86d6604c",
+        "name": "Keith Boehm",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kboehm2023.jpg?itok=U-O9r8u7",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/keith-boehm",
+          "email": "kboehm@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-34",
+        "openstates_id": "ocd-person/17f0bfb4-083b-460d-9b3f-483079df42c6",
+        "name": "Justin Gerhardt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jgerhardt2.jpg?itok=0hJ_0R_C",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/justin-gerhardt",
+          "email": "jgerhardt@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-35",
+        "openstates_id": "ocd-person/ee32295a-16ef-45df-b47e-f74ac5f1765b",
+        "name": "Sean Cleary",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/scleary2023.jpg?itok=iooji8l4",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/sean-cleary",
+          "email": "scleary@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-36",
+        "openstates_id": "ocd-person/4d0233df-e907-42eb-9682-fa31578f52b7",
+        "name": "Desiree Van Oosting",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYgQlKUMR3p-uneRcuoLPMxOOnOdNKtaUbkA&s",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/desiree-van-oosting",
+          "email": "dvanoosting@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-37",
+        "openstates_id": "ocd-person/cc65fd55-6d87-4ef9-95ff-b98592bebc8f",
+        "name": "Dean Rummel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/drummel2023.jpg?itok=8NfcLHzU",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dean-rummel",
+          "email": "drummel@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-38",
+        "openstates_id": "ocd-person/e911d1c9-258a-47c6-acd4-d0f8a3befc2f",
+        "name": "David Hogue",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dhogue2023.jpg?itok=aH-5nj6J",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/david-hogue",
+          "email": "dhogue@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-39",
+        "openstates_id": "ocd-person/6c9671e4-274f-41cd-b1ba-d6b2dd55ba5e",
+        "name": "Greg Kessel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/gkessel2023.jpg?itok=VVvSgZzs",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/greg-kessel",
+          "email": "gkessel@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-40",
+        "openstates_id": "ocd-person/2abbe0b0-fc8b-47f0-8b29-78e7c1315322",
+        "name": "Jose Castaneda",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTIu5mvWkZ1XTWpTaME5yn0rBIdqWZN3EUtg&s",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jose-l-castaneda",
+          "email": "jcastaneda@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-41",
+        "openstates_id": "ocd-person/4412269d-782d-4ea2-a649-e62a30cd1739",
+        "name": "Kyle Davison",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kdavison2023.jpg?itok=dKldTmD0",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kyle-davison",
+          "email": "kdavison@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-42",
+        "openstates_id": "ocd-person/00d22ac4-d0e4-4b26-a521-729b177b3a01",
+        "name": "Claire Cory",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/clairecory2023.jpg?itok=iubraEWk",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/claire-cory",
+          "email": "clairecory@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-43",
+        "openstates_id": "ocd-person/49d467a4-d6ad-49bb-b498-445117bd1669",
+        "name": "Jeff Barta",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jbarta2023.jpg?itok=vFRoqtiw",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jeff-barta",
+          "email": "jbarta@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-44",
+        "openstates_id": "ocd-person/50d67a3d-7267-4f21-93af-6827c45077f0",
+        "name": "Josh Boschee",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jboschee2023.jpg?itok=dn-POEYf",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/josh-boschee",
+          "email": "jboschee@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-45",
+        "openstates_id": "ocd-person/d313121d-2b0d-41e9-94a2-fe819a6e82b4",
+        "name": "Ron Sorvaag",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/rsorvaag2023.jpg?itok=NY_Nca8x",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/ronald-sorvaag",
+          "email": "rsorvaag@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-46",
+        "openstates_id": "ocd-person/3f38bb4c-1371-4b8c-851f-cc441b5c853b",
+        "name": "Michelle Powers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/620c3de64a803d6ee0289ebc/77db1b9d-8c96-49d6-9730-72bf488d1b28/Michelle+Powers+Headshot.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/michelle-powers",
+          "email": "mpowers@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-sen-47",
+        "openstates_id": "ocd-person/704150b0-5d7f-43ea-afd5-b6f059463575",
+        "name": "Mike Dwyer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mdwyer2023.jpg?itok=8BekhLxi",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/michael-dwyer",
+          "email": "mdwyer@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "North Dakota State House",
+    "members": [
+      {
+        "id": "nd-rep-1",
+        "openstates_id": "ocd-person/633a61c8-9424-445f-b844-b0b40fc1781a",
+        "name": "David Richter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dwrichter2023.jpg?itok=QhmK8RaZ",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/david-richter",
+          "email": "dwrichter@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-1-2",
+        "openstates_id": "ocd-person/8fd64fab-cbe4-4ad3-bd63-447cc527e567",
+        "name": "Patrick Hatlestad",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/phatlestad2023.jpg?itok=InESB1Wt",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/patrick-hatlestad",
+          "email": "phatlestad@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-2",
+        "openstates_id": "ocd-person/7ba931d2-cba2-4913-92fa-f5b0c3a8baf0",
+        "name": "Bert Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bertanderson2.jpg?itok=VRfZY6e1",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/bert-anderson",
+          "email": "bertanderson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-2-2",
+        "openstates_id": "ocd-person/da7774ec-8498-4094-b7d7-87d301911015",
+        "name": "Donald Longmuir",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dlongmuir2023.jpg?itok=p9sLxmtn",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/donald-w-longmuir",
+          "email": "dlongmuir@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-3",
+        "openstates_id": "ocd-person/4c53491d-adf0-4c18-a645-a63667f2c828",
+        "name": "Jeff Hoverson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jahoverson2023.jpg?itok=MxnKpSrt",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jeff-a-hoverson",
+          "email": "jahoverson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-3-2",
+        "openstates_id": "ocd-person/f1c4c314-4fe7-4aa1-b243-d075dce4444d",
+        "name": "Lori VanWinkle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lvanwinkle2023.jpg?itok=hakf2K65",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/lori-vanwinkle",
+          "email": "lvanwinkle@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-5",
+        "openstates_id": "ocd-person/c141f4ae-fef0-4dfa-8746-81c116e313c1",
+        "name": "Jay Fisher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jayfisher2023.jpg?itok=YRt8TPe_",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jay-fisher",
+          "email": "jayfisher@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-5-2",
+        "openstates_id": "ocd-person/3a13b8c4-9366-4af8-b137-d3f959572a2a",
+        "name": "Scott Louser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/slouser2023.jpg?itok=8ryzbmHB",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/scott-louser",
+          "email": "slouser@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-6",
+        "openstates_id": "ocd-person/bd6e2ebb-5fc3-4a04-9def-d9e581c39783",
+        "name": "Dan Vollmer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyDqLw7JBj51C2bugaTTnyhM7X1pQwN2zhhQ&s",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/daniel-r-vollmer",
+          "email": "dvollmer@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-6-2",
+        "openstates_id": "ocd-person/65381298-5fe3-49d8-9739-8678016f8383",
+        "name": "Dick Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dickanderson2023.jpg?itok=5dz8kY0I",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dick-anderson",
+          "email": "dickanderson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-7",
+        "openstates_id": "ocd-person/0b48f460-f41c-4f21-8620-c64728604e4c",
+        "name": "Jason Dockter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jddockter2023.jpg?itok=N9cIfPUY",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jason-dockter",
+          "email": "jddockter@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-7-2",
+        "openstates_id": "ocd-person/27436563-29f4-4508-be92-0adf91ea442a",
+        "name": "Matt Heilman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mheilman2023.jpg?itok=f63CHk7-",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/matt-heilman",
+          "email": "mheilman@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-8",
+        "openstates_id": "ocd-person/00959142-f06a-4e5d-aab2-21abfd9aa261",
+        "name": "Mike Berg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/bismarcktribune.com/content/tncms/assets/v3/editorial/d/64/d64e7aa8-db23-11ee-a467-5f686ecc3434/65e76dd2156d5.image.jpg?resize=409%2C500",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-berg",
+          "email": "mberg@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-8-2",
+        "openstates_id": "ocd-person/e3f46d13-b49b-4fd9-a604-16ad12393a71",
+        "name": "SuAnn Olson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/solson2023.jpg?itok=DQSnHPuC",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/suann-olson",
+          "email": "solson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-9",
+        "openstates_id": "ocd-person/7c99cb12-9158-4ddc-8bff-8ecca64cc8fa",
+        "name": "Collette Brown",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/659114/659114.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/collette-brown",
+          "email": "cbrown@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-9-2",
+        "openstates_id": "ocd-person/967219db-3714-49e4-8642-5fb444ef882c",
+        "name": "Jayme Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jdavis2023.jpg?itok=u9HL5YrU",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jayme-davis",
+          "email": "jdavis@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-10",
+        "openstates_id": "ocd-person/fadbd16b-e02e-4448-889b-1072b7308710",
+        "name": "Jared Hendrix",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQquCry9y1U0Q6TSxL9JfLhkGK0kcWujJSGdQ&s",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jared-hendrix",
+          "email": "jhendrix@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-10-2",
+        "openstates_id": "ocd-person/705643fb-7605-4c42-9d55-6e774edf9fc6",
+        "name": "Steve Swiontek",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/sswiontek2023.jpg?itok=yRicbbMk",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/steve-swiontek",
+          "email": "sswiontek@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-11",
+        "openstates_id": "ocd-person/752ba791-ab73-4945-b632-64fcae50c118",
+        "name": "Gretchen Dobervich",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/gdobervich2023.jpg?itok=zDWXbvGB",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/gretchen-dobervich",
+          "email": "gdobervich@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-11-2",
+        "openstates_id": "ocd-person/d8e43158-838e-40fc-a960-c29c46aa512e",
+        "name": "Liz Conmy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lconmy2023.jpg?itok=4p3lHbz-",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/liz-conmy",
+          "email": "lconmy@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-12",
+        "openstates_id": "ocd-person/3f885f7e-14b0-4ee7-b1fd-71ddbd72c539",
+        "name": "Bernie Satrom",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/blsatrom2023.jpg?itok=QdHtHBmZ",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/bernie-satrom",
+          "email": "blsatrom@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-12-2",
+        "openstates_id": "ocd-person/a9b3e13f-b522-4383-b775-45afc7636520",
+        "name": "Mitch Ostlie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mostlie2023.jpg?itok=1fWaBlwg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mitch-ostlie",
+          "email": "mostlie@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-13",
+        "openstates_id": "ocd-person/860892bd-92d1-4a30-a5e6-3b5f2359e9df",
+        "name": "Austen Schauer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/aschauer2023.jpg?itok=nn6aFXan",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/austen-schauer",
+          "email": "aschauer@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-13-2",
+        "openstates_id": "ocd-person/364ea7b0-8ff8-42b6-ac54-1453cc9d7785",
+        "name": "Jim Jonas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jjonas2023.jpg?itok=Al-CmnoP",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jim-jonas",
+          "email": "jjonas@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-14",
+        "openstates_id": "ocd-person/b3f127cc-2ec4-434b-8258-b5b29a7690ca",
+        "name": "Jon Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jonelson2023.jpg?itok=z7iyfOlj",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jon-o-nelson",
+          "email": "jonelson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-14-2",
+        "openstates_id": "ocd-person/f96d48d1-23a3-4516-a3a5-5bf873f05eda",
+        "name": "Robin Weisz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/rweisz2023_3.jpg?itok=_m-no8ZP",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/robin-weisz",
+          "email": "rweisz@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-15",
+        "openstates_id": "ocd-person/56cc14e2-12cc-4d70-b37a-0aa0397bc841",
+        "name": "Donna Henderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dhenderson2023.jpg?itok=1gm0QdP4",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/donna-henderson",
+          "email": "dhenderson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-15-2",
+        "openstates_id": "ocd-person/2674934f-59c0-4caa-8ff4-be3deecc31b3",
+        "name": "Kathy Frelich",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kfrelich2023.jpg?itok=RkRwD-64",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kathy-frelich",
+          "email": "kfrelich@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-16",
+        "openstates_id": "ocd-person/6fbb2691-956f-4427-8927-66309b08ed68",
+        "name": "Andrew Marschall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/amarschall2023.jpg?itok=hxGY-yV_",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/andrew-marschall",
+          "email": "amarschall@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-16-2",
+        "openstates_id": "ocd-person/9335be7e-11ff-4577-af89-e61195143354",
+        "name": "Ben Koppelman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bkoppelman2023.jpg?itok=esaQXglY",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/ben-koppelman",
+          "email": "bkoppelman@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-17",
+        "openstates_id": "ocd-person/a7fba7c3-b0ee-4b95-976e-4b38c0b8fa53",
+        "name": "Landon Bahl",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lbahl2023.jpg?itok=DZdPabxt",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/landon-bahl",
+          "email": "lbahl@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-17-2",
+        "openstates_id": "ocd-person/fdaab7d3-77b8-4cf4-bda2-1cb927f675a9",
+        "name": "Mark Sanford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/masanford2023.jpg?itok=krQ5n8A5",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mark-sanford",
+          "email": "masanford@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-18",
+        "openstates_id": "ocd-person/1db300de-726b-44fc-b3fe-f4c918a55ea1",
+        "name": "Nels Christianson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/162773.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/nels-christianson",
+          "email": "nchristianson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-18-2",
+        "openstates_id": "ocd-person/9d903288-c374-46e7-8665-d9ba4ba377b5",
+        "name": "Steve Vetter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/smvetter2023.jpg?itok=Wpd0aojC",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/steve-vetter",
+          "email": "smvetter@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-19",
+        "openstates_id": "ocd-person/5d387655-8234-48d2-a1dd-dd2f4a83ca6f",
+        "name": "Dave Monson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dmonson2023.jpg?itok=k-ar-UCY",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/david-monson",
+          "email": "dmonson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-19-2",
+        "openstates_id": "ocd-person/d0cd1bbe-d84e-49d8-bb5e-1ada10cf187d",
+        "name": "Karen Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kanderson2023.jpg?itok=T9FfLnKE",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/karen-a-anderson",
+          "email": "kanderson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-20",
+        "openstates_id": "ocd-person/2e1bbdc9-a4e1-4ab2-953f-2e51910b7b58",
+        "name": "Mike Beltz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mbeltz2023.jpg?itok=VV6jACpR",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-beltz",
+          "email": "mbeltz@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-21",
+        "openstates_id": "ocd-person/f233c739-2bfe-4a96-ba9b-f3c4cbff539c",
+        "name": "LaurieBeth Hager",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lbhager2023.jpg?itok=A5Qsur4Z",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/lauriebeth-hager",
+          "email": "lbhager@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-21-2",
+        "openstates_id": "ocd-person/891c379b-f866-4029-9f52-a416b5005272",
+        "name": "Mary Schneider",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mschneider2023.jpg?itok=2DAOpzXC",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mary-schneider",
+          "email": "mschneider@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-22",
+        "openstates_id": "ocd-person/0bae2d8b-4e48-4f31-9e23-9f438ccac477",
+        "name": "Brandy Pyle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bpyle2023.jpg?itok=nzFe9KY1",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/brandy-pyle",
+          "email": "bpyle@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-22-2",
+        "openstates_id": "ocd-person/35e63cc0-2313-4f4b-80f8-0d7356fa684a",
+        "name": "Jonathan Warrey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jwarrey2023.jpg?itok=aMx3ZNaU",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jonathan-warrey",
+          "email": "jwarrey@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-23",
+        "openstates_id": "ocd-person/4e998af9-35f0-457c-8f37-b2fdaa914dbd",
+        "name": "Dennis Nehring",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dennis-nehring",
+          "email": "denehring@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-23-2",
+        "openstates_id": "ocd-person/1a0c2ca8-e9ab-4698-a75b-4f40e65a413d",
+        "name": "Nico Rios",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/nrios2023_2.jpg?itok=87de-j4E",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/nico-rios",
+          "email": "nrios@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-24",
+        "openstates_id": "ocd-person/47e7d979-3c08-4c17-bd54-d9cb06f31d9e",
+        "name": "Dan Johnston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/58726.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/daniel-johnston",
+          "email": "djohnston@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-24-2",
+        "openstates_id": "ocd-person/7c89a861-f0cf-402f-97e1-70953440ee36",
+        "name": "Dwight Kiefert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dhkiefert2023.jpg?itok=zmoi5VTK",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dwight-kiefert",
+          "email": "dhkiefert@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-25",
+        "openstates_id": "ocd-person/9c0f35c1-03de-443e-97bd-5cdf77581897",
+        "name": "Alisa Mitskog",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/amitskog2023_3.jpg?itok=vwMWQ-Ou",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/alisa-mitskog",
+          "email": "amitskog@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-25-2",
+        "openstates_id": "ocd-person/d9bd764d-f08a-4056-ba7d-82bad9e9d17b",
+        "name": "Kathy Skroch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.nd.gov/files/styles/medium/public/person/photo/kskroch.jpg?itok=QIurj_0Y",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kathy-skroch",
+          "email": "kskroch@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-26",
+        "openstates_id": "ocd-person/ed4f6720-01ed-42c3-9e33-8fa6ca237b49",
+        "name": "Kelby Timmons",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/ktimmons2023.jpg?itok=NPPJqbct",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/kelby-timmons",
+          "email": "ktimmons@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-26-2",
+        "openstates_id": "ocd-person/3bf442fa-fe42-48c3-b10a-6e94bc20e23d",
+        "name": "Roger Maki",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://vote-usa.org/Image.aspx?Id=NDMakiRoger&Col=Profile300&Def=Profile300",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/roger-a-maki",
+          "email": "rmaki@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-27",
+        "openstates_id": "ocd-person/3ef34927-6fe8-4693-a818-20f654ae6b31",
+        "name": "Greg Stemen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/gstemen2023.jpg?itok=YEl0RlY3",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/greg-stemen",
+          "email": "gstemen@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-27-2",
+        "openstates_id": "ocd-person/1e04adce-2d55-4b2a-bf7b-8a2977cd05f9",
+        "name": "T.J. Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/tj-brown",
+          "email": "tbrown@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-28",
+        "openstates_id": "ocd-person/d9517a29-cf58-4538-953f-715eee39db16",
+        "name": "Jim Grueneich",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jgrueneich2023.jpg?itok=DWgbvGCh",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jim-grueneich",
+          "email": "jgrueneich@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-28-2",
+        "openstates_id": "ocd-person/52538b14-697a-4632-854b-badf925cbfe6",
+        "name": "Mike Brandenburg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mbrandenburg2023.jpg?itok=bLtWJCpq",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-brandenburg",
+          "email": "mbrandenburg@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-29",
+        "openstates_id": "ocd-person/74e50305-a021-46bd-9d0d-dcd872645cfd",
+        "name": "Craig Headland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/cheadland2023.jpg?itok=_qgWKQP8",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/craig-headland",
+          "email": "cheadland@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-29-2",
+        "openstates_id": "ocd-person/95e4c82b-ae91-4bc6-a3f1-14ad9b8758ce",
+        "name": "Don Vigesaa",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dwvigesaa2023.jpg?itok=8zs60AtF",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/don-vigesaa",
+          "email": "dwvigesaa@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-30",
+        "openstates_id": "ocd-person/489ce19c-875b-49c9-aa02-d8c05c09b3f5",
+        "name": "Glenn Bosch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/gdbosch2023.jpg?itok=v8w6sU_R",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/glenn-bosch",
+          "email": "gdbosch@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-30-2",
+        "openstates_id": "ocd-person/981c4da0-4ab9-46cb-aa42-397253399cba",
+        "name": "Mike Nathe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mrnathe2023.jpg?itok=1k0AbKZs",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-nathe",
+          "email": "mrnathe@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-31",
+        "openstates_id": "ocd-person/5938951d-3c45-4913-8612-aa70ba790f88",
+        "name": "Dawson Holle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dholle2023.jpg?itok=RbaAfnjR",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dawson-holle",
+          "email": "dholle@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-31-2",
+        "openstates_id": "ocd-person/af21927a-d2f9-454d-93fc-04ec9d585b1e",
+        "name": "Karen Rohr",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kmrohr2023.jpg?itok=fAV4fbCk",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/karen-m-rohr",
+          "email": "kmrohr@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-32",
+        "openstates_id": "ocd-person/39e75205-fa1e-45d4-a04a-2ccee0a83a07",
+        "name": "Lisa Meier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lmeier2023.jpg?itok=8-dZt4eW",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/lisa-meier",
+          "email": "lmeier@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-32-2",
+        "openstates_id": "ocd-person/1f5bad71-f1e2-4729-896b-293137ed6a84",
+        "name": "Pat Heinert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/pdheinert2023.jpg?itok=NyBAAtQe",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/pat-d-heinert",
+          "email": "pdheinert@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-33",
+        "openstates_id": "ocd-person/c40382fd-ce08-46af-8649-afd1f5e04091",
+        "name": "Anna Novak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/anovak2023.jpg?itok=EptvTScj",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/anna-s-novak",
+          "email": "anovak@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-33-2",
+        "openstates_id": "ocd-person/50e4864c-095a-43a6-9486-3b071e02ca09",
+        "name": "Bill Tveit",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/btveit2023.jpg?itok=cI3qL4LC",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/bill-tveit",
+          "email": "btveit@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-34",
+        "openstates_id": "ocd-person/bf16c102-641d-4296-96c4-eccab1c1d43f",
+        "name": "Nathan Toman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/nptoman2023.jpg?itok=585ikeOa",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/nathan-toman",
+          "email": "nptoman@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-34-2",
+        "openstates_id": "ocd-person/94b03c1b-39a3-495a-8a11-0c21a5f30f08",
+        "name": "Todd Porter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/tkporter2023.jpg?itok=7kkm9IJN",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/todd-porter",
+          "email": "tkporter@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-35",
+        "openstates_id": "ocd-person/f8720088-51ae-4178-87f8-abbb73faf444",
+        "name": "Bob Martinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/bmartinson2023.jpg?itok=G3GoKXQJ",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/bob-martinson",
+          "email": "bmartinson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-35-2",
+        "openstates_id": "ocd-person/a1829243-52bf-4ade-9ed8-6955241120c3",
+        "name": "Karen Karls",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kkarls2023.jpg?itok=gbGqbvNN",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/karen-karls",
+          "email": "kkarls@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-36",
+        "openstates_id": "ocd-person/6035e38b-ec58-44f7-9b47-7c6672c575f8",
+        "name": "Dori Hauck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/dorihauck2023.jpg?itok=l1MjUhcA",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dori-hauck",
+          "email": "dorihauck@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-36-2",
+        "openstates_id": "ocd-person/573043a9-0df8-41f8-a3e3-18a72c38aac6",
+        "name": "Ty Dressler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/ty-dressler",
+          "email": "tdressler@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-37",
+        "openstates_id": "ocd-person/813e59ee-0d23-43d7-b6a9-82ff79cf8f4f",
+        "name": "Mike Lefor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mlefor2023.jpg?itok=jHFXKlg8",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-lefor",
+          "email": "mlefor@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-37-2",
+        "openstates_id": "ocd-person/6408b9c3-3e70-4e47-a2c1-d31c11012f4c",
+        "name": "Vicky Steiner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/vsteiner2023.jpg?itok=MjR49cPZ",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/vicky-steiner",
+          "email": "vsteiner@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-38",
+        "openstates_id": "ocd-person/f503a00c-951e-43c6-a5e5-8aff9bda4a6a",
+        "name": "Christina Wolff",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/817451/817451.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/christina-wolff",
+          "email": "cwolff@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-38-2",
+        "openstates_id": "ocd-person/a78a22ef-aefe-43ee-a40e-86026b341381",
+        "name": "Dan Ruby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/druby2023.jpg?itok=71zc5cs6",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dan-ruby",
+          "email": "druby@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-39",
+        "openstates_id": "ocd-person/3075343c-75ba-4957-a1a2-411eb1708c6b",
+        "name": "Keith Kempenich",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/kkempenich2023.jpg?itok=yAuv-phX",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/keith-kempenich",
+          "email": "kkempenich@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-39-2",
+        "openstates_id": "ocd-person/a8e9d4c9-c6fa-41cf-8440-30ba429d4c63",
+        "name": "Mike Schatz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mischatz2023.jpg?itok=uu_Ize75",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-schatz",
+          "email": "mischatz@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-40",
+        "openstates_id": "ocd-person/be77ffd0-b287-4585-8409-5189885d180a",
+        "name": "Macy Bolinske",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRozO487RdH1VF6tytGgra4INZIQ_QGs9v_7w&s",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/macy-bolinske",
+          "email": "mbolinske@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-40-2",
+        "openstates_id": "ocd-person/11d3d315-2e0d-4824-8ad2-6fd81962c9d1",
+        "name": "Matt Ruby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mruby2023.jpg?itok=2-zeJhg7",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/matthew-ruby",
+          "email": "mruby@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-41",
+        "openstates_id": "ocd-person/230e88ef-7b8d-4229-b121-c1df2328c78a",
+        "name": "Jorin Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jjohnson2023.jpg?itok=jpJuUDcr",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jorin-johnson",
+          "email": "jjohnson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-41-2",
+        "openstates_id": "ocd-person/3e2f8712-9190-4c2d-887a-7e479e27dd81",
+        "name": "Karen Grindberg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/163174.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/karen-grindberg",
+          "email": "kgrindberg@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-42",
+        "openstates_id": "ocd-person/bf1ee8a5-edf3-44c5-82bf-6be1beecd989",
+        "name": "Doug Osowski",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://dougd42.com/media/b208def4183d2d0b123d6b0bf3dcfd78.png",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/doug-osowski",
+          "email": "dosowski@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-42-2",
+        "openstates_id": "ocd-person/a7b8cf9d-a22f-479f-ad25-07bd47aab2ba",
+        "name": "Dustin McNally",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/2956/files/2025/09/dustin-mcnally.jpg",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dustin-mcnally",
+          "email": "dmcnally@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-43",
+        "openstates_id": "ocd-person/1caabacc-b2df-41c9-a0ff-5719a1d9dea5",
+        "name": "Eric Murphy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/emurphy2023.jpg?itok=lb4RhNX6",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/eric-james-murphy",
+          "email": "emurphy@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-43-2",
+        "openstates_id": "ocd-person/edf5f43d-33f6-4b77-a7c1-0b0e05a6b0be",
+        "name": "Zac Ista",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/zmista2023.jpg?itok=KMVwRW52",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/zachary-ista",
+          "email": "zmista@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-44",
+        "openstates_id": "ocd-person/7b99ceee-cc27-4b30-96f9-b29845bacdf8",
+        "name": "Austin Foss",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://demnpl.com/wp-content/uploads/2024/05/Austin-Foss-1225x1500.png",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/austin-foss",
+          "email": "afoss@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-44-2",
+        "openstates_id": "ocd-person/84b51f7f-dbd2-4d17-b698-4650964514cd",
+        "name": "Karla Rose Hanson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/krhanson2023.jpg?itok=0UyDXXUY",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/karla-rose-hanson",
+          "email": "krhanson@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-45",
+        "openstates_id": "ocd-person/57dff80c-9579-411d-a55e-b76846f15fd8",
+        "name": "Carrie McLeod",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/cmcleod2023-4.jpg?itok=suT75cwX",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/carrie-mcleod",
+          "email": "cmcleod@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-45-2",
+        "openstates_id": "ocd-person/29d5158e-c93e-4d69-9da5-70972c26c896",
+        "name": "Scott Wagner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/swagner2023.jpg?itok=qmmuUQ1o",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/scott-wagner",
+          "email": "swagner@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-46",
+        "openstates_id": "ocd-person/6c9076a0-42ad-4045-81da-7f463d0e57b5",
+        "name": "Desiree Morton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/620c3de64a803d6ee0289ebc/4fb9fedc-999d-4a0c-a780-07d812d15461/Desiree+Morton+Headshot.jpg?format=500w",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/desiree-morton",
+          "email": "dmorton@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-46-2",
+        "openstates_id": "ocd-person/af2974f4-4889-4ea5-9cfd-93d68e2d39a2",
+        "name": "Jim Kasper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jkasper2023.jpg?itok=5NfOEcjQ",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/jim-kasper",
+          "email": "jkasper@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-47",
+        "openstates_id": "ocd-person/3de00ea0-0ad8-4875-8f7f-445b7e67a6d6",
+        "name": "Larry Klemin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lklemin2023.jpg?itok=TpyVKyyr",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/lawrence-r-klemin",
+          "email": "lklemin@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-47-2",
+        "openstates_id": "ocd-person/a8e7843d-466a-4112-9238-707dbbac2696",
+        "name": "Mike Motschenbacher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/mmotschenbacher2023.jpg?itok=v3_JopNp",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/mike-motschenbacher",
+          "email": "mmotschenbacher@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-4A",
+        "openstates_id": "ocd-person/bf09d70e-a605-43f0-bcca-57ece9c06214",
+        "name": "Lisa Finley-DeVille",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4A",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lfinleydeville2023.jpg?itok=__y0zred",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/lisa-finley-deville",
+          "email": "lfinleydeville@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-4B",
+        "openstates_id": "ocd-person/0e57f5ef-a6aa-4019-bce7-da50c23b3a7a",
+        "name": "Clayton Fegley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4B",
+        "role": "State Representative",
+        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/cfegley2023.jpg?itok=e3uEeF1h",
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/clayton-fegley",
+          "email": "cfegley@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

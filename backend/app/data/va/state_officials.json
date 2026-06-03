@@ -1,0 +1,2292 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "VA",
+  "state_name": "Virginia",
+  "executive": {
+    "governor": {
+      "id": "va-exec-gov",
+      "name": "Abigail Spanberger",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2026",
+      "website": "https://www.governor.virginia.gov",
+      "photo_url": null,
+      "bio": "Abigail Spanberger is the Governor of Virginia, serving since 2026.",
+      "sources": [
+        "https://www.governor.virginia.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "va-exec-lieutenant-governor",
+      "name": "Ghazala Hashmi",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://www.ltgov.virginia.gov/media/governorvirginiagov/lieutenant-governor/Portrait-LT-Governor-Ghazala-Hashmi.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "va-exec-attorney-general",
+        "name": "Jerrauld C. \"Jay\" Jones",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.oag.state.va.us/images/Jones-headshot-20260320.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Virginia State Senate",
+    "members": [
+      {
+        "id": "va-sen-1",
+        "openstates_id": "ocd-person/ba57d68e-01e5-46ed-b305-ec08dece665b",
+        "name": "Timmy French",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TimmyFrench2023.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S121",
+          "email": "senatorfrench@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-2",
+        "openstates_id": "ocd-person/b5ce9d0e-c76e-4424-bb84-57ceb335dc52",
+        "name": "Mark Obenshain",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Obenshain2",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S68",
+          "email": "senatorobenshain@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-3",
+        "openstates_id": "ocd-person/3a8cbf64-e1b7-43b6-ade9-57808519405a",
+        "name": "Chris Head",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Head3",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S122",
+          "email": "senatorhead@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-4",
+        "openstates_id": "ocd-person/73e0de29-93b1-4c5c-af72-6c4a3d3950bd",
+        "name": "David Suetterlein",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Suetterlein4",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S101",
+          "email": "senatorsuetterlein@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-5",
+        "openstates_id": "ocd-person/3605a4dd-d800-4820-a50c-6cd3b0ab4511",
+        "name": "Travis Hackworth",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Hackworth5",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S112",
+          "email": "senatorhackworth@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-6",
+        "openstates_id": "ocd-person/0d2983ef-93a5-4d84-9fa3-2c796024562a",
+        "name": "Todd Pillion",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Pillion6",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S111",
+          "email": "senatorpillion@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-7",
+        "openstates_id": "ocd-person/eacc546e-93d4-4189-92fb-8c969b1b545c",
+        "name": "Bill Stanley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bill_Stanley.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S82",
+          "email": "senatorstanley@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-8",
+        "openstates_id": "ocd-person/e4396bfa-d22d-457e-b79a-f4bc36046a08",
+        "name": "Mark Peake",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Peake8",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S105",
+          "email": "senatorpeake@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-9",
+        "openstates_id": "ocd-person/c3391ffd-a783-4d34-81ca-ecad4cd6d16a",
+        "name": "Tammy Mulchi",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Mulchi9",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S131",
+          "email": "senatormulchi@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-10",
+        "openstates_id": "ocd-person/e58b604d-0c92-489e-8d03-7d0126d07eeb",
+        "name": "Luther Cifers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Cifers10",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S132",
+          "email": "senatorcifers@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-11",
+        "openstates_id": "ocd-person/ad107e73-7e1e-45dd-ab19-52005a0b948c",
+        "name": "Creigh Deeds",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Deeds11",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S62",
+          "email": "senatordeeds@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-12",
+        "openstates_id": "ocd-person/815f7b31-d344-481a-9922-ad77d16b808a",
+        "name": "Glen Sturtevant",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Sturtevant12",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S99",
+          "email": "senatorsturtevant@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-13",
+        "openstates_id": "ocd-person/448bfee3-3314-4608-8531-811fdf9d0c23",
+        "name": "Lashrecse Aird",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Aird13",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S115",
+          "email": "senatoraird@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-14",
+        "openstates_id": "ocd-person/fa49c701-d235-4f56-b9af-b772dec36d02",
+        "name": "Lamont Bagby",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Bagby14",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S114",
+          "email": "lbagby@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-15",
+        "openstates_id": "ocd-person/3ceca66a-bf31-47c8-a1a6-e2f789b41be3",
+        "name": "Mike Jones",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Jones15",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S134",
+          "email": "senatorjones@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-16",
+        "openstates_id": "ocd-person/aec7ee58-7da0-41e1-88d0-5c9e68737a0f",
+        "name": "Schuyler VanValkenburg",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/VanValkenburg16",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S129",
+          "email": "senatorvanvalkenburg@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-17",
+        "openstates_id": "ocd-person/f1a906cd-6602-492c-88dc-61887401c346",
+        "name": "Emily Jordan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Jordan17",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S116",
+          "email": "senatorjordan@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-18",
+        "openstates_id": "ocd-person/5be2e2f9-b644-4fb4-bfbf-d4c38e858ee2",
+        "name": "Louise Lucas",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://apps.dlas.virginia.gov/senatepics/newbiopics/Lucas2018.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S19",
+          "email": "senatorlucas@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-19",
+        "openstates_id": "ocd-person/f17d0fd9-266c-4192-af9b-2cf9a621867a",
+        "name": "Christie Craig",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Craig19",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S118",
+          "email": "senatorcraig@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-20",
+        "openstates_id": "ocd-person/ec14a514-ce1c-4fba-b053-fcf133793445",
+        "name": "Bill DeSteph",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://apps.dlas.virginia.gov/senatepics/newbiopics/DeSteph08.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S96",
+          "email": "senatordesteph@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-21",
+        "openstates_id": "ocd-person/f747c790-f609-4da1-b125-73f1807e1430",
+        "name": "Angelia Graves",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Williams%20Graves21",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S130",
+          "email": "senatorwilliamsgraves@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-22",
+        "openstates_id": "ocd-person/4a329580-86d3-4db3-915e-9f1af71e0a5a",
+        "name": "Aaron Rouse",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Rouse22",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S113",
+          "email": "district07@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-23",
+        "openstates_id": "ocd-person/48911708-f8c9-4fa5-bf7c-7d035b08874e",
+        "name": "Mamie Locke",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Locke23",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S67",
+          "email": "senatorlocke@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-24",
+        "openstates_id": "ocd-person/ebdc449e-b987-4c44-895b-5047e343c0a0",
+        "name": "Danny Diggs",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DiggsDanny.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S119",
+          "email": "senatordiggs@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-25",
+        "openstates_id": "ocd-person/52e67ab6-2039-458e-b7a8-9bb5f3694e11",
+        "name": "Richard Stuart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Stuart25",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S78",
+          "email": "senatorstuart@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-26",
+        "openstates_id": "ocd-person/995be769-49d1-40b6-8177-e8ee31087af1",
+        "name": "Ryan McDougle",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/McDougle26",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S69",
+          "email": "senatormcdougle@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-27",
+        "openstates_id": "ocd-person/e142c869-a7a9-411a-8d73-563403f6ddd4",
+        "name": "Tara Durant",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Durant27",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S120",
+          "email": "senatordurant@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-28",
+        "openstates_id": "ocd-person/adb58f21-f2fd-4830-85b6-f490b0867d14",
+        "name": "Bryce Reeves",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Reeves28",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S88",
+          "email": "senatorreeves@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-29",
+        "openstates_id": "ocd-person/500ff29f-8ae7-4886-93ec-eec1ad91d299",
+        "name": "Jeremy McPike",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/McPike29.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S98",
+          "email": "senatormcpike@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-30",
+        "openstates_id": "ocd-person/3a2855f7-5ff7-4c5e-9d28-803d99f19d3f",
+        "name": "Danica Roem",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Roem30",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S126",
+          "email": "senatorroem@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-31",
+        "openstates_id": "ocd-person/bf0211bf-d8ac-4343-bcd8-181e2d2e58a6",
+        "name": "Russet Perry",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://cdn.runforsomething.net/candidates/2023/04/campaign/3388.jpg",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S125",
+          "email": "senatorperry@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-32",
+        "openstates_id": "ocd-person/eb7a5152-f275-4dfe-a303-742f7218fb27",
+        "name": "Kannan Srinivasan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0381",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S133",
+          "email": "senatorsrinivasan@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-33",
+        "openstates_id": "ocd-person/32dae8e8-9901-4705-b012-f8ce186f8403",
+        "name": "Jennifer Carroll Foy",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Carroll%20Foy33",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S117",
+          "email": "senatorcarrollfoy@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-34",
+        "openstates_id": "ocd-person/50a6c704-2ba7-4ecc-a24c-8f55b400709b",
+        "name": "Scott Surovell",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Surovell34",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S100",
+          "email": "senatorsurovell@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-35",
+        "openstates_id": "ocd-person/22817a2c-911a-458a-b2a6-b7f237ef68f0",
+        "name": "Dave Marsden",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Marsden35",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S80",
+          "email": "senatormarsden@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-36",
+        "openstates_id": "ocd-person/138f964d-7137-487b-96d6-ad836b67db83",
+        "name": "Stella Pekarsky",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Pekarsky36",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S124",
+          "email": "senatorpekarsky@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-37",
+        "openstates_id": "ocd-person/8a50ceeb-1ded-4586-a04a-19115fddc3c5",
+        "name": "Saddam Salim",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Salim37",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S127",
+          "email": "senatorsalim@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-38",
+        "openstates_id": "ocd-person/27eeaa71-8938-412b-90ce-f83370824485",
+        "name": "Jennifer Boysko",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Boysko38",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S106",
+          "email": "senatorboysko@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-39",
+        "openstates_id": "ocd-person/c3b0c2fc-c7bf-45f8-8ee3-50d5a57bad08",
+        "name": "Elizabeth Bennett-Parker",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0334",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0334",
+          "email": "senatorbennett-parker@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-sen-40",
+        "openstates_id": "ocd-person/72ecc30c-7175-4aef-9762-fda3ba5b451e",
+        "name": "Barbara Favola",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://apps.senate.virginia.gov/Senator/images/member_photos/Favola40",
+        "contact": {
+          "official_website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S86",
+          "email": "senatorfavola@senate.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Virginia House of Delegates",
+    "members": [
+      {
+        "id": "va-rep-1",
+        "openstates_id": "ocd-person/c10414ad-5251-4fba-8ad9-a541311f2b9f",
+        "name": "Patrick Hope",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "1",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0219",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0219",
+          "email": "delphope@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-2",
+        "openstates_id": "ocd-person/d0de7acb-ce8d-4bb2-b6e5-99cefe5e76a6",
+        "name": "Adele McClure",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "2",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0375",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0375",
+          "email": "delamcclure@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-3",
+        "openstates_id": "ocd-person/ed935430-db59-4962-91f7-c0eeca2ef8e2",
+        "name": "Alfonso Lopez",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "3",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0239",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0239",
+          "email": "delalopez@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-4",
+        "openstates_id": "ocd-person/a0b9b444-ee25-48a1-ab61-cf0be462e89d",
+        "name": "Charniele Herring",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "4",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0208",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0208",
+          "email": "delcherring@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-5",
+        "openstates_id": "ocd-person/b0a785c3-d317-455f-9d0e-ab08a727e44f",
+        "name": "Kirk McPike",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "5",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0406.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0406",
+          "email": "delkmcpike@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-6",
+        "openstates_id": "ocd-person/658209cc-5e85-4c57-aa94-878089f3d816",
+        "name": "Rip Sullivan",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "6",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0269",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0269",
+          "email": "delrsullivan@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-7",
+        "openstates_id": "ocd-person/7c045b50-e18d-422e-b87f-26eb7b61d651",
+        "name": "Karen Keys-Gamarra",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "7",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0370",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0370",
+          "email": "delkkeys-gamarra@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-8",
+        "openstates_id": "ocd-person/3f02dc5d-5107-4620-add7-c32a2ea8bf44",
+        "name": "Irene Shin",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "8",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0344",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0344",
+          "email": "delishin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-9",
+        "openstates_id": "ocd-person/7ec1cbe4-667d-4dbb-a840-459449ccd5df",
+        "name": "Karrie Delaney",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "9",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0294",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0294",
+          "email": "delkdelaney@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-10",
+        "openstates_id": "ocd-person/5e5e025d-7e50-4c2f-ba81-720f19aa0d81",
+        "name": "Dan Helmer",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "10",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0317",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0317",
+          "email": "deldhelmer@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-11",
+        "openstates_id": "ocd-person/b151be46-5943-466a-afc5-93355840fe90",
+        "name": "Gretchen Bulova",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "11",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0403.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0403",
+          "email": "delgbulova@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-12",
+        "openstates_id": "ocd-person/745d2197-96c4-4e10-be1d-19f70c35f541",
+        "name": "Holly Seibold",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "12",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0351",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0351",
+          "email": "delhseibold@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-13",
+        "openstates_id": "ocd-person/ca122856-dfc5-4ba1-84bb-48fdcf7a36f5",
+        "name": "Marcus Simon",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "13",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0264",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0264",
+          "email": "delmsimon@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-14",
+        "openstates_id": "ocd-person/b251a648-d2d3-4799-8213-e803fed621de",
+        "name": "Vivian Watts",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "14",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0108",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0108",
+          "email": "delvwatts@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-15",
+        "openstates_id": "ocd-person/6840c55c-6496-44ce-8a60-3288e222ddc0",
+        "name": "Laura Jane Cohen",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "15",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/LauraJaneCohen.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0355",
+          "email": "delljcohen@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-16",
+        "openstates_id": "ocd-person/d90e6a36-4464-4481-b00d-74ed9964d45e",
+        "name": "Paul Krizek",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "16",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0281",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0281",
+          "email": "delpkrizek@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-17",
+        "openstates_id": "ocd-person/418a32b0-5822-4673-9293-e8363038805b",
+        "name": "Garrett McGuire",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "17",
+        "role": "Delegate",
+        "photo_url": "https://virginiamercury.com/wp-content/uploads/2026/01/611290992_122105542683186780_8562161094291278751_n.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0405",
+          "email": "delgmcguire@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-18",
+        "openstates_id": "ocd-person/ddba8b1b-8a1d-42c2-aba5-adc1331ee6f1",
+        "name": "Kathy Tran",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "18",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0305",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0305",
+          "email": "delktran@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-19",
+        "openstates_id": "ocd-person/892b7901-d71e-4d8b-b8d0-9034a3d4a066",
+        "name": "J.R. Henson",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "19",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0365",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0365",
+          "email": "delrhenson@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-20",
+        "openstates_id": "ocd-person/47e6d456-740e-4707-ae93-4b6efe8c0ce1",
+        "name": "Michelle Maldonado",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "20",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michelle-Maldonado.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0340",
+          "email": "delmmaldonado@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-21",
+        "openstates_id": "ocd-person/b6db5cc9-d9d3-4cbd-9532-6126a47c2ab3",
+        "name": "Josh Thomas",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "21",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Thomas_Headshot_HiRes-1-edited-1536x1536.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0382",
+          "email": "deljthomas@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-22",
+        "openstates_id": "ocd-person/34c31079-0077-4ce5-9985-d0f2a95a12a7",
+        "name": "Liz Guzmán",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "22",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0297",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0297",
+          "email": "deleguzman@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-23",
+        "openstates_id": "ocd-person/71c20dff-ae7b-4799-bd80-7e0c03c402fc",
+        "name": "Margaret Franklin",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "23",
+        "role": "Delegate",
+        "photo_url": "https://www.pwcva.gov/assets/2024-01/dsc_6818retouch.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0404",
+          "email": "delmfranklin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-24",
+        "openstates_id": "ocd-person/44ebbeab-055c-402b-a56e-bb7487d0da62",
+        "name": "Luke Torian",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "24",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0227",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0227",
+          "email": "delltorian@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-25",
+        "openstates_id": "ocd-person/23775904-887c-4a2c-9424-0683608193ba",
+        "name": "Briana Sewell",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "25",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0343",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0343",
+          "email": "delbsewell@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-26",
+        "openstates_id": "ocd-person/837c9441-c0d2-497e-80e9-955bf152831b",
+        "name": "J.J. Singh",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "26",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0385",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0385",
+          "email": "deljsingh@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-27",
+        "openstates_id": "ocd-person/38f25fcb-2f54-411a-84d5-2d1f748d4183",
+        "name": "Atoosa Reaser",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "27",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0380",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0380",
+          "email": "delareaser@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-28",
+        "openstates_id": "ocd-person/0258144f-e8e8-4710-a80c-362f2077f57b",
+        "name": "David Reid",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "28",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0301",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0301",
+          "email": "deldreid@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-29",
+        "openstates_id": "ocd-person/beaab5ae-3e8d-4c12-b388-a59cdc467771",
+        "name": "Marty Martinez",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "29",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0374",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0374",
+          "email": "delmmartinez@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-30",
+        "openstates_id": "ocd-person/fef2f7f3-d388-4bf6-818f-6a58ae193721",
+        "name": "John McAuliff",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "30",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0395.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0395",
+          "email": "deljmcauliff@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-31",
+        "openstates_id": "ocd-person/aabaa796-77f3-4b39-a626-ae05944ec484",
+        "name": "Delores Oates",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "31",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0377",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0377",
+          "email": "deldoates@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-32",
+        "openstates_id": "ocd-person/ec0c5f08-2974-4f9c-896c-34c9d5d33fac",
+        "name": "Bill Wiley",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "32",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0329",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0329",
+          "email": "delbwiley@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-33",
+        "openstates_id": "ocd-person/ee82c166-4df9-4e98-8399-1e10d48dcd06",
+        "name": "Justin Pence",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "33",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0398.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0398",
+          "email": "deljpence@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-34",
+        "openstates_id": "ocd-person/94fa59c7-00b0-4e15-9887-8af534217476",
+        "name": "Tony Wilt",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "34",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0231",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0231",
+          "email": "deltwilt@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-35",
+        "openstates_id": "ocd-person/bbb38d6c-3b3d-4ce8-bb2f-3d9346ff86f7",
+        "name": "Chris Runion",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "35",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0321",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0321",
+          "email": "delcrunion@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-36",
+        "openstates_id": "ocd-person/318cc276-b981-4744-82ff-1c7cc7d0c0b6",
+        "name": "Ellen McLaughlin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "36",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0350",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0350",
+          "email": "delemclaughlin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-37",
+        "openstates_id": "ocd-person/cb9573ab-1bf6-45d5-a8d7-476d7bed94a8",
+        "name": "Terry Austin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "37",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0253",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0253",
+          "email": "deltaustin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-38",
+        "openstates_id": "ocd-person/6ab67007-e48a-4048-bb7b-20a608a88f77",
+        "name": "Sam Rasoul",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "38",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0266",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0266",
+          "email": "delsrasoul@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-39",
+        "openstates_id": "ocd-person/53937ad8-9c5b-4493-95fc-a18565577dd8",
+        "name": "Will Davis",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "39",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0357",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0357",
+          "email": "delwdavis@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-40",
+        "openstates_id": "ocd-person/a0178eeb-c6bb-4e20-9024-f859d4780be6",
+        "name": "Joe McNamara",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "40",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0308",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0308",
+          "email": "deljmcnamara@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-41",
+        "openstates_id": "ocd-person/ae28ba3f-6c53-463c-ac43-a5549ef51d48",
+        "name": "Lily Franklin",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "41",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0393.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0393",
+          "email": "dellfranklin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-42",
+        "openstates_id": "ocd-person/80c98569-2ce0-44e9-8cf4-632f2dce684c",
+        "name": "Jason Ballard",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "42",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0333",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0333",
+          "email": "deljballard@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-43",
+        "openstates_id": "ocd-person/0f77b7d1-a89e-41cd-ae83-28d267dab0e2",
+        "name": "Will Morefield",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "43",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0224",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0224",
+          "email": "deljmorefield@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-44",
+        "openstates_id": "ocd-person/4524f0db-f682-4b90-9cd5-628eb1d16ca7",
+        "name": "Israel O'Quinn",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "44",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0242",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0242",
+          "email": "delioquinn@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-45",
+        "openstates_id": "ocd-person/9303514b-3bce-4ddc-87d2-17a6ba4d6194",
+        "name": "Terry Kilgore",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "45",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0056",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0056",
+          "email": "deltkilgore@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-46",
+        "openstates_id": "ocd-person/e766f1e0-8651-4cc2-a394-904fa6f3aea0",
+        "name": "Mitchell Cornett",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "46",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0390.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0390",
+          "email": "delmcornett@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-47",
+        "openstates_id": "ocd-person/d3a4b614-4a6f-4b38-b3cc-8990f0f7d4d3",
+        "name": "Wren Williams",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "47",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0348",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0348",
+          "email": "delwwilliams@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-48",
+        "openstates_id": "ocd-person/704cecad-ef53-44e4-ad55-6c7a7e385e5c",
+        "name": "Eric Phillips",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "48",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0384",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0384",
+          "email": "delephillips@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-49",
+        "openstates_id": "ocd-person/b448d4e4-ec11-452e-ae35-2bffc0662f75",
+        "name": "Madison Whittle",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "49",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0401.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0401",
+          "email": "delmwhittle@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-50",
+        "openstates_id": "ocd-person/894118dd-1470-48b7-b84b-831ddba58e1b",
+        "name": "Tommy Wright",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "50",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0136",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0136",
+          "email": "deltwright@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-51",
+        "openstates_id": "ocd-person/0bd1b9d6-e02e-4cb4-91c8-c87466ebf1db",
+        "name": "Eric Zehr",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "51",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0383",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0383",
+          "email": "delezehr@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-52",
+        "openstates_id": "ocd-person/18756686-0b6c-4a7d-ade9-db2cafcac870",
+        "name": "Wendell Walker",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "52",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0325",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0325",
+          "email": "delwwalker@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-53",
+        "openstates_id": "ocd-person/d112b6c3-e52f-4da4-a6fe-5866bf3f6799",
+        "name": "Tim Griffin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "53",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0364",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0364",
+          "email": "deltgriffin@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-54",
+        "openstates_id": "ocd-person/d0263d88-91b1-414d-b58b-1ff0523f75ec",
+        "name": "Katrina Callsen",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "54",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0354",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0354",
+          "email": "delkcallsen@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-55",
+        "openstates_id": "ocd-person/7e0776e4-a915-4758-a7b3-70ca42ce3fe4",
+        "name": "Amy Laufer",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "55",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0371",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0371",
+          "email": "delalaufer@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-56",
+        "openstates_id": "ocd-person/0bba07ba-7713-4ca7-8f44-699c832e0d2a",
+        "name": "Tom Garrett",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "56",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0362",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0362",
+          "email": "deltgarrett@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-57",
+        "openstates_id": "ocd-person/50a18b88-f257-4234-920f-cfa531a28be4",
+        "name": "May Nivar",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "57",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0397.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0397",
+          "email": "delmnivar@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-58",
+        "openstates_id": "ocd-person/8ec90d7b-fd5f-4157-b779-1979e7a54e76",
+        "name": "Rod Willett",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "58",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0327",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0327",
+          "email": "delrwillett@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-59",
+        "openstates_id": "ocd-person/e2ce02ec-6a92-435d-8ae2-bead5abe5ace",
+        "name": "Buddy Fowler",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "59",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0259",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0259",
+          "email": "delbfowler@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-60",
+        "openstates_id": "ocd-person/2a831795-d6fc-4635-88bf-4fd5f72ab1e7",
+        "name": "Scott Wyatt",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "60",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0328",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0328",
+          "email": "delswyatt@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-61",
+        "openstates_id": "ocd-person/bf425b62-d078-45bd-957c-baceb4bfad1b",
+        "name": "Mike Webert",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "61",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0247",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0247",
+          "email": "delmwebert@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-62",
+        "openstates_id": "ocd-person/b209f24e-0f1f-4f80-b2d9-1c05ee94ba4e",
+        "name": "Karen Hamilton",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "62",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0394.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0394",
+          "email": "delkhamilton@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-63",
+        "openstates_id": "ocd-person/6a07d7b6-a4b4-42f8-9a06-6a860249f5b9",
+        "name": "Phil Scott",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "63",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0342",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0342",
+          "email": "delpscott@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-64",
+        "openstates_id": "ocd-person/4caa245e-038f-4a7f-8cb3-ecd9da716885",
+        "name": "Stacey Carroll",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "64",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0388.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0388",
+          "email": "delscarroll@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-65",
+        "openstates_id": "ocd-person/986f0601-025b-4fa7-acda-b2d3c2280784",
+        "name": "Josh Cole",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "65",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0314",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0314",
+          "email": "deljcole@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-66",
+        "openstates_id": "ocd-person/f09abfed-0fb2-4ef3-966c-4cc0246b701d",
+        "name": "Nicole Cole",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "66",
+        "role": "Delegate",
+        "photo_url": "https://static.wixstatic.com/media/b64009_9f1620ff00c14cdcbfec5e257ba8edd7~mv2.jpg/v1/crop/x_0,y_0,w_2870,h_3177/fill/w_382,h_478,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_0348_EDIT.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0389",
+          "email": "delncole@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-67",
+        "openstates_id": "ocd-person/ec11a019-459d-4184-b0d7-8e88ab5f7dd6",
+        "name": "Hillary Pugh Kent",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "67",
+        "role": "Delegate",
+        "photo_url": "https://static.wixstatic.com/media/8f5763_3acf103cae51400f8e2caa87b932d971~mv2.jpg/v1/fill/w_402,h_357,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/8f5763_3acf103cae51400f8e2caa87b932d971~mv2.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0369",
+          "email": "delhkent@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-68",
+        "openstates_id": "ocd-person/06c0d909-22c8-4d71-9b6c-cc363a0c9553",
+        "name": "Keith Hodges",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "68",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0238",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0238",
+          "email": "delkhodges@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-69",
+        "openstates_id": "ocd-person/3ae2755c-8274-4d09-bad4-243275577ba2",
+        "name": "Mark Downey",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "69",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0392.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0392",
+          "email": "delmdowney@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-70",
+        "openstates_id": "ocd-person/8329b3a6-9d6f-427e-9342-e53277e7c6ff",
+        "name": "Shelly Simonds",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "70",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0323",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0323",
+          "email": "delssimonds@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-71",
+        "openstates_id": "ocd-person/f2a47eb9-0839-48e8-baf2-c2d638bf380b",
+        "name": "Jessica Anderson",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "71",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jessica_Anderson_20251008_030628.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0386",
+          "email": "deljanderson@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-72",
+        "openstates_id": "ocd-person/865dace5-518d-4f4f-b393-c197064affe6",
+        "name": "Lee Ware",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "72",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0124",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0124",
+          "email": "dellware@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-73",
+        "openstates_id": "ocd-person/9c41c70b-7162-48e5-a868-aca213cf8f6d",
+        "name": "Leslie Mehta",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "73",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0396.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0396",
+          "email": "dellmehta@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-74",
+        "openstates_id": "ocd-person/32b96a0d-662a-4c8f-9b2b-f86365640624",
+        "name": "Mike Cherry",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "74",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0335",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0335",
+          "email": "delmcherry@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-75",
+        "openstates_id": "ocd-person/1084ab28-a14a-4814-8501-96cfd1b17d1d",
+        "name": "Lindsey Dougherty",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "75",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0391.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0391",
+          "email": "delldougherty@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-76",
+        "openstates_id": "ocd-person/28a2a753-16db-4236-baf0-398c0cafa259",
+        "name": "Debra Gardner",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "76",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0361",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0361",
+          "email": "deldgardner@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-77",
+        "openstates_id": "ocd-person/2bb39b59-47d3-4e05-aa76-fc0df791faa7",
+        "name": "Charlie Schmidt",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "77",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0402.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0402",
+          "email": "delcschmidt@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-78",
+        "openstates_id": "ocd-person/a6f78488-1c78-4409-8c4a-bf0d0920e852",
+        "name": "Betsy Carr",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "78",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0212",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0212",
+          "email": "delbcarr@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-79",
+        "openstates_id": "ocd-person/359eaeba-903c-42b4-b9e3-5c5b4e9d721d",
+        "name": "Rae Cousins",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "79",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0356.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0356",
+          "email": "delrcousins@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-80",
+        "openstates_id": "ocd-person/43d936f6-2ae8-42fe-a9a9-a4f139842afa",
+        "name": "Destiny LeVere Bolling",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "80",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Destiny_LeVere_Bolling.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0372",
+          "email": "deldleverebolling@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-81",
+        "openstates_id": "ocd-person/4ae07d5d-1da3-4370-b796-7698013ca994",
+        "name": "Delores McQuinn",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "81",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0207",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0207",
+          "email": "deldmcquinn@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-82",
+        "openstates_id": "ocd-person/9f8c35c8-2a50-407f-815a-603b9c9d8bad",
+        "name": "Kim Adams",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "82",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0399.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0399",
+          "email": "delkpopeadams@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-83",
+        "openstates_id": "ocd-person/496f9aa1-91ba-4386-9530-f52ea56e17bf",
+        "name": "Otto Wachsmann",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "83",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0347",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0347",
+          "email": "delowachsmann@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-84",
+        "openstates_id": "ocd-person/a7fd18db-f30c-45c6-aa90-bdb6f2ce412b",
+        "name": "Nadarius Clark",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "84",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0336",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0336",
+          "email": "delnclark@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-85",
+        "openstates_id": "ocd-person/58b46062-f618-4b27-b0ec-3bbb57db839b",
+        "name": "Cia Price",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "85",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0284",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0284",
+          "email": "delmprice@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-86",
+        "openstates_id": "ocd-person/63c0c8ef-ded6-406e-9d5d-a114fa35e26a",
+        "name": "Virgil Thornton",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "86",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0400.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0400",
+          "email": "delvthornton@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-87",
+        "openstates_id": "ocd-person/f3e15ab0-8419-43c2-ab7a-f3984419d1eb",
+        "name": "Jeion Ward",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "87",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0173",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0173",
+          "email": "deljward@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-88",
+        "openstates_id": "ocd-person/f8cafb3b-ed12-40e9-b062-318790434179",
+        "name": "Don Scott",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "88",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0322",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0322",
+          "email": "deldscott@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-89",
+        "openstates_id": "ocd-person/aeba499e-3396-4787-bd81-e9b16a8898f7",
+        "name": "Kacey Carnegie",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "89",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0387.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0387",
+          "email": "delkcarnegie@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-90",
+        "openstates_id": "ocd-person/a551cb4b-014c-4423-a9d7-7a35cc0c7bdd",
+        "name": "Jay Leftwich",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "90",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0262",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0262",
+          "email": "deljleftwich@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-91",
+        "openstates_id": "ocd-person/77b071e3-b8fa-4455-b2e6-3d487a8145c8",
+        "name": "Cliff Hayes",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "91",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0285",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0285",
+          "email": "delchayes@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-92",
+        "openstates_id": "ocd-person/725be36e-2485-4f9f-a15f-86c574cc8d4b",
+        "name": "Bonita Anthony",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "92",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0353",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0353",
+          "email": "delbanthony@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-93",
+        "openstates_id": "ocd-person/dae8ce89-647a-407a-9550-60c404a89e29",
+        "name": "Jackie Glass",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "93",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0349",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0349",
+          "email": "deljglass@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-94",
+        "openstates_id": "ocd-person/bbd31428-1b2b-48c6-aa76-cb785e91ca8f",
+        "name": "Phil Hernandez",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "94",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0366",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0366",
+          "email": "delphernandez@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-95",
+        "openstates_id": "ocd-person/3a48fc34-a650-4fd5-acea-e703e2b8de90",
+        "name": "Alex Askew",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "95",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0311",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0311",
+          "email": "delaaskew@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-96",
+        "openstates_id": "ocd-person/bf558d98-23da-41c4-8ae2-4dc45631808c",
+        "name": "Kelly Fowler",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "96",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0295",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0295",
+          "email": "delkconvirs-fowler@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-97",
+        "openstates_id": "ocd-person/cbf3268e-ced2-4aad-8ed1-18e4f37534ec",
+        "name": "Michael Feggans",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "97",
+        "role": "Delegate",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/598f6428d482e9b47f6c2f82/56c91f83-d16a-4ba2-adcb-75d312e265bd/Michael_Feggans_HD97.jpeg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0360",
+          "email": "delmfeggans@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-98",
+        "openstates_id": "ocd-person/7517f920-b2ba-4759-a80a-246816ebb09b",
+        "name": "Andrew Rice",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "98",
+        "role": "Delegate",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/AndrewRiceVA26.png",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0407",
+          "email": "delarice@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-99",
+        "openstates_id": "ocd-person/9fd6fbd7-5e4e-4426-9d5a-43173ab01489",
+        "name": "Anne Ferrell Tata",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "99",
+        "role": "Delegate",
+        "photo_url": "https://house.vga.virginia.gov/delegate_photos/H0345.jpg",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0345",
+          "email": "delaftata@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "va-rep-100",
+        "openstates_id": "ocd-person/10868c64-b4b8-41ca-90ac-a981f9fa47ff",
+        "name": "Rob Bloxom",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "100",
+        "role": "Delegate",
+        "photo_url": "https://memdata.virginiageneralassembly.gov/images/display_image/H0267",
+        "contact": {
+          "official_website": "https://house.vga.virginia.gov/members/H0267",
+          "email": "delrbloxom@house.virginia.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

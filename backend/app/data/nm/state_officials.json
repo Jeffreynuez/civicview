@@ -1,0 +1,1844 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "NM",
+  "state_name": "New Mexico",
+  "executive": {
+    "governor": {
+      "id": "nm-exec-gov",
+      "name": "Michelle Lujan Grisham",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://www.governor.state.nm.us",
+      "photo_url": null,
+      "bio": "Michelle Lujan Grisham is the Governor of New Mexico, serving since 2019.",
+      "sources": [
+        "https://www.governor.state.nm.us"
+      ]
+    },
+    "lt_governor": {
+      "id": "nm-exec-lieutenant-governor",
+      "name": "Howie C. Morales",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://www.lgo.nm.gov/wp-content/uploads/2019/08/lt-gov-howie-morales-headshot.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "nm-exec-attorney-general",
+        "name": "Raúl Torrez",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-NM-Torrez.png"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "New Mexico State Senate",
+    "members": [
+      {
+        "id": "nm-sen-1",
+        "openstates_id": "ocd-person/7a7be318-78b1-49c6-bd98-f2b9b7476372",
+        "name": "Bill Sharer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSHAR.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/william-sharer-71248033/",
+          "email": "bill@williamsharer.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-2",
+        "openstates_id": "ocd-person/82ac8832-cb59-4ea3-b6e7-a74e2115f37d",
+        "name": "Steve Lanier",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.naco.org/sites/default/files/styles/349x333/public/Steve%20Lanier.webp",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SLANI",
+          "email": "steve.lanier@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-3",
+        "openstates_id": "ocd-person/fa98430a-5031-4c64-bd6d-8a6f0cc4043e",
+        "name": "Shannon Pinto",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SPINS.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SPINS",
+          "email": "shannon.pinto@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-4",
+        "openstates_id": "ocd-person/b4c20aea-b56c-4a19-a89a-788c53d995d7",
+        "name": "George Muñoz",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SMUNO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SMUNO",
+          "email": "george.munoz@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-5",
+        "openstates_id": "ocd-person/9b0d6912-d333-4ae7-b626-ce643099a43d",
+        "name": "Leo Jaramillo",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SJARA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SJARA",
+          "email": "leo.jaramillo@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-6",
+        "openstates_id": "ocd-person/5e9a828c-3dfb-4f88-8dfe-f8fccf11ef78",
+        "name": "Bobby Gonzales",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SGONZ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SGONZ",
+          "email": "roberto.gonzales@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-7",
+        "openstates_id": "ocd-person/6a28626b-9919-4d77-9b62-44ad1d45215d",
+        "name": "Pat Woods",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SWOOD.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/pat-woods-abb44b46/",
+          "email": "pat.woods@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-8",
+        "openstates_id": "ocd-person/e2f7dd70-36fc-4b65-8dfd-19fcc1d63e38",
+        "name": "Pete Campos",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SCAMP.jpg",
+        "contact": {
+          "official_website": "https://petecampos.com",
+          "email": "pete.campos@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-9",
+        "openstates_id": "ocd-person/631f715e-754c-4410-a967-1e5a928ae971",
+        "name": "Cindy Nava",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/cms.ipressroom.com/175/files/20187/5b883c6f2cfac267c6377417_Cindy+Nava+1/Cindy+Nava+1_mid.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SNACI",
+          "email": "cindy.nava@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-10",
+        "openstates_id": "ocd-person/cce76180-bf09-413a-9d9d-1cc8ae7cf2db",
+        "name": "Katy Duhigg",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SDUHI.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SDUHI",
+          "email": "katy.duhigg@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-11",
+        "openstates_id": "ocd-person/ecc60fc8-8598-4650-8a55-6e91d24e991e",
+        "name": "Linda López",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SLOPE.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/linda-lopez-018b9111/",
+          "email": "linda.lopez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-12",
+        "openstates_id": "ocd-person/ee5fab91-b6eb-43be-bf26-300302eec5d1",
+        "name": "Jay Block",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jay_Block.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBLOC",
+          "email": "jay.block@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-13",
+        "openstates_id": "ocd-person/e347c564-d1f5-4fb8-a24d-47218fa754e7",
+        "name": "Debbie O'Malley",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.naco.org/sites/default/files/styles/349x333/public/PIC_OMalley%2C%20Debbie.webp",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SOMAL",
+          "email": "debbie.o'malley@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-14",
+        "openstates_id": "ocd-person/ce888eff-62f5-41c0-9114-651c43f77aba",
+        "name": "Michael Padilla",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SPADI.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/michaelpadilla1/",
+          "email": "michael.padilla@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-15",
+        "openstates_id": "ocd-person/e5d44d75-76df-41fc-87ae-27bc4c943d50",
+        "name": "Heather Berghmans",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/HeatherBerghmans24.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBERG",
+          "email": "heather.berghmans@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-16",
+        "openstates_id": "ocd-person/3dcac810-1d9b-4a4d-9e82-8b6e49eba735",
+        "name": "Antoinette Sedillo Lopez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSEDI.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/antoinette-sedillo-lopez-ab3a5014/",
+          "email": "a.sedillolopez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-17",
+        "openstates_id": "ocd-person/f1144347-0a16-43e4-97b9-01308a890631",
+        "name": "Mimi Stewart",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSTEW.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSTEW",
+          "email": "mimi.stewart@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-18",
+        "openstates_id": "ocd-person/48969449-b004-4ca3-a72b-8508e95e0051",
+        "name": "Natalie Figueroa",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HFIGU.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/natalie-figueroa-150a0670/",
+          "email": "natalie.figueroa@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-19",
+        "openstates_id": "ocd-person/02d806fd-fb8f-4d66-b9b8-6dacd2bd9656",
+        "name": "Ant Thornton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://antthorntonfornm.com/wp-content/uploads/2024/02/Ant-Thornton-768x768.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=STHOR",
+          "email": "anthony.thornton@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-20",
+        "openstates_id": "ocd-person/88fd357f-3fb1-4c2b-b49b-555231011c46",
+        "name": "Martin Hickey",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SHICK.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SHICK",
+          "email": "martin.hickey@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-21",
+        "openstates_id": "ocd-person/daefbf8d-768f-4dab-8f4f-0a272e2cb697",
+        "name": "Nicole Tobiassen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://nicolefornm.com/wp-content/uploads/2023/06/Nicole-Tobiassen-Headshot-3-768x512.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=STOBI",
+          "email": "nicole.tobiassen@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-22",
+        "openstates_id": "ocd-person/145aba4a-89ba-4c17-b1ec-2f4b568f5048",
+        "name": "Benny Shendo",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSHEN.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSHEN",
+          "email": "benny.shendo@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-23",
+        "openstates_id": "ocd-person/713e2881-4ecb-4d66-9bd3-6422c898df91",
+        "name": "Harold Pope",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SPOPE.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SPOPE",
+          "email": "harold.popejr@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-24",
+        "openstates_id": "ocd-person/4cbcf352-3f7a-412d-afc6-568dc4b94400",
+        "name": "Linda Trujillo",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "http://www.nmlegis.gov/Images/Legislators/House/HTRUL.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTRUL",
+          "email": "linda.trujillo@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-25",
+        "openstates_id": "ocd-person/7595b557-0c70-44e3-a26b-af533d1ca94d",
+        "name": "Peter Wirth",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SWIRT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SWIRT",
+          "email": "peter.wirth@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-26",
+        "openstates_id": "ocd-person/2913173a-2bfe-4474-8bdc-d145f868c4de",
+        "name": "Moe Maestas",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SMAEM.jpg",
+        "contact": {
+          "official_website": "https://nmlegis.gov/Members/Legislator?SponCode=smaem",
+          "email": "antonio.maestas@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-27",
+        "openstates_id": "ocd-person/4093c9b8-d07a-4a12-b13b-abbd4130b1fe",
+        "name": "Pat Boone",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://senatorpatboone.com/wp-content/uploads/2024/03/Pat-Boone-Photo-1.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBOON",
+          "email": "pat.boone@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-28",
+        "openstates_id": "ocd-person/6677ca7f-f961-44f1-a241-d14280762f5d",
+        "name": "Gabriel Ramos",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "http://www.nmlegis.gov/Images/Legislators/Senate/SRAMO.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/gabriel-ramos-a5aa74109/",
+          "email": "gabriel.ramos@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-29",
+        "openstates_id": "ocd-person/82528266-9d6a-4fb3-854e-be9ab6a549b7",
+        "name": "Joshua Sanchez",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSANJ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSANJ",
+          "email": "jas4nm@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-30",
+        "openstates_id": "ocd-person/948ee9a0-a718-46f1-a1fe-35eb97f01fad",
+        "name": "Angel Charley",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/65a92fa05202ee2b13428333/630e642f-dfc6-48c0-930b-c25b16d80e76/Headshot.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SCHAR",
+          "email": "angel.charley@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-31",
+        "openstates_id": "ocd-person/14f0186e-bf9b-46aa-aa00-1ccc8f58490b",
+        "name": "Joe Cervantes",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SCERV.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SCERV",
+          "email": "joseph.cervantes@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-32",
+        "openstates_id": "ocd-person/46464f19-1bda-489f-93cf-3772d0445407",
+        "name": "Candy Ezzell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HEZZE.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HEZZE",
+          "email": "csecows@aol.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-33",
+        "openstates_id": "ocd-person/0884aac3-cddb-4374-88e1-94bf623410f3",
+        "name": "Rex Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SWIRE",
+          "email": "rex.wilson@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-34",
+        "openstates_id": "ocd-person/667a8a3c-dbe9-4aba-b768-e90be503df88",
+        "name": "Jim Townsend",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HTOWJ.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/jim-townsend-5897b633/",
+          "email": "townsend@pvtn.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-35",
+        "openstates_id": "ocd-person/1ed6a003-54c1-4da3-b297-0cec8ddf4882",
+        "name": "Crystal Brantley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SDIAM.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBRAC",
+          "email": "crystal.diamond@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-36",
+        "openstates_id": "ocd-person/601202fc-f916-4be1-ae20-8c437293817e",
+        "name": "Jeff Steinborn",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSTEI.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/jeff-steinborn-57879346/",
+          "email": "jeff.steinborn@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-37",
+        "openstates_id": "ocd-person/33aa9a6b-b106-4216-8ea5-82d85cd2250a",
+        "name": "Bill Soules",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSOUL.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSOUL",
+          "email": "bill.soules@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-38",
+        "openstates_id": "ocd-person/83df260f-2110-4d39-8e19-6a2edc33491d",
+        "name": "Carrie Hamblen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SHAMB.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SHAMB",
+          "email": "carrie.hamblen@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-39",
+        "openstates_id": "ocd-person/1ed4e059-94c6-4404-b28e-0dc572112d03",
+        "name": "Liz Stefanics",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SSTEF.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/liz-stefanics-140488151/",
+          "email": "lstefanics@msn.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-40",
+        "openstates_id": "ocd-person/365e015d-5011-4126-8b07-0b0f90a949c7",
+        "name": "Craig Brandt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SBRAN.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/craigbrandtnm/",
+          "email": "craig.brandt@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-41",
+        "openstates_id": "ocd-person/9d5296b7-b8b1-40c8-a8ce-246f719b8ff0",
+        "name": "David Gallegos",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SGADM.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/david-gallegos-02427756/",
+          "email": "david@ramirezandsonsinc.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-sen-42",
+        "openstates_id": "ocd-person/febbd8f4-a85e-476c-b96f-52f4f759f8c7",
+        "name": "Larry Scott",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSCOT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSCOT",
+          "email": "larry.scott@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "New Mexico State House",
+    "members": [
+      {
+        "id": "nm-rep-1",
+        "openstates_id": "ocd-person/948ba2f7-fd71-42ed-a35a-e692b76d2ca2",
+        "name": "Rod Montoya",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMONR.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMONR",
+          "email": "rod.montoya@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-2",
+        "openstates_id": "ocd-person/aa8f331c-d541-4acd-b025-e218e01764e2",
+        "name": "Mark Duncan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HDUNC.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDUNC",
+          "email": "mark.duncan@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-3",
+        "openstates_id": "ocd-person/e0e4fcc9-1e0c-49f8-894d-223c863d61f8",
+        "name": "Bill Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHABI",
+          "email": "bill.hall@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-4",
+        "openstates_id": "ocd-person/854e0c8a-0093-4282-8544-8d20bafde8f6",
+        "name": "Joseph Hernandez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://progressivevotersguide.com/sites/default/files/styles/candidate/public/new%20mexico/2024/general/Joseph%20H.jpg?itok=DRcr52HE",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHEJO",
+          "email": "joseph.hernandez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-5",
+        "openstates_id": "ocd-person/69fcccf7-9cfb-4c8f-978a-c85fbd55922d",
+        "name": "Wonda Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HJOHD.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HJOHD",
+          "email": "dwonda.johnson@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-6",
+        "openstates_id": "ocd-person/fb0443f9-b6d7-4b3b-a87e-0d8b143ed64b",
+        "name": "Martha Garcia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/members/Legislator?SponCode=HGAMA",
+          "email": "martha.garcia@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-7",
+        "openstates_id": "ocd-person/f2394325-2797-4403-8f77-7f4dd3db0bb9",
+        "name": "Tanya Moya",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMIRA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMIRA",
+          "email": "tanya.mirabalmoya@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-8",
+        "openstates_id": "ocd-person/05f3609c-c2a6-42fc-bf6a-5141f8050ff8",
+        "name": "Brian Baca",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HBACB.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBACB",
+          "email": "brian.baca@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-9",
+        "openstates_id": "ocd-person/94eed261-74bb-4f8b-a0ab-62b2a7ff8e98",
+        "name": "Patty Lundstrom",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLUND.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/patty-lundstrom-a47ba450/",
+          "email": "patricia.lundstrom@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-10",
+        "openstates_id": "ocd-person/5cf6976d-e616-4579-a194-ec3c37260ebd",
+        "name": "Andrés Romero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HROMA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HROMA",
+          "email": "andres.romero@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-11",
+        "openstates_id": "ocd-person/221a42af-f54f-4e66-b648-9b0028165595",
+        "name": "Javier Martínez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMARJ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMARJ",
+          "email": "javier.martinez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-12",
+        "openstates_id": "ocd-person/057c7d79-a168-4b7b-ae96-66cf41e4f115",
+        "name": "Art De La Cruz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HDELA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDELA",
+          "email": "art.delacruz@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-13",
+        "openstates_id": "ocd-person/20dc90cf-7805-4609-8631-45db1973cd5c",
+        "name": "Pat Roybal Caballero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HROYB.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/patricia-roybal-caballero-2007b135/",
+          "email": "pat.roybalcaballero@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-14",
+        "openstates_id": "ocd-person/3363aa83-2490-4631-b04b-9a52fdbad14b",
+        "name": "Miguel García",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HGAMP.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGAMP",
+          "email": "miguel.garcia@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-15",
+        "openstates_id": "ocd-person/124f1c82-12f1-45ab-b21e-67cc4a529d18",
+        "name": "Day Hochman-Vigil",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHOCH.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/day-hochman-vigil-3536a036/",
+          "email": "dayan.hochman-vigil@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-16",
+        "openstates_id": "ocd-person/bc947ac1-c584-4e5f-84a9-ea9f6ac959c6",
+        "name": "Yanira Gurrola",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HGURR.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGURR",
+          "email": "yanira.gurrola@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-17",
+        "openstates_id": "ocd-person/2e2ecadf-7236-48c5-8145-e7fea6fcd393",
+        "name": "Cynthia Borrego",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HBORR.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBORR",
+          "email": "cynthia.borrego@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-18",
+        "openstates_id": "ocd-person/bc194113-8c8a-4cba-b1f4-25269c72a9fd",
+        "name": "Marianna Anaya",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MariannaAnaya.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HANMA",
+          "email": "marianna.anaya@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-19",
+        "openstates_id": "ocd-person/bc8985ad-c6e6-42cd-b2d5-30688e4616a1",
+        "name": "Janelle Anyanonu",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HANYA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HANYA",
+          "email": "janelle.anyanonu@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-20",
+        "openstates_id": "ocd-person/ac49b3cf-9fb8-4fa1-af55-4b35a6570c87",
+        "name": "Meredith Dixon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HDIXO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDIXO",
+          "email": "meredith.dixon@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-21",
+        "openstates_id": "ocd-person/8cb27ec7-dc78-49b1-bc3f-18ad2beb76b6",
+        "name": "Debbie Sariñana",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSARI.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/debra-sarinana-05a362141/",
+          "email": "debbie.sarinana@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-22",
+        "openstates_id": "ocd-person/eef5df5d-b9da-4ac3-9a3e-7f6ba775e6d7",
+        "name": "Stefani Lord",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLORD.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLORD",
+          "email": "stefani.lord@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-23",
+        "openstates_id": "ocd-person/be61f240-c0ad-4a98-8ad5-d30f4c5f4a06",
+        "name": "Alan Martinez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMAAL.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMAAL",
+          "email": "alan.martinez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-24",
+        "openstates_id": "ocd-person/13ad8eb1-a64f-4a08-8c68-a1488466128f",
+        "name": "Liz Thomson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HTHOE.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTHOE",
+          "email": "liz.thomson@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-25",
+        "openstates_id": "ocd-person/8819e763-061e-4f30-9828-af635428b41a",
+        "name": "Cristina Parajón",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HPARA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HPARA",
+          "email": "cristina.parajon@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-26",
+        "openstates_id": "ocd-person/19ad7971-bfe4-49e2-bc0f-c5416df1f241",
+        "name": "Eleanor Chávez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HCHAL.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHAL",
+          "email": "eleanor.chavez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-27",
+        "openstates_id": "ocd-person/c2fb0283-189c-4b0c-9d99-7b70d2f62c40",
+        "name": "Marian Matthews",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMATT.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/marianmatthews/",
+          "email": "marian.matthews@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-28",
+        "openstates_id": "ocd-person/800d2a2e-1622-4ab2-b290-3c537b38bdf8",
+        "name": "Pamelya Herndon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHEPA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHEPA",
+          "email": "pamelya.herndon@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-29",
+        "openstates_id": "ocd-person/930a9ffb-d292-49d5-8c43-c42bdab290ff",
+        "name": "Joy Garratt",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HGARR.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/joygarratt/",
+          "email": "joy.garratt@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-30",
+        "openstates_id": "ocd-person/c8e6de13-632b-4e09-8d1f-ff8ab2431acc",
+        "name": "Diane Torres-Velásquez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/4db618_2eb9e70e0469459fa20a1b6a172d7f67~mv2.jpg/v1/fill/w_200,h_200,fp_0.47_0.36,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/image000000.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTOLE",
+          "email": "diane.torres-velasquez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-31",
+        "openstates_id": "ocd-person/f2ed2dd1-ba2d-48cd-8365-cbb149b459e9",
+        "name": "Nicole Chavez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/NicoleChavez.jpeg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHNI",
+          "email": "nicole.chavez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-32",
+        "openstates_id": "ocd-person/6968fa09-cbf8-42a5-a5a6-132b0b663103",
+        "name": "Jenifer Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HJONJ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HJONJ",
+          "email": "jenifer.jones@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-33",
+        "openstates_id": "ocd-person/5b9af862-0f9f-42b2-a694-f80055129d6c",
+        "name": "Micaela Cadena",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HCADA.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/micaela-cadena-95541a183/",
+          "email": "micaela.cadena@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-34",
+        "openstates_id": "ocd-person/e8d69d4c-dfd4-4e22-939a-cc356ba7ac05",
+        "name": "Ray Lara",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLARA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLARA",
+          "email": "raymundo.lara@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-35",
+        "openstates_id": "ocd-person/ea2a9403-248c-4474-aea0-47b45265e0be",
+        "name": "Angelica Rubio",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HRUBI.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/angelicarubio/",
+          "email": "angelica.rubio@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-36",
+        "openstates_id": "ocd-person/57440e55-06ad-4f1f-8aa5-3bdd31a805dd",
+        "name": "Nathan Small",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSMAL.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/nathan-small-20685816/",
+          "email": "nathan.small@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-37",
+        "openstates_id": "ocd-person/05309266-c7a0-455b-94f2-ebf1d436daff",
+        "name": "Joanne Ferrary",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HFERJ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HFERJ",
+          "email": "joanne.ferrary@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-38",
+        "openstates_id": "ocd-person/2904a9a3-7e21-4c6f-b40a-e79288ca1b49",
+        "name": "Rebecca Dow",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HDOWR.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/rebecca-dow-43670a15/",
+          "email": "rebecca.dow@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-39",
+        "openstates_id": "ocd-person/6f02eec7-0afe-4f15-ad56-653148da00c0",
+        "name": "Luis Terrazas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HTERR.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTERR",
+          "email": "luis.terrazas@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-40",
+        "openstates_id": "ocd-person/0ed175a3-3c71-4b42-bf53-9435d0f93f52",
+        "name": "Joseph Sanchez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSAJO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSAJO",
+          "email": "joseph.sanchez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-41",
+        "openstates_id": "ocd-person/d5d0e9d9-bd6f-4f28-9a3f-13a56cadcc0f",
+        "name": "Susan Herrera",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHERS.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/susan-herrera-62757815/",
+          "email": "susan.herrera@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-42",
+        "openstates_id": "ocd-person/0dd8a8ff-99c5-4d1a-90fb-3b74398a4141",
+        "name": "Kristina Ortez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HORTE.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HORTE",
+          "email": "kristina.ortez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-43",
+        "openstates_id": "ocd-person/6ecab682-9ccf-4777-940d-afa418b601b8",
+        "name": "Chris Chandler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HCHAN.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/christine-chandler-b567865a/",
+          "email": "christine.chandler@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-44",
+        "openstates_id": "ocd-person/73fc9839-619a-4ad5-bbbd-dfaf7f308e09",
+        "name": "Kathleen Cates",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HCATE.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCATE",
+          "email": "kathleen.cates@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-45",
+        "openstates_id": "ocd-person/570bb94a-0500-44de-8983-ca259e0d4a60",
+        "name": "Linda Serrato",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSERR.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSERR",
+          "email": "linda.serrato@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-46",
+        "openstates_id": "ocd-person/ed0ba54a-4fc3-4c50-aa0d-f74b1f0e86f6",
+        "name": "Andrea Romero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HROAN.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/andreadromero/",
+          "email": "andrea@andrearomero.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-47",
+        "openstates_id": "ocd-person/0b7d9451-0462-4064-b28e-6d44123edd1e",
+        "name": "Reena Szczepanski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HSZCZ.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSCZE",
+          "email": "reena.szczepanski@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-48",
+        "openstates_id": "ocd-person/a564eb5c-5c29-43ef-a40f-241efb70ef8d",
+        "name": "Tara Luján",
+        "party": "D",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLUTA.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLUTA",
+          "email": "tara.lujan@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-49",
+        "openstates_id": "ocd-person/9564298b-dc55-4037-8205-5eca1c2063dc",
+        "name": "Gail Armstrong",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HARMG.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HARMG",
+          "email": "gail@gailfornewmexico.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-50",
+        "openstates_id": "ocd-person/e3affc46-1790-48ba-ae36-5c00473d6c35",
+        "name": "Matthew McQueen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMCQU.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/matthew-mcqueen-86a8322/",
+          "email": "matthew.mcqueen@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-51",
+        "openstates_id": "ocd-person/fd2e3bdc-3ca7-495c-b853-8a4db020e4d0",
+        "name": "John Block",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HBLOC.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBLOC",
+          "email": "john.block@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-52",
+        "openstates_id": "ocd-person/6563f869-64f5-42fb-9707-263fee6f59dc",
+        "name": "Doreen Gallegos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HGADO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGADO",
+          "email": "doreen.gallegos@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-53",
+        "openstates_id": "ocd-person/a9377979-b109-4e11-b338-89b203c04527",
+        "name": "Sarah Silva",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/66d0e643284c6d63d067a073/8916e12c-d13c-49fb-810a-2c7ffb58d300/SilvaSarah.JPG",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSISA",
+          "email": "sarah.silva@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-54",
+        "openstates_id": "ocd-person/3c29303f-1a07-4767-9172-b7f453918d77",
+        "name": "Jon Henry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/810348/810348.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHENR",
+          "email": "jonathan.henry@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-55",
+        "openstates_id": "ocd-person/8b51e39c-5f4c-48dd-affd-b97c6062d87e",
+        "name": "Cathrynn Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HBROW.jpg",
+        "contact": {
+          "official_website": "https://www.linkedin.com/in/cathrynnbrown/",
+          "email": "c.brown.nm55@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-56",
+        "openstates_id": "ocd-person/e7e8e973-411b-45fd-8fd7-7e4ea7d9f1be",
+        "name": "Harlan Vincent",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HVINC.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HVINC",
+          "email": "harlan.vincent@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-57",
+        "openstates_id": "ocd-person/35f36593-4252-4205-b123-cc7236e96954",
+        "name": "Catherine Cullen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://cullen4nm.com/wp-content/plugins/phastpress/phast.php/c2VydmljZT1pbWFnZXMmc3JjPWh0dHBzJTNBJTJGJTJGY3VsbGVuNG5tLmNvbSUyRndwLWNvbnRlbnQlMkZ1cGxvYWRzJTJGMjAyNCUyRjA3JTJGSU1HXzMyMjguanBnJmNhY2hlTWFya2VyPTE3MzAxNTM0NzYtMTUyNzQyJnRva2VuPTU0MDM0MzcxMmJiYWYyZmY.q.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCUCA",
+          "email": "catherine.cullen@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-58",
+        "openstates_id": "ocd-person/75986bbd-3629-4520-a770-f86c46f423ab",
+        "name": "Angelita Mejia",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/rdrnews.com/content/tncms/assets/v3/editorial/5/0f/50f20b06-de3c-11ee-8fb3-1b97c5eaf40c/65ec9fd35dc59.image.jpg?resize=457%2C500",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMEAN",
+          "email": "angelita.mejia@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-59",
+        "openstates_id": "ocd-person/406c0ab4-c372-42bc-ba14-77181dc7c418",
+        "name": "Mark Murphy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMURP",
+          "email": "mark.murphy@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-60",
+        "openstates_id": "ocd-person/71b8feb5-0bbd-45bd-9b25-c6dc7642962b",
+        "name": "Josh Hernandez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHERN.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHERN",
+          "email": "joshua.hernandez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-61",
+        "openstates_id": "ocd-person/a36bdc41-5666-4208-b8f0-8d9012d31f22",
+        "name": "Randy Pettigrew",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HPETT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HPETT",
+          "email": "randall.pettigrew@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-62",
+        "openstates_id": "ocd-person/810e1619-ebae-4139-be1e-778e252a09b0",
+        "name": "Elaine Sena Cortez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6101dbe38853cb26aaf1d169/482eeab7-b7c0-4dfc-bc83-1b4ecc0e66b4/945A8275-Edit.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSEEL",
+          "email": "elaine.senacortez@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-63",
+        "openstates_id": "ocd-person/dc968f82-503e-4246-9124-b880fd6ae3ae",
+        "name": "Martin Zamora",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HZAMO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HZAMO",
+          "email": "martin.zamora@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-64",
+        "openstates_id": "ocd-person/c4caca3c-faa3-445f-91e0-cce9edd53a5a",
+        "name": "Andi Reeb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HREEB.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HREEB",
+          "email": "andrea.reeb@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-65",
+        "openstates_id": "ocd-person/0421351b-6a8c-4731-bf93-5029d6b4feab",
+        "name": "Derrick Lente",
+        "party": "D",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLENT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLENT",
+          "email": "derrick.lente@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-66",
+        "openstates_id": "ocd-person/d92a32b1-e3ef-43d7-8e63-c24e59c52b3d",
+        "name": "Jimmy Mason",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HMASO.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMASO",
+          "email": "jimmy.mason@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-67",
+        "openstates_id": "ocd-person/c41b373a-7376-4084-b0de-3648cfce9b05",
+        "name": "Jack Chatfield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HCHAT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHAT",
+          "email": "jack.chatfield@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-68",
+        "openstates_id": "ocd-person/052e06cd-7f58-4c3c-8640-be1d8842a19b",
+        "name": "Charlotte Little",
+        "party": "D",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HLITC.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLITC",
+          "email": "charlotte.little@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-69",
+        "openstates_id": "ocd-person/8cc272e5-bf6a-441e-9b0a-407ed6361afa",
+        "name": "Paulene Abeyta",
+        "party": "D",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://womencount.org/wp-content/uploads/2024/03/Michelle-Paulene-Abeyta-300x300.jpeg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/members/Legislator?SponCode=HABMI",
+          "email": "michelle.abeyta@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nm-rep-70",
+        "openstates_id": "ocd-person/ee127909-55b5-4854-b3c6-2e45e19b7156",
+        "name": "Anita Gonzales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://anita4newmexico.com/wp-content/uploads/2024/02/Anita-ABOUT.jpg",
+        "contact": {
+          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGOAN",
+          "email": "anita.gonzales@nmlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

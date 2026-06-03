@@ -1,0 +1,1012 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "AK",
+  "state_name": "Alaska",
+  "executive": {
+    "governor": {
+      "id": "ak-exec-gov",
+      "name": "Mike Dunleavy",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2018",
+      "website": "https://gov.alaska.gov",
+      "photo_url": null,
+      "bio": "Mike Dunleavy is the Governor of Alaska, serving since 2018.",
+      "sources": [
+        "https://gov.alaska.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "ak-exec-lieutenant-governor",
+      "name": "Nancy Dahlstrom",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgov.alaska.gov/wp-content/uploads/Screenshot-2022-12-14-150552-e1682445198168.png"
+    },
+    "cabinet": [
+      {
+        "id": "ak-exec-attorney-general",
+        "name": "Stephen Cox",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://law.alaska.gov/img/headshot_CoxLG2601.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Alaska State Senate",
+    "members": [
+      {
+        "id": "ak-sen-A",
+        "openstates_id": "ocd-person/bfdc2ee2-7760-4119-9d68-4962f1e1a285",
+        "name": "Bert Stedman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "A",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/SMN.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/stedman/",
+          "email": "senator.bert.stedman@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-B",
+        "openstates_id": "ocd-person/1ae3974e-660d-4526-b351-fff9b689b51a",
+        "name": "Jesse Kiehl",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "B",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/KIE.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/kiehl/",
+          "email": "senator.jesse.kiehl@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-C",
+        "openstates_id": "ocd-person/f5c83068-a809-4f57-8b77-1e77c87ee93b",
+        "name": "Gary Stevens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "C",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/STG.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/30?code=stg",
+          "email": "senator.gary.stevens@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-D",
+        "openstates_id": "ocd-person/e14b5980-9a38-4420-8903-70738802edf6",
+        "name": "Jesse Bjorkman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "D",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/BJK.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/bjorkman/",
+          "email": "senator.jesse.bjorkman@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-E",
+        "openstates_id": "ocd-person/4ac9a4bf-e2d9-4257-a360-9e91dc234deb",
+        "name": "Cathy Giessel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "E",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/GIE.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/giessel/",
+          "email": "senator.cathy.giessel@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-F",
+        "openstates_id": "ocd-person/f6cd7b64-a3f3-44ec-89a1-68c17fa6d4c9",
+        "name": "James Kaufman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "F",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/KAU.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/kaufman/",
+          "email": "senator.james.kaufman@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-G",
+        "openstates_id": "ocd-person/2ba2d14f-a08a-4f05-a9d4-5ca63d09561e",
+        "name": "Elvi Gray-Jackson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "G",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/GRA.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/gray-jackson/",
+          "email": "senator.elvi.gray-jackson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-H",
+        "openstates_id": "ocd-person/0b2d5ec3-c1b2-4b09-8444-144c92125cc4",
+        "name": "Matt Claman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "H",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/CLA.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/matt-claman/",
+          "email": "senator.matt.claman@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-I",
+        "openstates_id": "ocd-person/c66c309d-1612-4eab-863c-59e34b643e2c",
+        "name": "Löki Tobin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "I",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/TOB.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/tobin/",
+          "email": "senator.loki.tobin@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-J",
+        "openstates_id": "ocd-person/4511370e-1ac8-4135-a622-d5b533faeb43",
+        "name": "Forrest Dunbar",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "J",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/DNB.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/dunbar/",
+          "email": "senator.forrest.dunbar@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-K",
+        "openstates_id": "ocd-person/57554431-caac-4074-a8d8-40a4e6289ec1",
+        "name": "Bill Wielechowski",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "K",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/WIE.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/wielechowski/",
+          "email": "senator.bill.wielechowski@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-L",
+        "openstates_id": "ocd-person/ddad148b-d8ed-4eff-826d-3861709eb500",
+        "name": "Kelly Merrick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "L",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/MRR.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/merrick/",
+          "email": "senator.kelly.merrick@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-M",
+        "openstates_id": "ocd-person/f1816065-31d1-4757-b8b9-714e15daeccf",
+        "name": "Cathy Tilton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "M",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/TLT.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-tilton/",
+          "email": "senator.cathy.tilton@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-N",
+        "openstates_id": "ocd-person/82334f7b-8119-4494-bf3e-a7ddb09536bd",
+        "name": "Rob Yundt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "N",
+        "role": "State Senator",
+        "photo_url": "https://ktna.org/wp-content/uploads/2023/06/YundtThumb.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=yun",
+          "email": "senator.robert.yundt@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-O",
+        "openstates_id": "ocd-person/627922d3-e631-4c32-841f-148f061b0c75",
+        "name": "George Rauscher",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "O",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/RAU.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-rauscher/",
+          "email": "senator.george.rauscher@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-P",
+        "openstates_id": "ocd-person/53f7b86b-ce31-4199-86ef-f566ae9aa02c",
+        "name": "Scott Kawasaki",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "P",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/KAW.jpg",
+        "contact": {
+          "official_website": "https://aksenatedems.com/sen-kawasaki/",
+          "email": "senator.scott.kawasaki@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-Q",
+        "openstates_id": "ocd-person/697cb834-6aa1-44f1-9c6e-9cf57ad30774",
+        "name": "Robert Myers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Q",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/MYE.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/32?code=mye",
+          "email": "senator.robert.myers@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-R",
+        "openstates_id": "ocd-person/c50de9c3-90a3-4c6d-9003-50e12c6c5246",
+        "name": "Mike Cronk",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "R",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/CRN.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-cronk/",
+          "email": "senator.mike.cronk@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-S",
+        "openstates_id": "ocd-person/e187d603-9202-4f64-80b0-6366702aec11",
+        "name": "Lyman Hoffman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "S",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/HOF.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/hoffman/",
+          "email": "senator.lyman.hoffman@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-sen-T",
+        "openstates_id": "ocd-person/cd3ca264-553d-4e21-a993-e3f5097b1b77",
+        "name": "Donny Olson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "T",
+        "role": "State Senator",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/OLS.jpg",
+        "contact": {
+          "official_website": "https://alaskasenate.org/olson/",
+          "email": "senator.donald.olson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Alaska State House",
+    "members": [
+      {
+        "id": "ak-rep-1",
+        "openstates_id": "ocd-person/b2eaa848-d651-4521-9abb-21b68da5d5c6",
+        "name": "Jeremy Bynum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/jbynum.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=byn",
+          "email": "representative.jeremy.bynum@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-2",
+        "openstates_id": "ocd-person/5637be3f-7a59-48cc-8f8a-ad7a8bac8ee9",
+        "name": "Rebecca Himschoot",
+        "party": "I",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/HMS.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-himschoot/",
+          "email": "representative.rebecca.himschoot@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-3",
+        "openstates_id": "ocd-person/7db414a5-dd7e-48a9-aba2-9c0204f93a5c",
+        "name": "Andi Story",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/STO.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-story/",
+          "email": "representative.andi.story@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-4",
+        "openstates_id": "ocd-person/6cec7228-ed13-47f6-b896-59f927789f6d",
+        "name": "Sara Hannan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/HNN.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-hannan/",
+          "email": "representative.sara.hannan@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-5",
+        "openstates_id": "ocd-person/2d74c456-7818-42bc-a284-63026fbbfc56",
+        "name": "Louise Stutes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/STS.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep_stutes",
+          "email": "representative.louise.stutes@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-6",
+        "openstates_id": "ocd-person/e8756722-e9e9-4246-95e3-13019cb3bd50",
+        "name": "Sarah Vance",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/VAN.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-vance/",
+          "email": "representative.sarah.vance@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-7",
+        "openstates_id": "ocd-person/722ec3e9-7e0d-4dda-bf19-11d873df7031",
+        "name": "Justin Ruffridge",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/RUF.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-ruffridge/",
+          "email": "representative.justin.ruffridge@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-8",
+        "openstates_id": "ocd-person/354dc869-cbaf-4298-89cd-c691c0f52a1e",
+        "name": "Bill Elam",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/BillElam2024.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=ela",
+          "email": "representative.bill.elam@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-9",
+        "openstates_id": "ocd-person/a669e6fd-ba4c-42db-b2e8-079600a60f58",
+        "name": "Ky Holland",
+        "party": "I",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://kyholland.com/wp-content/uploads/2024/04/Ky-headshot-new.jpeg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=hla",
+          "email": "representative.ky.holland@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-10",
+        "openstates_id": "ocd-person/7474d172-6c90-47f9-aae1-9f66c9518be2",
+        "name": "Chuck Kopp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/kop.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/30?code=kop",
+          "email": "representative.chuck.kopp@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-11",
+        "openstates_id": "ocd-person/a66f1539-56d3-458c-8ac0-3aff6907a69d",
+        "name": "Julie Coulombe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/COU.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-coulombe/",
+          "email": "representative.julie.coulombe@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-12",
+        "openstates_id": "ocd-person/8ed150a0-45be-4844-abe5-d921c9f5a435",
+        "name": "Calvin Schrage",
+        "party": "I",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/SCG.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-schrage/",
+          "email": "representative.calvin.schrage@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-13",
+        "openstates_id": "ocd-person/e1989648-fdd3-4e88-a0f0-9e27e75c0f03",
+        "name": "Andy Josephson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/JOS.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep_josephson/",
+          "email": "representative.andy.josephson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-14",
+        "openstates_id": "ocd-person/2a1a6b8f-1f9c-4a1b-9059-7b2f8cc93ed9",
+        "name": "Alyse Galvin",
+        "party": "I",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/GAL.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-galvin/",
+          "email": "representative.alyse.galvin@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-15",
+        "openstates_id": "ocd-person/aea19844-4572-4086-9462-e50ad3ff4b76",
+        "name": "Mia Costello",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/cos.jpg",
+        "contact": {
+          "official_website": "https://akleg.gov/legislator.php?id=cos",
+          "email": "representative.mia.costello@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-16",
+        "openstates_id": "ocd-person/c9bf1b47-3ed8-49e8-9535-2a7094c52d1a",
+        "name": "Carolyn Hall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CarolynHall2024.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=hll",
+          "email": "representative.carolyn.hall@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-17",
+        "openstates_id": "ocd-person/c1d170a4-d099-43cb-b7e5-5a9db63ae716",
+        "name": "Zack Fields",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/FIE.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-fields/",
+          "email": "representative.zack.fields@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-18",
+        "openstates_id": "ocd-person/e1a32811-98f9-484f-8d4b-12df7eab4183",
+        "name": "David Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/ned.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/32?code=ned",
+          "email": "representative.david.nelson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-19",
+        "openstates_id": "ocd-person/a1adb2e5-3c63-4032-81e8-9e787976ca63",
+        "name": "Genevieve Mina",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/MNA.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-mina/",
+          "email": "representative.genevieve.mina@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-20",
+        "openstates_id": "ocd-person/822df52b-f962-478d-8bf5-3bbe3c9dd811",
+        "name": "Andrew Gray",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/GRY.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-gray/",
+          "email": "representative.andrew.gray@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-21",
+        "openstates_id": "ocd-person/fbe52f5e-1dd2-4d44-9205-b2ebbbe39eee",
+        "name": "Donna Mears",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/MEA.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-mears/",
+          "email": "representative.donna.mears@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-22",
+        "openstates_id": "ocd-person/132c5970-0ed3-4a8c-baa9-2917196daedb",
+        "name": "Ted Eischeid",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ted_Eischeid2024.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=eis",
+          "email": "representative.ted.eischeid@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-23",
+        "openstates_id": "ocd-person/9d56634b-f2d0-43fe-b20e-ed2465b0ad9c",
+        "name": "Jamie Allard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/ALR.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-allard/",
+          "email": "representative.jamie.allard@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-24",
+        "openstates_id": "ocd-person/7dcdf7b8-530a-4b81-85b6-745af9224eb1",
+        "name": "Dan Saddler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/SAD.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-saddler/",
+          "email": "representative.dan.saddler@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-25",
+        "openstates_id": "ocd-person/d7d4a21d-942e-46f7-92b6-237f1741b025",
+        "name": "DeLena Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/JHS.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-d-johnson/",
+          "email": "representative.delena.johnson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-26",
+        "openstates_id": "ocd-person/6692f2e6-2ad5-4b9c-a3f5-a0243c087064",
+        "name": "Steve St. Clair",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=stc",
+          "email": "representative.steve.st.clair@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-27",
+        "openstates_id": "ocd-person/a5fc1d39-03f4-427f-9266-8baf789b6ac6",
+        "name": "Jubilee Underwood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JubileeUnderwood2024.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=und",
+          "email": "representative.jubilee.underwood@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-28",
+        "openstates_id": "ocd-person/6e6762ad-37ca-4166-982c-75aab9701d0c",
+        "name": "Elexie Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ElexieMoore2024.png",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=moo",
+          "email": "representative.elexie.moore@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-29",
+        "openstates_id": "ocd-person/abb33c56-f4ba-4c95-938e-658677368ca4",
+        "name": "Garret Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=neg",
+          "email": "representative.garret.nelson@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-30",
+        "openstates_id": "ocd-person/0160c6d2-4090-4143-8e23-f8501501bdd0",
+        "name": "Kevin McCabe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/MCA.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-mccabe/",
+          "email": "representative.kevin.mccabe@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-31",
+        "openstates_id": "ocd-person/5ef3ef20-0fd1-41a3-be56-7844d169bba8",
+        "name": "Maxine Dibert",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/DIB.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-dibert/",
+          "email": "representative.maxine.dibert@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-32",
+        "openstates_id": "ocd-person/ede005ce-9d29-4b8e-8b24-b2136d05edf6",
+        "name": "Will Stapp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/SPP.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-stapp/",
+          "email": "representative.will.stapp@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-33",
+        "openstates_id": "ocd-person/3f4670ef-c5b7-4a5b-bd91-9f8605a0affa",
+        "name": "Mike Prax",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/PRA.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-prax/",
+          "email": "representative.mike.prax@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-34",
+        "openstates_id": "ocd-person/498eadb3-9999-4055-9358-84ccfe64f788",
+        "name": "Frank Tomaszewski",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/TMZ.jpg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/33?code=tmz",
+          "email": "representative.frank.tomaszewski@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-35",
+        "openstates_id": "ocd-person/1ac31dd3-6e42-43b1-91b0-4da4a1399543",
+        "name": "Ashley Carrick",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/CAI.jpg",
+        "contact": {
+          "official_website": "https://akhouse.org/rep-carrick/",
+          "email": "representative.ashley.carrick@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-36",
+        "openstates_id": "ocd-person/a160c8f2-f8a9-4429-9bc2-e14831545503",
+        "name": "Becky Schwanke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/newsminer.com/content/tncms/assets/v3/editorial/3/e9/3e94520a-9536-11ef-bf77-632b9a4876c1/671f9b183c878.image.jpg?resize=424%2C500",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=scw",
+          "email": "representative.rebecca.schwanke@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-37",
+        "openstates_id": "ocd-person/b097e069-345d-42da-b821-0c2c9747ccfc",
+        "name": "Bryce Edgmon",
+        "party": "I",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/EDG.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-edgmon/",
+          "email": "representative.bryce.edgmon@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-38",
+        "openstates_id": "ocd-person/1454451c-f821-4b6d-903e-07bef45ab0de",
+        "name": "Nellie Jimmie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://npr.brightspotcdn.com/dims4/default/41429e9/2147483647/strip/true/crop/6000x4000+0+0/resize/880x587!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ffe%2F2b%2F2bf76eb540a397e680305d5eac7d%2Fimg-2003.JPG",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=jim",
+          "email": "representative.nellie.unangiq.jimmie@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-39",
+        "openstates_id": "ocd-person/14f39e67-1604-4eb4-8000-99c699f196a0",
+        "name": "Neal Foster",
+        "party": "D",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "http://akleg.gov/images/legislators/450x600/FON.jpg",
+        "contact": {
+          "official_website": "https://akhousemajority.com/rep-foster/",
+          "email": "representative.neal.foster@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ak-rep-40",
+        "openstates_id": "ocd-person/c3b004d2-d62a-45de-a212-382396a20b59",
+        "name": "Robyn Frier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RobynBurke2024.jpeg",
+        "contact": {
+          "official_website": "https://www.akleg.gov/basis/Member/Detail/34?code=bur",
+          "email": "representative.robyn.frier@akleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,2384 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "MI",
+  "state_name": "Michigan",
+  "executive": {
+    "governor": {
+      "id": "mi-exec-gov",
+      "name": "Gretchen Whitmer",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://www.michigan.gov/whitmer",
+      "photo_url": null,
+      "bio": "Gretchen Whitmer is the Governor of Michigan, serving since 2019.",
+      "sources": [
+        "https://www.michigan.gov/whitmer"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Michigan State Senate",
+    "members": [
+      {
+        "id": "mi-sen-1",
+        "openstates_id": "ocd-person/ebc9981a-cbe1-4d37-99b0-89d3c350fd3f",
+        "name": "Erika Geiss",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/geiss/wp-content/uploads/sites/7/2022/12/MDS_Geiss_DSC5413.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/geiss",
+          "email": "senegeiss@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-2",
+        "openstates_id": "ocd-person/8e302b97-4868-4575-a56f-3881e91ae0f8",
+        "name": "Sylvia Santana",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/santana/wp-content/uploads/sites/8/2022/12/Santana-Official-Portrait.jpeg",
+        "contact": {
+          "official_website": "https://senatedems.com/santana",
+          "email": "senssantana@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-3",
+        "openstates_id": "ocd-person/1d297b7e-2e51-4e1a-a208-2f5505e9f1f7",
+        "name": "Stephanie Chang",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/chang/wp-content/uploads/sites/9/2022/12/MDS_Chang_DSC5412.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/chang",
+          "email": "senschang@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-4",
+        "openstates_id": "ocd-person/5d2fbcb4-0e27-4cb5-99bf-f94693b3aa12",
+        "name": "Darrin Camilleri",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/camilleri/wp-content/uploads/sites/10/2022/12/Portrait_Camilleri_Web.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/camilleri",
+          "email": "sendcamilleri@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-5",
+        "openstates_id": "ocd-person/f266a938-3705-4c7c-994f-859b2b6024dc",
+        "name": "Dayna Polehanki",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/polehanki/wp-content/uploads/sites/11/2022/12/Polehanki-Official-Portrait.jpeg",
+        "contact": {
+          "official_website": "https://senatedems.com/polehanki",
+          "email": "sendpolehanki@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-6",
+        "openstates_id": "ocd-person/a9e6b2e4-016d-481e-9f34-1f1b33d857ca",
+        "name": "Mary Cavanagh",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/cavanagh/wp-content/uploads/sites/12/2022/12/Cavanaugh_Web.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/mary-cavanagh/",
+          "email": "senmcavanagh@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-7",
+        "openstates_id": "ocd-person/d1c4631b-145d-4418-8a29-24683b83ae44",
+        "name": "Jeremy Moss",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/moss/wp-content/uploads/sites/13/2023/01/MDS_Moss_W3A6000.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/moss",
+          "email": "senjmoss@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-8",
+        "openstates_id": "ocd-person/dc6ff9c0-f2b1-433d-a96b-292cf05bcb50",
+        "name": "Mallory McMorrow",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/mcmorrow/wp-content/uploads/sites/14/2023/02/MDS_McMorrow_DSC5342_dec20.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/mcmorrow",
+          "email": "senmmcmorrow@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-9",
+        "openstates_id": "ocd-person/be2c96ad-1304-4c25-8cab-2c8ec5d6475f",
+        "name": "Michael Webber",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Webber-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatormichaelwebber.com",
+          "email": "senmwebber@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-10",
+        "openstates_id": "ocd-person/1d71200f-5f95-46e8-ac9b-a35c6c0178d8",
+        "name": "Paul Wojno",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/wojno/wp-content/uploads/sites/3/2023/01/MDS_Wojno_OfficialPortrait.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/wojno",
+          "email": "senpwojno@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-11",
+        "openstates_id": "ocd-person/3cef42f4-ef0b-43c2-b0b8-01f7f399af2f",
+        "name": "Veronica Klinefelt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/klinefelt/wp-content/uploads/sites/15/2022/12/Portrait_Klinefelt_Web.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/klinefelt",
+          "email": "senvklinefelt@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-12",
+        "openstates_id": "ocd-person/cbfd5eae-d312-4498-a988-bcb52883f637",
+        "name": "Kevin Hertel",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/hertel/wp-content/uploads/sites/16/2022/12/Hertel_Portrait.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/hertel",
+          "email": "senkhertel@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-13",
+        "openstates_id": "ocd-person/3e24c95f-2ed8-442a-a41f-1a3a9a0b95ed",
+        "name": "Rosemary Bayer",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/bayer/wp-content/uploads/sites/17/2022/12/Bayer-Official-Portrait.jpeg",
+        "contact": {
+          "official_website": "https://senatedems.com/bayer",
+          "email": "senrbayer@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-14",
+        "openstates_id": "ocd-person/38c58e5f-715a-4943-a8d9-2b557db3db02",
+        "name": "Sue Shink",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/shink/wp-content/uploads/sites/18/2022/12/Portrait_Shink_Web.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/shink",
+          "email": "sensshink@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-15",
+        "openstates_id": "ocd-person/a1c1163d-af8d-4b88-9365-07717d4a45c3",
+        "name": "Jeff Irwin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/irwin/wp-content/uploads/sites/19/2022/12/MDS_Irwin_DSC5423.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/irwin",
+          "email": "senjirwin@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-16",
+        "openstates_id": "ocd-person/e394293d-abd7-46a9-a60f-6c75e369468e",
+        "name": "Joe Bellino",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Bellino-580x770.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/representatives/southeast/bellino/",
+          "email": "senjbellino@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-17",
+        "openstates_id": "ocd-person/a16e3693-0703-40fb-b508-3b2812079548",
+        "name": "Jonathan Lindsey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Lindsey-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorjonathanlindsey.com",
+          "email": "senjlindsey@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-18",
+        "openstates_id": "ocd-person/c96aa62f-6a2c-4d37-9074-2c25875c639b",
+        "name": "Thomas Albert",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Albert-580x770.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/representatives/westmi/albert/",
+          "email": "sentalbert@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-19",
+        "openstates_id": "ocd-person/c15f272e-73f2-410c-8afe-1cc91ad3603a",
+        "name": "Sean McCann",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/mccann/wp-content/uploads/sites/20/2022/12/MDS_McCann_DSC5430.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/mccann",
+          "email": "sensmccann@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-20",
+        "openstates_id": "ocd-person/6d11944d-f19f-4697-811c-0c9dca750c57",
+        "name": "Aric Nesbitt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/Nesbitt-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatoraricnesbitt.com",
+          "email": "senanesbitt@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-21",
+        "openstates_id": "ocd-person/08eac592-a25a-444f-aea7-db0cdfa79e7b",
+        "name": "Sarah Anthony",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/anthony/wp-content/uploads/sites/21/2022/12/MDS_Anthony_DSC5449.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/anthony",
+          "email": "sensanthony@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-22",
+        "openstates_id": "ocd-person/4fa99fea-71fd-4f21-9f75-157e6a946c80",
+        "name": "Lana Theis",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/Theis-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorlanatheis.com",
+          "email": "senltheis@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-23",
+        "openstates_id": "ocd-person/e0a8928d-8ccc-4e1e-9ca5-d7f50642ff91",
+        "name": "Jim Runestad",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/Runestad-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorjimrunestad.com",
+          "email": "senjrunestad@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-24",
+        "openstates_id": "ocd-person/8d0d58dd-a718-4f8f-bb7f-c530e039c0c5",
+        "name": "Ruth Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Johnson-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorruthjohnson.com",
+          "email": "senrjohnson@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-25",
+        "openstates_id": "ocd-person/30afc35e-fa35-448c-b303-e0f6cc456c77",
+        "name": "Dan Lauwers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Lauwers-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatordanlauwers.com",
+          "email": "sendlauwers@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-26",
+        "openstates_id": "ocd-person/cf7ed8de-2df4-41ff-9dcb-489980b031a0",
+        "name": "Kevin Daley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Daley-580x770.jpg",
+        "contact": {
+          "official_website": "https://senatorkevindaley.com/",
+          "email": "senkdaley@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-27",
+        "openstates_id": "ocd-person/de1a4de4-aa34-4487-98f8-27b140fed784",
+        "name": "John Cherry",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/cherry/wp-content/uploads/sites/22/2022/12/Portrait_Cherry_Web.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/cherry",
+          "email": "senjcherry@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-28",
+        "openstates_id": "ocd-person/9271c2c7-01d8-44f1-95a4-1496b8716268",
+        "name": "Sam Singh",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/singh/wp-content/uploads/sites/23/2023/01/Singh-portrait.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/singh",
+          "email": "senssingh@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-29",
+        "openstates_id": "ocd-person/de38477b-6f3e-44cd-96d0-bd81ff831948",
+        "name": "Winnie Brinks",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://senatedems.com/brinks/wp-content/uploads/sites/6/2022/12/MDS_Brinks_DSC5456_536.jpg",
+        "contact": {
+          "official_website": "https://senatedems.com/brinks",
+          "email": "senwbrinks@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-30",
+        "openstates_id": "ocd-person/8564d477-bb39-47a4-87e1-3ceacd7d3abe",
+        "name": "Mark Huizenga",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2021/11/Huizenga-580x770.jpg",
+        "contact": {
+          "official_website": "https://SenatorMarkHuizenga.com",
+          "email": "senmhuizenga@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-31",
+        "openstates_id": "ocd-person/cd36ab04-a62b-41fa-8b91-d6c792f6719e",
+        "name": "Roger Victory",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/Victory-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorrogervictory.com",
+          "email": "senrvictory@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-32",
+        "openstates_id": "ocd-person/5a58fa81-639b-4304-87ca-7471ba9ade96",
+        "name": "Jon Bumstead",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Bumstead-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorjonbumstead.com",
+          "email": "senjbumstead@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-33",
+        "openstates_id": "ocd-person/9c525554-fb85-45f3-87fa-cf6a3208ce32",
+        "name": "Rick Outman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/Outman-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatorrickoutman.com",
+          "email": "senroutman@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-34",
+        "openstates_id": "ocd-person/b6d8b86d-2975-4d07-83fe-a1841f39806b",
+        "name": "Roger Hauck",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Hauck-580x770.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/representatives/central/hauck/",
+          "email": "senrhauck@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-36",
+        "openstates_id": "ocd-person/0c9a2c44-5a9a-44cd-8470-5dad5c7b2c53",
+        "name": "Michele Hoitenga",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Hoitenga-580x770.jpg",
+        "contact": {
+          "official_website": "https://www.senatormichelehoitenga.com",
+          "email": "senmhoitenga@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-37",
+        "openstates_id": "ocd-person/071e391f-da3d-4e66-ae78-61a63bc23729",
+        "name": "John Damoose",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2023/01/Damoose-580x770.jpg",
+        "contact": {
+          "official_website": "https://repdamoose.com",
+          "email": "senjdamoose@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-38",
+        "openstates_id": "ocd-person/4fc7e235-2446-405d-9a56-5e010017f617",
+        "name": "Ed McBroom",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.misenategop.com/wp-content/uploads/2019/01/McBroom-580x770.jpg",
+        "contact": {
+          "official_website": "https://senatoredmcbroom.com/",
+          "email": "senemcbroom@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Michigan State House",
+    "members": [
+      {
+        "id": "mi-rep-1",
+        "openstates_id": "ocd-person/38d2f8c4-f40c-44b7-a2dd-57a4d5375572",
+        "name": "Tyrone Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D006_Tyrone_Carter/006_Carter.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/tyrone-carter",
+          "email": "tyronecarter@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-2",
+        "openstates_id": "ocd-person/4d548157-c00e-4131-bf2b-5838ffc5281a",
+        "name": "Tullio Liberati",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/tullio-liberati/",
+          "email": "tullioliberati@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-3",
+        "openstates_id": "ocd-person/788d408d-cb80-43fd-802a-4778a930894d",
+        "name": "Alabas Farhat",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Alabas-Farhat/",
+          "email": "alabasfarhat@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-4",
+        "openstates_id": "ocd-person/1b71cbce-bf12-4009-b1cd-79da2f22b9aa",
+        "name": "Karen Whitsett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D009_Karen_Whitsett/009_Whitsett.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/karen-whitsett/",
+          "email": "karenwhitsett@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-5",
+        "openstates_id": "ocd-person/ae5a3a48-9948-4c6c-95c2-c2d0915fd866",
+        "name": "Regina Weiss",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/regina-weiss/",
+          "email": "reginaweiss@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-6",
+        "openstates_id": "ocd-person/2c6f93a7-f08a-4ad4-9424-cdd857401e6e",
+        "name": "Natalie Price",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Natalie-Price/",
+          "email": "natalieprice@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-7",
+        "openstates_id": "ocd-person/787d9bda-d4dd-47fe-aaf0-348c505211e4",
+        "name": "Tonya Phillips",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tonya_Myers_Phillips_20241022_115414.png",
+        "contact": {
+          "official_website": "https://housedems.com/tonya-myers-phillips/",
+          "email": "tonyamyersphillips@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-8",
+        "openstates_id": "ocd-person/6751fa70-04e4-45e1-b3c5-6e0a5a397f8f",
+        "name": "Helena Scott",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/helena-scott/",
+          "email": "helenascott@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-9",
+        "openstates_id": "ocd-person/19b8cf37-0b98-4194-9d2c-db6da3fae35c",
+        "name": "Joe Tate",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D002_Joe_Tate/002_Tate.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/joe-tate/",
+          "email": "joetate@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-10",
+        "openstates_id": "ocd-person/8c335851-e7f6-40d6-b83c-fe413f21934e",
+        "name": "Veronica Paiz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Veronica-Paiz/",
+          "email": "veronicapaiz@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-11",
+        "openstates_id": "ocd-person/36e87b55-c5db-4331-8088-8fe1dbc544f9",
+        "name": "Donavan McKinney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Donavan-McKinney/",
+          "email": "donavanmckinney@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-12",
+        "openstates_id": "ocd-person/e1d87954-4ee4-4668-9075-c6240dbe8c9b",
+        "name": "Kimberly Edwards",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Kimberly-Edwards/",
+          "email": "kimberlyedwards@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-13",
+        "openstates_id": "ocd-person/cd44a574-079b-4fd8-82cd-0daea8d7ff96",
+        "name": "Mai Xiong",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MaiXiong.jpeg",
+        "contact": {
+          "official_website": "https://housedems.com/mai-xiong/",
+          "email": "maixiong@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-14",
+        "openstates_id": "ocd-person/b34263be-1f2e-49db-a261-b30e76ba790a",
+        "name": "Mike McFall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Mike-McFall/",
+          "email": "mikemcfall@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-15",
+        "openstates_id": "ocd-person/3d6727ea-1a91-414d-aac4-ba312cbfaabc",
+        "name": "Erin Byrnes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Erin-Byrnes/",
+          "email": "erinbyrnes@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-16",
+        "openstates_id": "ocd-person/ea254169-e403-4e29-ab06-8f40fb869ac2",
+        "name": "Stephanie Young",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/stephanie-young/",
+          "email": "stephanieyoung@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-17",
+        "openstates_id": "ocd-person/64f12acb-0356-4726-ab8e-0c9c1945d5b0",
+        "name": "Laurie Pohutsky",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D019_Laurie_Pohutsky/019_Pohutsky.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/laurie-pohutsky/",
+          "email": "lauriepohutsky@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-18",
+        "openstates_id": "ocd-person/d6da4c9b-26ef-4fa9-a1c6-a79d843abe09",
+        "name": "Jason Hoskins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Jason-Hoskins/",
+          "email": "jasonhoskins@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-19",
+        "openstates_id": "ocd-person/5a99ab1c-62e3-4424-9bb1-310ffcecc3e3",
+        "name": "Samantha Steckloff",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/samantha-steckloff/",
+          "email": "samanthasteckloff@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-20",
+        "openstates_id": "ocd-person/3b59f672-58f4-4d87-8b6e-6f9cc63a4d4c",
+        "name": "Noah Arbit",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Noah-Arbit/",
+          "email": "noaharbit@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-21",
+        "openstates_id": "ocd-person/6f366c7a-8dab-4d39-90b0-3a25760d2234",
+        "name": "Kelly Breen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/kelly-breen/",
+          "email": "kellybreen@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-22",
+        "openstates_id": "ocd-person/42a456fa-8979-468f-b2a6-30f81ff20299",
+        "name": "Matt Koleszar",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D020_Matt_Koleszar/020_Koleszar.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/koleszar",
+          "email": "mattkoleszar@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-23",
+        "openstates_id": "ocd-person/9b0967d9-1238-4f90-8e03-233a17fc03e0",
+        "name": "Jason Morgan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Jason-Morgan/",
+          "email": "jasonmorgan@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-24",
+        "openstates_id": "ocd-person/1a16bef8-b655-46da-a5c5-07a8c5569eed",
+        "name": "Ranjeev Puri",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/ranjeev-puri/",
+          "email": "ranjeevpuri@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-25",
+        "openstates_id": "ocd-person/8e6c8809-d207-477d-8bdc-6646878249c5",
+        "name": "Peter Herzberg",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/PeterHerzberg.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/peter-herzberg/",
+          "email": "peterherzberg@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-26",
+        "openstates_id": "ocd-person/07ff51f1-6cd0-4004-b618-bc70e5a2e551",
+        "name": "Dylan Wegela",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Dylan-Wegela/",
+          "email": "dylanwegela@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-27",
+        "openstates_id": "ocd-person/c1ac9f88-970a-4930-8249-7c15e77210ed",
+        "name": "Rylee Linting",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.detroitnews.com/gcdn/authoring/authoring-images/2024/07/26/PDTN/74565149007-rylee-linting.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepRyleeLinting",
+          "email": "ryleelinting@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-28",
+        "openstates_id": "ocd-person/ea1e2bf8-dd08-4785-a7f7-48e7c9e8a53c",
+        "name": "Jamie Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Thompson-028.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJamieThompson/posts",
+          "email": "jamiethompson@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-29",
+        "openstates_id": "ocd-person/af4a0996-bcf0-4e8f-9165-4290343e905f",
+        "name": "Jim DeSana",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/DeSana-029.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJamesDeSana/posts",
+          "email": "jamesdesana@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-30",
+        "openstates_id": "ocd-person/a9f36e83-23ad-4912-a183-8b1e93ef3e81",
+        "name": "Will Bruck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Bruck-030.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepWilliamBruck/posts",
+          "email": "williambruck@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-31",
+        "openstates_id": "ocd-person/50d75ced-0a70-4f88-aada-57015d799fd0",
+        "name": "Reggie Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Reggie-Miller/",
+          "email": "reggiemiller@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-32",
+        "openstates_id": "ocd-person/8560a009-9142-4824-bec4-67559d8d0add",
+        "name": "Jimmie Wilson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Jimmie-Wilson-Jr/",
+          "email": "jimmiewilson@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-33",
+        "openstates_id": "ocd-person/0cec5462-4aa6-423a-a946-c13d03370565",
+        "name": "Morgan Foreman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nathan_Fallahi_20240808_091506.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/morgan-foreman/",
+          "email": "morganforeman@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-34",
+        "openstates_id": "ocd-person/b8703f11-7463-4df6-aedb-9b3d51560bcb",
+        "name": "Nancy Jenkins-Arno",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/21022.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepNancyJenkinsArno/",
+          "email": "nancyjenkinsarno@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-35",
+        "openstates_id": "ocd-person/be12c20b-e96b-4326-a1c2-8cabe83f4f2b",
+        "name": "Jennifer Wortz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/2484/files/2024/08/screenshot-2024-08-07-003528.png",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJenniferWortz/posts",
+          "email": "jenniferwortz@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-36",
+        "openstates_id": "ocd-person/4dee484b-79f4-4ca2-92dc-2ed7e0623d6b",
+        "name": "Steve Carra",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/05/HS_CARRA_0221_NSC_2360-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repstevecarra/about",
+          "email": "stevecarra@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-37",
+        "openstates_id": "ocd-person/04a88313-6387-44ab-972c-b000b3c316f4",
+        "name": "Brad Paquette",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_PAQUETTE_0119.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repbradpaquette/about",
+          "email": "bradpaquette@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-38",
+        "openstates_id": "ocd-person/fd51ab83-f1b7-4044-b794-871ba167b504",
+        "name": "Joey Andrews",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/joey-andrews/",
+          "email": "joeyandrews@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-39",
+        "openstates_id": "ocd-person/f749bf7e-46bc-482d-ac6e-60288f3b722e",
+        "name": "Pauline Wendzel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_WENDZEL_1218_DSC_9364.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/reppaulinewendzel/about",
+          "email": "paulinewendzel@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-40",
+        "openstates_id": "ocd-person/cf865d78-f3ea-43f7-b843-a06dbb4bf4be",
+        "name": "Matt Longjohn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/mlongjohn.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/matt-longjohn/",
+          "email": "mattlongjohn@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-41",
+        "openstates_id": "ocd-person/5154033e-e367-449c-a719-9437a309e269",
+        "name": "Julie Rogers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/julie-rogers/",
+          "email": "julierogers@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-42",
+        "openstates_id": "ocd-person/dc7344e8-b8bf-4f0d-924d-4f4b5ea40554",
+        "name": "Matt Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2023/01/Leader-Matt-Hall-headshot-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repmatthall/about",
+          "email": "matthall@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-43",
+        "openstates_id": "ocd-person/6c955ba2-9448-43ae-8d7f-c3d76329ad60",
+        "name": "Rachelle Smit",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Smit-043.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepRachelleSmit/posts",
+          "email": "rachellesmit@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-44",
+        "openstates_id": "ocd-person/c62d1d8e-1e35-48c2-a869-6801ad396875",
+        "name": "Steve Frisbie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkosbA1eo1rgLKVUU8dvxAKdj_-RAIjrqKtQ&s",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepSteveFrisbie/about",
+          "email": "stevefrisbie@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-45",
+        "openstates_id": "ocd-person/ef5b60a6-d301-4433-8e85-6c14ba254011",
+        "name": "Sarah Lightner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/04/HS_Lightner_0421_NSC_0141-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repsarahlightner/about",
+          "email": "sarahlightner@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-46",
+        "openstates_id": "ocd-person/e21ee6f1-0fdc-4ee6-8432-6149de16046d",
+        "name": "Kathy Schmaltz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Schmaltz-046.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepKathySchmaltz/posts",
+          "email": "kathyschmaltz@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-47",
+        "openstates_id": "ocd-person/2f75473d-b2e6-49fd-914e-1e552ebc38a6",
+        "name": "Carrie Rheingans",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Carrie-Rheingans/",
+          "email": "carrierheingans@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-48",
+        "openstates_id": "ocd-person/99ac6698-e0f9-4ddf-9df6-2d82aa70468f",
+        "name": "Jennifer Conlin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Jennifer-Conlin/",
+          "email": "jenniferconlin@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-49",
+        "openstates_id": "ocd-person/3a9d71dc-da5b-4bd3-8062-c8387292dc52",
+        "name": "Ann Bollin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_AnnBollin_0119-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repannbollin/about",
+          "email": "annbollin@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-50",
+        "openstates_id": "ocd-person/4831928f-e1e5-4905-928b-633128aefa77",
+        "name": "Jason Woolford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/jwoolford.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJasonWoolford/",
+          "email": "jasonwoolford@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-51",
+        "openstates_id": "ocd-person/241c969f-c72f-4acb-9a37-529e6ec0d955",
+        "name": "Matt Maddock",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2023/01/Maddock-051.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repmattmaddock/about",
+          "email": "mattmaddock@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-52",
+        "openstates_id": "ocd-person/a93eaebe-bdac-4292-a28f-6a3b04efd191",
+        "name": "Mike Harris",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2022/05/HS_HARRIS_0522_web-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repmikeharris/posts",
+          "email": "mikeharris@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-53",
+        "openstates_id": "ocd-person/0019e62f-6671-4085-b2d3-55d3c4a23717",
+        "name": "Brenda Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D029_Brenda_Carter/029_Carter.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/brenda-carter",
+          "email": "brendacarter@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-54",
+        "openstates_id": "ocd-person/4a5a14f9-56b4-4f7a-ad0c-bfe3750912a3",
+        "name": "Donni Steele",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Steele-054.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepDonniSteele/posts",
+          "email": "donnisteele@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-55",
+        "openstates_id": "ocd-person/a5bb89cb-ac42-47c0-bcc8-96bf18e4d865",
+        "name": "Mark Tisdel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/HS_TISDEL_0121_NSC_7619-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repmarktisdel/about",
+          "email": "marktisdel@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-56",
+        "openstates_id": "ocd-person/55a6fa48-006b-48ee-bffd-655ed7e56fce",
+        "name": "Sharon MacDonell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Sharon-MacDonell/",
+          "email": "sharonmacdonell@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-57",
+        "openstates_id": "ocd-person/58e6e432-e6a2-44f4-8dda-cc3d8e01ca7e",
+        "name": "Tom Kuhn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Kuhn-057.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepTomKuhn/posts",
+          "email": "tomkuhn@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-58",
+        "openstates_id": "ocd-person/cda45c1f-0a65-4c08-b912-a90cd945f4ec",
+        "name": "Ron Robinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ron_Robinson_20240808_093235.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepRonRobinson",
+          "email": "ronrobinson@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-59",
+        "openstates_id": "ocd-person/2e512bae-42f3-4ce8-b565-df48469da08a",
+        "name": "Doug Wozniak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://senate.michigan.gov/_images/8th.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repdougwozniak/posts",
+          "email": "douglaswozniak@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-60",
+        "openstates_id": "ocd-person/f66dcbe7-c834-4c23-83ca-38eb5d1a1ba9",
+        "name": "Joe Aragona",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Aragona-060.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJosephAragona/posts",
+          "email": "josepharagona@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-61",
+        "openstates_id": "ocd-person/7e4be084-8c26-421f-ab31-81893f7ac525",
+        "name": "Denise Mentzer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Denise-Mentzer/",
+          "email": "denisementzer@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-62",
+        "openstates_id": "ocd-person/81da0894-0569-4c8d-9c4e-befd39650fee",
+        "name": "Alicia St. Germaine",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/St. Germaine-062.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepAliciaStGermaine/posts",
+          "email": "aliciastgermaine@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-63",
+        "openstates_id": "ocd-person/569bf706-64ce-4dd7-8639-886beb018d8c",
+        "name": "Jay DeBoyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/DeBoyer-063.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJayDeBoyer/posts",
+          "email": "jaydeboyerr@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-64",
+        "openstates_id": "ocd-person/65bb5257-9a90-4b14-a7bd-aee9efd0ab55",
+        "name": "Joe Pavlov",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://i1.wp.com/www.joepavlov.com/wp-content/uploads/2024/08/JoePavolv-@-Wood-Door.jpg?resize=841%2C841&strip=info&ssl=1",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJosephGPavlov",
+          "email": "josephpavlov@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-65",
+        "openstates_id": "ocd-person/fe33333e-a9ff-4279-ae47-1cc27703ee5c",
+        "name": "Jaime Greene",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Greene-065.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJaimeGreene/posts",
+          "email": "jaimegreene@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-66",
+        "openstates_id": "ocd-person/f6df9fad-c6ec-4abf-b175-ac1e9d672759",
+        "name": "Josh Schriver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Schriver-066.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJoshSchriver/posts",
+          "email": "joshschriver@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-67",
+        "openstates_id": "ocd-person/67081474-baf6-465a-bcd2-b2b84ab5c36b",
+        "name": "Phil Green",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2022/06/HS_GREEN_0522_NSC5945-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repphilgreen/about",
+          "email": "repphilgreen@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-68",
+        "openstates_id": "ocd-person/95434509-a8fd-4e25-9f04-a952416d6da3",
+        "name": "David Martin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://gophouse.org/member/repdavidmartin/posts",
+          "email": "davidmartin@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-69",
+        "openstates_id": "ocd-person/124196c5-fa79-4958-97c1-364026ae5f36",
+        "name": "Jaz Martus",
+        "party": "D",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Jasper-Martus/",
+          "email": "jaspermartus@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-70",
+        "openstates_id": "ocd-person/7e3c6932-35bd-43f6-b1ca-d8fd6d5c0040",
+        "name": "Cynthia Neeley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/cynthia-neeley/",
+          "email": "cynthianeeley@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-71",
+        "openstates_id": "ocd-person/172b6e7c-3765-4978-bc03-3d19a92d5164",
+        "name": "Brian BeGole",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/BeGole-071.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepBrianBeGole/posts",
+          "email": "brianbegole@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-72",
+        "openstates_id": "ocd-person/bdbada04-5616-4e9c-91db-f709e24d43f3",
+        "name": "Mike Mueller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_MULLER_1218_DSC_9358.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repmikemueller/about",
+          "email": "mikemueller@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-73",
+        "openstates_id": "ocd-person/192ea166-adcc-4d74-b497-2fd4db882a00",
+        "name": "Julie Brixie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D069_Julie_Brixie/069_Brixie.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/brixie",
+          "email": "juliebrixie@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-74",
+        "openstates_id": "ocd-person/f5c9b37d-39a5-4c63-a526-6f35f45cf5cf",
+        "name": "Kara Hope",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D067_Kara_Hope/067_Hope.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/hope",
+          "email": "karahope@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-75",
+        "openstates_id": "ocd-person/026c8d4d-bdd5-4b1f-838e-12c191323540",
+        "name": "Penelope Tsernoglou",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Penelope-Tsernoglou/",
+          "email": "penelopetsernoglou@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-76",
+        "openstates_id": "ocd-person/0db39d07-a543-4e52-82b0-457f406855e8",
+        "name": "Angela Witwer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://housedems.com/sites/default/files/Images/Representative_Images/D071_Angela_Witwer/071_Witwer.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/angela-witwer/",
+          "email": "angelawitwer@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-77",
+        "openstates_id": "ocd-person/10e1b0b6-8c1d-4f2b-b29a-08770991b1d4",
+        "name": "Emily Dievendorf",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Emily-Dievendorf/",
+          "email": "emilydievendorf@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-78",
+        "openstates_id": "ocd-person/37cbe31c-4d9d-4f77-847f-ce463e1bec58",
+        "name": "Gina Johnsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Johnsen-078.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepGinaJohnsen/posts",
+          "email": "ginajohnsen@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-79",
+        "openstates_id": "ocd-person/527d59db-a346-4a91-8f98-e1b57947b58c",
+        "name": "Angela Rigas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Rigas-079.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepAngelaRigas/posts",
+          "email": "angelarigas@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-80",
+        "openstates_id": "ocd-person/a61c6338-85df-446c-854a-17991386d252",
+        "name": "Phil Skaggs",
+        "party": "D",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Phil-Skaggs/",
+          "email": "philskaggs@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-81",
+        "openstates_id": "ocd-person/a071cb31-2347-40a8-a88b-ec72bacdeffd",
+        "name": "Stephen Wooden",
+        "party": "D",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/swooden.jpg",
+        "contact": {
+          "official_website": "https://housedems.com/stephen-wooden/",
+          "email": "stephenwooden@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-82",
+        "openstates_id": "ocd-person/642baa61-66d3-44c1-997f-58b2c5740b4f",
+        "name": "Kristian Grant",
+        "party": "D",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Kristian-Grant/",
+          "email": "kristiangrant@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-83",
+        "openstates_id": "ocd-person/9f4f8b82-e4ee-4e50-a2ea-d46bbf264d34",
+        "name": "John Fitzgerald",
+        "party": "D",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/John-Fitzgerald/",
+          "email": "johnfitzgerald@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-84",
+        "openstates_id": "ocd-person/86812673-e63a-4f36-aa3e-26de84380657",
+        "name": "Carol Glanville",
+        "party": "D",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/carol-glanville/",
+          "email": "caglanville@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-85",
+        "openstates_id": "ocd-person/38c62407-9471-40de-8a1c-44142573c79a",
+        "name": "Brad Slagh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/02/HS_SLAGH_0221_NSC_1065-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repbradleyslagh/about",
+          "email": "bradleyslagh@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-86",
+        "openstates_id": "ocd-person/ffae0dee-fb80-4434-bc8c-8e510d3bc495",
+        "name": "Nancy DeBoer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/De Boer-086.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepNancyDeBoer/posts",
+          "email": "nancydeboer@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-87",
+        "openstates_id": "ocd-person/6f36a657-51ea-4c74-b1fd-7bc69ad222bd",
+        "name": "Will Snyder",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Will-Snyder/",
+          "email": "willsnyder@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-88",
+        "openstates_id": "ocd-person/960d6487-b202-46fa-8905-e001b6954d5a",
+        "name": "Greg VanWoerkom",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_VAN-WOERKOM_0119.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repgregvanwoerkom/about",
+          "email": "gregvanwoerkom@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-89",
+        "openstates_id": "ocd-person/187a5c10-ccc0-4c94-a4c9-4c208ace4776",
+        "name": "Luke Meerman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_MEERMAN_0119.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/representatives/southwest/meerman/",
+          "email": "lukemeerman@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-90",
+        "openstates_id": "ocd-person/c925c469-552f-448d-a89f-ef456e15da21",
+        "name": "Bryan Posthumus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/Bryan-Posthumus_HS.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repbryanposthumus/about",
+          "email": "bryanposthumus@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-91",
+        "openstates_id": "ocd-person/1a809c60-e0a4-4b43-bdba-43f097021b1f",
+        "name": "Pat Outman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/HS_OUTMAN_0221_NSC_7638-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/reppatoutman/about",
+          "email": "patoutman@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-92",
+        "openstates_id": "ocd-person/549e485e-c1ea-4582-8db3-91d1e15fe27a",
+        "name": "Jerry Neyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Neyer-092.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJerryNeyer/posts",
+          "email": "jerryneyerr@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-93",
+        "openstates_id": "ocd-person/679924dd-c6da-467c-9a9c-1f5a22aa1787",
+        "name": "Tim Kelly",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "http://gophouse.org/wp-content/uploads/2015/01/HS_Kelly_0213_DSC6086_hr94-192x300.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepTimKelly/",
+          "email": "timkelly@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-94",
+        "openstates_id": "ocd-person/5f160dff-1ce1-4606-a469-fdd08125beb4",
+        "name": "Amos O'Neal",
+        "party": "D",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/amos-oneal/",
+          "email": "amosoneal@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-95",
+        "openstates_id": "ocd-person/5355f558-55bb-4f29-81eb-89179f55d69a",
+        "name": "Bill Schuette",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Schuette-095.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepBillGSchuette/posts",
+          "email": "billschuette@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-96",
+        "openstates_id": "ocd-person/6b7aadaf-f690-487f-bec8-95f095f6b565",
+        "name": "Timmy Beson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/HS_BESON_1220_NSC_6238-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/reptimothybeson/about",
+          "email": "timothybeson@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-97",
+        "openstates_id": "ocd-person/33fdbffe-7e3d-4146-bd91-bddc098a7bf3",
+        "name": "Matt Bierlein",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Bierlein-097.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepMatthewBierlein/posts",
+          "email": "matthewbierlein@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-98",
+        "openstates_id": "ocd-person/fc7627d7-6c08-49e7-9edc-6f419443ffaa",
+        "name": "Greg Alexander",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Alexander-098.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repgregalexander/posts",
+          "email": "gregalexander@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-99",
+        "openstates_id": "ocd-person/0991c39a-0216-491e-a2c1-e7b61b11275d",
+        "name": "Mike Hoadley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Hoadley-099.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepMikeHoadley/posts",
+          "email": "mikehoadley@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-100",
+        "openstates_id": "ocd-person/462dc80a-8642-40d7-9c22-f6234da5451e",
+        "name": "Tom Kunse",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Kunse-100.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepTomKunse/posts",
+          "email": "tomkunse@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-101",
+        "openstates_id": "ocd-person/ba49b4ef-08fb-48a0-b8a9-495a3605ef0a",
+        "name": "Joseph Fox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Fox-101.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepJosephFox/posts",
+          "email": "josephfox@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-102",
+        "openstates_id": "ocd-person/b0804883-3f8c-4341-bbc1-26a0346b37c4",
+        "name": "Curt VanderWall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://senate.michigan.gov/_images/35th.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepCurtisVanderWall/posts",
+          "email": "curtisvanderwall@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-103",
+        "openstates_id": "ocd-person/80ccf9a5-7303-4218-be3e-0ab6f8e90eee",
+        "name": "Betsy Coffia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://housedems.com/Betsy-Coffia/",
+          "email": "betsycoffia@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-104",
+        "openstates_id": "ocd-person/e1147656-e038-47fa-ad70-4d206233db72",
+        "name": "J.R. Roth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/HS_ROTH_1220_NSC_7566-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repjohnroth/posts",
+          "email": "johnroth@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-105",
+        "openstates_id": "ocd-person/f38453af-388f-48fc-a18e-f709dba5153c",
+        "name": "Ken Borton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2021/01/HS_BORTON_0121_NSC_7600-scaled.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repkenborton/about",
+          "email": "kenborton@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-106",
+        "openstates_id": "ocd-person/60ae519b-a739-4dc5-80bb-c0161269607a",
+        "name": "Cam Cavitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Cavitt-106.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepCamCavitt/posts",
+          "email": "camcavitt@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-107",
+        "openstates_id": "ocd-person/9cf66125-7bd7-4991-bee6-ddc21fd23b5d",
+        "name": "Parker Fairbairn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ParkerFairbairn2024.JPG",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepParkerFairbairn",
+          "email": "parker.fairbairn@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-108",
+        "openstates_id": "ocd-person/addfe9a4-4b73-4dec-95a9-4bb7cd0d6bd2",
+        "name": "Dave Prestin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://www.house.mi.gov/media/Representatives/Prestin-108.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepDavePrestin/posts",
+          "email": "daveprestin@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-109",
+        "openstates_id": "ocd-person/e3bae1dd-d4b9-48c3-8e40-112987214638",
+        "name": "Karl Bohnak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://votebohnak.com/wp-content/uploads/2024/03/k5-400x266.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/RepKarlBohnak/",
+          "email": "karlbohnak@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-rep-110",
+        "openstates_id": "ocd-person/a3b57cdd-ae52-49af-9456-bc1f212fe970",
+        "name": "Greg Markkanen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "110",
+        "role": "State Representative",
+        "photo_url": "https://dtj5wlj7ond0z.cloudfront.net/uploads/2020/07/HS_MARKKAMEN_0119.jpg",
+        "contact": {
+          "official_website": "https://gophouse.org/member/repgregmarkkanen/about",
+          "email": "gregmarkkanen@house.mi.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

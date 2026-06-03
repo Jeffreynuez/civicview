@@ -1,0 +1,1069 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "NV",
+  "state_name": "Nevada",
+  "executive": {
+    "governor": {
+      "id": "nv-exec-gov",
+      "name": "Joe Lombardo",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://gov.nv.gov",
+      "photo_url": null,
+      "bio": "Joe Lombardo is the Governor of Nevada, serving since 2023.",
+      "sources": [
+        "https://gov.nv.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "nv-exec-lieutenant-governor",
+      "name": "Stavros Anthony",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgov.nv.gov/uploadedImages/ltgov2022nvgov/content/AboutUs/Stavros%20New%20Headshot.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "nv-exec-attorney-general",
+        "name": "Aaron D. Ford",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-NV-ford2.jpg"
+      },
+      {
+        "id": "nv-exec-secretary-of-state",
+        "name": "Francisco V. Aguilar",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Nevada State Senate",
+    "members": [
+      {
+        "id": "nv-sen-1",
+        "openstates_id": "ocd-person/4acffaa7-5568-47e3-b476-bdf23867605e",
+        "name": "Shelly Crawford",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/CruzCrawford.MicheleeShelly.419.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/1",
+          "email": "shelly.cruzcrawford@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-2",
+        "openstates_id": "ocd-person/e5b06346-f5ee-4e1d-baed-342cc4a8ff36",
+        "name": "Edgar Flores",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Flores.Edgar.273.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=273",
+          "email": "edgar.flores@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-3",
+        "openstates_id": "ocd-person/d84ad99c-617a-4d33-a351-8bde19868746",
+        "name": "Rochelle Nguyen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Nguyen.Rochelle.372.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=372",
+          "email": "rochelle.nguyen@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-4",
+        "openstates_id": "ocd-person/6da4be55-c493-4b72-b436-5257259247d2",
+        "name": "Dina Neal",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Senators/Images/Neal.Dina.129.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=129",
+          "email": "dina.neal@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-5",
+        "openstates_id": "ocd-person/189d270a-96e5-45af-a2b8-bbcc2ad225c1",
+        "name": "Carrie Buck",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Buck.Carrie.387.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=387",
+          "email": "carrie.buck@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-6",
+        "openstates_id": "ocd-person/d2ca0a59-3bf1-4e1c-b4d7-9da33a4c5152",
+        "name": "Nicole Cannizzaro",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Cannizzaro.Nicole.347.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=347",
+          "email": "nicole.cannizzaro@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-7",
+        "openstates_id": "ocd-person/05dee0b4-bfea-4473-b253-739895818b0d",
+        "name": "Roberta Lange",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Lange.Roberta.383.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=383",
+          "email": "roberta.lange@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-8",
+        "openstates_id": "ocd-person/0435a1f4-d8e4-43d9-9ac1-788a0aed92e4",
+        "name": "Marilyn Dondero Loop",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/DonderoLoop.Marilyn.92.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=92",
+          "email": "marilyn.donderoloop@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-9",
+        "openstates_id": "ocd-person/860029b3-070b-4c23-a826-51948c5d995c",
+        "name": "Melanie Scheible",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Scheible.Melanie.358.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=358",
+          "email": "melanie.scheible@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-10",
+        "openstates_id": "ocd-person/bcad4dc1-c812-409b-9cc9-e1d8c91fdafa",
+        "name": "Fabian Doñate",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Doate.Fabian.350.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/10",
+          "email": "fabian.donate@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-11",
+        "openstates_id": "ocd-person/f3c4b2a7-2a24-4ba2-9894-421daed2d117",
+        "name": "Lori Rogich",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "http://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Rogich.Lori.425.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/11",
+          "email": "lori.rogich@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-12",
+        "openstates_id": "ocd-person/a12a3103-37b0-4ac4-81f0-100aaad494e3",
+        "name": "Julie Pazina",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Pazina.Julie.391.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/12",
+          "email": "julie.pazina@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-13",
+        "openstates_id": "ocd-person/a0553b6f-7142-4321-9e3a-c089447d3a78",
+        "name": "Skip Daly",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Daly.Skip.155.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/13",
+          "email": "skip.daly@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-14",
+        "openstates_id": "ocd-person/94c7e249-88bb-4f83-b225-6b34f9361d0f",
+        "name": "Ira Hansen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Hansen.Ira.157.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=157",
+          "email": "ira.hansen@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-15",
+        "openstates_id": "ocd-person/d95b3a70-9bb4-43b8-a376-9d3151f9c44d",
+        "name": "Angie Taylor",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Taylor.Angela.424.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/27",
+          "email": "angela.taylor@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-16",
+        "openstates_id": "ocd-person/b82b9b71-1d83-4f91-9a7f-8adec73b023f",
+        "name": "Lisa Krasner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Krasner.Lisa.327.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=327",
+          "email": "lisa.krasner@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-17",
+        "openstates_id": "ocd-person/6aa57859-c195-4a44-9404-b6e2bbe4ac04",
+        "name": "Robin Titus",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Titus.Robin.281.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=281",
+          "email": "robin.titus@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-18",
+        "openstates_id": "ocd-person/deb46b96-7bab-40be-a145-8d397b436d87",
+        "name": "John Steinbeck",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "http://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Steinbeck.John.418.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/18",
+          "email": "john.steinbeck@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-19",
+        "openstates_id": "ocd-person/87e878e2-fd19-4b55-a7b5-b76adf520e84",
+        "name": "John Ellison",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Ellison.John.159.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=159",
+          "email": "john.ellison@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-20",
+        "openstates_id": "ocd-person/00ad1837-b472-4ce8-872d-e1eac1c1c6db",
+        "name": "Jeff Stone",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Stone.Jeff.390.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/20",
+          "email": "jeff.stone@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-sen-21",
+        "openstates_id": "ocd-person/75d6c9b4-d0ee-49bb-aa17-ec20bb33e9eb",
+        "name": "James Ohrenschall",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "http://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/Ohrenschall.James.67.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=67",
+          "email": "james.ohrenschall@sen.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Nevada State Assembly",
+    "members": [
+      {
+        "id": "nv-rep-1",
+        "openstates_id": "ocd-person/b266a1bc-d8f5-472c-ba8d-e98e0d904ee3",
+        "name": "Daniele Monroe-Moreno",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "1",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/MonroeMoreno.Daniele.307.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=307",
+          "email": "daniele.monroemoreno@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-2",
+        "openstates_id": "ocd-person/61389b89-1169-49b3-a17b-c904f2111b4e",
+        "name": "Heidi Kasama",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "2",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Kasama.Heidi.379.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=379",
+          "email": "heidi.kasama@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-3",
+        "openstates_id": "ocd-person/59a3b5f2-a135-48e5-9baa-98585f8ff35e",
+        "name": "Selena Torres-Fossett",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "3",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Torres.Selena.359.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=359",
+          "email": "selena.torres@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-4",
+        "openstates_id": "ocd-person/1707682b-c409-4d5e-9a2d-9505180de66c",
+        "name": "Lisa Cole",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "4",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Cole.Lisa.410.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/4",
+          "email": "lisa.cole@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-5",
+        "openstates_id": "ocd-person/287d0078-78f3-4717-8493-9f77d0eb57d6",
+        "name": "Brittney Miller",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "5",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Miller.Brittney.304.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=304",
+          "email": "brittney.miller@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-6",
+        "openstates_id": "ocd-person/b6a16a74-3cb4-43c1-83cd-1b6f211993a0",
+        "name": "Jovan Jackson",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "6",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jackson.Jovan.422.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/6",
+          "email": "jovan.jackson@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-7",
+        "openstates_id": "ocd-person/1af6f404-0dfc-424a-b6df-227f45782504",
+        "name": "Tanya Flanagan",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "7",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Flanagan.Tanya.423.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/7",
+          "email": "tanya.flanagan@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-8",
+        "openstates_id": "ocd-person/fb919fa4-e37e-4268-9f5d-e4c3e9490475",
+        "name": "Duy Nguyen",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "8",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Nguyen.Duy.392.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/8",
+          "email": "duy.nguyen@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-9",
+        "openstates_id": "ocd-person/4caae060-1c91-4d9d-a8f9-83d74c7d0f58",
+        "name": "Steve Yeager",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "9",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Yeager.Steve.310.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=310",
+          "email": "steve.yeager@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-10",
+        "openstates_id": "ocd-person/c1af6bc9-bae5-4174-a2f1-6b4d3c5fc496",
+        "name": "Venise Karris",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "10",
+        "role": "Assembly Member",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/VeniseKarris2024.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/10",
+          "email": "venise.karris@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-11",
+        "openstates_id": "ocd-person/0828d1f5-5772-4e62-88d8-1650abb8b749",
+        "name": "Cinthia Moore",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "11",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Moore.Cinthia.412.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/11",
+          "email": "cinthia.moore@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-12",
+        "openstates_id": "ocd-person/bd27bab3-8a47-439f-8ae5-8ce3ba534f90",
+        "name": "Max Carter",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "12",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Carter.Max.393.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/12",
+          "email": "max.carter@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-13",
+        "openstates_id": "ocd-person/20c9828b-8026-440a-9328-0c2cbcbad016",
+        "name": "Brian Hibbetts",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "13",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Hibbetts.Brian.394.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/13",
+          "email": "brian.hibbetts@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-14",
+        "openstates_id": "ocd-person/39e0ca55-992e-4558-aec5-279adb467de7",
+        "name": "Erica Mosca",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "14",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Mosca.Erica.395.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/14",
+          "email": "erica.mosca@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-15",
+        "openstates_id": "ocd-person/b88fd854-c97b-4908-a554-583b93bca5c4",
+        "name": "Howard Watts",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "15",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Watts.Howard.363.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=363",
+          "email": "howard.watts@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-16",
+        "openstates_id": "ocd-person/67f22a3d-05c3-4256-8260-dac682607fc7",
+        "name": "Cecelia González",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "16",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Gonzlez.Cecelia.378.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=378",
+          "email": "cecelia.gonzalez@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-17",
+        "openstates_id": "ocd-person/9a681fc4-e005-4c1f-a16b-6fa2b02106e3",
+        "name": "Linda Hunt",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "17",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hunt.Linda.420.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/17",
+          "email": "linda.hunt@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-18",
+        "openstates_id": "ocd-person/00175071-948a-4814-b66e-b07b2ec7785d",
+        "name": "Venicia Considine",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "18",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Considine.Venicia.380.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=380",
+          "email": "venicia.considine@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-19",
+        "openstates_id": "ocd-person/4e25af9f-4cb3-4812-8a12-2f1012aa6cb7",
+        "name": "Jason Patchett",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "19",
+        "role": "Assembly Member",
+        "photo_url": "https://media.lasvegassun.com/media/img/photos/2016/06/08/Patchett_Jason_t650.jpg?5711a3b57decb389a12ba40e20471e031ff69545",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/19",
+          "email": "jason.patchett@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-20",
+        "openstates_id": "ocd-person/7d16a086-5877-48e9-9e76-13c5159f89ce",
+        "name": "David Orentlicher",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "20",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Orentlicher.David.377.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=377",
+          "email": "david.orentlicher@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-21",
+        "openstates_id": "ocd-person/a76836f8-24c9-4f90-8e13-29f417a7ad9f",
+        "name": "Elaine Marzola",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "21",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Marzola.Elaine.376.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=376",
+          "email": "elaine.marzola@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-22",
+        "openstates_id": "ocd-person/5cafbfaf-3066-4080-9754-b53f337ba4ba",
+        "name": "Melissa Hardy",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "22",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hardy.Melissa.364.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=364",
+          "email": "melissa.hardy@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-23",
+        "openstates_id": "ocd-person/bf8b61a8-585a-4357-82f8-bd8de898262b",
+        "name": "Danielle Gallant",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "23",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gallant.Danielle.397.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/23",
+          "email": "danielle.gallant@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-24",
+        "openstates_id": "ocd-person/1555ff9d-7b4a-46d9-be19-6a4be444f574",
+        "name": "Erica Roth",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "24",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Roth.Erica.413.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/24",
+          "email": "erica.roth@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-25",
+        "openstates_id": "ocd-person/99f4f903-1c4f-49f0-835f-c0b9b1aa0317",
+        "name": "Selena La Rue Hatch",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "25",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/LaRueHatch.Selena.398.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/25",
+          "email": "selena.la.rue.hatch@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-26",
+        "openstates_id": "ocd-person/204b492e-4b29-4e8e-9c3e-d2d0f0a8ceea",
+        "name": "Rich DeLong",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "26",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DeLong.Rich.399.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/26",
+          "email": "rich.delong@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-27",
+        "openstates_id": "ocd-person/bedabc75-c6b4-4949-9e0e-76b9432e740f",
+        "name": "Heather Goulding",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "27",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Goulding.Heather.416.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/27",
+          "email": "heather.goulding@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-28",
+        "openstates_id": "ocd-person/eae59702-f6de-431e-98f0-9c4bc5b6e059",
+        "name": "Reuben D'Silva",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "28",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DSilva.Reuben.401.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/28",
+          "email": "reuben.dsilva@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-29",
+        "openstates_id": "ocd-person/282757f9-1693-4ac5-bd98-4315543cd61a",
+        "name": "Joe Dalia",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "29",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Dalia.Joe.414.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/29",
+          "email": "joe.dalia@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-30",
+        "openstates_id": "ocd-person/d4a1125a-69d2-4de1-a4b4-af2aae20de09",
+        "name": "Natha Anderson",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "30",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Anderson.Natha.375.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=375",
+          "email": "natha.anderson@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-31",
+        "openstates_id": "ocd-person/70e15282-2812-4486-9d7e-06862aa45cc3",
+        "name": "Jill Dickman",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "31",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Dickman.Jill.277.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=277",
+          "email": "jill.dickman@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-32",
+        "openstates_id": "ocd-person/6fee4c5a-f125-46bc-b11a-d254e40428e4",
+        "name": "Alexis Hansen",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "32",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hansen.Alexis.366.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=366",
+          "email": "alexis.hansen@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-33",
+        "openstates_id": "ocd-person/11f44d71-88c1-4022-a2f5-f8ca9b8795f2",
+        "name": "Bert Gurr",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "33",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gurr.Bert.402.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/33",
+          "email": "bert.gurr@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-34",
+        "openstates_id": "ocd-person/684e4e66-da40-4914-943a-40ef578fa231",
+        "name": "Hanadi Nadeem",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "34",
+        "role": "Assembly Member",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Hanadi_Nadeem1.jpeg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/34",
+          "email": "hanadi.nadeem@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-35",
+        "openstates_id": "ocd-person/0460d67c-f5e3-4ff8-82c3-27caabeff9a2",
+        "name": "Rebecca Edgeworth",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "35",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Edgeworth.Rebecca.411.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/35",
+          "email": "rebecca.edgeworth@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-36",
+        "openstates_id": "ocd-person/33330e1e-b22d-49d7-bce8-6964b289683a",
+        "name": "Greg Hafen",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "36",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hafen.Gregory.371.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=371",
+          "email": "gregory.hafen@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-37",
+        "openstates_id": "ocd-person/1fa69460-c910-4cf1-acfb-1d44c342e658",
+        "name": "Shea Backus",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "37",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Backus.Shea.368.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/37",
+          "email": "shea.backus@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-38",
+        "openstates_id": "ocd-person/1c4f97a9-c965-4d0d-b5b6-39b91aee4f49",
+        "name": "Gregory Koenig",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "38",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Koenig.Gregory.403.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/38",
+          "email": "gregory.koenig@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-39",
+        "openstates_id": "ocd-person/b89aa9d2-1550-4e73-8981-ffa49b7113ad",
+        "name": "Blayne Osborn",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "39",
+        "role": "Assembly Member",
+        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Osborn.Blayne.427.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/36th2025Special/39",
+          "email": "blayne.osborn@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-40",
+        "openstates_id": "ocd-person/a964be66-bd32-48ab-b6c4-9ede22177328",
+        "name": "P.K. O'Neill",
+        "party": "R",
+        "chamber": "State Assembly",
+        "district": "40",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/ONeill.PhilipPK.285.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=285",
+          "email": "pk.oneill@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-41",
+        "openstates_id": "ocd-person/25e09131-39e3-4c58-96b0-6c1ac9e74b19",
+        "name": "Sandra Jauregui",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "41",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jauregui.Sandra.344.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=344",
+          "email": "sandra.jauregui@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nv-rep-42",
+        "openstates_id": "ocd-person/fc07db44-bc3c-412b-a15e-dd013220411a",
+        "name": "Tracy Brown-May",
+        "party": "D",
+        "chamber": "State Assembly",
+        "district": "42",
+        "role": "Assembly Member",
+        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/BrownMay.Tracy.353.jpg",
+        "contact": {
+          "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/42",
+          "email": "tracy.brownmay@asm.state.nv.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

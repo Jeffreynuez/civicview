@@ -1,0 +1,2144 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "TN",
+  "state_name": "Tennessee",
+  "executive": {
+    "governor": {
+      "id": "tn-exec-gov",
+      "name": "Bill Lee",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://www.tn.gov/governor",
+      "photo_url": null,
+      "bio": "Bill Lee is the Governor of Tennessee, serving since 2019.",
+      "sources": [
+        "https://www.tn.gov/governor"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Tennessee State Senate",
+    "members": [
+      {
+        "id": "tn-sen-1",
+        "openstates_id": "ocd-person/b3bd4f95-946f-4b4b-b58f-ab78345847b7",
+        "name": "Adam Lowe",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://static.wixstatic.com/media/599b12_afa74a3390064dd386df25e882ac9659~mv2.jpeg/v1/fill/w_675,h_716,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/599b12_afa74a3390064dd386df25e882ac9659~mv2.jpeg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S1",
+          "email": "sen.adam.lowe@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-2",
+        "openstates_id": "ocd-person/6567e0e2-9ecf-4129-b838-e3618b4cf786",
+        "name": "Tom Hatcher",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6570c60e478ebd26777cfd83/7e2e888c-6da6-4b8f-a79f-279c8e5cd2c2/365772199_7298985810116788_8248702436261909523_n.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S2&ga=114",
+          "email": "sen.tom.hatcher@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-3",
+        "openstates_id": "ocd-person/b8b305e5-ff02-4f8d-8ef1-61a4a7ecf54a",
+        "name": "Rusty Crowe",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s3.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S3",
+          "email": "sen.rusty.crowe@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-4",
+        "openstates_id": "ocd-person/841e5585-a49a-4754-95d4-682d974b4ff4",
+        "name": "Bobby Harshbarger",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://tennesseelookout.com/wp-content/uploads/2024/09/Bobby-Harshbarger-975x1024.jpeg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S4",
+          "email": "sen.bobby.harshbarger@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-5",
+        "openstates_id": "ocd-person/e00c236d-6153-4618-96f8-12e6a1d639aa",
+        "name": "Randy McNally",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s5.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S5",
+          "email": "sen.randy.mcnally@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-6",
+        "openstates_id": "ocd-person/592971a7-2e11-4bed-a57d-71187e174329",
+        "name": "Becky Massey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s6.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S6",
+          "email": "sen.becky.massey@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-7",
+        "openstates_id": "ocd-person/9d744074-d7ae-4004-8912-bae320633c46",
+        "name": "Richard Briggs",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s7.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S7",
+          "email": "sen.richard.briggs@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-8",
+        "openstates_id": "ocd-person/b37537b4-ac38-4d83-ba16-025fcb7f0dc6",
+        "name": "Jessie Seal",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jason_Weakley_20241023_122227.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S8&ga=114",
+          "email": "sen.jessie.seal@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-9",
+        "openstates_id": "ocd-person/37dddeca-88ef-4254-b6f2-b2ddd6526665",
+        "name": "Steve Southerland",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://capitol.tn.gov/senate/members/images/S9.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S9",
+          "email": "sen.steve.southerland@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-10",
+        "openstates_id": "ocd-person/d5d2e89a-5467-4f69-a77d-70caaa351086",
+        "name": "Todd Gardenhire",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://capitol.tn.gov/senate/members/images/S10.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S10",
+          "email": "sen.todd.gardenhire@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-11",
+        "openstates_id": "ocd-person/86d5ff12-369b-41a4-9626-237425063c1b",
+        "name": "Bo Watson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s11.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S11",
+          "email": "sen.bo.watson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-12",
+        "openstates_id": "ocd-person/908edc68-a862-455c-a609-7619977252d1",
+        "name": "Ken Yager",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s12.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S12",
+          "email": "sen.ken.yager@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-13",
+        "openstates_id": "ocd-person/80bf42b1-4942-4187-af19-94e830333ce2",
+        "name": "Dawn White",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s13.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S13",
+          "email": "sen.dawn.white@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-14",
+        "openstates_id": "ocd-person/fa4bd8d0-c567-4434-a24a-6d0bf9759f0b",
+        "name": "Shane Reeves",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s14.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S14",
+          "email": "sen.shane.reeves@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-15",
+        "openstates_id": "ocd-person/8e49fca4-e0d8-4273-adab-265632163d86",
+        "name": "Paul Bailey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s15.jpg",
+        "contact": {
+          "official_website": "https://paulbaileyfortn.com/",
+          "email": "sen.paul.bailey@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-16",
+        "openstates_id": "ocd-person/f48dc5f3-1c31-4654-a6be-1b9d20ecb3b2",
+        "name": "Janice Bowling",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s16.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S16",
+          "email": "sen.janice.bowling@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-17",
+        "openstates_id": "ocd-person/47dee87e-231d-4c39-b0a2-6905a85ddbf8",
+        "name": "Mark Pody",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s17.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S17",
+          "email": "sen.mark.pody@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-18",
+        "openstates_id": "ocd-person/f539ae98-f5d7-4290-9835-f64a1ab0a8c7",
+        "name": "Ferrell Haile",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s18.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S18",
+          "email": "sen.ferrell.haile@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-19",
+        "openstates_id": "ocd-person/0ce3dbf9-c880-480b-a623-7d9da870bb01",
+        "name": "Charlane Oliver",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CharlaneOliver.png",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S19",
+          "email": "sen.charlane.oliver@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-20",
+        "openstates_id": "ocd-person/b4356789-3561-4110-ad59-00c7cf36e0fd",
+        "name": "Heidi Campbell",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/S20.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S20",
+          "email": "sen.heidi.campbell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-21",
+        "openstates_id": "ocd-person/eda112b7-c5bc-4d24-95b8-3651090e1da4",
+        "name": "Jeff Yarbro",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s21.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S21",
+          "email": "sen.jeff.yarbro@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-22",
+        "openstates_id": "ocd-person/46b6a1b2-f0c0-4e9a-a506-a81e12e329f5",
+        "name": "Bill Powers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s22.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S22",
+          "email": "sen.bill.powers@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-23",
+        "openstates_id": "ocd-person/872517bf-9780-44e2-9532-87dfd816ec4c",
+        "name": "Kerry Roberts",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://fluxconsole.com/files/image/131100",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S23",
+          "email": "sen.kerry.roberts@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-24",
+        "openstates_id": "ocd-person/cb6c477c-ceb7-41af-ab96-b03debc1b7e3",
+        "name": "John Stevens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s24.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S24",
+          "email": "sen.john.stevens@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-25",
+        "openstates_id": "ocd-person/93024b02-926b-4414-8826-147b14739a2b",
+        "name": "Ed Jackson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://capitol.tn.gov/senate/members/images/S25.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S25",
+          "email": "sen.ed.jackson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-26",
+        "openstates_id": "ocd-person/88788ad3-d3e0-4846-9bd7-bc7b7f0b9759",
+        "name": "Page Walley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/S26.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S26",
+          "email": "sen.page.walley@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-27",
+        "openstates_id": "ocd-person/83e732c5-55af-4d56-b3ed-9ff358ed641e",
+        "name": "Jack Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/williamsonherald.com/content/tncms/assets/v3/editorial/b/5f/b5ffcba0-f751-11e8-8648-bf381c197480/5c05b9b74599d.image.jpg?resize=334%2C500",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S27",
+          "email": "sen.jack.johnson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-28",
+        "openstates_id": "ocd-person/fccb09fc-b331-4bba-8b84-fbd4ab3e3227",
+        "name": "Joey Hensley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s28.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S28",
+          "email": "sen.joey.hensley@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-29",
+        "openstates_id": "ocd-person/9c949092-7bff-4859-bea7-46d9c37ed513",
+        "name": "Raumesh Akbari",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s29.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S29",
+          "email": "sen.raumesh.akbari@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-30",
+        "openstates_id": "ocd-person/f1eb839c-83c6-471f-865e-1d87344fb58c",
+        "name": "Sara Kyle",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s30.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S30",
+          "email": "sen.sara.kyle@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-31",
+        "openstates_id": "ocd-person/d3f48e28-4ee5-4027-9670-0d617ca6048e",
+        "name": "Brent Taylor",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/BrentTaylor_TN.jpeg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S31",
+          "email": "sen.brent.taylor@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-32",
+        "openstates_id": "ocd-person/1793564f-19a5-4ac9-91c3-7cbb47843c2b",
+        "name": "Paul Rose",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s32.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S32",
+          "email": "sen.paul.rose@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-sen-33",
+        "openstates_id": "ocd-person/44fda210-d5be-4785-ae5e-0072b4111a67",
+        "name": "London Lamar",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s33.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S33",
+          "email": "sen.london.lamar@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Tennessee State House",
+    "members": [
+      {
+        "id": "tn-rep-1",
+        "openstates_id": "ocd-person/d1ead0ef-cc7a-48b3-9fec-0afc8b9d013d",
+        "name": "John Crawford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h1.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-john-crawford/",
+          "email": "rep.john.crawford@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-2",
+        "openstates_id": "ocd-person/1e3046c6-b44b-43dd-9cb2-937f40e97a6a",
+        "name": "Bud Hulsey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h2.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H2",
+          "email": "rep.bud.hulsey@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-3",
+        "openstates_id": "ocd-person/206d00d3-65a9-4922-82d8-48f09a411863",
+        "name": "Timothy Hill",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TimothyHill.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-timothy-hill/",
+          "email": "rep.timothy.hill@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-4",
+        "openstates_id": "ocd-person/22be6e69-17be-43cf-aba3-bf06d4c7b54c",
+        "name": "Renea Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://reneajones.com/wp-content/uploads/2023/12/aboutimage.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H4",
+          "email": "rep.renea.jones@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-5",
+        "openstates_id": "ocd-person/646c2358-84c6-46bf-aca7-555283f31744",
+        "name": "David Hawk",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h5.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-david-hawk/",
+          "email": "rep.david.hawk@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-6",
+        "openstates_id": "ocd-person/d3ad0df9-8812-46b9-8fb3-6433036a1a9f",
+        "name": "Tim Hicks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h6.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-tim-hicks/",
+          "email": "rep.tim.hicks@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-7",
+        "openstates_id": "ocd-person/5110ee0d-fc68-4126-8ff2-7db3814afe66",
+        "name": "Becky Jo Alexander",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h7.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H7",
+          "email": "rep.rebecca.alexander@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-8",
+        "openstates_id": "ocd-person/27331b48-e198-4de9-ac44-e30509c8c26b",
+        "name": "Jerome Moon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h8.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H8",
+          "email": "rep.jerome.moon@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-9",
+        "openstates_id": "ocd-person/2c60cce4-42aa-44e7-85fe-ab30d8e38979",
+        "name": "Gary Hicks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h9.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-gary-hicks/",
+          "email": "rep.gary.hicks@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-10",
+        "openstates_id": "ocd-person/c79fb980-4ee3-40ce-9737-62e369c61fe0",
+        "name": "Rick Eldridge",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/H10.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H10",
+          "email": "rep.rick.eldridge@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-11",
+        "openstates_id": "ocd-person/c01a4deb-373d-48a9-b4a2-19125c6e1fe2",
+        "name": "Jeremy Faison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h11.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-jeremy-faison/",
+          "email": "rep.jeremy.faison@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-12",
+        "openstates_id": "ocd-person/a9c952eb-ff76-4d8c-9dbd-820b8909622e",
+        "name": "Fred Atchley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/2859e9_1cd01bea042640618e87046b22a3e1ef~mv2.png/v1/crop/x_578,y_0,w_2532,h_2534/fill/w_434,h_434,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/2023%201204%20Atchley%20Thank%20You%20Cards.png",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H12&ga=114",
+          "email": "rep.fred.atchley@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-13",
+        "openstates_id": "ocd-person/c8be1020-e805-46a9-a8b0-79e206b57540",
+        "name": "Robert Stevens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H13.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H13",
+          "email": "rep.robert.stevens@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-14",
+        "openstates_id": "ocd-person/984fd95f-0554-4b7b-aa3e-b72af6ae1aee",
+        "name": "Jason Zachary",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h14.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-jason-zachary/",
+          "email": "rep.jason.zachary@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-15",
+        "openstates_id": "ocd-person/810d9aeb-b666-4acc-b098-deaf265df277",
+        "name": "Sam McKenzie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h15.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H15",
+          "email": "rep.sam.mckenzie@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-16",
+        "openstates_id": "ocd-person/6e3a4ce2-b37c-4bd0-8def-100aba672a50",
+        "name": "Michele Carringer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "http://nebula.wsimg.com/ec18d700041ee80017970cc4f5b0d8cb?AccessKeyId=C9D09D69010A6C1BCFA5&disposition=0&alloworigin=1",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-michele-carringer/",
+          "email": "rep.michele.carringer@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-17",
+        "openstates_id": "ocd-person/ad23d4a9-9a62-40a5-94a5-246f7741c3e2",
+        "name": "Andrew Farmer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h17.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H17",
+          "email": "rep.andrew.farmer@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-18",
+        "openstates_id": "ocd-person/4c4c679e-fb3d-4ad2-bdfe-f7c077f2d82a",
+        "name": "Elaine Davis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/62669899a296e67b1d34963d/13e0ac0c-9c86-423e-baa5-655fb75829bf/ElaineDavis2022-1.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-elaine-davis/",
+          "email": "rep.elaine.davis@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-19",
+        "openstates_id": "ocd-person/4d4a531e-1122-4155-a4e3-9c7069aaebc7",
+        "name": "Dave Wright",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/H19.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-dave-wright/",
+          "email": "rep.dave.wright@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-20",
+        "openstates_id": "ocd-person/ed22e9c7-ddb2-4772-b664-04d4e31cce5b",
+        "name": "Tommy Stinnett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tom_Stinnett_2025.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H20",
+          "email": "rep.tom.stinnett@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-21",
+        "openstates_id": "ocd-person/df1bd786-8e1a-4c9d-bd7a-bf8250213dc3",
+        "name": "Lowell Russell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H21.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H21",
+          "email": "rep.lowell.russell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-22",
+        "openstates_id": "ocd-person/311de632-eabb-46da-b547-5fbd73b97769",
+        "name": "Dan Howell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h22.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H22",
+          "email": "rep.dan.howell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-23",
+        "openstates_id": "ocd-person/a8461189-9673-4d76-a01d-fa7dddc33a28",
+        "name": "Mark Cochran",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H23.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-mark-cochran/",
+          "email": "rep.mark.cochran@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-24",
+        "openstates_id": "ocd-person/96936d32-69d1-4956-a3e7-12833239e2bb",
+        "name": "Kevin Raper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kevin-Raper.PNG",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H24",
+          "email": "rep.kevin.raper@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-25",
+        "openstates_id": "ocd-person/421c9380-99f4-47ff-9d70-5c5eced05a89",
+        "name": "Cameron Sexton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h25.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H25",
+          "email": "speaker.cameron.sexton@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-26",
+        "openstates_id": "ocd-person/3fb15ce3-c606-4e25-bc6f-1c374bb52cf6",
+        "name": "Greg Martin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h26.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H26",
+          "email": "rep.greg.martin@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-27",
+        "openstates_id": "ocd-person/435383cc-dc4b-40cb-a55f-d554dcd9d6b7",
+        "name": "Michele Reneau",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rebecca_Day_20240808_092357.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-michele-reneau/",
+          "email": "rep.michele.reneau@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-28",
+        "openstates_id": "ocd-person/73d17744-fdda-495d-b5a8-c44342fc5b38",
+        "name": "Yusuf Hakeem",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://data.openstates.org/images/small/ocd-person/73d17744-fdda-495d-b5a8-c44342fc5b38",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H28",
+          "email": "rep.yusuf.hakeem@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-29",
+        "openstates_id": "ocd-person/1035ecfa-8b33-472b-8aa9-2c6286c7fb59",
+        "name": "Greg Vital",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h29.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-greg-vital/",
+          "email": "rep.greg.vital@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-30",
+        "openstates_id": "ocd-person/f0cdd239-6095-49bc-9d82-e8ebd7c10254",
+        "name": "Esther Helton-Haynes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H30.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-esther-helton-haynes/",
+          "email": "rep.esther.helton@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-31",
+        "openstates_id": "ocd-person/7429d345-6ad7-421c-936b-3ef9755c6d1f",
+        "name": "Ron Travis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h31.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-ron-travis/",
+          "email": "rep.ron.travis@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-32",
+        "openstates_id": "ocd-person/eb738f26-e0b1-4c51-af77-024bfed96183",
+        "name": "Monty Fritts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/fd35b0_10146244fb184e609fc7bce8e27b2b82~mv2.png/v1/fill/w_252,h_358,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Monty%20Image%20cropped%20(1)_edited.png",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-monty-fritts/",
+          "email": "rep.monty.fritts@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-33",
+        "openstates_id": "ocd-person/e38dc213-a42e-43ec-8924-236dc2d9ef35",
+        "name": "Rick Scarbrough",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://tnhousegop.org/wp-content/uploads/2025/01/Scarbrough-scaled.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H33",
+          "email": "rep.rick.scarbrough@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-34",
+        "openstates_id": "ocd-person/78c1a569-dcc0-446c-a995-f871964df056",
+        "name": "Tim Rudd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h34.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H34",
+          "email": "rep.tim.rudd@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-35",
+        "openstates_id": "ocd-person/33aa517f-98cc-4c9a-8bae-5b41542555fa",
+        "name": "William Slater",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/gallatinnews.com/content/tncms/assets/v3/editorial/e/3b/e3b758f4-03a2-11ed-9c70-97c00c9ae5a8/62d0609f6cb1e.image.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H35",
+          "email": "rep.william.slater@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-36",
+        "openstates_id": "ocd-person/67643e56-9e53-437b-999d-987f8b0692c1",
+        "name": "Dennis Powers",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h36.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H36",
+          "email": "rep.dennis.powers@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-37",
+        "openstates_id": "ocd-person/7c874269-afdd-4d41-a9da-b0ddb903bb6f",
+        "name": "Charlie Baum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/H37.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-charlie-baum/",
+          "email": "rep.charlie.baum@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-38",
+        "openstates_id": "ocd-person/51baddf9-a3d9-47c6-81e5-00b6608c6767",
+        "name": "Kelly Keisling",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h38.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-kelly-keisling/",
+          "email": "rep.kelly.keisling@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-39",
+        "openstates_id": "ocd-person/96432d4d-ecdf-4fa0-8a20-e8a5636fb7dd",
+        "name": "Iris Rudder",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://data.openstates.org/images/small/ocd-person/96432d4d-ecdf-4fa0-8a20-e8a5636fb7dd",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-iris-rudder/",
+          "email": "rep.iris.rudder@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-40",
+        "openstates_id": "ocd-person/7bad87b9-12ec-4e74-a3ec-945bc78c5f5f",
+        "name": "Michael Hale",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Hale_20230524_083209.jpeg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H40",
+          "email": "rep.michael.hale@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-41",
+        "openstates_id": "ocd-person/a94ac42a-6b1e-4ecf-acd4-32c2e463e059",
+        "name": "Ed Butler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "http://edbutlerfortn.com/wp-content/uploads/2018/04/Ed-Butler.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H41",
+          "email": "rep.ed.butler@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-42",
+        "openstates_id": "ocd-person/df3f9935-b7e2-4f76-a461-115487c57721",
+        "name": "Ryan Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h42.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H42",
+          "email": "rep.ryan.williams@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-43",
+        "openstates_id": "ocd-person/3c4af105-7b55-4c00-af88-af574ea05493",
+        "name": "Paul Sherrell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h43.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-paul-sherrell/",
+          "email": "rep.paul.sherrell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-44",
+        "openstates_id": "ocd-person/5026d19f-d4ec-47b2-b106-f318a45e8585",
+        "name": "William Lamberth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h44.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H44",
+          "email": "rep.william.lamberth@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-45",
+        "openstates_id": "ocd-person/8aeb3cc6-b0ca-4af6-ae9d-06aca0c6ae14",
+        "name": "Johnny Garrett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.spencerfane.com/wp-content/uploads/2023/05/garrett-j-731x1024.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H45",
+          "email": "rep.johnny.garrett@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-46",
+        "openstates_id": "ocd-person/7fa67dd6-999c-4116-a136-32633710f6b0",
+        "name": "Clark Boyd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h46.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H46",
+          "email": "rep.clark.boyd@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-47",
+        "openstates_id": "ocd-person/271c14e0-433b-42ce-91c5-c01ad5ccfc41",
+        "name": "Rush Bricken",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://data.openstates.org/images/small/ocd-person/271c14e0-433b-42ce-91c5-c01ad5ccfc41",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H47",
+          "email": "rep.rush.bricken@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-48",
+        "openstates_id": "ocd-person/a9676141-e809-4554-9d0c-283916c36f63",
+        "name": "Bryan Terry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h48.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-bryan-terry/",
+          "email": "rep.bryan.terry@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-49",
+        "openstates_id": "ocd-person/092dd5d6-fb25-494c-ad16-78f0034df92f",
+        "name": "Mike Sparks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h49.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H49",
+          "email": "rep.mike.sparks@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-50",
+        "openstates_id": "ocd-person/e0272220-99f1-4cfb-9d29-946b86279e0b",
+        "name": "Bo Mitchell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h50.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H50",
+          "email": "rep.bo.mitchell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-51",
+        "openstates_id": "ocd-person/6dc4d8e8-aa2c-423b-8f5c-8ed4666a27db",
+        "name": "Aftyn Behn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aftyn_Behn.png",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H51",
+          "email": "rep.aftyn.behn@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-52",
+        "openstates_id": "ocd-person/7d04ddd1-fbe5-452e-a649-1ca3aac0e0a3",
+        "name": "Justin Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JustinJones_TN_HD52.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H52",
+          "email": "rep.justin.jones@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-53",
+        "openstates_id": "ocd-person/7a2b1f85-6a85-41af-8b81-44d585e0041a",
+        "name": "Jason Powell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.tennessean.com/gcdn/-mm-/6f03ca527b37558797b9ff3612df6f1ca4cc9386/c=0-42-1946-2637/local/-/media/Nashville/2015/02/11/B9316214695Z.1_20150211202701_000_GF79UD55G.1-0.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H53",
+          "email": "rep.jason.powell@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-54",
+        "openstates_id": "ocd-person/ee804d8a-2f07-4271-83a7-0179f4c3445c",
+        "name": "Vincent Dixie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H54.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H54",
+          "email": "rep.vincent.dixie@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-55",
+        "openstates_id": "ocd-person/87464fca-8690-4e1e-a7aa-499008a9c0b1",
+        "name": "John Clemmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h55.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H55",
+          "email": "rep.john.ray.clemmons@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-56",
+        "openstates_id": "ocd-person/c8a26be8-8de1-434b-864a-21697f8f15d4",
+        "name": "Bob Freeman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H56.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H56",
+          "email": "rep.bob.freeman@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-57",
+        "openstates_id": "ocd-person/b593203d-3346-4a33-8a97-94cc9614d5c5",
+        "name": "Susan Lynn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h57.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-susan-lynn/",
+          "email": "rep.susan.lynn@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-58",
+        "openstates_id": "ocd-person/2b7b0735-2adf-4d15-8dab-e32cf871d1d9",
+        "name": "Harold Love",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h58.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H58",
+          "email": "rep.harold.love@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-59",
+        "openstates_id": "ocd-person/625050ba-cb23-4c09-b62b-818e544d987d",
+        "name": "Caleb Hemmer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/hemmercaleb.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H59",
+          "email": "rep.caleb.hemmer@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-60",
+        "openstates_id": "ocd-person/93b13ac4-5a82-40fb-b646-2fe7c07f8ac1",
+        "name": "Shaundelle Brooks",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://images.bradyunited.org/production/images/Shaundelle-Brooks.jpeg?w=400&h=336&fm=webp&auto=compress&fit=crop&dm=1717513962&s=8dee64026b44a29de45f896285fc7b35",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H60",
+          "email": "rep.shaundelle.brooks@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-61",
+        "openstates_id": "ocd-person/7e3d4405-71b3-44f8-8e51-9d329ce10838",
+        "name": "Gino Bulso",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://votegino.com/wp-content/uploads/2022/04/gino.png",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H61",
+          "email": "rep.gino.bulso@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-62",
+        "openstates_id": "ocd-person/2670b6b7-f648-454d-a70e-bd84792d304d",
+        "name": "Pat Marsh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h62.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-pat-marsh/",
+          "email": "rep.pat.marsh@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-63",
+        "openstates_id": "ocd-person/f954892c-82e4-48ff-ae0c-c7e10c251335",
+        "name": "Jake McCalmon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/58f80179be65944c6f5eeb8a/94dc5fac-95f7-4b57-8c52-6bffa35d2a20/JakeMcCalmon-3.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-jake-mccalmon/",
+          "email": "rep.jake.mccalmon@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-64",
+        "openstates_id": "ocd-person/da306a9e-f227-4cf4-bfd8-c7d6cb4c7eac",
+        "name": "Scott Cepicky",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H64.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-scott-cepicky/",
+          "email": "rep.scott.cepicky@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-65",
+        "openstates_id": "ocd-person/f7006293-9fb3-4053-bd79-d77f84c6e59a",
+        "name": "Lee Reeves",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/williamsonherald.com/content/tncms/assets/v3/editorial/7/43/743d158c-3f0e-11ef-855e-4b97c0d5f896/668f0f9e62e96.image.jpg?resize=394%2C500",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-lee-reeves/",
+          "email": "rep.lee.reeves@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-66",
+        "openstates_id": "ocd-person/57b51b23-1a38-47dd-bd4f-49954df01971",
+        "name": "Doc Kumar",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h66.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H66",
+          "email": "rep.sabi.kumar@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-67",
+        "openstates_id": "ocd-person/12e6200c-0859-4582-9f55-31dd55eb3b0e",
+        "name": "Ronnie Glynn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/1Aug232020602PM_80182230_BLUE-min.png",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H67",
+          "email": "rep.ronnie.glynn@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-68",
+        "openstates_id": "ocd-person/0b5b90de-2d94-424f-ab28-b434696cb5a9",
+        "name": "Aron Maberry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.cmcss.net/wp-content/uploads/elementor/thumbs/L10A9877-2-scaled-qx0h1ahjmd2n4yug9v0d3onejmbo99kwtpl6ybvbxo.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H68",
+          "email": "rep.aron.maberry@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-69",
+        "openstates_id": "ocd-person/2689e641-85b8-4753-bd0f-28e2cdfc1568",
+        "name": "Jody Barrett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jody-Barrett.PNG",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H69",
+          "email": "rep.jody.barrett@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-70",
+        "openstates_id": "ocd-person/bdfd00ac-13a8-4208-b687-e46e980d79de",
+        "name": "Clay Doggett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/H70.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-clay-doggett/",
+          "email": "rep.clay.doggett@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-71",
+        "openstates_id": "ocd-person/1ea53db6-5fee-4603-9f8e-fd63694b45fa",
+        "name": "Kip Capley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://votecapley.com/wp-content/uploads/2022/01/capley2-4.png",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-kip-capley/",
+          "email": "rep.kip.capley@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-72",
+        "openstates_id": "ocd-person/65b1d39e-414c-46c2-9aca-8cea5b6cba8b",
+        "name": "Kirk Haston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H72.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H72",
+          "email": "rep.kirk.haston@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-73",
+        "openstates_id": "ocd-person/5854880e-f10d-4c24-9593-4ae567fec8d7",
+        "name": "Chris Todd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H73.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-chris-todd/",
+          "email": "rep.chris.todd@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-74",
+        "openstates_id": "ocd-person/380a255b-fef0-4cd9-9f33-3d5b5d163c68",
+        "name": "Jay Reedy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h74.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H74",
+          "email": "rep.jay.reedy@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-75",
+        "openstates_id": "ocd-person/4ac298c0-370f-4b1d-b41c-29d3ec4f6f09",
+        "name": "Michael Lankford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://montgomerytn.gov/storage/departments/commission/commissioner/Commissioners-Sept-2022/MichaelLankford.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H75",
+          "email": "rep.michael.lankford@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-76",
+        "openstates_id": "ocd-person/5cec9957-0b24-47d0-94b6-6f41e8f259bc",
+        "name": "Tandy Darby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h76.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-tandy-darby/",
+          "email": "rep.tandy.darby@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-77",
+        "openstates_id": "ocd-person/d00c0511-6872-4f2a-9d48-cf8d2a60e199",
+        "name": "Rusty Grills",
+        "party": "R",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h77.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H77",
+          "email": "rep.rusty.grills@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-78",
+        "openstates_id": "ocd-person/ec8815da-568a-436a-88ed-1e9da240fe80",
+        "name": "Mary Littleton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h78.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-mary-littleton/",
+          "email": "rep.mary.littleton@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-79",
+        "openstates_id": "ocd-person/de8e2d6f-efd8-45f5-b261-5963db78b909",
+        "name": "Brock Martin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Brock-Martin.PNG",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-brock-martin/",
+          "email": "rep.brock.martin@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-80",
+        "openstates_id": "ocd-person/36e97a50-c2e3-42a4-8f2d-97b4f176ddb1",
+        "name": "Johnny Shaw",
+        "party": "D",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h80.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H80",
+          "email": "rep.johnny.shaw@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-81",
+        "openstates_id": "ocd-person/d07683be-bda8-4af9-be0b-9bf3c1e441e7",
+        "name": "Debra Moody",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h81.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H81",
+          "email": "rep.debra.moody@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-82",
+        "openstates_id": "ocd-person/35764262-91cb-4a03-a2ee-5c87a0f5026e",
+        "name": "Chris Hurt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H82.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-chris-hurt/",
+          "email": "rep.chris.hurt@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-83",
+        "openstates_id": "ocd-person/8765a8d9-17ac-4a88-90e3-ef1f7d1b4e61",
+        "name": "Mark White",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h83.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H83",
+          "email": "rep.mark.white@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-84",
+        "openstates_id": "ocd-person/7a3177a1-118c-48ce-bbb8-17ebb1240e00",
+        "name": "Joe Towns",
+        "party": "D",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h84.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H84",
+          "email": "rep.joe.towns@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-85",
+        "openstates_id": "ocd-person/108691a2-9f24-41c5-b4c8-606c7cdf036b",
+        "name": "Jesse Chism",
+        "party": "D",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H85.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H85",
+          "email": "rep.jesse.chism@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-86",
+        "openstates_id": "ocd-person/df116f27-98bd-497d-a5bc-9f1d7ddff506",
+        "name": "Justin Pearson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/638e0e4731cb8444ce5a20e8/1d467f44-2f5f-42d0-96e9-8819eee165fb/Justin_21.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H86",
+          "email": "rep.justin.j.pearson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-87",
+        "openstates_id": "ocd-person/807f5a72-fe61-460c-86a3-c65a6b9eaca1",
+        "name": "Karen Camper",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h87.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H87",
+          "email": "rep.karen.camper@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-88",
+        "openstates_id": "ocd-person/3e7acb18-4b9e-45d5-9787-dbce0f1959d8",
+        "name": "Larry Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h88.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H88",
+          "email": "rep.larry.miller@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-89",
+        "openstates_id": "ocd-person/34114218-f0eb-4864-8f4a-156c4cc71cdb",
+        "name": "Justin Lafferty",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://fluxconsole.com/files/image/131170",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H89",
+          "email": "rep.justin.lafferty@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-90",
+        "openstates_id": "ocd-person/4dbbf89b-69ab-459f-97ee-c53866e81296",
+        "name": "Gloria Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H90.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H90",
+          "email": "rep.gloria.johnson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-91",
+        "openstates_id": "ocd-person/8036dedc-9be1-4935-9a37-df3f95033110",
+        "name": "Torrey Harris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://capitol.tn.gov/house/members/images/H91.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H91",
+          "email": "rep.torrey.harris@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-92",
+        "openstates_id": "ocd-person/a7947036-fe6d-4ace-8e6e-78445dc4e19f",
+        "name": "Todd Warner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h92.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-todd-warner/",
+          "email": "rep.todd.warner@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-93",
+        "openstates_id": "ocd-person/740ad1ee-4445-41ef-b6b9-1d31185b4916",
+        "name": "G.A. Hardaway",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h93.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H93",
+          "email": "rep.ga.hardaway@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-94",
+        "openstates_id": "ocd-person/e7a2a416-0d33-4d78-8ee5-cf79628df4bd",
+        "name": "Ron Gant",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h94.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H94",
+          "email": "rep.ron.gant@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-95",
+        "openstates_id": "ocd-person/6246e527-70a9-4591-bb46-6354c6e11107",
+        "name": "Kevin Vaughan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "http://www.capitol.tn.gov/house/members/images/h95.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H95",
+          "email": "rep.kevin.vaughan@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-96",
+        "openstates_id": "ocd-person/15ba8ea2-6fd3-47e2-8a3c-98e87712b367",
+        "name": "Gabby Salinas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/587e30b61b10e3f62fc61ab4/242a6f6e-67d2-4fa8-8e51-c70a3b595274/IMG_1959.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H96&ga=114",
+          "email": "rep.gabby.salinas@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-97",
+        "openstates_id": "ocd-person/927edca0-8b67-40c6-b786-4cbfac5b344f",
+        "name": "John Gillespie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h97.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-john-gillespie/",
+          "email": "rep.john.gillespie@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-98",
+        "openstates_id": "ocd-person/785aed65-3e87-42fe-8e71-307ce08f44ae",
+        "name": "Antonio Parkinson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Antonio_Parkinson.jpg",
+        "contact": {
+          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H98",
+          "email": "rep.antonio.parkinson@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tn-rep-99",
+        "openstates_id": "ocd-person/37db89c5-6814-450a-8259-5e6d1a046e4f",
+        "name": "Tom Leatherwood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://d33byq9npfy6u9.cloudfront.net/4/tom-leatherwood/u/original/1333880/tomleatherwoodmug.jpg",
+        "contact": {
+          "official_website": "https://tnhousegop.org/members/representative-tom-leatherwood/",
+          "email": "rep.tom.leatherwood@capitol.tn.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

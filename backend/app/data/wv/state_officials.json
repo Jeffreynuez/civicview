@@ -1,0 +1,2187 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "WV",
+  "state_name": "West Virginia",
+  "executive": {
+    "governor": {
+      "id": "wv-exec-gov",
+      "name": "Patrick Morrisey",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2025",
+      "website": "https://governor.wv.gov",
+      "photo_url": null,
+      "bio": "Patrick Morrisey is the Governor of West Virginia, serving since 2025.",
+      "sources": [
+        "https://governor.wv.gov"
+      ]
+    },
+    "cabinet": [
+      {
+        "id": "wv-exec-attorney-general",
+        "name": "John B. McCuskey",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-McCusker.png"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "West Virginia State Senate",
+    "members": [
+      {
+        "id": "wv-sen-1",
+        "openstates_id": "ocd-person/599fd572-0475-4215-8d43-1474237f5a78",
+        "name": "Laura Chapman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/chapman_laura.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Chapman",
+          "email": "laura.chapman@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-1-2",
+        "openstates_id": "ocd-person/680aa2ce-6408-4047-a36b-0b3badc82851",
+        "name": "Ryan Weld",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/weld_ryan.jpg",
+        "contact": {
+          "official_website": "https://ryanweld.com/",
+          "email": "ryan.weld@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-2",
+        "openstates_id": "ocd-person/8941d02d-cee0-47a4-9c68-de73382b20af",
+        "name": "Charles Clements",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/clements_charles.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Clements",
+          "email": "charles.clements@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-2-2",
+        "openstates_id": "ocd-person/9c82f11d-28f2-4167-b10c-26815533f73a",
+        "name": "Chris Rose",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/rose_chris.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Rose",
+          "email": "chris.rose@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-3",
+        "openstates_id": "ocd-person/8fe81e26-b0ce-4349-a3e3-91d25247b980",
+        "name": "Mike Azinger",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/azinger_michael.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Azinger",
+          "email": "mike.azinger@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-3-2",
+        "openstates_id": "ocd-person/4a909c49-37c6-4105-ac77-afe4745a1b1b",
+        "name": "Trenton Barnhart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/barnhart_trenton.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Barnhart",
+          "email": "trenton.barnhart@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-4",
+        "openstates_id": "ocd-person/57c08164-a673-4269-84d9-6017e740eaac",
+        "name": "Amy Grady",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/senate/grady_amy.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Grady",
+          "email": "amy.grady@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-4-2",
+        "openstates_id": "ocd-person/18d03332-9bd9-4070-9101-6cf93ab2105e",
+        "name": "Eric Tarr",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/tarr_eric.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Tarr",
+          "email": "eric.tarr@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-5",
+        "openstates_id": "ocd-person/500ddd59-2fb2-406a-869c-2b06f6cc2385",
+        "name": "Mike Woelfel",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/woelfel_michael.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Woelfel",
+          "email": "mike.woelfel@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-5-2",
+        "openstates_id": "ocd-person/7a94bf35-24ea-49ba-bf09-b53c1465ffa7",
+        "name": "Scott Fuller",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/fuller_scott.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Fuller",
+          "email": "scott.fuller@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-6",
+        "openstates_id": "ocd-person/e304d393-2b0a-45c3-9f59-98455e0d73a0",
+        "name": "Craig Hart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/hart_craig.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/senate1/lawmaker.cfm?member=Senator%20Hart",
+          "email": "craig.hart@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-6-2",
+        "openstates_id": "ocd-person/e98e90d4-7e6d-47e0-b837-6f5f8b492d9c",
+        "name": "Mark Maynard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/maynard_mark.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Maynard",
+          "email": "mark.maynard@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-7",
+        "openstates_id": "ocd-person/c1187148-471e-4bdc-acf5-16fa0d5d998e",
+        "name": "Rupie Phillips",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/phillips_rupie.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Phillips",
+          "email": "rupie.phillips@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-7-2",
+        "openstates_id": "ocd-person/1039d280-ca07-4923-a501-408c5f7703dc",
+        "name": "Zack Maynard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/maynard_zack.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Maynard",
+          "email": "zack.maynard@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-8",
+        "openstates_id": "ocd-person/de2f5e4b-192a-463d-91b0-73f212e8f953",
+        "name": "Glenn Jeffries",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/jeffries_glenn.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Jeffries",
+          "email": "glenn.jeffries@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-8-2",
+        "openstates_id": "ocd-person/bf1213a4-9f13-4c3e-a900-c1722909f8a6",
+        "name": "Kevan Bartlett",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/bartlett_t.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Bartlett",
+          "email": "kevan.bartlett@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-9",
+        "openstates_id": "ocd-person/be5e24ac-6372-4364-a9b0-2e9b33a1a234",
+        "name": "Brian Helton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/helton_brian.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Helton",
+          "email": "brian.helton@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-9-2",
+        "openstates_id": "ocd-person/e0166da1-e7d4-42ed-bf99-fe2a9cd3e82e",
+        "name": "Rollan Roberts",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/roberts_rollan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Roberts",
+          "email": "rollan.roberts@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-10",
+        "openstates_id": "ocd-person/b4df4940-ac0e-4e1a-ba3c-940d604b4ad2",
+        "name": "Jack Woodrum",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/woodrum_jack.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Woodrum",
+          "email": "jack.woodrum@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-10-2",
+        "openstates_id": "ocd-person/147a2b54-846b-4fec-b394-be4b50827f5f",
+        "name": "Vince Deeds",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/deeds_vince.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Deeds",
+          "email": "vince.deeds@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-11",
+        "openstates_id": "ocd-person/8bd21671-34c1-4ba3-aced-0dcaa110029c",
+        "name": "Bill Hamilton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/senate/hamilton_bill.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Hamilton",
+          "email": "bill.hamilton@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-11-2",
+        "openstates_id": "ocd-person/86c70f70-4fc9-43f3-bd70-632d3a8f023b",
+        "name": "Robbie Morris",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/morris_robbie.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Morris",
+          "email": "robbie.morris@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-12",
+        "openstates_id": "ocd-person/de50d28d-6a58-4244-8c74-36ca3f41767a",
+        "name": "Ben Queen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/queen_ben.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Queen",
+          "email": "ben.queen@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-12-2",
+        "openstates_id": "ocd-person/69547a9d-4e96-4ea8-94eb-528e40d5d004",
+        "name": "Patrick Martin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/martin_patrick.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
+          "email": "patrick.martin@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-13",
+        "openstates_id": "ocd-person/387d11ce-ecf1-4c80-a338-bd8c86f52004",
+        "name": "Joey Garcia",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/garcia_joey.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Garcia",
+          "email": "joey.garcia@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-13-2",
+        "openstates_id": "ocd-person/c00003a6-3518-496e-b972-fd5aa566d4c4",
+        "name": "Mike Oliverio",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/oliverio_michael.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Oliverio",
+          "email": "mike.oliverio@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-14",
+        "openstates_id": "ocd-person/a7ae16a1-8a1e-4280-8d00-9125719a893e",
+        "name": "Jay Taylor",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/taylor_jay.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Taylor",
+          "email": "jay.taylor@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-14-2",
+        "openstates_id": "ocd-person/28321ca7-5b8c-4b1a-9a85-2ae30e52045b",
+        "name": "Randy Smith",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/smith_randy.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Smith",
+          "email": "randy.smith@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-15",
+        "openstates_id": "ocd-person/60b7f294-2c42-40ab-ab7d-2a639e5be5e5",
+        "name": "Darren Thorne",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/thorne_darren.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Thorne",
+          "email": "darren.thorne@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-15-2",
+        "openstates_id": "ocd-person/da86ac6a-5d19-472e-80a0-8b8595cb3054",
+        "name": "Tom Willis",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/willis_tom.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Willis",
+          "email": "tom.willis@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-16",
+        "openstates_id": "ocd-person/bcbe03de-3df0-4c07-8973-0304dafa2cb8",
+        "name": "Jason Barrett",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/barrett_jason.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Barrett",
+          "email": "jason.barrett@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-16-2",
+        "openstates_id": "ocd-person/61c66718-ebd4-4ded-827d-14b21ed01b0a",
+        "name": "Patricia Rucker",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/rucker_patricia.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Rucker",
+          "email": "patricia.rucker@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-17",
+        "openstates_id": "ocd-person/37bf9de9-84b5-4983-8742-a5c3eeeca64a",
+        "name": "Anne Charnock",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/senate/charnock_anne.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Charnock",
+          "email": "anne.charnock@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-sen-17-2",
+        "openstates_id": "ocd-person/c6a91d2b-9230-4d3e-a3d0-c3844ad9e985",
+        "name": "Tom Takubo",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/takubo_tom.jpg",
+        "contact": {
+          "official_website": "https://senatortomtakubo.com/",
+          "email": "tom.takubo@wvsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "West Virginia House of Delegates",
+    "members": [
+      {
+        "id": "wv-rep-1",
+        "openstates_id": "ocd-person/aa7bf09a-ce90-4e58-a893-42c813a16434",
+        "name": "Pat McGeehan",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "1",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/mcgeehan_pat.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+McGeehan",
+          "email": "pat.mcgeehan@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-2",
+        "openstates_id": "ocd-person/af0b8606-3832-40d4-91e2-3b71975e4b8f",
+        "name": "Mark Zatezalo",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "2",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/zatezalo_mark.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Zatezalo",
+          "email": "mark.zatezalo@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-3",
+        "openstates_id": "ocd-person/5a2928e1-3371-480d-be6f-1c3133de4609",
+        "name": "Jimmy Willis",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "3",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/willis_jimmy.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Willis",
+          "email": "jimmy.willis@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-4",
+        "openstates_id": "ocd-person/84ae4ee5-01d1-402d-8267-787a78dd58e5",
+        "name": "Bill Flanigan",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "4",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/flanigan_bill.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Flanigan",
+          "email": "bill.flanigan@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-5",
+        "openstates_id": "ocd-person/bd0e9ba2-fe37-4251-96f2-44715a186750",
+        "name": "Shawn Fluharty",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "5",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/fluharty_shawn.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Fluharty",
+          "email": "shawn.fluharty@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-6",
+        "openstates_id": "ocd-person/0092e49c-3dfe-4a2b-b053-e7a0360accf1",
+        "name": "Jeff Stephens",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "6",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/stephens_jeffrey.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Stephens",
+          "email": "jeffrey.stephens@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-7",
+        "openstates_id": "ocd-person/338acc2a-d910-4c29-aa94-bf39fbebdeec",
+        "name": "Chuck Sheedy",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "7",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/sheedy_charles.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Sheedy",
+          "email": "charles.sheedy@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-8",
+        "openstates_id": "ocd-person/4d4f0511-706a-406b-9259-05c4008d8b64",
+        "name": "Bill Bell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "8",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/bell_bill.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Bell",
+          "email": "bill.bell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-9",
+        "openstates_id": "ocd-person/ffd4b452-510d-48f0-ac07-51af538b46f0",
+        "name": "Betsy Kelly",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "9",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/kelly_betsy.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Kelly",
+          "email": "betsy.kelly@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-10",
+        "openstates_id": "ocd-person/b5b3734c-fa9f-422b-b0d4-ce8b2b2624c5",
+        "name": "Bill Anderson",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "10",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/anderson_bill.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Anderson",
+          "email": "bill.anderson@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-11",
+        "openstates_id": "ocd-person/a70a295b-82a5-44a0-ba22-a462823f7abb",
+        "name": "Bob Fehrenbacher",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "11",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/fehrenbacher_bob.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Fehrenbacher",
+          "email": "bob.fehrenbacher@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-12",
+        "openstates_id": "ocd-person/381e0784-9202-4308-a138-399c84740804",
+        "name": "Vernon Criss",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "12",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/criss_vernon.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Criss",
+          "email": "vernon.criss@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-13",
+        "openstates_id": "ocd-person/5cd39fcf-7682-4cb0-8ac3-f7c4816f950d",
+        "name": "Scot Heckert",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "13",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/heckert_scot.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Heckert",
+          "email": "scot.heckert@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-14",
+        "openstates_id": "ocd-person/9ad2e11c-daf4-4f33-9c2d-0075beaeada8",
+        "name": "Dave Foggin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "14",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/foggin_dave.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Foggin",
+          "email": "dave.foggin@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-15",
+        "openstates_id": "ocd-person/74fee589-c9e9-4dd7-a719-d9b165b2b2c7",
+        "name": "Erica Moore",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "15",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/moore_erica.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Moore",
+          "email": "erica.moore@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-16",
+        "openstates_id": "ocd-person/e2f71bb6-832a-46f3-8247-5e2c16685fe1",
+        "name": "Joe Parsons",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "16",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/parsons_frederick.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Parsons",
+          "email": "frederick.parsons@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-17",
+        "openstates_id": "ocd-person/a71cd621-aa1e-4338-b0bd-ca9f7a03f667",
+        "name": "Jonathan Pinson",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "17",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/pinson_jonathan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Pinson",
+          "email": "jonathan.pinson@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-18",
+        "openstates_id": "ocd-person/905290bd-c655-4a3d-9961-65a2f9c0e271",
+        "name": "Jim Butler",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "18",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/butler_jim.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Butler",
+          "email": "jim.butler@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-19",
+        "openstates_id": "ocd-person/0686b8e2-2d6a-4950-b3c3-0dbfe5a6e719",
+        "name": "Kathie Hess Crouse",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "19",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/crouse_kathie.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Crouse",
+          "email": "kathie.crouse@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-20",
+        "openstates_id": "ocd-person/003871b4-bf51-4bba-bacc-bf1ead7a9947",
+        "name": "Sarah Drennan",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "20",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/drennan_sarah.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Drennan",
+          "email": "sarah.drennan@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-21",
+        "openstates_id": "ocd-person/e617259d-e2c9-4043-a759-321c7e3ff7f0",
+        "name": "Jarred Cannon",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "21",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/cannon_jarred.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Cannon",
+          "email": "jarred.cannon@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-22",
+        "openstates_id": "ocd-person/32c4e5cf-81f5-4564-bb9b-568d13156dec",
+        "name": "Daniel Linville",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "22",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/linville_daniel.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Linville",
+          "email": "daniel.linville@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-23",
+        "openstates_id": "ocd-person/b875b7d6-4941-42a6-bcdf-c5da19bf0ced",
+        "name": "Evan Worrell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "23",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/worrell_evan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Worrell",
+          "email": "evan.worrell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-24",
+        "openstates_id": "ocd-person/9a7c2d4d-002a-439e-b095-e7b86329fc1c",
+        "name": "Patrick Lucas",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "24",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/lucas_patrick.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Lucas",
+          "email": "patrick.lucas@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-25",
+        "openstates_id": "ocd-person/916ee127-a228-4dac-b945-312a5f76121a",
+        "name": "Sean Hornbuckle",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "25",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hornbuckle_sean.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hornbuckle",
+          "email": "sean.hornbuckle@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-26",
+        "openstates_id": "ocd-person/074a2aa9-d012-437a-8d59-d3f4b9d73905",
+        "name": "Matthew Rohrbach",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "26",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/rohrbach_matthew.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Rohrbach",
+          "email": "matthew.rohrbach@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-27",
+        "openstates_id": "ocd-person/3d5db222-66fb-4f3a-a178-d12246697654",
+        "name": "Michael Amos",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "27",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/amos_michael.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Amos",
+          "email": "michael.amos@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-28",
+        "openstates_id": "ocd-person/c95f5292-14c3-4e79-8465-05cca13242b6",
+        "name": "Ryan Browning",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "28",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/browning_ryan.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Browning",
+          "email": "ryan.browning@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-29",
+        "openstates_id": "ocd-person/e05b927b-a702-4143-87b2-79a8c81d4eee",
+        "name": "Corby Dillon",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "29",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/dillon_henry.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Dillon",
+          "email": "henry.dillon@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-30",
+        "openstates_id": "ocd-person/e43a22ad-b630-496b-81f8-6b1f6ceaa13e",
+        "name": "Jeff Eldridge",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "30",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/eldridge_jeff.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Eldridge",
+          "email": "jeff.eldridge@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-31",
+        "openstates_id": "ocd-person/92599af8-32f7-4aa4-bab2-8c7b461f54a5",
+        "name": "Margitta Mazzocchi",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "31",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/mazzocchi_margitta.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Mazzocchi",
+          "email": "margitta.mazzocchi@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-32",
+        "openstates_id": "ocd-person/9d8c89be-2ece-4dff-8a6d-65dccb8e647e",
+        "name": "Josh Holstein",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "32",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/holstein_josh.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Holstein",
+          "email": "josh.holstein@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-33",
+        "openstates_id": "ocd-person/be682c29-e66f-4a19-89cc-761c60330eea",
+        "name": "Jordan Bridges",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "33",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/bridges_jordan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Bridges",
+          "email": "jordan.bridges@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-34",
+        "openstates_id": "ocd-person/2461647c-b7dc-4df2-b1b8-6acee9700b7c",
+        "name": "Mark Dean",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "34",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/dean_mark.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Dean",
+          "email": "mark.dean@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-35",
+        "openstates_id": "ocd-person/c15b4eb1-1dc4-498f-9929-43ff34445317",
+        "name": "Adam Vance",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "35",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/vance_adam.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Vance",
+          "email": "adam.vance@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-36",
+        "openstates_id": "ocd-person/b0526275-df8b-4f42-b16b-064aa721a858",
+        "name": "David Green",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "36",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/green_david.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Green",
+          "email": "david.green@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-37",
+        "openstates_id": "ocd-person/c56adc82-a476-4d3c-bd7f-51b2257b0032",
+        "name": "Marty Gearheart",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "37",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/gearheart_marty.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Gearheart",
+          "email": "marty.gearheart@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-38",
+        "openstates_id": "ocd-person/fe6a6b8e-91f2-427f-9060-2cac2b9eb66c",
+        "name": "Joe Ellington",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "38",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/ellington_joe.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ellington",
+          "email": "joe.ellington@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-39",
+        "openstates_id": "ocd-person/70ac0a53-79d8-426b-950b-83e9be022bf3",
+        "name": "Doug Smith",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "39",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/smith_doug.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Smith",
+          "email": "doug.smith@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-40",
+        "openstates_id": "ocd-person/f7a82cd3-d2c6-4f57-b0d0-d38322d1ad54",
+        "name": "Roy Cooper",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "40",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/cooper_roy.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Cooper",
+          "email": "roy.cooper@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-41",
+        "openstates_id": "ocd-person/487dd54b-3091-4b0e-b798-0df99523b4c6",
+        "name": "Jordan Maynor",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "41",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/maynor_jordan.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Maynor",
+          "email": "jordan.maynor@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-42",
+        "openstates_id": "ocd-person/642a1eab-3a94-4d91-b1ff-5fc5e720cb06",
+        "name": "John Jordan",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "42",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/jordan_john.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Jordan",
+          "email": "john.jordan@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-43",
+        "openstates_id": "ocd-person/cdd73d73-98d4-43f0-9eec-a030c4ce080f",
+        "name": "Chris Toney",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "43",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/toney_christopher.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Toney",
+          "email": "chris.toney@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-44",
+        "openstates_id": "ocd-person/9f35a509-bd40-4ed2-8792-407169b7a944",
+        "name": "Bill Roop",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "44",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/roop_carl.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Roop",
+          "email": "bill.roop@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-45",
+        "openstates_id": "ocd-person/db5d813b-3cd2-4a6d-b656-b48624f61094",
+        "name": "Eric Brooks",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "45",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/brooks_eric.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Brooks",
+          "email": "eric.brooks@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-46",
+        "openstates_id": "ocd-person/81cad520-b015-42c8-b533-64a9e4596197",
+        "name": "Jeff Campbell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "46",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/campbell_jeff.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Campbell",
+          "email": "jeff.campbell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-47",
+        "openstates_id": "ocd-person/639eb22f-b161-4be3-9abc-9cccf4dfdd05",
+        "name": "Ray Canterbury",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "47",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/canterbury_ray.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Canterbury",
+          "email": "ray.canterbury@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-48",
+        "openstates_id": "ocd-person/c66e0d8a-9d20-47ce-8d45-50d4b5aaa0d3",
+        "name": "Greg Watt",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "48",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/watt_gregory.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Watt",
+          "email": "gregory.watt@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-49",
+        "openstates_id": "ocd-person/4b7f8925-344a-4ce2-b70c-76bb9127c4fa",
+        "name": "Stan Adkins",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "49",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/adkins_stanley.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Adkins",
+          "email": "stanley.adkins@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-50",
+        "openstates_id": "ocd-person/d7f119af-3e41-40a1-9541-bfa1a1e7a9b4",
+        "name": "Elliott Pritt",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "50",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/pritt_david.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Pritt",
+          "email": "elliott.pritt@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-51",
+        "openstates_id": "ocd-person/6a8371d3-32ba-4997-9cd4-ad26bafab694",
+        "name": "Marshall Clay",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "51",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/clay_marshall.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Clay",
+          "email": "marshall.clay@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-52",
+        "openstates_id": "ocd-person/a6ad12cd-7040-4cf0-83b5-9de1fd835fa8",
+        "name": "Tresa Howell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "52",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/howell_tresa.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Howell,%20T.",
+          "email": "tresa.howell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-53",
+        "openstates_id": "ocd-person/8b2ff1b1-618d-47c4-8b20-8388c53eb412",
+        "name": "Tristan Leavitt",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "53",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/leavitt_tristan.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Leavitt",
+          "email": "tristan.leavitt@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-54",
+        "openstates_id": "ocd-person/1a97b137-218f-43cc-a24f-d806c6ac9fd2",
+        "name": "Mike Pushkin",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "54",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/pushkin_mike.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Pushkin",
+          "email": "mike.pushkin@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-55",
+        "openstates_id": "ocd-person/33e56ab1-3106-45fa-a992-fab181983a99",
+        "name": "J.B. Akers",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "55",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/akers_james.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/house/lawmaker.cfm?member=Delegate%20Akers",
+          "email": "jb.akers@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-56",
+        "openstates_id": "ocd-person/3317959e-9fbd-40dc-aa7a-0f0a9cc06c3f",
+        "name": "Kayla Young",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "56",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/young_kayla.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Young",
+          "email": "kayla.young@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-57",
+        "openstates_id": "ocd-person/68163122-16de-4528-8eda-fd1f9783c45d",
+        "name": "Hollis Lewis",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "57",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/lewis_hollis.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Lewis",
+          "email": "hollis.lewis@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-58",
+        "openstates_id": "ocd-person/542b49b1-72ed-4e96-98bf-e7c236b92e12",
+        "name": "Walter Hall",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "58",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hall_walter.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hall",
+          "email": "walter.hall@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-59",
+        "openstates_id": "ocd-person/e6deff1e-fb70-4bf0-a2b6-9c30567fcd9d",
+        "name": "Andy Shamblin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "59",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/shamblin_andy.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Shamblin",
+          "email": "andy.shamblin@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-60",
+        "openstates_id": "ocd-person/6c7fa52c-c313-4f10-aab9-ba9cc0269743",
+        "name": "Dana Ferrell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "60",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ferrell_dana.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ferrell",
+          "email": "dana.ferrell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-61",
+        "openstates_id": "ocd-person/94a511d8-31ee-4f7d-9227-005b143f9c47",
+        "name": "Dean Jeffries",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "61",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/jeffries_dean.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jeffries",
+          "email": "dean.jeffries@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-62",
+        "openstates_id": "ocd-person/a5fb80fa-41db-4bb7-8d0c-9f643b029b86",
+        "name": "Roger Hanshaw",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "62",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/hanshaw_roger.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Speaker+Hanshaw",
+          "email": "roger.hanshaw@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-63",
+        "openstates_id": "ocd-person/3f45442d-ffd9-4566-a661-42efa25f8e18",
+        "name": "Lori Dittman",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "63",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/dittman_lori.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Dittman",
+          "email": "lori.dittman@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-64",
+        "openstates_id": "ocd-person/76544899-58ec-4065-a3e8-4a4d8a12b4eb",
+        "name": "Adam Burkhammer",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "64",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/burkhammer_adam.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Burkhammer",
+          "email": "adam.burkhammer@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-65",
+        "openstates_id": "ocd-person/aa01a651-9834-4b98-b9c3-25aee388087a",
+        "name": "Robbie Martin",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "65",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/martin_carl.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
+          "email": "carl.martin@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-66",
+        "openstates_id": "ocd-person/e83c168f-6725-47ea-ac8d-7dbadc6736c7",
+        "name": "Jonathan Kyle",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "66",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/kyle_jonathan.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Kyle",
+          "email": "jonathan.kyle@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-67",
+        "openstates_id": "ocd-person/0714e7e4-9da4-46bf-a8f5-e48be1af2242",
+        "name": "Elías Coop-González",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "67",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/coopgonzalez_elias.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Coop-Gonzalez",
+          "email": "elias.coop-gonzalez@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-68",
+        "openstates_id": "ocd-person/eb6d633a-5526-413b-872d-bd36f4d9a906",
+        "name": "Chris Phillips",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "68",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/phillips_chris.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Phillips",
+          "email": "chris.phillips@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-69",
+        "openstates_id": "ocd-person/13a851e4-7ecb-4609-bd19-3bd4ff7fbc1c",
+        "name": "Keith Marple",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "69",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/marple_keith.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Marple",
+          "email": "keith.marple@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-70",
+        "openstates_id": "ocd-person/354b56ae-dee4-4536-879e-cfb0d80b4069",
+        "name": "Mickey Petitto",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "70",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/petitto_mickey.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Petitto",
+          "email": "mickey.petitto@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-71",
+        "openstates_id": "ocd-person/ce1e7053-19d4-4405-8e31-f5c39af87ae9",
+        "name": "Laura Kimble",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "71",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/kimble_laura.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Kimble",
+          "email": "laura.kimble@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-72",
+        "openstates_id": "ocd-person/cf728c9e-40e8-4f73-a5fa-0d46844aa38e",
+        "name": "Clay Riley",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "72",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/riley_clay.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Riley",
+          "email": "clay.riley@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-73",
+        "openstates_id": "ocd-person/9cdbf48f-3fd5-4147-9f26-a78632d99929",
+        "name": "Bryan Smith",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "73",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/smith_bryan.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Smith,%20B.",
+          "email": "bryan.smith@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-74",
+        "openstates_id": "ocd-person/1495b97d-e012-4f6f-84b9-3e1d67b8a016",
+        "name": "Guy Ward",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "74",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/ward_guy.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ward",
+          "email": "guy.ward@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-75",
+        "openstates_id": "ocd-person/ca7ec436-00a0-447d-8592-00fc7d358571",
+        "name": "Phil Mallow",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "75",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/mallow_phil.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Mallow",
+          "email": "phil.mallow@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-76",
+        "openstates_id": "ocd-person/cc1fb64b-859b-4009-88b3-2cb23e7e9d9b",
+        "name": "Rick Garcia",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "76",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/garcia_rick.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Garcia",
+          "email": "rick.garcia@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-77",
+        "openstates_id": "ocd-person/79271821-3d79-4f99-bba3-a147779bb3d0",
+        "name": "Joe Statler",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "77",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/statler_joe.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Statler",
+          "email": "joe.statler@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-78",
+        "openstates_id": "ocd-person/409397ae-ceea-4b1b-bce5-b042af057232",
+        "name": "Geno Chiarelli",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "78",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/chiarelli_geno.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Chiarelli",
+          "email": "geno.chiarelli@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-79",
+        "openstates_id": "ocd-person/10dbdccd-3754-49b8-ae28-8f75c4d6936f",
+        "name": "Evan Hansen",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "79",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/hansen_evan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hansen",
+          "email": "evan.hansen@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-80",
+        "openstates_id": "ocd-person/2c8a36d4-5afa-4b68-a6a0-1a9b170401b0",
+        "name": "John Williams",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "80",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/williams_john.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Williams",
+          "email": "john.williams@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-81",
+        "openstates_id": "ocd-person/86a1fdf7-e6af-41b4-8d69-0d0815fc9512",
+        "name": "Anitra Hamilton",
+        "party": "D",
+        "chamber": "House of Delegates",
+        "district": "81",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hamilton_anitra.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hamilton",
+          "email": "anitra.hamilton@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-82",
+        "openstates_id": "ocd-person/297732cd-3e12-4ce1-b6ca-7e046d8b3e46",
+        "name": "Dave McCormick",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "82",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/mccormick_david.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20McCormick",
+          "email": "david.mccormick@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-83",
+        "openstates_id": "ocd-person/2ee0335d-f067-4ca3-99ce-e10944fa8875",
+        "name": "George Street",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "83",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/street_george.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Street",
+          "email": "george.street@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-84",
+        "openstates_id": "ocd-person/34e1e6dd-469b-4e3d-9cc5-604bffe79730",
+        "name": "Buck Jennings",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "84",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/jennings_d.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jennings",
+          "email": "buck.jennings@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-85",
+        "openstates_id": "ocd-person/06c041be-0a45-4bfe-8e2d-49055af1205f",
+        "name": "John Paul Hott",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "85",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/hott_john.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hott",
+          "email": "johnpaul.hott@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-86",
+        "openstates_id": "ocd-person/6e588e9a-4d48-444d-92b4-629e00900440",
+        "name": "Bryan Ward",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "86",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ward_bryan.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ward%2C+B.",
+          "email": "bryan.ward@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-87",
+        "openstates_id": "ocd-person/405fa851-873f-4895-acd5-d394fbb06be3",
+        "name": "Gary Howell",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "87",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/howell_gary.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Howell",
+          "email": "gary.howell@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-88",
+        "openstates_id": "ocd-person/5e9dad08-2267-4354-b695-814e1014a0ec",
+        "name": "Rick Hillenbrand",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "88",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/hillenbrand_rick.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hillenbrand",
+          "email": "rick.hillenbrand@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-89",
+        "openstates_id": "ocd-person/79e71ddf-33fc-4e28-8324-dd52aaa0e653",
+        "name": "David Cannon",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "89",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/cannon_david.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Cannon,%20D.",
+          "email": "david.cannon@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-90",
+        "openstates_id": "ocd-person/5bb7ff93-88f4-42ec-ba11-6921dead66a1",
+        "name": "George Miller",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "90",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/miller_george.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Miller",
+          "email": "george.miller@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-91",
+        "openstates_id": "ocd-person/f8921713-413e-4f72-8291-464f2cef3f7b",
+        "name": "Ian Masters",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "91",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/masters_ian.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/house/lawmaker.cfm?member=Delegate%20Masters",
+          "email": "ian.masters@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-92",
+        "openstates_id": "ocd-person/0ef791a3-2e24-4751-8686-21ffac958ce0",
+        "name": "Mike Hite",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "92",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hite_michael.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hite",
+          "email": "michael.hite@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-93",
+        "openstates_id": "ocd-person/b76899a3-5189-495c-af2f-9ca8a4e8036e",
+        "name": "Mike Hornby",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "93",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/hornby_mike.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hornby",
+          "email": "michael.hornby@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-94",
+        "openstates_id": "ocd-person/43f0eeae-cf06-4d8b-a568-03e63c72b796",
+        "name": "Donald Bennett",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "94",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/bennett_donald.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Bennett",
+          "email": "donald.bennett@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-95",
+        "openstates_id": "ocd-person/1f91d255-ce76-40b4-86fd-f9412407f869",
+        "name": "Chuck Horst",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "95",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/horst_chuck.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Horst",
+          "email": "charles.horst@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-96",
+        "openstates_id": "ocd-person/7ae7ca12-88dc-4387-a9ee-49295af32fb7",
+        "name": "Lisa White",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "96",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/white_lisa.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20White",
+          "email": "lisa.white@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-97",
+        "openstates_id": "ocd-person/7ad5da9a-c2b3-4f9b-b62c-6cd7f0564f43",
+        "name": "Chris Anders",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "97",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/anders_chris.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Anders",
+          "email": "chris.anders@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-98",
+        "openstates_id": "ocd-person/c93039e0-7c57-4289-9447-466f56bba802",
+        "name": "Joe Funkhouser",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "98",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2024/house/funkhouser_joe.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Funkhouser",
+          "email": "joe.funkhouser@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-99",
+        "openstates_id": "ocd-person/de66a26a-0d5d-44d4-a687-58cffa1a2512",
+        "name": "Wayne Clark",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "99",
+        "role": "Delegate",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/clark_wayne.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Clark",
+          "email": "wayne.clark@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wv-rep-100",
+        "openstates_id": "ocd-person/ad2e5607-a6ef-4458-88fc-bea91da19ac6",
+        "name": "Bill Ridenour",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "100",
+        "role": "Delegate",
+        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ridenour_bill.jpg",
+        "contact": {
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Ridenour",
+          "email": "bill.ridenour@wvhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,844 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "NE",
+  "state_name": "Nebraska",
+  "executive": {
+    "governor": {
+      "id": "ne-exec-gov",
+      "name": "Jim Pillen",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://governor.nebraska.gov",
+      "photo_url": null,
+      "bio": "Jim Pillen is the Governor of Nebraska, serving since 2023.",
+      "sources": [
+        "https://governor.nebraska.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "ne-exec-lieutenant-governor",
+      "name": "Joe Kelly",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgov.nebraska.gov/sites/default/files/img/Lt%20Governor%20Kelly-1.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "ne-exec-attorney-general",
+        "name": "Mike Hilgers",
+        "party": "I",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-OK-Hilgers.png"
+      },
+      {
+        "id": "ne-exec-secretary-of-state",
+        "name": "Robert Evnen",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://sos.nebraska.gov/sites/sos.nebraska.gov/files/img/headshot-bio.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Nebraska State Senate",
+    "members": [
+      {
+        "id": "ne-sen-1",
+        "openstates_id": "ocd-person/cc0182c9-3cfe-46b1-8fd2-03e90385c6d5",
+        "name": "Bob Hallstrom",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=1",
+          "email": "bhallstrom@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-2",
+        "openstates_id": "ocd-person/809c0698-2669-426a-819a-275a0773ff84",
+        "name": "Rob Clements",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist02/highres/dist02.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=2",
+          "email": "rclements@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-3",
+        "openstates_id": "ocd-person/1e43a5b4-e63c-434a-977c-592174c2c635",
+        "name": "Victor Rountree",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=3",
+          "email": "vrountree@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-4",
+        "openstates_id": "ocd-person/63d2956a-a0be-40db-a0e3-6c32743951ab",
+        "name": "Brad von Gillern",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist04/highres/dist04.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=4",
+          "email": "bvongillern@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-5",
+        "openstates_id": "ocd-person/e586486b-002b-4dfb-8eec-a209c915dc95",
+        "name": "Margo Juarez",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167027.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=5",
+          "email": "mjuarez@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-6",
+        "openstates_id": "ocd-person/fd6e1947-c274-4ff5-b2ee-5e5a79d6a729",
+        "name": "Machaela Cavanaugh",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist06/highres/dist06.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=6",
+          "email": "mcavanaugh@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-7",
+        "openstates_id": "ocd-person/54fe68ba-6857-483f-b2ae-ba3233a548c4",
+        "name": "Dunixi Guereca",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/161473.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=7",
+          "email": "dguereca@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-8",
+        "openstates_id": "ocd-person/1b988941-ec1a-4f87-b17a-51fb0309dea0",
+        "name": "Megan Hunt",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist08/highres/dist08.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=8",
+          "email": "mhunt@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-9",
+        "openstates_id": "ocd-person/0436186a-3b62-46f1-8f36-55e09fca3e77",
+        "name": "John Cavanaugh",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist09/highres/dist09.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=9",
+          "email": "jcavanaugh@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-10",
+        "openstates_id": "ocd-person/bc906a77-5932-4042-9ede-a13b24924236",
+        "name": "Wendy DeBoer",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist10/highres/dist10.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=10",
+          "email": "wdeboer@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-11",
+        "openstates_id": "ocd-person/27784792-d54f-4a64-8408-a4a1ce0c26b1",
+        "name": "Terrell McKinney",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist11/highres/dist11.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=11",
+          "email": "tmckinney@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-12",
+        "openstates_id": "ocd-person/3c015cf9-e3de-42cf-a364-64607ecc70ce",
+        "name": "Merv Riepe",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist12/highres/dist12.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=12",
+          "email": "mriepe@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-13",
+        "openstates_id": "ocd-person/03ee8938-314f-4db4-ac76-9507d85fc03c",
+        "name": "Ashlei Spivey",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=13",
+          "email": "aspivey@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-14",
+        "openstates_id": "ocd-person/f5d27385-af4c-4c08-8654-3e27ef120d94",
+        "name": "John Arch",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist14/highres/dist14.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=14",
+          "email": "jarch@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-15",
+        "openstates_id": "ocd-person/86a9643e-4777-48d4-a79a-5ed192fb7f70",
+        "name": "Woody Wordekemper",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/164427.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=15",
+          "email": "dwordekemper@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-16",
+        "openstates_id": "ocd-person/bfc9dd37-6a7b-4ea2-acf5-c8e161a27764",
+        "name": "Ben Hansen",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist16/highres/dist16.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=16",
+          "email": "bhansen@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-17",
+        "openstates_id": "ocd-person/dae0883f-3a53-4873-99df-b0e10ea64066",
+        "name": "Glen Meyer",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=17",
+          "email": "gmeyer@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-18",
+        "openstates_id": "ocd-person/fdac2d3a-3497-4e34-8247-af670c901dd8",
+        "name": "Christy Armendariz",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist18/highres/dist18.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=18",
+          "email": "carmendariz@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-19",
+        "openstates_id": "ocd-person/a9cc86ff-602c-453f-9d6c-fd1567c7fbd7",
+        "name": "Robert Dover",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist19/highres/dist19.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=19",
+          "email": "rdover@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-20",
+        "openstates_id": "ocd-person/30b4a401-6f6b-4367-80c2-b9d60d7c527f",
+        "name": "John Fredrickson",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist20/highres/dist20.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=20",
+          "email": "jfredrickson@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-21",
+        "openstates_id": "ocd-person/3da787e9-f6ed-4069-bd74-58ec7c015efb",
+        "name": "Beau Ballard",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist21/highres/dist21.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=21",
+          "email": "bballard@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-22",
+        "openstates_id": "ocd-person/471fb0d6-b798-4c0c-bac1-021db8b68801",
+        "name": "Mike Moser",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist22/highres/dist22.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=22",
+          "email": "mmoser@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-23",
+        "openstates_id": "ocd-person/356c7606-4eaa-4494-83a5-68dbaf3e77f6",
+        "name": "Jared Storm",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=23",
+          "email": "jstorm@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-24",
+        "openstates_id": "ocd-person/967bf436-18bf-444e-bd2f-d83e5ec78995",
+        "name": "Jana Hughes",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist24/highres/dist24.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=24",
+          "email": "jhughes@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-25",
+        "openstates_id": "ocd-person/ecf3913e-8e18-4aec-8991-12549df820cd",
+        "name": "Carolyn Bosn",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist25/highres/dist25.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=25",
+          "email": "cbosn@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-26",
+        "openstates_id": "ocd-person/14507b1b-007f-4f87-adbb-a5e4669efba8",
+        "name": "George Dungan",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist26/highres/dist26.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=26",
+          "email": "gdungan@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-27",
+        "openstates_id": "ocd-person/dda3cdbe-5e52-439e-ac68-02588b6d7cab",
+        "name": "Jason Prokop",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://jasonprokop.com",
+          "email": "jprokop@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-28",
+        "openstates_id": "ocd-person/0f176ff3-ed75-4605-9e8b-5bb5a3d3c4cf",
+        "name": "Jane Raybould",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist28/highres/dist28.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=28",
+          "email": "jraybould@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-29",
+        "openstates_id": "ocd-person/5e6ca662-d4e3-405b-a060-d0150546eede",
+        "name": "Eliot Bostar",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist29/highres/dist29.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=29",
+          "email": "ebostar@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-30",
+        "openstates_id": "ocd-person/4a8d555a-4bba-4f76-a3e1-88eee6030413",
+        "name": "Myron Dorn",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist30/highres/dist30.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=30",
+          "email": "mdorn@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-31",
+        "openstates_id": "ocd-person/9d6fd408-5497-4038-9716-c1f487e348d2",
+        "name": "Kathleen Kauth",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist31/highres/dist31.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=31",
+          "email": "kkauth@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-32",
+        "openstates_id": "ocd-person/37ed5b35-3aea-40a2-95ed-ecc5120fbe82",
+        "name": "Tom Brandt",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist32/highres/dist32.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=32",
+          "email": "tbrandt@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-33",
+        "openstates_id": "ocd-person/40eb4961-5467-4d1b-af44-59a2e4de6fae",
+        "name": "Dan Lonowski",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167026.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=33",
+          "email": "dlonowski@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-34",
+        "openstates_id": "ocd-person/2ad42fad-ae37-44a6-8933-0a942f7a85f7",
+        "name": "Loren Lippincott",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist34/highres/dist34.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=34",
+          "email": "llippincott@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-35",
+        "openstates_id": "ocd-person/d3b8ad26-4cf1-4abf-ae4e-0f7a65f92fe6",
+        "name": "Dan Quick",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "http://www.nebraskalegislature.gov/media/images/blogs/dist35.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=35",
+          "email": "dquick@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-36",
+        "openstates_id": "ocd-person/62ccba1d-4200-41c7-a051-21fa421a206a",
+        "name": "Rick Holdcroft",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist36/highres/dist36.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=36",
+          "email": "rholdcroft@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-37",
+        "openstates_id": "ocd-person/4bfe5183-1afc-42fa-92c1-7ffe5cbb1080",
+        "name": "Stan Clouse",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167022.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=37",
+          "email": "sclouse@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-38",
+        "openstates_id": "ocd-person/25c29fce-5de4-46cd-97f0-887033d446ce",
+        "name": "Dave Murman",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist38/highres/dist38.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=38",
+          "email": "dmurman@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-39",
+        "openstates_id": "ocd-person/7093e661-0dbc-4c75-91e0-09a3e171caf1",
+        "name": "Tony Sorrentino",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=39",
+          "email": "tsorrentino@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-40",
+        "openstates_id": "ocd-person/01d5ca17-53a1-463a-b2f6-74fe24833c0f",
+        "name": "Barry DeKay",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist40/highres/dist40.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=40",
+          "email": "bdekay@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-41",
+        "openstates_id": "ocd-person/5868ed3b-2931-4080-a7c2-9b4eb0e3d487",
+        "name": "Fred Meyer",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist41/highres/dist41.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=41",
+          "email": "fmeyer@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-42",
+        "openstates_id": "ocd-person/70b3f826-87f3-43c6-9762-27a178156a55",
+        "name": "Mike Jacobson",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist42/highres/dist42.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=42",
+          "email": "mjacobson@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-43",
+        "openstates_id": "ocd-person/70751bb8-56af-4fd1-b2dc-21943dc7bb2d",
+        "name": "Tanya Storer",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=43",
+          "email": "tstorer@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-44",
+        "openstates_id": "ocd-person/374b6dc4-5b90-4028-814c-84895a293c84",
+        "name": "Teresa Ibach",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist44/highres/dist44.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=44",
+          "email": "tibach@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-45",
+        "openstates_id": "ocd-person/de8d4e0a-36dd-4a84-96ee-e4b7bc4cf69d",
+        "name": "Rita Sanders",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist45/highres/dist45.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=45",
+          "email": "rsanders@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-46",
+        "openstates_id": "ocd-person/bf280e36-3547-4d6a-b5aa-d6c32bb5547a",
+        "name": "Danielle Conrad",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist46/highres/dist46.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=46",
+          "email": "dconrad@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-47",
+        "openstates_id": "ocd-person/0ae0ba8c-757e-459f-aecc-4a0501a25cbb",
+        "name": "Paul Strommen",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=47",
+          "email": "pstrommen@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-48",
+        "openstates_id": "ocd-person/a98b3cf6-9bf8-40a3-94f3-1c196e233ebd",
+        "name": "Brian Hardin",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "48",
+        "role": "State Senator",
+        "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist48/highres/dist48.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=48",
+          "email": "bhardin@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ne-sen-49",
+        "openstates_id": "ocd-person/db002bad-ee6a-4e22-b5c5-840c665ecad4",
+        "name": "Bob Andersen",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "49",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167021.jpg",
+        "contact": {
+          "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=49",
+          "email": "bandersen@leg.ne.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Nebraska State House",
+    "members": []
+  }
+}

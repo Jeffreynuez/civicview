@@ -1,0 +1,1664 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "UT",
+  "state_name": "Utah",
+  "executive": {
+    "governor": {
+      "id": "ut-exec-gov",
+      "name": "Spencer Cox",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2021",
+      "website": "https://governor.utah.gov",
+      "photo_url": null,
+      "bio": "Spencer Cox is the Governor of Utah, serving since 2021.",
+      "sources": [
+        "https://governor.utah.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Utah State Senate",
+    "members": [
+      {
+        "id": "ut-sen-1",
+        "openstates_id": "ocd-person/d1a1c031-9dce-4727-a298-ec92cb34fe40",
+        "name": "Scott Sandall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/SANDASD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412644",
+          "email": "ssandall@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-2",
+        "openstates_id": "ocd-person/3acc854e-2a4d-43ff-9cfb-63d527bb8186",
+        "name": "Chris Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/WILSOCH.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415396",
+          "email": "cwilson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-3",
+        "openstates_id": "ocd-person/0c8df9e4-cb46-4dc1-ab5b-6d181efd58e0",
+        "name": "John Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/JOHNSJD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415473",
+          "email": "jjohnson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-4",
+        "openstates_id": "ocd-person/036ab735-ad82-450e-a5ca-098b1436cb90",
+        "name": "Cal Musselman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/MUSSECR.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415056",
+          "email": "cmusselman@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-5",
+        "openstates_id": "ocd-person/6b86542a-9b8a-418f-a275-6c261cdd86d2",
+        "name": "Ann Millner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/MILLNA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412594",
+          "email": "amillner@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-6",
+        "openstates_id": "ocd-person/3a04e48f-6d8c-47aa-b0aa-0e14994cd961",
+        "name": "Jerry Stevenson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/STEVEJW.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409402",
+          "email": "jwstevenson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-7",
+        "openstates_id": "ocd-person/5b47c889-e555-4d3c-9b30-97d52ee02960",
+        "name": "Stuart Adams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/ADAMSJS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1408736",
+          "email": "jsadams@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-8",
+        "openstates_id": "ocd-person/6d49f384-ea91-41f2-b703-229a0a7452d9",
+        "name": "Todd Weiler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/WEILET.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411361",
+          "email": "tweiler@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-9",
+        "openstates_id": "ocd-person/bd870ade-5b3f-4ed3-9e6f-6bbab93a7d35",
+        "name": "Jen Plumb",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/PLUMBJ.jpg",
+        "contact": {
+          "official_website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=PLUMBJ",
+          "email": "jplumb@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-10",
+        "openstates_id": "ocd-person/6983c74c-3687-4e48-b462-38a80caeb260",
+        "name": "Luz Escamilla",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/ESCAML.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1875",
+          "email": "lescamilla@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-11",
+        "openstates_id": "ocd-person/f5149921-03c9-4420-bb21-9b54c19e0c65",
+        "name": "Emily Buss",
+        "party": "F",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://senate.utah.gov/sen/BUSSEM/",
+          "email": "ebuss@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-12",
+        "openstates_id": "ocd-person/3ceb7500-0ea7-46ef-9a75-d00d378b86b7",
+        "name": "Karen Kwan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/KWANK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412727",
+          "email": "kkwan@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-13",
+        "openstates_id": "ocd-person/c9f2ef36-ee69-4e91-9da9-6c9311334912",
+        "name": "Nate Blouin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/BLOUIN.jpg",
+        "contact": {
+          "official_website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=BLOUIN",
+          "email": "nblouin@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-14",
+        "openstates_id": "ocd-person/edf0f18c-4b89-4d34-a2eb-6ce79accdaa7",
+        "name": "Stephanie Pitcher",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/PITCHS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414982",
+          "email": "spitcher@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-15",
+        "openstates_id": "ocd-person/67c6161b-0222-4702-85ce-7409bc5bc86a",
+        "name": "Kathleen Riebe",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/RIEBEK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414459",
+          "email": "kriebe@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-16",
+        "openstates_id": "ocd-person/c351d354-5397-4f6e-b67d-98c41cea0d2c",
+        "name": "Wayne Harper",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/HARPEWA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1070",
+          "email": "wharper@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-17",
+        "openstates_id": "ocd-person/74f25c67-1e6f-48f1-b3e3-49bbdf85539a",
+        "name": "Lincoln Fillmore",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/FILLML.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1413349",
+          "email": "lfillmore@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-18",
+        "openstates_id": "ocd-person/6540aa74-9456-4b29-9b56-cadd31104db2",
+        "name": "Dan McCay",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/MCCAYD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411368",
+          "email": "dmccay@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-19",
+        "openstates_id": "ocd-person/c421a26f-c1c1-4398-be94-d77d312ea3fe",
+        "name": "Kirk Cullimore",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/CULLIKA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415051",
+          "email": "kcullimore@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-20",
+        "openstates_id": "ocd-person/5079192a-3d15-4a00-b0c7-2cf29d320035",
+        "name": "Ron Winterton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/WINTER.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414932",
+          "email": "rwinterton@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-21",
+        "openstates_id": "ocd-person/b8751ce0-ba9b-44a0-8658-9cc9dc5f4c2c",
+        "name": "Brady Brammer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/BRAMMB.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415048",
+          "email": "bbrammer@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-22",
+        "openstates_id": "ocd-person/650616ca-3c57-4995-a514-37644fe1fa8f",
+        "name": "Heidi Balderree",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/BALDEH.jpg",
+        "contact": {
+          "official_website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=BALDEH",
+          "email": "hbalderree@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-23",
+        "openstates_id": "ocd-person/7634ce2b-d172-4852-919c-7089eaa38db8",
+        "name": "Keith Grover",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/GROVEK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1913",
+          "email": "keithgrover@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-24",
+        "openstates_id": "ocd-person/a919fa9b-f3f7-480f-b578-4a49bb4b572e",
+        "name": "Keven Stratton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/STRATKJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1413031",
+          "email": "kstratton@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-25",
+        "openstates_id": "ocd-person/8ffe791d-6a74-412b-a435-ee04045e0ad0",
+        "name": "Mike McKell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/MCKELMK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411332",
+          "email": "mmckell@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-26",
+        "openstates_id": "ocd-person/78b7c95c-45a7-40cb-a82c-681db75f9529",
+        "name": "David Hinkins",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/HINKIDP.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2095",
+          "email": "dhinkins@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-27",
+        "openstates_id": "ocd-person/ef1c9af3-b4f9-4eeb-b63d-a22f01c84262",
+        "name": "Derrin Owens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/OWENSD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414375",
+          "email": "derrinowens@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-28",
+        "openstates_id": "ocd-person/3ee27d8b-c865-4d86-b33e-9cfb34c3bac4",
+        "name": "Evan Vickers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/VICKEEJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2085",
+          "email": "evickers@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-sen-29",
+        "openstates_id": "ocd-person/cbfab19e-80f2-4edc-ae55-08f9e03a6d2f",
+        "name": "Don Ipson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://le.utah.gov/images/legislator/IPSONDL.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2052",
+          "email": "dipson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Utah State House",
+    "members": [
+      {
+        "id": "ut-rep-1",
+        "openstates_id": "ocd-person/faa88790-ac92-4a09-b00e-7049cc8521b6",
+        "name": "Tom Peterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/PETERT.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/PETERT/",
+          "email": "tpeterson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-2",
+        "openstates_id": "ocd-person/e9792114-e077-4663-96c4-94d679c66ace",
+        "name": "Mike Petersen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/PETERM.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415376",
+          "email": "mpetersen@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-3",
+        "openstates_id": "ocd-person/d7b06a16-ad92-4d55-af46-93a1f13253e7",
+        "name": "Jason Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jason_Thompson2024.jpeg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/THOMJA/",
+          "email": "jthompson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-4",
+        "openstates_id": "ocd-person/85745a94-5b45-4ac2-a258-1a1f48dc33db",
+        "name": "Tiara Auxier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/house/AUXIET.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/AUXIET/",
+          "email": "tauxier@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-5",
+        "openstates_id": "ocd-person/5d8ada2a-75c6-4aa6-b359-29720794fb7e",
+        "name": "Casey Snider",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/SNIDEC.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414881",
+          "email": "csnider@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-7",
+        "openstates_id": "ocd-person/9657724b-ade7-467e-b77d-b77fb98891c5",
+        "name": "Ryan Wilcox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WILCORD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415472",
+          "email": "ryanwilcox@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-8",
+        "openstates_id": "ocd-person/cb6f79ec-b7b4-418e-950e-f5f066489929",
+        "name": "Jason Kyle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/KYLEJB.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/KYLEJB/",
+          "email": "jkyle@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-9",
+        "openstates_id": "ocd-person/dd923550-9fd3-4476-9a43-219a199c8057",
+        "name": "Jake Sawyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/d27656_26f8c475869649a59bad8ae179994b0f~mv2.jpg/v1/fill/w_317,h_383,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Jake_Website_edited.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/SAWYEJ/",
+          "email": "jsawyer@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-10",
+        "openstates_id": "ocd-person/598a8b34-ab05-4438-b927-77b20437035d",
+        "name": "Jill Koford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JillKoford.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/KOFORJ/",
+          "email": "jkoford@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-11",
+        "openstates_id": "ocd-person/37301850-0f06-4bbd-ba85-faa7c4d39906",
+        "name": "Katy Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/HALLK.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/HALLK/",
+          "email": "khall@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-12",
+        "openstates_id": "ocd-person/d1046a0c-ddd3-4fed-be41-13da161d6231",
+        "name": "Mike Schultz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/SCHULM.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412688",
+          "email": "mikeschultz@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-13",
+        "openstates_id": "ocd-person/3c2d4efe-dd4e-48cf-a83b-2a15791706a3",
+        "name": "Karen Peterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/PETERK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415760",
+          "email": "kpeterson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-14",
+        "openstates_id": "ocd-person/59eb30b5-da7b-4161-85b3-8b48c01f4c2b",
+        "name": "Karianne Lisonbee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/LISONK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414516",
+          "email": "karilisonbee@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-15",
+        "openstates_id": "ocd-person/6d3d4043-1ec3-454c-a517-4036722c50ee",
+        "name": "Ariel Defay",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/DEFAYA.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/DEFAYA/",
+          "email": "adefay@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-16",
+        "openstates_id": "ocd-person/3187c9ea-c509-45f3-9eb4-a8ba2d8fd7d9",
+        "name": "Trevor Lee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/LEETA.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/LEETA/",
+          "email": "tlee@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-17",
+        "openstates_id": "ocd-person/b5285658-1e71-48a2-8641-a2bc75957b24",
+        "name": "Stewart Barlow",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/BARLOSE.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411299",
+          "email": "sbarlow@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-18",
+        "openstates_id": "ocd-person/d8c2c3ff-83a7-45f7-88bb-fb01b8cd624e",
+        "name": "Paul Cutler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/CUTLEP.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/CUTLEP/",
+          "email": "pcutler@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-19",
+        "openstates_id": "ocd-person/dbd3789a-5040-4015-9474-ac27b4a32010",
+        "name": "Ray Ward",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WARDR.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412633",
+          "email": "rayward@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-20",
+        "openstates_id": "ocd-person/861428f5-6456-4c94-b1ed-838b01a7d845",
+        "name": "Melissa Ballard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/BALLAMG.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415006",
+          "email": "mballard@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-21",
+        "openstates_id": "ocd-person/8c8d32a7-32ed-4ef1-a03d-9661ca98fc5a",
+        "name": "Sandra Hollins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/HOLLIS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412641",
+          "email": "shollins@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-22",
+        "openstates_id": "ocd-person/b32f9174-73af-4db3-877b-1c368bd4e62e",
+        "name": "Jen Dailey-Provost",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/DAILEJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414811",
+          "email": "jdprovost@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-23",
+        "openstates_id": "ocd-person/efcd1f01-061f-4b35-9202-407576e22e77",
+        "name": "Hoang Nguyen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/HoangNguyen2024.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/NGUYEH/",
+          "email": "hnguyen@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-24",
+        "openstates_id": "ocd-person/82be86b6-0047-471e-8983-a061e5cc91e2",
+        "name": "Grant Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/gmiller2.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/MILLGR/",
+          "email": "gmiller@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-25",
+        "openstates_id": "ocd-person/d987aff4-abcf-4f2a-826d-b5741d065d44",
+        "name": "Angela Romero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ROMERAY.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411502",
+          "email": "angelaromero@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-26",
+        "openstates_id": "ocd-person/ad88a882-c27b-4ceb-8476-b7a3d2a9dd19",
+        "name": "Matt MacPherson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/MACPHM.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/MACPHM/",
+          "email": "mmacpherson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-27",
+        "openstates_id": "ocd-person/7c0df02d-1ef0-4fa9-b708-ccafff35649e",
+        "name": "Anthony Loubet",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/LOUBEA.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/LOUBEA/",
+          "email": "aloubet@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-28",
+        "openstates_id": "ocd-person/08c69398-e218-46a2-a843-9f1bfe088caa",
+        "name": "Nicholeen Peck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/NicholeenPeck2024c.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/PECKNI/",
+          "email": "npeck@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-29",
+        "openstates_id": "ocd-person/3e388e2d-1b4a-49dc-9aa5-38353166e08f",
+        "name": "Bridger Bolinder",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/BOLINB.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/BOLINB/",
+          "email": "bbolinder@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-30",
+        "openstates_id": "ocd-person/e68bfc15-5c1f-4903-ac1f-eb8ca44a816a",
+        "name": "Jake Fitisemanu",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JakeFitisemanu2024.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/FITISJ/",
+          "email": "jfitisemanu@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-31",
+        "openstates_id": "ocd-person/ba4559e4-0f36-4c48-afb9-3e142b670f86",
+        "name": "Verona Mauga",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/VeronaMauga.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/MAUGAV/",
+          "email": "vmauga@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-32",
+        "openstates_id": "ocd-person/b0a5ca40-5e04-495c-80e0-2c5d3608273d",
+        "name": "Sahara Hayes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/HAYESS.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/HAYESS/",
+          "email": "shayes@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-33",
+        "openstates_id": "ocd-person/b60609f0-e6df-42fc-bbca-9b67a2ed7254",
+        "name": "Doug Owens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/OWENSDO.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415426",
+          "email": "dougowens@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-34",
+        "openstates_id": "ocd-person/8d06fd93-cc42-47e3-a00c-2229718b7226",
+        "name": "Carol Moss",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/MOSSCS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1248",
+          "email": "csmoss@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-35",
+        "openstates_id": "ocd-person/6944b102-0d94-4267-916f-59fbd6f2bb18",
+        "name": "Rosalba Dominguez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rosalba_Dominguez_20240921_082723.jpeg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/DOMINR/",
+          "email": "rdominguez@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-36",
+        "openstates_id": "ocd-person/89b3cebe-884b-4798-b063-794d359ea891",
+        "name": "Jim Dunnigan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/DUNNIJA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1389",
+          "email": "jdunnigan@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-37",
+        "openstates_id": "ocd-person/8a770a9d-d24e-4468-9194-fa2ff1f422e3",
+        "name": "Ashlee Matthews",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/MATTHA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415432",
+          "email": "amatthews@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-38",
+        "openstates_id": "ocd-person/54fcc31c-a3e5-47ea-a044-d1223c6bce65",
+        "name": "Cheryl Acton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ACTONCK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414828",
+          "email": "cacton@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-39",
+        "openstates_id": "ocd-person/c76bd4cf-9149-46e8-a001-e2c81c5942d5",
+        "name": "Ken Ivory",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/IVORYK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409302",
+          "email": "kivory@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-40",
+        "openstates_id": "ocd-person/eac36970-1c63-4b4c-81b1-3a39536bd69d",
+        "name": "Andrew Stoddard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/STODDA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415014",
+          "email": "astoddard@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-41",
+        "openstates_id": "ocd-person/b5f1d356-e619-413b-8b9a-fec2d3d48362",
+        "name": "John Arthur",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/ARTHUJ/",
+          "email": "jarthur@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-42",
+        "openstates_id": "ocd-person/12581dac-c07b-40a8-b309-3c9ea167f913",
+        "name": "Clint Okerlund",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ClintOkerlund2024.jpeg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/OKERLC/",
+          "email": "cokerlund@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-43",
+        "openstates_id": "ocd-person/06d334f0-dd19-4a8e-b1c9-5f1ae1d90e26",
+        "name": "Steve Eliason",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ELIASS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409528",
+          "email": "seliason@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-44",
+        "openstates_id": "ocd-person/4fb12ece-15d9-4fd2-9b0a-e96a0dbdd2ad",
+        "name": "Jordan Teuscher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/TEUSCJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415423",
+          "email": "jteuscher@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-45",
+        "openstates_id": "ocd-person/1460f74d-e7af-44a6-8e24-5c3fe8013251",
+        "name": "Tracy Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tracy_Miller.jpeg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/MILLET/",
+          "email": "tmiller@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-46",
+        "openstates_id": "ocd-person/8e452a53-e405-49f9-9031-77d8a9f63bd3",
+        "name": "Cal Roberts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CalRoberts2024.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/ROBERC/",
+          "email": "croberts@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-47",
+        "openstates_id": "ocd-person/5d383c2b-0450-48db-92bf-e20977953cd8",
+        "name": "Mark Strong",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/STRONMA.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415024",
+          "email": "mstrong@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-48",
+        "openstates_id": "ocd-person/ea11beb4-7128-4549-9174-fa7b40cacca8",
+        "name": "Doug Fiefia",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://dougfiefia.com/wp-content/uploads/2023/11/Doug-Fiefia-header.png",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/FIEFID/",
+          "email": "dfiefa@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-49",
+        "openstates_id": "ocd-person/b4977f98-8a0d-4e4b-a43f-b8ee80adba2b",
+        "name": "Candice Pierucci",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/PIERUC.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415318",
+          "email": "cpierucci@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-50",
+        "openstates_id": "ocd-person/236ec233-4d24-4514-82a5-05a028c1de14",
+        "name": "Stephanie Gricius",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/GRICIS.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/GRICIS/",
+          "email": "sgricius@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-51",
+        "openstates_id": "ocd-person/72df7728-0455-4b7b-9432-745f4365d99e",
+        "name": "Leah Hansen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/LHANSEN/",
+          "email": "lhansen@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-52",
+        "openstates_id": "ocd-person/8487aadf-5bd8-46b1-97a3-2db855c534a0",
+        "name": "Cory Maloy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/MALOYC.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414486",
+          "email": "corymaloy@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-53",
+        "openstates_id": "ocd-person/aee56bc8-022b-4351-81c0-9b5050846a8b",
+        "name": "Kay Christofferson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/CHRISKJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411621",
+          "email": "kchristofferson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-54",
+        "openstates_id": "ocd-person/d428d2ed-8644-459a-b374-7535561a1482",
+        "name": "Kristen Chevrier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/CHEVRK/",
+          "email": "kchevrier@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-55",
+        "openstates_id": "ocd-person/e214e4ef-2df9-41a2-9113-98715f5a791c",
+        "name": "Jon Hawkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/HAWKIJ.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414969",
+          "email": "jhawkins@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-56",
+        "openstates_id": "ocd-person/8662eb2d-1ff1-4bd2-9a3b-41fa8770cc18",
+        "name": "Val Peterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/PETERVL.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409531",
+          "email": "vpeterson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-57",
+        "openstates_id": "ocd-person/00670b53-62f7-4c0f-b229-eb1fad6dbbbc",
+        "name": "Nelson Abbott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ABBOTN.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415393",
+          "email": "nabbott@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-58",
+        "openstates_id": "ocd-person/e26d3225-27da-440d-ac85-cad08bdb5ade",
+        "name": "Dave Shallenberger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/414685/414685.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/SHALLD/",
+          "email": "dshallenberger@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-59",
+        "openstates_id": "ocd-person/656dec4e-3c95-43b1-9059-f2259300f88b",
+        "name": "Mike Kohler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/KOHLEM.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415490",
+          "email": "mkohler@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-61",
+        "openstates_id": "ocd-person/cc269dc8-cef7-4e8d-a3fc-0d658d1dcfcc",
+        "name": "Lisa Shepherd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/214c6333-69cf-4437-a4a5-149983b67c86/123-bKwEnQhUdpI%20(1)%202.JPEG/:/cr=t:2.05%25,l:12.92%25,w:73.53%25,h:73.53%25/rs=w:355,h:355,cg:true,m",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/SHEPHL/",
+          "email": "lshepherd@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-62",
+        "openstates_id": "ocd-person/8e36fabe-9e2a-4ccd-b29a-1395d6318560",
+        "name": "Norm Thurston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/THURSNK.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412615",
+          "email": "normthurston@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-63",
+        "openstates_id": "ocd-person/451ecbcb-42a9-467b-98c7-e0b3e5bd32d3",
+        "name": "Stephen Whyte",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WHYTESL.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415754",
+          "email": "swhyte@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-64",
+        "openstates_id": "ocd-person/1773d5d5-4967-4af5-9880-3106ace372d7",
+        "name": "Jeff Burton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/BURTOJS.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415546",
+          "email": "jburton@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-65",
+        "openstates_id": "ocd-person/725abf07-1cca-47a5-a5a7-223d763f5da0",
+        "name": "Doug Welton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WELTOD.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415458",
+          "email": "dwelton@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-66",
+        "openstates_id": "ocd-person/7e80bacf-6b3d-4f33-b854-06dab80a29bd",
+        "name": "Troy Shelley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://cdn.prod.website-files.com/659704f376348afc7dd40409/670080f6423ccdeef1b4812e_Troy-Shelley.png",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/SHELLT/",
+          "email": "tshelley@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-67",
+        "openstates_id": "ocd-person/052622aa-50ab-47c7-84b8-175d144a9d59",
+        "name": "Christine Watkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WATKICF.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2078",
+          "email": "christinewatkins@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-68",
+        "openstates_id": "ocd-person/d7a3c337-4395-4e23-9e11-74cb55744f14",
+        "name": "Scott Chew",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/CHEWSH.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412742",
+          "email": "scottchew@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-69",
+        "openstates_id": "ocd-person/afd0bd15-a816-44ae-b28e-cecf50dda45b",
+        "name": "Logan Monson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/653bf32647727060129bd0cf/f7061061-f68f-4697-9dc5-fd2bcc264299/IMG_7508.jpg",
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/MONSOL/",
+          "email": "lmonson@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-70",
+        "openstates_id": "ocd-person/8967df77-dc79-46e0-873c-b79f9cf73e1f",
+        "name": "Carl Albrecht",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ALBRECR.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414402",
+          "email": "carlalbrecht@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-71",
+        "openstates_id": "ocd-person/66ec0903-117f-4006-8e05-e7326330fc63",
+        "name": "Rex Shipp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/SHIPPRP.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414994",
+          "email": "rshipp@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-72",
+        "openstates_id": "ocd-person/0d22b3d0-94f2-4f88-95e9-b830480f4be8",
+        "name": "Joseph Elison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/ELISOJ.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/ELISOJ/",
+          "email": "jelison@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-73",
+        "openstates_id": "ocd-person/2fb1aaec-83c2-41f3-b98a-8a8a34e7301e",
+        "name": "Colin Jack",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/JACKC.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/JACKC/",
+          "email": "cjack@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-74",
+        "openstates_id": "ocd-person/5b90793c-f90a-4b0e-b9e6-78943bfaab1c",
+        "name": "Neil Walter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/WALTER.jpg",
+        "contact": {
+          "official_website": "https://house.utah.gov/rep/WALTER/",
+          "email": "nwalter@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ut-rep-75",
+        "openstates_id": "ocd-person/5cef5a01-f3ea-4c28-aa39-036449806388",
+        "name": "Walt Brooks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://le.utah.gov/images/legislator/BROOKW.jpg",
+        "contact": {
+          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414382",
+          "email": "wbrooks@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}
