@@ -76,20 +76,25 @@
   "C001098": {
     "top_issues": [
       {
-        "name": "Constitutional Law",
-        "stance": "Originalist perspective; author of legislation defending First Amendment rights and constitutional limits on federal power."
+        "name": "Technology & Commerce",
+        "stance": "Chairs the Senate Commerce, Science, and Transportation Committee; sponsors technology and communications legislation.",
+        "sources": [
+          "https://www.cruz.senate.gov"
+        ]
       },
       {
-        "name": "Immigration",
-        "stance": "Advocates strict border enforcement and reduced immigration levels; sponsored border security legislation."
+        "name": "Energy",
+        "stance": "Sponsors energy legislation affecting Texas oil, gas, and the power grid.",
+        "sources": [
+          "https://www.cruz.senate.gov"
+        ]
       },
       {
-        "name": "Second Amendment",
-        "stance": "Strong Second Amendment advocate; opposes gun control measures and supports constitutional carry principles."
-      },
-      {
-        "name": "Tax Reform",
-        "stance": "Supports flat tax proposals and substantial tax cuts; opposes estate tax and progressive taxation increases."
+        "name": "Foreign Policy",
+        "stance": "International affairs is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://www.cruz.senate.gov"
+        ]
       }
     ],
     "experience": [
@@ -1428,6 +1433,960 @@
         "stance": "Sponsored homeland-security legislation, including the Department of Homeland Security Vehicular Terrorism Prevention Act; he serves on the Homeland Security Committee.",
         "sources": [
           "https://gimenez.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001056": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border Security",
+        "stance": "Immigration is his most frequent sponsored-legislation area; sponsors border-enforcement measures.",
+        "sources": [
+          "https://www.cornyn.senate.gov/"
+        ]
+      },
+      {
+        "name": "Law Enforcement & Public Safety",
+        "stance": "Sponsors law-enforcement and public-safety legislation.",
+        "sources": [
+          "https://www.cornyn.senate.gov/"
+        ]
+      },
+      {
+        "name": "Water & Natural Resources",
+        "stance": "Sponsored water and natural-resources legislation, including the WATER for Farmers Act.",
+        "sources": [
+          "https://www.cornyn.senate.gov/"
+        ]
+      }
+    ]
+  },
+  "M001224": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is his most frequent sponsored-legislation area, including tax-credit legislation.",
+        "sources": [
+          "https://moran.house.gov"
+        ]
+      },
+      {
+        "name": "Families",
+        "stance": "Sponsored family-policy legislation, including the White House Council on Fathers and Sons Act.",
+        "sources": [
+          "https://moran.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://moran.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001120": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is by far his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://crenshaw.house.gov/"
+        ]
+      },
+      {
+        "name": "Energy & Grid Security",
+        "stance": "Sponsored energy and grid-security legislation, including the PROTECT the Grid Act.",
+        "sources": [
+          "https://crenshaw.house.gov/"
+        ]
+      },
+      {
+        "name": "National Security",
+        "stance": "A former Navy SEAL; sponsors national-security legislation.",
+        "sources": [
+          "https://crenshaw.house.gov/"
+        ]
+      }
+    ]
+  },
+  "S001224": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs and armed forces are his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://keithself.house.gov"
+        ]
+      },
+      {
+        "name": "Veterans & Military",
+        "stance": "An Army veteran; sponsored veterans legislation, including the Veterans Hearing Aid Improvement Act.",
+        "sources": [
+          "https://keithself.house.gov"
+        ]
+      },
+      {
+        "name": "Government Spending",
+        "stance": "Sponsors fiscal and government-accountability legislation.",
+        "sources": [
+          "https://keithself.house.gov"
+        ]
+      }
+    ]
+  },
+  "F000246": {
+    "top_issues": [
+      {
+        "name": "National Defense",
+        "stance": "Armed forces and national security is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://fallon.house.gov"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://fallon.house.gov"
+        ]
+      },
+      {
+        "name": "Energy",
+        "stance": "Sponsored energy legislation, including the Securing Energy Supply Chains Act.",
+        "sources": [
+          "https://fallon.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000589": {
+    "top_issues": [
+      {
+        "name": "Crime & Law Enforcement",
+        "stance": "Crime and law enforcement is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://gooden.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://gooden.house.gov"
+        ]
+      },
+      {
+        "name": "Taxation",
+        "stance": "Sponsors tax legislation.",
+        "sources": [
+          "https://gooden.house.gov"
+        ]
+      }
+    ]
+  },
+  "E000071": {
+    "top_issues": [
+      {
+        "name": "Veterans & Military",
+        "stance": "A Navy veteran; sponsors military and veterans legislation.",
+        "sources": [
+          "https://ellzey.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://ellzey.house.gov/"
+        ]
+      },
+      {
+        "name": "Workforce & Apprenticeships",
+        "stance": "Sponsored the Apprenticeship Infrastructure Tax Credit Act.",
+        "sources": [
+          "https://ellzey.house.gov/"
+        ]
+      }
+    ]
+  },
+  "F000468": {
+    "top_issues": [
+      {
+        "name": "Energy",
+        "stance": "Energy is among her most frequent sponsored-legislation areas, including the American Gas for Allies Act.",
+        "sources": [
+          "https://fletcher.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among her most frequent sponsored-legislation areas, including reproductive-health legislation.",
+        "sources": [
+          "https://fletcher.house.gov"
+        ]
+      },
+      {
+        "name": "Broadband & Technology",
+        "stance": "Sponsored the Broadband Incentives for Communities Act.",
+        "sources": [
+          "https://fletcher.house.gov"
+        ]
+      }
+    ]
+  },
+  "L000603": {
+    "top_issues": [
+      {
+        "name": "National Defense & Veterans",
+        "stance": "Armed forces is by far his most frequent sponsored-legislation area; a former Navy SEAL; sponsored the Veterans' Compensation COLA Act.",
+        "sources": [
+          "https://luttrell.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://luttrell.house.gov"
+        ]
+      },
+      {
+        "name": "Public Safety",
+        "stance": "Crime and law enforcement is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://luttrell.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000553": {
+    "top_issues": [
+      {
+        "name": "Civil Rights",
+        "stance": "Civil rights is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://algreen.house.gov"
+        ]
+      },
+      {
+        "name": "Financial Services",
+        "stance": "Sponsors financial-sector and consumer legislation; serves on the Financial Services Committee.",
+        "sources": [
+          "https://algreen.house.gov"
+        ]
+      },
+      {
+        "name": "Government Accountability",
+        "stance": "Government operations is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://algreen.house.gov"
+        ]
+      }
+    ]
+  },
+  "M001157": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs is by far his most frequent sponsored-legislation area; former Chair of the House Foreign Affairs Committee.",
+        "sources": [
+          "https://mccaul.house.gov"
+        ]
+      },
+      {
+        "name": "Export Controls & Trade",
+        "stance": "Sponsored export-control and trade legislation through the Bureau of Industry and Security.",
+        "sources": [
+          "https://mccaul.house.gov"
+        ]
+      },
+      {
+        "name": "Homeland Security",
+        "stance": "A former Chair of the House Homeland Security Committee.",
+        "sources": [
+          "https://mccaul.house.gov"
+        ]
+      }
+    ]
+  },
+  "P000048": {
+    "top_issues": [
+      {
+        "name": "Energy",
+        "stance": "Sponsored oil-and-gas legislation, including the Protect Domestic Oil and Gas Small Business Act; represents the Permian Basin.",
+        "sources": [
+          "https://pfluger.house.gov"
+        ]
+      },
+      {
+        "name": "Homeland Security & Intelligence",
+        "stance": "Sponsored homeland-intelligence legislation, including the Field Integration of Homeland Intelligence Act.",
+        "sources": [
+          "https://pfluger.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://pfluger.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000601": {
+    "top_issues": [
+      {
+        "name": "Energy",
+        "stance": "Energy is his most frequent sponsored-legislation area, including the Homeowner Energy Freedom Act.",
+        "sources": [
+          "https://craiggoldman.house.gov/"
+        ]
+      },
+      {
+        "name": "Broadband & Infrastructure",
+        "stance": "Sponsored the SPEED for Broadband Infrastructure Act.",
+        "sources": [
+          "https://craiggoldman.house.gov/"
+        ]
+      }
+    ]
+  },
+  "J000304": {
+    "top_issues": [
+      {
+        "name": "National Defense",
+        "stance": "Armed forces and national security is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://jackson.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://jackson.house.gov"
+        ]
+      },
+      {
+        "name": "Agriculture",
+        "stance": "Sponsored agriculture legislation, including the SAFE CATTLE Act.",
+        "sources": [
+          "https://jackson.house.gov"
+        ]
+      }
+    ]
+  },
+  "W000814": {
+    "top_issues": [
+      {
+        "name": "Energy",
+        "stance": "Energy is his most frequent sponsored-legislation area; represents a Gulf Coast district.",
+        "sources": [
+          "https://weber.house.gov"
+        ]
+      },
+      {
+        "name": "Science & Technology",
+        "stance": "Sponsored the National Quantum Initiative Reauthorization Act; serves on the Science Committee.",
+        "sources": [
+          "https://weber.house.gov"
+        ]
+      },
+      {
+        "name": "Law Enforcement",
+        "stance": "Sponsors public-safety legislation honoring law-enforcement officers.",
+        "sources": [
+          "https://weber.house.gov"
+        ]
+      }
+    ]
+  },
+  "D000594": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border Security",
+        "stance": "Immigration is among her most frequent sponsored-legislation areas; represents a South Texas border district.",
+        "sources": [
+          "https://delacruz.house.gov"
+        ]
+      },
+      {
+        "name": "Agriculture & Water",
+        "stance": "Sponsored agriculture and water-delivery legislation.",
+        "sources": [
+          "https://delacruz.house.gov"
+        ]
+      },
+      {
+        "name": "Housing",
+        "stance": "Housing and community development is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://delacruz.house.gov"
+        ]
+      }
+    ]
+  },
+  "E000299": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border",
+        "stance": "Immigration is among her most frequent sponsored-legislation areas; represents the El Paso border region.",
+        "sources": [
+          "https://escobar.house.gov"
+        ]
+      },
+      {
+        "name": "National Defense & Veterans",
+        "stance": "Sponsored defense and veterans legislation, including the El Paso VA Medical Center Activation Readiness Act.",
+        "sources": [
+          "https://escobar.house.gov"
+        ]
+      },
+      {
+        "name": "Environment",
+        "stance": "Environmental protection is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://escobar.house.gov"
+        ]
+      }
+    ]
+  },
+  "S000250": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://sessions.house.gov"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://sessions.house.gov"
+        ]
+      },
+      {
+        "name": "Financial Services & Fraud Prevention",
+        "stance": "Sponsored anti-fraud legislation, including the Fraud Prevention and Accountability Act.",
+        "sources": [
+          "https://sessions.house.gov"
+        ]
+      }
+    ]
+  },
+  "M001245": {
+    "top_issues": [
+      {
+        "name": "Gun Safety",
+        "stance": "Sponsored the Kimberly Vaughan Firearm Safe Storage Act.",
+        "sources": [
+          "http://menefee.house.gov/"
+        ]
+      },
+      {
+        "name": "Education",
+        "stance": "Sponsored the College Affordability and Accessibility Act.",
+        "sources": [
+          "http://menefee.house.gov/"
+        ]
+      }
+    ]
+  },
+  "A000375": {
+    "top_issues": [
+      {
+        "name": "Federal Budget & Fiscal Policy",
+        "stance": "Chairs the House Budget Committee; sponsors fiscal and economic legislation.",
+        "sources": [
+          "https://arrington.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://arrington.house.gov"
+        ]
+      },
+      {
+        "name": "Trade",
+        "stance": "Foreign trade and international finance is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://arrington.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001091": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is by far his most frequent sponsored-legislation area; serves on the Foreign Affairs and Intelligence Committees.",
+        "sources": [
+          "https://castro.house.gov"
+        ]
+      },
+      {
+        "name": "Education",
+        "stance": "Education is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://castro.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration & Civil Rights",
+        "stance": "Sponsors immigration and civil-rights legislation.",
+        "sources": [
+          "https://castro.house.gov"
+        ]
+      }
+    ]
+  },
+  "R000614": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border Security",
+        "stance": "Immigration is by far his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://roy.house.gov"
+        ]
+      },
+      {
+        "name": "Government Spending & Fiscal Restraint",
+        "stance": "Sponsors fiscal-restraint and government-spending legislation.",
+        "sources": [
+          "https://roy.house.gov"
+        ]
+      },
+      {
+        "name": "Property & Foreign Ownership",
+        "stance": "Sponsored legislation restricting foreign purchases of U.S. housing.",
+        "sources": [
+          "https://roy.house.gov"
+        ]
+      }
+    ]
+  },
+  "N000026": {
+    "top_issues": [
+      {
+        "name": "Transportation & Infrastructure",
+        "stance": "Transportation is by far his most frequent sponsored-legislation area, including the Railroad Safety Enhancement Act; serves on the Transportation Committee.",
+        "sources": [
+          "https://nehls.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://nehls.house.gov"
+        ]
+      },
+      {
+        "name": "Law Enforcement",
+        "stance": "A former sheriff; sponsors law-enforcement legislation.",
+        "sources": [
+          "https://nehls.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000594": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border Security",
+        "stance": "Immigration is by far his most frequent sponsored-legislation area; represents a large Texas border district.",
+        "sources": [
+          "https://www.congress.gov/member/tony-gonzales/G000594"
+        ]
+      },
+      {
+        "name": "Law Enforcement & Public Safety",
+        "stance": "Sponsored the Bulletproof Law Enforcement Vehicles Act and related public-safety bills.",
+        "sources": [
+          "https://www.congress.gov/member/tony-gonzales/G000594"
+        ]
+      },
+      {
+        "name": "National Defense & Veterans",
+        "stance": "A Navy veteran; armed forces is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://www.congress.gov/member/tony-gonzales/G000594"
+        ]
+      }
+    ]
+  },
+  "V000134": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is her most frequent sponsored-legislation area, including the Outpatient Surgery Access Act.",
+        "sources": [
+          "https://vanduyne.house.gov"
+        ]
+      },
+      {
+        "name": "Taxation & Small Business",
+        "stance": "Taxation and commerce are among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://vanduyne.house.gov"
+        ]
+      },
+      {
+        "name": "Fraud Prevention",
+        "stance": "Sponsored anti-fraud legislation, including the Protecting Seniors and Stopping Fraudsters Act.",
+        "sources": [
+          "https://vanduyne.house.gov"
+        ]
+      }
+    ]
+  },
+  "W000816": {
+    "top_issues": [
+      {
+        "name": "Small Business & Commerce",
+        "stance": "Chairs the House Small Business Committee; commerce is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://williams.house.gov"
+        ]
+      },
+      {
+        "name": "Financial Services",
+        "stance": "Finance is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://williams.house.gov"
+        ]
+      },
+      {
+        "name": "Law Enforcement & School Safety",
+        "stance": "Sponsored the Bulletproof Law Enforcement Vehicles Act and the Safer Schools Act.",
+        "sources": [
+          "https://williams.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000603": {
+    "top_issues": [
+      {
+        "name": "Immigration",
+        "stance": "Immigration is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://gill.house.gov/"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://gill.house.gov/"
+        ]
+      }
+    ]
+  },
+  "C001115": {
+    "top_issues": [
+      {
+        "name": "Government Operations & Spending",
+        "stance": "Government operations is by far his most frequent sponsored-legislation area; a fiscal-restraint focus.",
+        "sources": [
+          "https://cloud.house.gov"
+        ]
+      },
+      {
+        "name": "Energy",
+        "stance": "Sponsored the Natural Gas Export Expansion Act.",
+        "sources": [
+          "https://cloud.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://cloud.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001063": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border",
+        "stance": "Immigration is his most frequent sponsored-legislation area; represents a South Texas border district.",
+        "sources": [
+          "https://cuellar.house.gov/"
+        ]
+      },
+      {
+        "name": "Border Trade & Infrastructure",
+        "stance": "Sponsored border-infrastructure legislation, including the LPOE Modernization Trust Fund Act.",
+        "sources": [
+          "https://cuellar.house.gov/"
+        ]
+      },
+      {
+        "name": "Appropriations",
+        "stance": "Serves on the House Appropriations Committee.",
+        "sources": [
+          "https://cuellar.house.gov/"
+        ]
+      }
+    ]
+  },
+  "G000587": {
+    "top_issues": [
+      {
+        "name": "Financial Services & Housing",
+        "stance": "Finance is her most frequent sponsored-legislation area, including HUD housing legislation.",
+        "sources": [
+          "https://sylviagarcia.house.gov/"
+        ]
+      },
+      {
+        "name": "Workers & Labor",
+        "stance": "Labor and employment is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://sylviagarcia.house.gov/"
+        ]
+      },
+      {
+        "name": "Civil Rights",
+        "stance": "Civil rights is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://sylviagarcia.house.gov/"
+        ]
+      }
+    ]
+  },
+  "C001130": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is her most frequent sponsored-legislation area.",
+        "sources": [
+          "https://crockett.house.gov"
+        ]
+      },
+      {
+        "name": "Government Accountability & Oversight",
+        "stance": "Government operations is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://crockett.house.gov"
+        ]
+      },
+      {
+        "name": "Economic & Consumer Issues",
+        "stance": "Taxation is among her frequent sponsored-legislation areas.",
+        "sources": [
+          "https://crockett.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001051": {
+    "top_issues": [
+      {
+        "name": "Military Construction & Veterans",
+        "stance": "Sponsors Military Construction and Veterans Affairs appropriations; serves on the Appropriations Committee.",
+        "sources": [
+          "https://carter.house.gov/"
+        ]
+      },
+      {
+        "name": "Education",
+        "stance": "Education is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://carter.house.gov/"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://carter.house.gov/"
+        ]
+      }
+    ]
+  },
+  "J000310": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is her most frequent sponsored-legislation area.",
+        "sources": [
+          "https://juliejohnson.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Sponsored health legislation, including the FED UP with Bleeding Disorders Act.",
+        "sources": [
+          "https://juliejohnson.house.gov/"
+        ]
+      },
+      {
+        "name": "Technology",
+        "stance": "Sponsored the USA 6G Global Leadership Act.",
+        "sources": [
+          "https://juliejohnson.house.gov/"
+        ]
+      }
+    ]
+  },
+  "V000131": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://veasey.house.gov"
+        ]
+      },
+      {
+        "name": "Voting & Government",
+        "stance": "Government operations is among his frequent sponsored-legislation areas, including voter-registration measures.",
+        "sources": [
+          "https://veasey.house.gov"
+        ]
+      },
+      {
+        "name": "Disaster & Community",
+        "stance": "Sponsored the Texas Flood Emergency Supplemental Appropriations Act.",
+        "sources": [
+          "https://veasey.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000581": {
+    "top_issues": [
+      {
+        "name": "Financial Services & Housing",
+        "stance": "Finance is by far his most frequent sponsored-legislation area, including the MORE Opportunities for Homeownership Act.",
+        "sources": [
+          "https://gonzalez.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration & Border",
+        "stance": "Immigration is among his frequent sponsored-legislation areas; represents a South Texas border district.",
+        "sources": [
+          "https://gonzalez.house.gov"
+        ]
+      },
+      {
+        "name": "Small Business",
+        "stance": "Sponsored the Advocating for Small Business Act.",
+        "sources": [
+          "https://gonzalez.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001131": {
+    "top_issues": [
+      {
+        "name": "Workers & Labor",
+        "stance": "Sponsors labor and worker-focused legislation.",
+        "sources": [
+          "https://casar.house.gov"
+        ]
+      },
+      {
+        "name": "Energy & Utility Costs",
+        "stance": "Sponsored the Lowering Utility Bills Act and the Connect the Grid Act.",
+        "sources": [
+          "https://casar.house.gov"
+        ]
+      },
+      {
+        "name": "Consumer Protection",
+        "stance": "Sponsors consumer-focused legislation.",
+        "sources": [
+          "https://casar.house.gov"
+        ]
+      }
+    ]
+  },
+  "B001291": {
+    "top_issues": [
+      {
+        "name": "Science & Space",
+        "stance": "Chairs the House Science, Space, and Technology Committee; sponsored the NASA Reauthorization Act.",
+        "sources": [
+          "https://babin.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "A dentist; health is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://babin.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://babin.house.gov"
+        ]
+      }
+    ]
+  },
+  "D000399": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is his most frequent sponsored-legislation area; serves on the Ways and Means Committee, including the Stop Corporate Inversions Act.",
+        "sources": [
+          "https://doggett.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his most frequent sponsored-legislation areas, including the Safe Staffing Saves Lives Act.",
+        "sources": [
+          "https://doggett.house.gov"
+        ]
+      },
+      {
+        "name": "Environment & Climate",
+        "stance": "Environmental protection is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://doggett.house.gov"
+        ]
+      }
+    ]
+  },
+  "H001095": {
+    "top_issues": [
+      {
+        "name": "Immigration & Border Security",
+        "stance": "Immigration is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://hunt.house.gov"
+        ]
+      },
+      {
+        "name": "Energy",
+        "stance": "Energy is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://hunt.house.gov"
+        ]
+      },
+      {
+        "name": "Public Safety & Law Enforcement",
+        "stance": "An Army veteran; crime and law enforcement is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://hunt.house.gov"
         ]
       }
     ]
