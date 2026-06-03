@@ -35,19 +35,31 @@
       "top_issues": [
         {
           "name": "Trade & Tariffs",
-          "stance": "Advocates for protective tariffs and renegotiating trade agreements to prioritize American manufacturing."
+          "stance": "Administration priority on protective tariffs and renegotiating trade agreements to favor domestic manufacturing.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/donald-j-trump/"
+          ]
         },
         {
-          "name": "Immigration",
-          "stance": "Emphasizes border security, stricter enforcement, and limits on asylum and legal immigration pathways."
+          "name": "Immigration & Border Security",
+          "stance": "Emphasizes increased border enforcement and tighter limits on asylum and legal immigration.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/donald-j-trump/"
+          ]
         },
         {
-          "name": "Energy Independence",
-          "stance": "Promotes domestic oil, gas, and coal production while limiting environmental regulations."
+          "name": "Energy",
+          "stance": "Promotes expanded domestic oil, gas, and coal production and reduced environmental regulation.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/donald-j-trump/"
+          ]
         },
         {
-          "name": "Government Efficiency",
-          "stance": "Supports reducing federal workforce and eliminating what he views as wasteful bureaucratic agencies."
+          "name": "Government Reform",
+          "stance": "Supports reducing the size of the federal workforce and restructuring federal agencies.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/donald-j-trump/"
+          ]
         }
       ],
       "experience": [
@@ -97,16 +109,25 @@
       },
       "top_issues": [
         {
-          "name": "Populism & Working Class",
-          "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."
+          "name": "Administration Agenda",
+          "stance": "As Vice President, advances the administration's policy agenda and serves as President of the Senate.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/jd-vance/"
+          ]
         },
         {
-          "name": "American Manufacturing",
-          "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."
+          "name": "Trade & Manufacturing",
+          "stance": "Advocates policies oriented toward domestic manufacturing and working-class economic concerns.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/jd-vance/"
+          ]
         },
         {
-          "name": "Cultural Issues",
-          "stance": "Advocates for traditional values and skepticism of progressive cultural movements."
+          "name": "Immigration & Border Security",
+          "stance": "Supports stricter border enforcement and immigration limits.",
+          "sources": [
+            "https://www.whitehouse.gov/administration/jd-vance/"
+          ]
         }
       ],
       "experience": [
@@ -156,16 +177,25 @@
         },
         "top_issues": [
           {
-            "name": "China Strategy",
-            "stance": "Advocates for confronting Chinese geopolitical influence and economic competition through diplomatic pressure."
+            "name": "Foreign Policy & Diplomacy",
+            "stance": "Leads the Department of State; oversees U.S. diplomacy, embassies, and treaty relations.",
+            "sources": [
+              "https://www.state.gov/secretary/"
+            ]
           },
           {
-            "name": "Latin America",
-            "stance": "Prioritizes relations with Caribbean and Central American countries, particularly regarding Venezuela and Cuba."
+            "name": "National Security",
+            "stance": "Focus on relations with China and on countering foreign adversaries.",
+            "sources": [
+              "https://www.state.gov/secretary/"
+            ]
           },
           {
-            "name": "Israel & Middle East",
-            "stance": "Emphasizes strong U.S. support for Israel and opposition to Iranian influence in the region."
+            "name": "Western Hemisphere",
+            "stance": "Longstanding focus on Latin America policy, including Cuba and Venezuela.",
+            "sources": [
+              "https://www.state.gov/secretary/"
+            ]
           }
         ],
         "experience": [
@@ -212,16 +242,25 @@
         },
         "top_issues": [
           {
-            "name": "Fiscal Policy",
-            "stance": "Focuses on reducing government spending while managing debt and maintaining economic growth."
+            "name": "Economic & Fiscal Policy",
+            "stance": "Leads the Treasury Department; oversees federal finances, tax administration, and debt management.",
+            "sources": [
+              "https://home.treasury.gov/about/general-information/officials/secretary-of-the-treasury"
+            ]
           },
           {
-            "name": "Currency Markets",
-            "stance": "Works to stabilize the dollar and manage international currency relationships."
+            "name": "Tax & Trade",
+            "stance": "Role in tax policy and implementation of tariff and trade measures.",
+            "sources": [
+              "https://home.treasury.gov/about/general-information/officials/secretary-of-the-treasury"
+            ]
           },
           {
-            "name": "Financial Regulation",
-            "stance": "Supports selective deregulation of financial institutions while maintaining systemic stability."
+            "name": "Financial Regulation & Sanctions",
+            "stance": "Oversees financial-system stability and the administration of economic sanctions.",
+            "sources": [
+              "https://home.treasury.gov/about/general-information/officials/secretary-of-the-treasury"
+            ]
           }
         ],
         "experience": [
@@ -263,16 +302,25 @@
         },
         "top_issues": [
           {
+            "name": "National Defense",
+            "stance": "Leads the Department of Defense and the U.S. armed forces.",
+            "sources": [
+              "https://www.defense.gov/About/Biographies/Biography/Article/4042469/"
+            ]
+          },
+          {
             "name": "Military Readiness",
-            "stance": "Prioritizes modernizing U.S. military capability and maintaining strategic advantages over near-peer competitors."
+            "stance": "Stated focus on warfighting readiness and recruitment.",
+            "sources": [
+              "https://www.defense.gov/About/Biographies/Biography/Article/4042469/"
+            ]
           },
           {
-            "name": "China & Deterrence",
-            "stance": "Emphasizes military preparedness to deter Chinese aggression in the Indo-Pacific region."
-          },
-          {
-            "name": "Military Culture",
-            "stance": "Advocates for merit-based advancement and traditional military values in service organization."
+            "name": "Defense Management",
+            "stance": "Oversees the defense budget and military personnel policy.",
+            "sources": [
+              "https://www.defense.gov/About/Biographies/Biography/Article/4042469/"
+            ]
           }
         ],
         "experience": [
@@ -314,16 +362,25 @@
         },
         "top_issues": [
           {
-            "name": "Law & Order",
-            "stance": "Prioritizes aggressive prosecution of crime and supports law enforcement with expanded investigative powers."
+            "name": "Federal Law Enforcement",
+            "stance": "Leads the Department of Justice; oversees federal prosecutions and law enforcement.",
+            "sources": [
+              "https://www.justice.gov/ag"
+            ]
           },
           {
-            "name": "Election Integrity",
-            "stance": "Emphasizes vigilance against voter fraud and election irregularities in federal elections."
+            "name": "Violent Crime & Drugs",
+            "stance": "Focus on violent crime and drug trafficking, including fentanyl; former Florida Attorney General.",
+            "sources": [
+              "https://www.justice.gov/ag"
+            ]
           },
           {
-            "name": "Constitutional Rights",
-            "stance": "Advocates for protections of Second Amendment rights and First Amendment speech protections."
+            "name": "Immigration Enforcement",
+            "stance": "Oversees immigration-related federal prosecutions.",
+            "sources": [
+              "https://www.justice.gov/ag"
+            ]
           }
         ],
         "experience": [
@@ -365,16 +422,25 @@
         },
         "top_issues": [
           {
-            "name": "Energy Extraction",
-            "stance": "Supports increased oil, gas, and mineral leasing on federal lands to generate revenue and energy independence."
+            "name": "Public Lands & Natural Resources",
+            "stance": "Leads the Interior Department; manages federal lands, national parks, and natural resources.",
+            "sources": [
+              "https://www.doi.gov/secretary"
+            ]
           },
           {
-            "name": "Tribal Relations",
-            "stance": "Emphasizes partnership with tribal nations while balancing resource development and infrastructure needs."
+            "name": "Energy on Federal Lands",
+            "stance": "Focus on expanding domestic energy production on public lands.",
+            "sources": [
+              "https://www.doi.gov/secretary"
+            ]
           },
           {
-            "name": "Western Land Management",
-            "stance": "Advocates for state-level input on federal land management decisions affecting rural communities."
+            "name": "Tribal Affairs",
+            "stance": "Oversees the federal government's relationship with Native American tribes.",
+            "sources": [
+              "https://www.doi.gov/secretary"
+            ]
           }
         ],
         "experience": [
@@ -417,16 +483,25 @@
         },
         "top_issues": [
           {
-            "name": "Farm Support",
-            "stance": "Advocates for robust commodity support programs and direct assistance to agricultural producers."
-          },
-          {
-            "name": "Agricultural Trade",
-            "stance": "Emphasizes fair trade practices and fighting unfair foreign competition for American farmers."
+            "name": "Agriculture & Farm Policy",
+            "stance": "Leads the USDA; oversees farm programs, food safety, and forestry.",
+            "sources": [
+              "https://www.usda.gov/our-agency/about-usda/our-secretary"
+            ]
           },
           {
             "name": "Rural Development",
-            "stance": "Focuses on strengthening rural infrastructure and supporting small and mid-size farming operations."
+            "stance": "Oversees rural development and agricultural trade programs.",
+            "sources": [
+              "https://www.usda.gov/our-agency/about-usda/our-secretary"
+            ]
+          },
+          {
+            "name": "Nutrition Assistance",
+            "stance": "Administers federal nutrition programs, including SNAP and school meals.",
+            "sources": [
+              "https://www.usda.gov/our-agency/about-usda/our-secretary"
+            ]
           }
         ],
         "experience": [
@@ -468,16 +543,25 @@
         },
         "top_issues": [
           {
-            "name": "Trade Policy",
-            "stance": "Emphasizes negotiating favorable trade deals and protecting U.S. manufacturing through strategic tariffs."
+            "name": "Commerce & Trade",
+            "stance": "Leads the Commerce Department; oversees trade, economic statistics, and the Census.",
+            "sources": [
+              "https://www.commerce.gov/about/leadership/howard-lutnick"
+            ]
           },
           {
-            "name": "Technology & Innovation",
-            "stance": "Supports semiconductor industry investment and technology leadership against foreign competitors."
+            "name": "Tariffs & Industry",
+            "stance": "Central role in administration tariff and trade policy.",
+            "sources": [
+              "https://www.commerce.gov/about/leadership/howard-lutnick"
+            ]
           },
           {
-            "name": "Business Growth",
-            "stance": "Advocates for deregulation and creating a favorable environment for business expansion and job creation."
+            "name": "Technology & Export Controls",
+            "stance": "Oversees export administration and standards through agencies such as NIST and BIS.",
+            "sources": [
+              "https://www.commerce.gov/about/leadership/howard-lutnick"
+            ]
           }
         ],
         "experience": [
@@ -519,16 +603,25 @@
         },
         "top_issues": [
           {
-            "name": "Job Creation",
-            "stance": "Focuses on removing regulatory barriers to job growth and supporting small business employment expansion."
+            "name": "Labor & Workforce",
+            "stance": "Leads the Department of Labor; oversees workplace standards, wages, and worker protections.",
+            "sources": [
+              "https://www.dol.gov/agencies/osec"
+            ]
           },
           {
-            "name": "Apprenticeships",
-            "stance": "Advocates for expanding registered apprenticeship programs as alternative pathways to careers."
+            "name": "Job Training",
+            "stance": "Oversees federal workforce-development and apprenticeship programs.",
+            "sources": [
+              "https://www.dol.gov/agencies/osec"
+            ]
           },
           {
-            "name": "Wage Growth",
-            "stance": "Emphasizes policies that support rising wages while maintaining business competitiveness."
+            "name": "Workplace Safety",
+            "stance": "Administers occupational safety and health enforcement (OSHA).",
+            "sources": [
+              "https://www.dol.gov/agencies/osec"
+            ]
           }
         ],
         "experience": [
@@ -570,16 +663,25 @@
         },
         "top_issues": [
           {
-            "name": "Health Agencies Reform",
-            "stance": "Advocates for restructuring federal health agencies and reducing what he views as regulatory overreach."
+            "name": "Public Health",
+            "stance": "Leads HHS; oversees Medicare, Medicaid, the FDA, CDC, and NIH.",
+            "sources": [
+              "https://www.hhs.gov/about/leadership/secretary/index.html"
+            ]
           },
           {
-            "name": "Chronic Disease",
-            "stance": "Emphasizes environmental and nutritional factors in chronic disease prevention and research."
+            "name": "Chronic Disease & Nutrition",
+            "stance": "Stated focus on chronic disease, food additives, and nutrition policy.",
+            "sources": [
+              "https://www.hhs.gov/about/leadership/secretary/index.html"
+            ]
           },
           {
-            "name": "Pharmaceutical Industry",
-            "stance": "Questions pharmaceutical industry practices and promotes transparency in drug development and approval."
+            "name": "Health Agency Oversight",
+            "stance": "Oversees federal public-health and biomedical-research agencies.",
+            "sources": [
+              "https://www.hhs.gov/about/leadership/secretary/index.html"
+            ]
           }
         ],
         "experience": [
@@ -621,16 +723,25 @@
         },
         "top_issues": [
           {
-            "name": "Opportunity Zones",
-            "stance": "Emphasizes economic development in disadvantaged communities through market-based revitalization strategies."
+            "name": "Housing Policy",
+            "stance": "Leads HUD; oversees federal housing programs and community development.",
+            "sources": [
+              "https://www.hud.gov/about/leadership/scott_turner"
+            ]
           },
           {
-            "name": "Housing Affordability",
-            "stance": "Focuses on removing regulatory barriers to housing construction and homeownership."
+            "name": "Affordable Housing",
+            "stance": "Focus on housing access and affordability.",
+            "sources": [
+              "https://www.hud.gov/about/leadership/scott_turner"
+            ]
           },
           {
-            "name": "Urban Renewal",
-            "stance": "Advocates for community-led development and partnerships with local leadership in revitalization efforts."
+            "name": "Economic Opportunity",
+            "stance": "Previously led the White House Opportunity and Revitalization Council (Opportunity Zones).",
+            "sources": [
+              "https://www.hud.gov/about/leadership/scott_turner"
+            ]
           }
         ],
         "experience": [
@@ -672,16 +783,25 @@
         },
         "top_issues": [
           {
-            "name": "Infrastructure Investment",
-            "stance": "Advocates for strategic infrastructure spending focused on real-world transportation needs and efficiency."
+            "name": "Transportation & Infrastructure",
+            "stance": "Leads the DOT; oversees highways, aviation, rail, and transit.",
+            "sources": [
+              "https://www.transportation.gov/meet-secretary/secretary-sean-p-duffy"
+            ]
           },
           {
-            "name": "Regulatory Reform",
-            "stance": "Pushes for streamlining transportation regulations to reduce barriers to project completion."
+            "name": "Aviation Safety",
+            "stance": "Oversees the Federal Aviation Administration and air-traffic system.",
+            "sources": [
+              "https://www.transportation.gov/meet-secretary/secretary-sean-p-duffy"
+            ]
           },
           {
-            "name": "Safety & Standards",
-            "stance": "Emphasizes maintaining transportation safety standards while reducing unnecessary compliance burdens."
+            "name": "Infrastructure Programs",
+            "stance": "Administers federal transportation funding and safety programs.",
+            "sources": [
+              "https://www.transportation.gov/meet-secretary/secretary-sean-p-duffy"
+            ]
           }
         ],
         "experience": [
@@ -723,16 +843,25 @@
         },
         "top_issues": [
           {
-            "name": "Energy Production",
-            "stance": "Prioritizes maximizing domestic energy production from all sources to ensure American energy independence."
+            "name": "Energy Policy",
+            "stance": "Leads the Department of Energy; oversees energy production, the grid, and the national labs.",
+            "sources": [
+              "https://www.energy.gov/contributors/chris-wright"
+            ]
           },
           {
-            "name": "Oil & Gas Development",
-            "stance": "Advocates for continued expansion of oil and gas development as essential to U.S. energy security."
+            "name": "Domestic Energy & Nuclear",
+            "stance": "Focus on expanding domestic energy production, including oil, gas, and nuclear.",
+            "sources": [
+              "https://www.energy.gov/contributors/chris-wright"
+            ]
           },
           {
-            "name": "Nuclear Energy",
-            "stance": "Supports nuclear power expansion as part of a comprehensive American energy portfolio."
+            "name": "Nuclear Security",
+            "stance": "Oversees the National Nuclear Security Administration.",
+            "sources": [
+              "https://www.energy.gov/contributors/chris-wright"
+            ]
           }
         ],
         "experience": [
@@ -774,16 +903,25 @@
         },
         "top_issues": [
           {
-            "name": "School Choice",
-            "stance": "Advocates for expanding school choice options including private schools, charter schools, and homeschooling alternatives."
+            "name": "Education Policy",
+            "stance": "Leads the Department of Education; oversees federal education funding and student aid.",
+            "sources": [
+              "https://www.ed.gov/about/secretary"
+            ]
           },
           {
-            "name": "Parental Rights",
-            "stance": "Emphasizes parental involvement in education decisions and objections to curriculum content."
+            "name": "Federal Role in Education",
+            "stance": "Administration has stated an intent to reduce the federal role in K-12 education.",
+            "sources": [
+              "https://www.ed.gov/about/secretary"
+            ]
           },
           {
-            "name": "Education Standards",
-            "stance": "Supports higher academic standards and accountability in schools, along with reducing federal education bureaucracy."
+            "name": "Student Aid",
+            "stance": "Oversees federal student-loan and financial-aid programs.",
+            "sources": [
+              "https://www.ed.gov/about/secretary"
+            ]
           }
         ],
         "experience": [
@@ -825,16 +963,25 @@
         },
         "top_issues": [
           {
-            "name": "Veteran Benefits",
-            "stance": "Prioritizes improving access to healthcare, benefits, and services for all veterans."
+            "name": "Veterans Affairs",
+            "stance": "Leads the VA; oversees veterans' health care, benefits, and national cemeteries.",
+            "sources": [
+              "https://www.va.gov/opa/bios/secva.asp"
+            ]
           },
           {
-            "name": "VA Modernization",
-            "stance": "Focuses on modernizing VA systems and reducing bureaucratic inefficiencies in delivering services."
+            "name": "Veterans Health Care",
+            "stance": "Oversees the Veterans Health Administration.",
+            "sources": [
+              "https://www.va.gov/opa/bios/secva.asp"
+            ]
           },
           {
-            "name": "Military Community Support",
-            "stance": "Emphasizes support for active duty, reserve, and retired military personnel and their families."
+            "name": "Veterans Benefits",
+            "stance": "Administers disability, education, and pension benefits for veterans.",
+            "sources": [
+              "https://www.va.gov/opa/bios/secva.asp"
+            ]
           }
         ],
         "experience": [
@@ -876,16 +1023,25 @@
         },
         "top_issues": [
           {
-            "name": "Border Security",
-            "stance": "Emphasizes strict border enforcement and stopping illegal immigration as national security priorities."
+            "name": "Homeland Security",
+            "stance": "Leads DHS; oversees border security, immigration enforcement, TSA, FEMA, and the Secret Service.",
+            "sources": [
+              "https://www.dhs.gov/person/kristi-noem"
+            ]
           },
           {
-            "name": "Immigration Enforcement",
-            "stance": "Advocates for aggressive interior enforcement and cooperation with local law enforcement on immigration."
+            "name": "Border & Immigration",
+            "stance": "Focus on border enforcement and immigration policy.",
+            "sources": [
+              "https://www.dhs.gov/person/kristi-noem"
+            ]
           },
           {
-            "name": "Cybersecurity",
-            "stance": "Supports protecting critical infrastructure and federal systems from cyber threats and intrusions."
+            "name": "Disaster Response",
+            "stance": "Oversees FEMA and federal disaster response and recovery.",
+            "sources": [
+              "https://www.dhs.gov/person/kristi-noem"
+            ]
           }
         ],
         "experience": [
@@ -934,16 +1090,25 @@
           },
           "top_issues": [
             {
-              "name": "Constitutional Originalism",
-              "stance": "Interprets the Constitution according to its original public meaning while considering historical context."
+              "name": "Federal Judiciary & the Court's Role",
+              "stance": "As Chief Justice, presides over the Supreme Court and the federal judiciary.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyroberts.aspx"
+              ]
             },
             {
-              "name": "Judicial Restraint",
-              "stance": "Emphasizes deference to elected branches and narrowly tailored judicial decisions with limited scope."
+              "name": "Administrative Law & Separation of Powers",
+              "stance": "Areas of focus drawn from his appellate practice and tenure.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyroberts.aspx"
+              ]
             },
             {
-              "name": "Federalism",
-              "stance": "Protects state authority and limits federal power expansion in constitutional interpretation."
+              "name": "Professional Background",
+              "stance": "Former judge on the D.C. Circuit, Deputy Solicitor General, and appellate advocate.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyroberts.aspx"
+              ]
             }
           ],
           "experience": [
@@ -986,16 +1151,25 @@
           },
           "top_issues": [
             {
-              "name": "Originalism & Textualism",
-              "stance": "Strictly interprets constitutional text according to its original public meaning at the time of adoption."
+              "name": "Constitutional Law & Individual Rights",
+              "stance": "Areas of focus across his tenure as the longest-serving current justice.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographythomas.aspx"
+              ]
             },
             {
-              "name": "Individual Liberty",
-              "stance": "Prioritizes constitutional protections for individual freedoms and limits on government regulation."
+              "name": "Interpretive Approach",
+              "stance": "Widely associated with an originalist and textualist approach to constitutional interpretation.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographythomas.aspx"
+              ]
             },
             {
-              "name": "Property Rights",
-              "stance": "Emphasizes strong protection for private property and constitutional takings limitations."
+              "name": "Professional Background",
+              "stance": "Former Chair of the EEOC and judge on the D.C. Circuit.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographythomas.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1038,16 +1212,25 @@
           },
           "top_issues": [
             {
-              "name": "Originalism",
-              "stance": "Interprets the Constitution based on its original public meaning rather than evolving standards."
+              "name": "Criminal Law",
+              "stance": "Area of focus drawn from his career as a federal prosecutor.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyalito.aspx"
+              ]
             },
             {
-              "name": "Religious Liberty",
-              "stance": "Prioritizes protections for religious expression and conscience rights under the First Amendment."
+              "name": "Constitutional Law & Religious Liberty",
+              "stance": "Areas of focus across his tenure.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyalito.aspx"
+              ]
             },
             {
-              "name": "Constitutional Separation of Powers",
-              "stance": "Emphasizes strict adherence to constitutional boundaries between branches and levels of government."
+              "name": "Professional Background",
+              "stance": "Former U.S. Attorney for the District of New Jersey and judge on the Third Circuit.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyalito.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1091,15 +1274,24 @@
           "top_issues": [
             {
               "name": "Criminal Justice",
-              "stance": "Advocates for defendant protections and scrutinizes government power in criminal procedure and Fourth Amendment cases."
+              "stance": "Area of focus drawn from her experience as a prosecutor and trial judge.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographysotomayor.aspx"
+              ]
             },
             {
               "name": "Civil Rights",
-              "stance": "Emphasizes constitutional protections against discrimination and safeguarding vulnerable populations."
+              "stance": "Area of focus across her tenure; the first Latina justice.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographysotomayor.aspx"
+              ]
             },
             {
-              "name": "Living Constitution",
-              "stance": "Interprets constitutional provisions as evolving to meet contemporary values and social circumstances."
+              "name": "Professional Background",
+              "stance": "Former federal trial judge (S.D.N.Y.) and Second Circuit judge.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographysotomayor.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1142,16 +1334,25 @@
           },
           "top_issues": [
             {
-              "name": "First Amendment & Speech",
-              "stance": "Advocates expansively for First Amendment protections and skepticism of government speech restrictions."
-            },
-            {
               "name": "Administrative Law",
-              "stance": "Considers statutory purpose and practical consequences in interpreting congressional intent and regulations."
+              "stance": "Area of focus drawn from her government and academic background.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykagan.aspx"
+              ]
             },
             {
-              "name": "Equal Protection",
-              "stance": "Emphasizes dignity and equal treatment in constitutional interpretation of rights and classifications."
+              "name": "Professional Background",
+              "stance": "Former U.S. Solicitor General and Dean of Harvard Law School.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykagan.aspx"
+              ]
+            },
+            {
+              "name": "Statutory Interpretation",
+              "stance": "Known for opinions addressing statutory and regulatory questions.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykagan.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1194,16 +1395,25 @@
           },
           "top_issues": [
             {
-              "name": "Textualism",
-              "stance": "Focuses on the plain language and text of statutes and constitutional provisions without resort to legislative history."
+              "name": "Statutory Interpretation",
+              "stance": "Known for a textualist approach to reading statutes.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographygorsuch.aspx"
+              ]
             },
             {
-              "name": "Individual Rights",
-              "stance": "Protects religious liberty, Native American rights, and individual freedoms against government overreach."
+              "name": "Federal Indian Law",
+              "stance": "Area of focus including the rights of Native American tribes.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographygorsuch.aspx"
+              ]
             },
             {
-              "name": "Separation of Powers",
-              "stance": "Upholds constitutional limits on executive and legislative authority and protects judicial independence."
+              "name": "Professional Background",
+              "stance": "Former judge on the Tenth Circuit and Justice Department official.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographygorsuch.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1246,16 +1456,25 @@
           },
           "top_issues": [
             {
-              "name": "Originalism",
-              "stance": "Interprets the Constitution and statutes based on their original meaning and text."
-            },
-            {
-              "name": "Judicial Restraint",
-              "stance": "Favors narrowly tailored decisions and deference to political branches on policy matters."
+              "name": "Separation of Powers",
+              "stance": "Area of focus drawn from his appellate and executive-branch experience.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykavanaugh.aspx"
+              ]
             },
             {
               "name": "Administrative Law",
-              "stance": "Emphasizes proper statutory interpretation and limitations on executive agency power and discretion."
+              "stance": "Area of focus across his tenure.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykavanaugh.aspx"
+              ]
+            },
+            {
+              "name": "Professional Background",
+              "stance": "Former judge on the D.C. Circuit and executive-branch attorney.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographykavanaugh.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1298,16 +1517,25 @@
           },
           "top_issues": [
             {
-              "name": "Originalism",
-              "stance": "Interprets constitutional and statutory text according to its original public meaning at the time of adoption."
+              "name": "Statutory & Constitutional Interpretation",
+              "stance": "Known for a textualist and originalist interpretive approach.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographybarrett.aspx"
+              ]
             },
             {
-              "name": "Religious Liberty",
-              "stance": "Provides robust protection for religious practice and conscience objections under constitutional law."
+              "name": "Professional Background",
+              "stance": "Former law professor at the University of Notre Dame and judge on the Seventh Circuit.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographybarrett.aspx"
+              ]
             },
             {
-              "name": "Constitutional Structure",
-              "stance": "Emphasizes proper separation of powers and enumerated powers limitations in constitutional interpretation."
+              "name": "Civil Procedure",
+              "stance": "Area of focus drawn from her scholarship and teaching.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographybarrett.aspx"
+              ]
             }
           ],
           "experience": [
@@ -1350,16 +1578,25 @@
           },
           "top_issues": [
             {
-              "name": "Criminal Justice",
-              "stance": "Scrutinizes government power in criminal cases and advocates for defendant protections and fairness."
+              "name": "Criminal Law & Sentencing",
+              "stance": "Area of focus drawn from her work as a federal public defender and Sentencing Commission member.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyjackson.aspx"
+              ]
             },
             {
-              "name": "Civil Rights & Equity",
-              "stance": "Emphasizes constitutional guarantees of equal protection and addresses systemic discrimination."
+              "name": "Professional Background",
+              "stance": "Former federal trial judge (D.D.C.) and D.C. Circuit judge; the first Black woman to serve on the Court.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyjackson.aspx"
+              ]
             },
             {
-              "name": "Public Interest Law",
-              "stance": "Draws on public defender experience to shape jurisprudence around access to justice and representation."
+              "name": "Administrative Law",
+              "stance": "Area of focus across her tenure.",
+              "sources": [
+                "https://www.supremecourt.gov/about/biographyjackson.aspx"
+              ]
             }
           ],
           "experience": [
