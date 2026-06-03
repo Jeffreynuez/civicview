@@ -803,5 +803,148 @@
         "to": "2025"
       }
     ]
+  },
+  "P000622": {
+    "top_issues": [
+      {
+        "name": "National Defense & Military Communities",
+        "stance": "Most of his sponsored legislation addresses armed forces and national security, including the Defense Community Infrastructure Program Revisions Act and the Warrior Road Act.",
+        "sources": [
+          "https://patronis.house.gov/"
+        ]
+      },
+      {
+        "name": "Second Amendment",
+        "stance": "Sponsored legislation to repeal the Hughes Amendment to the Firearm Owners' Protection Act.",
+        "sources": [
+          "https://patronis.house.gov/"
+        ]
+      },
+      {
+        "name": "Economic & Tax Policy",
+        "stance": "Sponsored tax and savings legislation, including the Save for Success Act.",
+        "sources": [
+          "https://patronis.house.gov/"
+        ]
+      }
+    ]
+  },
+  "D000628": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "A physician, Dunn concentrates heavily on health policy; health is by far his most frequent sponsored-legislation area, including the Sickle Cell Disease Comprehensive Care Act, the Mental Health TALK SAFE Act, and the Timely Access to Coverage Decisions Act.",
+        "sources": [
+          "https://dunn.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs is among his most frequent areas of sponsored legislation.",
+        "sources": [
+          "https://dunn.house.gov"
+        ]
+      },
+      {
+        "name": "Emergency Management & First Responders",
+        "stance": "Sponsored emergency-management and first-responder legislation, including the First Responder Network Authority Reauthorization Act.",
+        "sources": [
+          "https://dunn.house.gov"
+        ]
+      }
+    ]
+  },
+  "F000484": {
+    "top_issues": [
+      {
+        "name": "Education",
+        "stance": "Sponsored education legislation, including the K-12 AI Literacy and Readiness Act and the No Antisemitism in Education Act.",
+        "sources": [
+          "https://fine.house.gov/"
+        ]
+      },
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is among his most frequent areas of sponsored legislation.",
+        "sources": [
+          "https://fine.house.gov/"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations and politics is a frequent area of his sponsored legislation.",
+        "sources": [
+          "https://fine.house.gov/"
+        ]
+      }
+    ]
+  },
+  "M001216": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs and armed-forces/national-security legislation make up most of his sponsored bills.",
+        "sources": [
+          "https://mills.house.gov"
+        ]
+      },
+      {
+        "name": "Law Enforcement & Federal Protective Services",
+        "stance": "Sponsored law-enforcement funding legislation, including the United States Secret Service Reserve Fund Act and the United States Capitol Police Reserve Fund Act.",
+        "sources": [
+          "https://mills.house.gov"
+        ]
+      },
+      {
+        "name": "Second Amendment",
+        "stance": "Sponsored legislation to establish nationwide concealed-carry recognition.",
+        "sources": [
+          "https://mills.house.gov"
+        ]
+      }
+    ]
+  },
+  "H001099": {
+    "top_issues": [
+      {
+        "name": "Space & Aerospace",
+        "stance": "Representing Florida's Space Coast, he sponsored the One Giant LEAP Act addressing the space sector.",
+        "sources": [
+          "https://haridopolos.house.gov/"
+        ]
+      },
+      {
+        "name": "Economic Growth & Finance",
+        "stance": "Sponsored economic and financial legislation, including the Greenlighting Growth Act and the LEDGER Act.",
+        "sources": [
+          "https://haridopolos.house.gov/"
+        ]
+      }
+    ]
+  },
+  "F000476": {
+    "top_issues": [
+      {
+        "name": "Climate & Environment",
+        "stance": "Sponsored environmental and climate legislation, including the Youth Climate Leadership Act; environmental protection is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://frost.house.gov"
+        ]
+      },
+      {
+        "name": "Housing",
+        "stance": "Sponsored housing legislation, including the Promoting Resident Ownership of Manufactured Home Communities Act.",
+        "sources": [
+          "https://frost.house.gov"
+        ]
+      },
+      {
+        "name": "Public Safety & Gun Violence Prevention",
+        "stance": "Crime and law enforcement is among his most frequent sponsored-legislation areas, reflecting a documented focus on gun-violence-prevention policy.",
+        "sources": [
+          "https://frost.house.gov"
+        ]
+      }
+    ]
   }
 }
