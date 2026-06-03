@@ -1,0 +1,4077 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "PA",
+  "state_name": "Pennsylvania",
+  "executive": {
+    "governor": {
+      "id": "pa-exec-gov",
+      "name": "Josh Shapiro",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://www.governor.pa.gov",
+      "photo_url": null,
+      "bio": "Josh Shapiro is the Governor of Pennsylvania, serving since 2023. He previously served as Attorney General of Pennsylvania.",
+      "sources": [
+        "https://www.governor.pa.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "pa-exec-lieutenant-governor",
+      "name": "Austin A. Davis",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://s7d9.scene7.com/is/image/statepa/LG%20Portrait"
+    },
+    "cabinet": [
+      {
+        "id": "pa-exec-secretary-of-state",
+        "name": "Al Schmidt",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.dos.pa.gov/about-us/PublishingImages/Al-Schmidt-Headshot.jpg"
+      },
+      {
+        "id": "pa-exec-attorney-general",
+        "name": "Dave Sunday",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-PA-Sunday-2025.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Pennsylvania State Senate",
+    "members": [
+      {
+        "id": "pa-sen-1",
+        "openstates_id": "ocd-person/6f172bc8-50b0-4dd3-aed6-b5fd48b70eeb",
+        "name": "Nikil Saval",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1921.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1921",
+          "email": "saval@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-2",
+        "openstates_id": "ocd-person/f3b4fe8c-05f9-4610-81ef-354c0fcb0cdd",
+        "name": "Tina Tartaglione",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/277.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=277",
+          "email": "tartaglione@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-3",
+        "openstates_id": "ocd-person/b0d20b05-428a-4e3a-bda1-bbba5c3cfd6a",
+        "name": "Sharif Street",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1767.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1767",
+          "email": "street@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-4",
+        "openstates_id": "ocd-person/ea712eba-1da5-45e2-8d9f-022e8307a614",
+        "name": "Art Haywood",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1689.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1689",
+          "email": "senatorhaywood@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-5",
+        "openstates_id": "ocd-person/00e98952-3983-44cd-aeca-09fb6cd84f3d",
+        "name": "Joe Picozzi",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Abdullah_Muzammil_20240808_100242.png",
+        "contact": {
+          "official_website": "https://5thdistrict.pasenategop.com/",
+          "email": "jpicozzi@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-6",
+        "openstates_id": "ocd-person/611d3c65-f30f-4dde-8f80-7db4ec405a36",
+        "name": "Frank Farry",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1169.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorfarry.com/",
+          "email": "ffarry@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-7",
+        "openstates_id": "ocd-person/53a598e0-3595-4b19-8f65-4a538bdc7a74",
+        "name": "Vincent Hughes",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/152.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=152",
+          "email": "hughes@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-8",
+        "openstates_id": "ocd-person/fe79a0f0-7dfd-442a-8b79-f8792613a4de",
+        "name": "Tony Williams",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/153.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=153",
+          "email": "williams@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-9",
+        "openstates_id": "ocd-person/c45052c1-f3e4-485e-a3d2-f346fa51839b",
+        "name": "John Kane",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1925.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pasenatorkane.com/",
+          "email": "kane@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-10",
+        "openstates_id": "ocd-person/91f290d0-3405-4091-bb16-822a97f45af5",
+        "name": "Steve Santarsiero",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1179.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1179",
+          "email": "senatorsantarsiero@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-11",
+        "openstates_id": "ocd-person/35362d6e-d00a-4cf1-806d-b4f2f2a55f72",
+        "name": "Judy Schwank",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1234.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1234",
+          "email": "senatorschwank@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-12",
+        "openstates_id": "ocd-person/323c52e8-f841-4a0b-a49e-91103949fbc8",
+        "name": "Maria Collett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1799.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1799",
+          "email": "senatorcollett@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-13",
+        "openstates_id": "ocd-person/c2fcd2dc-22f8-4ec2-b70a-439bc6d60802",
+        "name": "Scott Martin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1763.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorscottmartinpa.com/",
+          "email": "smartin@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-14",
+        "openstates_id": "ocd-person/a160699d-cc7d-4ed7-b486-57008ee0e642",
+        "name": "Nick Miller",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2009.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pasenatormiller.com/",
+          "email": "miller@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-15",
+        "openstates_id": "ocd-person/b5ff17d0-36e8-4f29-8c9b-e51bb9b3ea29",
+        "name": "Patty Kim",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1636.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pasenatorkim.com/",
+          "email": "patty.kim@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-16",
+        "openstates_id": "ocd-person/ecd51b53-a59b-4b92-b203-c1d24f748cb1",
+        "name": "Jarrett Coleman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2008.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorcoleman.com/",
+          "email": "jcoleman@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-17",
+        "openstates_id": "ocd-person/77755456-0f2a-4bbd-ac96-03d83398d6fc",
+        "name": "Amanda Cappelletti",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1923.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pasenatorcappelletti.com/",
+          "email": "cappelletti@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-18",
+        "openstates_id": "ocd-person/de81d407-bc84-48e6-9796-4a56be984cbd",
+        "name": "Lisa Boscola",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/179.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorboscola.com/",
+          "email": "boscola@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-19",
+        "openstates_id": "ocd-person/91c58c1d-de9d-471b-8178-f6ef89c1286b",
+        "name": "Carolyn Comitta",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1790.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1790",
+          "email": "senatorcomitta@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-20",
+        "openstates_id": "ocd-person/aa421a2c-4203-45b7-9766-8826c02a659d",
+        "name": "Lisa Baker",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1077.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1077",
+          "email": "lbaker@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-21",
+        "openstates_id": "ocd-person/5d3e2203-b11c-4471-8f35-5106c30263ec",
+        "name": "Scott Hutchinson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1629.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1629",
+          "email": "shutchinson@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-22",
+        "openstates_id": "ocd-person/7061c75d-7eeb-40aa-841e-8121edba5d8a",
+        "name": "Marty Flynn",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1626.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1626",
+          "email": "flynn@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-23",
+        "openstates_id": "ocd-person/18127660-d04e-43c2-b931-084f0c87142c",
+        "name": "Gene Yaw",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1186.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1186",
+          "email": "gyaw@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-24",
+        "openstates_id": "ocd-person/d9ad47a6-7e74-45f2-93a5-1b7e40ad36db",
+        "name": "Tracy Pennycuick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1912.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorpennycuick.com/",
+          "email": "tpennycuick@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-25",
+        "openstates_id": "ocd-person/402d7e3b-1935-47fa-8124-61490037d016",
+        "name": "Cris Dush",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1687.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatordush.com/",
+          "email": "cdush@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-26",
+        "openstates_id": "ocd-person/f9f2479f-0c37-47d1-a4eb-666146e2856f",
+        "name": "Tim Kearney",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1800.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1800",
+          "email": "senatorkearney@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-27",
+        "openstates_id": "ocd-person/02117eb4-a7b3-4095-831b-1857910660fb",
+        "name": "Lynda Culver",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1202.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorculver.com/",
+          "email": "lculver@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-28",
+        "openstates_id": "ocd-person/cb724e4a-0e5e-4ebd-ac0c-f3dfda73aef6",
+        "name": "Kristin Phillips-Hill",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1801.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorkristin.com/",
+          "email": "senatorkristin@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-29",
+        "openstates_id": "ocd-person/2a2df3c1-9ede-46b7-8d73-896b1e317aff",
+        "name": "Dave Argall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/69.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=69",
+          "email": "dargall@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-30",
+        "openstates_id": "ocd-person/b6ed7151-9ea4-4828-b639-785f9e358eb1",
+        "name": "Judy Ward",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1683.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorjudyward.com/",
+          "email": "jward@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-31",
+        "openstates_id": "ocd-person/2a13f9df-b7e6-4281-82e4-f7263b6fa12e",
+        "name": "Dawn Keefer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1748.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorkeefer.com/",
+          "email": "dkeefer@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-32",
+        "openstates_id": "ocd-person/14106428-709f-4018-8881-5c31ee078ff8",
+        "name": "Pat Stefano",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1697.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1697",
+          "email": "pstefano@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-33",
+        "openstates_id": "ocd-person/cda65f80-13e8-463c-88fa-6f5569a599bf",
+        "name": "Doug Mastriano",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1869.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatormastriano.com/",
+          "email": "dmastriano@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-34",
+        "openstates_id": "ocd-person/3e99b4f3-2efa-4330-b0b9-fb273b1322ea",
+        "name": "Greg Rothman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1733.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorrothman.com/",
+          "email": "grothman@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-35",
+        "openstates_id": "ocd-person/7b3a6244-335b-4407-957d-b7d6b6ab1d97",
+        "name": "Wayne Langerholc",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1764.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1764",
+          "email": "wlangerholc@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-36",
+        "openstates_id": "ocd-person/fea0b7c4-d51a-463f-964a-75722678083b",
+        "name": "James Malone",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.palegis.us/senate/members/bio/2061/sen-malone",
+          "email": "malone@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-37",
+        "openstates_id": "ocd-person/5271803b-8b46-449c-bf89-44f7d09c6cd2",
+        "name": "Devlin Robinson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1924.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorrobinson.com/",
+          "email": "drobinson@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-38",
+        "openstates_id": "ocd-person/bc64322a-faaf-4b33-b6c2-cf5059f4121c",
+        "name": "Lindsey Williams",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1803.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorlindseywilliams.com/",
+          "email": "senatorlindseywilliams@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-39",
+        "openstates_id": "ocd-person/c48a0179-5770-410d-ba97-bdbc05d20786",
+        "name": "Kim Ward",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1188.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorward.com/",
+          "email": "kward@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-40",
+        "openstates_id": "ocd-person/3e2840e6-f904-43be-911e-235b906458a5",
+        "name": "Rosemary Brown",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1200.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorbrown40.com/",
+          "email": "rbrown@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-41",
+        "openstates_id": "ocd-person/722f324f-db47-4ce2-9cbc-93f29ae38158",
+        "name": "Joe Pittman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1870.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorpittman.com/",
+          "email": null,
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-42",
+        "openstates_id": "ocd-person/b93e4f38-764f-4e95-bd51-4d40dba0aaa4",
+        "name": "Wayne Fontana",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1041.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1041",
+          "email": "fontana@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-43",
+        "openstates_id": "ocd-person/ee6b52c3-d92c-4cd6-a6ea-6869a8c93df0",
+        "name": "Jay Costa",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/254.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorcosta.com/",
+          "email": "costa@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-44",
+        "openstates_id": "ocd-person/ade3ef98-a98c-4448-a974-ec4e0eede98f",
+        "name": "Katie Muth",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1802.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1802",
+          "email": "senatormuth@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-45",
+        "openstates_id": "ocd-person/c9f6833a-470e-480f-b3ad-d91c887aa4f9",
+        "name": "Nick Pisciottano",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1900.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pasenatornick.com/",
+          "email": "nick.pisciottano@pasenate.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-46",
+        "openstates_id": "ocd-person/66b8c0a7-f8be-4acd-aafb-29ca02fcde65",
+        "name": "Camera Bartolotta",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1698.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1698",
+          "email": "cbartolotta@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-47",
+        "openstates_id": "ocd-person/8a2a9b56-cdfa-45e0-a26e-b45b547a2eae",
+        "name": "Elder Vogel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1189.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1189",
+          "email": "evogel@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-48",
+        "openstates_id": "ocd-person/965b26f8-5a4a-4458-a327-a25d89605e65",
+        "name": "Chris Gebhard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "48",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1928.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://senatorgebhard.com/",
+          "email": "cgebhard@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-49",
+        "openstates_id": "ocd-person/431a823e-0268-4921-a62d-5f698211e706",
+        "name": "Dan Laughlin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "49",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1766.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1766",
+          "email": "dlaughlin@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-sen-50",
+        "openstates_id": "ocd-person/406baa79-8352-4fa4-a1fa-70cc55e34406",
+        "name": "Michele Brooks",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "50",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1087.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1087",
+          "email": "mbrooks@pasen.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Pennsylvania State House",
+    "members": [
+      {
+        "id": "pa-rep-1",
+        "openstates_id": "ocd-person/c4a1a8f4-cb29-4700-8235-b103fcb40279",
+        "name": "Pat Harkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1081.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pahouse.com/Harkins",
+          "email": "pharkins@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-2",
+        "openstates_id": "ocd-person/bd4c3d05-059a-4084-b8f8-e8598e4eb955",
+        "name": "Bob Merski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1822.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1822",
+          "email": "rmerski@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-3",
+        "openstates_id": "ocd-person/32370423-acb8-4a8e-8336-67af5ed32bb9",
+        "name": "Ryan Bizzarro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1619.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1619",
+          "email": "repbizzarro@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-4",
+        "openstates_id": "ocd-person/4657c161-af68-44a8-bd60-8b8e88e702d1",
+        "name": "Jake Banta",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1937.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1937",
+          "email": "jbanta@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-5",
+        "openstates_id": "ocd-person/b7373c43-580b-4044-a405-054073ac687b",
+        "name": "Eric Weaknecht",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTmXpiok-J6R_vUlOit1nC52uvUkP1E-Wag&s",
+        "contact": {
+          "official_website": "https://repweaknecht.com/",
+          "email": "eweaknecht@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-6",
+        "openstates_id": "ocd-person/979ea568-4c43-41bd-ba1e-4c2da172bb82",
+        "name": "Brad Roae",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1083.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1083",
+          "email": "broae@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-7",
+        "openstates_id": "ocd-person/8f7a2783-e165-4bf2-aead-113d98dd7dd2",
+        "name": "Parke Wentling",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1709.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1709",
+          "email": "pwentling@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-8",
+        "openstates_id": "ocd-person/844f3ed7-03df-420f-81bd-3f547c12e61e",
+        "name": "Aaron Bernstine",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1742.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1742",
+          "email": "abernstine@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-9",
+        "openstates_id": "ocd-person/68e26db9-10ba-414b-9d06-440dd1fd3f10",
+        "name": "Marla Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1938.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1938",
+          "email": "mbrown@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-10",
+        "openstates_id": "ocd-person/a41016aa-660f-4af7-afcd-ef182e544533",
+        "name": "Amen Brown",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1919.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1919",
+          "email": "repbrown@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-11",
+        "openstates_id": "ocd-person/dc7a449c-43cf-4522-b2a3-efb4707907c4",
+        "name": "Marci Mustello",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1868.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1868",
+          "email": "mmustello@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-13",
+        "openstates_id": "ocd-person/8c1966e4-80f4-4a98-bf55-b1de0b9705b3",
+        "name": "John Lawrence",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1215.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1215",
+          "email": "jlawrenc@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-14",
+        "openstates_id": "ocd-person/69faf85a-c63c-4d75-9801-047fffddf228",
+        "name": "Roman Kozak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.beavercountygop.com/wp-content/uploads/RK.jpg",
+        "contact": {
+          "official_website": "https://www.palegis.us/house/members/bio/2022/rep-kozak",
+          "email": "rkozak@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-15",
+        "openstates_id": "ocd-person/fbb14b8a-8940-4679-9ed8-3ec48096a3a2",
+        "name": "Josh Kail",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1823.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1823",
+          "email": "jkail@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-16",
+        "openstates_id": "ocd-person/a7b2e50f-90a6-4f35-b1fb-c33406dc4277",
+        "name": "Rob Matzie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1173.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1173",
+          "email": "rmatzie@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-17",
+        "openstates_id": "ocd-person/105c6361-0cb6-46f4-9222-ff0ffb727d29",
+        "name": "Tim Bonner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1877.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1877",
+          "email": "tbonner@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-18",
+        "openstates_id": "ocd-person/26925ace-f614-409d-80a2-9b6a42e7ddb5",
+        "name": "K.C. Tomlinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1876.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1876",
+          "email": "ktomlinson@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-19",
+        "openstates_id": "ocd-person/1b5abb1e-0028-49a3-ae86-cfb90296c796",
+        "name": "Aerion Abney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1933.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1933",
+          "email": "aabney@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-20",
+        "openstates_id": "ocd-person/875b1add-2803-4cc3-964b-0e351ed6ca1c",
+        "name": "Emily Kinkead",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1896.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1896",
+          "email": "repkinkead@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-21",
+        "openstates_id": "ocd-person/b7c8d063-8db4-4cdf-a159-a0b064b7cae5",
+        "name": "Lindsay Powell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2016.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2016",
+          "email": "reppowell@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-22",
+        "openstates_id": "ocd-person/19dca465-48d8-4b4a-84e2-79ef9797c986",
+        "name": "Ana Tiburcio",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.pahouse.com/Tiburcio/",
+          "email": "reptiburcio@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-23",
+        "openstates_id": "ocd-person/96667f6d-d967-4f6a-9cd9-23bf480a98c1",
+        "name": "Dan Frankel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/84.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=84",
+          "email": "repfrankel@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-24",
+        "openstates_id": "ocd-person/526967db-cef3-4f64-a380-1377f5c6f1fe",
+        "name": "La'Tasha Mayes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1941.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1941",
+          "email": "repmayes@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-25",
+        "openstates_id": "ocd-person/9aea39f8-1503-4fea-9440-1e0e9c2f8fa3",
+        "name": "Brandon Markosek",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1825.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1825",
+          "email": "repmarkosek@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-26",
+        "openstates_id": "ocd-person/494797a5-3d84-414a-9c8c-caaadd621cdd",
+        "name": "Paul Friel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1942.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1942",
+          "email": "repfriel@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-27",
+        "openstates_id": "ocd-person/2608882d-9ae2-4522-b8b2-83d905913d3f",
+        "name": "Dan Deasy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1166.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1166",
+          "email": "ddeasy@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-28",
+        "openstates_id": "ocd-person/0df3f8d5-b6df-4cd8-a2c7-1dee651e60a8",
+        "name": "Jeremy Shaffer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSorGMaPu0r-cmKNo0wUJlamXWmBuybfdPUA&s",
+        "contact": {
+          "official_website": "https://www.palegis.us/house/members/bio/2023/rep-shaffer",
+          "email": "jshaffer@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-29",
+        "openstates_id": "ocd-person/de68158e-3cc9-4651-b3a1-71f5e77b7dab",
+        "name": "Tim Brennan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1943.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1943",
+          "email": "repbrennan@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-30",
+        "openstates_id": "ocd-person/f4e98ad8-2ee6-45e4-8594-0deaaa51190e",
+        "name": "Arvind Venkat",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1944.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1944",
+          "email": "repvenkat@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-31",
+        "openstates_id": "ocd-person/e2bc8bc4-33ab-46dd-8f67-da218949efb6",
+        "name": "Perry Warren",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1743.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1743",
+          "email": "repwarren@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-32",
+        "openstates_id": "ocd-person/d31e549e-2c3d-4ea3-850b-5285955c3c2f",
+        "name": "Joe McAndrew",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2011.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2011",
+          "email": "repmcandrew@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-33",
+        "openstates_id": "ocd-person/63f8d7ea-b621-48b7-a326-4e2a732a521c",
+        "name": "Mandy Steele",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1945.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1945",
+          "email": "repsteele@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-34",
+        "openstates_id": "ocd-person/4bc74848-3896-4a0a-9310-970458f48d1a",
+        "name": "Abigail Salisbury",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2012.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2012",
+          "email": "repsalisbury@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-35",
+        "openstates_id": "ocd-person/b42a625f-25e4-4f25-b942-928c8a3e0bb2",
+        "name": "Dan Goughnour",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.pahouse.com/gergely",
+          "email": "repgergely@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-36",
+        "openstates_id": "ocd-person/8b6409e9-8ab6-4222-b6f3-fb8f33800c95",
+        "name": "Jessica Benham",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1899.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1899",
+          "email": "repbenham@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-37",
+        "openstates_id": "ocd-person/f5b2ec4d-1d69-483a-a6ec-143d50ad395b",
+        "name": "Mindy Fee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1625.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1625",
+          "email": "mfee@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-38",
+        "openstates_id": "ocd-person/0b0beeaf-a1b0-4049-95cb-4ad5a3952336",
+        "name": "John Inglis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnInglis2024.jpg",
+        "contact": {
+          "official_website": "https://www.pahouse.com/inglis/",
+          "email": "repinglis@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-39",
+        "openstates_id": "ocd-person/0d86d77b-ff68-4182-be53-09ff196b8174",
+        "name": "Andrew Kuzma",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1946.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1946",
+          "email": "akuzma@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-40",
+        "openstates_id": "ocd-person/c5e053dd-a874-4a51-a071-661a20db33ab",
+        "name": "Natalie Mihalek",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1830.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1830",
+          "email": "nmihalek@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-41",
+        "openstates_id": "ocd-person/1a6e36d3-ff44-4e21-bb9d-397a56482b34",
+        "name": "Brett Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1699.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1699",
+          "email": "bmiller@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-42",
+        "openstates_id": "ocd-person/65b852b7-0c73-487d-aaf4-2b6648fa6383",
+        "name": "Jen Mazzocco",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.pahouse.com/Mazzocco/",
+          "email": "repmazzocco@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-43",
+        "openstates_id": "ocd-person/dcd0037e-7833-416d-9523-5f25802bd43a",
+        "name": "Keith Greiner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1632.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1632",
+          "email": "kgreiner@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-44",
+        "openstates_id": "ocd-person/590df273-5587-46bd-98dc-f3943cd1ddd8",
+        "name": "Valerie Gaydos",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1831.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1831",
+          "email": "vgaydos@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-45",
+        "openstates_id": "ocd-person/999d1ffd-b893-4aac-9fbb-ae43b3039038",
+        "name": "Anita Kulik",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1744.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1744",
+          "email": "akulik@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-46",
+        "openstates_id": "ocd-person/1871b5c7-35c4-4d32-9e09-9febf8ba3f66",
+        "name": "Jason Ortitay",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1701.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1701",
+          "email": "jortitay@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-47",
+        "openstates_id": "ocd-person/b698d343-137d-423b-a102-c471f1fd1768",
+        "name": "Joe D'Orsie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1947.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1947",
+          "email": "jdorsie@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-48",
+        "openstates_id": "ocd-person/2c5551d6-71a8-4099-b1a4-a30721320869",
+        "name": "Tim O'Neal",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1797.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1797",
+          "email": "toneal@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-49",
+        "openstates_id": "ocd-person/fefff26b-b89a-4400-b633-99e5aa09523b",
+        "name": "Izzy Smith-Wade-El",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1948.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1948",
+          "email": "repsmithwadeel@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-50",
+        "openstates_id": "ocd-person/9b9857aa-5fad-4678-a4f9-7e40bc642f64",
+        "name": "Bud Cook",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1745.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1745",
+          "email": "bcook@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-51",
+        "openstates_id": "ocd-person/d5bd036c-03f5-4111-b770-15cb2dbe3278",
+        "name": "Charity Krupa",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1949.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1949",
+          "email": "ckrupa@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-52",
+        "openstates_id": "ocd-person/0d747b7a-0a5a-42cf-8bb6-1eb0fa69090f",
+        "name": "Ryan Warner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1708.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1708",
+          "email": "rwarner@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-53",
+        "openstates_id": "ocd-person/fa1e1564-0a13-4b26-8416-098b39627df7",
+        "name": "Steve Malagari",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1832.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1832",
+          "email": "repmalagari@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-54",
+        "openstates_id": "ocd-person/969ce6cb-ddcb-4347-b69d-2019cfbd6e18",
+        "name": "Greg Scott",
+        "party": "D",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1950.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1950",
+          "email": "repscott@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-55",
+        "openstates_id": "ocd-person/6ae972c8-aff3-4886-a7d7-bd2cc5e40a38",
+        "name": "Jill Cooper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1951.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1951",
+          "email": "jcooper@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-56",
+        "openstates_id": "ocd-person/7ec5f0f0-0899-4f54-b284-c4c5931c25bc",
+        "name": "Brian Rasel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.palegis.us/resources/images/members/200/2025.jpg?20241220",
+        "contact": {
+          "official_website": "https://reprasel.com/",
+          "email": "brasel@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-57",
+        "openstates_id": "ocd-person/0910d394-3c42-48ee-aea7-6d4c0c144130",
+        "name": "Eric Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1738.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1738",
+          "email": "enelson@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-58",
+        "openstates_id": "ocd-person/80abce94-a517-4357-a70d-cbc791aa34a1",
+        "name": "Eric Davanzo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1875.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1875",
+          "email": "edavanzo@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-59",
+        "openstates_id": "ocd-person/71bb086e-11d9-496d-b274-91d7a8b85eaf",
+        "name": "Leslie Rossi",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1927.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1927",
+          "email": "lrossi@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-60",
+        "openstates_id": "ocd-person/db196239-5fca-4218-82ee-ce1f6cf03ec4",
+        "name": "Abby Major",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1926.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1926",
+          "email": "amajor@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-61",
+        "openstates_id": "ocd-person/0aa9e1d6-4552-4ad4-b660-e2f3cc17b7dd",
+        "name": "Liz Hanbidge",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1834.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1834",
+          "email": "lhanbidge@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-62",
+        "openstates_id": "ocd-person/4a24dcc2-5619-4bb1-acb3-bf7a7d08e6b1",
+        "name": "Jim Struzzi",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1835.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1835",
+          "email": "jstruzzi@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-63",
+        "openstates_id": "ocd-person/2062ecc5-049f-44c4-83bf-850a34b75531",
+        "name": "Josh Bashline",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.exploreclarion.com/wp-content/uploads/sites/2/2024/02/Josh-Bashline-Enters-Race-for-63rd-State-House-District.jpg",
+        "contact": {
+          "official_website": "https://repbashline.com/",
+          "email": "jbashline@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-64",
+        "openstates_id": "ocd-person/b29f8685-d054-4c6c-a8ad-d64f80bd840f",
+        "name": "Lee James",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1634.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1634",
+          "email": "rljames@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-65",
+        "openstates_id": "ocd-person/36348b5e-47fe-404a-b6c3-99359115846c",
+        "name": "Kathy Rapp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1028.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1028",
+          "email": "klrapp@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-66",
+        "openstates_id": "ocd-person/ac7d02d3-9bb7-4cc1-8cee-4283094fe604",
+        "name": "Brian Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1902.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1902",
+          "email": "bsmith@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-67",
+        "openstates_id": "ocd-person/171af8ac-41e0-4047-be38-654cc912053b",
+        "name": "Marty Causer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/982.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=982",
+          "email": "mcauser@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-68",
+        "openstates_id": "ocd-person/626de4be-b2f3-4a37-bbbc-ede598381d6b",
+        "name": "Clint Owlett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1796.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1796",
+          "email": "cowlett@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-69",
+        "openstates_id": "ocd-person/462fc474-e481-436e-b47a-7bbde2de3e3a",
+        "name": "Carl Metzgar",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1174.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1174",
+          "email": "cmetzgar@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-70",
+        "openstates_id": "ocd-person/a15da78b-2475-4606-854f-7477dfc4233d",
+        "name": "Matt Bradford",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1161.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1161",
+          "email": "repbradford@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-71",
+        "openstates_id": "ocd-person/343e541b-fbd3-4622-bf42-7843494b1714",
+        "name": "Jim Rigby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1836.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1836",
+          "email": "jrigby@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-72",
+        "openstates_id": "ocd-person/a60da669-bae3-4e1d-a241-370a7ad2c769",
+        "name": "Frank Burns",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1163.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1163",
+          "email": "repburns@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-73",
+        "openstates_id": "ocd-person/70d0ff46-746e-47a0-8c5f-cbe73dbf72ce",
+        "name": "Dallas Kephart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1952.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1952",
+          "email": "dkephart@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-74",
+        "openstates_id": "ocd-person/8cb5e285-fdd9-4c63-b7c7-480bf9e477e1",
+        "name": "Dan Williams",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1837.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1837",
+          "email": "dwilliams@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-75",
+        "openstates_id": "ocd-person/32c83f92-2bcc-4c2f-bcd0-8b367af29e28",
+        "name": "Mike Armanini",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1903.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1903",
+          "email": "marmanini@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-76",
+        "openstates_id": "ocd-person/bccfe530-42ce-47b0-aadf-ae863b37cf9a",
+        "name": "Stephanie Borowicz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1838.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1838",
+          "email": "sborowicz@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-77",
+        "openstates_id": "ocd-person/97b012cd-5cd7-4039-a9ae-fed936aabe37",
+        "name": "Scott Conklin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1096.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1096",
+          "email": "sconklin@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-78",
+        "openstates_id": "ocd-person/865dbfc4-e6ec-400e-bd5c-257f9a947519",
+        "name": "Jesse Topper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1681.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1681",
+          "email": "jtopper@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-79",
+        "openstates_id": "ocd-person/23f12d9a-928a-445e-abbe-4976cb082809",
+        "name": "Andrea Verobish",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.palegis.us/house/members/bio/2065/rep-verobish",
+          "email": null,
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-80",
+        "openstates_id": "ocd-person/983dc33a-559e-4f01-9c60-08fed48a1415",
+        "name": "Scott Barger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://ogden_images.s3.amazonaws.com/www.altoonamirror.com/images/2023/02/06211342/Scott-barger-561x840.jpg",
+        "contact": {
+          "official_website": "https://repbarger.com/",
+          "email": "sbarger@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-81",
+        "openstates_id": "ocd-person/ff2471f3-f3ff-4a46-8ca7-be5094f0dfdc",
+        "name": "Rich Irvin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1691.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1691",
+          "email": "rirvin@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-82",
+        "openstates_id": "ocd-person/dd35ae63-5dee-4f87-b64e-65907b8adaba",
+        "name": "Paul Takac",
+        "party": "D",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1953.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1953",
+          "email": "reptakac@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-83",
+        "openstates_id": "ocd-person/e396f514-a357-404f-bdb9-1ba33d97d0a7",
+        "name": "Jamie Flick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1954.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1954",
+          "email": "jflick@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-84",
+        "openstates_id": "ocd-person/acc00fca-50e5-46f7-8676-d502ecfc94ac",
+        "name": "Joe Hamm",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1904.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1904",
+          "email": "jhamm@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-85",
+        "openstates_id": "ocd-person/c88ccd9a-3378-4284-9dc6-767a4826526e",
+        "name": "David Rowe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1871.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1871",
+          "email": "drowe@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-86",
+        "openstates_id": "ocd-person/eb33e206-fb08-40bc-8b9b-1d9a72fcb8fc",
+        "name": "Perry Stambaugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1905.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1905",
+          "email": "pstambaugh@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-87",
+        "openstates_id": "ocd-person/932682ef-c7da-4383-8c50-58879fba0ca6",
+        "name": "Thomas Kutz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1955.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1955",
+          "email": "tkutz@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-88",
+        "openstates_id": "ocd-person/9e4954ab-971c-4620-9f9d-ebb68311e3f1",
+        "name": "Sheryl Delozier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1167.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1167",
+          "email": "sdelozie@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-89",
+        "openstates_id": "ocd-person/17e1e676-8e83-4883-8cf5-4c8ddcce076e",
+        "name": "Rob Kauffman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1022.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1022",
+          "email": "rkauffma@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-90",
+        "openstates_id": "ocd-person/851902e6-5649-4c0c-948a-57fb9c1dd40d",
+        "name": "Chad Reichard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://seventy.org/uploads/attachments/cly5z27ztjodi7xnpsnqhzmfb-screenshot-2024-07-03-at-11-07-37-am.0.29.1038.1099.max.png",
+        "contact": {
+          "official_website": "https://repreichard.com/",
+          "email": "creichard@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-91",
+        "openstates_id": "ocd-person/f4071288-fa18-48bb-99f1-41abd60d215e",
+        "name": "Dan Moul",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1101.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1101",
+          "email": "dmoul@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-92",
+        "openstates_id": "ocd-person/8d16f666-803c-4946-8adc-32f1e80d79d9",
+        "name": "Marc Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Marc_Anderson_20241007_034013.jpeg",
+        "contact": {
+          "official_website": "https://repmarcanderson.com/",
+          "email": "manderson@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-93",
+        "openstates_id": "ocd-person/ce5d2c01-e29c-4eac-b06b-208d8c302dff",
+        "name": "Mike Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1842.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1842",
+          "email": "mjones@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-94",
+        "openstates_id": "ocd-person/1300735f-1441-4861-b20f-c1fa3e222c08",
+        "name": "Wendy Fink",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1956.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1956",
+          "email": "wfink@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-95",
+        "openstates_id": "ocd-person/cafbffed-be4d-4e5b-9d99-9aec024675e2",
+        "name": "Carol Hill-Evans",
+        "party": "D",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1749.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1749",
+          "email": "chill-evans@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-96",
+        "openstates_id": "ocd-person/5df981dc-0f0f-498e-8e0e-72cfa5410b2a",
+        "name": "Nikki Rivera",
+        "party": "D",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/ac23d4_f90c7e4f91684d28939b38f61d2cd0ae~mv2.jpg/v1/fill/w_640,h_554,al_t,q_80,usm_0.66_1.00_0.01,enc_auto/ac23d4_f90c7e4f91684d28939b38f61d2cd0ae~mv2.jpg",
+        "contact": {
+          "official_website": "https://www.pahouse.com/Rivera/",
+          "email": "reprivera@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-97",
+        "openstates_id": "ocd-person/4463dd94-6a9d-41bd-830f-0d03e192f896",
+        "name": "Steve Mentzer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1642.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1642",
+          "email": "smentzer@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-98",
+        "openstates_id": "ocd-person/7f6b3c0e-4446-4243-ae49-d2d33ab30273",
+        "name": "Tom Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1957.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1957",
+          "email": "tjones@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-99",
+        "openstates_id": "ocd-person/2fbada46-9c48-4be5-a49f-e1ca0af132ed",
+        "name": "Dave Zimmerman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1711.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1711",
+          "email": "dzimmerman@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-100",
+        "openstates_id": "ocd-person/fd5d0580-766c-482c-a12f-e4689e0bcf30",
+        "name": "Bryan Cutler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1105.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1105",
+          "email": "bcutler@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-101",
+        "openstates_id": "ocd-person/b6a10f6b-3f2e-42df-adf9-7184222af2c2",
+        "name": "John Schlegel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1958.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1958",
+          "email": "jschlegel@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-102",
+        "openstates_id": "ocd-person/5348e28d-bbbe-493f-8f77-a509cb315abe",
+        "name": "Russ Diamond",
+        "party": "R",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1686.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1686",
+          "email": "rdiamond@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-103",
+        "openstates_id": "ocd-person/c7f76970-11d0-483e-81b4-b4750220932c",
+        "name": "Nate Davidson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/133354.jpg",
+        "contact": {
+          "official_website": "https://www.pahouse.com/davidson/",
+          "email": "repdavidson@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-104",
+        "openstates_id": "ocd-person/4a0c9e5e-07cc-4b4b-a47a-22be60d1623e",
+        "name": "Dave Madsen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1959.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1959",
+          "email": "repmadsen@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-105",
+        "openstates_id": "ocd-person/98b96b05-81eb-4871-a81b-2e03c0b92267",
+        "name": "Justin Fleming",
+        "party": "D",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1960.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1960",
+          "email": "repfleming@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-106",
+        "openstates_id": "ocd-person/bda0ab75-036f-49bd-9dd5-cfc9c55eec02",
+        "name": "Tom Mehaffie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1751.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1751",
+          "email": "tmehaffie@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-107",
+        "openstates_id": "ocd-person/6e7b8baa-4fa3-404e-b8f8-bab3077221b7",
+        "name": "Joanne Stehr",
+        "party": "R",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1961.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1961",
+          "email": "jstehr@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-108",
+        "openstates_id": "ocd-person/ef4ff98e-baba-4655-b24f-66ec5933fcb0",
+        "name": "Michael Stender",
+        "party": "R",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2014.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2014",
+          "email": "mstender@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-109",
+        "openstates_id": "ocd-person/1d775faf-9231-420a-b62e-979bb6a1fc78",
+        "name": "Robert Leadbeter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1962.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1962",
+          "email": "rleadbeter@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-110",
+        "openstates_id": "ocd-person/8e174923-d514-4240-b6cd-cbb7927410ba",
+        "name": "Tina Pickett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "110",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/97.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=97",
+          "email": "tpickett@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-111",
+        "openstates_id": "ocd-person/23a2b079-dc91-49b0-b08e-f3ae80fba11f",
+        "name": "Jonathan Fritz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "111",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1752.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1752",
+          "email": "jfritz@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-112",
+        "openstates_id": "ocd-person/625784c9-4cd0-417c-9c44-1acd53b34307",
+        "name": "Kyle Mullins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "112",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1844.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1844",
+          "email": "repmullins@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-113",
+        "openstates_id": "ocd-person/009be4f2-d613-4353-8126-6b5642d868bc",
+        "name": "Kyle Donahue",
+        "party": "D",
+        "chamber": "State House",
+        "district": "113",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1963.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1963",
+          "email": "repdonahue@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-114",
+        "openstates_id": "ocd-person/e5149ed2-f2bb-4054-8064-e2331ffaf1c0",
+        "name": "Bridget Malloy Kosierowski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "114",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1866.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1866",
+          "email": "repkosierowski@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-115",
+        "openstates_id": "ocd-person/8ec333cd-97c4-4f5a-92de-13bf8cbc0020",
+        "name": "Maureen Madden",
+        "party": "D",
+        "chamber": "State House",
+        "district": "115",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1753.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1753",
+          "email": "repmadden@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-116",
+        "openstates_id": "ocd-person/d4de5cc2-b3b9-49a0-9f20-62c6f4f6a052",
+        "name": "Dane Watro",
+        "party": "R",
+        "chamber": "State House",
+        "district": "116",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1964.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1964",
+          "email": "dwatro@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-117",
+        "openstates_id": "ocd-person/96cbec5b-b9a4-4325-8346-bd4d08d87237",
+        "name": "Jamie Walsh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "117",
+        "role": "State Representative",
+        "photo_url": "https://npr.brightspotcdn.com/dims4/default/eb103d1/2147483647/strip/true/crop/326x342+0+0/resize/880x923!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fed%2F90%2F0e6c8c9a46d28228ce6f3586809d%2Fwalsh.jpg",
+        "contact": {
+          "official_website": "https://repwalsh.com/",
+          "email": "jwalsh@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-118",
+        "openstates_id": "ocd-person/3b91abb8-4b49-4fa2-85ed-beea4919bccc",
+        "name": "Jim Haddock",
+        "party": "D",
+        "chamber": "State House",
+        "district": "118",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1966.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1966",
+          "email": "rephaddock@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-119",
+        "openstates_id": "ocd-person/be809fa5-6ef4-4071-bb94-ed10fb051f69",
+        "name": "Alec Ryncavage",
+        "party": "R",
+        "chamber": "State House",
+        "district": "119",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1967.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1967",
+          "email": "aryncavage@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-120",
+        "openstates_id": "ocd-person/e12dc574-f19b-4c9c-9a30-42b68371ea4a",
+        "name": "Brenda Pugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "120",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqVdrj2w84kNrKi7RN0poR6kywKVZcSV7m-g&s",
+        "contact": {
+          "official_website": "https://www.palegis.us/house/members/bio/2033/rep-pugh",
+          "email": "bpugh@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-121",
+        "openstates_id": "ocd-person/c1cb6f95-37c8-4e25-802e-80387e70ad74",
+        "name": "Eddie Pashinski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "121",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1112.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://pahouse.com/Pashinski",
+          "email": "reppashinski@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-122",
+        "openstates_id": "ocd-person/885e9a2a-c18b-4f68-b5d0-0b867ec3268d",
+        "name": "Doyle Heffley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "122",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1211.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1211",
+          "email": "dheffley@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-123",
+        "openstates_id": "ocd-person/686cdc9c-8133-4c1b-a7f0-34b420884559",
+        "name": "Tim Twardzik",
+        "party": "R",
+        "chamber": "State House",
+        "district": "123",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1906.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1906",
+          "email": "ttwardzik@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-124",
+        "openstates_id": "ocd-person/82938e14-97ce-44f0-942f-5bd2d7c532ba",
+        "name": "Jamie Barton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "124",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1968.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1968",
+          "email": "jbarton@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-125",
+        "openstates_id": "ocd-person/8a7494a6-3d82-432b-a5c2-6dc46d192611",
+        "name": "Joe Kerwin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "125",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1907.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1907",
+          "email": "jkerwin@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-126",
+        "openstates_id": "ocd-person/fe624f82-e44d-4071-a49f-3a0d4965b7b9",
+        "name": "Jacklyn Rusnock",
+        "party": "D",
+        "chamber": "State House",
+        "district": "126",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQN8TGsUPRmCdJJis2P-yzcJsfaJRABStMDA&s",
+        "contact": {
+          "official_website": "https://www.pahouse.com/Rusnock/",
+          "email": "jrusnock@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-127",
+        "openstates_id": "ocd-person/d26c016b-27e5-4171-849b-94773178023d",
+        "name": "Manny Guzman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "127",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1908.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1908",
+          "email": "repguzman@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-128",
+        "openstates_id": "ocd-person/cd92c819-d5aa-4df3-ba96-2315dbdf4555",
+        "name": "Mark Gillen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "128",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1209.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1209",
+          "email": "mgillen@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-129",
+        "openstates_id": "ocd-person/8d5ab463-45d5-4cf0-9c65-85820c08e506",
+        "name": "Johanny Cepeda-Freytiz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "129",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1969.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1969",
+          "email": "repcepedafreytiz@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-130",
+        "openstates_id": "ocd-person/fb4a0115-dd63-4e25-8d36-0ea6afc55faf",
+        "name": "David Maloney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "130",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1226.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1226",
+          "email": "dmaloney@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-131",
+        "openstates_id": "ocd-person/b4559406-2139-4c7c-9ce9-7a2a604a8a95",
+        "name": "Milou Mackenzie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "131",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1909.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1909",
+          "email": "mmackenzie@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-132",
+        "openstates_id": "ocd-person/fc1f0752-9166-4d7f-987a-ec15b8bf4048",
+        "name": "Mike Schlossberg",
+        "party": "D",
+        "chamber": "State House",
+        "district": "132",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1649.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1649",
+          "email": "repschlossberg@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-133",
+        "openstates_id": "ocd-person/ddd14a2f-ebef-4918-bf91-578b71c085e4",
+        "name": "Jeanne McNeill",
+        "party": "D",
+        "chamber": "State House",
+        "district": "133",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1793.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1793",
+          "email": "jmcneill@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-134",
+        "openstates_id": "ocd-person/63936c68-ec65-40a9-9a68-0d956939404a",
+        "name": "Pete Schweyer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "134",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1706.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1706",
+          "email": "repschweyer@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-135",
+        "openstates_id": "ocd-person/34472dfb-dae9-4db4-8901-088457d74904",
+        "name": "Steve Samuelson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "135",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/80.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=80",
+          "email": "ssamuels@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-136",
+        "openstates_id": "ocd-person/13bfe11c-06e2-4a1d-844d-d195ef18dc06",
+        "name": "Bob Freeman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "136",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/136.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=136",
+          "email": "rfreeman@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-137",
+        "openstates_id": "ocd-person/0e873ea0-c8a2-4fbb-a408-de0c5bd36de9",
+        "name": "Joe Emrick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "137",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1207.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1207",
+          "email": "jemrick@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-138",
+        "openstates_id": "ocd-person/e00e0f63-7058-46a4-8b63-f31dc804c614",
+        "name": "Ann Flood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "138",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1910.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1910",
+          "email": "aflood@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-139",
+        "openstates_id": "ocd-person/08211014-af0e-4d71-92a7-e0045ba8062a",
+        "name": "Jeff Olsommer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "139",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeff_Olsommer.jpeg",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2018",
+          "email": "jolsommer@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-140",
+        "openstates_id": "ocd-person/3c3cd25a-658f-4aab-a648-ef2509469c34",
+        "name": "Jim Prokopiak",
+        "party": "D",
+        "chamber": "State House",
+        "district": "140",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/139571.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2017",
+          "email": "repprokopiak@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-141",
+        "openstates_id": "ocd-person/f9a1f1ab-9538-424c-87f1-65e2a4f4bfc7",
+        "name": "Tina Marie Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "141",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1204.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1204",
+          "email": "repdavis@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-142",
+        "openstates_id": "ocd-person/b1beaa5c-93d2-479e-9408-47c7687cd212",
+        "name": "Joe Hogan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "142",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1971.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1971",
+          "email": "jhogan@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-143",
+        "openstates_id": "ocd-person/7c0b9792-8ece-4ae8-b0f3-f5d4b79ff9f1",
+        "name": "Shelby Labs",
+        "party": "R",
+        "chamber": "State House",
+        "district": "143",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1911.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1911",
+          "email": "slabs@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-144",
+        "openstates_id": "ocd-person/0f035e7e-d035-4d8c-bc5b-876ba70452cc",
+        "name": "Brian Munroe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "144",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1972.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1972",
+          "email": "repmunroe@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-145",
+        "openstates_id": "ocd-person/bb324f66-3a5c-4e90-9c75-d142cce81c92",
+        "name": "Craig Staats",
+        "party": "R",
+        "chamber": "State House",
+        "district": "145",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1707.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1707",
+          "email": "cstaats@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-146",
+        "openstates_id": "ocd-person/c9521d0e-56ca-40d2-b9bc-7a1f1be639bc",
+        "name": "Joe Ciresi",
+        "party": "D",
+        "chamber": "State House",
+        "district": "146",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1847.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1847",
+          "email": "jciresi@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-147",
+        "openstates_id": "ocd-person/5913495d-53f8-4c39-8507-650cfe51c08b",
+        "name": "Donna Scheuren",
+        "party": "R",
+        "chamber": "State House",
+        "district": "147",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1973.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1973",
+          "email": "dscheuren@pahousegop.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-148",
+        "openstates_id": "ocd-person/2b9c199b-dd4e-477a-a5d0-849180c956a0",
+        "name": "Mary Jo Daley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "148",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1622.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1622",
+          "email": "repmaryjodaley@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-149",
+        "openstates_id": "ocd-person/5c752a95-ba5d-4f1f-81aa-6cb1c7875581",
+        "name": "Tim Briggs",
+        "party": "D",
+        "chamber": "State House",
+        "district": "149",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1159.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1159",
+          "email": "repbriggs@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-150",
+        "openstates_id": "ocd-person/676410b6-c3aa-4c17-856f-7d896e6fbc83",
+        "name": "Joe Webster",
+        "party": "D",
+        "chamber": "State House",
+        "district": "150",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1848.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1848",
+          "email": "repwebster@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-151",
+        "openstates_id": "ocd-person/610a353c-8973-48ea-a4d4-dac21efc3422",
+        "name": "Missy Cerrato",
+        "party": "D",
+        "chamber": "State House",
+        "district": "151",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1974.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1974",
+          "email": "repcerrato@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-152",
+        "openstates_id": "ocd-person/d18ccbd7-270a-46c2-8bbd-a19ea82d0e51",
+        "name": "Nancy Guenst",
+        "party": "D",
+        "chamber": "State House",
+        "district": "152",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1913.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1913",
+          "email": "repguenst@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-153",
+        "openstates_id": "ocd-person/b64463e2-41f6-4d58-a725-03db71798c1c",
+        "name": "Ben Sanchez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "153",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1849.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1849",
+          "email": "repsanchez@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-154",
+        "openstates_id": "ocd-person/94e57e39-e58d-4374-9506-ece1a01e0ebd",
+        "name": "Napoleon Nelson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "154",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1914.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1914",
+          "email": "repnelson@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-155",
+        "openstates_id": "ocd-person/6678bcaf-292f-408a-aa36-90ed8bc8fd08",
+        "name": "Danielle Otten",
+        "party": "D",
+        "chamber": "State House",
+        "district": "155",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1850.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1850",
+          "email": "repotten@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-156",
+        "openstates_id": "ocd-person/d83a0679-02c9-469b-89ed-11f9b46166c5",
+        "name": "Chris Pielli",
+        "party": "D",
+        "chamber": "State House",
+        "district": "156",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1975.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1975",
+          "email": "reppielli@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-157",
+        "openstates_id": "ocd-person/2cb7688e-e8ea-431e-9f56-34ee9a9a3ecc",
+        "name": "Melissa Shusterman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "157",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1851.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1851",
+          "email": "repshusterman@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-158",
+        "openstates_id": "ocd-person/43d9c3c2-aeec-416c-859d-ad90600bbe0e",
+        "name": "Christina Sappey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "158",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1852.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1852",
+          "email": "repsappey@pahouse.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-159",
+        "openstates_id": "ocd-person/05f5a4fa-4a1e-4242-8664-eca508f36a3c",
+        "name": "Carol Kazeem",
+        "party": "D",
+        "chamber": "State House",
+        "district": "159",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1976.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1976",
+          "email": "repkazeem@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-160",
+        "openstates_id": "ocd-person/e17c51da-556e-4afe-aad4-137ee3a0881e",
+        "name": "Craig Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "160",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1916.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1916",
+          "email": "craig.williams@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-161",
+        "openstates_id": "ocd-person/8187ecb2-3e4b-4ba0-819e-a7cfb4b9ac93",
+        "name": "Leanne Krueger",
+        "party": "D",
+        "chamber": "State House",
+        "district": "161",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1735.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1735",
+          "email": "repkrueger@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-162",
+        "openstates_id": "ocd-person/c05046a6-87dd-4956-a172-cad035960391",
+        "name": "Dave Delloso",
+        "party": "D",
+        "chamber": "State House",
+        "district": "162",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1853.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1853",
+          "email": "repdelloso@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-163",
+        "openstates_id": "ocd-person/d5f1bbaf-5daf-4266-9b18-16042f49db1b",
+        "name": "Heather Boyd",
+        "party": "D",
+        "chamber": "State House",
+        "district": "163",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/2015.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2015",
+          "email": "hboyd@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-164",
+        "openstates_id": "ocd-person/4c88ce64-4ba6-4f5e-a22f-86bf6a0d5b7f",
+        "name": "Gina Curry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "164",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1932.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1932",
+          "email": "repcurry@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-165",
+        "openstates_id": "ocd-person/7c8e87fe-1c8e-4736-a03c-35cf729b80e9",
+        "name": "Jenn O'Mara",
+        "party": "D",
+        "chamber": "State House",
+        "district": "165",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1855.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1855",
+          "email": "repomara@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-166",
+        "openstates_id": "ocd-person/7a1f510f-12e0-4018-b6da-556b404399be",
+        "name": "Greg Vitali",
+        "party": "D",
+        "chamber": "State House",
+        "district": "166",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/210.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=210",
+          "email": "gvitali@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-167",
+        "openstates_id": "ocd-person/f451e90b-e93a-4768-a294-67d1ff000396",
+        "name": "Kristine Howard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "167",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1856.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1856",
+          "email": "khoward@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-168",
+        "openstates_id": "ocd-person/d927a6f9-9878-4375-ac7d-9996e8968c9d",
+        "name": "Lisa Borowski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "168",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1977.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1977",
+          "email": "repborowski@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-169",
+        "openstates_id": "ocd-person/08283fbe-18bc-4daf-972c-617d1e35d746",
+        "name": "Kate Klunk",
+        "party": "R",
+        "chamber": "State House",
+        "district": "169",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1694.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1694",
+          "email": "kklunk@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-170",
+        "openstates_id": "ocd-person/93435394-e853-45f2-9e88-65399b3f9042",
+        "name": "Martina White",
+        "party": "R",
+        "chamber": "State House",
+        "district": "170",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1732.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1732",
+          "email": "mwhite@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-171",
+        "openstates_id": "ocd-person/5a5a7a42-bc5e-4a07-aee1-d1a01e810385",
+        "name": "Kerry Benninghoff",
+        "party": "R",
+        "chamber": "State House",
+        "district": "171",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/215.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.kerrybenninghoff.com/",
+          "email": "kbenning@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-172",
+        "openstates_id": "ocd-person/d8624d56-a38e-4918-98ac-d7795569ad06",
+        "name": "Sean Dougherty",
+        "party": "D",
+        "chamber": "State House",
+        "district": "172",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDqcsfeSV2Emc5tJreNLOLeI1PEIX1XE82Hw&s",
+        "contact": {
+          "official_website": "https://www.pahouse.com/dougherty/",
+          "email": "repdougherty@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-173",
+        "openstates_id": "ocd-person/36e7e815-87a3-4c58-baae-71f210e48114",
+        "name": "Pat Gallagher",
+        "party": "D",
+        "chamber": "State House",
+        "district": "173",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1978.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1978",
+          "email": "repgallagher@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-174",
+        "openstates_id": "ocd-person/3d3d4070-dadd-4382-9d40-be2892745773",
+        "name": "Ed Neilson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "174",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1615.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1615",
+          "email": "repneilson@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-175",
+        "openstates_id": "ocd-person/ac9d319c-4df3-489a-890e-f7daba8c4bda",
+        "name": "Mary Isaacson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "175",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1857.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1857",
+          "email": "misaacson@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-176",
+        "openstates_id": "ocd-person/abca93cc-5058-473c-93bc-c8e099c7fa20",
+        "name": "Jack Rader",
+        "party": "R",
+        "chamber": "State House",
+        "district": "176",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1703.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1703",
+          "email": "jrader@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-177",
+        "openstates_id": "ocd-person/99728978-f905-406c-8b52-f2912f374602",
+        "name": "Joe Hohenstein",
+        "party": "D",
+        "chamber": "State House",
+        "district": "177",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1858.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1858",
+          "email": "jhohenstein@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-178",
+        "openstates_id": "ocd-person/f1c8d8ab-0220-4b1e-96d0-6e0ae0b6df87",
+        "name": "Kristin Marcell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "178",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1979.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1979",
+          "email": "kmarcell@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-179",
+        "openstates_id": "ocd-person/4a2176cc-292b-4d19-aff6-8b4c4b460ba0",
+        "name": "Jason Dawkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "179",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1685.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1685",
+          "email": "jdawkins@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-180",
+        "openstates_id": "ocd-person/d390f1ac-1f16-478a-9e0d-462c9ed79818",
+        "name": "José Giral",
+        "party": "D",
+        "chamber": "State House",
+        "district": "180",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1980.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1980",
+          "email": "repgiral@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-181",
+        "openstates_id": "ocd-person/96711736-a47d-4bd6-bcc3-92297ec01516",
+        "name": "Malcolm Kenyatta",
+        "party": "D",
+        "chamber": "State House",
+        "district": "181",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1860.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1860",
+          "email": "mkenyatta@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-182",
+        "openstates_id": "ocd-person/1f2c3093-8ce7-41f7-8df0-6cd14ddd354b",
+        "name": "Ben Waxman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "182",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1981.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1981",
+          "email": "repwaxman@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-183",
+        "openstates_id": "ocd-person/c3b27985-614c-434d-b3c0-3e032fad4d6c",
+        "name": "Zach Mako",
+        "party": "R",
+        "chamber": "State House",
+        "district": "183",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1758.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1758",
+          "email": "zmako@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-184",
+        "openstates_id": "ocd-person/90d95881-f6ae-4b29-af31-31a8821b8a7c",
+        "name": "Elizabeth Fiedler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "184",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1861.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1861",
+          "email": "repfiedler@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-185",
+        "openstates_id": "ocd-person/a737f4d4-5b45-469b-8d51-98c7aa78183a",
+        "name": "Regina Young",
+        "party": "D",
+        "chamber": "State House",
+        "district": "185",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1917.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1917",
+          "email": "repyoung@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-186",
+        "openstates_id": "ocd-person/2313ce98-7ac4-44b9-a61d-5b128338a405",
+        "name": "Jordan Harris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "186",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1633.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1633",
+          "email": "repharris@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-187",
+        "openstates_id": "ocd-person/3088ff8e-d2d9-46b9-8ea3-bd35af9438c2",
+        "name": "Gary Day",
+        "party": "R",
+        "chamber": "State House",
+        "district": "187",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1190.jpg",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1190",
+          "email": "gday@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-188",
+        "openstates_id": "ocd-person/42ffbed1-2284-4018-a60f-b5bfa3f35833",
+        "name": "Rick Krajewski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "188",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1918.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1918",
+          "email": "repkrajewski@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-189",
+        "openstates_id": "ocd-person/8caab7df-f601-45f0-9be5-35d94175e766",
+        "name": "Tarah Probst",
+        "party": "D",
+        "chamber": "State House",
+        "district": "189",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1982.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1982",
+          "email": "repprobst@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-190",
+        "openstates_id": "ocd-person/c3ad9b17-c8f5-450e-9aaa-f002e1414bd5",
+        "name": "Roni Green",
+        "party": "D",
+        "chamber": "State House",
+        "district": "190",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1874.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1874",
+          "email": "repgreen@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-191",
+        "openstates_id": "ocd-person/1951ae06-881a-4c43-9635-224878c3ecb5",
+        "name": "Joanna McClinton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "191",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1734.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1734",
+          "email": "repmcclinton@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-192",
+        "openstates_id": "ocd-person/05326e52-202a-46cd-bbbe-cc8d01d9a44b",
+        "name": "Morgan Cephas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "192",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1759.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1759",
+          "email": "mcephas@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-193",
+        "openstates_id": "ocd-person/d881386d-8aad-45c7-8705-27f3288f20ea",
+        "name": "Catherine Wallen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "193",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://repwallen.com/",
+          "email": null,
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-194",
+        "openstates_id": "ocd-person/6fa30029-d933-4f6d-b0fb-343a0c82772c",
+        "name": "Tarik Khan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "194",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1983.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1983",
+          "email": "reptarik@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-195",
+        "openstates_id": "ocd-person/99c32bc9-33c2-4394-94e6-2f9d0ff43133",
+        "name": "Keith Harris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "195",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-public-general/legislative-people-photos/150757.jpg",
+        "contact": {
+          "official_website": "https://www.pahouse.com/KHarris/",
+          "email": "kharris@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-197",
+        "openstates_id": "ocd-person/a2579707-5a31-4f4b-a9ed-49847d35eae6",
+        "name": "Danilo Burgos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "197",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1863.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1863",
+          "email": "dburgos@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-198",
+        "openstates_id": "ocd-person/943fdd89-fe0a-43f6-8077-82cd252bdeb2",
+        "name": "Darisha Parker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "198",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1920.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1920",
+          "email": "repparker@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-199",
+        "openstates_id": "ocd-person/48c5b966-eef2-456a-8ca0-f47d584e7883",
+        "name": "Barb Gleim",
+        "party": "R",
+        "chamber": "State House",
+        "district": "199",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1864.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1864",
+          "email": "bgleim@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-200",
+        "openstates_id": "ocd-person/e6a8e555-0d65-4a1f-9673-56ad1e3c7855",
+        "name": "Chris Rabb",
+        "party": "D",
+        "chamber": "State House",
+        "district": "200",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1760.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1760",
+          "email": "reprabb@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-201",
+        "openstates_id": "ocd-person/628312bf-7920-44b7-b226-90c92f92a123",
+        "name": "Andre Carroll",
+        "party": "D",
+        "chamber": "State House",
+        "district": "201",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-public-general/legislative-people-photos/150754.jpg",
+        "contact": {
+          "official_website": "https://www.pahouse.com/Carroll/",
+          "email": "repcarroll@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-202",
+        "openstates_id": "ocd-person/6b6602c0-8b45-4e1e-89ba-1782da5d67c6",
+        "name": "Jared Solomon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "202",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1761.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1761",
+          "email": "jsolomon@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-203",
+        "openstates_id": "ocd-person/57be936d-802b-4d09-b95e-2a5354cb9984",
+        "name": "Anthony Bellmon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "203",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.state.pa.us/images/members/200/1984.jpg?1703415645672",
+        "contact": {
+          "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1984",
+          "email": "repbellmon@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

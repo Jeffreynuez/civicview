@@ -1,0 +1,1661 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "CO",
+  "state_name": "Colorado",
+  "executive": {
+    "governor": {
+      "id": "co-exec-gov",
+      "name": "Jared Polis",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://www.colorado.gov/governor",
+      "photo_url": null,
+      "bio": "Jared Polis is the Governor of Colorado, serving since 2019.",
+      "sources": [
+        "https://www.colorado.gov/governor"
+      ]
+    },
+    "lt_governor": {
+      "id": "co-exec-lieutenant-governor",
+      "name": "Dianne Primavera",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgovernor.colorado.gov/sites/ltgovernor/files/styles/large/public/2019-07/diannep.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "co-exec-secretary-of-state",
+        "name": "Jena Griswold",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.sos.state.co.us/pubs/images/Griswold.png"
+      },
+      {
+        "id": "co-exec-attorney-general",
+        "name": "Phil Weiser",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-CO-weiser.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Colorado State Senate",
+    "members": [
+      {
+        "id": "co-sen-1",
+        "openstates_id": "ocd-person/2d0d060c-6d5f-45da-a069-fe2be14547eb",
+        "name": "Byron Pelton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdzk5QXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7602b8809ffd638d639b8a39132341d13e764130/Pelton,%20Byron.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/byron-pelton",
+          "email": "byron.pelton.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-2",
+        "openstates_id": "ocd-person/fce5c955-f43d-4f80-bad5-8369223bc0ea",
+        "name": "Lisa Frizell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBODVTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2ea2d7fd307e8f1e762f9099be3a5b09bcb15f0a/Frizell,%20Lisa.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lisa-frizell",
+          "email": "lisa.frizell.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-3",
+        "openstates_id": "ocd-person/4d753f6e-b7e3-420d-a684-e9a27f7ab27b",
+        "name": "Nick Hinrichsen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMmhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4b49d3c681dec554da650bb248660b5dca8c032a/Hinrichsen,%20Nick.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/nick-hinrichsen",
+          "email": "nick.hinrichsen.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-4",
+        "openstates_id": "ocd-person/b4002b84-79a0-481a-94a8-00136c2dabb6",
+        "name": "Mark Baisley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK2hTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7e5bc18c718b71be8507a78ac7fd5c9f047b70ae/Baisley,%20Mark.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/mark-baisley",
+          "email": "mark.baisley@senate.co.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-5",
+        "openstates_id": "ocd-person/c0cfa7d3-2c5e-4b68-8692-2e1b6f1b3372",
+        "name": "Marc Catlin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdzlUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a385166cb7a79caaf96ebfd19a9e619a73014264/Catlin,%20Marc.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/marc-catlin",
+          "email": "marc.catlin.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-6",
+        "openstates_id": "ocd-person/715df6f2-cef6-4b88-b745-0207c8ffb4ff",
+        "name": "Cleave Simpson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3hTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7513585dd62fce02f81a3e6d3a1c44d08d397b9b/Simpson,%20Cleave.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/cleave-simpson",
+          "email": "cleave.simpson.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-7",
+        "openstates_id": "ocd-person/2372415a-2aea-4423-8a3a-bed2d40493a6",
+        "name": "Janice Rich",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzVTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--afd770f3635f91909fdcc0bde3b95c1599089da7/Rich,%20Janice.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/janice-rich",
+          "email": "janicerichsd7@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-8",
+        "openstates_id": "ocd-person/4be512fb-5ebc-422c-a858-d250cb5568ad",
+        "name": "Dylan Roberts",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXhTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--8f1c6929289275427225aba6c766440b456c3b1a/Roberts,%20Dylan.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/dylan-roberts",
+          "email": "dylan.roberts.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-9",
+        "openstates_id": "ocd-person/e5055578-02cb-435c-9fe0-b877318e3b1b",
+        "name": "Lynda Zamora Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lynda-zamora-wilson",
+          "email": "lynda.zamorawilson.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-10",
+        "openstates_id": "ocd-person/c9fd6b10-91a3-44ec-ac6a-48f73eee3ed1",
+        "name": "Larry Liston",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1pTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4e7ce4fd5e7d42b1e4e7ad102c27293ed3fd28c6/Liston,%20Larry.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/larry-liston",
+          "email": "larry.liston.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-11",
+        "openstates_id": "ocd-person/473bd095-778d-4418-8e61-96a2b8005c8e",
+        "name": "Tony Exum",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBKzFTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--d4163d37a59db187d2e91b1e4af903d1385df345/Exum,%20Tony%20SR.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/tony-exum",
+          "email": "tony.exum.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-12",
+        "openstates_id": "ocd-person/5dbb7ac2-a4c8-42b8-bfb1-1b012737fa74",
+        "name": "Marc Snyder",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWxwQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--af6fe2d0b4cf102c536ab81e2462d61d44783d1a/Snyder,%20Marc.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/marc-snyder",
+          "email": "marc.snyder.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-13",
+        "openstates_id": "ocd-person/fb530f21-a08e-473c-b215-9a4de6a86ee9",
+        "name": "Scott Bright",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ScottBright.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/scott-bright",
+          "email": "scott.bright.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-14",
+        "openstates_id": "ocd-person/0ddf3b75-c450-419e-8235-553157770e49",
+        "name": "Cathy Kipp",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzFTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--0c9240ecbd4ae088cff97b227aa60c5b2bf6ac83/Kipp,%20Cathy.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/cathy-kipp",
+          "email": "cathy.kipp.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-15",
+        "openstates_id": "ocd-person/2718c918-a38c-49c2-a120-5503164f959f",
+        "name": "Janice Marchman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL0ZTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--fcb333a05c84defed2c15ce0bdf8723c605199f3/Marchman,%20Janice.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/janice-marchman",
+          "email": "janice.marchman.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-16",
+        "openstates_id": "ocd-person/f72691ec-a5a0-413b-a344-e452009551a2",
+        "name": "Chris Kolker",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2xTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--56397ac18c5c7504955ce6730cdb98acc6f36205/Kolker,%20Chris.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/chris-kolker",
+          "email": "chris.kolker.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-17",
+        "openstates_id": "ocd-person/f0fa561d-39cf-48f3-ae8c-84b4d30d2662",
+        "name": "Katie Wallace",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/katie-wallace",
+          "email": "katie.wallace.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-18",
+        "openstates_id": "ocd-person/829879ea-a9a3-42b6-8f5f-d209b1cc961d",
+        "name": "Judy Amabile",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOUZTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b064f9311bf3386a06c699ba6aeee37a07444669/Judy%20Amabile.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/judy-amabile",
+          "email": "judy.amabile.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-19",
+        "openstates_id": "ocd-person/2de0a3a1-a1e3-477f-88b9-3212fa52fb9c",
+        "name": "Lindsey Daugherty",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL0pTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4a370bf5b571c75e61965486b4074d0d108d80b8/Daugherty,%20Lindsey.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lindsey-daugherty",
+          "email": "lindsey.daugherty.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-20",
+        "openstates_id": "ocd-person/5226ebdd-0710-49da-b446-61fac19765ce",
+        "name": "Lisa Cutter",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3BTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f08a5431fd4e493fd52194b1418976fd5a250df8/Cutter,%20Lisa.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lisa-cutter",
+          "email": "lisa.cutter.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-21",
+        "openstates_id": "ocd-person/a033ad21-bdb7-4af2-be2e-e21c3e4cfa24",
+        "name": "Adrienne Benavidez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMmlFQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--23746f2c8382ad88801fb500a0e47384becef5d8/Benavidez,%20Adrienne.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/adrienne-benavidez",
+          "email": "adrienne.benavidez.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-22",
+        "openstates_id": "ocd-person/c06af980-c553-4f79-a39d-295b7226f029",
+        "name": "Jessie Danielson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1JTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--444190d18434e86fd51db8d0f3656887bb45824b/Danielson,%20Jessie.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jessie-danielson",
+          "email": "jessie.danielson.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-23",
+        "openstates_id": "ocd-person/6d1fcaf0-ed3d-4772-876f-09dc5e931556",
+        "name": "Barbara Kirkmeyer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBKzlTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b75364af53ed9e801f5b0adfea3ca5cd1bbb3cf9/Kirkmeyer,%20Barbara.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/barbara-kirkmeyer",
+          "email": "barbara.kirkmeyer.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-24",
+        "openstates_id": "ocd-person/ebf0c3de-2f58-436f-af67-12863f9cb552",
+        "name": "Kyle Mullica",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK05TQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c8a05176c5f582700250b8669d5df16c090a5d05/Mullica,%20Kyle.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/kyle-mullica",
+          "email": "kyle.mullica.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-25",
+        "openstates_id": "ocd-person/dbe86f29-2ecb-449e-aaf6-3fc91baf2e0e",
+        "name": "William Lindstedt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1ZTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5f021c807d11e6b00e9c2e987dd101e88185bee0/Lindstedt,%20William.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/william-lindstedt",
+          "email": "william.lindstedt.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-26",
+        "openstates_id": "ocd-person/c2cade07-9c95-4439-938c-77ac4ed44fab",
+        "name": "Jeff Bridges",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWhwQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1f18e804077a78214975ed08168ecc3aa4c6f896/Bridges,Jeff.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jeff-bridges",
+          "email": "jeff.bridges.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-27",
+        "openstates_id": "ocd-person/dc9056b8-fb9c-4a66-99b8-210acce64bff",
+        "name": "Tom Sullivan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOWxTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--85d8c976f450d3f48b1dbe66ac712d2be0f5e86b/Sullivan,Tom.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/tom-sullivan",
+          "email": "tom.sullivan.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-28",
+        "openstates_id": "ocd-person/b680cb39-442c-4dd2-81bd-88696cfe9df2",
+        "name": "Mike Weissman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOUJTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--8f5c3253e6bdff26fefd8864913fd683300d7176/Weissman,Mike.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/mike-weissman",
+          "email": "mike.weissman.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-29",
+        "openstates_id": "ocd-person/506f18ea-3611-408b-aa0e-73adf9681efe",
+        "name": "Iman Jodeh",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXRTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--29b2053d4c36e8d2d5d661dd8e279ff5a4fa30e5/Iman_Jodeh.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/iman-jodeh",
+          "email": "iman.jodeh.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-30",
+        "openstates_id": "ocd-person/8e95ac06-ddbb-4f6c-ba7e-854a92860be4",
+        "name": "John Carson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://i0.wp.com/coloradocommunitymedia.com/wp-content/uploads/2024/06/DCO-0613-Commissioner-D3-race-2.jpg?w=768&ssl=1",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/john-carson",
+          "email": "john.carson.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-31",
+        "openstates_id": "ocd-person/4a72c7ee-c3e5-4c61-8e79-3301cb70a599",
+        "name": "Matt Ball",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/67330255adbf4c1a48d665b3/1732088535559-59YBHTFEFBLWVIPHRMDL/Matt+Ball+Headshot_park.jpeg?content-type=image%2Fjpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/matt-ball",
+          "email": "matt.ball.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-32",
+        "openstates_id": "ocd-person/ab377224-ab70-4c20-a535-baa429520e7c",
+        "name": "Robert Rodriguez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVZTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1d263d3105ce58458603b07ad78a431ab0fa5a38/Rodriguez,Robert.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/robert-rodriguez",
+          "email": "robert.rodriguez.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-33",
+        "openstates_id": "ocd-person/e4e1f1a9-7134-4d90-9fed-2aa7a0e3a307",
+        "name": "James Coleman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBKzVTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7a5daba3d83289b2d6431d3200c1731a422d6091/Coleman,%20James%20.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/james-coleman",
+          "email": "james.coleman.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-34",
+        "openstates_id": "ocd-person/8dae5ba5-6741-4aca-8c1e-24f014fda187",
+        "name": "Julie Gonzales",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXBTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f26a08c473c6f23699613abea473f8b3120e976c/Gonzales,%20Julie.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/julie-gonzales",
+          "email": "julie.gonzales.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-sen-35",
+        "openstates_id": "ocd-person/45cd06eb-9967-4468-9e4e-677549e7638d",
+        "name": "Rod Pelton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOU5TQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--08b2017b389fcad9ad2c05f5ffc23692931b3216/Pelton,%20Rod.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/rod-pelton",
+          "email": "rod.pelton.senate@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Colorado State House",
+    "members": [
+      {
+        "id": "co-rep-1",
+        "openstates_id": "ocd-person/d2b25169-0772-4e97-aa9e-49f82f0f5d08",
+        "name": "Javier Mabrey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeGhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--d5786817bd26f7bddab7f2d1085068af877cdf48/Mabrey,%20Javier.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/javier-mabrey",
+          "email": "javier.mabrey.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-2",
+        "openstates_id": "ocd-person/09af4a19-c07e-49b2-b320-104f3784705b",
+        "name": "Steven Woodrow",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b28a2d8e234c37d646a99efd0b7aea44a198fe9d/Woodrow,Steven-.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/steven-woodrow",
+          "email": "steven.woodrow.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-3",
+        "openstates_id": "ocd-person/8e6bc6cb-fe7e-4640-a938-eb32536e95c5",
+        "name": "Meg Froelich",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2f6a935d21bc9d78189accacc0743c3071e567a1/Froelich,%20Meg.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/meg-froelich",
+          "email": "meg.froelich.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-4",
+        "openstates_id": "ocd-person/a34a6b10-12d9-4109-86d1-76c311463333",
+        "name": "Cecelia Espenoza",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CeceliaEspenoza24.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/cecelia-espenoza",
+          "email": "cecelia.espenoza.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-5",
+        "openstates_id": "ocd-person/45c957a4-0017-4c0c-8650-393d656fc5a0",
+        "name": "Alex Valdez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMU5UQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--d081dee839aa2f1b43bce42882d1b5e679141a05/Valdez,%20Alex.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/alex-valdez",
+          "email": "alex.valdez.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-6",
+        "openstates_id": "ocd-person/56e058a4-2a75-4864-8d5e-18c1c98f6960",
+        "name": "Sean Camacho",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/SeanCamacho2024.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/sean-camacho",
+          "email": "sean.camacho.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-7",
+        "openstates_id": "ocd-person/4aba3e11-9554-405d-b926-5435eb77fa26",
+        "name": "Jennifer Bacon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeXhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--9cf98fe8dc3d759fedb356430b801c66ad2b1edd/Bacon,%20Jennifer.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jennifer-bacon",
+          "email": "jennifer.bacon.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-8",
+        "openstates_id": "ocd-person/d5ec869e-db7a-480f-b270-428805b90cee",
+        "name": "Lindsay Gilchrist",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/5ea0cb44b06d660224de3cc9/1588045290088-U5X5Z0VC06EFGHN9K1AC/lindsay-gilchrist.jpg?format=500w",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lindsay-gilchrist",
+          "email": "lindsay.gilchrist.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-9",
+        "openstates_id": "ocd-person/c8c1a9c5-c7c2-4894-8829-fc83251bcaf2",
+        "name": "Emily Sirota",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeTVUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--14b86aa8d8dc84d49199d71d5ad732b0abe8eb38/Sirota,%20Emily.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/emily-sirota",
+          "email": "emily.sirota.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-10",
+        "openstates_id": "ocd-person/0c2271df-5808-42ff-9550-700f454b8b3a",
+        "name": "Junie Joseph",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWRUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c05fd8101f2bb8458f9e92fcaac1e5d867b1b662/Joseph,Junie.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/junie-joseph",
+          "email": "junie.joseph.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-11",
+        "openstates_id": "ocd-person/7631027c-2467-4112-8f03-abad6c6ed8f2",
+        "name": "Karen McCormick",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMkJUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e6c90c7865f8557c6411c91a27f58280cf938f05/McCormick,%20Karen.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/karen-mccormick",
+          "email": "karen.mccormick.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-12",
+        "openstates_id": "ocd-person/f376a75e-e0b0-4bf7-95b1-0931ade3bdb8",
+        "name": "Kyle Brown",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMEZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4dbbcef24e21979fc4a8cd74bea005733c789d61/Brown,%20Kyle.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/kyle-brown",
+          "email": "kyle.brown.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-13",
+        "openstates_id": "ocd-person/53facaaf-5673-4c76-b15a-6b5061965ae1",
+        "name": "Julie McCluskie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeEpUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--876516c8bc7b672caf43f253b83440d18b6eba1a/McCluskie,%20Julie.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/julie-mccluskie",
+          "email": "julie.mccluskie.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-14",
+        "openstates_id": "ocd-person/af9e96aa-fb8b-49bb-96d8-e6c2c1ceb2b5",
+        "name": "Ava Flanell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/ava-flanell",
+          "email": "ava.flanell.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-15",
+        "openstates_id": "ocd-person/66254480-6178-4312-8a18-268ec84153cc",
+        "name": "Scott Bottoms",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMCtIQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2fb56df7ac0ddd22f63e0eb99a03b0d30e48bff5/Rep%20Bottoms%202026.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/scott-bottoms",
+          "email": "scott.bottoms.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-16",
+        "openstates_id": "ocd-person/04df7ed2-3683-4e00-ae08-9660cd6d878b",
+        "name": "Rebecca Keltie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rebecca_Keltie_new.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/rebecca-keltie",
+          "email": "rebecca.keltie.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-17",
+        "openstates_id": "ocd-person/d5be5146-f7a9-46eb-86f9-b0d1cebc4e9c",
+        "name": "Regina English",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBejFUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--854752db6d6188b1f926eb9e309d7791738093e5/English,%20Regina.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/regina-english",
+          "email": "regina.english.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-18",
+        "openstates_id": "ocd-person/34dbb5f1-239b-4924-911e-27ff91bde5cd",
+        "name": "Amy Paschal",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/AmyPaschall24.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/amy-paschal",
+          "email": "amy.paschal.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-19",
+        "openstates_id": "ocd-person/df050043-0b4f-4b51-8df0-ffd6cd6cd5b2",
+        "name": "Dan Woog",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6bf3d084b17e200e01f2ade18431e32df8e43a60/Rep%20Woog%202026.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/dan-woog",
+          "email": "dan.woog.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-20",
+        "openstates_id": "ocd-person/544a4247-320e-456a-b5dd-f0373bdad788",
+        "name": "Jarvis Caldwell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://coloradonewsline.com/wp-content/uploads/2023/12/jarvis-caldwell--200x300.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jarvis-caldwell",
+          "email": "jarvis.caldwell.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-21",
+        "openstates_id": "ocd-person/9e1ed481-cc42-4186-a8fe-891abba60162",
+        "name": "Mary Bradfield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e23010a39e960f0ad905ba4df19c5be9cf9ea5b9/Bradfield,Mary.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/mary-bradfield",
+          "email": "mary.bradfield.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-22",
+        "openstates_id": "ocd-person/767c8676-7cf0-45bf-9e20-e615d4d13c5e",
+        "name": "Ken DeGraaf",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUJUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--375071f2707656fb29aac1700948de56433dd649/deGraaf,%20Ken.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/ken-degraaf",
+          "email": "ken.degraaf.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-23",
+        "openstates_id": "ocd-person/d8b6809c-61d9-4ea3-b21b-c846051468c2",
+        "name": "Monica Duran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeDVUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--807d51d68890b754bbaed0298372904fcf4a75d5/Duran,%20Monica.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/monica-duran",
+          "email": "monica.duran.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-24",
+        "openstates_id": "ocd-person/e1a861fa-2163-4ef5-a891-fc9d36c2504b",
+        "name": "Lisa Feret",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Lisa_Feret_20240622_065004.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lisa-feret",
+          "email": "lisa.feret.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-25",
+        "openstates_id": "ocd-person/489b3afa-1e08-40f4-918a-f01c186b6f73",
+        "name": "Tammy Story",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBelJUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6eaeb97b2bd0b0a9f0bf46040f34663cd0c37112/Story,%20Tammy.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/tammy-story",
+          "email": "tammy.story.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-26",
+        "openstates_id": "ocd-person/c1a18202-08ad-487f-99bb-b1a606c15a22",
+        "name": "Meghan Lukens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM05UQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--16c3fe74431c9197b51b11e7bd64eb387369e758/Lukens,%20Meghan.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/meghan-lukens",
+          "email": "meghan.lukens.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-27",
+        "openstates_id": "ocd-person/fa9b604d-5981-4de1-97bc-9400e03909c9",
+        "name": "Brianna Titone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ee1a1cad1906ee93f20ffecfca5d9444e525ac05/Titone,%20Brianna.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/brianna-titone",
+          "email": "brianna.titone.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-28",
+        "openstates_id": "ocd-person/b44045eb-e2fb-4723-9e91-d68fb55c0bf7",
+        "name": "Sheila Lieder",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeE5UQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bbb6f4456c06c54b1c8fffade0441c9a63ccf12e/Lieder,%20Sheila.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/sheila-lieder",
+          "email": "sheila.lieder.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-29",
+        "openstates_id": "ocd-person/8de5b6ec-a488-4f1f-b96d-d78b90cb7fe7",
+        "name": "Lori Goldstein",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lori-goldstein",
+          "email": "lori.goldstein.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-30",
+        "openstates_id": "ocd-person/ef2507af-95ba-4a2f-84d5-84771785bfc2",
+        "name": "Rebekah Stewart",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RebekahStewart2024.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/rebekah-stewart",
+          "email": "rebekah.stewart.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-31",
+        "openstates_id": "ocd-person/48d0af72-b21b-44a5-afc2-325b80f1c551",
+        "name": "Jacque Phillips",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/jacque_phillips.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jacque-phillips",
+          "email": "jacqueline.phillips.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-32",
+        "openstates_id": "ocd-person/ce4bd827-c1bc-4736-a580-f4f0215e727d",
+        "name": "Manny Rutinel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBelZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef4c74094f42d481f610cc35459aa4ca3a78b6eb/Rutinel,%20Manny.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/manny-rutinel",
+          "email": "manny.rutinel.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-33",
+        "openstates_id": "ocd-person/f84befdc-bf1b-4b0b-92df-27155caf403f",
+        "name": "Kenny Nguyen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/kenny-nguyen",
+          "email": "kenny.nguyen.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-34",
+        "openstates_id": "ocd-person/655c629d-72f6-45d1-bd8f-a241e200d089",
+        "name": "Jenny Willford",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM0pUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1d5d85081063604c97df120526af629e099e84e1/Willford,%20Jenny.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jenny-willford",
+          "email": "jenny.willford.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-35",
+        "openstates_id": "ocd-person/d7569723-ddde-4706-a857-422804198fa8",
+        "name": "Lorena García",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMVZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--000f403a3a00241cbcadbe814acab9558e10dde4/Garcia,%20Lorena.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lorena-garc%C3%ADa",
+          "email": "lorena.garcia.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-36",
+        "openstates_id": "ocd-person/9c2accab-1bbf-495c-8036-137e48ba684d",
+        "name": "Michael Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://aps.ss20.sharpschool.com/UserFiles/Servers/Server_3217444/Image/Board%20of%20Education/Members/Carter_Michael_152-200x300.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/michael-carter",
+          "email": "michael.carter.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-37",
+        "openstates_id": "ocd-person/faaae748-7c57-47df-bdf7-1811e0a61458",
+        "name": "Chad Clifford",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/chad-clifford",
+          "email": "chad.clifford.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-38",
+        "openstates_id": "ocd-person/e0edd86c-a50d-4e78-96ac-f3e8217de4a8",
+        "name": "Gretchen Rydin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/GretchenRydin2024.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/gretchen-rydin",
+          "email": "gretchen.rydin.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-39",
+        "openstates_id": "ocd-person/5a396024-8dcf-438c-beca-a730e972d9d8",
+        "name": "Brandi Bradley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMnhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f00bc156e1af4f5ddf1b991b5f96817a5221767c/Bradley,%20Brandi.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/brandi-bradley",
+          "email": "brandi.bradley.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-40",
+        "openstates_id": "ocd-person/64f01ef4-238f-4e48-9657-e221e0d030c0",
+        "name": "Naquetta Ricks",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMjlUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6ad9235336da0cb9a035f6bb879b11838db6749e/Ricks,%20Naquetta.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/naquetta-ricks",
+          "email": "naquetta.ricks.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-41",
+        "openstates_id": "ocd-person/09ef4f5a-7c9d-463a-8ab6-52c861f97a74",
+        "name": "Jamie Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jamie_Jackson_Colorado_House.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/jamie-jackson",
+          "email": "jamie.jackson.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-42",
+        "openstates_id": "ocd-person/2582d3dd-20c0-4d15-83a0-3b6dab1e98d2",
+        "name": "Mandy Lindsay",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFpUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--16f693f706022e86e268da5a37a9a93ff4aef1ba/Lindsay,%20Mandy.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/mandy-lindsay",
+          "email": "mandy.lindsay.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-43",
+        "openstates_id": "ocd-person/ade56d2d-41d7-436d-b76b-85051f036c7a",
+        "name": "Bob Marshall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM1pUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--18c815634a34450ae6caf0855eeb0406ea4582cc/Marshall,%20Bob.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/bob-marshall",
+          "email": "bob.marshall.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-44",
+        "openstates_id": "ocd-person/561892b1-c618-43cb-9767-9237514f0a92",
+        "name": "Tony Hartsook",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeVpUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--500af1f4202491ae4bd34d7f8e8196708b8f0019/Hartsook,Anthony.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/anthony-hartsook",
+          "email": "anthony.hartsook.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-45",
+        "openstates_id": "ocd-person/fe11081d-5ca9-4f88-a143-04aed94e45f9",
+        "name": "Max Brooks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MaxBrooks2024.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/max-brooks",
+          "email": "max.brooks.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-46",
+        "openstates_id": "ocd-person/851b5f31-0694-4674-a3b8-468b6eb1f0a8",
+        "name": "Tisha Mauro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMlJUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c083d9d0c61aec511c97d0802cd5873416f901d9/Mauro,%20Tisha.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/tisha-mauro",
+          "email": "tisha.mauro.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-47",
+        "openstates_id": "ocd-person/f3cd2006-7729-41b0-a009-0c5cf64e95e0",
+        "name": "Ty Winter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMmRUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7e3263a1638a76c8a5732293d1ea8f844d2e9d25/Winter,Ty.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/ty-winter",
+          "email": "ty.winter.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-48",
+        "openstates_id": "ocd-person/5f8d1bd0-329b-4a87-8d2f-cb62b8f2e921",
+        "name": "Carlos Barron",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://i0.wp.com/coloradocommunitymedia.com/wp-content/uploads/2024/10/7A10C326-743A-4DF1-9625-6E709398C30F-JF-Services-Inc-Office-e1728345969755.jpg?resize=150%2C150&ssl=1",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/carlos-barron",
+          "email": "carlos.barron.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-49",
+        "openstates_id": "ocd-person/475639af-fb56-4fde-9a78-213593db91d0",
+        "name": "Lesley Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Lesley_Smith_20230524_083227.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lesley-smith",
+          "email": "lesley.smith.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-50",
+        "openstates_id": "ocd-person/e7b1210b-3400-4ad4-a461-a55023e54042",
+        "name": "Ryan Gonzalez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ryangonzalez.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/ryan-gonzalez",
+          "email": "ryan.gonzalez.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-51",
+        "openstates_id": "ocd-person/9b1256a4-11c6-4c9e-81e6-2e0a3c5871be",
+        "name": "Ron Weinberg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBekpUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ff0c3a27e8b7c137cbdb5c5fde02af093a8db4b4/Rep%20Ron%20Weinberg.JPG",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/ron-weinberg",
+          "email": "ron.weinberg.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-52",
+        "openstates_id": "ocd-person/e8a7d2a2-1907-450d-8c61-8c328839e922",
+        "name": "Yara Zokaie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/yf.jpeg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/yara-zokaie",
+          "email": "yara.zokaie.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-53",
+        "openstates_id": "ocd-person/278f042b-4fe3-4325-ad59-bc240e4fda0c",
+        "name": "Andy Boesenecker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMGhUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cfaae02348bca597a92a30ada0c08d3e68ecc93f/Boesenecker,%20Andrew.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/andrew-boesenecker",
+          "email": "andrew.boesenecker.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-54",
+        "openstates_id": "ocd-person/9e529237-916b-407c-a60e-abd8e0708329",
+        "name": "Matt Soper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVdUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--767a7057ff5fd758ce0cbddae6aa4c7b1ef907f2/Soper,%20Matthew.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/matt-soper",
+          "email": "matthew.soper.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-55",
+        "openstates_id": "ocd-person/5dae0c7f-430e-42a2-906d-9e177782f91b",
+        "name": "Rick Taggart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd3BUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6b1fb5526e7780f89f9b2fb79535d4e7c39fc37b/TaggartRick.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/rick-taggart",
+          "email": "rick.taggart.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-56",
+        "openstates_id": "ocd-person/0c428ee3-a327-4906-96c9-c46da7dfd7f1",
+        "name": "Chris Richardson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://i0.wp.com/coloradocommunitymedia.com/wp-content/uploads/2022/10/20221012-100004-Richardson20for20Facebook.jpg?resize=1200%2C782&ssl=1",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/chris-richardson",
+          "email": "chris.richardson.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-57",
+        "openstates_id": "ocd-person/bd50bf12-cf63-4a3d-a887-93008333e694",
+        "name": "Elizabeth Velasco",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNTltQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1fae82b072c31f28dbf73e893d992426893562a5/Velasco,%20Elizabeth.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/elizabeth-velasco",
+          "email": "elizabeth.velasco.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-58",
+        "openstates_id": "ocd-person/a2745e24-bcf2-40f8-aa77-fad08d873ab1",
+        "name": "Larry Suckla",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/larry-don-suckla",
+          "email": "larry.suckla.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-59",
+        "openstates_id": "ocd-person/fa06bf42-5305-4b04-95d0-a63f94ae8913",
+        "name": "Katie Stewart",
+        "party": "D",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KatieStewart2024.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/katie-stewart",
+          "email": "katie.stewart.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-60",
+        "openstates_id": "ocd-person/3e7145a3-8729-497c-a168-db98d22cf015",
+        "name": "Stephanie Luck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdzVUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--30a0b950ff1755b8691052388ed9b70f8fe688cc/Luck,%20Stephanie.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/stephanie-luck",
+          "email": "stephanie.luck.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-61",
+        "openstates_id": "ocd-person/c02b7bf5-a583-43c0-b6d6-2e757c7d42b7",
+        "name": "Eliza Hamrick",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd3RUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--291f32764a20e23b89e6ea44560dea6151853b61/Hamrick,Eliza-.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/eliza-hamrick",
+          "email": "eliza.hamrick.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-62",
+        "openstates_id": "ocd-person/27716b46-14de-4097-a29c-1a882ae3cd3a",
+        "name": "Matt Martinez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeEJUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4743a8832adf9daea6fe22f97942afef67ab8d1a/Martinez,%20Matthew.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/matthew-martinez",
+          "email": "matthew.martinez.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-63",
+        "openstates_id": "ocd-person/f38f9f4b-9d3a-4e79-a96f-fab94d553d89",
+        "name": "Dusty Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DustyJohnsonCO.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/dusty-johnson",
+          "email": "dustyforcolorado@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-64",
+        "openstates_id": "ocd-person/cba33581-a61a-41c5-9773-c949f2b06d0a",
+        "name": "Scott Slaugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/scott-slaugh",
+          "email": "scott.slaugh.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "co-rep-65",
+        "openstates_id": "ocd-person/d450c0d3-b829-4855-ad0d-1228c5284a4f",
+        "name": "Lori Garcia Sander",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/LoriSander2024.jpg",
+        "contact": {
+          "official_website": "https://leg.colorado.gov/legislators/lori-garcia-sander",
+          "email": "lori.garciasander.house@coleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

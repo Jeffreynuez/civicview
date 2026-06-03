@@ -1,0 +1,1540 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "WY",
+  "state_name": "Wyoming",
+  "executive": {
+    "governor": {
+      "id": "wy-exec-gov",
+      "name": "Mark Gordon",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://governor.wyo.gov",
+      "photo_url": null,
+      "bio": "Mark Gordon is the Governor of Wyoming, serving since 2019.",
+      "sources": [
+        "https://governor.wyo.gov"
+      ]
+    },
+    "cabinet": [
+      {
+        "id": "wy-exec-secretary-of-state",
+        "name": "Chuck Gray",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://sos.wyo.gov/images/AboutUs_Team/Chuck_Gray.jpg"
+      },
+      {
+        "id": "wy-exec-attorney-general",
+        "name": "Keith G. Kautz",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/07/ag-WY-Kautz-Keith-2025.png"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Wyoming State Senate",
+    "members": [
+      {
+        "id": "wy-sen-1",
+        "openstates_id": "ocd-person/e72a31cf-cefd-42c1-9620-967af32a2f48",
+        "name": "Ogden Driskill",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-DriskillOgden.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1972",
+          "email": "ogden.driskill@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-2",
+        "openstates_id": "ocd-person/cfed8eb6-ad00-4414-9ceb-bd5d46c5974f",
+        "name": "Brian Boner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BonerBrian.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2021",
+          "email": "brian.boner@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-3",
+        "openstates_id": "ocd-person/9fe08ab5-b31c-4f7b-bb23-c7aff3cd3e4d",
+        "name": "Cheri Steinmetz",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SteinmetzCheri.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2011",
+          "email": "cheri.steinmetz@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-4",
+        "openstates_id": "ocd-person/f20c9c17-f2bd-4c88-9f6f-208af6a61f26",
+        "name": "Tara Nethercott",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-NethercottTara.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2029",
+          "email": "tara.nethercott@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-5",
+        "openstates_id": "ocd-person/b91459e7-2049-4cf9-8b0b-f769ce373613",
+        "name": "Lynn Hutchings",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HutchingsLynn.jpg",
+        "contact": {
+          "official_website": "https://www.hutchingsforsenate.com/",
+          "email": "lynn.hutchings@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-6",
+        "openstates_id": "ocd-person/e6276406-b441-4265-a110-7e3f9b8b0e3f",
+        "name": "Taft Love",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LoveTaft.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2026/R/2145",
+          "email": "taft.love@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-7",
+        "openstates_id": "ocd-person/f46abbfe-3a0a-4657-a4ac-fbc418adfcc7",
+        "name": "Stephan Pappas",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-PappasStephan.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2008",
+          "email": "stephan.pappas@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-8",
+        "openstates_id": "ocd-person/63e25ff3-1832-45c8-a9af-669bb74a3aa4",
+        "name": "Jared Olsen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-OlsenJared.jpg",
+        "contact": {
+          "official_website": "https://www.olsenforwyoming.com/",
+          "email": "jared.olsen@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-9",
+        "openstates_id": "ocd-person/510546dd-c3ca-4ce4-9342-f77e05712f2e",
+        "name": "Chris Rothfuss",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-RothfussChris.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1971",
+          "email": "chris.rothfuss@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-10",
+        "openstates_id": "ocd-person/84464d31-bdbb-4687-9757-27794e64d319",
+        "name": "Gary Crum",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CrumGary.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/S/2144",
+          "email": "gary.crum@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-11",
+        "openstates_id": "ocd-person/286af01e-ace3-4de2-b1c3-44756370d932",
+        "name": "Larry Hicks",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HicksLarry.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1963",
+          "email": "larry.hicks@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-12",
+        "openstates_id": "ocd-person/a8a05d47-8306-4f20-a848-02c92db1fffe",
+        "name": "John Kolb",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-KolbJohn.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2066",
+          "email": "john.kolb@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-13",
+        "openstates_id": "ocd-person/343a76eb-5672-433a-9d39-f34b6f683cab",
+        "name": "Stacy Jones",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-JonesStacy.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2088",
+          "email": "stacy.jones@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-14",
+        "openstates_id": "ocd-person/c6b78357-5a9d-41e9-b947-1d81227b0f15",
+        "name": "Laura Pearson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-PearsonLaura.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/R/2138",
+          "email": "laura.pearson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-15",
+        "openstates_id": "ocd-person/6dd13000-c423-47d8-9fbb-3cbcf730d7fe",
+        "name": "Wendy Schuler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SchulerWendy.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2062",
+          "email": "wendy.schuler@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-16",
+        "openstates_id": "ocd-person/5395223c-9b56-410d-b18f-978d9e2a07a9",
+        "name": "Dan Dockstader",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-DockstaderDan.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1048",
+          "email": "dan.dockstader@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-17",
+        "openstates_id": "ocd-person/587874e4-f0c9-4679-aa08-a2442b7d33b1",
+        "name": "Mike Gierau",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-GierauMike.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2027",
+          "email": "mike.gierau@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-18",
+        "openstates_id": "ocd-person/057afdb5-3c0e-4503-b6cd-50ba6df1aaab",
+        "name": "Tim French",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-FrenchTim.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2067",
+          "email": "tim.french@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-19",
+        "openstates_id": "ocd-person/982cdb50-2a81-47b4-97e8-cf80b92d1412",
+        "name": "Dan Laursen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LaursenDan.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2006",
+          "email": "dan.laursen@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-20",
+        "openstates_id": "ocd-person/13022d64-c748-4603-b60e-bd176383b8f1",
+        "name": "Ed Cooper",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CooperEd.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2068",
+          "email": "ed.cooper@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-21",
+        "openstates_id": "ocd-person/016465da-4d49-4ffc-8bb0-cf9528bc6d0e",
+        "name": "Bo Biteman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BitemanBo.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2018/H/2044",
+          "email": "bo.biteman@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-22",
+        "openstates_id": "ocd-person/c6578593-1ca0-4b7d-8635-67249df87c36",
+        "name": "Barry Crago",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CragoBarry.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2078",
+          "email": "barry.crago@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-23",
+        "openstates_id": "ocd-person/afa67bb0-3191-4dce-94ab-ddb3a9e7475c",
+        "name": "Eric Barlow",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BarlowEric.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1995",
+          "email": "eric.barlow@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-24",
+        "openstates_id": "ocd-person/c1525bf9-8a43-4807-b72a-e42f94267b09",
+        "name": "Troy McKeown",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-McKeownTroy.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2069",
+          "email": "troy.mckeown@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-25",
+        "openstates_id": "ocd-person/0b07cbe8-73ba-4371-9acb-95cb7ecf6251",
+        "name": "Cale Case",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CaseCale.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/945",
+          "email": "cale.case@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-26",
+        "openstates_id": "ocd-person/4f702d02-54ad-4143-837a-09be9a03ee6e",
+        "name": "Tim Salazar",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SalazarTim.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2028",
+          "email": "tim.salazar@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-27",
+        "openstates_id": "ocd-person/e0c25487-a7fb-406b-b637-c3a4de3c6770",
+        "name": "Bill Landen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LandenBill.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/434",
+          "email": "bill.landen@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-28",
+        "openstates_id": "ocd-person/f40c41d5-b371-49c5-a597-db8435e613a0",
+        "name": "Jim Anderson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-AndersonJim.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/1985",
+          "email": "jim.anderson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-29",
+        "openstates_id": "ocd-person/6d1c2665-46ea-444d-b88b-b22e2623e660",
+        "name": "Bob Ide",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/67th-IdeBob.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2089",
+          "email": "bob.ide@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-30",
+        "openstates_id": "ocd-person/a3ddc445-efa1-4c0c-809a-d21fc383fa59",
+        "name": "Charles Scott",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ScottCharles.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/294",
+          "email": "charles.scott@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-sen-31",
+        "openstates_id": "ocd-person/7f287d7d-8f05-4116-8bcf-33174ecf1e9c",
+        "name": "Evie Brennan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BrennanEvie.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/S/2090",
+          "email": "evie.brennan@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Wyoming State House",
+    "members": [
+      {
+        "id": "wy-rep-1",
+        "openstates_id": "ocd-person/b9414bc4-f900-474b-b99c-8f2716419683",
+        "name": "Chip Neiman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-NeimanChip.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2070",
+          "email": "chip.neiman@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-2",
+        "openstates_id": "ocd-person/fc63a597-e32a-4c94-a2f2-7420f7836aeb",
+        "name": "J.D. Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WilliamsJD.jpg",
+        "contact": {
+          "official_website": "https://www.jdforstatehouse.com/",
+          "email": "jd.williams@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-3",
+        "openstates_id": "ocd-person/9995703e-90eb-4d20-a2f6-bfd9542102bd",
+        "name": "Abby Angelos",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-AngelosAbby.jpg",
+        "contact": {
+          "official_website": "https://en.wikipedia.org/wiki/Abby_Angelos",
+          "email": "abby.angelos@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-4",
+        "openstates_id": "ocd-person/b9bbea38-a84b-4173-a599-cd9f5500b181",
+        "name": "Jeremy Haroldson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HaroldsonJeremy.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2071",
+          "email": "jeremy.haroldson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-5",
+        "openstates_id": "ocd-person/201b5fe9-4060-4dfa-ae2c-c59a3a3120ff",
+        "name": "Scott Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/67th-SmithScott.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2093",
+          "email": "scott.smith@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-6",
+        "openstates_id": "ocd-person/d1ac363d-41ed-4c2c-a661-6e400d0b7d57",
+        "name": "Tomi Strock",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-StrockTomi.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2094",
+          "email": "tomi.strock@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-7",
+        "openstates_id": "ocd-person/6ff4eff9-e68c-42a1-9aa5-b964daa37a89",
+        "name": "Bob Nicholas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-NicholasBob.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/1980",
+          "email": "bob.nicholas@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-8",
+        "openstates_id": "ocd-person/51b4d190-c5b4-4860-acb9-a6569f26e064",
+        "name": "Steve Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-JohnsonSteve.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2118",
+          "email": "steve.johnson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-9",
+        "openstates_id": "ocd-person/7052600a-c1b3-484d-80a3-232fc9815d7c",
+        "name": "Landon Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BrownLandon.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2034",
+          "email": "landon.brown@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-10",
+        "openstates_id": "ocd-person/970ff542-b60c-4a3b-bd63-492a38a0a878",
+        "name": "Justin Fornstrom",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-FornstromJustin.JPG",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2025/H/2146",
+          "email": "justin.fornstrom@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-11",
+        "openstates_id": "ocd-person/b598ad4e-6124-4863-ac74-dbb13630e7db",
+        "name": "Jacob Wasserburger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WasserburgerJacob.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2139",
+          "email": "jacob.wasserburger@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-12",
+        "openstates_id": "ocd-person/0df4327b-df46-4886-ab09-0c8a55639548",
+        "name": "Clarence Styvar",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-StyvarClarence.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2051",
+          "email": "clarence.styvar@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-13",
+        "openstates_id": "ocd-person/dcc60e43-41b3-44ef-976c-0604a295b9cd",
+        "name": "Ken Chestek",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ChestekKen.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2095",
+          "email": "ken.chestek@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-14",
+        "openstates_id": "ocd-person/b2265fcb-f768-4617-ad03-15f5b65af79f",
+        "name": "Trey Sherwood",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SherwoodTrey.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2072",
+          "email": "trey.sherwood@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-15",
+        "openstates_id": "ocd-person/4e09e885-4101-4e95-8560-17d35caad18c",
+        "name": "Pam Thayer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ThayerPamela.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2025/H/2119",
+          "email": "pam.thayer@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-16",
+        "openstates_id": "ocd-person/28649646-1108-4954-9381-4aa2d3b6f31b",
+        "name": "Mike Yin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-YinMike.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2054",
+          "email": "mike.yin@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-17",
+        "openstates_id": "ocd-person/2a0be03f-4f0a-4b2e-850b-50b4d0dade13",
+        "name": "J.T. Larson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LarsonJT.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2096",
+          "email": "jt.larson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-18",
+        "openstates_id": "ocd-person/232d6600-4cfd-40a1-abb9-8a1eecd84768",
+        "name": "Scott Heiner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HeinerScott.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2074",
+          "email": "scott.heiner@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-19",
+        "openstates_id": "ocd-person/19e421d2-03a4-4a0a-86e8-b18b63d13822",
+        "name": "Joe Webb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WebbJoe.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2120",
+          "email": "joe.webb@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-20",
+        "openstates_id": "ocd-person/4c9350f0-084c-4ba2-be0d-9ee0b5f6c629",
+        "name": "Mike Schmid",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SchmidMike.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2121",
+          "email": "mike.schmid@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-21",
+        "openstates_id": "ocd-person/f3fe63a7-b938-41c4-b2f5-b4069949a163",
+        "name": "McKay Erickson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-EricksonMcKay.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/R/2122",
+          "email": "mckay.erickson@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-22",
+        "openstates_id": "ocd-person/3198aa67-829e-4827-8b26-8955cbf36f4a",
+        "name": "Andrew Byron",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ByronAndrew.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2099",
+          "email": "andrew.byron@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-23",
+        "openstates_id": "ocd-person/7d3ea3c1-de6a-433f-83e2-c53dde09be61",
+        "name": "Liz Storer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-StorerLiz.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2100",
+          "email": "liz.storer@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-24",
+        "openstates_id": "ocd-person/86d51e65-7fef-49ff-a19a-60984fe2fab2",
+        "name": "Nina Webber",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WebberNina.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2123",
+          "email": "nina.webber@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-25",
+        "openstates_id": "ocd-person/d110d38a-8f1f-4056-b89d-d7d46613c72a",
+        "name": "Paul Hoeft",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HoeftPaul.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2124",
+          "email": "paul.hoeft@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-26",
+        "openstates_id": "ocd-person/416ee113-2983-43ab-bf24-3d7134767b41",
+        "name": "Dalton Banks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BanksDalton.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2101",
+          "email": "dalton.banks@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-27",
+        "openstates_id": "ocd-person/c954b74f-1933-4be4-801d-cc93f7f37ac0",
+        "name": "Martha Lawley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LawleyMartha.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2102",
+          "email": "martha.lawley@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-28",
+        "openstates_id": "ocd-person/e79049b8-a6d9-4356-a190-fc1e90837d5d",
+        "name": "John Winter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WinterJohn.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2056",
+          "email": "john.winter@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-29",
+        "openstates_id": "ocd-person/b7a5cb78-6473-4b7b-9c27-90c8ab2130a5",
+        "name": "Ken Pendergraft",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-PendergraftKen.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2103",
+          "email": "ken.pendergraft@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-30",
+        "openstates_id": "ocd-person/312edf5d-1dad-475a-b3bd-4b58f5f98ad4",
+        "name": "Tom Kelly",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-KellyTom.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2125",
+          "email": "tom.kelly@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-31",
+        "openstates_id": "ocd-person/931a9e71-33a6-4e65-be91-703ad612447e",
+        "name": "John Bear",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BearJohn.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2075",
+          "email": "john.bear@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-32",
+        "openstates_id": "ocd-person/15ae95ba-274d-4b7b-a2c7-a5cfb5e2b089",
+        "name": "Ken Clouston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CloustonKen.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2104",
+          "email": "ken.clouston@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-33",
+        "openstates_id": "ocd-person/df82de40-cf5b-4197-b276-5e5982146849",
+        "name": "Ivan Posey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-PoseyIvan.jpg",
+        "contact": {
+          "official_website": "https://www.poseyforhd33.com/",
+          "email": "ivan.posey@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-34",
+        "openstates_id": "ocd-person/9c9a9e1b-8107-40ac-b667-a8e75c5f806d",
+        "name": "Pepper Ottman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-OttmanPepper.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2076",
+          "email": "pepper.ottman@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-35",
+        "openstates_id": "ocd-person/0cd9d0d3-09eb-4cf1-8e5b-bfc15a71b337",
+        "name": "Tony Locke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LockeTony.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2106",
+          "email": "tony.locke@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-36",
+        "openstates_id": "ocd-person/394ba273-63d7-409d-90cd-5d183e750ea4",
+        "name": "Art Washut",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WashutArt.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2058",
+          "email": "art.washut@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-37",
+        "openstates_id": "ocd-person/1f6a3489-e152-487f-852a-23fc40a22185",
+        "name": "Steve Harshman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-HarshmanSteve.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/717",
+          "email": "steve.harshman@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-38",
+        "openstates_id": "ocd-person/89408a3a-ae27-4a8d-aa93-0050a48cf93d",
+        "name": "Jayme Lien",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LienJayme.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2126",
+          "email": "jayme.lien@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-39",
+        "openstates_id": "ocd-person/9b6e58cd-4dbc-4554-a677-b362c913c069",
+        "name": "Cody Wylie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/67th-WylieCody.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2107",
+          "email": "cody.wylie@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-40",
+        "openstates_id": "ocd-person/65ae499e-9549-42e2-ab16-65b56eb0f8ab",
+        "name": "Marilyn Connolly",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ConnollyMarilyn.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2127",
+          "email": "marilyn.connolly@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-41",
+        "openstates_id": "ocd-person/472c50ea-da65-42c3-a9b3-3639a9881a7f",
+        "name": "Gary Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BrownGary.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2140",
+          "email": "gary.brown@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-42",
+        "openstates_id": "ocd-person/219dcec3-8f83-401b-91df-1a79ac725889",
+        "name": "Rob Geringer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-GeringerRob.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2142",
+          "email": "rob.geringer@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-43",
+        "openstates_id": "ocd-person/4665c34f-70f5-4bc0-af49-0239e0e907a1",
+        "name": "Ann Lucas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LucasAnn.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2025/H/2128",
+          "email": "ann.lucas@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-44",
+        "openstates_id": "ocd-person/be3b0a04-4e00-42e4-9202-5c8f68aacedd",
+        "name": "Lee Filer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-FilerLee.jpg",
+        "contact": {
+          "official_website": "https://legisweb.state.wy.us/LegislatorSummary/LegDetail.aspx?LegID=1990",
+          "email": "lee.filer@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-45",
+        "openstates_id": "ocd-person/588c810c-0a65-475b-9593-46fa556cb962",
+        "name": "Karlee Provenza",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-ProvenzaKarlee.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2080",
+          "email": "karlee.provenza@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-46",
+        "openstates_id": "ocd-person/d811f813-1093-449a-a4dc-5d02c704ee49",
+        "name": "Ocean Andrew",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/66th-AndrewOcean.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2081",
+          "email": "ocean.andrew@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-47",
+        "openstates_id": "ocd-person/8ddb8078-482c-4df5-983d-ece9e5825cc2",
+        "name": "Bob Davis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-DavisBob.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2110",
+          "email": "bob.davis@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-48",
+        "openstates_id": "ocd-person/ff389664-aac3-4241-abc7-3a8e781e5989",
+        "name": "Darin McCann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-McCannDarin.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2130",
+          "email": "darin.mccann@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-49",
+        "openstates_id": "ocd-person/bc53e98d-bd3c-4a67-9822-68e609f45251",
+        "name": "Bob Wharff",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-WharffRobert.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2021/R/2082",
+          "email": "robert.wharff@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-50",
+        "openstates_id": "ocd-person/2fc47a70-0bf7-4d7c-bda2-5cdbf75a99ea",
+        "name": "Rachel Rodriguez-Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-Rodriguez-WilliamsRachel.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2083",
+          "email": "rachel.rodriguez-williams@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-51",
+        "openstates_id": "ocd-person/5eabff67-a57e-4fd5-b62c-3072d0374d56",
+        "name": "Laurie Bratten",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BrattenLaurie.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2131",
+          "email": "laurie.bratten@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-52",
+        "openstates_id": "ocd-person/8b636fd9-d6e2-4369-9764-c56803244076",
+        "name": "Reuben Tarver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-TarverReuben.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2112",
+          "email": "reuben.tarver@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-53",
+        "openstates_id": "ocd-person/ffe52a1f-bc33-424a-bd8c-a2df967ac83a",
+        "name": "Chris Knapp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-KnappChristopher.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2086",
+          "email": "chris.knapp@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-54",
+        "openstates_id": "ocd-person/6466bd0e-d531-4ac0-8667-3e7f34a32f9a",
+        "name": "Lloyd Larsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-LarsenLloyd.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/1988",
+          "email": "lloyd.larsen@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-55",
+        "openstates_id": "ocd-person/39076643-ca3a-47d2-888e-d944eb4f5de9",
+        "name": "Joel Guggenmos",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-GuggenmosJoel.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2132",
+          "email": "joel.guggenmos@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-56",
+        "openstates_id": "ocd-person/c0c75f8e-6d58-4197-9076-154528191d47",
+        "name": "Elissa Campbell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CampbellElissa.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2133",
+          "email": "elissa.campbell@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-57",
+        "openstates_id": "ocd-person/64428f70-4a9b-453d-b2f5-bbbdcdb370e5",
+        "name": "Julie Jarvis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-JarvisJulie.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2134",
+          "email": "julie.jarvis@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-58",
+        "openstates_id": "ocd-person/2f0d84dc-df29-4c3d-83ea-aa56beca9839",
+        "name": "Bill Allemand",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-AllemandBill.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2114",
+          "email": "bill.allemand@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-59",
+        "openstates_id": "ocd-person/25e8e592-1425-4e8d-bcce-97ec84ef66c3",
+        "name": "J.R. Riggins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-RigginsJR.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2135",
+          "email": "jr.riggins@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-60",
+        "openstates_id": "ocd-person/b2d0dc89-4104-4f6e-a1eb-bbc9dafbefa9",
+        "name": "Marlene Brady",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-BradyMarlene.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2143",
+          "email": "marlene.brady@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-61",
+        "openstates_id": "ocd-person/0a177e23-5f49-46dd-bc32-b2403ea7124c",
+        "name": "Daniel Singh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-SinghDaniel.jpg",
+        "contact": {
+          "official_website": "https://www.wyoleg.gov/Legislators/2023/H/2116",
+          "email": "daniel.singh@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wy-rep-62",
+        "openstates_id": "ocd-person/e6242790-9cdf-48ec-a5d3-aae3e5439733",
+        "name": "Kevin Campbell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://wyoleg.gov/LegislatorSummary/Photos/68th-CampbellKevin.jpg",
+        "contact": {
+          "official_website": "https://wyoleg.gov/Legislators/2025/H/2136",
+          "email": "kevin.campbell@wyoleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

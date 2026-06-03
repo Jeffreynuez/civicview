@@ -1,0 +1,2941 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "TX",
+  "state_name": "Texas",
+  "executive": {
+    "governor": {
+      "id": "tx-exec-gov",
+      "name": "Greg Abbott",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2015",
+      "website": "https://gov.texas.gov",
+      "photo_url": null,
+      "bio": "Greg Abbott is the Governor of Texas, serving since 2015. He previously served as Attorney General of Texas and as a Justice of the Texas Supreme Court.",
+      "sources": [
+        "https://gov.texas.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "tx-exec-lieutenant-governor",
+      "name": "Dan Patrick",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://www.ltgov.state.tx.us/wp-content/uploads/2021/01/dan_patrick_new_2021.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "tx-exec-secretary-of-state",
+        "name": "Jane Nelson",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "tx-exec-attorney-general",
+        "name": "Ken Paxton",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-TX-Paxton.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Texas State Senate",
+    "members": [
+      {
+        "id": "tx-sen-1",
+        "openstates_id": "ocd-person/8326538c-c907-43b2-a6db-76434036afd7",
+        "name": "Bryan Hughes",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d01/img/Hughes_86-0702D-030-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=1",
+          "email": "bryan.hughes@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-2",
+        "openstates_id": "ocd-person/013d69b7-a958-490c-a4a2-7224a30efa08",
+        "name": "Bob Hall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d02/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=2",
+          "email": "bob.hall@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-3",
+        "openstates_id": "ocd-person/26b83cfe-10c0-4ac6-ae02-dac30e2856b1",
+        "name": "Robert Nichols",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d03/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=3",
+          "email": "robert.nichols@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-5",
+        "openstates_id": "ocd-person/d7d0bd69-2615-4d0c-84df-4cdb75809343",
+        "name": "Charles Schwertner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d05/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=5",
+          "email": "charles.schwertner@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-6",
+        "openstates_id": "ocd-person/e78373de-6d96-44db-b552-6da34ed992fc",
+        "name": "Carol Alvarado",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d06/img/CA-2018_web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=6",
+          "email": "carol.alvarado@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-7",
+        "openstates_id": "ocd-person/a9f861bf-1a13-4d3b-816a-69589e9b25e7",
+        "name": "Paul Bettencourt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d07/img/action.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=7",
+          "email": "paul.bettencourt@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-8",
+        "openstates_id": "ocd-person/895887ba-73cd-4321-827d-bb06d4eedfdf",
+        "name": "Angela Paxton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d08/img/Paxton_2019.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=8",
+          "email": "angela.paxton@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-9",
+        "openstates_id": "ocd-person/9647d335-a650-4aa7-b11f-973c4e86b5a6",
+        "name": "Taylor Rehmet",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d09/img/Rehmet-89-0739D-017-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=9",
+          "email": "taylor.rehmet@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-10",
+        "openstates_id": "ocd-person/98bef50a-73c7-4139-9b8e-628d0e89d659",
+        "name": "Phil King",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d10/img/King_88-0550D-004-WEB.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/member-page/?district=61",
+          "email": "phil.king@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-11",
+        "openstates_id": "ocd-person/1399b6ba-cbfa-45ca-bf91-6ba89fe777bf",
+        "name": "Mayes Middleton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d11/img/Middleton_87-0662D-009.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/member-page/?district=23",
+          "email": "mayes.middleton@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-12",
+        "openstates_id": "ocd-person/fa4817bf-6dc6-4deb-9965-cf3f208ec976",
+        "name": "Tan Parker",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d12/img/86_20190619_SAM_0008.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/member-page/?district=63",
+          "email": "tan.parker@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-13",
+        "openstates_id": "ocd-person/3475b324-1c9b-4513-90e6-063aba5ac04e",
+        "name": "Borris Miles",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d13/img/Sen-Miles-2025-Headshot-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=13",
+          "email": "borris.miles@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-14",
+        "openstates_id": "ocd-person/20cda9bf-a1e6-4427-8115-e5655ddd8eb0",
+        "name": "Sarah Eckhardt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d14/img/SE_headshot_2020.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=14",
+          "email": "sarah.eckhardt@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-15",
+        "openstates_id": "ocd-person/06aed58e-f403-43a5-b4b9-8785a4acf981",
+        "name": "Molly Cook",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d15/img/Cook_88-0807D-014-2025.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=15",
+          "email": "molly.cook@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-16",
+        "openstates_id": "ocd-person/dee454b1-6da0-4b1b-a232-033e7de8551f",
+        "name": "Nathan Johnson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d16/img/SNJ-Headshot-2023-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=16",
+          "email": "nathan.johnson@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-17",
+        "openstates_id": "ocd-person/1997b231-45f7-4f29-a435-9f52e60ebea4",
+        "name": "Joan Huffman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d17/img/Huffman_9S5A0096-2021web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=17",
+          "email": "joan.huffman@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-18",
+        "openstates_id": "ocd-person/28eb71be-bce7-4b32-908d-289ecc265c3c",
+        "name": "Lois Kolkhorst",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d18/img/LWK_2020.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=18",
+          "email": "lois.kolkhorst@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-19",
+        "openstates_id": "ocd-person/68767ec3-151c-413f-aeb8-f35dd6c5f35c",
+        "name": "Roland Gutierrez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d19/img/Gutierrez_87-0522D-016-Web.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/member-page/?district=119",
+          "email": "roland.gutierrez@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-20",
+        "openstates_id": "ocd-person/72766791-084c-4a20-a12c-6e809b51e95c",
+        "name": "Chuy Hinojosa",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d20/img/Hinojosa_84-0784D-006.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=20",
+          "email": "juan.hinojosa@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-21",
+        "openstates_id": "ocd-person/c7aad3b7-ca16-4989-bf68-87ed72498a6b",
+        "name": "Judith Zaffirini",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d21/img/Zaffirini_2017.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=21",
+          "email": "judith.zaffirini@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-22",
+        "openstates_id": "ocd-person/44a23037-5ccd-4781-9e93-c4b950f74355",
+        "name": "Brian Birdwell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d22/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=22",
+          "email": "brian.birdwell@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-23",
+        "openstates_id": "ocd-person/d6f40682-7b90-4735-980c-7c95ef402a78",
+        "name": "Royce West",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d23/img/West_87-0474D-015-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=23",
+          "email": "royce.west@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-24",
+        "openstates_id": "ocd-person/682e8ef8-8fc1-4490-a04d-63a7c6d92185",
+        "name": "Pete Flores",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d24/img/Flores_86-0634D-001-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=24",
+          "email": "pete.flores@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-25",
+        "openstates_id": "ocd-person/9f80cd7f-1067-4322-8777-62bc129cd6f2",
+        "name": "Donna Campbell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d25/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=25",
+          "email": "donna.campbell@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-26",
+        "openstates_id": "ocd-person/8bb90ee9-e764-44da-b27f-b5bc3cdb394e",
+        "name": "José Menéndez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d26/img/headshot.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=26",
+          "email": "jose.menendez@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-27",
+        "openstates_id": "ocd-person/7f748f58-e6f2-4c86-ad01-52c7ca3435ca",
+        "name": "Adam Hinojosa",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d27/img/Hinojosa_Adam-88-0913D-005-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=27",
+          "email": "adam.hinojosa@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-28",
+        "openstates_id": "ocd-person/6522ba2d-f263-455a-9470-cec0aa03033b",
+        "name": "Charles Perry",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d28/img/Perry-Headshot-2019.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=28",
+          "email": "charles.perry@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-29",
+        "openstates_id": "ocd-person/3e0f0e51-20c0-4da4-82b5-ff81606148d0",
+        "name": "César Blanco",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d29/img/SCBBio88th-web.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/member-page/?district=76",
+          "email": "cesar.blanco@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-30",
+        "openstates_id": "ocd-person/c15c9bf3-f28a-4c01-9a10-383bc7a05cb9",
+        "name": "Brent Hagenbuch",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.texas.gov/members/d30/img/Hagenbuch_89-0029-009-web.jpg",
+        "contact": {
+          "official_website": "https://www.senate.texas.gov/member.php?d=30",
+          "email": "brent.hagenbuch@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-31",
+        "openstates_id": "ocd-person/aa6deb86-b21b-4ed2-ad67-bd6217238afc",
+        "name": "Kevin Sparks",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d31/img/Sparks_88-0063D-012-web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=31",
+          "email": "kevin.sparks@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Texas State House",
+    "members": [
+      {
+        "id": "tx-rep-1",
+        "openstates_id": "ocd-person/26617394-4276-4aa7-878c-d20552b260a4",
+        "name": "Gary VanDeaver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2540.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2540",
+          "email": "gary.vandeaver@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-2",
+        "openstates_id": "ocd-person/469f1932-49dc-4a46-8341-b2cd9bc0f96d",
+        "name": "Brent Money",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4670.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/2",
+          "email": "brent.money@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-3",
+        "openstates_id": "ocd-person/33f871c9-15a6-4094-9181-ff822cd9eca4",
+        "name": "Cecil Bell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2335.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2335",
+          "email": "cecil.bell@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-4",
+        "openstates_id": "ocd-person/fe47f6d5-2db3-495b-8da6-5cd12e0dc677",
+        "name": "Keith Bell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3695.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3695",
+          "email": "keith.bell@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-5",
+        "openstates_id": "ocd-person/43bbf34a-6bc4-41f9-9bdc-3e944c5b8495",
+        "name": "Cole Hefner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3505.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3505",
+          "email": "cole.hefner@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-6",
+        "openstates_id": "ocd-person/f602a657-8951-4dcb-9bd8-c04bcce4ba56",
+        "name": "Daniel Alders",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4395.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/4395",
+          "email": "daniel.alders@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-7",
+        "openstates_id": "ocd-person/37886d81-901f-43b4-841b-f3ffbfeeb257",
+        "name": "Jay Dean",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3515.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3515",
+          "email": "jay.dean@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-8",
+        "openstates_id": "ocd-person/baafecd4-6f74-4a97-b564-691c1e938291",
+        "name": "Cody Harris",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3580.jpg?v=3",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3580",
+          "email": "cody.harris@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-9",
+        "openstates_id": "ocd-person/68f05872-16c8-4d3a-ab5f-ea667ca52b27",
+        "name": "Trent Ashby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2330.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2330",
+          "email": "trent.ashby@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-10",
+        "openstates_id": "ocd-person/b1bf46ac-e99e-49f6-8f40-cf07aca12187",
+        "name": "Brian Harrison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4085.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4085",
+          "email": "brian.harrison@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-11",
+        "openstates_id": "ocd-person/b39cf891-a259-422c-945a-94b65430ea0a",
+        "name": "Joanne Shofner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4755.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/11",
+          "email": "joanne.shofner@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-12",
+        "openstates_id": "ocd-person/afd236d4-4266-4777-8d3d-be7616a7e43f",
+        "name": "Trey Wharton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4795.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4795",
+          "email": "trey.wharton@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-13",
+        "openstates_id": "ocd-person/aa0d12c3-c318-4c97-a0d4-c63795ec50d9",
+        "name": "Angelia Orr",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4340.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4340",
+          "email": "angelia.orr@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-14",
+        "openstates_id": "ocd-person/89b43853-82e0-434c-9946-4fd9057e1842",
+        "name": "Paul Dyson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4475.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/14",
+          "email": "paul.dyson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-15",
+        "openstates_id": "ocd-person/6c80914d-b07b-4d27-95e2-0e5aa2b0c7d9",
+        "name": "Steve Toth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2825.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2825",
+          "email": "steve.toth@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-16",
+        "openstates_id": "ocd-person/e7a379ec-9de2-48a2-918b-5ba58e1fd3f3",
+        "name": "Will Metcalf",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2900.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2900",
+          "email": "will.metcalf@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-17",
+        "openstates_id": "ocd-person/97fc1e34-35fb-470f-a098-4ba8f0c3c8d4",
+        "name": "Stan Gerdes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4195.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4195",
+          "email": "stan.gerdes@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-18",
+        "openstates_id": "ocd-person/0deb3053-0d5d-46b4-93d2-8eb9de0c4ffd",
+        "name": "Janis Holt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4535.jpg?v=2",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/18",
+          "email": "janis.holt@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-19",
+        "openstates_id": "ocd-person/34590156-1109-4ab6-84bc-bbe07764f365",
+        "name": "Ellen Troxclair",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4385.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/19",
+          "email": "ellen.troxclair@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-20",
+        "openstates_id": "ocd-person/ec19bc97-3146-4100-8294-329b88aec0e8",
+        "name": "Terry Wilson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3525.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3525",
+          "email": "terry.wilson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-21",
+        "openstates_id": "ocd-person/7952d7d7-0fe5-4712-9967-6cb9bcedff05",
+        "name": "Dade Phelan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2905.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2905",
+          "email": "dade.phelan@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-22",
+        "openstates_id": "ocd-person/26090510-8782-4d64-b981-3d1cde573090",
+        "name": "Christian Manuel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4255.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4255",
+          "email": "christian.manuel@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-23",
+        "openstates_id": "ocd-person/cee6cb7a-8d88-4c34-be27-dd10d1f31768",
+        "name": "Terri Leo-Wilson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4290.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4290",
+          "email": "terri.leo-wilson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-24",
+        "openstates_id": "ocd-person/d0fbfb15-2f0c-4167-b8b4-d6135bbb6616",
+        "name": "Greg Bonnen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2875.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/24",
+          "email": "greg.bonnen@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-25",
+        "openstates_id": "ocd-person/3194ee5e-f4d8-4449-8ff6-ec47c0822a3d",
+        "name": "Cody Vasut",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4065.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4065",
+          "email": "cody.vasut@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-26",
+        "openstates_id": "ocd-person/07951419-b5d5-430b-a3e6-678e1d4aec21",
+        "name": "Matt Morgan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4675.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/26",
+          "email": "matt.morgan@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-27",
+        "openstates_id": "ocd-person/72bad853-b403-49c2-9a99-32c5fb3222c7",
+        "name": "Ron Reynolds",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2040.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2040",
+          "email": "ron.reynolds@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-28",
+        "openstates_id": "ocd-person/5ff88048-ebd8-4ac3-af9c-d02e1305ef37",
+        "name": "Gary Gates",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3920.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3920",
+          "email": "gary.gates@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-29",
+        "openstates_id": "ocd-person/988efb07-ace2-4419-ac40-ccec69ebe875",
+        "name": "Jeff Barry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4405.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/29",
+          "email": "jeff.barry@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-30",
+        "openstates_id": "ocd-person/dd3e49ca-2b2b-4a83-ae63-0ade6ccef73f",
+        "name": "A.J. Louderback",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4620.jpg?v=1",
+        "contact": {
+          "official_website": "https://ajlouderback.com/",
+          "email": "aj.louderback@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-31",
+        "openstates_id": "ocd-person/f0ede995-2253-4f7b-a922-6da34e4de194",
+        "name": "Ryan Guillen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3045.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3045",
+          "email": "ryan.guillen@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-32",
+        "openstates_id": "ocd-person/9447575b-d8a1-45dd-bd68-77b12fe347ab",
+        "name": "Todd Hunter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3365.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3365",
+          "email": "todd.hunter@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-33",
+        "openstates_id": "ocd-person/1205faf4-7ced-4d21-aa8c-aad9239e3157",
+        "name": "Katrina Pierson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4715.jpg?v=2",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/33",
+          "email": "katrina.pierson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-34",
+        "openstates_id": "ocd-person/42c40e86-b355-4724-8582-995125377240",
+        "name": "Denise Villalobos",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4770.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/34",
+          "email": "denise.villalobos@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-35",
+        "openstates_id": "ocd-person/896e8f9c-7dca-4f7d-8554-c0324cfa7265",
+        "name": "Oscar Longoria",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2485.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2485",
+          "email": "oscar.longoria@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-36",
+        "openstates_id": "ocd-person/b7c4e0e7-4949-4dff-bc4c-fdaaada3f37d",
+        "name": "Sergio Muñoz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2060.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2060",
+          "email": "sergio.munoz@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-37",
+        "openstates_id": "ocd-person/a732704e-9b03-449c-b24f-f4c567b5acdd",
+        "name": "Janie Lopez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4295.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/37",
+          "email": "janie.lopez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-38",
+        "openstates_id": "ocd-person/2cadcb59-210a-4a71-af9f-7dba9ab06112",
+        "name": "Erin Gámez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4095.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/38",
+          "email": "erin.gamez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-39",
+        "openstates_id": "ocd-person/e2d786e9-5e46-4807-be42-546203016996",
+        "name": "Mando Martinez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3780.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3780",
+          "email": "mando.martinez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-40",
+        "openstates_id": "ocd-person/3e4ae7d4-dbb2-4991-8b44-8ada6023d7da",
+        "name": "Terry Canales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2340.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2340",
+          "email": "terry.canales@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-41",
+        "openstates_id": "ocd-person/51591894-e9ff-48d3-81c5-897ec1c5e600",
+        "name": "Bobby Guerra",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2325.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2325",
+          "email": "bobby.guerra@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-42",
+        "openstates_id": "ocd-person/d4a94a68-02a7-44c0-901f-9cd57350229a",
+        "name": "Richard Raymond",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4215.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4215",
+          "email": "richard.raymond@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-43",
+        "openstates_id": "ocd-person/a43f2db5-4b24-4dfa-af7f-a2c7cbc5ea21",
+        "name": "J.M. Lozano",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2065.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2065",
+          "email": "jm.lozano@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-44",
+        "openstates_id": "ocd-person/1493b76f-b77d-48db-9ecd-26d0e2dfc843",
+        "name": "Alan Schoolcraft",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4745.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4745",
+          "email": "alan.schoolcraft@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-45",
+        "openstates_id": "ocd-person/b55d57f4-bd06-4487-8860-0b6eeb9a1dea",
+        "name": "Erin Zwiener",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3710.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3710",
+          "email": "erin.zwiener@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-46",
+        "openstates_id": "ocd-person/97805dd7-1f42-482c-bac3-049dfccda311",
+        "name": "Sheryl Cole",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3625.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3625",
+          "email": "sheryl.cole@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-47",
+        "openstates_id": "ocd-person/25157308-7474-4600-8b83-173d79e16a21",
+        "name": "Vikki Goodwin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3820.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3820",
+          "email": "vikki.goodwin@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-48",
+        "openstates_id": "ocd-person/349071fd-3c36-43c6-aaca-6d7f9d04322d",
+        "name": "Donna Howard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3310.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3310",
+          "email": "donna.howard@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-49",
+        "openstates_id": "ocd-person/1f9ed42e-27de-4cd1-b2bf-f890ee33cb49",
+        "name": "Gina Hinojosa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3210.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3210",
+          "email": "gina.hinojosa@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-50",
+        "openstates_id": "ocd-person/5e4e2fd2-e8a9-46f3-aab5-ffbc782afa8b",
+        "name": "James Talarico",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3685.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3685",
+          "email": "james.talarico@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-51",
+        "openstates_id": "ocd-person/ab3ddc65-0fb9-476b-993f-b3dc4050127e",
+        "name": "Lulu Flores",
+        "party": "D",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4150.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4150",
+          "email": "lulu.flores@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-52",
+        "openstates_id": "ocd-person/72920206-cbe7-4429-b42b-c6fc746a1d56",
+        "name": "Caroline Harris Davila",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4205.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4205",
+          "email": "caroline.harrisdavila@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-53",
+        "openstates_id": "ocd-person/436ab2a5-12ca-4a9c-b8ec-73b1bae4ee68",
+        "name": "Wes Virdell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4775.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/53",
+          "email": "wes.virdell@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-54",
+        "openstates_id": "ocd-person/e3533cbc-f3ab-46bc-a591-c68657f82527",
+        "name": "Brad Buckley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3585.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/54",
+          "email": "brad.buckley@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-55",
+        "openstates_id": "ocd-person/ef5a2ea8-61b0-484c-bbe1-b52c5ad2f075",
+        "name": "Hillary Hickland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4520.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/55",
+          "email": "hillary.hickland@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-56",
+        "openstates_id": "ocd-person/0e79cc57-2894-432e-9aca-505a41d4de2c",
+        "name": "Pat Curry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4415.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4415",
+          "email": "pat.curry@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-57",
+        "openstates_id": "ocd-person/f8e0a89e-889a-4fcf-8a0a-1e0e091d89d0",
+        "name": "Richard Hayes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4165.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4165",
+          "email": "richard.hayes@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-58",
+        "openstates_id": "ocd-person/92b45572-c15c-4270-8356-6c3db1846c7b",
+        "name": "Helen Kerwin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4575.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/58",
+          "email": "helen.kerwin@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-59",
+        "openstates_id": "ocd-person/ddebb940-33f9-4b5c-a8fa-e22c63a594e9",
+        "name": "Shelby Slawson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4055.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4055",
+          "email": "shelby.slawson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-60",
+        "openstates_id": "ocd-person/4b70019b-d7c1-4414-bcb1-7bf917081ed5",
+        "name": "Mike Olcott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4705.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/60",
+          "email": "mike.olcott@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-61",
+        "openstates_id": "ocd-person/2b79c268-eaf3-4915-a0e0-faec03b652d8",
+        "name": "Keresa Richardson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4735.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/61",
+          "email": "keresa.richardson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-62",
+        "openstates_id": "ocd-person/89e814c4-6091-4156-b3b5-42a7980f8b4d",
+        "name": "Shelley Luther",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4645.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/62",
+          "email": "shelley.luther@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-63",
+        "openstates_id": "ocd-person/ba43365e-63dc-4bdc-aadc-e3939aa7465b",
+        "name": "Ben Bumgarner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4125.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/63",
+          "email": "ben.bumgarner@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-64",
+        "openstates_id": "ocd-person/ee8cc382-84b7-47e3-824f-e05cf6455161",
+        "name": "Andy Hopper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4555.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/64",
+          "email": "andy.hopper@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-65",
+        "openstates_id": "ocd-person/96dfe856-d5b0-4f7a-86f6-06c2175a4d4a",
+        "name": "Mitch Little",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4615.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4615",
+          "email": "mitch.little@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-66",
+        "openstates_id": "ocd-person/71555c46-28b0-4887-98a1-997dc7482e75",
+        "name": "Matt Shaheen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2995.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/66",
+          "email": "matt.shaheen@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-67",
+        "openstates_id": "ocd-person/40a678a3-7d85-486e-bf38-5d070142aa83",
+        "name": "Jeff Leach",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2475.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2475",
+          "email": "jeff.leach@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-68",
+        "openstates_id": "ocd-person/36338558-c2b0-4b43-b656-261dccbee871",
+        "name": "David Spiller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4075.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4075",
+          "email": "david.spiller@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-69",
+        "openstates_id": "ocd-person/6cbb02e6-5876-47a1-86aa-98566fe0073a",
+        "name": "James Frank",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2385.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2385",
+          "email": "james.frank@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-70",
+        "openstates_id": "ocd-person/b69579f7-74de-4a71-86ba-033264cc5bc7",
+        "name": "Mihaela Pleșa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4345.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/70",
+          "email": "mihaela.plesa@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-71",
+        "openstates_id": "ocd-person/a4e4115b-d488-4e93-8354-80e361c0c260",
+        "name": "Stan Lambert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3225.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3225",
+          "email": "stan.lambert@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-72",
+        "openstates_id": "ocd-person/40f0e868-e021-4453-8675-a9d2357e41e1",
+        "name": "Drew Darby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2645.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2645",
+          "email": "drew.darby@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-73",
+        "openstates_id": "ocd-person/64221b86-e3ca-4b67-b2bb-3f4f9641e133",
+        "name": "Carrie Isaac",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4265.jpg?v=3",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/73",
+          "email": "carrie.isaac@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-74",
+        "openstates_id": "ocd-person/c84056d0-47e0-4a0c-94e1-9f90c2d90a15",
+        "name": "Eddie Morales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4000.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4000",
+          "email": "eddie.morales@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-75",
+        "openstates_id": "ocd-person/93379bbe-5fb3-400f-853a-d0b3553e7772",
+        "name": "Mary González",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2410.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2410",
+          "email": "mary.gonzalez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-76",
+        "openstates_id": "ocd-person/51927936-c6fc-453b-8afd-5f0b53de7d46",
+        "name": "Suleman Lalani",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4285.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4285",
+          "email": "suleman.lalani@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-77",
+        "openstates_id": "ocd-person/5236ee6e-a57c-4d81-90b4-50a9abde8e5e",
+        "name": "Vince Perez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4710.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/77",
+          "email": "vincent.perez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-78",
+        "openstates_id": "ocd-person/5898294d-5b10-4aaf-a084-b8522e69623c",
+        "name": "Joe Moody",
+        "party": "D",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3850.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3850",
+          "email": "joe.moody@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-79",
+        "openstates_id": "ocd-person/6feda596-fd20-429b-ae4e-bedab7e5a1c5",
+        "name": "Claudia Ordaz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4015.jpg?v=3",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4015",
+          "email": "claudia.ordaz@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-80",
+        "openstates_id": "ocd-person/0941f4bf-2ac8-48d0-8675-191514e06850",
+        "name": "Don McLaughlin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4655.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4655",
+          "email": "don.mclaughlin@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-81",
+        "openstates_id": "ocd-person/83030f8b-5f1f-4475-b564-a07ae42f6d98",
+        "name": "Brooks Landgraf",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3040.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3040",
+          "email": "brooks.landgraf@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-82",
+        "openstates_id": "ocd-person/d4d5c127-1ef6-445d-a89b-d9f02c812365",
+        "name": "Tom Craddick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2610.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2610",
+          "email": "tom.craddick@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-83",
+        "openstates_id": "ocd-person/fff5eb4f-2c41-4d00-a1c5-e566a15b063e",
+        "name": "Dustin Burrows",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3055.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3055",
+          "email": "dustin.burrows@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-84",
+        "openstates_id": "ocd-person/8f7f161e-6ef4-4c12-8eea-de88a313b36c",
+        "name": "Carl Tepper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4360.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4360",
+          "email": "carl.tepper@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-85",
+        "openstates_id": "ocd-person/2662f888-95e0-4de3-be5b-3d023623c447",
+        "name": "Stan Kitzman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4280.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4280",
+          "email": "stan.kitzman@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-86",
+        "openstates_id": "ocd-person/3cac81cd-62ca-41d6-aa4a-8e4156244dec",
+        "name": "John Smithee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4530.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4530",
+          "email": "john.smithee@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-87",
+        "openstates_id": "ocd-person/5c40c2b0-07c1-4c73-b15b-14d0ef6df40e",
+        "name": "Caroline Fairly",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4480.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/87",
+          "email": "caroline.fairly@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-88",
+        "openstates_id": "ocd-person/d9f32e07-7835-4edf-b986-7a2cf16d608b",
+        "name": "Ken King",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2455.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2455",
+          "email": "ken.king@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-89",
+        "openstates_id": "ocd-person/f4976334-0e0e-4474-b5b4-3264e8d73f1d",
+        "name": "Candy Noble",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3740.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3740",
+          "email": "candy.noble@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-90",
+        "openstates_id": "ocd-person/c0fc4283-3ed5-4165-a066-80de16f492b7",
+        "name": "Ramon Romero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3060.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3060",
+          "email": "ramon.romero@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-91",
+        "openstates_id": "ocd-person/15ce6502-645c-4031-994d-b228e1c69bb4",
+        "name": "David Lowe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4643.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/91",
+          "email": "david.lowe@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-92",
+        "openstates_id": "ocd-person/4fb2e1fd-fbb3-4a55-8417-761da2f6048e",
+        "name": "Salman Bhojani",
+        "party": "D",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4115.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/92",
+          "email": "salman.bhojani@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-93",
+        "openstates_id": "ocd-person/c6308fcd-b1e1-4ce3-9a29-c05e420e8012",
+        "name": "Nate Schatzline",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4355.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4355",
+          "email": "nate.schatzline@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-94",
+        "openstates_id": "ocd-person/1ca78d00-1ede-4486-b14e-16bd81ba73e4",
+        "name": "Tony Tinderholt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3065.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3065",
+          "email": "tony.tinderholt@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-95",
+        "openstates_id": "ocd-person/ea169f77-0bd8-4ca0-ac59-f894c9a09e71",
+        "name": "Nicole Collier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2360.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/95",
+          "email": "nicole.collier@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-96",
+        "openstates_id": "ocd-person/2d5f629c-76a7-455b-aff7-262d8c1c23f6",
+        "name": "David Cook",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3960.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3960",
+          "email": "david.cook@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-97",
+        "openstates_id": "ocd-person/f926d7a8-7ec7-4020-9e18-5a475565fd41",
+        "name": "John McQueeney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4665.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/97",
+          "email": "john.mcqueeney@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-98",
+        "openstates_id": "ocd-person/40ecf6ee-92a4-4daf-b950-ac70b6cdfeee",
+        "name": "Giovanni Capriglione",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2345.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/98",
+          "email": "giovanni.capriglione@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-99",
+        "openstates_id": "ocd-person/65a42043-6243-4f79-b1e0-69b3b8b4af29",
+        "name": "Charlie Geren",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2945.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2945",
+          "email": "charlie.geren@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-100",
+        "openstates_id": "ocd-person/6b2d7f89-d7e0-44d1-b861-3167915f6925",
+        "name": "Venton Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4275.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4275",
+          "email": "venton.jones@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-101",
+        "openstates_id": "ocd-person/a5e2021c-8221-41ba-b45c-cc89d13b2af2",
+        "name": "Chris Turner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4680.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4680",
+          "email": "chris.turner@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-102",
+        "openstates_id": "ocd-person/7f893a20-0547-4ad9-9a94-1084a9ef6469",
+        "name": "Ana-Maria Rodriguez Ramos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3735.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3735",
+          "email": "ana-maria.ramos@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-103",
+        "openstates_id": "ocd-person/f72eb41b-2ff9-434f-96cf-75b9724289ab",
+        "name": "Rafael Anchía",
+        "party": "D",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2150.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2150",
+          "email": "rafael.anchia@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-104",
+        "openstates_id": "ocd-person/8eeb1aad-24b6-487b-bbc0-31c2238b1ccd",
+        "name": "Jessica González",
+        "party": "D",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3335.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3335",
+          "email": "jessica.gonzalez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-105",
+        "openstates_id": "ocd-person/bdecc388-4028-48e2-b211-75c59c1c5ec2",
+        "name": "Terry Meza",
+        "party": "D",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3455.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3455",
+          "email": "terry.meza@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-106",
+        "openstates_id": "ocd-person/e926ca11-64dd-4e15-97bd-1f7b0915de36",
+        "name": "Jared Patterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3655.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3655",
+          "email": "jared.patterson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-107",
+        "openstates_id": "ocd-person/5d3626bb-c865-4c92-a717-a72036c6ce5a",
+        "name": "Linda Garcia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4485.jpg?v=3",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/107",
+          "email": "linda.garcia@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-108",
+        "openstates_id": "ocd-person/2639e096-d327-4c4d-823f-759b1ce373e0",
+        "name": "Morgan Meyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3075.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3075",
+          "email": "morgan.meyer@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-109",
+        "openstates_id": "ocd-person/c55d85ff-7172-42d4-9c8f-da2f258dc19b",
+        "name": "Aicha Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4465.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/109",
+          "email": "aicha.davis@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-110",
+        "openstates_id": "ocd-person/0acfbb85-b501-45ce-9a9b-90537090a455",
+        "name": "Toni Rose",
+        "party": "D",
+        "chamber": "State House",
+        "district": "110",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2555.jpg?v=3",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2555",
+          "email": "toni.rose@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-111",
+        "openstates_id": "ocd-person/3f38bf62-86ba-4833-9737-2e084ae6255d",
+        "name": "Yvonne Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "111",
+        "role": "State Representative",
+        "photo_url": "https://cdn.ballotpedia.org/images/thumb/0/06/Yvonne_Davis.jpg/200px-Yvonne_Davis.jpg",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2625",
+          "email": "yvonne.davis@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-112",
+        "openstates_id": "ocd-person/2a9478ef-b573-4de6-ab96-bb3f6091346f",
+        "name": "Angie Button",
+        "party": "R",
+        "chamber": "State House",
+        "district": "112",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2510.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2510",
+          "email": "angie.button@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-113",
+        "openstates_id": "ocd-person/69ef7d69-9a5e-42be-b463-8873cb52ad10",
+        "name": "Rhetta Bowers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "113",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3565.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3565",
+          "email": "rhetta.bowers@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-114",
+        "openstates_id": "ocd-person/4e07d8dc-f5b5-47e7-a1de-83f36d3b734f",
+        "name": "John Bryant",
+        "party": "D",
+        "chamber": "State House",
+        "district": "114",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4120.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4120",
+          "email": "john.bryant@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-115",
+        "openstates_id": "ocd-person/f331962f-370b-4b74-876e-aa6a8e2e58e2",
+        "name": "Cas Garcia Hernandez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "115",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4495.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/115",
+          "email": "cassandra.garciahernandez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-116",
+        "openstates_id": "ocd-person/07f5e898-8d5d-435a-bf97-7bfb26fce5ac",
+        "name": "Trey Martinez Fischer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "116",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2835.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2835",
+          "email": "trey.martinezfischer@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-117",
+        "openstates_id": "ocd-person/12d67093-ab4c-425d-afa3-e5777db09d1c",
+        "name": "Philip Cortez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "117",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2365.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2365",
+          "email": "philip.cortez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-118",
+        "openstates_id": "ocd-person/fbd66d9f-2a93-4cbf-b75d-b51cb01e955e",
+        "name": "John Lujan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "118",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3145.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3145",
+          "email": "john.lujan@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-119",
+        "openstates_id": "ocd-person/b91e1420-1732-4063-9f3d-edcc5e71d416",
+        "name": "Liz Campos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "119",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3950.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/119",
+          "email": "elizabeth.campos@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-120",
+        "openstates_id": "ocd-person/9c37e80d-af10-4433-a78a-408b2b798fb6",
+        "name": "Barbara Gervin-Hawkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "120",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3445.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/120",
+          "email": "barbara.gervin-hawkins@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-121",
+        "openstates_id": "ocd-person/d34eead2-bd19-49ce-8131-6d314d58e6a1",
+        "name": "Marc LaHood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "121",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4595.jpg?v=1",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/121",
+          "email": "marc.lahood@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-122",
+        "openstates_id": "ocd-person/2c0a4352-9871-4122-97fd-832ec998e907",
+        "name": "Mark Dorazio",
+        "party": "R",
+        "chamber": "State House",
+        "district": "122",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4145.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/122",
+          "email": "mark.dorazio@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-123",
+        "openstates_id": "ocd-person/7847295c-78f3-4f8c-adb6-3536fca2782e",
+        "name": "Diego Bernal",
+        "party": "D",
+        "chamber": "State House",
+        "district": "123",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3110.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3110",
+          "email": "diego.bernal@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-124",
+        "openstates_id": "ocd-person/1ec50565-379f-4a8b-ab18-c54d31df9929",
+        "name": "Josey Garcia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "124",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4170.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/124",
+          "email": "josey.garcia@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-125",
+        "openstates_id": "ocd-person/01ce2f6b-0500-4baa-a47f-386f9c6286b0",
+        "name": "Ray Lopez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "125",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3915.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3915",
+          "email": "ray.lopez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-126",
+        "openstates_id": "ocd-person/2db06a9d-ae17-4881-98b4-5172fdfca19f",
+        "name": "Sam Harless",
+        "party": "R",
+        "chamber": "State House",
+        "district": "126",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3775.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3775",
+          "email": "sam.harless@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-127",
+        "openstates_id": "ocd-person/41f4a5e2-a2d5-4e54-aae3-9c99f9ea5eba",
+        "name": "Charles Cunningham",
+        "party": "R",
+        "chamber": "State House",
+        "district": "127",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4130.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4130",
+          "email": "charles.cunningham@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-128",
+        "openstates_id": "ocd-person/065c24a0-401a-4dc5-a19c-e7d96dcbffc5",
+        "name": "Briscoe Cain",
+        "party": "R",
+        "chamber": "State House",
+        "district": "128",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3265.jpg?v=2",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3265",
+          "email": "briscoe.cain@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-129",
+        "openstates_id": "ocd-person/e05f502a-0d27-4c51-8cad-d3b5eca585b1",
+        "name": "Dennis Paul",
+        "party": "R",
+        "chamber": "State House",
+        "district": "129",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3090.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3090",
+          "email": "dennis.paul@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-130",
+        "openstates_id": "ocd-person/79ffab1c-4d79-4cfa-89b4-5f7ee95ca1bf",
+        "name": "Tom Oliverson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "130",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3535.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3535",
+          "email": "tom.oliverson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-131",
+        "openstates_id": "ocd-person/2fd6fcd3-9676-42a4-b879-e317576ff18f",
+        "name": "Alma Allen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "131",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2100.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2100",
+          "email": "alma.allen@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-132",
+        "openstates_id": "ocd-person/df010291-7350-4262-9220-4c576730b2db",
+        "name": "Mike Schofield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "132",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3095.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3095",
+          "email": "mike.schofield@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-133",
+        "openstates_id": "ocd-person/a61b0fd1-9fdf-4b4c-abe6-b790cc856023",
+        "name": "Mano DeAyala",
+        "party": "R",
+        "chamber": "State House",
+        "district": "133",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4135.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4135",
+          "email": "mano.deayala@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-134",
+        "openstates_id": "ocd-person/45f3ddfb-5994-4f05-b2c8-e0e3b2a99c47",
+        "name": "Ann Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "134",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3985.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/134",
+          "email": "ann.johnson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-135",
+        "openstates_id": "ocd-person/ab211984-06a9-447c-9ded-564d200bee60",
+        "name": "Jon Rosenthal",
+        "party": "D",
+        "chamber": "State House",
+        "district": "135",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3635.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/135",
+          "email": "jon.rosenthal@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-136",
+        "openstates_id": "ocd-person/53b19d1e-5b07-4f6e-87a9-27baecddaf70",
+        "name": "John Bucy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "136",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3595.jpg?v=5",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/136",
+          "email": "john.bucy@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-137",
+        "openstates_id": "ocd-person/5556a81a-eca2-451d-bb29-74cfb00d1959",
+        "name": "Gene Wu",
+        "party": "D",
+        "chamber": "State House",
+        "district": "137",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2865.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2865",
+          "email": "gene.wu@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-138",
+        "openstates_id": "ocd-person/2609ba13-abf1-40b5-9f4c-a4c1135e56e2",
+        "name": "Lacey Hull",
+        "party": "R",
+        "chamber": "State House",
+        "district": "138",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3975.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3975",
+          "email": "lacey.hull@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-139",
+        "openstates_id": "ocd-person/e6ccd3a9-8f52-46d4-af8d-d0301a8e3a05",
+        "name": "Charlene Ward Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "139",
+        "role": "State Representative",
+        "photo_url": "https://www.house.texas.gov/images/members/4785.jpg?v=3",
+        "contact": {
+          "official_website": "https://www.house.texas.gov/members/139",
+          "email": "charlene.wardjohnson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-140",
+        "openstates_id": "ocd-person/3caafbc8-6561-4bf8-8247-aaf398573ba8",
+        "name": "Armando Walle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "140",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4930.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4930",
+          "email": "armando.walle@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-141",
+        "openstates_id": "ocd-person/ace50d18-fc98-4460-9d90-928c0e88c79a",
+        "name": "Senfronia Thompson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "141",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4630.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4630",
+          "email": "senfronia.thompson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-142",
+        "openstates_id": "ocd-person/85d064ed-6f3d-4a81-93ee-1baf49c7f2c3",
+        "name": "Harold Dutton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "142",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2650.jpg?v=3",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2650",
+          "email": "harold.dutton@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-143",
+        "openstates_id": "ocd-person/4f98520b-d88b-4053-acc5-3cb2fff14660",
+        "name": "Ana Hernandez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "143",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3155.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3155",
+          "email": "ana.hernandez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-144",
+        "openstates_id": "ocd-person/26244d6a-f0d5-4dbe-b9ed-a38df74a7bac",
+        "name": "Mary Ann Perez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "144",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/2535.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/2535",
+          "email": "maryann.perez@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-145",
+        "openstates_id": "ocd-person/791e4399-56bb-4d4c-8561-71f0979fb999",
+        "name": "Christina Morales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "145",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3910.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3910",
+          "email": "christina.morales@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-146",
+        "openstates_id": "ocd-person/9dc31ea5-fd89-4909-a9bf-d732ea02282a",
+        "name": "Lauren Simmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "146",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4765.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4765",
+          "email": "laurena.simmons@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-147",
+        "openstates_id": "ocd-person/45cd43ff-77b3-467c-aa61-890ebee8ece5",
+        "name": "Jo Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "147",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4105.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4105",
+          "email": "jolanda.jones@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-148",
+        "openstates_id": "ocd-person/51a281ff-2983-4b4b-baf4-63ee17812835",
+        "name": "Penny Morales Shaw",
+        "party": "D",
+        "chamber": "State House",
+        "district": "148",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4035.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4035",
+          "email": "penny.moralesshaw@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-149",
+        "openstates_id": "ocd-person/5c2743d2-fe0e-41d6-969d-de830d5787f8",
+        "name": "Hubert Vo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "149",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/4900.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/4900",
+          "email": "hubert.vo@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-rep-150",
+        "openstates_id": "ocd-person/7298c6a9-c6be-41cd-a2ba-0cc79c851373",
+        "name": "Valoree Swanson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "150",
+        "role": "State Representative",
+        "photo_url": "https://house.texas.gov/images/members/3425.jpg?v=1",
+        "contact": {
+          "official_website": "https://house.texas.gov/members/3425",
+          "email": "valoree.swanson@house.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

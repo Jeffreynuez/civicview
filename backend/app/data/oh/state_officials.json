@@ -1,0 +1,2173 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "OH",
+  "state_name": "Ohio",
+  "executive": {
+    "governor": {
+      "id": "oh-exec-gov",
+      "name": "Mike DeWine",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://governor.ohio.gov",
+      "photo_url": null,
+      "bio": "Mike DeWine is the Governor of Ohio, serving since 2019. He previously served as Attorney General of Ohio, as a U.S. Senator, and as a U.S. Representative.",
+      "sources": [
+        "https://governor.ohio.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "oh-exec-lieutenant-governor",
+      "name": "Jim Tressel",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://governor.ohio.gov/wps/wcm/connect/gov/12ebe94c-b50b-41d2-b88f-eafb0b1734e7/Jim+Tressel.jpg?MOD=AJPERES"
+    },
+    "cabinet": [
+      {
+        "id": "oh-exec-attorney-general",
+        "name": "Dave Yost",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-OH-yost.jpg"
+      },
+      {
+        "id": "oh-exec-secretary-of-state",
+        "name": "Frank LaRose",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.sos.state.oh.us/globalassets/about/headshot/laroseheadshot-hires.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Ohio State Senate",
+    "members": [
+      {
+        "id": "oh-sen-1",
+        "openstates_id": "ocd-person/e0d52f86-e997-4299-9e50-972a2c208c20",
+        "name": "Rob McColley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/rob-mccolley/headshots/thumbnails/medium/rob-mccolley-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/rob-mccolley",
+          "email": "sd01@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-2",
+        "openstates_id": "ocd-person/0fe32749-fe89-4f96-87d3-3d831bea2459",
+        "name": "Theresa Gavarone",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/theresa-gavarone/headshots/thumbnails/medium/theresa-gavarone-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/theresa-gavarone",
+          "email": "sd02@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-3",
+        "openstates_id": "ocd-person/79af20c0-6eb6-44a2-ba79-9c7e5e10ea04",
+        "name": "Michele Reynolds",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/michele-reynolds/headshots/thumbnails/medium/michele-reynolds-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/michele-reynolds",
+          "email": "reynolds@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-4",
+        "openstates_id": "ocd-person/445d3fc7-d9a5-48d8-8869-f023aa274ae7",
+        "name": "George Lang",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/george-f-lang/headshots/thumbnails/medium/george-f-lang-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/george-f-lang",
+          "email": "sd04@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-5",
+        "openstates_id": "ocd-person/b21d9dcd-21e9-4071-936d-f89fc5d8f643",
+        "name": "Steve Huffman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/stephen-a-huffman/headshots/thumbnails/medium/stephen-a-huffman-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/stephen-a-huffman",
+          "email": "sd05@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-6",
+        "openstates_id": "ocd-person/23c443b0-e2f7-4c7a-af1e-d67d7aa366ce",
+        "name": "Willis Blackshear",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/willis-e-blackshear-jr/headshots/thumbnails/medium/willis-e-blackshear-jr-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/willis-e-blackshear-jr",
+          "email": "sd06@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-7",
+        "openstates_id": "ocd-person/26444e7e-72b2-4838-bc24-31899c90d504",
+        "name": "Steve Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/steve-wilson/headshots/thumbnails/medium/steve-wilson-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/steve-wilson",
+          "email": "sd07@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-8",
+        "openstates_id": "ocd-person/5a9b2a16-6827-4e00-961a-f3de39538749",
+        "name": "Bill Blessing",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/louis-w-blessing-iii/headshots/thumbnails/medium/louis-w-blessing-iii-march-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/louis-w-blessing-iii",
+          "email": "sd08@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-9",
+        "openstates_id": "ocd-person/94ba65dd-57c5-4ab0-b607-5e310d50cae0",
+        "name": "Catherine Ingram",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/catherine-d-ingram/headshots/thumbnails/medium/catherine-d-ingram-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/catherine-d-ingram",
+          "email": "sd09@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-10",
+        "openstates_id": "ocd-person/f2e79c7c-7e3a-496d-8f87-d43b62eb54a5",
+        "name": "Kyle Koehler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://img.legistorm.com/people/980/46980.jpg?rand=345402",
+        "contact": {
+          "official_website": "https://ohiosenate.gov/members/kyle-koehler",
+          "email": "sd10@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-11",
+        "openstates_id": "ocd-person/3329274c-22b6-4b0a-b12a-e64c5733bef9",
+        "name": "Paula Hicks-Hudson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/paula-hicks-hudson/headshots/thumbnails/medium/paula-hicks-hudson-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/paula-hicks-hudson",
+          "email": "sd11@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-12",
+        "openstates_id": "ocd-person/0e44b586-f6a4-44ee-b6b7-37fa8dc2e8cd",
+        "name": "Susan Manchester",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/susan-manchester/headshots/thumbnails/medium/susan-manchester-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/susan-manchester",
+          "email": "sd12@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-13",
+        "openstates_id": "ocd-person/d3508136-3927-461f-a2f0-a85665845ab1",
+        "name": "Nathan Manning",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/nathan-h-manning/headshots/thumbnails/medium/nathan-h-manning-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/nathan-h-manning",
+          "email": "sd13@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-14",
+        "openstates_id": "ocd-person/57300c34-0e2d-4e85-bdce-c4fb8c781541",
+        "name": "Terry Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/terry-johnson/headshots/thumbnails/medium/terry-johnson-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/terry-johnson",
+          "email": "sd14@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-15",
+        "openstates_id": "ocd-person/ed858ef9-97dc-4be8-97ab-006ea96923ae",
+        "name": "Hearcel Craig",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/hearcel-f-craig/headshots/thumbnails/medium/hearcel-f-craig-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/hearcel-f-craig",
+          "email": "sd15@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-16",
+        "openstates_id": "ocd-person/2d01ff0c-25a8-49a2-b571-ab3a7866fcf2",
+        "name": "Beth Liston",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/beth-liston/headshots/thumbnails/medium/beth-liston-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/beth-liston",
+          "email": "sd16@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-17",
+        "openstates_id": "ocd-person/bb1ae016-cdfe-48aa-8bc5-9e3636e430f3",
+        "name": "Shane Wilkin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/shane-wilkin/headshots/thumbnails/medium/shane-wilkin-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/shane-wilkin",
+          "email": "sd17@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-18",
+        "openstates_id": "ocd-person/b27fdceb-e9c1-46b8-9fc2-323c3f6f784c",
+        "name": "Jerry Cirino",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jerry-c-cirino/headshots/thumbnails/medium/jerry-c-cirino-march-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiosenate.gov/members/jerry-c-cirino",
+          "email": "sd18@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-19",
+        "openstates_id": "ocd-person/c61c8eaf-1de9-419d-a5dc-c96787315578",
+        "name": "Andrew Brenner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/andrew-o-brenner/headshots/thumbnails/medium/andrew-o-brenner-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/andrew-o-brenner",
+          "email": "sd19@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-20",
+        "openstates_id": "ocd-person/01a80305-a667-4dda-9676-1e678bddde12",
+        "name": "Tim Schaffer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/tim-schaffer/headshots/thumbnails/medium/tim-schaffer-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/tim-schaffer",
+          "email": "sd20@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-21",
+        "openstates_id": "ocd-person/d9c3dfce-8b7f-402f-9dec-5179e38b528f",
+        "name": "Kent Smith",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/kent-smith/headshots/thumbnails/medium/kent-smith-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/kent-smith",
+          "email": "sd21@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-22",
+        "openstates_id": "ocd-person/2ae62dc8-e902-4a8e-99b7-182477c50bc3",
+        "name": "Mark Romanchuk",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/mark-romanchuk/headshots/thumbnails/medium/mark-romanchuk-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/mark-romanchuk",
+          "email": "sd22@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-23",
+        "openstates_id": "ocd-person/df5c391c-65e8-4d61-a9b9-0249ff6eddb7",
+        "name": "Nickie Antonio",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/nickie-j-antonio/headshots/thumbnails/medium/nickie-j-antonio-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/nickie-j-antonio",
+          "email": "sd23@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-24",
+        "openstates_id": "ocd-person/a57f6c78-ac58-4f7d-870e-0d8052984cd9",
+        "name": "Tom Patton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/thomas-f-patton/headshots/thumbnails/medium/thomas-f-patton-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/thomas-f-patton",
+          "email": "sd24@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-25",
+        "openstates_id": "ocd-person/bdc3493a-a22f-4a6b-b50e-b590216d8cfd",
+        "name": "Bill DeMora",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/william-p-demora/headshots/thumbnails/medium/william-p-demora-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/william-p-demora",
+          "email": "sd25@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-26",
+        "openstates_id": "ocd-person/10733ff7-ee19-4e86-9b5e-65619ddbf7bf",
+        "name": "Bill Reineke",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/bill-reineke/headshots/thumbnails/medium/bill-reineke-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/bill-reineke",
+          "email": "sd26@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-27",
+        "openstates_id": "ocd-person/936e5d50-e145-494b-a397-f56570530816",
+        "name": "Kristina Roegner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/kristina-d-roegner/headshots/thumbnails/medium/kristina-d-roegner-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/kristina-d-roegner",
+          "email": "sd27@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-28",
+        "openstates_id": "ocd-person/d7949531-f267-4e99-9611-87b3ec3e04ac",
+        "name": "Casey Weinstein",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/casey-weinstein/headshots/thumbnails/medium/casey-weinstein-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/casey-weinstein",
+          "email": "sd28@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-29",
+        "openstates_id": "ocd-person/c3b1dc5e-4913-4e2f-b2a8-4db5b3faa1bd",
+        "name": "Jane Timken",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/jane-m-timken",
+          "email": "sd29@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-30",
+        "openstates_id": "ocd-person/eb5ff860-2126-4ac5-8267-9d2d924c3967",
+        "name": "Brian Chavez",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/brian-m-chavez/headshots/thumbnails/medium/brian-m-chavez-december-2023-headshot-10001385_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/brian-m-chavez",
+          "email": "sd30@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-31",
+        "openstates_id": "ocd-person/debec71d-fcfb-4422-9c9e-c6a8709cbb3a",
+        "name": "Al Landis",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/al-landis/headshots/thumbnails/medium/al-landis-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiosenate.gov/members/al-landis",
+          "email": "sd31@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-32",
+        "openstates_id": "ocd-person/d665e333-f7e3-43e2-b440-17920f62c60b",
+        "name": "Sandy O'Brien",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/sandra-obrien/headshots/thumbnails/medium/sandra-obrien-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiosenate.gov/members/sandra-obrien",
+          "email": "sd32@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-sen-33",
+        "openstates_id": "ocd-person/6a1fc3b1-ebfd-47b7-adec-ddcd84d137c9",
+        "name": "Al Cutrona",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/al-cutrona/headshots/thumbnails/medium/al-cutrona-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/al-cutrona",
+          "email": "sd33@ohiosenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Ohio State House",
+    "members": [
+      {
+        "id": "oh-rep-1",
+        "openstates_id": "ocd-person/74c1210d-fb56-4522-8d3a-0a2bb08c972b",
+        "name": "Dontavius Jarrells",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/dontavius-l-jarrells/headshots/thumbnails/medium/dontavius-l-jarrells-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/dontavius-l-jarrells",
+          "email": "rep01@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-2",
+        "openstates_id": "ocd-person/b2c76bf8-569f-4e80-bd3d-fa8273a8356c",
+        "name": "Latyna Humphrey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/latyna-m-humphrey/headshots/thumbnails/medium/latyna-m-humphrey-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/latyna-m-humphrey",
+          "email": "rep02@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-3",
+        "openstates_id": "ocd-person/ed31c4e5-e835-4c4c-9352-217f5dcf1037",
+        "name": "Ismail Mohamed",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/ismail-mohamed/headshots/thumbnails/medium/ismail-mohamed-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/ismail-mohamed",
+          "email": "rep03@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-4",
+        "openstates_id": "ocd-person/dc1a25bf-ebf6-4d5c-b5c3-32f9fdb8b2ed",
+        "name": "Beryl Piccolantonio",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/beryl-piccolantonio",
+          "email": "rep04@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-5",
+        "openstates_id": "ocd-person/4b1e7c00-c159-407e-83d8-2eb24ba175db",
+        "name": "Meredith Lawson‐Rowe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://thenewamericansmag.com/wp-content/uploads/2024/03/Meredith-Lawson-Rowe.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/meredith-r-lawson-rowe",
+          "email": "rep05@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-6",
+        "openstates_id": "ocd-person/b76c6e1e-8b9d-42bf-b615-73270b132773",
+        "name": "Christine Cockley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ChristineCockley2024.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/christine-cockley",
+          "email": "rep06@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-7",
+        "openstates_id": "ocd-person/c58b6767-730d-4486-a08e-462ea3af3bfe",
+        "name": "Allison Russo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/c-allison-russo/headshots/thumbnails/medium/c-allison-russo-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/c-allison-russo",
+          "email": "rep07@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-8",
+        "openstates_id": "ocd-person/3bfe0748-5423-4fcf-9962-905d2b747f23",
+        "name": "Anita Somani",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/anita-somani/headshots/thumbnails/medium/anita-somani-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/anita-somani",
+          "email": "rep08@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-9",
+        "openstates_id": "ocd-person/538fefb8-d8ae-48f5-bb07-4161e2ccac55",
+        "name": "Munira Abdullahi",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/munira-abdullahi/headshots/thumbnails/medium/munira-yasin-abdullahi-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/munira-abdullahi",
+          "email": "rep09@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-10",
+        "openstates_id": "ocd-person/8750be20-9a0c-41e4-bb32-4061c787a7e2",
+        "name": "Mark Sigrist",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/662d9bb55b29343555b12d33/fdca756a-8e4a-41ea-aed9-0ec72d720e82/cropped.jpg?format=750w",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/mark-sigrist",
+          "email": "rep10@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-11",
+        "openstates_id": "ocd-person/aede29b6-7798-45b7-8401-5004cf1c29f9",
+        "name": "Crystal Lett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://i0.wp.com/lettsgoohio.com/wp-content/uploads/2024/07/Meet-Crystal.webp?resize=674%2C1024&ssl=1",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/crystal-lett",
+          "email": "rep11@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-12",
+        "openstates_id": "ocd-person/f4e6c51a-89bd-4841-848b-b1097fd3fc9d",
+        "name": "Brian Stewart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/brian-stewart/headshots/thumbnails/medium/brian-stewart-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/brian-stewart",
+          "email": "rep12@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-13",
+        "openstates_id": "ocd-person/18864718-3e48-4236-9afb-b1a61e4c52e2",
+        "name": "Tristan Rader",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TristanRader2.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/tristan-rader",
+          "email": "rep13@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-14",
+        "openstates_id": "ocd-person/993f089c-60bf-418d-9704-fa92e4f01c71",
+        "name": "Sean Brennan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/sean-p-brennan/headshots/thumbnails/medium/sean-p-brennan-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/sean-p-brennan",
+          "email": "rep14@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-15",
+        "openstates_id": "ocd-person/80daf159-0742-4a3f-9575-e6492155c911",
+        "name": "Chris Glassburn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/fdba7286-8a27-4b98-a8ec-557eff11bd3a/IMG_3635.jpg/:/cr=t:5.66%25,l:0%25,w:94.34%25,h:94.34%25/rs=w:365,h:487,cg:true,m",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/chris-glassburn",
+          "email": "rep15@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-16",
+        "openstates_id": "ocd-person/2481dfc7-d260-49c6-9461-9e6048ed27a2",
+        "name": "Bride Sweeney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/bride-rose-sweeney/headshots/thumbnails/medium/bride-rose-sweeney-january-2019-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/bride-rose-sweeney",
+          "email": "rep16@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-17",
+        "openstates_id": "ocd-person/cc85c295-299f-4de7-bb56-1de3a451951e",
+        "name": "Mike Dovilla",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "http://www.ohiohouse.gov/Assets/Headshots/Small/7.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/michael-d-dovilla",
+          "email": "rep17@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-18",
+        "openstates_id": "ocd-person/ede2c8b0-9c35-4ebf-9a4a-4349fe4cc224",
+        "name": "Juanita Brent",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/juanita-o-brent/headshots/thumbnails/medium/juanita-o-brent-january-2019-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/juanita-o-brent",
+          "email": "rep18@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-19",
+        "openstates_id": "ocd-person/78d5adbb-ec6a-4212-9cc7-335f5d9ded8c",
+        "name": "Phil Robinson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/phillip-m-robinson-jr/headshots/thumbnails/medium/phillip-m-robinson-jr-january-2019-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/phillip-m-robinson-jr",
+          "email": "rep19@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-20",
+        "openstates_id": "ocd-person/a4c53220-d4a7-4591-b2d8-109516dc9401",
+        "name": "Terrence Upchurch",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/terrence-upchurch/headshots/thumbnails/medium/terrence-upchurch-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/terrence-upchurch",
+          "email": "rep20@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-21",
+        "openstates_id": "ocd-person/1ebfe182-1b49-4e69-b7f3-2fd528c70d73",
+        "name": "Eric Synenberg",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://synenberg.com/wp-content/uploads/2018/07/synenberg-eric-e1532726812589.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/eric-synenberg",
+          "email": "rep21@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-22",
+        "openstates_id": "ocd-person/a75181f0-f0e8-4af3-aefd-6cc08543af1a",
+        "name": "Darnell Brewer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/darnell-t-brewer/headshots/thumbnails/medium/darnell-t-brewer-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/darnell-t-brewer",
+          "email": "rep22@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-23",
+        "openstates_id": "ocd-person/04d4dc4f-a38a-4d50-8962-ea961550b2ff",
+        "name": "Dan Troy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/daniel-p-troy/headshots/thumbnails/medium/daniel-p-troy-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/daniel-p-troy",
+          "email": "rep23@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-24",
+        "openstates_id": "ocd-person/1cc15373-6101-48fb-9597-d731c115eb70",
+        "name": "Dani Isaacsohn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/dani-isaacsohn/headshots/thumbnails/medium/dani-isaacsohn-april-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/dani-isaacsohn",
+          "email": "rep24@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-25",
+        "openstates_id": "ocd-person/5ba7ae7d-2f10-42b7-8784-8e734507ce33",
+        "name": "Cecil Thomas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/cecil-thomas/headshots/thumbnails/medium/cecil-thomas-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/cecil-thomas",
+          "email": "rep25@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-26",
+        "openstates_id": "ocd-person/6d39391d-7068-4ad3-866d-4ee59890ce6e",
+        "name": "Ashley Bryant Bailey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/ashley-bryant-bailey",
+          "email": "rep26@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-27",
+        "openstates_id": "ocd-person/36f320a8-be34-43c2-ac73-ee87fbce6b0c",
+        "name": "Rachel Baker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/rachel-b-baker/headshots/thumbnails/medium/rachel-b-baker-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/rachel-b-baker",
+          "email": "rep27@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-28",
+        "openstates_id": "ocd-person/a13af74a-5ade-4769-8a76-db942fe71002",
+        "name": "Karen Brownlee",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.gongwer-oh.com/public/KarenBrownlee_Cropped.png",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/karen-brownlee",
+          "email": "rep28@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-29",
+        "openstates_id": "ocd-person/9ae0194c-0f5b-44c6-b84f-a0ec4d3f3a61",
+        "name": "Cindy Abrams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/cindy-abrams/headshots/thumbnails/medium/cindy-abrams-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/cindy-abrams",
+          "email": "rep29@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-30",
+        "openstates_id": "ocd-person/72bb7360-10c1-42d9-8781-32ddf8fef5fd",
+        "name": "Mike Odioso",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MikeOdioso2024.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/mike-odioso",
+          "email": "rep30@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-31",
+        "openstates_id": "ocd-person/4cece9f3-e252-438b-8255-a2150a4ed599",
+        "name": "Bill Roemer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/bill-roemer/headshots/thumbnails/medium/bill-roemer-january-2019-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/bill-roemer",
+          "email": "rep31@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-32",
+        "openstates_id": "ocd-person/9c459852-5ff7-4607-a09a-6ee2480dece1",
+        "name": "Jack Daniels",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JackKDaniels24.png",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/jack-k-daniels",
+          "email": "rep32@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-33",
+        "openstates_id": "ocd-person/8b367fce-9be2-4848-837a-a475c3d531e4",
+        "name": "Veronica Sims",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Veronica_Sims.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/veronica-r-sims",
+          "email": "rep33@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-34",
+        "openstates_id": "ocd-person/826530cc-f105-42c8-96db-e5ff7d1a966d",
+        "name": "Derrick Hall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://derrickhallforohio.com/wp-content/uploads/2024/01/derrick-hall.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/derrick-hall",
+          "email": "rep34@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-35",
+        "openstates_id": "ocd-person/854b6ce3-a4e1-46db-959a-aa286e4e8942",
+        "name": "Steve Demetriou",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/steve-demetriou/headshots/thumbnails/medium/steve-demetriou-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/steve-demetriou",
+          "email": "rep35@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-36",
+        "openstates_id": "ocd-person/07c054e9-9a51-41b2-994a-8f63b0148d07",
+        "name": "Andrea White",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/andrea-white/headshots/thumbnails/medium/andrea-white-march-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/andrea-white",
+          "email": "rep36@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-37",
+        "openstates_id": "ocd-person/d2ecec1d-db13-4a47-836b-9e75f3a31c78",
+        "name": "Tom Young",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/tom-young/headshots/thumbnails/medium/tom-young-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/tom-young",
+          "email": "rep37@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-38",
+        "openstates_id": "ocd-person/86352961-5ebc-408a-9f16-8d801c7476dc",
+        "name": "Desireè Tims",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/651c6aab7b083a0ae328c9b0/bdc196f5-d426-4103-bd2c-a29517a8e9cf/headshot+state+rep.JPG?format=500w",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/desiree-tims",
+          "email": "rep38@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-39",
+        "openstates_id": "ocd-person/1e218942-95f6-43fe-b935-b19ab70fd5fc",
+        "name": "Phil Plummer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/phil-plummer/headshots/thumbnails/medium/phil-plummer-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/phil-plummer",
+          "email": "rep39@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-40",
+        "openstates_id": "ocd-person/c34a852a-71fc-4b21-a594-bc4a75b799c8",
+        "name": "Rodney Creech",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/rodney-creech/headshots/thumbnails/medium/rodney-creech-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/rodney-creech",
+          "email": "rep40@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-41",
+        "openstates_id": "ocd-person/ab851536-a9e6-45d7-b2fe-fad70f5acf07",
+        "name": "Erika White",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://i0.wp.com/erikaforohio.org/wp-content/uploads/2024/06/Erika_2024_enhanced.png?fit=600%2C742&ssl=1",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/erika-white",
+          "email": "rep41@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-42",
+        "openstates_id": "ocd-person/bfe003c4-6a28-46d6-b831-07bfe8662926",
+        "name": "Elgin Rogers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/elgin-rogers-jr/headshots/thumbnails/medium/elgin-rogers-jr-november-2022-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/elgin-rogers-jr",
+          "email": "rep42@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-43",
+        "openstates_id": "ocd-person/100ae6b0-0c5d-4b97-9ac5-8ccb42b9168b",
+        "name": "Michele Grim",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/michele-grim/headshots/thumbnails/medium/michele-grim-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/michele-grim",
+          "email": "rep43@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-44",
+        "openstates_id": "ocd-person/1e52d1da-3e5c-442e-a460-d63b62709edf",
+        "name": "Josh Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/josh-williams/headshots/thumbnails/medium/josh-williams-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/josh-williams",
+          "email": "rep44@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-45",
+        "openstates_id": "ocd-person/4817cf28-df1f-4ccc-bc09-25809222e530",
+        "name": "Jennifer Gross",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jennifer-gross/headshots/thumbnails/medium/jennifer-gross-july-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/jennifer-gross",
+          "email": "rep45@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-46",
+        "openstates_id": "ocd-person/7948afad-ec3c-4e4c-a073-305fb8cd1b21",
+        "name": "Thomas Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/thomas-hall/headshots/thumbnails/medium/thomas-hall-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/thomas-hall",
+          "email": "rep46@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-47",
+        "openstates_id": "ocd-person/deed175e-5c44-48f0-b2c0-baa342b2baf1",
+        "name": "Diane Mullins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/401180/401180.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/diane-mullins",
+          "email": "rep47@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-48",
+        "openstates_id": "ocd-person/52424e91-a002-4908-a205-4ea27cfe68da",
+        "name": "Scott Oelslager",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/scott-oelslager/headshots/thumbnails/medium/scott-oelslager-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/scott-oelslager",
+          "email": "rep48@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-49",
+        "openstates_id": "ocd-person/ba95511f-3692-426c-bf85-c41ff737eeec",
+        "name": "Jim Thomas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jim-thomas/headshots/thumbnails/medium/jim-thomas-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/jim-thomas",
+          "email": "rep49@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-50",
+        "openstates_id": "ocd-person/7ab0cf86-d569-4a6e-8677-8cd7721a9475",
+        "name": "Matt Kishman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/65a09d4d50790252eca6f810/be978e73-e9f1-4978-9bcf-9553f9a6d410/Kishman+Matthew_2270.jpg?format=500w",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/matthew-kishman",
+          "email": "rep50@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-51",
+        "openstates_id": "ocd-person/f1715f7b-6a29-4dd2-a34f-b94c87088890",
+        "name": "Jodi Salvo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JodiSalvo.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/jodi-salvo",
+          "email": "rep51@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-52",
+        "openstates_id": "ocd-person/b29aadca-f2da-4f09-8a1d-7aa328768507",
+        "name": "Gayle Manning",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/gayle-manning/headshots/thumbnails/medium/gayle-manning-january-2019-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/gayle-manning",
+          "email": "rep52@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-53",
+        "openstates_id": "ocd-person/9b5a9ff9-b35a-49aa-aa64-5d2bab574843",
+        "name": "Joe Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/joseph-a-miller-iii/headshots/thumbnails/medium/joseph-a-miller-iii-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/joseph-a-miller-iii",
+          "email": "rep53@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-54",
+        "openstates_id": "ocd-person/97821235-4116-44d1-b58b-acf822bbdc58",
+        "name": "Kellie Deeter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kellie_Deeter_20240829_073240.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/kellie-deeter",
+          "email": "rep54@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-55",
+        "openstates_id": "ocd-person/d06c06f8-2f63-4a29-8388-ed0747b97f48",
+        "name": "Michelle Teska",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/57b3a5_db008a611c184fbeb2cf20bb55a41080~mv2.jpg/v1/fill/w_689,h_812,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Michelle%20(15%20of%2024)%20(1)_edited.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/michelle-teska",
+          "email": "rep55@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-56",
+        "openstates_id": "ocd-person/b04e2962-e7c6-46b8-9a99-d7a6d3a32717",
+        "name": "Adam Mathews",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/adam-mathews/headshots/thumbnails/medium/adam-mathews-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/adam-mathews",
+          "email": "rep56@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-57",
+        "openstates_id": "ocd-person/4b7cbc16-7a67-4a61-8fd5-77a857270774",
+        "name": "Jamie Callender",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jamie-callender/headshots/thumbnails/medium/jamie-callender-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/jamie-callender",
+          "email": "rep57@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-58",
+        "openstates_id": "ocd-person/19cbe255-2cdb-47c4-b70a-693b6bf6665b",
+        "name": "Lauren McNally",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/lauren-mcnally/headshots/thumbnails/medium/lauren-mcnally-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/lauren-mcnally",
+          "email": "rep58@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-59",
+        "openstates_id": "ocd-person/16e469e4-8014-4ba2-8fc4-91804d6ef491",
+        "name": "Tex Fischer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://ogden_images.s3.amazonaws.com/www.salemnews.net/images/2024/06/27232837/Fischer-Tex.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/houseapp/members/tex-fischer",
+          "email": "rep59@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-60",
+        "openstates_id": "ocd-person/a3ccce64-ea28-47dc-8bab-3af6ed2dd860",
+        "name": "Brian Lorenz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/brian-lorenz/headshots/thumbnails/medium/brian-lorenz-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/brian-lorenz",
+          "email": "rep60@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-61",
+        "openstates_id": "ocd-person/de0a6483-7c16-43e1-a76b-c0cc98a9d7ed",
+        "name": "Beth Lear",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/beth-lear/headshots/thumbnails/medium/beth-lear-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/beth-lear",
+          "email": "rep61@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-62",
+        "openstates_id": "ocd-person/392629a2-7bb2-47df-8128-d4cd7d858324",
+        "name": "Jean Schmidt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ohiohouse.gov/jean-schmidt",
+          "email": "rep62@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-63",
+        "openstates_id": "ocd-person/0c6a7bcf-e990-41a0-b59c-923f05771880",
+        "name": "Adam Bird",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/adam-c-bird/headshots/thumbnails/medium/adam-c-bird-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/adam-c-bird",
+          "email": "rep63@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-64",
+        "openstates_id": "ocd-person/64305698-f25c-486e-b57f-00298cfbe15d",
+        "name": "Nick Santucci",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/nick-santucci/headshots/thumbnails/medium/nick-santucci-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/nick-santucci",
+          "email": "rep64@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-65",
+        "openstates_id": "ocd-person/170299dd-f2e4-463e-8b8b-ea3b75946120",
+        "name": "David Thomas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DavidThomas2024.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/david-thomas",
+          "email": "rep65@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-66",
+        "openstates_id": "ocd-person/352d7ee9-256c-4195-a673-17b7ee200948",
+        "name": "Sharon Ray",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/sharon-a-ray/headshots/thumbnails/medium/sharon-a-ray-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/sharon-a-ray",
+          "email": "rep66@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-67",
+        "openstates_id": "ocd-person/fb957ddc-f41c-400d-ae32-47f7e729555b",
+        "name": "Melanie Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/melanie-miller/headshots/thumbnails/medium/melanie-miller-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/melanie-miller",
+          "email": "rep67@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-68",
+        "openstates_id": "ocd-person/081534e7-8952-47f0-a722-ed627fb32069",
+        "name": "Thad Claggett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/thaddeus-j-claggett/headshots/thumbnails/medium/thaddeus-j-claggett-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/thaddeus-j-claggett",
+          "email": "rep68@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-69",
+        "openstates_id": "ocd-person/cefb7a31-f46c-4145-9f38-901be3b70e60",
+        "name": "Kevin Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/kevin-d-miller/headshots/thumbnails/medium/kevin-d-miller-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/kevin-d-miller",
+          "email": "rep69@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-70",
+        "openstates_id": "ocd-person/1895e223-ba42-4e25-8cd0-915ca5cc2829",
+        "name": "Brian Lampton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/brian-e-lampton/headshots/thumbnails/medium/brian-e-lampton-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/brian-e-lampton",
+          "email": "rep70@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-71",
+        "openstates_id": "ocd-person/1dcb1bfa-861d-4d16-8d7d-02364e1b4def",
+        "name": "Levi Dean",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/678132/678132.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/levi-dean",
+          "email": "rep71@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-72",
+        "openstates_id": "ocd-person/098614cd-1972-4b98-ade6-4f5fa7cefe5b",
+        "name": "Heidi Workman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://www.record-courier.com/gcdn/authoring/authoring-images/2024/03/05/NREC/72855871007-heidi-workman.jpg?width=412&height=872&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/heidi-workman",
+          "email": "rep72@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-73",
+        "openstates_id": "ocd-person/60fdc824-a8ab-44fa-80ca-053d8698218e",
+        "name": "Jeff LaRe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jeff-lare/headshots/thumbnails/medium/jeff-lare-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/jeff-lare",
+          "email": "rep73@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-74",
+        "openstates_id": "ocd-person/550986e6-b595-4fa8-9424-8e09327cf060",
+        "name": "Bernie Willis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/bernard-willis/headshots/thumbnails/medium/bernard-willis-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/bernard-willis",
+          "email": "rep74@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-75",
+        "openstates_id": "ocd-person/82dd3548-078a-41a8-8c5b-6c652d88d0d2",
+        "name": "Haraz Ghanbari",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/haraz-n-ghanbari/headshots/thumbnails/medium/haraz-n-ghanbari-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/haraz-n-ghanbari",
+          "email": "rep75@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-76",
+        "openstates_id": "ocd-person/e4f9416c-1043-4737-899e-31410e94af1d",
+        "name": "Marilyn John",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/marilyn-s-john/headshots/thumbnails/medium/marilyn-s-john-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/marilyn-s-john",
+          "email": "rep76@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-77",
+        "openstates_id": "ocd-person/75257af6-5d83-4d3b-b127-744aaa377c9f",
+        "name": "Meredith Craig",
+        "party": "R",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.meredithcraigforohio.com/dejilah/sites/522/2024/08/craig-new-photo.png",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/meredith-craig",
+          "email": "rep77@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-78",
+        "openstates_id": "ocd-person/23d51717-c6eb-4a2c-bd55-038c72593a61",
+        "name": "Matt Huffman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/matt-huffman/headshots/thumbnails/medium/matt-huffman-may-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/matt-huffman",
+          "email": "rep78@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-79",
+        "openstates_id": "ocd-person/062b9622-c2fa-4af2-bbea-704f0450dd47",
+        "name": "Monica Blasdel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/monica-robb-blasdel/headshots/thumbnails/medium/monica-robb-blasdel-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/monica-robb-blasdel",
+          "email": "rep79@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-80",
+        "openstates_id": "ocd-person/9d7cc971-9ed9-4918-b93f-39d41d35e565",
+        "name": "Johnathan Newman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnathanNewman2024.jpeg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/johnathan-newman",
+          "email": "rep80@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-81",
+        "openstates_id": "ocd-person/1a598246-01e8-44c8-beca-2c41e1bafb77",
+        "name": "Jim Hoops",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/james-m-hoops/headshots/thumbnails/medium/james-m-hoops-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/james-m-hoops",
+          "email": "rep81@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-82",
+        "openstates_id": "ocd-person/73e72147-0d40-4478-bbf6-3419f0e00b46",
+        "name": "Roy Klopfenstein",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/roy-klopfenstein/headshots/thumbnails/medium/roy-klopfenstein-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/roy-klopfenstein",
+          "email": "rep82@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-83",
+        "openstates_id": "ocd-person/09c752d1-59eb-4f43-b401-5092d801f4c1",
+        "name": "Ty Mathews",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TyMathews2024.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/ty-d-mathews",
+          "email": "rep83@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-84",
+        "openstates_id": "ocd-person/4ed8184a-01ff-4bdc-a06c-cbf8b4c73fd6",
+        "name": "Angie King",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/angela-n-king/headshots/thumbnails/medium/angela-n-king-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/angela-n-king",
+          "email": "rep84@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-85",
+        "openstates_id": "ocd-person/fa5ff978-34ff-49d1-958e-4e356a8ef9d4",
+        "name": "Tim Barhorst",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/tim-barhorst/headshots/thumbnails/medium/tim-barhorst-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://www.ohiohouse.gov/members/tim-barhorst",
+          "email": "rep85@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-86",
+        "openstates_id": "ocd-person/7bcb4dfa-e4d3-46cd-b158-057b1b4b9a0a",
+        "name": "Tracy Richardson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/tracy-m-richardson/headshots/thumbnails/medium/tracy-m-richardson-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/tracy-m-richardson",
+          "email": "rep86@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-87",
+        "openstates_id": "ocd-person/d6ca7e4f-dcf2-4aad-a919-a2740bae649a",
+        "name": "Riordan McClain",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/riordan-t-mcclain/headshots/thumbnails/medium/riordan-t-mcclain-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/riordan-t-mcclain",
+          "email": "rep87@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-88",
+        "openstates_id": "ocd-person/04e3c98a-4ede-4501-b914-4fa13fbad194",
+        "name": "Gary Click",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/gary-click/headshots/thumbnails/medium/gary-click-january-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/gary-click",
+          "email": "rep88@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-89",
+        "openstates_id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
+        "name": "D.J. Swearingen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/d-j-swearingen/headshots/thumbnails/medium/d-j-swearingen-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/d-j-swearingen",
+          "email": "rep89@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-90",
+        "openstates_id": "ocd-person/9892fcd7-9432-425f-85a6-7599fbe3177d",
+        "name": "Justin Pizzulli",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/justin-pizzulli/headshots/thumbnails/medium/justin-pizzulli-july-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/justin-pizzulli",
+          "email": "rep90@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-91",
+        "openstates_id": "ocd-person/cdc9f705-514e-4445-ac17-9aeac8f67e97",
+        "name": "Bob Peterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/bob-peterson/headshots/thumbnails/medium/bob-peterson-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/bob-peterson",
+          "email": "rep91@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-92",
+        "openstates_id": "ocd-person/4af0e8db-ad18-424f-abfa-ce31e37c0b7d",
+        "name": "Mark Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/mark-johnson/headshots/thumbnails/medium/mark-johnson-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/mark-johnson",
+          "email": "rep92@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-93",
+        "openstates_id": "ocd-person/fbd5ca34-d2ed-41d0-a0f8-03ee8eca8a4d",
+        "name": "Jason Stephens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/jason-stephens/headshots/thumbnails/medium/jason-stephens-november-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/jason-stephens",
+          "email": "rep93@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-94",
+        "openstates_id": "ocd-person/94df9e98-c52e-466a-ba6b-29cc21ee02ea",
+        "name": "Kevin Ritter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kevin_KevinRitter_20240808_092548.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/kevin-ritter",
+          "email": "rep94@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-95",
+        "openstates_id": "ocd-person/392b392f-7424-4826-9f65-6b84a805473b",
+        "name": "Ty Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ty_Moore.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/ty-moore",
+          "email": "rep95@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-96",
+        "openstates_id": "ocd-person/52608475-9678-45ce-823a-74f9c931682c",
+        "name": "Ron Ferguson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/ron-ferguson/headshots/thumbnails/medium/ron-ferguson-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/ron-ferguson",
+          "email": "rep96@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-97",
+        "openstates_id": "ocd-person/78912d95-3dac-4487-810a-74be41508ebb",
+        "name": "Adam Holmes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/adam-holmes/headshots/thumbnails/medium/adam-holmes-january-2021-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/adam-holmes",
+          "email": "rep97@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-98",
+        "openstates_id": "ocd-person/292d1329-8a45-402b-8d6e-8f3b4726187a",
+        "name": "Mark Hiner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Hiner.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/mark-hiner",
+          "email": "rep98@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "oh-rep-99",
+        "openstates_id": "ocd-person/5b3a7d10-e745-4985-ade9-d7fff6ae6af4",
+        "name": "Sarah Fowler Arthur",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.ohio.gov/assets/people/sarah-fowler-arthur/headshots/thumbnails/medium/sarah-fowler-arthur-february-2023-headshot_medium.jpg",
+        "contact": {
+          "official_website": "https://ohiohouse.gov/members/sarah-fowler-arthur",
+          "email": "rep99@ohiohouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

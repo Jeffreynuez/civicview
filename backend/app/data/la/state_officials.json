@@ -1,0 +1,2336 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "LA",
+  "state_name": "Louisiana",
+  "executive": {
+    "governor": {
+      "id": "la-exec-gov",
+      "name": "Jeff Landry",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2024",
+      "website": "https://gov.louisiana.gov",
+      "photo_url": null,
+      "bio": "Jeff Landry is the Governor of Louisiana, serving since 2024.",
+      "sources": [
+        "https://gov.louisiana.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Louisiana State Senate",
+    "members": [
+      {
+        "id": "la-sen-1",
+        "openstates_id": "ocd-person/cfe19d33-7048-4fb7-9d56-0fa0f5f985f5",
+        "name": "Bob Owen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen1.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=1",
+          "email": "sen01@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-2",
+        "openstates_id": "ocd-person/1899dc2e-bac6-4951-b3fc-87ea5e2d4969",
+        "name": "Ed Price",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen2.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=2",
+          "email": "pricee@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-3",
+        "openstates_id": "ocd-person/7b4128f7-b147-4cdd-b6ee-0d7d3f2edb6f",
+        "name": "Sidney Barthelemy",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=3",
+          "email": "sen03@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-4",
+        "openstates_id": "ocd-person/ce11601e-9a67-48a1-9408-b80943312303",
+        "name": "Jimmy Harris",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen4.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=99",
+          "email": "harrisj@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-5",
+        "openstates_id": "ocd-person/7d852e7a-ae99-4f89-b4c0-4d7cb7e816db",
+        "name": "Royce Duplessis",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen5.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=93",
+          "email": "duplessisr@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-6",
+        "openstates_id": "ocd-person/e49647e3-b5c3-4329-9472-27048115441c",
+        "name": "Rick Edmonds",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen6.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=66",
+          "email": "sen06@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-7",
+        "openstates_id": "ocd-person/60ffe8d0-0469-4eca-a69a-deec93c203b3",
+        "name": "Gary Carter",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen7.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=102",
+          "email": "carterg@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-8",
+        "openstates_id": "ocd-person/a5240587-95aa-4135-befc-de2ea2aa1d51",
+        "name": "Patrick Connick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen8.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=84",
+          "email": "connickp@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-9",
+        "openstates_id": "ocd-person/684d1cc7-cce3-4545-a6ab-d689c7c56105",
+        "name": "Cameron Henry",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen9.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=9",
+          "email": "henryc@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-10",
+        "openstates_id": "ocd-person/f6f401f7-7fb4-40df-84a0-b5a3f0fe9ec2",
+        "name": "Kirk Talbot",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen10.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=78",
+          "email": "talbotk@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-11",
+        "openstates_id": "ocd-person/d4a6db65-2f6f-464f-ae26-58176f2b68e6",
+        "name": "Patrick McMath",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen11.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=11",
+          "email": "sen11@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-12",
+        "openstates_id": "ocd-person/b6e8a5cf-ec5c-494b-b9ff-efa0fb92e1c1",
+        "name": "Beth Mizell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen12.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=12",
+          "email": "mizellb@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-13",
+        "openstates_id": "ocd-person/33e76c3a-a834-444c-9872-fc2af5c83837",
+        "name": "Valarie Hodges",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen13.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=64",
+          "email": "sen13@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-14",
+        "openstates_id": "ocd-person/52035a94-6995-4ea4-b463-1109d683048b",
+        "name": "Larry Selders",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep67.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=67",
+          "email": "sen14@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-15",
+        "openstates_id": "ocd-person/8710f3da-9aea-41a9-acd2-181377cc6ae7",
+        "name": "Regina Barrow",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen15.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=15",
+          "email": "barrowr@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-16",
+        "openstates_id": "ocd-person/a8344aaa-aff7-42b3-b1a2-59539191fbb2",
+        "name": "Franklin Foil",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen16.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=70",
+          "email": "foilf@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-17",
+        "openstates_id": "ocd-person/75f165af-66d1-464e-99b0-4176b8636501",
+        "name": "Caleb Kleinpeter",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen17.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=17",
+          "email": "sen17@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-18",
+        "openstates_id": "ocd-person/c89a156e-8426-4001-8364-94a179482d76",
+        "name": "Eddie Lambert",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen18.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=18",
+          "email": "lamberte@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-19",
+        "openstates_id": "ocd-person/77166b5f-e299-431c-869d-ab2fff79cd33",
+        "name": "Greg Miller",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen19.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=19",
+          "email": "sen19@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-20",
+        "openstates_id": "ocd-person/750a2868-c9b0-4124-95c7-3516f93ff087",
+        "name": "Mike Fési",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen20.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=20",
+          "email": "sen20@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-21",
+        "openstates_id": "ocd-person/655ddc35-ecd0-4db2-a3fe-cd86f1cb7d61",
+        "name": "Robert Allain",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen21.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=21",
+          "email": "sen21@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-22",
+        "openstates_id": "ocd-person/8574f94d-93ed-49b0-a5f6-aa1832b5542a",
+        "name": "Blake Miguez",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen22.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=49",
+          "email": "sen22@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-23",
+        "openstates_id": "ocd-person/92439b80-4646-445b-939f-5414e309f183",
+        "name": "Brach Myers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep45.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=45",
+          "email": "sen23@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-24",
+        "openstates_id": "ocd-person/379e9992-463c-4188-9702-668457a75c3d",
+        "name": "Gerald Boudreaux",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen24.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=24",
+          "email": "boudreauxg@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-25",
+        "openstates_id": "ocd-person/addae848-cfaf-4637-a23e-595e45c6e14f",
+        "name": "Mark Abraham",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen25.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=36",
+          "email": "abrahamm@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-26",
+        "openstates_id": "ocd-person/7dac3861-2ffb-45ba-b690-a8e199eb2acd",
+        "name": "Bob Hensgens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen26.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=26",
+          "email": "sen26@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-27",
+        "openstates_id": "ocd-person/e8c847e2-5ee6-4f9c-a4e4-d7d8daa8464c",
+        "name": "Jeremy Stine",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen27.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=27",
+          "email": "sen27@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-28",
+        "openstates_id": "ocd-person/aa2da413-7e13-4c2b-93e8-784edc0a495e",
+        "name": "Heather Cloud",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen28.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=28",
+          "email": "sen28@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-29",
+        "openstates_id": "ocd-person/b4a4657a-e588-4036-9a0f-48847e22a140",
+        "name": "Jay Luneau",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen29.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=29",
+          "email": "luneauj@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-30",
+        "openstates_id": "ocd-person/723f3444-f927-44b0-8659-7ac00370aa92",
+        "name": "Mike Reese",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen30.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=30",
+          "email": "sen30@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-31",
+        "openstates_id": "ocd-person/5032448a-7275-4a02-8dc1-d251cdde8ad9",
+        "name": "Alan Seabaugh",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen31.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=5",
+          "email": "sen31@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-32",
+        "openstates_id": "ocd-person/25923053-3679-443e-bbb1-e2f63a50585c",
+        "name": "Glen Womack",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen32.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=32",
+          "email": "sen32@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-33",
+        "openstates_id": "ocd-person/dd47283c-c202-461f-b56a-8cc2c0b14f15",
+        "name": "Stewart Cathey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen33.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=33",
+          "email": "sen33@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-34",
+        "openstates_id": "ocd-person/acdaa5e6-3b22-44b9-8b47-480b801483dd",
+        "name": "Katrina Jackson-Andrews",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen34.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers.aspx?ID=34",
+          "email": "jacksonk@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-35",
+        "openstates_id": "ocd-person/9d6aa1d9-76b2-41ad-a3e0-4fa86da08645",
+        "name": "Jay Morris",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenatorPics/Sen35.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=14",
+          "email": "morrisjc@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-36",
+        "openstates_id": "ocd-person/0d1a7b74-9ed8-4d8c-a1fc-f2caafc3d364",
+        "name": "Adam Bass",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen36.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=36",
+          "email": "sen36@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-37",
+        "openstates_id": "ocd-person/20547e38-711f-4012-9217-b739f4450b91",
+        "name": "Bill Wheat",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen37.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=37",
+          "email": "sen37@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-38",
+        "openstates_id": "ocd-person/577fe2a3-275b-4b82-b508-c0ce29deb2fa",
+        "name": "Thomas Pressly",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen38.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=38",
+          "email": "sen38@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-sen-39",
+        "openstates_id": "ocd-person/fc43b9e1-5e0d-4767-a12e-b2e801444d22",
+        "name": "Sam Jenkins",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://senate.la.gov/SenPics/Sen39.jpg",
+        "contact": {
+          "official_website": "https://senate.la.gov/smembers?ID=39",
+          "email": "sen39@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Louisiana State House",
+    "members": [
+      {
+        "id": "la-rep-1",
+        "openstates_id": "ocd-person/dc59ede6-164c-4fd4-adc1-7e080309776b",
+        "name": "Danny McCormick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep1.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=1",
+          "email": "hse001@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-2",
+        "openstates_id": "ocd-person/9c50a5a9-a217-4644-b29d-68d498d9e16d",
+        "name": "Steven Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep2.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=2",
+          "email": "hse002@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-3",
+        "openstates_id": "ocd-person/a838e3b6-52ea-4ad0-a308-2337762a492b",
+        "name": "Tammy Phelps",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep3.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=3",
+          "email": "hse003@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-4",
+        "openstates_id": "ocd-person/378995b0-0c3e-49a4-aa93-4633f06d5509",
+        "name": "Joy Walters",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep4.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=4",
+          "email": "waltersj@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-5",
+        "openstates_id": "ocd-person/a900feca-75c7-434e-8d00-dd67170f2b01",
+        "name": "Dennis Bamburg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep5.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=5",
+          "email": "hse005@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-6",
+        "openstates_id": "ocd-person/b38eb9d5-c27d-443e-995d-f9681e3a992e",
+        "name": "Michael Melerine",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep6.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=6",
+          "email": "hse006@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-7",
+        "openstates_id": "ocd-person/d6e47850-c123-4060-8309-74192011981b",
+        "name": "Larry Bagley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep7.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=7",
+          "email": "bagleyl@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-8",
+        "openstates_id": "ocd-person/126879ce-50c0-4741-a7e7-fb23fecb9d29",
+        "name": "Raymond Crews",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep8.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=8",
+          "email": "crewsr@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-9",
+        "openstates_id": "ocd-person/4661fe94-874c-4884-99a2-c60516c811ff",
+        "name": "Dodie Horton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep9.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=9",
+          "email": "hortond@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-10",
+        "openstates_id": "ocd-person/c3e1299d-034f-4e70-9c86-c003c6e35964",
+        "name": "Wayne McMahen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep10.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=10",
+          "email": "mcmahenw@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-11",
+        "openstates_id": "ocd-person/17cf7c94-788b-49f9-bca2-2f413974a927",
+        "name": "Rashid Young",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep11.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=11",
+          "email": "hse011@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-12",
+        "openstates_id": "ocd-person/a07b757e-a57b-4dda-aa6a-7bf5e6b3561d",
+        "name": "Chris Turner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep12.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=12",
+          "email": "hse012@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-13",
+        "openstates_id": "ocd-person/2ed9a2e2-0f61-4de1-af10-e9e0dbf02492",
+        "name": "Jack McFarland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep13.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=13",
+          "email": "mcfarlandj@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-14",
+        "openstates_id": "ocd-person/22590bd7-29fe-454d-b61d-2c54c4562274",
+        "name": "Michael Echols",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep14.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=14",
+          "email": "hse014@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-15",
+        "openstates_id": "ocd-person/040e17ea-a4d0-47ce-8f45-527a6bdc83a7",
+        "name": "Foy Gadberry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep15.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=15",
+          "email": "hse015@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-16",
+        "openstates_id": "ocd-person/5d1fade2-4678-406c-b4ed-657baed1db2b",
+        "name": "Adrian Fisher",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep16.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=16",
+          "email": "hse016@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-17",
+        "openstates_id": "ocd-person/88548c7a-b637-4821-b336-c99cfa475e22",
+        "name": "Pat Moore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep17.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=17",
+          "email": "hse017@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-18",
+        "openstates_id": "ocd-person/9ae6b490-4fe0-435c-93fd-ad316e474204",
+        "name": "Jeremy LaCombe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep18.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=18",
+          "email": "hse018@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-19",
+        "openstates_id": "ocd-person/7796b73e-f06a-4d0b-8a85-cfde955a4cd1",
+        "name": "Francis Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep19.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=19",
+          "email": "thompsof@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-20",
+        "openstates_id": "ocd-person/8ce9b8d1-a92d-4351-a098-617599dde680",
+        "name": "Neil Riser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep20.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=20",
+          "email": "risern@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-21",
+        "openstates_id": "ocd-person/871d5c01-9710-46f4-aeba-b321bdf11e30",
+        "name": "Travis Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep21.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=21",
+          "email": "hse021@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-22",
+        "openstates_id": "ocd-person/50b42a20-9d29-4388-b06f-b4511eda2131",
+        "name": "Gabe Firment",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep22.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=22",
+          "email": "hse022@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-23",
+        "openstates_id": "ocd-person/6fdcb100-c1e5-450e-a3dd-cf42c06cff1e",
+        "name": "Shaun Mena",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep23.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=23",
+          "email": "hse023@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-24",
+        "openstates_id": "ocd-person/01cb17b2-a215-4cd5-916a-43c3e91723c7",
+        "name": "Rodney Schamerhorn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep24.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=24",
+          "email": "hse024@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-25",
+        "openstates_id": "ocd-person/daa3d2db-d395-4c08-9020-b90d6bc2c498",
+        "name": "Jason DeWitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep25.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=25",
+          "email": "hse025@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-26",
+        "openstates_id": "ocd-person/9a91a848-9d01-46b6-84f1-cc868681e912",
+        "name": "Ed Larvadain",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep26.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=26",
+          "email": "hse026@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-27",
+        "openstates_id": "ocd-person/0e901294-3718-49df-9922-0ac4503acee2",
+        "name": "Mike Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep27.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=27",
+          "email": "hse027@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-28",
+        "openstates_id": "ocd-person/2ace9f60-8f90-43ab-a45d-d1c64bdb7462",
+        "name": "Daryl Deshotel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep28.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=28",
+          "email": "hse028@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-29",
+        "openstates_id": "ocd-person/efdf7ee4-4d37-4e57-8f0c-e0db52ee7f70",
+        "name": "Edmond Jordan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep29.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=29",
+          "email": "jordane@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-30",
+        "openstates_id": "ocd-person/2a4d4c31-ee06-4f32-a67b-c55db60502e4",
+        "name": "Chuck Owen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep30.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=30",
+          "email": "hse030@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-31",
+        "openstates_id": "ocd-person/ba2902d5-5a0e-4e71-b396-6e85358511de",
+        "name": "Troy Hebert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep31.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=31",
+          "email": "hse031@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-32",
+        "openstates_id": "ocd-person/2bf8549d-d379-4c42-af8c-b5b9d270f17d",
+        "name": "Dewith Carrier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep32.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=32",
+          "email": "hse032@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-33",
+        "openstates_id": "ocd-person/81379952-373b-4e6e-a29f-b9bb60e7593b",
+        "name": "Les Farnum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep33.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=33",
+          "email": "hse033@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-34",
+        "openstates_id": "ocd-person/3ced6b49-7f72-41d0-a84c-0e7cff17e88b",
+        "name": "Wilford Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep34.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=34",
+          "email": "hse034@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-35",
+        "openstates_id": "ocd-person/9ffd05e6-a127-4896-b60e-fc2722fa8779",
+        "name": "Brett Geymann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep35.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=35",
+          "email": "hse035@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-36",
+        "openstates_id": "ocd-person/04a524b7-1f7a-4d01-8491-c52df47e20cc",
+        "name": "Phil Tarver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep36.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=36",
+          "email": "hse036@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-37",
+        "openstates_id": "ocd-person/b114df8c-8388-44b1-8274-c346addd67c4",
+        "name": "Skip Broussard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://americanpress.com/wp-content/uploads/sites/65/2026/02/IMG_7387.jpeg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=37",
+          "email": "hse037@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-38",
+        "openstates_id": "ocd-person/6c232d36-fe39-4006-8397-de9cb1e5454c",
+        "name": "Rhonda Butler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep38.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=38",
+          "email": "hse038@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-39",
+        "openstates_id": "ocd-person/c725a955-93ff-415e-91df-a7398f823474",
+        "name": "Doyle Boudreaux",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/66f8d9_8ae2cf856c374eee86e43d32c995830b~mv2.jpg/v1/fill/w_150,h_210,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Doyle%20Boudreaux_JPG.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/h_reps/members?ID=39",
+          "email": "hse039@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-40",
+        "openstates_id": "ocd-person/dcf2c7e1-e124-424c-ac0c-8d1e6600e970",
+        "name": "Dustin Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep40.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=40",
+          "email": "millerd@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-41",
+        "openstates_id": "ocd-person/ee23b4bf-f5f7-498c-9fcc-f3b2d6f8fb1d",
+        "name": "Phillip DeVillier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep41.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=41",
+          "email": "devillierp@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-42",
+        "openstates_id": "ocd-person/75101b55-81b9-465a-8ec6-297fa75cdd07",
+        "name": "Chance Henry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep42.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=42",
+          "email": "hse042@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-43",
+        "openstates_id": "ocd-person/85df7a11-9edb-4e27-b7ce-60ffe7b35d39",
+        "name": "Josh Carlson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep43.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=43",
+          "email": "hse043@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-44",
+        "openstates_id": "ocd-person/8d0bbdce-eaab-4b3a-8385-bf8c6a2e0b87",
+        "name": "Tehmi Chassion",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep44.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=44",
+          "email": "hse044@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-45",
+        "openstates_id": "ocd-person/a6a9544c-d12b-44cc-a52d-f2ec0e01f556",
+        "name": "Annie Spell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=45",
+          "email": "hse045@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-46",
+        "openstates_id": "ocd-person/a31429da-4cde-4dbe-9510-af2dfa8ab2ed",
+        "name": "Chad Boyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep46.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=46",
+          "email": "hse046@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-47",
+        "openstates_id": "ocd-person/85ef927c-d038-4534-a8ff-b99ad6656bda",
+        "name": "Ryan Bourriaque",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep47.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=47",
+          "email": "hse047@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-48",
+        "openstates_id": "ocd-person/c5ea395a-7594-4585-b193-000e05f08005",
+        "name": "Beau Beaullieu",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep48.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=48",
+          "email": "hse048@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-49",
+        "openstates_id": "ocd-person/80ea23c0-16f8-4a57-aa48-2c5cf478a3e1",
+        "name": "Jacob Landry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep49.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=49",
+          "email": "hse049@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-50",
+        "openstates_id": "ocd-person/c75a9e00-6017-4e74-95fd-70fbfa803c58",
+        "name": "Vinney St. Blanc",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep50.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=50",
+          "email": "hse050@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-51",
+        "openstates_id": "ocd-person/cbe53992-3b3c-4ec0-a94a-58ddf96e6edd",
+        "name": "Beryl Amedée",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep51.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=51",
+          "email": "amedeeb@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-52",
+        "openstates_id": "ocd-person/2dafe5b8-cb5a-411a-b270-322dcaf18293",
+        "name": "Jerome Zeringue",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep52.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=52",
+          "email": "zeringuej@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-53",
+        "openstates_id": "ocd-person/95e28ef0-84f6-45ec-97fe-a58f360a2ad9",
+        "name": "Jessica Domangue",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep53.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=53",
+          "email": "hse053@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-54",
+        "openstates_id": "ocd-person/9002c3a7-c0d9-4112-ad34-e0c6fa909ce1",
+        "name": "Joe Orgeron",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep54.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=54",
+          "email": "hse054@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-55",
+        "openstates_id": "ocd-person/90b6f6c3-9620-4fbb-8c23-f8ab7b163de7",
+        "name": "Bryan Fontenot",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep55.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=55",
+          "email": "hse055@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-56",
+        "openstates_id": "ocd-person/5d15439d-4139-448a-8f61-25ab54e68b19",
+        "name": "Beth Billings",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep56.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=56",
+          "email": "hse056@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-57",
+        "openstates_id": "ocd-person/586f002d-71da-4836-a306-6e8a3d485263",
+        "name": "Sylvia Taylor",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep57.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=57",
+          "email": "hse057@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-58",
+        "openstates_id": "ocd-person/43a80737-e614-475d-aace-2d1324cb516a",
+        "name": "Ken Brass",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep58.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=58",
+          "email": "brassk@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-59",
+        "openstates_id": "ocd-person/9fde5725-d1b2-4afc-9897-2706dda502c8",
+        "name": "Tony Bacala",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep59.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=59",
+          "email": "bacalat@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-60",
+        "openstates_id": "ocd-person/c58cdaf8-5e0d-4a0c-ac40-7e95c38ac83e",
+        "name": "Chasity Martinez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://ibervilleparish.com/wp-content/uploads/District-10-Chasity-Martinez.png",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=60",
+          "email": "hse060@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-61",
+        "openstates_id": "ocd-person/20def39d-ba5c-45d7-ba6c-5cf43590d4b0",
+        "name": "Denise Marcelle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep61.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=61",
+          "email": "marcelled@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-62",
+        "openstates_id": "ocd-person/0353532c-93a0-41cb-9621-278c8ef19178",
+        "name": "Roy Adams",
+        "party": "D",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep62.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=62",
+          "email": "hse062@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-63",
+        "openstates_id": "ocd-person/ad514eed-2832-4ae3-a0c5-62d8f2721297",
+        "name": "Barbara Carpenter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep63.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=63",
+          "email": "carpenterb@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-64",
+        "openstates_id": "ocd-person/c64e6628-efa4-4ffe-8b2f-d9df80f4f313",
+        "name": "Kellee Hennessy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep64.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=64",
+          "email": "hse064@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-65",
+        "openstates_id": "ocd-person/d2ecd14d-09ce-4e45-8969-149531759584",
+        "name": "Lauren Ventrella",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep65.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=65",
+          "email": "hse065@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-66",
+        "openstates_id": "ocd-person/9661594c-df1e-402a-b2c5-fe2c88366506",
+        "name": "Emily Chenevert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep66.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=66",
+          "email": "hse066@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-67",
+        "openstates_id": "ocd-person/709dfea8-f9a9-4734-8b6d-e495f4d51aa3",
+        "name": "Terry Landry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=67",
+          "email": "hse067@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-68",
+        "openstates_id": "ocd-person/d3cae3e7-f6eb-4a9c-8c63-8719902f771d",
+        "name": "Dixon McMakin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep68.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=68",
+          "email": "hse068@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-69",
+        "openstates_id": "ocd-person/a05f602f-6eb8-4668-9f25-f438adb5faea",
+        "name": "Paul Sawyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/9361fe_da91e496f1294126bbe3a43b182b5045~mv2.jpg/v1/fill/w_1159,h_772,fp_0.44_0.28,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/623291664_122110353027206892_603986649064719459_n.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=69",
+          "email": "hse069@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-70",
+        "openstates_id": "ocd-person/bd179bf7-f90d-4e3a-baea-a590c3002586",
+        "name": "Barbara Freiberg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep70.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=70",
+          "email": "hse070@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-71",
+        "openstates_id": "ocd-person/c6f00cae-9826-4be6-934e-1a9516b20c4d",
+        "name": "Roger Wilder",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep71.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=71",
+          "email": "hse071@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-72",
+        "openstates_id": "ocd-person/a24e242f-3fd9-479c-8423-cf0c6e2c6273",
+        "name": "Robby Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep72.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=72",
+          "email": "carterr@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-73",
+        "openstates_id": "ocd-person/d6dba94d-0167-4391-992d-af96c6525253",
+        "name": "Kim Coates",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep73.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=73",
+          "email": "hse073@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-74",
+        "openstates_id": "ocd-person/52df3631-4ef7-4b52-ab11-8a8eeb7bf499",
+        "name": "Peter Egan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep74.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=74",
+          "email": "hse074@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-75",
+        "openstates_id": "ocd-person/8bc5e1d1-fe97-4466-a11d-415f56c5151a",
+        "name": "John Wyble",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep75.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=75",
+          "email": "hse075@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-76",
+        "openstates_id": "ocd-person/f05b1c80-c85c-42f5-8336-84bcd7b0c847",
+        "name": "Stephanie Berault",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep76.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=76",
+          "email": "hse076@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-77",
+        "openstates_id": "ocd-person/d3ecec03-0408-46f0-8c82-b775f787e6e1",
+        "name": "Mark Wright",
+        "party": "R",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep77.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=77",
+          "email": "wrightm@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-78",
+        "openstates_id": "ocd-person/3c0eeaa2-cf62-4b17-9b62-2531c078dd42",
+        "name": "John Illg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep78.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=78",
+          "email": "hse078@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-79",
+        "openstates_id": "ocd-person/aefc2237-5913-4b96-9354-18fb7e58884c",
+        "name": "Debbie Villio",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep79.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=79",
+          "email": "hse079@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-80",
+        "openstates_id": "ocd-person/d95410b8-a66c-4662-bcc6-1884252e061b",
+        "name": "Polly Thomas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep80.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=80",
+          "email": "thomaspj@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-81",
+        "openstates_id": "ocd-person/b96a872c-91bd-47ea-a50f-f82294b3d91b",
+        "name": "Jeff Wiley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep81.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=81",
+          "email": "hse081@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-82",
+        "openstates_id": "ocd-person/1dbd875c-89b6-4ea1-a73b-7c8efdb203a3",
+        "name": "Laurie Schlegel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep82.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=82",
+          "email": "hse082@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-83",
+        "openstates_id": "ocd-person/8ffaa2bd-ff67-464a-b639-19a6069e28a2",
+        "name": "Kyle Green",
+        "party": "D",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep83.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=83",
+          "email": "hse083@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-84",
+        "openstates_id": "ocd-person/1ebb9d9b-329d-4a43-a33c-e3608ef09cc8",
+        "name": "Tim Kerner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep84.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=84",
+          "email": "hse084@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-85",
+        "openstates_id": "ocd-person/fe1e7481-9bbb-4e58-8d19-9be18558f12b",
+        "name": "Vincent Cox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep85.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=85",
+          "email": "hse085@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-86",
+        "openstates_id": "ocd-person/bc967860-a12b-4285-bd97-36379803f119",
+        "name": "Nicholas Muscarello",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep86.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=86",
+          "email": "muscarellon@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-87",
+        "openstates_id": "ocd-person/71696836-b261-4646-8127-407c40e2c35b",
+        "name": "Rodney Lyons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep87.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=87",
+          "email": "lyonsr@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-88",
+        "openstates_id": "ocd-person/92f7834e-8ce3-437f-bdbf-8dad3528ae3b",
+        "name": "Kathy Edmonston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep88.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=88",
+          "email": "hse088@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-89",
+        "openstates_id": "ocd-person/bd6d41fc-8ad8-468f-8259-223d38d42bd8",
+        "name": "Kim Carver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep89.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=89",
+          "email": "hse089@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-90",
+        "openstates_id": "ocd-person/96385d4e-bfae-4929-9845-502fd2ed2cc7",
+        "name": "Brian Glorioso",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep90.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=90",
+          "email": "hse090@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-91",
+        "openstates_id": "ocd-person/6e106343-c9e7-4993-aca8-201210f61d64",
+        "name": "Mandie Landry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep91.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=91",
+          "email": "hse091@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-92",
+        "openstates_id": "ocd-person/958015ce-4a91-4830-a11f-e73997823d4b",
+        "name": "Joe Stagni",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep92.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=92",
+          "email": "stagnij@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-93",
+        "openstates_id": "ocd-person/967fa557-fcdc-4a75-a13e-dabf05b85905",
+        "name": "Alonzo Knox",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep93.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=93",
+          "email": "hse093@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-94",
+        "openstates_id": "ocd-person/de7591e7-6ae0-47c3-b1ea-12073106498c",
+        "name": "Stephanie Hilferty",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep94.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=94",
+          "email": "hilfertys@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-95",
+        "openstates_id": "ocd-person/46b660af-1c4c-46a1-905e-ffd89a9cc32f",
+        "name": "Shane Mack",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep95.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=95",
+          "email": "hse095@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-96",
+        "openstates_id": "ocd-person/4d1c2a6e-0339-4b7a-ac52-dfd9064bfbbf",
+        "name": "Marcus Bryant",
+        "party": "D",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep96.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=96",
+          "email": "hse096@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-97",
+        "openstates_id": "ocd-person/807a71ac-5657-4933-add4-024d35529e38",
+        "name": "Ed Murray",
+        "party": "D",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://ed4nola.com/wp-content/uploads/2025/11/EdMurray_CampaignShoot_1-45-683x1024.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=97",
+          "email": "hse097@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-98",
+        "openstates_id": "ocd-person/3937cef1-8c62-428c-8837-aa6a6a8b60e7",
+        "name": "Aimee Freeman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep98.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=98",
+          "email": "hse098@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-99",
+        "openstates_id": "ocd-person/85a96a1b-a8a0-4ddd-acd7-9452b48f5ace",
+        "name": "Candace Newell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep99.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=99",
+          "email": "hse099@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-100",
+        "openstates_id": "ocd-person/1175d9fd-94fc-4988-98ee-de8d0029de06",
+        "name": "Dana Henry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Dana_Henry_20260113_023611.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=100",
+          "email": "hse100@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-101",
+        "openstates_id": "ocd-person/9510158f-4e63-4b68-ad44-daef2987b780",
+        "name": "Vanessa LaFleur",
+        "party": "D",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep101.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=101",
+          "email": "hse101@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-102",
+        "openstates_id": "ocd-person/d107ae2b-6cb6-4545-a185-d63408f46033",
+        "name": "Delisha Boyd",
+        "party": "D",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep102.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=102",
+          "email": "hse102@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-103",
+        "openstates_id": "ocd-person/e06c4ec7-9051-4489-b572-5b55e5fd4a68",
+        "name": "Mike Bayham",
+        "party": "R",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep103.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=103",
+          "email": "hse103@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-104",
+        "openstates_id": "ocd-person/ef1c54d6-d162-48d3-b3b5-b02da086c1ee",
+        "name": "Jay Gallé",
+        "party": "R",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep104.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=104",
+          "email": "hse104@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "la-rep-105",
+        "openstates_id": "ocd-person/bfe2d39a-39a1-4992-86cd-6ab25767de92",
+        "name": "Jacob Braud",
+        "party": "R",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics/rep105.jpg",
+        "contact": {
+          "official_website": "https://house.louisiana.gov/H_Reps/members?ID=105",
+          "email": "hse105@legis.la.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

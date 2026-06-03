@@ -1,0 +1,2912 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "VT",
+  "state_name": "Vermont",
+  "executive": {
+    "governor": {
+      "id": "vt-exec-gov",
+      "name": "Phil Scott",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2017",
+      "website": "https://governor.vermont.gov",
+      "photo_url": null,
+      "bio": "Phil Scott is the Governor of Vermont, serving since 2017.",
+      "sources": [
+        "https://governor.vermont.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Vermont State Senate",
+    "members": [
+      {
+        "id": "vt-sen-Essex",
+        "openstates_id": "ocd-person/ec8b2fa8-32e3-43ef-a8e9-101958b5d652",
+        "name": "Russ Ingalls",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Essex",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Ingalls,%20Russ.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Essex.pdf",
+          "email": "ringalls@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Orange",
+        "openstates_id": "ocd-person/c5bca102-7637-45de-90fb-183c2c024f43",
+        "name": "Larry Hart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Orange",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hart,Lawrence.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40393",
+          "email": "lhart@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Addison",
+        "openstates_id": "ocd-person/84f2c6bd-5fe7-486c-b2ad-555bf69654e8",
+        "name": "Ruth Hardy",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Addison",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hardy.Ruth.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADDDIST.pdf",
+          "email": "rhardy@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Addison-2",
+        "openstates_id": "ocd-person/0eb14129-49c2-4e33-9abd-34c8802958f1",
+        "name": "Steven Heffernan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Addison",
+        "role": "State Senator",
+        "photo_url": "https://addisonindymediaoffload.s3.amazonaws.com/wp-content/uploads/2024/07/11101738/Steven-Hefernan_4455-619x1024.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40387",
+          "email": "sheffernan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Orleans",
+        "openstates_id": "ocd-person/a7824782-070e-47c0-992e-2a508f3da243",
+        "name": "Sam Douglass",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Orleans",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Samuel_Douglass.png",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40394",
+          "email": "sdouglass@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Rutland",
+        "openstates_id": "ocd-person/d4ead076-6425-4ab7-ad32-b10dce660170",
+        "name": "Brian Collamore",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Rutland",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Collamore,Brian.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/RUTDIST.pdf",
+          "email": "bcollamore@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Rutland-2",
+        "openstates_id": "ocd-person/f076a53a-1ebd-485d-8d0f-adb7cf0b00be",
+        "name": "Dave Weeks",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Rutland",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Weeks,%20David.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+          "email": "dweeks@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Rutland-3",
+        "openstates_id": "ocd-person/ba524e3d-a578-4498-8226-6e947840c69f",
+        "name": "Terry Williams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Rutland",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Williams,Terry.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+          "email": "tkwilliams@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Windham",
+        "openstates_id": "ocd-person/4cae5971-93ee-4029-b5ef-4c69574256da",
+        "name": "Nader Hashim",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Windham",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hashim.Nader.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2020/30973",
+          "email": "nhashim@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Windham-2",
+        "openstates_id": "ocd-person/5d4b135e-4bed-4f7f-960a-250691fca6a8",
+        "name": "Wendy Harrison",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Windham",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Harrison,Wendy.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windham.pdf",
+          "email": "wharrison@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Windsor",
+        "openstates_id": "ocd-person/a366bc32-20d8-41a8-a2cf-939650b7a2c2",
+        "name": "Alison Clarkson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Windsor",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Clarkson,Alison.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windsor.pdf",
+          "email": "aclarkson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Windsor-2",
+        "openstates_id": "ocd-person/4eba2d1e-5bc7-42e1-bc03-2fdc5f4b4889",
+        "name": "Joe Major",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Windsor",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/65f8e1b6da0dae67f6ddd71c/e63b554f-a65c-462f-9444-364200db89b9/Joe+photo.jpg?format=2500w",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40395",
+          "email": "jmajor@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Windsor-3",
+        "openstates_id": "ocd-person/d798a240-afe8-451d-8b56-9d2badd4820c",
+        "name": "Becca White",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Windsor",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/White,Rebecca.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
+          "email": "rwhite@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Franklin",
+        "openstates_id": "ocd-person/e8028cf6-fe46-49bf-b8fc-6c9bcd1fa020",
+        "name": "Randy Brock",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Franklin",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/RBrock.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRADIST.pdf",
+          "email": "rbrock@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Franklin-2",
+        "openstates_id": "ocd-person/2f1d3491-871e-4eb6-988b-57d3c9ea7a19",
+        "name": "Bob Norris",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Franklin",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Norris,%20Bob.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-4.pdf",
+          "email": "rnorris@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Lamoille",
+        "openstates_id": "ocd-person/9a4f5d0d-7c71-4f80-bcf0-da9b4882d0d7",
+        "name": "Richard Westman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Lamoille",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/RWestman.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Lamoille.pdf",
+          "email": "rawestman@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Caledonia",
+        "openstates_id": "ocd-person/d626c3d1-769d-456c-a073-f1efb326fe1d",
+        "name": "Scott Beck",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Caledonia",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Beck,Scott%20008.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-3.pdf",
+          "email": "sbeck@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Bennington",
+        "openstates_id": "ocd-person/aabafc36-7412-443d-9fbb-f94ed291dcf7",
+        "name": "Rob Plunkett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Bennington",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robert_Plunkett_2025.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40389",
+          "email": "rplunkett@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Bennington-2",
+        "openstates_id": "ocd-person/28f82298-2bd5-4f82-9e4a-3e2261f0062c",
+        "name": "Seth Bongartz",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Bennington",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bongartz,Seth%20031.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-4.pdf",
+          "email": "sbongartz@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Grand Isle",
+        "openstates_id": "ocd-person/44bcd67b-5b5f-4fca-a61a-20f91072c5e7",
+        "name": "Patrick Brennan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Grand Isle",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brennan,Pat.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-9-2.pdf",
+          "email": "pbrennan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Washington",
+        "openstates_id": "ocd-person/1463485e-f279-44f6-a368-f75f213dc7cd",
+        "name": "Andrew Perchlik",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Washington",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Perchlik.Andrew.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
+          "email": "aperchlik@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Washington-2",
+        "openstates_id": "ocd-person/c34f492a-7cdf-4830-a28a-0ff2fe7c8f71",
+        "name": "Ann Cummings",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Washington",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cummings,Ann%20064.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
+          "email": "acummings@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Washington-3",
+        "openstates_id": "ocd-person/70fa5e7e-8ab1-4599-a881-61d12120637c",
+        "name": "Anne Watson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Washington",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Watson,Anne.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Washington.pdf",
+          "email": "awatson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden North",
+        "openstates_id": "ocd-person/1526326f-c2a8-4103-af27-1805f9a8e32a",
+        "name": "Chris Mattos",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Chittenden North",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Mattos,Chris.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-10.pdf",
+          "email": "cmattos@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Central",
+        "openstates_id": "ocd-person/a1812863-f6a9-4ce2-8131-d701923dd507",
+        "name": "Martine Gulick",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Central",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Gulick,Martine.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/37408",
+          "email": "mgulick@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Central-2",
+        "openstates_id": "ocd-person/ba794ad6-45fa-40cc-8642-55e759a94d71",
+        "name": "Phil Baruth",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Central",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/PBaruth.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/15791",
+          "email": "pbaruth@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Central-3",
+        "openstates_id": "ocd-person/3c832fcc-6a3b-415d-9db8-25b87719082c",
+        "name": "Tanya Vyhovsky",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Central",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Vyhovsky,Tanya.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-8-1.pdf",
+          "email": "tvyhovsky@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Southeast",
+        "openstates_id": "ocd-person/06f7e87d-e1f3-4d29-bd2c-11cadb89069e",
+        "name": "Kesha Ram Hinsdale",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Southeast",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/RamHinsdale,Kesha.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/34727",
+          "email": "kramhinsdale@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Southeast-2",
+        "openstates_id": "ocd-person/c3b03c7d-9be1-4da5-994a-aa2980ae35b1",
+        "name": "Thomas Chittenden",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Southeast",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Chittenden,%20Thomas.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
+          "email": "tchittenden@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-sen-Chittenden Southeast-3",
+        "openstates_id": "ocd-person/91dafbcc-d313-4ef3-a506-0113d4ce1975",
+        "name": "Ginny Lyons",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Chittenden Southeast",
+        "role": "State Senator",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Lyons,Ginny.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
+          "email": "vlyons@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Vermont State House",
+    "members": [
+      {
+        "id": "vt-rep-Orange-1",
+        "openstates_id": "ocd-person/682e6ab6-a457-4a67-bf31-5b94ab2b1333",
+        "name": "Mike Tagliavia",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orange-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Tagliavia,Michael.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40418",
+          "email": "mtagliavia@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orange-2",
+        "openstates_id": "ocd-person/64ee14bb-3a28-4062-ba6d-4ec89c25b64c",
+        "name": "Monique Priestley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Orange-2",
+        "role": "State Representative",
+        "photo_url": "http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcQJv2ebRwLbq8oEHztEt7vEj8LT_42Lj5oVZwQRIbAicBaIoWoKMCX8Q16EfoTE0AbQ",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-2.pdf",
+          "email": "mpriestley@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orange-3",
+        "openstates_id": "ocd-person/f668b31d-5c47-4d56-a850-1a1d859c8510",
+        "name": "Josh Dobrovich",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orange-3",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/071d59_a647ae96ed7b4def9aa010cbb5c0ed29~mv2.jpg/v1/crop/x_268,y_5,w_1320,h_1583/fill/w_256,h_307,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Headshot.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40419",
+          "email": "jdobrovich@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-1",
+        "openstates_id": "ocd-person/f490d01d-80b7-40ae-9577-572bd1c8567a",
+        "name": "Amy Sheldon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Sheldon,%20Amy.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
+          "email": "asheldon@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-1-2",
+        "openstates_id": "ocd-person/b463b201-086b-4f98-ab96-75a136e8be35",
+        "name": "Robin Scheu",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Scheu,Robin.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
+          "email": "rscheu@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-2",
+        "openstates_id": "ocd-person/842ac286-38fb-428e-af54-1176d06b6144",
+        "name": "Peter Conlon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/PConlon.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-2.pdf",
+          "email": "pconlon@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-3",
+        "openstates_id": "ocd-person/e3e3144c-e166-4b0f-a7e7-e3e24cd40039",
+        "name": "Matt Birong",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Birong.Matt.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-3.pdf",
+          "email": "mbirong@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-3-2",
+        "openstates_id": "ocd-person/825c4e6c-76c1-4c0c-85af-48be726a9108",
+        "name": "Rob North",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Addison-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/North,Rob.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40396",
+          "email": "rnorth@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-4",
+        "openstates_id": "ocd-person/d6336e80-d57f-46df-9c49-9931d8efc0b7",
+        "name": "Herb Olson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-4",
+        "role": "State Representative",
+        "photo_url": "https://addisonindymediaoffload.s3.amazonaws.com/wp-content/uploads/2024/05/30094825/Herb-Olsen-at-Ilsley.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40397",
+          "email": "holson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-4-2",
+        "openstates_id": "ocd-person/1f501dde-37ba-49b3-ac83-0c77102ed8c3",
+        "name": "Mari Cordes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cordes.Mari.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-4.pdf",
+          "email": "mcordes@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-5",
+        "openstates_id": "ocd-person/829926f6-054a-45e2-be75-1c1da860f0c4",
+        "name": "Jubilee McGill",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Addison-5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McGill,Jubilee.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-5.pdf",
+          "email": "jmcgill@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-1",
+        "openstates_id": "ocd-person/5a58d1ac-7e52-457a-b6f4-c46a46d073e2",
+        "name": "Richard Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orleans-1",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/newportvermontdailyexpress.com/content/tncms/assets/v3/editorial/d/da/dda77da2-d9da-11ef-8167-673b78ca7e47/6792c54bd1c18.image.jpg?resize=400%2C345",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40420",
+          "email": "rnelson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-2",
+        "openstates_id": "ocd-person/0c2d8e34-55f1-4b34-a6a3-bd7708d2578c",
+        "name": "Woody Page",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orleans-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Page,%20Woody.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-2.pdf",
+          "email": "wpage@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-3",
+        "openstates_id": "ocd-person/a10e8620-2957-408b-a004-481d6d19a832",
+        "name": "Ken Wells",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orleans-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Wells,Ken%20047.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40421",
+          "email": "kwells@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-4",
+        "openstates_id": "ocd-person/b8a71676-1754-4af0-88e5-c38201cef018",
+        "name": "Leanne Harple",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Orleans-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Harple,Leanne.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40422",
+          "email": "lharple@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-1",
+        "openstates_id": "ocd-person/599c54f9-34b6-4e31-bb50-e36708c3509b",
+        "name": "Pattie McCoy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McCoy,%20Pattie.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-1.pdf",
+          "email": "pmccoy@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-2",
+        "openstates_id": "ocd-person/31f6e27d-151c-4878-845b-f600ea1742e2",
+        "name": "Dave Bosch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bosch,David.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40423",
+          "email": "dbosch@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-2-2",
+        "openstates_id": "ocd-person/68d53f5e-f99c-4167-9dff-3c802fc6e857",
+        "name": "Tom Burditt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/TBurditt.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/RUT-2.pdf",
+          "email": "tburditt@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-3",
+        "openstates_id": "ocd-person/55538705-111f-48b3-9495-7877bbecb1f3",
+        "name": "Zak Harvey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-3",
+        "role": "State Representative",
+        "photo_url": "https://vtdigger.org/wp-content/uploads/2025/01/zachary-harvey.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40459",
+          "email": "zharvey@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-4",
+        "openstates_id": "ocd-person/f930a207-e39c-47c9-b82a-d9eca94119c3",
+        "name": "Christopher Howland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-4",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/rutlandherald.com/content/tncms/assets/v3/editorial/3/cc/3cc51ff8-8a65-11ef-92f3-ab15d77382ba/670d7578bb328.image.jpg?resize=284%2C500",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40425",
+          "email": "chowland@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-5",
+        "openstates_id": "ocd-person/ed272e8b-3ef7-47ce-84c9-9163efac3734",
+        "name": "Eric Maguire",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-5",
+        "role": "State Representative",
+        "photo_url": "https://mountaintimes.info/wp-content/uploads/2022/06/Eric_Photo-2-300x300.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-5.pdf",
+          "email": "emaguire@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-6",
+        "openstates_id": "ocd-person/3d835c85-50e3-4a02-8891-baa377f63fa5",
+        "name": "Mary Howard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Rutland-6",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Howard,Mary.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-6.pdf",
+          "email": "mhoward@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-7",
+        "openstates_id": "ocd-person/568a47fb-6a5e-4346-800f-ac49018a9099",
+        "name": "Chris Keyser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-7",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Keyser,Chris.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40426",
+          "email": "ckeyser@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-8",
+        "openstates_id": "ocd-person/6c87b7e7-0047-47a6-94b4-9232ac42175f",
+        "name": "Alicia Malay",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-8",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/rutlandherald.com/content/tncms/assets/v3/editorial/7/95/7959f150-8bcd-11ef-875d-572c07042bb6/670fd1d93861f.image.jpg?resize=487%2C500",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40427",
+          "email": "amalay@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-9",
+        "openstates_id": "ocd-person/81ee4925-031e-4d85-b35b-6561eefa9d24",
+        "name": "Todd Nielsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-9",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Nielsen,Todd.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40428",
+          "email": "tnielsen@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-1",
+        "openstates_id": "ocd-person/70f4c8cf-b715-484a-a7d1-f02508f7a3b7",
+        "name": "Zon Eastes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-1",
+        "role": "State Representative",
+        "photo_url": "https://vtdigger.org/wp-content/uploads/2024/07/Zon-Eastes-2024-1.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40434",
+          "email": "zeastes@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-2",
+        "openstates_id": "ocd-person/57c62cd8-8701-4af6-9627-b89e735b5632",
+        "name": "Laura Sibilia",
+        "party": "I",
+        "chamber": "State House",
+        "district": "Windham-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Sibilia,Laura.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-2.pdf",
+          "email": "lsibilia@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-3",
+        "openstates_id": "ocd-person/90a243b6-e5b2-4f16-b19f-612508863535",
+        "name": "Leslie Goldman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Goldman,Leslie.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+          "email": "lgoldman@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-3-2",
+        "openstates_id": "ocd-person/a039bd2d-a206-4976-857e-c6434b26fde1",
+        "name": "Michelle Bos-Lun",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bos-Lun,%20Michelle.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+          "email": "mboslun@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-4",
+        "openstates_id": "ocd-person/4258ac6c-c453-4faf-b15c-4cbd8ea91ebd",
+        "name": "Mike Mrowicki",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Mrowicki,Mike.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-4.pdf",
+          "email": "mmrowicki@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-5",
+        "openstates_id": "ocd-person/36bd1884-fd78-46b4-9ac3-318ca6358a67",
+        "name": "Emily Long",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Long.Emily.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-5.pdf",
+          "email": "elong@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-6",
+        "openstates_id": "ocd-person/f5c660c9-81e8-4038-9cf2-a7ad838ef980",
+        "name": "Emily Carris-Duncan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-6",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Carris-Duncan,Emily%20005.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40435",
+          "email": "ecarris-duncan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-7",
+        "openstates_id": "ocd-person/cb033790-7578-41c3-87b6-c9794b289c77",
+        "name": "Emilie Kornheiser",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-7",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/EKornheiser.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-7.pdf",
+          "email": "ekornheiser@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-8",
+        "openstates_id": "ocd-person/2bf6abc2-667f-494f-896a-812721ee77d3",
+        "name": "Mollie Burke",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-8",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burke.Mollie.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-8.pdf",
+          "email": "mburke@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-9",
+        "openstates_id": "ocd-person/658fc95f-5d9f-4b9d-afa6-1f759f531e09",
+        "name": "Ian Goodnow",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-9",
+        "role": "State Representative",
+        "photo_url": "https://iangoodnow.com/wp-content/uploads/2024/05/iangoodnowforstaterep-1-882x1024.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40436",
+          "email": "igoodnow@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-1",
+        "openstates_id": "ocd-person/e7232e6f-4a66-45dc-9a4b-ee9d8b763544",
+        "name": "Elizabeth Burrows",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burrows,%20Elizabeth.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+          "email": "eburrows@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-1-2",
+        "openstates_id": "ocd-person/d12670e1-fd0b-4e78-a471-ec5d4ddfafb8",
+        "name": "John Bartholomew",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bartholomew.John.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+          "email": "jbartholomew@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-2",
+        "openstates_id": "ocd-person/72cf372e-7fd5-40f8-bd04-ccd85fe57e5e",
+        "name": "V.L. Coffin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Windsor-2",
+        "role": "State Representative",
+        "photo_url": "https://www.vnews.com/attachments/46/46923146.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40438",
+          "email": "vlcoffin@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-3",
+        "openstates_id": "ocd-person/24194dba-4d25-4b8c-be33-8ff50fcd8a8f",
+        "name": "Alice Emmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/AEmmons.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-3.pdf",
+          "email": "aemmons@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-3-2",
+        "openstates_id": "ocd-person/aa90c35b-88cb-4f97-9d66-70d777f7cae4",
+        "name": "Kristi Morris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/KristiMorris.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-3-2.pdf",
+          "email": "kmorris2@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-4",
+        "openstates_id": "ocd-person/a424d253-1d98-4865-a5b7-998d3ffd1bc8",
+        "name": "Heather Surprenant",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/HSurprenant.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-4.pdf",
+          "email": "hsurprenant@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-5",
+        "openstates_id": "ocd-person/8e97e883-e34f-441f-83a2-aa72526fef38",
+        "name": "Charlie Kimbell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-5",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ckimbell.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2022/27184",
+          "email": "ckimbell@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-6",
+        "openstates_id": "ocd-person/62b30d56-d938-4882-b763-2c2495ae6fe5",
+        "name": "Esme Cole",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-6",
+        "role": "State Representative",
+        "photo_url": "https://positive-tracks-wp-assets.s3.us-east-2.amazonaws.com/wp-content/uploads/2022/01/27110842/Esme-Headhshot.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-6.pdf",
+          "email": "ecole@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-6-2",
+        "openstates_id": "ocd-person/dfe297f7-6d88-48d5-8b81-f2605f791de0",
+        "name": "Kevin Christie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-6",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/KChristie.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
+          "email": "kchristie@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-1",
+        "openstates_id": "ocd-person/62781794-15d5-4362-82db-d6542a0e2f75",
+        "name": "Ashley Bartley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bartley,Ashley.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-1.pdf",
+          "email": "abartley@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-1-2",
+        "openstates_id": "ocd-person/b910e00e-ce75-426a-a0cc-29948edfce5d",
+        "name": "Carolyn Branagan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Branagan,Carolyn.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2018.1/27151",
+          "email": "cbranagan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-2",
+        "openstates_id": "ocd-person/d0698c2f-d5fb-475b-abc9-042971d26a5f",
+        "name": "Lynn Dickinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/EDickinson.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-2.pdf",
+          "email": "edickinson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-3",
+        "openstates_id": "ocd-person/36a9b7c9-0c31-4aff-82da-7d54b3e0721a",
+        "name": "Joe Luneau",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-3",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/251355/251355.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40416",
+          "email": "jluneau@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-4",
+        "openstates_id": "ocd-person/36d8fa28-e00c-4894-96b3-ef2946001d88",
+        "name": "Matt Walker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Walker,%20Matt.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+          "email": "mwalker@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-4-2",
+        "openstates_id": "ocd-person/fe8a848a-09ff-4cca-b3b7-5f7c2750556f",
+        "name": "Tom Oliver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-4",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/samessenger.com/content/tncms/assets/v3/editorial/8/24/824b3bf9-596e-5956-be57-4f1de1311027/5d65cdad2a655.image.jpg?resize=250%2C250",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+          "email": "toliver@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-5",
+        "openstates_id": "ocd-person/99b59993-b8ed-4046-b343-2958d25a58a4",
+        "name": "Lisa Hango",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/LHango.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-5.pdf",
+          "email": "lhango@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-5-2",
+        "openstates_id": "ocd-person/1ae38fee-1328-4298-aa0a-11b5d0265730",
+        "name": "Wayne Laroche",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-5",
+        "role": "State Representative",
+        "photo_url": "https://secureservercdn.net/45.40.150.47/620.605.myftpupload.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-14-at-1.png",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-5.pdf",
+          "email": "wlaroche@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-6",
+        "openstates_id": "ocd-person/2219c217-1804-40be-8183-ae139cd93f1c",
+        "name": "James Gregoire",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-6",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Gregoire,James.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-6.pdf",
+          "email": "jgregoire@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-7",
+        "openstates_id": "ocd-person/7d3fc311-0a19-48c1-a1ff-d8e27f521479",
+        "name": "Penny Demar",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-7",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Demar,Allen.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-7.pdf",
+          "email": "ademar@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Franklin-8",
+        "openstates_id": "ocd-person/704de547-43b6-4dfa-bf95-c4137f263e00",
+        "name": "Casey Toof",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Franklin-8",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Toof,Casey.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-8.pdf",
+          "email": "ctoof@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-1",
+        "openstates_id": "ocd-person/5581159f-1776-41de-ab76-72c8fe5167c0",
+        "name": "Jed Lipsky",
+        "party": "I",
+        "chamber": "State House",
+        "district": "Lamoille-1",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/b/61/b61c72f4-e286-11ec-823a-9b701652a585/6298d426f0838.image.jpg?resize=375%2C500",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-1.pdf",
+          "email": "jlipsky@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-2",
+        "openstates_id": "ocd-person/95cd4184-c07f-48a5-993a-e924ad71184f",
+        "name": "Dan Noyes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Lamoille-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Noyes.Daniel.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/LAM-2.pdf",
+          "email": "dnoyes@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-2-2",
+        "openstates_id": "ocd-person/e997532b-9034-4d46-8c99-c92d763d8d0e",
+        "name": "Richard Bailey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Lamoille-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bailey,Richard.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40417",
+          "email": "rbailey@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-3",
+        "openstates_id": "ocd-person/95e547fd-21f0-489d-a558-a8937d6341e5",
+        "name": "Lucy Boyden",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Lamoille-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Boyden,%20Lucy.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-3.pdf",
+          "email": "lboyden@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-10",
+        "openstates_id": "ocd-person/c66f104c-310a-40a1-9222-6d366b42e576",
+        "name": "Bill Canfield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-10",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Canfield,Bill%20037.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-10.pdf",
+          "email": "wcanfield@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-11",
+        "openstates_id": "ocd-person/bd5d142d-90c3-41f6-b8af-7591316951da",
+        "name": "Jim Harrison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-11",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Harrison,James.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-11.pdf",
+          "email": "jharrison@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-1",
+        "openstates_id": "ocd-person/59bc4503-ca5f-413d-ac29-0bf51790dcb8",
+        "name": "Debbie Powers",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-1",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/66e4567a8f19d7114507b236/b5edf816-9635-4fab-aa1a-0e89520a90cc/image_50433793.JPG",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40403",
+          "email": "dpowers@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-2",
+        "openstates_id": "ocd-person/1cd9cf7f-581d-4861-ac6f-b3414947419e",
+        "name": "Mike Southworth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-2",
+        "role": "State Representative",
+        "photo_url": "https://hardwickgazette.org/wp-content/uploads/2024/08/p1-candidate-southworth-1-col.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40404",
+          "email": "msouthworth@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-3",
+        "openstates_id": "ocd-person/54f186e0-f30c-410a-bae4-bbd443611e77",
+        "name": "Beth Quimby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Quimby,%20Beth.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/39966",
+          "email": "bquimby@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-3-2",
+        "openstates_id": "ocd-person/730abe31-c817-47fa-bf5b-fe6697996e4c",
+        "name": "Marty Feltus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Feltus,Marty%20037.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2022/20375",
+          "email": "mfeltus@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-1",
+        "openstates_id": "ocd-person/3fc028e6-c73a-4959-8889-63b4e3e50f1c",
+        "name": "Jonathan Cooper",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cooper,Jonathan.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40399",
+          "email": "jcooper@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-2",
+        "openstates_id": "ocd-person/bd42ebbc-3e03-4929-bbd8-f2fe5141d604",
+        "name": "Timothy Corcoran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/TCorcoran.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-2.pdf",
+          "email": "tcorcoran@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-2-2",
+        "openstates_id": "ocd-person/207d01c5-2277-4f1d-9373-66722cfd3f8b",
+        "name": "Will Greer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Greer,William%20043.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40400",
+          "email": "wgreer@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-3",
+        "openstates_id": "ocd-person/500ffe66-07b0-4ebd-9084-d017872daa84",
+        "name": "David Durfee",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Durfee,David.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-3.pdf",
+          "email": "ddurfee@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-4",
+        "openstates_id": "ocd-person/8b47b675-97d4-4cdc-a3ae-d44c05594b5c",
+        "name": "Kathleen James",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/James,Kathleen.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-4.pdf",
+          "email": "kjames@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-4-2",
+        "openstates_id": "ocd-person/c6250393-5afe-4ded-9b4e-0c04921077f0",
+        "name": "Rob Hunter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hunter,Robert.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40401",
+          "email": "rhunter@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-5",
+        "openstates_id": "ocd-person/337fe4da-28df-42bf-82b1-e806bb50e8f3",
+        "name": "Mary Morrissey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Bennington-5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MMorrissey.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-5.pdf",
+          "email": "mmorrissey@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-5-2",
+        "openstates_id": "ocd-person/59b84739-aac0-4d96-bc03-7adbbb7f682e",
+        "name": "Michael Nigro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Bennington-5",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael-Nigro.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-2-2.pdf",
+          "email": "mnigro@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-1",
+        "openstates_id": "ocd-person/9ce762cd-72a4-4835-876b-71d83b16d44d",
+        "name": "Jana Brown",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brown,Jana.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-1.pdf",
+          "email": "jbrown@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-2",
+        "openstates_id": "ocd-person/91f08063-02d6-4167-aa23-bbfb2289bbf1",
+        "name": "Angela Arsenault",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Arsenault,Angela.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+          "email": "aarsenault@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-2-2",
+        "openstates_id": "ocd-person/e334b770-4785-459a-89cd-1e16ef2444ad",
+        "name": "Erin Brady",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brady,%20Erin.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-2.pdf",
+          "email": "ebrady@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-3",
+        "openstates_id": "ocd-person/2f46ddc5-1564-4215-b201-cc3c1521f4c4",
+        "name": "Edye Graning",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-3",
+        "role": "State Representative",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/EdyeGraning_profile_picture_2022-06.jpg/800px-EdyeGraning_profile_picture_2022-06.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-3.pdf",
+          "email": "egraning@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-3-2",
+        "openstates_id": "ocd-person/7e019459-6d2e-4c45-8092-72cb8334bf25",
+        "name": "Trevor Squirrell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Squirell,Trevor.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-3.pdf",
+          "email": "tsquirrell@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-4",
+        "openstates_id": "ocd-person/424e2c2d-e874-444f-8a1e-e64e2be1b001",
+        "name": "Phil Pouech",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-4",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/8/64/864de4ee-090b-11ed-8ec8-43f0e24841bc/62d9739da0351.image.jpg?resize=225%2C281",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-4.pdf",
+          "email": "ppouech@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-5",
+        "openstates_id": "ocd-person/0f7b93b3-9e96-4e44-8bb4-9c60e4be4b72",
+        "name": "Chea Evans",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-5",
+        "role": "State Representative",
+        "photo_url": "https://media2.fdncms.com/sevendaysvt/imager/u/blog/36217611/img-5981.jpg?cb=1660179942",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-5.pdf",
+          "email": "cevans@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-6",
+        "openstates_id": "ocd-person/f9d0a963-ca4d-4ab2-a761-ad4aa6983055",
+        "name": "Kate Lalley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-6",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/c/36/c362315c-4958-11ea-9b08-672b8e3a4ad2/5e3cd80491bd7.image.jpg?resize=400%2C600",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-6.pdf",
+          "email": "klalley@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-7",
+        "openstates_id": "ocd-person/e9419bea-beed-4507-bb1d-250a32ea800f",
+        "name": "Shawn Sweeney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-7",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6650b6e279073165095c1cf2/4d159cf8-8efb-42b3-a92f-f0e48d413e3c/IMG_3214.jpg?format=1000w",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40407",
+          "email": "ssweeney@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-8",
+        "openstates_id": "ocd-person/65f7d469-b06a-41d9-96b6-eb4e14ced390",
+        "name": "Bridget Burkhardt",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-8",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burkhardt,Bridget%20012.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40408",
+          "email": "bburkhardt@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-9",
+        "openstates_id": "ocd-person/0ab172d4-ecc7-46e4-a4f1-ee71429595bd",
+        "name": "Emilie Krasnow",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-9",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/620c2499aa05237b7428dec9/1651861860161-DJHK1UPY8S7PFCW32285/headshot+for+web.jpg?format=1500w&content-type=image%2Fjpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-9.pdf",
+          "email": "ekrasnow@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-1",
+        "openstates_id": "ocd-person/5321cd58-caae-4d94-8ba0-f1df47d4e75b",
+        "name": "Anne Donahue",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Washington-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Donahue.Anne.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-1.pdf",
+          "email": "adonahue@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-1-2",
+        "openstates_id": "ocd-person/723a6dd0-9f92-4fdf-b506-f6947a3ccfe7",
+        "name": "Kenneth Goslant",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Washington-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Goslant.Kenneth.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-1.pdf",
+          "email": "kgoslant@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-2",
+        "openstates_id": "ocd-person/ec71009f-b56e-4ac5-bc77-4ba172ea59d1",
+        "name": "Candice White",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-2",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Candice_White_20240808_101349.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40431",
+          "email": "cwhite@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-2-2",
+        "openstates_id": "ocd-person/46a9d6df-bd07-4fa4-b6b9-b91c0fa37f94",
+        "name": "Dara Torre",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Torre,Dana.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-2.pdf",
+          "email": "dtorre@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-3",
+        "openstates_id": "ocd-person/86bf6469-26ea-4367-bda5-b191686ca556",
+        "name": "Michael Boutin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Washington-3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Boutin,Michael%20015.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40432",
+          "email": "mboutin@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-3-2",
+        "openstates_id": "ocd-person/c3b31012-c199-42a6-8256-29f07de76343",
+        "name": "Teddy Waszazak",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-3",
+        "role": "State Representative",
+        "photo_url": "https://vtdigger.org/wp-content/uploads/2024/07/Teddy-Waszazak.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40433",
+          "email": "ewaszazak@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-4",
+        "openstates_id": "ocd-person/526f33a9-fcbe-4963-ae6c-abccde1fe4da",
+        "name": "Conor Casey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Casey,Conor.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+          "email": "ccasey@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-4-2",
+        "openstates_id": "ocd-person/2f2db82f-4812-4a06-8dc0-1e03877aabf9",
+        "name": "Kate McCann",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McCann,Kate.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+          "email": "kmccann@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-5",
+        "openstates_id": "ocd-person/dda44e05-7cb0-49e7-ac32-49963b4aaa7c",
+        "name": "Ela Chapin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Chapin,Ela.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-5.pdf",
+          "email": "echapin@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-6",
+        "openstates_id": "ocd-person/1f0c898f-0199-4b66-a432-d81c85ad9528",
+        "name": "Marc Mihaly",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-6",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/62a8e44d3687d77bbd38c9c2/537b9a9b-6969-4603-989f-8c873398b7ef/head+shot-Vermont-Law-School-web.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-6.pdf",
+          "email": "mmihaly@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-10",
+        "openstates_id": "ocd-person/edf5128d-7630-41be-8b16-c183d7cb24e5",
+        "name": "Kate Nugent",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-10",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/5/c9/5c989cb2-e81c-11ec-93f2-ebc1b5b13b72/62a232bab10ed.image.jpg?resize=1200%2C1500",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-10.pdf",
+          "email": "knugent@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-11",
+        "openstates_id": "ocd-person/d44ada7b-9678-4a17-a66c-aa658b03bf38",
+        "name": "Brian Minier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-11",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/1/14/114faf4a-dd1b-11ec-b56b-cb5131044f13/628fbc3593fd3.image.jpg?resize=540%2C675",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-11.pdf",
+          "email": "bminier@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-12",
+        "openstates_id": "ocd-person/73ee356a-069a-4f2c-938d-2bab3d81b49a",
+        "name": "Martin LaLonde",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-12",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MLaLonde.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-12.pdf",
+          "email": "mlalonde@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-13",
+        "openstates_id": "ocd-person/565d034b-76cd-4303-a045-770d4be05f0a",
+        "name": "Bram Kleppner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-13",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzxkKy2iYtXf9A7hjEK6JRZVEHbg581a1p2wGhCM59GjV9Gbry",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40409",
+          "email": "bkleppner@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-13-2",
+        "openstates_id": "ocd-person/8210ead4-c6b3-4316-ab90-7564b9f23cdb",
+        "name": "Tiff Bluemle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-13",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Blumle.Tiff.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-13.pdf",
+          "email": "tbluemle@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-14",
+        "openstates_id": "ocd-person/26b89cd1-55b7-49ef-b47b-d3b21ed81635",
+        "name": "Barbara Rachelson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-14",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Rachelson.Barb.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+          "email": "brachelson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-14-2",
+        "openstates_id": "ocd-person/eda9290c-b27b-4b39-bfc2-c760a63506ef",
+        "name": "Mary-Katherine Stone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-14",
+        "role": "State Representative",
+        "photo_url": "https://vermontbiz.com/sites/default/files/images/stone-mary-katherine.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+          "email": "mstone@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-15",
+        "openstates_id": "ocd-person/35504508-c008-4ecd-869f-6d8e33a4ad56",
+        "name": "Brian Cina",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-15",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cina,Brian3.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-4.pdf",
+          "email": "bcina@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-15-2",
+        "openstates_id": "ocd-person/4da3dea2-48bb-4162-a1a5-ff0525f7cbf6",
+        "name": "Troy Headrick",
+        "party": "I",
+        "chamber": "State House",
+        "district": "Chittenden-15",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Headrick,Troy%20010.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-15.pdf",
+          "email": "theadrick@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-16",
+        "openstates_id": "ocd-person/ca098cac-17de-4e6b-ac7c-178d77998970",
+        "name": "Jill Krowinski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-16",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Krowinski,%20Jill.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-3.pdf",
+          "email": "jkrowinski@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-16-2",
+        "openstates_id": "ocd-person/52b7db57-8a72-4d36-9cfa-5f1a5b69a044",
+        "name": "Kate Logan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-16",
+        "role": "State Representative",
+        "photo_url": "https://vcrhyp.org/assets/image-cache/image-cache/Kate%20Logan%202.9e1b0b29.b09fa573.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-16.pdf",
+          "email": "klogan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-17",
+        "openstates_id": "ocd-person/90da5348-421e-435b-8458-67123462addf",
+        "name": "Abbey Duke",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-17",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Duke,%20Abbey.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/40324",
+          "email": "aduke@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-18",
+        "openstates_id": "ocd-person/e9036574-9eac-4f0c-9bd2-1b425e96bb8c",
+        "name": "Carol Ode",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-18",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Ode,Carol.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-18.pdf",
+          "email": "code@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-18-2",
+        "openstates_id": "ocd-person/dec4c236-1cd1-465f-969c-0bb4b8a04992",
+        "name": "Bob Hooper",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-18",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hooper,Robert.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-1.pdf",
+          "email": "rhooper@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-19",
+        "openstates_id": "ocd-person/c028faa3-479d-440c-b2a5-e4320933c10f",
+        "name": "Sarita Austin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-19",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Austin,Sarita.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+          "email": "saustin@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-19-2",
+        "openstates_id": "ocd-person/a4282454-4b00-4795-b2b8-ca37f4ce6979",
+        "name": "Wendy Critchlow",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-19",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Critchlow,Wendy.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40410",
+          "email": "wcritchlow@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-20",
+        "openstates_id": "ocd-person/aff4d081-e7eb-46d9-a62f-3ee78cd568c2",
+        "name": "Doug Bishop",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-20",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bishop,Doug%20002.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40411",
+          "email": "dbishop@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-20-2",
+        "openstates_id": "ocd-person/0aa1e822-d69d-4417-a26e-0ca6935b6b8b",
+        "name": "Gayle Pezzo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-20",
+        "role": "State Representative",
+        "photo_url": "https://lccvermont.org/wp-content/uploads/2024/07/IMG_0519-gayle-pezzo-225x300.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40412",
+          "email": "gpezzo@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-21",
+        "openstates_id": "ocd-person/239a4f3b-c9b4-474b-8e2a-eda545f0ef43",
+        "name": "Chloe Tomlinson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-21",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Tomlinson,Chloe%20001.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40413",
+          "email": "ctomlinson@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-21-2",
+        "openstates_id": "ocd-person/c7019f00-84e8-405f-9efe-055112cbb4c4",
+        "name": "Daisy Berbeco",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-21",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Berbeco,Daisy%20036.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-21.pdf",
+          "email": "dberbeco@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-22",
+        "openstates_id": "ocd-person/b2d2f2a9-28a3-40c5-a818-9f839adac1fa",
+        "name": "Karen Dolan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-22",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Dolan,%20Karen.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+          "email": "kndolan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-22-2",
+        "openstates_id": "ocd-person/acf44b62-a884-4de2-8deb-055363849c5b",
+        "name": "Lori Houghton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-22",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Houghton,%20Lori.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+          "email": "lhoughton@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-23",
+        "openstates_id": "ocd-person/a7ecda71-d1ad-4e61-bc68-16e929cfc11d",
+        "name": "Leonora Dodge",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-23",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/essexreporter.com/content/tncms/assets/v3/editorial/f/79/f79ba144-d2d4-11ec-8a87-a3771555e157/627e7f522747b.image.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+          "email": "ldodge@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-23-2",
+        "openstates_id": "ocd-person/9fdba4e0-d367-4fd1-86d6-815042abd075",
+        "name": "Rey Garofano",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-23",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Golrang-Garofano.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+          "email": "rgarofano@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-24",
+        "openstates_id": "ocd-person/cd4ceb1c-8960-4b10-b6f8-bd0b8ae0c68c",
+        "name": "Alyssa Black",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Chittenden-24",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Black,Alyssa.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-24.pdf",
+          "email": "ablack@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-25",
+        "openstates_id": "ocd-person/7ddd32be-c3f8-4861-9964-89e07127bec8",
+        "name": "Brenda Steady",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Chittenden-25",
+        "role": "State Representative",
+        "photo_url": "https://lh6.googleusercontent.com/B0rlahTdpFZwO6AZ8vVvuatYXSGDutKpkUbDzvkj_mhFnP1IK40kXNR3GI7oItnJOa_LmqQywHX6rwZ7H0-34FuIKFLFitkEp4K62oJbfydS8mAId_4tlURiLXMZsmOKFQ=w1280",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40414",
+          "email": "bsteady@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Essex-Orleans",
+        "openstates_id": "ocd-person/b9ffa5dc-833e-4936-9d62-0b653ae44842",
+        "name": "Larry Labor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Essex-Orleans",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Labor,Larry.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Essex-Orleans.pdf",
+          "email": "llabor@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Addison-Rutland",
+        "openstates_id": "ocd-person/6fd23933-f800-459e-a608-bf8690dbf5f9",
+        "name": "Jim Casey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Addison-Rutland",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40398",
+          "email": "jcasey@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-Essex",
+        "openstates_id": "ocd-person/22ae1c1b-d08d-4068-ae58-ea89fecb8a09",
+        "name": "Debbie Dolgin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-Essex",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Dolgin,Deborah.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40405",
+          "email": "ddolgin@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-Essex-2",
+        "openstates_id": "ocd-person/b64a9bcc-5c1d-4e8b-931f-81f89ea5137e",
+        "name": "Scott Campbell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Caledonia-Essex",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Campbell,Scott.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Caledonia-Essex.pdf",
+          "email": "scampbell@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Essex-Caledonia",
+        "openstates_id": "ocd-person/b9c3e545-5ef2-4fb2-9128-64a369608dda",
+        "name": "John Kascenska",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Essex-Caledonia",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiRfTmE4t4EX7KkbsF2Leu84Nmy7GsSQrECA&s",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-4.pdf",
+          "email": "jkascenska@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-Windsor",
+        "openstates_id": "ocd-person/c7254a9c-7d0d-499a-adad-25f869fd7406",
+        "name": "Kevin Winter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-Windsor",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Winter,Kevin.jpeg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40430",
+          "email": "kwinter@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-Addison",
+        "openstates_id": "ocd-person/60ea24d4-7a38-4d78-b07d-2fc414be2e4b",
+        "name": "Kirk White",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-Addison",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/White,Kirk.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Addison.pdf",
+          "email": "kwhite@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-Windham",
+        "openstates_id": "ocd-person/21e8e7da-7b5c-4ca1-aa06-3dd53ca5c4a5",
+        "name": "Tom Charlton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Windsor-Windham",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Charlton,Thomas%20060.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40439",
+          "email": "tcharlton@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orange-Caledonia",
+        "openstates_id": "ocd-person/54baf00b-c1da-4dc9-95cc-3210c50360e8",
+        "name": "Joseph Parsons",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orange-Caledonia",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Parsons,%20Joe.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Caledonia.pdf",
+          "email": "jparsons@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-Lamoille",
+        "openstates_id": "ocd-person/67ac8d03-20fe-47a8-9997-61467b4a8e30",
+        "name": "Mark Higley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orleans-Lamoille",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MHigley.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-Lamoille.pdf",
+          "email": "mhigley@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orleans-Lamoille-2",
+        "openstates_id": "ocd-person/cffd5316-4723-43a2-bd54-2d41a9e61e16",
+        "name": "Michael Marcotte",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Orleans-Lamoille",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Marcotte.Michael.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ORL-2.pdf",
+          "email": "mmarcotte@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-Orange-1",
+        "openstates_id": "ocd-person/6b0c1c32-609e-4d13-a9c5-699b73bd1470",
+        "name": "John O'Brien",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-Orange-1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/O'Brien,John.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-1.pdf",
+          "email": "jobrien@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-Orange-2",
+        "openstates_id": "ocd-person/5342eafc-7f58-4ebe-ad1e-0ec4aefe82fe",
+        "name": "Jim Masland",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-Orange-2",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Masland,James.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-ORA-2.pdf",
+          "email": "jmasland@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windsor-Orange-2-2",
+        "openstates_id": "ocd-person/610c8e4d-f0c3-4792-a5b6-f935eddc8960",
+        "name": "Rebecca Holcombe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windsor-Orange-2",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rebecca_Holcombe_.png",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-2.pdf",
+          "email": "rholcombe@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-Orange",
+        "openstates_id": "ocd-person/a7c7d0f6-8795-4f50-928b-15b6c3831ac4",
+        "name": "Topper McFaun",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Washington-Orange",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McFaun,Topper.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-2.pdf",
+          "email": "fmcfaun@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-Orange-2",
+        "openstates_id": "ocd-person/39c4dae9-aee7-46f6-858d-e1eece72d79e",
+        "name": "Gina Galfetti",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Washington-Orange",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/timesargus.com/content/tncms/assets/v3/editorial/5/b7/5b7b1ad0-59f6-5da2-a83a-277b3e4e2423/633744ae63ab9.image.jpg?resize=1200%2C1645",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-Orange.pdf",
+          "email": "ggalfetti@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Bennington-Rutland",
+        "openstates_id": "ocd-person/86633f19-1d0c-437d-93b8-e715452c0d2c",
+        "name": "Sandy Pinsonault",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Bennington-Rutland",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Pinsonault,Sandra.JPG",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40402",
+          "email": "spinsonault@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Rutland-Bennington",
+        "openstates_id": "ocd-person/482c508a-aefd-405c-a252-4d661dced9a4",
+        "name": "Chris Pritchard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Rutland-Bennington",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Pritchard,Chris.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40429",
+          "email": "cpritchard@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-Franklin",
+        "openstates_id": "ocd-person/9a5bf877-6bb2-4135-a3de-fc344e84c1c6",
+        "name": "Tony Micklus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Chittenden-Franklin",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/664cf2aeab798b712953cf6d/ff3d927d-fc53-453b-9667-5ec1c9a33495/Tony+Micklus-17.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40415",
+          "email": "amicklus@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Chittenden-Franklin-2",
+        "openstates_id": "ocd-person/8a7c0a35-c3bc-4b94-a1c3-c726c8ecaaae",
+        "name": "Chris Taylor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Chittenden-Franklin",
+        "role": "State Representative",
+        "photo_url": "https://3.files.edl.io/f264/22/08/30/162354-6ed2c7ed-c20a-4c29-a9b7-5c9e39e327f9.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-Franklin.pdf",
+          "email": "cataylor@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-Washington",
+        "openstates_id": "ocd-person/4d489014-c6ba-41df-9f4f-d8846ee2ebba",
+        "name": "Dave Yacovone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Lamoille-Washington",
+        "role": "State Representative",
+        "photo_url": "https://vtdigger.org/wp-content/uploads/2024/07/David-Yacovone-2024-1.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2022/27172",
+          "email": "dyacovone@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Lamoille-Washington-2",
+        "openstates_id": "ocd-person/4d7ff594-22ad-4a37-b2ed-2190c6be9e54",
+        "name": "Saudia Lamont",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Lamoille-Washington",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/9/51/951d5c9e-d22d-11ec-9161-1beed870fe56/627d669a49c91.image.jpg?resize=1200%2C1445",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-Washington.pdf",
+          "email": "slamont@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Caledonia-Washington",
+        "openstates_id": "ocd-person/c4aa4da8-d01c-485e-8499-03378f12675e",
+        "name": "Greg Burtt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Caledonia-Washington",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burtt,Greg%20050.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40406",
+          "email": "gburtt@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Grand Isle-Chittenden",
+        "openstates_id": "ocd-person/5b8b4c48-b09c-4669-a145-c733ae32e293",
+        "name": "Leland Morgan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Grand Isle-Chittenden",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Leland_Morgan_2024.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/GI-CHI.pdf",
+          "email": "lmorgan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Grand Isle-Chittenden-2",
+        "openstates_id": "ocd-person/ede0cb44-cafd-43ef-9b1c-3e6efdd759e7",
+        "name": "Mike Morgan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Grand Isle-Chittenden",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Morgan,Michael.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2024/34693",
+          "email": "mmorgan@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-Chittenden",
+        "openstates_id": "ocd-person/f68d3f17-24ca-4b87-8837-6a30737d21d8",
+        "name": "Theresa Wood",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-Chittenden",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Wood.Theresa.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
+          "email": "twood@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Washington-Chittenden-2",
+        "openstates_id": "ocd-person/0acb9a2c-6cbb-44b3-828c-4c7ad3fd8ce6",
+        "name": "Tom Stevens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Washington-Chittenden",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Stevens.Thomas.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
+          "email": "tstevens@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orange-Washington-Addison",
+        "openstates_id": "ocd-person/d6092ff2-3e4d-4c9a-9317-6d243c7bc0e8",
+        "name": "Larry Satcowitz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Orange-Washington-Addison",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Satcowitz,%20Larry.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+          "email": "lsatcowitz@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Orange-Washington-Addison-2",
+        "openstates_id": "ocd-person/fe86164f-d4c6-4ed6-b9f4-db9a7fb70f6a",
+        "name": "Jay Hooper",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Orange-Washington-Addison",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hooper,Jay.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+          "email": "jhooper@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "vt-rep-Windham-Windsor-Bennington",
+        "openstates_id": "ocd-person/70fc16c3-0cba-429c-8616-dbcc6b9b7bf7",
+        "name": "Chris Morrow",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Windham-Windsor-Bennington",
+        "role": "State Representative",
+        "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Morrow,Chris.jpg",
+        "contact": {
+          "official_website": "https://legislature.vermont.gov/people/single/2026/40437",
+          "email": "cmorrow@leg.state.vt.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

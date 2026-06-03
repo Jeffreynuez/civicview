@@ -1,0 +1,3124 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "MO",
+  "state_name": "Missouri",
+  "executive": {
+    "governor": {
+      "id": "mo-exec-gov",
+      "name": "Mike Kehoe",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2025",
+      "website": "https://governor.mo.gov",
+      "photo_url": null,
+      "bio": "Mike Kehoe is the Governor of Missouri, serving since 2025.",
+      "sources": [
+        "https://governor.mo.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "mo-exec-lieutenant-governor",
+      "name": "David Wasinger",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgov.mo.gov/wp-content/uploads/2025/06/cropped-Lt-Gov-photo-scaled-1.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "mo-exec-attorney-general",
+        "name": "Catherine Hanaway",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://ago.mo.gov/wp-content/uploads/Hanaway-Headshot-230x300.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Missouri State Senate",
+    "members": [
+      {
+        "id": "mo-sen-1",
+        "openstates_id": "ocd-person/f6f3c354-c65e-4d9a-a713-5fce1ad2c403",
+        "name": "Doug Beck",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/21web/wp-content/uploads/2020/12/Beck2021-683x1024.jpg",
+        "contact": {
+          "official_website": "https://www.house.mo.gov/MemberDetails.aspx?district=92",
+          "email": "doug.beck@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-2",
+        "openstates_id": "ocd-person/ecbee637-2b07-4028-acb3-b82df2edb42a",
+        "name": "Nick Schroer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/02",
+          "email": "nick.schroer@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-3",
+        "openstates_id": "ocd-person/bfad4ef7-fad2-46e6-8f12-f8ea9feaa0cb",
+        "name": "Mike Henderson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=1944",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=117",
+          "email": "mike.henderson@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-4",
+        "openstates_id": "ocd-person/fbeafead-44b9-4f08-9854-ad516fb6c838",
+        "name": "Karla May",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/01/KarlaMay-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem04",
+          "email": "karla.may@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-5",
+        "openstates_id": "ocd-person/20ad6a34-2965-4068-b819-49c5e0d27831",
+        "name": "Steve Roberts",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/21web/wp-content/uploads/2020/12/Roberts-2021-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem05",
+          "email": "steven.roberts@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-6",
+        "openstates_id": "ocd-person/8df40920-38e1-4892-aa6b-764467bf79b7",
+        "name": "Mike Bernskoetter",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/01/Bernskoetter-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem06",
+          "email": "mike.bernskoetter@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-7",
+        "openstates_id": "ocd-person/618e91b0-663d-4095-9a38-eefab6304e5f",
+        "name": "Patty Lewis",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2213",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=025",
+          "email": "patty.lewis@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-8",
+        "openstates_id": "ocd-person/70c04c22-b1a9-4c3c-96f9-36761e63f3f8",
+        "name": "Mike Cierpiot",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/20web/wp-content/uploads/2020/01/Cierpiot2020-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem08",
+          "email": "mike.cierpiot@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-9",
+        "openstates_id": "ocd-person/de8806cc-fa03-4745-ae1e-198c56492f9a",
+        "name": "Barbara Washington",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.house.mo.gov/MemberDetails.aspx?district=23",
+          "email": "barbara.washington@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-10",
+        "openstates_id": "ocd-person/c9758b3c-066c-40b4-9d40-a93880fda67a",
+        "name": "Travis Fitzwater",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/10",
+          "email": "travis.fitzwater@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-11",
+        "openstates_id": "ocd-person/a93088fa-ad80-49de-aa94-d03da0add0bc",
+        "name": "Joe Nicola",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JoeNicola2023.jpeg",
+        "contact": {
+          "official_website": "https://senatorjoenicola.com/",
+          "email": "joe.nicola@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-12",
+        "openstates_id": "ocd-person/bb98b6a0-ba5f-45f8-ad14-b798515fa8a0",
+        "name": "Rusty Black",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/12",
+          "email": "rusty.black@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-13",
+        "openstates_id": "ocd-person/048bc29f-0bab-4fa1-8a1e-647b0eba4dcd",
+        "name": "Angela Mosley",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/21web/wp-content/uploads/2020/12/Mosley2021-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem13",
+          "email": "angela.mosley@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-14",
+        "openstates_id": "ocd-person/4f5340d3-7637-4eb2-be68-890073af50af",
+        "name": "Brian Williams",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/05/Williams2019-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem14",
+          "email": "brian.williams@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-15",
+        "openstates_id": "ocd-person/2f4b4782-bc17-40fd-88b7-53840c68ee3a",
+        "name": "David Gregory",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=1943",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?year=2021&code=R&district=096",
+          "email": "david.gregory@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-16",
+        "openstates_id": "ocd-person/867469f6-f988-49ec-be8c-4a065db3f223",
+        "name": "Justin Brown",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/09/Brown2019-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem16",
+          "email": "justin.brown@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-17",
+        "openstates_id": "ocd-person/d8594030-4826-48c5-af43-674470f1dd44",
+        "name": "Maggie Nurrenbern",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2211",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=015",
+          "email": "maggie.nurrenbern@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-18",
+        "openstates_id": "ocd-person/77b71863-3523-489a-a6a8-953ffa0d8955",
+        "name": "Cindy O'Laughlin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/09/OLaughlin2019-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem18",
+          "email": "cindy.olaughlin@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-19",
+        "openstates_id": "ocd-person/63dea1c8-8916-4ca8-8821-223a7fef95a9",
+        "name": "Stephen Webber",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/5569.jpg",
+        "contact": {
+          "official_website": "https://senate.mo.gov/Senators/Member/19",
+          "email": "stephen.webber@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-20",
+        "openstates_id": "ocd-person/c5e38dee-7f82-4795-a134-b984b6878458",
+        "name": "Curtis Trent",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/20",
+          "email": "curtis.trent@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-21",
+        "openstates_id": "ocd-person/1ab01adf-962d-47ac-977c-2cf25712f583",
+        "name": "Kurtis Gregory",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2218",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?year=2021&code=R&district=051",
+          "email": "kurtis.gregory@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-22",
+        "openstates_id": "ocd-person/f1d83642-4aa6-4fea-80f1-4c3f422c63ed",
+        "name": "Mary Elizabeth Coleman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/22",
+          "email": "maryelizabeth.coleman@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-23",
+        "openstates_id": "ocd-person/f436aa10-c006-4128-9748-050bf50c4e21",
+        "name": "Adam Schnelting",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2087",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=069",
+          "email": "adam.schnelting@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-24",
+        "openstates_id": "ocd-person/802c155f-8979-418f-b13b-b75de93caf31",
+        "name": "Tracy McCreery",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/24",
+          "email": "tracy.mccreery@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-25",
+        "openstates_id": "ocd-person/87d06121-1f5c-49ed-88dc-f5c70e88533e",
+        "name": "Jason Bean",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/21web/wp-content/uploads/2020/12/Bean-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem25",
+          "email": "jason.bean@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-26",
+        "openstates_id": "ocd-person/c44ce433-7957-40b8-98dd-221b2f7d1436",
+        "name": "Ben Brown",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/WebPhotos/SenatorPortraits/Brown26.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/26",
+          "email": "ben.brown@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-27",
+        "openstates_id": "ocd-person/87967de8-0f0d-45d5-9248-2767f9157d7b",
+        "name": "Jamie Burger",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2237",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=148",
+          "email": "jamie.burger@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-28",
+        "openstates_id": "ocd-person/4f194218-3d95-4f08-8963-7e3440fdb671",
+        "name": "Sandy Crawford",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/09/Crawford2019-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem28",
+          "email": "sandy.crawford@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-29",
+        "openstates_id": "ocd-person/43563b48-1d26-4a85-bad2-615971201d41",
+        "name": "Mike Moon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.house.mo.gov/MemberDetails.aspx?district=157",
+          "email": "mike.moon@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-30",
+        "openstates_id": "ocd-person/934fdfca-5cdf-4c67-a3b0-b23e433f87f6",
+        "name": "Lincoln Hough",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/19web/wp-content/uploads/2019/10/Hough-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem30",
+          "email": "lincoln.hough@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-31",
+        "openstates_id": "ocd-person/e4811e7a-7df7-4275-917d-8bdcc2778fb1",
+        "name": "Rick Brattin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.house.mo.gov/MemberDetails.aspx?district=55",
+          "email": "rick.brattin@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-32",
+        "openstates_id": "ocd-person/29fe2ddb-6025-4e60-942d-fd0880ebad5b",
+        "name": "Jill Carter",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/Senators/Member/32/",
+          "email": "jill.carter@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-33",
+        "openstates_id": "ocd-person/9f6b3ff8-f439-44d0-bdf7-315451e52cb7",
+        "name": "Brad Hudson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2081",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=138",
+          "email": "brad.hudson@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-sen-34",
+        "openstates_id": "ocd-person/98b8120c-7a9c-4415-9e7b-8bfcdc8fa8a5",
+        "name": "Tony Luetkemeyer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.senate.mo.gov/20web/wp-content/uploads/2020/01/010720-002-200x300.jpg",
+        "contact": {
+          "official_website": "https://www.senate.mo.gov/mem34",
+          "email": "tony.luetkemeyer@senate.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Missouri State House",
+    "members": [
+      {
+        "id": "mo-rep-1",
+        "openstates_id": "ocd-person/633fd335-98a2-42a7-acac-cb78eeca9a12",
+        "name": "Jeff Farnan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2354",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=1",
+          "email": "jeff.farnan@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-2",
+        "openstates_id": "ocd-person/22e282f9-afbf-46b8-ac81-0780f5372d0d",
+        "name": "Mazzie Christensen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2381",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=002",
+          "email": "mazzie.christensen@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-3",
+        "openstates_id": "ocd-person/ace530aa-6fbb-40a0-b91e-94820a287b2e",
+        "name": "Danny Busick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2069",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=003",
+          "email": "danny.busick@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-4",
+        "openstates_id": "ocd-person/d6be1f75-f237-41ad-af36-a7d1c6e3a9c6",
+        "name": "Greg Sharpe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2086",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=004",
+          "email": "greg.sharpe@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-5",
+        "openstates_id": "ocd-person/9a78c55e-0f06-4dd9-b86e-287db7332d98",
+        "name": "Louis Riggs",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2094",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=005",
+          "email": "louis.riggs@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-6",
+        "openstates_id": "ocd-person/c53c50aa-49b2-415a-9a50-eb947daf3d7f",
+        "name": "Ed Lewis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2244",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=006",
+          "email": "ed.lewis@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-7",
+        "openstates_id": "ocd-person/920c5b79-73a0-477b-a90d-1a290e48e014",
+        "name": "Peggy McGaugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2019",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=007",
+          "email": "peggy.mcgaugh@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-8",
+        "openstates_id": "ocd-person/1da3a25b-64fa-48d4-8441-e1dca4526f7f",
+        "name": "Josh Hurlbert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2242",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=008",
+          "email": "josh.hurlbert@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-9",
+        "openstates_id": "ocd-person/f3250139-5c42-40d9-b535-2e7137f83f1e",
+        "name": "Dean VanSchoiack",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2243",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=9",
+          "email": "dean.vanschoiack@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-10",
+        "openstates_id": "ocd-person/28245e55-fddc-46db-85a7-ce9ca55da6d7",
+        "name": "Bill Falkner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2062",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=010",
+          "email": "bill.falkner@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-11",
+        "openstates_id": "ocd-person/b7d28fcb-9563-420c-91bb-01d3202124fd",
+        "name": "Brenda Shields",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2093",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=011",
+          "email": "brenda.shields@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-12",
+        "openstates_id": "ocd-person/8e0bb3e7-085b-471c-a588-a1de9b466706",
+        "name": "Mike Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/c0c31e_a5630222da5c43efb8e8c52283f027da~mv2.jpg/v1/fill/w_473,h_549,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Michael-18%20(2)_edited.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=012",
+          "email": "michael.jones@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-13",
+        "openstates_id": "ocd-person/e1a53185-3c84-4f82-87f0-09bd607cf2e7",
+        "name": "Sean Pouche",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2209",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=013",
+          "email": "sean.pouche@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-14",
+        "openstates_id": "ocd-person/1ff1dec0-c449-4ff8-aa22-0830817c2070",
+        "name": "Ashley Aune",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2210",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=014",
+          "email": "ashley.aune@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-15",
+        "openstates_id": "ocd-person/34a05fb9-bb36-416e-ada9-6be70b48b6b2",
+        "name": "Ken Jamison",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167307.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=015",
+          "email": "ken.jamison@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-16",
+        "openstates_id": "ocd-person/43f13a74-64cd-41b6-b03a-51af80dbfc10",
+        "name": "Chris Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2212",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=016",
+          "email": "chris.brown@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-17",
+        "openstates_id": "ocd-person/7472aac6-4730-456b-8e2f-3b79e45da74c",
+        "name": "Bill Allen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2377",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=017",
+          "email": "bill.allen@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-18",
+        "openstates_id": "ocd-person/76bc7488-cc9e-4b47-91da-4557fb577ff5",
+        "name": "Eric Woods",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2367",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=018",
+          "email": "eric.woods@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-19",
+        "openstates_id": "ocd-person/39bcc093-37e9-469a-866d-5b6f10c52381",
+        "name": "Wick Thomas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/wthomas2.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=019",
+          "email": "wick.thomas@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-20",
+        "openstates_id": "ocd-person/df4d176b-2a0b-41be-977f-efa722d6a321",
+        "name": "Mike Steinmeyer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Steinmeyer_20241028_013139.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=020",
+          "email": "mike.steinmeyer@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-21",
+        "openstates_id": "ocd-person/9c6a9708-529e-422f-82b7-e92385a32688",
+        "name": "Will Jobe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JoeStreno2024.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=021",
+          "email": "will.jobe@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-22",
+        "openstates_id": "ocd-person/e2fb607f-9af9-4d80-b473-8ed33e3d942d",
+        "name": "Yolanda Young",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2168",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=022",
+          "email": "yolanda.young@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-23",
+        "openstates_id": "ocd-person/8014964b-117f-40a4-a466-ac597dd70983",
+        "name": "Michael Johnson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2255",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=023",
+          "email": "michael.johnson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-24",
+        "openstates_id": "ocd-person/f7c7d32d-5d88-489a-9adf-76c9837b3272",
+        "name": "Emily Weber",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2246",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=024",
+          "email": "emily.weber@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-25",
+        "openstates_id": "ocd-person/a0be4ce1-fdbd-47d2-a74c-aaee85644992",
+        "name": "Pattie Mansur",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/PattieMansur2024.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=025",
+          "email": "pattie.mansur@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-26",
+        "openstates_id": "ocd-person/53e00142-c4a0-41e7-bef7-fedb8de2bcdc",
+        "name": "Tiffany Price",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=026",
+          "email": "tiffany.price@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-27",
+        "openstates_id": "ocd-person/9815268f-50dc-451b-9bb2-b36f3c556ac4",
+        "name": "Melissa Douglas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=027",
+          "email": "melissa.douglas@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-28",
+        "openstates_id": "ocd-person/fb57ce9b-bd82-4f93-8774-2cfef191289a",
+        "name": "Donna Barnes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=028",
+          "email": "donna.barnes@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-29",
+        "openstates_id": "ocd-person/ba6eb394-0402-49ba-9917-c5618d8a1589",
+        "name": "Aaron Crossley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2366",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=29",
+          "email": "aaron.crossley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-30",
+        "openstates_id": "ocd-person/419c30c0-b3f2-4d4b-a2f1-ee08050e845b",
+        "name": "Jon Patterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2075",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=030",
+          "email": "jonathan.patterson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-31",
+        "openstates_id": "ocd-person/7a66b805-a3a7-4440-b404-a562c1e00059",
+        "name": "Ron Fowler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=031",
+          "email": "william.fowler@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-32",
+        "openstates_id": "ocd-person/100ec26e-d90f-4707-822c-db61c8f1b370",
+        "name": "Jeff Coleman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2071",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=32",
+          "email": "jeff.coleman@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-33",
+        "openstates_id": "ocd-person/34df0cd7-f366-4d01-a1e7-d6241e34deec",
+        "name": "Carolyn Caton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=033",
+          "email": "carolyn.caton@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-34",
+        "openstates_id": "ocd-person/c140221e-dfad-45d7-9371-faf3cc12ff17",
+        "name": "Kemp Strickler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2358",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=034",
+          "email": "kemp.strickler@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-35",
+        "openstates_id": "ocd-person/7f91f845-d612-45d2-bc08-421c4e91357a",
+        "name": "Keri Ingle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2134",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=35",
+          "email": "keri.ingle@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-36",
+        "openstates_id": "ocd-person/a5cc5083-e44a-4379-b4db-74c4a930821b",
+        "name": "Anthony Ealy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2384",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=36",
+          "email": "anthony.ealy@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-37",
+        "openstates_id": "ocd-person/0fddc5af-b1f0-49ca-84d9-fc6458edf362",
+        "name": "Mark Sharp",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2169",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=37",
+          "email": "mark.sharp@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-38",
+        "openstates_id": "ocd-person/e5a2f458-8afb-41b6-9bf0-79143ea24a25",
+        "name": "Marty Jacobs",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167306.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=038",
+          "email": "martin.jacobs@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-39",
+        "openstates_id": "ocd-person/ba1cff78-9a39-4e6e-a998-c8dc324d7b80",
+        "name": "Mark Meirath",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=039",
+          "email": "mark.meirath@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-40",
+        "openstates_id": "ocd-person/b1fb2c50-2091-4264-abed-e89079479bc0",
+        "name": "Chad Perkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2207",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=40",
+          "email": "chad.perkins@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-41",
+        "openstates_id": "ocd-person/f3eb420f-df97-4edf-b8c9-e0fa231c6860",
+        "name": "Doyle Justus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2364",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=41",
+          "email": "doyle.justus@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-42",
+        "openstates_id": "ocd-person/acd99a81-de49-4ab0-9bb5-bb4fa72c02c5",
+        "name": "Jeff Myers",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2392",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=42",
+          "email": "jeff.myers@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-43",
+        "openstates_id": "ocd-person/96d0d8da-dcff-4f59-b051-e0da15584b7b",
+        "name": "Kent Haden",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2076",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=43",
+          "email": "kent.haden@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-44",
+        "openstates_id": "ocd-person/6e5b11bc-fc9c-4822-9a82-1a5a59771c00",
+        "name": "John Martin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/5e062e_e41671d0d6714f5cb9bbb25925e34d15~mv2.jpg/v1/crop/x_172,y_24,w_1449,h_1427/fill/w_397,h_391,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/DSC_6591%20copy%20(1)_edited.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=044",
+          "email": "john.martin@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-45",
+        "openstates_id": "ocd-person/6ee52a1a-7c1b-4ebb-ac4f-8602d03b2034",
+        "name": "Kathy Steinhoff",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2361",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=045",
+          "email": "kathy.steinhoff@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-46",
+        "openstates_id": "ocd-person/c509449e-070c-462c-810e-f14315c9df42",
+        "name": "David Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2290",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=046",
+          "email": "david.smith@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-47",
+        "openstates_id": "ocd-person/f2e657d5-999a-4d77-98e3-b06a7c3771f4",
+        "name": "Adrian Plank",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2395",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=047",
+          "email": "adrian.plank@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-48",
+        "openstates_id": "ocd-person/14c919a7-4443-4bc7-8221-34a59cc3bfef",
+        "name": "Tim Taylor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2217",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=048",
+          "email": "tim.taylor@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-49",
+        "openstates_id": "ocd-person/9814247b-44fc-473f-b770-a44c77292d77",
+        "name": "Jim Schulte",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2397",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=049",
+          "email": "jim.schulte@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-50",
+        "openstates_id": "ocd-person/ec53a7aa-4a63-4c8f-8f74-8002d5c654e5",
+        "name": "Gregg Bush",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/GreggBush24.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=050",
+          "email": "gregg.bush@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-51",
+        "openstates_id": "ocd-person/443938dd-c7a0-4061-890a-8bd4ec4a1924",
+        "name": "Mark Nolte",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=051",
+          "email": "mark.nolte@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-52",
+        "openstates_id": "ocd-person/4cfed488-abe6-46e5-a3aa-55a73e2984ca",
+        "name": "Brad Pollitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2073",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=052",
+          "email": "bradley.pollitt@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-53",
+        "openstates_id": "ocd-person/da48983a-852b-4d3b-b635-285f37d8d012",
+        "name": "Terry Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2219",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=053",
+          "email": "terry.thompson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-54",
+        "openstates_id": "ocd-person/18f02633-c607-4c80-9088-742b28a49122",
+        "name": "Brandon Phelps",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=054",
+          "email": "brandon.phelps@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-55",
+        "openstates_id": "ocd-person/21a85544-7b2f-4d34-9654-a1ebfaa34881",
+        "name": "Bill Irwin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/64e208458934da6e60e3a002/211532ff-154d-44d5-84d6-5cd347f4aaba/Irwin+4+Congress+office.jpg?format=2500w",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=055",
+          "email": "bill.irwin@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-56",
+        "openstates_id": "ocd-person/dc271660-9483-4b46-8c96-4794078b130f",
+        "name": "Michael Davis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2220",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=056",
+          "email": "michael.davis@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-57",
+        "openstates_id": "ocd-person/bd63f6e7-ed53-4a4c-98b6-925588710b0b",
+        "name": "Rodger Reedy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2096",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=057",
+          "email": "rodger.reedy@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-58",
+        "openstates_id": "ocd-person/05c84580-b849-4320-9aa4-e34d8b977aca",
+        "name": "Willard Haley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2221",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=058",
+          "email": "willard.haley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-59",
+        "openstates_id": "ocd-person/fe941ee4-f34a-4685-873c-29adbb732b2c",
+        "name": "Rudy Veit",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2078",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=059",
+          "email": "rudy.veit@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-60",
+        "openstates_id": "ocd-person/841b8b5c-a701-43c0-bb81-8e9515e61ea0",
+        "name": "Dave Griffith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2052",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=060",
+          "email": "dave.griffith@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-61",
+        "openstates_id": "ocd-person/d01a9b1a-a262-4d27-9de9-b7ad0ff8c7f0",
+        "name": "Bruce Sassmann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2222",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=061",
+          "email": "bruce.sassmann@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-62",
+        "openstates_id": "ocd-person/272db469-eb67-4752-8307-c46a95eaace0",
+        "name": "Sherri Gallick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2359",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=062",
+          "email": "sherri.gallick@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-63",
+        "openstates_id": "ocd-person/4f9135f0-db97-4860-af00-182d0026feae",
+        "name": "Tricia Byrnes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2382",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=063",
+          "email": "tricia.byrnes@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-64",
+        "openstates_id": "ocd-person/b24e59bc-bc91-456f-9b96-bd1f501c1d49",
+        "name": "Deanna Self",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DeannaSelf.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=064",
+          "email": "deanna.self@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-65",
+        "openstates_id": "ocd-person/b6ab609a-1abc-40ee-9ac1-889ccb08a9f0",
+        "name": "Wendy Hausman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2360",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=065",
+          "email": "wendy.hausman@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-66",
+        "openstates_id": "ocd-person/47f4d77d-149c-410a-a324-067172efda3c",
+        "name": "Marlene Terry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2247",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=066",
+          "email": "marlene.terry@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-67",
+        "openstates_id": "ocd-person/b45073a9-ed4d-4d2c-89cd-edf310e7d373",
+        "name": "Tonya Rush",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/824926/824926.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=067",
+          "email": "latondra.rush@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-68",
+        "openstates_id": "ocd-person/e4b24233-89d2-41eb-b360-ae297e3385ba",
+        "name": "Kem Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KemSmith2024.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=068",
+          "email": "kem.smith@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-69",
+        "openstates_id": "ocd-person/3e251c9a-ef4d-436d-9c10-9aa447b3fcbd",
+        "name": "Scott Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Scott_Miller_20240924_022629.png",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=069",
+          "email": "scott.miller@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-70",
+        "openstates_id": "ocd-person/129ff7c8-e210-47d5-a30c-777571984925",
+        "name": "Stephanie Boykin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Stephanie__Boykin__20240808_091242.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=070",
+          "email": "stephanie.boykin@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-71",
+        "openstates_id": "ocd-person/6c3609dd-62d2-4030-9b24-7b5d49a16677",
+        "name": "LaDonna Appelbaum",
+        "party": "D",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2057",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=071",
+          "email": "ladonna.appelbaum@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-72",
+        "openstates_id": "ocd-person/c2ccbec5-9ad2-4210-9029-3c9968b72d2f",
+        "name": "Doug Clemens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2060",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=072",
+          "email": "doug.clemens@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-73",
+        "openstates_id": "ocd-person/e0d1f714-8603-40c6-8c3e-04934648caa4",
+        "name": "Raychel Proudie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2099",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=073",
+          "email": "raychel.proudie@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-74",
+        "openstates_id": "ocd-person/56a68a64-7a44-4052-b5f2-e9f7c626e311",
+        "name": "Marla Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=074",
+          "email": "marla.smith@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-75",
+        "openstates_id": "ocd-person/ef435f26-5456-4e1b-9d53-16d972983db0",
+        "name": "Chanel Mosley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=075",
+          "email": "chanel.mosley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-76",
+        "openstates_id": "ocd-person/500e226f-ea79-4915-ab13-a11ab4d9e48e",
+        "name": "Marlon Anderson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2276",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=076",
+          "email": "marlon.anderson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-77",
+        "openstates_id": "ocd-person/6b417baa-36e5-4928-bb3d-b6b8f2cc95dd",
+        "name": "Kimberly-Ann Collins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2277",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=077",
+          "email": "kimberlyann.collins@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-78",
+        "openstates_id": "ocd-person/f36fd5fa-6d20-43d4-9555-ce4d2d472849",
+        "name": "Marty Murray",
+        "party": "D",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MartyMurray2024.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=078",
+          "email": "marty.murray@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-79",
+        "openstates_id": "ocd-person/24c9a1f1-0023-4733-aa18-80f252645723",
+        "name": "LaKeySha Bosley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2133",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=079",
+          "email": "lakeysha.bosley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-80",
+        "openstates_id": "ocd-person/733d6ca4-9be3-4541-bcc9-75b7431cfc39",
+        "name": "Lilly Fuchs",
+        "party": "D",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://victoryfund.org/wp-content/uploads/2024/08/Capital-Photos-Arm-on-hip-at-pillar-full-body-scaled-e1724799705880-500x500-250x250.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=080",
+          "email": "elizabeth.fuchs@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-81",
+        "openstates_id": "ocd-person/6ad9db86-5e30-4693-be71-41bacad5b843",
+        "name": "Steve Butz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2061",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=081",
+          "email": "steve.butz@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-82",
+        "openstates_id": "ocd-person/e6caa351-c418-431a-bf50-1bd16923ae49",
+        "name": "Nick Kimble",
+        "party": "D",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://media.upballot.com/candidates/_250x250_crop_center-center_100_none/Nick-Kimble-Headshot.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=082",
+          "email": "nick.kimble@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-83",
+        "openstates_id": "ocd-person/41f72deb-7981-4053-bb15-7eb3580b9ade",
+        "name": "Ray Reed",
+        "party": "D",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/May162022836PM_104500298_ReedForMissouriHeadshot.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=083",
+          "email": "ray.reed@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-84",
+        "openstates_id": "ocd-person/4a6e4da5-0cbd-4033-89a3-5bd749b37108",
+        "name": "Del Taylor",
+        "party": "D",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2400",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=084",
+          "email": "del.taylor@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-85",
+        "openstates_id": "ocd-person/6f65a218-7bef-4fa3-b86c-907ed92296d8",
+        "name": "Yolonda Fountain-Henderson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2385",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=085",
+          "email": "yolonda.fountainhend@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-86",
+        "openstates_id": "ocd-person/92aabb0f-94de-4d54-b4d0-23f09035d8a0",
+        "name": "Jeff Hales",
+        "party": "D",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=086",
+          "email": "jeffrey.hales@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-87",
+        "openstates_id": "ocd-person/a4d25b21-09c7-49d8-aaca-a07a18dad245",
+        "name": "Connie Steinmetz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Connie_Steinmetz.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=087",
+          "email": "connie.steinmetz@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-88",
+        "openstates_id": "ocd-person/c47d84db-02de-4687-bd5b-c6dbc71cc8c4",
+        "name": "Holly Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2388",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=088",
+          "email": "holly.jones@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-89",
+        "openstates_id": "ocd-person/5e3e358e-622b-462c-ba56-ea42bf7c1fc2",
+        "name": "George Hruza",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/GeorgeHruza2023.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=089",
+          "email": "george.hruza@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-90",
+        "openstates_id": "ocd-person/3a6ee726-1e30-4f9a-82cc-af57163e571b",
+        "name": "Mark Boyko",
+        "party": "D",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Boyko.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=090",
+          "email": "mark.boyko@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-91",
+        "openstates_id": "ocd-person/0f113187-3958-449e-9c4e-3e81390c1dd4",
+        "name": "Jo Doll",
+        "party": "D",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2224",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=091",
+          "email": "jo.doll@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-92",
+        "openstates_id": "ocd-person/24dc0503-f4cf-48b1-afdf-e57157bafec3",
+        "name": "Michael Burton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2225",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=092",
+          "email": "michael.burton@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-93",
+        "openstates_id": "ocd-person/d29468e7-eb61-45e7-89ad-4dfb93a0baf2",
+        "name": "Bridget Moore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2248",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=093",
+          "email": "bridget.walshmoore@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-94",
+        "openstates_id": "ocd-person/06e17e6f-a17c-4654-9ead-d0aa98a95110",
+        "name": "Jim Murphy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2063",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=094",
+          "email": "jim.murphy@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-96",
+        "openstates_id": "ocd-person/8f5928b4-5528-4506-8075-4e69c5864b42",
+        "name": "Brad Christ",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2374",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=096",
+          "email": "brad.christ@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-97",
+        "openstates_id": "ocd-person/6db49039-f2b0-42ea-990d-92ffef2494c3",
+        "name": "David Casteel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2383",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=097",
+          "email": "david.casteel@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-98",
+        "openstates_id": "ocd-person/b7335950-e605-45b7-9c64-1e725315deca",
+        "name": "Jaclyn Zimmermann",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JaclynZimmerman2024.JPG",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=098",
+          "email": "jaclyn.zimmermann@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-99",
+        "openstates_id": "ocd-person/b93bdb73-001b-43ed-a436-99ad2efe4937",
+        "name": "Ian Mackey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2080",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=099",
+          "email": "ian.mackey@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-100",
+        "openstates_id": "ocd-person/4d403f59-65f6-484f-9aeb-fe05380d4bcf",
+        "name": "Philip Oehlerking",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2371",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=100",
+          "email": "philip.oehlerking@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-101",
+        "openstates_id": "ocd-person/1f082953-c9f5-4a72-a281-cdb9fe4bda5e",
+        "name": "Ben Keathley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2389",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=101",
+          "email": "ben.keathley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-102",
+        "openstates_id": "ocd-person/4209f53e-18f3-4c9e-8183-caa385c319ec",
+        "name": "Richard West",
+        "party": "R",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2245",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=102",
+          "email": "richard.west@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-103",
+        "openstates_id": "ocd-person/49609474-e343-4c1d-8e6b-677f31c228b7",
+        "name": "Dave Hinman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2357",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?\\district=103",
+          "email": "dave.hinman@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-104",
+        "openstates_id": "ocd-person/ea5a5b0f-1c94-4c8d-a39f-e76357ebb2bf",
+        "name": "Terri Violet",
+        "party": "R",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Terri_Violet_20240810_031254.png",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=104",
+          "email": "terri.violet@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-105",
+        "openstates_id": "ocd-person/0c02ea62-5611-4292-bf13-316c50c3a866",
+        "name": "Colin Wellenkamp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX0dvieAKQKNkpNLYf1CfTOGpW1d2Fr9PPxQ&s",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=105",
+          "email": "colin.wellenkamp@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-106",
+        "openstates_id": "ocd-person/350514c2-7875-44c4-8ef3-20da25540793",
+        "name": "Travis Wilson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2373",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=106",
+          "email": "travis.wilson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-107",
+        "openstates_id": "ocd-person/661f49f4-e075-491e-aad8-4dde65ecb6df",
+        "name": "Mark Matthiesen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=1937",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=107",
+          "email": "mark.matthiesen@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-108",
+        "openstates_id": "ocd-person/c08a9151-fdfe-4da9-97c2-5536ed96f255",
+        "name": "Mike Costlow",
+        "party": "R",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://costlowformissouri.com/wp-content/uploads/2024/05/Headshot-No-Background-2.png",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=108",
+          "email": "mike.costlow@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-109",
+        "openstates_id": "ocd-person/3de9f0e2-7062-4363-91d0-c3f17084ced4",
+        "name": "John Simmons",
+        "party": "R",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2097",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=109",
+          "email": "john.simmons@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-111",
+        "openstates_id": "ocd-person/66b84db3-dd1a-4c94-8a78-bbf219068347",
+        "name": "Cecelie Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "111",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/myleaderpaper.com/content/tncms/assets/v3/editorial/5/41/5413b724-454a-11ef-9a7c-074f5d50855a/669985197fe04.image.jpg?resize=500%2C500",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=111",
+          "email": "cecelie.williams@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-112",
+        "openstates_id": "ocd-person/64a3bd7d-7dc8-4ce6-bd30-6101b2b7926e",
+        "name": "Renee Reuter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "112",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2396",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=112",
+          "email": "renee.reuter@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-113",
+        "openstates_id": "ocd-person/1d96c354-2527-4449-9b40-36bb78fe2cb7",
+        "name": "Phil Amato",
+        "party": "R",
+        "chamber": "State House",
+        "district": "113",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2378",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=113",
+          "email": "phil.amato@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-115",
+        "openstates_id": "ocd-person/720cb5cb-6d39-4cdf-be60-020493ac19d9",
+        "name": "Bill Lucas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "115",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=115",
+          "email": "william.lucas@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-116",
+        "openstates_id": "ocd-person/616dd247-4438-44de-97b4-cd3a5a3e554d",
+        "name": "Dale Wright",
+        "party": "R",
+        "chamber": "State House",
+        "district": "116",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2095",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=116",
+          "email": "dale.wright@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-117",
+        "openstates_id": "ocd-person/483aaa6b-d64a-48d0-8bc4-bca6c252f8dc",
+        "name": "Becky Laubinger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "117",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=117",
+          "email": "becky.laubinger@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-118",
+        "openstates_id": "ocd-person/1a644e87-8691-4e86-af73-6a2af0f56c82",
+        "name": "Mike McGirl",
+        "party": "R",
+        "chamber": "State House",
+        "district": "118",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2065",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=118",
+          "email": "mike.mcgirl@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-119",
+        "openstates_id": "ocd-person/e0e9f47c-af7c-45f3-9d7e-1a158a19b362",
+        "name": "Brad Banderman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "119",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2379",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=119",
+          "email": "brad.banderman@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-120",
+        "openstates_id": "ocd-person/5fae2678-d379-4ef0-9481-0f78f544d0c4",
+        "name": "John Hewkin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "120",
+        "role": "State Representative",
+        "photo_url": "https://dailyjournalonline.com/wp-content/uploads/2023/09/Hewkin-1.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=120",
+          "email": "john.hewkin@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-121",
+        "openstates_id": "ocd-person/6b7c5c9c-05ba-4a2e-8f23-117edbf2969b",
+        "name": "Bill Hardwick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "121",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2253",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=121",
+          "email": "bill.hardwick@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-122",
+        "openstates_id": "ocd-person/ae8a2d25-fbb2-4254-976a-f9dcf0c92c6f",
+        "name": "Tara Peters",
+        "party": "R",
+        "chamber": "State House",
+        "district": "122",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2394",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=122",
+          "email": "tara.peters@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-123",
+        "openstates_id": "ocd-person/0b281a28-10f1-496b-aa00-29e59a57d253",
+        "name": "Jeff Vernetti",
+        "party": "R",
+        "chamber": "State House",
+        "district": "123",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/166122.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=123",
+          "email": "jeff.vernetti@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-124",
+        "openstates_id": "ocd-person/af64f0a2-f3ff-4c6d-b24f-62c3941d1da4",
+        "name": "Don Mayhew",
+        "party": "R",
+        "chamber": "State House",
+        "district": "124",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2082",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=124",
+          "email": "don.mayhew@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-125",
+        "openstates_id": "ocd-person/0f4f5a2e-bc86-4c2a-9ab1-041d1c844283",
+        "name": "Dane Diehl",
+        "party": "R",
+        "chamber": "State House",
+        "district": "125",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2370",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=125",
+          "email": "dane.diehl@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-126",
+        "openstates_id": "ocd-person/49c68d0e-cf5d-4b46-9890-c887a428929e",
+        "name": "Jim Kalberloh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "126",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2229",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=126",
+          "email": "jim.kalberloh@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-127",
+        "openstates_id": "ocd-person/fff43ce1-d209-4556-ba74-32f9ba46d3c0",
+        "name": "Ann Kelley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "127",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2051",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=127",
+          "email": "ann.kelley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-128",
+        "openstates_id": "ocd-person/075c14fd-b8dd-433d-ae30-69fb9d210979",
+        "name": "Chris Warwick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "128",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/164674.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=128",
+          "email": "christopher.warwick@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-129",
+        "openstates_id": "ocd-person/1250ea3d-fe5c-46ea-bead-f7249d234e68",
+        "name": "John Black",
+        "party": "R",
+        "chamber": "State House",
+        "district": "129",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2114",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=129",
+          "email": "john.black@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-130",
+        "openstates_id": "ocd-person/163f458d-ad80-4bad-9223-69e1f6fec4d2",
+        "name": "Bishop Davidson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "130",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2230",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=130",
+          "email": "bishop.davidson@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-131",
+        "openstates_id": "ocd-person/d9dd5492-e605-4fc6-a18a-8772a7682a08",
+        "name": "Bill Owen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "131",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2231",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=131",
+          "email": "bill.owen@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-132",
+        "openstates_id": "ocd-person/98bc3ac1-1f5d-4a1c-bac8-356dfbbfa875",
+        "name": "Jeremy Dean",
+        "party": "D",
+        "chamber": "State House",
+        "district": "132",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeremy_Dean_20240911_121645.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=132",
+          "email": "jeremy.dean@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-133",
+        "openstates_id": "ocd-person/1df6dc2e-0d12-40d6-b368-4d0b3a19ef95",
+        "name": "Melanie Stinnett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "133",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2399",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=133",
+          "email": "melanie.stinnett@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-134",
+        "openstates_id": "ocd-person/b11b5a8d-08e8-4cf3-802c-42a842102cfa",
+        "name": "Alex Riley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "134",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2232",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=134",
+          "email": "alex.riley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-135",
+        "openstates_id": "ocd-person/55b3b80d-f69c-4f9f-aaed-4d1e5cd2634d",
+        "name": "Betsy Fogle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "135",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2233",
+        "contact": {
+          "official_website": "https://house.mo.gov/memberdetails.aspx?district=135",
+          "email": "betsy.fogle@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-136",
+        "openstates_id": "ocd-person/9adf60fd-19a0-429c-ab41-5cbc8e6391fc",
+        "name": "Stephanie Hein",
+        "party": "D",
+        "chamber": "State House",
+        "district": "136",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2363",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=136",
+          "email": "stephanie.hein@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-137",
+        "openstates_id": "ocd-person/1cd15a85-b074-4d67-8fcd-1cbccfc924f4",
+        "name": "Darin Chappell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "137",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2362",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=137",
+          "email": "darin.chappell@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-138",
+        "openstates_id": "ocd-person/89ef08d6-96fd-4d5f-9a48-d8093ba60052",
+        "name": "Burt Whaley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "138",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/164677.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=138",
+          "email": "burt.whaley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-139",
+        "openstates_id": "ocd-person/b2f744fa-f71d-4865-a704-afcd3d030ff7",
+        "name": "Bob Titus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "139",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2369",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=139",
+          "email": "bob.titus@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-140",
+        "openstates_id": "ocd-person/1235305e-980d-4eb8-8743-8d0d8a455c4e",
+        "name": "Jamie Ray Gragg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "140",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2386",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=140",
+          "email": "jamieray.gragg@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-141",
+        "openstates_id": "ocd-person/7839a137-9de7-440a-bad8-20db1e0ead3b",
+        "name": "Melissa Schmidt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "141",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/530e0b_df591691a465401684e3625621398fd5~mv2.jpg/v1/fill/w_952,h_721,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/530e0b_df591691a465401684e3625621398fd5~mv2.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=141",
+          "email": "melissa.schmidt@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-142",
+        "openstates_id": "ocd-person/fa6c1b05-02e8-4c6f-9a84-d1f58885ea04",
+        "name": "Jeff Knight",
+        "party": "R",
+        "chamber": "State House",
+        "district": "142",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2020",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=142",
+          "email": "jeff.knight@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-143",
+        "openstates_id": "ocd-person/9c485ac1-4ad5-4466-9392-a9014827ef56",
+        "name": "Bennie Cook",
+        "party": "R",
+        "chamber": "State House",
+        "district": "143",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2235",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=143",
+          "email": "bennie.cook@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-144",
+        "openstates_id": "ocd-person/b3e74d72-fdba-4c02-b75c-1ba8cc5b44b2",
+        "name": "Tony Harbison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "144",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=144",
+          "email": "tony.harbison@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-145",
+        "openstates_id": "ocd-person/06f2e023-3786-4c2f-b057-fd9087a6a1db",
+        "name": "Bryant Wolfin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "145",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bryant_Wolfin.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=145",
+          "email": "bryant.wolfin@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-146",
+        "openstates_id": "ocd-person/54f9145f-2529-448e-8238-b00d049a782c",
+        "name": "Barry Hovis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "146",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2129",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=146",
+          "email": "barry.hovis@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-147",
+        "openstates_id": "ocd-person/709dba3b-3a48-4429-94e7-fada7faa0d90",
+        "name": "John Voss",
+        "party": "R",
+        "chamber": "State House",
+        "district": "147",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2355",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=147",
+          "email": "john.voss@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-148",
+        "openstates_id": "ocd-person/3055e426-4c34-404c-b286-820e978cb05c",
+        "name": "David Dolan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "148",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167282.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=148",
+          "email": "david.dolan@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-150",
+        "openstates_id": "ocd-person/08f76b3a-4317-4d18-a44b-f2d6a673f1e3",
+        "name": "Cameron Parker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "150",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2393",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=150",
+          "email": "cameron.buntingparke@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-151",
+        "openstates_id": "ocd-person/7ff101ee-474f-410d-9644-88bb17ae7519",
+        "name": "Steve Jordan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "151",
+        "role": "State Representative",
+        "photo_url": "https://public-assets-prod.pubgen.ai/brand_a7b06a8b-02b9-4920-9426-9b9be1d4e410/asset_912fbf35-14cf-4899-857f-bfa1a8508a2d.jpg?w=1240",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=151",
+          "email": "steve.jordan@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-152",
+        "openstates_id": "ocd-person/a9a55831-48ad-4f2e-b548-0b7652b2b681",
+        "name": "Hardy Billington",
+        "party": "R",
+        "chamber": "State House",
+        "district": "152",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2058",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=152",
+          "email": "hardy.billington@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-153",
+        "openstates_id": "ocd-person/31ee0443-77bc-415d-9774-d09dee750243",
+        "name": "Keith Elliott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "153",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=153",
+          "email": "keith.elliot@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-154",
+        "openstates_id": "ocd-person/5f182358-80ec-4463-a8b0-2dd660ac97ab",
+        "name": "Lisa Durnell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "154",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?&district=154",
+          "email": "lisa.durnell@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-155",
+        "openstates_id": "ocd-person/c22f94cc-641f-4a45-a2a6-610f829e7c43",
+        "name": "Matthew Overcast",
+        "party": "R",
+        "chamber": "State House",
+        "district": "155",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matthew_Overcast23.jpeg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=155",
+          "email": "matthew.overcast@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-156",
+        "openstates_id": "ocd-person/83283f83-e8d3-4e03-949c-1bdfae4bfd7f",
+        "name": "Brian Seitz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "156",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2240",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=156",
+          "email": "brian.seitz@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-157",
+        "openstates_id": "ocd-person/c5b24334-9dfa-4356-8aa2-8f91c2a3d692",
+        "name": "Mitch Boggs",
+        "party": "R",
+        "chamber": "State House",
+        "district": "157",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2241",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=157",
+          "email": "mitch.boggs@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-158",
+        "openstates_id": "ocd-person/515b97f2-7c88-40e5-b127-04146435e50e",
+        "name": "Scott Cupps",
+        "party": "R",
+        "chamber": "State House",
+        "district": "158",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2172",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=158",
+          "email": "scott.cupps@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-159",
+        "openstates_id": "ocd-person/914b9a95-6dd2-4d1d-8dc4-eed597b02e53",
+        "name": "Dirk Deaton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "159",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2090",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=159",
+          "email": "dirk.deaton@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-161",
+        "openstates_id": "ocd-person/56f5920f-46d9-4991-b029-5984b80cd7ff",
+        "name": "Lane Roberts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "161",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2092",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=161",
+          "email": "lane.roberts@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-162",
+        "openstates_id": "ocd-person/4d763e2a-ab08-46ea-8561-9b3b74b34971",
+        "name": "Bob Bromley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "162",
+        "role": "State Representative",
+        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2074",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=162",
+          "email": "bob.bromley@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mo-rep-163",
+        "openstates_id": "ocd-person/0d50b579-ab89-4b9c-ae24-eb0d4216f3bd",
+        "name": "Cathy Loy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "163",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CathyLoy2024.jpg",
+        "contact": {
+          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=163",
+          "email": "cathyjo.loy@house.mo.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

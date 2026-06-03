@@ -1,0 +1,2328 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "AL",
+  "state_name": "Alabama",
+  "executive": {
+    "governor": {
+      "id": "al-exec-gov",
+      "name": "Kay Ivey",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2017",
+      "website": "https://governor.alabama.gov",
+      "photo_url": null,
+      "bio": "Kay Ivey is the Governor of Alabama, serving since 2017.",
+      "sources": [
+        "https://governor.alabama.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "al-exec-lieutenant-governor",
+      "name": "Will Ainsworth",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "http://www.legislature.state.al.us/ALISWWW/House/Representative%20Pictures/Ainsworth_27.jpeg"
+    },
+    "cabinet": [
+      {
+        "id": "al-exec-auditor",
+        "name": "Andrew Sorrell",
+        "party": "R",
+        "role": "Auditor",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "http://www.legislature.state.al.us/ALISWWW/House/Representative%20Pictures/Sorrell_3.jpeg"
+      },
+      {
+        "id": "al-exec-attorney-general",
+        "name": "Steve Marshall",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "al-exec-attorney-general",
+        "name": "Steve Marshall",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://live-al-ago.pantheonsite.io/wp-content/uploads/2023/04/Steve-Marshall-headshot-283x300.jpg"
+      },
+      {
+        "id": "al-exec-secretary-of-state",
+        "name": "Wes Allen",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.sos.alabama.gov/sites/default/files/inline-images/AllenBioHighRes.jpg?_ga=2.173722979.1183358616.1677197705-807791829.1677197705"
+      },
+      {
+        "id": "al-exec-treasurer",
+        "name": "Young Boozer",
+        "party": "R",
+        "role": "Treasurer",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Alabama State Senate",
+    "members": [
+      {
+        "id": "al-sen-1",
+        "openstates_id": "ocd-person/2f934a90-dc27-4289-b571-36e80ea4384b",
+        "name": "Tim Melson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Melson_1.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "tim.melson@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-2",
+        "openstates_id": "ocd-person/32e10f9c-d38c-472f-8fb0-03450c4b538a",
+        "name": "Tom Butler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Butler_2.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "tom.butler@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-3",
+        "openstates_id": "ocd-person/b38546ec-f8fb-4e99-8e0c-46715b2e8578",
+        "name": "Arthur Orr",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Orr_3.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "arthur.orr@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-4",
+        "openstates_id": "ocd-person/cf025dad-05a0-4a54-ba0b-bbeecb87c10e",
+        "name": "Garlan Gudger",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Gudger_4.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "garlan.gudger@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-5",
+        "openstates_id": "ocd-person/e6c4edb0-48af-4db8-aa0a-57570f0aef1e",
+        "name": "Matt Woods",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Woods_13.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "matt.woods@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-6",
+        "openstates_id": "ocd-person/abc69c3a-3f86-4880-a1ea-a2a52677b877",
+        "name": "Larry Stutts",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Stutts_6.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "larry.stutts@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-7",
+        "openstates_id": "ocd-person/21753744-c2a0-45d4-90f8-3d4082c794d4",
+        "name": "Sam Givhan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Givhan_7.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "sam.givhan@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-8",
+        "openstates_id": "ocd-person/dd765598-9bed-4301-9f49-7e06fffd7fce",
+        "name": "Steve Livingston",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Livingston_8.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "steve.livingston@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-9",
+        "openstates_id": "ocd-person/3f143edf-eac6-4bee-89b3-c5ac0b0b856e",
+        "name": "Wes Kitchens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Kitchens_9.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "wes.kitchens@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-10",
+        "openstates_id": "ocd-person/84d43460-8578-4b85-b2ee-7f6849e270d8",
+        "name": "Andrew Jones",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Jones_10.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "andrew.jones@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-11",
+        "openstates_id": "ocd-person/889eac7b-10b6-4f00-9bd6-e93a93d93211",
+        "name": "Lance Bell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Bell_11.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "lance.bell@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-12",
+        "openstates_id": "ocd-person/e259674a-2a78-4423-b8d0-3d759ee90912",
+        "name": "Keith Kelley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Kelley_12.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "keith.kelley@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-13",
+        "openstates_id": "ocd-person/040b7935-b32a-4d6d-9fa4-ec86e5ffd303",
+        "name": "Randy Price",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Price_13.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "randyprice.sd13@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-14",
+        "openstates_id": "ocd-person/15ebe01e-1447-4bdb-8dfb-e9d5948b872d",
+        "name": "April Weaver",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Weaver_14.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "april.weaver@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-15",
+        "openstates_id": "ocd-person/c58c02cd-0f5c-4454-b5d9-6eb0e604ea25",
+        "name": "Dan Roberts",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Roberts_15.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "dan.roberts@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-16",
+        "openstates_id": "ocd-person/bdfa9580-2ce0-4828-8f9e-52e6f066fbce",
+        "name": "Jabo Waggoner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Waggoner_16.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "jabo.waggoner@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-17",
+        "openstates_id": "ocd-person/9487b441-352c-43be-a2bb-8abc45e20671",
+        "name": "Shay Shelnutt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Shelnutt_17.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "shay.sd17@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-18",
+        "openstates_id": "ocd-person/3b925820-55f7-4d24-b4df-d924fd3d1bf7",
+        "name": "Rodger Smitherman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Smitherman_18.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "rodger.smitherman@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-19",
+        "openstates_id": "ocd-person/764f926b-598f-458e-84c4-5cc13c2302e5",
+        "name": "Merika Coleman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Coleman_19.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "merika.coleman@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-20",
+        "openstates_id": "ocd-person/8ffbb88c-c323-436f-aab0-91a41bf6c8dd",
+        "name": "Linda Coleman-Madison",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Coleman-Madison_20.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "lcolemanmadison926@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-21",
+        "openstates_id": "ocd-person/adbf5614-9045-4cb7-86eb-2d88f25a357a",
+        "name": "Gerald Allen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Allen_21.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "gerald.allen@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-22",
+        "openstates_id": "ocd-person/7b9adc85-fd70-470a-b1bf-44ed412f3ba0",
+        "name": "Greg Albritton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Albritton_22.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "greg.albritton@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-23",
+        "openstates_id": "ocd-person/cd2d1a70-0bb3-49b3-871c-9e227392653d",
+        "name": "Rob Stewart",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Stewart_23.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "robert.stewart@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-24",
+        "openstates_id": "ocd-person/6e6d5e12-363b-42dc-b0d1-191c82aa6493",
+        "name": "Bobby Singleton",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Singleton_24.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "bsingle362@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-25",
+        "openstates_id": "ocd-person/8cca1495-936e-4ac5-920a-cc4aa22e495e",
+        "name": "Will Barfoot",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Barfoot_25.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "will.barfoot@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-26",
+        "openstates_id": "ocd-person/e0a28b79-3df1-491b-af90-4c0414ba72c8",
+        "name": "Kirk Hatcher",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Hatcher_26.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "kirk.hatcher@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-27",
+        "openstates_id": "ocd-person/d581a562-c33c-44c0-a707-c21dddf140aa",
+        "name": "Jay Hovey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Hovey_27.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "jay.hovey@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-28",
+        "openstates_id": "ocd-person/38c5b433-f53c-4073-a2da-a969e4c31696",
+        "name": "Billy Beasley",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Beasley_28.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "billy.beasley@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-29",
+        "openstates_id": "ocd-person/c1ce8b3f-ea56-4c8f-ab74-2a02b8d10063",
+        "name": "Donnie Chesteen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Chesteen_29.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "donnie.chesteen@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-30",
+        "openstates_id": "ocd-person/d1307771-6d50-4d56-9995-b5d799917d7b",
+        "name": "Clyde Chambliss",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Chambliss_30.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "clyde.chambliss@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-31",
+        "openstates_id": "ocd-person/51b33504-a943-4091-a3bd-f0b8feb124be",
+        "name": "Josh Carnley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Carnley_31.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "josh.carnley@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-32",
+        "openstates_id": "ocd-person/67479855-f23e-4119-b886-91dddc09a47a",
+        "name": "Chris Elliott",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Elliott_32.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "chris.elliott@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-33",
+        "openstates_id": "ocd-person/63d0a35f-ec68-48e2-be94-d5e3cb60b3c3",
+        "name": "Vivian Figures",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Figures_33.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "vivian.figures@alsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-34",
+        "openstates_id": "ocd-person/a7e333c5-03f2-4343-9981-956bcc1ea38e",
+        "name": "Jack Williams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Williams_34.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "jackwilliams55@icloud.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-sen-35",
+        "openstates_id": "ocd-person/fa2c59ea-1a07-429d-85e4-9c60652919aa",
+        "name": "David Sessions",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://www.legislature.state.al.us/pdf/senate/members/Sessions_35.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/senate-leaders-members",
+          "email": "d.r.sessions@att.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Alabama State House",
+    "members": [
+      {
+        "id": "al-rep-1",
+        "openstates_id": "ocd-person/a84a3fe8-5444-4db3-9f64-06ea0cba0e90",
+        "name": "Phillip Pettus",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Pettus_1.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "phillip.pettus@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-2",
+        "openstates_id": "ocd-person/a2413268-fe7d-4a14-839c-14e9723da23a",
+        "name": "Ben Harrison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Harrison_2.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ben.harrison@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-3",
+        "openstates_id": "ocd-person/3828d8e6-1f22-4cb1-be51-b3d3a0c36b98",
+        "name": "Bubba Underwood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Underwood_3.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "kerryucpa@me.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-4",
+        "openstates_id": "ocd-person/95e63d6f-1815-4364-8817-0d26e360013f",
+        "name": "Parker Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Moore_4.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "parker.moore@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-5",
+        "openstates_id": "ocd-person/749e2cb2-e087-4920-aea3-b40d28f56db5",
+        "name": "Danny Crawford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Crawford_5.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "danny.crawford@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-6",
+        "openstates_id": "ocd-person/c128ed12-dd1b-4b5f-8c64-9d86bf9d6580",
+        "name": "Andy Whitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Whitt_6.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "andy.whitt@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-7",
+        "openstates_id": "ocd-person/5658aa05-6ffa-4774-a8a4-f49c169769d2",
+        "name": "Ernie Yarbrough",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Yarbrough_7.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "yarbrough4house@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-8",
+        "openstates_id": "ocd-person/902f0f81-a34c-4714-a3eb-bf563abbea96",
+        "name": "Terri Collins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Collins_8.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "terri@terricollins.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-9",
+        "openstates_id": "ocd-person/9877dd5b-c3ee-459f-bb8d-d9d954ae343c",
+        "name": "Scott Stadthagen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Stadthagen_9.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "scott.stadthagen@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-10",
+        "openstates_id": "ocd-person/eb947430-2674-4158-8290-0d973c59e834",
+        "name": "Marilyn Lands",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-public-general/legislative-people-photos/141174.jpg",
+        "contact": {
+          "official_website": null,
+          "email": "marilyn.lands@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-11",
+        "openstates_id": "ocd-person/de4c986e-ec06-437e-8d3d-b7ca591606bc",
+        "name": "Heath Allbright",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": null,
+          "email": "heathallbright@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-12",
+        "openstates_id": "ocd-person/cbfd2b4e-f512-4176-b2f6-1df9d2d9c99c",
+        "name": "Cindy Myrex",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": null,
+          "email": "cindy.myrex@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-13",
+        "openstates_id": "ocd-person/319cc74b-3113-4053-8bda-0e1903227207",
+        "name": "Greg Barnes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": null,
+          "email": "greg.barnes@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-14",
+        "openstates_id": "ocd-person/04f7bd8e-094b-433c-9e91-7ebe64c75604",
+        "name": "Tim Wadsworth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Wadsworth_14.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "wadsworth.tim654321@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-15",
+        "openstates_id": "ocd-person/f2489dbf-ac57-427f-8200-4cf6e6610980",
+        "name": "Leigh Hulsey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hulsey_15.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "leigh.hulsey@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-16",
+        "openstates_id": "ocd-person/ed6f9cbb-3180-4e8e-b9c1-c56dd888ce38",
+        "name": "Bryan Brinyark",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Brinyark_16.png",
+        "contact": {
+          "official_website": null,
+          "email": "bryan.brinyark@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-17",
+        "openstates_id": "ocd-person/25308613-cda5-4e1c-aef7-821ada580575",
+        "name": "Tracy Estes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Estes_17.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "tracy.estes@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-18",
+        "openstates_id": "ocd-person/390ee0ed-0b5e-4f45-a740-63511c4fa3fd",
+        "name": "Jamie Kiel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Kiel_18.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jamie.kiel@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-19",
+        "openstates_id": "ocd-person/9314859d-000f-447c-9aa7-4993b13e8010",
+        "name": "Laura Hall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hall_19.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "laura.hall@alhouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-20",
+        "openstates_id": "ocd-person/d54b8dfc-7921-4f35-ad22-ad2efdaad100",
+        "name": "James Lomax",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lomax_20.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jamesoliverlomax@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-21",
+        "openstates_id": "ocd-person/e95b6e20-1207-4cdc-9875-15d14bfd72d2",
+        "name": "Rex Reynolds",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Reynolds_21.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "rex.reynolds@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-22",
+        "openstates_id": "ocd-person/7e00e45e-24bf-4939-83b8-a56a90e3ea61",
+        "name": "Ritchie Whorton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Whorton_22.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ritchie.whorton@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-23",
+        "openstates_id": "ocd-person/c2e0fa74-36df-4d34-8203-962c546442fa",
+        "name": "Mike Kirkland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Kirkland_23.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "kirklandmike75@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-24",
+        "openstates_id": "ocd-person/097b764f-5d8c-462e-a962-3330c50721a4",
+        "name": "Nathaniel Ledbetter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Ledbetter_24.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "nathaniel.ledbetter@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-25",
+        "openstates_id": "ocd-person/78f07b0c-9939-4e03-81f8-f851511a46cb",
+        "name": "Phillip Rigsby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Rigsby_25.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "reprigsbydistrict25@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-26",
+        "openstates_id": "ocd-person/aaffbe89-25dd-4454-85f7-81e4ed89c749",
+        "name": "Brock Colvin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Colvin_26.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "brock.colvin@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-27",
+        "openstates_id": "ocd-person/70d0256c-91eb-4338-b86d-181e1db4d8f7",
+        "name": "Jeana Ross",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://education.ua.edu/wp-content/uploads/2023/02/Jeana-Ross.jpg",
+        "contact": {
+          "official_website": null,
+          "email": "jeana.ross@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-28",
+        "openstates_id": "ocd-person/5071243c-3e2d-4acb-ac8d-0d3a8af3eb8a",
+        "name": "Mack Butler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Butler_28.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "mack.butler@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-29",
+        "openstates_id": "ocd-person/97514731-a41d-4328-841f-afdcaac1c6e2",
+        "name": "Mark Gidley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Gidley_29.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "mark.gidley@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-30",
+        "openstates_id": "ocd-person/63e7d9b8-136c-4ebc-bb87-19660eb7b624",
+        "name": "Craig Lipscomb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lipscomb_30.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "craig.lipscomb@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-31",
+        "openstates_id": "ocd-person/82715f9c-12a1-4e99-8020-a47b37dfa92b",
+        "name": "Troy Stubbs",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Stubbs_31.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "troy.stubbs@hotmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-32",
+        "openstates_id": "ocd-person/a1033b9f-f53e-46b8-ab4e-508d87e0d8e8",
+        "name": "Barbara Boyd",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Boyd_32.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "barbara.boyd@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-33",
+        "openstates_id": "ocd-person/7da5c799-bd67-458a-b3b1-a0cdda8f474e",
+        "name": "Ben Robbins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Robbins_33.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ben.robbins@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-34",
+        "openstates_id": "ocd-person/0efb60b3-60e6-4248-a264-41a2a1d35036",
+        "name": "David Standridge",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Standridge_34.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "david.standridge@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-35",
+        "openstates_id": "ocd-person/4f0a4d5d-b27a-4f33-b394-f27d306f8a42",
+        "name": "Steve Hurst",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hurst_35.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "steve.hurst@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-36",
+        "openstates_id": "ocd-person/451a4cb7-3585-46d3-86c7-61b345f7a601",
+        "name": "Randy Wood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Wood_36.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "strep36@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-37",
+        "openstates_id": "ocd-person/03d6bca3-9630-4173-a3c0-4ab4b5aaaedb",
+        "name": "Bob Fincher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Fincher_37.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "rsfincher77@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-38",
+        "openstates_id": "ocd-person/730c7d27-9f0a-4a8b-839b-8de86f6b012e",
+        "name": "Kristin Nelson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": null,
+          "email": "kristin.nelson@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-39",
+        "openstates_id": "ocd-person/08fce57e-b511-4572-bcb8-7c712d8e7d05",
+        "name": "Ginny Shaver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Shaver_39.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ginny.shaver@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-40",
+        "openstates_id": "ocd-person/60ec1e11-da78-43be-90e5-5d850bf3edc7",
+        "name": "Chad Robertson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Robertson_40.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "chadrobertsond40@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-41",
+        "openstates_id": "ocd-person/3b1a631d-35d4-47bd-a37c-a98fed7a5bd4",
+        "name": "Corley Ellis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Ellis_41.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "corley.ellis@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-42",
+        "openstates_id": "ocd-person/2e9b60b3-d931-412e-a9f6-803aa7c7b085",
+        "name": "Van Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Smith_42.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ivan.smith@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-43",
+        "openstates_id": "ocd-person/02655110-0839-4b2e-9f4b-b3a43788e275",
+        "name": "Arnold Mooney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Mooney_43.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "arnold.mooney@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-44",
+        "openstates_id": "ocd-person/4aab5f96-d36a-4274-9591-9922a353c10b",
+        "name": "Danny Garrett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Garrett_44.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "dannygarrett44@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-45",
+        "openstates_id": "ocd-person/03612130-d61e-43dd-9768-ddca8f27d4ea",
+        "name": "Susan DuBose",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/DuBose_45.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "susan.dubose@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-46",
+        "openstates_id": "ocd-person/9b9fd235-1045-4935-a097-bd5e51d2c592",
+        "name": "David Faulkner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Faulkner_46.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "david@davidfaulkneral46.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-47",
+        "openstates_id": "ocd-person/cff09a3a-b81e-433d-80f5-45f6472f4642",
+        "name": "Mike Shaw",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Shaw_47.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "mike.shaw@alabama47.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-48",
+        "openstates_id": "ocd-person/0d7f5989-df17-4c90-8267-4914f5598712",
+        "name": "Jim Carns",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Carns_48.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jwcarns@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-49",
+        "openstates_id": "ocd-person/af4e689f-d9f8-4a90-a883-1ed68e476aa9",
+        "name": "Russell Bedsole",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Bedsole_49.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "russell.bedsole@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-50",
+        "openstates_id": "ocd-person/1fda4118-bfb1-4ffa-b71a-a9d131feec6b",
+        "name": "Jim Hill",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hill_50.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jim.hill@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-51",
+        "openstates_id": "ocd-person/3f96a690-e9a3-4774-8484-49a5a079b18c",
+        "name": "Allen Treadaway",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Treadaway_51.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "allen.treadaway@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-52",
+        "openstates_id": "ocd-person/441922a8-63c1-498b-9de5-f5ee85d9dcf3",
+        "name": "Kelvin Datcher",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kelvin_Datcher_20240808_092142.jpeg",
+        "contact": {
+          "official_website": null,
+          "email": "kelvin.datcher@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-53",
+        "openstates_id": "ocd-person/95f7541d-5429-41aa-85e5-7fc9cf33d688",
+        "name": "Anthony Daniels",
+        "party": "D",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Daniels_53.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "anthony.daniels@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-54",
+        "openstates_id": "ocd-person/dc6e41ae-d1b3-47c7-b225-1d5ec88a9fdc",
+        "name": "Neil Rafferty",
+        "party": "D",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Rafferty_54.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "reprafferty@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-55",
+        "openstates_id": "ocd-person/03ab8e26-365c-4dab-8e49-df2a8b7613f8",
+        "name": "Travis Hendrix",
+        "party": "D",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hendrix_55.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "hendrixfor55@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-56",
+        "openstates_id": "ocd-person/a86c6f40-304e-49fd-a312-3aa30660fcdf",
+        "name": "Ontario Tillman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Tillman_56.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ojtillman@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-57",
+        "openstates_id": "ocd-person/19244bfa-5953-4304-8955-cc58d0c5d16d",
+        "name": "Patrick Sellers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Sellers_57.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "sellersfor57@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-58",
+        "openstates_id": "ocd-person/721421f8-e118-4163-bae9-72f3662696e9",
+        "name": "Rolanda Hollis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hollis_58.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "rolanda.hollis@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-59",
+        "openstates_id": "ocd-person/63c58557-7c03-41f5-934a-866daed33ec8",
+        "name": "Mary Moore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Moore_59.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "mamoor48@bellsouth.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-60",
+        "openstates_id": "ocd-person/73cebf90-bf5a-444a-857e-b5bbddc374bf",
+        "name": "Juandalynn Givan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Givan_60.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "juandalynn.givan@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-61",
+        "openstates_id": "ocd-person/b94526a8-1564-43f5-ad38-98b795e95f02",
+        "name": "Ron Bolton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Bolton_61.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ronaldbolton1@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-62",
+        "openstates_id": "ocd-person/f470053d-6f95-4ed1-b641-5d0e7b236ed5",
+        "name": "Bill Lamb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lamb_62.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "lambbama@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-63",
+        "openstates_id": "ocd-person/3a86c192-f9b1-4b58-9f5b-2119d1fe4e0d",
+        "name": "Norman Crow",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": null,
+          "email": "norman.crow@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-64",
+        "openstates_id": "ocd-person/ef19bb65-dc3c-4815-ac71-b1ffd9abf28b",
+        "name": "Donna Givens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Givens_64.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "donnagivens55@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-65",
+        "openstates_id": "ocd-person/def57a9e-a907-4e62-b990-41dc19661c06",
+        "name": "Brett Easterbrook",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Easterbrook_65.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "brett.easterbrook@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-66",
+        "openstates_id": "ocd-person/cb2488d5-f0b6-4e9f-948b-ff7e9f4e1907",
+        "name": "Alan Baker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Baker_66.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "staterep@co.escambia.al.us",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-67",
+        "openstates_id": "ocd-person/b1e60061-fb98-4c20-8532-b734d08cdbc3",
+        "name": "Prince Chestnut",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Chestnut_67.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "chestnut4house@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-68",
+        "openstates_id": "ocd-person/3d737a2a-6fdf-4939-838d-4f035a647e23",
+        "name": "Thomas Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Jackson_68.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jthomase68@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-69",
+        "openstates_id": "ocd-person/0e1643ee-370a-499d-80df-96116d63c216",
+        "name": "Kelvin Lawrence",
+        "party": "D",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lawrence_69.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "kelvinj73@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-70",
+        "openstates_id": "ocd-person/b57cc6b9-3627-431f-8a01-4c3c7ba973d4",
+        "name": "Chris England",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/England_70.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "cengland1@hotmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-71",
+        "openstates_id": "ocd-person/474c3552-b3cd-4015-ac15-3c6301a0ce0e",
+        "name": "A.J. McCampbell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/McCampbell_71.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "artis.mccampbell@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-72",
+        "openstates_id": "ocd-person/583c130d-a97a-48c9-9a18-03e94aa93930",
+        "name": "Curtis Travis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Travis_72.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "cltravis620@charter.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-73",
+        "openstates_id": "ocd-person/ab6d4114-8d0a-4439-934b-10197234473c",
+        "name": "Kenneth Paschal",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Paschal_73.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "kenneth.paschal@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-74",
+        "openstates_id": "ocd-person/397cb6b4-54fe-42e2-9135-7b440d925649",
+        "name": "Phillip Ensler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Ensler_74.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "phillip.ensler@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-75",
+        "openstates_id": "ocd-person/bd08d7a5-b1f3-484f-80c1-bddf2d636413",
+        "name": "Reed Ingram",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Ingram_75.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "reedingram75@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-76",
+        "openstates_id": "ocd-person/c4b563a3-2b20-4c2d-8f54-2b7ed6a3af3f",
+        "name": "Penni McClammy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/mcclammy.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "patrice.mcclammy@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-77",
+        "openstates_id": "ocd-person/2ba6dc9a-31db-4371-9d69-7fa000e7a08a",
+        "name": "TaShina Morris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Morris_77.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "tashina.morris@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-78",
+        "openstates_id": "ocd-person/63c5bc01-757d-474a-9c75-286da0076e3e",
+        "name": "Kenyatté Hassell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/kenyatte-hassell.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ken.hassell@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-79",
+        "openstates_id": "ocd-person/972dcfd0-f2a2-438b-b5de-276ceb398a91",
+        "name": "Joe Lovvorn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lovvorn_79.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "joe.lovvorn@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-80",
+        "openstates_id": "ocd-person/6b644492-bb54-496c-8ad3-22ec002056d4",
+        "name": "Chris Blackshear",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Blackshear_80.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "chris.blackshear@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-81",
+        "openstates_id": "ocd-person/9ec989cb-f503-46c1-aa2a-2913e2bc16bd",
+        "name": "Ed Oliver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Oliver_81.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "ed.oliver@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-82",
+        "openstates_id": "ocd-person/7c93c20f-6b0b-4743-8118-3cb4e9194c26",
+        "name": "Pebblin Warren",
+        "party": "D",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Warren_82.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "pebblinwarren@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-83",
+        "openstates_id": "ocd-person/15372a5d-6a78-40f2-aebf-fd7692c41cb0",
+        "name": "Jeremy Gray",
+        "party": "D",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Gray_83.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jeremy.gray@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-84",
+        "openstates_id": "ocd-person/a5d0ab78-e643-4ea1-86f2-2dad948b498a",
+        "name": "Berry Forte",
+        "party": "D",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Forte_84.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "berry.forte@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-85",
+        "openstates_id": "ocd-person/31629cc7-81e6-4422-9aa3-89e6b9073259",
+        "name": "Rick Rehm",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Rehm_85.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "rrehm46@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-86",
+        "openstates_id": "ocd-person/37a5dfa8-e69f-4567-b8c0-3ea35a69f181",
+        "name": "Paul Lee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Lee_86.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "pleed86@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-87",
+        "openstates_id": "ocd-person/18af5645-53f2-4571-b24d-3173abf2b567",
+        "name": "Jeff Sorrells",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Sorrells_87.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jeff.sorrells@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-88",
+        "openstates_id": "ocd-person/8394a967-dcf1-4901-a8d5-9ca120da382e",
+        "name": "Jerry Starnes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Starnes_88.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jerry.starnes@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-89",
+        "openstates_id": "ocd-person/723a971e-91d9-4717-8f19-45f16e18690f",
+        "name": "Marcus Paramore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Paramore_89.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "marcusforhouse@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-90",
+        "openstates_id": "ocd-person/39a26498-6bb6-4627-8c49-d9c453c9aab8",
+        "name": "Chris Sells",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Sells_90.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "repcsells@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-91",
+        "openstates_id": "ocd-person/d9d5a3a8-71f6-4c2e-8805-3fa715b315f4",
+        "name": "Rhett Marques",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Marques_91.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "rhett.marques@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-92",
+        "openstates_id": "ocd-person/ff14c161-755d-44c8-a1e5-c2e3930a5317",
+        "name": "Matthew Hammett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Hammett_92.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "matthew.hammett@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-93",
+        "openstates_id": "ocd-person/6b191fda-698d-4061-8396-fef9771847ee",
+        "name": "Steve Clouse",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Clouse_93.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "steve.clouse@alhouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-94",
+        "openstates_id": "ocd-person/48d9f4e1-ec8b-4353-9207-a70db34449a9",
+        "name": "Jennifer Fidler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Fidler_94.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "jennifer.fidler@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-95",
+        "openstates_id": "ocd-person/3bc2e263-71cf-41e2-80c5-3f97cad999ff",
+        "name": "Frances Holk-Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Holk-Jones_95.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "frances.holk-jones@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-96",
+        "openstates_id": "ocd-person/52046189-0464-4140-9cdf-b6c66312d49d",
+        "name": "Matt Simpson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Simpson_96.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "matt.simpson@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-97",
+        "openstates_id": "ocd-person/4cb1aeb5-d822-4f2c-a7e6-ae2a132acf17",
+        "name": "Adline Clarke",
+        "party": "D",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Clarke_97.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "adline.clarke@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-98",
+        "openstates_id": "ocd-person/947c7906-7825-442f-9241-d777b9bbe999",
+        "name": "Napoleon Bracy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Bracy_98.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "napoleon.bracy@alhouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-99",
+        "openstates_id": "ocd-person/1c825e04-ad1e-4009-a8d8-157abc001f3e",
+        "name": "Sam Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Jones_99.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "sam.jones@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-100",
+        "openstates_id": "ocd-person/41debaee-f705-453d-a46f-3e8282b8a4b0",
+        "name": "Mark Shirey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Shirey_100.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "mark.shirey@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-101",
+        "openstates_id": "ocd-person/f4133b43-f822-4d95-b1e0-a0a524de56f6",
+        "name": "Chris Pringle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Pringle_101.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "chris.pringle@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-102",
+        "openstates_id": "ocd-person/6a24df4b-b8e2-449a-8f18-d12d15f2bc5b",
+        "name": "Shane Stringer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Stringer_102.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "shane.stringer@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-103",
+        "openstates_id": "ocd-person/375419e1-4626-4a9a-92ed-15962de5be09",
+        "name": "Barbara Drummond",
+        "party": "D",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Drummond_103.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "drummondbarbara@comcast.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-104",
+        "openstates_id": "ocd-person/050e1a72-402d-46ae-a9c3-1c5dff003ee6",
+        "name": "Margie Wilcox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Wilcox_104.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "margie.wilcox@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "al-rep-105",
+        "openstates_id": "ocd-person/04a1794d-93f0-435f-8c68-1b435f2fc1a0",
+        "name": "Chip Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Brown_105.png",
+        "contact": {
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members",
+          "email": "chip.brown@alhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

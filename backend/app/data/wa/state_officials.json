@@ -1,0 +1,2413 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "WA",
+  "state_name": "Washington",
+  "executive": {
+    "governor": {
+      "id": "wa-exec-gov",
+      "name": "Bob Ferguson",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2025",
+      "website": "https://governor.wa.gov",
+      "photo_url": null,
+      "bio": "Bob Ferguson is the Governor of Washington, serving since 2025.",
+      "sources": [
+        "https://governor.wa.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "wa-exec-lieutenant-governor",
+      "name": "Denny Heck",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/5d70140860791400013fe3ce/2bb4d89d-3bb3-45dd-896a-5f984bdd1d4e/Lt.+Gov+Heck+headshot_updated.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "wa-exec-attorney-general",
+        "name": "Nick Brown",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-Brown-Nick.png"
+      },
+      {
+        "id": "wa-exec-secretary-of-state",
+        "name": "Steve Hobbs",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.sos.wa.gov/sites/default/files/styles/max_650x650/public/2022-08/Hobbs.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Washington State Senate",
+    "members": [
+      {
+        "id": "wa-sen-1",
+        "openstates_id": "ocd-person/25ac8674-b208-4d11-a579-c58c004f825e",
+        "name": "Derek Stanford",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/15809.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/derek-stanford",
+          "email": "derek.stanford@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-2",
+        "openstates_id": "ocd-person/fc68fcd2-66ca-481a-b699-7a4ba113d4d7",
+        "name": "Jim McCune",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/2584.jpg",
+        "contact": {
+          "official_website": "https://JimMcCune.src.wastateleg.org/",
+          "email": "jim.mccune@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-3",
+        "openstates_id": "ocd-person/1ecc75cc-95c9-4ae6-a8a4-1a0f87a10d0e",
+        "name": "Marcus Riccelli",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/15706.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Marcus-Riccelli/",
+          "email": "marcus.riccelli@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-4",
+        "openstates_id": "ocd-person/4d01a3aa-64e5-439d-9574-c1b749c1d52a",
+        "name": "Leonard Christian",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/18458.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/leonard-christian",
+          "email": "leonard.christian@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-5",
+        "openstates_id": "ocd-person/74dcb0ee-cec8-4a8f-be68-954b2c0fa5f7",
+        "name": "Victoria Hunt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/35410.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/hunt/",
+          "email": "victoria.hunt@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-6",
+        "openstates_id": "ocd-person/0396b4de-01b1-4784-a604-aafc516f5e39",
+        "name": "Jeff Holy",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/17223.jpg",
+        "contact": {
+          "official_website": "https://JeffHoly.src.wastateleg.org/",
+          "email": "jeff.holy@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-7",
+        "openstates_id": "ocd-person/a45d8fe7-d052-4d18-bc5f-b5911948d42c",
+        "name": "Shelly Short",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/11952.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/shelly-short",
+          "email": "shelly.short@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-8",
+        "openstates_id": "ocd-person/bfbe4a83-bf2f-45da-83c6-5ac1225ff0b8",
+        "name": "Matt Boehnke",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29094.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Matt-Boehnke/",
+          "email": "matt.boehnke@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-9",
+        "openstates_id": "ocd-person/1f837050-2dca-48fa-b429-a562d1c858f8",
+        "name": "Mark Schoesler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/652.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/mark-schoesler",
+          "email": "mark.schoesler@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-10",
+        "openstates_id": "ocd-person/57efa2de-d8dc-4d0b-92a3-7ca12549c339",
+        "name": "Ron Muzzall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29908.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/ron-muzzall",
+          "email": "ron.muzzall@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-11",
+        "openstates_id": "ocd-person/86f82668-8d68-45c5-bbcd-a5557b4dad54",
+        "name": "Bob Hasegawa",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/10030.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/bob-hasegawa",
+          "email": "bob.hasegawa@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-12",
+        "openstates_id": "ocd-person/f1d29afa-f381-46f2-a6e4-17ab801b3fdb",
+        "name": "Keith Goehner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29096.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Keith-Goehner/",
+          "email": "keith.goehner@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-13",
+        "openstates_id": "ocd-person/cce36d0b-a3d8-4375-bf70-06760a2eebc3",
+        "name": "Judy Warnick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/12084.jpg",
+        "contact": {
+          "official_website": "https://JudyWarnick.src.wastateleg.org/",
+          "email": "judy.warnick@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-14",
+        "openstates_id": "ocd-person/a8e7617c-7cbb-45ed-a577-3dd7341a3bd7",
+        "name": "Curtis King",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/13199.jpg",
+        "contact": {
+          "official_website": "https://CurtisKing.src.wastateleg.org/",
+          "email": "curtis.king@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-15",
+        "openstates_id": "ocd-person/10ad8a88-bd96-4a0d-9b8f-099b8cdfa35b",
+        "name": "Nikki Torres",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/34047.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/nikki-torres",
+          "email": "nikki.torres@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-16",
+        "openstates_id": "ocd-person/b7caabda-31e5-48b5-a4b1-82d2bffae0ae",
+        "name": "Perry Dozier",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/31535.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/perry-dozier",
+          "email": "perry.dozier@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-17",
+        "openstates_id": "ocd-person/053234a7-c97e-41f7-8b71-c96cf19c80d7",
+        "name": "Paul Harris",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/15813.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Paul-Harris/",
+          "email": "paul.harris@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-18",
+        "openstates_id": "ocd-person/3f71f11c-c231-4661-af2a-629d2eb32580",
+        "name": "Adrian Cortes",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/35473.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/adrian-cortes",
+          "email": "adrian.cortes@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-19",
+        "openstates_id": "ocd-person/7f7dab20-f60b-494e-a8b1-6527165777fb",
+        "name": "Jeff Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/31537.jpg",
+        "contact": {
+          "official_website": "https://JeffWilson.src.wastateleg.org/",
+          "email": "jeff.wilson@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-20",
+        "openstates_id": "ocd-person/b4856c5b-d3e0-4227-a4c0-ff6abe81fda7",
+        "name": "John Braun",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/17289.jpg",
+        "contact": {
+          "official_website": "https://JohnBraun.src.wastateleg.org/",
+          "email": "john.braun@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-21",
+        "openstates_id": "ocd-person/3aa56ec5-a087-40b1-960a-acb9426ccb2a",
+        "name": "Marko Liias",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/13546.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/marko-liias",
+          "email": "marko.liias@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-22",
+        "openstates_id": "ocd-person/ea4e5e77-aa55-421f-8ac5-48c65fbc2ab0",
+        "name": "Jess Bateman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://housedemocrats.wa.gov/tmp/2021/01/Rep-Bateman_Jessica-2021_150x200.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Bateman/",
+          "email": "jessica.bateman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-23",
+        "openstates_id": "ocd-person/25a5746b-d7c3-425c-a5b4-a942f86576f2",
+        "name": "Drew Hansen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/16499.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Hansen/",
+          "email": "drew.hansen@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-24",
+        "openstates_id": "ocd-person/ea005988-0e0d-4fd2-9960-91083ae8ab25",
+        "name": "Mike Chapman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/26176.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Chapman/",
+          "email": "mike.chapman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-25",
+        "openstates_id": "ocd-person/1e20aaf3-ffbb-4666-82c2-374b232b41ac",
+        "name": "Chris Gildon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29101.jpg",
+        "contact": {
+          "official_website": "https://ChrisGildon.src.wastateleg.org/",
+          "email": "chris.gildon@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-26",
+        "openstates_id": "ocd-person/acfe43e5-6535-4c75-b38b-66322c90f54f",
+        "name": "Deb Krishnadasan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/35470.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/deborah-krishnadasan",
+          "email": "deborah.krishnadasan@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-27",
+        "openstates_id": "ocd-person/28de7c48-9b66-4597-a15f-ce7b132fba5a",
+        "name": "Yasmin Trudeau",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/20732.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/yasmin-trudeau",
+          "email": "yasmin.trudeau@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-28",
+        "openstates_id": "ocd-person/dd5d76ce-7efe-4c95-aae3-a59a4676fe78",
+        "name": "T'wina Nobles",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/31536.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/t'wina-nobles",
+          "email": "t'wina.nobles@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-29",
+        "openstates_id": "ocd-person/0999a0d6-1c62-47cf-aa0d-8250967d3a10",
+        "name": "Steve Conway",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/972.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/steve-conway",
+          "email": "steve.conway@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-30",
+        "openstates_id": "ocd-person/d2d282e4-8f73-46f9-8cb1-3beadd003b44",
+        "name": "Claire Wilson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29090.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/claire-wilson",
+          "email": "claire.wilson@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-31",
+        "openstates_id": "ocd-person/2d0faef3-45a8-489c-84bd-9491c8ce0315",
+        "name": "Phil Fortunato",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/3474.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/phil-fortunato",
+          "email": "phil.fortunato@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-32",
+        "openstates_id": "ocd-person/f2eae839-31f5-4f33-be94-b532774da896",
+        "name": "Jesse Salomon",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29089.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/jesse-salomon",
+          "email": "jesse.salomon@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-33",
+        "openstates_id": "ocd-person/ef711ad1-b4e6-44c9-a971-7d57e8140f04",
+        "name": "Tina Orwall",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/14205.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Tina-Orwall/",
+          "email": "tina.orwall@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-34",
+        "openstates_id": "ocd-person/950b27fd-99cb-43a2-b594-9f721e1b1844",
+        "name": "Emily Alvarado",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://senatedemocrats.wa.gov/alvarado/wp-content/uploads/sites/23/2025/03/Rep-Alvarado_Emily-2023_900x1200.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Alvarado/",
+          "email": "emily.alvarado@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-35",
+        "openstates_id": "ocd-person/908379de-8759-4a6f-97ee-7dbcf2f32fcc",
+        "name": "Drew MacEwen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/17221.jpg",
+        "contact": {
+          "official_website": "https://DrewMacEwen.houserepublicans.wa.gov/",
+          "email": "drew.macewen@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-36",
+        "openstates_id": "ocd-person/e9b85600-e33e-4a0a-af9f-bbcb98c0153f",
+        "name": "Noel Frame",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/23902.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Frame/",
+          "email": "noel.frame@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-37",
+        "openstates_id": "ocd-person/1d4a95b2-4a4f-4acb-b5c6-64850b8e34b9",
+        "name": "Rebecca Saldaña",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/27290.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/rebecca-salda%C3%B1a",
+          "email": "rebecca.saldana@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-38",
+        "openstates_id": "ocd-person/4f14e499-9199-43c4-a4c0-9d7320b9d769",
+        "name": "June Robinson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/18265.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/June-Robinson/",
+          "email": "june.robinson@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-39",
+        "openstates_id": "ocd-person/71e64843-6301-40ba-bafc-633ee347c482",
+        "name": "Keith Wagoner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/28317.jpg",
+        "contact": {
+          "official_website": "https://KeithWagoner.src.wastateleg.org/",
+          "email": "keith.wagoner@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-40",
+        "openstates_id": "ocd-person/f82a6162-120e-4bf2-90c4-02e22278d96e",
+        "name": "Liz Lovelett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29548.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/liz-lovelett",
+          "email": "liz.lovelett@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-41",
+        "openstates_id": "ocd-person/0c274c6c-6813-4a77-b7ed-5576e9989493",
+        "name": "Lisa Wellman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/27211.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/lisa-wellman",
+          "email": "lisa.wellman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-42",
+        "openstates_id": "ocd-person/d95d04c7-e3d0-4120-91c6-2bbeba4c8acb",
+        "name": "Sharon Shewmake",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/29108.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Sharon-Shewmake/",
+          "email": "sharon.shewmake@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-43",
+        "openstates_id": "ocd-person/f6d8dcb4-c212-4f2b-a043-a541e47dede0",
+        "name": "Jamie Pedersen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/12002.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/jamie-pedersen",
+          "email": "jamie.pedersen@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-44",
+        "openstates_id": "ocd-person/9849a792-2307-40c8-97ae-388d731fa89b",
+        "name": "John Lovick",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/3476.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/John-Lovick/",
+          "email": "john.lovick@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-45",
+        "openstates_id": "ocd-person/92192e1a-e86f-4605-9d7d-ce4a922681f0",
+        "name": "Manka Dhingra",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/28022.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/manka-dhingra",
+          "email": "manka.dhingra@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-46",
+        "openstates_id": "ocd-person/aba2c522-236c-4553-bda2-c02d72e79981",
+        "name": "Javier Valdez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/27975.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Javier-Valdez/",
+          "email": "javier.valdez@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-47",
+        "openstates_id": "ocd-person/04ed2bc3-648f-4924-8183-1e593572e894",
+        "name": "Claudia Kauffman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/12073.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/claudia-kauffman",
+          "email": "claudia.kauffman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-48",
+        "openstates_id": "ocd-person/22583293-d377-4c51-84ca-d00ba4d7e944",
+        "name": "Vandana Slatter",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "48",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/27504.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Vandana-Slatter/",
+          "email": "vandana.slatter@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-sen-49",
+        "openstates_id": "ocd-person/50c73eec-2f66-450b-b8b4-b8bce995e221",
+        "name": "Annette Cleveland",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "49",
+        "role": "State Senator",
+        "photo_url": "https://leg.wa.gov/memberphoto/17294.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/annette-cleveland",
+          "email": "annette.cleveland@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Washington State House",
+    "members": [
+      {
+        "id": "wa-rep-1",
+        "openstates_id": "ocd-person/5fd91c2d-1223-47e4-8133-ef0da7ef1898",
+        "name": "Davina Duerr",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29877.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Duerr/",
+          "email": "davina.duerr@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-1-2",
+        "openstates_id": "ocd-person/e802bd51-458a-4976-b7ad-25ba4ceb0581",
+        "name": "Shelley Kloba",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/26168.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Kloba/",
+          "email": "shelley.kloba@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-2",
+        "openstates_id": "ocd-person/9c1fefff-fa5a-49aa-90ca-a9ca80b6f669",
+        "name": "Andrew Barkis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://andrewbarkis.houserepublicans.wa.gov/wp-content/uploads/2025/01/Rep-Barkis_Andrew-2025_900x1200.jpg",
+        "contact": {
+          "official_website": "https://AndrewBarkis.houserepublicans.wa.gov/",
+          "email": "andrew.barkis@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-2-2",
+        "openstates_id": "ocd-person/fc46a3d0-79cc-4e93-a205-71c79f3d07ef",
+        "name": "Matt Marshall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35413.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/matt-marshall",
+          "email": "matt.marshall@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-3",
+        "openstates_id": "ocd-person/80b680f5-3fef-4c62-9064-4a8b516deb0f",
+        "name": "Natasha Hill",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35429.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/hill/",
+          "email": "natasha.hill@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-3-2",
+        "openstates_id": "ocd-person/77fe53b5-3ed7-48b2-9c9a-1b59d5faf50f",
+        "name": "Timm Ormsby",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/9207.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Timm-Ormsby/",
+          "email": "timm.ormsby@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-4",
+        "openstates_id": "ocd-person/359ededd-b78a-4d25-98f7-6bc5b01876bc",
+        "name": "Rob Chase",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://robchase.houserepublicans.wa.gov/wp-content/uploads/2025/01/Rep-Chase_Rob-2025_900x1200.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/rob-chase",
+          "email": "rob.chase@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-4-2",
+        "openstates_id": "ocd-person/31197273-764c-4520-b5dc-bc85695bf36f",
+        "name": "Suzanne Schmidt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34035.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/suzanne-schmidt",
+          "email": "suzanne.schmidt@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-5",
+        "openstates_id": "ocd-person/c1457fe8-6e6a-4fc8-96e9-63b23fc90ef8",
+        "name": "Lisa Callan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29092.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Callan/",
+          "email": "lisa.callan@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-5-2",
+        "openstates_id": "ocd-person/f3102335-786a-43e1-a941-af86138a9fd1",
+        "name": "Zach Hall",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/27391.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Hall/",
+          "email": "zach.hall@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-6",
+        "openstates_id": "ocd-person/591e8fb8-a660-4769-a9b1-3c085281b5c5",
+        "name": "Jenny Graham",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29093.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Jenny-Graham/",
+          "email": "jenny.graham@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-6-2",
+        "openstates_id": "ocd-person/54f84d93-982c-4028-8c94-ccd250ae6896",
+        "name": "Mike Volz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/26170.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Mike-Volz/",
+          "email": "mike.volz@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-7",
+        "openstates_id": "ocd-person/9a2a700c-9c13-4cc5-ab56-7e62327f0c19",
+        "name": "Andrew Engell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35409.jpg",
+        "contact": {
+          "official_website": "https://andrewengell.houserepublicans.wa.gov/",
+          "email": "andrew.engell@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-7-2",
+        "openstates_id": "ocd-person/ea5ab101-aa06-49f0-95b7-81bf9f96967f",
+        "name": "Hunter Abell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://hunterabell.houserepublicans.wa.gov/wp-content/uploads/2025/01/Rep-Abell_Hunter-2025_900x1200.jpg",
+        "contact": {
+          "official_website": "https://hunterabell.houserepublicans.wa.gov/",
+          "email": "hunter.abell@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-8",
+        "openstates_id": "ocd-person/ee68f6b7-3cb2-4269-90df-ce11e4027c52",
+        "name": "April Connors",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34027.jpg",
+        "contact": {
+          "official_website": "https://AprilConnors.houserepublicans.wa.gov/",
+          "email": "april.connors@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-8-2",
+        "openstates_id": "ocd-person/fed97a36-088f-46e6-9b96-ca2d679c955b",
+        "name": "Stephanie Barnard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://stephaniebarnard.houserepublicans.wa.gov/wp-content/uploads/2025/01/Rep-Barnard_Stephanie-2025_900x1200.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/stephanie-barnard",
+          "email": "stephanie.barnard@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-9",
+        "openstates_id": "ocd-person/eedeb2a4-a7f1-414c-b9d0-504c4450f3f6",
+        "name": "Joe Schmick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/13209.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Joe-Schmick/",
+          "email": "joe.schmick@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-9-2",
+        "openstates_id": "ocd-person/69c32c6a-707c-4789-823c-30462b054bcf",
+        "name": "Mary Dye",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/21490.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Mary-Dye/",
+          "email": "mary.dye@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-10",
+        "openstates_id": "ocd-person/9fd9a839-0414-46a4-84b8-7ee0d2f2f09a",
+        "name": "Clyde Shavers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34050.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Shavers/",
+          "email": "clyde.shavers@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-10-2",
+        "openstates_id": "ocd-person/7ab5a10d-3d4a-4187-ac98-9afa60e34b61",
+        "name": "Dave Paul",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29095.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Dave-Paul/",
+          "email": "dave.paul@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-11",
+        "openstates_id": "ocd-person/c6f2fa42-706f-41eb-a9bd-b664b593f5a2",
+        "name": "David Hackney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31523.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Hackney/",
+          "email": "david.hackney@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-11-2",
+        "openstates_id": "ocd-person/89960b3d-2697-4941-8682-9a4888b70ff0",
+        "name": "Steve Bergquist",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/17227.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Bergquist/",
+          "email": "steve.bergquist@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-12",
+        "openstates_id": "ocd-person/0bf66a0a-3341-406f-83b8-000c9f4e0176",
+        "name": "Brian Burnett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://brianburnett.houserepublicans.wa.gov/wp-content/uploads/2025/01/Rep-Burnett_Brian-2025_900x1200.jpg",
+        "contact": {
+          "official_website": "https://brianburnett.houserepublicans.wa.gov/",
+          "email": "brian.burnett@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-12-2",
+        "openstates_id": "ocd-person/816e7215-dcff-46c3-b1a5-f3c3387b14be",
+        "name": "Mike Steele",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/10546.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Mike-Steele/",
+          "email": "mike.steele@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-13",
+        "openstates_id": "ocd-person/ad28df67-a1bf-4580-b55f-f0917c6e69b2",
+        "name": "Alex Ybarra",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29318.jpg",
+        "contact": {
+          "official_website": "https://AlexYbarra.houserepublicans.wa.gov/",
+          "email": "alex.ybarra@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-13-2",
+        "openstates_id": "ocd-person/a954dff9-39d6-4340-8070-5ef437438cda",
+        "name": "Tom Dent",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20761.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Tom-Dent/",
+          "email": "tom.dent@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-14",
+        "openstates_id": "ocd-person/ec21159d-30a2-4a4c-9053-c0a5f446258d",
+        "name": "Deb Manjarrez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35412.jpg",
+        "contact": {
+          "official_website": "https://debmanjarrez.houserepublicans.wa.gov/",
+          "email": "deb.manjarrez@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-14-2",
+        "openstates_id": "ocd-person/6dbc3b79-02db-49cf-af23-b9a01ee86c7c",
+        "name": "Gloria Mendoza",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35414.jpg",
+        "contact": {
+          "official_website": "https://gloriamendoza.houserepublicans.wa.gov/",
+          "email": "gloria.mendoza@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-15",
+        "openstates_id": "ocd-person/a0a48572-259f-4a6c-b035-a85b80e187d6",
+        "name": "Chris Corry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29097.jpg",
+        "contact": {
+          "official_website": "https://ChrisCorry.houserepublicans.wa.gov/",
+          "email": "chris.corry@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-15-2",
+        "openstates_id": "ocd-person/2dce9967-a2fc-4211-9b1a-bce3b4f32a09",
+        "name": "Jeremie Dufault",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29098.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Jeremie-Dufault/",
+          "email": "jeremie.dufault@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-16",
+        "openstates_id": "ocd-person/db28a021-1409-4f8f-8d2b-4a2f8c2243ef",
+        "name": "Mark Klicker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31524.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/mark-klicker",
+          "email": "mark.klicker@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-16-2",
+        "openstates_id": "ocd-person/43c0e02f-19f5-4c29-bcb7-e9975baa0e61",
+        "name": "Skyler Rude",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20837.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Skyler-Rude/",
+          "email": "skyler.rude@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-17",
+        "openstates_id": "ocd-person/962ff818-cdb3-4874-9918-9bd4c6da84a9",
+        "name": "Dave Stuebe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35431.jpg",
+        "contact": {
+          "official_website": "https://davidstuebe.houserepublicans.wa.gov/",
+          "email": "david.stuebe@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-17-2",
+        "openstates_id": "ocd-person/8310a7ed-ce79-4b0e-b13a-7857230bfcde",
+        "name": "Kevin Waters",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34038.jpg",
+        "contact": {
+          "official_website": "https://KevinWaters.houserepublicans.wa.gov/",
+          "email": "kevin.waters@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-18",
+        "openstates_id": "ocd-person/24366911-f15b-48a4-a8e8-b1e30a3d0d24",
+        "name": "John Ley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35422.jpg",
+        "contact": {
+          "official_website": "https://johnley.houserepublicans.wa.gov/",
+          "email": "john.ley@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-18-2",
+        "openstates_id": "ocd-person/4b9b64c6-60eb-4d41-8b52-2f0b3f1ce2a8",
+        "name": "Stephanie McClintock",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34032.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/stephanie-mcclintock",
+          "email": "stephanie.mcclintock@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-19",
+        "openstates_id": "ocd-person/3c66c8e4-ae7a-4297-99e9-618336e215ea",
+        "name": "Jim Walsh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/27181.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Jim-Walsh/",
+          "email": "jim.walsh@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-19-2",
+        "openstates_id": "ocd-person/dcc383e0-945d-4580-b8fd-e0914e1af1f0",
+        "name": "Joel McEntire",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31525.jpg",
+        "contact": {
+          "official_website": "https://JoelMcEntire.houserepublicans.wa.gov/",
+          "email": "joel.mcentire@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-20",
+        "openstates_id": "ocd-person/afd768fd-c4fc-4ee9-a845-2183793ebe0e",
+        "name": "Ed Orcutt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/7635.jpg",
+        "contact": {
+          "official_website": "https://EdOrcutt.houserepublicans.wa.gov/",
+          "email": "ed.orcutt@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-20-2",
+        "openstates_id": "ocd-person/e227d7d6-49f5-4c75-a754-e54f2447e664",
+        "name": "Peter Abbarno",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://peterabbarno.houserepublicans.wa.gov/wp-content/uploads/sites/83/2021/01/Rep-Abbarno_Peter-2021_465x754.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/peter-abbarno",
+          "email": "peter.abbarno@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-21",
+        "openstates_id": "ocd-person/09d83bae-b84b-436e-8d7f-5cebc05e74a3",
+        "name": "Lillian Ortiz-Self",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/18546.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Lillian-Ortiz-Self/",
+          "email": "lillian.ortiz-self@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-21-2",
+        "openstates_id": "ocd-person/361c95de-b7b2-434f-bdea-89fbb3896fea",
+        "name": "Strom Peterson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20755.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Strom-Peterson/",
+          "email": "strom.peterson@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-22",
+        "openstates_id": "ocd-person/0bbe7652-d8a7-46aa-bdbc-90b411347343",
+        "name": "Beth Doglio",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/26175.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Doglio/",
+          "email": "beth.doglio@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-22-2",
+        "openstates_id": "ocd-person/dddbc05c-06fa-4e62-9c7b-96d58cf73aa1",
+        "name": "Lisa Parshley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35415.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/parshley/",
+          "email": "lisa.parshley@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-23",
+        "openstates_id": "ocd-person/e7caacff-8129-4f34-805a-abc2265e868d",
+        "name": "Greg Nance",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34760.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Nance/",
+          "email": "greg.nance@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-23-2",
+        "openstates_id": "ocd-person/b6b3538a-d8ce-409f-a0e8-8f517037d748",
+        "name": "Tarra Simmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31527.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Simmons/",
+          "email": "tarra.simmons@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-24",
+        "openstates_id": "ocd-person/9eddb3cd-868e-42ba-831a-b415fd7ed445",
+        "name": "Adam Bernbaum",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34240.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/bernbaum/",
+          "email": "adam.bernbaum@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-24-2",
+        "openstates_id": "ocd-person/a7654dc1-5240-437e-9579-48640c8564d8",
+        "name": "Steve Tharinger",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/15816.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Steve-Tharinger/",
+          "email": "steve.tharinger@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-25",
+        "openstates_id": "ocd-person/faa48cee-18ae-434e-8079-c8137dfd4acf",
+        "name": "Cyndy Jacobsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31528.jpg",
+        "contact": {
+          "official_website": "https://CyndyJacobsen.houserepublicans.wa.gov/",
+          "email": "cyndy.jacobsen@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-25-2",
+        "openstates_id": "ocd-person/cfdb1888-6cdb-459d-bc1a-e8eac9c9c680",
+        "name": "Michael Keaton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35411.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/michael-keaton",
+          "email": "michael.keaton@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-26",
+        "openstates_id": "ocd-person/bae1dc2d-8fd6-48cb-b1d8-afa86f205a3c",
+        "name": "Adison Richards",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20893.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/richards/",
+          "email": "adison.richards@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-26-2",
+        "openstates_id": "ocd-person/fdd79a57-f6f9-4435-84f6-92708c65b716",
+        "name": "Michelle Valdez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20760.jpg",
+        "contact": {
+          "official_website": "https://houserepublicans.wa.gov/Michelle-Caldier/",
+          "email": "michelle.valdez@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-27",
+        "openstates_id": "ocd-person/4ed1ee96-ea0f-4fc6-9c74-14cea6328716",
+        "name": "Jake Fey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/17241.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Fey/",
+          "email": "jake.fey@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-27-2",
+        "openstates_id": "ocd-person/072af7b6-1fdb-44c5-a6b9-3e3383873231",
+        "name": "Laurie Jinkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/15817.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Jinkins/",
+          "email": "laurie.jinkins@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-28",
+        "openstates_id": "ocd-person/ff625fe2-be44-459e-8361-73af49b48fbc",
+        "name": "Dan Bronoske",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://housedemocrats.wa.gov/tmp/sites/68/2021/12/20211005_154818cr_crop.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Bronoske/",
+          "email": "dan.bronoske@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-28-2",
+        "openstates_id": "ocd-person/a203698b-5fe6-4a54-b939-5341937c57ec",
+        "name": "Mari Leavitt",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29102.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Leavitt/",
+          "email": "mari.leavitt@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-29",
+        "openstates_id": "ocd-person/4929d403-f712-4fe4-9e99-ed62ad22b44f",
+        "name": "Melanie Morgan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29103.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Melanie-Morgan/",
+          "email": "melanie.morgan@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-29-2",
+        "openstates_id": "ocd-person/bae8eb88-3355-400e-82d6-f60101b8daed",
+        "name": "Sharlett Mena",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/27494.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Mena/",
+          "email": "sharlett.mena@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-30",
+        "openstates_id": "ocd-person/9ed4e759-d24a-48f1-a691-635984357174",
+        "name": "Jamila Taylor",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31530.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Taylor/",
+          "email": "jamila.taylor@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-30-2",
+        "openstates_id": "ocd-person/93110c28-de58-4b9c-8681-85ee5ad9c339",
+        "name": "Kristine Reeves",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/27182.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Kristine-Reeves/",
+          "email": "kristine.reeves@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-31",
+        "openstates_id": "ocd-person/d6399a90-9938-429f-a433-1dd9755de1f6",
+        "name": "Drew Stokesbary",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20756.jpg",
+        "contact": {
+          "official_website": "https://DrewStokesbary.houserepublicans.wa.gov/",
+          "email": "drew.stokesbary@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-31-2",
+        "openstates_id": "ocd-person/e42edd00-010a-4144-8df0-5da6088095d7",
+        "name": "Josh Penner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35416.jpg",
+        "contact": {
+          "official_website": "https://joshuapenner.houserepublicans.wa.gov/",
+          "email": "joshua.penner@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-32",
+        "openstates_id": "ocd-person/c7438b67-c6a5-4048-8a13-a8bc2d99cba6",
+        "name": "Cindy Ryu",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/15736.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Cindy-Ryu/",
+          "email": "cindy.ryu@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-32-2",
+        "openstates_id": "ocd-person/f972f883-deca-43fb-9367-52d8878d6234",
+        "name": "Lauren Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29104.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/davis/",
+          "email": "lauren.davis@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-33",
+        "openstates_id": "ocd-person/1080a635-b37e-459b-89ed-8137d4c8f2dc",
+        "name": "Edwin Obras",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35464.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/obras/",
+          "email": "edwin.obras@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-33-2",
+        "openstates_id": "ocd-person/e9244579-d4da-4320-bbae-a1c604a17c75",
+        "name": "Mia Gregerson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/18264.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Gregerson/",
+          "email": "mia.gregerson@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-34",
+        "openstates_id": "ocd-person/d3e64eee-6a6f-45e4-b47a-bf22e8279670",
+        "name": "Brianna Thomas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/15410.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/thomas/",
+          "email": "brianna.thomas@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-34-2",
+        "openstates_id": "ocd-person/c9f41cc2-815d-4a97-b354-b6ef3383c1e1",
+        "name": "Joe Fitzgibbon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/13198.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Fitzgibbon/",
+          "email": "joe.fitzgibbon@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-35",
+        "openstates_id": "ocd-person/6a94e7b0-0c19-4377-ac1d-468d2bd3e892",
+        "name": "Dan Griffey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/20752.jpg",
+        "contact": {
+          "official_website": "https://DanGriffey.houserepublicans.wa.gov/",
+          "email": "dan.griffey@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-35-2",
+        "openstates_id": "ocd-person/d1fd0f7b-a1d2-4af6-a9b7-3212e9fadc72",
+        "name": "Travis Couture",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34029.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/travis-couture",
+          "email": "travis.couture@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-36",
+        "openstates_id": "ocd-person/f99df1f1-a5ee-4fba-b497-e04ac6e4972d",
+        "name": "Julia Reed",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34033.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Reed/",
+          "email": "julia.reed@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-36-2",
+        "openstates_id": "ocd-person/1c9235d6-a9c2-420e-991c-94281108df59",
+        "name": "Liz Berry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31531.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Berry/",
+          "email": "liz.berry@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-37",
+        "openstates_id": "ocd-person/84aaed1c-e50a-4bbc-8f63-afd22e825ec2",
+        "name": "Chipalo Street",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34036.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Street/",
+          "email": "chipalo.street@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-37-2",
+        "openstates_id": "ocd-person/50800e36-5c44-43d0-b786-7828523e92cd",
+        "name": "Sharon Tomiko Santos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/3483.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Sharon-Tomiko-Santos/",
+          "email": "sharontomiko.santos@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-38",
+        "openstates_id": "ocd-person/0805e7bc-f274-4f20-81b4-e8e86951eaba",
+        "name": "Julio Cortes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34028.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Cortes/",
+          "email": "julio.cortes@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-38-2",
+        "openstates_id": "ocd-person/0f013ac8-914a-4ade-acbd-de309228f174",
+        "name": "Mary Fosse",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31542.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Fosse/",
+          "email": "mary.fosse@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-39",
+        "openstates_id": "ocd-person/b8603b1c-5df7-4c4d-a785-ed3f5b2284e4",
+        "name": "Carolyn Eslick",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/27988.jpg",
+        "contact": {
+          "official_website": "https://CarolynEslick.houserepublicans.wa.gov/",
+          "email": "carolyn.eslick@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-39-2",
+        "openstates_id": "ocd-person/d3783097-d29a-46e1-a0da-ed7d8cab5a04",
+        "name": "Sam Low",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34031.jpg",
+        "contact": {
+          "official_website": "https://leg.wa.gov/legislators/member/sam-low",
+          "email": "sam.low@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-40",
+        "openstates_id": "ocd-person/193dce49-ab25-4608-b4d2-65d80fd3d46c",
+        "name": "Alex Ramel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/30127.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Ramel/",
+          "email": "alex.ramel@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-40-2",
+        "openstates_id": "ocd-person/5f974a76-f712-4412-89c9-a35919dcc11e",
+        "name": "Debra Lekanoff",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29106.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Debra-Lekanoff/",
+          "email": "debra.lekanoff@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-41",
+        "openstates_id": "ocd-person/25b3a4f1-c767-49db-9d8a-217592e5b3a0",
+        "name": "Janice Zahn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35736.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/zahn/",
+          "email": "janice.zahn@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-41-2",
+        "openstates_id": "ocd-person/581f4e17-5947-4df8-8440-6f267ef7b528",
+        "name": "My-Linh Thai",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29107.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/My-Linh-Thai/",
+          "email": "my-linh.thai@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-42",
+        "openstates_id": "ocd-person/b735531c-ec99-4e19-9f43-967d951f8010",
+        "name": "Alicia Rule",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/31533.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Rule/",
+          "email": "alicia.rule@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-42-2",
+        "openstates_id": "ocd-person/ea2c1a95-5b70-4068-8135-8166147bafa9",
+        "name": "Joe Timmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34037.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Timmons/",
+          "email": "joe.timmons@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-43",
+        "openstates_id": "ocd-person/989733b9-6846-465f-9ed6-44b1b823e7c4",
+        "name": "Nicole Macri",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/26178.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Nicole-Macri/",
+          "email": "nicole.macri@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-43-2",
+        "openstates_id": "ocd-person/a9d8dd35-6335-42b6-a93b-66be8bd92a56",
+        "name": "Shaun Scott",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35430.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/scott/",
+          "email": "shaun.scott@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-44",
+        "openstates_id": "ocd-person/aebe068c-accc-4740-9e0d-97d20404ee95",
+        "name": "April Berg",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://housedemocrats.wa.gov/tmp/2021/01/Rep-Berg_April-2021_150x200.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Berg/",
+          "email": "april.berg@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-44-2",
+        "openstates_id": "ocd-person/0f60580f-c121-4661-ae02-5acdfb3923d8",
+        "name": "Brandy Donaghy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/33818.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Donaghy/",
+          "email": "brandy.donaghy@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-45",
+        "openstates_id": "ocd-person/a677ddb3-2d16-479d-aeaf-7d90e7c17509",
+        "name": "Larry Springer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/10039.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Larry-Springer/",
+          "email": "larry.springer@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-45-2",
+        "openstates_id": "ocd-person/c9908a1e-4d33-45e2-9caa-ace8a8232d7e",
+        "name": "Roger Goodman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/11999.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Goodman/",
+          "email": "roger.goodman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-46",
+        "openstates_id": "ocd-person/1effdaf6-73b9-413e-8161-8d2e7080d8df",
+        "name": "Darya Farivar",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34030.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Farivar/",
+          "email": "darya.farivar@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-46-2",
+        "openstates_id": "ocd-person/7f883cd5-f6d1-499c-b14f-0fa2774a0c5c",
+        "name": "Gerry Pollet",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/16596.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Gerry-Pollet/",
+          "email": "gerry.pollet@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-47",
+        "openstates_id": "ocd-person/248654b7-4166-4d2d-8578-cbb6d9210e06",
+        "name": "Chris Stearns",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/34023.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/Stearns/",
+          "email": "chris.stearns@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-47-2",
+        "openstates_id": "ocd-person/76f7fe2c-a48e-4f55-9607-29c89fe3d203",
+        "name": "Debra Entenman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/11403.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/entenman/",
+          "email": "debra.entenman@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-48",
+        "openstates_id": "ocd-person/80548fd7-06a0-44f1-b121-7caae4819ed6",
+        "name": "Amy Walen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/29109.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Amy-Walen/",
+          "email": "amy.walen@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-48-2",
+        "openstates_id": "ocd-person/428b31d6-ada0-4312-827a-61eab8a622f5",
+        "name": "Osman Salahuddin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/35655.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/salahuddin/",
+          "email": "osman.salahuddin@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-49",
+        "openstates_id": "ocd-person/fabb9834-0e6d-476b-ba0f-50d4ecf74a43",
+        "name": "Monica Stonier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/17279.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Monica-Jurado-Stonier/",
+          "email": "monica.stonier@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "wa-rep-49-2",
+        "openstates_id": "ocd-person/6f15e225-ea56-4f95-90c6-64627f367424",
+        "name": "Sharon Wylie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://leg.wa.gov/memberphoto/16462.jpg",
+        "contact": {
+          "official_website": "https://housedemocrats.wa.gov/legislators/Sharon-Wylie/",
+          "email": "sharon.wylie@leg.wa.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,2232 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "AR",
+  "state_name": "Arkansas",
+  "executive": {
+    "governor": {
+      "id": "ar-exec-gov",
+      "name": "Sarah Huckabee Sanders",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://governor.arkansas.gov",
+      "photo_url": null,
+      "bio": "Sarah Huckabee Sanders is the Governor of Arkansas, serving since 2023.",
+      "sources": [
+        "https://governor.arkansas.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "ar-exec-lieutenant-governor",
+      "name": "Leslie Rutledge",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgovernor.arkansas.gov/wp-content/uploads/LR-photo.png"
+    },
+    "cabinet": [
+      {
+        "id": "ar-exec-secretary-of-state",
+        "name": "Cole Jester",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "ar-exec-auditor",
+        "name": "Dennis Milligan",
+        "party": "R",
+        "role": "Auditor",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "ar-exec-treasurer",
+        "name": "John Thurston",
+        "party": "R",
+        "role": "Treasurer",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "ar-exec-attorney-general",
+        "name": "Tim Griffin",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AG-Griffin-1.png"
+      },
+      {
+        "id": "ar-exec-attorney-general",
+        "name": "Tim Griffin",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Arkansas State Senate",
+    "members": [
+      {
+        "id": "ar-sen-1",
+        "openstates_id": "ocd-person/821d4077-0022-48a9-86b1-eb4d3bdef2e7",
+        "name": "Ben Gilmore",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/583_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gilmore",
+          "email": "ben.gilmore@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-2",
+        "openstates_id": "ocd-person/2b67c2a6-d80e-48f4-9bc7-a40d7e5bc2bc",
+        "name": "Matt Stone",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/632_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Stone",
+          "email": "matt.stone@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-3",
+        "openstates_id": "ocd-person/33b10c1d-6f19-44fe-83e7-827fdb1c4e78",
+        "name": "Steve Crowell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/627_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Crowell",
+          "email": "steve.crowell@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-4",
+        "openstates_id": "ocd-person/c083823a-b0f6-43dd-87b9-f1f398b84a00",
+        "name": "Jimmy Hickey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/409_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hickey",
+          "email": "jimmy.hickey@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-5",
+        "openstates_id": "ocd-person/65d8b209-ce03-403c-8437-7c4d7a2e7185",
+        "name": "Terry Rice",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/510_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rice",
+          "email": "terry.rice@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-6",
+        "openstates_id": "ocd-person/dfe71972-1012-4330-af2a-98482d9aa3bc",
+        "name": "Matt McKee",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/630_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+McKee",
+          "email": "matt.mckee@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-7",
+        "openstates_id": "ocd-person/6448d3df-2802-44a1-a142-7c3cc136d0a5",
+        "name": "Alan Clark",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/401_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=A.+Clark",
+          "email": "alan.clark@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-8",
+        "openstates_id": "ocd-person/536c6536-294f-499b-a261-120a685297f0",
+        "name": "Stephanie Flowers",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/339_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=S.+Flowers",
+          "email": "stephanie.flowers@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-9",
+        "openstates_id": "ocd-person/f148aa6d-abfe-4577-9c15-44f2ea79c707",
+        "name": "Reginald Murdock",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/639_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=R.+Murdock",
+          "email": "rkm_72360@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-10",
+        "openstates_id": "ocd-person/a7626d1d-fcc7-4c01-ad87-48a28faf7245",
+        "name": "Ron Caldwell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/397_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Caldwell",
+          "email": "ronald.caldwell@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-11",
+        "openstates_id": "ocd-person/faf89935-181a-4d19-9e4b-dce4657d4d3a",
+        "name": "Ricky Hill",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/545_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hill",
+          "email": "ricky.hill@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-12",
+        "openstates_id": "ocd-person/71affd8a-77ef-45b1-96ab-c5724f34dfa5",
+        "name": "Jamie Scott",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/552_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Scott&dd",
+          "email": "jamie.scott@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-13",
+        "openstates_id": "ocd-person/627a5f2e-efc6-4084-982e-b165a79c8e21",
+        "name": "Jane English",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/405_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+English",
+          "email": "jane.english@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-14",
+        "openstates_id": "ocd-person/cdb599f1-f956-430d-9ba2-87ce18d3fd53",
+        "name": "Clarke Tucker",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/582_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Tucker",
+          "email": "clarke.tucker@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-15",
+        "openstates_id": "ocd-person/b35d0a49-a7f2-4013-83f0-a2feb42adba3",
+        "name": "Fred Love",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/640_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=F.+Love",
+          "email": "fred.love@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-16",
+        "openstates_id": "ocd-person/29e74f04-ceb4-45e1-a803-049e57699923",
+        "name": "Kim Hammer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/576_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Hammer",
+          "email": "kim.hammer@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-17",
+        "openstates_id": "ocd-person/927a87ee-64b3-49b8-8794-9b0857581d1c",
+        "name": "Mark Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/574_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Johnson",
+          "email": "mark.johnson@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-18",
+        "openstates_id": "ocd-person/75b8a2ef-c463-4317-ba03-a368a2f203f2",
+        "name": "Jonathan Dismang",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/337_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Dismang",
+          "email": "jonathan.dismang@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-19",
+        "openstates_id": "ocd-person/f009d442-b840-4308-b48e-f38591e5d0d4",
+        "name": "Dave Wallace",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/518_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Wallace",
+          "email": "dave.wallace@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-20",
+        "openstates_id": "ocd-person/fea1d80a-0cfb-4b26-9123-2a6c2e951d60",
+        "name": "Dan Sullivan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/581_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Sullivan",
+          "email": "dan.sullivan@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-21",
+        "openstates_id": "ocd-person/6bbe436a-67bc-4003-80eb-1ce79c52413f",
+        "name": "Blake Johnson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/509_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+Johnson",
+          "email": "blake.johnson@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-22",
+        "openstates_id": "ocd-person/2f040802-82dc-4ca8-959f-f1b66cf53b16",
+        "name": "John Payton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/638_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Payton",
+          "email": "john.payton@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-23",
+        "openstates_id": "ocd-person/b61d9a4f-d5d1-43b4-84b2-91cb5741b153",
+        "name": "Scott Flippo",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/508_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Flippo",
+          "email": "scott.flippo@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-24",
+        "openstates_id": "ocd-person/d7dbf486-9ad6-411a-a2ad-a599d0606f2b",
+        "name": "Missy Irvin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/343_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Irvin",
+          "email": "missy.irvin@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-25",
+        "openstates_id": "ocd-person/2eebf3d3-1e64-4c5b-b5fc-62924bc324fd",
+        "name": "Breanne Davis",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/544_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+Davis",
+          "email": "breanne.davis@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-26",
+        "openstates_id": "ocd-person/24a8e487-fca2-4d84-999c-4877ab721136",
+        "name": "Brad Simon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://static.wixstatic.com/media/e50aa4_23cec1e445944f57b026e5e2b1b397b1~mv2.png/v1/fill/w_953,h_1415,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/e50aa4_23cec1e445944f57b026e5e2b1b397b1~mv2.png",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Simon",
+          "email": "brad.simon@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-27",
+        "openstates_id": "ocd-person/fb2fcf8c-ed42-46f0-b473-4940692f8e40",
+        "name": "Justin Boyd",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/634_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Boyd",
+          "email": "justin.boyd@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-28",
+        "openstates_id": "ocd-person/ac9a90a0-dfba-4bf0-a07d-ca2232b21a90",
+        "name": "Bryan King",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/629_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+King",
+          "email": "bryan.king@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-29",
+        "openstates_id": "ocd-person/6b90e69a-b1af-402f-a219-daacb99f3926",
+        "name": "Jim Petty",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/631_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Petty",
+          "email": "jim.petty@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-30",
+        "openstates_id": "ocd-person/afd73d93-f65e-480d-ba40-3bc65f4fe95b",
+        "name": "Greg Leding",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/572_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=G.+Leding",
+          "email": "greg.leding@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-31",
+        "openstates_id": "ocd-person/6c773215-c5d7-4039-bcb2-d2abe9053e39",
+        "name": "Clint Penzo",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/637_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Penzo",
+          "email": "clint.penzo@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-32",
+        "openstates_id": "ocd-person/e0045c85-0471-4128-ba41-0454ff1470e6",
+        "name": "Josh Bryant",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/633_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Bryant",
+          "email": "joshua.bryant@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-33",
+        "openstates_id": "ocd-person/0dee8795-58dd-48a8-980e-044d8d2ac646",
+        "name": "Bart Hester",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/396_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hester",
+          "email": "bart.hester@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-34",
+        "openstates_id": "ocd-person/f2259c7e-4c43-41c3-ae29-3aedd5b88eef",
+        "name": "Jim Dotson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/636_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dotson",
+          "email": "jim.dotson@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-sen-35",
+        "openstates_id": "ocd-person/11d34a89-689c-4b2f-b953-670ce11ae3bb",
+        "name": "Tyler Dees",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/628_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dees",
+          "email": "tyler.dees@senate.ar.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Arkansas State House",
+    "members": [
+      {
+        "id": "ar-rep-1",
+        "openstates_id": "ocd-person/bbb656fb-9de4-4ee7-aad5-dd713cba2e1c",
+        "name": "Jeremy Wooldridge",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/601_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wooldridge",
+          "email": "jeremy.wooldridge@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-2",
+        "openstates_id": "ocd-person/9d4e09cb-8d9f-4c8c-a8df-481af146436d",
+        "name": "Trey Steimel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/602_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Steimel",
+          "email": "trey.steimel@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-3",
+        "openstates_id": "ocd-person/120ce349-5d8a-4fa6-902e-4fa39945d7d7",
+        "name": "Stetson Painter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/603_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Painter",
+          "email": "stetson.painter@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-4",
+        "openstates_id": "ocd-person/8a728485-a8bf-4bf8-9197-710ee37eb5e1",
+        "name": "Jason Nazarenko",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://arkelect.com/storage/candidates/InQFuhxflF3x3iJ7vpaZXg48Rjd5qRwjngeLLcSD.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/4",
+          "email": "jason.nazarenko@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-5",
+        "openstates_id": "ocd-person/c45493e9-afbd-4f5e-bb69-e6caed58936a",
+        "name": "Ron McNair",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/492_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McNair",
+          "email": "rmcnair1950@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-6",
+        "openstates_id": "ocd-person/72ce8f2a-95f2-4c1c-8e91-203653d0610a",
+        "name": "Harlan Breaux",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/567_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Breaux",
+          "email": "harlan.breaux@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-7",
+        "openstates_id": "ocd-person/0fc23ae8-f37f-4684-b8f5-083c8e36e19d",
+        "name": "Brit McKenzie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/604_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+McKenzie",
+          "email": "brit.mckenzie@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-8",
+        "openstates_id": "ocd-person/30ea7268-a48a-424e-aadf-007b61874985",
+        "name": "Austin McCollum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/531_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McCollum",
+          "email": "austin.mccollum@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-9",
+        "openstates_id": "ocd-person/4afdc38b-6ea9-4aa9-a8a1-0975c1147cfc",
+        "name": "Diana Gonzales Worthen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://arkelect.com/storage/candidates/sjk3Ad2MX06FYpjWkUvZbh8l94Qa2HxVSfYPAsq0.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/9",
+          "email": "diana.gonzalesworthen@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-10",
+        "openstates_id": "ocd-person/5f09e022-f775-4da8-aaad-224793aa2230",
+        "name": "Mindy McAlindon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/605_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McAlindon",
+          "email": "mindy.mcalindon@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-11",
+        "openstates_id": "ocd-person/8f012092-5f3f-4047-8047-f2520efe0fad",
+        "name": "Rebecca Burkes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/606_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Burkes",
+          "email": "rebecca.burkes@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-12",
+        "openstates_id": "ocd-person/8f4c182b-d257-45b7-8c34-c4c1f12bb4f6",
+        "name": "Hope Duke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/607_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Duke",
+          "email": "hope.duke@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-13",
+        "openstates_id": "ocd-person/302953f6-213a-4bca-94a6-08a36b801d6c",
+        "name": "Scott Richardson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/608_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=R.+Scott+Richardson",
+          "email": "scott.richardson@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-14",
+        "openstates_id": "ocd-person/4b82405d-205f-47f7-8d9c-a7af23e9bada",
+        "name": "Nick Burkes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nick_Burkes.jpeg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/14",
+          "email": "nick.burkes@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-15",
+        "openstates_id": "ocd-person/dfa1d0ff-842e-49d2-baa7-41525816070e",
+        "name": "John Carr",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/594_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Carr",
+          "email": "john.carr@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-16",
+        "openstates_id": "ocd-person/42e0cedc-8165-45c0-988a-d3a414a521c6",
+        "name": "Kendon Underwood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/592_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Underwood",
+          "email": "kendon.underwood@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-17",
+        "openstates_id": "ocd-person/aaa584ee-c86a-4631-a37d-8d006ecb8a7b",
+        "name": "Randy Torres",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://arkelect.com/storage/candidates/vtmHAyGq960CeWT3A0LweElNVr1RpuGqUTHIDIHF.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/17",
+          "email": "randy.torres@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-18",
+        "openstates_id": "ocd-person/c26f1f0e-232e-4bf2-99f8-be3e80bfcdcc",
+        "name": "Robin Lundstrum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/490_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Lundstrum",
+          "email": "robin.lundstrum@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-19",
+        "openstates_id": "ocd-person/1d522f48-2a04-40ed-860f-3c580d9c87fa",
+        "name": "Steve Unger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/610_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Unger",
+          "email": "steve.unger@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-20",
+        "openstates_id": "ocd-person/e8e66020-d749-42e0-9e4e-35962d7f31f4",
+        "name": "Denise Garner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/555_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Garner",
+          "email": "denise.garner@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-21",
+        "openstates_id": "ocd-person/c3be3a52-2646-4ea6-9aef-e4ff36a16762",
+        "name": "Nicole Clowney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/559_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Clowney",
+          "email": "nicole.clowney@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-22",
+        "openstates_id": "ocd-person/7c229d62-dd8f-491c-8aab-15118335cfe9",
+        "name": "David Whitaker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/440_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Whitaker",
+          "email": "david.whitaker@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-23",
+        "openstates_id": "ocd-person/46a1908a-c372-4f84-8ee2-361d767b982a",
+        "name": "Kendra Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/611_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Moore",
+          "email": "kendra.moore@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-24",
+        "openstates_id": "ocd-person/d1286114-790d-404b-ac09-ef86b7fa6556",
+        "name": "Brad Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://arkansasadvocate.com/wp-content/uploads/2024/09/Brad-Hall-SOS-2024.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/24",
+          "email": "brad.hall@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-25",
+        "openstates_id": "ocd-person/53cecb4b-96b5-4cbe-bc72-6eab07cbdeea",
+        "name": "Chad Puryear",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/612_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Puryear",
+          "email": "chad.puryear@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-26",
+        "openstates_id": "ocd-person/43843e57-ce6c-45a5-877c-eca55b1c14e6",
+        "name": "James Eaton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxvAj9Lwd6c_syrbArKUd41KQlFcJAU-nykz2mvepYNvvtN1MKD5bp_QYywDjZyjS60qQ&usqp=CAU",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/26",
+          "email": "james.eaton@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-27",
+        "openstates_id": "ocd-person/155853e2-b93f-442f-b551-5084b5c2105f",
+        "name": "Steven Walker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/613_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Walker",
+          "email": "steven.walker@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-28",
+        "openstates_id": "ocd-person/4f5cafe6-850c-42b3-8a75-cd13c8871baf",
+        "name": "Bart Schulz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/614_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Schulz",
+          "email": "bart.schulz@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-29",
+        "openstates_id": "ocd-person/9b76655d-a7c5-474d-8a35-5a30e8bf9d3a",
+        "name": "Rick McClure",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/586_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McClure",
+          "email": "rick.mcclure@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-30",
+        "openstates_id": "ocd-person/f3fd86cb-bfa0-47e0-8318-d53b2958c19c",
+        "name": "Fran Cavenaugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/522_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Cavenaugh",
+          "email": "frances.cavenaugh@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-31",
+        "openstates_id": "ocd-person/5b260e70-f46b-4d1f-83d9-bd242c11a645",
+        "name": "Jimmy Gazaway",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/526_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gazaway",
+          "email": "jimmy.gazaway@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-32",
+        "openstates_id": "ocd-person/acc25f3e-2151-45ae-8c48-26e598718a47",
+        "name": "Jack Ladyman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/488_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ladyman",
+          "email": "jackladyman@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-33",
+        "openstates_id": "ocd-person/2920db4d-9f68-411a-bd01-9ca6e9089ef7",
+        "name": "Jon Milligan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/590_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Milligan",
+          "email": "jonmilligan@ymail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-34",
+        "openstates_id": "ocd-person/99d5591e-13f9-40af-90f4-97c5f958031a",
+        "name": "Joey Carr",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/615_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Joey+Carr",
+          "email": "joey.carr@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-35",
+        "openstates_id": "ocd-person/f81fdd7f-aa3e-4678-bc4f-870114f8b0ce",
+        "name": "Jessie McGruder",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jessie_McGruder_20240811_111220.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/35",
+          "email": "mcgruder4arkansashouse@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-36",
+        "openstates_id": "ocd-person/3ce18467-b330-4d64-98d6-79c31414e7ca",
+        "name": "Johnny Rye",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/534_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rye",
+          "email": "johnny.rye@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-37",
+        "openstates_id": "ocd-person/6eae19da-9b27-462c-af4b-28615d8d2f54",
+        "name": "Steve Hollowell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/527_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hollowell",
+          "email": "steve.hollowell@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-38",
+        "openstates_id": "ocd-person/38a8f4c9-1138-461c-a8a1-ac853c79d3ca",
+        "name": "Dwight Tosh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/503_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Tosh",
+          "email": "dwight.tosh@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-39",
+        "openstates_id": "ocd-person/e8865ad0-46d2-49a0-8273-da14fe929f3e",
+        "name": "Wayne Long",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/616_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Long",
+          "email": "wayne.long@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-40",
+        "openstates_id": "ocd-person/4f64d1ad-6e2b-443d-b8cb-64164febff31",
+        "name": "Shad Pearce",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/617_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Pearce",
+          "email": "shad.pearce@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-41",
+        "openstates_id": "ocd-person/4dc31c5c-a5a5-417f-bbaa-d99442259b4f",
+        "name": "Alyssa Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://arkansasadvocate.com/wp-content/uploads/2024/09/Alyssa-Brown-SOS-2024.jpg",
+        "contact": {
+          "official_website": "https://arkelect.com/officials/501",
+          "email": "alyssa.brown@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-42",
+        "openstates_id": "ocd-person/8b64758a-b71a-4bb4-ad5d-d4ea812ebf58",
+        "name": "Stephen Meeks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/374_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=S.+Meeks",
+          "email": "stephen.meeks@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-43",
+        "openstates_id": "ocd-person/5559a783-5b5f-4dc5-b800-4b9493b7148b",
+        "name": "Rick Beck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/467_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Beck",
+          "email": "rick.beck@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-45",
+        "openstates_id": "ocd-person/7dff69f1-609b-4230-9937-b8bbc239f5b5",
+        "name": "Aaron Pilkington",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/533_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Pilkington",
+          "email": "aaron.pilkington@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-46",
+        "openstates_id": "ocd-person/3220c1b9-f133-47fa-8ef9-9944493fbb2c",
+        "name": "Jon Eubanks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/357_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Eubanks",
+          "email": "jon.eubanks@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-47",
+        "openstates_id": "ocd-person/4a794d08-4a71-424a-a17d-d35af3c979ae",
+        "name": "Lee Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/556_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=L.+Johnson",
+          "email": "lee.johnson@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-48",
+        "openstates_id": "ocd-person/91123b36-1cbd-4696-b6d1-b9973c9d920f",
+        "name": "Ryan Rose",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/618_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rose",
+          "email": "ryan.rose@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-49",
+        "openstates_id": "ocd-person/65961429-87cb-4c8c-b9c9-006622ea63c7",
+        "name": "Jay Richardson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/562_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Richardson",
+          "email": "jay.richardson@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-50",
+        "openstates_id": "ocd-person/417afb72-31e7-4152-bf79-0ba67e3cb63f",
+        "name": "Zack Gramlich",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/619_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gramlich",
+          "email": "zack.gramlich@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-51",
+        "openstates_id": "ocd-person/c0936ba9-d863-4262-8fd1-3e08fb1013c8",
+        "name": "Cindy Crawford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/551_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Crawford",
+          "email": "cindy.crawford@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-52",
+        "openstates_id": "ocd-person/41f3a186-d3b7-4b46-b3dc-2da6f89c902e",
+        "name": "Marcus Richmond",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/496_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Richmond",
+          "email": "richmond4staterep@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-53",
+        "openstates_id": "ocd-person/487bf09e-e78f-467c-b671-3b4c881f4341",
+        "name": "Matt Duffield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/620_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Duffield",
+          "email": "matt.duffield@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-54",
+        "openstates_id": "ocd-person/7e778aa7-3d02-4d6c-9373-42470990fdea",
+        "name": "Mary Bentley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/469_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Bentley",
+          "email": "mary.bentley@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-55",
+        "openstates_id": "ocd-person/d1b32d51-8ec6-4493-afd2-1bc5feb44034",
+        "name": "Matt Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/621_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Brown",
+          "email": "matt.brown@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-56",
+        "openstates_id": "ocd-person/d7828297-0ad0-491b-88a6-93369de7acca",
+        "name": "Steve Magie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/421_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Magie",
+          "email": "stephen.magie@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-57",
+        "openstates_id": "ocd-person/8b544682-2d9b-4759-bdc1-e560cced87fa",
+        "name": "Cameron Cooper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/561_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Cooper",
+          "email": "cameron.cooper@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-58",
+        "openstates_id": "ocd-person/7d85c10d-346f-4c4f-a4e5-470799f7b21c",
+        "name": "Les Eaves",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/476_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Eaves",
+          "email": "les.eaves@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-59",
+        "openstates_id": "ocd-person/3016494b-fa9f-4f79-8530-7bd26120a31e",
+        "name": "Jim Wooten",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/547_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wooten",
+          "email": "wjewooten@aol.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-60",
+        "openstates_id": "ocd-person/de934263-fe58-4281-bd70-1291fcbd0e25",
+        "name": "Roger Lynch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/528_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Lynch",
+          "email": "roger.lynch@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-61",
+        "openstates_id": "ocd-person/982babbb-33e1-48ad-a199-10a86e6db5e6",
+        "name": "Jeremiah Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/622_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Moore",
+          "email": "jeremiah.moore@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-62",
+        "openstates_id": "ocd-person/fc30e79a-ee65-4e5b-9cb8-f27ef06c951d",
+        "name": "Mark McElroy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/585_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+McElroy",
+          "email": "mdmcelroy1@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-63",
+        "openstates_id": "ocd-person/6e3a7643-abe7-4d0f-8d03-47b514558a67",
+        "name": "Lincoln Barnett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/e0590d_a448445eb66f44af836ca4edceee8ab4~mv2.jpeg/v1/crop/x_563,y_0,w_1048,h_1362/fill/w_567,h_737,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/e0590d_a448445eb66f44af836ca4edceee8ab4~mv2.jpeg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/63",
+          "email": "lincoln.barnett@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-64",
+        "openstates_id": "ocd-person/58b100fe-13ff-4b17-a210-88c13cbd3217",
+        "name": "Ken Ferguson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/477_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Ferguson",
+          "email": "kenneth.ferguson@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-65",
+        "openstates_id": "ocd-person/192e3368-5acb-4ace-9909-fdc02ff2c3d3",
+        "name": "Glenn Barnes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://wehco.media.clients.ellingtoncms.com/imports/adg/photos/206673283_PBGlenn_Barnes_HD650306.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/65",
+          "email": "pinehillmbc111@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-66",
+        "openstates_id": "ocd-person/4b44cfe9-fb9b-4c18-ba6e-34cf679ac3ef",
+        "name": "Mark Perry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/548_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Perry",
+          "email": "mark.perry@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-67",
+        "openstates_id": "ocd-person/dfbad34c-8e78-4a93-9029-9e50cb0ccb51",
+        "name": "Karilyn Brown",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/466_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Brown",
+          "email": "karilyn.brown@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-68",
+        "openstates_id": "ocd-person/a1614a7c-f5f0-4fe1-a2b1-c8390e4bf106",
+        "name": "Brian Evans",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/568_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Evans",
+          "email": "brian.evans@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-69",
+        "openstates_id": "ocd-person/4b6071ae-58c1-4400-a49f-416579c6371e",
+        "name": "David Ray",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/589_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ray",
+          "email": "david.ray@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-70",
+        "openstates_id": "ocd-person/54b2621c-cc79-4a5b-95bf-d9113525624e",
+        "name": "Alex Holladay",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kathryn_Rhodes_20241023_120643.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Holladay",
+          "email": "alex.holladay@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-71",
+        "openstates_id": "ocd-person/9bce7e7f-cd90-4b10-a557-c37d82923be2",
+        "name": "Brandon Achor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/623_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Achor",
+          "email": "brandon.achor@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-72",
+        "openstates_id": "ocd-person/be626067-db01-4481-b096-d2792ff189c8",
+        "name": "Tracy Steele",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "http://www.arkleg.state.ar.us/assembly/2011/Member%20Pictures/Steele_t.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/72",
+          "email": "sensteele@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-73",
+        "openstates_id": "ocd-person/5143965d-c539-411e-8a15-74ebbcbb7cd7",
+        "name": "Andrew Collins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/566_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=A.+Collins",
+          "email": "andrew.collins@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-74",
+        "openstates_id": "ocd-person/03241c54-792d-42c6-ba4c-7b81d02b24a9",
+        "name": "Tippi McCullough",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/570_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McCullough",
+          "email": "tippi.mccullough@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-75",
+        "openstates_id": "ocd-person/0e0e799b-70de-4472-b289-4a0c2aba3a26",
+        "name": "Ashley Hudson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/566_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hudson",
+          "email": "ashley.hudson@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-76",
+        "openstates_id": "ocd-person/e5cf38cc-b933-4bbb-928a-8089d83a6d56",
+        "name": "Joy Springer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/579_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Springer",
+          "email": "joy.springer@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-77",
+        "openstates_id": "ocd-person/b325559c-79b9-4ce3-a548-4c0c4116815e",
+        "name": "Fred Allen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/519_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=F.+Allen",
+          "email": "allenfred@me.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-78",
+        "openstates_id": "ocd-person/d4c881c3-3d11-4cc4-a40d-64d3d0e11c60",
+        "name": "Keith Brooks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/588_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Brooks",
+          "email": "keith.brooks@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-79",
+        "openstates_id": "ocd-person/18f06e22-dd2c-4247-81c8-a40938de3ea1",
+        "name": "Tara Shephard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/624_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=T.+Shephard",
+          "email": "tara.shephard@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-80",
+        "openstates_id": "ocd-person/44cca040-d890-4cf3-9a00-bc8f6f3ac3fc",
+        "name": "Denise Ennett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/577_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ennett",
+          "email": "denise.ennett@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-81",
+        "openstates_id": "ocd-person/1bbfdd71-5072-4978-89bb-6aa19558c3f7",
+        "name": "R.J. Hawk",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/625_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hawk",
+          "email": "rj.hawk@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-82",
+        "openstates_id": "ocd-person/55779b79-fd86-4991-882f-05819d80a87d",
+        "name": "Tony Furman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/587_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Furman",
+          "email": "tony.furman@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-83",
+        "openstates_id": "ocd-person/bd307080-d45f-4c7b-8365-2c7386e0fc3a",
+        "name": "Paul Childress",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://arkansasadvocate.com/wp-content/uploads/2024/09/Paul-Childress-SOS-2024.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/83",
+          "email": "paul.childress@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-84",
+        "openstates_id": "ocd-person/5e063acb-6720-4bb0-8f6e-1df169c856e7",
+        "name": "Les Warren",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/535_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Warren",
+          "email": "les.warren@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-85",
+        "openstates_id": "ocd-person/7f9f1a8b-47a7-456d-bc5d-1e6ec32e8572",
+        "name": "Richard McGrew",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/578_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McGrew",
+          "email": "mcgrewrep22@gmail.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-86",
+        "openstates_id": "ocd-person/240d9f6e-15f1-41eb-acbb-733861936e5b",
+        "name": "John Maddox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/529_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Maddox",
+          "email": "john.maddox@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-87",
+        "openstates_id": "ocd-person/b165a0c6-fe5a-4505-9f6f-aaafce582b6a",
+        "name": "DeAnn Vaught",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/505_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Vaught",
+          "email": "deann.vaught@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-88",
+        "openstates_id": "ocd-person/50cdb325-0c04-483e-87cb-d6a9037d9bc9",
+        "name": "Dolly Henley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6570ab4ce162d11cdfa700b2/e700f6b2-1aba-4474-a367-e54965e30b67/DSC_9617.jpg",
+        "contact": {
+          "official_website": "https://arkansashouse.org/district/88",
+          "email": "dolly.henley@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-89",
+        "openstates_id": "ocd-person/96dbbbb4-8a04-42bc-a553-e178d47ce838",
+        "name": "Justin Gonzales",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/481_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gonzales",
+          "email": "justinrory@yahoo.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-90",
+        "openstates_id": "ocd-person/f2b10588-1d21-4f8f-b313-d668bf58d967",
+        "name": "Richard Womack",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/436_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Womack",
+          "email": "richard@richardwomack.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-91",
+        "openstates_id": "ocd-person/49608f14-5f53-40fc-b662-0d48a2aa1340",
+        "name": "Bruce Cozart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/392_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Cozart",
+          "email": "bccci@cablelynx.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-92",
+        "openstates_id": "ocd-person/1621cc3a-d18c-486f-96fb-57c6a2890da1",
+        "name": "Julie Mayberry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/491_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Mayberry",
+          "email": "julie.mayberry@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-93",
+        "openstates_id": "ocd-person/1bf7a3a7-5871-4777-af71-dbdfd358e41b",
+        "name": "Mike Holcomb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/434_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Holcomb",
+          "email": "mike.holcomb@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-94",
+        "openstates_id": "ocd-person/80a1486d-1661-4409-adf4-63aacf4df148",
+        "name": "Jeff Wardlaw",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/387_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wardlaw",
+          "email": "jeff@jeffwardlaw.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-95",
+        "openstates_id": "ocd-person/95d21faa-0431-4285-8cee-36fc918959b6",
+        "name": "Howard Beaty",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/584_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Beaty+Jr.",
+          "email": "howard.beaty@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-96",
+        "openstates_id": "ocd-person/bd3c22f6-b1b5-4089-b03b-f8198ca843a2",
+        "name": "Sonia Barker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/520_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Barker",
+          "email": "sonia.barker@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-97",
+        "openstates_id": "ocd-person/2774b34a-6b89-4ee9-b8af-32b7a7d8e174",
+        "name": "Matthew Shepherd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/380_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Shepherd",
+          "email": "matthew.shepherd@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-98",
+        "openstates_id": "ocd-person/9762816a-27bf-4209-864b-d15e2e39212a",
+        "name": "Wade Andrews",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/626_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Andrews",
+          "email": "wade.andrews@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-99",
+        "openstates_id": "ocd-person/e04b2e49-1a8c-46e5-b9fc-c23d35e10393",
+        "name": "Lane Jean",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/364_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Jean",
+          "email": "l_jean@sbcglobal.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-100",
+        "openstates_id": "ocd-person/247b430e-d46a-474a-87bc-24d03c636fd8",
+        "name": "Carol Dalby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/525_sm.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dalby",
+          "email": "carol.dalby@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

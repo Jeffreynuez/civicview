@@ -1,6 +1,6 @@
 {
   "_note": "Curated Florida state officials (demo data). Shape is modeled loosely after OpenStates so we can swap in the live API later without changing the frontend. Names/districts reflect a demo-consistent snapshot of FL state government and may not perfectly track real-world changes.",
-  "_source": "Manually curated \u2014 replace with OpenStates API or FL legislature feeds.",
+  "_source": "Manually curated — replace with OpenStates API or FL legislature feeds.",
   "state": "FL",
   "state_name": "Florida",
   "executive": {
@@ -65,1762 +65,2586 @@
       ]
     },
     "lt_governor": {
-      "id": "fl-exec-ltgov",
+      "id": "fl-exec-lieutenant-governor",
       "name": "Jay Collins",
       "party": "R",
       "role": "Lieutenant Governor",
-      "serving_since": "2025-02-10",
-      "term_end": "2027-01-05",
-      "website": "https://www.flgov.com/lieutenant-governor/",
-      "photo_url": null,
-      "selection_method": "appointed",
-      "selection_detail": "Appointed by Governor DeSantis on Feb 10, 2025 after Jeanette Nu\u00f1ez resigned to become interim president of Florida International University. The Lt. Governor is normally elected on the same ticket as the Governor.",
-      "normally_elected": true,
-      "predecessor": "Jeanette Nu\u00f1ez",
-      "contact": {
-        "dc_office": "Office of the Lieutenant Governor, PL 04, The Capitol, 400 S Monroe St, Tallahassee, FL 32399-0001",
-        "dc_phone": "(850) 717-9332",
-        "official_website": "https://www.flgov.com/lt-governor/"
-      },
-      "top_issues": [
-        {
-          "name": "Economic Development",
-          "stance": "Focused on job creation and business expansion in Florida."
-        },
-        {
-          "name": "Tax Policy",
-          "stance": "Supports business-friendly tax policies and fiscal discipline."
-        },
-        {
-          "name": "Infrastructure",
-          "stance": "Prioritizes transportation and infrastructure investment."
-        }
-      ],
-      "experience": [
-        {
-          "role": "Governor of Florida",
-          "from": "2019",
-          "to": "Present"
-        },
-        {
-          "role": "U.S. House of Representatives, District 6",
-          "from": "2013",
-          "to": "2018"
-        },
-        {
-          "role": "Naval Officer / Judge",
-          "from": "2004",
-          "to": "2013"
-        }
-      ]
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins.jpg"
     },
     "cabinet": [
       {
-        "id": "fl-exec-ag",
+        "id": "fl-exec-secretary-of-state",
+        "name": "Cord Byrd",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://files.floridados.gov/media/705688/2022-photo.png"
+      },
+      {
+        "id": "fl-exec-attorney-general",
         "name": "James Uthmeier",
         "party": "R",
         "role": "Attorney General",
-        "serving_since": "2025-02-17",
-        "term_end": "2027-01-05",
-        "website": "https://www.myfloridalegal.com",
-        "phone": "(850) 414-3300",
-        "photo_url": null,
-        "selection_method": "appointed",
-        "selection_detail": "Appointed by Governor DeSantis on Feb 17, 2025 to fill the vacancy after Ashley Moody was appointed to the US Senate. The seat is normally elected statewide.",
-        "normally_elected": true,
-        "predecessor": "Ashley Moody",
-        "contact": {
-          "dc_office": "Office of the Attorney General, PL 01, The Capitol, 400 S Monroe St, Tallahassee, FL 32399-1050",
-          "dc_phone": "(850) 414-3300",
-          "official_website": "https://www.myfloridalegal.com",
-          "socials": {
-            "twitter": "AGJamesUthmeier"
-          }
-        },
-        "top_issues": [
-          {
-            "name": "Law Enforcement",
-            "stance": "Committed to supporting law enforcement and public safety initiatives."
-          },
-          {
-            "name": "Crime Prevention",
-            "stance": "Focuses on prosecution of crime and victim protection."
-          },
-          {
-            "name": "Constitutional Rights",
-            "stance": "Defends constitutional rights and rule of law."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Attorney General of Florida",
-            "from": "2025",
-            "to": "Present"
-          },
-          {
-            "role": "Attorney / Legal Counsel",
-            "from": "2010",
-            "to": "2025"
-          },
-          {
-            "role": "Prior Legal Practice",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      },
-      {
-        "id": "fl-exec-cfo",
-        "name": "Blaise Ingoglia",
-        "party": "R",
-        "role": "Chief Financial Officer",
-        "serving_since": "2025-07-17",
-        "term_end": "2027-01-05",
-        "website": "https://myfloridacfo.com",
-        "phone": "(850) 413-3100",
-        "photo_url": null,
-        "selection_method": "appointed",
-        "selection_detail": "Appointed by Governor DeSantis on July 17, 2025 to fill the vacancy after Jimmy Patronis resigned to run for U.S. Congress. The seat is normally elected statewide.",
-        "normally_elected": true,
-        "predecessor": "Jimmy Patronis",
-        "contact": {
-          "dc_office": "Department of Financial Services, 200 E Gaines St, Tallahassee, FL 32399-0301",
-          "dc_phone": "(850) 413-3100",
-          "official_website": "https://www.myfloridacfo.com",
-          "socials": {
-            "twitter": "FLDFS"
-          }
-        },
-        "top_issues": [
-          {
-            "name": "Financial Management",
-            "stance": "Emphasizes fiscal responsibility and efficient budget management."
-          },
-          {
-            "name": "Insurance Reform",
-            "stance": "Advocates for homeowners insurance market stability."
-          },
-          {
-            "name": "Taxpayer Protection",
-            "stance": "Committed to protecting taxpayer interests and state funds."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Chief Financial Officer",
-            "from": "2025",
-            "to": "Present"
-          },
-          {
-            "role": "Business Executive / Finance Professional",
-            "from": "2012",
-            "to": "2025"
-          },
-          {
-            "role": "Financial Services Background",
-            "from": "2000",
-            "to": "2012"
-          }
-        ]
-      },
-      {
-        "id": "fl-exec-agcom",
-        "name": "Wilton Simpson",
-        "party": "R",
-        "role": "Commissioner of Agriculture",
-        "serving_since": "2023-01-03",
-        "term_end": "2027-01-05",
-        "website": "https://www.fdacs.gov",
-        "phone": "(850) 617-7700",
-        "photo_url": null,
-        "selection_method": "elected",
-        "selection_detail": "Elected statewide in November 2022 to a 4-year term.",
-        "contact": {
-          "dc_office": "Florida Department of Agriculture & Consumer Services, 407 S Calhoun St, Tallahassee, FL 32399-0800",
-          "dc_phone": "(850) 617-7700",
-          "official_website": "https://www.fdacs.gov",
-          "socials": {
-            "twitter": "FDACS"
-          }
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          },
-          {
-            "name": "Immigration",
-            "stance": "Supports border security and immigration enforcement."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Commissioner of Agriculture",
-            "from": "2023",
-            "to": "Present"
-          },
-          {
-            "role": "Agricultural Business / Community Leader",
-            "from": "2010",
-            "to": "2023"
-          },
-          {
-            "role": "Farm / Agricultural Professional",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-FL-Uthmeier-James.png"
       }
     ]
   },
   "state_senate": {
-    "leadership": [
-      {
-        "id": "fl-sen-pres",
-        "bioguide_like_id": "fl-sen-albritton",
-        "name": "Ben Albritton",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "27",
-        "role": "President of the Senate",
-        "leadership_rank": "president",
-        "serving_since": "2018-11-06",
-        "website": "https://www.flsenate.gov/Senators/S27",
-        "photo_url": null,
-        "bio": "Ben Albritton represents parts of Charlotte, DeSoto, Glades, Hardee, Hendry, Highlands, Okeechobee, and Polk counties.",
-        "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s27"
-        },
-        "top_issues": [
-          {
-            "name": "Agriculture",
-            "stance": "Supports agricultural industry growth and rural economic development."
-          },
-          {
-            "name": "Water Management",
-            "stance": "Prioritizes sustainable water policy for farming and environment."
-          },
-          {
-            "name": "Rural Issues",
-            "stance": "Advocates for rural community needs and agricultural preservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida Senate, District 27",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Local Government / Community Leader",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      },
-      {
-        "id": "fl-sen-protem",
-        "bioguide_like_id": "fl-sen-burgess",
-        "name": "Danny Burgess",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "23",
-        "role": "President Pro Tempore",
-        "leadership_rank": "pro_tempore",
-        "serving_since": "2020-11-03",
-        "website": "https://www.flsenate.gov/Senators/S23",
-        "photo_url": null,
-        "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s23"
-        },
-        "top_issues": [
-          {
-            "name": "Insurance Reform",
-            "stance": "Focuses on stabilizing Florida's property insurance market."
-          },
-          {
-            "name": "Business Development",
-            "stance": "Supports business-friendly policies and economic growth."
-          },
-          {
-            "name": "Regulation",
-            "stance": "Advocates for reducing unnecessary regulatory burdens."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida Senate, District 23",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Local Government / Community Leader",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      },
-      {
-        "id": "fl-sen-maj",
-        "bioguide_like_id": "fl-sen-calatayud",
-        "name": "Alexis Calatayud",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "38",
-        "role": "Majority Leader",
-        "leadership_rank": "majority_leader",
-        "serving_since": "2022-11-08",
-        "photo_url": null,
-        "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s38"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          },
-          {
-            "name": "Immigration",
-            "stance": "Supports border security and immigration enforcement."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida Senate, District 38",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Attorney / Legal Professional",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Community Service / Local Boards",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      },
-      {
-        "id": "fl-sen-min",
-        "bioguide_like_id": "fl-sen-pizzo",
-        "name": "Jason Pizzo",
-        "party": "D",
-        "chamber": "State Senate",
-        "district": "37",
-        "role": "Minority Leader",
-        "leadership_rank": "minority_leader",
-        "serving_since": "2018-11-06",
-        "photo_url": null,
-        "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s37"
-        },
-        "top_issues": [
-          {
-            "name": "Consumer Protection",
-            "stance": "Advocates for consumer rights and protections."
-          },
-          {
-            "name": "Workers' Rights",
-            "stance": "Supports labor protections and fair wage standards."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Prioritizes expanded healthcare access for all Floridians."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida Senate, District 37",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Attorney / Legal Professional",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Community Service / Local Boards",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      }
-    ],
+    "body_name": "Florida State Senate",
     "members": [
       {
         "id": "fl-sen-1",
+        "openstates_id": "ocd-person/c45cbed2-9b2e-4507-a6d1-3f960d330c34",
         "name": "Don Gaetz",
         "party": "R",
         "chamber": "State Senate",
         "district": "1",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "http://www.flsenate.gov/PublishedContent/Senators/2014-2016/Photos/s01_4804.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s1"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 1",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flsenate.gov/Senators/s1",
+          "email": "gaetz.don.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-2",
+        "openstates_id": "ocd-person/29c38853-2773-45d3-bc17-0979def1ab54",
+        "name": "Jay Trumbull",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s02_5389.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S2",
+          "email": "trumbull.jay.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-3",
+        "openstates_id": "ocd-person/fca5c9b2-da9e-4836-a3d5-366a25350976",
+        "name": "Corey Simon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s03_5522.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S3",
+          "email": "simon.corey.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-4",
+        "openstates_id": "ocd-person/f1eda85d-37f2-4475-a318-8278a11c9466",
         "name": "Clay Yarborough",
         "party": "R",
         "chamber": "State Senate",
         "district": "4",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s04_5394.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s4"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 4",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S4",
+          "email": "yarborough.clay.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-sen-6",
+        "id": "fl-sen-5",
+        "openstates_id": "ocd-person/03362949-948c-415d-a5b6-f99e8fbc6495",
         "name": "Tracie Davis",
         "party": "D",
         "chamber": "State Senate",
-        "district": "6",
-        "role": "Senator",
-        "photo_url": null,
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s05_5385.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s6"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 6",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S5",
+          "email": "davis.tracie.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-6",
+        "openstates_id": "ocd-person/68e0a17f-338b-497b-ba07-1f74e9623f1d",
+        "name": "Jennifer Bradley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s06_5476.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S6",
+          "email": "bradley.jennifer.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-7",
+        "openstates_id": "ocd-person/04066eef-919c-4dc9-a655-ebc5e185f0c7",
+        "name": "Tom Leek",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4662.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4662&LegislativeTermId=90",
+          "email": "leek.tom.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-8",
+        "openstates_id": "ocd-person/4ae2bacf-d265-42a5-888d-5050015a6602",
+        "name": "Tommy Wright",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s08_5346.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S8",
+          "email": "wright.tom.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-9",
+        "openstates_id": "ocd-person/5844fc0a-b2d2-4a09-baa7-6774e684326a",
+        "name": "Stan McClain",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4658.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4658&LegislativeTermId=90",
+          "email": "mcclain.stan.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-10",
+        "openstates_id": "ocd-person/b1525f57-c2db-407e-bca9-66675cc4d3ff",
+        "name": "Jason Brodeur",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s10_5077.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S10",
+          "email": "brodeur.jason.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-11",
+        "openstates_id": "ocd-person/6d1623ae-0b24-4007-9c0f-af352ea22180",
+        "name": "Ralph Massullo",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4624.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4624&LegislativeTermId=90",
+          "email": "massullo.ralph.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-12",
+        "openstates_id": "ocd-person/50d5881b-ceac-49a2-98db-87ef6e09438c",
+        "name": "Colleen Burton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s12_5414.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S12",
+          "email": "burton.colleen.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-13",
+        "openstates_id": "ocd-person/9c87088c-e5a4-4902-b3cb-4477e062de66",
         "name": "Keith Truenow",
         "party": "R",
         "chamber": "State Senate",
         "district": "13",
-        "role": "Senator",
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4772.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4772&LegislativeTermId=90",
+          "email": "truenow.keith.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-14",
+        "openstates_id": "ocd-person/528bc47a-e8c7-4a28-9923-aba1deefd976",
+        "name": "Brian Nathan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
         "photo_url": null,
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s13"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 13",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flsenate.gov/Senators/S14",
+          "email": "nathan.brian.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-15",
-        "name": "Jennifer Bradley",
-        "party": "R",
+        "openstates_id": "ocd-person/2f86f22f-b277-4441-b322-b1fbfb017b74",
+        "name": "LaVon Bracy Davis",
+        "party": "D",
         "chamber": "State Senate",
         "district": "15",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4874.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s15"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 15",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4874&LegislativeTermId=90",
+          "email": "bracydavis.lavon.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-16",
+        "openstates_id": "ocd-person/3de11937-c291-4561-bee5-4f747665cb37",
+        "name": "Darryl Rouson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s16_5203.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S16",
+          "email": "rouson.darryl.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-17",
-        "name": "Carlos Guillermo Smith",
+        "openstates_id": "ocd-person/df1d6ab6-b2cd-4a6f-b7cc-aa5a63d8011f",
+        "name": "Carlos Smith",
         "party": "D",
         "chamber": "State Senate",
         "district": "17",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4642.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s17"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 17",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flsenate.gov/Senators/S17",
+          "email": "smith.carlos.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-18",
+        "openstates_id": "ocd-person/618247ea-caa1-462c-a29a-636c1720fd14",
+        "name": "Nick DiCeglie",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s18_5365.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S18",
+          "email": "diceglie.nick.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-19",
+        "openstates_id": "ocd-person/a41e2c13-be68-4af3-8229-3c657b8d980d",
+        "name": "Debbie Mayfield",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s19_5199.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S19",
+          "email": "mayfield.debbie.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-20",
+        "openstates_id": "ocd-person/c70f231f-92e2-4a55-a59b-fcf113ab51af",
+        "name": "Jim Boyd",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s20_5070.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S20",
+          "email": "boyd.jim.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-21",
+        "openstates_id": "ocd-person/0e375630-02a4-4e59-ac80-869f9a199b2a",
         "name": "Ed Hooper",
         "party": "R",
         "chamber": "State Senate",
         "district": "21",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s21_5344.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s21"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 21",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S21",
+          "email": "hooper.ed.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-22",
+        "openstates_id": "ocd-person/24b4458a-bc61-42f8-805a-6bc43edf6acb",
+        "name": "Joe Gruters",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s22_5347.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S22",
+          "email": "gruters.joe.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-23",
+        "openstates_id": "ocd-person/55815523-33b5-4d42-9864-28e00b805e68",
+        "name": "Danny Burgess",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s23_5169.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S23",
+          "email": "burgess.danny.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-24",
+        "openstates_id": "ocd-person/3038008c-cb9b-4735-92b4-b8f2be9c5d8e",
+        "name": "Mack Bernard",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "http://www.flhouse.gov/FileStores/Web/Imaging/Member/4422.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4422&SessionId=70",
+          "email": "bernard.mack.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-25",
+        "openstates_id": "ocd-person/e4a84025-e4fd-4d36-8e12-64bd9f61ed6d",
+        "name": "Kristen Arrington",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4774.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4774&LegislativeTermId=90",
+          "email": "arrington.kristen.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-26",
+        "openstates_id": "ocd-person/762d321c-5bbe-4513-b9f0-7e3d8a6972f5",
         "name": "Lori Berman",
         "party": "D",
         "chamber": "State Senate",
         "district": "26",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s26_5339.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s26"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 26",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S26",
+          "email": "berman.lori.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-27",
+        "openstates_id": "ocd-person/5c81dfe7-1cec-45e8-8044-6d9cd324f2e8",
+        "name": "Ben Albritton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s27_5342.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S27",
+          "email": "albritton.ben@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-28",
+        "openstates_id": "ocd-person/ae123d54-1076-49b2-84f9-2897b7d60ebd",
         "name": "Kathleen Passidomo",
         "party": "R",
         "chamber": "State Senate",
         "district": "28",
-        "role": "Senator (Former President)",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s28_5196.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s28"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 28",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S28",
+          "email": "passidomo.kathleen.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-sen-34",
+        "id": "fl-sen-29",
+        "openstates_id": "ocd-person/9cf042e6-01c0-4f8e-aab5-68508a0fda66",
+        "name": "Erin Grall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s29_5426.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S29",
+          "email": "grall.erin.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-30",
+        "openstates_id": "ocd-person/8c728fd0-2a3b-48ea-88a9-c7d675eb05d0",
+        "name": "Tina Polsky",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s30_5371.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S30",
+          "email": "polsky.tina.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-31",
+        "openstates_id": "ocd-person/cd3ba8e7-7c51-444b-bff3-e0c29de30660",
+        "name": "Gayle Harrell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s31_5348.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S31",
+          "email": "harrell.gayle.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-32",
+        "openstates_id": "ocd-person/3194701f-dfa8-40e9-9081-56aa20c63f6e",
         "name": "Rosalind Osgood",
         "party": "D",
         "chamber": "State Senate",
-        "district": "34",
-        "role": "Senator",
-        "photo_url": null,
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s32_5520.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s34"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 34",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S32",
+          "email": "osgood.rosalind.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-33",
+        "openstates_id": "ocd-person/e5e1f892-4d9e-464e-b58d-6acf50069b75",
+        "name": "Jonathan Martin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s33_5524.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S33",
+          "email": "martin.jonathan.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-34",
+        "openstates_id": "ocd-person/a8a2eaa4-449b-441f-96bb-d8a3e8191479",
+        "name": "Shev Jones",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s34_5453.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S34",
+          "email": "jones.shevrin.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-35",
+        "openstates_id": "ocd-person/2af7bd80-7f71-4530-8d69-ee448bc32255",
+        "name": "Barbara Sharief",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/_oMaIez3_400x400.jpg",
+        "contact": {
+          "official_website": "https://www.flsenate.gov/Senators/S35",
+          "email": "sharief.barbara.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-36",
-        "name": "Bryan \u00c1vila",
+        "openstates_id": "ocd-person/3b65ecb0-8a3d-469c-9db4-b70c8724610f",
+        "name": "Ileana Garcia",
         "party": "R",
         "chamber": "State Senate",
         "district": "36",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s36_5515.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s36"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 36",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S36",
+          "email": "garcia.ileana.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-37",
+        "openstates_id": "ocd-person/42278250-8dc9-4fcc-ab11-964aa8e369e7",
+        "name": "Jason Pizzo",
+        "party": "I",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s37_5345.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S37",
+          "email": "pizzo.jason.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-38",
+        "openstates_id": "ocd-person/7f1e874f-ae8b-42a0-90d9-fe867cf9fb45",
+        "name": "Alexis Calatayud",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s38_5525.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S38",
+          "email": "calatayud.alexis.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-sen-39",
+        "openstates_id": "ocd-person/a4a5f92e-62cf-401b-9fc6-9d9a63498d5c",
+        "name": "Bryan Ávila",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s39_5459.jpg",
+        "contact": {
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S39",
+          "email": "avila.bryan.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
         "id": "fl-sen-40",
-        "name": "Ileana Garc\u00eda",
+        "openstates_id": "ocd-person/afd55a58-b8f6-4dd7-9d93-a2207b65e425",
+        "name": "Ana Maria Rodriguez",
         "party": "R",
         "chamber": "State Senate",
         "district": "40",
-        "role": "Senator",
-        "photo_url": null,
+        "role": "State Senator",
+        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s40_5379.jpg",
         "contact": {
-          "dc_office": "Senate Office Building, 404 S Monroe St, Tallahassee, FL 32399-1100",
-          "dc_phone": "(850) 487-5800",
-          "official_website": "https://flsenate.gov/Senators/s40"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State Senate, District 40",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://flsenate.gov/Senators/2022-2024/S40",
+          "email": "rodriguez.anamaria.web@flsenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       }
     ]
   },
   "state_house": {
-    "leadership": [
+    "body_name": "Florida State House",
+    "members": [
       {
-        "id": "fl-house-speaker",
-        "bioguide_like_id": "fl-house-perez",
-        "name": "Daniel Perez",
+        "id": "fl-rep-1",
+        "openstates_id": "ocd-person/a3c0aa9f-c261-4904-b73b-4dc127778222",
+        "name": "Michelle Salzman",
         "party": "R",
         "chamber": "State House",
-        "district": "116",
-        "role": "Speaker of the House",
-        "leadership_rank": "speaker",
-        "serving_since": "2017-09-26",
-        "website": "https://www.myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4662",
-        "photo_url": null,
-        "bio": "Daniel Perez represents portions of Miami-Dade County.",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4763.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=116"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          },
-          {
-            "name": "Immigration",
-            "stance": "Supports border security and immigration enforcement."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida House, District 116",
-            "from": "2017",
-            "to": "Present"
-          },
-          {
-            "role": "Business Executive / Professional",
-            "from": "2008",
-            "to": "2017"
-          },
-          {
-            "role": "Community Leadership",
-            "from": "1998",
-            "to": "2008"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4763&LegislativeTermId=90",
+          "email": "michelle.salzman@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-speakerpro",
-        "bioguide_like_id": "fl-house-sirois",
-        "name": "Tyler Sirois",
-        "party": "R",
-        "chamber": "State House",
-        "district": "31",
-        "role": "Speaker Pro Tempore",
-        "leadership_rank": "pro_tempore",
-        "photo_url": null,
-        "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=31"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          },
-          {
-            "name": "Immigration",
-            "stance": "Supports border security and immigration enforcement."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida House, District 31",
-            "from": "2017",
-            "to": "Present"
-          },
-          {
-            "role": "Business Executive / Professional",
-            "from": "2008",
-            "to": "2017"
-          },
-          {
-            "role": "Community Leadership",
-            "from": "1998",
-            "to": "2008"
-          }
-        ]
-      },
-      {
-        "id": "fl-house-maj",
-        "bioguide_like_id": "fl-house-andrade",
+        "id": "fl-rep-2",
+        "openstates_id": "ocd-person/de5ddba1-d7fe-41da-9f36-16a03b0b22fc",
         "name": "Alex Andrade",
         "party": "R",
         "chamber": "State House",
         "district": "2",
-        "role": "Majority Leader",
-        "leadership_rank": "majority_leader",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4710.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=2"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          },
-          {
-            "name": "Immigration",
-            "stance": "Supports border security and immigration enforcement."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida House, District 2",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Prior Legislative / Professional Service",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Business / Community Service",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4710&LegislativeTermId=90",
+          "email": "alex.andrade@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-min",
-        "bioguide_like_id": "fl-house-driskell",
-        "name": "Fentrice Driskell",
-        "party": "D",
-        "chamber": "State House",
-        "district": "67",
-        "role": "Minority Leader",
-        "leadership_rank": "minority_leader",
-        "photo_url": null,
-        "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=67"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          },
-          {
-            "name": "Workers' Rights",
-            "stance": "Supports labor protections and wage improvements."
-          }
-        ],
-        "experience": [
-          {
-            "role": "Florida House, District 67",
-            "from": "2018",
-            "to": "Present"
-          },
-          {
-            "role": "Prior Legislative / Professional Service",
-            "from": "2010",
-            "to": "2018"
-          },
-          {
-            "role": "Business / Community Service",
-            "from": "2000",
-            "to": "2010"
-          }
-        ]
-      }
-    ],
-    "members": [
-      {
-        "id": "fl-house-3",
-        "name": "Joel Rudman",
+        "id": "fl-rep-3",
+        "openstates_id": "ocd-person/7fa0c00f-c006-401c-88e7-06485e394c34",
+        "name": "Nathan Boyles",
         "party": "R",
         "chamber": "State House",
         "district": "3",
-        "role": "Representative",
+        "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=3"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 3",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5063",
+          "email": "nathan.boyles@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-13",
+        "id": "fl-rep-4",
+        "openstates_id": "ocd-person/ed56c597-3652-45a5-9c01-de0bf3eb8ab9",
+        "name": "Patt Maney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4764.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4764&LegislativeTermId=90",
+          "email": "patt.maney@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-5",
+        "openstates_id": "ocd-person/c844e345-f2a8-42fa-9ef9-d278bcb8fa4c",
+        "name": "Shane Abbott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4864.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4864&LegislativeTermId=90",
+          "email": "shane.abbott@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-6",
+        "openstates_id": "ocd-person/25748543-5a46-49c2-bc52-f7d39c18a2e6",
+        "name": "Griff Griffitts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4862.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4862&LegislativeTermId=90",
+          "email": "griff.griffitts@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-7",
+        "openstates_id": "ocd-person/2bae38cc-f703-446b-93ec-576c0e388760",
+        "name": "Jason Shoaf",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4756.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4756&LegislativeTermId=90",
+          "email": "jason.shoaf@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-8",
+        "openstates_id": "ocd-person/3c9e6522-75aa-40d0-870c-1792d5178b04",
+        "name": "Gallop Franklin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4863.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4863&LegislativeTermId=90",
+          "email": "gallop.franklin@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-9",
+        "openstates_id": "ocd-person/c26599eb-5ef8-44c3-93a6-77cf23a9567e",
+        "name": "Allison Tant",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4765.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4765&LegislativeTermId=90",
+          "email": "allison.tant@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-10",
+        "openstates_id": "ocd-person/caf95c6f-3143-433e-8654-c17d39b94f88",
+        "name": "Chuck Brannan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4708.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4708&LegislativeTermId=90",
+          "email": "chuck.brannan@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-11",
+        "openstates_id": "ocd-person/965e180a-177f-49ac-baba-0f0c7fe9a836",
+        "name": "Sam Garrison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4767.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4767&LegislativeTermId=90",
+          "email": "sam.garrison@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-12",
+        "openstates_id": "ocd-person/17ae3cd7-1aa0-44b4-baab-ed839b6776a6",
+        "name": "Wyman Duggan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4712.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4712&LegislativeTermId=90",
+          "email": "wyman.duggan@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-13",
+        "openstates_id": "ocd-person/66c3a112-3008-4332-a6b0-8990a7d992d5",
         "name": "Angie Nixon",
         "party": "D",
         "chamber": "State House",
         "district": "13",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4766.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=13"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 13",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4766&LegislativeTermId=90",
+          "email": "angela.nixon@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-19",
+        "id": "fl-rep-14",
+        "openstates_id": "ocd-person/469b8c3d-5133-43c1-8598-b63ea936f135",
+        "name": "Kim Daniels",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4652.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4652&LegislativeTermId=90",
+          "email": "kimberly.daniels@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-15",
+        "openstates_id": "ocd-person/c082de7e-0a73-43a6-94e7-48180a1af3d6",
+        "name": "Dean Black",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4865.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4865&LegislativeTermId=90",
+          "email": "dean.black@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-16",
+        "openstates_id": "ocd-person/efa5f0b9-e10e-4ae0-a352-db879b1e0d3b",
+        "name": "Kiyan Michael",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4869.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4869&LegislativeTermId=90",
+          "email": "kiyan.michael@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-17",
+        "openstates_id": "ocd-person/8dd703e2-8024-47c5-a22b-87a36db841cb",
+        "name": "Jessica Baker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4866.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4866&LegislativeTermId=90",
+          "email": "jessica.baker@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-18",
+        "openstates_id": "ocd-person/e809e1f7-641f-47c7-8754-964f1ceae10d",
+        "name": "Kim Kendall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KimKendall2024.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4905",
+          "email": "kim.kendall@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-19",
+        "openstates_id": "ocd-person/2da96449-663b-48ed-ab70-ef4e433afda3",
         "name": "Sam Greco",
         "party": "R",
         "chamber": "State House",
         "district": "19",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/SamGreco2024.png",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=19"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 19",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4906",
+          "email": "sam.greco@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-33",
-        "name": "Randy Fine",
+        "id": "fl-rep-20",
+        "openstates_id": "ocd-person/09ff6379-dbcc-4aa2-bc70-0b2fa9fd69ec",
+        "name": "Judson Sapp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/239f01_44bd85c8941a4875a3e3f89d1cf01db3~mv2.jpeg/v1/fill/w_490,h_591,al_t,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/239f01_44bd85c8941a4875a3e3f89d1cf01db3~mv2.jpeg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4907",
+          "email": "judson.sapp@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-21",
+        "openstates_id": "ocd-person/0f5d2710-6b7c-4444-8a45-ea3e917805ba",
+        "name": "Yvonne Hinson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4768.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4768&LegislativeTermId=90",
+          "email": "yvonne.hinson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-22",
+        "openstates_id": "ocd-person/2aa3b059-b565-413d-9eac-24e34b541c1d",
+        "name": "Chad Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chad_Johnson_20240808_095012.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4908&LegislativeTermId=91",
+          "email": "chad.johnson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-23",
+        "openstates_id": "ocd-person/b65fb87d-0544-4058-8ad6-9cbd3622a330",
+        "name": "J.J. Grow",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/841906/841906.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4909",
+          "email": "jj.grow@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-24",
+        "openstates_id": "ocd-person/baa03ffb-0948-4975-9e3a-c3fb9c0fcf40",
+        "name": "Ryan Chamberlin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4901.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4901&LegislativeTermId=90",
+          "email": "ryan.chamberlin@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-25",
+        "openstates_id": "ocd-person/4ba15ff2-a717-4ea5-ad72-34e673ef63d8",
+        "name": "Taylor Yarkosky",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4868.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4868&LegislativeTermId=90",
+          "email": "taylor.yarkosky@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-26",
+        "openstates_id": "ocd-person/609d82db-51d0-4705-a6c4-4d0bd487a61f",
+        "name": "Nan Cobb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.eustis.org/files/assets/public/v/3/city-hall-mgrs-office/images/commissioner-cobb.jpg?dimension=pageimage&w=480",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4910",
+          "email": "nan.cobb@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-27",
+        "openstates_id": "ocd-person/c95a0c72-09d5-40dc-8df8-a865051b9ea0",
+        "name": "Richard Gentry",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Gentry_20240811_121405.png",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4911",
+          "email": "richard.gentry@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-28",
+        "openstates_id": "ocd-person/92e88cfe-0a68-45e1-b84c-9f181a46554e",
+        "name": "Bill Partington",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.billpartington.com/images/Partington,-Bill-WEB-FILE.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4912&LegislativeTermId=91",
+          "email": "bill.partington@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-29",
+        "openstates_id": "ocd-person/f2b23850-7feb-484e-8ed2-68e2f6108fbf",
+        "name": "Webster Barnaby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4770.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4770&LegislativeTermId=90",
+          "email": "webster.barnaby@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-30",
+        "openstates_id": "ocd-person/47cd160b-1e9e-469c-a939-002be336302f",
+        "name": "Chase Tramont",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4867.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4867&LegislativeTermId=90",
+          "email": "chase.tramont@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-31",
+        "openstates_id": "ocd-person/ac26aaa6-1f59-4893-ae7f-30f5d2e5d8fc",
+        "name": "Tyler Sirois",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4748.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4748&LegislativeTermId=90",
+          "email": "tyler.sirois@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-32",
+        "openstates_id": "ocd-person/4737f2dc-8241-4329-85fc-59a9c405d7b6",
+        "name": "Brian Hodgers",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5064&LegislativeTermId=91",
+          "email": "brian.hodgers@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-33",
+        "openstates_id": "ocd-person/4a001cb2-e0ab-4036-a85d-b4f8ab3664cc",
+        "name": "Monique Miller",
         "party": "R",
         "chamber": "State House",
         "district": "33",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Monique_Miller.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=33"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 33",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4913",
+          "email": "monique.miller@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-37",
+        "id": "fl-rep-34",
+        "openstates_id": "ocd-person/c63b8e5e-fd63-45a1-b7e9-16595039f34a",
+        "name": "Robbie Brackett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4870.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4870&LegislativeTermId=90",
+          "email": "robert.brackett@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-35",
+        "openstates_id": "ocd-person/30a6de56-a2b6-44b4-ab5a-e1bc6d944c93",
+        "name": "Erika Booth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Erika_Booth.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4914&LegislativeTermId=91",
+          "email": "erika.booth@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-36",
+        "openstates_id": "ocd-person/1b25c111-e59b-429e-a6b7-fd22a38c1581",
+        "name": "Rachel Plakon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4871.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4871&LegislativeTermId=90",
+          "email": "rachel.plakon@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-37",
+        "openstates_id": "ocd-person/a5af681e-9679-4fed-83a3-ed16405055cb",
         "name": "Susan Plasencia",
         "party": "R",
         "chamber": "State House",
         "district": "37",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4872.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=37"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 37",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4872&LegislativeTermId=90",
+          "email": "susan.plasencia@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-42",
+        "id": "fl-rep-38",
+        "openstates_id": "ocd-person/e4bf077a-8468-49a6-a75c-24ee5076352e",
+        "name": "Dave Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4718.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4718&LegislativeTermId=90",
+          "email": "david.smith@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-39",
+        "openstates_id": "ocd-person/c585b9bb-83d4-4d01-8a02-778578cfe2d6",
+        "name": "Doug Bankson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4873.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4873&LegislativeTermId=90",
+          "email": "doug.bankson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-40",
+        "openstates_id": "ocd-person/ff372569-d6f5-4bd0-8d36-569a7458f3e2",
+        "name": "RaShon Young",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5065",
+          "email": "rashon.young@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-41",
+        "openstates_id": "ocd-person/617888c1-3369-49cd-a264-18ab663d2e8a",
+        "name": "Bruce Antone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4269.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4269&LegislativeTermId=90",
+          "email": "bruce.antone@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-42",
+        "openstates_id": "ocd-person/1f8e10ad-0047-4854-b696-38e15fda7afa",
         "name": "Anna Eskamani",
         "party": "D",
         "chamber": "State House",
         "district": "42",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4746.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=42"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 42",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4746&LegislativeTermId=90",
+          "email": "anna.eskamani@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-62",
+        "id": "fl-rep-43",
+        "openstates_id": "ocd-person/fa6bc3c9-a107-4954-adf1-e1461e9f3520",
+        "name": "Johanna López",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4875.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4875&LegislativeTermId=90",
+          "email": "johanna.lopez@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-44",
+        "openstates_id": "ocd-person/ca476441-7c7a-4f21-ba55-207c21a7d51d",
+        "name": "Rita Harris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4877.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4877&LegislativeTermId=90",
+          "email": "rita.harris@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-45",
+        "openstates_id": "ocd-person/69e5941c-0def-4c79-a33e-c318ff516c9a",
+        "name": "Leonard Spencer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://floridapolitics.com/wp-content/uploads/2024/05/Spencer-Leonars.jpeg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4915&LegislativeTermId=91",
+          "email": "leonard.spencer@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-46",
+        "openstates_id": "ocd-person/c3e8a214-183a-4b9c-970c-5332e83eb8e6",
+        "name": "Jose Alvarez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.voterfocus.com/CampaignFinance/photo_osceola/cand_345.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4916&LegislativeTermId=91",
+          "email": "jose.alvarez@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-47",
+        "openstates_id": "ocd-person/0a0ec0a3-4f1d-4cd8-b790-d51bff717798",
+        "name": "Paula Stark",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4878.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4878&LegislativeTermId=90",
+          "email": "paula.stark@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-48",
+        "openstates_id": "ocd-person/c7ee0194-6ff9-4b95-83ee-bac26e80467d",
+        "name": "Jon Albert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/828599/828599.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4917&LegislativeTermId=91",
+          "email": "jon.albert@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-49",
+        "openstates_id": "ocd-person/28e33eaa-f6cf-4158-83fe-aff91d0cd8f0",
+        "name": "Jennifer Kincart Jonsson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.theledger.com/gcdn/authoring/authoring-images/2024/04/17/NLED/73359809007-jen.jpg?width=660&height=981&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4918",
+          "email": "jennifer.jonsson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-50",
+        "openstates_id": "ocd-person/7fb5a540-2c3c-4661-8495-2e0e02ab8644",
+        "name": "Jennifer Canady",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4879.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4879&LegislativeTermId=90",
+          "email": "jennifer.canady@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-51",
+        "openstates_id": "ocd-person/fd753355-7d8a-4eda-ab3c-8a6478e1ac73",
+        "name": "Hilary Holley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://floridapolitics.com/wp-content/uploads/2025/10/Hillary-Holley-copy.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5072",
+          "email": "hilary.holley@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-52",
+        "openstates_id": "ocd-person/6e6024d7-d66b-437d-b4a7-1e96bc365d5d",
+        "name": "Samantha Scott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://lakeandsumterstyle.com/wp-content/uploads/2025/09/548330102_10238294438960625_7665889559183237490_n-e1758302240695-1200x730.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5070",
+          "email": "samantha.scott@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-53",
+        "openstates_id": "ocd-person/5bd19ebd-e225-49a5-b0f5-42f6380a9fa8",
+        "name": "Jeff Holcomb",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4890.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4890&LegislativeTermId=90",
+          "email": "jeff.holcomb@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-54",
+        "openstates_id": "ocd-person/2a415c08-da66-402b-ada6-93390a5df820",
+        "name": "Randy Maggard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4758.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4758&LegislativeTermId=90",
+          "email": "randy.maggard@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-55",
+        "openstates_id": "ocd-person/7cf27467-9070-4d4a-9a45-24bfe980dfb8",
+        "name": "Kevin Steele",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4881.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4881&LegislativeTermId=90",
+          "email": "kevin.steele@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-56",
+        "openstates_id": "ocd-person/8d746fc8-370b-4d12-bcf8-3dd4a4061707",
+        "name": "Brad Yeager",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4882.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4882&LegislativeTermId=90",
+          "email": "brad.yeager@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-57",
+        "openstates_id": "ocd-person/6a3fae94-a613-49f5-acec-355e4a2722d8",
+        "name": "Adam Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4885.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4885&LegislativeTermId=90",
+          "email": "adam.anderson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-58",
+        "openstates_id": "ocd-person/d6c0ddf5-2821-4510-83d1-da9eb422739a",
+        "name": "Kim Berfield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4210.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4210&LegislativeTermId=90",
+          "email": "kim.berfield@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-59",
+        "openstates_id": "ocd-person/8e396afa-17d2-404c-9024-7aa8d7e00e0d",
+        "name": "Berny Jacques",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4886.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4886&LegislativeTermId=90",
+          "email": "berny.jacques@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-60",
+        "openstates_id": "ocd-person/8bcd1df3-2697-42a9-842a-f3cced1fcb0f",
+        "name": "Lindsay Cross",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4887.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4887&LegislativeTermId=90",
+          "email": "lindsay.cross@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-61",
+        "openstates_id": "ocd-person/7d59a4fe-d0f1-43a8-93b4-bcd3b7fe5b4e",
+        "name": "Linda Chaney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4778.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4778&LegislativeTermId=90",
+          "email": "linda.chaney@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-62",
+        "openstates_id": "ocd-person/9b6f17f5-ec19-4302-8a45-2b40175bb39b",
         "name": "Michele Rayner",
         "party": "D",
         "chamber": "State House",
         "district": "62",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4781.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=62"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 62",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4781&LegislativeTermId=90",
+          "email": "michele.rayner@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-65",
-        "name": "Lindsay Cross",
+        "id": "fl-rep-63",
+        "openstates_id": "ocd-person/1be9ca60-ccf5-4beb-835a-3c292e04eaef",
+        "name": "Dianne Hart-Lowman",
         "party": "D",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4736.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4736&LegislativeTermId=90",
+          "email": "dianne.hart-lowman@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-64",
+        "openstates_id": "ocd-person/811dfa67-2615-4d45-9cf9-bd1a587a34fe",
+        "name": "Susan Valdés",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4752.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4752&LegislativeTermId=90",
+          "email": "susan.valdes@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-65",
+        "openstates_id": "ocd-person/d1296445-72e8-45e5-ad0e-4443275176ef",
+        "name": "Karen Gonzalez Pittman",
+        "party": "R",
         "chamber": "State House",
         "district": "65",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4888.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=65"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 65",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4888&LegislativeTermId=90",
+          "email": "karen.pittman@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-86",
-        "name": "Jervonte Edmonds",
+        "id": "fl-rep-66",
+        "openstates_id": "ocd-person/217f848d-99c2-43aa-98d2-6fee2812c1e6",
+        "name": "Traci Koster",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4779.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4779&LegislativeTermId=90",
+          "email": "traci.koster@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-67",
+        "openstates_id": "ocd-person/5a138490-70a4-46fa-967e-8739d1ea7456",
+        "name": "Fentrice Driskell",
         "party": "D",
         "chamber": "State House",
-        "district": "86",
-        "role": "Representative",
-        "photo_url": null,
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4745.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=86"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 86",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4745&LegislativeTermId=90",
+          "email": "fentrice.driskell@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-99",
+        "id": "fl-rep-68",
+        "openstates_id": "ocd-person/56263ea0-3c5c-45cb-998d-ac7cf8db5446",
+        "name": "Lawrence McClure",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4686.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4686&LegislativeTermId=90",
+          "email": "lawrence.mcclure@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-69",
+        "openstates_id": "ocd-person/5a852452-a855-44a6-aa71-1e07e48c0c89",
+        "name": "Danny Alvarez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4889.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4889&LegislativeTermId=90",
+          "email": "danny.alvarez@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-70",
+        "openstates_id": "ocd-person/fc683ed7-c458-46b4-a133-6ab6916237d0",
+        "name": "Michael Owen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.porttb.com/?a=Files.Serve&File_id=DEAE221B-6C8A-4865-BE9F-9C16F892E47C",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4919",
+          "email": "michael.owen@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-71",
+        "openstates_id": "ocd-person/042b27f1-ec82-497e-958c-ebe5da28b706",
+        "name": "Will Robinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4733.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4733&LegislativeTermId=90",
+          "email": "will.robinson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-72",
+        "openstates_id": "ocd-person/43724cbb-0b19-4fad-ae9b-1e8bcd47c16d",
+        "name": "Bill Conerly",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/BillConerly2024.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4920",
+          "email": "bill.conerly@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-73",
+        "openstates_id": "ocd-person/741003ec-e46f-4ae8-a3af-ce2a2aba5cd4",
+        "name": "Fiona McFarland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4780.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4780&LegislativeTermId=90",
+          "email": "fiona.mcfarland@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-74",
+        "openstates_id": "ocd-person/797767ca-fadc-49d9-a7a5-5722baf6557e",
+        "name": "James Buchanan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4731.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4731&LegislativeTermId=90",
+          "email": "james.buchanan@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-75",
+        "openstates_id": "ocd-person/971fb9ac-b0f3-45df-89f0-f24b6ba9b5a3",
+        "name": "Danny Nix",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Danny_Nix.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4921&LegislativeTermId=91",
+          "email": "danny.nix@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-76",
+        "openstates_id": "ocd-person/2d1c1c14-3ff1-468e-920a-07a081df4775",
+        "name": "Vanessa Oliver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/VanessaOliver2024.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4922",
+          "email": "vanessa.oliver@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-77",
+        "openstates_id": "ocd-person/36219a90-2f5f-4ac6-b6ad-04139103c70c",
+        "name": "Tiffany Esposito",
+        "party": "R",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4892.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4892&LegislativeTermId=90",
+          "email": "tiffany.esposito@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-78",
+        "openstates_id": "ocd-person/bc54a6ff-f7b3-4bbf-a23a-4acc9caa8064",
+        "name": "Jenna Persons-Mulicka",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4785.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4785&LegislativeTermId=90",
+          "email": "jenna.persons@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-79",
+        "openstates_id": "ocd-person/9a44c892-cd4a-452b-88cb-435e8ece8d82",
+        "name": "Mike Giallombardo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4783.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4783&LegislativeTermId=90",
+          "email": "mike.giallombardo@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-80",
+        "openstates_id": "ocd-person/c94b1151-5034-482b-8d7b-f91f9bb5f951",
+        "name": "Adam Botana",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4782.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4782&LegislativeTermId=90",
+          "email": "adam.botana@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-81",
+        "openstates_id": "ocd-person/88aacea0-124a-4980-b046-90cfb0cda4db",
+        "name": "Yvette Benarroch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/YvetteBennaroch24.JPG",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4923",
+          "email": "yvette.benarroch@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-82",
+        "openstates_id": "ocd-person/f835385b-0837-4cfc-a81c-54982ba185d7",
+        "name": "Lauren Melo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4784.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4784&LegislativeTermId=90",
+          "email": "lauren.melo@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-83",
+        "openstates_id": "ocd-person/43356d29-3396-423e-9286-f7bd1e52ebde",
+        "name": "Kaylee Tuck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4776.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4776&LegislativeTermId=90",
+          "email": "kaylee.tuck@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-84",
+        "openstates_id": "ocd-person/767d2aef-21ee-4b6d-b64b-ed9350abaa60",
+        "name": "Dana Trabulsy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4788.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4788&LegislativeTermId=90",
+          "email": "dana.trabulsy@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-85",
+        "openstates_id": "ocd-person/a44181b6-df0b-466d-9989-d369083201aa",
+        "name": "Toby Overdorf",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4728.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4728&LegislativeTermId=90",
+          "email": "toby.overdorf@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-86",
+        "openstates_id": "ocd-person/5055fc3a-3cdd-4f4d-addb-23634fd1df92",
+        "name": "John Snyder",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4787.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4787&LegislativeTermId=90",
+          "email": "john.snyder@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-87",
+        "openstates_id": "ocd-person/e2d16b6f-6522-46c6-9817-3d4f4d1b66ce",
+        "name": "Emily Gregory",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.sun-sentinel.com/wp-content/uploads/2025/10/TFL-L-Emily-Gregory-candidate-01.jpg?w=864",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5069",
+          "email": "emily.gregory@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-88",
+        "openstates_id": "ocd-person/bb2ae855-2e7a-4744-9271-a8ae1af89428",
+        "name": "Tae Edmonds",
+        "party": "D",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4842.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4842&LegislativeTermId=90",
+          "email": "jervonte.edmonds@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-89",
+        "openstates_id": "ocd-person/88b67b7d-e856-43b3-9ae3-90092919c4e5",
+        "name": "Debra Tendrich",
+        "party": "D",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Debra__Tendrich__20241023_121011.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4924&LegislativeTermId=91",
+          "email": "debra.tendrich@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-90",
+        "openstates_id": "ocd-person/50be2c32-37ea-4b93-9525-21d7b6f0b463",
+        "name": "Rob Long",
+        "party": "D",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5067",
+          "email": "rob.long@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-91",
+        "openstates_id": "ocd-person/ab654947-84ed-4526-9b00-487642499106",
+        "name": "Peggy Gossett-Seidman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4891.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4891&LegislativeTermId=90",
+          "email": "peggy.gossettseidman@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-92",
+        "openstates_id": "ocd-person/8eff1a19-557d-4a5d-8a3b-c77015a7babe",
         "name": "Kelly Skidmore",
         "party": "D",
         "chamber": "State House",
-        "district": "99",
-        "role": "Representative",
-        "photo_url": null,
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4786.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=99"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 99",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4786&LegislativeTermId=90",
+          "email": "kelly.skidmore@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-104",
+        "id": "fl-rep-93",
+        "openstates_id": "ocd-person/ad877adf-e8f2-4f31-bdd2-38a6aaf74884",
+        "name": "Anne Gerwig",
+        "party": "R",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.hlcpbc.org/wp-content/uploads/2021/01/Anne_Gerwig.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4925",
+          "email": "anne.gerwig@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-94",
+        "openstates_id": "ocd-person/7079537f-b144-4304-b389-8e572e62e1c9",
+        "name": "Meg Weinberger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nick_Ward_20240808_093359.jpg",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4926",
+          "email": "meg.weinberger@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-95",
+        "openstates_id": "ocd-person/89d7d4d0-82e7-4535-bb79-3260a7b432b5",
+        "name": "Christine Hunschofsky",
+        "party": "D",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4799.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4799&LegislativeTermId=90",
+          "email": "christine.hunschofsky@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-96",
+        "openstates_id": "ocd-person/66308162-9b64-4d34-a8bc-fac71407f7d5",
+        "name": "Dan Daley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4757.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4757&LegislativeTermId=90",
+          "email": "dan.daley@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-97",
+        "openstates_id": "ocd-person/314f9b75-2167-4b73-b7b8-9c7dee31aaee",
+        "name": "Lisa Dunkley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4893.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4893&LegislativeTermId=90",
+          "email": "lisa.dunkley@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-98",
+        "openstates_id": "ocd-person/04a025da-737a-4580-9c0f-64531e9cbbec",
+        "name": "Mitch Rosenwald",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MitchRosenwald.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4927&LegislativeTermId=91",
+          "email": "mitch.rosenwald@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-99",
+        "openstates_id": "ocd-person/2c1c37bb-fd17-46d6-9694-8f2757f6da3e",
+        "name": "Daryl Campbell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4843.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4843&LegislativeTermId=90",
+          "email": "daryl.campbell@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-100",
+        "openstates_id": "ocd-person/54cd0ebc-6f93-489e-a919-3583fa32b26a",
+        "name": "Chip LaMarca",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4722.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4722&LegislativeTermId=90",
+          "email": "chip.lamarca@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-101",
+        "openstates_id": "ocd-person/d38a5a91-afd4-46d2-9bd3-7ccaf7aa0d2b",
+        "name": "Hillary Cassel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4895.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4895&LegislativeTermId=90",
+          "email": "hillary.cassel@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-102",
+        "openstates_id": "ocd-person/1c170657-03fb-4ab7-ae9f-f8e83568471e",
+        "name": "Mike Gottlieb",
+        "party": "D",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4724.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4724&LegislativeTermId=90",
+          "email": "mike.gottlieb@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-103",
+        "openstates_id": "ocd-person/67c201cf-9aaa-4a06-8dda-28e93ea27f6b",
+        "name": "Robin Bartleman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4793.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4793&LegislativeTermId=90",
+          "email": "robin.bartleman@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-104",
+        "openstates_id": "ocd-person/1d219f7c-140b-48fd-ac39-4683c48dbc87",
         "name": "Felicia Robinson",
         "party": "D",
         "chamber": "State House",
         "district": "104",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4791.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=104"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports public school funding and educator resources."
-          },
-          {
-            "name": "Healthcare",
-            "stance": "Advocates for expanded healthcare access and coverage."
-          },
-          {
-            "name": "Environmental Protection",
-            "stance": "Prioritizes climate action and environmental conservation."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 104",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4791&LegislativeTermId=90",
+          "email": "felicia.robinson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-113",
-        "name": "Vicki Lopez",
+        "id": "fl-rep-105",
+        "openstates_id": "ocd-person/5eb39c7e-3582-4269-a012-7a88c54623c9",
+        "name": "Marie Woodson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4789.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4789&LegislativeTermId=90",
+          "email": "marie.woodson@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-106",
+        "openstates_id": "ocd-person/38674fed-3bec-4623-a5eb-d31e4851323f",
+        "name": "Fabián Basabe",
         "party": "R",
         "chamber": "State House",
-        "district": "113",
-        "role": "Representative",
-        "photo_url": null,
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4900.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=113"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 113",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4900&LegislativeTermId=90",
+          "email": "fabian.basabe@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       },
       {
-        "id": "fl-house-119",
-        "name": "Juan Carlos Porras",
+        "id": "fl-rep-107",
+        "openstates_id": "ocd-person/7cba4eb9-69b5-431d-817e-41f54ccf9ceb",
+        "name": "Wallace Aristide",
+        "party": "D",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/WallaceAristide.png",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4928",
+          "email": "wallace.aristide@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-108",
+        "openstates_id": "ocd-person/bcb3b06f-882e-4012-af21-4c9ba68d093d",
+        "name": "Dotie Joseph",
+        "party": "D",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4716.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4716&LegislativeTermId=90",
+          "email": "dotie.joseph@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-109",
+        "openstates_id": "ocd-person/2c62c9ae-8d1d-4dc3-a86a-fcc5dd7ba286",
+        "name": "Ashley Gantt",
+        "party": "D",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4897.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4897&LegislativeTermId=90",
+          "email": "ashley.gantt@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-110",
+        "openstates_id": "ocd-person/35f68144-b99b-4f86-b223-726897926bfa",
+        "name": "Tom Fabricio",
+        "party": "R",
+        "chamber": "State House",
+        "district": "110",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4792.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4792&LegislativeTermId=90",
+          "email": "tom.fabricio@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-111",
+        "openstates_id": "ocd-person/686a3de8-6df1-4144-85bc-edaad7fe1708",
+        "name": "David Borrero",
+        "party": "R",
+        "chamber": "State House",
+        "district": "111",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4794.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4794&LegislativeTermId=90",
+          "email": "david.borrero@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-112",
+        "openstates_id": "ocd-person/b2fce1a8-4ba6-483b-a534-fa48cc43ee7f",
+        "name": "Alex Rizo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "112",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4796.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4796&LegislativeTermId=90",
+          "email": "alex.rizo@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-114",
+        "openstates_id": "ocd-person/8407b440-b679-4d84-b642-de35869461a4",
+        "name": "Demi Busatta",
+        "party": "R",
+        "chamber": "State House",
+        "district": "114",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4800.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4800&LegislativeTermId=90",
+          "email": "demi.busatta@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-115",
+        "openstates_id": "ocd-person/4bae75ba-b3df-4780-984b-144ae4d80a77",
+        "name": "Omar Blanco",
+        "party": "R",
+        "chamber": "State House",
+        "district": "115",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Omar__Blanco.PNG",
+        "contact": {
+          "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4929",
+          "email": "omar.blanco@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-116",
+        "openstates_id": "ocd-person/ed30b061-bbdc-44f3-8a40-e574646d6cf8",
+        "name": "Daniel Perez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "116",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4690.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4690&LegislativeTermId=90",
+          "email": "daniel.perez@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-117",
+        "openstates_id": "ocd-person/313e81ee-19af-4d9d-9186-fbbca7e6d65d",
+        "name": "Kevin Chambliss",
+        "party": "D",
+        "chamber": "State House",
+        "district": "117",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4798.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4798&LegislativeTermId=90",
+          "email": "kevin.chambliss@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-118",
+        "openstates_id": "ocd-person/a4a0a7bf-62c4-412e-9501-007d712009ca",
+        "name": "Mike Redondo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "118",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4902.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4902&LegislativeTermId=90",
+          "email": "mike.redondo@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-119",
+        "openstates_id": "ocd-person/6c673f21-8f64-44b7-831f-d3d2e9c78eb3",
+        "name": "Juan Porras",
         "party": "R",
         "chamber": "State House",
         "district": "119",
-        "role": "Representative",
-        "photo_url": null,
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4898.jpg",
         "contact": {
-          "dc_office": "Florida House of Representatives, 402 S Monroe St, Tallahassee, FL 32399-1300",
-          "dc_phone": "(850) 717-5000",
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=119"
-        },
-        "top_issues": [
-          {
-            "name": "Education",
-            "stance": "Supports school choice and parental rights in education."
-          },
-          {
-            "name": "Public Safety",
-            "stance": "Prioritizes law enforcement and anti-crime initiatives."
-          },
-          {
-            "name": "Tax Policy",
-            "stance": "Advocates for lower taxes and fiscal responsibility."
-          }
-        ],
-        "experience": [
-          {
-            "role": "State House, District 119",
-            "from": "2020",
-            "to": "Present"
-          },
-          {
-            "role": "Business Owner / Professional",
-            "from": "2010",
-            "to": "2020"
-          },
-          {
-            "role": "Local Community Leader",
-            "from": "2005",
-            "to": "2010"
-          }
-        ]
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4898&LegislativeTermId=90",
+          "email": "juancarlos.porras@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "fl-rep-120",
+        "openstates_id": "ocd-person/d03b8661-852b-44ab-b7c2-aa3bf14acd39",
+        "name": "Jim Mooney",
+        "party": "R",
+        "chamber": "State House",
+        "district": "120",
+        "role": "State Representative",
+        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4797.jpg",
+        "contact": {
+          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4797&LegislativeTermId=90",
+          "email": "james.mooney@flhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
       }
     ]
   },
@@ -1834,7 +2658,7 @@
       "members": [
         {
           "id": "fl-sc-muniz",
-          "name": "Carlos G. Mu\u00f1iz",
+          "name": "Carlos G. Muñiz",
           "role": "Chief Justice",
           "chief": true,
           "appointed_by": "Ron DeSantis",

@@ -1,0 +1,2384 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "OK",
+  "state_name": "Oklahoma",
+  "executive": {
+    "governor": {
+      "id": "ok-exec-gov",
+      "name": "Kevin Stitt",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://www.governor.ok.gov",
+      "photo_url": null,
+      "bio": "Kevin Stitt is the Governor of Oklahoma, serving since 2019.",
+      "sources": [
+        "https://www.governor.ok.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Oklahoma State Senate",
+    "members": [
+      {
+        "id": "ok-sen-1",
+        "openstates_id": "ocd-person/49a41053-6a43-44a8-92b9-9fd5e97a56fe",
+        "name": "Micheal Bergstrom",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Bergstrom%2C%20Micheal%202022%20flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1838",
+          "email": "bergstrom@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-2",
+        "openstates_id": "ocd-person/0e3e261d-437a-4e04-8328-70adb16c82d9",
+        "name": "Ally Seifried",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Seifried%2C%20Ally%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523279",
+          "email": "alexandra.seifried@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-3",
+        "openstates_id": "ocd-person/3219df30-79cf-43c5-814d-b1f4b02d53bb",
+        "name": "Julie McIntosh",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JulieMcIntosh2024.jpeg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/julie-mcintosh",
+          "email": "julie.mcintosh@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-4",
+        "openstates_id": "ocd-person/9b993707-70c1-4e3f-96ee-4257c0cf04e6",
+        "name": "Tom Woods",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Woods%2C%20Tom%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523280",
+          "email": "tom.woods@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-5",
+        "openstates_id": "ocd-person/a0948c13-b3a0-4040-b0db-9f8f8c67eeac",
+        "name": "George Burns",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Burns%2C%20George_flags_1.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1521373",
+          "email": "george.burns@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-6",
+        "openstates_id": "ocd-person/f7e51701-fb8a-4d48-8f61-951096c0c76d",
+        "name": "David Bullard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Bullard_David.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1843",
+          "email": "david.bullard@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-7",
+        "openstates_id": "ocd-person/48d6aa7c-97e1-4c69-8014-8818ae9ad055",
+        "name": "Warren Hamilton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Hamilton%2C%20Warren%202022%20flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1521374",
+          "email": "warren.hamilton@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-8",
+        "openstates_id": "ocd-person/a3c36ebe-151f-4632-ab04-31963f55f9d8",
+        "name": "Bryan Logan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://nondoc.com/wp-content/uploads/2025/05/Bryan-Logan-mug-cropped-640x373.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/bryan-logan",
+          "email": "bryan.logan@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-9",
+        "openstates_id": "ocd-person/f2bc8c9d-050a-4531-84eb-1f233ad7042a",
+        "name": "Avery Frix",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Frix,%20Avery.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/avery-frix",
+          "email": "avery.frix@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-10",
+        "openstates_id": "ocd-person/446468ba-e7a8-49ff-8edc-e9f96da9d613",
+        "name": "Bill Coleman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Coleman%2C%20Bill%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1844",
+          "email": "bill.coleman@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-11",
+        "openstates_id": "ocd-person/2d438999-104f-4405-8cdc-d53ba4715a19",
+        "name": "Regina Goodwin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Goodwin,%20Regina.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/regina-goodwin",
+          "email": "regina.goodwin@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-12",
+        "openstates_id": "ocd-person/54d37a3d-68cb-4e87-9916-c38f2f0f8ed3",
+        "name": "Todd Gollihare",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Gollihare%2C%20Todd%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523282",
+          "email": "todd.gollihare@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-13",
+        "openstates_id": "ocd-person/077e2743-495e-4198-a096-5675796d78a4",
+        "name": "Jonathan Wingard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JonathanWingard2024.png",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/jonathan-wingard",
+          "email": "jonathan.wingard@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-14",
+        "openstates_id": "ocd-person/edf90069-7569-4cd7-9a8e-e3890e395ac7",
+        "name": "Jerry Alvord",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Alvord%2C%20Jerry%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523283",
+          "email": "jerry.alvord@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-15",
+        "openstates_id": "ocd-person/6bf75215-5df0-4dfc-adfb-98c60a6871bd",
+        "name": "Lisa Standridge",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.cairoklahoma.com/wp-content/uploads/2024/08/lisa-474x474.jpeg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/lisa-standridge",
+          "email": "lisa.standridge@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-16",
+        "openstates_id": "ocd-person/0172970c-3434-470b-98c8-6f7f0b167afb",
+        "name": "Mary Boren",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Boren%2C%20Mary%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1841",
+          "email": "mary.boren@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-17",
+        "openstates_id": "ocd-person/97650810-9219-451e-97d1-e3d3318c5d53",
+        "name": "Shane Jett",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Jett%2C%20Shane_flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1521375",
+          "email": "shane.jett@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-18",
+        "openstates_id": "ocd-person/8e22d71d-fd9a-4d9d-aa7c-09af3da43118",
+        "name": "Jack Stewart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Stewart%2C%20Jack%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523284",
+          "email": "jack.stewart@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-19",
+        "openstates_id": "ocd-person/c0db5455-8d12-4525-ab57-afa8ed7e1d7f",
+        "name": "Roland Pederson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Pederson%2C%20Roland%202022%20flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1892",
+          "email": "roland.pederson@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-20",
+        "openstates_id": "ocd-person/95f06268-cdfb-463b-aa2e-fb789fbc97c4",
+        "name": "Chuck Hall",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/hall.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1850",
+          "email": "chuck.hall@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-21",
+        "openstates_id": "ocd-person/812abf8c-ed2d-4b91-8d69-0917a39adeed",
+        "name": "Randy Grellner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RandyGrellner2024.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/randy-grellner",
+          "email": "randy.grellner@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-22",
+        "openstates_id": "ocd-person/c768c730-142e-4582-a137-ee09a0240784",
+        "name": "Kristen Thompson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Thompson%2C%20Kristen%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523285",
+          "email": "kristen.thompson@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-23",
+        "openstates_id": "ocd-person/fe64cfd8-d85e-472e-8761-27b6a3774971",
+        "name": "Lonnie Paxton",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/paxton.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1893",
+          "email": "paxton@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-24",
+        "openstates_id": "ocd-person/bea1fd3e-9a8e-4cd6-bdb8-abedd9f8a888",
+        "name": "Darrell Weaver",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Weaver%2C%20Darrell_flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1894",
+          "email": "darrell.weaver@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-25",
+        "openstates_id": "ocd-person/19a4841c-4571-4803-8f5d-262f664fb31a",
+        "name": "Brian Guthrie",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/citynewsokc.com/content/tncms/assets/v3/editorial/5/d2/5d26a700-4e64-11ee-be35-db82e824c57c/64fb4b329045b.image.jpg?resize=500%2C500",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/brian-guthrie",
+          "email": "brian.guthrie@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-26",
+        "openstates_id": "ocd-person/7143be5e-df9e-40ad-8591-dd4c9ea51261",
+        "name": "Darcy Jech",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/1200px-DarcyJech_0.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1855",
+          "email": "darcy.jech@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-27",
+        "openstates_id": "ocd-person/8c8517c3-75ee-4b27-8d8c-3444c036ba78",
+        "name": "Casey Murdock",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/murdock.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1862",
+          "email": "murdock@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-28",
+        "openstates_id": "ocd-person/9f0cacea-112a-425a-b212-4fa3cfd3b3a0",
+        "name": "Grant Green",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Green%2C%20Grant%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523286",
+          "email": "grant.green@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-29",
+        "openstates_id": "ocd-person/14ac3593-aa7a-491e-aba0-93474e93673d",
+        "name": "Julie Daniels",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Daniels%2C%20Julie%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1846",
+          "email": "julie.daniels@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-30",
+        "openstates_id": "ocd-person/986cbe76-2b10-4fc8-92b0-39432b761e1a",
+        "name": "Julia Kirt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Kirt%2C%20Julia%202023%20Flags%20S.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1857",
+          "email": "julia.kirt@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-31",
+        "openstates_id": "ocd-person/4d4f5043-830c-498d-806c-5b1e9eb183df",
+        "name": "Spencer Kern",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://static.votesmart.org/static/canphoto/216441.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/spencer-kern",
+          "email": "spencer.kern@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-32",
+        "openstates_id": "ocd-person/56666b37-2788-433a-9c32-19af826613e4",
+        "name": "Dusty Deevers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Deevers%2C%20Dusty%202023%20Flags%20S_0.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1861",
+          "email": "dusty.deevers@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-33",
+        "openstates_id": "ocd-person/b8b4337f-5741-4fad-bcf3-38c526cf6c5a",
+        "name": "Christi Gillespie",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgg9y84-E8FaeDWzhd1s97N3Ko90lCow4sAQ&s",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/christi-gillespie",
+          "email": "christi.gillespie@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-34",
+        "openstates_id": "ocd-person/74fd77d2-ffa9-42cd-9849-0b64464bcc6f",
+        "name": "Dana Prieto",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Prieto%2C%20Dana%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1523287",
+          "email": "dana.prieto@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-35",
+        "openstates_id": "ocd-person/164b3ba9-47d4-4c24-870d-4e6679e15cf8",
+        "name": "Jo Anna Dossett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Dossett%2C%20Jo%20Anna_flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1521376",
+          "email": "joanna.dossett@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-36",
+        "openstates_id": "ocd-person/08dca8d5-4264-4509-aebd-bbf7736b9e90",
+        "name": "John Haste",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Haste%2C%20John%202022%20Flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1851",
+          "email": "john.haste@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-37",
+        "openstates_id": "ocd-person/78900b72-692c-4b5f-ac8b-290577d6abd4",
+        "name": "Aaron Reinhardt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aaron_Reinhardt_20241023_121244.jpeg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/aaron-reinhardt",
+          "email": "aaron.reinhardt@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-38",
+        "openstates_id": "ocd-person/bc85e399-f4bc-4690-b34b-685e15242904",
+        "name": "Brent Howard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Howard%2C%20Brent_flags.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1853",
+          "email": "brent.howard@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-39",
+        "openstates_id": "ocd-person/3714523f-ea6d-4bd5-a801-1397dd508208",
+        "name": "Dave Rader",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Rader%2C%20Dave%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1898",
+          "email": "rader@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-40",
+        "openstates_id": "ocd-person/6ecf8a12-033a-41da-9b5f-3fbcf41f4841",
+        "name": "Carri Hicks",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Hicks%2C%20Carri%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1852",
+          "email": "carri.hicks@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-41",
+        "openstates_id": "ocd-person/7e356581-ff96-4e5d-b6bc-94b3c8e0005c",
+        "name": "Adam Pugh",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/pugh.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1899",
+          "email": "pugh@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-42",
+        "openstates_id": "ocd-person/55b572a7-2951-4597-b70c-e37b51163b03",
+        "name": "Brenda Stanley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Brenda-Stanley_1.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1900",
+          "email": "brenda.stanley@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-43",
+        "openstates_id": "ocd-person/8a183515-ff32-4660-8e9c-1317f274a603",
+        "name": "Kendal Sacchieri",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KendalSacchieri2024.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/kendal-sacchieri",
+          "email": "kendal.sacchieri@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-44",
+        "openstates_id": "ocd-person/faabecda-dfa0-4995-b574-2b0a33b039ef",
+        "name": "Michael Brooks",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Brooks%2C%20Michael%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1842",
+          "email": "michael.brooks@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-45",
+        "openstates_id": "ocd-person/0388a9a8-8de3-4620-8c44-e887e0f1cecd",
+        "name": "Paul Rosino",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://oksenate.gov/sites/default/files/Rosino%2C%20Paul%20Flags%202022.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/contact-senator?sid=1902",
+          "email": "rosino@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-46",
+        "openstates_id": "ocd-person/7bf07db8-9661-4f98-859d-9817cb4362dd",
+        "name": "Mark Mann",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mark_Mann.png",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/mark-mann",
+          "email": "mark.mann@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-47",
+        "openstates_id": "ocd-person/595024d3-b5fd-45e4-a980-4774f531d051",
+        "name": "Kelly Hines",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/642c607b85563b44f0aa5800/5c9a6226-10da-4b2b-848d-746244b9e4ad/headshot+%28002%29.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/kelly-hines",
+          "email": "kelly.hines@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-sen-48",
+        "openstates_id": "ocd-person/365647a0-0840-4a40-aac8-697ab21dbcd5",
+        "name": "Nikki Nice",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "48",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/008O6811.jpg",
+        "contact": {
+          "official_website": "https://oksenate.gov/senators/nikki-nice",
+          "email": "nikki.nice@oksenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Oklahoma State House",
+    "members": [
+      {
+        "id": "ok-rep-1",
+        "openstates_id": "ocd-person/d93c695c-f9d6-4f97-b92e-73249f89545a",
+        "name": "Eddy Dempsey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Dempsey,%20Eddy.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=1",
+          "email": "eddy.dempsey@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-2",
+        "openstates_id": "ocd-person/f7a4c019-6e5c-40d8-8faf-9f7d44b83062",
+        "name": "Jim Olsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Olsen,%20Jim.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=2",
+          "email": "jim.olsen@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-3",
+        "openstates_id": "ocd-person/bae91554-72c9-4dbd-b042-b4bd800e4732",
+        "name": "Rick West",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/West,%20Rick.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=3",
+          "email": "rick.west@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-4",
+        "openstates_id": "ocd-person/246cfe54-edbd-4844-9bdc-0213c4b501e9",
+        "name": "Bob Culver",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Culver,%20BobEd.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=4",
+          "email": "bob.culver@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-5",
+        "openstates_id": "ocd-person/6b71e61a-6f78-49b0-90ef-64b233dab860",
+        "name": "Josh West",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/West,%20Josh.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=5",
+          "email": "josh.west@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-6",
+        "openstates_id": "ocd-person/818eac04-d5b7-49be-b740-84a8432cf5b3",
+        "name": "Rusty Cornwell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Cornwell,%20Rusty.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=6",
+          "email": "rusty.cornwell@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-7",
+        "openstates_id": "ocd-person/bf810dce-34f8-4db5-b242-efc008311228",
+        "name": "Steve Bashore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Bashore,%20Steve.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=7",
+          "email": "steve.bashore@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-8",
+        "openstates_id": "ocd-person/fc634688-e6d0-4b9b-919c-0c1f001d51a7",
+        "name": "Tom Gann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Gann,%20Tom.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=8",
+          "email": "tom.gann@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-9",
+        "openstates_id": "ocd-person/a1d5d401-d767-4088-b9b6-e03af9d5ed49",
+        "name": "Mark Lepak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Lepak,%20Mark.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=9",
+          "email": "mark.lepak@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-10",
+        "openstates_id": "ocd-person/47e6f0cc-bf0d-4375-b0f7-3e0c88779ca5",
+        "name": "Judd Strom",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Strom,%20Judd.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=10",
+          "email": "judd.strom@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-11",
+        "openstates_id": "ocd-person/f7ab3ee8-1ec5-4218-ac6b-dba652f2a6d6",
+        "name": "John Kane",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kane,%20John.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=11",
+          "email": "john.kane@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-12",
+        "openstates_id": "ocd-person/a688f8ac-d265-4830-963f-617b726524ed",
+        "name": "Mark Chapman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MarkChapman2024.JPG",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/mark-chapman",
+          "email": "mark.chapman@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-13",
+        "openstates_id": "ocd-person/3eb936f1-5bc8-40bb-832e-c617d461115c",
+        "name": "Neil Hays",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hays,%20Neil.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=13",
+          "email": "neil.hays@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-14",
+        "openstates_id": "ocd-person/f4d5b128-a016-4eda-b6c6-e298fe29bc29",
+        "name": "Chris Sneed",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Sneed,%20Chris.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=14",
+          "email": "chris.sneed@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-15",
+        "openstates_id": "ocd-person/d3bf80d0-be37-4e25-b7c6-7e30e54fe158",
+        "name": "Tim Turner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdKW8Yps28Qqd_HZ-KGr8HDljGbqjeswJrSA&s",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/tim-turner",
+          "email": "tim.turner@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-16",
+        "openstates_id": "ocd-person/a2be8726-7870-43b3-bbac-381824466f9c",
+        "name": "Scott Fetgatter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Fetgatter,%20Scott.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=16",
+          "email": "scott.fetgatter@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-17",
+        "openstates_id": "ocd-person/612db560-defe-471a-a45f-cf259a4ffeaa",
+        "name": "Jim Grego",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Grego,%20Jim.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=17",
+          "email": "jim.grego@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-18",
+        "openstates_id": "ocd-person/84087e63-a192-4be6-9367-64b2c93a2dcc",
+        "name": "David Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Smith,%20David.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=18",
+          "email": "david.smith@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-19",
+        "openstates_id": "ocd-person/0b9df925-a78c-4ee4-a58c-5d7c2ace10fd",
+        "name": "Justin Humphrey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Humphrey,%20Justin.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=19",
+          "email": "justin.humphrey@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-20",
+        "openstates_id": "ocd-person/d8c6a83e-cdac-439d-af83-d90d9f543541",
+        "name": "Jonathan Wilk",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQcSK-0G7vutoYpyD-I4rn3EZVvTgV8ij17A&s",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/jonathan-wilk",
+          "email": "jonathan.wilk@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-21",
+        "openstates_id": "ocd-person/17d5c3a4-a468-4aca-b58c-314605214857",
+        "name": "Cody Maynard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Maynard,%20Cody.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=21",
+          "email": "cody.maynard@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-22",
+        "openstates_id": "ocd-person/f61f3be0-ac28-411d-9641-917af1eb6753",
+        "name": "Ryan Eaves",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RyanEaves2024.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/ryan-eaves",
+          "email": "ryan.eaves@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-23",
+        "openstates_id": "ocd-person/a7eb5f03-0a2a-4235-b2f8-b4983e1a8cf2",
+        "name": "Derrick Hildebrant",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DerrickHildebrant2024.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/derrick.hildebrant",
+          "email": "derrick.hildebrant@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-24",
+        "openstates_id": "ocd-person/442374ea-1ad4-4793-bdbc-a5db81a1d219",
+        "name": "Chris Banning",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Banning,%20Chris.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=24",
+          "email": "chris.banning@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-25",
+        "openstates_id": "ocd-person/e5d78f97-752b-4bff-a413-4704ed7c230a",
+        "name": "Ronny Johns",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Johns,%20Ronny.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=25",
+          "email": "ronny.johns@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-26",
+        "openstates_id": "ocd-person/4d473c48-88f9-495a-a8da-b8e2d0310280",
+        "name": "Dell Kerbs",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kerbs,%20Dell.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=26",
+          "email": "dell.kerbs@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-27",
+        "openstates_id": "ocd-person/61966500-f9d7-4f45-ad6b-761d6d839036",
+        "name": "Danny Sterling",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Danny-Sterling.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=27",
+          "email": "danny.sterling@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-28",
+        "openstates_id": "ocd-person/db2c481d-6dc5-455e-905c-2daac4bbc631",
+        "name": "Danny Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Williams,%20Danny.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=28",
+          "email": "danny.williams@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-29",
+        "openstates_id": "ocd-person/b0ab4df0-8cc1-43f6-9ed1-567b75e91468",
+        "name": "Kyle Hilbert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hilbert,%20Kyle.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=29",
+          "email": "kyle.hilbert@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-30",
+        "openstates_id": "ocd-person/97351530-ef54-4859-acdd-effcb11eaf1f",
+        "name": "Mark Lawson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Lawson,%20Mark.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=30",
+          "email": "mark.lawson@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-31",
+        "openstates_id": "ocd-person/0cffa048-1b45-4609-a1b6-9e741ca1948c",
+        "name": "Collin Duel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Duel,%20Collin.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=31",
+          "email": "collin.duel@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-32",
+        "openstates_id": "ocd-person/df9c291c-e14f-487a-8ff6-9182734ababf",
+        "name": "Jim Shaw",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JimShaw2.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/jim-shaw",
+          "email": "jim.shaw@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-33",
+        "openstates_id": "ocd-person/82b98199-7b85-488b-b5e8-7f135aad668f",
+        "name": "Molly Jenkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.cushingcitizen.com/sites/cushingcitizen.com/files/styles/article_420/public/3d8c9a84be_Ar00503010.jpg?itok=QUjuCFyZ",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/molly-jenkins",
+          "email": "molly.jenkins@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-34",
+        "openstates_id": "ocd-person/d3a66cdd-0469-4c20-90da-620f60c4b4be",
+        "name": "Trish Ranson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Ranson,%20Trish.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=34",
+          "email": "trish.ranson@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-35",
+        "openstates_id": "ocd-person/14d6a46d-124c-4274-ae72-bfe5541a4a0a",
+        "name": "Dillon Travis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/dillon-travis",
+          "email": "dillon.travis@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-36",
+        "openstates_id": "ocd-person/3af08d09-7d36-4f0b-b257-a0206a8c2778",
+        "name": "John George",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/George,%20John.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=36",
+          "email": "john.george@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-37",
+        "openstates_id": "ocd-person/428ba1b3-23b7-433a-8f18-ca53f6eed9aa",
+        "name": "Ken Luttrell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Luttrell,%20Ken.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=37",
+          "email": "ken.luttrell@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-38",
+        "openstates_id": "ocd-person/671bd947-18c8-4b39-906e-675209b80b73",
+        "name": "John Pfeiffer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Pfeiffer,%20John.JPG",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=38",
+          "email": "john.pfeiffer@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-39",
+        "openstates_id": "ocd-person/57fd0b98-5608-470a-a70b-971165572afb",
+        "name": "Erick Harris",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ErickHarris.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/erick-harris",
+          "email": "erick.harris@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-40",
+        "openstates_id": "ocd-person/c5909558-d02d-438e-9c0c-50eb8c88f862",
+        "name": "Chad Caldwell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Caldwell,%20Chad.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=40",
+          "email": "chad.caldwell@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-41",
+        "openstates_id": "ocd-person/e825fe1a-a46d-4a07-b9e4-c9e82e357c90",
+        "name": "Denise Crosswhite Hader",
+        "party": "R",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Crosswhite%20Hader,%20Denise.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=41",
+          "email": "denise.crosswhitehader@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-42",
+        "openstates_id": "ocd-person/382dfd67-bd2a-4271-bb79-62fe045102ea",
+        "name": "Cindy Roe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Cindy-Roe.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=42",
+          "email": "cynthia.roe@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-43",
+        "openstates_id": "ocd-person/0389a5f1-0777-4a48-8faf-98779dc16849",
+        "name": "Jay Steagall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Steagall,%20Jay.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=43",
+          "email": "jay.steagall@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-44",
+        "openstates_id": "ocd-person/a4127dd3-e7f6-4bab-9910-8372e141f160",
+        "name": "Jared Deck",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Deck,%20Jared.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=44",
+          "email": "jared.deck@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-45",
+        "openstates_id": "ocd-person/3a5828d9-b8bf-491c-adfe-19f5331d1e20",
+        "name": "Annie Menz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Menz,%20Annie.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=45",
+          "email": "annie.menz@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-46",
+        "openstates_id": "ocd-person/df4d2b89-39a6-4157-90ea-fd229c84f98b",
+        "name": "Jacob Rosecrants",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Rosecrants,%20Jacob.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=46",
+          "email": "jacob.rosecrants@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-47",
+        "openstates_id": "ocd-person/03af3716-0ac4-49f5-b25a-ff757420d87d",
+        "name": "Brian Hill",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hill,%20Brian.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=47",
+          "email": "brian.hill@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-48",
+        "openstates_id": "ocd-person/1d6bc21f-6774-45de-b805-23cd8b5c32aa",
+        "name": "Tammy Townley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Townley,%20Tammy.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=48",
+          "email": "tammy.townley@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-49",
+        "openstates_id": "ocd-person/7bfc4244-9498-4a20-bdf7-44383688b608",
+        "name": "Josh Cantrell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Cantrell,%20Josh.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=49",
+          "email": "josh.cantrell@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-50",
+        "openstates_id": "ocd-person/d93d9d8d-1299-423a-bb9e-ade2bcb0fa11",
+        "name": "Stacy Adams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/StacyAdams2024.png",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/stacy-adams",
+          "email": "stacy.adams@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-51",
+        "openstates_id": "ocd-person/be4edaae-b522-4ce0-bc1d-98b813424f57",
+        "name": "Brad Boles",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Boles,%20Brad.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=51",
+          "email": "brad.boles@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-52",
+        "openstates_id": "ocd-person/1120aff3-9773-4cc8-9c47-18026559363a",
+        "name": "Gerrid Kendrix",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kendrix,%20Gerrid.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=52",
+          "email": "gerrid.kendrix@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-53",
+        "openstates_id": "ocd-person/a791f43c-0ca9-42aa-b90a-98968718a7e1",
+        "name": "Jason Blair",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.oklahoman.com/gcdn/authoring/authoring-images/2024/06/10/NOKL/74049882007-jason-blair.jpg?width=300&height=366&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/jason-blair",
+          "email": "jason.blair@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-54",
+        "openstates_id": "ocd-person/fa002548-470f-4cf0-8365-f6f5aa0c50c7",
+        "name": "Kevin West",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kevin-West.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=54",
+          "email": "kevin.west@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-55",
+        "openstates_id": "ocd-person/479b4def-b284-426b-8290-86bdce854bce",
+        "name": "Nick Archer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Archer,%20Nick.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=55",
+          "email": "nick.archer@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-56",
+        "openstates_id": "ocd-person/dc094bcd-66c1-47f4-b9b0-94272636a7fe",
+        "name": "Dick Lowe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Lowe,%20Dick.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=56",
+          "email": "dick.lowe@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-57",
+        "openstates_id": "ocd-person/c1f71291-89c1-4109-a15c-2483743d333a",
+        "name": "Anthony Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Moore,%20Anthony.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=57",
+          "email": "anthony.moore@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-58",
+        "openstates_id": "ocd-person/6cfaac2f-52af-4aad-8ec4-6373bb45bf24",
+        "name": "Carl Newton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Newton,%20Carl.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=58",
+          "email": "carl.newton@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-59",
+        "openstates_id": "ocd-person/527c315f-7d62-4de1-a543-6c81a0ac11a3",
+        "name": "Mike Dobrinski",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Dobrinski,%20Mike.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=59",
+          "email": "mike.dobrinski@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-60",
+        "openstates_id": "ocd-person/8746752e-619b-454d-9ef6-7f4434acdd71",
+        "name": "Mike Kelley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MikeKelley2024.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/mike-kelley",
+          "email": "mike.kelley@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-61",
+        "openstates_id": "ocd-person/91b38015-8cd5-410e-b850-34961760b8d7",
+        "name": "Kenton Patzkowsky",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kenton-Patzkowsky,.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=61",
+          "email": "kenton.patzkowsky@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-62",
+        "openstates_id": "ocd-person/62d0d568-33cf-4ec6-b90e-5c2b45be82ba",
+        "name": "Daniel Pae",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Pae,%20Daniel.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=62",
+          "email": "daniel.pae@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-63",
+        "openstates_id": "ocd-person/da01678a-03b7-4c2f-b93b-f98338c638b0",
+        "name": "Trey Caldwell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Caldwell,%20Trey.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=63",
+          "email": "trey.caldwell@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-64",
+        "openstates_id": "ocd-person/cfa7e540-ce4e-4230-9f82-9784d11733cb",
+        "name": "Rande Worthen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Rande-Worthen.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=64",
+          "email": "rande.worthen@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-65",
+        "openstates_id": "ocd-person/25f65ce4-eb63-4beb-92d0-0d07db7f851a",
+        "name": "Toni Hasenbeck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hasenbeck,%20Toni.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=65",
+          "email": "toni.hasenbeck@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-66",
+        "openstates_id": "ocd-person/82e04ad9-64c8-4439-9853-cbc3e273d637",
+        "name": "Clay Staires",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Staires,%20Clay.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=66",
+          "email": "clay.staires@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-67",
+        "openstates_id": "ocd-person/a73e2372-a002-448b-afbb-31398aed55b1",
+        "name": "Rob Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/rhall.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/rob-hall",
+          "email": "rob.hall@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-68",
+        "openstates_id": "ocd-person/65f17e9b-aa29-4241-80c8-a800aea8ddae",
+        "name": "Mike Lay",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6rbtW0elpYl-o3FI3jbR9-PkUylFA7p5-Ig&s",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/mike-lay",
+          "email": "mike.lay@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-69",
+        "openstates_id": "ocd-person/6cac2a71-37ce-41be-8e9a-059f7a8667c5",
+        "name": "Mark Tedford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Tedford,%20Mark.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=69",
+          "email": "mark.tedford@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-70",
+        "openstates_id": "ocd-person/3d8b5070-b96a-4976-b886-e889214ffd0b",
+        "name": "Suzanne Schreiber",
+        "party": "D",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Schreiber,%20Suzanne.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=70",
+          "email": "suzanne.schreiber@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-71",
+        "openstates_id": "ocd-person/8dac97e3-d74f-4f58-bb7d-83412600975f",
+        "name": "Amanda Clinton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Amanda_Clinton_20250516_045055.png",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/amanda-clinton",
+          "email": "amanda.clinton@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-72",
+        "openstates_id": "ocd-person/5822cf27-1b1f-40bd-ace3-a06a7f304820",
+        "name": "Michelle McCane",
+        "party": "D",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MichelleMcCane2024.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/michelle-mccane",
+          "email": "michelle.mccane@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-73",
+        "openstates_id": "ocd-person/bdd6a3f7-c76a-459e-aad3-e833a9e110f8",
+        "name": "Ron Stewart",
+        "party": "D",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RonStewart2024.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/ronald-stewart",
+          "email": "ronald.stewart@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-74",
+        "openstates_id": "ocd-person/7a7aca64-e9e6-465e-a423-6e4cf939c67a",
+        "name": "Kevin Norwood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/kevin-norwood",
+          "email": "kevin.norwood@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-75",
+        "openstates_id": "ocd-person/71996394-7250-43ab-b69f-8c0afa3b144a",
+        "name": "T.J. Marti",
+        "party": "R",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Marti,%20TJ.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=75",
+          "email": "tj.marti@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-76",
+        "openstates_id": "ocd-person/a6aa7540-02db-458d-9031-e6af94d63b44",
+        "name": "Ross Ford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Ford,%20Ross.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=76",
+          "email": "ross.ford@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-77",
+        "openstates_id": "ocd-person/6a662cc1-492b-4c65-a77c-9b8b202b1ae5",
+        "name": "John Waldron",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Waldron,%20John.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=77",
+          "email": "john.waldron@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-78",
+        "openstates_id": "ocd-person/e9c3844d-e861-4848-8737-539fdb553eb9",
+        "name": "Meloyde Blancett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Blancett,%20Meloyde.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=78",
+          "email": "meloyde.blancett@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-79",
+        "openstates_id": "ocd-person/4085a19f-1853-48e4-88c8-8b5b9089054a",
+        "name": "Melissa Provenzano",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Melissa-Provenzano.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=79",
+          "email": "melissa.provenzano@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-80",
+        "openstates_id": "ocd-person/1ba99d3e-ebea-4426-b91a-0560da625e83",
+        "name": "Stan May",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/May,%20Stan.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=80",
+          "email": "stan.may@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-81",
+        "openstates_id": "ocd-person/95734f94-939c-4774-82a5-c9222201f62f",
+        "name": "Mike Osburn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Osburn,%20Mike.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=81",
+          "email": "mike.osburn@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-82",
+        "openstates_id": "ocd-person/4af77a1a-7011-4901-89fe-4619d558d34c",
+        "name": "Nicole Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Nicole-Miller.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=82",
+          "email": "nicole.miller@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-83",
+        "openstates_id": "ocd-person/752b02fd-2ce1-46d3-88a3-337d64df6b1a",
+        "name": "Eric Roberts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Roberts,%20Eric.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=83",
+          "email": "eric.roberts@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-84",
+        "openstates_id": "ocd-person/8a0a65fd-9a33-4f93-a94a-131e0ec39e6b",
+        "name": "Tammy West",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Tammy-West.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=84",
+          "email": "tammy.west@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-85",
+        "openstates_id": "ocd-person/f9153735-938a-418b-ac4f-6881904861ac",
+        "name": "Cyndi Munson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Munson,%20Cyndie.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=85",
+          "email": "cyndi.munson@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-86",
+        "openstates_id": "ocd-person/b2857b06-9290-4141-9bc4-2a105bc51ce8",
+        "name": "David Hardin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hardin,%20David.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=86",
+          "email": "david.hardin@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-87",
+        "openstates_id": "ocd-person/c9e547ff-6762-49f8-807c-32c78ce569cf",
+        "name": "Ellyn Hefner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Hefner,%20Ellyn.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=87",
+          "email": "ellyn.hefner@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-88",
+        "openstates_id": "ocd-person/c63ddc9a-5f9d-4cb5-b152-4828f4870682",
+        "name": "Ellen Pogemiller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/d59798_0699f998a916470598404706be4aca74~mv2.jpg/v1/fill/w_1349,h_1019,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/d59798_0699f998a916470598404706be4aca74~mv2.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/ellen-pogemiller",
+          "email": "ellen.pogemiller@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-89",
+        "openstates_id": "ocd-person/4d0b52d3-ad1f-45c9-b46e-3676194ef82c",
+        "name": "Arturo Alonso",
+        "party": "D",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Alonso,%20Arturo.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=89",
+          "email": "arturo.alonso@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-90",
+        "openstates_id": "ocd-person/09b3acaf-ac32-4f74-9bfe-37d84beb09c8",
+        "name": "Emily Gise",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://www.cairoklahoma.com/wp-content/uploads/2024/09/emily-200x200.jpeg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/emily-gise",
+          "email": "emily.gise@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-91",
+        "openstates_id": "ocd-person/5b2d71b9-21c7-4291-ac09-e2840fee2919",
+        "name": "Chris Kannady",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Kannady,%20Chris.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=91",
+          "email": "chris.kannady@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-93",
+        "openstates_id": "ocd-person/2c065b7f-f5eb-4c15-bd69-10a7fa339b28",
+        "name": "Mickey Dollens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Mickey-Dollens.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=93",
+          "email": "mickey.dollens@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-94",
+        "openstates_id": "ocd-person/987fd457-5b14-4300-95f1-e92f7cd5f748",
+        "name": "Andy Fugate",
+        "party": "D",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Fugate,%20Andy.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=94",
+          "email": "andy.fugate@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-95",
+        "openstates_id": "ocd-person/190ef3e9-fdd4-4434-80da-06ebb08f2eaf",
+        "name": "Max Wolfley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Wolfley,%20Max.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=95",
+          "email": "max.wolfley@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-96",
+        "openstates_id": "ocd-person/016593c8-d702-434a-ba7c-aee48b14b6b3",
+        "name": "Preston Stinson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Stinson,%20Preston.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=96",
+          "email": "preston.stinson@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-97",
+        "openstates_id": "ocd-person/a91af3e5-8f27-4aa3-9c5d-6166eeb7ec8a",
+        "name": "Aletia Timmons",
+        "party": "D",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/aletia-timmons",
+          "email": "aletia.timmons@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-98",
+        "openstates_id": "ocd-person/b0168a8a-bf16-4ddb-85ef-a7503cdb4d66",
+        "name": "Gabe Woolley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.cairoklahoma.com/wp-content/uploads/2024/06/gabe-960x958.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/representatives/gabe-woolley",
+          "email": "gabe.woolley@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-100",
+        "openstates_id": "ocd-person/aefe24ff-5a23-48bd-a5df-faa7b3dd0af9",
+        "name": "Marilyn Stark",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Stark,%20Marilyn.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=100",
+          "email": "marilyn.stark@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ok-rep-101",
+        "openstates_id": "ocd-person/a865c489-d177-4058-af64-51c2f0abef68",
+        "name": "Robert Manger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Manger,%20Robert.jpg",
+        "contact": {
+          "official_website": "https://www.okhouse.gov/Members/Contact.aspx?District=101",
+          "email": "robert.manger@okhouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

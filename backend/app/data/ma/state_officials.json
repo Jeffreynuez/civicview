@@ -1,0 +1,3200 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "MA",
+  "state_name": "Massachusetts",
+  "executive": {
+    "governor": {
+      "id": "ma-exec-gov",
+      "name": "Maura Healey",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://www.mass.gov/orgs/office-of-the-governor",
+      "photo_url": null,
+      "bio": "Maura Healey is the Governor of Massachusetts, serving since 2023.",
+      "sources": [
+        "https://www.mass.gov/orgs/office-of-the-governor"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Massachusetts State Senate",
+    "members": [
+      {
+        "id": "ma-sen-Hampden",
+        "openstates_id": "ocd-person/d2a82a0d-fbd1-4448-be2d-b786a7e11168",
+        "name": "Adam Gómez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Hampden",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/A_G0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/A_G0",
+          "email": "adam.gomez@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Essex",
+        "openstates_id": "ocd-person/1d33d1e7-dae9-4e98-aa9e-626b0d711d9a",
+        "name": "Pavel Payano",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "First Essex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PMP0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PMP0",
+          "email": "pavel.payano@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Third Essex",
+        "openstates_id": "ocd-person/77994b2c-f88c-4a5f-bf9d-7abd1875d8dc",
+        "name": "Brendan Crighton",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Third Essex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BPC0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BPC0",
+          "email": "brendan.crighton@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Essex",
+        "openstates_id": "ocd-person/d0956cb2-93df-4096-82ce-d39fbf0b9e36",
+        "name": "Joan Lovely",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Essex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JBL0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JBL0",
+          "email": "joan.lovely@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Suffolk",
+        "openstates_id": "ocd-person/8ca6ea6c-1121-40b3-a5cf-9b55dfe6a2b0",
+        "name": "Nick Collins",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "First Suffolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/N_C0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/N_C0",
+          "email": "nick.collins@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Third Suffolk",
+        "openstates_id": "ocd-person/5278711f-55ec-4a67-acc9-edd1db1c4e8c",
+        "name": "Lydia Edwards",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Third Suffolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/LME0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/LME0",
+          "email": "lydia.edwards@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Suffolk",
+        "openstates_id": "ocd-person/703d6d4e-3a1d-4a2e-82e3-3c9693b75953",
+        "name": "Liz Miranda",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Suffolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/L%20M0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/L M0",
+          "email": "liz.miranda@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Fifth Middlesex",
+        "openstates_id": "ocd-person/92a770ae-a348-4f86-92ad-c4a8ebc568f6",
+        "name": "Jason Lewis",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Fifth Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/jml0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/jml0",
+          "email": "jason.lewis@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Middlesex",
+        "openstates_id": "ocd-person/053aae1e-ae76-41b0-912c-39f27f3f6d6f",
+        "name": "Vanna Howard",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "First Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/V_H1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/V_H0",
+          "email": "vanna.howard@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Worcester",
+        "openstates_id": "ocd-person/2fb1c0e0-edaa-4b55-9bbb-b6fe6b3e5dcc",
+        "name": "Robyn Kennedy",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "First Worcester",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RKK0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RKK0",
+          "email": "robyn.kennedy@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Third Middlesex",
+        "openstates_id": "ocd-person/2cf31d35-c3e8-4627-a534-08dce38078db",
+        "name": "Mike Barrett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Third Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MJB0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJB0",
+          "email": "mike.barrett@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Cape and Islands",
+        "openstates_id": "ocd-person/5a0688ef-c0cd-469d-bd3c-fe9848724387",
+        "name": "Julian Cyr",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Cape and Islands",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JAC0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JAC0",
+          "email": "julian.cyr@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Fourth Middlesex",
+        "openstates_id": "ocd-person/456b0061-febd-4ff7-8547-42be0685526f",
+        "name": "Cindy Friedman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Fourth Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CFF0.jpg",
+        "contact": {
+          "official_website": "https://cindyfriedman.org/",
+          "email": "cindy.friedman@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Middlesex",
+        "openstates_id": "ocd-person/6de50ed2-4fe8-4b98-894d-0bc391c876b5",
+        "name": "Pat Jehlen",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PDJ0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PDJ0",
+          "email": "patricia.jehlen@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Worcester",
+        "openstates_id": "ocd-person/7b48bd48-8d27-4dd8-958d-703571efe150",
+        "name": "Mike Moore",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Worcester",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MOM0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MOM0",
+          "email": "michael.moore@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Bristol and Norfolk",
+        "openstates_id": "ocd-person/b390af07-1fa2-4516-b8f0-b6bd1b62121a",
+        "name": "Paul Feeney",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Bristol and Norfolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PRF0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PRF0",
+          "email": "paul.feeney@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Norfolk and Suffolk",
+        "openstates_id": "ocd-person/6a82d675-3496-48af-88cf-23c26355b01f",
+        "name": "Mike Rush",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Norfolk and Suffolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MFR0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MFR0",
+          "email": "mike.rush@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Norfolk and Plymouth",
+        "openstates_id": "ocd-person/7be04e69-85c6-44e4-a933-88c59c0675a5",
+        "name": "John Keenan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Norfolk and Plymouth",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JFK0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JFK0",
+          "email": "john.keenan@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Hampden and Hampshire",
+        "openstates_id": "ocd-person/a37a3f66-83a2-4a7e-90e3-8de41be7262d",
+        "name": "John Velis",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Hampden and Hampshire",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/jcv1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JCV0",
+          "email": "john.velis@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Middlesex and Norfolk",
+        "openstates_id": "ocd-person/e48879ef-ed74-4f93-8e5b-c0f3752d4fd7",
+        "name": "Karen Spilka",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Middlesex and Norfolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KES0.jpg",
+        "contact": {
+          "official_website": "https://karenspilka.com/",
+          "email": "karen.spilka@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Middlesex and Suffolk",
+        "openstates_id": "ocd-person/d691b834-a68d-44da-8140-9582ee37d8a6",
+        "name": "Sal DiDomenico",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Middlesex and Suffolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SND0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SND0",
+          "email": "sal.didomenico@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Norfolk and Middlesex",
+        "openstates_id": "ocd-person/ece82669-b6f6-4f0f-ae5d-7b238b1cd1dd",
+        "name": "Cynthia Creem",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Norfolk and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CSC0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CSC0",
+          "email": "cynthia.creem@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Suffolk and Middlesex",
+        "openstates_id": "ocd-person/94929da6-2219-4a44-99c3-d6561eead9f5",
+        "name": "Will Brownsberger",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Suffolk and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/WNB0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/WNB0",
+          "email": "william.brownsberger@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Worcester and Hampden",
+        "openstates_id": "ocd-person/edebef62-78d9-4f8b-a94d-65a29dbc09f6",
+        "name": "Ryan Fattman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Worcester and Hampden",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RCF0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RCF0",
+          "email": "ryan.fattman@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Middlesex and Worcester",
+        "openstates_id": "ocd-person/23704722-a50c-4148-8f14-98c7d78324b9",
+        "name": "Jamie Eldridge",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Middlesex and Worcester",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JBE0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JBE0",
+          "email": "james.eldridge@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Plymouth and Barnstable",
+        "openstates_id": "ocd-person/cd05a88c-19f0-4fc5-bc3b-d339572842b7",
+        "name": "Dylan Fernandes",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Plymouth and Barnstable",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DAF0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DAF0",
+          "email": "dylan.fernandes@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Worcester and Hampshire",
+        "openstates_id": "ocd-person/c674060b-4568-43fa-b72d-0921f4876713",
+        "name": "Peter Durant",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Worcester and Hampshire",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PJD0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PJD0",
+          "email": "peter.durant@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Worcester and Middlesex",
+        "openstates_id": "ocd-person/5a333327-70bb-4b95-9cfd-fadd701e9348",
+        "name": "John Cronin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Worcester and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JJC0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JJC0",
+          "email": "john.cronin@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Essex and Middlesex",
+        "openstates_id": "ocd-person/429f87cf-f7a1-4201-ade4-9efeb9149d03",
+        "name": "Bruce Tarr",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "First Essex and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BET0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BET0",
+          "email": "bruce.tarr@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Bristol and Plymouth",
+        "openstates_id": "ocd-person/af0d6647-3a7b-48d0-971c-bde55a75e78c",
+        "name": "Michael Rodrigues",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "First Bristol and Plymouth",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MJR0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJR0",
+          "email": "michael.rodrigues@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-First Plymouth and Norfolk",
+        "openstates_id": "ocd-person/493988da-4de8-49a0-8d6c-090097e89920",
+        "name": "Patrick O'Connor",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "First Plymouth and Norfolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PMO.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PMO",
+          "email": "patrick.oconnor@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Essex and Middlesex",
+        "openstates_id": "ocd-person/49397268-3fc9-4c83-a385-f55be18597f4",
+        "name": "Barry Finegold",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Essex and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BRF0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BRF0",
+          "email": "barry.finegold@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Third Bristol and Plymouth",
+        "openstates_id": "ocd-person/062618e6-3ba4-4170-8b4f-9d0fa325a9ab",
+        "name": "Kelly Dooner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "Third Bristol and Plymouth",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KAD0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KAD0",
+          "email": "kelly.dooner@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Bristol and Plymouth",
+        "openstates_id": "ocd-person/31600b44-797b-4baf-80aa-0762b4f0aff5",
+        "name": "Mark Montigny",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Bristol and Plymouth",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MCM0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MCM0",
+          "email": "mark.montigny@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Second Plymouth and Norfolk",
+        "openstates_id": "ocd-person/c3cdd26f-1314-4366-89f6-17c4c540bce9",
+        "name": "Mike Brady",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Second Plymouth and Norfolk",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MDB0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MDB0",
+          "email": "michael.brady@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Norfolk, Plymouth and Bristol",
+        "openstates_id": "ocd-person/1b7d1710-da71-46cd-9ee3-fc891556f3a9",
+        "name": "Bill Driscoll",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Norfolk, Plymouth and Bristol",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/WJD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/WJD0",
+          "email": "william.driscoll@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Hampden, Hampshire and Worcester",
+        "openstates_id": "ocd-person/b857e2f7-b65a-4d34-a680-50dfff745a16",
+        "name": "Jake Oliveira",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Hampden, Hampshire and Worcester",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JRO0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JRO0",
+          "email": "jacob.oliveira@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Norfolk, Worcester and Middlesex",
+        "openstates_id": "ocd-person/fb97b139-c0dd-41b5-ae52-159528f47b11",
+        "name": "Becca Rausch",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Norfolk, Worcester and Middlesex",
+        "role": "State Senator",
+        "photo_url": "https://www.brandeis.edu/now/2019/january/images/rausch620.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RLR0",
+          "email": "becca.rausch@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Hampshire, Franklin and Worcester",
+        "openstates_id": "ocd-person/2998b05b-b83e-4a9b-9659-a609ddc63a34",
+        "name": "Jo Comerford",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Hampshire, Franklin and Worcester",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JMC0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JMC0",
+          "email": "jo.comerford@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-sen-Berkshire, Hampden, Franklin and Hampshire",
+        "openstates_id": "ocd-person/fd5aaac8-48f5-42c2-82a8-abaf6c5de650",
+        "name": "Paul Mark",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "Berkshire, Hampden, Franklin and Hampshire",
+        "role": "State Senator",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PWM0.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PWM0",
+          "email": "paul.mark@masenate.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Massachusetts State House",
+    "members": [
+      {
+        "id": "ma-rep-1st Essex",
+        "openstates_id": "ocd-person/6c49bb2c-7c53-4f22-bfb9-04af813b95b0",
+        "name": "Dawne Shand",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/D_S1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/D_S1",
+          "email": "dawne.shand@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Essex",
+        "openstates_id": "ocd-person/1129a0d9-c280-4bf0-af34-20879293a2b5",
+        "name": "Kristin Kassner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/K_K2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/K_K2",
+          "email": "kristin.kassner@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Essex",
+        "openstates_id": "ocd-person/c1f81bec-d032-4f41-940c-ca32f2b5af12",
+        "name": "Andy Vargas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AXV1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AXV1",
+          "email": "andy.vargas@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Essex",
+        "openstates_id": "ocd-person/824532f7-8dc9-4a1a-a7b3-16b2d0e78941",
+        "name": "Estela Reyes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/EAR1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/EAR1",
+          "email": "estela.reyes@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Essex",
+        "openstates_id": "ocd-person/b4f97e46-d8cd-45f7-88c4-94926b0bf60b",
+        "name": "Dru Tarr",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5th Essex",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/gloucestertimes.com/content/tncms/assets/v3/editorial/3/ee/3eecbb2e-2770-4e6e-a1d3-44ae2d7b8342/69398400d2c1b.image.jpg?resize=400%2C645",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AFT1",
+          "email": "andrew.tarr@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Essex",
+        "openstates_id": "ocd-person/f9a6f401-206b-43df-a1b9-0fc1cd8a3417",
+        "name": "Hannah Bowen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Essex",
+        "role": "State Representative",
+        "photo_url": "https://www.resolutionnorthshore.org/images/staff/AG22-Hannah_Bowen-228832.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/HLB1",
+          "email": "hannah.bowen@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Essex",
+        "openstates_id": "ocd-person/5ae88c49-8938-4472-8de2-1c0f0bc0e2f0",
+        "name": "Manny Cruz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Essex",
+        "role": "State Representative",
+        "photo_url": "https://www.wickedlocal.com/gcdn/authoring/2018/08/07/NWKL/ghows-WL-72d881e3-b92a-5ead-e053-0100007fbaea-a47ecf5e.jpeg?width=600&height=1068&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/M_C3",
+          "email": "manny.cruz@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Essex",
+        "openstates_id": "ocd-person/eab9b69f-0434-4307-972c-6acce9deb370",
+        "name": "Jenny Armini",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JBA1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JBA1",
+          "email": "jennifer.armini@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Essex",
+        "openstates_id": "ocd-person/e8071049-2a8d-4633-b6cb-c1f6ae83bb7a",
+        "name": "Donald Wong",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DHW1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DHW1",
+          "email": "donald.wong@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Essex",
+        "openstates_id": "ocd-person/5f227f77-f58b-4ac6-b193-9f406bde4055",
+        "name": "Dan Cahill",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DFC1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DFC1",
+          "email": "daniel.cahill@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Essex",
+        "openstates_id": "ocd-person/d3ad855a-567f-443a-bb9f-480a0c95fb06",
+        "name": "Sean Reid",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Essex",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/afaf11_7be85579b8f44be19dc438362812307c~mv2.jpg/v1/crop/x_0,y_241,w_1500,h_1845/fill/w_560,h_689,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/SeanHeadshot.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/S_R1",
+          "email": "sean.reid@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Essex",
+        "openstates_id": "ocd-person/5f796cb3-08ae-40c4-8c11-a2758f317cc2",
+        "name": "Tom Walsh",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TJW1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TJW1",
+          "email": "thomas.walsh@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Essex",
+        "openstates_id": "ocd-person/308b15a0-dc30-41be-be53-9e5827522cac",
+        "name": "Sally Kerans",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SPK1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SPK1",
+          "email": "sally.kerans@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Essex",
+        "openstates_id": "ocd-person/300d40b3-9479-43c0-99d3-18f94e1110cc",
+        "name": "Adrianne Ramos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/APR1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/APR1",
+          "email": "adrianne.ramos@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-15th Essex",
+        "openstates_id": "ocd-person/799d49f3-28e5-46a1-bcc8-6370e9fbf44a",
+        "name": "Ryan Hamilton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RMH2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RMH2",
+          "email": "ryan.hamilton@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-16th Essex",
+        "openstates_id": "ocd-person/99109961-27e8-4e58-8269-3a1deb29f228",
+        "name": "Francisco Paulino",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/FEP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/FEP1",
+          "email": "francisco.paulino@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-17th Essex",
+        "openstates_id": "ocd-person/8c42603e-4483-44f1-995f-5956fa09c73c",
+        "name": "Frank Moran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/FAM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/FAM1",
+          "email": "frank.moran@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-18th Essex",
+        "openstates_id": "ocd-person/1e7b8d51-56fa-4faf-93e6-9b485812ddf9",
+        "name": "Tram Nguyen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18th Essex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TTN1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TTN1",
+          "email": "tram.nguyen@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Bristol",
+        "openstates_id": "ocd-person/0a74c581-eb5c-4935-b5c3-f4a77e6dcd31",
+        "name": "Mike Chaisson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1st Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MSC1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MSC1",
+          "email": "michael.chaisson@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Hampden",
+        "openstates_id": "ocd-person/d8895862-a95b-4982-bb2e-31c8ffa4bf57",
+        "name": "Todd Smola",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1st Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TMS2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TMS2",
+          "email": "todd.smola@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Norfolk",
+        "openstates_id": "ocd-person/f81b07bd-cc43-47be-95ea-dca26f19a647",
+        "name": "Bruce Ayers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BJA1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BJA1",
+          "email": "bruce.ayers@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Suffolk",
+        "openstates_id": "ocd-person/f8772f1e-29f7-42e2-8a8c-ab4005153b05",
+        "name": "Adrian Madaro",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/ACM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/ACM1",
+          "email": "adrian.madaro@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Bristol",
+        "openstates_id": "ocd-person/c8936e7c-f0f5-4dc4-b9e9-774e38638787",
+        "name": "Jim Hawkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JKH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JKH1",
+          "email": "james.hawkins@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Hampden",
+        "openstates_id": "ocd-person/503a0888-f086-4b52-b03c-c5293378bc51",
+        "name": "Brian Ashe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BMA1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BMA1",
+          "email": "brian.ashe@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Norfolk",
+        "openstates_id": "ocd-person/6b420d2a-f12d-40ca-a13f-04cf9061a66b",
+        "name": "Tackey Chan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/T_C1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/T_C1",
+          "email": "tackey.chan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Suffolk",
+        "openstates_id": "ocd-person/c0519476-08fc-44af-9114-c77d197f883d",
+        "name": "Danny Ryan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/djr1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/djr1",
+          "email": "dan.ryan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Bristol",
+        "openstates_id": "ocd-person/0a14e19e-3761-4aa2-887f-8b335d6e3eed",
+        "name": "Lisa Field",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/LMF1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/LMF1",
+          "email": "lisa.field@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Hampden",
+        "openstates_id": "ocd-person/0e72fc19-89be-49b9-8baf-5f35f938ec87",
+        "name": "Nick Boldyga",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3rd Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/NAG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/NAG1",
+          "email": "nicholas.boldyga@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Norfolk",
+        "openstates_id": "ocd-person/e142d28d-e57a-4ff9-afa4-c3cd149f2114",
+        "name": "Ron Mariano",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/R_M1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/R_M1",
+          "email": "ronald.mariano@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Suffolk",
+        "openstates_id": "ocd-person/4183f327-e2a6-4b1a-9d23-161da1b5e261",
+        "name": "Aaron Michlewitz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AMM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AMM1",
+          "email": "aaron.m.michlewitz@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Bristol",
+        "openstates_id": "ocd-person/54487f49-5377-4c41-bd97-60b748cc240a",
+        "name": "Steven Howitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SSH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SSH1",
+          "email": "steven.howitt@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Hampden",
+        "openstates_id": "ocd-person/72eea330-24b4-4207-a016-0b1e568e0b6e",
+        "name": "Kelly Pease",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KWP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KWP1",
+          "email": "kelly.pease@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Norfolk",
+        "openstates_id": "ocd-person/ef175304-020e-4f79-b71f-dc961b738254",
+        "name": "Jamie Murphy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JMM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JMM1",
+          "email": "james.murphy@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Suffolk",
+        "openstates_id": "ocd-person/5fde161f-7456-4006-bffd-eaf6fedc5aa3",
+        "name": "David Biele",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/D_B1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/D_B1",
+          "email": "david.biele@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Bristol",
+        "openstates_id": "ocd-person/4002361d-3211-4f02-b627-95d6e6a3f76c",
+        "name": "Justin Thurber",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_T2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_T2",
+          "email": "justin.thurber@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Hampden",
+        "openstates_id": "ocd-person/e50e8121-bc6f-4aaa-8cf2-f1cbd53c9172",
+        "name": "Pat Duffy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PAD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PAD1",
+          "email": "patricia.duffy@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Norfolk",
+        "openstates_id": "ocd-person/b51c5c27-7da0-42f5-b67b-22085173af7a",
+        "name": "Mark Cusack",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MJC1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJC1",
+          "email": "mark.cusack@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Suffolk",
+        "openstates_id": "ocd-person/59539448-5c3b-4d4d-8e96-48fabb01b10f",
+        "name": "Chris Worrell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CJW1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CJW1",
+          "email": "christopher.worrell@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Bristol",
+        "openstates_id": "ocd-person/af41924a-7c46-4b6b-b71b-bba683c62c5f",
+        "name": "Carole Fiola",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CAF1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CAF1",
+          "email": "carole.fiola@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Hampden",
+        "openstates_id": "ocd-person/b61922e8-c775-4c74-8ecb-557d79162195",
+        "name": "Mike Finn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Finn.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJF1",
+          "email": "michael.finn@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Norfolk",
+        "openstates_id": "ocd-person/04997a33-67a9-4535-95d2-c9a4c260519d",
+        "name": "Bill Galvin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/WCG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/WCG1",
+          "email": "william.galvin@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Suffolk",
+        "openstates_id": "ocd-person/078692f2-2afe-4aa1-a320-d4747edacbbb",
+        "name": "Russell Holmes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/REH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/REH1",
+          "email": "russell.holmes@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Bristol",
+        "openstates_id": "ocd-person/6e81dcb7-4a04-4a88-b5f2-728a3336cf9d",
+        "name": "Alan Silvia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/A_S1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/A_S1",
+          "email": "alan.silvia@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Hampden",
+        "openstates_id": "ocd-person/c3d23eba-caa6-4d2a-bbd2-5b8b2ca184ae",
+        "name": "Aaron Saunders",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/ALS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/ALS1",
+          "email": "aaron.saunders@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Norfolk",
+        "openstates_id": "ocd-person/e988f332-eba5-40a4-b55f-554728360e6c",
+        "name": "Richard Wells",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RGW1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RGW1",
+          "email": "richard.wells@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Suffolk",
+        "openstates_id": "ocd-person/3b92fb1f-d268-40d8-8a4e-851f11fe81ff",
+        "name": "Chynah Tyler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/C_T1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/C_T1",
+          "email": "chynah.tyler@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Bristol",
+        "openstates_id": "ocd-person/0fbe25ff-563e-4563-8523-f151bd839e3c",
+        "name": "Steven Ouellette",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Steven_Ouellette_20241027_114832.jpeg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SJO1",
+          "email": "steve.ouellette@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Hampden",
+        "openstates_id": "ocd-person/ff433cf6-2895-4e01-b143-26747500f8a4",
+        "name": "Shirley Arriaga",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SBA1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SBA1",
+          "email": "shirley.arriaga@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Norfolk",
+        "openstates_id": "ocd-person/73394d70-485b-4fbf-a512-bf2da4e4cb3b",
+        "name": "Ted Philips",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/ERP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/ERP1",
+          "email": "edward.philips@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Suffolk",
+        "openstates_id": "ocd-person/033bf9eb-2706-4c5f-9f93-8e8d222bf2c0",
+        "name": "Jay Livingstone",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_L1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_L1",
+          "email": "jay.livingstone@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Bristol",
+        "openstates_id": "ocd-person/560c5ca3-d9b4-4c47-998c-a9baa16a8309",
+        "name": "Christopher Markey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CMM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CMM1",
+          "email": "christopher.markey@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Hampden",
+        "openstates_id": "ocd-person/a1a94ad4-7b75-46be-896e-548c86b23d0c",
+        "name": "Orlando Ramos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/O_R1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/O_R1",
+          "email": "orlando.ramos@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Norfolk",
+        "openstates_id": "ocd-person/2dd65a68-0ea5-4c15-b5fe-bcde086eb357",
+        "name": "Marcus Vaughn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MSV1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MSV1",
+          "email": "marcus.vaughn@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Suffolk",
+        "openstates_id": "ocd-person/15ff9d00-e05e-470a-b89c-36038b1dd5bb",
+        "name": "John Moran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JFM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JFM1",
+          "email": "john.moran@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Bristol",
+        "openstates_id": "ocd-person/7446bdd1-f6b4-40cb-a039-41f4be68833e",
+        "name": "Mark Sylvia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MDS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MDS1",
+          "email": "mark.sylvia@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Hampden",
+        "openstates_id": "ocd-person/c4d03c0e-713d-4195-ba23-1394f225494b",
+        "name": "Carlos González",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/C_G1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/C_G1",
+          "email": "carlos.gonzalez@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Norfolk",
+        "openstates_id": "ocd-person/b23d4ed5-1994-4355-a102-cdf15ae57230",
+        "name": "Jeff Roy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JNR1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JNR1",
+          "email": "jeffrey.roy@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Suffolk",
+        "openstates_id": "ocd-person/9f0c5984-accf-45a3-8922-07aa7ade0030",
+        "name": "Billy MacGregor",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/WFM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/WFM1",
+          "email": "bill.macgregor@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Bristol",
+        "openstates_id": "ocd-person/9750bdb4-4dce-4003-85ec-672185a3a5a4",
+        "name": "Chris Hendricks",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/C_H1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/C_H1",
+          "email": "chris.hendricks@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Hampden",
+        "openstates_id": "ocd-person/b23dd64e-a05c-4fe1-8562-c29436ca79bb",
+        "name": "Bud Williams",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BLW1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BLW1",
+          "email": "bud.williams@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Norfolk",
+        "openstates_id": "ocd-person/d0e66289-022e-4a99-ac8c-f20fb7557e7f",
+        "name": "Paul McMurtry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/P_M1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/P_M1",
+          "email": "paul.mcmurtry@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Suffolk",
+        "openstates_id": "ocd-person/6f15f647-07f5-4739-a340-497798a474e7",
+        "name": "Judith García",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JAG2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JAG2",
+          "email": "judith.garcia@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Bristol",
+        "openstates_id": "ocd-person/6d186dd3-a4a0-4d65-aaf1-2f0a63cd42ec",
+        "name": "Norm Orrall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/NJO1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/NJO1",
+          "email": "norman.orrall@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Hampden",
+        "openstates_id": "ocd-person/8302648f-4ed2-454e-ad1e-d7389e25b8dc",
+        "name": "Angelo Puppolo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Hampden",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AJP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AJP1",
+          "email": "angelo.puppolo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Norfolk",
+        "openstates_id": "ocd-person/50942563-77bb-49ec-a54c-6e26048a31a3",
+        "name": "John Rogers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JHR1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JHR1",
+          "email": "john.rogers@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Suffolk",
+        "openstates_id": "ocd-person/99c9c9e7-f0e3-480b-ad38-de297e6c635a",
+        "name": "Brandy Fluker-Reid",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BFO1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BFO1",
+          "email": "brandy.flukerreid@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Bristol",
+        "openstates_id": "ocd-person/59aed143-c5c1-4760-ac55-eab18600c451",
+        "name": "Tony Cabral",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AFC1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AFC1",
+          "email": "antonio.cabral@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Norfolk",
+        "openstates_id": "ocd-person/9c847f4f-a48b-4d42-95cb-2b6a219f89ac",
+        "name": "Josh Tarsky",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_T1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_T1",
+          "email": "joshua.tarsky@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Suffolk",
+        "openstates_id": "ocd-person/2990f236-cb76-4d93-af19-7792fa77290b",
+        "name": "Dan Hunt",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/djh1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/djh1",
+          "email": "daniel.hunt@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Bristol",
+        "openstates_id": "ocd-person/804c5518-7fdf-43c9-ba24-f2c24eb3b0ab",
+        "name": "Adam Scanlon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Bristol",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AJS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AJS1",
+          "email": "adam.scanlon@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Norfolk",
+        "openstates_id": "ocd-person/2a9569a0-feaf-431d-8a8d-012d8ebccbf8",
+        "name": "Alice Peisch",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AHP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AHP1",
+          "email": "alice.peisch@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Suffolk",
+        "openstates_id": "ocd-person/edcd5892-2488-4945-a3da-86f40012d396",
+        "name": "Rob Consalvo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/R_C1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/R_C1",
+          "email": "rob.consalvo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-15th Norfolk",
+        "openstates_id": "ocd-person/7a234dbf-2f9f-466f-8db1-44ac0f3975a8",
+        "name": "Tommy Vitolo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15th Norfolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/T_V1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/T_V1",
+          "email": "tommy.vitolo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-15th Suffolk",
+        "openstates_id": "ocd-person/668db267-f9e1-4839-918d-c092741f96f9",
+        "name": "Sam Montaño",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/S_M1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/S_M1",
+          "email": "samantha.montano@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-16th Suffolk",
+        "openstates_id": "ocd-person/0ed98993-456c-4630-bd52-894bdde0c0b0",
+        "name": "Jessica Giannino",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JAG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JAG1",
+          "email": "jessica.giannino@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-17th Suffolk",
+        "openstates_id": "ocd-person/9e4b8b32-233e-443f-a147-46fbaa778a58",
+        "name": "Kevin Honan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KGH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KGH1",
+          "email": "kevin.honan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-18th Suffolk",
+        "openstates_id": "ocd-person/2fd8669d-a5e2-40fd-bb2f-595210f1bf49",
+        "name": "Mike Moran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MJM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJM1",
+          "email": "michael.moran@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-19th Suffolk",
+        "openstates_id": "ocd-person/cd89185f-f928-4b26-bb47-60f1bccad0dd",
+        "name": "Jeff Turco",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19th Suffolk",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JRT1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JRT1",
+          "email": "jeffrey.turco@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Plymouth",
+        "openstates_id": "ocd-person/a0c80d02-beb0-42c3-b7ff-31fc0d5351f5",
+        "name": "Michelle Badger",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MichelleBadger24.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MLB1",
+          "email": "michelle.badger@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Franklin",
+        "openstates_id": "ocd-person/76b07f35-1876-4259-9c0a-bdf595541c39",
+        "name": "Susannah Whipps",
+        "party": "I",
+        "chamber": "State House",
+        "district": "2nd Franklin",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SLG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SLG1",
+          "email": "susannah.whipps@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Plymouth",
+        "openstates_id": "ocd-person/013e94ee-496e-42f3-8b1b-f96c737f1f8e",
+        "name": "John Gaskey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2nd Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/40d8f8_3ba01018eff64b309a92373daddd8344~mv2.jpg/v1/crop/x_140,y_436,w_734,h_891/fill/w_440,h_534,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Untitled-6.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JRG2",
+          "email": "john.gaskey@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Plymouth",
+        "openstates_id": "ocd-person/03d1f31d-1431-41d2-88b7-67b57d50f323",
+        "name": "Joan Meschino",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_M1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_M1",
+          "email": "joan.meschino@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Plymouth",
+        "openstates_id": "ocd-person/0a288f3d-397f-4e7b-8bfd-b5032ae1421f",
+        "name": "Patrick Kearney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PJK1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PJK1",
+          "email": "patrick.kearney@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Plymouth",
+        "openstates_id": "ocd-person/cf295962-4f8d-427a-84e9-c7615ff94c8c",
+        "name": "David DeCoste",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DFD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DFD1",
+          "email": "david.decoste@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Plymouth",
+        "openstates_id": "ocd-person/1eece00d-5b31-4be0-9263-b594863b295c",
+        "name": "Ken Sweezey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KPS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KPS1",
+          "email": "ken.sweezey@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Plymouth",
+        "openstates_id": "ocd-person/bed31f9a-e759-41a5-80b6-8b6bb9a64762",
+        "name": "Alyson Sullivan-Almeida",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AMS2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AMS2",
+          "email": "alyson.sullivan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Plymouth",
+        "openstates_id": "ocd-person/3601344e-8a37-488b-a3b1-f355f4e52ea7",
+        "name": "Dennis Gallagher",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DCG2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DCG2",
+          "email": "dennis.gallagher@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Plymouth",
+        "openstates_id": "ocd-person/2b6d0884-6638-410e-87b7-243c7ca18a16",
+        "name": "Bridget Plouffe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BMP1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BMP1",
+          "email": "bridget.plouffe@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Plymouth",
+        "openstates_id": "ocd-person/f41834f0-0d73-4e8e-8758-66184772c081",
+        "name": "Michelle DuBois",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MMD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MMD1",
+          "email": "michelle.dubois@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Plymouth",
+        "openstates_id": "ocd-person/87e3afd8-390c-45a3-97c6-2bb164ec1e90",
+        "name": "Rita Mendes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RAM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RAM1",
+          "email": "rita.mendes@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Plymouth",
+        "openstates_id": "ocd-person/fbbda637-7a45-43f2-a13a-388dc50b02ee",
+        "name": "Kathy LaNatra",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Plymouth",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KPL1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KPL1",
+          "email": "kathleen.lanatra@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Berkshire",
+        "openstates_id": "ocd-person/da8051b7-de05-4c30-9d37-5d7223906356",
+        "name": "John Barrett",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Berkshire",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_B1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_B1",
+          "email": "john.barrett@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Hampshire",
+        "openstates_id": "ocd-person/05f9b238-283f-4529-8989-ff7d1bda60a8",
+        "name": "Lindsay Sabadosa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Hampshire",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/L_S1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/L_S1",
+          "email": "lindsay.sabadosa@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Middlesex",
+        "openstates_id": "ocd-person/a25fd374-e502-43bb-91fe-99c4b6c493a5",
+        "name": "Margaret Scarsdale",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MRS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MRS1",
+          "email": "margaret.scarsdale@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Worcester",
+        "openstates_id": "ocd-person/888457ba-c348-4826-b2c6-450dba5e38bd",
+        "name": "Kim Ferguson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1st Worcester",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kimberly-Ferguson.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KNF1",
+          "email": "kimberly.ferguson@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Berkshire",
+        "openstates_id": "ocd-person/1f444dfe-d3b3-4852-ab10-0682206d773d",
+        "name": "Tricia Farley-Bouvier",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Berkshire",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TFB1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TFB1",
+          "email": "tricia.farley-bouvier@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Hampshire",
+        "openstates_id": "ocd-person/6b27dd86-5c03-4223-957c-9efd12c70e04",
+        "name": "Homar Gomez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Hampshire",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6616e5c7caac657d5a7f9682/0c122a29-b755-4647-a180-d5cbdb08bbcc/Screenshot+2024-04-10+at+4.35.35+PM.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/H_G1",
+          "email": "homar.gomez@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Middlesex",
+        "openstates_id": "ocd-person/70e42c78-89e1-43cb-bc65-7d0da132daa2",
+        "name": "Jim Arciero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/J_A1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/J_A1",
+          "email": "james.arciero@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Worcester",
+        "openstates_id": "ocd-person/49c4bb4e-fadd-4136-953f-6bd64a970acb",
+        "name": "Jon Zlotnik",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JDZ1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JDZ1",
+          "email": "jon.zlotnik@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Berkshire",
+        "openstates_id": "ocd-person/386c6121-a2a4-4c92-b093-4abea066d840",
+        "name": "Leigh Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Berkshire",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/LSD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/LSD1",
+          "email": "leigh.davis@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Hampshire",
+        "openstates_id": "ocd-person/65617e1a-1834-4ec8-9f19-4ac801ce9764",
+        "name": "Mindy Domb",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Hampshire",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/M_D2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/M_D2",
+          "email": "mindy.domb@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Middlesex",
+        "openstates_id": "ocd-person/3d709a64-6cd2-49c6-ad0d-b007e834bfec",
+        "name": "Kate Hogan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/K_H1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/K_H1",
+          "email": "kate.hogan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Worcester",
+        "openstates_id": "ocd-person/591dc6dd-40b8-4713-83b8-f236ff6250bf",
+        "name": "Mike Kushmerek",
+        "party": "D",
+        "chamber": "State House",
+        "district": "3rd Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MPK1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MPK1",
+          "email": "michael.kushmerek@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Middlesex",
+        "openstates_id": "ocd-person/5696763c-5fd6-44dd-9dce-7be56632cedd",
+        "name": "Danielle Gregoire",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DWG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DWG1",
+          "email": "danielle.gregoire@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Worcester",
+        "openstates_id": "ocd-person/17c3ac90-1218-4d61-ae47-bc5ef6ee4a74",
+        "name": "Natalie Higgins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/N_H1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/N_H1",
+          "email": "natalie.higgins@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Middlesex",
+        "openstates_id": "ocd-person/06867e5f-9de5-4cb2-a3ae-a039e890718c",
+        "name": "David Linsky",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DPL1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DPL1",
+          "email": "david.linsky@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Worcester",
+        "openstates_id": "ocd-person/5a276629-f50a-4d9a-a54e-2c0e07f84968",
+        "name": "Donnie Berthiaume",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DRB1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DRB1",
+          "email": "donald.berthiaume@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Middlesex",
+        "openstates_id": "ocd-person/a148ff77-2e73-4e42-a525-20e8d1ed569a",
+        "name": "Priscila Sousa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PSS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PSS1",
+          "email": "priscila.sousa@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-6th Worcester",
+        "openstates_id": "ocd-person/0e8c6c71-bca0-46fd-86d1-223d41ed5517",
+        "name": "John Marsi",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JJM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JJM1",
+          "email": "john.marsi@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Middlesex",
+        "openstates_id": "ocd-person/e3dc06b1-8523-4a33-959f-21ed0d5da851",
+        "name": "Jack Lewis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "7th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JPL1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JPL1",
+          "email": "jack.lewis@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-7th Worcester",
+        "openstates_id": "ocd-person/fdc5586f-0db3-4614-af1f-72a42cf5e6f0",
+        "name": "Paul Frost",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Paul-Frost.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PKF1",
+          "email": "paul.frost@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Middlesex",
+        "openstates_id": "ocd-person/47ffc61b-0cae-4386-ae68-12b20eadd83f",
+        "name": "James Arena-DeRosa",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JCD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JCD1",
+          "email": "james.arena-derosa@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-8th Worcester",
+        "openstates_id": "ocd-person/4cec2aa4-c17b-4749-b0e9-58a25695bf2f",
+        "name": "Mike Soter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MJS3.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MJS3",
+          "email": "michael.soter@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Middlesex",
+        "openstates_id": "ocd-person/2becbe4e-5b5e-4b42-be87-b4abf57550c7",
+        "name": "Tom Stanley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TMS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TMS1",
+          "email": "thomas.stanley@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-9th Worcester",
+        "openstates_id": "ocd-person/b601dee7-1ad1-4f36-b585-b0fb5077fd89",
+        "name": "Dave Muradian",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DKM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DKM1",
+          "email": "david.muradian@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Middlesex",
+        "openstates_id": "ocd-person/1ea6937d-a39e-41e2-92fb-47c2966cd52e",
+        "name": "John Lawn",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JJL2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JJL2",
+          "email": "john.lawn@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-10th Worcester",
+        "openstates_id": "ocd-person/66e7c819-cd52-4034-bace-bfec476c106d",
+        "name": "Brian Murray",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BWM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BWM1",
+          "email": "brian.murray@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Middlesex",
+        "openstates_id": "ocd-person/adb7ebb2-480f-4215-859e-3a1194e9a598",
+        "name": "Amy Sangiolo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/AMS3.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/AMS3",
+          "email": "amy.sangiolo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-11th Worcester",
+        "openstates_id": "ocd-person/3dd1e2a8-3fdd-4d3a-9504-88a04f3fc973",
+        "name": "Hannah Kane",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/HEK1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/HEK1",
+          "email": "hannah.kane@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Middlesex",
+        "openstates_id": "ocd-person/2770216d-1802-435d-b147-4ca1d684dc45",
+        "name": "Greg Schwartz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/G_S1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/G_S1",
+          "email": "greg.schwartz@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-12th Worcester",
+        "openstates_id": "ocd-person/b61c923f-3598-465b-8051-6507b6f6c6c2",
+        "name": "Meg Kilcoyne",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/M_K1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/M_K1",
+          "email": "meghan.kilcoyne@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Middlesex",
+        "openstates_id": "ocd-person/b9a91cec-bad7-43a7-8fd2-60cd704bd7ab",
+        "name": "Carmine Gentile",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CLG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CLG1",
+          "email": "carmine.gentile@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-13th Worcester",
+        "openstates_id": "ocd-person/2abbc0cb-6339-42d9-9947-69412a24301b",
+        "name": "John Mahoney",
+        "party": "D",
+        "chamber": "State House",
+        "district": "13th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JJM2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JJM2",
+          "email": "john.mahoney@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Middlesex",
+        "openstates_id": "ocd-person/f43366ee-ff27-43ac-aa55-629be715b4a9",
+        "name": "Simon Cataldo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/S_C1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/S_C1",
+          "email": "simon.cataldo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-14th Worcester",
+        "openstates_id": "ocd-person/67f64532-7f9a-4cd3-8c89-dc9b5df06517",
+        "name": "Jim O'Day",
+        "party": "D",
+        "chamber": "State House",
+        "district": "14th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JJO1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JJO1",
+          "email": "james.o'day@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-15th Middlesex",
+        "openstates_id": "ocd-person/ea385faa-049c-4743-ad41-3bbe58ee40e2",
+        "name": "Michelle Ciccolo",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/M_C2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/M_C2",
+          "email": "michelle.ciccolo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-15th Worcester",
+        "openstates_id": "ocd-person/4d0b5dda-d9d1-4c25-9c94-ce8fbd8ff398",
+        "name": "Mary Keefe",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MSK1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MSK1",
+          "email": "mary.keefe@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-16th Middlesex",
+        "openstates_id": "ocd-person/49816a0c-b8e5-4586-859b-8a8f1ae9b6ab",
+        "name": "Rodney Elliott",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RME1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RME1",
+          "email": "rodney.elliott@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-16th Worcester",
+        "openstates_id": "ocd-person/d70e97f1-b8ec-489d-ab5a-2b7f3775ae8a",
+        "name": "Dan Donahue",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DMD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DMD1",
+          "email": "daniel.donahue@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-17th Worcester",
+        "openstates_id": "ocd-person/ca659c30-e49e-420b-8213-797cfeb3c378",
+        "name": "David LeBoeuf",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DAL1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DAL1",
+          "email": "david.leboeuf@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-18th Middlesex",
+        "openstates_id": "ocd-person/e5b9b2d0-1626-4151-93cf-73c16035a584",
+        "name": "Tara Hong",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TTH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TTH1",
+          "email": "tara.hong@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-18th Worcester",
+        "openstates_id": "ocd-person/0e6c20bd-bfcb-445c-a1ce-3be99e26398e",
+        "name": "Joe McKenna",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/JDM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/JDM1",
+          "email": "joseph.mckenna@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-19th Middlesex",
+        "openstates_id": "ocd-person/f3dd7fd8-5d7f-4fa3-b2fe-910e375f2edd",
+        "name": "Dave Robertson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/D_R1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/D_R1",
+          "email": "david.robertson@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-19th Worcester",
+        "openstates_id": "ocd-person/e2aa2c0f-d6e6-49d7-8483-d595a3a1eb3a",
+        "name": "Kate Donaghue",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19th Worcester",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/K_D1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/K_D1",
+          "email": "kate.donaghue@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-1st Barnstable",
+        "openstates_id": "ocd-person/c30f76b4-73d6-4795-be75-c46973d17f59",
+        "name": "Chris Flanagan",
+        "party": "D",
+        "chamber": "State House",
+        "district": "1st Barnstable",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CRF1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CRF1",
+          "email": "christopher.flanagan@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-20th Middlesex",
+        "openstates_id": "ocd-person/368c3f95-1124-4f0a-9ab5-7361cb2805d3",
+        "name": "Brad Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/BHJ1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/BHJ1",
+          "email": "bradley.jones@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-21st Middlesex",
+        "openstates_id": "ocd-person/47c42957-b618-41b7-a557-5d24c33568cf",
+        "name": "Ken Gordon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21st Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KIG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KIG1",
+          "email": "ken.gordon@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-22nd Middlesex",
+        "openstates_id": "ocd-person/398f9a47-bc65-4c2a-b12e-347f375d8fac",
+        "name": "Marc Lombardo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22nd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MTL1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MTL1",
+          "email": "marc.lombardo@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-23rd Middlesex",
+        "openstates_id": "ocd-person/1e9d742c-c20b-45cf-9e22-e7752189fa7a",
+        "name": "Sean Garballey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23rd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/S_G1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/S_G1",
+          "email": "sean.garballey@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-24th Middlesex",
+        "openstates_id": "ocd-person/51adc4d9-23d8-442f-b692-c4e4204f552e",
+        "name": "Dave Rogers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DMR1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DMR1",
+          "email": "dave.rogers@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-25th Middlesex",
+        "openstates_id": "ocd-person/b9019024-899b-41b3-a283-69c50866fabd",
+        "name": "Marjorie Decker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "25th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MCD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MCD1",
+          "email": "marjorie.decker@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-26th Middlesex",
+        "openstates_id": "ocd-person/a8225754-d88c-4343-8829-aa168b564cbd",
+        "name": "Mike Connolly",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/M_C1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/M_C1",
+          "email": "mike.connolly@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-27th Middlesex",
+        "openstates_id": "ocd-person/a3f4c05a-b51a-4b8f-bc5d-d4cb82d74164",
+        "name": "Erika Uyterhoeven",
+        "party": "D",
+        "chamber": "State House",
+        "district": "27th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/E_U1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/E_U1",
+          "email": "erika.uyterhoeven@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-28th Middlesex",
+        "openstates_id": "ocd-person/6c3b63a2-ef13-43e5-b6de-d5e0901aa65a",
+        "name": "Joe McGonagle",
+        "party": "D",
+        "chamber": "State House",
+        "district": "28th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/jwm1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/jwm1",
+          "email": "joseph.mcgonagle@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-29th Middlesex",
+        "openstates_id": "ocd-person/f20dd448-92ef-458c-bf92-90e7e766072a",
+        "name": "Steve Owens",
+        "party": "D",
+        "chamber": "State House",
+        "district": "29th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SCO1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SCO1",
+          "email": "steven.owens@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-2nd Barnstable",
+        "openstates_id": "ocd-person/df1a3cfc-1555-4a05-8a5c-03a7e53932aa",
+        "name": "Kip Diggs",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2nd Barnstable",
+        "role": "State Representative",
+        "photo_url": "https://www.capecod.com/wp-content/uploads/NWS_Kip-Diggs_JS081720.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KAD1",
+          "email": "kip.diggs@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-30th Middlesex",
+        "openstates_id": "ocd-person/521620ea-1e5b-4a0c-94f8-abe888370e05",
+        "name": "Rich Haggerty",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RMH1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/RMH1",
+          "email": "richard.haggerty@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-31st Middlesex",
+        "openstates_id": "ocd-person/2e198563-4aeb-499b-8333-b4a46b605491",
+        "name": "Mike Day",
+        "party": "D",
+        "chamber": "State House",
+        "district": "31st Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/MSD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/MSD1",
+          "email": "michael.day@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-32nd Middlesex",
+        "openstates_id": "ocd-person/7d66e1ca-1fb3-4194-bb18-f9924c528df2",
+        "name": "Kate Lipper-Garabedian",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32nd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/KLG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/KLG1",
+          "email": "kate.lipper-garabedian@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-33rd Middlesex",
+        "openstates_id": "ocd-person/209427dd-91f0-45d6-ae8c-05a51872c10c",
+        "name": "Steve Ultrino",
+        "party": "D",
+        "chamber": "State House",
+        "district": "33rd Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/S_G2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/S_G2",
+          "email": "steven.ultrino@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-34th Middlesex",
+        "openstates_id": "ocd-person/35396516-6096-4336-ab74-80d6d8e53bcd",
+        "name": "Christine Barber",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CPB2.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CPB2",
+          "email": "christine.barber@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-35th Middlesex",
+        "openstates_id": "ocd-person/18bf433d-24e5-46cb-9d83-c2f9373204bd",
+        "name": "Paul Donato",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/PJD1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/PJD1",
+          "email": "paul.donato@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-36th Middlesex",
+        "openstates_id": "ocd-person/0e38852a-52b0-4aac-8a65-fa3fc964c88e",
+        "name": "Colleen Garry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "36th Middlesex",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/CMG1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/CMG1",
+          "email": "colleen.garry@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-37th Middlesex",
+        "openstates_id": "ocd-person/8f480d9c-0741-43bb-83a4-179745e1f3b2",
+        "name": "Dan Sena",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37th Middlesex",
+        "role": "State Representative",
+        "photo_url": "http://malegislature.gov/Legislators/Profile/170/DAS1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DAS1",
+          "email": "danillo.sena@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-3rd Barnstable",
+        "openstates_id": "ocd-person/5c798735-2f95-40a6-9ef7-4cd25eb638f6",
+        "name": "Dave Vieira",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3rd Barnstable",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/DTV1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/DTV1",
+          "email": "david.vieira@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-4th Barnstable",
+        "openstates_id": "ocd-person/8d481937-69c5-477d-ba72-e3b682ed0a4d",
+        "name": "Hadley Luddy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "4th Barnstable",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/H_L1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/H_L1",
+          "email": "hadley.luddy@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-5th Barnstable",
+        "openstates_id": "ocd-person/485e001e-95e9-4b79-9226-cf028a307138",
+        "name": "Steve Xiarhos",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5th Barnstable",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/SGX1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/SGX1",
+          "email": "steven.xiarhos@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ma-rep-Barnstable, Dukes and Nantucket",
+        "openstates_id": "ocd-person/ebfdda03-c083-4a13-b3a4-f87f6e24adac",
+        "name": "Thomas Moakley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Barnstable, Dukes and Nantucket",
+        "role": "State Representative",
+        "photo_url": "https://malegislature.gov/Legislators/Profile/170/TWM1.jpg",
+        "contact": {
+          "official_website": "https://malegislature.gov/Legislators/Profile/TWM1",
+          "email": "thomas.moakley@mahouse.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

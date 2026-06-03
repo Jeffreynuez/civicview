@@ -294,21 +294,29 @@ class GeocodeService:
                         cd_result["_PLACE_NAME"] = p.get("BASENAME") or p.get("NAME")
                         break
 
-                # State legislative districts — upper & lower chambers
-                sldu = geographies.get("State Legislative Districts - Upper", [])
+                # State legislative districts — upper & lower chambers.
+                # Census prefixes these layer keys with a vintage year, e.g.
+                # "2024 State Legislative Districts - Upper", so an exact-key
+                # lookup silently fails. Match by substring (like the
+                # Congressional layer above) so the year prefix doesn't break it.
+                def _find_layer(substr):
+                    for k, v in geographies.items():
+                        if substr in k and v:
+                            return v[0]
+                    return None
+
+                sldu = _find_layer("State Legislative Districts - Upper")
                 if sldu:
-                    v = sldu[0]
-                    val = v.get("SLDU") or v.get("BASENAME")
+                    val = sldu.get("SLDU") or sldu.get("BASENAME")
                     if val:
                         try:
                             cd_result["_SLDU"] = str(int(val))
                         except (ValueError, TypeError):
                             cd_result["_SLDU"] = str(val).strip()
 
-                sldl = geographies.get("State Legislative Districts - Lower", [])
+                sldl = _find_layer("State Legislative Districts - Lower")
                 if sldl:
-                    v = sldl[0]
-                    val = v.get("SLDL") or v.get("BASENAME")
+                    val = sldl.get("SLDL") or sldl.get("BASENAME")
                     if val:
                         try:
                             cd_result["_SLDL"] = str(int(val))

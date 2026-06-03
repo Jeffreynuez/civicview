@@ -1,0 +1,1476 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "AZ",
+  "state_name": "Arizona",
+  "executive": {
+    "governor": {
+      "id": "az-exec-gov",
+      "name": "Katie Hobbs",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2023",
+      "website": "https://azgovernor.gov",
+      "photo_url": null,
+      "bio": "Katie Hobbs is the Governor of Arizona, serving since 2023.",
+      "sources": [
+        "https://azgovernor.gov"
+      ]
+    },
+    "cabinet": [
+      {
+        "id": "az-exec-secretary-of-state",
+        "name": "Adrian Fontes",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://azsos.gov/sites/default/files/Katie-4.jpg"
+      },
+      {
+        "id": "az-exec-attorney-general",
+        "name": "Kris Mayes",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AZ-Mayes.png"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Arizona State Senate",
+    "members": [
+      {
+        "id": "az-sen-1",
+        "openstates_id": "ocd-person/77415ae8-cbbc-4f67-ac01-3f749d44ff08",
+        "name": "Mark Finchem",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/FINCHEM.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1865",
+          "email": "mfinchem@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-2",
+        "openstates_id": "ocd-person/355be281-2f88-4108-b894-62c54b67fba3",
+        "name": "Shawnna Bolick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/BOLICK.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2273",
+          "email": "sbolick@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-3",
+        "openstates_id": "ocd-person/b6144266-5383-491f-8c87-df8fd11805ea",
+        "name": "John Kavanagh",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/KAVANAGH.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2056",
+          "email": "jkavanagh@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-4",
+        "openstates_id": "ocd-person/051cb7cf-e965-49a7-844a-a8830447df0c",
+        "name": "Carine Werner",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/164676.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2389",
+          "email": "cwerner@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-5",
+        "openstates_id": "ocd-person/030638cb-5fcd-4637-8c59-c129e28db988",
+        "name": "Lela Alston",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/ALSTON.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1978",
+          "email": "lalston@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-6",
+        "openstates_id": "ocd-person/384e8b4c-d85b-4414-9372-40116a10b3b6",
+        "name": "Theresa Hatathlie",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/HATATHLIE.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2128",
+          "email": "thatathlie@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-7",
+        "openstates_id": "ocd-person/417c9599-7617-4b6d-ac0a-1d1b2a005f4e",
+        "name": "Wendy Rogers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/Senate/ROGERS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1960",
+          "email": "wrogers@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-8",
+        "openstates_id": "ocd-person/159091af-9aa8-4cb8-8c9c-9e20ba83c0ed",
+        "name": "Lauren Kuby",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/LaurenKuby24.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2390",
+          "email": "lkuby@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-9",
+        "openstates_id": "ocd-person/78fce9ac-3aa4-484f-b345-f55bbbf9db9b",
+        "name": "Kiana Sears",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/SEARS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2415",
+          "email": "ksears@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-10",
+        "openstates_id": "ocd-person/263ebe9c-566a-4b5c-bfbc-ea1f1d0dc3f2",
+        "name": "Dave Farnsworth",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/56leg/Senate/FARNSWORTH.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2123",
+          "email": "dfarnsworth@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-11",
+        "openstates_id": "ocd-person/6241112b-910b-4ad8-9c0d-9caad318874f",
+        "name": "Catherine Miranda",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/MIRANDA.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2138",
+          "email": "cmiranda@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-12",
+        "openstates_id": "ocd-person/f0175b18-52a0-407d-af38-c1fe118e209d",
+        "name": "Mitzi Epstein",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/EPSTEIN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1881",
+          "email": "mepstein@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-13",
+        "openstates_id": "ocd-person/06adeea1-c37c-4dd1-8be5-92e9b5d3556e",
+        "name": "J.D. Mesnard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/56leg/Senate/MESNARD.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2137",
+          "email": "jmesnard@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-14",
+        "openstates_id": "ocd-person/66e496a4-a407-4af1-add3-ef6899b89807",
+        "name": "Warren Petersen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/Senate/PETERSEN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1966",
+          "email": "wpetersen@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-15",
+        "openstates_id": "ocd-person/35f7056c-9f29-4b66-9ae0-f041fe6e7e05",
+        "name": "Jake Hoffman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/56leg/Senate/HOFFMAN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=55&session=123&legislator=2066",
+          "email": "jake.hoffman@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-16",
+        "openstates_id": "ocd-person/bde26535-68ee-4eef-bbc8-bfa8a4380015",
+        "name": "T.J. Shope",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/54leg/House/SHOPE.png",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1871",
+          "email": "tshope@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-17",
+        "openstates_id": "ocd-person/00f9103d-191e-40ca-8f5c-e5bf806896a6",
+        "name": "Vince Leach",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/Senate/LEACH.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1965",
+          "email": "vleach@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-18",
+        "openstates_id": "ocd-person/7ff01dde-5112-436f-a267-dd7a7f91ec9b",
+        "name": "Priya Sundareshan",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/SUNDARESHAN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2143",
+          "email": "psundareshan@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-19",
+        "openstates_id": "ocd-person/51520de4-0e87-475b-91d2-99aa18addf72",
+        "name": "David Gowan",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/GOWAN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1968",
+          "email": "dgowan@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-20",
+        "openstates_id": "ocd-person/3c965e03-1e51-4f10-a037-4fb2f35292c5",
+        "name": "Sally Gonzales",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/GONZALES.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1957",
+          "email": "sgonzales@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-21",
+        "openstates_id": "ocd-person/6de57177-1b9e-4864-bb87-97c528842030",
+        "name": "Rosanna Gabaldón",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/54leg/House/GABALD%C3%93N.gif",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1956",
+          "email": "rgabaldon@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-22",
+        "openstates_id": "ocd-person/e1cd66fa-a0de-45fd-ae53-a4db7d178d21",
+        "name": "Eva Diaz",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/DIAZ.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2121",
+          "email": "eva.diaz@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-23",
+        "openstates_id": "ocd-person/5425612b-fb2c-4857-8f75-31523345eb2b",
+        "name": "Brian Fernandez",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/FERNANDEZ.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2101",
+          "email": "bfernandez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-24",
+        "openstates_id": "ocd-person/87e6206a-c16e-4038-a86f-0d5c88b993e3",
+        "name": "Analise Ortiz",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/ORTIZ.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2178",
+          "email": "analise.ortiz@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-25",
+        "openstates_id": "ocd-person/0b8c9973-1ae5-4af3-8a73-713c8365eccd",
+        "name": "Tim Dunn",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/DUNN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2031",
+          "email": "tdunn@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-26",
+        "openstates_id": "ocd-person/36cc8d88-e944-4889-b8ab-cf5610f3f03e",
+        "name": "Flavio Bravo",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://chci.org/wp-content/uploads/2019/09/Bravo-Flavio.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=56&session=127&legislator=2150",
+          "email": "fbravo@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-27",
+        "openstates_id": "ocd-person/4b336587-cb71-4a49-9cf8-514cdd2771ff",
+        "name": "Kevin Payne",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/PAYNE.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2023",
+          "email": "kpayne@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-28",
+        "openstates_id": "ocd-person/faca0001-6681-450b-9577-6185f4f49a3d",
+        "name": "Frank Carroll",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/56leg/Senate/CARROLL.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1906",
+          "email": "fcarroll@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-29",
+        "openstates_id": "ocd-person/c94f542a-52e0-4831-8479-02793a97ccd9",
+        "name": "Janae Shamp",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/56leg/Senate/SHAMP.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2141",
+          "email": "jshamp@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-sen-30",
+        "openstates_id": "ocd-person/a739b3e9-8161-4b10-b007-3d1e90de791f",
+        "name": "Hildy Angius",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/Senate/ANGIUS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2373",
+          "email": "hangius@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Arizona State House",
+    "members": [
+      {
+        "id": "az-rep-1",
+        "openstates_id": "ocd-person/a4f969ab-e79a-4364-9a93-ad8c75ccf668",
+        "name": "Quang Nguyen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/NGUYEN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2063",
+          "email": "qnguyen@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-1-2",
+        "openstates_id": "ocd-person/bdcadc0a-7e86-4e6a-8e27-4896dbb094ce",
+        "name": "Selina Bliss",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/rsz_mar162020527pm_80182230_435a2599nwnbbliss2.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2149",
+          "email": "sbliss@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-2",
+        "openstates_id": "ocd-person/2706e746-45b7-4586-8d06-8b80e99d3869",
+        "name": "Justin Wilmeth",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/WILMETH.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2068",
+          "email": "jwilmeth@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-2-2",
+        "openstates_id": "ocd-person/bf406953-ad2b-43f7-95ea-3af060525c90",
+        "name": "Stephanie Simacek",
+        "party": "D",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/SIMACEK.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2353",
+          "email": "ssimacek@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-3",
+        "openstates_id": "ocd-person/102ffcb1-3028-401f-b74f-6f45db25e05e",
+        "name": "Alex Kolodin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alexander_Kolodin.jpeg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2174",
+          "email": "akolodin@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-3-2",
+        "openstates_id": "ocd-person/367990a3-3e02-455b-97b3-6b8dc34d9bbf",
+        "name": "Cody Reim",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/REIM.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2417",
+          "email": "creim@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-4",
+        "openstates_id": "ocd-person/bfb503ce-dcb1-444b-9484-8a90e73c6a6f",
+        "name": "Matt Gress",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MattGress.png",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2163",
+          "email": "mgress@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-4-2",
+        "openstates_id": "ocd-person/d78cb0f9-fd3c-472e-aeb8-716abd42f26e",
+        "name": "Pamela Carter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/PamelaCarter2024.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2354",
+          "email": "pcarter@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-5",
+        "openstates_id": "ocd-person/c6a181c7-b58e-4c2a-aa2d-9ca31fc6548f",
+        "name": "Aaron Marquez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://cmsv2-assets.apptegy.net/uploads/23522/file/3233138/f4ffcd47-cd48-4c93-a121-db3084965d55.jpeg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2355",
+          "email": "amarquez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-5-2",
+        "openstates_id": "ocd-person/99f91f84-b1db-4a48-897a-4f87593357ea",
+        "name": "Sarah Liguori",
+        "party": "D",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/LIGUORI.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=128&legislator=2279",
+          "email": "sliguori@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-6",
+        "openstates_id": "ocd-person/bcc217f5-fe08-4213-b8a5-78d1e4d64184",
+        "name": "Mae Peshlakai",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/56leg/House/PESHLAKAI.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2190",
+          "email": "mpeshlakai@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-6-2",
+        "openstates_id": "ocd-person/a437a3ce-e3ba-44ec-af75-3308e70f5a87",
+        "name": "Myron Tsosie",
+        "party": "D",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/TSOSIE.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2037",
+          "email": "mtsosie@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-7",
+        "openstates_id": "ocd-person/d4068bfb-d487-4fde-b36e-7db0ac5cae38",
+        "name": "Walt Blackman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/BLACKMAN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2356",
+          "email": "wblackman@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-8",
+        "openstates_id": "ocd-person/c13f449f-0423-4ad5-836b-69913aad6600",
+        "name": "Brian Garcia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/GARCIA.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2358",
+          "email": "bgarcia@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-8-2",
+        "openstates_id": "ocd-person/acfd8972-7a82-41f3-9fd7-0993cfa7365c",
+        "name": "Janeen Connolly",
+        "party": "D",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JaneenConnolly2024.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2357",
+          "email": "jconnolly@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-9",
+        "openstates_id": "ocd-person/90a36fec-df56-4f22-bf16-790866d5b227",
+        "name": "Lorena Austin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://thestoryexchange.org/app/uploads/2022/08/Lorena-Austin.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2206",
+          "email": "laustin@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-9-2",
+        "openstates_id": "ocd-person/4b29d125-27ee-46c7-a6ac-ed870c1f10a7",
+        "name": "Seth Blattman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://cdn.runforsomething.net/candidates/2020/w9466-blattman.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2148",
+          "email": "sblattman@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-10",
+        "openstates_id": "ocd-person/448cb969-a498-4826-ad1e-c443fe9b8057",
+        "name": "Justin Olson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "http://www.azleg.gov/alisImages/MemberPhotos/51leg/House/OLSON.gif",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&legislator=2359",
+          "email": "jolson@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-10-2",
+        "openstates_id": "ocd-person/176a6d0b-88bb-45fa-bf37-b4610972b2ae",
+        "name": "Ralph Heap",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ralph_Heap.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2360",
+          "email": "rheap@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-11",
+        "openstates_id": "ocd-person/94895484-6eda-42d7-823b-a4eab17071e8",
+        "name": "Junelle Cavero",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/d096d8_c9a25023041540c296a3b81e09b137e8~mv2.png/v1/crop/x_0,y_247,w_2800,h_2553/fill/w_327,h_298,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Junelle%20Cavero_KO.png",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=128&legislator=2287",
+          "email": "jcavero@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-11-2",
+        "openstates_id": "ocd-person/a4fabea6-f50e-4fe9-8696-8b4505a481e8",
+        "name": "Oscar De Los Santos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/56leg/House/DE_LOS_SANTOS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2158",
+          "email": "odelossantos@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-12",
+        "openstates_id": "ocd-person/61dc96d8-140a-4042-b832-ac51bf0796f3",
+        "name": "Patty Contreras",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Patty_Contreras.jpeg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2157",
+          "email": "pcontreras@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-12-2",
+        "openstates_id": "ocd-person/7bd58fc8-e6df-4091-86c6-c64f54b96c35",
+        "name": "Stacey Travers",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/House/TRAVERS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2203",
+          "email": "stravers@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-13",
+        "openstates_id": "ocd-person/de8a5959-6572-44a9-bea5-ed73c27dd0ce",
+        "name": "Jeff Weninger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/WENINGER.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2361",
+          "email": "jweninger@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-13-2",
+        "openstates_id": "ocd-person/d19ab410-5bc3-4160-b279-765e25d959ab",
+        "name": "Julie Willoughby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/56leg/House/WILLOUGHBY.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2270",
+          "email": "jwilloughby@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-14",
+        "openstates_id": "ocd-person/bd3fb0ce-720a-4137-bd45-87fb6bcf8649",
+        "name": "Khyl Powell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Khyl_Powell_20240619_062043.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2362",
+          "email": "kpowell@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-14-2",
+        "openstates_id": "ocd-person/45d0b998-57ed-4c6f-ae22-bdbc4262f3e3",
+        "name": "Laurin Hendrix",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/HENDRIX.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2172",
+          "email": "lhendrix@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-15",
+        "openstates_id": "ocd-person/555adc5f-cc3a-46b1-a00b-8fb209bc457e",
+        "name": "Michael Way",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://azcapitoltimes.com/wp-content/blogs.dir/1/files/2024/08/Michael-Way.png",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2363",
+          "email": "mway@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-15-2",
+        "openstates_id": "ocd-person/17f344ec-ffe3-46fe-ba7a-8efdc5fbf2fd",
+        "name": "Neal Carter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/CARTER.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2098",
+          "email": "ncarter@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-16",
+        "openstates_id": "ocd-person/9128a4e7-1464-483c-8642-0d878da05619",
+        "name": "Chris Lopez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/651b0dc83f033107360db6a8/3cdfad91-9aeb-434f-ae53-bb6febf9025d/LOPEZ+STATE+FAIR.2+VERTICAL.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2364",
+          "email": "clopez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-16-2",
+        "openstates_id": "ocd-person/0fa874b7-acab-4f29-b800-56bd54f375fe",
+        "name": "Teresa Martinez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/30908.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2096",
+          "email": "tmartinez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-17",
+        "openstates_id": "ocd-person/183af2d0-dd61-476d-873f-305ae591968f",
+        "name": "Kevin Volk",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Alyssa_Perrini_20240808_093111.jpeg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2365",
+          "email": "kvolk@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-17-2",
+        "openstates_id": "ocd-person/11b313a8-0f20-4d81-8060-4ec7e65f1a29",
+        "name": "Rachel Keshel",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/KESHEL.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2173",
+          "email": "rkeshel@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-18",
+        "openstates_id": "ocd-person/b2ed48a3-b9ae-42be-a2c8-22a47477acfd",
+        "name": "Chris Mathis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/MATHIS.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2103",
+          "email": "cmathis@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-18-2",
+        "openstates_id": "ocd-person/f9216229-6490-412d-aa30-8baac5c2be3e",
+        "name": "Nancy Gutierrez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/56leg/House/GUTIERREZ.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2165",
+          "email": "ngutierrez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-19",
+        "openstates_id": "ocd-person/1e39adcf-868d-4722-a07b-09fcd36ad9ed",
+        "name": "Gail Griffin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/GRIFFIN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2053",
+          "email": "ggriffin@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-19-2",
+        "openstates_id": "ocd-person/bc52f516-a13b-4490-a12c-7b98fa3969e5",
+        "name": "Lupe Diaz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/DIAZ.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2100",
+          "email": "ldiaz@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-20",
+        "openstates_id": "ocd-person/6dba6afa-b274-4273-b8c6-270d27214eee",
+        "name": "Alma Hernández",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/HERNANDEZ_A.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2033",
+          "email": "ahernandez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-20-2",
+        "openstates_id": "ocd-person/81d12f3a-b635-4111-be8d-a71d2f7565f2",
+        "name": "Betty Villegas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Betty_Villegas_by_Gage_Skidmore.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2274",
+          "email": "bvillegas@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-21",
+        "openstates_id": "ocd-person/0a4e4b0a-a16e-475b-8aa1-75088657d8c1",
+        "name": "Consuelo Hernandez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/HERNANDEZ_C.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2169",
+          "email": "chernandez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-21-2",
+        "openstates_id": "ocd-person/df482d8a-1ed9-41ae-b4ba-d73d4cd9aa39",
+        "name": "Stephanie Stahl Hamilton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/STAHL_HAMILTON.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&legislator=2199&session=128",
+          "email": "sstahlhamilton@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-22",
+        "openstates_id": "ocd-person/93db82ca-c8b1-43e4-98ce-ba52f4d0f635",
+        "name": "Elda Luna-Nájera",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/EldaLunaNajera2024.JPG",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2281",
+          "email": "eluna-najera@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-22-2",
+        "openstates_id": "ocd-person/095a6754-d7ca-4f1f-b562-974d92e7eb3c",
+        "name": "Lupe Contreras",
+        "party": "D",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://npr.brightspotcdn.com/dims4/default/ccf2d8e/2147483647/strip/true/crop/189x266+0+0/resize/880x1239!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Flegacy%2Fsites%2Fknau%2Ffiles%2F202004%2Flupe_contreras.jpeg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2156",
+          "email": "lcontreras@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-23",
+        "openstates_id": "ocd-person/3b6fa6b2-0a60-4f2e-9fd8-0882b04d9e0b",
+        "name": "Mariana Sandoval",
+        "party": "D",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/56leg/House/SANDOVAL.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2194",
+          "email": "msandoval@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-23-2",
+        "openstates_id": "ocd-person/68c38dfc-a12b-4c51-8b70-c4e02931cddf",
+        "name": "Michele Peña",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MichelePena.png",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2189",
+          "email": "mpena@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-24",
+        "openstates_id": "ocd-person/2e9c0206-d392-48a3-a599-7f6d226527b7",
+        "name": "Anna Abeytia",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/ABEYTIA.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2366",
+          "email": "aabeytia@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-24-2",
+        "openstates_id": "ocd-person/7a33e2bd-8394-45d9-967b-0c39430ff39b",
+        "name": "Lydia Hernandez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/HERNANDEZ_L.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2170",
+          "email": "lhernandez@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-25",
+        "openstates_id": "ocd-person/8db06598-a7e1-4b25-9e76-6a2be0d9eae3",
+        "name": "Michael Carbone",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/CARBONE.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2153",
+          "email": "mcarbone@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-25-2",
+        "openstates_id": "ocd-person/8595d83f-1e95-4c0d-8c24-100a4a763a8f",
+        "name": "Nick Kupper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/KUPPER.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2367",
+          "email": "nkupper@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-26",
+        "openstates_id": "ocd-person/b1da595a-8c97-42f8-ae58-694c17efa3f3",
+        "name": "Cesar Aguilar",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/AGUILAR.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2146",
+          "email": "caguilar@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-26-2",
+        "openstates_id": "ocd-person/0fb2e73b-b140-4669-a9bd-b75facb342dd",
+        "name": "Quantá Crews",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/adaad5_bffecd22c43440d18ef9083b2464b1fd~mv2.jpg/v1/fill/w_925,h_1156,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/adaad5_bffecd22c43440d18ef9083b2464b1fd~mv2.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2272",
+          "email": "qcrews@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-27",
+        "openstates_id": "ocd-person/981d0aee-d239-4acc-9da8-1332481e57ee",
+        "name": "Lisa Fink",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.azvoterguide.com/wp-content/uploads/2024/06/Fink16-photo.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2369",
+          "email": "lfink@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-27-2",
+        "openstates_id": "ocd-person/ec93f89c-d32f-4f34-bbe9-1aeb8305a065",
+        "name": "Tony Rivero",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/54leg/House/RIVERO.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1870",
+          "email": "trivero@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-28",
+        "openstates_id": "ocd-person/77be0e97-4c93-4332-a9f9-9348560fdf98",
+        "name": "Beverly Pingerelli",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/PINGERELLI.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2071",
+          "email": "bpingerelli@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-28-2",
+        "openstates_id": "ocd-person/6e8f2c0d-c9d3-4cb5-ae59-5264cb6d61a7",
+        "name": "David Livingston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/Senate/LIVINGSTON.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&legislator=2175&session=128",
+          "email": "dlivingston@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-29",
+        "openstates_id": "ocd-person/70f55f83-fed8-497f-86a9-94b6d428b9b4",
+        "name": "James Taylor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.azcentral.com/gcdn/authoring/authoring-images/2024/05/29/PPHX/73887409007-james-taylor-gop-candidate-for-the-arizona-house-of-representatives-in-ld-29.jpg?width=300&height=359&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2370",
+          "email": "jtaylor@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-29-2",
+        "openstates_id": "ocd-person/37f8815d-1672-42dd-9e9b-305449d7bb8b",
+        "name": "Steve Montenegro",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "http://www.azleg.gov/alisImages/MemberPhotos/49leg/House/MONTENEGRO.gif",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2183",
+          "email": "smontenegro@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-30",
+        "openstates_id": "ocd-person/fd68e4c2-0463-477c-81ea-e2e36273e12b",
+        "name": "John Gillette",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/havasunews.com/content/tncms/assets/v3/editorial/6/1b/61ba5bf8-e969-11e5-953b-3ba1ad504638/56e5e78dbc277.image.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2161",
+          "email": "jgillette@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-30-2",
+        "openstates_id": "ocd-person/433aab5d-35be-48cc-80a9-f468d5279022",
+        "name": "Leo Biasiucci",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/55leg/House/BIASIUCCI.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2034",
+          "email": "lbiasiucci@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

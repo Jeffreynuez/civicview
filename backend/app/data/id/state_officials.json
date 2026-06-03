@@ -1,0 +1,1741 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "ID",
+  "state_name": "Idaho",
+  "executive": {
+    "governor": {
+      "id": "id-exec-gov",
+      "name": "Brad Little",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://gov.idaho.gov",
+      "photo_url": null,
+      "bio": "Brad Little is the Governor of Idaho, serving since 2019.",
+      "sources": [
+        "https://gov.idaho.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "id-exec-lieutenant-governor",
+      "name": "Scott Bedke",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://lgo.idaho.gov/wp-content/uploads/2026/02/Bedke.head_.shot_.2025.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "id-exec-secretary-of-state",
+        "name": "Phil McGrane",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": null
+      },
+      {
+        "id": "id-exec-attorney-general",
+        "name": "Raúl Labrador",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.ag.idaho.gov/content/uploads/2025/07/320A4720.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Idaho State Senate",
+    "members": [
+      {
+        "id": "id-sen-1",
+        "openstates_id": "ocd-person/76cd07b1-e4de-4e1b-bd7c-a3153493ac5f",
+        "name": "Jim Woodward",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Woodward5347.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id5347/",
+          "email": "jwoodward@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-2",
+        "openstates_id": "ocd-person/202344ed-fa6e-4d6d-b746-516abb5c962d",
+        "name": "Phil Hart",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Hart26.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id26/",
+          "email": "phil.hart@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-3",
+        "openstates_id": "ocd-person/db1a3f87-5a7e-4133-a36d-5b319d28d38c",
+        "name": "Doug Okuniewicz",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Okuniewicz6706.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6706/",
+          "email": "dougo@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-4",
+        "openstates_id": "ocd-person/a0bec144-a980-4ce8-9e02-ada83079a300",
+        "name": "Ben Toews",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Toews7795.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7795/",
+          "email": "btoews@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-5",
+        "openstates_id": "ocd-person/a1af9e8e-8f2c-4b6a-a7ca-708a0d0bf6f2",
+        "name": "Carl Bjerke",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Bjerke7796.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7796/",
+          "email": "cbjerke@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-6",
+        "openstates_id": "ocd-person/04ccb3bd-ae8d-4a64-a6c2-1b63a6f94d15",
+        "name": "Dan Foreman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Foreman4269.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id4269/",
+          "email": "dforeman@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-7",
+        "openstates_id": "ocd-person/4f02e826-da06-4286-8aaf-b89ef3f659bc",
+        "name": "Cindy Carlson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Carlson7776.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7776/",
+          "email": "ccarlson@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-8",
+        "openstates_id": "ocd-person/adb43503-bebd-4a83-8fa6-e6416576de2f",
+        "name": "Christy Zito",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Zito4281.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id4281/",
+          "email": "czito@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-9",
+        "openstates_id": "ocd-person/42e5ac22-a35c-4e0e-80fb-05bab9093b28",
+        "name": "Brandon Shippy",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Shippy9215.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id9215/",
+          "email": "bshippy@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-10",
+        "openstates_id": "ocd-person/846c0e7d-ec02-4f49-afb9-3604dd27da98",
+        "name": "Tammy Nichols",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tammy_Nichols_Election_Photo.jpg/500px-Tammy_Nichols_Election_Photo.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5380/",
+          "email": "tnichols@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-11",
+        "openstates_id": "ocd-person/6a0fc69b-9842-4d47-b509-f555fee240e6",
+        "name": "Camille Blaylock",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://idgop.org/wp-content/uploads/sites/4/2024/05/blaylock-1.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9400/",
+          "email": "cblaylock@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-12",
+        "openstates_id": "ocd-person/02a86541-b10a-42cc-b260-0d0f5e3226c0",
+        "name": "Ben Adams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Adams6685.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6685/",
+          "email": "badams@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-13",
+        "openstates_id": "ocd-person/e89ea88e-7519-48fe-8cb9-65ea18d0dd7b",
+        "name": "Brian Lenney",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Lenney7778.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7778/",
+          "email": "blenney@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-14",
+        "openstates_id": "ocd-person/f67b55ee-1cc0-431b-b950-4b5dfca332ad",
+        "name": "Scott Grow",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Grow5126.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5126/",
+          "email": "sgrow@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-15",
+        "openstates_id": "ocd-person/bd3c88a6-3476-4aa8-b267-a5c30d454cac",
+        "name": "Codi Galloway",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Galloway6702.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id6702/",
+          "email": "cgalloway@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-16",
+        "openstates_id": "ocd-person/c77bc461-d0fe-47b4-8999-72e4eda69da1",
+        "name": "Ali Rabe",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://cdn.theorg.com/61b74bbb-61b5-48d5-a84d-fb498da306b9_thumb.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6687/",
+          "email": "arabe@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-17",
+        "openstates_id": "ocd-person/34bec23f-67e3-4940-8f5e-29850f0e9170",
+        "name": "Carrie Semmelroth",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2022/directory/Semmelroth7115.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7115/",
+          "email": "csemmelroth@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-18",
+        "openstates_id": "ocd-person/c3b6822b-8900-408d-8745-7066b79e1e52",
+        "name": "Janie Ward-Engelking",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Ward-Engelking2091.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2091/",
+          "email": "jwardengelking@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-19",
+        "openstates_id": "ocd-person/c6b06b7d-05f8-45a3-8415-4cd1e76c5642",
+        "name": "Melissa Wintrow",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Wintrow3139.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3139/",
+          "email": "mwintrow@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-20",
+        "openstates_id": "ocd-person/b01dc4f2-6477-4386-ba9b-eb0c3a2c2c8b",
+        "name": "Josh Keyser",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Keyser9395.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9395/",
+          "email": "jkeyser@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-21",
+        "openstates_id": "ocd-person/562def54-c2da-4b6a-bdfa-5038a4c04e0c",
+        "name": "Treg Bernt",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Bernt7797.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7797/",
+          "email": "tbernt@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-22",
+        "openstates_id": "ocd-person/d3ee525f-429f-4ac6-ba52-e947881a3e6c",
+        "name": "Lori Den Hartog",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Den%20Hartog3124.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3124/",
+          "email": "ldenhartog@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-23",
+        "openstates_id": "ocd-person/0b894582-b3d6-4600-a401-ed874e8c632d",
+        "name": "Todd Lakey",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Lakey2132.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2132/",
+          "email": "tlakey@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-24",
+        "openstates_id": "ocd-person/7ba08b82-5bfc-4b36-b036-28b04c0d8bd2",
+        "name": "Glenneda Zuiderveld",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Zuiderveld7798.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7798/",
+          "email": "gzuiderveld@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-25",
+        "openstates_id": "ocd-person/7ea55825-b942-4464-bb86-878113e524fe",
+        "name": "Josh Kohl",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Kohl9401.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9401/",
+          "email": "jkohl@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-26",
+        "openstates_id": "ocd-person/1024a2b6-d36f-4c1f-86a0-826ec9120fe0",
+        "name": "Ron Taylor",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Taylor7836.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7836/",
+          "email": "rtaylor@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-27",
+        "openstates_id": "ocd-person/9577c53b-0d84-4d3b-9c5b-7d38227c8e32",
+        "name": "Kelly Anthon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzBUr0WfBwwJVjrJhYaJYV9f99Qba5dm5P6g&s",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3524/",
+          "email": "kanthon@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-28",
+        "openstates_id": "ocd-person/e2a8fbe1-e9dc-4569-865f-450fa5f13665",
+        "name": "Jim Guthrie",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Guthrie1179.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id1179/",
+          "email": "jguthrie@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-29",
+        "openstates_id": "ocd-person/bcb4f50c-1f70-484a-90c2-65652b6a1133",
+        "name": "James Ruchti",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Ruchti52.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id52/",
+          "email": "jruchti@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-30",
+        "openstates_id": "ocd-person/8efc94ea-7306-48f5-8d45-5bed5f5e1f85",
+        "name": "Julie VanOrden",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/VanOrden2129.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/house/membershipSingle.cfm?ID=2129",
+          "email": "jvanorden@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-31",
+        "openstates_id": "ocd-person/2a8943d8-c4fe-4286-8b26-6240d9ff26f8",
+        "name": "Van Burtenshaw",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Burtenshaw3140.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3140/",
+          "email": "vburtenshaw@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-32",
+        "openstates_id": "ocd-person/9134f853-f2da-47e8-a11f-9fbe77849414",
+        "name": "Kevin Cook",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Cook6686.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6686/",
+          "email": "kcook@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-33",
+        "openstates_id": "ocd-person/fdcf0c8e-5794-4c3c-a092-a64ee5cab9d3",
+        "name": "Dave Lent",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Lent5345.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5345/",
+          "email": "dlent@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-34",
+        "openstates_id": "ocd-person/2960c6c4-abca-4406-9d9d-4734fec3f68d",
+        "name": "Doug Ricks",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Ricks5383.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5383/",
+          "email": "dricks@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-sen-35",
+        "openstates_id": "ocd-person/84d9ffa4-35f6-4baf-acdd-c3bafee537e7",
+        "name": "Mark Harris",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Harris3584.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3584/",
+          "email": "mharris@senate.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Idaho State House",
+    "members": [
+      {
+        "id": "id-rep-1A",
+        "openstates_id": "ocd-person/92364a5c-40fe-4350-9604-5257be00caab",
+        "name": "Mark Sauter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Sauter7799.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7799/",
+          "email": "msauter@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-1B",
+        "openstates_id": "ocd-person/a41cd894-d64d-406e-99cd-f1935e40a812",
+        "name": "Cornel Rasor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Rasor9315.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id9315/",
+          "email": "crasor@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-2A",
+        "openstates_id": "ocd-person/bd967aaf-a9d5-4bec-bf7c-cf0aa19d72ca",
+        "name": "Heather Scott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Scott3137.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3137/",
+          "email": "hscott@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-2B",
+        "openstates_id": "ocd-person/d9426884-2195-45ee-8130-4a8cf0d61adf",
+        "name": "Dale Hawkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Hawkins7855.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7855/",
+          "email": "dhawkins@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-3A",
+        "openstates_id": "ocd-person/1abcdba2-7ed6-4871-889e-9e4c47c4d000",
+        "name": "Vito Barbieri",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Barbieri1171.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id1171/",
+          "email": "vbar@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-3B",
+        "openstates_id": "ocd-person/9cbfadc5-8393-444c-bb39-b1c79390d01b",
+        "name": "Jordan Redman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Redman7800.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7800/",
+          "email": "jredman@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-4A",
+        "openstates_id": "ocd-person/561516c4-4e4f-45bc-b1d0-6ed359006597",
+        "name": "Joe Alfieri",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Alfieri7857.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7857/",
+          "email": "jalfieri@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-4B",
+        "openstates_id": "ocd-person/f6437e18-b7fb-4e53-8c40-a2423d82853d",
+        "name": "Elaine Price",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Price7856.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7856/",
+          "email": "eprice@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-5A",
+        "openstates_id": "ocd-person/71489ac3-457d-41ec-b285-a099648b601b",
+        "name": "Ron Mendive",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Mendive2124.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id2124/",
+          "email": "rmendive@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-5B",
+        "openstates_id": "ocd-person/ee4e19dc-d39c-4a93-b466-346b2e822f86",
+        "name": "Tony Wisniewski",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Wisniewski5384.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5384/",
+          "email": "twisniewski@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-6A",
+        "openstates_id": "ocd-person/5c049d3c-e605-4f3f-9eba-c91949d5f9f4",
+        "name": "Lori McCann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/McCann6955.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id6955/",
+          "email": "lmccann@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-6B",
+        "openstates_id": "ocd-person/59fc8cd0-bec0-4df6-a3e6-99ea305c7100",
+        "name": "Brandon Mitchell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Mitchell6704.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6704/",
+          "email": "bmitchell@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-7A",
+        "openstates_id": "ocd-person/0c646770-75cb-4f65-b2af-fd7c933dfe24",
+        "name": "Kyle Harris",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Harris9415.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9415/",
+          "email": "kharris@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-7B",
+        "openstates_id": "ocd-person/e3d1a2f1-913b-40ec-8256-36eba043156b",
+        "name": "Charlie Shepherd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Shepherd6707.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6707/",
+          "email": "cshepherd@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-8A",
+        "openstates_id": "ocd-person/6d7d44ab-22ce-4a46-b6d0-643cc3af3d0b",
+        "name": "Rob Beiswenger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8A",
+        "role": "State Representative",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9psK7gbvCRFwbID4kl-z8CYjGocsNnfsafQ&s",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9416/",
+          "email": "rbeiswenger@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-8B",
+        "openstates_id": "ocd-person/d54c2ad2-bd9d-499f-9046-b6d1eaebbef1",
+        "name": "Faye Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Thompson9420.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9420/",
+          "email": "fthompson@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-9A",
+        "openstates_id": "ocd-person/7fb821ae-d24a-4e5c-b7bf-70c04b00b269",
+        "name": "John Shirts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Shirts9421.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9421/",
+          "email": "jshirts@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-9B",
+        "openstates_id": "ocd-person/bcaace10-c9c4-4018-a87c-6112eeb33346",
+        "name": "Judy Boyle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Boyle745.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id745/",
+          "email": "jboyle@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-10A",
+        "openstates_id": "ocd-person/060e3496-76ff-4895-9637-4ff7bbe7a05e",
+        "name": "Mike Moyle",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10A",
+        "role": "State Representative",
+        "photo_url": "https://www.idahoednews.org/wp-content/uploads/2018/12/Mike-Moyle-620x477.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id43/",
+          "email": "mmoyle@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-10B",
+        "openstates_id": "ocd-person/e8eea4c8-b669-4609-b991-13ef3a6ff10b",
+        "name": "Bruce Skaug",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Skaug6708.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6708/",
+          "email": "bskaug@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-11A",
+        "openstates_id": "ocd-person/c92ba4ff-72aa-4985-b8c0-bb3178187c81",
+        "name": "Kent Marmon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Marmon9417.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9417/",
+          "email": "kmarmon@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-11B",
+        "openstates_id": "ocd-person/f51cb798-c8e6-4cb7-954c-6507c0d3d054",
+        "name": "Lucas Cayler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Cayler9418.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9418/",
+          "email": "lcayler@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-12A",
+        "openstates_id": "ocd-person/42d3b7d7-1a3a-4d58-ae68-a84cbaaf7ad0",
+        "name": "Jeff Cornilles",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Cornilles7802.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7802/",
+          "email": "jcornilles@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-12B",
+        "openstates_id": "ocd-person/da5babc3-b974-4f3c-a750-8989ab3a122b",
+        "name": "Jaron Crane",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Crane7803.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7803/",
+          "email": "jcrane@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-13A",
+        "openstates_id": "ocd-person/81d4b890-9bf4-44e0-99b2-eda866f02d48",
+        "name": "Brent Crane",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Crane21.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id21/",
+          "email": "bcrane@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-13B",
+        "openstates_id": "ocd-person/0e6ffb72-a52a-4cac-90a0-ae54a3dfe1a2",
+        "name": "Steve Tanner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Tanner9419.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9419/",
+          "email": "stanner@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-14A",
+        "openstates_id": "ocd-person/ceec86a5-6519-452a-ba13-9f7ba2da84e5",
+        "name": "Ted Hill",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Hill7859.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7859/",
+          "email": "thill@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-14B",
+        "openstates_id": "ocd-person/188ce2db-4021-4af8-b562-c90bfab83ebf",
+        "name": "Josh Tanner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Tanner7860.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7860/",
+          "email": "jtanner@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-15A",
+        "openstates_id": "ocd-person/0c413128-0ec7-4228-aa8b-93572d153c6f",
+        "name": "Steve Berch",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Berch5368.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5368/",
+          "email": "sberch@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-15B",
+        "openstates_id": "ocd-person/3caa9714-29b4-4851-b530-b696c1a87b41",
+        "name": "Dori Healey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Healey7861.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id7861/",
+          "email": "dhealey@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-16A",
+        "openstates_id": "ocd-person/b5b4cf71-98db-47f1-84ec-087a4b46641a",
+        "name": "Soñia Galaviz",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Galaviz7862.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7862/",
+          "email": "sgalaviz@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-16B",
+        "openstates_id": "ocd-person/a0ccdf84-6300-4f9d-bca3-30b3299fece5",
+        "name": "Annie Henderson Haws",
+        "party": "D",
+        "chamber": "State House",
+        "district": "16B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Haws10055.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2026/id10055/",
+          "email": "ahendersonhaws@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-17A",
+        "openstates_id": "ocd-person/048117e1-cf54-4ebf-9afc-f244d023e039",
+        "name": "John Gannon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Gannon2144.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2144/",
+          "email": "jgannon@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-17B",
+        "openstates_id": "ocd-person/7abc0666-30bd-4e16-ba86-304b1750ac8e",
+        "name": "Megan Egbert",
+        "party": "D",
+        "chamber": "State House",
+        "district": "17B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2024/directory/Egbert9195.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2024/id9195/",
+          "email": "megbert@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-18A",
+        "openstates_id": "ocd-person/8b37fbb7-bc05-4fd5-be33-a8940e489195",
+        "name": "Ilana Rubel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18A",
+        "role": "State Representative",
+        "photo_url": "https://idahocapitalsun.com/wp-content/uploads/2021/04/IlanaRubel-scaled.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2888/",
+          "email": "irubel@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-18B",
+        "openstates_id": "ocd-person/50e557e4-e7b6-4765-a636-1638a675189c",
+        "name": "Brooke Green",
+        "party": "D",
+        "chamber": "State House",
+        "district": "18B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Green5374.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5374/",
+          "email": "bgreen@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-19A",
+        "openstates_id": "ocd-person/b3878069-33ec-4ecc-8236-f9d0de68f5da",
+        "name": "Monica Church",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Church9422.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9422/",
+          "email": "mchurch@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-19B",
+        "openstates_id": "ocd-person/7e3f625c-e56e-409a-9989-b07cd77344f6",
+        "name": "Chris Mathias",
+        "party": "D",
+        "chamber": "State House",
+        "district": "19B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Mathias6703.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2021/id6703/",
+          "email": "cmathias@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-20A",
+        "openstates_id": "ocd-person/ed09bbbc-7b10-4ee8-be6b-a4dfcd7330ec",
+        "name": "Joe Palmer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Palmer749.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id749/",
+          "email": "jpalmer@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-20B",
+        "openstates_id": "ocd-person/28827442-9341-4768-86ea-a9186d718be0",
+        "name": "James Holtzclaw",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Holtzclaw2086.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2086/",
+          "email": "jholtzclaw@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-21A",
+        "openstates_id": "ocd-person/07e5711c-2e3d-4d26-a82a-6c710ed9bf3b",
+        "name": "James Petzke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Petzke7863.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7863/",
+          "email": "jpetzke@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-21B",
+        "openstates_id": "ocd-person/a0b66388-5039-4a2c-b022-ac2ece0ce865",
+        "name": "Jeff Ehlers",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Ehlers7805.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7805/",
+          "email": "jehlers@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-22A",
+        "openstates_id": "ocd-person/ed9290a6-47b1-4b24-8b61-0c0de9b45c73",
+        "name": "John Vander Woude",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2017/directory/Vander%20Woude67.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id67/",
+          "email": "jvanderwoude@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-22B",
+        "openstates_id": "ocd-person/9808edb1-15b0-4b9b-91d9-91a97ff7bb4b",
+        "name": "Jason Monks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Monks2084.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id2084/",
+          "email": "jmonks@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-23A",
+        "openstates_id": "ocd-person/dbc641db-1cb7-4110-9121-96ddf5d877d7",
+        "name": "Chris Bruce",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Bruce9423.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9423/",
+          "email": "cbruce@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-23B",
+        "openstates_id": "ocd-person/0ad2781c-7d8f-4e19-9fb2-74c8f9033ef9",
+        "name": "Shawn Dygert",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Dygert9424.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9424/",
+          "email": "sdygert@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-24A",
+        "openstates_id": "ocd-person/39fe1103-009e-4594-8ae1-107ba5ffd388",
+        "name": "Clint Hostetler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Hostetler9425.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9425/",
+          "email": "chostetler@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-24B",
+        "openstates_id": "ocd-person/983607b1-0987-4efe-8547-de1c5d262e5f",
+        "name": "Steve Miller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Miller2134.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/house/membershipSingle.cfm?ID=2134",
+          "email": "smiller@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-25A",
+        "openstates_id": "ocd-person/51cc52d2-b23d-4b37-b8fd-2bc53941ee47",
+        "name": "Don Hall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Hall10355.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2026/id10355/",
+          "email": "dhall@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-25B",
+        "openstates_id": "ocd-person/140cefcc-8d67-4b5d-9051-c7892072bc38",
+        "name": "David Leavitt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Leavitt9426.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9426/",
+          "email": "dleavitt@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-26A",
+        "openstates_id": "ocd-person/d8c564c8-3499-4e44-b4b9-df1c0bb52ab4",
+        "name": "Mike Pohanka",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Pohanka9427.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9427/",
+          "email": "mpohanka@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-26B",
+        "openstates_id": "ocd-person/6e4d92d8-1f64-4284-95cf-d9c50e3d5730",
+        "name": "Jack Nelsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Nelsen7838.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7838/",
+          "email": "jnelsen@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-27A",
+        "openstates_id": "ocd-person/6dbb9465-3ef5-4754-a482-08ae17c4cb9b",
+        "name": "Doug Pickett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Pickett7810.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7810/",
+          "email": "dpickett@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-27B",
+        "openstates_id": "ocd-person/1bef63af-a339-47dd-872d-ef1c94a72900",
+        "name": "Clay Handy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Handy7811.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7811/",
+          "email": "chandy@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-28A",
+        "openstates_id": "ocd-person/bb03d309-94c3-4d63-bb69-ede616be8c72",
+        "name": "Rick Cheatum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Cheatum7812.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7812/",
+          "email": "rcheatum@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-28B",
+        "openstates_id": "ocd-person/bae06244-d892-41b2-a4a5-beaaa6cba0da",
+        "name": "Dan Garner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Garner7813.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7813/",
+          "email": "dgarner@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-29A",
+        "openstates_id": "ocd-person/f7a93a62-fa0b-4d95-a9ad-10a938fd47a0",
+        "name": "Dustin Manwaring",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Manwaring4277.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id4277/",
+          "email": "dmanwaring@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-29B",
+        "openstates_id": "ocd-person/7255260c-8991-427e-acd7-5ef985041199",
+        "name": "Tanya Burgoyne",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29B",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/812118/812118.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9428/",
+          "email": "tburgoyne@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-30A",
+        "openstates_id": "ocd-person/20fe3cd5-d9e1-4d03-9247-9a1ccde862d3",
+        "name": "David Cannon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Cannon6699.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6699/",
+          "email": "dcannon@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-30B",
+        "openstates_id": "ocd-person/cd9538d6-3ed0-4c87-8e0d-d524e8861157",
+        "name": "Ben Fuhriman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Fuhriman9429.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9429/",
+          "email": "bfuhriman@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-31A",
+        "openstates_id": "ocd-person/0147a633-d6d2-4005-9eb9-35dcf205718b",
+        "name": "Jerald Raymond",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Raymond5382.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5382/",
+          "email": "jraymond@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-31B",
+        "openstates_id": "ocd-person/70eb5f7f-381b-400d-87b2-2bdeb6a1c7e7",
+        "name": "Rod Furniss",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2019/directory/Furniss5372.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5372/",
+          "email": "rfurniss@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-32A",
+        "openstates_id": "ocd-person/94248975-397a-4e5c-a544-40cb7a3f06d0",
+        "name": "Stephanie Mickelsen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Mickelsen7814.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7814/",
+          "email": "smickelsen@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-32B",
+        "openstates_id": "ocd-person/13b5078f-aaaf-4222-a0ae-c8afcbdf3757",
+        "name": "Erin Bingham",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Bingham10415.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2026/id10415/",
+          "email": "ebingham@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-33A",
+        "openstates_id": "ocd-person/c8c374b3-22b8-4221-a65a-6a4616cb107d",
+        "name": "Barbara Ehardt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2025/directory/Ehardt4945.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id4945/",
+          "email": "behardt@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-33B",
+        "openstates_id": "ocd-person/a9af8eba-9dc3-4961-9305-fa325cb86948",
+        "name": "Marco Erickson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Erickson6700.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6700/",
+          "email": "merickson@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-34A",
+        "openstates_id": "ocd-person/4501fe8d-11d8-43ee-a9bd-5ba3a82eb5d4",
+        "name": "Jon Weber",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2021/directory/Weber6709.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id6709/",
+          "email": "jweber@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-34B",
+        "openstates_id": "ocd-person/df313cc3-ceb2-4fb0-bb36-b2f9cb9e959d",
+        "name": "Britt Raybould",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Raybould5381.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id5381/",
+          "email": "braybould@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-35A",
+        "openstates_id": "ocd-person/ca69eadf-b5f3-4f48-8ce1-8507af44f50e",
+        "name": "Mike Veile",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35A",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2026/directory/Veile10155.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2026/id10155/",
+          "email": "mveile@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "id-rep-35B",
+        "openstates_id": "ocd-person/647e5e14-6813-4fc7-a20d-be175157ffb0",
+        "name": "Josh Wheeler",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35B",
+        "role": "State Representative",
+        "photo_url": "https://legislature.idaho.gov/wp-content/uploads/sessioninfo/2023/directory/Wheeler7839.jpg",
+        "contact": {
+          "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id7839/",
+          "email": "joshwheeler@house.idaho.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

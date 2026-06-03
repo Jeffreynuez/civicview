@@ -1,0 +1,1712 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "SD",
+  "state_name": "South Dakota",
+  "executive": {
+    "governor": {
+      "id": "sd-exec-gov",
+      "name": "Larry Rhoden",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2025",
+      "website": "https://governor.sd.gov",
+      "photo_url": null,
+      "bio": "Larry Rhoden is the Governor of South Dakota, serving since 2025.",
+      "sources": [
+        "https://governor.sd.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "South Dakota State Senate",
+    "members": [
+      {
+        "id": "sd-sen-1",
+        "openstates_id": "ocd-person/9f5c460a-6f5d-4198-8be2-e78a9d4980bf",
+        "name": "Michael Rohl",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/rohl,%20michael%20sen-2772%20full%20rt.webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3805/Detail",
+          "email": "michael.rohl@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-2",
+        "openstates_id": "ocd-person/d8b7a70b-2c34-4319-aaaf-54112c5ca471",
+        "name": "Steve Kolbeck",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://kolbeckforsouthdakota.com/wp-content/uploads/2022/02/Kolbeck-Headshot1.png-684x1024.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4453/Detail",
+          "email": "steve.kolbeck@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-3",
+        "openstates_id": "ocd-person/5a5c92d7-0b2c-418e-a0ce-8ba0a6e4790a",
+        "name": "Carl Perry",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Carl_Perry_20230524_083211.jpeg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1612&Session=2019",
+          "email": "carl.perry@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-4",
+        "openstates_id": "ocd-person/229f3180-5808-47f9-b473-3da3c9585bc5",
+        "name": "Stephanie Sauder",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/sm_sauder,%20stephanie%20rep-0648%20rt.webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4455/Detail",
+          "email": "stephanie.sauder@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-5",
+        "openstates_id": "ocd-person/4d53d676-05f1-409a-8ef8-762d97143443",
+        "name": "Glen Vilhauer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Glen_Vilhauer.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4706/Detail",
+          "email": "glen.vilhauer@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-6",
+        "openstates_id": "ocd-person/dda7bd46-d880-453e-b830-269e79425a9a",
+        "name": "Ernie Otten",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/OTTEN_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1479&Session=2018s",
+          "email": "ernie.otten@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-7",
+        "openstates_id": "ocd-person/6206c534-4bec-4228-b86f-5005547c6957",
+        "name": "Tim Reed",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Reed_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1533&Session=2018s",
+          "email": "tim.reed@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-8",
+        "openstates_id": "ocd-person/6dabb48d-f267-4fb3-9e8c-0a3c182d44d3",
+        "name": "Casey Crabtree",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/crabtree_2020.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/1881/Detail",
+          "email": "casey.crabtree@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-9",
+        "openstates_id": "ocd-person/3a454e94-ca27-4e34-b603-c2768c047bc3",
+        "name": "Joy Hohn",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/jhohn.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4723/Detail",
+          "email": "joy.hohn@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-10",
+        "openstates_id": "ocd-person/81df3498-7677-4749-9753-c1ae9799e444",
+        "name": "Liz Larson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Liz_Larson__.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4466/Detail",
+          "email": "liz.larson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-11",
+        "openstates_id": "ocd-person/85616a5d-63b7-4794-8eb0-63ab7b121761",
+        "name": "Chris Karr",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Karr_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1549&Session=2018s",
+          "email": "chris.karr@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-12",
+        "openstates_id": "ocd-person/169a8374-daaa-4884-9add-d1719eabd966",
+        "name": "Arch Beal",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/BEAL_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1518&Session=2018s",
+          "email": "arch.beal@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-13",
+        "openstates_id": "ocd-person/10c3de09-4e65-4885-bbbb-78b2903a36e2",
+        "name": "Sue Peterson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/PetersonSue_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1431&Session=2019",
+          "email": "sue.peterson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-14",
+        "openstates_id": "ocd-person/5e23171d-49a3-471f-a6f8-24b057f2d836",
+        "name": "Larry Zikmund",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/ZIKMUND_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/1870/Detail",
+          "email": "larry.zikmund@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-15",
+        "openstates_id": "ocd-person/bea6d77a-6773-463b-946c-b23b27f5f4c0",
+        "name": "Jamie Smith",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Smith_jamie_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1539&Session=2018s",
+          "email": "jamie.smith@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-16",
+        "openstates_id": "ocd-person/1de26fd7-bcde-486b-b290-afdee6756c7c",
+        "name": "Kevin Jensen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Jensen_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1427&Session=2019",
+          "email": "kevin.jensen@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-17",
+        "openstates_id": "ocd-person/c2149a50-34ee-42c5-8440-e1c5ddcf66e4",
+        "name": "Sydney Davis",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/plaintalk.net/content/tncms/assets/v3/editorial/e/f2/ef29df3c-0515-11eb-b916-33278c4cf760/5f77d0e624605.image.jpg?resize=500%2C750",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3783/Detail",
+          "email": "sydney.davis@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-18",
+        "openstates_id": "ocd-person/a5c8c5c0-c02e-49cf-834b-f8e9d118935a",
+        "name": "Lauren Nelson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://cdn.socast.io/6942/sites/13/2024/06/04233345/Lauren-Nelson.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4695/Detail",
+          "email": "lauren.nelson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-19",
+        "openstates_id": "ocd-person/bd74c8bf-cc11-4bfc-a721-269a01a6ccb1",
+        "name": "Kyle Schoenfish",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "http://sdlegislature.gov/inc/img/Legislators/Schoenfish_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/1851/Detail",
+          "email": "kyle.schoenfish@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-20",
+        "openstates_id": "ocd-person/169a02e3-c161-4cca-8adb-10e55934a94f",
+        "name": "Paul Miskimins",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/miskimins_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1632&Session=2019",
+          "email": "paul.miskimins@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-21",
+        "openstates_id": "ocd-person/5cfb95b9-aa6a-4285-89d1-04770ae033fd",
+        "name": "MyKala Voita",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7b0400d1-d3d8-4073-95b9-39e28c8c6203.heic",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4697/Detail",
+          "email": "mykala.voita@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-22",
+        "openstates_id": "ocd-person/a5c12215-2e38-4d1f-a8b0-cc6ce0e859ca",
+        "name": "Brandon Wipf",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://governor.sd.gov/doc/IMG_4416-scaled.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4837/Detail",
+          "email": "brandon.wipf@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-23",
+        "openstates_id": "ocd-person/04b57e8f-1cbe-4637-84a5-6b2257413d18",
+        "name": "Mark Lapka",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoZm0bH8MRxxVDUSQkCXbPkK3Lm-BaDg8Cog&s",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4696/Detail",
+          "email": "mark.lapka@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-24",
+        "openstates_id": "ocd-person/c8ca77f5-97e7-4604-aec3-fe4ee5e7dc31",
+        "name": "Jim Mehlhaff",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://jimmehlhaff.com/wp-content/uploads/2022/03/Jim-High-Res-819x1024.jpeg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4460/Detail",
+          "email": "jim.mehlhaff@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-25",
+        "openstates_id": "ocd-person/f6b50a35-18e6-4e0c-bdd9-071f4a99bbed",
+        "name": "Tom Pischke",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Pischke_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1446&Session=2019",
+          "email": "tom.pischke@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-26",
+        "openstates_id": "ocd-person/e195011d-04f8-4e39-a9f9-b804495b3f2c",
+        "name": "Tamara Grove",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TamaraGrove2024.jpeg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4716/Detail",
+          "email": "tamara.grove@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-27",
+        "openstates_id": "ocd-person/d2b91681-6a72-42f8-94f6-c489309798b7",
+        "name": "Red Dawn Foster",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://listen.sdpb.org/sites/sdpb/files/201905/lege_red_dawn_foster_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1605&Session=2019",
+          "email": "reddawn.foster@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-28",
+        "openstates_id": "ocd-person/3ff2f0b9-b570-4980-941f-9616ea0bbc55",
+        "name": "Sam Marty",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MARTY.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1514&Session=2018s",
+          "email": "sam.marty@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-29",
+        "openstates_id": "ocd-person/2d13f154-7e05-462c-b8d9-da5c5556d8b9",
+        "name": "John Carley",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnCarley3.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4692/Detail",
+          "email": "john.carley@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-30",
+        "openstates_id": "ocd-person/ae4b500c-4a37-43ed-a3a2-dbb08071e265",
+        "name": "Amber Hulse",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ahulse.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4701/Detail",
+          "email": "amber.hulse@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-31",
+        "openstates_id": "ocd-person/73f418c4-6d07-4ef5-924f-1664738d2b46",
+        "name": "Randy Deibert",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RandyDeibert.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4448/Detail",
+          "email": "randy.deibert@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-32",
+        "openstates_id": "ocd-person/e0548110-ef50-435f-8c99-fbd53a06d8ff",
+        "name": "Helene Duhamel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "http://sdlegislature.gov/inc/img/Legislators/Duhamel_2020.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/1785/Detail",
+          "email": "helene.duhamel@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-33",
+        "openstates_id": "ocd-person/6dce0110-114c-467d-adb2-50e0309a8079",
+        "name": "Curt Voight",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1b0cc545-be4d-4e1d-a25e-504b7057b344.heic",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4702/Detail",
+          "email": "curt.voight@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-34",
+        "openstates_id": "ocd-person/f06bd3c9-8cac-4cc6-be62-f949e51f28eb",
+        "name": "Taffy Howard",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Howard_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1547&Session=2018s",
+          "email": "taffy.howard@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-sen-35",
+        "openstates_id": "ocd-person/4a052dc7-31aa-4a24-b72d-7e922ce7bf8b",
+        "name": "Greg Blanc",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/gblanc2.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4709/Detail",
+          "email": "greg.blanc@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "South Dakota State House",
+    "members": [
+      {
+        "id": "sd-rep-1",
+        "openstates_id": "ocd-person/533da64d-d703-4d56-9d65-8bf3b730d552",
+        "name": "Logan Manhart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Logan_Manhart.jpeg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4685/Detail",
+          "email": "logan.manhart@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-1-2",
+        "openstates_id": "ocd-person/1f9d8833-6a73-4985-b33e-635b6bc194b7",
+        "name": "Nick Fosness",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://sdaho.org/wp-content/uploads/2018/03/nick-fosness-big-696x967.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4839/Detail",
+          "email": "nick.fosness@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-2",
+        "openstates_id": "ocd-person/4d2f522f-336a-4794-8b89-48d65d250f6e",
+        "name": "David Kull",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DavidKull.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4438/Detail",
+          "email": "david.kull@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-2-2",
+        "openstates_id": "ocd-person/fe5950b8-b6e8-4a95-87b5-fd569f43b286",
+        "name": "John Sjaarda",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnSjaarda.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4439/Detail",
+          "email": "john.sjaarda@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-3",
+        "openstates_id": "ocd-person/02f0edff-2879-4fbb-9b23-796358690d07",
+        "name": "Al Novstrup",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/NOVSTRUP_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1456&Session=2018s",
+          "email": "al.novstrup@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-3-2",
+        "openstates_id": "ocd-person/713ca571-304b-48f0-a853-b49fa859134e",
+        "name": "Brandei Schaefbauer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://gray-ksfy-prod.cdn.arcpublishing.com/resizer/3wAp2PAmslSttABhdOPnmasLDYI=/980x0/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/Y4ZM7RT3TRB2ZBPHKDXEI5HL6E.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4444/Detail",
+          "email": "brandei.schaefbauer@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-4",
+        "openstates_id": "ocd-person/d458ae29-45a8-4406-a5c0-c256ec743172",
+        "name": "Dylan Jordan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/815272/815272.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4714/Detail",
+          "email": "dylan.jordan@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-4-2",
+        "openstates_id": "ocd-person/8125bf75-9ccc-41c4-b76b-3e84dc083c43",
+        "name": "Kent Roe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://static.votesmart.org/static/canphoto/216142.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4713/Detail",
+          "email": "kent.roe@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-5",
+        "openstates_id": "ocd-person/6ca3c0b7-e0d2-4d68-8b33-725c378ff130",
+        "name": "Josephine Garcia",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/3f6c9b_7103450fc62d4fb8acfceb568e4a1545~mv2.jpg/v1/fill/w_705,h_802,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/3f6c9b_7103450fc62d4fb8acfceb568e4a1545~mv2.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4705/Detail",
+          "email": "josephine.garcia@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-5-2",
+        "openstates_id": "ocd-person/8ea8be55-3862-4034-b0c9-8aa418dfc915",
+        "name": "Matt Roby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/mykxlg.com/content/tncms/assets/v3/editorial/8/8b/88bea3ac-5e1f-11ee-ba1f-dfd780c64f5d/6515af82998be.image.jpg?resize=333%2C500",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4704/Detail",
+          "email": "matt.roby@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-6",
+        "openstates_id": "ocd-person/d3d7563b-420c-4498-8bc5-4f9d6ed90806",
+        "name": "Aaron Aylward",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aaron-Aylward.PNG",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3786/Detail",
+          "email": "aaron.aylward@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-6-2",
+        "openstates_id": "ocd-person/6a9db533-590a-4481-980b-b5efe3412d9b",
+        "name": "Tim Czmowski",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://npr.brightspotcdn.com/89/8f/6dd0f43d4ee39f123a628f41ba91/tim-czmowski.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4730/Detail",
+          "email": "tim.czmowski@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-7",
+        "openstates_id": "ocd-person/82afbbac-f85b-47ec-aad9-c7218f35d44c",
+        "name": "Mellissa Heermann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/805d1e30-7bc9-464e-a3b8-c366e5bfe518/IMG_1300%20(1).JPG",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4450/Detail",
+          "email": "mellissa.heermann@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-7-2",
+        "openstates_id": "ocd-person/69b0ca35-e513-4250-90fd-3a8c44dbeae8",
+        "name": "Roger DeGroot",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RogerDeGroot.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4449/Detail",
+          "email": "roger.degroot@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-8",
+        "openstates_id": "ocd-person/3c82e6e9-348f-40cd-818e-76d4901d9ec5",
+        "name": "Tim Reisch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/reisch, tim rep-1757 rt.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4458/Detail",
+          "email": "tim.reisch@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-8-2",
+        "openstates_id": "ocd-person/cc78d0ae-544c-4b45-8073-4aed3ee1a513",
+        "name": "Tim Walburg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/208150/208150.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4687/Detail",
+          "email": "tim.walburg@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-9",
+        "openstates_id": "ocd-person/3b05e975-1b79-42ec-94e8-7a258142dd46",
+        "name": "Bethany Soye",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/_Bethany-Soye_.PNG",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3793/Detail",
+          "email": "bethany.soye@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-9-2",
+        "openstates_id": "ocd-person/052b96bd-7f02-4518-ba11-b1a55084149e",
+        "name": "Tesa Schwans",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TesaSchwans2024.jpeg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4717/Detail",
+          "email": "tesa.schwans@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-10",
+        "openstates_id": "ocd-person/1e3d4ebf-2669-4b20-acd4-e339d24f73c3",
+        "name": "Bobbi Andera",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bobbi_Andera_20250303_091250.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4715/Detail",
+          "email": "bobbi.andera@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-10-2",
+        "openstates_id": "ocd-person/85bda678-d416-4caa-b439-8a579288f2ec",
+        "name": "Erin Healy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Healy_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1624&Session=2019",
+          "email": "erin.healy@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-11",
+        "openstates_id": "ocd-person/d9d8a84f-96df-4dbf-b638-d63e216166d4",
+        "name": "Brian Mulder",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/27b7dcd4-adbb-4603-9579-073f083153b8/Brian_BriCowanPhotography-11.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:400,cg:true",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4447/Detail",
+          "email": "brian.mulder@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-11-2",
+        "openstates_id": "ocd-person/708ee344-687f-499a-9f52-48cb79686167",
+        "name": "Keri Weems",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/6633129388483f6e2a0ea63e/4fa432f3-e858-4d44-a401-ddc328a1f893/29d976e1-b6bb-4539-807c-c4e93f10ee4f+%281%29.jpg?format=2500w",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4691/Detail",
+          "email": "keri.weems@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-12",
+        "openstates_id": "ocd-person/f9dd87da-ac23-450d-9574-1efa95ef0d81",
+        "name": "Amber Arlint",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://siouxfallschamber.com/wp-content/uploads/sites/3/2022/11/District-12-Amber-Arlint.webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4456/Detail",
+          "email": "amber.arlint@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-12-2",
+        "openstates_id": "ocd-person/fe9a44c7-7241-4395-98e3-8445b1bc2d54",
+        "name": "Greg Jamison",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Jamison_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1536&Session=2018s",
+          "email": "greg.jamison@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-13",
+        "openstates_id": "ocd-person/fd692c4a-e6c1-45c1-b970-1fcdbe732cfe",
+        "name": "Jack Kolbeck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Kolbeck_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1538&Session=2018s",
+          "email": "jack.kolbeck@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-13-2",
+        "openstates_id": "ocd-person/123a6b73-d0a1-4263-96fd-a65373159918",
+        "name": "John Hughes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Hughes_2025.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4690/Detail",
+          "email": "john.hughes@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-14",
+        "openstates_id": "ocd-person/ba249bd9-5b3e-42f3-a367-061bf63d620a",
+        "name": "Taylor Rehfeldt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.gannett-cdn.com/presto/2020/05/22/PSIF/4cc05ff5-5458-4aa1-a67d-b9f2ac8e2cd2-Taylor_Rae_Rehfeldt.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3799/Detail",
+          "email": "taylor.rehfeldt@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-14-2",
+        "openstates_id": "ocd-person/a0e95faf-3b79-4657-bdd2-3a496d04e03c",
+        "name": "Tony Kayser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://assets.civicengine.com/uploads/candidate/headshot/815298/815298.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4724/Detail",
+          "email": "tony.kayser@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-15",
+        "openstates_id": "ocd-person/c123398a-d235-488f-ba5f-cc71983a66de",
+        "name": "Erik Muckey",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ErikMuckey.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4719/Detail",
+          "email": "erik.muckey@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-15-2",
+        "openstates_id": "ocd-person/892b6289-0bd8-441d-94bf-30e6f1cfce49",
+        "name": "Kadyn Wittman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KadynWittman.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4461/Detail",
+          "email": "kadyn.wittman@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-16",
+        "openstates_id": "ocd-person/de36e5d9-b079-4778-bd29-2d7a161488f6",
+        "name": "John Shubeck",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://southdakotasearchlight.com/wp-content/uploads/2025/09/Shubeck-197x300.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4947/Detail",
+          "email": "john.shubeck@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-16-2",
+        "openstates_id": "ocd-person/0c864308-04a8-4b22-af5b-5d718046b99f",
+        "name": "Karla Lems",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://gray-ksfy-prod.cdn.arcpublishing.com/resizer/fX4I5GWdwjL88Z9n8a1Dah-NctM=/980x0/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/72HOS665ZZDWHPEMYA6BWMS6BA.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4443/Detail",
+          "email": "karla.lems@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-17",
+        "openstates_id": "ocd-person/87c4b9d3-1e14-4c64-af35-e9a95a1f4bf3",
+        "name": "Chris Kassin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/kassin,%20chris%20rep-0599%20rt.webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4462/Detail",
+          "email": "chris.kassin@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-17-2",
+        "openstates_id": "ocd-person/705bda08-a613-4be4-9c90-ac7e30eef6bf",
+        "name": "William Shorma",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://lawmakerdocuments.blob.core.usgovcloudapi.net/photos/shorma,%20william%20rep-1194%20rt.webp",
+        "contact": {
+          "official_website": "https://legis.sd.gov/Legislators/Legislators/MemberDetail.aspx?Member=1066&Session=2016",
+          "email": "william.shorma@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-18",
+        "openstates_id": "ocd-person/8fabf252-4409-4c1f-b754-ab54759ea3ce",
+        "name": "Julie Auch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JulieAuch.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4445/Detail",
+          "email": "julie.auch@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-18-2",
+        "openstates_id": "ocd-person/0121d607-e75c-4427-bd76-a6e01434afca",
+        "name": "Mike Stevens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/STEVENS_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3790/Detail",
+          "email": "mike.stevens@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-19",
+        "openstates_id": "ocd-person/ce0a6958-a2d1-4e9e-ab06-943bc84a271a",
+        "name": "Drew Peterson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/DrewPeterson.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4440/Detail",
+          "email": "drew.peterson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-19-2",
+        "openstates_id": "ocd-person/7d5691be-08ff-4684-978d-81aaa8bdd99b",
+        "name": "Jessica Bahmuller",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://gray-ksfy-prod.cdn.arcpublishing.com/resizer/uVfdl5DqYxBK5BAgVB1sNda9-dw=/980x0/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/XEYMZWQPXBGYFJAKREMXYXNXCI.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4441/Detail",
+          "email": "jessica.bahmuller@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-20",
+        "openstates_id": "ocd-person/94fa8c46-b27a-452e-85b2-27baca009678",
+        "name": "Jeff Bathke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeff_Bathke_20240808_100312fgd.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4688/Detail",
+          "email": "jeff.bathke@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-20-2",
+        "openstates_id": "ocd-person/0baaa53b-6468-4de4-98ce-bf1e218f8d38",
+        "name": "Kaley Nolz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kaley_Nolz_2025.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4689/Detail",
+          "email": "kaley.nolz@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-21",
+        "openstates_id": "ocd-person/98281de1-c8bc-4c3a-9a5b-6a45c96c6087",
+        "name": "Jim Halverson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://halversonforhouse.com/wp-content/uploads/2024/04/Jim-Halverson-for-House.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4712/Detail",
+          "email": "jim.halverson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-21-2",
+        "openstates_id": "ocd-person/7dc4b8d9-148b-4622-a6de-b27dc27030be",
+        "name": "Marty Overweg",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "http://sdlegislature.gov/inc/img/Legislators/overweg_2020.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/1832/Detail",
+          "email": "marty.overweg@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-22",
+        "openstates_id": "ocd-person/e94f9d65-3b95-40cb-b3c2-74126023b55f",
+        "name": "Kevin Van Diepen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.plainsman.com/uploads/original/20240109-142336-0a240151fba44bcc2fecc73323c1cfdd.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4699/Detail",
+          "email": "kevin.vandiepen@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-22-2",
+        "openstates_id": "ocd-person/7eefd193-a618-4a9b-b416-cd495239ead6",
+        "name": "Lana Greenfield",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/GreenfieldLana_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1509&Session=2018s",
+          "email": "lana.greenfield@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-23",
+        "openstates_id": "ocd-person/f6efc9b6-c985-4765-bd47-8da24d06712b",
+        "name": "Scott Moore",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://gray-ksfy-prod.cdn.arcpublishing.com/resizer/PaauCW6h0UcuEU2uhSkymFUQnhU=/980x0/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/WIET46SP6JBKTLV2GTADMR27PY.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4469/Detail",
+          "email": "scott.moore@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-23-2",
+        "openstates_id": "ocd-person/138b5508-01b0-43ed-b8b6-ce9b9d07806f",
+        "name": "Spencer Gosch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Gosch_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1434&Session=2019",
+          "email": "spencer.gosch@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-24",
+        "openstates_id": "ocd-person/f611d7e5-8438-49da-a323-374bbf0af218",
+        "name": "Mike Weisgram",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/capjournal.com/content/tncms/assets/v3/editorial/5/dd/5dd71c64-93d9-11ea-a386-83ab371b2512/5eb9d679c54ee.image.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3789/Detail",
+          "email": "mike.weisgram@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-24-2",
+        "openstates_id": "ocd-person/46a0838c-0bb9-446a-8828-21a3f2124d1b",
+        "name": "Will Mortenson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.gannett-cdn.com/-mm-/7d2e32043f35f170234758f26dd14f0d4c05b2fa/c=0-17-3772-2148/local/-/media/2016/12/28/SiouxFalls/SiouxFalls/636185485920955826-Will-Mortenson.jpg?width=3200&height=1808&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3788/Detail",
+          "email": "will.mortenson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-25",
+        "openstates_id": "ocd-person/950b0ec2-1c69-4c81-ab1d-c61464519e26",
+        "name": "Les Heinemann",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Leslie_Heinemann.jpg",
+        "contact": {
+          "official_website": "https://legis.sd.gov/Legislators/Legislators/MemberDetail.aspx?Member=1019&Session=2016",
+          "email": "les.heinemann@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-25-2",
+        "openstates_id": "ocd-person/912b0c53-5674-42b0-8f22-8ccd01c3264c",
+        "name": "Jon Hansen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jon_Hansen.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1635&Session=2019",
+          "email": "jon.hansen@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-27",
+        "openstates_id": "ocd-person/2b581087-9814-4f0d-80e5-b29a6e7aee67",
+        "name": "Liz May",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/MAY_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3806/Detail",
+          "email": "liz.may@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-27-2",
+        "openstates_id": "ocd-person/8dc5a857-0514-4a81-8215-a2f21a069075",
+        "name": "Peri Pourier",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Pourier_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1638&Session=2019",
+          "email": "peri.pourier@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-29",
+        "openstates_id": "ocd-person/f2a2616a-c0d4-45d2-8c52-2c8d7dac5e26",
+        "name": "Kathy Rice",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://gray-kota-prod.gtv-cdn.com/resizer/v2/J7PTGE337BGX3PYCKMQSGVCMWI.jpg?auth=219de6028a2c39d4fe6c781ce1d7fbf5c6d380c1863d80fe91b11b9e80c54ea1&width=980&height=1030&smart=true",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4711/Detail",
+          "email": "kathy.rice@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-29-2",
+        "openstates_id": "ocd-person/5f9be535-0a3a-4661-a651-f65dbd39ce2b",
+        "name": "Terri Jorgenson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Terri-Jorgenson.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4710/Detail",
+          "email": "terri.jorgenson@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-30",
+        "openstates_id": "ocd-person/e12868fa-61b7-4ad5-9f68-bcfca817057d",
+        "name": "Tim Goodwin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Goodwin_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1444&Session=2019",
+          "email": "tim.goodwin@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-30-2",
+        "openstates_id": "ocd-person/e7bb9291-fd90-4db8-b3e6-c90ebc41c997",
+        "name": "Trish Ladner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Trish_Ladner.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3802/Detail",
+          "email": "trish.ladner@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-31",
+        "openstates_id": "ocd-person/e03644b8-7ddd-4ae0-a734-6f6e76e735ba",
+        "name": "Mary Fitzgerald",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.chicago2.vip.townnews.com/capjournal.com/content/tncms/assets/v3/editorial/6/bb/6bb95f06-3413-11eb-b8a6-77bddc8623d9/5fc6d265841ef.image.png?resize=630%2C630",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3785/Detail",
+          "email": "mary.fitzgerald@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-31-2",
+        "openstates_id": "ocd-person/18602d7b-fb7f-495b-bf94-2b0da2aae00f",
+        "name": "Scott Odenbach",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Scott-Odenbach.PNG",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3784/Detail",
+          "email": "scott.odenbach@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-32",
+        "openstates_id": "ocd-person/00ed522e-529c-4ec7-bec2-90e124a2b3df",
+        "name": "Nicole Uhre-Balk",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/nubalk.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4693/Detail",
+          "email": "nicole.uhre-balk@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-32-2",
+        "openstates_id": "ocd-person/a86e2b88-677f-4819-9fc2-0e9ba4c04377",
+        "name": "Steve Duffy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/SteveDuffy.png",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4468/Detail",
+          "email": "steve.duffy@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-33",
+        "openstates_id": "ocd-person/132b0654-ebb2-4b6b-81b3-d39b41110d45",
+        "name": "Curt Massie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://cloudfront-us-east-1.images.arcpublishing.com/gray/JN4WUIDOKVFC5NL33TGXE5YFOM.JPG",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4451/Detail",
+          "email": "curt.massie@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-33-2",
+        "openstates_id": "ocd-person/cc4fe32a-b912-4876-96e5-32341ccdd06d",
+        "name": "Phil Jensen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Phil-Jensen.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1442&Session=2019",
+          "email": "phil.jensen@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-34",
+        "openstates_id": "ocd-person/229c5337-951c-41d2-9e76-dc74878bcf89",
+        "name": "Heather Baxter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F110b1f43-2918-4e73-928e-0b9834191446_750x517.webp",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4721/Detail",
+          "email": "heather.baxter@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-34-2",
+        "openstates_id": "ocd-person/082e4c6e-c16a-4bfa-8c17-9c46952da446",
+        "name": "Mike Derby",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://lloydcompanies.com/wp/wp-content/uploads/2020/07/Mike-Derby-816x1024.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/3791/Detail",
+          "email": "mike.derby@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-35",
+        "openstates_id": "ocd-person/ebadc687-f53a-4ec4-9c37-b362a2ea6842",
+        "name": "Tina Mulally",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Mulally_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1646&Session=2019",
+          "email": "tina.mulally@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-35-2",
+        "openstates_id": "ocd-person/74bc4404-28a3-413b-b01f-3f303da1c8a9",
+        "name": "Tony Randolph",
+        "party": "R",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Randolph_2019.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1647&Session=2019",
+          "email": "tony.randolph@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-26A",
+        "openstates_id": "ocd-person/589ced64-f78f-447d-ab9a-8ead6965c61b",
+        "name": "Eric Emery",
+        "party": "D",
+        "chamber": "State House",
+        "district": "26A",
+        "role": "State Representative",
+        "photo_url": "https://www.sfsimplified.com/content/images/2022/09/Eric-Emery.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4471/Detail",
+          "email": "eric.emery@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-26B",
+        "openstates_id": "ocd-person/6ce3a563-339c-4bf4-8a70-0f5de85e5693",
+        "name": "Rebecca Reimer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26B",
+        "role": "State Representative",
+        "photo_url": "https://sdlegislature.gov/inc/img/Legislators/Reimer_2017.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1554&Session=2018s",
+          "email": "rebecca.reimer@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-28A",
+        "openstates_id": "ocd-person/3900be26-2367-48af-8083-6ec4b4f18cf1",
+        "name": "Jana Hunt",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28A",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jana_Hunt_2025.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4718/Detail",
+          "email": "jana.hunt@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "sd-rep-28B",
+        "openstates_id": "ocd-person/1e73baba-bddd-4b8c-901d-a1324f3194eb",
+        "name": "Travis Ismay",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28B",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Travis_Ismay_2025.jpg",
+        "contact": {
+          "official_website": "https://sdlegislature.gov/Legislators/Profile/4725/Detail",
+          "email": "travis.ismay@sdlegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

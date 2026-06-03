@@ -1,0 +1,2240 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "KY",
+  "state_name": "Kentucky",
+  "executive": {
+    "governor": {
+      "id": "ky-exec-gov",
+      "name": "Andy Beshear",
+      "party": "D",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://governor.ky.gov",
+      "photo_url": null,
+      "bio": "Andy Beshear is the Governor of Kentucky, serving since 2019.",
+      "sources": [
+        "https://governor.ky.gov"
+      ]
+    }
+  },
+  "state_senate": {
+    "body_name": "Kentucky State Senate",
+    "members": [
+      {
+        "id": "ky-sen-1",
+        "openstates_id": "ocd-person/a796965c-0c0f-43b2-975b-d9726b34acd8",
+        "name": "Jason Howell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate101.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=101",
+          "email": "jason.howell@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-2",
+        "openstates_id": "ocd-person/0ec7d376-4235-44e7-a6d7-d63962dff167",
+        "name": "Danny Carroll",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate102.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=102",
+          "email": "danny.carroll@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-3",
+        "openstates_id": "ocd-person/3109e3ae-10c1-417e-bf7f-bf4f539bd3c8",
+        "name": "Craig Richardson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate103.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=103",
+          "email": "craig.richardson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-4",
+        "openstates_id": "ocd-person/366daab1-a877-49b9-86b8-e3c497143bf0",
+        "name": "Robby Mills",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate104.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=104",
+          "email": "robby.mills@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-5",
+        "openstates_id": "ocd-person/8915acb8-6089-451f-be08-c79b0be59c40",
+        "name": "Steve Meredith",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate105.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=105",
+          "email": "stephen.meredith@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-6",
+        "openstates_id": "ocd-person/db2324a8-1ae2-4e3a-81e5-ac83cb7bbb05",
+        "name": "Lindsey Tichenor",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate106.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=106",
+          "email": "lindsey.tichenor@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-7",
+        "openstates_id": "ocd-person/e46eb488-2e34-4f33-840f-917496473c64",
+        "name": "Aaron Reed",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": "https://gunleash.com/wp-content/uploads/2023/11/Aaron_Reed.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=107",
+          "email": "aaron.reed@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-8",
+        "openstates_id": "ocd-person/2d6a7358-f685-4476-aa31-b92cf72b11ec",
+        "name": "Gary Boswell",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate108.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=108",
+          "email": "gary.boswell@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-9",
+        "openstates_id": "ocd-person/5594a97f-7358-427e-af84-43150a21c97e",
+        "name": "David Givens",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate109.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=109",
+          "email": "david.givens@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-10",
+        "openstates_id": "ocd-person/b76a3218-b1bd-475c-a775-7a6cbefbc1f3",
+        "name": "Matt Deneen",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate110.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=110",
+          "email": "matthew.deneen@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-11",
+        "openstates_id": "ocd-person/b702771e-135c-4444-b148-a321ee8088b2",
+        "name": "Steve Rawlings",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate111.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=111",
+          "email": "steve.rawlings@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-12",
+        "openstates_id": "ocd-person/7c03bd44-8541-49b0-9794-a9e606c292ce",
+        "name": "Amanda Bledsoe",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "12",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate112.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=112",
+          "email": "amanda.maysbledsoe@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-13",
+        "openstates_id": "ocd-person/42b259db-9ddb-4588-a463-b1a38c944c66",
+        "name": "Reggie Thomas",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate113.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=113",
+          "email": "reginald.thomas@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-14",
+        "openstates_id": "ocd-person/4042b29b-c6bb-407e-856d-9197a03d55ff",
+        "name": "Jimmy Higdon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate114.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=114",
+          "email": "jimmy.higdon@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-15",
+        "openstates_id": "ocd-person/34ed9881-46b8-41ba-b625-3d350140d2b9",
+        "name": "Rick Girdler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate115.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=115",
+          "email": "rick.girdler@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-16",
+        "openstates_id": "ocd-person/32b5035e-6d1a-44b8-9f7a-4173a1cdb940",
+        "name": "Max Wise",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate116.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=116",
+          "email": "max.wise@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-17",
+        "openstates_id": "ocd-person/86bd13c4-c404-4a34-aaf4-561621f2b2d8",
+        "name": "Matt Nunn",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkAwk-VsxWc9P7zUFu6kXXFswQiXfHR8HdEg&s",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=117",
+          "email": "matt.nunn@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-18",
+        "openstates_id": "ocd-person/42990da5-7020-4327-bbd8-496955b00040",
+        "name": "Robin Webb",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate118.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=118",
+          "email": "robin.webb@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-19",
+        "openstates_id": "ocd-person/8dbecabb-ef15-4925-8e50-26331e738a05",
+        "name": "Cassie Armstrong",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate119.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=119",
+          "email": "cassie.armstrong@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-20",
+        "openstates_id": "ocd-person/6aa07729-a16f-4465-a605-7afbbe982882",
+        "name": "Gex Williams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate120.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=120",
+          "email": "gex.williams@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-21",
+        "openstates_id": "ocd-person/257271f3-68b1-4481-94e5-f98300493413",
+        "name": "Brandon Storm",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate121.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=121",
+          "email": "brandon.storm@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-22",
+        "openstates_id": "ocd-person/a7cd8577-c315-4bf0-b95f-3259ab7dfce7",
+        "name": "Don Douglas",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate122.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=122",
+          "email": "donald.douglas@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-23",
+        "openstates_id": "ocd-person/b32a95c9-42ba-449b-8581-97b9cef73c6a",
+        "name": "Chris McDaniel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate123.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=123",
+          "email": "chris.mcdaniel@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-24",
+        "openstates_id": "ocd-person/b7112818-3357-413d-acae-a46bf3442b1d",
+        "name": "Shelley Frommeyer",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate124.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=124",
+          "email": "shelley.funkefrommeyer@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-25",
+        "openstates_id": "ocd-person/8659c7e3-ec01-4c40-b7ee-d21f37facff5",
+        "name": "Robert Stivers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate125.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=125",
+          "email": "robert.stivers@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-26",
+        "openstates_id": "ocd-person/b45a3156-f662-4884-9c13-b33a4c2d9105",
+        "name": "Karen Berg",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate126.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=126",
+          "email": "karen.berg@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-27",
+        "openstates_id": "ocd-person/1f3bbab4-2be0-496c-9c3b-b8f340f6b404",
+        "name": "Steve West",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate127.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=127",
+          "email": "steve.west@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-28",
+        "openstates_id": "ocd-person/139d004c-7a19-4153-a58b-919a1b70180e",
+        "name": "Greg Elkins",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate128.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=128",
+          "email": "greg.elkins@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-29",
+        "openstates_id": "ocd-person/d7adea26-9f4f-477f-a0bd-4b29ae9072b4",
+        "name": "Scott Madon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://thecityofpineville.com/wp-content/uploads/2018/08/mayor-scott-madon-228x300.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=129",
+          "email": "scott.madon@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-30",
+        "openstates_id": "ocd-person/209d5334-d4a2-45f3-b910-0cd52f96dd4e",
+        "name": "Brandon Smith",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate130.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=130",
+          "email": "brandon.smith@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-31",
+        "openstates_id": "ocd-person/18063ded-67cb-46a9-b558-14d5da92b860",
+        "name": "Phillip Wheeler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate131.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=131",
+          "email": "phillip.wheeler@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-32",
+        "openstates_id": "ocd-person/64af8584-1675-47fd-acfb-1cec59dfdda5",
+        "name": "Mike Wilson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate132.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=132",
+          "email": "mike.wilson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-33",
+        "openstates_id": "ocd-person/0d92a09c-ce23-46cd-9582-b7d1b08d76dd",
+        "name": "Gerald Neal",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate133.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=133",
+          "email": "gerald.neal@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-34",
+        "openstates_id": "ocd-person/b2299f51-c122-46ac-9937-3a6a7b682bb8",
+        "name": "Jared Carpenter",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate134.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=134",
+          "email": "jared.carpenter@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-35",
+        "openstates_id": "ocd-person/15b970f1-bd55-4876-80d5-13570b8f1a1a",
+        "name": "Keturah Herron",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate135.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=135",
+          "email": "keturah.herron@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-36",
+        "openstates_id": "ocd-person/38ae421f-f4fa-40f6-b025-a75bc6b42f35",
+        "name": "Julie Adams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate136.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=136",
+          "email": "julie.adams@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-37",
+        "openstates_id": "ocd-person/b0cb8f76-4b91-472c-97e2-106ef21f3342",
+        "name": "Gary Clemons",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=137",
+          "email": "gary.clemons@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-sen-38",
+        "openstates_id": "ocd-person/230c230d-7313-4a94-8eb3-60f57a86543c",
+        "name": "Mike Nemes",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/senate138.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=138",
+          "email": "mike.nemes@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Kentucky State House",
+    "members": [
+      {
+        "id": "ky-rep-1",
+        "openstates_id": "ocd-person/f73e54d0-9547-4688-b97d-4818b104d160",
+        "name": "Steven Rudy",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house1.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=1",
+          "email": "steven.rudy@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-2",
+        "openstates_id": "ocd-person/5cb48d67-2db5-4b6e-89b1-1509110bd708",
+        "name": "Kim Holloway",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://npr.brightspotcdn.com/01/2a/8d768d42405b8992ce1c5dcb8159/244626154-114463787658953-2523667072088681096-n.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=2",
+          "email": "kim.holloway@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-3",
+        "openstates_id": "ocd-person/c033dd77-f8d7-4558-8582-9e0088ae5406",
+        "name": "Randy Bridges",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house3.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=3",
+          "email": "randy.bridges@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-4",
+        "openstates_id": "ocd-person/66619aa2-a521-4318-b5d7-b4c36954b43d",
+        "name": "Wade Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house4.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=4",
+          "email": "wade.williams@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-5",
+        "openstates_id": "ocd-person/ad063b4f-a860-48c3-abfb-18e977a21caf",
+        "name": "Mary Beth Imes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house5.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=5",
+          "email": "marybeth.imes@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-6",
+        "openstates_id": "ocd-person/db36edd8-6c2f-4441-aa30-5b4dc48b3357",
+        "name": "Chris Freeland",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house6.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=6",
+          "email": "chris.freeland@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-7",
+        "openstates_id": "ocd-person/92576283-508e-4613-b1a0-3d227edf4068",
+        "name": "Suzanne Miles",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house7.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=7",
+          "email": "suzanne.miles@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-8",
+        "openstates_id": "ocd-person/ec846db3-c75b-4460-ba72-3e2b3fd9e04d",
+        "name": "Walker Thomas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house8.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=8",
+          "email": "walker.thomas@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-9",
+        "openstates_id": "ocd-person/c6904810-37a8-428d-8342-7831d7dc100c",
+        "name": "Myron Dossett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house9.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=9",
+          "email": "myron.dossett@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-10",
+        "openstates_id": "ocd-person/f218fb5a-2336-4f82-b192-acc3893dabdf",
+        "name": "Josh Calloway",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house10.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=10",
+          "email": "josh.calloway@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-11",
+        "openstates_id": "ocd-person/fded60a9-de72-47ba-bf20-90dddd9f9138",
+        "name": "J.T. Payne",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://thenews.org/wp-content/uploads/2018/08/7BD9AD2B-7439-4C90-86BE-692CC9C4D09A-777x437.jpeg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=11",
+          "email": "jt.payne@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-12",
+        "openstates_id": "ocd-person/f40ed494-ce37-43f4-b323-1bc2b6197831",
+        "name": "Jim Gooch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house12.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=12",
+          "email": "jim.gooch@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-13",
+        "openstates_id": "ocd-person/ed9307f1-cd95-4004-9e72-46970ea64adf",
+        "name": "D.J. Johnson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house13.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=13",
+          "email": "dj.johnson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-14",
+        "openstates_id": "ocd-person/07773b3f-387f-4e4e-ba79-571940c186f0",
+        "name": "Scott Lewis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house14.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=14",
+          "email": "scott.lewis@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-15",
+        "openstates_id": "ocd-person/be2fd4e3-6dfe-4d54-8c45-631eac63bc27",
+        "name": "Rebecca Raymer",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house15.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=15",
+          "email": "rebecca.raymer@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-16",
+        "openstates_id": "ocd-person/3fac3a9c-78ad-4b24-8483-f1786fac9c9e",
+        "name": "Jason Petrie",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house16.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=16",
+          "email": "jason.petrie@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-17",
+        "openstates_id": "ocd-person/ad2d1d2a-b838-4727-ac0f-a6fb64298b14",
+        "name": "Robert Duvall",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house17.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=17",
+          "email": "robert.duvall@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-18",
+        "openstates_id": "ocd-person/d3176059-683c-48be-9c43-a57da08a2f49",
+        "name": "Samara Heavrin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house18.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=18",
+          "email": "ryan.dotson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-19",
+        "openstates_id": "ocd-person/f013115a-6bbc-48ac-aab4-7949dd902701",
+        "name": "Michael Meredith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house19.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=19",
+          "email": "michael.meredith@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-20",
+        "openstates_id": "ocd-person/0e905c68-fbcc-4392-865e-a4dbc5d2ea42",
+        "name": "Kevin Jackson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house20.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=20",
+          "email": "kevin.jackson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-21",
+        "openstates_id": "ocd-person/f7bb262c-026f-4af2-9e17-939692c96e89",
+        "name": "Amy Neighbors",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house21.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=21",
+          "email": "amy.neighbors@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-22",
+        "openstates_id": "ocd-person/5a327e3b-ae91-4279-ae17-9214aad32fa9",
+        "name": "Shawn McPherson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house22.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=22",
+          "email": "shawn.mcpherson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-23",
+        "openstates_id": "ocd-person/817df40b-8e76-460d-81cf-63277866268a",
+        "name": "Steve Riley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house23.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=23",
+          "email": "steve.riley@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-24",
+        "openstates_id": "ocd-person/af59339a-aedf-4d1c-94b6-de071030773b",
+        "name": "Ryan Bivens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house24.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=24",
+          "email": "ryan.bivens@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-25",
+        "openstates_id": "ocd-person/e0860aa8-43ba-4bf2-94d7-3632c7375ab6",
+        "name": "Steve Bratcher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house25.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=25",
+          "email": "steve.bratcher@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-26",
+        "openstates_id": "ocd-person/eddce954-34a0-4b9a-aaca-6114e6bf418f",
+        "name": "Peyton Griffee",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/PeytonGriffee2024.png",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=26",
+          "email": "peyton.griffee@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-27",
+        "openstates_id": "ocd-person/911af3e2-7435-4f82-a477-99cb078ea99b",
+        "name": "Nancy Tate",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house27.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=27",
+          "email": "nancy.tate@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-28",
+        "openstates_id": "ocd-person/b86f4912-39b1-44a0-90a8-0b233921a094",
+        "name": "Jared Bauman",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house28.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=28",
+          "email": "jared.bauman@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-29",
+        "openstates_id": "ocd-person/7da80b33-fc71-4d7f-8c96-e6068bd4c19b",
+        "name": "Chris Lewis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ChrisLewis2024.jpeg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=29",
+          "email": "chris.lewis@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-30",
+        "openstates_id": "ocd-person/d4dd968d-1508-476b-bde1-7504a47288f0",
+        "name": "Daniel Grossberg",
+        "party": "D",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house30.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=30",
+          "email": "daniel.grossberg@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-31",
+        "openstates_id": "ocd-person/c85ace8f-67e3-438d-afeb-e6442aec43cd",
+        "name": "Susan Witten",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house31.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=31",
+          "email": "susan.witten@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-32",
+        "openstates_id": "ocd-person/77db7bcf-dfa8-4365-bb3a-4ca0351a8368",
+        "name": "Tina Bojanowski",
+        "party": "D",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house32.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=32",
+          "email": "tina.bojanowski@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-33",
+        "openstates_id": "ocd-person/c56fc398-975e-47b9-919a-fbdd0c9f721d",
+        "name": "Jason Nemes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house33.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=33",
+          "email": "jason.nemes@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-34",
+        "openstates_id": "ocd-person/bb3f614a-7fa0-4e55-a76b-dedfea0fdaa9",
+        "name": "Sarah Stalker",
+        "party": "D",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house34.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=34",
+          "email": "sarah.stalker@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-35",
+        "openstates_id": "ocd-person/6dd815a4-fc3c-4e79-8cd5-a574d8cf0af8",
+        "name": "Lisa Willner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house35.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=35",
+          "email": "lisa.willner@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-36",
+        "openstates_id": "ocd-person/2f3255d6-7801-4089-a275-f01e00444ee0",
+        "name": "John Hodgson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house36.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=36",
+          "email": "john.hodgson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-37",
+        "openstates_id": "ocd-person/67b233b8-474d-49ce-81a8-7f48eec3c79a",
+        "name": "Emily Callaway",
+        "party": "R",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house37.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=37",
+          "email": "emily.callaway@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-38",
+        "openstates_id": "ocd-person/1217ac1a-4ca4-4fe4-953b-572beb008bed",
+        "name": "Rachel Roarx",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house38.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=38",
+          "email": "rachel.roarx@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-39",
+        "openstates_id": "ocd-person/9a6d1b5a-6cb4-421e-b7c2-2cb27cfa4cc9",
+        "name": "Matt Lockett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house39.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=39",
+          "email": "matt.lockett@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-40",
+        "openstates_id": "ocd-person/bee3f0dd-450a-41a2-b9b9-e056d0a0f14d",
+        "name": "Nima Kulkarni",
+        "party": "D",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house40.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=40",
+          "email": "nima.kulkarni@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-41",
+        "openstates_id": "ocd-person/86342422-7a28-4631-b3d7-3912eb444ffd",
+        "name": "Mary Lou Marzian",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house41.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=34",
+          "email": "marylou.marzian@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-42",
+        "openstates_id": "ocd-person/118003d1-9f48-4ef8-bbd0-748d17ebb699",
+        "name": "Joshua Watkins",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JoshuaWatkins2024.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=42",
+          "email": "joshua.watkins@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-43",
+        "openstates_id": "ocd-person/897f811e-273d-4fc1-9268-0087e57444cf",
+        "name": "Pamela Stevenson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house43.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=43",
+          "email": "pamela.stevenson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-44",
+        "openstates_id": "ocd-person/c8a9f2cf-9a79-45f6-94df-346b546e1d9b",
+        "name": "Beverly Chester-Burton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house44.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=44",
+          "email": "beverly.chesterburton@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-45",
+        "openstates_id": "ocd-person/1ce736fd-c1ca-4366-a235-9509fdb2dcaf",
+        "name": "Adam Moore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/AdamMoore2024.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=45",
+          "email": "adam.moore@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-46",
+        "openstates_id": "ocd-person/dfaa3769-decc-4c1c-9c0b-7195153ab6c8",
+        "name": "Al Gentry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house46.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=46",
+          "email": "al.gentry@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-47",
+        "openstates_id": "ocd-person/4342be62-2791-4d48-b601-43949239cd94",
+        "name": "Felicia Rabourn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house47.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=47",
+          "email": "felicia.rabourn@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-48",
+        "openstates_id": "ocd-person/d7b86c25-2f90-4d8b-a92e-4b4ef5dd0512",
+        "name": "Ken Fleming",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house48.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=48",
+          "email": "ken.fleming@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-49",
+        "openstates_id": "ocd-person/7d2b01df-9356-4eaa-923f-144e3f229860",
+        "name": "Thomas Huff",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house49.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=49",
+          "email": "thomas.huff@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-50",
+        "openstates_id": "ocd-person/70d58905-dd36-4e9a-b281-639600e6b945",
+        "name": "Candy Massaroni",
+        "party": "R",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house50.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=50",
+          "email": "candy.massaroni@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-51",
+        "openstates_id": "ocd-person/3e417407-423f-45d3-b18a-c2845cd1ec57",
+        "name": "Sarge Pollock",
+        "party": "R",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house51.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=51",
+          "email": "sarge.pollock@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-52",
+        "openstates_id": "ocd-person/7aa13bf4-126a-4901-bfeb-2244bd2d3cc3",
+        "name": "Ken Upchurch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house52.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=52",
+          "email": "ken.upchurch@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-53",
+        "openstates_id": "ocd-person/d6c9aa9b-3c6b-411a-bff1-fc1c38d4bce0",
+        "name": "James Tipton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house53.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=53",
+          "email": "james.tipton@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-54",
+        "openstates_id": "ocd-person/d93e2493-49a8-4395-b7e0-5842893344e1",
+        "name": "Daniel Elliott",
+        "party": "R",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house54.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=54",
+          "email": "daniel.elliott@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-55",
+        "openstates_id": "ocd-person/cd95ada0-14f0-4b63-aeea-f4a92525eeaf",
+        "name": "Kim King",
+        "party": "R",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house55.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=55",
+          "email": "kim.king@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-56",
+        "openstates_id": "ocd-person/c88c6162-de24-4d8b-98a9-f1788390d043",
+        "name": "Dan Fister",
+        "party": "R",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house56.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=56",
+          "email": "daniel.fister@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-57",
+        "openstates_id": "ocd-person/4ce23404-165d-4c96-9130-56acaf2e73a7",
+        "name": "Erika Hancock",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house57.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=57",
+          "email": "erika.hancock@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-58",
+        "openstates_id": "ocd-person/2c5c20cc-807b-44c8-a1a9-582fe69ca87c",
+        "name": "Jennifer Decker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house58.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=58",
+          "email": "jennifer.decker@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-59",
+        "openstates_id": "ocd-person/bf8bfdc3-66f2-417c-8178-9ed16bf8843f",
+        "name": "David Osborne",
+        "party": "R",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house59.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=59",
+          "email": "david.osborne@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-60",
+        "openstates_id": "ocd-person/1ad4657b-84d4-4ce1-864e-2f1f75686cc7",
+        "name": "Marianne Proctor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house60.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=60",
+          "email": "marianne.proctor@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-61",
+        "openstates_id": "ocd-person/a8988de2-d65f-461c-96d1-4f1cddc6a969",
+        "name": "Savannah Maddox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house61.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=61",
+          "email": "savannah.maddox@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-62",
+        "openstates_id": "ocd-person/79a62906-5436-4ac8-adea-0c566273bbde",
+        "name": "Tony Hampton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://cdn.photos.sparkplatform.com/lex/20240524200530073416000000.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=62",
+          "email": "tony.hampton@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-63",
+        "openstates_id": "ocd-person/27b951aa-c951-4160-9373-721ca3b6a9db",
+        "name": "Kim Banta",
+        "party": "R",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house63.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=63",
+          "email": "kim.banta@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-64",
+        "openstates_id": "ocd-person/92511255-ca06-4241-bd91-0cafd92e3d5c",
+        "name": "Kim Moser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house64.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=64",
+          "email": "kimberly.moser@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-65",
+        "openstates_id": "ocd-person/737ae037-a61c-4649-9c08-bf5fe052ff36",
+        "name": "Stephanie Dietz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house65.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=65",
+          "email": "stephanie.dietz@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-66",
+        "openstates_id": "ocd-person/1c369689-ed04-484c-ab53-c50bd6011192",
+        "name": "T.J. Roberts",
+        "party": "R",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/T.J._Roberts.png",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=66",
+          "email": "tj.roberts@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-67",
+        "openstates_id": "ocd-person/7afd2d36-9415-44ff-b96d-0010cf4f864e",
+        "name": "Matt Lehman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MatthewLehman2024.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=67",
+          "email": "matt.lehman@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-68",
+        "openstates_id": "ocd-person/34a39b2d-1ff6-4ced-adf2-32f92fa781b1",
+        "name": "Mike Clines",
+        "party": "R",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house68.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=68",
+          "email": "mike.clines@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-69",
+        "openstates_id": "ocd-person/a41c47ce-cbfa-49e3-8a21-5666f24ef96a",
+        "name": "Steven Doan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house69.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=69",
+          "email": "steven.doan@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-70",
+        "openstates_id": "ocd-person/3d3b33bc-8852-48fe-90cf-42ce9551424c",
+        "name": "William Lawrence",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house70.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=70",
+          "email": "william.lawrence@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-71",
+        "openstates_id": "ocd-person/a110d6ba-f17f-4847-b0e9-327c82cd7122",
+        "name": "Josh Bray",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house71.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=71",
+          "email": "josh.bray@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-72",
+        "openstates_id": "ocd-person/1b8bc567-b895-4fae-8b3f-7a7160ca5138",
+        "name": "Matt Koch",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house72.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=72",
+          "email": "matthew.koch@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-73",
+        "openstates_id": "ocd-person/718ec3d2-325d-4ddf-b72b-728cea857222",
+        "name": "Ryan Dotson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house73.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=73",
+          "email": "ryan.dotson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-74",
+        "openstates_id": "ocd-person/ebd5f90d-e3cc-45ef-97ff-d51ff1685bcc",
+        "name": "David Hale",
+        "party": "R",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house74.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=74",
+          "email": "david.hale@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-75",
+        "openstates_id": "ocd-person/8048f367-9d46-4be5-9cb8-7a249d06cb13",
+        "name": "Lindsey Burke",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house75.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=75",
+          "email": "lindsey.burke@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-76",
+        "openstates_id": "ocd-person/2b9ac6b5-8979-40b1-b2d1-8241b93061a7",
+        "name": "Anne Donworth",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/AnneDonworth.jpeg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=76",
+          "email": "anne.donworth@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-77",
+        "openstates_id": "ocd-person/bb3e5fee-3bda-4a5d-95ee-dc31ff9defed",
+        "name": "George Brown",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house77.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=77",
+          "email": "george.brown@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-78",
+        "openstates_id": "ocd-person/b1a31b02-5d89-42be-97d4-7d08d99161d8",
+        "name": "Mark Hart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house78.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=78",
+          "email": "mark.hart@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-79",
+        "openstates_id": "ocd-person/51dc7033-7377-44d4-a5d8-7bd36b371896",
+        "name": "Chad Aull",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house79.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=79",
+          "email": "chad.aull@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-80",
+        "openstates_id": "ocd-person/3643503c-1da8-4a57-90f1-54f063b1d25e",
+        "name": "David Meade",
+        "party": "R",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house80.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=80",
+          "email": "david.meade@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-81",
+        "openstates_id": "ocd-person/96ab59e2-44c2-4c3d-ac8a-1ee24acc5b55",
+        "name": "Deanna Gordon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house81.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=81",
+          "email": "deanna.gordon@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-82",
+        "openstates_id": "ocd-person/716d7b2c-0576-4bf8-b5a9-b6fa2c1f8024",
+        "name": "Nick Wilson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house82.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=82",
+          "email": "nick.wilson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-83",
+        "openstates_id": "ocd-person/ff91cf3b-77a1-47b0-81b3-1c18f006349a",
+        "name": "Josh Branscum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house83.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=83",
+          "email": "josh.branscum@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-84",
+        "openstates_id": "ocd-person/6843e90b-a30a-4dbf-885c-7321ccc8f73f",
+        "name": "Chris Fugate",
+        "party": "R",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house84.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=84",
+          "email": "chris.fugate@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-85",
+        "openstates_id": "ocd-person/2eab3a78-154d-43cd-8278-73ad2e166b08",
+        "name": "Shane Baker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house85.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=85",
+          "email": "shane.baker@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-86",
+        "openstates_id": "ocd-person/5764151d-bf80-422b-bc46-93ac2be910cc",
+        "name": "Tom Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house86.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=86",
+          "email": "tom.smith@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-87",
+        "openstates_id": "ocd-person/e7f7a316-4eb0-4be9-adf9-e7067b20dcfc",
+        "name": "Adam Bowling",
+        "party": "R",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house87.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=87",
+          "email": "adam.bowling@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-88",
+        "openstates_id": "ocd-person/bc34f3ad-05ad-494c-bb80-bd2eb99e4fe9",
+        "name": "Vanessa Grossl",
+        "party": "R",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/VanessaGrossl.jpeg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=88",
+          "email": "vanessa.grossl@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-89",
+        "openstates_id": "ocd-person/b2834b48-3186-4fbd-aa3e-daa1d38fa308",
+        "name": "Timmy Truett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house89.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=89",
+          "email": "timmy.truett@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-90",
+        "openstates_id": "ocd-person/60ef609e-8aed-4698-a626-664f536a6122",
+        "name": "Derek Lewis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house90.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=90",
+          "email": "derek.lewis@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-91",
+        "openstates_id": "ocd-person/91eec267-436a-49a5-9d41-b6b2632d0a51",
+        "name": "Bill Wesley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house91.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=91",
+          "email": "bill.wesley@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-92",
+        "openstates_id": "ocd-person/7cda4251-f26b-4bab-bf88-ed61b947018e",
+        "name": "John Blanton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house92.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=92",
+          "email": "john.blanton@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-93",
+        "openstates_id": "ocd-person/943724d5-5e02-4d0f-bd79-a74e30f18d1a",
+        "name": "Adrielle Camuel",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house93.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=93",
+          "email": "adrielle.camuel@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-94",
+        "openstates_id": "ocd-person/3f4b9459-8c62-4d89-b2d6-9d0e951ed24f",
+        "name": "Mitch Whitaker",
+        "party": "R",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://whitakerforky.com/wp-content/uploads/2023/10/174675061_4495865760430094_8296166563898892766_n-1024x1024.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=94",
+          "email": "mitchum.whitaker@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-95",
+        "openstates_id": "ocd-person/6bc2a8c3-3370-4586-b0b7-a5028f336d12",
+        "name": "Ashley Laferty",
+        "party": "D",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house95.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=95",
+          "email": "ashley.tackettlaferty@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-96",
+        "openstates_id": "ocd-person/8ae56ea2-3f37-490b-a3dc-0dec9fe85c7c",
+        "name": "Patrick Flannery",
+        "party": "R",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house96.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=96",
+          "email": "patrick.flannery@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-97",
+        "openstates_id": "ocd-person/22e056d2-728a-425a-a0a1-19e0e5cc59cb",
+        "name": "Bobby McCool",
+        "party": "R",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house97.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=97",
+          "email": "bobby.mccool@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-98",
+        "openstates_id": "ocd-person/1439bad2-f18b-49e2-94ca-21f2b563dfdd",
+        "name": "Aaron Thompson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://content.campaignpartner.net/images/126420/Headshot.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=98",
+          "email": "aaron.thompson@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-99",
+        "openstates_id": "ocd-person/29b248e1-4033-41f6-ba30-136f2aa55045",
+        "name": "Richard White",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house99.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=99",
+          "email": "richard.white@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ky-rep-100",
+        "openstates_id": "ocd-person/65469c71-edc2-4c9f-87da-bcf4d3277591",
+        "name": "Scott Sharp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house100.jpg",
+        "contact": {
+          "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=100",
+          "email": "scott.sharp@kylegislature.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}

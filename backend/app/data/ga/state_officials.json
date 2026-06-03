@@ -1,0 +1,3789 @@
+{
+  "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
+  "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "state": "GA",
+  "state_name": "Georgia",
+  "executive": {
+    "governor": {
+      "id": "ga-exec-gov",
+      "name": "Brian Kemp",
+      "party": "R",
+      "role": "Governor",
+      "office": "Executive Office of the Governor",
+      "serving_since": "2019",
+      "website": "https://gov.georgia.gov",
+      "photo_url": null,
+      "bio": "Brian Kemp is the Governor of Georgia, serving since 2019. He previously served as Georgia Secretary of State.",
+      "sources": [
+        "https://gov.georgia.gov"
+      ]
+    },
+    "lt_governor": {
+      "id": "ga-exec-lieutenant-governor",
+      "name": "Burt Jones",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": null,
+      "photo_url": "https://ltgov.georgia.gov/sites/ltgov.georgia.gov/files/styles/4_3_720px_x_540px_/public/2022-12/burt-jones.jpeg"
+    },
+    "cabinet": [
+      {
+        "id": "ga-exec-secretary-of-state",
+        "name": "Brad Raffensperger",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://sos.ga.gov/sites/default/files/2021/11/01/SoS_Headshot6.jpg"
+      },
+      {
+        "id": "ga-exec-attorney-general",
+        "name": "Chris Carr",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": null,
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-GA-Carr1.jpg"
+      }
+    ]
+  },
+  "state_senate": {
+    "body_name": "Georgia State Senate",
+    "members": [
+      {
+        "id": "ga-sen-1",
+        "openstates_id": "ocd-person/fd2717f1-6294-4601-a027-8fc41195372c",
+        "name": "Ben Watson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "1",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/watson-ben-784.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "ben.watson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-2",
+        "openstates_id": "ocd-person/73918c45-83c1-4d52-a84d-3ad7ad8de40b",
+        "name": "Derek Mallow",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "2",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mallow-derek-5007.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5007?session=1029",
+          "email": "derek.mallow@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-3",
+        "openstates_id": "ocd-person/011995be-4dd0-43b2-ae75-57ae45f53576",
+        "name": "Mike Hodges",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "3",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hodges-mike-5013.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "mike.hodges@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-4",
+        "openstates_id": "ocd-person/449db918-10b7-4fa7-a047-eb9de416dce3",
+        "name": "Billy Hickman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hickman-billy-4972.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "billy.hickman@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-5",
+        "openstates_id": "ocd-person/5b6e0e37-802b-4103-b401-551532aba2e7",
+        "name": "Sheikh Rahman",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "5",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/rahman-sheikh-4924.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "sheikh.rahman@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-6",
+        "openstates_id": "ocd-person/81b84318-8c9f-467f-a7c1-776d9c415f51",
+        "name": "Matt Brass",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "6",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/brass-matt-4907.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "matt.brass@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-8",
+        "openstates_id": "ocd-person/b90b899d-87f0-43a5-9d15-6e310187ac41",
+        "name": "Russ Goodman",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "8",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/goodman-russ-4977.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "russ.goodman@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-9",
+        "openstates_id": "ocd-person/57ad1f65-9969-4be2-b262-684bf53123fb",
+        "name": "Nikki Merritt",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "9",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/merritt-nikki-4978.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "nikki.merritt@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-10",
+        "openstates_id": "ocd-person/acc7c167-6251-4ce8-8021-511acfa291ef",
+        "name": "Emanuel Jones",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "10",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jones-emanuel-28.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "emanuel.jones@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-11",
+        "openstates_id": "ocd-person/cbcdfca3-e47d-4b32-9164-ec0709a134bf",
+        "name": "Sam Watson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "11",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/watson-sam-837.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=837&Session=27",
+          "email": "sam.watson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-13",
+        "openstates_id": "ocd-person/98850c9f-1c37-4177-9ad8-17d2b4d3c8d4",
+        "name": "Carden Summers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "13",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/summers-carden-4971.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "carden.summers@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-14",
+        "openstates_id": "ocd-person/b83b0486-773f-4979-a1ce-e2f7f3e6d7e1",
+        "name": "Josh McLaurin",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "14",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mclaurin-josh-4942.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4942&Session=27",
+          "email": "josh.mclaurin@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-15",
+        "openstates_id": "ocd-person/4cf7c975-678b-4e21-9877-6d22d7b37916",
+        "name": "Ed Harbison",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "15",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/harbison-ed-17.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "ed.harbison@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-16",
+        "openstates_id": "ocd-person/078246e9-90b8-43aa-bb92-d7016f517b8e",
+        "name": "Marty Harbin",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "16",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/harbin-marty-850.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "marty.harbin@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-17",
+        "openstates_id": "ocd-person/df023a79-0194-4d1a-8755-5dee4053e1cc",
+        "name": "Gail Davenport",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "17",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/davenport-gail-10.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "gail.davenport@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-18",
+        "openstates_id": "ocd-person/516cb969-9467-490f-9a05-02c3e7decae3",
+        "name": "Steven McNeel",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "18",
+        "role": "State Senator",
+        "photo_url": "https://static.wixstatic.com/media/717e3f_742258cc71f249009c9f26b868c3c467~mv2.jpg/v1/fill/w_953,h_602,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/717e3f_742258cc71f249009c9f26b868c3c467~mv2.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5093",
+          "email": "steven.mcneel@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-19",
+        "openstates_id": "ocd-person/e9c5a2fc-3354-49e1-ac29-783502155fe7",
+        "name": "Blake Tillery",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "19",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/tillery-blake-4908.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "blake.tillery@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-20",
+        "openstates_id": "ocd-person/44a51125-9e82-41f6-8d4f-a646895b5994",
+        "name": "Larry Walker",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "20",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/walker--iii-larry-4878.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "larry.walker@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-21",
+        "openstates_id": "ocd-person/584267b0-e40b-4d6e-a7fe-4c076eb6214c",
+        "name": "Jason Dickerson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "21",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5088?session=1033",
+          "email": "jason.dickerson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-22",
+        "openstates_id": "ocd-person/d7bfd125-d343-4acd-a4dc-480daf241af3",
+        "name": "Harold Jones",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "22",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jones-ii-harold-851.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "harold.jones@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-23",
+        "openstates_id": "ocd-person/918888ac-edc7-4178-9133-d058f0f21010",
+        "name": "Max Burns",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "23",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "max.burns@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-24",
+        "openstates_id": "ocd-person/e11cecf4-f2e5-49d9-ba9e-47681f779438",
+        "name": "Lee Anderson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "24",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/anderson-lee-723.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "lee.anderson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-25",
+        "openstates_id": "ocd-person/c7860bae-9d9c-449c-9903-20230eec50ac",
+        "name": "Rick Williams",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "25",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/williams-rick-4905.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4905&Session=27",
+          "email": "rick.williams@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-26",
+        "openstates_id": "ocd-person/4b05e770-4423-4b64-8ae1-9600e8c73244",
+        "name": "David Lucas",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "26",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lucas-david-157.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "david.lucas@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-27",
+        "openstates_id": "ocd-person/1f7d013a-8861-4e08-b6bf-7c8d36f8107c",
+        "name": "Greg Dolezal",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "27",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dolezal-greg-4925.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "greg.dolezal@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-28",
+        "openstates_id": "ocd-person/7f88fadb-2f51-48c7-8ae5-e20cd2f33e4a",
+        "name": "Donzella James",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "28",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/james-donzella-372.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "donzella.james@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-29",
+        "openstates_id": "ocd-person/6da7fe11-4436-4854-8e1b-4c45dc4cdaac",
+        "name": "Randy Robertson",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "29",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/robertson-randy-4926.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "randy.robertson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-30",
+        "openstates_id": "ocd-person/93f45299-bfa2-4458-844a-5c6b9bdd8c1d",
+        "name": "Tim Bearden",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "30",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Timothy_Bearden.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/62",
+          "email": "timothy.bearden@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-31",
+        "openstates_id": "ocd-person/cb7d8c1d-3c26-4f35-8d37-d1cf8a7ce207",
+        "name": "Jason Anavitarte",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "31",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/anavitarte-jason-4980.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "jason.anavitarte@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-32",
+        "openstates_id": "ocd-person/fc31ab02-026c-4173-86db-570c0b297c64",
+        "name": "Kay Kirkpatrick",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "32",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/kirkpatrick-kay-4910.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "kay.kirkpatrick@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-33",
+        "openstates_id": "ocd-person/efb9168c-b45a-4f43-bba5-d6f05e7d9cbe",
+        "name": "Doc Rhett",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "33",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/rhett-michael--doc--855.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "michael.rhett@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-34",
+        "openstates_id": "ocd-person/0a816fbf-e5ec-4056-8b3e-08184400e71b",
+        "name": "Kenya Wicks",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "34",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kenya_Wicks.JPG",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5065",
+          "email": "kenya.wicks@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-35",
+        "openstates_id": "ocd-person/fcd57129-480c-4fba-a0d1-7fb369706611",
+        "name": "Jaha Howard",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5090",
+          "email": "jaha.howard@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-36",
+        "openstates_id": "ocd-person/bf2c1ec5-d995-4605-85ac-139adb037d99",
+        "name": "Nan Orrock",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "36",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/orrock-nan-33.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "nan.orrock@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-37",
+        "openstates_id": "ocd-person/777f58bb-9d6b-4755-ab7b-b94d11629cb5",
+        "name": "Ed Setzler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "37",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/setzler-ed-203.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=203&Session=27",
+          "email": "ed.setzler@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-38",
+        "openstates_id": "ocd-person/069fb4fa-766b-40e4-90b7-ce96b4fa2ace",
+        "name": "RaShaun Kemp",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "38",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RashaunKemp2024.png",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5066",
+          "email": "rashaun.kemp@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-39",
+        "openstates_id": "ocd-person/2abbbe23-8cb6-4f33-afaf-38ce88a4e10c",
+        "name": "Sonya Halpern",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "39",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/halpern-sonya-4985.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "sonya.halpern@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-40",
+        "openstates_id": "ocd-person/218a4fc4-a568-4b78-b350-0d60c6b12d4c",
+        "name": "Sally Harrell",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "40",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/harrell-sally-311.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "sally.harrell@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-41",
+        "openstates_id": "ocd-person/2f8621bc-0548-457c-8b0d-9148e14b77fe",
+        "name": "Kim Jackson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "41",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jackson-kim-4981.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "kim.jackson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-42",
+        "openstates_id": "ocd-person/3a5721a0-d848-40d0-a48a-66b797e7d7d9",
+        "name": "Brian Strickland",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "42",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/strickland-brian-835.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "brian.strickland@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-43",
+        "openstates_id": "ocd-person/d9f1ea57-7b90-484a-9664-927a36c87e0c",
+        "name": "Tonya Anderson",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "43",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/anderson-tonya-807.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "tonya.anderson@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-44",
+        "openstates_id": "ocd-person/3f15ad5e-877d-44aa-b5b3-b24587c42685",
+        "name": "Elena Parent",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "44",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/parent-elena-768.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "elena.parent@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-45",
+        "openstates_id": "ocd-person/17a7e011-73f2-4ac5-8470-3436b47a6744",
+        "name": "Clint Dixon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "45",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dixon-clint-4982.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "clint.dixon@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-46",
+        "openstates_id": "ocd-person/4dc87191-fa52-4c2f-bc9c-8823a8b4c882",
+        "name": "Bill Cowsert",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "46",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cowsert-bill-9.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "bill.cowsert@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-47",
+        "openstates_id": "ocd-person/9e417b67-da09-4516-b858-6b2458f53633",
+        "name": "Frank Ginn",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "47",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/ginn-frank-751.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "frank.ginn@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-48",
+        "openstates_id": "ocd-person/314d7845-ba55-4bd4-809a-c7c7aea26690",
+        "name": "Shawn Still",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "48",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/still-shawn-5016.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "shawn.still@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-49",
+        "openstates_id": "ocd-person/6be704ef-6250-4e08-86d3-f5fa2e1eebf3",
+        "name": "Drew Echols",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "49",
+        "role": "State Senator",
+        "photo_url": "https://www.gfpe.org/library/imglib/Drew-Echols-1.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5067",
+          "email": "drew.echols@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-50",
+        "openstates_id": "ocd-person/60bb96c4-f20c-4918-b88b-d7857341e5f4",
+        "name": "Bo Hatchett",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "50",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hatchett-bo-4984.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "bo.hatchett@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-51",
+        "openstates_id": "ocd-person/e2c141e9-9e04-4e2b-8e5b-57db594c7abc",
+        "name": "Steve Gooch",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "51",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gooch-steve-752.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "steve.gooch@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-52",
+        "openstates_id": "ocd-person/b11d0191-cd84-4a93-add6-ee65494caff2",
+        "name": "Chuck Hufstetler",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "52",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hufstetler-chuck-838.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "chuck.hufstetler@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-53",
+        "openstates_id": "ocd-person/ae6e08e3-6971-4cd2-982a-48d650a343d5",
+        "name": "Lanny Thomas",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "53",
+        "role": "State Senator",
+        "photo_url": "https://images.squarespace-cdn.com/content/69373488c86b8056febeb404/1f53a219-dd13-4b1b-8ab7-c71996cab9b7/Lanny+Thomas+for+Senate+in+road.jpg?content-type=image%2Fjpeg",
+        "contact": {
+          "official_website": null,
+          "email": null,
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-54",
+        "openstates_id": "ocd-person/1ac93f89-f367-4de3-82ba-79fa78d4d134",
+        "name": "Chuck Payne",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "54",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/payne-chuck--4909.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "chuck.payne@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-55",
+        "openstates_id": "ocd-person/8798a822-fee8-4546-bcdd-455f788bef44",
+        "name": "Randal Mangham",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "55",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Randal_Mangham.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/161",
+          "email": "randal.mangham@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-56",
+        "openstates_id": "ocd-person/ac1cac30-3fec-4c56-b172-b483db465a6b",
+        "name": "John Albers",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "56",
+        "role": "State Senator",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/albers-john-754.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate",
+          "email": "john.albers@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  },
+  "state_house": {
+    "body_name": "Georgia State House",
+    "members": [
+      {
+        "id": "ga-rep-1",
+        "openstates_id": "ocd-person/f4f9be12-5d7c-4fae-8b7b-9e9d19d2282f",
+        "name": "Mike Cameron",
+        "party": "R",
+        "chamber": "State House",
+        "district": "1",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cameron-mike-4986.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "mike.cameron@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-2",
+        "openstates_id": "ocd-person/80f4bbdf-02f3-4233-8456-e550e7e745af",
+        "name": "Steve Tarvin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "2",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/tarvin-steve-849.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=849&Session=27",
+          "email": "steve.tarvin@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-3",
+        "openstates_id": "ocd-person/c4c6c741-0cb4-4179-b46d-9983421b8fdd",
+        "name": "Mitchell Horner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "3",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/horner-mitchell-5018.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "mitchell.horner@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-4",
+        "openstates_id": "ocd-person/97a40ea4-674f-4b84-8fd3-8bc2f3b4a35d",
+        "name": "Kasey Carpenter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "4",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/carpenter-kasey-4911.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4911&Session=27",
+          "email": "kasey.carpenter@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-5",
+        "openstates_id": "ocd-person/9103b29e-964b-4637-9304-0e73216d7796",
+        "name": "Matt Barton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "5",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/barton-matt-4966.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4966&Session=27",
+          "email": "matt.barton@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-6",
+        "openstates_id": "ocd-person/594aa971-500b-42a4-9d7a-1ceb4c029220",
+        "name": "Jason Ridley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/ridley-jason-4883.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4883&Session=27",
+          "email": "jason.ridley@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-7",
+        "openstates_id": "ocd-person/8106e2d8-e1e3-42a8-b550-fbd2627fa474",
+        "name": "Johnny Chastain",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/chastain-johnny-5057.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "johnny.chastain@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-8",
+        "openstates_id": "ocd-person/432ef767-d4c8-4736-b2ac-96397205fb3d",
+        "name": "Stan Gunter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "8",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gunter-stan-4987.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "stan.gunter@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-9",
+        "openstates_id": "ocd-person/97a002db-6151-4fdf-9bce-013a6344764f",
+        "name": "Will Wade",
+        "party": "R",
+        "chamber": "State House",
+        "district": "9",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/wade-will-4988.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "will.wade@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-10",
+        "openstates_id": "ocd-person/546d682f-b256-4060-8fd3-084d7f118d43",
+        "name": "Victor Anderson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "10",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/anderson-victor-4989.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "victor.anderson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-11",
+        "openstates_id": "ocd-person/4d1f5379-01e9-4f58-9868-42acc07ec7a8",
+        "name": "Rick Jasperse",
+        "party": "R",
+        "chamber": "State House",
+        "district": "11",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jasperse-rick-755.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=755&Session=27",
+          "email": "rick.jasperse@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-12",
+        "openstates_id": "ocd-person/f33d979c-554c-433e-ad0f-837eef1da589",
+        "name": "Eddie Lumsden",
+        "party": "R",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lumsden-eddie-826.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=826&Session=27",
+          "email": "eddie.lumsden@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-13",
+        "openstates_id": "ocd-person/bf68b3dc-ca81-49f9-8e33-fe27317183d3",
+        "name": "Katie Dempsey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "13",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dempsey-katie-92.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=92&Session=27",
+          "email": "katie.dempsey@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-14",
+        "openstates_id": "ocd-person/7ac30a66-1649-4a8c-a72f-a4b9a7ab1534",
+        "name": "Mitchell Scoggins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "14",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/scoggins-mitchell-4964.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4964&Session=27",
+          "email": "mitchell.scoggins@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-15",
+        "openstates_id": "ocd-person/909e9026-e549-494b-be99-e8562a389e0c",
+        "name": "Matthew Gambill",
+        "party": "R",
+        "chamber": "State House",
+        "district": "15",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gambill-matthew-4934.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4934&Session=27",
+          "email": "matthew.gambill@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-16",
+        "openstates_id": "ocd-person/6ac8933e-8dde-4902-8eec-61cc5a91c844",
+        "name": "Trey Kelley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "16",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/kelley-trey-825.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=825&Session=27",
+          "email": "trey.kelley@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-17",
+        "openstates_id": "ocd-person/6552dd8d-1020-4bbb-abfc-88975573ebd4",
+        "name": "Martin Momtahan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "17",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/momtahan-martin-4935.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4935&Session=27",
+          "email": "martin.momtahan@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-18",
+        "openstates_id": "ocd-person/4b162447-89a7-4ffc-acbf-617e1ad87e2a",
+        "name": "Tyler Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "18",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/smith-tyler-paul-4990.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "tyler.smith@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-19",
+        "openstates_id": "ocd-person/f36d2507-b19a-4ee5-b4f9-5c06df761edf",
+        "name": "Joseph Gullett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "19",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gullett-joseph-4936.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4936&Session=27",
+          "email": "joseph.gullett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-20",
+        "openstates_id": "ocd-person/0d75f0d9-0242-4f72-b4f3-1cd085eb26b6",
+        "name": "Charlice Byrd",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/byrd-charlice-75.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "charlice.byrd@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-21",
+        "openstates_id": "ocd-person/933a841a-19d6-42c2-a046-991ff9903a23",
+        "name": "Brad Thomas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "21",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/thomas-brad-4991.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "brad.thomas@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-22",
+        "openstates_id": "ocd-person/56f28f8a-9296-4e69-9bd4-d0101a42b359",
+        "name": "Jordan Ridley",
+        "party": "R",
+        "chamber": "State House",
+        "district": "22",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/ridley-jordan-5019.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "jordan.ridley@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-23",
+        "openstates_id": "ocd-person/f2444048-8c14-45b2-b700-37f7899fa5bb",
+        "name": "Bill Fincher",
+        "party": "R",
+        "chamber": "State House",
+        "district": "23",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5092",
+          "email": "bill.fincher@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-24",
+        "openstates_id": "ocd-person/72370a62-92f4-46f1-ab7b-193a643085b8",
+        "name": "Carter Barrett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "24",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/barrett-carter-5020.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "carter.barrett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-25",
+        "openstates_id": "ocd-person/45567c87-3ba6-49ec-9ea2-5ebb880aa94c",
+        "name": "Todd Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "25",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jones-todd-4885.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4885&Session=27",
+          "email": "todd.jones@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-26",
+        "openstates_id": "ocd-person/7767ee85-7961-45ba-adc2-c3606b1c39b8",
+        "name": "Lauren McDonald",
+        "party": "R",
+        "chamber": "State House",
+        "district": "26",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mcdonald-lauren-4992.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "lauren.mcdonald@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-27",
+        "openstates_id": "ocd-person/69493144-3e3e-49a8-9e1f-f9a948fd0ff3",
+        "name": "Lee Hawkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "27",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hawkins-lee-19.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=19&Session=27",
+          "email": "lee.hawkins@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-28",
+        "openstates_id": "ocd-person/c0b205e2-1542-4802-896d-fa7b2b6fc4d9",
+        "name": "Brent Cox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "28",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cox-brent-5021.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "brent.cox@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-29",
+        "openstates_id": "ocd-person/99f0a2a7-8817-4756-a40e-575e259890e7",
+        "name": "Matt Dubnik",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dubnik-matt-4886.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4886&Session=27",
+          "email": "matt.dubnik@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-30",
+        "openstates_id": "ocd-person/3a323603-753e-4380-993c-9bb2a7fc55f3",
+        "name": "Derrick McCollum",
+        "party": "R",
+        "chamber": "State House",
+        "district": "30",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mccollum-derrick-5022.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "derrick.mccollum@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-31",
+        "openstates_id": "ocd-person/3b2b9f31-6859-4582-8d82-581597c0c178",
+        "name": "Emory Dunahoo",
+        "party": "R",
+        "chamber": "State House",
+        "district": "31",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dunahoo-emory-797.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=797&Session=27",
+          "email": "emory.dunahoo@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-32",
+        "openstates_id": "ocd-person/d79c3e9b-b73d-416b-9bfd-8a0338d8256c",
+        "name": "Chris Erwin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "32",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/erwin-chris-4965.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4965&Session=27",
+          "email": "chris.erwin@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-33",
+        "openstates_id": "ocd-person/bb48e87c-29db-4a4d-a278-fa299be2020e",
+        "name": "Alan Powell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "33",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/powell-alan-187.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=187&Session=27",
+          "email": "alan.powell@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-34",
+        "openstates_id": "ocd-person/8f76af22-98dc-4e1e-ba99-75b87c1129d6",
+        "name": "Devan Seabaugh",
+        "party": "R",
+        "chamber": "State House",
+        "district": "34",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/seabaugh-devan-5009.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "devan.seabaugh@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-35",
+        "openstates_id": "ocd-person/3a23acfd-5ce6-4e47-b641-1efdab05bdca",
+        "name": "Lisa Campbell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "35",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/campbell-lisa-5023.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "lisa.campbell@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-36",
+        "openstates_id": "ocd-person/be05ace3-ea73-4f3f-85ae-c5ed313d4cbe",
+        "name": "Ginny Ehrhart",
+        "party": "R",
+        "chamber": "State House",
+        "district": "36",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/ehrhart-ginny-4937.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4937&Session=27",
+          "email": "ginny.ehrhart@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-37",
+        "openstates_id": "ocd-person/4aec761f-5117-4f43-a487-9d77418f0bfa",
+        "name": "Mary Frances Williams",
+        "party": "D",
+        "chamber": "State House",
+        "district": "37",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/williams-mary-frances-4938.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4938&Session=27",
+          "email": "maryfrances.williams@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-38",
+        "openstates_id": "ocd-person/83a7bbf2-d69c-4813-bbeb-52820e6b9af4",
+        "name": "David Wilkerson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "38",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/wilkerson-david-760.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=760&Session=27",
+          "email": "david.wilkerson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-39",
+        "openstates_id": "ocd-person/aa7405f9-5c37-4ce8-a7eb-ac5949a6e776",
+        "name": "Terry Cummings",
+        "party": "D",
+        "chamber": "State House",
+        "district": "39",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cummings-terry-5024.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "terry.cummings@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-40",
+        "openstates_id": "ocd-person/fc1a5e1f-6ce4-47ab-987b-095afa166359",
+        "name": "Kimberly New",
+        "party": "R",
+        "chamber": "State House",
+        "district": "40",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/new-kimberly-5030.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "kimberly.new@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-41",
+        "openstates_id": "ocd-person/68185f1d-fa54-4571-b305-fcd6c7dc024e",
+        "name": "Michael Smith",
+        "party": "D",
+        "chamber": "State House",
+        "district": "41",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/smith-michael-832.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=832&Session=27",
+          "email": "michael.smith@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-42",
+        "openstates_id": "ocd-person/bd990496-ea34-4b79-8d6f-68cfed424c15",
+        "name": "Gabriel Sanchez",
+        "party": "D",
+        "chamber": "State House",
+        "district": "42",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Gabriel_SanchezGA.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5068",
+          "email": "gabriel.sanchez@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-43",
+        "openstates_id": "ocd-person/5474fbe2-6cdb-4ad2-9831-cdffaca442af",
+        "name": "Solomon Adesanya",
+        "party": "D",
+        "chamber": "State House",
+        "district": "43",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/adesanya-solomon-5025.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "solomon.adesanya@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-44",
+        "openstates_id": "ocd-person/81dde544-49e9-4fb0-9313-32eacaf6194b",
+        "name": "Don Parsons",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/parsons-don-184.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=184&Session=27",
+          "email": "don.parsons@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-45",
+        "openstates_id": "ocd-person/15db25fc-273b-467f-b8f9-897337f40b65",
+        "name": "Sharon Cooper",
+        "party": "R",
+        "chamber": "State House",
+        "district": "45",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cooper-sharon-86.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=86&Session=27",
+          "email": "sharon.cooper@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-46",
+        "openstates_id": "ocd-person/713cac52-0a57-4baa-8273-6eeca5b491df",
+        "name": "John Carson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "46",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/carson-john-795.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=795&Session=27",
+          "email": "john.carson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-47",
+        "openstates_id": "ocd-person/85740034-23b0-4001-9190-8948bd9f3b37",
+        "name": "Jan Jones",
+        "party": "R",
+        "chamber": "State House",
+        "district": "47",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jones-jan-142.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=142&Session=27",
+          "email": "jan.jones@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-48",
+        "openstates_id": "ocd-person/91abe321-5ea4-4f17-b8d8-573d7cb913e6",
+        "name": "Scott Hilton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "48",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hilton-scott-4899.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "scott.hilton@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-49",
+        "openstates_id": "ocd-person/42517dd7-eccb-4d22-a795-cbd010b69ee6",
+        "name": "Chuck Martin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "49",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/martin-chuck-164.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=164&Session=27",
+          "email": "chuck.martin@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-50",
+        "openstates_id": "ocd-person/48b46caf-d38e-46ab-96ff-c268e23a7d76",
+        "name": "Michelle Au",
+        "party": "D",
+        "chamber": "State House",
+        "district": "50",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/au-michelle-4983.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "michelle.au@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-51",
+        "openstates_id": "ocd-person/bdc621be-7296-4383-8c45-b4533d1c106c",
+        "name": "Esther Panitch",
+        "party": "D",
+        "chamber": "State House",
+        "district": "51",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/panitch-esther-5026.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "esther.panitch@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-52",
+        "openstates_id": "ocd-person/9007dcd9-3246-4cf3-9185-7478b3a9ad7a",
+        "name": "Shea Roberts",
+        "party": "D",
+        "chamber": "State House",
+        "district": "52",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/roberts-shea-4994.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "shea.roberts@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-53",
+        "openstates_id": "ocd-person/b824f8fd-7343-449d-8027-fcd0afaf1949",
+        "name": "Deborah Silcox",
+        "party": "R",
+        "chamber": "State House",
+        "district": "53",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/silcox-deborah-4887.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4887&Session=27",
+          "email": "deborah.silcox@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-54",
+        "openstates_id": "ocd-person/c2c81ffc-f4b1-40f4-96b0-6309f89902ee",
+        "name": "Betsy Holland",
+        "party": "D",
+        "chamber": "State House",
+        "district": "54",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/holland-betsy-4943.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4943&Session=27",
+          "email": "betsy.holland@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-55",
+        "openstates_id": "ocd-person/f02d369f-2d48-4d8d-853d-77ce5a8810fc",
+        "name": "Inga Willis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "55",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/willis-inga-5027.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "inga.willis@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-56",
+        "openstates_id": "ocd-person/b1187e7a-8cea-4e91-9c9f-7c7c61df3c85",
+        "name": "Bryce Berry",
+        "party": "D",
+        "chamber": "State House",
+        "district": "56",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bryce_Berry.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5069",
+          "email": "bryce.berry@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-57",
+        "openstates_id": "ocd-person/fa5d8d09-a0b9-4ba4-93da-a24902530416",
+        "name": "Stacey Evans",
+        "party": "D",
+        "chamber": "State House",
+        "district": "57",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/evans-stacey-762.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=762&Session=25",
+          "email": "stacey.evans@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-58",
+        "openstates_id": "ocd-person/5c5ab5cb-54f6-4218-8d1d-a99d36bca436",
+        "name": "Park Cannon",
+        "party": "D",
+        "chamber": "State House",
+        "district": "58",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cannon-park-4880.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4880&Session=27",
+          "email": "park.cannon@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-59",
+        "openstates_id": "ocd-person/80928bd9-c963-4b21-954c-c62ee9373064",
+        "name": "Phil Olaleye",
+        "party": "D",
+        "chamber": "State House",
+        "district": "59",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/olaleye-phil-5028.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "phil.olaleye@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-60",
+        "openstates_id": "ocd-person/b278b399-5ca3-4cd7-bc19-4053166577a2",
+        "name": "Sheila Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jones-sheila-143.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=143&Session=27",
+          "email": "sheila.jones@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-61",
+        "openstates_id": "ocd-person/f0af2586-d535-4e44-bcaa-65239f9390b1",
+        "name": "Mekyah McQueen",
+        "party": "D",
+        "chamber": "State House",
+        "district": "61",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/a3388b_311f34c52195445d89b52eadd1384ad8~mv2.png/v1/fill/w_640,h_838,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/a3388b_311f34c52195445d89b52eadd1384ad8~mv2.png",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5070",
+          "email": "mekyah.mcqueen@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-62",
+        "openstates_id": "ocd-person/6e5432a3-09ed-4813-b11d-e97222bb7e4d",
+        "name": "Tanya Miller",
+        "party": "D",
+        "chamber": "State House",
+        "district": "62",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/miller-tanya-f-5029.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "tanya.miller@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-63",
+        "openstates_id": "ocd-person/eff357d0-3187-4a7b-93fe-2d54d010b093",
+        "name": "Kim Schofield",
+        "party": "D",
+        "chamber": "State House",
+        "district": "63",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/schofield-kim-4916.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4916&Session=27",
+          "email": "kim.schoefield@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-64",
+        "openstates_id": "ocd-person/cabc1e6f-ba7c-4063-a778-707579f91ec8",
+        "name": "Sylvia Wayfer",
+        "party": "D",
+        "chamber": "State House",
+        "district": "64",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sylvia_Wayfer.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5071",
+          "email": "sylvia.baker@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-65",
+        "openstates_id": "ocd-person/5d77204f-89e7-43df-bccb-a08b9956132d",
+        "name": "Robert Dawson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "65",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/rdawson.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5072",
+          "email": "robert.dawson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-66",
+        "openstates_id": "ocd-person/275b772e-6407-4aaa-8bd6-ceddad1da7fa",
+        "name": "Kimberly Alexander",
+        "party": "D",
+        "chamber": "State House",
+        "district": "66",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/alexander-kimberly-806.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=806&Session=27",
+          "email": "kimberly.alexander@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-67",
+        "openstates_id": "ocd-person/ee575d7a-b5a1-419c-949d-4aa9290a67a1",
+        "name": "Lydia Glaize",
+        "party": "D",
+        "chamber": "State House",
+        "district": "67",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/glaize-lydia-5031.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "lydia.glaize@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-68",
+        "openstates_id": "ocd-person/9046fcb2-f3eb-4233-bd92-32c94e60f9df",
+        "name": "Derrick Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "68",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jackson-derrick-4891.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "derrick.jackson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-69",
+        "openstates_id": "ocd-person/1bb8d14b-9d5d-4edd-8c93-37e95991a8e4",
+        "name": "Debra Bazemore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "69",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/bazemore-debra-4890.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4890&Session=27",
+          "email": "debra.bazemore@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-70",
+        "openstates_id": "ocd-person/945875f7-f3c5-4c75-acd6-a195a0f76b12",
+        "name": "Lynn Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "70",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/smith-lynn-212.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=212&Session=27",
+          "email": "lynn.smith@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-71",
+        "openstates_id": "ocd-person/8b62e64b-bf80-4967-832b-8fb92cd6c4b3",
+        "name": "Jutt Howard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "71",
+        "role": "State Representative",
+        "photo_url": "https://ngturf.com/wp-content/uploads/2017/11/jutt.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5073",
+          "email": "justin.howard@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-72",
+        "openstates_id": "ocd-person/9bcfa0eb-ee7d-4762-9555-7bc4a67d6417",
+        "name": "David Huddleston",
+        "party": "R",
+        "chamber": "State House",
+        "district": "72",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/huddleston-david-5033.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "david.huddleston@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-73",
+        "openstates_id": "ocd-person/0e45048c-c1a4-415f-9ee4-5d09ea857e2e",
+        "name": "Josh Bonner",
+        "party": "R",
+        "chamber": "State House",
+        "district": "73",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/bonner-josh-4893.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4893&Session=27",
+          "email": "josh.bonner@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-74",
+        "openstates_id": "ocd-person/32c3fbdd-4034-47d0-b7ab-0411bd200737",
+        "name": "Robert Flournoy",
+        "party": "D",
+        "chamber": "State House",
+        "district": "74",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robert_Flournoy_20241223_044055.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5074",
+          "email": "robert.flournoy@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-75",
+        "openstates_id": "ocd-person/fe4b934e-8976-4c62-bcb0-ed8ae9782560",
+        "name": "Eric Bell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "75",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/bell-eric-5061.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "eric.bell@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-76",
+        "openstates_id": "ocd-person/21c6cae1-bcd2-4403-ad39-af04b64ce55c",
+        "name": "Sandra Scott",
+        "party": "D",
+        "chamber": "State House",
+        "district": "76",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/scott-sandra-766.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=766&Session=27",
+          "email": "sandra.scott@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-77",
+        "openstates_id": "ocd-person/e04bd985-5b75-4551-84a1-f9797ac495d2",
+        "name": "Rhonda Burnough",
+        "party": "D",
+        "chamber": "State House",
+        "district": "77",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/burnough-rhonda-4895.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4895&Session=27",
+          "email": "rhonda.burnough@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-78",
+        "openstates_id": "ocd-person/016fb7f0-2b08-4587-b7f2-8d18c1d9b8f5",
+        "name": "Demetrius Douglas",
+        "party": "D",
+        "chamber": "State House",
+        "district": "78",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/douglas-demetrius-817.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=817&Session=27",
+          "email": "demetrius.douglas@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-79",
+        "openstates_id": "ocd-person/6f986b42-14f6-4147-9466-c49294331db9",
+        "name": "Yasmin Neal",
+        "party": "D",
+        "chamber": "State House",
+        "district": "79",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/neal-yasmin-765.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "yasmin.neal@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-80",
+        "openstates_id": "ocd-person/7475f989-a4f9-4ac8-9188-26903a012d71",
+        "name": "Long Tran",
+        "party": "D",
+        "chamber": "State House",
+        "district": "80",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/tran-long-5034.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "long.tran@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-81",
+        "openstates_id": "ocd-person/fdf78e39-985f-48c3-8ed3-ccf15946871f",
+        "name": "Noelle Kahaian",
+        "party": "R",
+        "chamber": "State House",
+        "district": "81",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/nkahaian.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5075",
+          "email": "noelle.kahaian@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-82",
+        "openstates_id": "ocd-person/f8db50e0-08ab-406c-ac8b-39c7038ef5ca",
+        "name": "Karen Mathiak",
+        "party": "R",
+        "chamber": "State House",
+        "district": "82",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mathiak-karen-4894.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4894&Session=27",
+          "email": "karen.mathiak@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-83",
+        "openstates_id": "ocd-person/eb28f991-35c9-4d84-a907-5be56aed1aff",
+        "name": "Karen Lupton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "83",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lupton-karen-5035.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "karen.lupton@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-84",
+        "openstates_id": "ocd-person/e6ca1b23-0972-4df6-ab04-6186cf9da814",
+        "name": "Mary Margaret Oliver",
+        "party": "D",
+        "chamber": "State House",
+        "district": "84",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/oliver-mary-margaret-181.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "mary.oliver@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-85",
+        "openstates_id": "ocd-person/27365f19-a138-4a9e-9f6e-11352932e5d5",
+        "name": "Karla Drenner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "85",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/drenner-karla-95.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=95&Session=27",
+          "email": "karla.drenner@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-86",
+        "openstates_id": "ocd-person/2a68d594-e7d5-49cd-b615-6efb872430c3",
+        "name": "Imani Barnes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "86",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/barnes-imani-5037.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "imani.barnes@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-87",
+        "openstates_id": "ocd-person/e3b1be9c-b244-4466-9192-adc365a31cfb",
+        "name": "Viola Davis",
+        "party": "D",
+        "chamber": "State House",
+        "district": "87",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/davis-viola-4947.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4947&Session=27",
+          "email": "viola.davis@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-88",
+        "openstates_id": "ocd-person/96307d79-07d4-4f59-9dd3-b7f994d566d5",
+        "name": "Billy Mitchell",
+        "party": "D",
+        "chamber": "State House",
+        "district": "88",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mitchell-billy-172.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=172&Session=27",
+          "email": "billy.mitchell@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-89",
+        "openstates_id": "ocd-person/dbb81f07-2181-48dd-b383-19870e08d4fd",
+        "name": "Omari Crawford",
+        "party": "D",
+        "chamber": "State House",
+        "district": "89",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/crawford-omari-5036.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "omari.crawford@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-90",
+        "openstates_id": "ocd-person/2a66b922-b812-4c45-9786-478187cd5e33",
+        "name": "Saira Draper",
+        "party": "D",
+        "chamber": "State House",
+        "district": "90",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/draper-saira-5038.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "saira.draper@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-91",
+        "openstates_id": "ocd-person/b001a55f-61fa-4e62-85fd-ac6c282f2711",
+        "name": "Angela Moore",
+        "party": "D",
+        "chamber": "State House",
+        "district": "91",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/moore-angela-5008.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "angela.moore@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-92",
+        "openstates_id": "ocd-person/bc40f904-9c20-41d0-80d5-e5645d3e6935",
+        "name": "Rhonda Taylor",
+        "party": "D",
+        "chamber": "State House",
+        "district": "92",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/taylor-rhonda-4998.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "rhonda.taylor@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-93",
+        "openstates_id": "ocd-person/818f1afb-2850-448e-99c1-be63a9acfe95",
+        "name": "Doreen Carter",
+        "party": "D",
+        "chamber": "State House",
+        "district": "93",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/carter-doreen-3877.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=3877&Session=27",
+          "email": "doreen.carter@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-94",
+        "openstates_id": "ocd-person/b9050158-4a6d-4332-8ad2-769472f52e3e",
+        "name": "Venola Mason",
+        "party": "D",
+        "chamber": "State House",
+        "district": "94",
+        "role": "State Representative",
+        "photo_url": "https://venolaforthefuture.com/wp-content/uploads/2026/02/Venola-Campaign-photo-Oval_s.png",
+        "contact": {
+          "official_website": null,
+          "email": null,
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-95",
+        "openstates_id": "ocd-person/1f94316e-fb58-401f-bbfc-5ada0a717b6b",
+        "name": "Dar'shun Kendrick",
+        "party": "D",
+        "chamber": "State House",
+        "district": "95",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/kendrick-dar-shun-770.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=770&Session=27",
+          "email": "darshun.kendrick@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-96",
+        "openstates_id": "ocd-person/3b3da57c-2f96-4a94-a7bc-eb6a814cc627",
+        "name": "Arlene Beckles",
+        "party": "D",
+        "chamber": "State House",
+        "district": "96",
+        "role": "State Representative",
+        "photo_url": "https://bloximages.newyork1.vip.townnews.com/gwinnettdailypost.com/content/tncms/assets/v3/editorial/f/66/f663df0a-941b-11ec-92cf-a71cdde39cc5/621544040ce4c.image.jpg?crop=656%2C819%2C276%2C240",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5076",
+          "email": "arlene.beckles@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-97",
+        "openstates_id": "ocd-person/d291834f-70cd-48b5-b7db-b05d23d74a4c",
+        "name": "Ruwa Romman",
+        "party": "D",
+        "chamber": "State House",
+        "district": "97",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/romman-ruwa-5039.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "ruwa.romman@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-98",
+        "openstates_id": "ocd-person/9531d502-440c-48db-83c4-70dfbe9a9ea1",
+        "name": "Marvin Lim",
+        "party": "D",
+        "chamber": "State House",
+        "district": "98",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lim-marvin-4999.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "marvin.lim@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-99",
+        "openstates_id": "ocd-person/0f4f3c5a-1192-4ec1-9698-4aef005b4875",
+        "name": "Matt Reeves",
+        "party": "R",
+        "chamber": "State House",
+        "district": "99",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/reeves-matt-5040.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "matt.reeves@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-100",
+        "openstates_id": "ocd-person/ad18dba4-9247-4542-95b1-2ccef815dbc7",
+        "name": "David Clark",
+        "party": "R",
+        "chamber": "State House",
+        "district": "100",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/clark-david-867.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=867&Session=27",
+          "email": "david.clark@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-101",
+        "openstates_id": "ocd-person/99ef9b20-6b1f-4831-8e58-a523de606cda",
+        "name": "Scott Holcomb",
+        "party": "D",
+        "chamber": "State House",
+        "district": "101",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/holcomb-scott-769.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=769&Session=27",
+          "email": "scott.holcomb@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-102",
+        "openstates_id": "ocd-person/dc99efc3-076b-4d00-b4b0-66a0507a4057",
+        "name": "Gabe Okoye",
+        "party": "D",
+        "chamber": "State House",
+        "district": "102",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/okoye-gabe-5041.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "gabe.okoye@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-103",
+        "openstates_id": "ocd-person/64721c9b-451c-4bc9-9040-4ca232ffd746",
+        "name": "Soo Hong",
+        "party": "R",
+        "chamber": "State House",
+        "district": "103",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hong-soo-5042.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "soo.hong@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-104",
+        "openstates_id": "ocd-person/3ff894cb-f2e4-47d0-9f67-b125245a10c3",
+        "name": "Chuck Efstration",
+        "party": "R",
+        "chamber": "State House",
+        "district": "104",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/efstration-chuck-846.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=846&Session=27",
+          "email": "chuck.efstration@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-105",
+        "openstates_id": "ocd-person/4ab15127-5b7a-40bc-8807-26e8e8a73397",
+        "name": "Sandy Donatucci",
+        "party": "R",
+        "chamber": "State House",
+        "district": "105",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Sandy_Donatucci_20240808_092636.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5077",
+          "email": "sandy.donatucci@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-106",
+        "openstates_id": "ocd-person/938f2479-c51f-446a-87f0-76d4f07c61e5",
+        "name": "Akbar Ali",
+        "party": "D",
+        "chamber": "State House",
+        "district": "106",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5089",
+          "email": "akbar.ali@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-107",
+        "openstates_id": "ocd-person/2ba0916f-40b1-4255-9496-94b12ccabd1e",
+        "name": "Sam Park",
+        "party": "D",
+        "chamber": "State House",
+        "district": "107",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/park-sam-4901.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4901&Session=27",
+          "email": "samuel.park@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-108",
+        "openstates_id": "ocd-person/0461f02b-df18-4984-8b3b-ada287879d0a",
+        "name": "Jasmine Clark",
+        "party": "D",
+        "chamber": "State House",
+        "district": "108",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/clark-jasmine-4953.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4953&Session=27",
+          "email": "jasmine.clark@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-109",
+        "openstates_id": "ocd-person/8afda706-7afa-462c-89f2-0d6d5da010ff",
+        "name": "Dewey McClain",
+        "party": "D",
+        "chamber": "State House",
+        "district": "109",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mcclain-dewey-845.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=845&Session=27",
+          "email": "dewey.mcclain@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-110",
+        "openstates_id": "ocd-person/702658f4-8382-479a-9416-79928239d5e7",
+        "name": "Segun Adeyina",
+        "party": "D",
+        "chamber": "State House",
+        "district": "110",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/adeyina-segun-5044.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "segun.adeyina@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-111",
+        "openstates_id": "ocd-person/08ee45fd-d3f4-4129-9e7c-27cf52533ed2",
+        "name": "Rey Martinez",
+        "party": "R",
+        "chamber": "State House",
+        "district": "111",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/martinez-reynaldo--rey--5045.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "reynaldo.martinez@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-112",
+        "openstates_id": "ocd-person/13b7af1b-5b56-481b-a81a-2001846188a6",
+        "name": "Bruce Williamson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "112",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/williamson-bruce-778.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=778&Session=27",
+          "email": "bruce.williamson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-113",
+        "openstates_id": "ocd-person/e51d36a7-9684-4540-aae7-a5e60e434681",
+        "name": "Sharon Henderson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "113",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/henderson-sharon-5003.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "sharon.henderson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-114",
+        "openstates_id": "ocd-person/cf955c60-cbda-4414-9266-3d8dca3553fe",
+        "name": "Tim Fleming",
+        "party": "R",
+        "chamber": "State House",
+        "district": "114",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/fleming-tim-5046.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "tim.fleming@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-115",
+        "openstates_id": "ocd-person/21651856-bba6-49fd-b3f8-8ed1b723e804",
+        "name": "Regina Lewis-Ward",
+        "party": "D",
+        "chamber": "State House",
+        "district": "115",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lewis-ward-regina-5001.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "regina.lewis-ward@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-116",
+        "openstates_id": "ocd-person/4615e308-db74-408f-89df-02be56b5013b",
+        "name": "El-Mahdi Holly",
+        "party": "D",
+        "chamber": "State House",
+        "district": "116",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/holly-el-mahdi-4954.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4954&Session=27",
+          "email": "el-mahdi.holly@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-117",
+        "openstates_id": "ocd-person/7deae3f1-5548-4afe-9018-e8112945fd8d",
+        "name": "Mary Ann Santos",
+        "party": "D",
+        "chamber": "State House",
+        "district": "117",
+        "role": "State Representative",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/d3c0c01c-397b-4334-bf90-8a34a01abd0f/IMG_7488-2b31e45.jpeg/:/cr=t:0%25,l:6.58%25,w:86.84%25,h:100%25/rs=w:355,h:355,cg:true",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5078",
+          "email": "maryann.santos@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-118",
+        "openstates_id": "ocd-person/e1a9102d-f845-47f5-882e-e344eef060ec",
+        "name": "Clint Crowe",
+        "party": "R",
+        "chamber": "State House",
+        "district": "118",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/crowe-clint-5002.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "clint.crowe@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-119",
+        "openstates_id": "ocd-person/b39e2164-d570-45f2-b271-5e2fbe99c8d6",
+        "name": "Holt Persinger",
+        "party": "R",
+        "chamber": "State House",
+        "district": "119",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/persinger-holt-5060.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "holt.persinger@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-120",
+        "openstates_id": "ocd-person/e73cb2a6-bf3e-4211-a386-142c18a4f607",
+        "name": "Houston Gaines",
+        "party": "R",
+        "chamber": "State House",
+        "district": "120",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gaines-houston-4955.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4955&Session=27",
+          "email": "houston.gaines@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-121",
+        "openstates_id": "ocd-person/abece831-30a8-4cf8-94ff-d41f7f48197f",
+        "name": "Eric Gisler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "121",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5091",
+          "email": "eric.gisler@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-122",
+        "openstates_id": "ocd-person/e6ae8d30-4b1b-4b06-8918-2be6fa7f8108",
+        "name": "Spencer Frye",
+        "party": "D",
+        "chamber": "State House",
+        "district": "122",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/frye-spencer-819.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=819&Session=27",
+          "email": "spencer.frye@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-123",
+        "openstates_id": "ocd-person/29210f3f-ec97-47c8-9492-b81154275109",
+        "name": "Rob Leverett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "123",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/leverett-rob-4993.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "rob.leverett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-124",
+        "openstates_id": "ocd-person/9dfc8ec3-0935-4d1d-877d-e05cf7a5dca5",
+        "name": "Trey Rhodes",
+        "party": "R",
+        "chamber": "State House",
+        "district": "124",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/rhodes-trey-876.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=876&Session=27",
+          "email": "trey.rhodes@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-125",
+        "openstates_id": "ocd-person/47fd36f3-f5d4-4ef6-a429-1ffc7681e233",
+        "name": "Gary Richardson",
+        "party": "R",
+        "chamber": "State House",
+        "district": "125",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/GaryRichardson2024.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5063",
+          "email": "gary.richardson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-126",
+        "openstates_id": "ocd-person/1d9bb111-bf4f-4e4f-aa63-a2f6a94b566c",
+        "name": "L.C. Myles",
+        "party": "D",
+        "chamber": "State House",
+        "district": "126",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5079",
+          "email": "lc.myles@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-127",
+        "openstates_id": "ocd-person/5e12fb82-1f69-46df-9ac5-a09ce51dd95b",
+        "name": "Mark Newton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "127",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/newton-mark-4902.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4902&Session=27",
+          "email": "mark.newton@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-128",
+        "openstates_id": "ocd-person/8e209d95-2333-4aa2-a628-1bdcec0674f5",
+        "name": "Mack Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "128",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jackson-mack-738.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=738&Session=27",
+          "email": "mack.jackson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-129",
+        "openstates_id": "ocd-person/4b3fdb35-d3fb-40aa-843e-d3900df37ce4",
+        "name": "Karlton Howard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "129",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/howard-karlton-5056.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "karlton.howard@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-130",
+        "openstates_id": "ocd-person/059c0e54-cc7b-4605-aee6-58388026a2fb",
+        "name": "Sheila Nelson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "130",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/nelson-sheila-4903.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4903&Session=27",
+          "email": "sheila.nelson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-131",
+        "openstates_id": "ocd-person/84eb7371-a332-4534-b3b3-542500c798f8",
+        "name": "Rob Clifton",
+        "party": "R",
+        "chamber": "State House",
+        "district": "131",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/RobClifton2024.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5080",
+          "email": "rob.clifton@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-132",
+        "openstates_id": "ocd-person/a53e6bbd-a5b8-436b-94ae-bebf957c5b61",
+        "name": "Brian Prince",
+        "party": "D",
+        "chamber": "State House",
+        "district": "132",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/prince-brian-847.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=847&Session=27",
+          "email": "brian.prince@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-133",
+        "openstates_id": "ocd-person/1a9598cc-056f-4725-a3fb-64c3f0fd26ed",
+        "name": "Danny Mathis",
+        "party": "R",
+        "chamber": "State House",
+        "district": "133",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/mathis-danny-4959.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4959&Session=27",
+          "email": "danny.mathis@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-134",
+        "openstates_id": "ocd-person/f863b50d-c865-463a-830a-e5648837d9f7",
+        "name": "Robert Dickey",
+        "party": "R",
+        "chamber": "State House",
+        "district": "134",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/dickey-robert-791.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=791&Session=27",
+          "email": "robert.dickey@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-135",
+        "openstates_id": "ocd-person/e4e40f68-0970-4392-b739-3c68f749bcdc",
+        "name": "Beth Camp",
+        "party": "R",
+        "chamber": "State House",
+        "district": "135",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/camp-beth-5004.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "beth.camp@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-136",
+        "openstates_id": "ocd-person/0f288c5b-484a-4b70-8209-0a23f922edd1",
+        "name": "David Jenkins",
+        "party": "R",
+        "chamber": "State House",
+        "district": "136",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jenkins-david-5005.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "david.jenkins@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-137",
+        "openstates_id": "ocd-person/5061bc6b-83af-46d0-a78d-30ebe10a63db",
+        "name": "Debbie Buckner",
+        "party": "D",
+        "chamber": "State House",
+        "district": "137",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/buckner-debbie-71.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=71&Session=27",
+          "email": "debbie.buckner@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-138",
+        "openstates_id": "ocd-person/9deeb60b-4d1e-42b8-8052-d2808a30ea9a",
+        "name": "Vance Smith",
+        "party": "R",
+        "chamber": "State House",
+        "district": "138",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/smith-vance-215.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=215&Session=27",
+          "email": "vance.smith@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-139",
+        "openstates_id": "ocd-person/3646e872-85a6-4383-97c5-36ff96ca7113",
+        "name": "Carmen Rice",
+        "party": "R",
+        "chamber": "State House",
+        "district": "139",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/CarmenRice2024.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5064",
+          "email": "carmen.rice@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-140",
+        "openstates_id": "ocd-person/9fe70ed7-31a0-4732-92b1-54d2a79a4654",
+        "name": "Teddy Reese",
+        "party": "D",
+        "chamber": "State House",
+        "district": "140",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/reese-tremaine-teddy-5050.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "tremaine.reese@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-141",
+        "openstates_id": "ocd-person/0f5a9273-2fc6-458f-af59-b75070a1dc76",
+        "name": "Carolyn Hugley",
+        "party": "D",
+        "chamber": "State House",
+        "district": "141",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hugley-carolyn-133.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=133&Session=27",
+          "email": "carolyn.hugley@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-142",
+        "openstates_id": "ocd-person/bad14891-c7bc-4ac4-b23a-fb5ae3878d67",
+        "name": "Miriam Paris",
+        "party": "D",
+        "chamber": "State House",
+        "district": "142",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/paris-miriam-794.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=794&Session=27",
+          "email": "miriam.paris@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-143",
+        "openstates_id": "ocd-person/55074030-4d64-4da0-b68a-5e3945d00f25",
+        "name": "Nissa Jones",
+        "party": "D",
+        "chamber": "State House",
+        "district": "143",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/AnissaJones2024.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5081",
+          "email": "anissa.jones@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-144",
+        "openstates_id": "ocd-person/ec6cf250-ebcc-4dda-89a5-12da9ebbe51a",
+        "name": "Dale Washburn",
+        "party": "R",
+        "chamber": "State House",
+        "district": "144",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/washburn-dale-4958.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4958&Session=27",
+          "email": "dale.washburn@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-145",
+        "openstates_id": "ocd-person/c5766526-3a5a-4d33-b5ff-a0d1d358d7ae",
+        "name": "Tangie Herring",
+        "party": "D",
+        "chamber": "State House",
+        "district": "145",
+        "role": "State Representative",
+        "photo_url": "https://images.squarespace-cdn.com/content/v1/64b7398b4867300614bcfe48/9ddc7dee-fc52-4309-a0dc-3c8671c9eaaa/Tangie+Herring_headshot.jpg?format=2500w",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5082",
+          "email": "tangie.herring@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-146",
+        "openstates_id": "ocd-person/ee145624-3295-4db4-b3ce-9d1583e4ef6e",
+        "name": "Shaw Blackmon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "146",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/blackmon-shaw-1878.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=1878&Session=27",
+          "email": "shaw.blackmon@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-147",
+        "openstates_id": "ocd-person/8b4b00cb-6f78-4b69-b788-796b19d94752",
+        "name": "Bethany Ballard",
+        "party": "R",
+        "chamber": "State House",
+        "district": "147",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/ballard-bethany-5051.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "bethany.ballard@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-148",
+        "openstates_id": "ocd-person/3252da04-a17e-4298-b19d-9dd2fbf29ded",
+        "name": "Noel Williams",
+        "party": "R",
+        "chamber": "State House",
+        "district": "148",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/williams--jr-noel-4960.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4960&Session=27",
+          "email": "noel.williams@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-149",
+        "openstates_id": "ocd-person/b261086c-7b16-4a8e-82a6-22df4445af84",
+        "name": "Floyd Griffin",
+        "party": "D",
+        "chamber": "State House",
+        "district": "149",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/FloydGriffin.JPG",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5083",
+          "email": "floyd.griffin@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-150",
+        "openstates_id": "ocd-person/af51c2db-8871-45a4-803d-314fa2b9d18d",
+        "name": "Patty Marie Stinson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "150",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/bentley-patty-811.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=811&Session=27",
+          "email": "patty.stinson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-151",
+        "openstates_id": "ocd-person/1831cc73-e694-4cea-83a4-b55c3495f76a",
+        "name": "Mike Cheokas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "151",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cheokas-mike-81.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=81&Session=27",
+          "email": "mike.cheokas@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-152",
+        "openstates_id": "ocd-person/23dfc274-73d1-45df-b381-67e597cf0b84",
+        "name": "Bill Yearta",
+        "party": "R",
+        "chamber": "State House",
+        "district": "152",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/yearta-bill-4969.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4969&Session=27",
+          "email": "bill.yearta@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-153",
+        "openstates_id": "ocd-person/9a8e7b0c-3c19-473f-b04a-d3a17037af0a",
+        "name": "David Sampson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "153",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/sampson-david-5052.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "david.sampson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-154",
+        "openstates_id": "ocd-person/570a213a-a475-4fd3-ac36-23e1bd1190be",
+        "name": "Gerald Greene",
+        "party": "R",
+        "chamber": "State House",
+        "district": "154",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/greene-gerald-115.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=115&Session=27",
+          "email": "gerald.greene@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-155",
+        "openstates_id": "ocd-person/c81779f3-65bf-4714-b295-79cac3b0da28",
+        "name": "Matt Hatchett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "155",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hatchett-matt-781.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=781&Session=27",
+          "email": "matt.hatchett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-156",
+        "openstates_id": "ocd-person/df874c28-6403-42c1-9cbb-0855508cda85",
+        "name": "Leesa Hagan",
+        "party": "R",
+        "chamber": "State House",
+        "district": "156",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hagan-leesa-5010.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "leesa.hagan@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-157",
+        "openstates_id": "ocd-person/adefd0ba-43cd-4aae-9321-12f67e57ac8a",
+        "name": "Bill Werkheiser",
+        "party": "R",
+        "chamber": "State House",
+        "district": "157",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/werkheiser-bill-863.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=863&Session=27",
+          "email": "bill.werkheiser@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-158",
+        "openstates_id": "ocd-person/842218b5-88ae-4ba8-8395-756bf3340e16",
+        "name": "Butch Parrish",
+        "party": "R",
+        "chamber": "State House",
+        "district": "158",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/parrish-butch-183.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=183&Session=27",
+          "email": "butch.parrish@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-159",
+        "openstates_id": "ocd-person/64012657-d026-411c-9525-3232524a5145",
+        "name": "Jon Burns",
+        "party": "R",
+        "chamber": "State House",
+        "district": "159",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/burns-jon-73.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=73&Session=27",
+          "email": "jon.burns@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-160",
+        "openstates_id": "ocd-person/6971bb34-9ea4-4bdc-971e-c1a2c5de344c",
+        "name": "Lehman Franklin",
+        "party": "R",
+        "chamber": "State House",
+        "district": "160",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/franklin-lehman-5053.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "lehman.franklin@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-161",
+        "openstates_id": "ocd-person/4a9ef816-9130-4510-a19e-3124e3f2aeed",
+        "name": "Bill Hitchens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "161",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/hitchens-bill-823.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=823&Session=27",
+          "email": "bill.hitchens@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-162",
+        "openstates_id": "ocd-person/562e162f-2a60-441c-956b-11db12eef266",
+        "name": "Carl Gilliard",
+        "party": "D",
+        "chamber": "State House",
+        "district": "162",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/gilliard-carl-4881.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4881&Session=27",
+          "email": "carl.gilliard@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-163",
+        "openstates_id": "ocd-person/e16d6516-badc-4682-9e3a-84f30a44b060",
+        "name": "Anne Westbrook",
+        "party": "D",
+        "chamber": "State House",
+        "district": "163",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/westbrook-anne-allen-5054.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "anneallen.westbrook@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-164",
+        "openstates_id": "ocd-person/aeaeb854-ff9c-47cb-8069-395b60ba05b2",
+        "name": "Ron Stephens",
+        "party": "R",
+        "chamber": "State House",
+        "district": "164",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/stephens-ron-219.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=219&Session=27",
+          "email": "ron.stephens@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-165",
+        "openstates_id": "ocd-person/18427775-e3e7-4730-bb6f-722616e6aebe",
+        "name": "Edna Jackson",
+        "party": "D",
+        "chamber": "State House",
+        "district": "165",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/jackson-edna-5011.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "edna.jackson@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-166",
+        "openstates_id": "ocd-person/38c596a4-df69-4a56-9329-be73f26bc7d5",
+        "name": "Jesse Petrea",
+        "party": "R",
+        "chamber": "State House",
+        "district": "166",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/petrea-jesse-862.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=862&Session=27",
+          "email": "jesse.petrea@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-167",
+        "openstates_id": "ocd-person/d40576ac-fbc0-4b42-98ee-f6362063784d",
+        "name": "Buddy DeLoach",
+        "party": "R",
+        "chamber": "State House",
+        "district": "167",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/deloach-buddy-303.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "buddy.deloach@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-168",
+        "openstates_id": "ocd-person/a5a0998b-3837-4c4e-a66b-a567dc2f9d77",
+        "name": "Al Williams",
+        "party": "D",
+        "chamber": "State House",
+        "district": "168",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/williams-al-230.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=230&Session=27",
+          "email": "al.williams@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-169",
+        "openstates_id": "ocd-person/1d0deded-daaa-425b-b6aa-3612492dca5b",
+        "name": "Angie O'Steen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "169",
+        "role": "State Representative",
+        "photo_url": "https://angieosteen.com/wp-content/uploads/sites/109/2024/04/photo-mobile-1.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5084",
+          "email": "angie.osteen@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-170",
+        "openstates_id": "ocd-person/37602f7b-947e-4067-8f2e-b2fec620643e",
+        "name": "Jaclyn Ford",
+        "party": "R",
+        "chamber": "State House",
+        "district": "170",
+        "role": "State Representative",
+        "photo_url": "https://jaclynforgeorgia.com/wp-content/uploads/sites/127/2024/02/photo-mobile-2.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5085",
+          "email": "jaclyn.ford@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-171",
+        "openstates_id": "ocd-person/c862c17f-ed00-41d7-97e5-1138f451a96c",
+        "name": "Joe Campbell",
+        "party": "R",
+        "chamber": "State House",
+        "district": "171",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/campbell-joe-4970.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4970&Session=27",
+          "email": "joe.campbell@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-172",
+        "openstates_id": "ocd-person/cba2f06c-773c-49d3-949c-b1a2db377c21",
+        "name": "Chas Cannon",
+        "party": "R",
+        "chamber": "State House",
+        "district": "172",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cannon-charles--chas--5058.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "charles.cannon@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-173",
+        "openstates_id": "ocd-person/d00eb950-0fb6-41ab-ae22-8e9ce84d7cf0",
+        "name": "Darlene Taylor",
+        "party": "R",
+        "chamber": "State House",
+        "district": "173",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/taylor-darlene-786.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=786&Session=27",
+          "email": "darlene.taylor@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-174",
+        "openstates_id": "ocd-person/a34c9a5a-f307-4c07-b766-3b3b1148d7b1",
+        "name": "John Corbett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "174",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/corbett-john-859.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=859&Session=27",
+          "email": "john.corbett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-175",
+        "openstates_id": "ocd-person/9249be26-54d2-467a-88ec-2588b886148d",
+        "name": "John LaHood",
+        "party": "R",
+        "chamber": "State House",
+        "district": "175",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/lahood-john-4923.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4923&Session=27",
+          "email": "john.lahood@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-176",
+        "openstates_id": "ocd-person/dbce462d-74e3-42d3-bd6c-3b9f8eeb69fe",
+        "name": "James Burchett",
+        "party": "R",
+        "chamber": "State House",
+        "district": "176",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/burchett-james-4967.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4967&Session=27",
+          "email": "james.burchett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-178",
+        "openstates_id": "ocd-person/3194a8e0-aaf8-4686-b2c9-a22521f85fff",
+        "name": "Steven Meeks",
+        "party": "R",
+        "chamber": "State House",
+        "district": "178",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/meeks-steven-4961.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4961&Session=27",
+          "email": "steven.meeks@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-179",
+        "openstates_id": "ocd-person/1da20ad9-1a05-42ab-addb-7fbf295a0e5d",
+        "name": "Rick Townsend",
+        "party": "R",
+        "chamber": "State House",
+        "district": "179",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/townsend-rick-5055.jpg",
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house",
+          "email": "rick.townsend@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-180",
+        "openstates_id": "ocd-person/99082062-acd6-4c6b-bb45-2cfa071f19fc",
+        "name": "Steven Sainz",
+        "party": "R",
+        "chamber": "State House",
+        "district": "180",
+        "role": "State Representative",
+        "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/sainz-steven-4962.jpg",
+        "contact": {
+          "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4962&Session=27",
+          "email": "steven.sainz@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      }
+    ]
+  }
+}
