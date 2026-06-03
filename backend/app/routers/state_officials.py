@@ -55,11 +55,13 @@ async def get_state_legislator_bills(
     name: str = Query(..., description="Legislator full name, e.g. 'Don Gaetz'"),
     chamber: str = Query("", description="'senate' or 'house'"),
     district: str = Query("", description="Stringified district number"),
+    openstates_id: str = Query("", description="OpenStates person id (skips name lookup)"),
     limit: int = Query(15, ge=1, le=50),
 ):
     bills = await state_live.fetch_state_legislator_bills(
         state_code=state_code, name=name,
         chamber=chamber or None, district=district or None, limit=limit,
+        openstates_id=openstates_id or None,
     )
     return {"state": state_code.upper(), "name": name, "count": len(bills), "bills": bills}
 
@@ -70,13 +72,35 @@ async def get_state_legislator_votes(
     name: str = Query(..., description="Legislator full name"),
     chamber: str = Query("", description="'senate' or 'house'"),
     district: str = Query("", description="Stringified district number"),
+    openstates_id: str = Query("", description="OpenStates person id (skips name lookup)"),
     limit: int = Query(15, ge=1, le=50),
 ):
     votes = await state_live.fetch_state_legislator_votes(
         state_code=state_code, name=name,
         chamber=chamber or None, district=district or None, limit=limit,
+        openstates_id=openstates_id or None,
     )
     return {"state": state_code.upper(), "name": name, "count": len(votes), "votes": votes}
+
+
+@router.get("/{state_code}/legislator-issues")
+async def get_state_legislator_issues(
+    state_code: str,
+    name: str = Query(..., description="Legislator full name"),
+    chamber: str = Query("", description="'senate' or 'house'"),
+    district: str = Query("", description="Stringified district number"),
+    openstates_id: str = Query("", description="OpenStates person id (skips name lookup)"),
+    source_url: str = Query("", description="Official site, used as the source link"),
+):
+    """AI-derived neutral issue-areas for a state legislator, from the titles
+    of their sponsored bills (Haiku). Returns [] when AI/OpenStates is
+    unconfigured or the legislator has no bills. Derived, not stated positions."""
+    issues = await state_live.derive_state_legislator_issues(
+        state_code=state_code, name=name,
+        chamber=chamber or None, district=district or None,
+        openstates_id=openstates_id or None, source_url=source_url or None,
+    )
+    return {"state": state_code.upper(), "name": name, "count": len(issues), "issues": issues}
 
 
 @router.get("/{state_code}/governor-actions")
