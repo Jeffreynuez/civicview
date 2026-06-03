@@ -1655,16 +1655,18 @@
           },
           "top_issues": [
             {
-              "name": "Populism & Working Class",
-              "stance": "Champions working-class concerns and criticizes corporate globalism in favor of nationalist economic policies."
+              "name": "Presiding Officer of the Senate",
+              "stance": "As Vice President, serves as President of the Senate and casts tie-breaking votes.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "American Manufacturing",
-              "stance": "Supports reshoring manufacturing and protecting domestic industry from foreign competition."
-            },
-            {
-              "name": "Senate Operations",
-              "stance": "Presides over Senate proceedings and breaks tie votes as Vice President."
+              "name": "Administration Agenda",
+              "stance": "Advances the administration's legislative priorities in the Senate.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1706,16 +1708,18 @@
           },
           "top_issues": [
             {
-              "name": "Government Accountability",
-              "stance": "Focuses on congressional oversight and investigative authority to hold executive branch accountable."
+              "name": "Senate Leadership",
+              "stance": "Serves as President pro tempore of the Senate, the most senior member of the majority party and third in the presidential line of succession.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "Agricultural Policy",
-              "stance": "Advocates for farm support programs and rural economic development benefiting Iowa agriculture."
-            },
-            {
-              "name": "Fiscal Responsibility",
-              "stance": "Emphasizes budget control and scrutiny of government spending patterns."
+              "name": "Judiciary & Oversight",
+              "stance": "A senior member focused on the judiciary and government oversight.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1753,15 +1757,17 @@
           "top_issues": [
             {
               "name": "Senate Leadership",
-              "stance": "Manages Senate Republican agenda, schedules legislation, and coordinates party strategy."
+              "stance": "Serves as Senate Majority Leader, setting the chamber's legislative agenda and floor schedule.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "Agricultural Policy",
-              "stance": "Supports farm programs and rural development initiatives benefiting South Dakota farmers."
-            },
-            {
-              "name": "Fiscal & Trade Policy",
-              "stance": "Advocates for balanced budgets and favorable trade arrangements for American workers."
+              "name": "Legislative Agenda",
+              "stance": "Coordinates the majority's priorities across Senate committees.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1798,16 +1804,18 @@
           },
           "top_issues": [
             {
-              "name": "Energy Independence",
-              "stance": "Advocates for expanded oil, gas, and coal production from domestic sources."
+              "name": "Senate Leadership",
+              "stance": "Serves as Senate Majority Whip, the second-ranking majority position, responsible for counting and marshaling votes.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "Environmental Policy",
-              "stance": "Questions climate regulations and supports energy development over environmental restrictions."
-            },
-            {
-              "name": "Senate Operations",
-              "stance": "Enforces party discipline and manages Republican member voting on key legislation as Whip."
+              "name": "Energy & Natural Resources",
+              "stance": "A senior voice on energy and natural-resources policy.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1844,16 +1852,18 @@
           },
           "top_issues": [
             {
-              "name": "Social Programs",
-              "stance": "Advocates for protecting Social Security, Medicare, and other social safety net programs."
+              "name": "Senate Leadership",
+              "stance": "Serves as the Senate Democratic (Minority) Leader.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "Democracy & Voting Rights",
-              "stance": "Emphasizes voting rights protections and opposition to voter suppression efforts."
-            },
-            {
-              "name": "Senate Operations",
-              "stance": "Leads Democratic caucus strategy and negotiations with Republican leadership on legislation."
+              "name": "Legislative Agenda",
+              "stance": "Coordinates the minority party's legislative priorities.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1890,16 +1900,18 @@
           },
           "top_issues": [
             {
-              "name": "Immigration Reform",
-              "stance": "Advocates for comprehensive immigration reform including pathways to legal status for undocumented immigrants."
+              "name": "Senate Leadership",
+              "stance": "Serves as the Senate Democratic (Minority) Whip, the second-ranking minority position.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             },
             {
-              "name": "Judicial Oversight",
-              "stance": "Emphasizes Senate Judiciary Committee role in confirming judges and scrutinizing executive actions."
-            },
-            {
-              "name": "Senate Operations",
-              "stance": "Enforces Democratic party discipline and manages member support for legislation as Whip."
+              "name": "Judiciary",
+              "stance": "A senior member of the Senate Judiciary Committee.",
+              "sources": [
+                "https://www.senate.gov/senators/leadership.htm"
+              ]
             }
           ],
           "experience": [
@@ -1948,16 +1960,18 @@
           },
           "top_issues": [
             {
-              "name": "Fiscal Responsibility",
-              "stance": "Emphasizes budget control and reducing federal spending through committee oversight."
+              "name": "House Leadership",
+              "stance": "Serves as Speaker of the House, presiding over the chamber, setting its agenda, and standing second in the presidential line of succession.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             },
             {
-              "name": "House Operations",
-              "stance": "Presides over House proceedings and manages Republican legislative agenda and floor schedule."
-            },
-            {
-              "name": "Constitutional Government",
-              "stance": "Advocates for strict constitutional limits on federal power and separation of powers."
+              "name": "Legislative Agenda",
+              "stance": "Coordinates the majority's legislative program.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -1995,16 +2009,18 @@
           },
           "top_issues": [
             {
-              "name": "House Operations",
-              "stance": "Manages House Republican legislative schedule and coordinates majority party strategy on bills."
+              "name": "House Leadership",
+              "stance": "Serves as House Majority Leader, managing the floor schedule and the majority's legislative program.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             },
             {
-              "name": "Economic Growth",
-              "stance": "Supports pro-business policies and tax reductions to stimulate economic expansion."
-            },
-            {
-              "name": "Energy Policy",
-              "stance": "Advocates for domestic energy development and production from Louisiana's energy industry."
+              "name": "Legislative Agenda",
+              "stance": "Coordinates the majority's priorities across House committees.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -2042,16 +2058,11 @@
           },
           "top_issues": [
             {
-              "name": "House Operations",
-              "stance": "Enforces Republican party discipline and manages member support for legislation as Whip."
-            },
-            {
-              "name": "Financial Services",
-              "stance": "Supports fintech innovation and cryptocurrency development with appropriate regulatory framework."
-            },
-            {
-              "name": "Fiscal Policy",
-              "stance": "Advocates for budget control and spending reduction measures in federal government."
+              "name": "House Leadership",
+              "stance": "Serves as House Majority Whip, the third-ranking majority position, responsible for counting and organizing votes.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -2089,16 +2100,11 @@
           },
           "top_issues": [
             {
-              "name": "Party Communication",
-              "stance": "Represents Republican members' interests and communicates party positions to media and public."
-            },
-            {
-              "name": "Manufacturing & Trade",
-              "stance": "Advocates for manufacturing support in the Great Lakes and opposition to unfair trade practices."
-            },
-            {
-              "name": "Job Creation",
-              "stance": "Emphasizes policies supporting small business growth and employment in Michigan."
+              "name": "House Leadership",
+              "stance": "Serves as Chair of the House Republican Conference, the party's member-coordination and messaging role.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -2136,16 +2142,18 @@
           },
           "top_issues": [
             {
-              "name": "Democracy & Rights",
-              "stance": "Advocates for voting rights protection, civil rights enforcement, and democratic preservation."
+              "name": "House Leadership",
+              "stance": "Serves as the House Democratic (Minority) Leader.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             },
             {
-              "name": "Economic Justice",
-              "stance": "Supports policies addressing income inequality and expanding economic opportunities for working people."
-            },
-            {
-              "name": "House Operations",
-              "stance": "Leads Democratic caucus strategy and organizes minority party response to Republican legislation."
+              "name": "Legislative Agenda",
+              "stance": "Coordinates the minority party's legislative priorities.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -2183,16 +2191,11 @@
           },
           "top_issues": [
             {
-              "name": "House Operations",
-              "stance": "Enforces Democratic party discipline and manages member support for party legislation."
-            },
-            {
-              "name": "Climate & Environment",
-              "stance": "Advocates for climate action and clean energy investment to address environmental challenges."
-            },
-            {
-              "name": "Social Policy",
-              "stance": "Supports childcare assistance, family leave, and programs supporting working families."
+              "name": "House Leadership",
+              "stance": "Serves as the House Democratic (Minority) Whip, the second-ranking minority position.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
@@ -2230,16 +2233,11 @@
           },
           "top_issues": [
             {
-              "name": "Party Communication",
-              "stance": "Communicates Democratic party messages and member perspectives to media and public audiences."
-            },
-            {
-              "name": "Immigration & Border Policy",
-              "stance": "Advocates for comprehensive immigration reform with pathways to legal status for undocumented immigrants."
-            },
-            {
-              "name": "Economic Opportunity",
-              "stance": "Supports infrastructure investment and policies expanding economic opportunities for working families."
+              "name": "House Leadership",
+              "stance": "Serves as Chair of the House Democratic Caucus, coordinating the party's members and message.",
+              "sources": [
+                "https://www.house.gov/leadership"
+              ]
             }
           ],
           "experience": [
