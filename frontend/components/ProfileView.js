@@ -18,6 +18,7 @@ import {
   fetchStateCourtCases,
   fetchStateLegislatorBills,
   fetchStateLegislatorVotes,
+  fetchStateLegislatorIssues,
   fetchBillSummary,
   translateBillSummary,
   explainVote,
@@ -277,6 +278,7 @@ export default function ProfileView({
   // State-specific buckets
   const [stateBillsState, setStateBillsState] = useState({ loading: false, loaded: false, data: null, isLive: false });
   const [stateVotesState, setStateVotesState] = useState({ loading: false, loaded: false, data: null, isLive: false });
+  const [stateIssuesState, setStateIssuesState] = useState({ loading: false, loaded: false, data: null, isLive: false });
   const [govActionsState, setGovActionsState] = useState({ loading: false, loaded: false, data: null, isLive: false });
   const [stateCasesState, setStateCasesState] = useState({ loading: false, loaded: false, data: null, isLive: false });
 
@@ -309,6 +311,7 @@ export default function ProfileView({
     setCasesState({ loading: false, loaded: false, data: null, isLive: false });
     setStateBillsState({ loading: false, loaded: false, data: null, isLive: false });
     setStateVotesState({ loading: false, loaded: false, data: null, isLive: false });
+    setStateIssuesState({ loading: false, loaded: false, data: null, isLive: false });
     setGovActionsState({ loading: false, loaded: false, data: null, isLive: false });
     setStateCasesState({ loading: false, loaded: false, data: null, isLive: false });
   }, [cacheKey]);
@@ -453,6 +456,7 @@ export default function ProfileView({
         name: member.name,
         chamber,
         district: member.district,
+        openStatesId: member.openstates_id,
         limit: 15,
       }).then(({ data, isLive }) => {
         setStateBillsState({ loading: false, loaded: true, data, isLive });
@@ -468,9 +472,28 @@ export default function ProfileView({
         name: member.name,
         chamber,
         district: member.district,
+        openStatesId: member.openstates_id,
         limit: 15,
       }).then(({ data, isLive }) => {
         setStateVotesState({ loading: false, loaded: true, data, isLive });
+      });
+    }
+
+    // ── State legislator Issues tab (AI-derived from sponsored bills) ──
+    if (activeTab === 'issues' && role === 'state_legislator'
+        && !stateIssuesState.loaded && !stateIssuesState.loading
+        && !(Array.isArray(member.top_issues) && member.top_issues.length > 0)) {
+      setStateIssuesState((s) => ({ ...s, loading: true }));
+      const chamber = (member.chamber || '').toLowerCase().includes('house') ? 'house' : 'senate';
+      fetchStateLegislatorIssues({
+        stateCode: member.state || 'FL',
+        name: member.name,
+        chamber,
+        district: member.district,
+        openStatesId: member.openstates_id,
+        sourceUrl: member.contact && member.contact.official_website,
+      }).then(({ data }) => {
+        setStateIssuesState({ loading: false, loaded: true, data, isLive: true });
       });
     }
 
@@ -516,6 +539,7 @@ export default function ProfileView({
     casesState.loaded, casesState.loading,
     stateBillsState.loaded, stateBillsState.loading,
     stateVotesState.loaded, stateVotesState.loading,
+    stateIssuesState.loaded, stateIssuesState.loading,
     govActionsState.loaded, govActionsState.loading,
     stateCasesState.loaded, stateCasesState.loading,
   ]);
@@ -978,7 +1002,7 @@ export default function ProfileView({
           <OverviewTab member={member} role={role} statsState={statsState} />
         )}
         {activeTab === 'issues' && (
-          <IssuesTab member={member} role={role} statsState={statsState} />
+          <IssuesTab member={member} role={role} statsState={statsState} stateIssuesState={stateIssuesState} />
         )}
         {activeTab === 'experience' && (
           <ExperienceTab member={member} />
@@ -1241,7 +1265,7 @@ function StatsBlock({ party, stats, loading }) {
 // ─── Issues (curated top_issues with stance) ─────────────────────────
 // Shared across every role. Renders the curated `member.top_issues` array
 // of `{name, stance}` objects with the same card styling candidates use.
-function IssuesTab({ member, role, statsState }) {
+function IssuesTab({ member, role, statsState, stateIssuesState }) {
   const issues = Array.isArray(member?.top_issues)
     ? member.top_issues.filter((i) => i && typeof i === 'object' && i.name)
     : [];
@@ -1256,6 +1280,16 @@ function IssuesTab({ member, role, statsState }) {
     // factual fallback: the policy areas their sponsored/cosponsored bills
     // are tagged with. Surface those as DERIVED areas of focus — explicitly
     // not stated positions — so the tab isn't empty where the data exists.
+    // State legislators: AI-derived issue areas from their sponsored bills.
+    if (role === 'state_legislator') {
+      const sd = Array.isArray(stateIssuesState?.data)
+        ? stateIssuesState.data.filter((i) => i && i.name) : [];
+      if (sd.length > 0) return <DerivedStateIssues areas={sd} />;
+      if (stateIssuesState?.loading || !stateIssuesState?.loaded) {
+        return <EmptyState message="Deriving focus areas from sponsored bills…" />;
+      }
+    }
+
     const derived = Array.isArray(statsState?.data?.top_issues)
       ? statsState.data.top_issues.filter((i) => i && i.name)
       : [];
@@ -1299,6 +1333,28 @@ function IssuesTab({ member, role, statsState }) {
             }}>
               {issue.stance}
             </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// AI-derived issue areas for STATE legislators (from sponsored-bill titles
+// via Haiku). Shape matches curated issues ({name, stance}); the stance text
+// already carries the 'derived, not a stated position' disclaimer.
+function DerivedStateIssues({ areas }) {
+  return (
+    <div>
+      <SectionHeader>Areas of Legislative Focus</SectionHeader>
+      <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', lineHeight: 1.5, marginBottom: '12px' }}>
+        Derived from this legislator&rsquo;s sponsored bills. These reflect what they legislate on &mdash; not stated positions or endorsements.
+      </div>
+      {areas.map((issue, idx) => (
+        <div key={idx} style={{ marginBottom: '10px', padding: '12px 14px', background: 'var(--cl-bg)', borderRadius: '10px', border: '1px solid var(--cl-border)' }}>
+          <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--cl-primary)', marginBottom: '4px' }}>{issue.name}</div>
+          {issue.stance && (
+            <div style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)' }}>{issue.stance}</div>
           )}
         </div>
       ))}

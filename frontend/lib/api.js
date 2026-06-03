@@ -968,10 +968,10 @@ export async function fetchStatePerson(stateCode, personId) {
 const _stateLegBillsCache = new Map();
 
 export async function fetchStateLegislatorBills({
-  stateCode, name, chamber = null, district = null, limit = 15,
+  stateCode, name, chamber = null, district = null, limit = 15, openStatesId = null,
 } = {}) {
   if (!stateCode || !name) return { data: [], isLive: false };
-  const key = `${stateCode.toUpperCase()}::${name}::${chamber || ''}::${district || ''}::${limit}`;
+  const key = `${stateCode.toUpperCase()}::${name}::${chamber || ''}::${district || ''}::${openStatesId || ''}::${limit}`;
   if (_stateLegBillsCache.has(key)) {
     return { data: _stateLegBillsCache.get(key), isLive: true };
   }
@@ -979,6 +979,7 @@ export async function fetchStateLegislatorBills({
     const qs = new URLSearchParams({ name, limit: String(limit) });
     if (chamber) qs.set('chamber', chamber);
     if (district) qs.set('district', String(district));
+    if (openStatesId) qs.set('openstates_id', openStatesId);
     const response = await fetch(
       `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-bills?${qs}`
     );
@@ -993,14 +994,45 @@ export async function fetchStateLegislatorBills({
   }
 }
 
+// ─── State legislator derived issue-areas (AI over bill titles) ──────
+const _stateLegIssuesCache = new Map();
+
+export async function fetchStateLegislatorIssues({
+  stateCode, name, chamber = null, district = null, openStatesId = null, sourceUrl = null,
+} = {}) {
+  if (!stateCode || !name) return { data: [], isLive: false };
+  const key = `${stateCode.toUpperCase()}::${name}::${openStatesId || ''}`;
+  if (_stateLegIssuesCache.has(key)) {
+    return { data: _stateLegIssuesCache.get(key), isLive: true };
+  }
+  try {
+    const qs = new URLSearchParams({ name });
+    if (chamber) qs.set('chamber', chamber);
+    if (district) qs.set('district', String(district));
+    if (openStatesId) qs.set('openstates_id', openStatesId);
+    if (sourceUrl) qs.set('source_url', sourceUrl);
+    const response = await fetch(
+      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-issues?${qs}`
+    );
+    if (!response.ok) throw new Error(`API Error ${response.status}`);
+    const data = await response.json();
+    const issues = data.issues || [];
+    _stateLegIssuesCache.set(key, issues);
+    return { data: issues, isLive: true };
+  } catch (error) {
+    console.warn('State legislator issues API unavailable:', error.message);
+    return { data: [], isLive: false };
+  }
+}
+
 // ─── State legislator votes (OpenStates proxy) ───────────────────────
 const _stateLegVotesCache = new Map();
 
 export async function fetchStateLegislatorVotes({
-  stateCode, name, chamber = null, district = null, limit = 15,
+  stateCode, name, chamber = null, district = null, limit = 15, openStatesId = null,
 } = {}) {
   if (!stateCode || !name) return { data: [], isLive: false };
-  const key = `${stateCode.toUpperCase()}::${name}::${chamber || ''}::${district || ''}::${limit}`;
+  const key = `${stateCode.toUpperCase()}::${name}::${chamber || ''}::${district || ''}::${openStatesId || ''}::${limit}`;
   if (_stateLegVotesCache.has(key)) {
     return { data: _stateLegVotesCache.get(key), isLive: true };
   }
@@ -1008,6 +1040,7 @@ export async function fetchStateLegislatorVotes({
     const qs = new URLSearchParams({ name, limit: String(limit) });
     if (chamber) qs.set('chamber', chamber);
     if (district) qs.set('district', String(district));
+    if (openStatesId) qs.set('openstates_id', openStatesId);
     const response = await fetch(
       `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-votes?${qs}`
     );

@@ -16,7 +16,9 @@ All endpoints degrade gracefully:
 from __future__ import annotations
 
 import os
+import json as _json
 import time
+import asyncio
 import logging
 from typing import Optional
 
@@ -152,11 +154,16 @@ async def fetch_state_legislator_bills(
     chamber: Optional[str] = None,
     district: Optional[str] = None,
     limit: int = 15,
+    openstates_id: Optional[str] = None,
 ) -> list[dict]:
-    """Return recent bills sponsored by the named state legislator."""
+    """Return recent bills sponsored by the named state legislator.
+
+    When ``openstates_id`` is supplied (we store it on every imported
+    legislator) we use it directly and skip the name-resolution call.
+    """
     if not _openstates_available():
         return []
-    pid = await resolve_openstates_person_id(state_code, name, chamber, district)
+    pid = openstates_id or await resolve_openstates_person_id(state_code, name, chamber, district)
     if not pid:
         return []
 
@@ -167,7 +174,8 @@ async def fetch_state_legislator_bills(
 
     url = f"{OPENSTATES_API}/bills"
     params = {
-        "sponsor": pid,
+        "jurisdiction": state_code.lower(),  # REQUIRED: the sponsor filter
+        "sponsor": pid,                       # returns 0 results without it
         "sort": "updated_desc",
         "per_page": min(max(1, int(limit or 15)), 20),
         "include": ["sponsorships", "actions"],
@@ -208,11 +216,16 @@ async def fetch_state_legislator_votes(
     chamber: Optional[str] = None,
     district: Optional[str] = None,
     limit: int = 15,
+    openstates_id: Optional[str] = None,
 ) -> list[dict]:
-    """Return recent vote events where the legislator cast a vote."""
+    """Return recent vote events where the legislator cast a vote.
+
+    When ``openstates_id`` is supplied we use it directly and skip the
+    name-resolution call.
+    """
     if not _openstates_available():
         return []
-    pid = await resolve_openstates_person_id(state_code, name, chamber, district)
+    pid = openstates_id or await resolve_openstates_person_id(state_code, name, chamber, district)
     if not pid:
         return []
 
@@ -346,7 +359,8 @@ async def fetch_state_supreme_court_cases(
     page_size = min(max(1, int(limit or 15)) * (3 if justice_name else 1), 50)
     url = f"{COURTLISTENER_API}/clusters/"
     params = {
-        "court": court,
+        # v4 clusters filter is docket__court (plain ?court= returns HTTP 400)
+        "docket__court": court,
         "order_by": "-date_filed",
         "page_size": page_size,
     }
@@ -394,4 +408,87 @@ async def fetch_state_supreme_court_cases(
         if len(out) >= limit:
             break
     _set_cached(key, out)
+    return out
+
+
+# ── Derived issue-areas for a state legislator (AI over bill titles) ──
+_STATE_ISSUE_SYS = (
+    "You are a neutral civic-data assistant for CivicView, a non-partisan "
+    "platform. From a state legislator's sponsored-bill titles, identify the "
+    "2-3 broad POLICY AREAS they most focus on. Use neutral, widely recognized "
+    "issue-area names (e.g., Healthcare, Education, Public Safety, Taxation, "
+    "Transportation, Environment, Housing, Agriculture). Describe ONLY the "
+    "subject areas of their bills \u2014 never infer a political position, "
+    "stance, or endorsement. Output ONLY a JSON array, no prose: "
+    '[{"name": "<issue area, 1-4 words>", "blurb": "<one neutral factual sentence>"}]'
+)
+
+
+async def derive_state_legislator_issues(
+    state_code: str,
+    name: str,
+    chamber: Optional[str] = None,
+    district: Optional[str] = None,
+    openstates_id: Optional[str] = None,
+    source_url: Optional[str] = None,
+) -> list[dict]:
+    """Derive 2-3 neutral issue-areas for a state legislator from the titles
+    of their sponsored bills, via the Haiku AI service. Returns [] when AI or
+    OpenStates isn't configured, when the legislator has no bills, or on any
+    parse error. Cached 24h. Labeled as derived, not stated positions."""
+    from app.services import ai_service
+    if not ai_service.is_configured():
+        return []
+
+    cache_key = f"state-issues::{openstates_id or (state_code + name)}"
+    cached = _get_cached(cache_key, CACHE_TTL_XLONG)
+    if cached is not None:
+        return cached
+
+    bills = await fetch_state_legislator_bills(
+        state_code=state_code, name=name, chamber=chamber, district=district,
+        limit=25, openstates_id=openstates_id,
+    )
+    titles = [b.get("title") for b in bills if b.get("title")]
+    if not titles:
+        return []
+
+    last = (name or "").strip().split()[-1] if name else "this legislator"
+    user = "Sponsored bill titles:\n- " + "\n- ".join(titles[:25])
+    try:
+        res = await asyncio.to_thread(
+            ai_service.chat,
+            system=_STATE_ISSUE_SYS,
+            messages=[{"role": "user", "content": user}],
+            max_tokens=400, temperature=0.2,
+        )
+    except Exception as e:
+        logger.error("state-issues AI error: %s", e)
+        return []
+    if getattr(res, "error", None) or not getattr(res, "text", None):
+        return []
+
+    txt = res.text.strip()
+    lo, hi = txt.find("["), txt.rfind("]")
+    if lo == -1 or hi == -1:
+        return []
+    try:
+        arr = _json.loads(txt[lo:hi + 1])
+    except Exception:
+        return []
+
+    out = []
+    for it in (arr or [])[:3]:
+        if not isinstance(it, dict):
+            continue
+        nm = (it.get("name") or "").strip()
+        if not nm:
+            continue
+        blurb = (it.get("blurb") or f"A frequent focus of {last}'s sponsored state legislation.").strip()
+        out.append({
+            "name": nm,
+            "stance": blurb + " (Derived from sponsored bills \u2014 a focus area, not a stated position.)",
+            "sources": [source_url] if source_url else [],
+        })
+    _set_cached(cache_key, out)
     return out
