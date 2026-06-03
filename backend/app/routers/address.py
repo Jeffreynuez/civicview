@@ -4,6 +4,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.services.geocode_service import GeocodeService
 from app.services.congress_service import CongressService
+from app.services import google_civic_service as google_civic
 
 router = APIRouter()
 geocode = GeocodeService()
@@ -75,6 +76,21 @@ async def lookup_address(
     # Senators always represent the full state
     my_senators = [m for m in members if m.get("chamber") == "Senate"]
 
+    # Enrichment: resolve OCD-IDs for the address via the free Google
+    # Divisions API (the Representatives API was retired 2025-04-30; this is
+    # its supported successor for stable division join-keys). Fail-open —
+    # returns [] when GOOGLE_CIVIC_API_KEY is unset or the call fails, so the
+    # core federal/state lookup (Census + our own data) never depends on it.
+    # OCD-IDs (e.g. ocd-division/country:us/state:fl/place:miami) are the join
+    # keys for matching curated local-officials data and future local-tier
+    # providers (Cicero / BallotReady).
+    ocd_divisions = []
+    try:
+        div = await google_civic.fetch_divisions(address)
+        ocd_divisions = (div or {}).get("divisions", []) or []
+    except Exception:
+        ocd_divisions = []
+
     return {
         "address": result["matchedAddress"],
         "coordinates": result["coordinates"],
@@ -92,4 +108,6 @@ async def lookup_address(
         "yourRepresentative": my_rep,
         "yourSenators": my_senators,
         "allMembers": members,
+        "ocdDivisions": ocd_divisions,
+        "ocdLookupEnabled": google_civic.is_enabled(),
     }
