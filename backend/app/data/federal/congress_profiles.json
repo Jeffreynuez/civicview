@@ -465,20 +465,25 @@
   "W000806": {
     "top_issues": [
       {
-        "name": "Education Reform",
-        "stance": "Supports school choice, charter schools, and education savings accounts."
+        "name": "Transportation & Infrastructure",
+        "stance": "Transportation and public works is his most frequent sponsored-legislation area, including the Florida Safe Seas Act.",
+        "sources": [
+          "https://webster.house.gov/"
+        ]
       },
       {
-        "name": "Disability Rights",
-        "stance": "Advocate for people with disabilities; supports expanded accessibility and services."
+        "name": "Science & Space",
+        "stance": "Sponsors science and space legislation, including the Frank Wolf Space Security Act.",
+        "sources": [
+          "https://webster.house.gov/"
+        ]
       },
       {
-        "name": "Healthcare",
-        "stance": "Supports market-based healthcare solutions and pharmaceutical innovation."
-      },
-      {
-        "name": "Defense and National Security",
-        "stance": "Strong defense advocate; supports military funding increases and strategic deterrence."
+        "name": "Taxation & Energy",
+        "stance": "Sponsors tax and energy legislation, including the America First Energy Act.",
+        "sources": [
+          "https://webster.house.gov/"
+        ]
       }
     ],
     "experience": [
@@ -613,20 +618,25 @@
   "F000462": {
     "top_issues": [
       {
-        "name": "Gun Violence Prevention",
-        "stance": "Supports universal background checks and red flag laws; advocates for gun safety measures."
+        "name": "Healthcare & Women's Health",
+        "stance": "Health is her most frequent sponsored-legislation area, including the Connected MOM Act; she co-chairs the Bipartisan Women's Caucus.",
+        "sources": [
+          "https://frankel.house.gov"
+        ]
       },
       {
-        "name": "Healthcare Access",
-        "stance": "Supports Affordable Care Act expansion and Medicare option for all."
+        "name": "Education",
+        "stance": "Sponsored education legislation, including the Protecting Students on Campus Act.",
+        "sources": [
+          "https://frankel.house.gov"
+        ]
       },
       {
-        "name": "LGBTQ+ Rights",
-        "stance": "Advocate for LGBTQ+ protections and equality; supports marriage equality and anti-discrimination legislation."
-      },
-      {
-        "name": "Clean Energy",
-        "stance": "Supports clean energy investment and climate action measures."
+        "name": "Workers & Families",
+        "stance": "Labor and family policy are among her most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://frankel.house.gov"
+        ]
       }
     ],
     "experience": [
@@ -943,6 +953,481 @@
         "stance": "Crime and law enforcement is among his most frequent sponsored-legislation areas, reflecting a documented focus on gun-violence-prevention policy.",
         "sources": [
           "https://frost.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001039": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is the most frequent area of her sponsored legislation, including the Bereaved Parents Rights Act.",
+        "sources": [
+          "https://cammack.house.gov"
+        ]
+      },
+      {
+        "name": "Agriculture",
+        "stance": "Sponsors agriculture and food legislation and serves on agriculture policy.",
+        "sources": [
+          "https://cammack.house.gov"
+        ]
+      },
+      {
+        "name": "First Responders & Public Safety",
+        "stance": "Sponsored first-responder legislation, including the First Responders' Equipment Access Act and the Answering the Call Act.",
+        "sources": [
+          "https://cammack.house.gov"
+        ]
+      }
+    ]
+  },
+  "B001314": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is by far his most frequent sponsored-legislation area, including the HSAs For All Act, the ICHRA Permanency Act, and the Punishing Health Care Fraudsters Act.",
+        "sources": [
+          "https://bean.house.gov"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations and politics is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://bean.house.gov"
+        ]
+      },
+      {
+        "name": "Education",
+        "stance": "Sponsors education legislation; a former Florida state legislator active on education policy.",
+        "sources": [
+          "https://bean.house.gov"
+        ]
+      }
+    ]
+  },
+  "R000609": {
+    "top_issues": [
+      {
+        "name": "Law Enforcement & Public Safety",
+        "stance": "A former Jacksonville sheriff; crime and law enforcement is his most frequent sponsored-legislation area, including the PLAN for School Safety Act and the HELPER Act.",
+        "sources": [
+          "https://rutherford.house.gov"
+        ]
+      },
+      {
+        "name": "Public Lands & Fisheries",
+        "stance": "Sponsors public-lands and fisheries legislation, including the Fisheries Data Modernization and Accuracy Act.",
+        "sources": [
+          "https://rutherford.house.gov"
+        ]
+      },
+      {
+        "name": "Energy",
+        "stance": "Energy is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://rutherford.house.gov"
+        ]
+      }
+    ]
+  },
+  "S001200": {
+    "top_issues": [
+      {
+        "name": "Technology & Communications",
+        "stance": "Science, technology, and communications is his most frequent sponsored-legislation area, including the STAR Act.",
+        "sources": [
+          "https://soto.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://soto.house.gov"
+        ]
+      },
+      {
+        "name": "Puerto Rico & Healthcare",
+        "stance": "Sponsored Puerto Rico-focused legislation, including the Puerto Rico Affordable Care Act.",
+        "sources": [
+          "https://soto.house.gov"
+        ]
+      }
+    ]
+  },
+  "B001257": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is by far his most frequent sponsored-legislation area, including the Ensuring Medicaid Continuity for Children in Foster Care Act and the Promoting Fairness for Medicare Providers Act.",
+        "sources": [
+          "https://bilirakis.house.gov/"
+        ]
+      },
+      {
+        "name": "Online Safety & Technology",
+        "stance": "Sponsored technology and online-safety legislation, including the Kids Online Safety Act.",
+        "sources": [
+          "https://bilirakis.house.gov/"
+        ]
+      },
+      {
+        "name": "Veterans",
+        "stance": "Sponsors veterans legislation, including the Restore Veterans' Compensation Act.",
+        "sources": [
+          "https://bilirakis.house.gov/"
+        ]
+      }
+    ]
+  },
+  "L000596": {
+    "top_issues": [
+      {
+        "name": "Crime & Law Enforcement",
+        "stance": "Crime and law enforcement is her most frequent sponsored-legislation area.",
+        "sources": [
+          "https://luna.house.gov"
+        ]
+      },
+      {
+        "name": "Children & Online Safety",
+        "stance": "Sponsored legislation on minors and technology, including the Kids Off Social Media Act.",
+        "sources": [
+          "https://luna.house.gov"
+        ]
+      },
+      {
+        "name": "Taxation & Cost of Living",
+        "stance": "Sponsored tax-relief legislation, including the American Families Gas Tax Relief Act.",
+        "sources": [
+          "https://luna.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001066": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is her most frequent sponsored-legislation area, including the PREVENT HPV Cancers Act and the Increasing Access to Lung Cancer Screening Act.",
+        "sources": [
+          "https://castor.house.gov/"
+        ]
+      },
+      {
+        "name": "Climate & Energy",
+        "stance": "Energy is among her most frequent sponsored-legislation areas; she previously chaired the Select Committee on the Climate Crisis.",
+        "sources": [
+          "https://castor.house.gov/"
+        ]
+      },
+      {
+        "name": "Maternal & Infant Health",
+        "stance": "Sponsored maternal and infant health legislation, including the Advancing Safe Medications for Moms and Babies Act.",
+        "sources": [
+          "https://castor.house.gov/"
+        ]
+      }
+    ]
+  },
+  "L000597": {
+    "top_issues": [
+      {
+        "name": "Crime & Law Enforcement",
+        "stance": "Crime and law enforcement is by far her most frequent sponsored-legislation area; she is a former Florida judge and Secretary of State.",
+        "sources": [
+          "https://laurellee.house.gov"
+        ]
+      },
+      {
+        "name": "Judiciary & Courts",
+        "stance": "Sponsored legislation on the federal courts, including the Federal Diversity Jurisdiction Modernization Act.",
+        "sources": [
+          "https://laurellee.house.gov"
+        ]
+      },
+      {
+        "name": "National Security & Data",
+        "stance": "Sponsored data-security legislation, including the Safe Cloud Storage Act.",
+        "sources": [
+          "https://laurellee.house.gov"
+        ]
+      }
+    ]
+  },
+  "B001260": {
+    "top_issues": [
+      {
+        "name": "Taxation & Economy",
+        "stance": "Taxation is his most frequent sponsored-legislation area; he serves on the Ways and Means Committee.",
+        "sources": [
+          "https://buchanan.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://buchanan.house.gov/"
+        ]
+      },
+      {
+        "name": "Animal Welfare",
+        "stance": "Sponsored animal-welfare legislation, including the Protecting Animals in Military Training Act.",
+        "sources": [
+          "https://buchanan.house.gov/"
+        ]
+      }
+    ]
+  },
+  "S001214": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://steube.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Sponsors health legislation, including Medicare-related amendments to the Social Security Act.",
+        "sources": [
+          "https://steube.house.gov/"
+        ]
+      },
+      {
+        "name": "Immigration & Law Enforcement",
+        "stance": "Sponsors immigration and law-enforcement legislation, including the ICE FROST Act.",
+        "sources": [
+          "https://steube.house.gov/"
+        ]
+      }
+    ]
+  },
+  "F000472": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://franklin.house.gov"
+        ]
+      },
+      {
+        "name": "National Defense & Veterans",
+        "stance": "Armed forces and national security is a frequent area of his sponsored legislation, including the Personnel Integrity in Veterans Affairs Act.",
+        "sources": [
+          "https://franklin.house.gov"
+        ]
+      },
+      {
+        "name": "Agriculture",
+        "stance": "Sponsors agriculture legislation, including the Land Grant Research Prioritization Act.",
+        "sources": [
+          "https://franklin.house.gov"
+        ]
+      }
+    ]
+  },
+  "D000032": {
+    "top_issues": [
+      {
+        "name": "Finance & Financial Services",
+        "stance": "Finance and the financial sector is his most frequent sponsored-legislation area, including the Appraisal Industry Improvement Act and the Defining Dealer Act.",
+        "sources": [
+          "https://donalds.house.gov"
+        ]
+      },
+      {
+        "name": "Energy",
+        "stance": "Sponsored energy legislation, including the Build Nuclear with Local Materials Act.",
+        "sources": [
+          "https://donalds.house.gov"
+        ]
+      },
+      {
+        "name": "Taxation & Economy",
+        "stance": "Taxation is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://donalds.house.gov"
+        ]
+      }
+    ]
+  },
+  "M001199": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "Armed forces and international affairs make up most of his sponsored legislation; he chairs the House Foreign Affairs Committee and is a combat veteran.",
+        "sources": [
+          "https://mast.house.gov"
+        ]
+      },
+      {
+        "name": "Everglades & Water Quality",
+        "stance": "Sponsors water-resources and environmental legislation affecting the Everglades and South Florida waterways.",
+        "sources": [
+          "https://mast.house.gov"
+        ]
+      },
+      {
+        "name": "Veterans & Military",
+        "stance": "Sponsored military and foreign-assistance legislation, including the Foreign Military Financing Loan Authorization Act.",
+        "sources": [
+          "https://mast.house.gov"
+        ]
+      }
+    ]
+  },
+  "M001217": {
+    "top_issues": [
+      {
+        "name": "Emergency Management & Disaster Response",
+        "stance": "Emergency management is his most frequent sponsored-legislation area; he is a former director of Florida's Division of Emergency Management.",
+        "sources": [
+          "https://moskowitz.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is among his most frequent sponsored-legislation areas, including the Venezuela Democratic Transition Strategy Act.",
+        "sources": [
+          "https://moskowitz.house.gov"
+        ]
+      },
+      {
+        "name": "Homeland Security & Public Safety",
+        "stance": "Sponsored homeland-security legislation, including the TSA and Secret Service Transfer Acts.",
+        "sources": [
+          "https://moskowitz.house.gov"
+        ]
+      }
+    ]
+  },
+  "W000808": {
+    "top_issues": [
+      {
+        "name": "Transportation & Transit Workforce",
+        "stance": "Transportation is her most frequent sponsored-legislation area, including the Transit Workforce Development Act.",
+        "sources": [
+          "https://wilson.house.gov/"
+        ]
+      },
+      {
+        "name": "Education & Labor",
+        "stance": "Education and labor are among her most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://wilson.house.gov/"
+        ]
+      },
+      {
+        "name": "Child Welfare & Anti-Trafficking",
+        "stance": "Sponsored anti-trafficking legislation, including the Save Our Girls from Sex Trafficking Act.",
+        "sources": [
+          "https://wilson.house.gov/"
+        ]
+      }
+    ]
+  },
+  "W000797": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs is her most frequent sponsored-legislation area; she serves on the Appropriations Committee.",
+        "sources": [
+          "https://wassermanschultz.house.gov/"
+        ]
+      },
+      {
+        "name": "Public Safety & Gun Safety",
+        "stance": "Crime and law enforcement is among her most frequent sponsored-legislation areas, including Jaime's Law on firearm background checks.",
+        "sources": [
+          "https://wassermanschultz.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Sponsors health legislation, including bills addressing cancer survivorship and infant formula access.",
+        "sources": [
+          "https://wassermanschultz.house.gov/"
+        ]
+      }
+    ]
+  },
+  "D000600": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & Latin America",
+        "stance": "International affairs is by far his most frequent sponsored-legislation area; he chairs the State and Foreign Operations Appropriations Subcommittee.",
+        "sources": [
+          "https://mariodiazbalart.house.gov/"
+        ]
+      },
+      {
+        "name": "Government Funding & Appropriations",
+        "stance": "Sponsors appropriations legislation, including the National Security, Department of State, and Related Programs Appropriations bill.",
+        "sources": [
+          "https://mariodiazbalart.house.gov/"
+        ]
+      },
+      {
+        "name": "National Security",
+        "stance": "Armed forces and national security are among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://mariodiazbalart.house.gov/"
+        ]
+      }
+    ]
+  },
+  "S000168": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy & Latin America",
+        "stance": "International affairs is her most frequent sponsored-legislation area, including the Venezuela Restoration Fund.",
+        "sources": [
+          "https://salazar.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among her most frequent sponsored-legislation areas; she authored the Dignity Act.",
+        "sources": [
+          "https://salazar.house.gov"
+        ]
+      },
+      {
+        "name": "Trade & Supply Chains",
+        "stance": "Sponsored commerce and trade legislation, including the Protecting America's Medical Supply Chains Act.",
+        "sources": [
+          "https://salazar.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000593": {
+    "top_issues": [
+      {
+        "name": "Transportation & Infrastructure",
+        "stance": "Transportation is his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://gimenez.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy & National Security",
+        "stance": "International affairs is among his most frequent sponsored-legislation areas, with a focus on China and Latin America.",
+        "sources": [
+          "https://gimenez.house.gov"
+        ]
+      },
+      {
+        "name": "Homeland Security",
+        "stance": "Sponsored homeland-security legislation, including the Department of Homeland Security Vehicular Terrorism Prevention Act; he serves on the Homeland Security Committee.",
+        "sources": [
+          "https://gimenez.house.gov"
         ]
       }
     ]
