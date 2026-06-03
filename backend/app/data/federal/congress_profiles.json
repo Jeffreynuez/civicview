@@ -3518,5 +3518,609 @@
         ]
       }
     ]
+  },
+  "G000555": {
+    "top_issues": [
+      {
+        "name": "Military Justice & Armed Services",
+        "stance": "Serves on the Armed Services Committee; known for work on military-justice reform, including the MARCH for Military Servicemembers Act.",
+        "sources": [
+          "https://www.gillibrand.senate.gov"
+        ]
+      },
+      {
+        "name": "Civil Rights & Public Safety",
+        "stance": "Sponsored the Hate Crimes Commission Act and body-armor accountability legislation.",
+        "sources": [
+          "https://www.gillibrand.senate.gov"
+        ]
+      },
+      {
+        "name": "Agriculture & Rural Issues",
+        "stance": "Serves on the Agriculture Committee.",
+        "sources": [
+          "https://www.gillibrand.senate.gov"
+        ]
+      }
+    ]
+  },
+  "L000598": {
+    "top_issues": [
+      {
+        "name": "National Defense & Veterans",
+        "stance": "A Navy veteran; armed forces is by far his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://lalota.house.gov"
+        ]
+      },
+      {
+        "name": "Transportation",
+        "stance": "Sponsored the Interstate Ferry Fairness Act; represents Long Island.",
+        "sources": [
+          "https://lalota.house.gov"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://lalota.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000597": {
+    "top_issues": [
+      {
+        "name": "Cybersecurity & Homeland Security",
+        "stance": "Chairs the House Homeland Security Committee; sponsors cybersecurity and homeland-security legislation.",
+        "sources": [
+          "https://garbarino.house.gov"
+        ]
+      },
+      {
+        "name": "First Responders",
+        "stance": "Sponsored the Volunteer First Responder Housing Act; an advocate for 9/11 first responders.",
+        "sources": [
+          "https://garbarino.house.gov"
+        ]
+      },
+      {
+        "name": "Financial Services",
+        "stance": "Finance is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://garbarino.house.gov"
+        ]
+      }
+    ]
+  },
+  "S001201": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is by far his most frequent sponsored-legislation area; an advocate for restoring the state-and-local-tax (SALT) deduction.",
+        "sources": [
+          "https://suozzi.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Sponsors bipartisan immigration legislation.",
+        "sources": [
+          "https://suozzi.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://suozzi.house.gov"
+        ]
+      }
+    ]
+  },
+  "G000602": {
+    "top_issues": [
+      {
+        "name": "Transportation & Rail Safety",
+        "stance": "Transportation is by far her most frequent sponsored-legislation area, including the Passenger Rail Crew Protection Act and the Safe Tracks Act.",
+        "sources": [
+          "https://gillen.house.gov/"
+        ]
+      },
+      {
+        "name": "Public Safety & Police Wellness",
+        "stance": "Sponsored the Officer Wellness and Peer Support Act.",
+        "sources": [
+          "https://gillen.house.gov/"
+        ]
+      }
+    ]
+  },
+  "M001137": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is by far his most frequent sponsored-legislation area; ranking member of the House Foreign Affairs Committee.",
+        "sources": [
+          "https://meeks.house.gov"
+        ]
+      },
+      {
+        "name": "Trade",
+        "stance": "Foreign trade is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://meeks.house.gov"
+        ]
+      },
+      {
+        "name": "Financial Services",
+        "stance": "Finance is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://meeks.house.gov"
+        ]
+      }
+    ]
+  },
+  "M001188": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is her most frequent sponsored-legislation area; serves on the Appropriations Committee.",
+        "sources": [
+          "https://meng.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Sponsored the Safe Check-Ins for Immigrants Act.",
+        "sources": [
+          "https://meng.house.gov"
+        ]
+      },
+      {
+        "name": "Civil Rights & Anti-Hate",
+        "stance": "Sponsors civil-rights legislation, including measures addressing hate crimes.",
+        "sources": [
+          "https://meng.house.gov"
+        ]
+      }
+    ]
+  },
+  "V000081": {
+    "top_issues": [
+      {
+        "name": "Small Business",
+        "stance": "Commerce is her most frequent sponsored-legislation area; ranking member of the House Small Business Committee.",
+        "sources": [
+          "https://velazquez.house.gov"
+        ]
+      },
+      {
+        "name": "Puerto Rico & Territories",
+        "stance": "Sponsored the Small Business Territories Support Act.",
+        "sources": [
+          "https://velazquez.house.gov"
+        ]
+      },
+      {
+        "name": "Housing & Economy",
+        "stance": "Sponsored the Investing in the American Dream Act.",
+        "sources": [
+          "https://velazquez.house.gov"
+        ]
+      }
+    ]
+  },
+  "C001067": {
+    "top_issues": [
+      {
+        "name": "Healthcare & Women's Health",
+        "stance": "Health is her most frequent sponsored-legislation area, including the Moms Matter Act and menopause-care legislation.",
+        "sources": [
+          "https://clarke.house.gov/"
+        ]
+      },
+      {
+        "name": "Technology & Data",
+        "stance": "Sponsors technology and data legislation; serves on the Energy and Commerce Committee.",
+        "sources": [
+          "https://clarke.house.gov/"
+        ]
+      },
+      {
+        "name": "Environment & Housing",
+        "stance": "Sponsors environmental and housing legislation.",
+        "sources": [
+          "https://clarke.house.gov/"
+        ]
+      }
+    ]
+  },
+  "G000599": {
+    "top_issues": [
+      {
+        "name": "Justice & Oversight",
+        "stance": "A former federal prosecutor; crime and government oversight are among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://goldman.house.gov"
+        ]
+      },
+      {
+        "name": "Immigration",
+        "stance": "Immigration is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://goldman.house.gov"
+        ]
+      },
+      {
+        "name": "Education & Children",
+        "stance": "Sponsored the Afterschool for All Act.",
+        "sources": [
+          "https://goldman.house.gov"
+        ]
+      }
+    ]
+  },
+  "M000317": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is by far her most frequent sponsored-legislation area; serves on the Ways and Means Committee, including SALT and gas-tax relief.",
+        "sources": [
+          "https://malliotakis.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among her most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://malliotakis.house.gov"
+        ]
+      },
+      {
+        "name": "Public Safety & Accountability",
+        "stance": "Sponsored the End Government Pensions for Sexual Abusers Act.",
+        "sources": [
+          "https://malliotakis.house.gov"
+        ]
+      }
+    ]
+  },
+  "N000002": {
+    "top_issues": [
+      {
+        "name": "Judiciary & Civil Liberties",
+        "stance": "A former Chair of the House Judiciary Committee; sponsors judiciary and civil-liberties legislation.",
+        "sources": [
+          "https://nadler.house.gov"
+        ]
+      },
+      {
+        "name": "Crime & Justice",
+        "stance": "Crime and law enforcement is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://nadler.house.gov"
+        ]
+      },
+      {
+        "name": "Transportation",
+        "stance": "Sponsored aviation-safety legislation affecting New York City.",
+        "sources": [
+          "https://nadler.house.gov"
+        ]
+      }
+    ]
+  },
+  "E000297": {
+    "top_issues": [
+      {
+        "name": "Foreign Policy",
+        "stance": "International affairs is his most frequent sponsored-legislation area, with a focus on Latin America and the Caribbean.",
+        "sources": [
+          "https://espaillat.house.gov"
+        ]
+      },
+      {
+        "name": "Education",
+        "stance": "Education is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://espaillat.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare & Energy Costs",
+        "stance": "Sponsored the Lowering American Energy Costs Act.",
+        "sources": [
+          "https://espaillat.house.gov"
+        ]
+      }
+    ]
+  },
+  "T000486": {
+    "top_issues": [
+      {
+        "name": "Financial Services & Housing",
+        "stance": "Finance is among his most frequent sponsored-legislation areas; an advocate for public housing.",
+        "sources": [
+          "https://ritchietorres.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Sponsored the Community Health Profiles Act.",
+        "sources": [
+          "https://ritchietorres.house.gov"
+        ]
+      },
+      {
+        "name": "Campaign & Government Integrity",
+        "stance": "Sponsored the Campaign Funds Integrity Act.",
+        "sources": [
+          "https://ritchietorres.house.gov"
+        ]
+      }
+    ]
+  },
+  "L000606": {
+    "top_issues": [
+      {
+        "name": "Local Government & Economy",
+        "stance": "A former Westchester County Executive; focuses on local-government and economic issues.",
+        "sources": [
+          "https://latimer.house.gov/"
+        ]
+      },
+      {
+        "name": "Consumer & Small Business",
+        "stance": "Sponsored small-business and consumer legislation, including the SBIR Administrative Funding Act.",
+        "sources": [
+          "https://latimer.house.gov/"
+        ]
+      }
+    ]
+  },
+  "L000599": {
+    "top_issues": [
+      {
+        "name": "Housing",
+        "stance": "Housing is by far his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://lawler.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://lawler.house.gov"
+        ]
+      },
+      {
+        "name": "Foreign Policy",
+        "stance": "Sponsored the Foreign Service Modernization Act.",
+        "sources": [
+          "https://lawler.house.gov"
+        ]
+      }
+    ]
+  },
+  "R000579": {
+    "top_issues": [
+      {
+        "name": "National Defense & Veterans",
+        "stance": "An Army veteran and West Point graduate; armed forces is by far his most frequent sponsored-legislation area.",
+        "sources": [
+          "https://patryan.house.gov/"
+        ]
+      },
+      {
+        "name": "Housing & Infrastructure",
+        "stance": "Sponsored the REPAIR Infrastructure Act.",
+        "sources": [
+          "https://patryan.house.gov/"
+        ]
+      },
+      {
+        "name": "Public Safety",
+        "stance": "Sponsored Melanie's Law.",
+        "sources": [
+          "https://patryan.house.gov/"
+        ]
+      }
+    ]
+  },
+  "R000622": {
+    "top_issues": [
+      {
+        "name": "Agriculture & Rural Issues",
+        "stance": "Agriculture is his most frequent sponsored-legislation area, including the Rural Investment for Producers and the Environment Act.",
+        "sources": [
+          "https://riley.house.gov/"
+        ]
+      },
+      {
+        "name": "Cost of Living & Utilities",
+        "stance": "Sponsored the No Taxes on Utility Bills Act.",
+        "sources": [
+          "https://riley.house.gov/"
+        ]
+      },
+      {
+        "name": "Veterans & Housing",
+        "stance": "Sponsored the Veteran Housing Promise Act.",
+        "sources": [
+          "https://riley.house.gov/"
+        ]
+      }
+    ]
+  },
+  "T000469": {
+    "top_issues": [
+      {
+        "name": "Healthcare",
+        "stance": "Health is by far his most frequent sponsored-legislation area; serves on the Energy and Commerce Committee, with a focus on addiction and mental health.",
+        "sources": [
+          "https://tonko.house.gov/"
+        ]
+      },
+      {
+        "name": "Climate & Energy",
+        "stance": "Environmental protection and energy are among his most frequent sponsored-legislation areas, including the Climate Pollution Standard.",
+        "sources": [
+          "https://tonko.house.gov/"
+        ]
+      },
+      {
+        "name": "Consumer Protection",
+        "stance": "Sponsored the Stopping Grinch Bots Act.",
+        "sources": [
+          "https://tonko.house.gov/"
+        ]
+      }
+    ]
+  },
+  "S001196": {
+    "top_issues": [
+      {
+        "name": "National Defense",
+        "stance": "Armed forces is among her most frequent sponsored-legislation areas; serves on the Armed Services and Intelligence Committees.",
+        "sources": [
+          "https://stefanik.house.gov/"
+        ]
+      },
+      {
+        "name": "Government Operations",
+        "stance": "Government operations is among her most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://stefanik.house.gov/"
+        ]
+      },
+      {
+        "name": "Economy & Security",
+        "stance": "Sponsored the American Security Robotics Act and supply-chain security legislation.",
+        "sources": [
+          "https://stefanik.house.gov/"
+        ]
+      }
+    ]
+  },
+  "M001231": {
+    "top_issues": [
+      {
+        "name": "Education",
+        "stance": "Education is his most frequent sponsored-legislation area; a former public-school teacher, including the READ Act.",
+        "sources": [
+          "https://mannion.house.gov/"
+        ]
+      },
+      {
+        "name": "Workforce & Technology",
+        "stance": "Sponsored the Immersive Technology for the American Workforce Act.",
+        "sources": [
+          "https://mannion.house.gov/"
+        ]
+      }
+    ]
+  },
+  "L000600": {
+    "top_issues": [
+      {
+        "name": "Agriculture & Rural Issues",
+        "stance": "Agriculture is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://langworthy.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Sponsored the Dietary Supplement Regulatory Uniformity Act.",
+        "sources": [
+          "https://langworthy.house.gov"
+        ]
+      },
+      {
+        "name": "Energy & Transportation",
+        "stance": "Sponsors energy and transportation legislation.",
+        "sources": [
+          "https://langworthy.house.gov"
+        ]
+      }
+    ]
+  },
+  "T000478": {
+    "top_issues": [
+      {
+        "name": "Taxation",
+        "stance": "Taxation is her most frequent sponsored-legislation area; serves on the Ways and Means Committee.",
+        "sources": [
+          "https://tenney.house.gov/"
+        ]
+      },
+      {
+        "name": "Healthcare & Caregivers",
+        "stance": "Sponsored the Essential Caregivers Act and the Healthcare is Human Act.",
+        "sources": [
+          "https://tenney.house.gov/"
+        ]
+      },
+      {
+        "name": "Government Operations & Election Integrity",
+        "stance": "Government operations is among her most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://tenney.house.gov/"
+        ]
+      }
+    ]
+  },
+  "M001206": {
+    "top_issues": [
+      {
+        "name": "Government Operations & Elections",
+        "stance": "Government operations is among his most frequent sponsored-legislation areas; ranking member of the House Administration Committee.",
+        "sources": [
+          "https://morelle.house.gov"
+        ]
+      },
+      {
+        "name": "Public Safety & Crime",
+        "stance": "Crime and law enforcement is among his most frequent sponsored-legislation areas.",
+        "sources": [
+          "https://morelle.house.gov"
+        ]
+      },
+      {
+        "name": "Healthcare",
+        "stance": "Health is among his frequent sponsored-legislation areas.",
+        "sources": [
+          "https://morelle.house.gov"
+        ]
+      }
+    ]
+  },
+  "K000402": {
+    "top_issues": [
+      {
+        "name": "National Defense & Veterans",
+        "stance": "Armed forces is his most frequent sponsored-legislation area, including the VA Police Recruitment and Retention Act.",
+        "sources": [
+          "https://kennedy.house.gov"
+        ]
+      },
+      {
+        "name": "Transportation & Infrastructure",
+        "stance": "Transportation is among his most frequent sponsored-legislation areas; represents the Buffalo region.",
+        "sources": [
+          "https://kennedy.house.gov"
+        ]
+      },
+      {
+        "name": "Border & Public Safety",
+        "stance": "Sponsored the DHS Release Transparency Act.",
+        "sources": [
+          "https://kennedy.house.gov"
+        ]
+      }
+    ]
   }
 }
