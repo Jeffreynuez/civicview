@@ -90,6 +90,7 @@ from app.schemas.pages import (
     ReactionRequest,
     ReactionSummary,
 )
+from app.services import poll_demographics
 from app.services.citizen_polls_service import (
     archive_poll,
     citizen_has_active_poll_on_page,
@@ -351,6 +352,9 @@ def create_citizen_poll(
             text=opt.text,
             sort_order=sort_order,
         ))
+    poll_demographics.attach_questions(
+        db, poll.id, poll_payload.demographic_question_keys,
+    )
     db.commit()
     db.refresh(poll)
     for o in poll.options:
@@ -445,6 +449,9 @@ def create_standalone_poll(
             text=opt.text,
             sort_order=sort_order,
         ))
+    poll_demographics.attach_questions(
+        db, poll.id, poll_payload.demographic_question_keys,
+    )
     db.commit()
     db.refresh(poll)
     for o in poll.options:
@@ -557,6 +564,18 @@ def vote_on_citizen_poll(
             scope_city=citizen.city if citizen is not None else None,
             scope_county=citizen.county if citizen is not None else None,
         ))
+
+    # Capture optional self-reported demographics (verified-citizen votes
+    # only; mirrors the geography-scope gate).
+    db.flush()
+    if citizen is not None:
+        _vote_row = (
+            db.query(PollVote)
+            .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)
+            .first()
+        )
+        if _vote_row is not None:
+            poll_demographics.record_for_vote(db, poll.id, _vote_row, payload.demographics)
 
     db.commit()
     db.refresh(poll)

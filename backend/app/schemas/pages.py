@@ -168,6 +168,10 @@ class PollCreate(BaseModel):
     # 'full' when no closes_at is set (it'd be a perpetual blackout
     # otherwise).
     presentation_mode: str = Field(default="full")
+    # Optional demographic form: catalog question keys the creator attaches
+    # (validated server-side against services/demographics_catalog). All
+    # questions are optional for voters; see docs/polls-demographic-forms-prd.md.
+    demographic_question_keys: Optional[List[str]] = Field(default=None)
 
 
 class PollOptionRead(BaseModel):
@@ -334,6 +338,11 @@ class PollVoteRequest(BaseModel):
     # whenever the user is signed in to multiple identities so the
     # vote lands on the correct identity row.
     as_identity: Optional[str] = Field(default=None, pattern=r"^(citizen|rep|candidate)$")
+    # Optional self-reported demographic answers {question_key: option_value}.
+    # Stored only for verified-citizen votes whose poll has an attached form;
+    # validated against the catalog, invalid/unknown entries dropped. Omitting
+    # a key = "Prefer not to say" (no row stored).
+    demographics: Optional[dict] = Field(default=None)
 
 
 # ── Reactions ─────────────────────────────────────────────────────────

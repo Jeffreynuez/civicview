@@ -85,6 +85,7 @@ from app.schemas.pages import (
     PostUpdateRequest,
     CommentUpdateRequest,
 )
+from app.services import poll_demographics
 from app.services.edit_window import (
     can_edit_post,
     can_edit_comment,
@@ -1068,6 +1069,9 @@ def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount
             text=opt.text.strip(),
             sort_order=idx,
         ))
+    poll_demographics.attach_questions(
+        db, poll.id, getattr(payload, "demographic_question_keys", None),
+    )
     return poll.id
 
 
@@ -1352,6 +1356,19 @@ def vote_on_poll(
                 scope_city=citizen.city if citizen is not None else None,
                 scope_county=citizen.county if citizen is not None else None,
             ))
+
+    # Capture optional self-reported demographics (verified-citizen votes
+    # only; mirrors the geography-scope gate). Re-query the row we just
+    # wrote/updated rather than thread it through every branch above.
+    db.flush()
+    if citizen is not None:
+        _vote_row = (
+            db.query(PollVote)
+            .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)
+            .first()
+        )
+        if _vote_row is not None:
+            poll_demographics.record_for_vote(db, poll.id, _vote_row, payload.demographics)
 
     db.commit()
     db.refresh(poll)
