@@ -600,8 +600,9 @@ function groupRaces(races) {
     { key: 'us-senate', label: 'U.S. Senate', match: (r) => r.level === 'federal' && /senate/i.test(r.office || '') },
     { key: 'us-house', label: 'U.S. House', match: (r) => r.level === 'federal' && /house/i.test(r.office || '') },
     { key: 'federal-other', label: 'Federal', match: (r) => r.level === 'federal' },
-    { key: 'statewide', label: 'Statewide', match: (r) => r.level === 'state' && !/^state (senate|house)/i.test(r.chamber || '') },
+    { key: 'statewide', label: 'Statewide', match: (r) => r.level === 'state' && !/^state (senate|house|assembly)/i.test(r.chamber || '') },
     { key: 'state-senate', label: 'State Senate', match: (r) => /^state senate/i.test(r.chamber || '') },
+    { key: 'state-assembly', label: 'State Assembly', match: (r) => /^state assembly/i.test(r.chamber || '') },
     { key: 'state-house', label: 'State House', match: (r) => /^state house/i.test(r.chamber || '') },
     { key: 'local', label: 'Local', match: (r) => r.level === 'local' },
   ];

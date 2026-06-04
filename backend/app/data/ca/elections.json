@@ -1,0 +1,4440 @@
+{
+ "_note": "Races for California 2026, auto-generated on 2026-06-04 (Task #96). candidate_ids point into candidates.json. Federal races from OpenFEC; state-legislature races are incumbent-only from the Open States roster. Statewide executive + local races and challenger rosters remain Tasks #98/#99.",
+ "_source": "OpenFEC + Open States state_officials.json. Replace/augment with the California Secretary of State certified ballot + Ballotpedia when funded.",
+ "state": "CA",
+ "state_name": "California",
+ "cycle": 2026,
+ "closed_primary": false,
+ "key_dates": {
+  "primary": "2026-06-02",
+  "general": "2026-11-03",
+  "voter_registration_deadline_primary": "2026-05-18",
+  "voter_registration_deadline_general": "2026-10-19"
+ },
+ "races": [
+  {
+   "id": "ca-2026-us-house-1",
+   "office": "U.S. House, CA-1",
+   "level": "federal",
+   "jurisdiction": "CA-1",
+   "state_fips": "06",
+   "congressional_district": "1",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mike-mcguire-h1",
+     "ca-cand-audrey-denney-h1",
+     "ca-cand-james-salegui-h1",
+     "ca-cand-kyle-wilson-h1"
+    ],
+    "R": [
+     "ca-cand-james-gallagher-h1",
+     "ca-cand-doug-lamalfa-h1"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mike-mcguire-h1",
+    "ca-cand-james-gallagher-h1",
+    "ca-cand-audrey-denney-h1",
+    "ca-cand-doug-lamalfa-h1",
+    "ca-cand-james-salegui-h1",
+    "ca-cand-kyle-wilson-h1"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-2",
+   "office": "U.S. House, CA-2",
+   "level": "federal",
+   "jurisdiction": "CA-2",
+   "state_fips": "06",
+   "congressional_district": "2",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jared-huffman-h2",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jared-huffman-h2",
+     "ca-cand-rose-penelope-lagoc-yee-h2"
+    ],
+    "I": [
+     "ca-cand-nicolette-g-hahn-h2",
+     "ca-cand-gregory-warren-burgess-h2"
+    ],
+    "R": [
+     "ca-cand-timothy-david-geist-h2",
+     "ca-cand-paul-w-saulsbury-h2"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jared-huffman-h2",
+    "ca-cand-nicolette-g-hahn-h2",
+    "ca-cand-rose-penelope-lagoc-yee-h2",
+    "ca-cand-gregory-warren-burgess-h2",
+    "ca-cand-timothy-david-geist-h2",
+    "ca-cand-paul-w-saulsbury-h2"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-3",
+   "office": "U.S. House, CA-3",
+   "level": "federal",
+   "jurisdiction": "CA-3",
+   "state_fips": "06",
+   "congressional_district": "3",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ami-bera-h3",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-ami-bera-h3",
+     "ca-cand-heidi-hall-h3",
+     "ca-cand-christopher-jerman-bennett-h3",
+     "ca-cand-lyndon-cervantes-h3"
+    ],
+    "R": [
+     "ca-cand-robb-tucker-h3",
+     "ca-cand-christine-s-bish-h3"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ami-bera-h3",
+    "ca-cand-heidi-hall-h3",
+    "ca-cand-robb-tucker-h3",
+    "ca-cand-christopher-jerman-bennett-h3",
+    "ca-cand-christine-s-bish-h3",
+    "ca-cand-lyndon-cervantes-h3"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-4",
+   "office": "U.S. House, CA-4",
+   "level": "federal",
+   "jurisdiction": "CA-4",
+   "state_fips": "06",
+   "congressional_district": "4",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mike-thompson-h4",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-eric-jones-h4",
+     "ca-cand-mike-thompson-h4",
+     "ca-cand-trevor-merrell-h4"
+    ],
+    "R": [
+     "ca-cand-raymond-riehle-h4",
+     "ca-cand-laurie-john-mackenzie-h4",
+     "ca-cand-sharon-brown-h4",
+     "ca-cand-mandy-ghusar-h4"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-eric-jones-h4",
+    "ca-cand-mike-thompson-h4",
+    "ca-cand-raymond-riehle-h4",
+    "ca-cand-laurie-john-mackenzie-h4",
+    "ca-cand-sharon-brown-h4",
+    "ca-cand-mandy-ghusar-h4",
+    "ca-cand-trevor-merrell-h4"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-5",
+   "office": "U.S. House, CA-5",
+   "level": "federal",
+   "jurisdiction": "CA-5",
+   "state_fips": "06",
+   "congressional_district": "5",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tom-mcclintock-h5",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-tom-mcclintock-h5"
+    ],
+    "D": [
+     "ca-cand-michael-masuda-h5",
+     "ca-cand-michael-james-barkley-h5",
+     "ca-cand-paul-danbom-h5",
+     "ca-cand-katelyn-anne-sills-h5"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tom-mcclintock-h5",
+    "ca-cand-michael-masuda-h5",
+    "ca-cand-michael-james-barkley-h5",
+    "ca-cand-paul-danbom-h5",
+    "ca-cand-katelyn-anne-sills-h5"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-6",
+   "office": "U.S. House, CA-6",
+   "level": "federal",
+   "jurisdiction": "CA-6",
+   "state_fips": "06",
+   "congressional_district": "6",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-kevin-kiley-h6",
+   "primary_candidates": {
+    "I": [
+     "ca-cand-kevin-kiley-h6"
+    ],
+    "D": [
+     "ca-cand-thien-ho-h6",
+     "ca-cand-richard-pan-h6",
+     "ca-cand-lauren-babb-tomlinson-h6",
+     "ca-cand-martha-guerrero-h6",
+     "ca-cand-tyler-isaac-vandenberg-h6"
+    ],
+    "R": [
+     "ca-cand-michael-stansfield-h6"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-kevin-kiley-h6",
+    "ca-cand-thien-ho-h6",
+    "ca-cand-richard-pan-h6",
+    "ca-cand-lauren-babb-tomlinson-h6",
+    "ca-cand-martha-guerrero-h6",
+    "ca-cand-tyler-isaac-vandenberg-h6",
+    "ca-cand-michael-stansfield-h6"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-7",
+   "office": "U.S. House, CA-7",
+   "level": "federal",
+   "jurisdiction": "CA-7",
+   "state_fips": "06",
+   "congressional_district": "7",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-doris-o-matsui-h7",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-doris-o-matsui-h7",
+     "ca-cand-mai-vang-h7",
+     "ca-cand-robert-morin-h7",
+     "ca-cand-erica-lee-h7"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-doris-o-matsui-h7",
+    "ca-cand-mai-vang-h7",
+    "ca-cand-robert-morin-h7",
+    "ca-cand-erica-lee-h7"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-8",
+   "office": "U.S. House, CA-8",
+   "level": "federal",
+   "jurisdiction": "CA-8",
+   "state_fips": "06",
+   "congressional_district": "8",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-john-garamendi-h8",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-john-garamendi-h8",
+     "ca-cand-nicolas-carjuzaa-h8",
+     "ca-cand-aaron-b-rowden-h8",
+     "ca-cand-harinder-singh-lamba-h8"
+    ],
+    "R": [
+     "ca-cand-rudy-recile-h8"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-john-garamendi-h8",
+    "ca-cand-nicolas-carjuzaa-h8",
+    "ca-cand-aaron-b-rowden-h8",
+    "ca-cand-harinder-singh-lamba-h8",
+    "ca-cand-rudy-recile-h8"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-9",
+   "office": "U.S. House, CA-9",
+   "level": "federal",
+   "jurisdiction": "CA-9",
+   "state_fips": "06",
+   "congressional_district": "9",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-josh-harder-h9",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-josh-harder-h9"
+    ],
+    "R": [
+     "ca-cand-james-h-shoemaker-h9",
+     "ca-cand-john-mcbride-h9"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-josh-harder-h9",
+    "ca-cand-james-h-shoemaker-h9",
+    "ca-cand-john-mcbride-h9"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-10",
+   "office": "U.S. House, CA-10",
+   "level": "federal",
+   "jurisdiction": "CA-10",
+   "state_fips": "06",
+   "congressional_district": "10",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mark-desaulnier-h10",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mark-desaulnier-h10",
+     "ca-cand-mitchell-david-maisler-h10",
+     "ca-cand-joshua-hamilton-h10"
+    ],
+    "R": [
+     "ca-cand-katherine-piccinini-h10",
+     "ca-cand-angela-griffiths-h10"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mark-desaulnier-h10",
+    "ca-cand-katherine-piccinini-h10",
+    "ca-cand-mitchell-david-maisler-h10",
+    "ca-cand-angela-griffiths-h10",
+    "ca-cand-joshua-hamilton-h10"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-11",
+   "office": "U.S. House, CA-11",
+   "level": "federal",
+   "jurisdiction": "CA-11",
+   "state_fips": "06",
+   "congressional_district": "11",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-saikat-chakrabarti-h11",
+     "ca-cand-scott-wiener-h11",
+     "ca-cand-connie-chan-h11",
+     "ca-cand-marie-hurabiell-h11",
+     "ca-cand-omed-hamid-h11",
+     "ca-cand-darren-wayne-helton-h11"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-saikat-chakrabarti-h11",
+    "ca-cand-scott-wiener-h11",
+    "ca-cand-connie-chan-h11",
+    "ca-cand-marie-hurabiell-h11",
+    "ca-cand-omed-hamid-h11",
+    "ca-cand-darren-wayne-helton-h11"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-12",
+   "office": "U.S. House, CA-12",
+   "level": "federal",
+   "jurisdiction": "CA-12",
+   "state_fips": "06",
+   "congressional_district": "12",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lateefah-simon-h12",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lateefah-simon-h12",
+     "ca-cand-jamie-joyce-h12"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lateefah-simon-h12",
+    "ca-cand-jamie-joyce-h12"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-13",
+   "office": "U.S. House, CA-13",
+   "level": "federal",
+   "jurisdiction": "CA-13",
+   "state_fips": "06",
+   "congressional_district": "13",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-adam-gray-h13",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-adam-gray-h13"
+    ],
+    "R": [
+     "ca-cand-vin-kruttiventi-h13",
+     "ca-cand-kevin-j-lincoln-ii-h13",
+     "ca-cand-javier-b-lopez-h13"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-adam-gray-h13",
+    "ca-cand-vin-kruttiventi-h13",
+    "ca-cand-kevin-j-lincoln-ii-h13",
+    "ca-cand-javier-b-lopez-h13"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-14",
+   "office": "U.S. House, CA-14",
+   "level": "federal",
+   "jurisdiction": "CA-14",
+   "state_fips": "06",
+   "congressional_district": "14",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-rakhi-israni-h14",
+     "ca-cand-melissa-hernandez-h14",
+     "ca-cand-aisha-wahab-h14",
+     "ca-cand-sheriene-ridenour-h14",
+     "ca-cand-matt-ortega-h14",
+     "ca-cand-carin-elam-h14",
+     "ca-cand-abrar-qadir-h14"
+    ],
+    "R": [
+     "ca-cand-wendy-fiona-huang-h14"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-rakhi-israni-h14",
+    "ca-cand-melissa-hernandez-h14",
+    "ca-cand-aisha-wahab-h14",
+    "ca-cand-sheriene-ridenour-h14",
+    "ca-cand-matt-ortega-h14",
+    "ca-cand-wendy-fiona-huang-h14",
+    "ca-cand-carin-elam-h14",
+    "ca-cand-abrar-qadir-h14"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-15",
+   "office": "U.S. House, CA-15",
+   "level": "federal",
+   "jurisdiction": "CA-15",
+   "state_fips": "06",
+   "congressional_district": "15",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-kevin-mullin-h15",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-kevin-mullin-h15",
+     "ca-cand-mantosh-kumar-h15",
+     "ca-cand-anthony-van-dang-h15"
+    ],
+    "R": [
+     "ca-cand-anna-kramer-h15"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-kevin-mullin-h15",
+    "ca-cand-mantosh-kumar-h15",
+    "ca-cand-anthony-van-dang-h15",
+    "ca-cand-anna-kramer-h15"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-16",
+   "office": "U.S. House, CA-16",
+   "level": "federal",
+   "jurisdiction": "CA-16",
+   "state_fips": "06",
+   "congressional_district": "16",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sam-t-liccardo-h16",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sam-t-liccardo-h16"
+    ],
+    "I": [
+     "ca-cand-jotham-stein-h16"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sam-t-liccardo-h16",
+    "ca-cand-jotham-stein-h16"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-17",
+   "office": "U.S. House, CA-17",
+   "level": "federal",
+   "jurisdiction": "CA-17",
+   "state_fips": "06",
+   "congressional_district": "17",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ro-khanna-h17",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-ro-khanna-h17",
+     "ca-cand-ethan-agarwal-h17",
+     "ca-cand-mike-katz-h17"
+    ],
+    "R": [
+     "ca-cand-ritesh-tandon-h17"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ro-khanna-h17",
+    "ca-cand-ethan-agarwal-h17",
+    "ca-cand-ritesh-tandon-h17",
+    "ca-cand-mike-katz-h17"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-18",
+   "office": "U.S. House, CA-18",
+   "level": "federal",
+   "jurisdiction": "CA-18",
+   "state_fips": "06",
+   "congressional_district": "18",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-zoe-lofgren-h18",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-zoe-lofgren-h18",
+     "ca-cand-luis-antonio-acevedo-arreguin-h18"
+    ],
+    "I": [
+     "ca-cand-christopher-demers-h18"
+    ],
+    "R": [
+     "ca-cand-shane-lewis-h18"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-zoe-lofgren-h18",
+    "ca-cand-christopher-demers-h18",
+    "ca-cand-shane-lewis-h18",
+    "ca-cand-luis-antonio-acevedo-arreguin-h18"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-19",
+   "office": "U.S. House, CA-19",
+   "level": "federal",
+   "jurisdiction": "CA-19",
+   "state_fips": "06",
+   "congressional_district": "19",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jimmy-panetta-h19",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jimmy-panetta-h19"
+    ],
+    "G": [
+     "ca-cand-sean-jacob-dougherty-h19"
+    ],
+    "R": [
+     "ca-cand-peter-coe-verbica-h19"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jimmy-panetta-h19",
+    "ca-cand-sean-jacob-dougherty-h19",
+    "ca-cand-peter-coe-verbica-h19"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-20",
+   "office": "U.S. House, CA-20",
+   "level": "federal",
+   "jurisdiction": "CA-20",
+   "state_fips": "06",
+   "congressional_district": "20",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-vince-fong-h20",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-vince-fong-h20"
+    ],
+    "D": [
+     "ca-cand-carol-kristina-roper-h20",
+     "ca-cand-sandra-van-scotter-h20"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-vince-fong-h20",
+    "ca-cand-carol-kristina-roper-h20",
+    "ca-cand-sandra-van-scotter-h20"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-21",
+   "office": "U.S. House, CA-21",
+   "level": "federal",
+   "jurisdiction": "CA-21",
+   "state_fips": "06",
+   "congressional_district": "21",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jim-costa-h21",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jim-costa-h21"
+    ],
+    "R": [
+     "ca-cand-lorenzo-rios-h21",
+     "ca-cand-kyle-kirkland-h21"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jim-costa-h21",
+    "ca-cand-lorenzo-rios-h21",
+    "ca-cand-kyle-kirkland-h21"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-22",
+   "office": "U.S. House, CA-22",
+   "level": "federal",
+   "jurisdiction": "CA-22",
+   "state_fips": "06",
+   "congressional_district": "22",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-david-g-valadao-h22",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-david-g-valadao-h22"
+    ],
+    "D": [
+     "ca-cand-randy-villegas-h22",
+     "ca-cand-jasmeet-bains-h22",
+     "ca-cand-rudy-salas-h22"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-david-g-valadao-h22",
+    "ca-cand-randy-villegas-h22",
+    "ca-cand-jasmeet-bains-h22",
+    "ca-cand-rudy-salas-h22"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-23",
+   "office": "U.S. House, CA-23",
+   "level": "federal",
+   "jurisdiction": "CA-23",
+   "state_fips": "06",
+   "congressional_district": "23",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jay-obernolte-h23",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-jay-obernolte-h23"
+    ],
+    "I": [
+     "ca-cand-karen-matthews-h23"
+    ],
+    "D": [
+     "ca-cand-paul-chakalian-h23",
+     "ca-cand-tessa-lynn-hodge-h23",
+     "ca-cand-charles-patrick-wallis-h23",
+     "ca-cand-alexis-l-claiborne-h23"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jay-obernolte-h23",
+    "ca-cand-karen-matthews-h23",
+    "ca-cand-paul-chakalian-h23",
+    "ca-cand-tessa-lynn-hodge-h23",
+    "ca-cand-charles-patrick-wallis-h23",
+    "ca-cand-alexis-l-claiborne-h23"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-24",
+   "office": "U.S. House, CA-24",
+   "level": "federal",
+   "jurisdiction": "CA-24",
+   "state_fips": "06",
+   "congressional_district": "24",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-salud-o-carbajal-h24",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-salud-o-carbajal-h24",
+     "ca-cand-sarah-bacon-h24"
+    ],
+    "R": [
+     "ca-cand-robert-bob-j-smith-h24"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-salud-o-carbajal-h24",
+    "ca-cand-robert-bob-j-smith-h24",
+    "ca-cand-sarah-bacon-h24"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-25",
+   "office": "U.S. House, CA-25",
+   "level": "federal",
+   "jurisdiction": "CA-25",
+   "state_fips": "06",
+   "congressional_district": "25",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-raul-ruiz-h25",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-raul-ruiz-h25"
+    ],
+    "R": [
+     "ca-cand-joe-males-h25",
+     "ca-cand-ceci-truman-h25"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-raul-ruiz-h25",
+    "ca-cand-joe-males-h25",
+    "ca-cand-ceci-truman-h25"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-26",
+   "office": "U.S. House, CA-26",
+   "level": "federal",
+   "jurisdiction": "CA-26",
+   "state_fips": "06",
+   "congressional_district": "26",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jacqui-irwin-v-h26",
+     "ca-cand-chris-espinosa-h26",
+     "ca-cand-sonia-devgan-kacker-h26"
+    ],
+    "R": [
+     "ca-cand-samuel-gallucci-h26",
+     "ca-cand-michael-s-koslow-h26",
+     "ca-cand-william-scott-h26"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jacqui-irwin-v-h26",
+    "ca-cand-samuel-gallucci-h26",
+    "ca-cand-chris-espinosa-h26",
+    "ca-cand-michael-s-koslow-h26",
+    "ca-cand-sonia-devgan-kacker-h26",
+    "ca-cand-william-scott-h26"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-27",
+   "office": "U.S. House, CA-27",
+   "level": "federal",
+   "jurisdiction": "CA-27",
+   "state_fips": "06",
+   "congressional_district": "27",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-george-whitesides-h27",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-george-whitesides-h27"
+    ],
+    "R": [
+     "ca-cand-jason-gibbs-h27"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-george-whitesides-h27",
+    "ca-cand-jason-gibbs-h27"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-28",
+   "office": "U.S. House, CA-28",
+   "level": "federal",
+   "jurisdiction": "CA-28",
+   "state_fips": "06",
+   "congressional_district": "28",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-judy-chu-h28",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-judy-chu-h28"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-judy-chu-h28"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-29",
+   "office": "U.S. House, CA-29",
+   "level": "federal",
+   "jurisdiction": "CA-29",
+   "state_fips": "06",
+   "congressional_district": "29",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-luz-m-rivas-h29",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-luz-m-rivas-h29",
+     "ca-cand-angelica-maria-duenas-h29"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-luz-m-rivas-h29",
+    "ca-cand-angelica-maria-duenas-h29"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-30",
+   "office": "U.S. House, CA-30",
+   "level": "federal",
+   "jurisdiction": "CA-30",
+   "state_fips": "06",
+   "congressional_district": "30",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-laura-friedman-h30",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-laura-friedman-h30",
+     "ca-cand-lester-herman-h30",
+     "ca-cand-cameron-tennyson-h30",
+     "ca-cand-joel-lava-h30",
+     "ca-cand-nick-melvoin-h30"
+    ],
+    "I": [
+     "ca-cand-john-armenian-h30"
+    ],
+    "R": [
+     "ca-cand-scott-alan-meyers-h30",
+     "ca-cand-dennis-f-feitosa-h30"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-laura-friedman-h30",
+    "ca-cand-john-armenian-h30",
+    "ca-cand-scott-alan-meyers-h30",
+    "ca-cand-lester-herman-h30",
+    "ca-cand-dennis-f-feitosa-h30",
+    "ca-cand-cameron-tennyson-h30",
+    "ca-cand-joel-lava-h30",
+    "ca-cand-nick-melvoin-h30"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-31",
+   "office": "U.S. House, CA-31",
+   "level": "federal",
+   "jurisdiction": "CA-31",
+   "state_fips": "06",
+   "congressional_district": "31",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-gilbert-ray-cisneros-jr-h31",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-gilbert-ray-cisneros-jr-h31"
+    ],
+    "R": [
+     "ca-cand-eric-j-ching-h31"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-gilbert-ray-cisneros-jr-h31",
+    "ca-cand-eric-j-ching-h31"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-32",
+   "office": "U.S. House, CA-32",
+   "level": "federal",
+   "jurisdiction": "CA-32",
+   "state_fips": "06",
+   "congressional_district": "32",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-brad-sherman-h32",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jake-levine-h32",
+     "ca-cand-brad-sherman-h32",
+     "ca-cand-jake-rakov-h32",
+     "ca-cand-dory-benami-h32",
+     "ca-cand-christopher-ahuja-h32",
+     "ca-cand-josh-sautter-h32",
+     "ca-cand-marena-lin-h32",
+     "ca-cand-anna-wilding-h32"
+    ],
+    "R": [
+     "ca-cand-larry-thompson-h32"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jake-levine-h32",
+    "ca-cand-brad-sherman-h32",
+    "ca-cand-jake-rakov-h32",
+    "ca-cand-dory-benami-h32",
+    "ca-cand-christopher-ahuja-h32",
+    "ca-cand-josh-sautter-h32",
+    "ca-cand-marena-lin-h32",
+    "ca-cand-larry-thompson-h32",
+    "ca-cand-anna-wilding-h32"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-33",
+   "office": "U.S. House, CA-33",
+   "level": "federal",
+   "jurisdiction": "CA-33",
+   "state_fips": "06",
+   "congressional_district": "33",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-pete-aguilar-h33",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-pete-aguilar-h33",
+     "ca-cand-antonis-panagiotis-christodoulou-h33"
+    ],
+    "R": [
+     "ca-cand-eugene-lamonte-weems-h33",
+     "ca-cand-ernest-richter-h33"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-pete-aguilar-h33",
+    "ca-cand-eugene-lamonte-weems-h33",
+    "ca-cand-ernest-richter-h33",
+    "ca-cand-antonis-panagiotis-christodoulou-h33"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-34",
+   "office": "U.S. House, CA-34",
+   "level": "federal",
+   "jurisdiction": "CA-34",
+   "state_fips": "06",
+   "congressional_district": "34",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jimmy-gomez-h34",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jimmy-gomez-h34",
+     "ca-cand-angela-gonzales-torres-h34",
+     "ca-cand-rob-lucero-h34",
+     "ca-cand-arthur-dixon-h34"
+    ],
+    "I": [
+     "ca-cand-loren-colin-h34"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jimmy-gomez-h34",
+    "ca-cand-angela-gonzales-torres-h34",
+    "ca-cand-rob-lucero-h34",
+    "ca-cand-arthur-dixon-h34",
+    "ca-cand-loren-colin-h34"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-35",
+   "office": "U.S. House, CA-35",
+   "level": "federal",
+   "jurisdiction": "CA-35",
+   "state_fips": "06",
+   "congressional_district": "35",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-norma-j-torres-h35",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-norma-j-torres-h35"
+    ],
+    "R": [
+     "ca-cand-mike-cargile-h35"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-norma-j-torres-h35",
+    "ca-cand-mike-cargile-h35"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-36",
+   "office": "U.S. House, CA-36",
+   "level": "federal",
+   "jurisdiction": "CA-36",
+   "state_fips": "06",
+   "congressional_district": "36",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ted-lieu-h36",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-ted-lieu-h36",
+     "ca-cand-rustin-knudtson-h36",
+     "ca-cand-marianne-shamma-h36"
+    ],
+    "R": [
+     "ca-cand-leah-melissa-toomim-h36"
+    ],
+    "I": [
+     "ca-cand-claire-ragge-anderson-h36"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ted-lieu-h36",
+    "ca-cand-leah-melissa-toomim-h36",
+    "ca-cand-claire-ragge-anderson-h36",
+    "ca-cand-rustin-knudtson-h36",
+    "ca-cand-marianne-shamma-h36"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-37",
+   "office": "U.S. House, CA-37",
+   "level": "federal",
+   "jurisdiction": "CA-37",
+   "state_fips": "06",
+   "congressional_district": "37",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sydney-kamlager-dove-h37",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sydney-kamlager-dove-h37",
+     "ca-cand-todd-lombardo-h37"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sydney-kamlager-dove-h37",
+    "ca-cand-todd-lombardo-h37"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-38",
+   "office": "U.S. House, CA-38",
+   "level": "federal",
+   "jurisdiction": "CA-38",
+   "state_fips": "06",
+   "congressional_district": "38",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-hilda-solis-h38",
+     "ca-cand-monica-sanchez-h38",
+     "ca-cand-thomas-michael-adams-falconer-jr-h38"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-hilda-solis-h38",
+    "ca-cand-monica-sanchez-h38",
+    "ca-cand-thomas-michael-adams-falconer-jr-h38"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-39",
+   "office": "U.S. House, CA-39",
+   "level": "federal",
+   "jurisdiction": "CA-39",
+   "state_fips": "06",
+   "congressional_district": "39",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mark-takano-h39",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mark-takano-h39"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mark-takano-h39"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-40",
+   "office": "U.S. House, CA-40",
+   "level": "federal",
+   "jurisdiction": "CA-40",
+   "state_fips": "06",
+   "congressional_district": "40",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ken-calvert-h40",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-young-kim-h40",
+     "ca-cand-ken-calvert-h40"
+    ],
+    "D": [
+     "ca-cand-esther-kim-varet-h40",
+     "ca-cand-christina-gagnier-h40",
+     "ca-cand-lisa-d-ramirez-h40",
+     "ca-cand-perry-meade-h40",
+     "ca-cand-joseph-kerr-h40",
+     "ca-cand-tiffanie-tate-h40",
+     "ca-cand-claude-manuel-keissieh-h40",
+     "ca-cand-paula-williams-swift-h40"
+    ],
+    "I": [
+     "ca-cand-nina-linh-h40"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-young-kim-h40",
+    "ca-cand-ken-calvert-h40",
+    "ca-cand-esther-kim-varet-h40",
+    "ca-cand-christina-gagnier-h40",
+    "ca-cand-lisa-d-ramirez-h40",
+    "ca-cand-nina-linh-h40",
+    "ca-cand-perry-meade-h40",
+    "ca-cand-joseph-kerr-h40",
+    "ca-cand-tiffanie-tate-h40",
+    "ca-cand-claude-manuel-keissieh-h40",
+    "ca-cand-paula-williams-swift-h40"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-41",
+   "office": "U.S. House, CA-41",
+   "level": "federal",
+   "jurisdiction": "CA-41",
+   "state_fips": "06",
+   "congressional_district": "41",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-linda-t-s-nchez-h41",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-linda-t-s-nchez-h41",
+     "ca-cand-hector-de-la-torre-h41",
+     "ca-cand-katherine-aleman-h41",
+     "ca-cand-tim-myers-h41",
+     "ca-cand-shonique-williams-h41",
+     "ca-cand-jason-byors-h41"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-linda-t-s-nchez-h41",
+    "ca-cand-hector-de-la-torre-h41",
+    "ca-cand-katherine-aleman-h41",
+    "ca-cand-tim-myers-h41",
+    "ca-cand-shonique-williams-h41",
+    "ca-cand-jason-byors-h41"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-42",
+   "office": "U.S. House, CA-42",
+   "level": "federal",
+   "jurisdiction": "CA-42",
+   "state_fips": "06",
+   "congressional_district": "42",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-robert-garcia-h42",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-robert-garcia-h42"
+    ],
+    "R": [
+     "ca-cand-brian-j-burley-h42",
+     "ca-cand-noah-blom-h42"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-robert-garcia-h42",
+    "ca-cand-brian-j-burley-h42",
+    "ca-cand-noah-blom-h42"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-43",
+   "office": "U.S. House, CA-43",
+   "level": "federal",
+   "jurisdiction": "CA-43",
+   "state_fips": "06",
+   "congressional_district": "43",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-maxine-waters-h43",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-maxine-waters-h43",
+     "ca-cand-myla-rahman-h43"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-maxine-waters-h43",
+    "ca-cand-myla-rahman-h43"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-44",
+   "office": "U.S. House, CA-44",
+   "level": "federal",
+   "jurisdiction": "CA-44",
+   "state_fips": "06",
+   "congressional_district": "44",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-nanette-diaz-barrag-n-h44",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-nanette-diaz-barrag-n-h44"
+    ],
+    "R": [
+     "ca-cand-genevieve-angel-h44"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-nanette-diaz-barrag-n-h44",
+    "ca-cand-genevieve-angel-h44"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-45",
+   "office": "U.S. House, CA-45",
+   "level": "federal",
+   "jurisdiction": "CA-45",
+   "state_fips": "06",
+   "congressional_district": "45",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-derek-tran-h45",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-derek-tran-h45"
+    ],
+    "R": [
+     "ca-cand-michelle-steel-h45",
+     "ca-cand-thomas-ky-phong-vo-h45",
+     "ca-cand-chi-charlie-nguyen-h45",
+     "ca-cand-chuong-vo-h45",
+     "ca-cand-amy-phan-west-h45",
+     "ca-cand-mark-andrew-leonard-h45"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-derek-tran-h45",
+    "ca-cand-michelle-steel-h45",
+    "ca-cand-thomas-ky-phong-vo-h45",
+    "ca-cand-chi-charlie-nguyen-h45",
+    "ca-cand-chuong-vo-h45",
+    "ca-cand-amy-phan-west-h45",
+    "ca-cand-mark-andrew-leonard-h45"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-46",
+   "office": "U.S. House, CA-46",
+   "level": "federal",
+   "jurisdiction": "CA-46",
+   "state_fips": "06",
+   "congressional_district": "46",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-j-luis-correa-h46",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-j-luis-correa-h46"
+    ],
+    "R": [
+     "ca-cand-david-pan-h46"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-j-luis-correa-h46",
+    "ca-cand-david-pan-h46"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-47",
+   "office": "U.S. House, CA-47",
+   "level": "federal",
+   "jurisdiction": "CA-47",
+   "state_fips": "06",
+   "congressional_district": "47",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-dave-min-h47",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-dave-min-h47",
+     "ca-cand-hunter-garcia-miranda-h47"
+    ],
+    "R": [
+     "ca-cand-jenny-rae-le-roux-h47",
+     "ca-cand-michael-maxsenti-h47",
+     "ca-cand-christopher-j-gonzales-h47",
+     "ca-cand-bill-brough-h47"
+    ],
+    "I": [
+     "ca-cand-eric-j-troutman-h47"
+    ],
+    "L": [
+     "ca-cand-derrick-michael-reid-h47"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-dave-min-h47",
+    "ca-cand-jenny-rae-le-roux-h47",
+    "ca-cand-eric-j-troutman-h47",
+    "ca-cand-michael-maxsenti-h47",
+    "ca-cand-hunter-garcia-miranda-h47",
+    "ca-cand-christopher-j-gonzales-h47",
+    "ca-cand-derrick-michael-reid-h47",
+    "ca-cand-bill-brough-h47"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-48",
+   "office": "U.S. House, CA-48",
+   "level": "federal",
+   "jurisdiction": "CA-48",
+   "state_fips": "06",
+   "congressional_district": "48",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "D": [
+     "ca-cand-brandon-riker-h48",
+     "ca-cand-marni-von-wilpert-h48",
+     "ca-cand-ammar-campa-najjar-h48",
+     "ca-cand-anuj-dixit-h48",
+     "ca-cand-abel-chavez-h48",
+     "ca-cand-ferguson-porter-h48",
+     "ca-cand-marc-iannarino-h48",
+     "ca-cand-curtis-morrison-h48",
+     "ca-cand-corinna-contreras-h48",
+     "ca-cand-suzanne-marie-till-h48"
+    ],
+    "R": [
+     "ca-cand-jim-desmond-h48"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-brandon-riker-h48",
+    "ca-cand-jim-desmond-h48",
+    "ca-cand-marni-von-wilpert-h48",
+    "ca-cand-ammar-campa-najjar-h48",
+    "ca-cand-anuj-dixit-h48",
+    "ca-cand-abel-chavez-h48",
+    "ca-cand-ferguson-porter-h48",
+    "ca-cand-marc-iannarino-h48",
+    "ca-cand-curtis-morrison-h48",
+    "ca-cand-corinna-contreras-h48",
+    "ca-cand-suzanne-marie-till-h48"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-49",
+   "office": "U.S. House, CA-49",
+   "level": "federal",
+   "jurisdiction": "CA-49",
+   "state_fips": "06",
+   "congressional_district": "49",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mike-levin-h49",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mike-levin-h49"
+    ],
+    "R": [
+     "ca-cand-star-l-parker-h49",
+     "ca-cand-armen-kurdian-h49"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mike-levin-h49",
+    "ca-cand-star-l-parker-h49",
+    "ca-cand-armen-kurdian-h49"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-50",
+   "office": "U.S. House, CA-50",
+   "level": "federal",
+   "jurisdiction": "CA-50",
+   "state_fips": "06",
+   "congressional_district": "50",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-scott-h-peters-h50",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-scott-h-peters-h50",
+     "ca-cand-aishwarya-mitra-h50"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-scott-h-peters-h50",
+    "ca-cand-aishwarya-mitra-h50"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-51",
+   "office": "U.S. House, CA-51",
+   "level": "federal",
+   "jurisdiction": "CA-51",
+   "state_fips": "06",
+   "congressional_district": "51",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sara-jacobs-h51",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sara-jacobs-h51"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sara-jacobs-h51"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-us-house-52",
+   "office": "U.S. House, CA-52",
+   "level": "federal",
+   "jurisdiction": "CA-52",
+   "state_fips": "06",
+   "congressional_district": "52",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-juan-vargas-h52",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-juan-vargas-h52"
+    ],
+    "R": [
+     "ca-cand-jeffery-belle-h52"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-juan-vargas-h52",
+    "ca-cand-jeffery-belle-h52"
+   ],
+   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "ca-2026-state-senate-1",
+   "office": "California State Senate, Dist. 1",
+   "level": "state",
+   "jurisdiction": "CA-SD-1",
+   "chamber": "State Senate",
+   "state_senate_district": "1",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-megan-dahle-sd1",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-megan-dahle-sd1"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-megan-dahle-sd1"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-2",
+   "office": "California State Senate, Dist. 2",
+   "level": "state",
+   "jurisdiction": "CA-SD-2",
+   "chamber": "State Senate",
+   "state_senate_district": "2",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mike-mcguire-sd2",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mike-mcguire-sd2"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mike-mcguire-sd2"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-3",
+   "office": "California State Senate, Dist. 3",
+   "level": "state",
+   "jurisdiction": "CA-SD-3",
+   "chamber": "State Senate",
+   "state_senate_district": "3",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-christopher-cabaldon-sd3",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-christopher-cabaldon-sd3"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-christopher-cabaldon-sd3"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-4",
+   "office": "California State Senate, Dist. 4",
+   "level": "state",
+   "jurisdiction": "CA-SD-4",
+   "chamber": "State Senate",
+   "state_senate_district": "4",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-marie-alvarado-gil-sd4",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-marie-alvarado-gil-sd4"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-marie-alvarado-gil-sd4"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-5",
+   "office": "California State Senate, Dist. 5",
+   "level": "state",
+   "jurisdiction": "CA-SD-5",
+   "chamber": "State Senate",
+   "state_senate_district": "5",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jerry-mcnerney-sd5",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jerry-mcnerney-sd5"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jerry-mcnerney-sd5"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-6",
+   "office": "California State Senate, Dist. 6",
+   "level": "state",
+   "jurisdiction": "CA-SD-6",
+   "chamber": "State Senate",
+   "state_senate_district": "6",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-roger-niello-sd6",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-roger-niello-sd6"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-roger-niello-sd6"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-7",
+   "office": "California State Senate, Dist. 7",
+   "level": "state",
+   "jurisdiction": "CA-SD-7",
+   "chamber": "State Senate",
+   "state_senate_district": "7",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jesse-arregu-n-sd7",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jesse-arregu-n-sd7"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jesse-arregu-n-sd7"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-8",
+   "office": "California State Senate, Dist. 8",
+   "level": "state",
+   "jurisdiction": "CA-SD-8",
+   "chamber": "State Senate",
+   "state_senate_district": "8",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-angelique-ashby-sd8",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-angelique-ashby-sd8"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-angelique-ashby-sd8"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-9",
+   "office": "California State Senate, Dist. 9",
+   "level": "state",
+   "jurisdiction": "CA-SD-9",
+   "chamber": "State Senate",
+   "state_senate_district": "9",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tim-grayson-sd9",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-tim-grayson-sd9"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tim-grayson-sd9"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-10",
+   "office": "California State Senate, Dist. 10",
+   "level": "state",
+   "jurisdiction": "CA-SD-10",
+   "chamber": "State Senate",
+   "state_senate_district": "10",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-aisha-wahab-sd10",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-aisha-wahab-sd10"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-aisha-wahab-sd10"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-11",
+   "office": "California State Senate, Dist. 11",
+   "level": "state",
+   "jurisdiction": "CA-SD-11",
+   "chamber": "State Senate",
+   "state_senate_district": "11",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-scott-wiener-sd11",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-scott-wiener-sd11"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-scott-wiener-sd11"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-12",
+   "office": "California State Senate, Dist. 12",
+   "level": "state",
+   "jurisdiction": "CA-SD-12",
+   "chamber": "State Senate",
+   "state_senate_district": "12",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-shannon-grove-sd12",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-shannon-grove-sd12"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-shannon-grove-sd12"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-13",
+   "office": "California State Senate, Dist. 13",
+   "level": "state",
+   "jurisdiction": "CA-SD-13",
+   "chamber": "State Senate",
+   "state_senate_district": "13",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-josh-becker-sd13",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-josh-becker-sd13"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-josh-becker-sd13"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-14",
+   "office": "California State Senate, Dist. 14",
+   "level": "state",
+   "jurisdiction": "CA-SD-14",
+   "chamber": "State Senate",
+   "state_senate_district": "14",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-anna-caballero-sd14",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-anna-caballero-sd14"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-anna-caballero-sd14"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-15",
+   "office": "California State Senate, Dist. 15",
+   "level": "state",
+   "jurisdiction": "CA-SD-15",
+   "chamber": "State Senate",
+   "state_senate_district": "15",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-dave-cortese-sd15",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-dave-cortese-sd15"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-dave-cortese-sd15"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-16",
+   "office": "California State Senate, Dist. 16",
+   "level": "state",
+   "jurisdiction": "CA-SD-16",
+   "chamber": "State Senate",
+   "state_senate_district": "16",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-melissa-hurtado-sd16",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-melissa-hurtado-sd16"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-melissa-hurtado-sd16"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-17",
+   "office": "California State Senate, Dist. 17",
+   "level": "state",
+   "jurisdiction": "CA-SD-17",
+   "chamber": "State Senate",
+   "state_senate_district": "17",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-john-laird-sd17",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-john-laird-sd17"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-john-laird-sd17"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-18",
+   "office": "California State Senate, Dist. 18",
+   "level": "state",
+   "jurisdiction": "CA-SD-18",
+   "chamber": "State Senate",
+   "state_senate_district": "18",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-steve-padilla-sd18",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-steve-padilla-sd18"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-steve-padilla-sd18"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-19",
+   "office": "California State Senate, Dist. 19",
+   "level": "state",
+   "jurisdiction": "CA-SD-19",
+   "chamber": "State Senate",
+   "state_senate_district": "19",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-rosilicie-ochoa-bogh-sd19",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-rosilicie-ochoa-bogh-sd19"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-rosilicie-ochoa-bogh-sd19"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-20",
+   "office": "California State Senate, Dist. 20",
+   "level": "state",
+   "jurisdiction": "CA-SD-20",
+   "chamber": "State Senate",
+   "state_senate_district": "20",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-caroline-menjivar-sd20",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-caroline-menjivar-sd20"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-caroline-menjivar-sd20"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-21",
+   "office": "California State Senate, Dist. 21",
+   "level": "state",
+   "jurisdiction": "CA-SD-21",
+   "chamber": "State Senate",
+   "state_senate_district": "21",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-monique-lim-n-sd21",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-monique-lim-n-sd21"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-monique-lim-n-sd21"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-22",
+   "office": "California State Senate, Dist. 22",
+   "level": "state",
+   "jurisdiction": "CA-SD-22",
+   "chamber": "State Senate",
+   "state_senate_district": "22",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-susan-rubio-sd22",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-susan-rubio-sd22"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-susan-rubio-sd22"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-23",
+   "office": "California State Senate, Dist. 23",
+   "level": "state",
+   "jurisdiction": "CA-SD-23",
+   "chamber": "State Senate",
+   "state_senate_district": "23",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-suzette-valladares-sd23",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-suzette-valladares-sd23"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-suzette-valladares-sd23"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-24",
+   "office": "California State Senate, Dist. 24",
+   "level": "state",
+   "jurisdiction": "CA-SD-24",
+   "chamber": "State Senate",
+   "state_senate_district": "24",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ben-allen-sd24",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-ben-allen-sd24"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ben-allen-sd24"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-25",
+   "office": "California State Senate, Dist. 25",
+   "level": "state",
+   "jurisdiction": "CA-SD-25",
+   "chamber": "State Senate",
+   "state_senate_district": "25",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sasha-p-rez-sd25",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sasha-p-rez-sd25"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sasha-p-rez-sd25"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-26",
+   "office": "California State Senate, Dist. 26",
+   "level": "state",
+   "jurisdiction": "CA-SD-26",
+   "chamber": "State Senate",
+   "state_senate_district": "26",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mar-a-elena-durazo-sd26",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mar-a-elena-durazo-sd26"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mar-a-elena-durazo-sd26"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-27",
+   "office": "California State Senate, Dist. 27",
+   "level": "state",
+   "jurisdiction": "CA-SD-27",
+   "chamber": "State Senate",
+   "state_senate_district": "27",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-henry-stern-sd27",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-henry-stern-sd27"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-henry-stern-sd27"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-28",
+   "office": "California State Senate, Dist. 28",
+   "level": "state",
+   "jurisdiction": "CA-SD-28",
+   "chamber": "State Senate",
+   "state_senate_district": "28",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lola-smallwood-cuevas-sd28",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lola-smallwood-cuevas-sd28"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lola-smallwood-cuevas-sd28"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-29",
+   "office": "California State Senate, Dist. 29",
+   "level": "state",
+   "jurisdiction": "CA-SD-29",
+   "chamber": "State Senate",
+   "state_senate_district": "29",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-eloise-reyes-sd29",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-eloise-reyes-sd29"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-eloise-reyes-sd29"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-30",
+   "office": "California State Senate, Dist. 30",
+   "level": "state",
+   "jurisdiction": "CA-SD-30",
+   "chamber": "State Senate",
+   "state_senate_district": "30",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-bob-archuleta-sd30",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-bob-archuleta-sd30"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-bob-archuleta-sd30"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-31",
+   "office": "California State Senate, Dist. 31",
+   "level": "state",
+   "jurisdiction": "CA-SD-31",
+   "chamber": "State Senate",
+   "state_senate_district": "31",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sabrina-cervantes-sd31",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sabrina-cervantes-sd31"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sabrina-cervantes-sd31"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-32",
+   "office": "California State Senate, Dist. 32",
+   "level": "state",
+   "jurisdiction": "CA-SD-32",
+   "chamber": "State Senate",
+   "state_senate_district": "32",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-kelly-seyarto-sd32",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-kelly-seyarto-sd32"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-kelly-seyarto-sd32"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-33",
+   "office": "California State Senate, Dist. 33",
+   "level": "state",
+   "jurisdiction": "CA-SD-33",
+   "chamber": "State Senate",
+   "state_senate_district": "33",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lena-gonzalez-sd33",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lena-gonzalez-sd33"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lena-gonzalez-sd33"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-34",
+   "office": "California State Senate, Dist. 34",
+   "level": "state",
+   "jurisdiction": "CA-SD-34",
+   "chamber": "State Senate",
+   "state_senate_district": "34",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tom-umberg-sd34",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-tom-umberg-sd34"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tom-umberg-sd34"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-35",
+   "office": "California State Senate, Dist. 35",
+   "level": "state",
+   "jurisdiction": "CA-SD-35",
+   "chamber": "State Senate",
+   "state_senate_district": "35",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-laura-richardson-sd35",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-laura-richardson-sd35"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-laura-richardson-sd35"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-36",
+   "office": "California State Senate, Dist. 36",
+   "level": "state",
+   "jurisdiction": "CA-SD-36",
+   "chamber": "State Senate",
+   "state_senate_district": "36",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tony-strickland-sd36",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-tony-strickland-sd36"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tony-strickland-sd36"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-37",
+   "office": "California State Senate, Dist. 37",
+   "level": "state",
+   "jurisdiction": "CA-SD-37",
+   "chamber": "State Senate",
+   "state_senate_district": "37",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-steve-choi-sd37",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-steve-choi-sd37"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-steve-choi-sd37"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-38",
+   "office": "California State Senate, Dist. 38",
+   "level": "state",
+   "jurisdiction": "CA-SD-38",
+   "chamber": "State Senate",
+   "state_senate_district": "38",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-catherine-blakespear-sd38",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-catherine-blakespear-sd38"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-catherine-blakespear-sd38"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-39",
+   "office": "California State Senate, Dist. 39",
+   "level": "state",
+   "jurisdiction": "CA-SD-39",
+   "chamber": "State Senate",
+   "state_senate_district": "39",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-akilah-weber-pierson-sd39",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-akilah-weber-pierson-sd39"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-akilah-weber-pierson-sd39"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-senate-40",
+   "office": "California State Senate, Dist. 40",
+   "level": "state",
+   "jurisdiction": "CA-SD-40",
+   "chamber": "State Senate",
+   "state_senate_district": "40",
+   "seat_type": "legislative",
+   "term_length_years": 4,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-brian-jones-sd40",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-brian-jones-sd40"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-brian-jones-sd40"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-1",
+   "office": "California State Assembly, Dist. 1",
+   "level": "state",
+   "jurisdiction": "CA-AD-1",
+   "chamber": "State Assembly",
+   "state_house_district": "1",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-heather-hadwick-ad1",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-heather-hadwick-ad1"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-heather-hadwick-ad1"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-2",
+   "office": "California State Assembly, Dist. 2",
+   "level": "state",
+   "jurisdiction": "CA-AD-2",
+   "chamber": "State Assembly",
+   "state_house_district": "2",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-chris-rogers-ad2",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-chris-rogers-ad2"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-chris-rogers-ad2"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-3",
+   "office": "California State Assembly, Dist. 3",
+   "level": "state",
+   "jurisdiction": "CA-AD-3",
+   "chamber": "State Assembly",
+   "state_house_district": "3",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-james-gallagher-ad3",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-james-gallagher-ad3"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-james-gallagher-ad3"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-4",
+   "office": "California State Assembly, Dist. 4",
+   "level": "state",
+   "jurisdiction": "CA-AD-4",
+   "chamber": "State Assembly",
+   "state_house_district": "4",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-cecilia-aguiar-curry-ad4",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-cecilia-aguiar-curry-ad4"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-cecilia-aguiar-curry-ad4"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-5",
+   "office": "California State Assembly, Dist. 5",
+   "level": "state",
+   "jurisdiction": "CA-AD-5",
+   "chamber": "State Assembly",
+   "state_house_district": "5",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-joe-patterson-ad5",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-joe-patterson-ad5"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-joe-patterson-ad5"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-6",
+   "office": "California State Assembly, Dist. 6",
+   "level": "state",
+   "jurisdiction": "CA-AD-6",
+   "chamber": "State Assembly",
+   "state_house_district": "6",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-maggy-krell-ad6",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-maggy-krell-ad6"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-maggy-krell-ad6"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-7",
+   "office": "California State Assembly, Dist. 7",
+   "level": "state",
+   "jurisdiction": "CA-AD-7",
+   "chamber": "State Assembly",
+   "state_house_district": "7",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-joshua-hoover-ad7",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-joshua-hoover-ad7"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-joshua-hoover-ad7"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-8",
+   "office": "California State Assembly, Dist. 8",
+   "level": "state",
+   "jurisdiction": "CA-AD-8",
+   "chamber": "State Assembly",
+   "state_house_district": "8",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-david-tangipa-ad8",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-david-tangipa-ad8"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-david-tangipa-ad8"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-9",
+   "office": "California State Assembly, Dist. 9",
+   "level": "state",
+   "jurisdiction": "CA-AD-9",
+   "chamber": "State Assembly",
+   "state_house_district": "9",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-heath-flora-ad9",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-heath-flora-ad9"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-heath-flora-ad9"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-10",
+   "office": "California State Assembly, Dist. 10",
+   "level": "state",
+   "jurisdiction": "CA-AD-10",
+   "chamber": "State Assembly",
+   "state_house_district": "10",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-stephanie-nguyen-ad10",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-stephanie-nguyen-ad10"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-stephanie-nguyen-ad10"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-11",
+   "office": "California State Assembly, Dist. 11",
+   "level": "state",
+   "jurisdiction": "CA-AD-11",
+   "chamber": "State Assembly",
+   "state_house_district": "11",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lori-wilson-ad11",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lori-wilson-ad11"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lori-wilson-ad11"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-12",
+   "office": "California State Assembly, Dist. 12",
+   "level": "state",
+   "jurisdiction": "CA-AD-12",
+   "chamber": "State Assembly",
+   "state_house_district": "12",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-damon-connolly-ad12",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-damon-connolly-ad12"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-damon-connolly-ad12"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-13",
+   "office": "California State Assembly, Dist. 13",
+   "level": "state",
+   "jurisdiction": "CA-AD-13",
+   "chamber": "State Assembly",
+   "state_house_district": "13",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-rhodesia-ransom-ad13",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-rhodesia-ransom-ad13"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-rhodesia-ransom-ad13"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-14",
+   "office": "California State Assembly, Dist. 14",
+   "level": "state",
+   "jurisdiction": "CA-AD-14",
+   "chamber": "State Assembly",
+   "state_house_district": "14",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-buffy-wicks-ad14",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-buffy-wicks-ad14"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-buffy-wicks-ad14"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-15",
+   "office": "California State Assembly, Dist. 15",
+   "level": "state",
+   "jurisdiction": "CA-AD-15",
+   "chamber": "State Assembly",
+   "state_house_district": "15",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-anamarie-avila-farias-ad15",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-anamarie-avila-farias-ad15"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-anamarie-avila-farias-ad15"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-16",
+   "office": "California State Assembly, Dist. 16",
+   "level": "state",
+   "jurisdiction": "CA-AD-16",
+   "chamber": "State Assembly",
+   "state_house_district": "16",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-rebecca-bauer-kahan-ad16",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-rebecca-bauer-kahan-ad16"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-rebecca-bauer-kahan-ad16"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-17",
+   "office": "California State Assembly, Dist. 17",
+   "level": "state",
+   "jurisdiction": "CA-AD-17",
+   "chamber": "State Assembly",
+   "state_house_district": "17",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-matt-haney-ad17",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-matt-haney-ad17"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-matt-haney-ad17"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-18",
+   "office": "California State Assembly, Dist. 18",
+   "level": "state",
+   "jurisdiction": "CA-AD-18",
+   "chamber": "State Assembly",
+   "state_house_district": "18",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mia-bonta-ad18",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mia-bonta-ad18"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mia-bonta-ad18"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-19",
+   "office": "California State Assembly, Dist. 19",
+   "level": "state",
+   "jurisdiction": "CA-AD-19",
+   "chamber": "State Assembly",
+   "state_house_district": "19",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-catherine-stefani-ad19",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-catherine-stefani-ad19"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-catherine-stefani-ad19"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-20",
+   "office": "California State Assembly, Dist. 20",
+   "level": "state",
+   "jurisdiction": "CA-AD-20",
+   "chamber": "State Assembly",
+   "state_house_district": "20",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-liz-ortega-ad20",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-liz-ortega-ad20"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-liz-ortega-ad20"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-21",
+   "office": "California State Assembly, Dist. 21",
+   "level": "state",
+   "jurisdiction": "CA-AD-21",
+   "chamber": "State Assembly",
+   "state_house_district": "21",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-diane-papan-ad21",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-diane-papan-ad21"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-diane-papan-ad21"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-22",
+   "office": "California State Assembly, Dist. 22",
+   "level": "state",
+   "jurisdiction": "CA-AD-22",
+   "chamber": "State Assembly",
+   "state_house_district": "22",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-juan-alanis-ad22",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-juan-alanis-ad22"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-juan-alanis-ad22"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-23",
+   "office": "California State Assembly, Dist. 23",
+   "level": "state",
+   "jurisdiction": "CA-AD-23",
+   "chamber": "State Assembly",
+   "state_house_district": "23",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-marc-berman-ad23",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-marc-berman-ad23"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-marc-berman-ad23"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-24",
+   "office": "California State Assembly, Dist. 24",
+   "level": "state",
+   "jurisdiction": "CA-AD-24",
+   "chamber": "State Assembly",
+   "state_house_district": "24",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-alex-lee-ad24",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-alex-lee-ad24"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-alex-lee-ad24"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-25",
+   "office": "California State Assembly, Dist. 25",
+   "level": "state",
+   "jurisdiction": "CA-AD-25",
+   "chamber": "State Assembly",
+   "state_house_district": "25",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ash-kalra-ad25",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-ash-kalra-ad25"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ash-kalra-ad25"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-26",
+   "office": "California State Assembly, Dist. 26",
+   "level": "state",
+   "jurisdiction": "CA-AD-26",
+   "chamber": "State Assembly",
+   "state_house_district": "26",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-patrick-ahrens-ad26",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-patrick-ahrens-ad26"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-patrick-ahrens-ad26"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-27",
+   "office": "California State Assembly, Dist. 27",
+   "level": "state",
+   "jurisdiction": "CA-AD-27",
+   "chamber": "State Assembly",
+   "state_house_district": "27",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-esmeralda-soria-ad27",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-esmeralda-soria-ad27"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-esmeralda-soria-ad27"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-28",
+   "office": "California State Assembly, Dist. 28",
+   "level": "state",
+   "jurisdiction": "CA-AD-28",
+   "chamber": "State Assembly",
+   "state_house_district": "28",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-gail-pellerin-ad28",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-gail-pellerin-ad28"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-gail-pellerin-ad28"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-29",
+   "office": "California State Assembly, Dist. 29",
+   "level": "state",
+   "jurisdiction": "CA-AD-29",
+   "chamber": "State Assembly",
+   "state_house_district": "29",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-robert-rivas-ad29",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-robert-rivas-ad29"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-robert-rivas-ad29"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-30",
+   "office": "California State Assembly, Dist. 30",
+   "level": "state",
+   "jurisdiction": "CA-AD-30",
+   "chamber": "State Assembly",
+   "state_house_district": "30",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-dawn-addis-ad30",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-dawn-addis-ad30"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-dawn-addis-ad30"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-31",
+   "office": "California State Assembly, Dist. 31",
+   "level": "state",
+   "jurisdiction": "CA-AD-31",
+   "chamber": "State Assembly",
+   "state_house_district": "31",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-joaquin-arambula-ad31",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-joaquin-arambula-ad31"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-joaquin-arambula-ad31"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-32",
+   "office": "California State Assembly, Dist. 32",
+   "level": "state",
+   "jurisdiction": "CA-AD-32",
+   "chamber": "State Assembly",
+   "state_house_district": "32",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-stan-ellis-ad32",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-stan-ellis-ad32"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-stan-ellis-ad32"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-33",
+   "office": "California State Assembly, Dist. 33",
+   "level": "state",
+   "jurisdiction": "CA-AD-33",
+   "chamber": "State Assembly",
+   "state_house_district": "33",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-ali-macedo-ad33",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-ali-macedo-ad33"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-ali-macedo-ad33"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-34",
+   "office": "California State Assembly, Dist. 34",
+   "level": "state",
+   "jurisdiction": "CA-AD-34",
+   "chamber": "State Assembly",
+   "state_house_district": "34",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tom-lackey-ad34",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-tom-lackey-ad34"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tom-lackey-ad34"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-35",
+   "office": "California State Assembly, Dist. 35",
+   "level": "state",
+   "jurisdiction": "CA-AD-35",
+   "chamber": "State Assembly",
+   "state_house_district": "35",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jasmeet-bains-ad35",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jasmeet-bains-ad35"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jasmeet-bains-ad35"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-36",
+   "office": "California State Assembly, Dist. 36",
+   "level": "state",
+   "jurisdiction": "CA-AD-36",
+   "chamber": "State Assembly",
+   "state_house_district": "36",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jeff-gonzalez-ad36",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-jeff-gonzalez-ad36"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jeff-gonzalez-ad36"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-37",
+   "office": "California State Assembly, Dist. 37",
+   "level": "state",
+   "jurisdiction": "CA-AD-37",
+   "chamber": "State Assembly",
+   "state_house_district": "37",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-gregg-hart-ad37",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-gregg-hart-ad37"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-gregg-hart-ad37"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-38",
+   "office": "California State Assembly, Dist. 38",
+   "level": "state",
+   "jurisdiction": "CA-AD-38",
+   "chamber": "State Assembly",
+   "state_house_district": "38",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-steve-bennett-ad38",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-steve-bennett-ad38"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-steve-bennett-ad38"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-39",
+   "office": "California State Assembly, Dist. 39",
+   "level": "state",
+   "jurisdiction": "CA-AD-39",
+   "chamber": "State Assembly",
+   "state_house_district": "39",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-juan-carrillo-ad39",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-juan-carrillo-ad39"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-juan-carrillo-ad39"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-40",
+   "office": "California State Assembly, Dist. 40",
+   "level": "state",
+   "jurisdiction": "CA-AD-40",
+   "chamber": "State Assembly",
+   "state_house_district": "40",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-pilar-schiavo-ad40",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-pilar-schiavo-ad40"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-pilar-schiavo-ad40"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-41",
+   "office": "California State Assembly, Dist. 41",
+   "level": "state",
+   "jurisdiction": "CA-AD-41",
+   "chamber": "State Assembly",
+   "state_house_district": "41",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-john-harabedian-ad41",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-john-harabedian-ad41"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-john-harabedian-ad41"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-42",
+   "office": "California State Assembly, Dist. 42",
+   "level": "state",
+   "jurisdiction": "CA-AD-42",
+   "chamber": "State Assembly",
+   "state_house_district": "42",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jacqui-irwin-ad42",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jacqui-irwin-ad42"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jacqui-irwin-ad42"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-43",
+   "office": "California State Assembly, Dist. 43",
+   "level": "state",
+   "jurisdiction": "CA-AD-43",
+   "chamber": "State Assembly",
+   "state_house_district": "43",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-celeste-rodriguez-ad43",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-celeste-rodriguez-ad43"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-celeste-rodriguez-ad43"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-44",
+   "office": "California State Assembly, Dist. 44",
+   "level": "state",
+   "jurisdiction": "CA-AD-44",
+   "chamber": "State Assembly",
+   "state_house_district": "44",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-nick-schultz-ad44",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-nick-schultz-ad44"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-nick-schultz-ad44"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-45",
+   "office": "California State Assembly, Dist. 45",
+   "level": "state",
+   "jurisdiction": "CA-AD-45",
+   "chamber": "State Assembly",
+   "state_house_district": "45",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-james-ramos-ad45",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-james-ramos-ad45"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-james-ramos-ad45"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-46",
+   "office": "California State Assembly, Dist. 46",
+   "level": "state",
+   "jurisdiction": "CA-AD-46",
+   "chamber": "State Assembly",
+   "state_house_district": "46",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jesse-gabriel-ad46",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jesse-gabriel-ad46"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jesse-gabriel-ad46"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-47",
+   "office": "California State Assembly, Dist. 47",
+   "level": "state",
+   "jurisdiction": "CA-AD-47",
+   "chamber": "State Assembly",
+   "state_house_district": "47",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-greg-wallis-ad47",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-greg-wallis-ad47"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-greg-wallis-ad47"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-48",
+   "office": "California State Assembly, Dist. 48",
+   "level": "state",
+   "jurisdiction": "CA-AD-48",
+   "chamber": "State Assembly",
+   "state_house_district": "48",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-blanca-rubio-ad48",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-blanca-rubio-ad48"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-blanca-rubio-ad48"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-49",
+   "office": "California State Assembly, Dist. 49",
+   "level": "state",
+   "jurisdiction": "CA-AD-49",
+   "chamber": "State Assembly",
+   "state_house_district": "49",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mike-fong-ad49",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mike-fong-ad49"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mike-fong-ad49"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-50",
+   "office": "California State Assembly, Dist. 50",
+   "level": "state",
+   "jurisdiction": "CA-AD-50",
+   "chamber": "State Assembly",
+   "state_house_district": "50",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-robert-garcia-ad50",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-robert-garcia-ad50"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-robert-garcia-ad50"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-51",
+   "office": "California State Assembly, Dist. 51",
+   "level": "state",
+   "jurisdiction": "CA-AD-51",
+   "chamber": "State Assembly",
+   "state_house_district": "51",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-rick-zbur-ad51",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-rick-zbur-ad51"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-rick-zbur-ad51"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-52",
+   "office": "California State Assembly, Dist. 52",
+   "level": "state",
+   "jurisdiction": "CA-AD-52",
+   "chamber": "State Assembly",
+   "state_house_district": "52",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jessica-caloza-ad52",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jessica-caloza-ad52"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jessica-caloza-ad52"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-53",
+   "office": "California State Assembly, Dist. 53",
+   "level": "state",
+   "jurisdiction": "CA-AD-53",
+   "chamber": "State Assembly",
+   "state_house_district": "53",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-michelle-rodriguez-ad53",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-michelle-rodriguez-ad53"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-michelle-rodriguez-ad53"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-54",
+   "office": "California State Assembly, Dist. 54",
+   "level": "state",
+   "jurisdiction": "CA-AD-54",
+   "chamber": "State Assembly",
+   "state_house_district": "54",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mark-gonz-lez-ad54",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mark-gonz-lez-ad54"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mark-gonz-lez-ad54"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-55",
+   "office": "California State Assembly, Dist. 55",
+   "level": "state",
+   "jurisdiction": "CA-AD-55",
+   "chamber": "State Assembly",
+   "state_house_district": "55",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-isaac-bryan-ad55",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-isaac-bryan-ad55"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-isaac-bryan-ad55"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-56",
+   "office": "California State Assembly, Dist. 56",
+   "level": "state",
+   "jurisdiction": "CA-AD-56",
+   "chamber": "State Assembly",
+   "state_house_district": "56",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lisa-calderon-ad56",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lisa-calderon-ad56"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lisa-calderon-ad56"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-57",
+   "office": "California State Assembly, Dist. 57",
+   "level": "state",
+   "jurisdiction": "CA-AD-57",
+   "chamber": "State Assembly",
+   "state_house_district": "57",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sade-elhawary-ad57",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sade-elhawary-ad57"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sade-elhawary-ad57"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-58",
+   "office": "California State Assembly, Dist. 58",
+   "level": "state",
+   "jurisdiction": "CA-AD-58",
+   "chamber": "State Assembly",
+   "state_house_district": "58",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-leticia-castillo-ad58",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-leticia-castillo-ad58"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-leticia-castillo-ad58"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-59",
+   "office": "California State Assembly, Dist. 59",
+   "level": "state",
+   "jurisdiction": "CA-AD-59",
+   "chamber": "State Assembly",
+   "state_house_district": "59",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-phillip-chen-ad59",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-phillip-chen-ad59"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-phillip-chen-ad59"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-60",
+   "office": "California State Assembly, Dist. 60",
+   "level": "state",
+   "jurisdiction": "CA-AD-60",
+   "chamber": "State Assembly",
+   "state_house_district": "60",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-corey-jackson-ad60",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-corey-jackson-ad60"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-corey-jackson-ad60"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-61",
+   "office": "California State Assembly, Dist. 61",
+   "level": "state",
+   "jurisdiction": "CA-AD-61",
+   "chamber": "State Assembly",
+   "state_house_district": "61",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tina-mckinnor-ad61",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-tina-mckinnor-ad61"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tina-mckinnor-ad61"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-62",
+   "office": "California State Assembly, Dist. 62",
+   "level": "state",
+   "jurisdiction": "CA-AD-62",
+   "chamber": "State Assembly",
+   "state_house_district": "62",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-jos-solache-ad62",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-jos-solache-ad62"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-jos-solache-ad62"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-63",
+   "office": "California State Assembly, Dist. 63",
+   "level": "state",
+   "jurisdiction": "CA-AD-63",
+   "chamber": "State Assembly",
+   "state_house_district": "63",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-natasha-johnson-ad63",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-natasha-johnson-ad63"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-natasha-johnson-ad63"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-64",
+   "office": "California State Assembly, Dist. 64",
+   "level": "state",
+   "jurisdiction": "CA-AD-64",
+   "chamber": "State Assembly",
+   "state_house_district": "64",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-blanca-pacheco-ad64",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-blanca-pacheco-ad64"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-blanca-pacheco-ad64"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-65",
+   "office": "California State Assembly, Dist. 65",
+   "level": "state",
+   "jurisdiction": "CA-AD-65",
+   "chamber": "State Assembly",
+   "state_house_district": "65",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-mike-gipson-ad65",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-mike-gipson-ad65"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-mike-gipson-ad65"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-66",
+   "office": "California State Assembly, Dist. 66",
+   "level": "state",
+   "jurisdiction": "CA-AD-66",
+   "chamber": "State Assembly",
+   "state_house_district": "66",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-al-muratsuchi-ad66",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-al-muratsuchi-ad66"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-al-muratsuchi-ad66"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-67",
+   "office": "California State Assembly, Dist. 67",
+   "level": "state",
+   "jurisdiction": "CA-AD-67",
+   "chamber": "State Assembly",
+   "state_house_district": "67",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-sharon-quirk-silva-ad67",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-sharon-quirk-silva-ad67"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-sharon-quirk-silva-ad67"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-68",
+   "office": "California State Assembly, Dist. 68",
+   "level": "state",
+   "jurisdiction": "CA-AD-68",
+   "chamber": "State Assembly",
+   "state_house_district": "68",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-avelino-valencia-ad68",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-avelino-valencia-ad68"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-avelino-valencia-ad68"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-69",
+   "office": "California State Assembly, Dist. 69",
+   "level": "state",
+   "jurisdiction": "CA-AD-69",
+   "chamber": "State Assembly",
+   "state_house_district": "69",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-josh-lowenthal-ad69",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-josh-lowenthal-ad69"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-josh-lowenthal-ad69"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-70",
+   "office": "California State Assembly, Dist. 70",
+   "level": "state",
+   "jurisdiction": "CA-AD-70",
+   "chamber": "State Assembly",
+   "state_house_district": "70",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tri-ta-ad70",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-tri-ta-ad70"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tri-ta-ad70"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-71",
+   "office": "California State Assembly, Dist. 71",
+   "level": "state",
+   "jurisdiction": "CA-AD-71",
+   "chamber": "State Assembly",
+   "state_house_district": "71",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-kate-sanchez-ad71",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-kate-sanchez-ad71"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-kate-sanchez-ad71"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-72",
+   "office": "California State Assembly, Dist. 72",
+   "level": "state",
+   "jurisdiction": "CA-AD-72",
+   "chamber": "State Assembly",
+   "state_house_district": "72",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-diane-dixon-ad72",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-diane-dixon-ad72"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-diane-dixon-ad72"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-73",
+   "office": "California State Assembly, Dist. 73",
+   "level": "state",
+   "jurisdiction": "CA-AD-73",
+   "chamber": "State Assembly",
+   "state_house_district": "73",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-cottie-petrie-norris-ad73",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-cottie-petrie-norris-ad73"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-cottie-petrie-norris-ad73"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-74",
+   "office": "California State Assembly, Dist. 74",
+   "level": "state",
+   "jurisdiction": "CA-AD-74",
+   "chamber": "State Assembly",
+   "state_house_district": "74",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-laurie-davies-ad74",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-laurie-davies-ad74"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-laurie-davies-ad74"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-75",
+   "office": "California State Assembly, Dist. 75",
+   "level": "state",
+   "jurisdiction": "CA-AD-75",
+   "chamber": "State Assembly",
+   "state_house_district": "75",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-carl-demaio-ad75",
+   "primary_candidates": {
+    "R": [
+     "ca-cand-carl-demaio-ad75"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-carl-demaio-ad75"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-76",
+   "office": "California State Assembly, Dist. 76",
+   "level": "state",
+   "jurisdiction": "CA-AD-76",
+   "chamber": "State Assembly",
+   "state_house_district": "76",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-darsh-patel-ad76",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-darsh-patel-ad76"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-darsh-patel-ad76"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-77",
+   "office": "California State Assembly, Dist. 77",
+   "level": "state",
+   "jurisdiction": "CA-AD-77",
+   "chamber": "State Assembly",
+   "state_house_district": "77",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-tasha-boerner-ad77",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-tasha-boerner-ad77"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-tasha-boerner-ad77"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-78",
+   "office": "California State Assembly, Dist. 78",
+   "level": "state",
+   "jurisdiction": "CA-AD-78",
+   "chamber": "State Assembly",
+   "state_house_district": "78",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-chris-ward-ad78",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-chris-ward-ad78"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-chris-ward-ad78"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-79",
+   "office": "California State Assembly, Dist. 79",
+   "level": "state",
+   "jurisdiction": "CA-AD-79",
+   "chamber": "State Assembly",
+   "state_house_district": "79",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-lashae-sharp-collins-ad79",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-lashae-sharp-collins-ad79"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-lashae-sharp-collins-ad79"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  },
+  {
+   "id": "ca-2026-state-assembly-80",
+   "office": "California State Assembly, Dist. 80",
+   "level": "state",
+   "jurisdiction": "CA-AD-80",
+   "chamber": "State Assembly",
+   "state_house_district": "80",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-david-alvarez-ad80",
+   "primary_candidates": {
+    "D": [
+     "ca-cand-david-alvarez-ad80"
+    ]
+   },
+   "general_candidates": [
+    "ca-cand-david-alvarez-ad80"
+   ],
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
+   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
+   "_roster_source": "Open States current members (state_officials.json)"
+  }
+ ],
+ "ballot_measures": {
+  "state": [],
+  "counties": {}
+ },
+ "_measures_note": "California decides statewide ballot propositions at the November general election. The certified 2026 proposition list (numbers, titles, and official summaries) is not yet integrated — pending the California Secretary of State's official measures list. Local/municipal measures are also not yet integrated.",
+ "_personalization_hints": {
+  "match_keys": {
+   "state": [
+    "level=state"
+   ],
+   "congressional_district": [
+    "congressional_district=<user.district>"
+   ],
+   "state_senate_district": [
+    "state_senate_district=<user.state_senate_district>"
+   ],
+   "state_house_district": [
+    "state_house_district=<user.state_house_district>"
+   ]
+  },
+  "notes": "US House matches on congressional_district; state-leg races match on state_senate_district / state_house_district; the US Senate race is statewide."
+ }
+}
