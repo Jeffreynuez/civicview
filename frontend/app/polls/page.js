@@ -46,6 +46,7 @@ import {
   filterPolls,
 } from '@/lib/pagesApi';
 import FeedCard from '@/components/polls/FeedCard';
+import PollDemographicsPicker from '@/components/polls/PollDemographicsPicker';
 import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
 import { useHScroll } from '@/lib/useHScroll';
@@ -1253,6 +1254,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
   //                            close time (the close radio is disabled
   //                            when timing === 'none').
   const [presentation, setPresentation] = useState('full');
+  const [demographicKeys, setDemographicKeys] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState(null);
 
@@ -1308,6 +1310,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
       options: cleanOptions,
       closesAt: closesAtIso,
       presentationMode: presentation,
+      demographicQuestionKeys: demographicKeys.length ? demographicKeys : undefined,
     });
     setSubmitting(false);
     if (error || !data) {
@@ -1437,6 +1440,8 @@ function StandaloneComposer({ onCancel, onCreated }) {
             </button>
           )}
         </div>
+
+        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
 
         {/* Close timing — parallel to CreateCitizenPollModal so a
             citizen authoring a standalone poll sees the same set of
