@@ -2,26 +2,35 @@
 # Proprietary and confidential. See LICENSE at the repository root.
 
 """
-build_state_federal_candidates.py — generate per-state federal candidate
-data (Task #96) from OpenFEC, mirroring the Florida files.
+build_state_federal_candidates.py — generate per-state election data (Task #96)
+from OpenFEC + the Open States current-members roster, mirroring Florida.
 
-For a given state it produces two files under data/<state>/:
+For a given state it writes data/<state>/:
   • candidates.json  — {_note, _source, candidates:{id:{...}}}
-  • elections.json   — {_note, _source, state, ..., races:[...], ballot_measures}
+  • elections.json   — {_note, _source, state, key_dates, races:[...],
+                        ballot_measures, _measures_note, ...}
 
-Depth (decided 2026-06-04): SKELETON for challengers (FEC-sourced facts only),
-auto-ENRICHED for incumbents by joining the FEC candidate_id -> bioguide
-crosswalk (data/_cache/legislators_current.json `id.fec`) -> the neutral,
-already-sourced issue profiles in data/federal/congress_profiles.json.
-Nothing about a challenger is invented: name/party/office/district/fundraising
-come straight from the FEC; top_issues stays [] unless we have a sourced profile.
+Depth (decided 2026-06-04 with Jeffrey):
+  • FEDERAL (US Senate / US House) — OpenFEC. Non-incumbents = SKELETON
+    (FEC-sourced facts only). Incumbents = ENRICHED from the neutral, already
+    sourced congress_profiles.json via the FEC->bioguide crosswalk
+    (_cache/legislators_current.json `id.fec`). Both the primary and general
+    cards are populated from the active-committee roster; the general carries a
+    "verify against the Secretary of State" note (FEC != ballot qualification).
+  • STATE LEGISLATURE (State Senate / State House) — INCUMBENT-ONLY records
+    built from data/<state>/state_officials.json (real sitting members, sourced
+    from Open States). Challenger rosters are not in any free source, so they
+    are left out and flagged pending a certified source (#98). Nothing about a
+    challenger is ever invented.
 
-Requires OPEN_FEC_API_KEY in the environment. Run host-side where the key
-lives, or in a session that has it. Writes nothing unless --write is passed.
+Ballot measures are state-specific and NOT auto-derived; per-state notes live
+in STATE_BALLOT_NOTE (e.g. Texas has no statewide propositions in even years).
+
+Requires OPEN_FEC_API_KEY in the environment. Writes nothing unless --write.
 
 Usage:
-  python scripts/build_state_federal_candidates.py --state TX            # dry-run report
-  python scripts/build_state_federal_candidates.py --state TX --write    # write files
+  python scripts/build_state_federal_candidates.py --state TX            # dry run
+  python scripts/build_state_federal_candidates.py --state TX --write    # persist
 """
 from __future__ import annotations
 
@@ -33,7 +42,6 @@ import re
 import sys
 from pathlib import Path
 
-# Make `app...` importable when run from backend/.
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BACKEND_ROOT))
 
@@ -58,7 +66,6 @@ STATE_NAMES = {
     "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
     "WI": "Wisconsin", "WY": "Wyoming",
 }
-# Census state FIPS — used by the personalized-ballot matcher.
 STATE_FIPS = {
     "AL": "01", "AK": "02", "AZ": "04", "AR": "05", "CA": "06", "CO": "08",
     "CT": "09", "DE": "10", "FL": "12", "GA": "13", "HI": "15", "ID": "16",
@@ -75,6 +82,28 @@ PARTY_WORD = {
     "L": "Libertarian", "G": "Green", "C": "Constitution Party",
 }
 
+# Per-state election calendar. Sourced from each state's Secretary of State /
+# election authority. Add states as they are built. Missing => federal-only
+# behavior (no primary/general dates -> single card).
+STATE_KEY_DATES = {
+    "TX": {
+        "primary": "2026-03-03",
+        "primary_runoff": "2026-05-26",
+        "general": "2026-11-03",
+        "voter_registration_deadline_primary": "2026-02-02",
+        "voter_registration_deadline_general": "2026-10-05",
+        "early_voting_window_general": "2026-10-19 to 2026-10-30",
+    },
+}
+# Per-state ballot-measure reality. TX puts statewide constitutional amendments
+# on ODD-year ballots (all 17 were decided Nov 2025), so there are none in 2026.
+STATE_BALLOT_NOTE = {
+    "TX": ("Texas places statewide constitutional amendments on odd-year ballots — "
+           "all 17 statewide propositions were decided in November 2025. There are "
+           "no statewide ballot propositions on the November 2026 ballot. Local and "
+           "municipal measures are not yet integrated (pending a certified source)."),
+}
+
 
 def slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", (name or "").lower()).strip("-")
@@ -84,12 +113,10 @@ def slugify(name: str) -> str:
 # ── Crosswalk: FEC candidate_id -> incumbent profile ───────────────────────
 
 def load_crosswalk():
-    """Return (fec_to_bioguide, profiles, legislators_by_bioguide)."""
     leg_path = DATA_DIR / "_cache" / "legislators_current.json"
     prof_path = DATA_DIR / "federal" / "congress_profiles.json"
     legislators = json.loads(leg_path.read_text(encoding="utf-8"))
     profiles = json.loads(prof_path.read_text(encoding="utf-8"))
-
     fec_to_bioguide: dict[str, str] = {}
     by_bioguide: dict[str, dict] = {}
     for m in legislators:
@@ -131,7 +158,7 @@ def _current_office(member: dict, state_name: str) -> str | None:
     return None
 
 
-# ── Record builders ────────────────────────────────────────────────────────
+# ── Federal record builder ───────────────────────────────────────────────
 
 def _seeking_office(office: str, state_abbr: str, state_name: str, district) -> str:
     if office == "S":
@@ -153,20 +180,18 @@ def _bio_sentence(name: str, party: str, seeking: str, incumbent: bool,
     return f"{name} is a {party_clause}candidate for {seeking}."
 
 
-def build_candidate(fec_rec: dict, state_abbr: str, state_name: str,
-                    crosswalk, district_override=None) -> dict:
+def build_candidate(fec_rec: dict, state_abbr: str, state_name: str, crosswalk) -> dict:
     fec_to_bioguide, profiles, by_bioguide = crosswalk
     fec_id = fec_rec.get("fec_id")
     name = fec_rec.get("name") or "Unknown"
     party = fec_rec.get("party") or "I"
     office_code = "S" if "Senate" in (fec_rec.get("office") or "") else "H"
-    district = district_override if district_override is not None else fec_rec.get("district")
+    district = fec_rec.get("district")
     seeking = _seeking_office(office_code, state_abbr, state_name, district)
 
     bioguide = fec_to_bioguide.get(fec_id)
     profile = profiles.get(bioguide) if bioguide else None
     member = by_bioguide.get(bioguide) if bioguide else None
-    # Trust FEC's incumbency flag; enrich only when we actually have the profile.
     incumbent = bool(fec_rec.get("incumbent"))
     enrich = bool(profile and member)
 
@@ -174,9 +199,7 @@ def build_candidate(fec_rec: dict, state_abbr: str, state_name: str,
     age = _age_from_birthday((member or {}).get("bio", {}).get("birthday")) if member else None
 
     if enrich:
-        incumbent = True  # crosswalk to a sitting member is authoritative
-        # Prefer the authoritative roster name over the FEC string cleaner
-        # ("CORNYN, JOHN SEN" -> "John Cornyn", not "John Sen Cornyn").
+        incumbent = True
         official = (member.get("name", {}) or {}).get("official_full")
         if official:
             name = official
@@ -195,29 +218,95 @@ def build_candidate(fec_rec: dict, state_abbr: str, state_name: str,
         data_source = "OpenFEC (active FEC committee; not verified vs state ballot)"
 
     return {
-        "name": name,
-        "party": party,
-        "seeking_office": seeking,
-        "incumbent": incumbent,
-        "current_office": current_office,
-        "bioguide_id": bioguide,
-        "fec_id": fec_id,
-        "hometown": None,
-        "age": age,
-        "website": None,
-        "social": {},
+        "name": name, "party": party, "seeking_office": seeking,
+        "incumbent": incumbent, "current_office": current_office,
+        "bioguide_id": bioguide, "fec_id": fec_id,
+        "hometown": None, "age": age, "website": None, "social": {},
         "photo_url": None,
         "bio": _bio_sentence(name, party, seeking, incumbent, current_office),
-        "top_issues": top_issues,
-        "endorsements": [],
-        "fundraising": fec_rec.get("fundraising"),
-        "experience": experience or [],
-        "data_status": data_status,
-        "data_source": data_source,
+        "top_issues": top_issues, "endorsements": [],
+        "fundraising": fec_rec.get("fundraising"), "experience": experience or [],
+        "data_status": data_status, "data_source": data_source,
         "data_observed": TODAY,
-        "_office_code": office_code,
-        "_district": district,
+        "_office_code": office_code, "_district": district,
     }
+
+
+# ── State-legislature incumbent builder ────────────────────────────────────
+
+def build_state_leg(state_abbr: str, state_name: str):
+    """Incumbent-only state-leg candidates + races from state_officials.json.
+    Returns (candidates_dict, races_list, counts). Nothing invented: only the
+    sitting member is listed; challengers flagged pending a certified roster."""
+    path = DATA_DIR / state_abbr.lower() / "state_officials.json"
+    if not path.exists():
+        return {}, [], {"State Senate": 0, "State House": 0}
+    so = json.loads(path.read_text(encoding="utf-8"))
+    cands: dict[str, dict] = {}
+    races: list[dict] = []
+    counts = {"State Senate": 0, "State House": 0}
+    sos = f"{state_name} Secretary of State"
+
+    bodies = (
+        ("state_senate", "State Senate", "state_senate_district", 4,
+         "State Senator", f"{state_name} State Senate", "SD"),
+        ("state_house", "State House", "state_house_district", 2,
+         "State Representative", f"{state_name} House of Representatives", "HD"),
+    )
+    for body_key, chamber, dist_field, term_yrs, role_word, seek_body, abbr2 in bodies:
+        body = so.get(body_key) or {}
+        for m in body.get("members", []) or []:
+            dist = str(m.get("district") or "").strip()
+            if not dist:
+                continue
+            name = m.get("name") or "Unknown"
+            party = (m.get("party") or "I").strip().upper()[:1] or "I"
+            pw = PARTY_WORD.get(party)
+            cid = f"{state_abbr.lower()}-cand-{slugify(name)}-{abbr2.lower()}{dist}"
+            seeking = f"{seek_body}, Dist. {dist}"
+            current = f"{role_word}, District {dist}"
+            contact = m.get("contact") or {}
+            cands[cid] = {
+                "name": name, "party": party, "seeking_office": seeking,
+                "incumbent": True, "current_office": current,
+                "bioguide_id": None, "openstates_id": m.get("openstates_id"),
+                "fec_id": None, "hometown": None, "age": None,
+                "website": contact.get("official_website"), "social": {},
+                "photo_url": m.get("photo_url"),
+                "bio": (f"{name} is the incumbent "
+                        f"{(pw + ' ') if pw else ''}{role_word} for District {dist}."),
+                "top_issues": [], "endorsements": [], "fundraising": None,
+                "experience": [], "data_status": "incumbent_only",
+                "data_source": ("Open States current officeholder "
+                                "(state_officials.json); challenger roster + ballot "
+                                f"qualification pending a certified {sos} source"),
+                "data_observed": TODAY,
+            }
+            note = ("Only the sitting incumbent is shown (Open States current-members "
+                    f"roster). Challenger filings and the certified ballot must be "
+                    f"verified against the {sos}; FEC/federal data does not cover "
+                    "state races.")
+            if chamber == "State Senate":
+                note += (f" {state_name} Senate seats have staggered {term_yrs}-year "
+                         "terms — only a subset is up in 2026; confirm which against "
+                         f"the {sos}.")
+            race = {
+                "id": f"{state_abbr.lower()}-2026-{chamber.lower().replace(' ', '-')}-{dist}",
+                "office": seeking, "level": "state",
+                "jurisdiction": f"{state_abbr}-{abbr2}-{dist}", "chamber": chamber,
+                dist_field: dist, "seat_type": "legislative",
+                "term_length_years": term_yrs, "open_seat": False,
+                "incumbent_candidate_id": cid,
+                "primary_candidates": {party: [cid]},
+                "general_candidates": [cid],
+                "general_candidates_note": note,
+                "notes": (f"Auto-generated {TODAY} from the Open States current-members "
+                          "roster. Incumbent-only; challengers pending a certified source."),
+                "_roster_source": "Open States current members (state_officials.json)",
+            }
+            races.append(race)
+            counts[chamber] += 1
+    return cands, races, counts
 
 
 # ── Main build ──────────────────────────────────────────────────────────────
@@ -226,27 +315,28 @@ async def build_state(state_abbr: str, cycle: int):
     state_abbr = state_abbr.upper()
     state_name = STATE_NAMES[state_abbr]
     crosswalk = load_crosswalk()
+    fips = STATE_FIPS[state_abbr]
 
     senate = await fec_service.fetch_state_federal_candidates(state_abbr, cycle, "S")
     house = await fec_service.fetch_state_federal_candidates(state_abbr, cycle, "H")
 
     candidates: dict[str, dict] = {}
     used_ids: set[str] = set()
-    name_offices: dict[str, set] = {}  # collision report
+    name_offices: dict[str, set] = {}
 
     def assign_id(rec: dict, office_code: str, district) -> str:
         base = f"{state_abbr.lower()}-cand-{slugify(rec['name'])}"
         suffix = "sen" if office_code == "S" else f"h{district if district not in (None, 0) else 'al'}"
         cid = f"{base}-{suffix}"
-        if cid in used_ids:  # extremely rare same-name same-seat: tail the fec id
+        if cid in used_ids:
             cid = f"{cid}-{(rec.get('fec_id') or '').lower()[-4:]}"
         used_ids.add(cid)
         return cid
 
-    seen_fec: dict[str, str] = {}  # fec_id -> first cid (cross-office dedup)
+    seen_fec: dict[str, str] = {}
     senate_ids: list[str] = []
     house_by_district: dict[int, list[str]] = {}
-    incumbent_by_seat: dict[str, str] = {}  # seat-key -> cid
+    incumbent_by_seat: dict[str, str] = {}
 
     for office_code, rows in (("S", senate), ("H", house)):
         for fec_rec in rows:
@@ -254,7 +344,6 @@ async def build_state(state_abbr: str, cycle: int):
             cand = build_candidate(fec_rec, state_abbr, state_name, crosswalk)
             district = cand["_district"]
             if fec_id and fec_id in seen_fec:
-                # same committee already placed (e.g. dupe across office fetch)
                 continue
             cid = assign_id(cand, office_code, district)
             if fec_id:
@@ -266,14 +355,11 @@ async def build_state(state_abbr: str, cycle: int):
                 senate_ids.append(cid)
                 if cand["incumbent"] and cand["data_status"] == "enriched":
                     incumbent_by_seat["S"] = cid
-            else:
-                if district:
-                    house_by_district.setdefault(district, []).append(cid)
-                    if cand["incumbent"] and cand["data_status"] == "enriched":
-                        incumbent_by_seat[f"H-{district}"] = cid
+            elif district:
+                house_by_district.setdefault(district, []).append(cid)
+                if cand["incumbent"] and cand["data_status"] == "enriched":
+                    incumbent_by_seat[f"H-{district}"] = cid
 
-    # ── Build races ──
-    fips = STATE_FIPS[state_abbr]
     races: list[dict] = []
 
     def party_groups(ids: list[str]) -> dict[str, list[str]]:
@@ -282,29 +368,27 @@ async def build_state(state_abbr: str, cycle: int):
             groups.setdefault(candidates[cid]["party"], []).append(cid)
         return groups
 
+    sos = f"{state_name} Secretary of State"
+    fed_general_note = (
+        "Both cards are populated from active FEC committees for the cycle, grouped "
+        f"by party. The certified general-election ballot must be verified against the "
+        f"{sos}; FEC committee status does not equal ballot qualification, and "
+        "primary/runoff results are not reflected here.")
+
     if senate_ids:
         races.append({
             "id": f"{state_abbr.lower()}-{cycle}-us-senate",
-            "office": f"U.S. Senate, {state_name}",
-            "level": "federal",
-            "jurisdiction": state_abbr,
-            "state_fips": fips,
-            "seat_type": "legislative",
-            "term_length_years": 6,
+            "office": f"U.S. Senate, {state_name}", "level": "federal",
+            "jurisdiction": state_abbr, "state_fips": fips,
+            "seat_type": "legislative", "term_length_years": 6,
             "open_seat": "S" not in incumbent_by_seat,
             "incumbent_candidate_id": incumbent_by_seat.get("S"),
             "primary_candidates": party_groups(senate_ids),
-            "general_candidates": [],
-            "general_candidates_note": (
-                "Candidates listed are those with active FEC committees for the "
-                f"{cycle} cycle, grouped by party. The general-election ballot must "
-                "be verified against the state's certified candidate list; FEC "
-                "committee status does not equal ballot qualification."),
-            "notes": (
-                f"Auto-generated from OpenFEC on {TODAY}. Skeleton records for "
-                "non-incumbents (FEC-sourced facts only); incumbents enriched from "
-                "neutral congress_profiles.json. Verify against the state Secretary "
-                "of State before treating as a certified ballot."),
+            "general_candidates": list(senate_ids),
+            "general_candidates_note": fed_general_note,
+            "notes": (f"Auto-generated from OpenFEC on {TODAY}. Skeleton records for "
+                      "non-incumbents (FEC facts only); incumbent enriched from "
+                      "congress_profiles.json. Verify against the state ballot."),
             "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)",
         })
 
@@ -313,70 +397,73 @@ async def build_state(state_abbr: str, cycle: int):
         seat_key = f"H-{district}"
         races.append({
             "id": f"{state_abbr.lower()}-{cycle}-us-house-{district}",
-            "office": f"U.S. House, {state_abbr}-{district}",
-            "level": "federal",
-            "jurisdiction": f"{state_abbr}-{district}",
-            "state_fips": fips,
-            "congressional_district": str(district),
-            "seat_type": "legislative",
-            "term_length_years": 2,
-            "open_seat": seat_key not in incumbent_by_seat,
+            "office": f"U.S. House, {state_abbr}-{district}", "level": "federal",
+            "jurisdiction": f"{state_abbr}-{district}", "state_fips": fips,
+            "congressional_district": str(district), "seat_type": "legislative",
+            "term_length_years": 2, "open_seat": seat_key not in incumbent_by_seat,
             "incumbent_candidate_id": incumbent_by_seat.get(seat_key),
             "primary_candidates": party_groups(ids),
-            "general_candidates": [],
-            "general_candidates_note": (
-                "Active-FEC-committee filers grouped by party; verify the certified "
-                "general-election ballot against the state Secretary of State."),
-            "notes": (
-                f"Auto-generated from OpenFEC on {TODAY}. Non-incumbents are skeleton "
-                "(FEC facts only); incumbent enriched from congress_profiles.json."),
+            "general_candidates": list(ids),
+            "general_candidates_note": fed_general_note,
+            "notes": (f"Auto-generated from OpenFEC on {TODAY}. Non-incumbents skeleton "
+                      "(FEC facts only); incumbent enriched from congress_profiles.json."),
             "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)",
         })
 
-    # strip private helper keys from candidate records
+    # State-legislature incumbent races
+    leg_cands, leg_races, leg_counts = build_state_leg(state_abbr, state_name)
+    candidates.update(leg_cands)
+    races.extend(leg_races)
+
     for c in candidates.values():
         c.pop("_office_code", None)
         c.pop("_district", None)
 
+    key_dates = STATE_KEY_DATES.get(state_abbr, {})
+    measures_note = STATE_BALLOT_NOTE.get(state_abbr)
+
     candidates_doc = {
         "_note": (
-            f"Federal candidate registry for {state_name} {cycle}, auto-generated "
-            f"from OpenFEC on {TODAY} (Task #96). Candidate IDs are stable kebab "
-            "slugs referenced by elections.json. SKELETON records carry only "
-            "FEC-sourced facts (name, party, office, district, fundraising); nothing "
-            "is invented. ENRICHED incumbent records pull neutral, sourced top_issues "
-            "+ experience from federal/congress_profiles.json via the FEC->bioguide "
-            "crosswalk in _cache/legislators_current.json (id.fec). Fundraising is a "
-            "static OpenFEC snapshot — re-run this script to refresh."),
+            f"Candidate registry for {state_name} {cycle}, auto-generated on {TODAY} "
+            "(Task #96). FEDERAL candidates (US Senate/House) come from OpenFEC: "
+            "non-incumbents are SKELETON (FEC facts only — nothing invented); "
+            "incumbents are ENRICHED with neutral, sourced top_issues + experience "
+            "from federal/congress_profiles.json via the FEC->bioguide crosswalk in "
+            "_cache/legislators_current.json. STATE-LEG candidates are INCUMBENT-ONLY "
+            "from state_officials.json (Open States); challengers pending a certified "
+            "source. Fundraising is a static OpenFEC snapshot — re-run to refresh."),
         "_source": (
-            "OpenFEC api.open.fec.gov /candidates/totals/ + congress_profiles.json. "
-            "FEC committee status != certified ballot qualification; verify the "
-            "general-election ballot against the state Secretary of State."),
+            "OpenFEC api.open.fec.gov + congress_profiles.json (federal) + Open States "
+            f"state_officials.json (state-leg incumbents). FEC/roster status != "
+            f"certified ballot qualification; verify against the {sos}."),
         "candidates": candidates,
     }
     elections_doc = {
         "_note": (
-            f"Federal races for {state_name} {cycle}, auto-generated from OpenFEC on "
-            f"{TODAY} (Task #96). candidate_ids point into candidates.json. Only "
-            "federal races (US Senate / US House) are present — the FEC has no state "
-            "or local candidates (those remain Tasks #98 / #99)."),
+            f"Races for {state_name} {cycle}, auto-generated on {TODAY} (Task #96). "
+            "candidate_ids point into candidates.json. Federal races from OpenFEC; "
+            "state-legislature races are incumbent-only from the Open States roster. "
+            "Statewide executive + local races and challenger rosters remain "
+            "Tasks #98/#99."),
         "_source": (
-            "OpenFEC /candidates/totals/ active committees. Replace/augment with the "
-            "state Secretary of State certified ballot + Ballotpedia when funded."),
-        "state": state_abbr,
-        "state_name": state_name,
-        "cycle": cycle,
-        "closed_primary": False,
-        "key_dates": {},
+            "OpenFEC + Open States state_officials.json. Replace/augment with the "
+            f"{sos} certified ballot + Ballotpedia when funded."),
+        "state": state_abbr, "state_name": state_name, "cycle": cycle,
+        "closed_primary": False,  # open-primary state unless overridden
+        "key_dates": key_dates,
         "races": races,
         "ballot_measures": {"state": [], "counties": {}},
+        "_measures_note": measures_note,
         "_personalization_hints": {
             "match_keys": {
                 "state": ["level=state"],
                 "congressional_district": ["congressional_district=<user.district>"],
+                "state_senate_district": ["state_senate_district=<user.state_senate_district>"],
+                "state_house_district": ["state_house_district=<user.state_house_district>"],
             },
-            "notes": ("Federal-only payload: US House races match on "
-                      "congressional_district; the US Senate race is statewide."),
+            "notes": ("US House matches on congressional_district; state-leg races "
+                      "match on state_senate_district / state_house_district; the US "
+                      "Senate race is statewide."),
         },
     }
     report = {
@@ -384,13 +471,18 @@ async def build_state(state_abbr: str, cycle: int):
         "senate_candidates": len(senate_ids),
         "house_candidates": sum(len(v) for v in house_by_district.values()),
         "house_districts": len(house_by_district),
+        "state_senate_seats": leg_counts["State Senate"],
+        "state_house_seats": leg_counts["State House"],
         "total_candidates": len(candidates),
-        "enriched": sum(1 for c in candidates.values() if c["data_status"] == "enriched"),
+        "enriched_incumbents": sum(1 for c in candidates.values() if c["data_status"] == "enriched"),
         "skeleton": sum(1 for c in candidates.values() if c["data_status"] == "skeleton"),
-        "incumbents_matched": list(incumbent_by_seat.keys()),
+        "state_leg_incumbents": sum(1 for c in candidates.values() if c["data_status"] == "incumbent_only"),
+        "federal_incumbents_matched": list(incumbent_by_seat.keys()),
         "cross_office_name_collisions": {
             n: sorted(o) for n, o in name_offices.items() if len(o) > 1},
-        "races": len(races),
+        "total_races": len(races),
+        "key_dates_present": bool(key_dates),
+        "measures_note_present": bool(measures_note),
     }
     return candidates_doc, elections_doc, report
 
