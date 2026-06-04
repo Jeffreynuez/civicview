@@ -18,27 +18,27 @@
         "facebook": "byrondonalds"
       },
       "photo_url": null,
-      "bio": "Byron Donalds has represented Florida's 19th congressional district since 2021 and previously served in the Florida House. He is running on a platform focused on economic growth, border security, and expanding school choice statewide.",
+      "bio": "Byron Donalds has represented Florida's 19th congressional district since 2021 and previously served in the Florida House. He is running on a platform focused on economic growth, border security, and expanding school choice statewide. Leading the Republican primary; also backed by a majority of Florida's congressional delegation and many Florida House members.",
       "top_issues": [
         {
-          "name": "Economy",
-          "stance": "Pro-growth tax reform; reduce state regulatory burden on small business; keep Florida income-tax-free."
+          "name": "Cost of Living & Affordability",
+          "stance": "Centers his 'Defending the Florida Dream' agenda on lowering costs for Florida families."
         },
         {
-          "name": "Education",
-          "stance": "Expand universal school choice; strengthen civic curriculum; reform university governance."
+          "name": "Immigration & Border Security",
+          "stance": "States a priority of combating illegal immigration."
+        },
+        {
+          "name": "Economy & Jobs",
+          "stance": "Runs as a 'Trump-endorsed, America First conservative' focused on economic growth."
         },
         {
           "name": "Public Safety",
-          "stance": "Continue anti-drug trafficking interdictions; fully staff sheriff's offices; support E-Verify enforcement."
+          "stance": "Emphasizes support for law enforcement; endorsed by 27 Florida sheriffs."
         },
         {
-          "name": "Housing",
-          "stance": "Remove local permitting barriers; expand Live Local Act incentives for workforce housing."
-        },
-        {
-          "name": "Insurance",
-          "stance": "Continue property-insurance litigation reform; expand Citizens' depopulation pipeline."
+          "name": "Education",
+          "stance": "A longtime advocate for school choice and parental rights in education."
         }
       ],
       "endorsements": [
@@ -53,12 +53,28 @@
         {
           "name": "Rep. Anna Paulina Luna",
           "org": "U.S. House (FL-13)"
+        },
+        {
+          "name": "U.S. Senator Rick Scott",
+          "org": "U.S. Senate (FL)"
+        },
+        {
+          "name": "Elon Musk",
+          "org": "Business executive"
+        },
+        {
+          "name": "Gov. Sarah Huckabee Sanders",
+          "org": "Governor of Arkansas"
+        },
+        {
+          "name": "27 Florida sheriffs",
+          "org": "FL law enforcement"
         }
       ],
       "fundraising": {
-        "total_raised": 18400000,
-        "total_spent": 9800000,
-        "cash_on_hand": 8600000,
+        "total_raised": 67000000,
+        "total_spent": null,
+        "cash_on_hand": null,
         "as_of": "2026-03-31"
       },
       "experience": [
@@ -78,7 +94,9 @@
           "to": 2016
         }
       ],
-      "data_status": "enriched"
+      "data_status": "enriched",
+      "data_observed": "2026-06-04",
+      "data_source": "byrondonalds.com; Florida Politics; Emerson College poll (2026)"
     },
     "fl-cand-paul-renner": {
       "id": "fl-cand-paul-renner",
@@ -89,7 +107,7 @@
       "current_office": "Former Speaker, Florida House of Representatives",
       "hometown": "Palm Coast, FL",
       "age": 57,
-      "website": "https://paulrennerfl.com",
+      "website": "https://voterenner.com",
       "social": {
         "twitter": "paulrennerfl"
       },
@@ -97,24 +115,24 @@
       "bio": "Paul Renner served as Speaker of the Florida House from 2022 to 2024, presiding over major reforms in education, litigation, and property insurance. He is running on a platform of experienced conservative governance.",
       "top_issues": [
         {
-          "name": "Education",
-          "stance": "Cement the universal school-choice expansion and protect civics reforms."
+          "name": "Property Tax Relief",
+          "stance": "Proposes eliminating roughly $34 billion in homestead property taxes, funded first by cutting government spending."
         },
         {
-          "name": "Insurance",
-          "stance": "Continue tort-reform track; target fraud in auto-glass and roof claims."
+          "name": "Affordability & Cost of Living",
+          "stance": "Runs a 'Florida First' campaign; has floated temporarily suspending the gas tax."
         },
         {
-          "name": "Public Safety",
-          "stance": "Invest in deputy training academies; maintain sentencing enhancements."
+          "name": "Public Safety & Hurricane Resilience",
+          "stance": "Emphasizes keeping communities safe and improving hurricane recovery."
         },
         {
-          "name": "Property Rights",
-          "stance": "Strengthen Burt Harris protections; cap local impact fees."
+          "name": "School Choice",
+          "stance": "As House Speaker, helped expand universal school vouchers."
         },
         {
-          "name": "Taxes",
-          "stance": "Permanent sales-tax holidays; no state income tax; cap local property-tax growth."
+          "name": "Second Amendment",
+          "stance": "Has pledged to sign an open-carry bill."
         }
       ],
       "endorsements": [
@@ -149,7 +167,9 @@
           "to": 1996
         }
       ],
-      "data_status": "enriched"
+      "data_status": "enriched",
+      "data_source": "voterenner.com; ClickOrlando; WCJB; Wikipedia (2026)",
+      "data_observed": "2026-06-04"
     },
     "fl-cand-james-uthmeier": {
       "id": "fl-cand-james-uthmeier",
@@ -167,7 +187,7 @@
         "twitter": "jamesuthmeier"
       },
       "photo_url": null,
-      "bio": "James Uthmeier was appointed Attorney General in 2025. Previously he served as Governor DeSantis's chief of staff and general counsel. He is running for a full term on a platform of border enforcement, consumer protection, and transnational crime.",
+      "bio": "James Uthmeier is the Attorney General of Florida, appointed in 2025; he previously served as Chief of Staff to Governor Ron DeSantis. He is the Republican candidate for Attorney General.",
       "top_issues": [
         {
           "name": "Public Safety",
@@ -207,17 +227,14 @@
           "to": null
         },
         {
-          "role": "Chief of Staff, Office of the Governor",
+          "role": "Chief of Staff to the Governor of Florida",
           "from": 2023,
           "to": 2025
-        },
-        {
-          "role": "General Counsel, Office of the Governor",
-          "from": 2021,
-          "to": 2023
         }
       ],
-      "data_status": "enriched"
+      "data_status": "enriched",
+      "data_source": "curated",
+      "data_observed": "2026-06-04"
     },
     "fl-cand-jose-javier-rodriguez": {
       "id": "fl-cand-jose-javier-rodriguez",
@@ -518,21 +535,51 @@
       "party": "R",
       "seeking_office": "Governor of Florida",
       "incumbent": false,
-      "current_office": null,
+      "current_office": "Lieutenant Governor of Florida",
       "bioguide_id": null,
       "hometown": null,
       "age": null,
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
-      "top_issues": [],
+      "bio": "Jay Collins is the Lieutenant Governor of Florida, appointed in 2025, and a former Florida state senator and retired U.S. Army Special Forces (Green Beret) combat veteran. He is a Republican candidate for Governor of Florida.",
+      "top_issues": [
+        {
+          "name": "Veterans & Workforce Transition",
+          "stance": "A retired Green Beret; emphasizes helping veterans transition into the civilian workforce."
+        },
+        {
+          "name": "Jobs & Manufacturing",
+          "stance": "Says he would prioritize creating high-paying industrial and manufacturing jobs."
+        },
+        {
+          "name": "Trade Skills & Vocational Education",
+          "stance": "Stresses expanding skilled-trades training, noting the average Florida tradesman is 58."
+        }
+      ],
       "endorsements": [],
       "fundraising": null,
-      "experience": [],
-      "data_status": "skeleton",
-      "data_source": "FL Division of Elections (active filer)",
-      "data_observed": "2026-05-05"
+      "experience": [
+        {
+          "role": "Lieutenant Governor of Florida",
+          "from": 2025,
+          "to": null
+        },
+        {
+          "role": "Florida State Senator",
+          "from": 2022,
+          "to": 2025
+        },
+        {
+          "role": "U.S. Army Special Forces (Green Beret), retired",
+          "from": null,
+          "to": null
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "WUSF; CNN; Florida Phoenix (2026)",
+      "data_observed": "2026-06-04",
+      "official_scope": "state"
     },
     "fl-cand-shea-cruel": {
       "id": "fl-cand-shea-cruel",
@@ -547,7 +594,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Shea Cruel is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -569,7 +616,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jenny Patricia Curtman is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -588,17 +635,39 @@
       "bioguide_id": null,
       "hometown": null,
       "age": null,
-      "website": null,
+      "website": "https://fishback2026.com",
       "social": {},
       "photo_url": null,
-      "bio": null,
-      "top_issues": [],
+      "bio": "James Fishback is a Republican candidate for Governor of Florida. A fourth-generation Floridian and investment-firm founder, he is running on an affordability platform.",
+      "top_issues": [
+        {
+          "name": "Housing Affordability",
+          "stance": "Proposes barring private-equity firms, short-term-rental speculators, and foreign nationals from buying single-family homes — 'our homes are for families, not hedge funds.'"
+        },
+        {
+          "name": "Cost of Living",
+          "stance": "Centers his campaign on making it easier for Floridians to earn a good wage, buy a home, and retire."
+        },
+        {
+          "name": "Social Issues",
+          "stance": "States support for a complete abortion ban (including in cases of rape and incest), a ban on surrogacy, and opposition to same-sex marriage."
+        },
+        {
+          "name": "Foreign Policy",
+          "stance": "Publicly dissented from U.S. military action against Iran, breaking with other Republican candidates in the field."
+        }
+      ],
       "endorsements": [],
-      "fundraising": null,
+      "fundraising": {
+        "total_raised": 295000,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "as_of": "2026-04-30"
+      },
       "experience": [],
-      "data_status": "skeleton",
-      "data_source": "FL Division of Elections (active filer)",
-      "data_observed": "2026-05-05"
+      "data_status": "enriched",
+      "data_source": "fishback2026.com; Ballotpedia; Wikipedia; Florida Phoenix (2026)",
+      "data_observed": "2026-06-04"
     },
     "fl-cand-jim-holcomb": {
       "id": "fl-cand-jim-holcomb",
@@ -613,7 +682,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jim Holcomb is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -635,7 +704,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Daniel J. Imperato is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -657,7 +726,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "John Joseph Mercadante is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -679,7 +748,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Daniel Nokovich is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -701,7 +770,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Rachel Rodriguez is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -723,7 +792,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "James Walker Shaw is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -745,7 +814,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Caneste Succe is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -767,7 +836,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Robert Edward \"Bobby\" Williams Jr. is a Republican candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -789,7 +858,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Faith E. Antonio is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -811,7 +880,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Evelyn Castillo-Bach is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -833,7 +902,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Kevin Cichowski is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -855,7 +924,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Richard Paul Dembinsky is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -870,21 +939,49 @@
       "party": "D",
       "seeking_office": "Governor of Florida",
       "incumbent": false,
-      "current_office": null,
+      "current_office": "Mayor, Orange County, FL",
       "bioguide_id": null,
       "hometown": null,
       "age": null,
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
-      "top_issues": [],
+      "bio": "Jerry Demings is the Mayor of Orange County, Florida (since 2018) and a former Orange County Sheriff and Orlando police chief. He is a Democratic candidate for Governor of Florida.",
+      "top_issues": [
+        {
+          "name": "Healthcare",
+          "stance": "Supports expanding Medicaid to widen access to health coverage."
+        },
+        {
+          "name": "Affordability",
+          "stance": "Focuses on the rising cost of housing, groceries, insurance, and electricity."
+        },
+        {
+          "name": "Insurance Accountability",
+          "stance": "Calls for holding insurance companies accountable."
+        },
+        {
+          "name": "Environment",
+          "stance": "Lists protecting the environment among his priorities."
+        }
+      ],
       "endorsements": [],
       "fundraising": null,
-      "experience": [],
-      "data_status": "skeleton",
-      "data_source": "FL Division of Elections (active filer)",
-      "data_observed": "2026-05-05"
+      "experience": [
+        {
+          "role": "Mayor, Orange County, FL",
+          "from": 2018,
+          "to": null
+        },
+        {
+          "role": "Sheriff, Orange County, FL",
+          "from": 2009,
+          "to": 2018
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "Florida Politics; WUSF; Florida Phoenix (2026)",
+      "data_observed": "2026-06-04"
     },
     "fl-cand-thomas-fernandez": {
       "id": "fl-cand-thomas-fernandez",
@@ -899,7 +996,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Thomas E. Fernandez is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -921,7 +1018,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Dayna Marie Foster is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -940,17 +1037,40 @@
       "bioguide_id": null,
       "hometown": null,
       "age": null,
-      "website": null,
+      "website": "https://davidjolly.com",
       "social": {},
       "photo_url": null,
-      "bio": null,
-      "top_issues": [],
+      "bio": "David Jolly is a Democratic candidate for Governor of Florida and the leading candidate in the Democratic primary. A former Republican, he represented Florida's 13th congressional district in the U.S. House (2014-2017) and later became a Democrat and political commentator.",
+      "top_issues": [
+        {
+          "name": "Affordability",
+          "stance": "Makes the rising cost of living the centerpiece of his campaign."
+        },
+        {
+          "name": "Public Education",
+          "stance": "Calls for fully funding public schools."
+        },
+        {
+          "name": "Ethics & Campaign Finance Reform",
+          "stance": "Advocates strengthening campaign-finance and government-ethics laws."
+        },
+        {
+          "name": "Reproductive Freedom",
+          "stance": "Says government should 'stay out of doctor's offices and family decisions.'"
+        }
+      ],
       "endorsements": [],
       "fundraising": null,
-      "experience": [],
-      "data_status": "skeleton",
-      "data_source": "FL Division of Elections (active filer)",
-      "data_observed": "2026-05-05"
+      "experience": [
+        {
+          "role": "U.S. Representative, FL-13",
+          "from": 2014,
+          "to": 2017
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "davidjolly.com; NBC News; PBS NewsHour (2026)",
+      "data_observed": "2026-06-04"
     },
     "fl-cand-charles-lewis": {
       "id": "fl-cand-charles-lewis",
@@ -965,7 +1085,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Charles A. Lewis is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -987,7 +1107,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Kenneth Stephann Norman is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1009,7 +1129,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Donald J. Peterson is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1031,7 +1151,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Bill Slater is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1053,7 +1173,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jessica Vernekar is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1075,7 +1195,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Randy Zapata is a Democrat candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1097,7 +1217,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Dean Ocean Abrams is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1119,7 +1239,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Surindar Singh Bedi is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1141,7 +1261,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Charles Burkett is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1163,7 +1283,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jeffrey Peter Datto is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1185,7 +1305,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Moliere Dimanche is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1207,7 +1327,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Insley Darris Corri Evans Sr. is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1229,7 +1349,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Ansaun Jahmaal Fisher is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1251,7 +1371,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Mourice \"Mo\" Hylton is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1273,7 +1393,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jennifer K. Pearl is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1295,7 +1415,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Frank J. Russo is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1317,7 +1437,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Yerucham Zvi Winer is a no-party-affiliation candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1339,7 +1459,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Scott Jewett is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1361,7 +1481,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Brandon L. McIntyre is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1383,7 +1503,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "James Michael Brown is a independent candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1405,7 +1525,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Andrea Lynn Klink is a independent candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1427,7 +1547,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Reginald Byron Strachan is a independent candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1449,7 +1569,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Kathleen Gail Anderson is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1471,7 +1591,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Rodney Christopher Glover is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1493,7 +1613,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Erik Edward Morris is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1515,7 +1635,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Christopher Tavarus Powell is a candidate for Governor of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1537,7 +1657,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Jim Lewis is a Democrat candidate for Attorney General of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1559,7 +1679,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Steven Leskovich is a Republican candidate for Attorney General of Florida in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
@@ -1596,21 +1716,48 @@
       "party": "R",
       "seeking_office": "FL Senate Dist. 40",
       "incumbent": true,
-      "current_office": "Florida State Senator, Dist. 40 (incumbent)",
+      "current_office": "Florida State Senator, District 40",
       "bioguide_id": null,
       "hometown": null,
       "age": null,
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
-      "top_issues": [],
+      "bio": "Ana Maria Rodriguez is a Republican member of the Florida Senate representing District 40, serving since 2020; she previously served in the Florida House. She is running for re-election.",
+      "top_issues": [
+        {
+          "name": "Healthcare",
+          "stance": "A frequent subject of her sponsored Florida legislation (e.g., living organ donation, naturopathic medicine). Derived from her legislative record, not a stated position."
+        },
+        {
+          "name": "Government Transparency & Public Records",
+          "stance": "A frequent subject of her sponsored bills (e.g., recording of protective investigations, public records). Derived from her record, not a stated position."
+        },
+        {
+          "name": "Education",
+          "stance": "A frequent subject of her sponsored bills (e.g., speech and debate education, university recognition). Derived from her record, not a stated position."
+        }
+      ],
       "endorsements": [],
       "fundraising": null,
-      "experience": [],
-      "data_status": "skeleton",
-      "data_source": "FL Division of Elections (active filer)",
-      "data_observed": "2026-05-05"
+      "experience": [
+        {
+          "role": "Florida State Senator, District 40",
+          "from": 2020,
+          "to": null
+        },
+        {
+          "role": "Florida House of Representatives",
+          "from": 2018,
+          "to": 2020
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "OpenStates + curated",
+      "data_observed": "2026-06-04",
+      "official_id": "fl-sen-40",
+      "official_scope": "state",
+      "openstates_id": "ocd-person/afd55a58-b8f6-4dd7-9d93-a2207b65e425"
     },
     "fl-cand-felipe-sousa-lazaballet": {
       "id": "fl-cand-felipe-sousa-lazaballet",
@@ -1625,7 +1772,7 @@
       "website": null,
       "social": {},
       "photo_url": null,
-      "bio": null,
+      "bio": "Felipe Sousa Lazaballet is a Democrat candidate for FL House Dist. 42 in Florida.",
       "top_issues": [],
       "endorsements": [],
       "fundraising": null,
