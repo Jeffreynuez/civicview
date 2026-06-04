@@ -8,6 +8,7 @@ import { votePoll } from '../lib/pagesApi';
 import { getVoterToken } from '../lib/voterToken';
 import IdentityPicker from './IdentityPicker';
 import PollResultsModal from './polls/PollResultsModal';
+import PollDemographicsForm from './polls/PollDemographicsForm';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 
 /**
@@ -85,6 +86,7 @@ export default function PollCard({
   // narrowed identity list. Renders the IdentityPicker absolutely
   // positioned under the option that was clicked.
   const [votePicker, setVotePicker] = useState(null);
+  const [demoVote, setDemoVote] = useState(null);
 
   const fireVote = async (optionId, asIdentity) => {
     setBusy(true);
@@ -100,6 +102,10 @@ export default function PollCard({
       return;
     }
     if (data && onUpdated) onUpdated(data);
+    // Optional demographics step for citizen voters (form self-hides if none).
+    if (!err && (!asIdentity || asIdentity === 'citizen')) {
+      setDemoVote({ optionId, asIdentity });
+    }
   };
 
   const cast = async (optionId) => {
@@ -314,6 +320,16 @@ export default function PollCard({
         open={exploreOpen}
         onClose={() => setExploreOpen(false)}
       />
+      {demoVote && (
+        <PollDemographicsForm
+          pollId={poll.id}
+          onSubmit={async (demo) => {
+            await votePoll(officialId, poll.id, { optionId: demoVote.optionId, voterToken: getVoterToken(), asIdentity: demoVote.asIdentity, demographics: demo });
+            setDemoVote(null);
+          }}
+          onDismiss={() => setDemoVote(null)}
+        />
+      )}
       {error && <span style={{ color: '#d63031' }}>{error}</span>}
     </div>
   );

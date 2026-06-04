@@ -38,6 +38,8 @@ import {
 import IdentityPicker from './IdentityPicker';
 import CommentsThread from './polls/CommentsThread';
 import PollResultsModal from './polls/PollResultsModal';
+import PollDemographicsPicker from './polls/PollDemographicsPicker';
+import PollDemographicsForm from './polls/PollDemographicsForm';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 
 const REPORT_REASONS = [
@@ -566,6 +568,7 @@ function CitizenPollCard({
   const activeIdentities = useActiveIdentities({ isOwner: true });
   const voterChoicesByIdentity = inner.voter_choices || {};
   const [votePicker, setVotePicker] = useState(null);
+  const [demoVote, setDemoVote] = useState(null);
 
   const fireVote = async (optionId, asIdentity) => {
     setBusy(true);
@@ -577,6 +580,9 @@ function CitizenPollCard({
       return;
     }
     if (data && onVoted) onVoted(data);
+    // Offer the optional demographics step for citizen voters (the form
+    // self-hides if this poll has no attached form).
+    if (data && citizen) setDemoVote({ optionId, asIdentity });
   };
 
   const cast = async (optionId) => {
@@ -838,6 +844,17 @@ function CitizenPollCard({
         onClose={() => setExploreOpen(false)}
       />
 
+      {demoVote && (
+        <PollDemographicsForm
+          pollId={poll.id}
+          onSubmit={async (demo) => {
+            await voteOnCitizenPoll(poll.id, demoVote.optionId, demoVote.asIdentity, demo);
+            setDemoVote(null);
+          }}
+          onDismiss={() => setDemoVote(null)}
+        />
+      )}
+
       {commentsOpen && (
         <CommentsThread
           mode="poll"
@@ -999,6 +1016,7 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [presentation, setPresentation] = useState('full');
+  const [demographicKeys, setDemographicKeys] = useState([]);
   const [timing, setTiming] = useState('none');           // 'none' | 'duration' | 'date'
   const [durationValue, setDurationValue] = useState('1');
   const [durationUnit, setDurationUnit] = useState('days');
@@ -1048,6 +1066,7 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
       question: question.trim(),
       options: cleanedOptions,
       presentation_mode: presentation,
+      demographic_question_keys: demographicKeys.length ? demographicKeys : undefined,
     };
     if (closesAtIso) payload.closes_at = closesAtIso;
     const { data, error: err } = await createCitizenPoll(officialId, payload);
@@ -1111,6 +1130,8 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
             + Add option
           </button>
         )}
+
+        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
 
         {/* Close timing */}
         <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px dashed var(--cl-border)' }}>

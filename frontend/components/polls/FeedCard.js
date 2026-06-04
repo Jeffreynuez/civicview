@@ -69,6 +69,7 @@ import { ThumbsUp, ThumbsDown, ChatText } from '../ui';
 import PostActionsMenu from '../PostActionsMenu';
 import CommentsThread from './CommentsThread';
 import PollResultsModal from './PollResultsModal';
+import PollDemographicsForm from './PollDemographicsForm';
 
 export default function FeedCard({
   card,
@@ -154,6 +155,7 @@ export default function FeedCard({
   };
   const [errorMsg, setErrorMsg] = useState(null);
   const [exploreOpen, setExploreOpen] = useState(false);
+  const [demoVote, setDemoVote] = useState(null);
   const [confirmingClose, setConfirmingClose] = useState(false);
   // Post-body collapse — long bodies (>400 chars) show an Expand pill
   // and stay collapsed by default. Same pattern the rep page uses.
@@ -318,6 +320,11 @@ export default function FeedCard({
     } else {
       // Fallback when caller hasn't wired onCardUpdated yet.
       onMutated?.();
+    }
+    // Offer the optional demographics step to citizen voters (the form
+    // self-hides when the poll has no attached form).
+    if (!res?.error && (!asIdentity || asIdentity === 'citizen')) {
+      setDemoVote({ optionId, asIdentity });
     }
   };
 
@@ -702,6 +709,20 @@ export default function FeedCard({
               open={exploreOpen}
               onClose={() => setExploreOpen(false)}
             />
+            {demoVote && (
+              <PollDemographicsForm
+                pollId={card.id}
+                onSubmit={async (demo) => {
+                  if (card.kind === 'rep' || card.kind === 'candidate') {
+                    await votePoll(card.official_id, card.id, { optionId: demoVote.optionId, voterToken: getVoterToken(), asIdentity: demoVote.asIdentity, demographics: demo });
+                  } else {
+                    await voteOnCitizenPoll(card.id, demoVote.optionId, demoVote.asIdentity, demo);
+                  }
+                  setDemoVote(null);
+                }}
+                onDismiss={() => setDemoVote(null)}
+              />
+            )}
           </div>
           {errorMsg && <div className="feed-card__error">{errorMsg}</div>}
           {confirmingClose && (
