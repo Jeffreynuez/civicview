@@ -37,6 +37,7 @@ import {
 } from '../lib/pagesApi';
 import IdentityPicker from './IdentityPicker';
 import CommentsThread from './polls/CommentsThread';
+import PollResultsModal from './polls/PollResultsModal';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 
 const REPORT_REASONS = [
@@ -546,6 +547,7 @@ function CitizenPollCard({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
   const [commentsOpen, setCommentsOpen] = useState(false);
+  const [exploreOpen, setExploreOpen] = useState(false);
 
   const author = poll.author || {};
   const inner = poll.poll || {};
@@ -812,11 +814,29 @@ function CitizenPollCard({
         >
           {commentsOpen ? 'Hide' : 'Show'} comments ({poll.comment_count || 0})
         </button>
+        <button
+          type="button"
+          onClick={() => setExploreOpen(true)}
+          style={{
+            background: 'transparent', border: 'none', padding: 0,
+            color: 'var(--cl-accent)', fontWeight: 600, cursor: 'pointer',
+            fontFamily: 'inherit', fontSize: '0.78rem',
+          }}
+        >
+          📊 Explore results
+        </button>
         {isClosed && <span>· Closed</span>}
         {!isClosed && inner.closes_at && (
           <span>· Closes {new Date(inner.closes_at).toLocaleDateString()}</span>
         )}
       </div>
+
+      <PollResultsModal
+        pollId={inner.id}
+        question={inner.question}
+        open={exploreOpen}
+        onClose={() => setExploreOpen(false)}
+      />
 
       {commentsOpen && (
         <CommentsThread
