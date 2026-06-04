@@ -1035,6 +1035,51 @@ Index("uq_poll_vote_poll_rep",      PollVote.poll_id, PollVote.author_rep_id, un
 Index("uq_poll_vote_poll_candidate", PollVote.poll_id, PollVote.author_candidate_id, unique=True)
 
 
+# ── Poll demographic forms (optional, creator-attached) ───────────────
+class PollDemographicQuestion(Base):
+    """Which standardized demographic questions a poll attaches. Catalog
+    prompts/options/tier live in services/demographics_catalog.py (versioned
+    code) — this table records only which catalog KEYS a poll uses and their
+    display order. See docs/polls-demographic-forms-prd.md."""
+    __tablename__ = "poll_demographic_questions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    poll_id: Mapped[int] = mapped_column(
+        ForeignKey("polls.id", ondelete="CASCADE"), index=True,
+    )
+    question_key: Mapped[str] = mapped_column(String(40))
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class PollVoteDemographic(Base):
+    """A single self-reported demographic answer, frozen at vote time and tied
+    to one PollVote. Written ONLY for verified-citizen votes that chose to
+    answer (anonymous/demo-token votes carry none, mirroring how PollVote
+    geography scopes work). AGGREGATE-ONLY by policy: no endpoint exposes an
+    individual row; the results breakdown applies server-side min-cell
+    suppression. poll_id is denormalized so breakdown filters stay one scan."""
+    __tablename__ = "poll_vote_demographics"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    poll_id: Mapped[int] = mapped_column(
+        ForeignKey("polls.id", ondelete="CASCADE"), index=True,
+    )
+    poll_vote_id: Mapped[int] = mapped_column(
+        ForeignKey("poll_votes.id", ondelete="CASCADE"), index=True,
+    )
+    question_key: Mapped[str] = mapped_column(String(40), index=True)
+    answer_value: Mapped[str] = mapped_column(String(64), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+# One attached question per (poll, question_key); one answer per (vote, key).
+Index("uq_poll_demo_question", PollDemographicQuestion.poll_id,
+      PollDemographicQuestion.question_key, unique=True)
+Index("uq_poll_vote_demo_answer", PollVoteDemographic.poll_vote_id,
+      PollVoteDemographic.question_key, unique=True)
+
+
 # ── Rep-created events ────────────────────────────────────────────────
 class RepEvent(Base):
     """
