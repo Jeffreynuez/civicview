@@ -108,6 +108,13 @@ STATE_KEY_DATES = {
         "voter_registration_deadline_primary": "2026-06-13",
         "voter_registration_deadline_general": "2026-10-24",
     },
+    "PA": {
+        # Pennsylvania runs a CLOSED May primary (only registered partisans vote).
+        "primary": "2026-05-19",
+        "general": "2026-11-03",
+        "voter_registration_deadline_primary": "2026-05-04",
+        "voter_registration_deadline_general": "2026-10-19",
+    },
 }
 # Per-state ballot-measure reality. TX puts statewide constitutional amendments
 # on ODD-year ballots (all 17 were decided Nov 2025), so there are none in 2026.
@@ -125,12 +132,17 @@ STATE_BALLOT_NOTE = {
            "November 2026 general election are listed below. Local and New York City "
            "ballot proposals are not yet integrated; confirm final ballot numbering "
            "and official wording with the New York State Board of Elections."),
+    "PA": ("Pennsylvania has no statewide ballot measures on the November 2026 ballot "
+           "— PA constitutional amendments reach voters only after the legislature "
+           "passes them in two consecutive sessions, and none are scheduled for 2026. "
+           "Local/municipal questions vary by county and are not yet integrated "
+           "(pending a certified source)."),
 }
 
 # Per-state CLOSED primary (only registered partisans vote the party primary).
 # Drives the BallotTab closed-primary disclosure banner. Open-primary / top-two
 # states (TX, CA) are omitted and default to open.
-CLOSED_PRIMARY_STATES = {"NY"}
+CLOSED_PRIMARY_STATES = {"NY", "PA"}
 
 # Real, sourced statewide ballot measures keyed by state. Only verifiable
 # measures go here — never fabricated. States with none (e.g. TX 2026) rely on
