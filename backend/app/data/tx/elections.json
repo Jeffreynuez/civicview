@@ -1,0 +1,1132 @@
+{
+ "_note": "Federal races for Texas 2026, auto-generated from OpenFEC on 2026-06-04 (Task #96). candidate_ids point into candidates.json. Only federal races (US Senate / US House) are present — the FEC has no state or local candidates (those remain Tasks #98 / #99).",
+ "_source": "OpenFEC /candidates/totals/ active committees. Replace/augment with the state Secretary of State certified ballot + Ballotpedia when funded.",
+ "state": "TX",
+ "state_name": "Texas",
+ "cycle": 2026,
+ "closed_primary": false,
+ "key_dates": {},
+ "races": [
+  {
+   "id": "tx-2026-us-senate",
+   "office": "U.S. Senate, Texas",
+   "level": "federal",
+   "jurisdiction": "TX",
+   "state_fips": "48",
+   "seat_type": "legislative",
+   "term_length_years": 6,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-john-cornyn-sen",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-james-talarico-sen",
+     "tx-cand-jasmine-crockett-sen",
+     "tx-cand-colin-allred-sen",
+     "tx-cand-michael-swanson-sen"
+    ],
+    "R": [
+     "tx-cand-john-cornyn-sen",
+     "tx-cand-warren-kenneth-paxton-jr-sen",
+     "tx-cand-wesley-hunt-sen",
+     "tx-cand-gulrez-khan-sen",
+     "tx-cand-virgil-bierschwale-sen",
+     "tx-cand-sara-larue-canady-sen"
+    ],
+    "L": [
+     "tx-cand-daniel-m-sims-sen",
+     "tx-cand-theodore-e-brown-jr-sen"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Candidates listed are those with active FEC committees for the 2026 cycle, grouped by party. The general-election ballot must be verified against the state's certified candidate list; FEC committee status does not equal ballot qualification.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Skeleton records for non-incumbents (FEC-sourced facts only); incumbents enriched from neutral congress_profiles.json. Verify against the state Secretary of State before treating as a certified ballot.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-1",
+   "office": "U.S. House, TX-1",
+   "level": "federal",
+   "jurisdiction": "TX-1",
+   "state_fips": "48",
+   "congressional_district": "1",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-nathaniel-moran-h1",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-nathaniel-moran-h1"
+    ],
+    "D": [
+     "tx-cand-masika-akilah-ray-h1",
+     "tx-cand-dax-cornell-alexander-h1",
+     "tx-cand-yolanda-rena-prince-h1"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-2",
+   "office": "U.S. House, TX-2",
+   "level": "federal",
+   "jurisdiction": "TX-2",
+   "state_fips": "48",
+   "congressional_district": "2",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-dan-crenshaw-h2",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-dan-crenshaw-h2",
+     "tx-cand-steve-toth-h2",
+     "tx-cand-martin-etwop-h2",
+     "tx-cand-nicholas-lee-plumb-h2",
+     "tx-cand-jameson-ellis-h2"
+    ],
+    "D": [
+     "tx-cand-shaun-finnie-h2"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-3",
+   "office": "U.S. House, TX-3",
+   "level": "federal",
+   "jurisdiction": "TX-3",
+   "state_fips": "48",
+   "congressional_district": "3",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-keith-alan-self-h3",
+     "tx-cand-mark-newgent-h3"
+    ],
+    "D": [
+     "tx-cand-evan-hunt-h3",
+     "tx-cand-jordan-douglas-wheatley-h3"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-4",
+   "office": "U.S. House, TX-4",
+   "level": "federal",
+   "jurisdiction": "TX-4",
+   "state_fips": "48",
+   "congressional_district": "4",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-pat-fallon-h4",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-pat-fallon-h4"
+    ],
+    "D": [
+     "tx-cand-jason-pearce-h4"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-5",
+   "office": "U.S. House, TX-5",
+   "level": "federal",
+   "jurisdiction": "TX-5",
+   "state_fips": "48",
+   "congressional_district": "5",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-lance-gooden-h5",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-lance-gooden-h5",
+     "tx-cand-travis-edwards-h5"
+    ],
+    "D": [
+     "tx-cand-ruth-torres-h5",
+     "tx-cand-chelsey-alexandra-hockett-h5",
+     "tx-cand-chelsey-alexandra-hockett-h5-5197"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-6",
+   "office": "U.S. House, TX-6",
+   "level": "federal",
+   "jurisdiction": "TX-6",
+   "state_fips": "48",
+   "congressional_district": "6",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-jake-ellzey-h6",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-jake-ellzey-h6",
+     "tx-cand-brian-stahl-h6"
+    ],
+    "D": [
+     "tx-cand-danny-minton-h6"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-7",
+   "office": "U.S. House, TX-7",
+   "level": "federal",
+   "jurisdiction": "TX-7",
+   "state_fips": "48",
+   "congressional_district": "7",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-lizzie-fletcher-h7",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-lizzie-fletcher-h7"
+    ],
+    "R": [
+     "tx-cand-alexander-zachary-kalai-h7",
+     "tx-cand-alexander-hale-h7",
+     "tx-cand-tina-cohen-h7"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-8",
+   "office": "U.S. House, TX-8",
+   "level": "federal",
+   "jurisdiction": "TX-8",
+   "state_fips": "48",
+   "congressional_district": "8",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-brett-jensen-h8",
+     "tx-cand-jessica-hart-steinmann-h8",
+     "tx-cand-nick-b-tran-h8",
+     "tx-cand-deddrick-t-wilmer-h8"
+    ],
+    "D": [
+     "tx-cand-laura-jones-h8",
+     "tx-cand-keith-coleman-h8"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-9",
+   "office": "U.S. House, TX-9",
+   "level": "federal",
+   "jurisdiction": "TX-9",
+   "state_fips": "48",
+   "congressional_district": "9",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-alexandra-mealer-h9",
+     "tx-cand-briscoe-rowell-cain-iii-h9",
+     "tx-cand-dan-mims-h9",
+     "tx-cand-steve-stockman-h9",
+     "tx-cand-jaimy-blanco-h9",
+     "tx-cand-crystal-sarmiento-h9",
+     "tx-cand-dwayne-bradley-stovall-h9",
+     "tx-cand-terry-lee-thain-h9"
+    ],
+    "D": [
+     "tx-cand-terry-virts-h9",
+     "tx-cand-r-todd-ivey-h9",
+     "tx-cand-james-buford-h9",
+     "tx-cand-leticia-gutierrez-h9"
+    ],
+    "I": [
+     "tx-cand-roy-morales-h9"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-10",
+   "office": "U.S. House, TX-10",
+   "level": "federal",
+   "jurisdiction": "TX-10",
+   "state_fips": "48",
+   "congressional_district": "10",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-chris-gober-h10",
+     "tx-cand-walter-benjamin-bius-h10",
+     "tx-cand-kara-king-h10",
+     "tx-cand-scott-macleod-h10",
+     "tx-cand-jessica-karlsruher-h10",
+     "tx-cand-rob-altman-h10",
+     "tx-cand-jeremy-story-h10",
+     "tx-cand-jennifer-sharon-h10",
+     "tx-cand-robert-brown-h10",
+     "tx-cand-robert-brown-h10-7127"
+    ],
+    "D": [
+     "tx-cand-caitlin-mcclay-rourk-h10",
+     "tx-cand-sarah-eckhardt-h10",
+     "tx-cand-sarah-eckhardt-h10-0262",
+     "tx-cand-tayhlor-coleman-h10",
+     "tx-cand-dawn-marshall-h10"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-11",
+   "office": "U.S. House, TX-11",
+   "level": "federal",
+   "jurisdiction": "TX-11",
+   "state_fips": "48",
+   "congressional_district": "11",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-august-pfluger-h11",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-august-pfluger-h11"
+    ],
+    "D": [
+     "tx-cand-claire-anne-reynolds-h11"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-12",
+   "office": "U.S. House, TX-12",
+   "level": "federal",
+   "jurisdiction": "TX-12",
+   "state_fips": "48",
+   "congressional_district": "12",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-craig-a-goldman-h12",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-craig-a-goldman-h12"
+    ],
+    "D": [
+     "tx-cand-kenneth-morgan-aguilera-h12"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-13",
+   "office": "U.S. House, TX-13",
+   "level": "federal",
+   "jurisdiction": "TX-13",
+   "state_fips": "48",
+   "congressional_district": "13",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-ronny-jackson-h13",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-ronny-jackson-h13",
+     "tx-cand-chasity-wedgeworth-h13"
+    ],
+    "D": [
+     "tx-cand-mark-nair-h13"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-14",
+   "office": "U.S. House, TX-14",
+   "level": "federal",
+   "jurisdiction": "TX-14",
+   "state_fips": "48",
+   "congressional_district": "14",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-randy-k-weber-sr-h14",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-randy-k-weber-sr-h14"
+    ],
+    "D": [
+     "tx-cand-richard-harvey-davis-iii-h14",
+     "tx-cand-thurman-bill-bartie-h14",
+     "tx-cand-konstantinos-vogiatzis-h14",
+     "tx-cand-konstantinos-vogiatzis-h14-4157"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-15",
+   "office": "U.S. House, TX-15",
+   "level": "federal",
+   "jurisdiction": "TX-15",
+   "state_fips": "48",
+   "congressional_district": "15",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-monica-de-la-cruz-h15",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-monica-de-la-cruz-h15"
+    ],
+    "D": [
+     "tx-cand-bobby-pulido-h15",
+     "tx-cand-ada-cuellar-h15"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-16",
+   "office": "U.S. House, TX-16",
+   "level": "federal",
+   "jurisdiction": "TX-16",
+   "state_fips": "48",
+   "congressional_district": "16",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-veronica-escobar-h16",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-veronica-escobar-h16"
+    ],
+    "R": [
+     "tx-cand-hector-miguel-cabildo-jr-h16",
+     "tx-cand-deliris-montanez-berrios-dmb-h16",
+     "tx-cand-manuel-barraza-h16"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-17",
+   "office": "U.S. House, TX-17",
+   "level": "federal",
+   "jurisdiction": "TX-17",
+   "state_fips": "48",
+   "congressional_district": "17",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-pete-sessions-h17",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-pete-sessions-h17"
+    ],
+    "D": [
+     "tx-cand-james-gordon-mitchell-h17",
+     "tx-cand-casey-shepard-h17"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-18",
+   "office": "U.S. House, TX-18",
+   "level": "federal",
+   "jurisdiction": "TX-18",
+   "state_fips": "48",
+   "congressional_district": "18",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-al-green-h18",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-christian-d-menefee-h18",
+     "tx-cand-amanda-edwards-h18",
+     "tx-cand-al-green-h18",
+     "tx-cand-jolanda-jones-h18",
+     "tx-cand-stephen-huey-h18",
+     "tx-cand-gretchen-brown-h18",
+     "tx-cand-ebony-rain-eatmon-h18"
+    ],
+    "R": [
+     "tx-cand-allen-d-berry-h18"
+    ],
+    "I": [
+     "tx-cand-george-edward-foreman-iv-h18",
+     "tx-cand-reyna-anderson-h18"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-19",
+   "office": "U.S. House, TX-19",
+   "level": "federal",
+   "jurisdiction": "TX-19",
+   "state_fips": "48",
+   "congressional_district": "19",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-tom-sell-h19",
+     "tx-cand-abraham-enriquez-h19",
+     "tx-cand-matthew-smith-h19",
+     "tx-cand-donald-r-may-h19",
+     "tx-cand-ryan-zink-h19",
+     "tx-cand-jason-corley-h19",
+     "tx-cand-james-bob-barbee-h19"
+    ],
+    "D": [
+     "tx-cand-kyle-rable-h19"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-20",
+   "office": "U.S. House, TX-20",
+   "level": "federal",
+   "jurisdiction": "TX-20",
+   "state_fips": "48",
+   "congressional_district": "20",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-joaquin-castro-h20",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-joaquin-castro-h20"
+    ],
+    "R": [
+     "tx-cand-edgardo-rafael-baez-h20"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-21",
+   "office": "U.S. House, TX-21",
+   "level": "federal",
+   "jurisdiction": "TX-21",
+   "state_fips": "48",
+   "congressional_district": "21",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-mark-charles-teixeira-h21",
+     "tx-cand-jason-cahill-h21",
+     "tx-cand-mike-wheeler-h21",
+     "tx-cand-daniel-betts-h21",
+     "tx-cand-paul-rojas-h21",
+     "tx-cand-james-e-trainor-iii-h21",
+     "tx-cand-ezekiel-enriquez-h21",
+     "tx-cand-weston-charles-martinez-h21"
+    ],
+    "D": [
+     "tx-cand-kristin-a-hook-h21",
+     "tx-cand-gary-frank-taylor-h21",
+     "tx-cand-regina-vanburg-h21"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-22",
+   "office": "U.S. House, TX-22",
+   "level": "federal",
+   "jurisdiction": "TX-22",
+   "state_fips": "48",
+   "congressional_district": "22",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-trever-nehls-h22",
+     "tx-cand-rebecca-clark-h22"
+    ],
+    "D": [
+     "tx-cand-marquette-greene-scott-h22",
+     "tx-cand-pearl-ann-vuorinen-h22",
+     "tx-cand-robert-thomas-h22"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-23",
+   "office": "U.S. House, TX-23",
+   "level": "federal",
+   "jurisdiction": "TX-23",
+   "state_fips": "48",
+   "congressional_district": "23",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-brandon-herrera-h23",
+     "tx-cand-susan-storey-rubio-h23",
+     "tx-cand-francisco-quico-raul-canseco-h23"
+    ],
+    "D": [
+     "tx-cand-santos-m-limon-h23",
+     "tx-cand-katy-padilla-stout-h23",
+     "tx-cand-gretel-marysdatter-enck-h23"
+    ],
+    "I": [
+     "tx-cand-veronica-williams-h23"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-24",
+   "office": "U.S. House, TX-24",
+   "level": "federal",
+   "jurisdiction": "TX-24",
+   "state_fips": "48",
+   "congressional_district": "24",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-beth-van-duyne-h24",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-beth-van-duyne-h24"
+    ],
+    "D": [
+     "tx-cand-jon-buchwald-h24",
+     "tx-cand-kevin-beryl-burge-h24",
+     "tx-cand-timothy-joe-ware-ii-h24",
+     "tx-cand-nathan-thomas-hawks-h24"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-25",
+   "office": "U.S. House, TX-25",
+   "level": "federal",
+   "jurisdiction": "TX-25",
+   "state_fips": "48",
+   "congressional_district": "25",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-roger-williams-h25",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-roger-williams-h25"
+    ],
+    "D": [
+     "tx-cand-william-james-marks-h25"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-26",
+   "office": "U.S. House, TX-26",
+   "level": "federal",
+   "jurisdiction": "TX-26",
+   "state_fips": "48",
+   "congressional_district": "26",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-brandon-gill-h26",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-brandon-gill-h26"
+    ],
+    "D": [
+     "tx-cand-ernest-robinson-lineberger-iii-h26",
+     "tx-cand-steven-james-shook-h26"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-27",
+   "office": "U.S. House, TX-27",
+   "level": "federal",
+   "jurisdiction": "TX-27",
+   "state_fips": "48",
+   "congressional_district": "27",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-michael-cloud-h27",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-michael-cloud-h27",
+     "tx-cand-chris-hatley-h27",
+     "tx-cand-brandon-hawbaker-h27"
+    ],
+    "D": [
+     "tx-cand-tanya-w-lloyd-h27"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-28",
+   "office": "U.S. House, TX-28",
+   "level": "federal",
+   "jurisdiction": "TX-28",
+   "state_fips": "48",
+   "congressional_district": "28",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-henry-cuellar-h28",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-henry-cuellar-h28",
+     "tx-cand-ricardo-villarreal-h28"
+    ],
+    "R": [
+     "tx-cand-tano-tijerina-h28",
+     "tx-cand-juan-esparza-h28"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-29",
+   "office": "U.S. House, TX-29",
+   "level": "federal",
+   "jurisdiction": "TX-29",
+   "state_fips": "48",
+   "congressional_district": "29",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-sylvia-r-garcia-h29",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-sylvia-r-garcia-h29",
+     "tx-cand-jarvis-johnson-h29",
+     "tx-cand-robert-slater-h29"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-30",
+   "office": "U.S. House, TX-30",
+   "level": "federal",
+   "jurisdiction": "TX-30",
+   "state_fips": "48",
+   "congressional_district": "30",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-sholdon-daniels-h30",
+     "tx-cand-gregor-heinrich-heise-h30",
+     "tx-cand-everett-honorable-jackson-h30"
+    ],
+    "D": [
+     "tx-cand-frederick-haynes-iii-h30",
+     "tx-cand-barbara-mallory-caraway-h30",
+     "tx-cand-barbara-mallory-caraway-h30-0073",
+     "tx-cand-rodney-labruce-h30"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-31",
+   "office": "U.S. House, TX-31",
+   "level": "federal",
+   "jurisdiction": "TX-31",
+   "state_fips": "48",
+   "congressional_district": "31",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-john-r-carter-h31",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-john-r-carter-h31",
+     "tx-cand-offer-vince-shlomi-h31",
+     "tx-cand-raymond-h-hamden-ii-h31",
+     "tx-cand-valentina-gomez-noriega-h31",
+     "tx-cand-abhiram-garapati-h31",
+     "tx-cand-steven-clay-dowell-jr-h31",
+     "tx-cand-david-lee-berry-h31",
+     "tx-cand-elvis-arturo-lossa-h31",
+     "tx-cand-william-p-abel-h31"
+    ],
+    "D": [
+     "tx-cand-stuart-norman-whitlow-h31",
+     "tx-cand-justin-early-h31"
+    ],
+    "G": [
+     "tx-cand-gregory-james-stoker-h31"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-32",
+   "office": "U.S. House, TX-32",
+   "level": "federal",
+   "jurisdiction": "TX-32",
+   "state_fips": "48",
+   "congressional_district": "32",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-ryan-binkley-h32",
+     "tx-cand-paul-bondar-h32",
+     "tx-cand-jace-yarbrough-h32",
+     "tx-cand-abteen-vaziri-h32",
+     "tx-cand-darrell-day-h32",
+     "tx-cand-monty-montanez-h32",
+     "tx-cand-eric-niehaus-h32",
+     "tx-cand-aimee-carrasco-h32",
+     "tx-cand-gordon-heslop-h32",
+     "tx-cand-zain-shaito-h32"
+    ],
+    "D": [
+     "tx-cand-dan-f-barrios-h32"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-33",
+   "office": "U.S. House, TX-33",
+   "level": "federal",
+   "jurisdiction": "TX-33",
+   "state_fips": "48",
+   "congressional_district": "33",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-julie-johnson-h33",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-colin-allred-h33",
+     "tx-cand-julie-johnson-h33",
+     "tx-cand-zeeshan-hafeez-h33"
+    ],
+    "R": [
+     "tx-cand-kurt-schwab-h33"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-34",
+   "office": "U.S. House, TX-34",
+   "level": "federal",
+   "jurisdiction": "TX-34",
+   "state_fips": "48",
+   "congressional_district": "34",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-vicente-gonzalez-h34",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-vicente-gonzalez-h34",
+     "tx-cand-etienne-ph-d-rosas-h34"
+    ],
+    "R": [
+     "tx-cand-eric-flores-h34",
+     "tx-cand-mayra-nohemi-flores-h34",
+     "tx-cand-charles-mandel-h34",
+     "tx-cand-keith-allen-h34",
+     "tx-cand-luis-f-buentello-h34",
+     "tx-cand-alfredo-hinojosa-jr-h34",
+     "tx-cand-mario-alberto-morales-h34",
+     "tx-cand-jay-nagy-h34",
+     "tx-cand-mauro-everett-garza-h34",
+     "tx-cand-gregory-scott-kunkle-jr-h34"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-35",
+   "office": "U.S. House, TX-35",
+   "level": "federal",
+   "jurisdiction": "TX-35",
+   "state_fips": "48",
+   "congressional_district": "35",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-carlos-de-la-cruz-jr-h35",
+     "tx-cand-john-lujan-h35",
+     "tx-cand-jay-commander-furman-h35",
+     "tx-cand-joshua-cortez-h35",
+     "tx-cand-ryan-p-krause-h35",
+     "tx-cand-steven-william-wright-h35",
+     "tx-cand-randal-haskel-adams-h35",
+     "tx-cand-vanessa-f-hicks-callaway-h35"
+    ],
+    "D": [
+     "tx-cand-johnny-garcia-h35",
+     "tx-cand-john-lira-h35",
+     "tx-cand-whitney-masterson-moyes-h35",
+     "tx-cand-maureen-galindo-h35"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-36",
+   "office": "U.S. House, TX-36",
+   "level": "federal",
+   "jurisdiction": "TX-36",
+   "state_fips": "48",
+   "congressional_district": "36",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-brian-babin-h36",
+   "primary_candidates": {
+    "R": [
+     "tx-cand-brian-babin-h36"
+    ],
+    "D": [
+     "tx-cand-doug-rogers-h36",
+     "tx-cand-rhonda-j-hart-h36"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-37",
+   "office": "U.S. House, TX-37",
+   "level": "federal",
+   "jurisdiction": "TX-37",
+   "state_fips": "48",
+   "congressional_district": "37",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": false,
+   "incumbent_candidate_id": "tx-cand-greg-casar-h37",
+   "primary_candidates": {
+    "D": [
+     "tx-cand-greg-casar-h37"
+    ],
+    "R": [
+     "tx-cand-lauren-b-pena-h37",
+     "tx-cand-janet-malzahn-h37",
+     "tx-cand-ge-nell-gary-h37"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  },
+  {
+   "id": "tx-2026-us-house-38",
+   "office": "U.S. House, TX-38",
+   "level": "federal",
+   "jurisdiction": "TX-38",
+   "state_fips": "48",
+   "congressional_district": "38",
+   "seat_type": "legislative",
+   "term_length_years": 2,
+   "open_seat": true,
+   "incumbent_candidate_id": null,
+   "primary_candidates": {
+    "R": [
+     "tx-cand-jon-bonck-h38",
+     "tx-cand-shelly-dezevallos-h38",
+     "tx-cand-larry-david-rubin-h38",
+     "tx-cand-michael-pratt-h38",
+     "tx-cand-carmen-montiel-h38",
+     "tx-cand-jeffrey-michael-yuna-h38",
+     "tx-cand-craig-goralski-h38"
+    ],
+    "D": [
+     "tx-cand-marvalette-hunter-h38",
+     "tx-cand-melissa-a-mcdonough-h38"
+    ],
+    "G": [
+     "tx-cand-alex-mcmenemy-h38"
+    ],
+    "I": [
+     "tx-cand-william-m-taggart-iv-h38",
+     "tx-cand-william-miskey-taggart-iv-h38"
+    ]
+   },
+   "general_candidates": [],
+   "general_candidates_note": "Active-FEC-committee filers grouped by party; verify the certified general-election ballot against the state Secretary of State.",
+   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents are skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
+   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+  }
+ ],
+ "ballot_measures": {
+  "state": [],
+  "counties": {}
+ },
+ "_personalization_hints": {
+  "match_keys": {
+   "state": [
+    "level=state"
+   ],
+   "congressional_district": [
+    "congressional_district=<user.district>"
+   ]
+  },
+  "notes": "Federal-only payload: US House races match on congressional_district; the US Senate race is statewide."
+ }
+}
