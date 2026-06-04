@@ -75,6 +75,8 @@ from app.models.pages import (
     RepAccount,
 )
 from app.schemas.pages import (
+    DemographicProfileBody,
+    DemographicProfileResponse,
     PER_PAGE_ACTIVE_POLL_CAP,
     POLL_REPORT_REASONS,
     PRESENTATION_MODES,
@@ -352,6 +354,7 @@ def create_citizen_poll(
             text=opt.text,
             sort_order=sort_order,
         ))
+    poll.min_cell_override = poll_demographics.clamp_threshold(poll_payload.min_cell_override)
     poll_demographics.attach_questions(
         db, poll.id, poll_payload.demographic_question_keys,
     )
@@ -449,6 +452,7 @@ def create_standalone_poll(
             text=opt.text,
             sort_order=sort_order,
         ))
+    poll.min_cell_override = poll_demographics.clamp_threshold(poll_payload.min_cell_override)
     poll_demographics.attach_questions(
         db, poll.id, poll_payload.demographic_question_keys,
     )
@@ -1155,6 +1159,38 @@ def list_my_polls(
         active=[serialize_citizen_poll(db, p, citizen, None) for p in active_rows],
         archived=[serialize_citizen_poll(db, p, citizen, None) for p in archived_rows],
     )
+
+
+# ── Reusable opt-in demographic profile (Standard catalog only) ──────────
+@router.get("/citizens/me/demographic-profile", response_model=DemographicProfileResponse)
+def get_my_demographic_profile(
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    return DemographicProfileResponse(answers=poll_demographics.get_profile(db, citizen.id))
+
+
+@router.put("/citizens/me/demographic-profile", response_model=DemographicProfileResponse)
+def put_my_demographic_profile(
+    payload: DemographicProfileBody,
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    """Replace the citizen's reusable demographic profile. Sensitive categories
+    are silently dropped — the profile is Standard-only by policy."""
+    poll_demographics.set_profile(db, citizen.id, payload.answers)
+    db.commit()
+    return DemographicProfileResponse(answers=poll_demographics.get_profile(db, citizen.id))
+
+
+@router.delete("/citizens/me/demographic-profile", status_code=204)
+def delete_my_demographic_profile(
+    db: Session = Depends(get_db),
+    citizen: CitizenAccount = Depends(get_current_citizen),
+):
+    poll_demographics.clear_profile(db, citizen.id)
+    db.commit()
+    return
 
 
 # ── Reactions on citizen polls (Phase 6 — parity with PostReaction) ──

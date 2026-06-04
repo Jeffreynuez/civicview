@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-export default function PollDemographicsPicker({ value = [], onChange }) {
+export default function PollDemographicsPicker({ value = [], onChange, threshold = 10, onThresholdChange }) {
   const [catalog, setCatalog] = useState([]);
   const [open, setOpen] = useState((value || []).length > 0);
   const selected = new Set(value || []);
@@ -81,6 +81,21 @@ export default function PollDemographicsPicker({ value = [], onChange }) {
               {sensitive.map(row)}
             </>
           )}
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 12,
+                          fontSize: '0.74rem', fontWeight: 700, color: 'var(--cl-text-light, #64748b)' }}>
+            <span>Minimum group size before a breakdown shows</span>
+            <select value={threshold} onChange={(e) => onThresholdChange?.(Number(e.target.value))}
+                    style={{ fontSize: '0.82rem', padding: '5px 7px', border: '1px solid var(--cl-border, #e2e8f0)',
+                             borderRadius: 8, background: '#fff', maxWidth: 220 }}>
+              <option value={10}>10 (default)</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            <span style={{ fontWeight: 500, color: 'var(--cl-text-light, #94a3b8)', fontSize: '0.7rem' }}>
+              Higher = more privacy; smaller cuts stay hidden. Cannot go below 10.
+            </span>
+          </label>
         </div>
       )}
     </div>

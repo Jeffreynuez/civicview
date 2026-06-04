@@ -13,6 +13,7 @@
 // this never blocks or gates the vote.
 
 import { useEffect, useState } from 'react';
+import { fetchMyPollDemographics, fetchDemographicProfile, saveDemographicProfile } from '../../lib/pagesApi';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -20,6 +21,7 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
   const [questions, setQuestions] = useState(null); // null = loading
   const [answers, setAnswers] = useState({});
   const [busy, setBusy] = useState(false);
+  const [remember, setRemember] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -31,6 +33,22 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
       } catch {
         if (alive) setQuestions([]);
       }
+      // Prefill: start from the citizen's saved reusable profile (Standard
+      // questions, opt-in), then overlay answers they already gave on THIS poll
+      // (those win). Re-voting before close thus edits existing answers.
+      let prefill = {};
+      try {
+        const { data } = await fetchDemographicProfile();
+        if (data && data.answers && Object.keys(data.answers).length) {
+          prefill = { ...data.answers };
+          if (alive) setRemember(true); // already opted in — keep it fresh
+        }
+      } catch { /* profile is optional */ }
+      try {
+        const { data } = await fetchMyPollDemographics(pollId);
+        if (data && data.answers) prefill = { ...prefill, ...data.answers };
+      } catch { /* best-effort */ }
+      if (alive && Object.keys(prefill).length) setAnswers(prefill);
     })();
     return () => { alive = false; };
   }, [pollId]);
@@ -49,6 +67,15 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
     setBusy(true);
     try {
       await onSubmit?.(answers); // {} is fine — "prefer not to say" all
+      if (remember) {
+        // Save ONLY standard answers to the reusable profile — sensitive
+        // categories are never persisted to the profile.
+        const standard = {};
+        for (const q of questions) {
+          if (q.tier !== 'sensitive' && answers[q.key]) standard[q.key] = answers[q.key];
+        }
+        try { await saveDemographicProfile(standard); } catch { /* non-fatal */ }
+      }
     } finally {
       setBusy(false);
     }
@@ -62,7 +89,8 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
       </div>
       <p style={{ fontSize: '0.72rem', color: 'var(--cl-text-light, #64748b)', margin: '0 0 8px', lineHeight: 1.4 }}>
         The poll creator added these optional questions. Answers are anonymous, never linked to
-        you publicly, and shown only in aggregate. Skip any or all.
+        you publicly, and shown only in aggregate. Skip any or all — you can update
+        or clear them anytime before the poll closes.
       </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {questions.map((q) => (
@@ -83,6 +111,12 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
           </label>
         ))}
       </div>
+      <label style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8,
+                      fontSize: '0.74rem', color: 'var(--cl-text-light, #64748b)' }}>
+        <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
+        Remember my answers for future polls (standard questions only — sensitive
+        ones are never saved)
+      </label>
       <div style={{ display: 'flex', gap: 10, marginTop: 10, alignItems: 'center' }}>
         <button type="button" onClick={submit} disabled={busy}
                 style={{ background: 'var(--cl-primary, #2563eb)', color: '#fff', border: 'none',

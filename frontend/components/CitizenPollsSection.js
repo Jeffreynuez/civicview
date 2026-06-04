@@ -1017,6 +1017,7 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
   const [options, setOptions] = useState(['', '']);
   const [presentation, setPresentation] = useState('full');
   const [demographicKeys, setDemographicKeys] = useState([]);
+  const [demoThreshold, setDemoThreshold] = useState(10);
   const [timing, setTiming] = useState('none');           // 'none' | 'duration' | 'date'
   const [durationValue, setDurationValue] = useState('1');
   const [durationUnit, setDurationUnit] = useState('days');
@@ -1067,6 +1068,7 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
       options: cleanedOptions,
       presentation_mode: presentation,
       demographic_question_keys: demographicKeys.length ? demographicKeys : undefined,
+      min_cell_override: demoThreshold !== 10 ? demoThreshold : undefined,
     };
     if (closesAtIso) payload.closes_at = closesAtIso;
     const { data, error: err } = await createCitizenPoll(officialId, payload);
@@ -1131,7 +1133,8 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
           </button>
         )}
 
-        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
+        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys}
+          threshold={demoThreshold} onThresholdChange={setDemoThreshold} />
 
         {/* Close timing */}
         <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px dashed var(--cl-border)' }}>

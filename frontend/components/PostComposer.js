@@ -78,6 +78,7 @@ export default function PostComposer({
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [demographicKeys, setDemographicKeys] = useState([]);
+  const [demoThreshold, setDemoThreshold] = useState(10);
   // Default the scope to the most specific one the rep supports — a
   // House rep defaults to 'district', a senator to 'state', etc. Picks
   // the richest available scope so the post author gets the most
@@ -185,6 +186,7 @@ export default function PostComposer({
         question: question.trim(),
         options: options.map((o) => o.trim()).filter(Boolean).map((text) => ({ text })),
         demographic_question_keys: demographicKeys.length ? demographicKeys : undefined,
+        min_cell_override: demoThreshold !== 10 ? demoThreshold : undefined,
         default_visibility_scope: scope,
         presentation_mode: presentationMode,
       };
@@ -422,7 +424,8 @@ export default function PostComposer({
             </button>
           )}
 
-          <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
+          <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys}
+            threshold={demoThreshold} onThresholdChange={setDemoThreshold} />
 
           {/* Default visibility scope — what pool of citizens shows up
               in the poll's results first. Viewers can override later
