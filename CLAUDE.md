@@ -39,6 +39,44 @@ state that this file deliberately does NOT duplicate:
 4. **`backend/app/models/pages.py`** — All SQLAlchemy models in one
    file. The shape of the data layer.
 
+## Current state & open work (snapshot 2026-06-03)
+
+Federal + state DATA is largely complete. The README "Shipped this session
+— 2026-06-03" block + the Pinecone `default` namespace hold the per-item
+narrative. At a glance:
+
+- **Federal issue-data** for all 535 members of Congress + executive branch +
+  SCOTUS ("Areas of Focus") + congressional leadership — neutral + sourced
+  (`congress_profiles.json`, `federal_officials.json`). Committed/pushed.
+- **State legislators + governors + statewide execs** for ALL 50 states
+  (`data/<state>/state_officials.json`) — Open States bulk + curated
+  governors. Committed/pushed.
+- **Live wiring:** state Bills/Votes (Open States, needs `jurisdiction` on the
+  /bills sponsor filter), state-legislator AI issue-derivation (Haiku over
+  bill titles), FL Supreme Court opinions (CourtListener v4 `docket__court`),
+  address→rep (Census + free Divisions OCD-ID bridge).
+- **Florida election candidates:** federal rosters + live fundraising via
+  OpenFEC (`fec_service.py`); US Senate + all 28 US House races in
+  `fl/elections.json`; all FL state candidates have overviews; the 6 Governor
+  contenders + AG race fully curated from campaign sites. **These candidate
+  files may be UNCOMMITTED — check `git status`** (`fec_service.py`,
+  `fl/candidates.json`, `fl/elections.json`).
+
+**Top open tasks** (full list = README "Pending tasks" table — recreate ALL
+rows into the Cowork Progress widget on session start): #95 Vote Smart API
+(BLOCKED on budget, $4,850/yr quote, draft reply sent), #96 OpenFEC candidate
+pass for other big states, #97 state judiciary for other states (CourtListener
+free tier = 5 req/min), #98 full candidate depth incl. minor filers (paid —
+Ballotpedia/BallotReady), #99 local officials sheriffs/judges/DAs (paid). Plus
+older rows #71, #84, #90, #91, #93, #94, #26, #49.
+
+**API keys** (all in Render env on `civicview-api` + the Keys file): 
+`CONGRESS_API_KEY`, `OPENSTATES_API_KEY`, `COURTLISTENER_TOKEN`,
+`OPEN_FEC_API_KEY`, `ANTHROPIC_API_KEY` (+ R2 / Postmark / SESSION_SECRET).
+OpenFEC fundraising is a static snapshot — re-run `fec_service` to refresh.
+
+---
+
 ## Hard rules (durable across sessions)
 
 These come from how the project is actually run. They override any
