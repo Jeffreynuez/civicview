@@ -51,7 +51,7 @@ export default function PollDemographicsPicker({ value = [], onChange }) {
   );
 
   return (
-    <div style={{ marginTop: 10, border: '1px solid var(--cl-border, #e2e8f0)', borderRadius: 10, overflow: 'hidden' }}>
+    <div style={{ marginTop: 10, border: '1px solid var(--cl-border, #e2e8f0)', borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
