@@ -139,16 +139,19 @@
       "incumbent_candidate_id": "fl-cand-maxwell-frost",
       "primary_candidates": {
         "D": [
-          "fl-cand-maxwell-frost"
+          "fl-cand-maxwell-frost",
+          "fl-cand-maxwell-alejandro-frost-h10"
         ],
         "R": [
-          "fl-cand-vibert-white",
-          "fl-cand-willie-montague"
+          "fl-cand-willie-montague",
+          "fl-cand-vibert-white"
         ]
       },
       "general_candidates": [
         "fl-cand-maxwell-frost",
-        "fl-cand-willie-montague"
+        "fl-cand-maxwell-alejandro-frost-h10",
+        "fl-cand-willie-montague",
+        "fl-cand-vibert-white"
       ],
       "general_candidates_note": "Frost is the only Democrat filed and advances to the general unopposed. Montague is the demo projection for the R primary winner — update after Aug 18.",
       "notes": "Maxwell Frost (D) is the incumbent seeking reelection. The R primary between Montague and White (newcomer) decides who advances. No NPA / minor-party / write-in candidates have filed.",
@@ -222,6 +225,910 @@
         "count": 2,
         "note": "2 active filers as of 2026-05-05 (1 D, 1 R). Open seat — Eskamani (D, incumbent) is not running."
       }
+    },
+    {
+      "id": "fl-2026-us-senate",
+      "office": "U.S. Senate, Florida",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-ashley-moody-sen",
+      "notes": "2026 U.S. Senate election in Florida. Roster reflects active federal candidates with FEC committees; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-ashley-moody-sen",
+          "fl-cand-jake-lang-sen"
+        ],
+        "D": [
+          "fl-cand-alexander-vindman-sen",
+          "fl-cand-hector-daniel-mujica-sen",
+          "fl-cand-angela-nixon-sen",
+          "fl-cand-alan-mark-grayson-sen",
+          "fl-cand-tamika-lyles-sen",
+          "fl-cand-joey-mendoza-atkins-sen"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-ashley-moody-sen",
+        "fl-cand-alexander-vindman-sen",
+        "fl-cand-hector-daniel-mujica-sen",
+        "fl-cand-angela-nixon-sen",
+        "fl-cand-alan-mark-grayson-sen",
+        "fl-cand-tamika-lyles-sen",
+        "fl-cand-jake-lang-sen",
+        "fl-cand-joey-mendoza-atkins-sen"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-1",
+      "office": "U.S. House, FL-1",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 1st U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-jimmy-patronis-jr-h1",
+          "fl-cand-joel-rudman-h1",
+          "fl-cand-john-frankman-h1",
+          "fl-cand-michael-thompson-h1",
+          "fl-cand-aaron-dimmock-h1",
+          "fl-cand-douglas-connor-chico-h1",
+          "fl-cand-gregory-charles-merk-h1",
+          "fl-cand-jeff-peacock-h1",
+          "fl-cand-kevin-james-gaffney-h1"
+        ],
+        "D": [
+          "fl-cand-jennifer-gay-valimont-h1"
+        ],
+        "I": [
+          "fl-cand-stephen-broden-h1",
+          "fl-cand-stephen-edward-broden-h1"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-jimmy-patronis-jr-h1",
+        "fl-cand-joel-rudman-h1",
+        "fl-cand-john-frankman-h1",
+        "fl-cand-michael-thompson-h1",
+        "fl-cand-aaron-dimmock-h1",
+        "fl-cand-douglas-connor-chico-h1",
+        "fl-cand-jennifer-gay-valimont-h1",
+        "fl-cand-gregory-charles-merk-h1",
+        "fl-cand-jeff-peacock-h1",
+        "fl-cand-stephen-broden-h1",
+        "fl-cand-stephen-edward-broden-h1",
+        "fl-cand-kevin-james-gaffney-h1"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-2",
+      "office": "U.S. House, FL-2",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 2nd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-keith-gross-h2",
+          "fl-cand-austin-rogers-h2",
+          "fl-cand-evan-power-h2",
+          "fl-cand-jim-norton-h2",
+          "fl-cand-luke-murphy-h2",
+          "fl-cand-audie-rowell-h2",
+          "fl-cand-nicholas-justin-lewis-h2"
+        ],
+        "D": [
+          "fl-cand-nicholas-zateslo-h2",
+          "fl-cand-amanda-marie-green-h2",
+          "fl-cand-huy-yen-cam-bailey-h2"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-keith-gross-h2",
+        "fl-cand-austin-rogers-h2",
+        "fl-cand-evan-power-h2",
+        "fl-cand-nicholas-zateslo-h2",
+        "fl-cand-jim-norton-h2",
+        "fl-cand-amanda-marie-green-h2",
+        "fl-cand-huy-yen-cam-bailey-h2",
+        "fl-cand-luke-murphy-h2",
+        "fl-cand-audie-rowell-h2",
+        "fl-cand-nicholas-justin-lewis-h2"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-3",
+      "office": "U.S. House, FL-3",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-kat-cammack-h3",
+      "notes": "2026 election for Florida's 3rd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-kat-cammack-h3"
+        ],
+        "D": [
+          "fl-cand-seth-allan-harp-h3",
+          "fl-cand-troy-albers-h3"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-kat-cammack-h3",
+        "fl-cand-seth-allan-harp-h3",
+        "fl-cand-troy-albers-h3"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-4",
+      "office": "U.S. House, FL-4",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-aaron-p-bean-h4",
+      "notes": "2026 election for Florida's 4th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-aaron-p-bean-h4"
+        ],
+        "D": [
+          "fl-cand-michael-kirwan-h4",
+          "fl-cand-brittney-robinson-h4",
+          "fl-cand-ricky-patric-knoles-h4"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-aaron-p-bean-h4",
+        "fl-cand-michael-kirwan-h4",
+        "fl-cand-brittney-robinson-h4",
+        "fl-cand-ricky-patric-knoles-h4"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-5",
+      "office": "U.S. House, FL-5",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-john-rutherford-h5",
+      "notes": "2026 election for Florida's 5th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-john-rutherford-h5",
+          "fl-cand-mark-kaye-h5"
+        ],
+        "D": [
+          "fl-cand-rachel-grage-h5",
+          "fl-cand-mark-peter-heggestad-h5",
+          "fl-cand-alexander-hazen-h5"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-john-rutherford-h5",
+        "fl-cand-rachel-grage-h5",
+        "fl-cand-mark-peter-heggestad-h5",
+        "fl-cand-mark-kaye-h5",
+        "fl-cand-alexander-hazen-h5"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-6",
+      "office": "U.S. House, FL-6",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-randy-fine-h6",
+      "notes": "2026 election for Florida's 6th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-randy-fine-h6",
+          "fl-cand-charles-gambaro-h6",
+          "fl-cand-aaron-baker-h6",
+          "fl-cand-will-furry-h6",
+          "fl-cand-ehsan-joarder-h6"
+        ],
+        "D": [
+          "fl-cand-eric-yonce-h6",
+          "fl-cand-george-austin-selmont-h6",
+          "fl-cand-robert-david-cooper-ii-h6",
+          "fl-cand-ronnie-murchinson-rivera-h6",
+          "fl-cand-steve-morgan-h6"
+        ],
+        "I": [
+          "fl-cand-randall-terry-h6"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-randy-fine-h6",
+        "fl-cand-charles-gambaro-h6",
+        "fl-cand-eric-yonce-h6",
+        "fl-cand-george-austin-selmont-h6",
+        "fl-cand-aaron-baker-h6",
+        "fl-cand-will-furry-h6",
+        "fl-cand-robert-david-cooper-ii-h6",
+        "fl-cand-randall-terry-h6",
+        "fl-cand-ronnie-murchinson-rivera-h6",
+        "fl-cand-ehsan-joarder-h6",
+        "fl-cand-steve-morgan-h6"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-7",
+      "office": "U.S. House, FL-7",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-cory-mills-h7",
+      "notes": "2026 election for Florida's 7th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-cory-mills-h7",
+          "fl-cand-michael-johnson-h7",
+          "fl-cand-sarah-ulrich-h7"
+        ],
+        "D": [
+          "fl-cand-bale-dalton-h7",
+          "fl-cand-marialana-kinter-h7",
+          "fl-cand-jennifer-adams-h7"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-cory-mills-h7",
+        "fl-cand-bale-dalton-h7",
+        "fl-cand-marialana-kinter-h7",
+        "fl-cand-jennifer-adams-h7",
+        "fl-cand-michael-johnson-h7",
+        "fl-cand-sarah-ulrich-h7"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-8",
+      "office": "U.S. House, FL-8",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-mike-haridopolos-h8",
+      "notes": "2026 election for Florida's 8th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-mike-haridopolos-h8"
+        ],
+        "D": [
+          "fl-cand-jennifer-jenkins-h8",
+          "fl-cand-colby-shock-h8"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-mike-haridopolos-h8",
+        "fl-cand-jennifer-jenkins-h8",
+        "fl-cand-colby-shock-h8"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-9",
+      "office": "U.S. House, FL-9",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-darren-soto-h9",
+      "notes": "2026 election for Florida's 9th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-thomas-e-colonel-chalifoux-jr-h9",
+          "fl-cand-howard-steven-rance-h9",
+          "fl-cand-justin-story-h9",
+          "fl-cand-jorge-antonio-malavet-h9",
+          "fl-cand-gregory-marcus-carter-h9"
+        ],
+        "D": [
+          "fl-cand-darren-soto-h9"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-thomas-e-colonel-chalifoux-jr-h9",
+        "fl-cand-darren-soto-h9",
+        "fl-cand-howard-steven-rance-h9",
+        "fl-cand-justin-story-h9",
+        "fl-cand-jorge-antonio-malavet-h9",
+        "fl-cand-gregory-marcus-carter-h9"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-11",
+      "office": "U.S. House, FL-11",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-daniel-webster-h11",
+      "notes": "2026 election for Florida's 11th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-daniel-webster-h11"
+        ],
+        "D": [
+          "fl-cand-barbara-barbie-harden-hall-h11"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-daniel-webster-h11",
+        "fl-cand-barbara-barbie-harden-hall-h11"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-12",
+      "office": "U.S. House, FL-12",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-gus-m-bilirakis-h12",
+      "notes": "2026 election for Florida's 12th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-gus-m-bilirakis-h12"
+        ],
+        "D": [
+          "fl-cand-darren-mcauley-h12",
+          "fl-cand-kimberly-overman-h12",
+          "fl-cand-christopher-irizarry-h12"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-gus-m-bilirakis-h12",
+        "fl-cand-darren-mcauley-h12",
+        "fl-cand-kimberly-overman-h12",
+        "fl-cand-christopher-irizarry-h12"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-13",
+      "office": "U.S. House, FL-13",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-anna-paulina-luna-h13",
+      "notes": "2026 election for Florida's 13th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-anna-paulina-luna-h13"
+        ],
+        "D": [
+          "fl-cand-earle-ford-h13",
+          "fl-cand-leela-j-gray-h13",
+          "fl-cand-timothy-brandt-robinson-h13",
+          "fl-cand-reginald-paros-h13",
+          "fl-cand-karla-kemp-h13"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-anna-paulina-luna-h13",
+        "fl-cand-earle-ford-h13",
+        "fl-cand-leela-j-gray-h13",
+        "fl-cand-timothy-brandt-robinson-h13",
+        "fl-cand-reginald-paros-h13",
+        "fl-cand-karla-kemp-h13"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-14",
+      "office": "U.S. House, FL-14",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-kathy-castor-h14",
+      "notes": "2026 election for Florida's 14th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-kathy-castor-h14"
+        ],
+        "R": [
+          "fl-cand-daniel-weldon-h14",
+          "fl-cand-robert-anthony-rocky-capt-rochford-h14",
+          "fl-cand-john-peters-h14",
+          "fl-cand-shay-williams-h14",
+          "fl-cand-ergin-aka-batman-tek-h14",
+          "fl-cand-john-charles-wick-h14"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-kathy-castor-h14",
+        "fl-cand-daniel-weldon-h14",
+        "fl-cand-robert-anthony-rocky-capt-rochford-h14",
+        "fl-cand-john-peters-h14",
+        "fl-cand-shay-williams-h14",
+        "fl-cand-ergin-aka-batman-tek-h14",
+        "fl-cand-john-charles-wick-h14"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-15",
+      "office": "U.S. House, FL-15",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-laurel-lee-h15",
+      "notes": "2026 election for Florida's 15th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-laurel-lee-h15"
+        ],
+        "D": [
+          "fl-cand-robert-people-h15"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-laurel-lee-h15",
+        "fl-cand-robert-people-h15"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-16",
+      "office": "U.S. House, FL-16",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 16th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-jonathan-harris-h16",
+          "fl-cand-glenn-keith-pearson-h16",
+          "fl-cand-jan-schneider-h16"
+        ],
+        "I": [
+          "fl-cand-mark-davis-h16"
+        ],
+        "R": [
+          "fl-cand-jason-edward-speir-h16",
+          "fl-cand-edward-peter-pope-h16"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-jonathan-harris-h16",
+        "fl-cand-glenn-keith-pearson-h16",
+        "fl-cand-mark-davis-h16",
+        "fl-cand-jason-edward-speir-h16",
+        "fl-cand-jan-schneider-h16",
+        "fl-cand-edward-peter-pope-h16"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-17",
+      "office": "U.S. House, FL-17",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-greg-steube-h17",
+      "notes": "2026 election for Florida's 17th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-greg-steube-h17"
+        ],
+        "D": [
+          "fl-cand-matthew-montavon-h17",
+          "fl-cand-allen-l-spence-jr-h17"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-greg-steube-h17",
+        "fl-cand-matthew-montavon-h17",
+        "fl-cand-allen-l-spence-jr-h17"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-18",
+      "office": "U.S. House, FL-18",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-scott-franklin-h18",
+      "notes": "2026 election for Florida's 18th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-scott-franklin-h18"
+        ],
+        "I": [
+          "fl-cand-deva-simmons-h18"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-scott-franklin-h18",
+        "fl-cand-deva-simmons-h18"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-19",
+      "office": "U.S. House, FL-19",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 19th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-james-oberweis-h19",
+          "fl-cand-jim-schwartzel-h19",
+          "fl-cand-catalina-lauf-h19",
+          "fl-cand-chris-collins-h19",
+          "fl-cand-madison-cawthorn-h19",
+          "fl-cand-ola-nesheswat-hawatmeh-h19",
+          "fl-cand-john-strand-h19",
+          "fl-cand-mike-pedersen-h19"
+        ],
+        "D": [
+          "fl-cand-howard-sapp-h19",
+          "fl-cand-victor-m-arias-h19"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-james-oberweis-h19",
+        "fl-cand-jim-schwartzel-h19",
+        "fl-cand-catalina-lauf-h19",
+        "fl-cand-chris-collins-h19",
+        "fl-cand-madison-cawthorn-h19",
+        "fl-cand-ola-nesheswat-hawatmeh-h19",
+        "fl-cand-john-strand-h19",
+        "fl-cand-mike-pedersen-h19",
+        "fl-cand-howard-sapp-h19",
+        "fl-cand-victor-m-arias-h19"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-20",
+      "office": "U.S. House, FL-20",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-debbie-wasserman-schultz-h20",
+      "notes": "2026 election for Florida's 20th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-debbie-wasserman-schultz-h20",
+          "fl-cand-elijah-manley-h20",
+          "fl-cand-sheila-cherfilus-mccormick-h20",
+          "fl-cand-dale-v-c-holness-h20"
+        ],
+        "R": [
+          "fl-cand-rodenay-joseph-h20"
+        ],
+        "I": [
+          "fl-cand-kedner-maxime-h20"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-debbie-wasserman-schultz-h20",
+        "fl-cand-elijah-manley-h20",
+        "fl-cand-sheila-cherfilus-mccormick-h20",
+        "fl-cand-dale-v-c-holness-h20",
+        "fl-cand-rodenay-joseph-h20",
+        "fl-cand-kedner-maxime-h20"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-21",
+      "office": "U.S. House, FL-21",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-brian-mast-h21",
+      "notes": "2026 election for Florida's 21st U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-brian-mast-h21"
+        ],
+        "D": [
+          "fl-cand-james-martin-h21",
+          "fl-cand-elizabeth-pandich-h21",
+          "fl-cand-bernard-taylor-h21"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-brian-mast-h21",
+        "fl-cand-james-martin-h21",
+        "fl-cand-elizabeth-pandich-h21",
+        "fl-cand-bernard-taylor-h21"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-22",
+      "office": "U.S. House, FL-22",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 22nd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-michael-carbonara-h22",
+          "fl-cand-herbert-od-wertheim-h22",
+          "fl-cand-anna-medvedeva-h22",
+          "fl-cand-deborah-adeimy-h22",
+          "fl-cand-david-burck-h22"
+        ],
+        "D": [
+          "fl-cand-pia-dandiya-h22"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-michael-carbonara-h22",
+        "fl-cand-herbert-od-wertheim-h22",
+        "fl-cand-pia-dandiya-h22",
+        "fl-cand-anna-medvedeva-h22",
+        "fl-cand-deborah-adeimy-h22",
+        "fl-cand-david-burck-h22"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-23",
+      "office": "U.S. House, FL-23",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-lois-j-frankel-h23",
+      "notes": "2026 election for Florida's 23rd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-lois-j-frankel-h23",
+          "fl-cand-oliver-adams-larkin-h23",
+          "fl-cand-victoria-jane-boker-doyle-h23"
+        ],
+        "R": [
+          "fl-cand-jared-gurfein-h23",
+          "fl-cand-sendra-dorce-h23",
+          "fl-cand-darlene-cerezo-swaffar-h23",
+          "fl-cand-paola-branda-h23"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-lois-j-frankel-h23",
+        "fl-cand-oliver-adams-larkin-h23",
+        "fl-cand-victoria-jane-boker-doyle-h23",
+        "fl-cand-jared-gurfein-h23",
+        "fl-cand-sendra-dorce-h23",
+        "fl-cand-darlene-cerezo-swaffar-h23",
+        "fl-cand-paola-branda-h23"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-24",
+      "office": "U.S. House, FL-24",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "2026 election for Florida's 24th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-rudolph-moise-h24"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-rudolph-moise-h24"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-25",
+      "office": "U.S. House, FL-25",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-jared-moskowitz-h25",
+      "notes": "2026 election for Florida's 25th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "D": [
+          "fl-cand-jared-moskowitz-h25"
+        ],
+        "R": [
+          "fl-cand-scott-m-singer-h25",
+          "fl-cand-claudia-villatoro-h25",
+          "fl-cand-raven-harrison-h25",
+          "fl-cand-george-r-moraitis-h25",
+          "fl-cand-joe-kaufman-h25",
+          "fl-cand-daniel-john-franzese-h25"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-jared-moskowitz-h25",
+        "fl-cand-scott-m-singer-h25",
+        "fl-cand-claudia-villatoro-h25",
+        "fl-cand-raven-harrison-h25",
+        "fl-cand-george-r-moraitis-h25",
+        "fl-cand-joe-kaufman-h25",
+        "fl-cand-daniel-john-franzese-h25"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-26",
+      "office": "U.S. House, FL-26",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-mario-diaz-balart-h26",
+      "notes": "2026 election for Florida's 26th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-mario-diaz-balart-h26"
+        ],
+        "D": [
+          "fl-cand-nicole-locklin-h26",
+          "fl-cand-yurina-gil-h26"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-mario-diaz-balart-h26",
+        "fl-cand-nicole-locklin-h26",
+        "fl-cand-yurina-gil-h26"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-27",
+      "office": "U.S. House, FL-27",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-maria-elvira-salazar-h27",
+      "notes": "2026 election for Florida's 27th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-maria-elvira-salazar-h27",
+          "fl-cand-vincent-michael-arias-h27"
+        ],
+        "D": [
+          "fl-cand-robin-peguero-h27",
+          "fl-cand-richard-lamondin-h27",
+          "fl-cand-eliott-rodriguez-h27",
+          "fl-cand-michael-davey-h27",
+          "fl-cand-alexander-fornino-h27"
+        ],
+        "I": [
+          "fl-cand-lev-parnas-h27"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-maria-elvira-salazar-h27",
+        "fl-cand-robin-peguero-h27",
+        "fl-cand-richard-lamondin-h27",
+        "fl-cand-eliott-rodriguez-h27",
+        "fl-cand-vincent-michael-arias-h27",
+        "fl-cand-michael-davey-h27",
+        "fl-cand-lev-parnas-h27",
+        "fl-cand-alexander-fornino-h27"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+    },
+    {
+      "id": "fl-2026-us-house-28",
+      "office": "U.S. House, FL-28",
+      "level": "federal",
+      "jurisdiction": "FL",
+      "seat_type": "legislative",
+      "term_length_years": 2,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-carlos-gimenez-h28",
+      "notes": "2026 election for Florida's 28th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-carlos-gimenez-h28"
+        ],
+        "D": [
+          "fl-cand-phil-ehr-h28"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-carlos-gimenez-h28",
+        "fl-cand-phil-ehr-h28"
+      ],
+      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
     }
   ],
   "ballot_measures": {
