@@ -331,6 +331,7 @@ function buildElections(view, mode, stateCode) {
       date: generalDate,
       races: generalRaces,
       measures: generalMeasures,
+      measuresNote: view._measures_note || null,
       keyDates: [
         view.key_dates?.voter_registration_deadline_general && { label: 'Voter registration', value: view.key_dates.voter_registration_deadline_general },
         view.key_dates?.early_voting_window_general && { label: 'Early voting', value: view.key_dates.early_voting_window_general, isRange: true },
@@ -338,15 +339,19 @@ function buildElections(view, mode, stateCode) {
     });
   }
 
-  // Only keep upcoming (or undated) elections.
+  // Keep the whole cycle's phases as long as the cycle still has an upcoming
+  // (or undated) election — so a past primary stays visible next to an
+  // upcoming general (e.g. TX: the March primary already ran, Nov general is
+  // ahead). Once every phase is in the past, drop the cycle entirely.
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  return out.filter((el) => {
+  const isUpcoming = (el) => {
     if (!el.date) return true;
     const d = new Date(el.date);
     if (isNaN(d.getTime())) return true;
     return d >= today;
-  });
+  };
+  return out.some(isUpcoming) ? out : [];
 }
 
 // ─── Election card ───────────────────────────────────────────────────
@@ -365,6 +370,14 @@ function ElectionCard({
   const raceCount = election.races.length;
   const measureCount = election.measures.length;
   const isPrimary = election.phase === 'primary';
+  const isPast = (() => {
+    if (!election.date) return false;
+    const d = new Date(election.date);
+    if (isNaN(d.getTime())) return false;
+    const t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return d < t;
+  })();
 
   // Snapshot shape expected by trackedElections.trackElection()
   const trackSnapshot = {
@@ -416,6 +429,15 @@ function ElectionCard({
               {election.date && (
                 <span style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', fontWeight: 600 }}>
                   {formatDate(election.date)}
+                </span>
+              )}
+              {isPast && (
+                <span style={{
+                  fontSize: '0.62rem', fontWeight: 800, padding: '2px 7px', borderRadius: '9px',
+                  background: 'var(--cl-bg)', color: 'var(--cl-text-light)',
+                  textTransform: 'uppercase', letterSpacing: '0.5px',
+                }}>
+                  Completed
                 </span>
               )}
             </div>
@@ -504,29 +526,38 @@ function ElectionCard({
             </div>
           )}
 
-          {/* Races dropdown */}
+          {/* Races — grouped by office category so long state-leg slates
+              collapse into their own dropdowns instead of elongating the page
+              (large groups default closed; see groupRaces). */}
           {raceCount > 0 ? (
-            <Collapsible title="Races" count={raceCount} defaultOpen>
-              {election.races.map((r) => (
-                <RaceCard
-                  key={r.id}
-                  race={r}
-                  displayCandidates={r._displayCandidates}
-                  phase={r._phase}
-                  onCandidateSelect={onCandidateSelect}
-                  onCompareToggle={onCompareToggle}
-                  compareIds={compareIds}
-                  stateCode={stateCode}
-                  electionPhase={election.phase}
-                  onNotify={onNotify}
-                  forceExpanded={forceOpenRaceId === r.id}
-                  focusCandidateId={focusCandidateId}
-                  highlightCandidateId={highlightCandidateId}
-                  onFocusCandidateConsumed={onFocusCandidateConsumed}
-                  onHighlightConsumed={onHighlightConsumed}
-                />
-              ))}
-            </Collapsible>
+            groupRaces(election.races).map((grp) => (
+              <Collapsible
+                key={grp.key}
+                title={grp.label}
+                count={grp.races.length}
+                defaultOpen={grp.defaultOpen || grp.races.some((r) => r.id === forceOpenRaceId)}
+              >
+                {grp.races.map((r) => (
+                  <RaceCard
+                    key={r.id}
+                    race={r}
+                    displayCandidates={r._displayCandidates}
+                    phase={r._phase}
+                    onCandidateSelect={onCandidateSelect}
+                    onCompareToggle={onCompareToggle}
+                    compareIds={compareIds}
+                    stateCode={stateCode}
+                    electionPhase={election.phase}
+                    onNotify={onNotify}
+                    forceExpanded={forceOpenRaceId === r.id}
+                    focusCandidateId={focusCandidateId}
+                    highlightCandidateId={highlightCandidateId}
+                    onFocusCandidateConsumed={onFocusCandidateConsumed}
+                    onHighlightConsumed={onHighlightConsumed}
+                  />
+                ))}
+              </Collapsible>
+            ))
           ) : (
             <Collapsible title="Races" count={0}>
               <div style={{ padding: '8px 4px', fontSize: '0.82rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
@@ -535,18 +566,55 @@ function ElectionCard({
             </Collapsible>
           )}
 
-          {/* Measures dropdown (only show when applicable to this phase) */}
-          {measureCount > 0 && (
+          {/* Measures dropdown. Show the measures when present; otherwise, if
+              the payload carries an explanatory note (e.g. TX has no statewide
+              propositions in even years), surface that instead of hiding the
+              section entirely. */}
+          {measureCount > 0 ? (
             <Collapsible title="Ballot Measures" count={measureCount}>
               {election.measures.map((m) => (
                 <MeasureCard key={m.id || `${m.level}-${m.number || m.title}`} measure={m} />
               ))}
             </Collapsible>
-          )}
+          ) : election.measuresNote ? (
+            <Collapsible title="Ballot Measures" count={0} defaultOpen>
+              <div style={{ padding: '8px 4px', fontSize: '0.82rem', color: 'var(--cl-text-light)', lineHeight: 'var(--cl-leading-snug)' }}>
+                {election.measuresNote}
+              </div>
+            </Collapsible>
+          ) : null}
         </div>
       )}
     </div>
   );
+}
+
+// ─── Race grouping ───────────────────────────────────────────────────
+// Bucket an election's races by office category so the ballot renders as a few
+// labeled dropdowns instead of one long flat list. Large groups (US House,
+// State Senate, State House) default to collapsed so the page doesn't elongate;
+// small groups (US Senate, Statewide, Local) default open. Order is fixed;
+// anything unmatched falls into "Other races" so nothing ever disappears.
+function groupRaces(races) {
+  const defs = [
+    { key: 'us-senate', label: 'U.S. Senate', match: (r) => r.level === 'federal' && /senate/i.test(r.office || '') },
+    { key: 'us-house', label: 'U.S. House', match: (r) => r.level === 'federal' && /house/i.test(r.office || '') },
+    { key: 'federal-other', label: 'Federal', match: (r) => r.level === 'federal' },
+    { key: 'statewide', label: 'Statewide', match: (r) => r.level === 'state' && !/^state (senate|house)/i.test(r.chamber || '') },
+    { key: 'state-senate', label: 'State Senate', match: (r) => /^state senate/i.test(r.chamber || '') },
+    { key: 'state-house', label: 'State House', match: (r) => /^state house/i.test(r.chamber || '') },
+    { key: 'local', label: 'Local', match: (r) => r.level === 'local' },
+  ];
+  const buckets = defs.map((d) => ({ key: d.key, label: d.label, match: d.match, races: [] }));
+  const other = { key: 'other', label: 'Other races', races: [] };
+  for (const r of races) {
+    const b = buckets.find((bk) => bk.match(r));
+    (b ? b.races : other.races).push(r);
+  }
+  const COLLAPSE_OVER = 12;
+  return [...buckets, other]
+    .filter((b) => b.races.length > 0)
+    .map((b) => ({ key: b.key, label: b.label, races: b.races, defaultOpen: b.races.length <= COLLAPSE_OVER }));
 }
 
 // ─── Collapsible primitive ───────────────────────────────────────────
