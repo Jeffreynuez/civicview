@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { votePoll } from '../lib/pagesApi';
 import { getVoterToken } from '../lib/voterToken';
 import IdentityPicker from './IdentityPicker';
+import PollResultsModal from './polls/PollResultsModal';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 
 /**
@@ -41,6 +42,7 @@ export default function PollCard({
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [exploreOpen, setExploreOpen] = useState(false);
 
   // Ticking clock for countdown + auto-flip to closed state.
   const [nowTs, setNowTs] = useState(() => Date.now());
@@ -298,6 +300,20 @@ export default function PollCard({
           activeScope={activeScope}
         />
       )}
+      <button
+        type="button"
+        onClick={() => setExploreOpen(true)}
+        style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                 color: 'var(--cl-primary)', fontWeight: 600, fontSize: '0.72rem' }}
+      >
+        📊 Explore results
+      </button>
+      <PollResultsModal
+        pollId={poll.id}
+        question={poll.question}
+        open={exploreOpen}
+        onClose={() => setExploreOpen(false)}
+      />
       {error && <span style={{ color: '#d63031' }}>{error}</span>}
     </div>
   );

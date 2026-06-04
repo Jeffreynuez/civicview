@@ -68,6 +68,7 @@ import IdentityPicker from '../IdentityPicker';
 import { ThumbsUp, ThumbsDown, ChatText } from '../ui';
 import PostActionsMenu from '../PostActionsMenu';
 import CommentsThread from './CommentsThread';
+import PollResultsModal from './PollResultsModal';
 
 export default function FeedCard({
   card,
@@ -152,6 +153,7 @@ export default function FeedCard({
     }
   };
   const [errorMsg, setErrorMsg] = useState(null);
+  const [exploreOpen, setExploreOpen] = useState(false);
   const [confirmingClose, setConfirmingClose] = useState(false);
   // Post-body collapse — long bodies (>400 chars) show an Expand pill
   // and stay collapsed by default. Same pattern the rep page uses.
@@ -685,6 +687,21 @@ export default function FeedCard({
             <div className="poll-block__total">
               <span>{formatCount(card.votes || 0)}</span> votes
             </div>
+            <button
+              type="button"
+              onClick={() => setExploreOpen(true)}
+              style={{ marginTop: 6, background: 'none', border: 'none', padding: 0,
+                       cursor: 'pointer', color: 'var(--cl-primary)', fontWeight: 600,
+                       fontSize: '0.74rem' }}
+            >
+              📊 Explore results
+            </button>
+            <PollResultsModal
+              pollId={card.id}
+              question={card.question}
+              open={exploreOpen}
+              onClose={() => setExploreOpen(false)}
+            />
           </div>
           {errorMsg && <div className="feed-card__error">{errorMsg}</div>}
           {confirmingClose && (

@@ -1,0 +1,168 @@
+/* CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
+/* PollResultsModal — co-located styles (component-CSS topology rule). */
+
+.prm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4vh 16px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.prm-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  padding: 18px 20px 22px;
+}
+
+.prm-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.prm-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--cl-primary, #2563eb);
+}
+
+.prm-question {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+
+.prm-close {
+  border: none;
+  background: transparent;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--cl-text-light, #64748b);
+  padding: 0 4px;
+}
+
+.prm-disclaimer {
+  font-size: 0.76rem;
+  color: var(--cl-text-light, #64748b);
+  background: var(--cl-bg, #f8fafc);
+  border: 1px solid var(--cl-border, #e2e8f0);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.prm-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.prm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cl-text-light, #64748b);
+}
+
+.prm-field select {
+  font-size: 0.84rem;
+  padding: 6px 8px;
+  border: 1px solid var(--cl-border, #e2e8f0);
+  border-radius: 8px;
+  background: #fff;
+  min-width: 130px;
+}
+
+.prm-note {
+  font-size: 0.7rem;
+  color: var(--cl-text-light, #64748b);
+  margin: 8px 0 0;
+}
+
+.prm-results {
+  margin-top: 16px;
+  border-top: 1px solid var(--cl-border, #e2e8f0);
+  padding-top: 14px;
+}
+
+.prm-subtotal {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--cl-text-light, #64748b);
+  margin-bottom: 10px;
+}
+
+.prm-status { padding: 12px 0; color: var(--cl-text-light, #64748b); }
+.prm-error { color: #b91c1c; }
+
+.prm-suppressed {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--cl-text-light, #64748b);
+  background: var(--cl-bg, #f8fafc);
+  border: 1px dashed var(--cl-border, #cbd5e1);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.prm-suppressed--sm { padding: 6px 10px; font-size: 0.76rem; }
+
+.prm-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.prm-bar-row { display: flex; flex-direction: column; gap: 3px; }
+.prm-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+.prm-bar-num { color: var(--cl-text-light, #64748b); font-weight: 700; }
+.prm-bar-track {
+  height: 8px;
+  background: var(--cl-bg, #eef2f7);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.prm-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--cl-primary, #2563eb);
+  border-radius: 6px;
+}
+
+.prm-breakdown { margin-top: 18px; }
+.prm-breakdown-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+.prm-bucket {
+  border: 1px solid var(--cl-border, #e2e8f0);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.prm-bucket-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.prm-bucket-n { color: var(--cl-text-light, #64748b); }
