@@ -197,7 +197,7 @@ class ElectionsService:
                 if chamber.startswith("state senate"):
                     if target_ssd and race_state_senate and race_state_senate == target_ssd:
                         include, reason = True, "state-senate-district-match"
-                elif chamber.startswith("state house"):
+                elif chamber.startswith("state house") or chamber.startswith("state assembly"):
                     if target_shd and race_state_house and race_state_house == target_shd:
                         include, reason = True, "state-house-district-match"
                 else:

@@ -94,6 +94,13 @@ STATE_KEY_DATES = {
         "voter_registration_deadline_general": "2026-10-05",
         "early_voting_window_general": "2026-10-19 to 2026-10-30",
     },
+    "CA": {
+        # California holds a top-two (nonpartisan) primary; June 2 already ran.
+        "primary": "2026-06-02",
+        "general": "2026-11-03",
+        "voter_registration_deadline_primary": "2026-05-18",
+        "voter_registration_deadline_general": "2026-10-19",
+    },
 }
 # Per-state ballot-measure reality. TX puts statewide constitutional amendments
 # on ODD-year ballots (all 17 were decided Nov 2025), so there are none in 2026.
@@ -102,6 +109,25 @@ STATE_BALLOT_NOTE = {
            "all 17 statewide propositions were decided in November 2025. There are "
            "no statewide ballot propositions on the November 2026 ballot. Local and "
            "municipal measures are not yet integrated (pending a certified source)."),
+    "CA": ("California decides statewide ballot propositions at the November general "
+           "election. The certified 2026 proposition list (numbers, titles, and "
+           "official summaries) is not yet integrated — pending the California "
+           "Secretary of State's official measures list. Local/municipal measures "
+           "are also not yet integrated."),
+}
+
+
+
+# States with a regularly-scheduled or special U.S. Senate election by cycle.
+# 2026 = Class 2 regular seats + known specials (FL: Rubio seat, OH: Vance seat).
+# Gates out spurious Senate races for states with no seat up (e.g. CA/NY/PA in
+# 2026, where stray FEC committees would otherwise surface a phantom race).
+SENATE_RACE_STATES = {
+    2026: {
+        "AL", "AK", "AR", "CO", "DE", "GA", "ID", "IL", "IA", "KS", "KY", "LA",
+        "ME", "MA", "MI", "MN", "MS", "MT", "NE", "NH", "NJ", "NM", "NC", "OK",
+        "OR", "RI", "SC", "SD", "TN", "TX", "VA", "WV", "WY", "FL", "OH",
+    },
 }
 
 
@@ -236,34 +262,43 @@ def build_candidate(fec_rec: dict, state_abbr: str, state_name: str, crosswalk) 
 
 def build_state_leg(state_abbr: str, state_name: str):
     """Incumbent-only state-leg candidates + races from state_officials.json.
-    Returns (candidates_dict, races_list, counts). Nothing invented: only the
-    sitting member is listed; challengers flagged pending a certified roster."""
+    Chamber name / role / body name are taken from the roster so states whose
+    lower house is an Assembly (CA, NY, WI, NV) are labeled accurately. Nothing
+    invented: only the sitting member is listed; challengers flagged pending a
+    certified roster."""
     path = DATA_DIR / state_abbr.lower() / "state_officials.json"
     if not path.exists():
-        return {}, [], {"State Senate": 0, "State House": 0}
+        return {}, [], {"state_senate": 0, "state_house": 0}
     so = json.loads(path.read_text(encoding="utf-8"))
     cands: dict[str, dict] = {}
     races: list[dict] = []
-    counts = {"State Senate": 0, "State House": 0}
+    counts = {"state_senate": 0, "state_house": 0}
     sos = f"{state_name} Secretary of State"
 
+    # (body_key, district field used by the personalized-ballot matcher, term years)
     bodies = (
-        ("state_senate", "State Senate", "state_senate_district", 4,
-         "State Senator", f"{state_name} State Senate", "SD"),
-        ("state_house", "State House", "state_house_district", 2,
-         "State Representative", f"{state_name} House of Representatives", "HD"),
+        ("state_senate", "state_senate_district", 4),
+        ("state_house", "state_house_district", 2),
     )
-    for body_key, chamber, dist_field, term_yrs, role_word, seek_body, abbr2 in bodies:
+    for body_key, dist_field, term_yrs in bodies:
         body = so.get(body_key) or {}
-        for m in body.get("members", []) or []:
+        members = body.get("members", []) or []
+        default_chamber = "State Senate" if body_key == "state_senate" else "State House"
+        body_name = body.get("body_name") or f"{state_name} {default_chamber}"
+        for m in members:
             dist = str(m.get("district") or "").strip()
             if not dist:
                 continue
             name = m.get("name") or "Unknown"
             party = (m.get("party") or "I").strip().upper()[:1] or "I"
             pw = PARTY_WORD.get(party)
-            cid = f"{state_abbr.lower()}-cand-{slugify(name)}-{abbr2.lower()}{dist}"
-            seeking = f"{seek_body}, Dist. {dist}"
+            chamber = m.get("chamber") or default_chamber  # "State Senate"/"State House"/"State Assembly"
+            role_word = m.get("role") or ("State Senator" if body_key == "state_senate"
+                                          else "State Representative")
+            seat_abbr = ("SD" if body_key == "state_senate"
+                         else ("AD" if "assembly" in chamber.lower() else "HD"))
+            cid = f"{state_abbr.lower()}-cand-{slugify(name)}-{seat_abbr.lower()}{dist}"
+            seeking = f"{body_name}, Dist. {dist}"
             current = f"{role_word}, District {dist}"
             contact = m.get("contact") or {}
             cands[cid] = {
@@ -286,14 +321,14 @@ def build_state_leg(state_abbr: str, state_name: str):
                     f"roster). Challenger filings and the certified ballot must be "
                     f"verified against the {sos}; FEC/federal data does not cover "
                     "state races.")
-            if chamber == "State Senate":
+            if body_key == "state_senate":
                 note += (f" {state_name} Senate seats have staggered {term_yrs}-year "
                          "terms — only a subset is up in 2026; confirm which against "
                          f"the {sos}.")
             race = {
                 "id": f"{state_abbr.lower()}-2026-{chamber.lower().replace(' ', '-')}-{dist}",
                 "office": seeking, "level": "state",
-                "jurisdiction": f"{state_abbr}-{abbr2}-{dist}", "chamber": chamber,
+                "jurisdiction": f"{state_abbr}-{seat_abbr}-{dist}", "chamber": chamber,
                 dist_field: dist, "seat_type": "legislative",
                 "term_length_years": term_yrs, "open_seat": False,
                 "incumbent_candidate_id": cid,
@@ -305,7 +340,7 @@ def build_state_leg(state_abbr: str, state_name: str):
                 "_roster_source": "Open States current members (state_officials.json)",
             }
             races.append(race)
-            counts[chamber] += 1
+            counts[body_key] += 1
     return cands, races, counts
 
 
@@ -317,7 +352,10 @@ async def build_state(state_abbr: str, cycle: int):
     crosswalk = load_crosswalk()
     fips = STATE_FIPS[state_abbr]
 
-    senate = await fec_service.fetch_state_federal_candidates(state_abbr, cycle, "S")
+    # Only fetch a Senate roster when the state actually has a Senate seat up
+    # this cycle (otherwise OpenFEC's stray committees would invent a phantom race).
+    senate_up = state_abbr in SENATE_RACE_STATES.get(cycle, {state_abbr})
+    senate = await fec_service.fetch_state_federal_candidates(state_abbr, cycle, "S") if senate_up else []
     house = await fec_service.fetch_state_federal_candidates(state_abbr, cycle, "H")
 
     candidates: dict[str, dict] = {}
@@ -471,8 +509,8 @@ async def build_state(state_abbr: str, cycle: int):
         "senate_candidates": len(senate_ids),
         "house_candidates": sum(len(v) for v in house_by_district.values()),
         "house_districts": len(house_by_district),
-        "state_senate_seats": leg_counts["State Senate"],
-        "state_house_seats": leg_counts["State House"],
+        "state_senate_seats": leg_counts["state_senate"],
+        "state_house_seats": leg_counts["state_house"],
         "total_candidates": len(candidates),
         "enriched_incumbents": sum(1 for c in candidates.values() if c["data_status"] == "enriched"),
         "skeleton": sum(1 for c in candidates.values() if c["data_status"] == "skeleton"),
