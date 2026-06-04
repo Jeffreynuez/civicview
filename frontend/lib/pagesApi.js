@@ -617,7 +617,7 @@ export async function fetchSaved({ itemType, cursor, limit = 20 } = {}) {
 // freshly-created CitizenPollRead with vote counts at 0. Per-citizen
 // cap of 1 standalone active at a time is enforced server-side; a
 // 400 with a clear detail message comes back if the cap is hit.
-export async function createStandalonePoll({ question, options, closesAt, presentationMode } = {}) {
+export async function createStandalonePoll({ question, options, closesAt, presentationMode, demographicQuestionKeys } = {}) {
   return request('/api/citizen-polls', {
     method: 'POST',
     body: {
@@ -626,6 +626,7 @@ export async function createStandalonePoll({ question, options, closesAt, presen
         options: options.map((label) => ({ text: label })),
         closes_at: closesAt || null,
         presentation_mode: presentationMode || 'full',
+        demographic_question_keys: demographicQuestionKeys || undefined,
       },
     },
   });
@@ -802,7 +803,7 @@ export async function updateComment(comment_id, body) {
 
 
 // ── Poll vote (multi-identity, Phase 6) ──────────────────────────────
-export async function votePoll(officialId, pollId, { optionId, voterToken, asIdentity }) {
+export async function votePoll(officialId, pollId, { optionId, voterToken, asIdentity, demographics } = {}) {
   return request(
     `/api/pages/${encodeURIComponent(officialId)}/polls/${pollId}/vote`,
     {
@@ -811,6 +812,9 @@ export async function votePoll(officialId, pollId, { optionId, voterToken, asIde
         option_id: optionId,
         voter_token: voterToken,
         as_identity: asIdentity || undefined,
+        // Optional self-reported demographics {question_key: value}. Backend
+        // stores them only for verified-citizen votes on polls with a form.
+        demographics: demographics || undefined,
       },
     },
   );
@@ -993,12 +997,13 @@ export async function createCitizenPoll(officialId, pollPayload) {
   });
 }
 
-export async function voteOnCitizenPoll(pollId, optionId, asIdentity = null) {
+export async function voteOnCitizenPoll(pollId, optionId, asIdentity = null, demographics = null) {
   return request(`/api/citizen-polls/${pollId}/vote`, {
     method: 'POST',
     body: {
       option_id: optionId,
       as_identity: asIdentity || undefined,
+      demographics: demographics || undefined,
     },
   });
 }

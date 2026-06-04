@@ -5,6 +5,7 @@
 
 import { useRef, useState } from 'react';
 import { createPost, uploadPostImage, resolveImageUrl } from '../lib/pagesApi';
+import PollDemographicsPicker from './polls/PollDemographicsPicker';
 import { Button } from './ui';
 
 const MAX_BODY = 5000;
@@ -76,6 +77,7 @@ export default function PostComposer({
   const [pollOpen, setPollOpen] = useState(false);
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
+  const [demographicKeys, setDemographicKeys] = useState([]);
   // Default the scope to the most specific one the rep supports — a
   // House rep defaults to 'district', a senator to 'state', etc. Picks
   // the richest available scope so the post author gets the most
@@ -182,6 +184,7 @@ export default function PostComposer({
       payload.poll = {
         question: question.trim(),
         options: options.map((o) => o.trim()).filter(Boolean).map((text) => ({ text })),
+        demographic_question_keys: demographicKeys.length ? demographicKeys : undefined,
         default_visibility_scope: scope,
         presentation_mode: presentationMode,
       };
@@ -418,6 +421,8 @@ export default function PostComposer({
               + Add option
             </button>
           )}
+
+          <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
 
           {/* Default visibility scope — what pool of citizens shows up
               in the poll's results first. Viewers can override later

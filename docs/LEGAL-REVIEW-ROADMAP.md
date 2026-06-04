@@ -232,3 +232,21 @@ $2K saved:
 
 May 20, 2026 — initial draft. Update this doc whenever the plan changes or
 once an attorney has actually been engaged.
+
+## Poll demographic forms — sensitive-category review (pre-production)
+
+The optional poll demographic forms feature (`docs/polls-demographic-forms-prd.md`)
+collects self-reported demographics, including SENSITIVE categories: political
+party, race/ethnicity, household income, and religion. Before this ships to
+production, counsel should review:
+
+- Consent language shown to voters at answer time (currently: "anonymous, never
+  linked to you publicly, shown only in aggregate; skip any or all").
+- Lawful basis / disclosures for collecting sensitive categories, and any
+  state-level (e.g. CA/IL) or sectoral requirements.
+- Whether the privacy policy + ToS need specific clauses for this data.
+- Retention (answers live and die with the poll) and the aggregate-only +
+  min-cell-10 suppression posture as the privacy safeguard.
+
+Mitigations already in place: every question optional, verified-citizen-only,
+no free text, aggregate-only with server-side suppression. Flagged 2026-06-04.

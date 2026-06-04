@@ -373,3 +373,25 @@ to switch backends; just set the env vars and restart.
 - `docs/identity-model.pdf` — three-tier auth spec.
 - `render.yaml` — backend deployment blueprint, including which env vars need
   to be set in the dashboard.
+
+## Poll demographic forms — sensitive self-reported data
+
+Optional poll demographic forms (see `docs/polls-demographic-forms-prd.md`) let a
+poll creator attach standardized, self-reported demographic questions to a poll.
+Posture:
+
+- **Aggregate-only, server-enforced.** No endpoint returns an individual
+  respondent's answers — not to viewers, not to the poll creator, not to admins.
+  The breakdown endpoint (`GET /api/polls/{id}/results/breakdown`) applies a
+  minimum-cell-size of 10 server-side: any demographic cut (or cross-tab bucket)
+  with fewer than 10 respondents returns suppressed with no counts.
+- **Optional + verified-only.** Every question is optional ("Prefer not to say");
+  voting never requires disclosure. Answers attach only to verified-citizen votes
+  (mirroring how `PollVote` geography scopes work) and are frozen at vote time.
+- **No free text.** Questions and answer options come from a code-owned catalog
+  (`services/demographics_catalog.py`); voters never type free-form data.
+- **Sensitive categories** — political party, race/ethnicity, household income,
+  and religion are grouped in a separate "sensitive" tier behind a notice. These
+  carry the most legal and de-anonymization risk and MUST be reviewed by counsel
+  (consent language, lawful basis, regional carve-outs) before production launch.
+  See `docs/LEGAL-REVIEW-ROADMAP.md`.
