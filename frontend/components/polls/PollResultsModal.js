@@ -29,6 +29,122 @@ function pct(n, total) {
   return Math.round((n / total) * 1000) / 10;
 }
 
+// Palette for option series in the cross-tab chart.
+const CHART_PALETTE = ['#2563eb', '#dc2626', '#059669', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#65a30d'];
+
+// Inline-SVG grouped bar chart: one group per (non-suppressed) demographic
+// bucket, one bar per poll option, height = option's % share within that
+// bucket. No external chart dependency.
+function GroupedBarChart({ buckets, options }) {
+  const shown = (buckets || []).filter((b) => !b.suppressed && b.total > 0);
+  if (!shown.length || !options.length) return null;
+
+  const W = 560, H = 210, padL = 30, padR = 8, padT = 8, padB = 64;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const groupW = plotW / shown.length;
+  const innerPad = Math.min(16, groupW * 0.15);
+  const gap = 2;
+  const barW = Math.max(3, (groupW - innerPad * 2 - gap * (options.length - 1)) / options.length);
+  const yOf = (p) => padT + plotH * (1 - p / 100);
+  const colorOf = (id) => CHART_PALETTE[options.findIndex((o) => o.id === id) % CHART_PALETTE.length];
+  const clip = (t, n) => (t && t.length > n ? `${t.slice(0, n - 1)}…` : (t || ''));
+
+  return (
+    <div className="prm-chart">
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Option share within each group" style={{ width: '100%', height: 'auto' }}>
+        {/* gridlines + y labels at 0/50/100% */}
+        {[0, 50, 100].map((g) => (
+          <g key={g}>
+            <line x1={padL} y1={yOf(g)} x2={W - padR} y2={yOf(g)} stroke="var(--cl-border, #e2e8f0)" strokeWidth="1" />
+            <text x={padL - 4} y={yOf(g) + 3} textAnchor="end" fontSize="9" fill="var(--cl-text-light, #64748b)">{g}%</text>
+          </g>
+        ))}
+        {shown.map((b, gi) => {
+          const total = (b.options || []).reduce((s, o) => s + (o.count || 0), 0);
+          const gx = padL + gi * groupW + innerPad;
+          return (
+            <g key={b.value}>
+              {(b.options || []).map((o, oi) => {
+                const p = pct(o.count, total);
+                const x = gx + oi * (barW + gap);
+                const h = plotH - (yOf(p) - padT);
+                return <rect key={o.id} x={x} y={yOf(p)} width={barW} height={Math.max(0, h)} rx="1.5" fill={colorOf(o.id)} />;
+              })}
+              <text x={padL + gi * groupW + groupW / 2} y={H - padB + 14} textAnchor="middle" fontSize="9" fill="var(--cl-text-light, #64748b)">
+                {clip(b.label, 12)}
+              </text>
+              <text x={padL + gi * groupW + groupW / 2} y={H - padB + 26} textAnchor="middle" fontSize="8" fill="var(--cl-text-light, #94a3b8)">
+                n={b.total}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+      <div className="prm-chart-legend">
+        {options.map((o) => (
+          <span key={o.id} className="prm-chart-legend-item">
+            <span className="prm-chart-swatch" style={{ background: colorOf(o.id) }} />
+            {o.text != null ? o.text : `Option ${o.id}`}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Build an aggregate CSV of the CURRENT explorer view. Never includes raw
+// individual rows (we only ever hold aggregates); suppressed buckets are
+// emitted as a labeled row with no counts, mirroring what is shown on screen.
+function csvCell(v) {
+  const s = v == null ? '' : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function buildResultsCsv({ question, scope, filters, minCell, data, options }) {
+  const rows = [];
+  const line = (...cells) => rows.push(cells.map(csvCell).join(','));
+  line('CivicView poll results — aggregate, self-reported, unverified');
+  line('Poll question', question || '');
+  line('Geography scope', scope);
+  const fstr = Object.entries(filters || {}).map(([k, v]) => `${k}=${v}`).join('; ');
+  line('Demographic filters', fstr || '(none)');
+  line('Minimum group size', minCell);
+  line('Responses in view', data?.subset_total ?? 0);
+  line('');
+
+  if (data?.suppressed) {
+    line('Results hidden — fewer than the minimum group size for this cut.');
+  } else {
+    const denom = (data?.options || []).reduce((t, o) => t + (o.count || 0), 0);
+    line('Option', 'Count', 'Percent');
+    for (const o of (data?.options || [])) {
+      line(o.text != null ? o.text : `Option ${o.id}`, o.count, `${pct(o.count, denom)}%`);
+    }
+  }
+
+  if (data?.breakdown) {
+    line('');
+    line(`By ${data.breakdown.prompt}`);
+    line('Group', 'Group responses', 'Option', 'Count', 'Percent');
+    const labelFor = (id) => {
+      const m = (options || []).find((o) => o.id === id);
+      return m && m.text != null ? m.text : `Option ${id}`;
+    };
+    for (const b of data.breakdown.buckets) {
+      if (b.suppressed) {
+        line(b.label, b.total, `(hidden — fewer than ${minCell} responses)`, '', '');
+        continue;
+      }
+      const bd = (b.options || []).reduce((t, o) => t + (o.count || 0), 0);
+      for (const o of (b.options || [])) {
+        line(b.label, b.total, labelFor(o.id), o.count, `${pct(o.count, bd)}%`);
+      }
+    }
+  }
+  return rows.join('\n');
+}
+
 export default function PollResultsModal({ pollId, question, open, onClose }) {
   const [questions, setQuestions] = useState([]);   // attached form questions
   const [scope, setScope] = useState('country');
@@ -104,6 +220,19 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
       if (value) next[key] = value; else delete next[key];
       return next;
     });
+
+  const downloadCsv = () => {
+    const csv = buildResultsCsv({ question, scope, filters, minCell, data, options });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `poll-${pollId}-results.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
 
   const renderBars = (opts, denom) => (
     <ul className="prm-bars">
@@ -189,7 +318,12 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
 
           {!loading && !error && data && (
             <>
-              <div className="prm-subtotal">{total} response{total === 1 ? '' : 's'} in this view</div>
+              <div className="prm-subtotal-row">
+                <span className="prm-subtotal">{total} response{total === 1 ? '' : 's'} in this view</span>
+                {data && (
+                  <button type="button" className="prm-csv-btn" onClick={downloadCsv}>Download CSV</button>
+                )}
+              </div>
 
               {data.suppressed ? (
                 <div className="prm-suppressed">
@@ -202,6 +336,7 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
               {data.breakdown && !data.suppressed && (
                 <div className="prm-breakdown">
                   <h3 className="prm-breakdown-title">By {data.breakdown.prompt}</h3>
+                  <GroupedBarChart buckets={data.breakdown.buckets} options={options} />
                   {data.breakdown.buckets.map((b) => (
                     <div key={b.value} className="prm-bucket">
                       <div className="prm-bucket-head">

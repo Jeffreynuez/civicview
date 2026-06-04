@@ -172,6 +172,18 @@ class PollCreate(BaseModel):
     # (validated server-side against services/demographics_catalog). All
     # questions are optional for voters; see docs/polls-demographic-forms-prd.md.
     demographic_question_keys: Optional[List[str]] = Field(default=None)
+    # Per-poll min group size before a demographic breakdown shows. Only
+    # stricter-than-floor presets persist (see clamp_threshold); default = floor.
+    min_cell_override: Optional[int] = Field(default=None)
+
+
+class DemographicProfileBody(BaseModel):
+    # {question_key: option_value}; only Standard catalog keys persist.
+    answers: dict = Field(default_factory=dict)
+
+
+class DemographicProfileResponse(BaseModel):
+    answers: dict
 
 
 class PollOptionRead(BaseModel):

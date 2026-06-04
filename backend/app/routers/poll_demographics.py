@@ -25,8 +25,11 @@ from collections import Counter, defaultdict
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session, selectinload
 
+from datetime import datetime
+
+from app.auth_citizen import get_optional_citizen
 from app.db import get_db
-from app.models.pages import Poll, PollOption, Post, PollVoteDemographic
+from app.models.pages import Poll, PollOption, Post, PollVote, PollVoteDemographic
 from app.services import demographics_catalog, poll_demographics
 
 router = APIRouter()
@@ -50,6 +53,36 @@ def get_poll_demographics(poll_id: int, db: Session = Depends(get_db)) -> dict:
         raise HTTPException(status_code=404, detail="Poll not found")
     questions = poll_demographics.questions_payload(db, poll_id)
     return {"poll_id": poll_id, "has_form": bool(questions), "questions": questions}
+
+
+@router.get("/{poll_id}/demographics/mine")
+def my_poll_demographics(
+    poll_id: int,
+    db: Session = Depends(get_db),
+    citizen=Depends(get_optional_citizen),
+) -> dict:
+    """The CURRENT citizen's own self-reported answers for this poll, so the
+    voter form can prefill them for editing until the poll closes. Returns the
+    caller's OWN answers only — never anyone else's. Empty for anonymous."""
+    poll = db.get(Poll, poll_id)
+    if poll is None:
+        raise HTTPException(status_code=404, detail="Poll not found")
+    answers: dict[str, str] = {}
+    if citizen is not None:
+        vote = (
+            db.query(PollVote)
+            .filter(PollVote.poll_id == poll_id, PollVote.citizen_id == citizen.id)
+            .first()
+        )
+        if vote is not None:
+            for r in (
+                db.query(PollVoteDemographic)
+                .filter(PollVoteDemographic.poll_vote_id == vote.id)
+                .all()
+            ):
+                answers[r.question_key] = r.answer_value
+    can_edit = poll.closes_at is None or datetime.utcnow() < poll.closes_at
+    return {"poll_id": poll_id, "answers": answers, "can_edit": can_edit}
 
 
 @router.get("/{poll_id}/results/breakdown")
@@ -96,6 +129,7 @@ def results_breakdown(
     if scope not in allowed:
         scope = "country"
 
+    eff_min = max(MIN_CELL, poll.min_cell_override or 0)
     attached = set(poll_demographics.get_attached_keys(db, poll_id))
 
     # Parse repeatable filter_<key>=<value> params; keep only attached+valid.
@@ -138,7 +172,7 @@ def results_breakdown(
 
     subset_total = len(subset)
     is_demographic_cut = bool(filters) or bool(by)
-    suppressed = is_demographic_cut and subset_total < MIN_CELL
+    suppressed = is_demographic_cut and subset_total < eff_min
 
     counts = Counter(oid for oid, _ in subset)
     resp: dict = {
@@ -148,7 +182,7 @@ def results_breakdown(
         "applied_filters": filters,
         "by": by,
         "subset_total": subset_total,
-        "min_cell": MIN_CELL,
+        "min_cell": eff_min,
         "suppressed": suppressed,
         "options": (
             [] if suppressed
@@ -167,7 +201,7 @@ def results_breakdown(
         for opt in meta.get("options", []):
             rows = bucket_rows.get(opt["value"], [])
             n = len(rows)
-            b_suppressed = n < MIN_CELL
+            b_suppressed = n < eff_min
             b_counts = Counter(oid for oid, _ in rows)
             buckets.append({
                 "value": opt["value"],

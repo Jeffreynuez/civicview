@@ -617,7 +617,7 @@ export async function fetchSaved({ itemType, cursor, limit = 20 } = {}) {
 // freshly-created CitizenPollRead with vote counts at 0. Per-citizen
 // cap of 1 standalone active at a time is enforced server-side; a
 // 400 with a clear detail message comes back if the cap is hit.
-export async function createStandalonePoll({ question, options, closesAt, presentationMode, demographicQuestionKeys } = {}) {
+export async function createStandalonePoll({ question, options, closesAt, presentationMode, demographicQuestionKeys, minCellOverride } = {}) {
   return request('/api/citizen-polls', {
     method: 'POST',
     body: {
@@ -627,6 +627,7 @@ export async function createStandalonePoll({ question, options, closesAt, presen
         closes_at: closesAt || null,
         presentation_mode: presentationMode || 'full',
         demographic_question_keys: demographicQuestionKeys || undefined,
+        min_cell_override: minCellOverride || undefined,
       },
     },
   });
@@ -1081,6 +1082,23 @@ export async function dismissPreClaimArchive(officialId) {
     `/api/pages/${encodeURIComponent(officialId)}/citizen-polls/dismiss-archive`,
     { method: 'POST' },
   );
+}
+
+// The current citizen's own demographic answers for a poll (prefill the
+// voter form for editing until close). Returns own answers only.
+export async function fetchMyPollDemographics(pollId) {
+  return request(`/api/polls/${pollId}/demographics/mine`);
+}
+
+// Reusable opt-in demographic profile (Standard catalog only).
+export async function fetchDemographicProfile() {
+  return request('/api/citizens/me/demographic-profile');
+}
+export async function saveDemographicProfile(answers) {
+  return request('/api/citizens/me/demographic-profile', { method: 'PUT', body: { answers } });
+}
+export async function clearDemographicProfile() {
+  return request('/api/citizens/me/demographic-profile', { method: 'DELETE' });
 }
 
 // "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.

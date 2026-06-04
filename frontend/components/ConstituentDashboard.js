@@ -27,6 +27,7 @@ import AppealModal from './AppealModal';
 import Navbar from './Navbar';
 import TwoFactorSection from './TwoFactorSection';
 import BillingSection from './BillingSection';
+import DemographicProfileSection from './DemographicProfileSection';
 import VerificationSection from './VerificationSection';
 
 /**
@@ -203,6 +204,7 @@ export default function ConstituentDashboard({
         {isCompact && <TwoFactorSection />}
         {isCompact && <VerificationSection citizen={citizen} />}
         {isCompact && <BillingSection citizen={citizen} />}
+        {isCompact && <DemographicProfileSection />}
 
         {/* Two-column layout: left = My Reps + Upcoming + Recent, right
             = TwoFactor + Ballot + Activity stats. Desktop keeps the
@@ -235,6 +237,7 @@ export default function ConstituentDashboard({
             {!isCompact && <TwoFactorSection />}
             {!isCompact && <VerificationSection citizen={citizen} />}
             {!isCompact && <BillingSection citizen={citizen} />}
+            {!isCompact && <DemographicProfileSection />}
             {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
             <YourActivityCard reps={reps} />
             <QuickLinksCard onNavigate={onNavigate} />

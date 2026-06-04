@@ -1069,6 +1069,9 @@ def _attach_poll(db: Session, post: Post, payload: PollCreate, owner: RepAccount
             text=opt.text.strip(),
             sort_order=idx,
         ))
+    poll.min_cell_override = poll_demographics.clamp_threshold(
+        getattr(payload, "min_cell_override", None),
+    )
     poll_demographics.attach_questions(
         db, poll.id, getattr(payload, "demographic_question_keys", None),
     )

@@ -24,10 +24,26 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from app.models.pages import PollDemographicQuestion, PollVoteDemographic
+from app.models.pages import (
+    CitizenDemographicProfile, PollDemographicQuestion, PollVoteDemographic,
+)
 from app.services import demographics_catalog as catalog
 
 MAX_QUESTIONS_PER_POLL = 12  # catalog is small; guards against abuse/bloat
+
+# Per-poll suppression-threshold presets a creator may choose. 10 is the app
+# floor (stored as NULL); only stricter values are persisted.
+ALLOWED_THRESHOLDS = {25, 50, 100}
+
+
+def clamp_threshold(value) -> int | None:
+    """Return a valid stricter-than-floor threshold, or None (= app floor 10).
+    Anything not in the allowed preset set collapses to None."""
+    try:
+        v = int(value)
+    except (TypeError, ValueError):
+        return None
+    return v if v in ALLOWED_THRESHOLDS else None
 
 
 def attach_questions(db: Session, poll_id: int, keys) -> list[str]:
@@ -86,6 +102,42 @@ def record_for_vote(db: Session, poll_id: int, vote, demographics: dict | None) 
             poll_id=poll_id, poll_vote_id=vote.id,
             question_key=key, answer_value=value,
         ))
+
+
+STANDARD_KEYS = {k for k in catalog.DEMOGRAPHIC_CATALOG if k not in catalog.SENSITIVE_KEYS}
+
+
+def get_profile(db: Session, citizen_id: int) -> dict:
+    """The citizen's saved reusable profile {question_key: value} (standard only)."""
+    rows = (
+        db.query(CitizenDemographicProfile)
+        .filter(CitizenDemographicProfile.citizen_id == citizen_id)
+        .all()
+    )
+    return {r.question_key: r.answer_value for r in rows if r.question_key in STANDARD_KEYS}
+
+
+def set_profile(db: Session, citizen_id: int, answers: dict | None) -> None:
+    """Replace the citizen's reusable profile. Only STANDARD catalog questions
+    with valid option values persist — sensitive categories are never stored in
+    the profile (they remain answer-per-poll)."""
+    db.query(CitizenDemographicProfile).filter(
+        CitizenDemographicProfile.citizen_id == citizen_id
+    ).delete(synchronize_session=False)
+    for key, value in (answers or {}).items():
+        if key not in STANDARD_KEYS:
+            continue
+        value = "" if value is None else str(value)
+        if catalog.is_valid_answer(key, value):
+            db.add(CitizenDemographicProfile(
+                citizen_id=citizen_id, question_key=key, answer_value=value,
+            ))
+
+
+def clear_profile(db: Session, citizen_id: int) -> None:
+    db.query(CitizenDemographicProfile).filter(
+        CitizenDemographicProfile.citizen_id == citizen_id
+    ).delete(synchronize_session=False)
 
 
 def questions_payload(db: Session, poll_id: int) -> list[dict]:

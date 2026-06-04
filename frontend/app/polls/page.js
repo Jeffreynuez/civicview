@@ -1285,6 +1285,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
   //                            when timing === 'none').
   const [presentation, setPresentation] = useState('full');
   const [demographicKeys, setDemographicKeys] = useState([]);
+  const [demoThreshold, setDemoThreshold] = useState(10);
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState(null);
 
@@ -1341,6 +1342,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
       closesAt: closesAtIso,
       presentationMode: presentation,
       demographicQuestionKeys: demographicKeys.length ? demographicKeys : undefined,
+      minCellOverride: demoThreshold !== 10 ? demoThreshold : undefined,
     });
     setSubmitting(false);
     if (error || !data) {
@@ -1471,7 +1473,8 @@ function StandaloneComposer({ onCancel, onCreated }) {
           )}
         </div>
 
-        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys} />
+        <PollDemographicsPicker value={demographicKeys} onChange={setDemographicKeys}
+          threshold={demoThreshold} onThresholdChange={setDemoThreshold} />
 
         {/* Close timing — parallel to CreateCitizenPollModal so a
             citizen authoring a standalone poll sees the same set of

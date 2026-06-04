@@ -634,6 +634,10 @@ class Poll(Base):
     presentation_mode: Mapped[str] = mapped_column(
         String(24), default="full", server_default="full",
     )
+    # Per-poll demographic suppression floor override (Task: demographic forms).
+    # NULL = use the app-wide MIN_CELL (10). When set, the breakdown endpoint
+    # uses max(app floor, this) so a creator can only make suppression STRICTER.
+    min_cell_override: Mapped[Optional[int]] = mapped_column(Integer, default=None)
     # Author kind drives which join is meaningful: 'rep' means look at
     # post.author; 'citizen' means look at author_citizen_id +
     # target_official_id. Default 'rep' is backwards-compatible with
@@ -1078,6 +1082,26 @@ Index("uq_poll_demo_question", PollDemographicQuestion.poll_id,
       PollDemographicQuestion.question_key, unique=True)
 Index("uq_poll_vote_demo_answer", PollVoteDemographic.poll_vote_id,
       PollVoteDemographic.question_key, unique=True)
+
+
+class CitizenDemographicProfile(Base):
+    """Opt-in reusable demographic profile for a citizen — STANDARD catalog
+    questions only (sensitive categories stay answer-per-poll). Pure
+    convenience auto-fill for the voter form; per-vote PollVoteDemographic
+    snapshots remain the source of truth for results."""
+    __tablename__ = "citizen_demographic_profile"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    citizen_id: Mapped[int] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="CASCADE"), index=True,
+    )
+    question_key: Mapped[str] = mapped_column(String(40))
+    answer_value: Mapped[str] = mapped_column(String(64))
+    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+Index("uq_citizen_demo_profile", CitizenDemographicProfile.citizen_id,
+      CitizenDemographicProfile.question_key, unique=True)
 
 
 # ── Rep-created events ────────────────────────────────────────────────
