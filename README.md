@@ -361,6 +361,45 @@ categories:
 
 ---
 
+## Shipped this session — 2026-06-03 (Claude Opus 4.8, 1M)
+
+Federal + state DATA layers were committed/pushed earlier this session; the
+election-candidate work at the end may still be local — verify `git status`
+(uncommitted: `backend/app/services/fec_service.py`, `backend/app/data/fl/candidates.json`,
+`backend/app/data/fl/elections.json`).
+
+- **Federal officials — full neutral + sourced issue data.** Every sitting
+  member of Congress (both chambers, all 50 states + territory delegates,
+  ~538 profiles) now has neutral, sourced `top_issues` in
+  `congress_profiles.json`; executive branch, SCOTUS (as neutral "Areas of
+  Focus"), and congressional leadership in `federal_officials.json` too.
+  Committee auto-fill + sponsored-bill issue-area derivation + fix to the live
+  bio/experience derivation (Congress.gov `startYear`/`stateCode` term fields).
+  Fabricated/stale seed entries purged; SAMPLE_DATA Rick Scott bioguide fixed
+  (S001227 → S001217).
+- **State legislators + governors — all 50 states.** Built
+  `data/<state>/state_officials.json` for every state from Open States bulk
+  data (~7,355 legislators) + statewide executives; all 50 governors curated +
+  sourced. Live state-legislator Bills/Votes wired (fixed the OpenStates
+  `/bills` sponsor filter needing `jurisdiction`; added `openstates_id`
+  fast-path) + a live AI-derived issue-areas endpoint (Haiku over bill titles).
+- **Florida Supreme Court via CourtListener** (opinions; fixed the v4
+  `docket__court` filter; roster already curated).
+- **Address-to-rep / Google Civic.** Confirmed federal/state lookup is fully
+  off the retired Representatives API (Census + own data); fixed the
+  state-legislative-district layer key; wired the free Divisions OCD-ID bridge
+  into `/lookup`.
+- **Florida election candidates.** New `fec_service.py` (OpenFEC): 156 FL
+  federal candidates added with live fundraising; US Senate + all 28 US House
+  district races added to `fl/elections.json`. All FL state candidates given
+  overviews; the 6 Governor contenders + AG race fully curated from official
+  campaign sites (issues/endorsements/experience/fundraising); withdrawn Josh
+  Weil removed.
+- **Docs/financials.** `API_Research_Report.html`: added CourtListener +
+  IN-USE/PLANNED tags. `/help-build` + financial model: Vote Smart $4,850/yr
+  optional add-on + Google Workspace Business Starter $8.40/mo. Gmail draft
+  reply to Vote Smart declining the license for now.
+
 ## Shipped this session — 2026-05-31 (Claude Opus 4.8, 1M)
 
 Local/uncommitted unless pushed — Jeffrey decides the commits.
@@ -422,8 +461,10 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 
 (Mirrored on `/help-build` under the "In progress" section.)
 
-- Filling out remaining 49 states' content (photos, issues, state
-  legislators, local-rep data)
+- Remaining state/local content: official photos for state legislators,
+  state judiciary for the other 49 states, and LOCAL officials
+  (sheriffs/judges/DAs/school boards). State legislators + governors for all
+  50 states are now seeded (Open States); federal issue-data is complete.
 - Email deliverability hardening (SPF / DKIM / DMARC on `civicview.app`)
 - Election-win promotion flow (admin UI surface — backend shipped)
 - Crowdfunding launch + Benefit Corp Amendment
@@ -446,8 +487,13 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 92 | Trim /polls + /posts filter cruft (audit follow-up) | done (2026-05-31) | Removed the inert `executive` + `judicial` branch chips from `BRANCH_FILTERS` + `branchCounts` in `frontend/app/polls/page.js` (backend only emits `branch` for Congress reps, so those chips always counted ~0). Deliberately LEFT the `pollBranch`/`branchCounts`/`branchFiltered` pipeline and the client-side state re-filter (~lines 313-319) intact — the original audit overreached: the re-filter guards a real refetch race, not dead work. Original audit 2026-05-28. |
 | 93 | Unify forked comment rendering onto CommentsThread | in progress | Three independent comment implementations: shared `components/polls/CommentsThread.js` (feed thread — /polls, /posts, home), `components/PostCard.js` (own `renderCommentRow` ~1406-1822, rep/candidate page posts, HAS an edit path), and `components/CitizenPollsSection.js` (own local `CommentsThread` function ~903-1637 mounted ~824, citizen polls, NO edit path, uses `archived` to lock closed polls). Goal: collapse onto the shared component (the only one that's production-proven for both `post` and `poll` modes). **Increment 1 — DONE 2026-05-31:** added an `archived` (read-only) prop to the shared `CommentsThread` (closed poll → composer replaced with a "closed to new comments" note + Reply control hidden; existing edit/delete/report untouched). esbuild-verified. The missing capability that blocked consolidation. **Increment 2 — TODO (CitizenPollsSection, do first, smaller):** `import CommentsThread from './polls/CommentsThread'`; delete the local `CommentsThread` function (~903-1637) + its `renderCommentRow` + comment state/handlers; mount with `mode="poll" pollId signedIn={!!citizen\|\|isOwner} onLoginRequired={onCitizenLoginRequired} ownerOfficialId ownerKind archived={archived}`. Drop the old `pollAuthorId`/`citizen` props — the shared component infers the viewer internally and gates replies via comment authorship + `ownerOfficialId`. **Increment 3 — TODO (PostCard, bigger):** replace the inline `renderCommentRow` (~1406-1822) + render block + comment handlers (`loadComments`/edit/delete/report/react) with `<CommentsThread mode="post" postId signedIn onLoginRequired onMutated={onCommentCountChanged} ownerOfficialId={post.official_id} ownerKind />`; the shared component already covers edit + AI filter + feed-count sync on /posts. Do each increment as its OWN commit and **runtime-test on the dev server** (reply two-party gate, archived lock, feed-count pill) — these paths are not statically verifiable. Mount caveat: after a host-side edit, esbuild lags ~seconds-to-minutes (virtiofs cache, anthropics/claude-code#50873) — wait a beat before verifying, or restart the session for a fresh mount. |
 | 94 | Threat-detection v2 enhancements (post-v1) | pending | Deferred follow-ups from the threat-detection PRD (`docs/threat-detection-prd.md` §14): image/media moderation; multi-language support; repeat-offender escalation to auto-suspend; embeddings-based near-duplicate threat detection; user-facing "why was this flagged" explanations; and an optional synchronous block-on-submit path for the worst, highest-confidence cases. Revisit after the v1 flag→review pipeline (Task #41) is live and tuned. |
-| 25 | Fill out remaining 49 states' content | pending | Photos, key issues, state legislators, and local-rep data for the 49 states beyond the launch state. Same item as the "Filling out remaining 49 states' content" bullet in the In progress section above. |
+| 25 | Fill out remaining states' content | in progress | DONE: federal issue-data for all 535 members of Congress + exec + SCOTUS + leadership; state legislators + governors + statewide execs for all 50 states (Open States); FL state judiciary (CourtListener opinions) + FL federal/state election candidates. REMAINING: official photos for state legislators; state judiciary rosters for the other 49 states (CourtListener, 5 req/min free-tier limit — see #97); LOCAL officials (sheriffs/judges/DAs/school boards — paid, see #99). |
 | 26 | Merge duplicate SPF records + start DMARC monitoring | pending | Email deliverability on `civicview.app`. The domain currently has more than one SPF TXT record — RFC 7208 requires exactly one, and multiple records make SPF fail (PermError), so merge them into a single `v=spf1 … -all`. Then publish a DMARC record in monitoring mode (`p=none` with an `rua=mailto:` aggregate-report mailbox) to watch alignment before tightening to quarantine/reject. DKIM is already in place. Part of the "Email deliverability hardening" In-progress item. |
+| 95 | Vote Smart API — stated issue positions | blocked (budget) | Quoted 2026-06 at $4,850/yr for the Public-Facing Platform License (dev tiers $350/mo, $1k/3mo, $1.9k/6mo, non-public only). Draft reply sent declining for now. When funded: env-gated `votesmart_service.py` (abstract+prod+dev like idme/stripe), bioguide→candidateId crosswalk, map NPAT positions to a sourced stated-positions field. ToS HARD RULE: data may NOT be used in campaign activity → only on official/rep profiles, never candidate campaign surfaces. Coverage partial. |
+| 96 | OpenFEC federal candidates for other big states | pending | `fec_service.py` built + Florida done (US Senate + all 28 House races, live fundraising). Re-run the merge per state (TX, CA, NY, PA…). Caveat: OpenFEC reflects active FEC committees, not ballot qualification → includes some withdrawn/non-qualifying filers (verify vs state). Fundraising is a static snapshot (re-run to refresh) — optional: build a live refresh endpoint. |
+| 97 | State judiciary (CourtListener) for other states | pending | FL done (supreme-court opinions via `state_live.py`, `docket__court` filter). Populate `judiciary.supreme_court` rosters per state via the People API. Caveat: CourtListener free tier = 5 requests/MINUTE → bulk needs a Free Law Project membership. Trial/county judges + DAs remain a paid (Ballotpedia) gap. |
+| 98 | Full candidate depth (state/local + minor filers) | pending (paid) | Campaign-site curation done for FL Governor + AG CONTENDERS only. The long tail of minor filers, all state-leg/local candidate slates, and endorsements have no free source → Ballotpedia/BallotReady subscription, or per-race manual curation on request. State candidates also have no fundraising (FEC is federal-only; FL campaign finance is at the FL Division of Elections, not integrated). |
+| 99 | Local officials (sheriffs/judges/DAs/school boards) | pending (paid) | No comprehensive free source. Cicero or Ballotpedia (paid). The free Google Divisions OCD-ID bridge is already wired into `/api/address/lookup` (`ocdDivisions`) as the join key for whatever local source is chosen. |
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
