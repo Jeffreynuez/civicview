@@ -101,6 +101,13 @@ STATE_KEY_DATES = {
         "voter_registration_deadline_primary": "2026-05-18",
         "voter_registration_deadline_general": "2026-10-19",
     },
+    "NY": {
+        # New York runs a CLOSED June primary (only registered partisans vote).
+        "primary": "2026-06-23",
+        "general": "2026-11-03",
+        "voter_registration_deadline_primary": "2026-06-13",
+        "voter_registration_deadline_general": "2026-10-24",
+    },
 }
 # Per-state ballot-measure reality. TX puts statewide constitutional amendments
 # on ODD-year ballots (all 17 were decided Nov 2025), so there are none in 2026.
@@ -114,6 +121,57 @@ STATE_BALLOT_NOTE = {
            "official summaries) is not yet integrated — pending the California "
            "Secretary of State's official measures list. Local/municipal measures "
            "are also not yet integrated."),
+    "NY": ("New York's two statewide constitutional-amendment proposals for the "
+           "November 2026 general election are listed below. Local and New York City "
+           "ballot proposals are not yet integrated; confirm final ballot numbering "
+           "and official wording with the New York State Board of Elections."),
+}
+
+# Per-state CLOSED primary (only registered partisans vote the party primary).
+# Drives the BallotTab closed-primary disclosure banner. Open-primary / top-two
+# states (TX, CA) are omitted and default to open.
+CLOSED_PRIMARY_STATES = {"NY"}
+
+# Real, sourced statewide ballot measures keyed by state. Only verifiable
+# measures go here — never fabricated. States with none (e.g. TX 2026) rely on
+# STATE_BALLOT_NOTE instead. Schema mirrors fl/elections.json ballot_measures.
+STATE_BALLOT_MEASURES = {
+    "NY": [
+        {
+            "id": "ny-2026-prop-small-city-school-debt",
+            "number": "NY Statewide Proposal",
+            "title": "Small City School Districts Debt Limitation",
+            "summary": ("Amends Article VIII, Section 4 of the New York State "
+                        "Constitution to remove the special constitutional debt "
+                        "limit currently placed on small city school districts "
+                        "(cities under 125,000 people), so they are treated the "
+                        "same as all other school districts."),
+            "level": "state",
+            "type": "Constitutional Amendment (legislatively referred)",
+            "source": ("N.Y. Const. Art. VIII, §4; legislatively referred. "
+                       "Verify final ballot number and official wording with the "
+                       "New York State Board of Elections."),
+            "threshold": "Majority",
+            "appears_on": "general",
+        },
+        {
+            "id": "ny-2026-prop-sewage-facilities-debt",
+            "number": "NY Statewide Proposal",
+            "title": "Sewage Facilities Debt Exclusion (10-Year Extension)",
+            "summary": ("Amends Article VIII, Section 5 of the New York State "
+                        "Constitution to extend for ten years the authority of "
+                        "counties, cities, towns, and villages to exclude debt "
+                        "incurred to build sewage facilities from their "
+                        "constitutional debt limits."),
+            "level": "state",
+            "type": "Constitutional Amendment (legislatively referred)",
+            "source": ("N.Y. Const. Art. VIII, §5; legislatively referred. "
+                       "Verify final ballot number and official wording with the "
+                       "New York State Board of Elections."),
+            "threshold": "Majority",
+            "appears_on": "general",
+        },
+    ],
 }
 
 
@@ -487,10 +545,10 @@ async def build_state(state_abbr: str, cycle: int):
             "OpenFEC + Open States state_officials.json. Replace/augment with the "
             f"{sos} certified ballot + Ballotpedia when funded."),
         "state": state_abbr, "state_name": state_name, "cycle": cycle,
-        "closed_primary": False,  # open-primary state unless overridden
+        "closed_primary": state_abbr in CLOSED_PRIMARY_STATES,
         "key_dates": key_dates,
         "races": races,
-        "ballot_measures": {"state": [], "counties": {}},
+        "ballot_measures": {"state": STATE_BALLOT_MEASURES.get(state_abbr, []), "counties": {}},
         "_measures_note": measures_note,
         "_personalization_hints": {
             "match_keys": {
