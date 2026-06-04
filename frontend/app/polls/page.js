@@ -42,6 +42,7 @@ import {
   fetchPollsFeed,
   fetchPostsFeed,
   createStandalonePoll,
+  fetchMyCitizenPolls,
   aiHealth,
   filterPolls,
 } from '@/lib/pagesApi';
@@ -222,6 +223,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     ? BRANCH_FILTERS.filter((f) => f.id !== 'standalone')
     : BRANCH_FILTERS;
   const [composerOpen, setComposerOpen] = useState(false);
+  const [standaloneNotice, setStandaloneNotice] = useState(null);
   // Edge-arrow scroll affordance for the branch-chip row (it scrolls
   // horizontally on mobile; wraps on desktop so arrows stay hidden there).
   const kindChipsRef = useRef(null);
@@ -474,12 +476,24 @@ export function GrassrootsFeed({ tab = 'polls' }) {
 
   // Navbar handlers. Citizen modals live on this page so /polls
   // works as a standalone destination, not just a deep-link from home.
-  const handleStartPoll = () => {
+  const handleStartPoll = async () => {
     // Start a poll is citizen-only — rep + candidate users get pushed
     // through citizen login if they want a standalone poll on this
     // feed (or they can use their own page's composer).
-    if (citizenSignedIn) setComposerOpen(true);
-    else setCitizenLoginOpen(true);
+    if (!citizenSignedIn) { setCitizenLoginOpen(true); return; }
+    // Pre-check the one-active-standalone-poll cap BEFORE opening the
+    // composer, so a citizen doesn't write a whole poll only to be
+    // rejected on submit. A standalone poll has an empty target_official_id.
+    try {
+      const { data } = await fetchMyCitizenPolls({ status: 'active' });
+      const hasStandalone = (data?.active || []).some((p) => !p.target_official_id);
+      if (hasStandalone) {
+        setStandaloneNotice('You already have an active standalone poll. Close it before starting another.');
+        return;
+      }
+    } catch { /* on lookup failure, fall through; the submit guard still protects */ }
+    setStandaloneNotice(null);
+    setComposerOpen(true);
   };
   const handleHome = () => router.push('/');
   const handleMemberPick = (m) => {
@@ -778,6 +792,22 @@ export function GrassrootsFeed({ tab = 'polls' }) {
           onCancel={() => setComposerOpen(false)}
           onCreated={onCreated}
         />
+      )}
+
+      {standaloneNotice && (
+        <div
+          role="alert"
+          style={{ position: 'fixed', top: 16, left: '50%', transform: 'translateX(-50%)',
+                   zIndex: 300, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b',
+                   padding: '10px 14px', borderRadius: 10, boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                   maxWidth: 440, fontSize: '0.85rem', display: 'flex', gap: 10, alignItems: 'center' }}
+        >
+          <span>{standaloneNotice}</span>
+          <button type="button" onClick={() => setStandaloneNotice(null)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#991b1b', fontWeight: 700, fontSize: '1rem' }}>
+            ×
+          </button>
+        </div>
       )}
 
       <CitizenLoginModal
