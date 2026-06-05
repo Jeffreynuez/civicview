@@ -1,25 +1,21 @@
 /* CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
 /* PollResultsModal — co-located styles (component-CSS topology rule). */
 
+/* Inline "expand-in-place" panel — opens where the poll card is and scrolls
+   with the page (the project's inline-panel convention), not a fixed overlay. */
 .prm-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 4vh 16px;
-  z-index: 1000;
-  overflow-y: auto;
+  display: block;
+  margin-top: 10px;
 }
 
 .prm-modal {
   background: #fff;
   width: 100%;
-  max-width: 640px;
+  max-width: 100%;
+  border: 1px solid var(--cl-border, #e2e8f0);
   border-radius: 14px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  padding: 18px 20px 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 16px 18px;
 }
 
 .prm-header {
