@@ -251,8 +251,8 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
   );
 
   return (
-    <div className="prm-overlay" role="dialog" aria-modal="true" onClick={onClose}>
-      <div className="prm-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="prm-overlay" role="region" aria-label="Explore results">
+      <div className="prm-modal">
         <header className="prm-header">
           <div>
             <div className="prm-eyebrow">Explore results</div>
