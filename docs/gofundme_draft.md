@@ -1,9 +1,9 @@
 # CivicView — GoFundMe campaign draft
 
-**Status:** v1 draft — review and edit before publishing.
+**Status:** v2 draft — review and edit before publishing.
 **Funding goal:** $25,000
 **Story angle:** Civic infrastructure (non-partisan, builder voice)
-**Generated:** May 21, 2026
+**Generated:** May 21, 2026 · **Revised:** June 5, 2026 (multi-state data, demographic polling, corrected cost stack)
 **Companion docs:**
 - `docs/civicview_financial_model.xlsx` — full 5-year P&L behind the $25K ask
 - `frontend/components/HelpBuildThisView.js` — the public "Help build this" page that the GoFundMe links to for the line-item breakdown
@@ -18,7 +18,7 @@
 | **Tagline (subhead)** | Verified citizens, verified reps, transparent civic data — built in public, owned by nobody |
 | **Category** | Community & Neighborhood (or "Volunteer & Service" — both work; see launch checklist) |
 | **Goal** | $25,000 |
-| **Beneficiary** | CivicView Inc. (Florida Benefit Corporation — Amendment pending; initial filing tracking #800474911808) |
+| **Beneficiary** | CivicView, Inc. (Florida profit corporation, document #P26000027545, status ACTIVE; Benefit Corporation Articles of Amendment prepared and ready to file) |
 | **Location** | Florida, USA |
 | **Cover image** | TBD — recommend a clean screenshot of the interactive U.S. map with the rep-page sidebar open (most distinctive surface). Mobile crop matters; verify on the GoFundMe preview. |
 | **Cover video** | Optional. If included: 60-90 seconds, founder voiceover over screen recording. Script below. |
@@ -41,7 +41,7 @@
 >
 > **And the polling we rely on to understand each other doesn't hold up to scrutiny.** A headline says "90% of voters agree on X" — and never mentions, in the same breath, that the sample was 300 self-selected respondents, or that the question was leading, or that the demographic mix was nothing like the country it claims to represent. Trust in polling has collapsed, and for good reason: methodology is hidden, sample sizes are small, and topline numbers get repeated as fact by influencers and news shows that never read past the chart. That's how citizens end up walking into a voting booth confident in a "consensus" that was never real.
 >
-> CivicView attacks all three. Every elected official's record — their votes, their sponsored bills, their public statements, their committee assignments — is in one place, free and searchable. The engagement layer is gated to verified citizens at real addresses in real districts, so when a rep sees "62% of your district opposes this vote," that number is built from verified constituents, not bots and not a 300-person panel. And every poll on the platform shows its sample size, its scope, and its participant verification status up front. Methodology *is* the headline.
+> CivicView attacks all three. Every elected official's record — their votes, their sponsored bills, their public statements, their committee assignments — is in one place, free and searchable. The engagement layer is gated to verified citizens at real addresses in real districts, so when a rep sees "62% of your district opposes this vote," that number is built from verified constituents, not bots and not a 300-person panel. And every poll on the platform shows its sample size, its scope, and its participant verification status up front. Poll creators can attach optional demographic questions and anyone can break the numbers down by group — but only in aggregate, with small groups automatically hidden, so a breakdown can never finger an individual. Methodology *is* the headline.
 >
 > ### What's already built
 >
@@ -50,7 +50,9 @@
 > - **All 50 states + 435 congressional districts** on an interactive U.S. map you can drill into
 > - **Every member of Congress** with profile photos, voting records, sponsored bills, and committee assignments
 > - **The President, Vice President, Cabinet, Supreme Court** — full executive + judicial branch coverage
-> - **Florida full coverage** — state senate + house + statewide execs + 2026 candidates + election dates (other 49 states ramping)
+> - **All 50 states' legislators, governors, and statewide executives** — every sitting state legislator in the country, not just Congress
+> - **Candidates + elections in five states** — Florida, Texas, California, New York, and Pennsylvania carry federal candidate rosters with **live FEC fundraising totals**, state-legislative incumbents, 2026 election calendars, and (where applicable) statewide ballot measures
+> - **Demographic-aware polling** — a poll's creator can attach an optional, standardized demographic form (age, party, parental status, education, and more); anyone can then break the results down by group, shown **only in aggregate with small groups automatically hidden** so a cut can never identify an individual. Sample size, scope, and verification status are visible up front
 > - **Address-to-rep lookup** — paste your street address, get the people who represent you at every level
 > - **AI integration powered by Anthropic Claude** — plain-English translation for every federal bill (alongside the official Congressional Research Service summary), a "What was this vote?" explainer on every roll-call, a generated abstract on every executive order, semantic poll filter chips, and sentiment + tone classification on user comments. All cached per-bill / per-vote / per-EO so cost stays predictable as traffic grows.
 > - **Three-identity engagement system** — citizens, verified representatives, and declared candidates can all hold accounts with appropriate features for each role
@@ -65,18 +67,21 @@
 >
 > ### What the $25,000 covers
 >
-> CivicView's operating model is deliberately lean. There are no salaries in this budget. No marketing agencies. No investor carve-outs. The $25,000 raises exactly what it takes to keep the lights on through Year 2 of operations and unlock the verification + data feeds that turn the demo into a real public utility:
+> CivicView's operating model is deliberately lean. There are no salaries in this budget. No marketing agencies. No investor carve-outs. And because the core data feeds are free, your money doesn't go to API rent — it goes to identity verification, legal groundwork, and the durability to run national-scale civic data through Year 2:
 >
-> - **$2,400** — ID.me identity verification setup (so "Verified citizen" badges become provably real, not self-attested)
-> - **$1,050** — Federal trademark registration for CivicView across software, SaaS, and online-community classes
-> - **$6** — DMCA agent registration (required for user-generated content liability protection)
-> - **~$6,000/year** — ProPublica Congress API Pro tier (real-time bill text, sponsor lists, roll-call votes across all 535 members)
-> - **~$1,200/year** — OpenStates API Pro tier (state legislature data for all 50 states; right now Florida is the only state with deep coverage)
+> - **$2,400** — ID.me identity verification setup (so "Verified citizen" badges become provably real, not self-attested; +$1.50 per verified user thereafter)
+> - **$1,050** — Federal trademark registration for CivicView across software, SaaS, and online-community classes (3 classes × $350)
+> - **$6** — DMCA agent registration (required for user-generated-content liability protection)
+> - **~$2,700** — Benefit Corp formation + attorney review of Terms of Service + Privacy Policy + modest civic-tech launch outreach
 > - **$2,400–$6,000/year** — Google Civic Information API at scale (polling-place lookup, sample-ballot data, contact info that stays current automatically)
-> - **~$300/year** — Render hosting + Postgres on the Pro tier (no cold-start delay, warm database — currently funded out of pocket; the campaign moves this onto the project so it doesn't depend on the founder absorbing it)
+> - **~$300/year** — Render Pro hosting + Postgres (no cold-start delay, warm database — currently funded out of pocket; the campaign moves it onto the project)
+> - **~$101/year** — Google Workspace (the civicview.app address the platform sends mail from)
 > - **$15/year** — Domain renewal for civicview.app
-> - **$2,700** — Benefit Corp formation costs, attorney review of Terms of Service + Privacy Policy, modest civic-tech launch outreach
-> - **$7,000** — Year-2 operating buffer so we don't have to run an emergency campaign while the subscription revenue is still ramping toward break-even
+> - **~$16,000** — Year-2 operating buffer so we never have to run an emergency campaign while subscription revenue ramps toward break-even
+>
+> **The legislative data itself is free.** Federal records come from the official Congress.gov API, all 50 states' legislators from Open States' free tier, candidate fundraising from the FEC's OpenFEC API, and state court data from CourtListener. We engineered around the paywalls, so your contribution buys verification and durability — not data-broker subscriptions.
+>
+> *(One optional line is deliberately NOT in this $25K: a Vote Smart Public-Facing License at $4,850/year would add candidates' self-reported issue positions. We already ship neutral, sourced issue summaries derived from legislative records, so it's additive, not required — we'll revisit it only if subscription revenue supports it.)*
 >
 > Every line item above has a published source — you can audit the math at **civicview.app/help-build**.
 >
@@ -87,10 +92,10 @@
 > | When the campaign reaches… | What unlocks |
 > | --- | --- |
 > | **$2,400** | ID.me Relying Party application filed — real verified-citizen badges become possible |
-> | **$3,450** | Federal trademark filing + DMCA agent registered (every one-time legal item done) |
-> | **$6,450** | Attorney review of Terms of Service + Privacy Policy commissioned |
-> | **~$15,400** | Full Year-1 of recurring infrastructure (all data APIs + hosting + domain) funded |
-> | **$25,000** | Year-2 six-month operating buffer secured — no emergency Year-3 campaign needed |
+> | **$3,456** | Federal trademark filing + DMCA agent registered (every one-time IP/legal item done) |
+> | **$6,456** | Attorney review of Terms of Service + Privacy Policy commissioned |
+> | **~$9,300** | Full Year-1 of recurring infrastructure (Google Civic at scale + hosting + email + domain) funded |
+> | **$25,000** | Year-2 operating buffer secured — no emergency Year-3 campaign needed |
 >
 > Each milestone gets a public announcement on the campaign page as it's crossed. Donors love seeing exactly where their money went; we'd rather show it than hint at it.
 >
@@ -102,7 +107,7 @@
 > - **No marketing agencies, growth hackers, or paid acquisition.** Outreach happens through honest channels — the share copy below, the GitHub repo, civic-tech community word-of-mouth. If $25K is going to get used on Facebook ads, we don't deserve $25K.
 > - **No equity carve-outs, investor relations, or board observer seats.** Crowdfunding isn't a priced round. Backers get founding-supporter recognition and subscription credits — not stock.
 > - **No contracted developers.** Engineering is one person. Adding more hands later happens out of subscription revenue, not crowdfunding proceeds.
-> - **No executive comp, no offsites, no SaaS sprawl.** The five paid SaaS lines above (Render, ProPublica, OpenStates, Google Civic, Vercel) are it. No company credit card funding miscellaneous "we'll figure it out" expenses.
+> - **No executive comp, no offsites, no SaaS sprawl.** The paid lines are Render (hosting), Google Civic (at scale), and Google Workspace (email) — the frontend runs on Vercel's free tier. That's it. No company credit card funding miscellaneous "we'll figure it out" expenses.
 >
 > ### Why this isn't ads-supported or venture-backed
 >
@@ -196,7 +201,7 @@ A: GoFundMe has buyer-protection mechanisms; supporters can request a refund of 
 A: Yes — the full backend + frontend source is on GitHub (jeffreynuez/civicview). Reading the code is the highest form of due-diligence.
 
 **Q: Why $5/month for the eventual subscription? Why not free or ad-supported?**
-A: Ads corrupt the editorial neutrality (advertisers gain leverage over what gets shown to whom). Free-forever doesn't sustainably cover ID.me verification ($1.50/user), Render hosting at scale, or the data-API costs above. $5/month is the floor that lets the project pay its own way without ads or VC compromise.
+A: Ads corrupt the editorial neutrality (advertisers gain leverage over what gets shown to whom). Free-forever doesn't sustainably cover ID.me verification ($1.50/user), Render hosting at scale, Google Civic at scale, or email + domain. $5/month is the floor that lets the project pay its own way without ads or VC compromise.
 
 **Q: Do you accept anonymous donations?**
 A: Yes. GoFundMe lets you donate anonymously at any tier; the perks still apply (you'll get a perk-claim email once accounts open).
@@ -233,8 +238,8 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
       test card `4242 4242 4242 4242` before any real money moves.
 
 **Phase 2 — Corporate + banking (1–2 weeks):**
-- [ ] Wait for Sunbiz to process the initial Profit Corp filing
-      (tracking #800474911808). Standard processing is ~5–7 business days.
+- [x] Initial Profit Corp filing processed — Sunbiz document
+      #P26000027545, status ACTIVE (CivicView, Inc.).
 - [ ] File the Benefit Corporation Amendment (Task #90) with Sunbiz once
       the initial filing is on the books. Articles language is in
       `docs/civicview_benefit_corp_filing.pdf`.
@@ -279,9 +284,10 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
       (~$1.5K–$3K per the LEGAL-REVIEW-ROADMAP.md). Required before
       verified accounts can hold any subscription funds, before the ID.me
       Relying Party contract goes live, and before launching outreach.
-- [ ] **Then ProPublica + OpenStates Pro API subscriptions** ($600/mo
-      combined). These are the data feeds that keep the rep pages fresh
-      automatically instead of relying on the curated snapshot.
+- [ ] **Then provision at-scale paid tiers only as traffic warrants** —
+      primarily Google Civic Information API at scale. The legislative
+      feeds (Congress.gov, Open States free tier, OpenFEC) are already
+      live and free, so no API subscription gates the rep pages.
 - [ ] **Remainder into the Year-2 operating buffer.** Sits in the
       business account; no spending pressure.
 
@@ -318,9 +324,9 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 **LinkedIn (longer-form post):**
 > Civic infrastructure is broken. Most Americans can't name their state senator, can't tell you how their U.S. rep voted on the last major bill, and can't find their polling place without a Google rabbit hole. That's not apathy — it's a data problem. The information exists; it's just scattered, paywalled, and partisan.
 >
-> Over the last six months I've been building CivicView (civicview.app) — a non-partisan platform that puts all 535 members of Congress, the President + Cabinet + SCOTUS, every Florida state legislator, and 435 congressional districts in one place. Voting records, sponsored bills, public statements, AI-translated plain-English summaries. You can browse it right now.
+> Over the last six months I've been building CivicView (civicview.app) — a non-partisan platform that puts all 535 members of Congress, the President + Cabinet + SCOTUS, every state legislator in all 50 states, and 435 congressional districts in one place — plus candidates and live FEC fundraising in five states so far. Voting records, sponsored bills, public statements, AI-translated plain-English summaries, and demographic-aware polling. You can browse it right now.
 >
-> What it doesn't have yet is the verified-citizen layer and the live data feeds that turn the demo into a public utility. That's what the crowdfunding is for: $25K covers Year 2 infrastructure (ID.me verification, ProPublica/OpenStates/Google Civic APIs, hosting, security, legal). No salaries. No marketing. Every line item is sourced and audited at civicview.app/help-build.
+> What it doesn't have yet is the verified-citizen layer that turns the demo into a public utility. That's what the crowdfunding is for: $25K covers Year 2 (ID.me verification, Google Civic at scale, hosting, email, security, legal). The legislative data itself is free — Congress.gov, Open States, OpenFEC — so your money buys verification and durability, not API rent. No salaries. No marketing. Every line item is sourced and audited at civicview.app/help-build.
 >
 > Filed as a Florida Benefit Corporation — legally obligated to weigh the public benefit alongside any shareholder interest. No ads, no VC, no partisan agenda. Just the public record + tools to hold reps accountable.
 >
@@ -331,9 +337,9 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > Hey folks — for the last 6 months I've been building civicview.app, a non-partisan way to see what your elected officials actually do (votes, bills, statements) and to weigh in as a verified constituent.
 >
-> The Phase 1 product is live and free: all 50 states map, all 535 members of Congress with photos + votes + sponsored bills, the entire executive + judicial branch, address-to-rep lookup, AI-translated bill summaries.
+> The Phase 1 product is live and free: all 50 states map, all 535 members of Congress with photos + votes + sponsored bills, the entire executive + judicial branch, every state legislator in all 50 states, candidates + live FEC fundraising in five states, address-to-rep lookup, AI-translated bill summaries, and demographic-aware polling.
 >
-> What's gated on funding: ID.me identity verification, the paid tier of ProPublica's Congress API, OpenStates Pro for all 50 state legislatures, and the Year-2 hosting buffer. Total ask is $25K with every line item sourced — breakdown at civicview.app/help-build.
+> What's gated on funding: ID.me identity verification, Google Civic at scale, the legal review, and the Year-2 operating buffer — the legislative data feeds (Congress.gov, Open States, OpenFEC) are free. Total ask is $25K with every line item sourced — breakdown at civicview.app/help-build.
 >
 > Built as a Florida Benefit Corp (no ads, no VC), source on GitHub at jeffreynuez/civicview. Happy to answer technical or product questions in the thread.
 >
@@ -344,9 +350,9 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > Hi —
 >
-> You joined the CivicView waitlist some time ago, so this update is overdue: the product is live and free to browse at civicview.app. All 535 members of Congress, the executive + judicial branch, address-to-rep lookup, AI-translated bill summaries, plus full Florida coverage.
+> You joined the CivicView waitlist some time ago, so this update is overdue: the product is live and free to browse at civicview.app. All 535 members of Congress, the executive + judicial branch, every state legislator in all 50 states, candidates in five states, address-to-rep lookup, AI-translated bill summaries, and demographic-aware polling.
 >
-> What hasn't shipped yet is the verified-account system that lets you create polls + comment on rep pages as a confirmed constituent. That's blocked on ID.me verification ($2,400 setup + $1.50/user) plus the live data feeds (ProPublica Congress API + OpenStates Pro) that keep the rep data fresh.
+> What hasn't shipped yet is the verified-account system that lets you create polls + comment on rep pages as a confirmed constituent. That's blocked on ID.me verification ($2,400 setup + $1.50/user) plus the legal review and a Year-2 operating buffer — the data feeds themselves are free.
 >
 > We're crowdfunding it. $25K covers Year 2 of operations entirely — no salaries, no marketing, no VC, no ads. Every line item is sourced at civicview.app/help-build.
 >
@@ -377,7 +383,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > [Screen: bill detail page, with the Haiku-translated plain-English summary unfurling.]
 >
-> CivicView puts it in one place. Every member of Congress, every state legislator in Florida, every executive order, every Supreme Court justice — with AI-translated plain-English summaries on top.
+> CivicView puts it in one place. Every member of Congress, every state legislator in all 50 states, every executive order, every Supreme Court justice — with AI-translated plain-English summaries on top.
 >
 > [Screen: poll page, citizen authoring a poll with "Unverified" badge visible.]
 >
