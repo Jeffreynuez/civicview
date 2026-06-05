@@ -1,37 +1,47 @@
-# CivicView — GoFundMe campaign draft
+# CivicView — Indiegogo campaign draft
 
-**Status:** v2 draft — review and edit before publishing.
+**Status:** v1 draft (ported from the GoFundMe draft) — review and edit before publishing.
+**Platform:** Indiegogo
+**Funding type:** Flexible (keep-what-you-raise) — recommended; see §1.
 **Funding goal:** $25,000
+**Campaign length:** 35 days (recommended; Indiegogo allows up to 60)
 **Story angle:** Civic infrastructure (non-partisan, builder voice)
-**Generated:** May 21, 2026 · **Revised:** June 5, 2026 (multi-state data, demographic polling, corrected cost stack)
+**Generated:** May 21, 2026 · **Ported to Indiegogo:** June 5, 2026
 **Companion docs:**
+- `docs/gofundme_draft.md` — the original GoFundMe-formatted draft (kept for reference)
 - `docs/civicview_financial_model.xlsx` — full 5-year P&L behind the $25K ask
-- `frontend/components/HelpBuildThisView.js` — the public "Help build this" page that the GoFundMe links to for the line-item breakdown
+- `frontend/components/HelpBuildThisView.js` — the public "Help build this" page the campaign links to for the line-item breakdown
+
+> **Why Indiegogo over GoFundMe:** GoFundMe pages cap out at a short summary plus a few images, which fights a project whose whole pitch is "every number is sourced and auditable." Indiegogo gives a long, multi-section story with embedded images, reward/perk tiers, and a FAQ. We use **Flexible funding** so we keep every dollar raised even if we don't hit $25K (no all-or-nothing risk), and **InDemand** lets the campaign keep accepting contributions after the initial window closes — which maps cleanly onto the milestone ladder in §2.
 
 ---
 
-## 1. Campaign metadata
+## 1. Campaign setup (the Indiegogo "Basics" + "Funding" steps)
 
-| Field | Value |
+| Field | Value / recommendation |
 | --- | --- |
-| **Title** | CivicView: a non-partisan window into U.S. government |
-| **Tagline (subhead)** | Verified citizens, verified reps, transparent civic data — built in public, owned by nobody |
-| **Category** | Community & Neighborhood (or "Volunteer & Service" — both work; see launch checklist) |
+| **Campaign title** | `CivicView: see what your government actually does` (49 chars — under Indiegogo's 60-char limit) |
+| **Tagline / card text** | Every vote, bill, and rep in one place — plus a verified way to talk back |
+| **Category** | **Community Projects** (recommended). Alternative: **Tech & Innovation → Software**, which reaches the tech-backer crowd but invites stricter "where's the shipped product?" scrutiny — less of an issue for us since the product already ships, but Community framing fits the mission and has lighter perk-fulfillment expectations. |
+| **Funding type** | **Flexible** — keep every dollar regardless of whether we reach goal. (Fixed funding refunds everyone if you miss the goal; we don't want that risk.) |
 | **Goal** | $25,000 |
-| **Beneficiary** | CivicView, Inc. (Florida profit corporation, document #P26000027545, status ACTIVE; Benefit Corporation Articles of Amendment prepared and ready to file) |
+| **Duration** | 35 days. Indiegogo's data favors 30–40-day campaigns; longer runs lose urgency. |
+| **Beneficiary / payee** | CivicView, Inc. (Florida profit corporation, document #P26000027545, status ACTIVE; Benefit Corporation Articles of Amendment prepared and ready to file). Link the **business** bank account, not personal. |
 | **Location** | Florida, USA |
-| **Cover image** | TBD — recommend a clean screenshot of the interactive U.S. map with the rep-page sidebar open (most distinctive surface). Mobile crop matters; verify on the GoFundMe preview. |
-| **Cover video** | Optional. If included: 60-90 seconds, founder voiceover over screen recording. Script below. |
+| **Pitch media** | Image or 60–90s video. Recommended hero image is `Go Fund Me images/4_hero_cover.png` (the U.S.-map + wordmark panel) — Indiegogo's main slot displays ~16:9, which the hero already is. A founder voiceover video (script in §7) historically lifts conversion 1.5–2× and is worth recording. |
+| **Indiegogo fees** | 5% platform fee + payment processing (~3% + $0.30 per contribution). Budget ~8% off the top vs. GoFundMe's tip-based model. The $25K goal is what backers see; fees come out of disbursement. |
 
 ---
 
-## 2. Story body (paste into GoFundMe → "Tell your story")
+## 2. Story body (paste into Indiegogo → "Story")
 
 > ### What CivicView is
 >
 > CivicView is a non-partisan civic-engagement platform that surfaces what your elected officials publicly say and do — voting records, sponsored bills, executive orders, public statements — and lets verified constituents respond in their own districts.
 >
 > It's a window into government. Not a campaign tool. Not a news site. Not a partisan outlet. Just the actual public record, plus the structured ability for the people those officials represent to weigh in.
+>
+> *[Embed image: `4_hero_cover.png`]*
 >
 > ### The problem we're solving
 >
@@ -59,6 +69,8 @@
 > - **Polls, comments, and "Verified citizen" labels** that let reps filter for their actual constituents instead of drowning in out-of-district noise
 > - **Modern security foundation** — Cloudflare WAF + DDoS protection, automated dependency scanning, static analysis, daily Postgres backups, two-factor authentication for sensitive accounts, documented incident-response runbook
 >
+> *[Embed image: `3_whats_shipped.png`]*
+>
 > You can use it right now at **civicview.app**. There's no waitlist for browsing; you can start exploring your district immediately.
 >
 > ### Where CivicView fits among the civic tools that already exist
@@ -68,6 +80,8 @@
 > ### What the $25,000 covers
 >
 > CivicView's operating model is deliberately lean. There are no salaries in this budget. No marketing agencies. No investor carve-outs. And because the core data feeds are free, your money doesn't go to API rent — it goes to identity verification, legal groundwork, and the durability to run national-scale civic data through Year 2:
+>
+> *[Embed image: `1_where_your_money_goes.png`]*
 >
 > - **$2,400** — ID.me identity verification setup (so "Verified citizen" badges become provably real, not self-attested; +$1.50 per verified user thereafter)
 > - **$1,050** — Federal trademark registration for CivicView across software, SaaS, and online-community classes (3 classes × $350)
@@ -87,7 +101,9 @@
 >
 > ### What unlocks at what dollar amount
 >
-> Backers can see exactly where their contribution lands as the bar fills. The ladder runs:
+> Because we're on **Flexible funding**, we keep every dollar — so these aren't all-or-nothing thresholds, they're the order in which your contributions get put to work. Backers can watch exactly where the money lands as the bar fills:
+>
+> *[Embed image: `2_funding_milestones.png`]*
 >
 > | When the campaign reaches… | What unlocks |
 > | --- | --- |
@@ -97,7 +113,7 @@
 > | **~$9,300** | Full Year-1 of recurring infrastructure (Google Civic at scale + hosting + email + domain) funded |
 > | **$25,000** | Year-2 operating buffer secured — no emergency Year-3 campaign needed |
 >
-> Each milestone gets a public announcement on the campaign page as it's crossed. Donors love seeing exactly where their money went; we'd rather show it than hint at it.
+> Each milestone gets a public update on the campaign page as it's crossed. Donors love seeing exactly where their money went; we'd rather show it than hint at it. And if we pass $25K, **InDemand** keeps the campaign open so the buffer keeps growing.
 >
 > ### Where the money is *not* going
 >
@@ -129,11 +145,11 @@
 >
 > ### What you're getting
 >
-> See the "Perks" section below — supporters at every tier get founding-supporter recognition + free-or-discounted subscriptions once verified accounts open.
+> See the **Perks** column on this campaign — supporters at every tier get founding-supporter recognition + free-or-discounted subscriptions once verified accounts open.
 >
 > Even if a perk isn't useful to you, every dollar above goal makes the platform more durable, not more expensive — more cushion against unexpected expenses, more headroom to add roadmap features as their costs come in, and less time spent fundraising instead of shipping.
 >
-> Beyond donating, the two things that genuinely help the project survive are these. **First, subscribe** at $5 a month once verified accounts go live. The financial model says the project breaks even at a 3% subscription rate among regular visitors; anything above 3% funds expansion to the rest of the country and the roadmap features further down. **Second, share the campaign and the platform** with anyone who cares about civic infrastructure. The more citizens and reps who join, the more useful the project becomes for everyone already on it. If you can't donate, those two still move the needle.
+> Beyond contributing, the two things that genuinely help the project survive are these. **First, subscribe** at $5 a month once verified accounts go live. The financial model says the project breaks even at a 3% subscription rate among regular visitors; anything above 3% funds expansion to the rest of the country and the roadmap features further down. **Second, share the campaign and the platform** with anyone who cares about civic infrastructure. The more citizens and reps who join, the more useful the project becomes for everyone already on it. If you can't contribute, those two still move the needle.
 >
 > ### About the builder
 >
@@ -157,21 +173,25 @@
 
 ---
 
-## 3. Donor tiers (paste into GoFundMe → "Add a thank-you gift" / Perks)
+## 3. Perks (Indiegogo → "Perks" step)
 
-| Donation | Perk | Approx. donor net cost vs. retail | Cap on number redeemed |
-| --- | --- | --- | --- |
-| **$5** | 2 months of CivicView subscription free, once verified accounts open. "Founding Citizen" badge on your profile. | Retail value $10. | Uncapped. |
-| **$50** | 1 year of CivicView subscription free. "Founding Citizen" badge + "1-year founder" credit on the /about page. | Retail value $60. | Uncapped. |
-| **$200** | 5 years of CivicView subscription free. "Founding Citizen" badge + name listed in the /about credits + early access to verified-citizen onboarding (before public launch). | Retail value $300. | First 100 redemptions. |
-| **$500** | Lifetime CivicView subscription. "Founding Citizen — Lifetime" badge + name listed in the /about credits + early access + a handwritten thank-you letter from the founder. | Retail value $1,200+ at average tenure. | First 50 redemptions. |
+Indiegogo perks are digital-only here (subscription credits + profile recognition), so set **"This perk does not require shipping."** Each needs an **estimated delivery date** — use **December 2026** (the verified-account + Stripe billing target) for every subscription perk.
 
-> **Important small print to include verbatim on each tier description:**
-> *"Subscription perks are honored once the CivicView verified-account system + Stripe billing go live (target: Q3-Q4 2026). Until then, every supporter gets full access to the demo / preview environment with no subscription required. Subscription credits are tied to your verified account once you create one. If you delete your account, unused subscription time does not refund. If CivicView shuts down before subscription billing launches, supporters at any tier are eligible for a refund of unredeemed pledges via the GoFundMe payout protections."*
+| Amount | Perk title | What's included | Est. delivery | Limit |
+| --- | --- | --- | --- | --- |
+| **$5** | Founding Citizen | 2 months of CivicView subscription free once verified accounts open. "Founding Citizen" badge on your profile. *(Retail value $10.)* | Dec 2026 | Unlimited |
+| **$50** | Founding Citizen — Year One | 1 year of CivicView subscription free. "Founding Citizen" badge + "1-year founder" credit on the /about page. *(Retail value $60.)* | Dec 2026 | Unlimited |
+| **$200** | Founding Citizen — Charter | 5 years of CivicView subscription free. "Founding Citizen" badge + name in the /about credits + early access to verified-citizen onboarding (before public launch). *(Retail value $300.)* | Dec 2026 | First 100 |
+| **$500** | Founding Citizen — Lifetime | Lifetime CivicView subscription. "Founding Citizen — Lifetime" badge + name in the /about credits + early access + a handwritten thank-you letter from the founder. *(Retail value $1,200+ at average tenure.)* | Dec 2026 (letter: within 60 days of campaign close) | First 50 |
+
+> **Small print to include verbatim in each perk description:**
+> *"Subscription perks are honored once the CivicView verified-account system + Stripe billing go live (target: Q4 2026). Until then, every supporter gets full access to the demo / preview environment with no subscription required. Subscription credits are tied to your verified account once you create one. If you delete your account, unused subscription time does not refund. CivicView, not Indiegogo, is responsible for fulfilling these perks."*
+
+> **Note on the $500 tier's handwritten letter:** it's the only perk that physically ships. You can still mark the perk "no shipping" and collect the mailing address separately via Indiegogo's post-campaign survey, so backers aren't charged shipping.
 
 ---
 
-## 4. FAQ (paste below the story body, before the perks)
+## 4. FAQ (Indiegogo → add as the final section of the Story, or as individual FAQ entries)
 
 **Q: Where exactly does the money go?**
 A: Every dollar goes into operating CivicView. No salaries, no profit distribution, no marketing agencies. The detailed line-item breakdown — with sources — is at civicview.app/help-build and in the 5-year financial model (docs/civicview_financial_model.xlsx in the public repo).
@@ -185,17 +205,17 @@ A: The neutrality is enforced structurally rather than editorially. We don't wri
 **Q: What's a Benefit Corporation, and why does it matter here?**
 A: A Benefit Corporation is a for-profit company with a legal obligation, written into its Articles of Incorporation, to consider the public-benefit purpose alongside shareholder interests. For CivicView, that public benefit is informed civic engagement and access to government information. The structure means a future buyer can't gut the mission without changing the corporate charter — a much higher bar than ordinary corporate governance.
 
-**Q: What happens if you don't hit the goal?**
-A: GoFundMe is "keep what you raise" — we get every dollar contributed regardless of whether we hit $25K. If we fall short, we prioritize keeping the existing platform running (hosting + domain + security) and defer the discretionary line items (trademark, premium APIs) until subscription revenue catches up.
+**Q: This is Flexible funding — what happens if you don't hit the $25K goal?**
+A: With Indiegogo Flexible funding, we keep every dollar contributed regardless of whether we reach $25K (Indiegogo's 5% platform fee + payment processing still apply). If we fall short, we prioritize keeping the existing platform running (hosting + domain + security) and defer the discretionary line items (trademark, premium APIs) until subscription revenue catches up. Nothing about the contribution is contingent on hitting the goal.
 
 **Q: What if you overfund?**
-A: There aren't named stretch goals on this campaign, because I'd rather not promise specific dollar amounts that aren't tied to real costs. What overfunding *does* is make launch and ongoing operation more durable: a bigger cushion against unexpected expenses, more headroom to ship the roadmap features as their real costs come in, and less time spent fundraising instead of building. If you want to make sure CivicView launches successfully, donate more. If you want to make sure it stays alive past launch, **subscribe** at $5/month once verified accounts open — the project breaks even at a 3% subscription rate among regular visitors, and anything above 3% funds expansion and the roadmap. And whether or not you donate, **share the campaign and the platform**. The more citizens and reps who join, the more useful CivicView becomes for everyone already on it.
+A: There aren't named stretch goals on this campaign, because I'd rather not promise specific dollar amounts that aren't tied to real costs. What overfunding *does* is make launch and ongoing operation more durable: a bigger cushion against unexpected expenses, more headroom to ship the roadmap features as their real costs come in, and less time spent fundraising instead of building. After the campaign window closes, **InDemand** keeps it open so contributions can continue. If you want to make sure CivicView launches successfully, contribute more. If you want to make sure it stays alive past launch, **subscribe** at $5/month once verified accounts open — the project breaks even at a 3% subscription rate among regular visitors, and anything above 3% funds expansion and the roadmap. And whether or not you contribute, **share the campaign and the platform**.
 
 **Q: How do I redeem my subscription perk?**
-A: Subscription perks activate once we ship the verified-account system + Stripe billing (target Q3-Q4 2026). When that lands, every supporter will receive an email walking through verification + how to claim your subscription credit. Until then you can use the platform's demo / preview environment with no subscription required.
+A: Subscription perks activate once we ship the verified-account system + Stripe billing (target Q4 2026). When that lands, every backer will receive an Indiegogo update + email walking through verification + how to claim your subscription credit. Until then you can use the platform's demo / preview environment with no subscription required.
 
 **Q: What if CivicView shuts down before I get to redeem?**
-A: GoFundMe has buyer-protection mechanisms; supporters can request a refund of unredeemed pledges through their dispute process. We'd also publish a wind-down notice on the site itself with at least 60 days of warning.
+A: We'd publish a wind-down notice on the site with at least 60 days of warning. Indiegogo perks are fulfilled by the campaigner (CivicView), not by Indiegogo, so this is a commitment we're making directly: if billing never launches, supporters won't be charged a subscription, and the demo environment stays open in the interim.
 
 **Q: Can I see the source code?**
 A: Yes — the full backend + frontend source is on GitHub (jeffreynuez/civicview). Reading the code is the highest form of due-diligence.
@@ -203,13 +223,10 @@ A: Yes — the full backend + frontend source is on GitHub (jeffreynuez/civicvie
 **Q: Why $5/month for the eventual subscription? Why not free or ad-supported?**
 A: Ads corrupt the editorial neutrality (advertisers gain leverage over what gets shown to whom). Free-forever doesn't sustainably cover ID.me verification ($1.50/user), Render hosting at scale, Google Civic at scale, or email + domain. $5/month is the floor that lets the project pay its own way without ads or VC compromise.
 
-**Q: Do you accept anonymous donations?**
-A: Yes. GoFundMe lets you donate anonymously at any tier; the perks still apply (you'll get a perk-claim email once accounts open).
+**Q: Are contributions tax-deductible?**
+A: No — CivicView is a Benefit Corporation, not a 501(c)(3) nonprofit, and Indiegogo contributions to it are not tax-deductible. We considered the nonprofit route but the IRS approval process takes 12–18 months and we'd rather ship now. If CivicView eventually qualifies for a public-benefit tax structure, we'll consider transitioning at that point.
 
-**Q: Are donations tax-deductible?**
-A: No — CivicView is a Benefit Corporation, not a 501(c)(3) nonprofit. We considered the nonprofit route but the IRS approval process takes 12-18 months and we'd rather ship now. If CivicView eventually qualifies for a public-benefit tax structure, we'll consider transitioning at that point.
-
-**Q: How can I help if I can't donate?**
+**Q: How can I help if I can't contribute?**
 A: (1) Share the campaign with people who care about civic infrastructure. (2) Use civicview.app and submit feedback via the Feedback button — we triage everything. (3) If you're a developer, the GitHub repo accepts pull requests for state-data coverage outside Florida. (4) If you're a local official or campaign staffer, claim your rep or candidate page once verified accounts open.
 
 ---
@@ -218,7 +235,7 @@ A: (1) Share the campaign with people who care about civic infrastructure. (2) U
 
 **Important sequencing note:** ID.me's Relying Party contract requires the
 $2,400 setup fee upfront — the application can't begin without it. That
-means the GoFundMe is *funding* the ID.me onboarding, not the other way
+means the campaign is *funding* the ID.me onboarding, not the other way
 around. The sequence below reflects that dependency: stand up Postmark
 and the corporate / banking pieces first (all free or cheap), launch the
 campaign, then use the proceeds to onboard ID.me + Stripe live mode.
@@ -248,19 +265,24 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
       online business banks (Mercury, Relay, Novo) approve in 1–3 business
       days. Brick-and-mortar banks can take a week.
 
-**Phase 3 — Launch the GoFundMe:**
-- [ ] GoFundMe account created and linked to the **business** bank
-      account (NOT personal — this matters for accounting and for the
-      Benefit Corp ledger).
-- [ ] Cover image finalized (recommend: map screenshot with sidebar open;
-      clean, no PII visible).
-- [ ] Optional: cover video recorded (60–90 sec; see script below).
-- [ ] Tiers configured in GoFundMe perks UI exactly as in section 3 above.
-- [ ] FAQ pasted into the story body (or as a separate section below the
-      main story).
-- [ ] Link to civicview.app/help-build cited in the story.
-- [ ] Test-donate $5 from a different account before going live so you've
-      seen the full flow.
+**Phase 3 — Launch the Indiegogo campaign:**
+- [ ] Indiegogo account created and the **business** bank account linked
+      via Indiegogo's payments setup (Stripe-backed; NOT personal — this
+      matters for accounting and for the Benefit Corp ledger). Indiegogo
+      requires identity + bank verification before a campaign can collect
+      funds, so do this early.
+- [ ] Funding type set to **Flexible**, goal $25,000, duration 35 days.
+- [ ] Category set to Community Projects (or Tech & Innovation → Software).
+- [ ] Pitch media finalized — hero image `4_hero_cover.png` at minimum;
+      ideally the 60–90s founder video (§7).
+- [ ] Story pasted in with the four images embedded at the markers in §2.
+- [ ] Perks configured exactly as in §3, each marked "no shipping" with a
+      December 2026 estimated delivery date and the verbatim small print.
+- [ ] FAQ added as the closing section of the Story (or as Indiegogo FAQ
+      entries).
+- [ ] Link to civicview.app/help-build cited in the Story.
+- [ ] Preview the campaign on desktop AND mobile before publishing — the
+      image-embed positions and the perk card text both shift on mobile.
 - [ ] Decide launch timing — Tuesday or Wednesday morning (US Eastern)
       typically gets the best initial-day engagement.
 
@@ -291,33 +313,37 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 - [ ] **Remainder into the Year-2 operating buffer.** Sits in the
       business account; no spending pressure.
 
-**At launch (the day the GoFundMe goes live):**
-- [ ] Share copy ready in section 6 below — post to Twitter/X, LinkedIn,
+**At launch (the day the campaign goes live):**
+- [ ] Share copy ready in §6 below — post to Twitter/X, LinkedIn,
       Reddit r/civictech and r/programming, civicview.app's home page
       banner.
 - [ ] Email your existing waitlist (whoever's already in the
       CitizenWaitlist table) with the campaign link.
 - [ ] Update the SHIPPED list on /help-build with a "Crowdfunding
-      launched" entry linking to the GoFundMe URL.
-- [ ] Pin the GoFundMe link as a banner on civicview.app.
-- [ ] Reply to the first 20 donations within 24 hours with a personal
-      thank-you note (GoFundMe lets you message donors).
+      launched" entry linking to the Indiegogo URL.
+- [ ] Pin the Indiegogo link as a banner on civicview.app.
+- [ ] Reply to the first 20 contributions within 24 hours with a personal
+      thank-you note (Indiegogo lets you message backers via Updates +
+      direct messages).
 
 **Through the campaign:**
-- [ ] Weekly progress update post (on the GoFundMe + shared to social) —
-      momentum matters more than perfection.
-- [ ] If you hit milestones (25%, 50%, 75%, 100%), share immediately.
+- [ ] Post an Indiegogo Update weekly (also shared to social) — momentum
+      matters more than perfection. Campaigns that post updates raise
+      meaningfully more than those that go quiet.
+- [ ] If you hit milestones (25%, 50%, 75%, 100%), post immediately.
 - [ ] When you cross $2,400, post "ID.me application started" as a major
       milestone update. Donors love seeing exactly where their money went.
-- [ ] When verified accounts ship, email all supporters with the
+- [ ] When verified accounts ship, email all backers with the
       perk-redemption walkthrough.
+- [ ] At campaign close, switch on **InDemand** so contributions can
+      continue toward the buffer.
 
 ---
 
 ## 6. Share copy
 
 **Twitter / X (280 chars):**
-> Built CivicView in the open over the last 6 months — a non-partisan window into U.S. government. Verified citizens, verified reps, transparent funding. Crowdfunding the infrastructure now: [GoFundMe link]
+> Built CivicView in the open over the last 6 months — a non-partisan window into U.S. government. Verified citizens, verified reps, transparent funding. Crowdfunding the infrastructure now: [Indiegogo link]
 >
 > No ads. No VC. No partisan agenda. Just the public record + tools to engage.
 
@@ -330,7 +356,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > Filed as a Florida Benefit Corporation — legally obligated to weigh the public benefit alongside any shareholder interest. No ads, no VC, no partisan agenda. Just the public record + tools to hold reps accountable.
 >
-> Link to support: [GoFundMe link]
+> Link to support: [Indiegogo link]
 
 **Reddit r/civictech and r/programming:**
 > [Title] CivicView — non-partisan civic data + engagement platform, fully working, crowdfunding the Year-2 infrastructure
@@ -343,7 +369,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > Built as a Florida Benefit Corp (no ads, no VC), source on GitHub at jeffreynuez/civicview. Happy to answer technical or product questions in the thread.
 >
-> GoFundMe: [link]
+> Indiegogo: [link]
 
 **Email to existing waitlist:**
 > Subject: We're crowdfunding CivicView's Year-2 infrastructure
@@ -354,15 +380,15 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > What hasn't shipped yet is the verified-account system that lets you create polls + comment on rep pages as a confirmed constituent. That's blocked on ID.me verification ($2,400 setup + $1.50/user) plus the legal review and a Year-2 operating buffer — the data feeds themselves are free.
 >
-> We're crowdfunding it. $25K covers Year 2 of operations entirely — no salaries, no marketing, no VC, no ads. Every line item is sourced at civicview.app/help-build.
+> We're crowdfunding it on Indiegogo. $25K covers Year 2 of operations entirely — no salaries, no marketing, no VC, no ads. Every line item is sourced at civicview.app/help-build.
 >
-> Supporters at every tier get free-or-discounted subscription credits once verified accounts open:
+> Backers at every tier get free-or-discounted subscription credits once verified accounts open:
 > • $5  → 2 months of subscription
 > • $50 → 1 year
 > • $200 → 5 years
 > • $500 → lifetime
 >
-> Campaign: [GoFundMe link]
+> Campaign: [Indiegogo link]
 >
 > Thank you,
 > Jeffrey De La Nuez
@@ -370,14 +396,14 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 
 ---
 
-## 7. Cover video script (optional, 75 seconds)
+## 7. Pitch video script (recommended, 75 seconds)
 
 > [Screen recording: civicview.app homepage. The interactive U.S. map renders. Cursor clicks Florida → rep page opens.]
 >
 > **[Voiceover, calm and direct]**
 > Most Americans can't name their state senator. Most don't know how their congressperson voted on the last major bill.
 >
-> [Screen: switches to a federal rep's page — Marco Rubio, say — with voting record visible.]
+> [Screen: switches to a federal rep's page with voting record visible.]
 >
 > That isn't because people don't care. It's because the data is scattered across hundreds of government websites and paid news terminals.
 >
@@ -397,16 +423,17 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > I'm Jeffrey De La Nuez. I built this myself over the last six months. The $25K we're raising covers Year 2 of operations — that's it. If you care about civic infrastructure that isn't owned by anyone, help me ship it.
 >
-> [End card: civicview.app + GoFundMe link]
+> [End card: civicview.app + Indiegogo link]
 
 ---
 
 ## 8. Notes for the publisher (Jeff)
 
-- **GoFundMe takes 0% platform fees** as of 2026 — they ask donors for an optional tip instead. Mention this nowhere in the campaign itself (GoFundMe asks you not to discount tips); just be aware the goal you set is what supporters see, and the donor tip is on top.
-- **Stripe payment processing** ~2.9% + $0.30 is automatically deducted from each donation before it hits your business bank account.
-- **GoFundMe payout cadence** is ~2–5 business days per disbursement. Plan to draw down weekly, not daily.
-- **For accounting**: every GoFundMe payout should hit the CivicView business bank account (not personal). The donation isn't taxable income to you personally (it's revenue to the corporation), but the corporation may owe state taxes depending on FL Benefit Corp treatment. Confirm with the same attorney who reviews the Terms of Service.
-- **Don't open the campaign before EIN + business bank account land** — running it through a personal account creates an accounting cleanup later that isn't worth the impatience.
-- **Pre-launch test**: ask 3–5 trusted friends to read the story body and give 30-second feedback. They'll catch tone issues you've gone blind to.
-- **Day-1 momentum** is statistically the biggest predictor of overall campaign success. Pre-line up at least 5 supporters willing to donate within the first 2 hours so the campaign doesn't show $0 to early visitors.
+- **Indiegogo fees:** 5% platform fee + payment processing (~3% + $0.30 per contribution), deducted at disbursement. On a fully funded $25K campaign that's roughly $2,000 in fees — budget for it; the goal you set is the gross, not the net.
+- **Flexible vs Fixed:** we chose **Flexible** so we keep funds even if we miss goal. The trade-off Indiegogo historically attached (a higher fee on under-goal Flexible campaigns) no longer applies — the platform fee is a flat 5% either way as of 2026. Confirm on the funding step before publishing.
+- **Disbursement:** Indiegogo pays out via its Stripe-backed system after the campaign ends (Flexible campaigns can have funds released on a schedule). Verify the exact cadence in the dashboard; plan cash needs around it, not around daily access.
+- **Payee = the corporation.** Link the CivicView business bank account, not personal. Contributions are revenue to the corporation, not personal income; the corporation may owe state taxes depending on FL Benefit Corp treatment — confirm with the same attorney who reviews the Terms of Service.
+- **Don't open the campaign before EIN + business bank account land** — Indiegogo's identity/bank verification gate means you can't collect funds without them anyway, and running it through a personal account creates an accounting cleanup that isn't worth the impatience.
+- **Pre-launch test:** ask 3–5 trusted friends to read the Story and give 30-second feedback. They'll catch tone issues you've gone blind to.
+- **Day-1 momentum** is the single biggest predictor of campaign success. Pre-line up at least 5 supporters willing to contribute within the first 2 hours so the page doesn't show $0 to early visitors.
+- **InDemand** is the post-campaign continuation feature — opt in at campaign close to keep accepting contributions toward the buffer without re-launching.
