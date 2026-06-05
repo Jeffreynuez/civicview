@@ -20,8 +20,8 @@
 
 | Field | Value / recommendation |
 | --- | --- |
-| **Campaign title** | `CivicView: a non-partisan window into U.S. government` (53 chars — under Indiegogo's 60-char limit) |
-| **Tagline / card text** | Verified citizens, verified reps, transparent civic data — built in public, owned by nobody |
+| **Campaign title** | `CivicView: see what your government actually does` (49 chars — under Indiegogo's 60-char limit) |
+| **Tagline / card text** | Every vote, bill, and rep in one place — plus a verified way to talk back |
 | **Category** | **Community Projects** (recommended). Alternative: **Tech & Innovation → Software**, which reaches the tech-backer crowd but invites stricter "where's the shipped product?" scrutiny — less of an issue for us since the product already ships, but Community framing fits the mission and has lighter perk-fulfillment expectations. |
 | **Funding type** | **Flexible** — keep every dollar regardless of whether we reach goal. (Fixed funding refunds everyone if you miss the goal; we don't want that risk.) |
 | **Goal** | $25,000 |
