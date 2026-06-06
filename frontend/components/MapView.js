@@ -78,6 +78,16 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   // first selectedState fitBounds so we don't yank the user off the view
   // they left (camera persistence, request 2026-06-01).
   const cameraRestoredRef = useRef(false);
+  // The last DELIBERATE camera target — every programmatic fit/fly and
+  // every user gesture records here, and the container-resize observer
+  // below re-asserts it once the map's box settles at a new real size.
+  // Why: on mobile reloads the container's height arrives late (viewport
+  // pivot + the stacked map height initializing after first paint), so a
+  // fit computed against the early geometry leaves the camera displaced
+  // (the "centers a bit above the target" bug). Shapes:
+  //   { kind: 'fit', bounds: [sw, ne], options: { padding, maxZoom } }
+  //   { kind: 'jump', center: [lng, lat], zoom }
+  const intendedCameraRef = useRef(null);
   // On mobile we hide the bottom-left zoom dock (MapLibre's built-in
   // NavigationControl + native pinch-zoom cover the same affordance
   // and don't burn screen space the panel needs more than the map).
@@ -115,6 +125,8 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         }
       } catch { /* private mode / bad JSON — fall back to defaults */ }
 
+      intendedCameraRef.current = { kind: 'jump', center: initialCenter, zoom: initialZoom };
+
       map.current = new maplibregl.Map({
         container: mapContainer.current,
         style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
@@ -132,11 +144,10 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
       // from the background-click deselect handler below.
       const resetView = () => {
         const mobileNow = window.innerWidth <= 900;
-        map.current.flyTo({
-          center: mobileNow ? [-93, 37] : [-98.5, 39.8],
-          zoom: mobileNow ? 2 : 3,
-          duration: 700,
-        });
+        const center = mobileNow ? [-93, 37] : [-98.5, 39.8];
+        const zoom = mobileNow ? 2 : 3;
+        intendedCameraRef.current = { kind: 'jump', center, zoom };
+        map.current.flyTo({ center, zoom, duration: 700 });
       };
       const resetControl = {
         onAdd: () => {
@@ -408,8 +419,10 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
 
           try {
             const [sw, ne] = geometryBounds(feature.geometry);
+            intendedCameraRef.current = { kind: 'fit', bounds: [sw, ne], options: { padding: 60, maxZoom: 7 } };
             map.current.fitBounds([sw, ne], { padding: 60, duration: 900, maxZoom: 7 });
           } catch {
+            intendedCameraRef.current = { kind: 'jump', center: [-98.5, 39.8], zoom: 5 };
             map.current.flyTo({ center: [-98.5, 39.8], zoom: 5, duration: 900 });
           }
           setCurrentLabel(stateName);
@@ -511,6 +524,19 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           } catch { /* private mode */ }
         };
         map.current.on('moveend', saveCamera);
+
+        // User-driven moves become the new intended camera, so a later
+        // container resize re-asserts THEIR view instead of yanking back
+        // to a stale programmatic fit. originalEvent is only present on
+        // gesture-initiated events — programmatic moves skip this.
+        const recordUserCamera = (e) => {
+          if (!e || !e.originalEvent || !map.current) return;
+          const c = map.current.getCenter();
+          intendedCameraRef.current = { kind: 'jump', center: [c.lng, c.lat], zoom: map.current.getZoom() };
+        };
+        map.current.on('dragend', recordUserCamera);
+        map.current.on('zoomend', recordUserCamera);
+        map.current.on('moveend', recordUserCamera);
       });
     };
 
@@ -592,6 +618,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
 
       try {
         const bounds = geometryBounds(geo.features[0].geometry);
+        intendedCameraRef.current = { kind: 'fit', bounds, options: { padding: 60, maxZoom: 10 } };
         map.current.fitBounds(bounds, { padding: 60, duration: 600, maxZoom: 10 });
       } catch (err) {
         console.warn('Could not fit bounds to district:', err);
@@ -664,6 +691,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     } else {
       try {
         const [sw, ne] = geometryBounds(geomFeature.geometry);
+        intendedCameraRef.current = { kind: 'fit', bounds: [sw, ne], options: { padding: 60, maxZoom: 7 } };
         map.current.fitBounds([sw, ne], { padding: 60, duration: 900, maxZoom: 7 });
       } catch { /* noop */ }
     }
@@ -694,6 +722,54 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     }
   }, [selectedState, activeDistrict]);
 
+  // ─── Re-assert the intended camera after container resizes ─────────
+  // The map's box changes size outside our control: the mobile stacked
+  // height initializing after first paint, the viewport pivot (desktop ->
+  // stacked on hydration), the URL bar showing/hiding, drag-resizes of
+  // the map row. MapLibre preserves the *center* across resizes, but a
+  // fit computed against early/degenerate geometry is simply wrong once
+  // the real size arrives. So: observe the container, debounce until the
+  // size settles, and re-apply the intended camera instantly (duration 0)
+  // whenever the box meaningfully changed. User pans/zooms update the
+  // intent (see recordUserCamera), so this never fights the user.
+  useEffect(() => {
+    if (!mapContainer.current || typeof ResizeObserver === 'undefined') return undefined;
+    let t = null;
+    let lastW = 0;
+    let lastH = 0;
+    const ro = new ResizeObserver((entries) => {
+      const rect = entries[entries.length - 1].contentRect;
+      if (t) clearTimeout(t);
+      t = setTimeout(() => {
+        if (!map.current) return;
+        const w = rect.width;
+        const h = rect.height;
+        // Degenerate box (stacked map collapsed / not yet sized) — skip,
+        // and DON'T record it, so the next real size still re-asserts.
+        if (h < 50 || w < 50) return;
+        const changed = Math.abs(h - lastH) > 24 || Math.abs(w - lastW) > 24;
+        lastW = w;
+        lastH = h;
+        if (!changed) return;
+        const intent = intendedCameraRef.current;
+        if (!intent) return;
+        try {
+          map.current.resize();
+          if (intent.kind === 'fit') {
+            map.current.fitBounds(intent.bounds, { ...intent.options, duration: 0 });
+          } else {
+            map.current.jumpTo({ center: intent.center, zoom: intent.zoom });
+          }
+        } catch { /* noop */ }
+      }, 200);
+    });
+    ro.observe(mapContainer.current);
+    return () => {
+      if (t) clearTimeout(t);
+      ro.disconnect();
+    };
+  }, []);
+
   // ─── Slider handler ───────────────────────────────────────────────
   const handleSliderChange = (e) => {
     const pct = Number(e.target.value);
@@ -718,6 +794,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
       );
       if (match) {
         const [sw, ne] = geometryBounds(match.geometry);
+        intendedCameraRef.current = { kind: 'fit', bounds: [sw, ne], options: { padding: 60, maxZoom: 7 } };
         map.current.fitBounds([sw, ne], { padding: 60, duration: 700, maxZoom: 7 });
       }
     } catch { /* noop */ }
