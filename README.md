@@ -361,6 +361,52 @@ categories:
 
 ---
 
+## Shipped this session — 2026-06-05 (Claude Opus 4.8, 1M)
+
+- **Optional Poll Demographic Forms — complete (P0+P1+P2).** Poll creators can
+  attach an optional standardized demographic form (11 single-select questions;
+  sensitive categories flagged + consent-gated). Voters answer optionally
+  (replace-on-revote until close). "Explore results" inline explorer with
+  geography + demographic filters and a break-down-by cross-tab (inline-SVG
+  grouped bar chart) + aggregate CSV export. ALL suppression server-side:
+  k-anonymity MIN_CELL=10 with per-poll creator override (25/50/100). Reusable
+  opt-in citizen demographic profile (sensitive keys never persisted). New
+  models `PollDemographicQuestion` / `PollVoteDemographic` /
+  `CitizenDemographicProfile` + `Poll.min_cell_override`;
+  `services/demographics_catalog.py` + `services/poll_demographics.py` +
+  `routers/poll_demographics.py`; frontend `PollResultsModal` /
+  `PollDemographicsPicker` / `PollDemographicsForm` /
+  `DemographicProfileSection` wired into every poll surface. Tests green.
+  PRD: `docs/polls-demographic-forms-prd.md`.
+- **Multi-state election candidates (#96 partial):** TX, CA, NY, PA
+  `candidates.json` + `elections.json` generated via
+  `backend/scripts/build_state_federal_candidates.py` (config-driven: state
+  key dates, closed-primary flags NY/PA, NY ballot measures, Senate-cycle
+  gating; federal incumbents enriched from sourced profiles, challengers
+  FEC-facts-only). Re-run playbook persisted in Pinecone.
+- **Crowdfunding pivoted GoFundMe → Indiegogo.** `docs/indiegogo_draft.md`
+  is FINAL (Flexible funding, $25K, 35 days, 4 perks w/ Dec-2026 delivery,
+  FAQ, launch checklist, share copy, video script). Financial model gained an
+  isolated one-time crowdfunding block (Assumptions rows 68–75: ~8% fees →
+  ~$23K net; NOT wired into recurring P&L). Campaign art to Indiegogo spec in
+  `../Indiegogo images/` (21:6 text-free cover, square logo thumbnail from the
+  official glyph, 4 escalating reward-tier images).
+- **Mobile map fixes (3):** open/closed state now persists correctly across
+  reloads/navigation (localStorage written ONLY from resizer gestures +
+  degenerate-viewport guard, `app/page.js`); desktop-layout first-paint flash
+  killed via pre-paint viewport measurement (`lib/useViewport.js`); map camera
+  re-asserts its intended target after container resizes settle
+  (`intendedCameraRef` + debounced ResizeObserver, `components/MapView.js`).
+- **KIE API evaluated → Task #100.** `api.kie.ai/claude/v1/messages` is an
+  Anthropic-native drop-in; measured Haiku 4.5 ≈ $0.27/$1.45 per M tokens
+  (~72% off) but 2.9–5.6s latency. Decision: build the provider flag, keep it
+  OFF; user-comment classification stays on official Anthropic regardless.
+- **Benefit Corp paperwork:** cr2e011 Articles of Amendment filled + Exhibit A
+  statute citations corrected (§§607.601–607.613) — ready to file once the
+  EIN lands. Also fixed the Help-build mobile cost-text overflow.
+
+---
+
 ## Shipped this session — 2026-06-03 (Claude Opus 4.8, 1M)
 
 Federal + state DATA layers were committed/pushed earlier this session; the
@@ -467,7 +513,9 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
   50 states are now seeded (Open States); federal issue-data is complete.
 - Email deliverability hardening (SPF / DKIM / DMARC on `civicview.app`)
 - Election-win promotion flow (admin UI surface — backend shipped)
-- Crowdfunding launch + Benefit Corp Amendment
+- Crowdfunding launch — **Indiegogo** (final draft + cover/thumbnail/reward art
+  ready; publish gated on EIN + business bank account) + Benefit Corp
+  Amendment (cr2e011 filled, ready to file)
 
 ---
 
@@ -490,10 +538,11 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 25 | Fill out remaining states' content | in progress | DONE: federal issue-data for all 535 members of Congress + exec + SCOTUS + leadership; state legislators + governors + statewide execs for all 50 states (Open States); FL state judiciary (CourtListener opinions) + FL federal/state election candidates. REMAINING: official photos for state legislators; state judiciary rosters for the other 49 states (CourtListener, 5 req/min free-tier limit — see #97); LOCAL officials (sheriffs/judges/DAs/school boards — paid, see #99). |
 | 26 | Start DMARC monitoring (SPF merge done) | in progress | Email deliverability on `civicview.app`. **SPF merge DONE (2026-06-04):** the duplicate SPF TXT records were merged into a single `v=spf1 … -all` (RFC 7208 requires exactly one; multiple caused a PermError). **REMAINING:** publish a DMARC record in monitoring mode — a `_dmarc.civicview.app` TXT record with `p=none` + `rua=mailto:` aggregate-report mailbox — to watch SPF/DKIM alignment before tightening to quarantine/reject. DKIM already in place. |
 | 95 | Vote Smart API — stated issue positions | blocked (budget) | Quoted 2026-06 at $4,850/yr for the Public-Facing Platform License (dev tiers $350/mo, $1k/3mo, $1.9k/6mo, non-public only). Draft reply sent declining for now. When funded: env-gated `votesmart_service.py` (abstract+prod+dev like idme/stripe), bioguide→candidateId crosswalk, map NPAT positions to a sourced stated-positions field. ToS HARD RULE: data may NOT be used in campaign activity → only on official/rep profiles, never candidate campaign surfaces. Coverage partial. |
-| 96 | OpenFEC federal candidates for other big states | pending | `fec_service.py` built + Florida done (US Senate + all 28 House races, live fundraising). Re-run the merge per state (TX, CA, NY, PA…). Caveat: OpenFEC reflects active FEC committees, not ballot qualification → includes some withdrawn/non-qualifying filers (verify vs state). Fundraising is a static snapshot (re-run to refresh) — optional: build a live refresh endpoint. |
+| 96 | OpenFEC federal candidates for other big states | in progress | TX, CA, NY, PA DONE (2026-06-05) via `backend/scripts/build_state_federal_candidates.py` (config-driven generator; re-run playbook in Pinecone — search "state federal candidates playbook"). REMAINING: the other 45 states. Caveat: OpenFEC reflects active FEC committees, not ballot qualification → includes some withdrawn/non-qualifying filers (verify vs state). Fundraising is a static snapshot (re-run to refresh) — optional: build a live refresh endpoint. |
 | 97 | State judiciary (CourtListener) for other states | pending | FL done (supreme-court opinions via `state_live.py`, `docket__court` filter). Populate `judiciary.supreme_court` rosters per state via the People API. Caveat: CourtListener free tier = 5 requests/MINUTE → bulk needs a Free Law Project membership. Trial/county judges + DAs remain a paid (Ballotpedia) gap. |
 | 98 | Full candidate depth (state/local + minor filers) | pending (paid) | Campaign-site curation done for FL Governor + AG CONTENDERS only. The long tail of minor filers, all state-leg/local candidate slates, and endorsements have no free source → Ballotpedia/BallotReady subscription, or per-race manual curation on request. State candidates also have no fundraising (FEC is federal-only; FL campaign finance is at the FL Division of Elections, not integrated). |
 | 99 | Local officials (sheriffs/judges/DAs/school boards) | pending (paid) | No comprehensive free source. Cicero or Ballotpedia (paid). The free Google Divisions OCD-ID bridge is already wired into `/api/address/lookup` (`ocdDivisions`) as the join key for whatever local source is chosen. |
+| 100 | AI provider base-URL abstraction (KIE flag — OFF) | pending — flag stays OFF until Jeffrey says | Env-gate the Anthropic base URL in `backend/app/services/ai_service.py`: `AI_PROVIDER=official\|kie` (+ optional `ANTHROPIC_BASE_URL` override), default **official**. KIE verified 2026-06-05: `https://api.kie.ai/claude/v1/messages` is an Anthropic-native drop-in (same Messages shape incl. cache fields, resolves `claude-haiku-4-5`); measured Haiku ≈ $0.27/M in, $1.45/M out (~72% off official $1/$5; credits round to 2dp so ±10%); latency 2.9–5.6s on small calls → suitable for the cached precompute pipeline only, never interactive. HARD RULE: user-comment classification stays on official Anthropic regardless (privacy commitments). Also evaluate the official **Batch API** (50% off, zero middleman) as the default cost lever for precompute. Key: "KIE API Key" at the bottom of the Keys file. Review KIE's data-retention/DPA terms before any production flip. |
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.

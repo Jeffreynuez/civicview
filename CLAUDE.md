@@ -39,7 +39,7 @@ state that this file deliberately does NOT duplicate:
 4. **`backend/app/models/pages.py`** — All SQLAlchemy models in one
    file. The shape of the data layer.
 
-## Current state & open work (snapshot 2026-06-03)
+## Current state & open work (snapshot 2026-06-05)
 
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
@@ -62,13 +62,24 @@ narrative. At a glance:
   files may be UNCOMMITTED — check `git status`** (`fec_service.py`,
   `fl/candidates.json`, `fl/elections.json`).
 
+- **Shipped 2026-06-05:** Poll demographic forms complete (P0–P2: optional
+  creator-attached form, aggregate-only explorer w/ k-anonymity MIN_CELL 10 /
+  per-poll 25/50/100, charts, CSV, opt-in citizen profile — see README block +
+  `docs/polls-demographic-forms-prd.md`); TX/CA/NY/PA candidates generated
+  (`build_state_federal_candidates.py`); crowdfunding pivoted to **Indiegogo**
+  (final draft + art; publish gated on EIN + business bank); 3 mobile map
+  fixes (persistence / first-paint flash / camera re-assert).
+
 **Top open tasks** (full list = README "Pending tasks" table — recreate ALL
 rows into the Cowork Progress widget on session start): #95 Vote Smart API
-(BLOCKED on budget, $4,850/yr quote, draft reply sent), #96 OpenFEC candidate
-pass for other big states, #97 state judiciary for other states (CourtListener
-free tier = 5 req/min), #98 full candidate depth incl. minor filers (paid —
-Ballotpedia/BallotReady), #99 local officials sheriffs/judges/DAs (paid). Plus
-older rows #71, #84, #90, #91, #93, #94, #26, #49.
+(BLOCKED on budget, $4,850/yr quote, draft reply sent), #96 remaining states'
+OpenFEC candidate pass (TX/CA/NY/PA done), #97 state judiciary for other
+states (CourtListener free tier = 5 req/min), #98 full candidate depth incl.
+minor filers (paid — Ballotpedia/BallotReady), #99 local officials
+sheriffs/judges/DAs (paid), **#100 AI provider base-URL flag (KIE measured
+~72% off Haiku but flag stays OFF until Jeffrey says; user-comment
+classification stays on official Anthropic regardless)**. Plus older rows
+#71, #84, #90, #91, #94, #26, #49 (#92, #93 done).
 
 **API keys** (all in Render env on `civicview-api` + the Keys file): 
 `CONGRESS_API_KEY`, `OPENSTATES_API_KEY`, `COURTLISTENER_TOKEN`,
@@ -272,15 +283,31 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
    Fix: `rm -f .git/index .git/index.lock && git read-tree HEAD`
    (or `git reset --mixed HEAD` if read-tree errors). Check the
    `shared` Pinecone records for the deeper recipe.
-2. **Edit / Write tool silently truncates large files** (>~600
-   lines). Workaround: write large files via bash heredocs or
-   short Python scripts. Always parse-check after a big write.
+2. **Edit / Write tool silently truncates files — at ANY size.**
+   (2026-06-05: bit a 123-line file, not just >600-line ones.) Do
+   ALL repo file edits via short Python scripts using the safe
+   pattern: write to `<file>.tmp`, assert `os.path.getsize(tmp)`
+   is sane, then `os.replace(tmp, file)`. NEVER `open(path,'w')`
+   directly on the target — Python truncates the file before
+   constructor errors (e.g. a bad `newline=` arg) are raised;
+   MapView.js was zeroed exactly this way (recovered via
+   `git show HEAD:<path>`). Parse-check (esbuild) after writes.
 3. **`git status --short` can return hundreds of phantom
    deletions** when the index is corrupted. Resolve the
    corruption before trusting status.
-4. **The Read tool sometimes serves a stale cached version.** If
-   a Read contradicts a recent edit, verify with `wc -l + tail`
-   via bash.
+4. **Stale file snapshots cut BOTH ways.** The Read tool can
+   serve a stale cached version after a sandbox-side edit (verify
+   with `wc -l + tail` via bash) — and the bash FUSE mount can
+   serve a stale snapshot of a file Jeffrey just edited on
+   Windows (2026-06-05: the Keys file showed 24 lines in bash
+   while the Read tool saw the real 26-line file). If bash and
+   Read disagree, trust whichever reflects the expected recent
+   change.
+5. **This sandbox's git may not read the repo index**
+   (`index uses 'l' extension`, written by newer git on Windows):
+   `git status` / `diff`-vs-index fail; `git show` / `log` work
+   fine. Run index-touching git on Jeffrey's machine; recover
+   clobbered files via `git show HEAD:<path> > <path>`.
 
 ## Quick facts you'll be asked
 
