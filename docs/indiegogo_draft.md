@@ -1,16 +1,17 @@
 # CivicView — Indiegogo campaign draft
 
-**Status:** v1 draft (ported from the GoFundMe draft) — review and edit before publishing.
+**Status:** FINAL — locked June 5, 2026. Paste-ready for the Indiegogo campaign editor.
 **Platform:** Indiegogo
 **Funding type:** Flexible (keep-what-you-raise) — recommended; see §1.
 **Funding goal:** $25,000
 **Campaign length:** 35 days (recommended; Indiegogo allows up to 60)
 **Story angle:** Civic infrastructure (non-partisan, builder voice)
-**Generated:** May 21, 2026 · **Ported to Indiegogo:** June 5, 2026
+**Generated:** May 21, 2026 · **Ported to Indiegogo + finalized:** June 5, 2026
 **Companion docs:**
 - `docs/gofundme_draft.md` — the original GoFundMe-formatted draft (kept for reference)
 - `docs/civicview_financial_model.xlsx` — full 5-year P&L behind the $25K ask
 - `frontend/components/HelpBuildThisView.js` — the public "Help build this" page the campaign links to for the line-item breakdown
+- `..\Indiegogo images\` (sibling folder to the repo) — final campaign art: cover `civicview_cover_concept_v2.png` (21:6, text-free), thumbnail `civicview_indiegogo_thumbnail_v2_1400x1400.png` (official logo), story images 1–4
 
 > **Why Indiegogo over GoFundMe:** GoFundMe pages cap out at a short summary plus a few images, which fights a project whose whole pitch is "every number is sourced and auditable." Indiegogo gives a long, multi-section story with embedded images, reward/perk tiers, and a FAQ. We use **Flexible funding** so we keep every dollar raised even if we don't hit $25K (no all-or-nothing risk), and **InDemand** lets the campaign keep accepting contributions after the initial window closes — which maps cleanly onto the milestone ladder in §2.
 
@@ -22,14 +23,30 @@
 | --- | --- |
 | **Campaign title** | `CivicView: see what your government actually does` (49 chars — under Indiegogo's 60-char limit) |
 | **Tagline / card text** | Every vote, bill, and rep in one place — plus a verified way to talk back |
-| **Category** | **Community Projects** (recommended). Alternative: **Tech & Innovation → Software**, which reaches the tech-backer crowd but invites stricter "where's the shipped product?" scrutiny — less of an issue for us since the product already ships, but Community framing fits the mission and has lighter perk-fulfillment expectations. |
+| **Category** | **Community Projects** (decided). If the create-form dropdown lacks that exact label, use **Tech & Innovation → Software**. |
 | **Funding type** | **Flexible** — keep every dollar regardless of whether we reach goal. (Fixed funding refunds everyone if you miss the goal; we don't want that risk.) |
 | **Goal** | $25,000 |
 | **Duration** | 35 days. Indiegogo's data favors 30–40-day campaigns; longer runs lose urgency. |
 | **Beneficiary / payee** | CivicView, Inc. (Florida profit corporation, document #P26000027545, status ACTIVE; Benefit Corporation Articles of Amendment prepared and ready to file). Link the **business** bank account, not personal. |
 | **Location** | Florida, USA |
-| **Pitch media** | Image or 60–90s video. Recommended hero image is `Go Fund Me images/4_hero_cover.png` (the U.S.-map + wordmark panel) — Indiegogo's main slot displays ~16:9, which the hero already is. A founder voiceover video (script in §7) historically lifts conversion 1.5–2× and is worth recording. |
-| **Indiegogo fees** | 5% platform fee + payment processing (~3% + $0.30 per contribution). Budget ~8% off the top vs. GoFundMe's tip-based model. The $25K goal is what backers see; fees come out of disbursement. |
+| **Pitch media** | **Cover:** `Indiegogo images/civicview_cover_concept_v2.png` (3486×996, 21:6, text-free — Indiegogo darkens it and overlays the title). **Thumbnail:** `Indiegogo images/civicview_indiegogo_thumbnail_v2_1400x1400.png` (square, official logo). **Video:** still recommended — 60–90s founder voiceover (script in §7) historically lifts conversion 1.5–2×. |
+| **Indiegogo fees** | 5% platform fee + payment processing (~3% + $0.30 per contribution). Budget ~8% off the top vs. GoFundMe's tip-based model. The $25K goal is what backers see; fees come out of disbursement (~$23K net — modeled in `civicview_financial_model.xlsx`, Assumptions rows 68–75). |
+
+### Project-creation form (settled values)
+
+| Field | Value |
+| --- | --- |
+| **Project name** | CivicView |
+| **Project URL** | indiegogo.com/projects/civicview — locked after publish |
+| **Project tags** | civic tech, government, transparency, democracy, non-partisan, open data, elections, accountability (whichever exist in the picker) |
+| **Short description** | A non-partisan window into U.S. government — every vote, bill, and rep in one place, plus a verified way to talk back. No ads, no VC, built in public, every dollar sourced. |
+| **Project thumbnail** | `Indiegogo images/civicview_indiegogo_thumbnail_v2_1400x1400.png` |
+| **Cover image** | `Indiegogo images/civicview_cover_concept_v2.png` |
+| **Contact email** | civicview@civicview.app |
+| **Legal entity type** | Business — CivicView, Inc. (FL doc #P26000027545) |
+| **Location / currency** | United States / USD |
+
+> Creating the project only makes a private draft. Publishing + collecting funds additionally requires Indiegogo's identity + business-bank verification — blocked on the EIN (due imminently) and the business bank account (Phase 1–2 of §5).
 
 ---
 
@@ -41,7 +58,7 @@
 >
 > It's a window into government. Not a campaign tool. Not a news site. Not a partisan outlet. Just the actual public record, plus the structured ability for the people those officials represent to weigh in.
 >
-> *[Embed image: `4_hero_cover.png`]*
+> *[Embed image: `Indiegogo images/4_hero_cover.png`]*
 >
 > ### The problem we're solving
 >
@@ -69,7 +86,7 @@
 > - **Polls, comments, and "Verified citizen" labels** that let reps filter for their actual constituents instead of drowning in out-of-district noise
 > - **Modern security foundation** — Cloudflare WAF + DDoS protection, automated dependency scanning, static analysis, daily Postgres backups, two-factor authentication for sensitive accounts, documented incident-response runbook
 >
-> *[Embed image: `3_whats_shipped.png`]*
+> *[Embed image: `Indiegogo images/3_whats_shipped.png`]*
 >
 > You can use it right now at **civicview.app**. There's no waitlist for browsing; you can start exploring your district immediately.
 >
@@ -81,7 +98,7 @@
 >
 > CivicView's operating model is deliberately lean. There are no salaries in this budget. No marketing agencies. No investor carve-outs. And because the core data feeds are free, your money doesn't go to API rent — it goes to identity verification, legal groundwork, and the durability to run national-scale civic data through Year 2:
 >
-> *[Embed image: `1_where_your_money_goes.png`]*
+> *[Embed image: `Indiegogo images/1_where_your_money_goes.png`]*
 >
 > - **$2,400** — ID.me identity verification setup (so "Verified citizen" badges become provably real, not self-attested; +$1.50 per verified user thereafter)
 > - **$1,050** — Federal trademark registration for CivicView across software, SaaS, and online-community classes (3 classes × $350)
@@ -103,7 +120,7 @@
 >
 > Because we're on **Flexible funding**, we keep every dollar — so these aren't all-or-nothing thresholds, they're the order in which your contributions get put to work. Backers can watch exactly where the money lands as the bar fills:
 >
-> *[Embed image: `2_funding_milestones.png`]*
+> *[Embed image: `Indiegogo images/2_funding_milestones.png`]*
 >
 > | When the campaign reaches… | What unlocks |
 > | --- | --- |
@@ -273,8 +290,10 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
       funds, so do this early.
 - [ ] Funding type set to **Flexible**, goal $25,000, duration 35 days.
 - [ ] Category set to Community Projects (or Tech & Innovation → Software).
-- [ ] Pitch media finalized — hero image `4_hero_cover.png` at minimum;
-      ideally the 60–90s founder video (§7).
+- [x] Cover + thumbnail finalized — `civicview_cover_concept_v2.png` (21:6,
+      text-free) and `civicview_indiegogo_thumbnail_v2_1400x1400.png` in
+      `Indiegogo images/`.
+- [ ] Optional but recommended: record the 60–90s founder video (§7).
 - [ ] Story pasted in with the four images embedded at the markers in §2.
 - [ ] Perks configured exactly as in §3, each marked "no shipping" with a
       December 2026 estimated delivery date and the verbatim small print.
