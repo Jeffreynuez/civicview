@@ -3,7 +3,17 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
+
+// Pre-paint measurement: useLayoutEffect runs after the DOM commit but
+// BEFORE the browser paints, so the viewport-driven re-render lands in
+// the same frame and a phone never paints the desktop-default layout
+// (the old useEffect version painted desktop first — the mobile resizer
+// visibly "popped" in from the side-by-side position on every reload).
+// React warns if useLayoutEffect runs during SSR, so fall back to
+// useEffect on the server — the server path never measures anyway.
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 /**
  * Viewport breakpoints — single source of truth for "is this a mobile /
@@ -27,10 +37,11 @@ import { useEffect, useState } from 'react';
  *     desktop.
  *
  * SSR safety: the hook returns 'desktop' on the first render (server +
- * client hydration) and updates on mount, so the server-rendered HTML
- * always reflects the desktop layout. This avoids hydration mismatches —
- * the client briefly shows desktop and then re-renders to mobile if the
- * window is small. The flicker is one frame at most.
+ * client hydration) so the server HTML and the client's hydration render
+ * match — no hydration mismatch. The real measurement then runs in a
+ * pre-paint layout effect (see useIsomorphicLayoutEffect above), so the
+ * corrected mobile/tablet layout is committed in the same frame and the
+ * desktop-default layout is never painted on a phone.
  */
 export const BREAKPOINTS = {
   mobile: 900,
@@ -50,7 +61,7 @@ function classify(width) {
 export function useViewport() {
   const [viewport, setViewport] = useState('desktop');
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const apply = () => setViewport(classify(window.innerWidth));
     apply();
     window.addEventListener('resize', apply);
@@ -78,13 +89,13 @@ export function useIsCompact() {
  * below); landscape goes side-by-side like desktop because vertical real
  * estate is too cramped for stacking on a 360–500px-tall viewport.
  *
- * SSR-safe: defaults to false on the first render, then updates on mount
- * + on resize / orientationchange.
+ * SSR-safe: defaults to false on the first render, then updates in a
+ * pre-paint layout effect on mount + on resize / orientationchange.
  */
 export function useIsLandscape() {
   const [landscape, setLandscape] = useState(false);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const apply = () => {
       // visualViewport is the most accurate signal on mobile (it excludes
       // the URL bar overlay). Fall back to innerWidth/Height.
