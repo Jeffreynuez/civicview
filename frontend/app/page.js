@@ -150,6 +150,18 @@ export default function Home() {
         : window.innerHeight;
       const available = Math.max(0, visibleH - NAVBAR_PX - RESIZER_PX);
       const max = Math.round(available * 0.4);
+      // Degenerate-measurement guard: on mobile reloads visualViewport
+      // can report 0 (or a sliver) before the first layout settles.
+      // Treating that as a real measurement used to initialize the map
+      // at height 0, and the old persist-on-change effect then recorded
+      // "user closed it" — so the map came back closed on every later
+      // load even though the user left it open. Any viewport that uses
+      // the stacked layout yields a real max far above this floor, so
+      // skip the bogus reading and let the next resize/visualViewport
+      // event (the URL bar settling fires one) deliver the real number.
+      // Skipping BEFORE the initialized flag flips keeps the first-run
+      // localStorage read pending until a trustworthy measurement.
+      if (max < 80) return;
       setMapMaxHeightPx(max);
       const wasFirstRun = !mapHeightInitialized.current;
       mapHeightInitialized.current = true;
@@ -184,14 +196,21 @@ export default function Home() {
       }
     };
   }, []);
-  // Persist the mobile map's open/closed choice so a drag-to-close
-  // survives reloads + navigation (default open on first ever visit).
-  useEffect(() => {
-    if (!mapHeightInitialized.current) return;
+  // Persist the mobile map's open/closed choice so it survives reloads
+  // and in-app navigation (default open on first ever visit). Written
+  // ONLY from the resizer's user gestures — never from an effect
+  // watching mapHeightPx — so system-driven heights (the mount-default
+  // 0, degenerate early-load measurements, orientation re-clamps) can
+  // never masquerade as "the user closed the map". The drag handler
+  // streams intermediate heights mid-gesture; the final call on release
+  // is the snapped 0 / max, so last-write-wins lands on the user's
+  // actual choice.
+  const handleMapResize = useCallback((h) => {
+    setMapHeightPx(h);
     try {
-      window.localStorage.setItem('cl:map:collapsed', mapHeightPx === 0 ? '1' : '0');
+      window.localStorage.setItem('cl:map:collapsed', h === 0 ? '1' : '0');
     } catch { /* private mode */ }
-  }, [mapHeightPx]);
+  }, []);
   // Return-to-list highlighting — after Back from a profile, we briefly pulse
   // the row the user was just viewing so they don't lose their place in a
   // long list. Consumed + cleared by the list (SidePanel / BallotTab).
@@ -1148,7 +1167,7 @@ export default function Home() {
         {useStackedLayout ? (
           <PanelResizer
             orientation="horizontal"
-            onResize={setMapHeightPx}
+            onResize={handleMapResize}
             minHeight={0}
             maxHeight={mapMaxHeightPx}
             // Navbar is 56px tall — subtract that from touch Y so the
