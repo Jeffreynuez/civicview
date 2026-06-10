@@ -15,9 +15,14 @@ Scope today:
     or another citizen; recipient is whichever identity authored the
     parent comment.
 
-Out-of-scope for the MVP (called out in the help-build page):
-  • Page-owner-posted-new-content notifications (needs a subscription
-    model that doesn't exist yet).
+Scope extension (Task #105, 2026-06-10):
+  • Tracked-official content notifications — when an official the
+    citizen tracks publishes a post (optionally with a poll), every
+    tracking citizen gets a kind='tracked_post' notification. The
+    "subscription model" the MVP was waiting on turned out to already
+    exist: TrackedOfficial.
+
+Out-of-scope still:
   • Poll-close alerts (needs a scheduler).
   • Mentions (needs an @-parser).
   • Web push (needs a service worker + permission flow).
@@ -34,7 +39,7 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from app.models.pages import Notification, PostComment
+from app.models.pages import Notification, PostComment, TrackedOfficial
 
 
 logger = logging.getLogger(__name__)
@@ -116,6 +121,88 @@ def emit_reply_notification(
     db.commit()
     db.refresh(n)
     return n
+
+
+def emit_tracked_content_notifications(
+    db: Session,
+    *,
+    official_id: str,
+    official_name: str,
+    post_id: int,
+    preview: str,
+    has_poll: bool,
+) -> int:
+    """Fan a kind='tracked_post' notification out to every citizen
+    tracking `official_id`. Single bulk insert + one commit. Returns
+    the number of notifications created.
+
+    Called from a BackgroundTask after create_post commits, with its
+    own session — fan-out cost never rides on the posting rep's
+    request latency."""
+    trackers = (
+        db.query(TrackedOfficial.tracker_id)
+        .filter(
+            TrackedOfficial.tracker_kind == "citizen",
+            TrackedOfficial.official_key == official_id,
+        )
+        .all()
+    )
+    if not trackers:
+        return 0
+    payload = json.dumps(
+        {
+            "official_id": official_id,
+            "official_name": official_name,
+            "post_id": post_id,
+            "preview": _truncate(preview, 120),
+            "has_poll": bool(has_poll),
+        },
+        ensure_ascii=False,
+    )
+    rows = [
+        Notification(
+            recipient_kind="citizen",
+            recipient_id=tid,
+            kind="tracked_post",
+            payload_json=payload,
+        )
+        for (tid,) in trackers
+    ]
+    db.add_all(rows)
+    db.commit()
+    logger.info(
+        "tracked_post fan-out: official=%s post=%s -> %d citizens",
+        official_id, post_id, len(rows),
+    )
+    return len(rows)
+
+
+def emit_tracked_content_notifications_bg(
+    official_id: str,
+    official_name: str,
+    post_id: int,
+    preview: str,
+    has_poll: bool,
+) -> None:
+    """BackgroundTasks entrypoint — owns its session, swallows errors
+    (a failed courtesy notification must never surface to the poster)."""
+    from app.db import SessionLocal
+
+    db = SessionLocal()
+    try:
+        emit_tracked_content_notifications(
+            db,
+            official_id=official_id,
+            official_name=official_name,
+            post_id=post_id,
+            preview=preview,
+            has_poll=has_poll,
+        )
+    except Exception:
+        db.rollback()
+        logger.exception("tracked_post fan-out failed (official=%s)", official_id)
+    finally:
+        db.close()
 
 
 def list_for_recipient(
