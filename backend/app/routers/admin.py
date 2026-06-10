@@ -1187,8 +1187,8 @@ def promote_candidate(
 
 
 # ── Lockout management (Task #56 revision) ───────────────────────────
-from pydantic import BaseModel as _UnlockBaseModel
-from typing import Literal as _UnlockLiteral
+from pydantic import BaseModel as _UnlockBaseModel  # noqa: E402 - intentional section-local import
+from typing import Literal as _UnlockLiteral  # noqa: E402 - intentional section-local import
 
 
 class _AdminUnlockRequest(_UnlockBaseModel):

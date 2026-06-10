@@ -1,0 +1,54 @@
+# CodeQL — advanced setup (Task #107, 2026-06-10).
+#
+# Replaces GitHub's "default setup" (disable it in Settings → Advanced
+# Security → Code scanning before this lands, or uploads will conflict).
+# Advanced setup puts the config in the repo where we control it — the
+# default-setup run was failing at upload with "token requires
+# contents: read, security-events: write"; the explicit permissions
+# block below is the fix.
+#
+# The repo is public, so CodeQL scanning + SARIF upload are free.
+# Dependabot-triggered runs get a read-only GITHUB_TOKEN that cannot
+# upload results — the actor guard skips them (Dependabot PRs still
+# get scanned when the PR is updated by a human or merged to main).
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '23 7 * * 1'  # Mondays 07:23 UTC — catches new query packs
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write   # SARIF upload — the missing permission
+      actions: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: python              # backend (FastAPI)
+            build-mode: none
+          - language: javascript-typescript  # frontend (Next.js)
+            build-mode: none
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+      - uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"

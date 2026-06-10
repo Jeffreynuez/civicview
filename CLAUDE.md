@@ -76,8 +76,13 @@ sends X-CSRF-Token); citizen dashboard split into Overview / Account &
 settings views; start-page preference (Task #102 — `CitizenAccount.start_page`,
 `PUT /api/citizen-auth/me/start-page`, once-per-session redirect, deep links
 `/?open=tracked|dashboard|settings`); expanded /stats page (Task #71 DONE —
-`/api/stats/detail`, 60s TTL); /polls load-more retry. NEW: #101 engagement
-rate limiting (pre-launch), #103 audit follow-ups.
+`/api/stats/detail`, 60s TTL); /polls load-more retry. Second pass same day:
+#101 rate limiting DONE (shared limiter + middleware, 30/min engage,
+10/10min create); #104 weekly digest DONE (opt-in, Postmark, scheduler
+gated on `DIGEST_ENABLED` env — OFF until Jeffrey flips it); #105
+tracked-official in-app alerts DONE (`kind='tracked_post'` fan-out);
+compare surface gained agreement-rate bar + agree/disagree filters +
+50-vote window. NEW: #103 + #106 follow-up batches pending.
 
 **Top open tasks** (full list = README "Pending tasks" table — recreate ALL
 rows into the Cowork Progress widget on session start): #95 Vote Smart API
@@ -325,7 +330,9 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   sleeps after 15 min and the first request after waking often
   times out. "Failed to fetch" after long inactivity is usually
   cold start, not a real bug.
-- **Repo:** `https://github.com/Jeffreynuez/civicview` (private).
+- **Repo:** `https://github.com/Jeffreynuez/civicview` (PUBLIC —
+  made public pre-Indiegogo for transparency; Jeffrey corrected the
+  stale 'private' note 2026-06-10. No secrets live in the repo).
   Branch protection on `main`; PR-only workflow. Jeffrey is the
   sole maintainer — GitHub's "Require approval of the most recent
   reviewable push" MUST be OFF or he can't self-merge.

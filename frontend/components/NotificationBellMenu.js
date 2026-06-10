@@ -230,7 +230,7 @@ export default function NotificationBellMenu() {
               </div>
             ) : notifItems.length === 0 ? (
               <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '6px 2px', lineHeight: 1.4 }}>
-                Nothing new. Replies to your comments will show up here.
+                Nothing new. Replies to your comments and updates from officials you track will show up here.
               </div>
             ) : (
               notifItems.map((n) => {
@@ -251,8 +251,17 @@ export default function NotificationBellMenu() {
                     }}
                   >
                     <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', fontWeight: isUnread ? 700 : 500 }}>
-                      <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>
-                      {' '}replied to your comment
+                      {n.kind === 'tracked_post' ? (
+                        <>
+                          <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
+                          {p.has_poll ? ' posted a new update with a poll' : ' posted a new update'}
+                        </>
+                      ) : (
+                        <>
+                          <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>
+                          {' '}replied to your comment
+                        </>
+                      )}
                     </div>
                     {p.preview && (
                       <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.35 }}>

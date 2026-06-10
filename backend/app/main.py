@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.middleware.csrf import CsrfMiddleware
+from app.middleware.rate_limit import EngagementRateLimitMiddleware
 from contextlib import asynccontextmanager
 import logging
 
@@ -110,7 +111,56 @@ async def lifespan(app: FastAPI):
             )
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
+
+    # ── Weekly civic digest scheduler (Task #104) ────────────────────
+    # Env-gated (DIGEST_ENABLED=true) in-process loop: sleeps until the
+    # next Saturday 09:00 America/New_York, runs send_weekly_digests in
+    # a fresh session, repeats. No new Render service needed; the
+    # per-citizen digest_last_sent_at idempotency in the sender means
+    # restarts/redeploys on send day can't double-send. If the process
+    # happens to be asleep at 9am Saturday (Render restart), the next
+    # boot's loop just targets the following Saturday — acceptable for
+    # a courtesy digest; switch to a Render Cron Job if precision ever
+    # matters.
+    digest_task = None
+    if os.getenv("DIGEST_ENABLED", "").strip().lower() in ("1", "true", "yes"):
+        import asyncio
+        from datetime import datetime, timedelta
+        from zoneinfo import ZoneInfo
+
+        async def _digest_loop():
+            tz = ZoneInfo("America/New_York")
+            while True:
+                now = datetime.now(tz)
+                days_ahead = (5 - now.weekday()) % 7  # Saturday = 5
+                target = (now + timedelta(days=days_ahead)).replace(
+                    hour=9, minute=0, second=0, microsecond=0
+                )
+                if target <= now:
+                    target += timedelta(days=7)
+                wait = (target - now).total_seconds()
+                logger.info("digest scheduler: next run %s (in %.0f h)", target, wait / 3600)
+                await asyncio.sleep(wait)
+                try:
+                    from app.db import SessionLocal
+                    from app.services.digest_service import send_weekly_digests
+
+                    db = SessionLocal()
+                    try:
+                        await asyncio.to_thread(send_weekly_digests, db)
+                    finally:
+                        db.close()
+                except Exception:
+                    logger.exception("digest run failed — will retry next Saturday")
+
+        digest_task = asyncio.get_event_loop().create_task(_digest_loop())
+        logger.info("Weekly digest scheduler ENABLED (DIGEST_ENABLED set).")
+    else:
+        logger.info("Weekly digest scheduler disabled (set DIGEST_ENABLED=true to enable).")
+
     yield
+    if digest_task is not None:
+        digest_task.cancel()
     logger.info("CivicView API shutting down...")
 
 
@@ -152,6 +202,10 @@ ALLOWED_ORIGINS = (
 # Starlette's add_middleware inserts at the FRONT of the user middleware
 # list, so the LAST add wraps everything inside — hence CORS goes last.
 app.add_middleware(CsrfMiddleware)
+# Engagement write rate limiting (Task #101). Added after CsrfMiddleware
+# → runs before it (Starlette executes later-added middleware first), so
+# scripted spray gets a cheap 429 before any CSRF/token work.
+app.add_middleware(EngagementRateLimitMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

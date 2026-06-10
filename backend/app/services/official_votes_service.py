@@ -36,7 +36,13 @@ import os
 import time
 from pathlib import Path
 from typing import Optional
-from xml.etree import ElementTree as ET
+# defusedxml guards against XML bombs / external-entity attacks in the
+# Clerk + Senate XML we fetch. The payloads come from house.gov /
+# senate.gov, but a compromised upstream or MITM'd response shouldn't
+# be able to OOM the worker. Unconditional import — it's pinned in
+# requirements.txt (a try/except stdlib fallback would defeat both the
+# protection and Bandit's ability to verify it).
+from defusedxml import ElementTree as ET
 
 logger = logging.getLogger(__name__)
 

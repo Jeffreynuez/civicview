@@ -1007,6 +1007,21 @@ def create_post(
         from app.services.poll_classifier import classify_poll
         bg_tasks.add_task(classify_poll, attached_poll_id)
 
+    # Tracked-official alerts (Task #105) — notify every citizen who
+    # tracks this page that new content landed. Background task with
+    # its own session; zero latency on the posting rep/candidate.
+    from app.services.notifications_inapp import (
+        emit_tracked_content_notifications_bg,
+    )
+    bg_tasks.add_task(
+        emit_tracked_content_notifications_bg,
+        official_id,
+        (rep.display_name if rep is not None else candidate.display_name) or official_id,
+        post.id,
+        post.body or "",
+        attached_poll_id is not None,
+    )
+
     # Threat/incitement moderation (Task #41) — async shadow-mode pass.
     # Records a verdict only; hides nothing in Phase 0. No latency hit
     # for the author. See docs/threat-detection-prd.md.

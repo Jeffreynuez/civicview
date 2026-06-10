@@ -1,0 +1,33 @@
+# Backend security + lint gate (Task #107, 2026-06-10).
+#
+# Complements CodeQL with fast, dependency-free checks that mirror the
+# session-audit standard: ruff (lint) and Bandit at medium+ severity.
+# Both are verified clean at the commit that introduces this workflow —
+# Bandit's 6 prior medium findings were resolved (defusedxml for Clerk/
+# Senate XML parsing; documented nosec for model-metadata SQL in the
+# auto-migrate and the fixed-URL legislators fetch).
+name: Security & lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend-security-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install linters
+        run: pip install ruff bandit
+      - name: Ruff (lint)
+        run: ruff check backend/app
+      - name: Bandit (security, medium+ severity)
+        run: bandit -r backend/app -ll

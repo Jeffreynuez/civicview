@@ -1179,6 +1179,15 @@ class CitizenAccount(Base):
     # server_default (see db.py BOOLEAN NOT NULL caveat — strings are
     # safe nullable).
     start_page: Mapped[Optional[str]] = mapped_column(String(32), default=None)
+    # Weekly civic digest (Task #104). Explicit opt-in — default OFF, no
+    # surprise email. BOOLEAN NOT NULL → server_default required for the
+    # boot-time auto-migrate (db.py caveat). digest_last_sent_at gives
+    # per-citizen idempotency: a backend restart on send day can't
+    # double-send (sender skips anyone mailed in the last 6 days).
+    digest_opt_in: Mapped[bool] = mapped_column(
+        Boolean, server_default=sa_expression.false(), default=False, nullable=False
+    )
+    digest_last_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.

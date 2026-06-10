@@ -21,7 +21,7 @@ import {
   ArrowRight,
 } from './ui';
 import { getAllTrackedOfficials } from '../lib/trackedOfficials';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, saveStartPage } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
@@ -274,6 +274,7 @@ export default function ConstituentDashboard({
             <VerificationSection citizen={citizen} />
             <BillingSection citizen={citizen} />
             <StartPageSection citizen={citizen} />
+            <DigestSection citizen={citizen} />
             <DemographicProfileSection />
             <HiddenByModerationSection citizen={citizen} />
           </div>
@@ -1096,6 +1097,146 @@ function StartPageSection({ citizen }) {
         >
           {note.text}
         </p>
+      )}
+    </Card>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Weekly civic digest opt-in (Task #104)
+// ─────────────────────────────────────────────────────────────────
+
+function DigestSection({ citizen }) {
+  const [optIn, setOptIn] = useState(!!citizen?.digest_opt_in);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState(null); // { tone, text }
+  const [preview, setPreview] = useState(null); // null | 'loading' | {empty,subject,html,reason}
+
+  const isDemoEmail = /@(demo-citizens\.civicview\.app|civiclens-demo\.com)$/i.test(citizen?.email || '');
+
+  async function toggle(next) {
+    const prev = optIn;
+    setOptIn(next);
+    setBusy(true);
+    setNote(null);
+    try {
+      await saveDigestOptIn(next);
+      setNote({
+        tone: 'ok',
+        text: next
+          ? 'You\u2019re in — digests go out Saturday mornings (only when there\u2019s something to report).'
+          : 'Weekly digest turned off.',
+      });
+    } catch (err) {
+      setOptIn(prev);
+      setNote({ tone: 'err', text: 'Could not save. Please try again.' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function loadPreview() {
+    setPreview('loading');
+    try {
+      const { data, error } = await fetchDigestPreview();
+      if (error || !data) throw new Error('preview failed');
+      setPreview(data);
+    } catch {
+      setPreview({ empty: true, reason: 'Couldn\u2019t load the preview — try again.' });
+    }
+  }
+
+  return (
+    <Card title="Weekly digest">
+      <p
+        style={{
+          margin: '0 0 10px',
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text-muted)',
+          lineHeight: 1.5,
+        }}
+      >
+        A Saturday-morning email with what the officials you track did this
+        week — new posts and polls, polls closing soon, and upcoming district
+        events. Sent only when there\u2019s something to report.
+      </p>
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          fontSize: 'var(--cl-text-sm)',
+          cursor: busy ? 'wait' : 'pointer',
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={optIn}
+          disabled={busy}
+          onChange={(e) => toggle(e.target.checked)}
+          style={{ width: 16, height: 16, accentColor: 'var(--cl-accent)' }}
+        />
+        Email me a weekly civic digest
+      </label>
+      {isDemoEmail && (
+        <p style={{ margin: '8px 0 0', fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-muted)' }}>
+          Demo accounts use a placeholder email address, so digests won\u2019t
+          actually deliver until you have a verified account — but you can
+          preview what you\u2019d get below.
+        </p>
+      )}
+      {note && (
+        <p
+          role="status"
+          style={{
+            margin: '8px 0 0',
+            fontSize: 'var(--cl-text-xs)',
+            color: note.tone === 'ok' ? 'var(--cl-success, #16a34a)' : 'var(--cl-danger, #dc2626)',
+          }}
+        >
+          {note.text}
+        </p>
+      )}
+      <button
+        type="button"
+        onClick={loadPreview}
+        disabled={preview === 'loading'}
+        style={{
+          marginTop: 12,
+          background: 'transparent',
+          border: '1px solid var(--cl-border)',
+          borderRadius: 8,
+          padding: '6px 14px',
+          color: 'var(--cl-text)',
+          fontSize: 'var(--cl-text-sm)',
+          fontFamily: 'var(--cl-font-sans)',
+          cursor: 'pointer',
+        }}
+      >
+        {preview === 'loading' ? 'Building preview…' : 'Preview this week\u2019s digest'}
+      </button>
+      {preview && preview !== 'loading' && (
+        preview.empty ? (
+          <p style={{ margin: '10px 0 0', fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-muted)' }}>
+            {preview.reason}
+          </p>
+        ) : (
+          <div
+            style={{
+              marginTop: 12,
+              border: '1px solid var(--cl-border)',
+              borderRadius: 8,
+              padding: '4px 12px',
+              maxHeight: 320,
+              overflowY: 'auto',
+              background: '#fff',
+            }}
+            // Server-rendered digest HTML — same generator that feeds
+            // Postmark, built exclusively from CivicView's own data
+            // and HTML-escaped server-side.
+            dangerouslySetInnerHTML={{ __html: preview.html }}
+          />
+        )
       )}
     </Card>
   );

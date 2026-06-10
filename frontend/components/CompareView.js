@@ -68,7 +68,9 @@ export default function CompareView({ open, items, onClose }) {
         const [stats, bills, votes, detail] = await Promise.all([
           fetchMemberStats(it.bioguide_id, it.party),
           fetchMemberBills(it.bioguide_id, 8),
-          fetchMemberVotes(it.bioguide_id, 25),
+          // 50 recent votes per member (was 25) — deeper overlap window
+          // makes the agreement rate meaningful for cross-chamber pairs.
+          fetchMemberVotes(it.bioguide_id, 50),
           fetchMemberDetail(it.bioguide_id),
         ]);
         const d = detail?.data || {};
@@ -175,6 +177,16 @@ export default function CompareView({ open, items, onClose }) {
 
   const agreeCount = sharedVotes.filter((v) => v._agreement === 'agree').length;
   const disagreeCount = sharedVotes.filter((v) => v._agreement === 'disagree').length;
+  // Agreement rate over decisive (agree/disagree) shared votes — 'mixed'
+  // rows (Present / Not Voting) don't count toward either side.
+  const decisiveCount = agreeCount + disagreeCount;
+  const agreementPct = decisiveCount > 0 ? Math.round((agreeCount / decisiveCount) * 100) : null;
+  // 'all' | 'agree' | 'disagree' — citizens' most common question is
+  // "where do they differ", so disagreements are one tap away.
+  const [voteFilter, setVoteFilter] = useState('all');
+  const filteredVotes = voteFilter === 'all'
+    ? sharedVotes
+    : sharedVotes.filter((v) => v._agreement === voteFilter);
 
   return (
     <div
@@ -357,19 +369,67 @@ export default function CompareView({ open, items, onClose }) {
                 />
               )}
 
+              {!loading && sharedVotes.length > 0 && agreementPct !== null && (
+                <div
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    margin: '0 0 10px', padding: '10px 12px',
+                    background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <div style={{ fontSize: '0.8rem', color: 'var(--cl-text)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    Voted the same way on {agreeCount} of {decisiveCount} shared votes
+                  </div>
+                  <div style={{ flex: 1, height: 8, borderRadius: 4, background: '#f3d9d3', overflow: 'hidden', minWidth: 60 }}>
+                    <div style={{ width: `${agreementPct}%`, height: '100%', background: '#1d8a4b' }} />
+                  </div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 800, color: agreementPct >= 50 ? '#1d8a4b' : '#c1311b' }}>
+                    {agreementPct}%
+                  </div>
+                </div>
+              )}
+
               {!loading && sharedVotes.length > 0 && (
+                <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+                  {[['all', `All (${sharedVotes.length})`], ['agree', `Agree (${agreeCount})`], ['disagree', `Disagree (${disagreeCount})`]].map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setVoteFilter(key)}
+                      style={{
+                        padding: '4px 12px', borderRadius: 999, fontSize: '0.72rem', fontWeight: 700,
+                        fontFamily: 'inherit', cursor: 'pointer',
+                        border: '1px solid ' + (voteFilter === key ? 'var(--cl-accent)' : 'var(--cl-border)'),
+                        background: voteFilter === key ? 'var(--cl-accent-soft, rgba(37,99,235,0.10))' : 'white',
+                        color: voteFilter === key ? 'var(--cl-accent)' : 'var(--cl-text-light)',
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {!loading && sharedVotes.length > 0 && filteredVotes.length === 0 && (
+                <div style={{ padding: '14px', fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
+                  No {voteFilter === 'agree' ? 'agreeing' : 'disagreeing'} votes in the shared window.
+                </div>
+              )}
+
+              {!loading && filteredVotes.length > 0 && (
                 <div
                   style={{
                     border: '1px solid var(--cl-border)', borderRadius: '10px',
                     overflow: 'hidden', background: 'white',
                   }}
                 >
-                  {sharedVotes.slice(0, 20).map((v, i) => (
+                  {filteredVotes.slice(0, 30).map((v, i) => (
                     <SharedVoteRow
                       key={v.vote_id}
                       vote={v}
                       officials={votingOfficials}
-                      isLast={i === sharedVotes.slice(0, 20).length - 1}
+                      isLast={i === filteredVotes.slice(0, 30).length - 1}
                     />
                   ))}
                 </div>

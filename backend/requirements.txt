@@ -69,3 +69,4 @@ postmarker>=1.0,<2
 # Customer Portal API surface; ceiling at 13 leaves room for the
 # in-progress 12.x line.
 stripe>=7.0,<13
+defusedxml>=0.7.1

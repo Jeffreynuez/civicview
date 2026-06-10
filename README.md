@@ -391,6 +391,22 @@ categories:
   now deep-link via `/?open=tracked|dashboard|settings` instead of dead-
   ending on home; `/polls` infinite scroll failure now shows a tap-to-retry
   button instead of silently ending the feed.
+- **Engagement rate limiting (Task #101 — DONE):** shared sliding-window
+  limiter (`services/rate_limit.py`) + `EngagementRateLimitMiddleware`
+  (30 writes/min on comments/reactions/votes/reports, 10/10min on
+  poll/post creation, keyed by session token); demo-signup limiter
+  migrated onto the same mechanism (5/24h per IP unchanged).
+- **Weekly civic digest (Task #104 — DONE, sending gated):** opt-in
+  Saturday email (tracked officials' posts/polls, polls closing, district
+  events) via Postmark; `DIGEST_ENABLED` env flag is **OFF until Jeffrey
+  flips it in Render**; demo-domain addresses never sent to; preview
+  endpoint + Settings card with live preview.
+- **Tracked-official alerts (Task #105 — DONE):** `kind='tracked_post'`
+  in-app notifications fan out to every tracking citizen when an official
+  posts (BackgroundTask, own session); bell renders kind-aware copy.
+- **Compare upgrades:** shared roll-call section gained an agreement-rate
+  bar ("same way on X of Y — Z%"), All/Agree/Disagree filter chips, and a
+  50-vote overlap window (was 25).
 
 ## Shipped this session — 2026-06-05 (Claude Opus 4.8, 1M)
 
@@ -575,9 +591,12 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 99 | Local officials (sheriffs/judges/DAs/school boards) | pending (paid) | No comprehensive free source. Cicero or Ballotpedia (paid). The free Google Divisions OCD-ID bridge is already wired into `/api/address/lookup` (`ocdDivisions`) as the join key for whatever local source is chosen. |
 | 100 | AI provider base-URL abstraction (KIE flag — OFF) | pending — flag stays OFF until Jeffrey says | Env-gate the Anthropic base URL in `backend/app/services/ai_service.py`: `AI_PROVIDER=official\|kie` (+ optional `ANTHROPIC_BASE_URL` override), default **official**. KIE verified 2026-06-05: `https://api.kie.ai/claude/v1/messages` is an Anthropic-native drop-in (same Messages shape incl. cache fields, resolves `claude-haiku-4-5`); measured Haiku ≈ $0.27/M in, $1.45/M out (~72% off official $1/$5; credits round to 2dp so ±10%); latency 2.9–5.6s on small calls → suitable for the cached precompute pipeline only, never interactive. HARD RULE: user-comment classification stays on official Anthropic regardless (privacy commitments). Also evaluate the official **Batch API** (50% off, zero middleman) as the default cost lever for precompute. Key: "KIE API Key" at the bottom of the Keys file. Review KIE's data-retention/DPA terms before any production flip. |
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
-| 101 | Rate-limit engagement writes (comments / reactions / votes) | pending — pre-launch | 2026-06-10 audit: engagement write endpoints have no per-account rate limits, so they're spammable by script. Add a lightweight per-citizen sliding-window limiter (shared helper, generous limits — e.g. 30 writes/min) on comment/reaction/vote/poll-create endpoints. Also migrate the in-memory demo-signup limiter to the same mechanism (currently resets per deploy/worker). |
+| 101 | Rate-limit engagement writes (comments / reactions / votes) | done (2026-06-10) | Shipped: `services/rate_limit.py` (shared sliding-window, exact trailing window, Retry-After) + `middleware/rate_limit.py` (ENGAGE 30/60s on comments/reactions/votes/reports, CREATE 10/10min on poll+post creation, keyed by session token, IP fallback; 429 `code='rate_limited'`). Demo-signup limiter migrated to the same service (5/24h per IP unchanged). In-process — exact on the single Render worker; revisit Redis-backed buckets only if we scale workers. |
 | 102 | Citizen dashboard Overview/Settings split + start-page preference | done (2026-06-10) | Dashboard split into Overview (civic content) + Account & settings views; new `CitizenAccount.start_page` + `PUT /api/citizen-auth/me/start-page` (allowlist: home/polls/posts/bills/dashboard/stats) + StartPageSection + once-per-session redirect in `app/page.js`. Deep links: `/?open=tracked\|dashboard\|settings`. Reps/candidates can get the same preference later if it earns its keep. |
 | 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | pending | From the backend audit agent (verify each before fixing): (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
+| 104 | Weekly civic digest email | done (2026-06-10) — **sending gated on `DIGEST_ENABLED`** | Opt-in (`CitizenAccount.digest_opt_in`, default OFF) Saturday-9am-ET email: tracked officials' posts/polls this week, polls closing ≤7d, district events ≤14d. Empty digest = no send; demo-domain emails never sent; per-citizen `digest_last_sent_at` idempotency. In-process scheduler in `main.py` lifespan — set `DIGEST_ENABLED=true` in Render env to turn on. Preview: `GET /api/citizen-auth/me/digest/preview` + Settings card. |
+| 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
+| 106 | Notifications/digest follow-ups (deferred) | pending | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) bell deep-link improvement beyond `open_page` + hash (noted in NotificationBellMenu). |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
