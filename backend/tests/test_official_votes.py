@@ -104,11 +104,12 @@ house_list = {
     ]
 }
 hrows = ov.parse_house_vote_list(house_list, 119, 2)
-check("list drops amendment + non-house types (keeps 2)", len(hrows) == 2, str(len(hrows)))
-check("list newest-first (150 before 145)", [r["rollcall"] for r in hrows] == [150, 145], str([r["rollcall"] for r in hrows]))
+check("list drops amendment votes, keeps Senate measures (keeps 3)", len(hrows) == 3, str(len(hrows)))
+check("list newest-first (150, 148, 145)", [r["rollcall"] for r in hrows] == [150, 148, 145], str([r["rollcall"] for r in hrows]))
 check("list cite formats H.J.Res. 142", hrows[0]["issue"] == "H.J.Res. 142", hrows[0]["issue"])
-check("list cite formats H.R. 1041", hrows[1]["issue"] == "H.R. 1041", hrows[1]["issue"])
-check("list vote_id scheme", hrows[1]["vote_id"] == "h-119-2-145", hrows[1]["vote_id"])
+check("list cite formats S.Con.Res. 9 (Senate bill on House floor)", hrows[1]["issue"] == "S.Con.Res. 9", hrows[1]["issue"])
+check("list cite formats H.R. 1041", hrows[2]["issue"] == "H.R. 1041", hrows[2]["issue"])
+check("list vote_id scheme", hrows[2]["vote_id"] == "h-119-2-145", hrows[2]["vote_id"])
 
 # --- Congress.gov House members parser ---
 print("Congress.gov House members parser:")
