@@ -361,6 +361,37 @@ categories:
 
 ---
 
+## Shipped this session — 2026-06-10 (Claude Fable 5, 1M)
+
+- **Full standard audit** (parse / smoke-import / tests / secrets / lint /
+  feature review): verdict healthy. Repaired the two failing test files —
+  `test_official_votes.py` had stale list-parser expectations from the
+  intentional `19e77ca` Senate-bill fix; `test_tracked_cross_account.py`
+  predated the CSRF middleware and now derives + sends `X-CSRF-Token`
+  exactly like the frontend. All 9 test files green. Lint 73 → 2 findings
+  (both intentional E402s). Removed 2 unused imports.
+- **Citizen dashboard reorg (Task #102):** split into **Overview**
+  (My Reps, Upcoming, Recent, My Polls, Saved) and **Account & settings**
+  (2FA, verification, billing, start page, demographic profile, hidden-by-
+  moderation) views. Civic content now leads on every viewport — the four
+  account sections no longer push My Representatives below the fold on
+  mobile. Quick links "Account settings" now goes somewhere real.
+- **Start-page preference (Task #102):** citizens choose which surface
+  CivicView opens on (Home / Polls / Posts / Bills / Dashboard / Stats).
+  `CitizenAccount.start_page` (nullable, auto-migrates) + allowlisted
+  `PUT /api/citizen-auth/me/start-page` + StartPageSection in dashboard
+  settings + once-per-session redirect in `app/page.js` (explicit URL
+  params always win; sessionStorage guard).
+- **Expanded /stats page (Task #71 — DONE):** new `GET /api/stats/detail`
+  (60s TTL cache, separate from /summary so home stays fast) — identity /
+  engagement / content-library counts, 8-week signup + poll-vote trends,
+  citizens-by-state. Frontend page rebuilt with loading + error + retry
+  states, CSS-only charts, all numbers live or structural (none fabricated).
+- **UX fixes from the audit:** `/bills` navbar "Tracked items" + "Dashboard"
+  now deep-link via `/?open=tracked|dashboard|settings` instead of dead-
+  ending on home; `/polls` infinite scroll failure now shows a tap-to-retry
+  button instead of silently ending the feed.
+
 ## Shipped this session — 2026-06-05 (Claude Opus 4.8, 1M)
 
 - **Optional Poll Demographic Forms — complete (P0+P1+P2).** Poll creators can
@@ -528,7 +559,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 
 | # | Task | Status | Notes |
 | --- | --- | --- | --- |
-| 71 | Build /stats expanded analytics page | pending | Post-launch. Placeholder page at `frontend/app/stats/page.js` is reachable today via the "More stats →" link in the home hero. Expand with engagement curves, growth by state, post + poll volume, verified-citizen coverage map. |
+| 71 | Build /stats expanded analytics page | done (2026-06-10) | Shipped: `GET /api/stats/detail` (60s in-process TTL cache, separate endpoint so the home hero stays sub-100ms) + rebuilt `frontend/app/stats/page.js` — government-structure constants, identity/engagement/content-library live counts, 8-week signup + poll-vote trend charts (CSS bars, zero-filled buckets), citizens-by-state top-15, explicit loading/error/retry states (no fabricated fallback). Future depth (growth curves beyond 8 weeks, verified-citizen coverage map) can extend the same endpoint. |
 | 84 | Wrap web app into iOS + Android native via Capacitor | pending | Apple Dev $99/yr + Google Play $25 one-time; ~2-4 weeks for first submission; revenue share considerations covered in financial model |
 | 90 | File Articles of Amendment for Benefit Corp status | pending | Sunbiz; waiting for initial Profit Corp filing (#800474911808) to process. Language is in `docs/civicview_benefit_corp_filing.pdf` |
 | 91 | Evaluate Vercel AI Gateway for backend AI calls | pending | Post-launch / deferred. Not urgent: current AI (comment classification + post summaries in `backend/app/services/ai_service.py`) is single-provider Anthropic and already degrades gracefully. The Gateway's OpenAI-compatible endpoint makes adoption a `base_url` + key swap in `ai_service.py` (no SDK rewrite). Adopt when AI spend warrants cost/usage dashboards, when provider failover matters, or to mix models (cheap classification + stronger summaries). Pricing: $5/mo free credit, then provider list prices at zero markup (BYOK also no markup). Caveat: routing the summarize flow through the OpenAI-compatible shim instead of the native Anthropic SDK can change system-prompt / citations / prompt-caching behavior — re-test that one flow before switching. |
@@ -544,6 +575,9 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 99 | Local officials (sheriffs/judges/DAs/school boards) | pending (paid) | No comprehensive free source. Cicero or Ballotpedia (paid). The free Google Divisions OCD-ID bridge is already wired into `/api/address/lookup` (`ocdDivisions`) as the join key for whatever local source is chosen. |
 | 100 | AI provider base-URL abstraction (KIE flag — OFF) | pending — flag stays OFF until Jeffrey says | Env-gate the Anthropic base URL in `backend/app/services/ai_service.py`: `AI_PROVIDER=official\|kie` (+ optional `ANTHROPIC_BASE_URL` override), default **official**. KIE verified 2026-06-05: `https://api.kie.ai/claude/v1/messages` is an Anthropic-native drop-in (same Messages shape incl. cache fields, resolves `claude-haiku-4-5`); measured Haiku ≈ $0.27/M in, $1.45/M out (~72% off official $1/$5; credits round to 2dp so ±10%); latency 2.9–5.6s on small calls → suitable for the cached precompute pipeline only, never interactive. HARD RULE: user-comment classification stays on official Anthropic regardless (privacy commitments). Also evaluate the official **Batch API** (50% off, zero middleman) as the default cost lever for precompute. Key: "KIE API Key" at the bottom of the Keys file. Review KIE's data-retention/DPA terms before any production flip. |
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
+| 101 | Rate-limit engagement writes (comments / reactions / votes) | pending — pre-launch | 2026-06-10 audit: engagement write endpoints have no per-account rate limits, so they're spammable by script. Add a lightweight per-citizen sliding-window limiter (shared helper, generous limits — e.g. 30 writes/min) on comment/reaction/vote/poll-create endpoints. Also migrate the in-memory demo-signup limiter to the same mechanism (currently resets per deploy/worker). |
+| 102 | Citizen dashboard Overview/Settings split + start-page preference | done (2026-06-10) | Dashboard split into Overview (civic content) + Account & settings views; new `CitizenAccount.start_page` + `PUT /api/citizen-auth/me/start-page` (allowlist: home/polls/posts/bills/dashboard/stats) + StartPageSection + once-per-session redirect in `app/page.js`. Deep links: `/?open=tracked\|dashboard\|settings`. Reps/candidates can get the same preference later if it earns its keep. |
+| 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | pending | From the backend audit agent (verify each before fixing): (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
