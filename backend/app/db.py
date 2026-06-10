@@ -536,8 +536,11 @@ def _rebuild_sqlite_table(table_name: str) -> None:
     # rolls back to the original table untouched.
     with engine.begin() as conn:
         # 1) Snapshot rows into a plain backup (no constraints).
+        # nosec note (B608): table/column identifiers are interpolated,
+        # but they come exclusively from SQLAlchemy model metadata (our
+        # own source code) — never from user input.
         conn.execute(text(
-            f'CREATE TABLE "{backup_name}" AS SELECT * FROM "{table_name}"'
+            f'CREATE TABLE "{backup_name}" AS SELECT * FROM "{table_name}"'  # nosec B608
         ))
         # 2) Drop the original — takes its indexes with it.
         conn.execute(text(f'DROP TABLE "{table_name}"'))
@@ -548,7 +551,7 @@ def _rebuild_sqlite_table(table_name: str) -> None:
         # 4) Copy rows back — intersection of columns only, so new
         #    nullable columns stay NULL (DB default) for old rows.
         conn.execute(text(
-            f'INSERT INTO "{table_name}" ({col_list}) '
+            f'INSERT INTO "{table_name}" ({col_list}) '  # nosec B608 - model metadata, see above
             f'SELECT {col_list} FROM "{backup_name}"'
         ))
         # 5) Remove the backup.

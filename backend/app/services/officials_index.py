@@ -303,7 +303,9 @@ def _load_legislators_current_synchronously() -> Optional[list]:
         pass
 
     try:
-        with urllib.request.urlopen(LEGISLATORS_URL, timeout=10) as resp:
+        # nosec note (B310): LEGISLATORS_URL is a module constant with a
+        # fixed https:// scheme — no user-controlled URL reaches this call.
+        with urllib.request.urlopen(LEGISLATORS_URL, timeout=10) as resp:  # nosec B310
             payload = resp.read().decode("utf-8")
         data = json.loads(payload)
         try:

@@ -330,7 +330,9 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   sleeps after 15 min and the first request after waking often
   times out. "Failed to fetch" after long inactivity is usually
   cold start, not a real bug.
-- **Repo:** `https://github.com/Jeffreynuez/civicview` (private).
+- **Repo:** `https://github.com/Jeffreynuez/civicview` (PUBLIC —
+  made public pre-Indiegogo for transparency; Jeffrey corrected the
+  stale 'private' note 2026-06-10. No secrets live in the repo).
   Branch protection on `main`; PR-only workflow. Jeffrey is the
   sole maintainer — GitHub's "Require approval of the most recent
   reviewable push" MUST be OFF or he can't self-merge.
