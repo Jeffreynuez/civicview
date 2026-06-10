@@ -664,6 +664,8 @@ class CitizenMeResponse(BaseModel):
     # Start-page preference (Task #102). NULL/None = home. The frontend
     # honors this on the first page-load of a browser session.
     start_page: Optional[str] = None
+    # Weekly digest opt-in (Task #104). Default False — explicit opt-in.
+    digest_opt_in: bool = False
 
     @field_validator("is_subscribed", "has_billing_account", mode="before")
     @classmethod

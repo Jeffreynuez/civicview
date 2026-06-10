@@ -1110,6 +1110,18 @@ export async function saveStartPage(startPage) {
   });
 }
 
+// Weekly civic digest (Task #104). Explicit opt-in; preview renders
+// the digest the caller would receive right now.
+export async function saveDigestOptIn(optIn) {
+  return request('/api/citizen-auth/me/digest', {
+    method: 'PUT',
+    body: { opt_in: !!optIn },
+  });
+}
+export async function fetchDigestPreview() {
+  return request('/api/citizen-auth/me/digest/preview');
+}
+
 // "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.
 export async function fetchMyCitizenPolls({ status = 'all' } = {}) {
   return request('/api/citizens/me/polls', { query: { status } });
