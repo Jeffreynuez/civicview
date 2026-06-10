@@ -661,6 +661,9 @@ class CitizenMeResponse(BaseModel):
     # 'id.me-archive' for cost-skip grants, 'demo' on demo signups.
     verified_at: Optional[datetime] = None
     verified_method: Optional[str] = None
+    # Start-page preference (Task #102). NULL/None = home. The frontend
+    # honors this on the first page-load of a browser session.
+    start_page: Optional[str] = None
 
     @field_validator("is_subscribed", "has_billing_account", mode="before")
     @classmethod

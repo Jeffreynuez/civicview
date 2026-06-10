@@ -1101,6 +1101,15 @@ export async function clearDemographicProfile() {
   return request('/api/citizens/me/demographic-profile', { method: 'DELETE' });
 }
 
+// Start-page preference (Task #102). Which surface the app opens on
+// after sign-in. 'home' / null clears the preference server-side.
+export async function saveStartPage(startPage) {
+  return request('/api/citizen-auth/me/start-page', {
+    method: 'PUT',
+    body: { start_page: startPage || null },
+  });
+}
+
 // "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.
 export async function fetchMyCitizenPolls({ status = 'all' } = {}) {
   return request('/api/citizens/me/polls', { query: { status } });

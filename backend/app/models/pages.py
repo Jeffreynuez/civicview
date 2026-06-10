@@ -1171,6 +1171,14 @@ class CitizenAccount(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Start-page preference (Task #102). Which surface the app opens on
+    # after sign-in / first visit of a session. NULL = default (home).
+    # Allowlisted in routers/auth_citizen.py (START_PAGE_CHOICES) — the
+    # column stores the raw key ('polls', 'bills', 'dashboard', ...).
+    # Nullable String so the boot-time auto-migrate adds it without a
+    # server_default (see db.py BOOLEAN NOT NULL caveat — strings are
+    # safe nullable).
+    start_page: Mapped[Optional[str]] = mapped_column(String(32), default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.

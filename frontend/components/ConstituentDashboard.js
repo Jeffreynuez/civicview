@@ -21,7 +21,7 @@ import {
   ArrowRight,
 } from './ui';
 import { getAllTrackedOfficials } from '../lib/trackedOfficials';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, saveStartPage } from '../lib/pagesApi';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
@@ -73,6 +73,10 @@ export default function ConstituentDashboard({
   ballot = null,
   onNavigate = {},
   onClose,
+  // Which view to open on ('overview' | 'settings'). The parent uses
+  // 'settings' to deep-link straight to Account & settings (e.g. the
+  // navbar's account entry or a /?open=settings URL).
+  initialView = 'overview',
   // Navbar props — passed straight through to the embedded compact Navbar
   // at the top of the dashboard. The parent (app/page.js) wires login /
   // logout / tracked / subscribe / help-build / feedback so the user can
@@ -103,6 +107,12 @@ export default function ConstituentDashboard({
   // single stack — otherwise the right rail's 1fr share becomes too
   // narrow for the 2×2 stats grid in YourActivityCard, which overflows.
   const isCompact = useIsCompact();
+
+  // Two-view layout (Task #102 reorg): 'overview' carries the civic
+  // content, 'settings' carries the account-management stack. Before
+  // this split the four account sections rendered ABOVE the civic
+  // content on mobile, pushing My Representatives below the fold.
+  const [view, setView] = useState(initialView === 'settings' ? 'settings' : 'overview');
 
   return (
     <div
@@ -196,53 +206,78 @@ export default function ConstituentDashboard({
           dateLabel={dateLabel}
         />
 
-        {/* Mobile: TwoFactor + Verification + Billing sit between the
-            greeting and the grid (before MY REPRESENTATIVES). Desktop
-            renders the same trio inside the right rail below. Order is
-            security → identity → billing so the most-sensitive surface
-            sits highest. */}
-        {isCompact && <TwoFactorSection />}
-        {isCompact && <VerificationSection citizen={citizen} />}
-        {isCompact && <BillingSection citizen={citizen} />}
-        {isCompact && <DemographicProfileSection />}
+        {/* View tabs (Task #102 reorg). Overview = civic content first;
+            Account & settings = the account-management stack (2FA,
+            verification, billing, demographic profile, start page,
+            hidden-by-moderation). Mobile used to render four account
+            sections between the greeting and MY REPRESENTATIVES —
+            civic content now leads on every viewport. */}
+        <div role="tablist" aria-label="Dashboard sections" style={{ display: 'flex', gap: 8 }}>
+          {[['overview', 'Overview'], ['settings', 'Account & settings']].map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={view === key}
+              onClick={() => setView(key)}
+              style={{
+                padding: '8px 16px',
+                borderRadius: 999,
+                border: '1px solid ' + (view === key ? 'var(--cl-accent)' : 'var(--cl-border)'),
+                background: view === key ? 'var(--cl-accent-soft, rgba(37, 99, 235, 0.10))' : 'var(--cl-card)',
+                color: view === key ? 'var(--cl-accent)' : 'var(--cl-text)',
+                fontWeight: view === key ? 600 : 500,
+                fontSize: 'var(--cl-text-sm)',
+                fontFamily: 'var(--cl-font-sans)',
+                cursor: 'pointer',
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
-        {/* Two-column layout: left = My Reps + Upcoming + Recent, right
-            = TwoFactor + Ballot + Activity stats. Desktop keeps the
-            original 2:1 split. Compact viewports (mobile portrait +
-            tablet) drop to a single column so the right rail's stats
-            grid + ballot card aren't squeezed past their content
-            width. */}
-        <div
-          style={{
-            display: 'grid',
-            gap: 24,
-            gridTemplateColumns: isCompact ? '1fr' : 'minmax(0, 2fr) minmax(0, 1fr)',
-          }}
-        >
-          {/* LEFT COLUMN */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <MyRepresentatives reps={reps} onManage={onNavigate.manageTracked} onBrowse={onNavigate.browseReps} />
-            <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
-            <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
-            <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
-            <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} />
+        {view === 'overview' && (
+          <div
+            style={{
+              display: 'grid',
+              gap: 24,
+              gridTemplateColumns: isCompact ? '1fr' : 'minmax(0, 2fr) minmax(0, 1fr)',
+            }}
+          >
+            {/* LEFT COLUMN — civic content */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <MyRepresentatives reps={reps} onManage={onNavigate.manageTracked} onBrowse={onNavigate.browseReps} />
+              <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
+              <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
+              <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
+              <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} />
+            </div>
+
+            {/* RIGHT RAIL — ballot, activity stats, quick links. The
+                account sections moved to the settings view; Quick
+                links' "Account settings" entry switches views. */}
+            <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
+              <YourActivityCard reps={reps} />
+              <QuickLinksCard onNavigate={{ ...onNavigate, accountSettings: () => setView('settings') }} />
+            </aside>
+          </div>
+        )}
+
+        {view === 'settings' && (
+          <div style={{ maxWidth: 720, width: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {/* Order: security → identity → billing (most-sensitive
+                first — same rationale as the old right rail), then
+                preferences, data privacy, and moderation status. */}
+            <TwoFactorSection />
+            <VerificationSection citizen={citizen} />
+            <BillingSection citizen={citizen} />
+            <StartPageSection citizen={citizen} />
+            <DemographicProfileSection />
             <HiddenByModerationSection citizen={citizen} />
           </div>
-
-          {/* RIGHT RAIL — desktop only. Order: security → identity →
-              billing, then ballot/activity/quick-links below. The
-              account-management trio sits at the top so users land on
-              the most-sensitive surface first. */}
-          <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            {!isCompact && <TwoFactorSection />}
-            {!isCompact && <VerificationSection citizen={citizen} />}
-            {!isCompact && <BillingSection citizen={citizen} />}
-            {!isCompact && <DemographicProfileSection />}
-            {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
-            <YourActivityCard reps={reps} />
-            <QuickLinksCard onNavigate={onNavigate} />
-          </aside>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -979,6 +1014,89 @@ function QuickLinksCard({ onNavigate }) {
           </li>
         ))}
       </ul>
+    </Card>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Start-page preference (Task #102)
+// ─────────────────────────────────────────────────────────────────
+
+const START_PAGE_OPTIONS = [
+  { value: 'home',      label: 'Home — map & officials' },
+  { value: 'polls',     label: 'Polls feed' },
+  { value: 'posts',     label: 'Posts feed' },
+  { value: 'bills',     label: 'Bills & votes' },
+  { value: 'dashboard', label: 'My dashboard' },
+  { value: 'stats',     label: 'Stats' },
+];
+
+function StartPageSection({ citizen }) {
+  const [value, setValue] = useState(citizen?.start_page || 'home');
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState(null); // { tone: 'ok'|'err', text }
+
+  async function save(next) {
+    const prev = value;
+    setValue(next);
+    setBusy(true);
+    setNote(null);
+    try {
+      await saveStartPage(next === 'home' ? null : next);
+      setNote({ tone: 'ok', text: 'Saved — applies the next time you open CivicView.' });
+    } catch (err) {
+      setValue(prev);
+      setNote({ tone: 'err', text: 'Could not save your preference. Please try again.' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card title="Start page">
+      <p
+        style={{
+          margin: '0 0 10px',
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text-muted)',
+          lineHeight: 1.5,
+        }}
+      >
+        Choose which page CivicView opens on when you arrive.
+      </p>
+      <select
+        value={value}
+        disabled={busy}
+        onChange={(e) => save(e.target.value)}
+        aria-label="Start page"
+        style={{
+          width: '100%',
+          padding: '10px 12px',
+          borderRadius: 8,
+          border: '1px solid var(--cl-border)',
+          background: 'var(--cl-card)',
+          color: 'var(--cl-text)',
+          fontSize: 'var(--cl-text-sm)',
+          fontFamily: 'var(--cl-font-sans)',
+          cursor: busy ? 'wait' : 'pointer',
+        }}
+      >
+        {START_PAGE_OPTIONS.map((o) => (
+          <option key={o.value} value={o.value}>{o.label}</option>
+        ))}
+      </select>
+      {note && (
+        <p
+          role="status"
+          style={{
+            margin: '8px 0 0',
+            fontSize: 'var(--cl-text-xs)',
+            color: note.tone === 'ok' ? 'var(--cl-success, #16a34a)' : 'var(--cl-danger, #dc2626)',
+          }}
+        >
+          {note.text}
+        </p>
+      )}
     </Card>
   );
 }
