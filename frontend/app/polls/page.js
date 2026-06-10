@@ -308,6 +308,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // Append the next page (infinite scroll). Polls use the keyset
   // `cursor`; posts use `postsOffset`. No-op while an AI filter is
   // active (that mode loads a single larger batch with has_more=false).
+  const [loadMoreError, setLoadMoreError] = useState(false);
   const loadMore = useCallback(async () => {
     if (loadingMore || loading || !hasMore || aiFilterIds !== null) return;
     setLoadingMore(true);
@@ -319,7 +320,13 @@ export function GrassrootsFeed({ tab = 'polls' }) {
       ...(tab === 'posts' ? { offset: postsOffset } : { cursor }),
     });
     setLoadingMore(false);
-    if (err || !data) { setHasMore(false); return; }
+    if (err || !data) {
+      // Don't silently end the feed — keep hasMore so the user can
+      // retry, and surface an inline note at the sentinel.
+      setLoadMoreError(true);
+      return;
+    }
+    setLoadMoreError(false);
     setItems((prev) => [...prev, ...(data.items || [])]);
     setCursor(data.next_cursor || null);
     setPostsOffset(typeof data.next_offset === 'number' ? data.next_offset : postsOffset);
@@ -766,7 +773,26 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                 fontFamily: 'var(--cl-font-sans)',
               }}
             >
-              {loadingMore ? 'Loading more…' : ''}
+              {loadingMore ? (
+                'Loading more…'
+              ) : loadMoreError ? (
+                <button
+                  type="button"
+                  onClick={() => { setLoadMoreError(false); loadMore(); }}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid var(--cl-border)',
+                    borderRadius: 8,
+                    padding: '6px 14px',
+                    color: 'var(--cl-text)',
+                    fontSize: '0.85rem',
+                    fontFamily: 'var(--cl-font-sans)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Couldn’t load more — tap to retry
+                </button>
+              ) : ''}
             </div>
           )}
         </div>

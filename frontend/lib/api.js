@@ -1421,6 +1421,15 @@ export async function fetchStatsSummary() {
   }
 }
 
+// Expanded stats for the /stats analytics page (Task #71). Unlike
+// fetchStatsSummary there is deliberately NO fallback payload — the
+// page renders an explicit error state instead of fabricated zeros.
+export async function fetchStatsDetail() {
+  const response = await fetch(`${API_BASE_URL}/api/stats/detail`);
+  if (!response.ok) throw new Error(`API Error ${response.status}`);
+  return response.json();
+}
+
 // ─── Sample / Fallback Data ──────────────────────────────────────────
 // Historically this object carried a hand-curated snapshot of a few
 // senators + reps per sample state so the UI had *something* to show

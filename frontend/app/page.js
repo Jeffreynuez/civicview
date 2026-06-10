@@ -303,6 +303,62 @@ export default function Home() {
   useEffect(() => {
     if (!citizen && dashboardOpen) setDashboardOpen(false);
   }, [citizen, dashboardOpen]);
+  // Which dashboard view to open on — 'settings' when deep-linked via
+  // /?open=settings (Task #102), otherwise the civic overview.
+  const [dashboardInitialView, setDashboardInitialView] = useState('overview');
+
+  // ─── Deep-link surfaces + start-page preference (Task #102) ───────
+  // /?open=tracked|dashboard|settings opens the matching overlay
+  // directly — used by the /bills navbar (and any future surface) so
+  // "Tracked items" / "Dashboard" don't dead-end on the home map.
+  // An explicit ?open= also suppresses the start-page redirect below.
+  const startPageHandledRef = useRef(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const open = (new URLSearchParams(window.location.search).get('open') || '').toLowerCase();
+    if (!open) return;
+    startPageHandledRef.current = true; // explicit destination wins
+    if (open === 'tracked') {
+      setTrackedOpen(true);
+    } else if (open === 'dashboard' || open === 'settings') {
+      // Dashboard needs the citizen session — wait for it below.
+      setDashboardInitialView(open === 'settings' ? 'settings' : 'overview');
+      setPendingDashboardOpen(true);
+    }
+  }, []);
+  // /?open=dashboard arrives before useCitizenAuth resolves, and the
+  // auto-close effect above would immediately shut an early open. Hold
+  // the intent until the citizen lands.
+  const [pendingDashboardOpen, setPendingDashboardOpen] = useState(false);
+  useEffect(() => {
+    if (pendingDashboardOpen && citizen) {
+      setPendingDashboardOpen(false);
+      setDashboardOpen(true);
+    }
+  }, [pendingDashboardOpen, citizen]);
+
+  // Start-page preference: once per browser session, when a signed-in
+  // citizen lands on '/' with no explicit destination (no nav params,
+  // no ?open=), route to their saved start page. sessionStorage guard
+  // keeps in-session returns to Home from re-triggering.
+  useEffect(() => {
+    if (!citizen || startPageHandledRef.current) return;
+    startPageHandledRef.current = true;
+    const pref = (citizen.start_page || '').toLowerCase();
+    if (!pref || pref === 'home') return;
+    const url = new URLSearchParams(window.location.search);
+    if (['state', 'district', 'member', 'candidate', 'page', 'open'].some((k) => url.get(k))) return;
+    try {
+      if (sessionStorage.getItem('cv:start-page-applied')) return;
+      sessionStorage.setItem('cv:start-page-applied', '1');
+    } catch { /* private mode — apply every load, still correct */ }
+    if (pref === 'dashboard') {
+      setDashboardInitialView('overview');
+      setDashboardOpen(true);
+    } else if (['polls', 'posts', 'bills', 'stats'].includes(pref)) {
+      window.location.assign('/' + pref);
+    }
+  }, [citizen]);
   const handleCitizenLoginOpen = useCallback(() => setCitizenLoginOpen(true), []);
   const handleCitizenLoginSuccess = useCallback(() => setCitizenLoginOpen(false), []);
   const handleCitizenLogoutClick = useCallback(async () => {
@@ -1478,6 +1534,7 @@ export default function Home() {
               verified_method: citizen.verified_method || null,
             }}
             onClose={() => setDashboardOpen(false)}
+            initialView={dashboardInitialView}
             onNavigate={{
               manageTracked: () => {
                 setDashboardOpen(false);

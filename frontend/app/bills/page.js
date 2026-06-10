@@ -686,12 +686,12 @@ export default function BillsPage() {
           compact
           onMemberPick={(m) => { if (m && m.bioguide_id) router.push('/?member=' + encodeURIComponent(m.bioguide_id)); else router.push('/'); }}
           onCandidatePick={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); else router.push('/'); }}
-          onOpenTracked={() => router.push('/')}
+          onOpenTracked={() => router.push('/?open=tracked')}
           onSubscribe={() => router.push('/')}
           citizen={citizen}
           onCitizenLogin={() => router.push('/')}
           onCitizenLogout={() => { try { logoutCitizen && logoutCitizen(); } catch (e) {} router.push('/'); }}
-          onCitizenDashboard={() => router.push('/')}
+          onCitizenDashboard={() => router.push('/?open=dashboard')}
           onOpenRepDashboard={(r) => { if (r && r.official_id) router.push('/?page=' + encodeURIComponent(r.official_id)); }}
           onOpenCandidateDashboard={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); }}
           onOpenHelpBuild={() => router.push('/')}

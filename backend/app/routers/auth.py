@@ -27,7 +27,6 @@ from sqlalchemy.orm import Session
 from app.auth import (
     clear_session_cookie,
     compute_csrf_token,
-    generate_csrf_token,
     get_optional_rep_including_deleted,
     issue_session_token,
     set_session_cookie,

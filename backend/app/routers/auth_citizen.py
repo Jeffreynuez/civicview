@@ -460,6 +460,42 @@ def me(citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_includin
     return CitizenMeResponse.model_validate(citizen)
 
 
+# ── Start-page preference (Task #102) ──────────────────────────────
+# Allowlist of surfaces the app can open on. Keys are stable route
+# identifiers, NOT paths — the frontend owns the key→route mapping so
+# a future route rename doesn't strand stored preferences.
+START_PAGE_CHOICES = {"home", "polls", "posts", "bills", "dashboard", "stats"}
+
+
+class StartPageRequest(BaseModel):
+    """Body for PUT /me/start-page. None or 'home' clears the
+    preference (home is the default surface)."""
+    start_page: Optional[str] = None
+
+
+@router.put("/me/start-page", response_model=CitizenMeResponse)
+def set_start_page(
+    body: StartPageRequest,
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Save the citizen's start-page preference. Validates against the
+    allowlist; 'home'/None both store NULL (the default)."""
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    value = (body.start_page or "").strip().lower() or None
+    if value is not None and value not in START_PAGE_CHOICES:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"start_page must be one of {sorted(START_PAGE_CHOICES)} or null",
+        )
+    citizen.start_page = None if value in (None, "home") else value
+    db.add(citizen)
+    db.commit()
+    db.refresh(citizen)
+    return CitizenMeResponse.model_validate(citizen)
+
+
 # ── Self-serve account deletion (Task #81) ──────────────────────────
 @router.post("/delete", response_model=DeleteAccountResponse)
 def delete_account(

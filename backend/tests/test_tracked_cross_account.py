@@ -54,6 +54,7 @@ def main() -> int:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
     from fastapi.testclient import TestClient
     import app.main as m
+    from app.auth import compute_csrf_token
 
     with TestClient(m.app) as c:
         def reset_cookies():
@@ -76,7 +77,13 @@ def main() -> int:
             return body["citizen_token"], body["citizen"]["id"]
 
         def hdrs(tok):
-            return {"X-Citizen-Token": tok}
+            # CSRF middleware (app/middleware/csrf.py, Task #31) requires
+            # X-CSRF-Token on every unsafe method once a session is active.
+            # Derive it exactly like the frontend's token attachment does.
+            return {
+                "X-Citizen-Token": tok,
+                "X-CSRF-Token": compute_csrf_token(tok),
+            }
 
         # ── PHASE 1 ─────────────────────────────────────────────────
         tokA, idA = demo_signup("Cross Account A")

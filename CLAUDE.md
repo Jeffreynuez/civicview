@@ -39,7 +39,7 @@ state that this file deliberately does NOT duplicate:
 4. **`backend/app/models/pages.py`** — All SQLAlchemy models in one
    file. The shape of the data layer.
 
-## Current state & open work (snapshot 2026-06-05)
+## Current state & open work (snapshot 2026-06-10)
 
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
@@ -69,6 +69,15 @@ narrative. At a glance:
   (`build_state_federal_candidates.py`); crowdfunding pivoted to **Indiegogo**
   (final draft + art; publish gated on EIN + business bank); 3 mobile map
   fixes (persistence / first-paint flash / camera re-assert).
+
+**Shipped 2026-06-10:** full standard audit (all 9 test files green — two
+repaired: stale official-votes list expectations + tracked-cross-account now
+sends X-CSRF-Token); citizen dashboard split into Overview / Account &
+settings views; start-page preference (Task #102 — `CitizenAccount.start_page`,
+`PUT /api/citizen-auth/me/start-page`, once-per-session redirect, deep links
+`/?open=tracked|dashboard|settings`); expanded /stats page (Task #71 DONE —
+`/api/stats/detail`, 60s TTL); /polls load-more retry. NEW: #101 engagement
+rate limiting (pre-launch), #103 audit follow-ups.
 
 **Top open tasks** (full list = README "Pending tasks" table — recreate ALL
 rows into the Cowork Progress widget on session start): #95 Vote Smart API
