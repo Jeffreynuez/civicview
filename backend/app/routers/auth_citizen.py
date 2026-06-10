@@ -21,7 +21,6 @@ import logging
 import re
 import secrets
 import string
-import time
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
@@ -48,6 +47,7 @@ from app.schemas.pages import (
     PasswordResetRequestRequest,
 )
 from app.services import login_attempts
+from app.services.rate_limit import check_rate_limit
 
 
 logger = logging.getLogger(__name__)
@@ -84,26 +84,22 @@ _SLUG_RE = re.compile(r"[^a-z0-9]+")
 # production self-serve flow that's not strictly demo.
 _DEMO_SIGNUP_LIMIT_PER_IP = 5
 _DEMO_SIGNUP_WINDOW_SECS = 24 * 60 * 60
-_demo_signup_log: dict[str, list[float]] = {}
 
 
 def _check_demo_signup_rate_limit(client_ip: str) -> None:
     """Raise 429 if `client_ip` has exceeded the per-day demo-signup cap.
-    Trims expired timestamps as a side effect so the dict doesn't grow
-    unbounded."""
-    now = time.time()
-    cutoff = now - _DEMO_SIGNUP_WINDOW_SECS
-    hits = [ts for ts in _demo_signup_log.get(client_ip, []) if ts > cutoff]
-    if len(hits) >= _DEMO_SIGNUP_LIMIT_PER_IP:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail=(
-                "Too many demo accounts created from this connection today. "
-                "Try again tomorrow, or sign in to an existing demo account."
-            ),
-        )
-    hits.append(now)
-    _demo_signup_log[client_ip] = hits
+    Delegates to the shared sliding-window limiter (Task #101) — same
+    5 / 24h policy the original inline limiter enforced."""
+    check_rate_limit(
+        "demo-signup",
+        client_ip,
+        _DEMO_SIGNUP_LIMIT_PER_IP,
+        _DEMO_SIGNUP_WINDOW_SECS,
+        detail=(
+            "Too many demo accounts created from this connection today. "
+            "Try again tomorrow, or sign in to an existing demo account."
+        ),
+    )
 
 
 def _client_ip(request: Request) -> str:
@@ -494,6 +490,61 @@ def set_start_page(
     db.commit()
     db.refresh(citizen)
     return CitizenMeResponse.model_validate(citizen)
+
+
+# ── Weekly digest opt-in + preview (Task #104) ─────────────────────
+
+
+class DigestOptInRequest(BaseModel):
+    opt_in: bool
+
+
+@router.put("/me/digest", response_model=CitizenMeResponse)
+def set_digest_opt_in(
+    body: DigestOptInRequest,
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Toggle the weekly civic digest. Explicit opt-in only — the
+    column defaults to False and nothing flips it server-side."""
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    citizen.digest_opt_in = bool(body.opt_in)
+    db.add(citizen)
+    db.commit()
+    db.refresh(citizen)
+    return CitizenMeResponse.model_validate(citizen)
+
+
+@router.get("/me/digest/preview")
+def digest_preview(
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Render the caller's digest as it would send right now. Works for
+    demo accounts too (sending skips demo domains, previewing doesn't) —
+    lets anyone see what they'd get before opting in."""
+    from app.services.digest_service import build_digest, is_demo_email, render_digest
+
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    data = build_digest(db, citizen)
+    if data is None:
+        return {
+            "empty": True,
+            "demo_email": is_demo_email(citizen.email),
+            "reason": (
+                "Nothing to digest yet — track some officials and check back "
+                "after they post, poll, or schedule events."
+            ),
+        }
+    subject, html_body, _text = render_digest(data)
+    return {
+        "empty": False,
+        "demo_email": is_demo_email(citizen.email),
+        "subject": subject,
+        "html": html_body,
+    }
 
 
 # ── Self-serve account deletion (Task #81) ──────────────────────────
