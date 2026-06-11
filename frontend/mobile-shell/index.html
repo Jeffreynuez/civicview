@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- CivicView — offline fallback for the native shell (Task #84).
+     Only shown if the webview cannot reach civicview.app on launch.
+     The real app is the live site; this page is a courtesy. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicView</title>
+<style>
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    background: #0e1726; color: #f5f7fa; text-align: center;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 24px;
+  }
+  .wrap { max-width: 320px; }
+  h1 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.02em; }
+  p { font-size: 15px; line-height: 1.5; color: #b9c2cf; margin: 0 0 20px; }
+  button {
+    background: #2e7d32; color: #fff; border: none; border-radius: 10px;
+    padding: 12px 28px; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>CivicView</h1>
+    <p>Couldn&rsquo;t reach the network. CivicView needs a connection
+       to show live government data.</p>
+    <button onclick="window.location.reload()">Try again</button>
+  </div>
+</body>
+</html>
