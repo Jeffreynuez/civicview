@@ -650,9 +650,15 @@ function Hero({ onVerifyClick }) {
             }}
             aria-hidden="true"
           >
+            {/* color-detailed = the vector rendition of the brand art
+                (glossy lens + full-color flag + shaded handle). The
+                rim-light ring keeps it crisp on the navy plate; the
+                flat 'reverse' mark it replaces stays in use on navbar
+                chrome. Per the brand component's own guidance, the
+                detailed variant is the hero-size mark. */}
             <CivicViewLogo
               size={visualSize}
-              variant="reverse"
+              variant="color-detailed"
               style={{
                 transition: 'width var(--cl-duration-base) var(--cl-ease-standard), height var(--cl-duration-base) var(--cl-ease-standard)',
               }}
