@@ -10,8 +10,9 @@ project, the conventions, or the open work.
 **CivicView** (civicview.app) — a non-partisan civic-engagement
 platform for U.S. citizens, their elected representatives, and
 election candidates. Filed as a **Florida Benefit Corporation**
-(initial Profit Corp filing on the books, Sunbiz tracking
-`#800474911808`; Benefit Corp Amendment is Task #90, pending).
+(initial Profit Corp filing processed — CIVICVIEW, INC. ACTIVE,
+Sunbiz tracking `#800474911808`; Benefit Corp Amendment filed 2026-06-12,
+Task #90 done. EIN obtained; business bank account open).
 
 Sole creator / founder: **Jeffrey De La Nuez**
 (`jeffreynuez1@gmail.com`). The project was built with major
@@ -39,7 +40,7 @@ state that this file deliberately does NOT duplicate:
 4. **`backend/app/models/pages.py`** — All SQLAlchemy models in one
    file. The shape of the data layer.
 
-## Current state & open work (snapshot 2026-06-10)
+## Current state & open work (snapshot 2026-06-14)
 
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
@@ -82,7 +83,7 @@ settings views; start-page preference (Task #102 — `CitizenAccount.start_page`
 gated on `DIGEST_ENABLED` env — OFF until Jeffrey flips it); #105
 tracked-official in-app alerts DONE (`kind='tracked_post'` fan-out);
 compare surface gained agreement-rate bar + agree/disagree filters +
-50-vote window. NEW: #103 + #106 follow-up batches pending.
+50-vote window. #107 CI hardening (CodeQL advanced + Bandit/ruff gate) DONE; #84 native wrap DONE (Capacitor remote-URL scaffold + store runbook; Android org verified on Google Play, app listing next); #103 audit follow-ups DONE 2026-06-12; #106 follow-up batch still pending.
 
 **Top open tasks** (full list = README "Pending tasks" table — recreate ALL
 rows into the Cowork Progress widget on session start): #95 Vote Smart API
@@ -93,7 +94,7 @@ minor filers (paid — Ballotpedia/BallotReady), #99 local officials
 sheriffs/judges/DAs (paid), **#100 AI provider base-URL flag (KIE measured
 ~72% off Haiku but flag stays OFF until Jeffrey says; user-comment
 classification stays on official Anthropic regardless)**. Plus older rows
-#71, #84, #90, #91, #94, #26, #49 (#92, #93 done).
+#91, #94, #26, #49, #95, #96, #97, #98, #99, #100, #106 (done: #71, #84, #90, #92, #93, #101, #102, #103, #104, #105, #107).
 
 **API keys** (all in Render env on `civicview-api` + the Keys file): 
 `CONGRESS_API_KEY`, `OPENSTATES_API_KEY`, `COURTLISTENER_TOKEN`,

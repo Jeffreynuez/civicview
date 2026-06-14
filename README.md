@@ -14,7 +14,7 @@ through a moderated, district-scoped channel.
 
 CivicView is filed as a **Florida Benefit Corporation** (initial Profit
 Corporation filing on the books — tracking #800474911808; Benefit Corp
-Amendment pending). No ads, no venture capital, no partisan agenda. The
+Amendment filed 2026-06-12). No ads, no venture capital, no partisan agenda. The
 revenue model is a $5/month consumer subscription for engagement features;
 browsing is free forever.
 
@@ -561,8 +561,9 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 - Email deliverability hardening (SPF / DKIM / DMARC on `civicview.app`)
 - Election-win promotion flow (admin UI surface — backend shipped)
 - Crowdfunding launch — **Indiegogo** (final draft + cover/thumbnail/reward art
-  ready; publish gated on EIN + business bank account) + Benefit Corp
-  Amendment (cr2e011 filled, ready to file)
+  ready). EIN obtained, business bank account opened, and Benefit Corp
+  Amendment filed (Task #90 done) — campaign is ready to publish. Native
+  app store submission underway (Android org verified on Google Play)
 
 ---
 
@@ -576,8 +577,8 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | # | Task | Status | Notes |
 | --- | --- | --- | --- |
 | 71 | Build /stats expanded analytics page | done (2026-06-10) | Shipped: `GET /api/stats/detail` (60s in-process TTL cache, separate endpoint so the home hero stays sub-100ms) + rebuilt `frontend/app/stats/page.js` — government-structure constants, identity/engagement/content-library live counts, 8-week signup + poll-vote trend charts (CSS bars, zero-filled buckets), citizens-by-state top-15, explicit loading/error/retry states (no fabricated fallback). Future depth (growth curves beyond 8 weeks, verified-citizen coverage map) can extend the same endpoint. |
-| 84 | Wrap web app into iOS + Android native via Capacitor | pending | Apple Dev $99/yr + Google Play $25 one-time; ~2-4 weeks for first submission; revenue share considerations covered in financial model |
-| 90 | File Articles of Amendment for Benefit Corp status | pending | Sunbiz; waiting for initial Profit Corp filing (#800474911808) to process. Language is in `docs/civicview_benefit_corp_filing.pdf` |
+| 84 | Wrap web app into iOS + Android native via Capacitor | done (2026-06-12) | Capacitor remote-URL shell scaffold + app-store runbook committed (`9fbbac0`). Android organization account verified on Google Play Console (CivicView org, ID 5150866026642573505); next step is creating the app listing + first build upload. Apple Dev $99/yr + Google Play $25 paid. |
+| 90 | File Articles of Amendment for Benefit Corp status | done (2026-06-12) | Filed with Sunbiz. Initial Profit Corp filing (#800474911808) processed — CIVICVIEW, INC. is ACTIVE; cr2e011 Articles of Amendment (Exhibit A statute cites §§607.601–607.613) filed. Language in `docs/civicview_benefit_corp_filing.pdf`. |
 | 91 | Evaluate Vercel AI Gateway for backend AI calls | pending | Post-launch / deferred. Not urgent: current AI (comment classification + post summaries in `backend/app/services/ai_service.py`) is single-provider Anthropic and already degrades gracefully. The Gateway's OpenAI-compatible endpoint makes adoption a `base_url` + key swap in `ai_service.py` (no SDK rewrite). Adopt when AI spend warrants cost/usage dashboards, when provider failover matters, or to mix models (cheap classification + stronger summaries). Pricing: $5/mo free credit, then provider list prices at zero markup (BYOK also no markup). Caveat: routing the summarize flow through the OpenAI-compatible shim instead of the native Anthropic SDK can change system-prompt / citations / prompt-caching behavior — re-test that one flow before switching. |
 | 92 | Trim /polls + /posts filter cruft (audit follow-up) | done (2026-05-31) | Removed the inert `executive` + `judicial` branch chips from `BRANCH_FILTERS` + `branchCounts` in `frontend/app/polls/page.js` (backend only emits `branch` for Congress reps, so those chips always counted ~0). Deliberately LEFT the `pollBranch`/`branchCounts`/`branchFiltered` pipeline and the client-side state re-filter (~lines 313-319) intact — the original audit overreached: the re-filter guards a real refetch race, not dead work. Original audit 2026-05-28. |
 | 93 | Unify forked comment rendering onto CommentsThread | done (2026-06-04) | Three independent comment implementations: shared `components/polls/CommentsThread.js` (feed thread — /polls, /posts, home), `components/PostCard.js` (own `renderCommentRow` ~1406-1822, rep/candidate page posts, HAS an edit path), and `components/CitizenPollsSection.js` (own local `CommentsThread` function ~903-1637 mounted ~824, citizen polls, NO edit path, uses `archived` to lock closed polls). Goal: collapse onto the shared component (the only one that's production-proven for both `post` and `poll` modes). **Increment 1 — DONE 2026-05-31:** added an `archived` (read-only) prop to the shared `CommentsThread` (closed poll → composer replaced with a "closed to new comments" note + Reply control hidden; existing edit/delete/report untouched). esbuild-verified. The missing capability that blocked consolidation. **Increment 2 — TODO (CitizenPollsSection, do first, smaller):** `import CommentsThread from './polls/CommentsThread'`; delete the local `CommentsThread` function (~903-1637) + its `renderCommentRow` + comment state/handlers; mount with `mode="poll" pollId signedIn={!!citizen\|\|isOwner} onLoginRequired={onCitizenLoginRequired} ownerOfficialId ownerKind archived={archived}`. Drop the old `pollAuthorId`/`citizen` props — the shared component infers the viewer internally and gates replies via comment authorship + `ownerOfficialId`. **Increment 3 — TODO (PostCard, bigger):** replace the inline `renderCommentRow` (~1406-1822) + render block + comment handlers (`loadComments`/edit/delete/report/react) with `<CommentsThread mode="post" postId signedIn onLoginRequired onMutated={onCommentCountChanged} ownerOfficialId={post.official_id} ownerKind />`; the shared component already covers edit + AI filter + feed-count sync on /posts. Do each increment as its OWN commit and **runtime-test on the dev server** (reply two-party gate, archived lock, feed-count pill) — these paths are not statically verifiable. Mount caveat: after a host-side edit, esbuild lags ~seconds-to-minutes (virtiofs cache, anthropics/claude-code#50873) — wait a beat before verifying, or restart the session for a fresh mount. |
@@ -593,10 +594,11 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 49 | Threat detection Phase 1+ — act on verdicts | pending | Phase 0 (shadow mode) is live (verdicts logged, nothing hidden). Phase 1+: build a labeled eval set; implement `moderation_service._apply_decision` (set `hide_reason='threat_hidden'` on auto_hide) + surface flag/auto_hide verdicts in the admin queue; wire the self-harm resources flow; then flip `moderation_policy.SHADOW_MODE` off for Phase 2 (doxxing + credible_threat only) AFTER attorney review of the policy (`docs/LEGAL-REVIEW-ROADMAP.md`). See `docs/threat-detection-prd.md` §11. |
 | 101 | Rate-limit engagement writes (comments / reactions / votes) | done (2026-06-10) | Shipped: `services/rate_limit.py` (shared sliding-window, exact trailing window, Retry-After) + `middleware/rate_limit.py` (ENGAGE 30/60s on comments/reactions/votes/reports, CREATE 10/10min on poll+post creation, keyed by session token, IP fallback; 429 `code='rate_limited'`). Demo-signup limiter migrated to the same service (5/24h per IP unchanged). In-process — exact on the single Render worker; revisit Redis-backed buckets only if we scale workers. |
 | 102 | Citizen dashboard Overview/Settings split + start-page preference | done (2026-06-10) | Dashboard split into Overview (civic content) + Account & settings views; new `CitizenAccount.start_page` + `PUT /api/citizen-auth/me/start-page` (allowlist: home/polls/posts/bills/dashboard/stats) + StartPageSection + once-per-session redirect in `app/page.js`. Deep links: `/?open=tracked\|dashboard\|settings`. Reps/candidates can get the same preference later if it earns its keep. |
-| 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | pending | From the backend audit agent (verify each before fixing): (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
+| 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | done (2026-06-12) | Completed 2026-06-12 (verify-and-fix pass over all four items). Original scope from the backend audit agent: (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
 | 104 | Weekly civic digest email | done (2026-06-10) — **sending gated on `DIGEST_ENABLED`** | Opt-in (`CitizenAccount.digest_opt_in`, default OFF) Saturday-9am-ET email: tracked officials' posts/polls this week, polls closing ≤7d, district events ≤14d. Empty digest = no send; demo-domain emails never sent; per-citizen `digest_last_sent_at` idempotency. In-process scheduler in `main.py` lifespan — set `DIGEST_ENABLED=true` in Render env to turn on. Preview: `GET /api/citizen-auth/me/digest/preview` + Settings card. |
 | 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
 | 106 | Notifications/digest follow-ups (deferred) | pending | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) bell deep-link improvement beyond `open_page` + hash (noted in NotificationBellMenu). |
+| 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
@@ -609,14 +611,14 @@ share text + GoFundMe story + perk tiers + FAQ. High-level:
 
 **Phase 1 — free / cheap pre-work (do now):**
 - Postmark account + Server API token
-- EIN application at IRS.gov (~10 min if you have SSN)
-- Stripe in test mode (no EIN required — full subscription flow works
+- ✓ EIN application at IRS.gov — obtained (interim notice; official CP 575 arriving by mail ~mid-June 2026)
+- ✓ Stripe in test mode — done (no EIN required — full subscription flow works
   with test card `4242 4242 4242 4242`)
 
 **Phase 2 — corporate + banking (1-2 weeks):**
-- Wait for Sunbiz to process the initial Profit Corp filing
-- File Benefit Corp Amendment (Task #90)
-- Open business bank account (Mercury / Relay / Novo — 1-3 day approvals)
+- ✓ Sunbiz processed the initial Profit Corp filing — CIVICVIEW, INC. active
+- ✓ File Benefit Corp Amendment (Task #90) — filed 2026-06-12
+- ✓ Open business bank account — done (Mercury / Relay / Novo — 1-3 day approvals)
 
 **Phase 3 — launch the GoFundMe** ($25K goal):
 - Demo citizen system launches simultaneously so visitors can experience
