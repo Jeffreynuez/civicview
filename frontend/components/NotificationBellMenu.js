@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/lib/useViewport';
 import { useChannelPrefs, setChannelPrefs } from '@/lib/channelPrefs';
 import {
   fetchNotifications,
@@ -34,6 +35,7 @@ const NOTIF_POLL_MS = 60000;
 export default function NotificationBellMenu() {
   const { prefs, schema } = useChannelPrefs();
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
   const containerRef = useRef(null);
 
   // Phase 5 MVP — in-app notification inbox. We fetch on mount + on
@@ -188,12 +190,15 @@ export default function NotificationBellMenu() {
         <div
           role="menu"
           style={{
-            position: 'absolute', top: 'calc(100% + 8px)', right: 0,
-            width: '320px', maxHeight: '70vh', overflowY: 'auto',
+            position: isMobile ? 'fixed' : 'absolute',
+            overflowY: 'auto',
             background: 'white', color: 'var(--cl-text)',
             border: '1px solid var(--cl-border)', borderRadius: '12px',
             boxShadow: '0 12px 28px rgba(0,0,0,0.22)',
             zIndex: 200, padding: '10px 12px',
+            ...(isMobile
+              ? { top: 60, left: 12, right: 12, maxHeight: 'calc(100vh - 76px)' }
+              : { top: 'calc(100% + 8px)', right: 0, width: '320px', maxHeight: '70vh' }),
           }}
         >
           <div style={{
