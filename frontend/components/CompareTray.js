@@ -101,6 +101,8 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
         borderRadius: '14px', boxShadow: '0 10px 32px rgba(0,0,0,0.18)',
         padding: '10px 12px', zIndex: 80,
         display: 'flex', alignItems: 'center', gap: '10px',
+        flexWrap: isMobile ? 'wrap' : 'nowrap', rowGap: '8px',
+        width: isMobile ? 'calc(100vw - 40px)' : undefined,
         maxWidth: 'calc(100vw - 40px)',
       }}
       role="region"
@@ -116,7 +118,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
         Compare ({items.length}/3)
       </div>
 
-      <HScroll style={{ maxWidth: '520px' }} scrollerStyle={{ gap: '6px' }} itemCount={items.length}>
+      <HScroll style={{ flexGrow: 1, minWidth: 0, maxWidth: '520px' }} scrollerStyle={{ gap: '6px' }} itemCount={items.length}>
         {items.map((m) => {
           const isCandidate = m._kind === 'candidate';
           const party = m.party || (isCandidate ? 'NP' : 'I');
@@ -198,7 +200,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
         })}
       </HScroll>
 
-      <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
+      <div style={{ display: 'flex', gap: '6px', flexShrink: 0, justifyContent: 'flex-end', flexBasis: isMobile ? '100%' : 'auto' }}>
         <button
           onClick={onClear}
           style={{
