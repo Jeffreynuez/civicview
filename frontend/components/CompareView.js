@@ -738,7 +738,7 @@ function CandidateColumn({ candidate, loading }) {
         </div>
       </div>
 
-      {/* Current role / hometown — mirrors CandidateCompareView */}
+      {/* Current role / hometown */}
       {(candidate.current_office || candidate.hometown) && (
         <Block label="Background">
           {candidate.current_office && (
