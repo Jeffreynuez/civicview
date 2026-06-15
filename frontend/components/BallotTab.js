@@ -1051,9 +1051,8 @@ function MeasureCard({ measure }) {
         style={{
           marginTop: 10,
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
           gap: 8,
-          flexWrap: 'wrap',
         }}
       >
         <span
@@ -1067,26 +1066,29 @@ function MeasureCard({ measure }) {
         >
           How would you vote?
         </span>
-        <LeanButton
-          active={lean === 'yes'}
-          tone="accent"
-          onClick={() => handleLean('yes')}
-        >
-          Lean Yes
-        </LeanButton>
-        <LeanButton
-          active={lean === 'no'}
-          tone="warning"
-          onClick={() => handleLean('no')}
-        >
-          Lean No
-        </LeanButton>
+        <div style={{ display: 'flex', gap: 8, maxWidth: 340 }}>
+          <LeanButton
+            active={lean === 'yes'}
+            tone="accent"
+            onClick={() => handleLean('yes')}
+            style={{ flex: 1 }}
+          >
+            Lean Yes
+          </LeanButton>
+          <LeanButton
+            active={lean === 'no'}
+            tone="warning"
+            onClick={() => handleLean('no')}
+            style={{ flex: 1 }}
+          >
+            Lean No
+          </LeanButton>
+        </div>
         <span
           style={{
             fontSize: 'var(--cl-text-2xs)',
             color: 'var(--cl-text-muted)',
             fontStyle: 'italic',
-            marginLeft: 'auto',
           }}
         >
           Private to your device · never sent
@@ -1237,7 +1239,7 @@ function VoterStatusBanner({ status }) {
   );
 }
 
-function LeanButton({ active, tone, onClick, children }) {
+function LeanButton({ active, tone, onClick, children, style }) {
   // Toggle button for ballot-measure leaning preferences. tone='accent'
   // for Yes (accent-green palette), tone='warning' for No (yellow
   // palette — neutral, not destructive). Active flips to filled,
@@ -1271,6 +1273,7 @@ function LeanButton({ active, tone, onClick, children }) {
         fontFamily: 'var(--cl-font-sans)',
         cursor: 'pointer',
         transition: 'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard), color var(--cl-duration-fast) var(--cl-ease-standard)',
+        ...style,
       }}
     >
       {active && '✓ '}
