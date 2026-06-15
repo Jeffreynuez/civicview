@@ -29,6 +29,12 @@ export default function CompareView({ open, items, onClose }) {
   // collide even on the same seed string.
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  // 'all' | 'agree' | 'disagree' vote filter. MUST live with the other hooks,
+  // BEFORE the `if (!open) return null` early return below — React requires a
+  // stable hook count/order across renders. This previously sat after the
+  // return, so opening the modal rendered one extra hook and threw
+  // "rendered more hooks than during the previous render" (hard crash).
+  const [voteFilter, setVoteFilter] = useState('all');
 
   useEffect(() => {
     if (!open || !items?.length) return;
@@ -181,9 +187,6 @@ export default function CompareView({ open, items, onClose }) {
   // rows (Present / Not Voting) don't count toward either side.
   const decisiveCount = agreeCount + disagreeCount;
   const agreementPct = decisiveCount > 0 ? Math.round((agreeCount / decisiveCount) * 100) : null;
-  // 'all' | 'agree' | 'disagree' — citizens' most common question is
-  // "where do they differ", so disagreements are one tap away.
-  const [voteFilter, setVoteFilter] = useState('all');
   const filteredVotes = voteFilter === 'all'
     ? sharedVotes
     : sharedVotes.filter((v) => v._agreement === voteFilter);
