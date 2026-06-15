@@ -12,6 +12,7 @@ import {
   fetchCandidate,
 } from '@/lib/api';
 import { EmptyState, Newspaper } from './ui';
+import { useIsMobile } from '@/lib/useViewport';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
@@ -29,6 +30,7 @@ export default function CompareView({ open, items, onClose }) {
   // collide even on the same seed string.
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const isMobile = useIsMobile();
   // 'all' | 'agree' | 'disagree' vote filter. MUST live with the other hooks,
   // BEFORE the `if (!open) return null` early return below — React requires a
   // stable hook count/order across renders. This previously sat after the
@@ -246,30 +248,26 @@ export default function CompareView({ open, items, onClose }) {
         <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px' }}>
           {/* Mixed columns — each item picks its kind-appropriate renderer */}
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`,
-              gap: '14px',
-            }}
+            style={
+              isMobile
+                ? { display: 'flex', overflowX: 'auto', gap: '12px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', paddingBottom: '4px' }
+                : { display: 'grid', gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`, gap: '14px' }
+            }
           >
             {items.map((it) => {
               const key = itemKey(it);
-              if (it._kind === 'candidate') {
-                return (
-                  <CandidateColumn
-                    key={key}
-                    candidate={data[key]?.candidate || it}
-                    loading={loading}
-                  />
-                );
-              }
+              const col = it._kind === 'candidate'
+                ? <CandidateColumn candidate={data[key]?.candidate || it} loading={loading} />
+                : <MemberColumn member={it} state={data[key]} loading={loading} />;
               return (
-                <MemberColumn
+                <div
                   key={key}
-                  member={it}
-                  state={data[key]}
-                  loading={loading}
-                />
+                  style={isMobile
+                    ? { minWidth: '82vw', maxWidth: '82vw', flexShrink: 0, scrollSnapAlign: 'start' }
+                    : { display: 'contents' }}
+                >
+                  {col}
+                </div>
               );
             })}
           </div>
@@ -285,6 +283,31 @@ export default function CompareView({ open, items, onClose }) {
               >
                 Shared Topic Stances
               </div>
+{isMobile ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {sharedTopics.map((row) => (
+                    <div key={row.name} style={{ border: '1px solid var(--cl-border)', borderRadius: '10px', overflow: 'hidden', background: 'white' }}>
+                      <div style={{ padding: '8px 12px', background: 'var(--cl-bg)', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.4px', color: 'var(--cl-primary)' }}>
+                        {row.name}
+                      </div>
+                      {items.map((it, idx) => {
+                        const k = itemKey(it);
+                        const stance = row.byId[k];
+                        return (
+                          <div key={k} style={{ padding: '8px 12px', borderTop: idx === 0 ? 'none' : '1px solid var(--cl-border)' }}>
+                            <div style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '2px' }}>
+                              {it.name}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', lineHeight: 1.4, color: stance ? 'var(--cl-text)' : 'var(--cl-text-light)', fontStyle: stance ? 'normal' : 'italic' }}>
+                              {stance || '—'}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              ) : (
               <div
                 style={{
                   border: '1px solid var(--cl-border)', borderRadius: '10px',
@@ -327,6 +350,7 @@ export default function CompareView({ open, items, onClose }) {
                   </div>
                 ))}
               </div>
+              )}
             </div>
           )}
 
@@ -375,13 +399,13 @@ export default function CompareView({ open, items, onClose }) {
               {!loading && sharedVotes.length > 0 && agreementPct !== null && (
                 <div
                   style={{
-                    display: 'flex', alignItems: 'center', gap: 10,
+                    display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
                     margin: '0 0 10px', padding: '10px 12px',
                     background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
                     borderRadius: '10px',
                   }}
                 >
-                  <div style={{ fontSize: '0.8rem', color: 'var(--cl-text)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--cl-text)', fontWeight: 600, whiteSpace: isMobile ? 'normal' : 'nowrap', flexBasis: isMobile ? '100%' : 'auto' }}>
                     Voted the same way on {agreeCount} of {decisiveCount} shared votes
                   </div>
                   <div style={{ flex: 1, height: 8, borderRadius: 4, background: '#f3d9d3', overflow: 'hidden', minWidth: 60 }}>
