@@ -29,6 +29,9 @@ import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
  * Replaces the old single-purpose TrackedBillsModal. Retains the bill
  * refresh action on the Bills section header.
  */
+const matchesQuery = (fields, q) =>
+  !q || fields.some((v) => v && String(v).toLowerCase().includes(q));
+
 export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }) {
   const isMobile = useIsMobile();
   const { list: bills } = useTrackedBills();
@@ -58,6 +61,35 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
     else if (elections.length) setOpenSection('elections');
     else setOpenSection('reps');
   }, [open, representatives.length, candidates.length, bills.length, elections.length]);
+
+  // ── Filter: search across all categories + category focus chips ──
+  const [query, setQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState(null); // null = all
+  const q = query.trim().toLowerCase();
+  const isSearching = q.length > 0;
+  const fReps = useMemo(
+    () => representatives.filter((o) => matchesQuery([o.name, o.title, o.role, o.state, o.party], q)),
+    [representatives, q],
+  );
+  const fCans = useMemo(
+    () => candidates.filter((o) => matchesQuery([o.name, o.title, o.role, o.state, o.party], q)),
+    [candidates, q],
+  );
+  const fBills = useMemo(
+    () => bills.filter((b) => matchesQuery([b.citation, b.title, b.sponsor_name, b.policy_area], q)),
+    [bills, q],
+  );
+  const fElections = useMemo(
+    () => elections.filter((e) => matchesQuery([e.name, e.office, e.state, e.type, e.level], q)),
+    [elections, q],
+  );
+  const sectionVisible = (id) => !categoryFilter || categoryFilter === id;
+  const sectionOpenFor = (id, matchCount) => {
+    if (categoryFilter === id) return true;
+    if (categoryFilter) return false;
+    if (isSearching) return matchCount > 0;
+    return openSection === id;
+  };
 
   // Esc to close
   useEffect(() => {
@@ -176,17 +208,59 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
           >×</button>
         </div>
 
+        {/* Filter bar — search across all categories + focus chips */}
+        {totalCount > 0 && (
+          <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--cl-border)', background: 'var(--cl-bg)' }}>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Filter your tracked items…"
+              aria-label="Filter tracked items"
+              style={{
+                width: '100%', boxSizing: 'border-box', padding: '8px 12px',
+                borderRadius: 8, border: '1px solid var(--cl-border)', background: 'white',
+                fontSize: '0.85rem', fontFamily: 'var(--cl-font-sans)', color: 'var(--cl-text)',
+              }}
+            />
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+              {[['All', null], ['Reps', 'reps'], ['Candidates', 'candidates'], ['Bills', 'bills'], ['Elections', 'elections']].map(([label, val]) => {
+                const active = categoryFilter === val;
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setCategoryFilter(val)}
+                    style={{
+                      padding: '4px 12px', borderRadius: 999, fontSize: '0.74rem', fontWeight: 700,
+                      fontFamily: 'inherit', cursor: 'pointer',
+                      border: '1px solid ' + (active ? 'var(--cl-accent)' : 'var(--cl-border)'),
+                      background: active ? 'var(--cl-accent)' : 'white',
+                      color: active ? 'white' : 'var(--cl-text-light)',
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Sections */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px' }}>
           <Section
             id="reps"
             title="Representatives"
             count={representatives.length}
-            open={openSection === 'reps'}
+            matchCount={fReps.length}
+            isSearching={isSearching}
+            hidden={!sectionVisible('reps')}
+            open={sectionOpenFor('reps', fReps.length)}
             onToggle={() => setOpenSection((s) => (s === 'reps' ? null : 'reps'))}
             emptyHint="Tap the bookmark icon on any representative card to follow them."
           >
-            {representatives.map((rep) => (
+            {fReps.map((rep) => (
               <OfficialRow
                 key={rep.key}
                 official={rep}
@@ -205,11 +279,14 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
             id="candidates"
             title="Candidates"
             count={candidates.length}
-            open={openSection === 'candidates'}
+            matchCount={fCans.length}
+            isSearching={isSearching}
+            hidden={!sectionVisible('candidates')}
+            open={sectionOpenFor('candidates', fCans.length)}
             onToggle={() => setOpenSection((s) => (s === 'candidates' ? null : 'candidates'))}
             emptyHint="Tap the bookmark icon on any candidate card to follow them."
           >
-            {candidates.map((can) => (
+            {fCans.map((can) => (
               <OfficialRow
                 key={can.key}
                 official={can}
@@ -228,7 +305,10 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
             id="bills"
             title="Bills"
             count={bills.length}
-            open={openSection === 'bills'}
+            matchCount={fBills.length}
+            isSearching={isSearching}
+            hidden={!sectionVisible('bills')}
+            open={sectionOpenFor('bills', fBills.length)}
             onToggle={() => setOpenSection((s) => (s === 'bills' ? null : 'bills'))}
             emptyHint="Open any bill and tap + Track to follow its status."
             headerExtras={bills.length > 0 ? (
@@ -262,7 +342,7 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
                   : 'All tracked bills are up to date.'}
               </div>
             )}
-            {bills.map((bill) => (
+            {fBills.map((bill) => (
               <BillRow
                 key={bill.key}
                 bill={bill}
@@ -285,11 +365,14 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
             id="elections"
             title="Elections"
             count={elections.length}
-            open={openSection === 'elections'}
+            matchCount={fElections.length}
+            isSearching={isSearching}
+            hidden={!sectionVisible('elections')}
+            open={sectionOpenFor('elections', fElections.length)}
             onToggle={() => setOpenSection((s) => (s === 'elections' ? null : 'elections'))}
             emptyHint="Tap the bell icon on any election card to track it."
           >
-            {elections.map((el) => (
+            {fElections.map((el) => (
               <ElectionRow
                 key={el.key}
                 election={el}
@@ -307,7 +390,9 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify }
 }
 
 // ─── Section accordion ────────────────────────────────────────────
-function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, children }) {
+function Section({ id, title, count, matchCount, isSearching, hidden, open, onToggle, emptyHint, headerExtras, children }) {
+  if (hidden) return null;
+  const badge = isSearching ? matchCount : count;
   return (
     <div style={{
       marginBottom: '10px', border: '1px solid var(--cl-border)',
@@ -333,7 +418,7 @@ function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, ch
             fontSize: '0.72rem', fontWeight: 700, padding: '2px 8px',
             background: 'var(--cl-bg)', color: 'var(--cl-text-light)', borderRadius: '10px',
             border: '1px solid var(--cl-border)',
-          }}>{count}</span>
+          }}>{badge}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {headerExtras}
@@ -361,7 +446,18 @@ function Section({ id, title, count, open, onToggle, emptyHint, headerExtras, ch
             >
               {emptyHint}
             </div>
-          ) : children}
+          ) : isSearching && matchCount === 0 ? (
+            <div style={{
+              padding: '14px', textAlign: 'center', color: 'var(--cl-text-light)',
+              fontSize: 'var(--cl-text-sm)', fontFamily: 'var(--cl-font-sans)',
+            }}>
+              No matches in this section.
+            </div>
+          ) : (
+            <div style={{ maxHeight: 'min(46vh, 520px)', overflowY: 'auto' }}>
+              {children}
+            </div>
+          )}
         </div>
       )}
     </div>
