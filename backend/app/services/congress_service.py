@@ -557,7 +557,31 @@ class CongressService:
             self._set_cached(cache_key, members)
             return members
 
-        # Fallback to sample data
+        # Live fetch failed — fall back to the committed full roster
+        # (legislators-current.json via get_all_members) filtered by state.
+        # This is the REAL current member list; only resort to the tiny
+        # SAMPLE_DATA if even the roster is unavailable. Prevents a
+        # Congress.gov hiccup / Render cold-start timeout from surfacing
+        # stale sample members (e.g. Rubio/Gaetz) to users.
+        sc = (state_code or "").upper()
+        try:
+            roster = await self.get_all_members()
+        except Exception as e:
+            logger.warning(f"Roster fallback failed for {state_code}: {e}")
+            roster = []
+        state_members = [m for m in roster if (m.get("state") or "").upper() == sc]
+        if state_members:
+            logger.info(
+                f"Live API unavailable for {state_code}; using local roster "
+                f"fallback ({len(state_members)} members)"
+            )
+            annotate_members(state_members)
+            for m in state_members:
+                self._merge_profile(m)
+            self._set_cached(cache_key, state_members)
+            return state_members
+
+        # Last resort: hardcoded sample data
         logger.info(f"Using sample data for state {state_code}")
         fallback = self._get_sample_members(state_code)
         if fallback:
@@ -598,7 +622,25 @@ class CongressService:
             self._set_cached(cache_key, detail)
             return detail
 
-        # Fallback to sample data
+        # Live fetch failed — build a lite detail from the committed roster
+        # (legislators-current.json) + curated sidecar before resorting to
+        # the hardcoded sample member, so real members never resolve to a
+        # stale/wrong sample profile.
+        try:
+            roster = await self.get_all_members()
+            lite = next(
+                (m for m in roster if m.get("bioguide_id") == bioguide_id), None
+            )
+        except Exception:
+            lite = None
+        if lite:
+            detail = dict(lite)
+            annotate_selection(detail)
+            self._merge_profile(detail)
+            self._set_cached(cache_key, detail)
+            return detail
+
+        # Last resort: hardcoded sample member
         fallback = self._find_sample_member(bioguide_id)
         if fallback:
             annotate_selection(fallback)
