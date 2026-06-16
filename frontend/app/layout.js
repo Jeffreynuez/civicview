@@ -9,6 +9,7 @@ import RecoveryBanner from '@/components/RecoveryBanner';
 // at the root layout so it runs once per browser on first page load
 // after the cross-account fix lands. Renders nothing visible.
 import LegacyStorageCleanup from '@/components/LegacyStorageCleanup';
+import ScrollTopButton from '@/components/ScrollTopButton';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -98,6 +99,7 @@ export default function RootLayout({ children }) {
         <Force2FAGate>
           {children}
         </Force2FAGate>
+        <ScrollTopButton />
       </body>
     </html>
   );

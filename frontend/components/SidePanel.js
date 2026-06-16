@@ -178,7 +178,6 @@ export default function SidePanel({
   //     state name when one is selected, and is over-cumbersome on a
   //     short mobile viewport once the user has started reading).
   const scrollRef = useRef(null);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   // Hysteresis range for the header-collapse threshold. A single
   // threshold (e.g. scrollTop > 40) bounces erratically when content
@@ -195,7 +194,6 @@ export default function SidePanel({
     if (!el) return;
     const onScroll = () => {
       const top = el.scrollTop;
-      setShowBackToTop(top > 600);
       setScrolled((wasScrolled) => {
         if (!wasScrolled && top > HEAD_COLLAPSE_AT) return true;
         if (wasScrolled && top < HEAD_EXPAND_AT) return false;
@@ -229,11 +227,6 @@ export default function SidePanel({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const handleBackToTop = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   // NOTE: ProfileView is rendered as an absolutely-positioned overlay at
   // the bottom of this component (search for "ProfileView overlay" below)
@@ -648,51 +641,6 @@ export default function SidePanel({
           with a generous offset so it doesn't crowd the citizen-banner /
           mobile drag handle. Pointer-events:none on the wrapper so the
           fade-out doesn't block clicks underneath. */}
-      {!selectedMember && (
-        <div
-          aria-hidden={!showBackToTop}
-          style={{
-            position: 'absolute',
-            right: 16,
-            bottom: 16,
-            pointerEvents: showBackToTop ? 'auto' : 'none',
-            opacity: showBackToTop ? 1 : 0,
-            transform: showBackToTop ? 'translateY(0)' : 'translateY(8px)',
-            transition: 'opacity 0.18s ease, transform 0.18s ease',
-            zIndex: 6,
-          }}
-        >
-          <button
-            type="button"
-            onClick={handleBackToTop}
-            aria-label="Back to top"
-            title="Back to top"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 40,
-              height: 40,
-              borderRadius: '50%',
-              background: 'var(--cl-primary, #1b263b)',
-              color: 'white',
-              border: 'none',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.22)',
-              cursor: 'pointer',
-              fontFamily: 'var(--cl-font-sans)',
-            }}
-            onMouseOver={(e) => { e.currentTarget.style.background = 'var(--cl-primary-light, #415a77)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.background = 'var(--cl-primary, #1b263b)'; }}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M8 3l5 5h-3v5H6V8H3l5-5z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </div>
-      )}
 
       {/* ProfileView overlay — covers the entire SidePanel chrome whenever
           a member is selected. Critically, the SidePanel content above is
