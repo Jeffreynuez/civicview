@@ -59,7 +59,7 @@ const FUND_GOAL = 25000;
 // the whole point of going transparent.
 // ────────────────────────────────────────────────────────────────────
 
-// What's shipped — 35 items. AI integration, moderation, appeals,
+// What's shipped — 48 items. AI integration, moderation, appeals,
 // /polls feed, self-engagement, reply threading, candidate slice
 // (auth + composer + dashboard + engagement parity), bill / vote /
 // EO AI summaries, official photos, identity-model spec, plus
@@ -103,9 +103,23 @@ const SHIPPED = [
   ['Congress photo coverage backfill', 'Wikipedia-sourced portraits added for 91 sitting members of Congress missing from the community photo mirror — entire new 119th Congress class + mid-cycle appointees (Ashley Moody, John James, Mike Lawler, Nick Begich III, and ~87 others) now render with real photos instead of initials.'],
   ['Feedback button + triage pipeline', 'Users tap Feedback from the navbar menu → embedded Google Form opens in an overlay → submission lands in a linked Sheet. From there: an Apps Script trigger sends an instant acknowledgement to submitters who included an email, and a weekly Monday digest classifies new submissions (bug / feature / correction / praise / general) + drafts personalized reply emails for review.'],
   ['Security foundation', 'Cloudflare WAF + DDoS protection + rate-limiting on /api/admin/* sits in front of the FastAPI backend; GitHub Dependabot security updates + CodeQL static analysis + Secret Scanning with Push Protection are active on the public source repo; automated daily Postgres backups on the paid Render plan; documented incident-response runbook (docs/INCIDENT-RESPONSE.md) and security-posture doc (docs/SECURITY.md) covering setup, rotation cadences, and the playbook for compromised-admin / DB-breach / DDoS / credential-leak scenarios.'],
+  ['Bills & Votes', 'Interactive bills page with a selectable House / Senate seat chart, recent roll-call votes, a slate tally, an inline "What was this vote?" AI explainer, deep-linkable votes, and a full voting record on every member profile.'],
+  ['Compare officials & candidates', 'Side-by-side compare of any reps and/or candidates — party-line %, top-issue stances, experience, recent bills, and shared roll-call votes with an agreement-rate bar and agree / disagree filters. Swipeable cards on mobile.'],
+  ['Track reps, candidates, bills & elections', 'Follow anything from a bookmark on its card, with per-item “notify me when…” preferences and reminder cadences. In-app alerts fire when a followed official posts; one tap re-checks tracked bill status.'],
+  ['My Tracked center', 'One place to view and manage everything you follow, grouped by type with per-category search / filter and quick notification settings.'],
+  ['Save / bookmark posts & polls', 'Bookmark any post or poll to a Saved section on your dashboard.'],
+  ['Optional poll demographic forms', 'Poll creators can attach standardized demographic questions; results display aggregate-only with k-anonymity suppression, geography and demographic cross-tabs, inline charts, and CSV export. Reusable opt-in citizen demographic profile, with sensitive categories consent-gated.'],
+  ['Two-factor authentication', 'TOTP 2FA with encrypted secrets and bcrypt-hashed recovery codes, enforced at first login for rep / candidate / admin identities.'],
+  ['Password reset', 'Single-use, time-limited email reset links, with anti-enumeration on the request step.'],
+  ['Self-serve account deletion', 'Soft delete with a 30-day recovery window, or immediate hard delete; verified identities archive a one-way hash so re-signup skips re-verification.'],
+  ['Weekly civic digest email', 'Opt-in weekly roundup of your tracked officials’ posts and polls, polls closing soon, and upcoming district events — built and ready to switch on at launch.'],
+  ['Engagement rate limiting', 'Sliding-window limits on comments, reactions, votes, reports, and poll / post creation to curb spam and abuse.'],
+  ['Public stats page', 'Live transparency dashboard: government-structure counts, identity / engagement / content totals, and 8-week signup and poll-vote trend charts.'],
+  ['Start-page preference', 'Citizens choose which surface CivicView opens on — Home, Polls, Posts, Bills, Dashboard, or Stats.'],
 ];
 
 const IN_PROGRESS = [
+  ['Native iOS / Android apps (Capacitor)', 'Thin native shells that load the live site so a web deploy updates the apps instantly; the Android build is in Google Play internal testing ahead of a public release.'],
   ['Filling out the remaining 49 states', 'Profile photos, issues, experience, state legislators, local-rep data — content work, ongoing.'],
   ['Email deliverability hardening', 'Adding SPF / DKIM / DMARC records on civicview.app so acknowledgement and notification emails clear Yahoo / Gmail / Outlook spam filters reliably. Setup happens in the Workspace admin console + DNS provider.'],
   ['Election-win promotion flow (UI)', 'Backend endpoint shipped (admin can promote a winning candidate to a rep account and archive the defeated incumbent). UI surface for triggering the promotion + a confirmation flow still pending.'],
