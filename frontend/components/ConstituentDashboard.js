@@ -20,7 +20,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from './ui';
-import { getAllTrackedOfficials } from '../lib/trackedOfficials';
+import { useTrackedOfficials } from '../lib/trackedOfficials';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
@@ -85,21 +85,24 @@ export default function ConstituentDashboard({
   // or onOpenCommittees (deemed out-of-scope per design feedback).
   navbarProps = {},
 }) {
-  // Lazy-load tracked officials from localStorage if the parent didn't
-  // supply them. The store is purely client-side, so we only touch it
-  // after mount.
-  const [storeReps, setStoreReps] = useState([]);
-  useEffect(() => {
-    if (trackedReps !== null) return;
-    try {
-      const items = getAllTrackedOfficials();
-      setStoreReps(items || []);
-    } catch {
-      setStoreReps([]);
+  // Tracked officials from the reactive, server-backed store. Split by
+  // role_type: reps -> My Representatives, candidates -> Tracked
+  // Candidates. The prior code read getAllTrackedOfficials() (the cache
+  // OBJECT, not an array), so reps.length was always undefined and the
+  // dashboard wrongly showed "not tracking anyone." Parent can still
+  // override the rep list via trackedReps for tests.
+  const { list: trackedAll } = useTrackedOfficials();
+  const { storeReps, storeCandidates } = useMemo(() => {
+    const r = [], c = [];
+    for (const o of trackedAll || []) {
+      if (o && o.role_type === 'candidate') c.push(o);
+      else if (o) r.push(o);
     }
-  }, [trackedReps]);
+    return { storeReps: r, storeCandidates: c };
+  }, [trackedAll]);
 
   const reps = trackedReps !== null ? trackedReps : storeReps;
+  const candidates = storeCandidates;
   const today = new Date();
   const greeting = greetingFor(today);
   const dateLabel = formatDate(today);
@@ -248,6 +251,7 @@ export default function ConstituentDashboard({
             {/* LEFT COLUMN — civic content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <MyRepresentatives reps={reps} onManage={onNavigate.manageTracked} onBrowse={onNavigate.browseReps} />
+              <TrackedCandidates candidates={candidates} onManage={onNavigate.manageTracked} />
               <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
               <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
               <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
@@ -527,6 +531,30 @@ const UPCOMING_KIND_META = {
   'poll-closing': { label: 'Poll closing',  Icon: CalendarCheck },
   ballot:         { label: 'On your ballot', Icon: CalendarCheck },
 };
+
+function TrackedCandidates({ candidates, onManage }) {
+  const has = candidates && candidates.length > 0;
+  if (!has) return null;
+  return (
+    <section>
+      <SectionHeader
+        eyebrow="Tracked candidates"
+        action={onManage ? { label: 'Manage tracked \u2192', onClick: onManage } : null}
+      />
+      <div
+        style={{
+          display: 'grid',
+          gap: 12,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+        }}
+      >
+        {candidates.slice(0, 6).map((c) => (
+          <DashboardRepCard key={c.id || c.bioguide_id || c.key || c.name} rep={c} />
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function UpcomingInDistrict({ items, citizen, onSeeCalendar }) {
   const district = citizen?.district || 'your district';
