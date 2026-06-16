@@ -160,6 +160,19 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // Citizen-only gate kept separate for the Start a poll button —
   // posts only get created from the rep/candidate's own page.
   const citizenSignedIn = !!citizen;
+  // Hide the Start-a-poll FAB while the user scrolls; restore it when they
+  // stop (the inverse of the global back-to-top button).
+  const [fabScrolling, setFabScrolling] = useState(false);
+  useEffect(() => {
+    let idle;
+    const onScroll = () => {
+      setFabScrolling(true);
+      clearTimeout(idle);
+      idle = setTimeout(() => setFabScrolling(false), 500);
+    };
+    document.addEventListener('scroll', onScroll, true);
+    return () => { document.removeEventListener('scroll', onScroll, true); clearTimeout(idle); };
+  }, []);
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -806,11 +819,13 @@ export function GrassrootsFeed({ tab = 'polls' }) {
       {/* Mobile-only sticky FAB. CSS scopes it to ≤600px container. */}
       <button
         type="button"
-        className={`polls-fab ${citizenSignedIn ? '' : 'is-muted'}`}
+        className={`polls-fab ${citizenSignedIn ? '' : 'is-muted'} ${fabScrolling ? 'is-scrolling' : ''}`}
         onClick={handleStartPoll}
+        aria-label={citizenSignedIn ? 'Start a poll' : 'Sign in to start a poll'}
+        title={citizenSignedIn ? 'Start a poll' : 'Sign in to start a poll'}
       >
         {citizenSignedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
-        {citizenSignedIn ? 'Start a poll' : 'Sign in to start'}
+        <span className="polls-fab__label">{citizenSignedIn ? 'Start a poll' : 'Sign in to start'}</span>
       </button>
 
       {composerOpen && (

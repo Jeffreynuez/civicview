@@ -793,12 +793,14 @@ a.poll-card { display: flex; }
    MOBILE STICKY FAB
    =============================================================== */
 .polls-fab {
-  display: none;
+  display: inline-flex;
   position: fixed;
-  right: 16px;
+  left: 16px;
   bottom: 18px;
   z-index: 60;
-  padding: 12px 18px;
+  height: 52px;
+  max-width: 52px;            /* collapsed: circular plus */
+  padding: 0 15px;
   border-radius: 999px;
   background: var(--cl-accent);
   color: white;
@@ -808,10 +810,27 @@ a.poll-card { display: flex; }
   box-shadow: 0 6px 20px rgba(45, 106, 79, 0.36), 0 2px 6px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+  gap: 8px;
   font-family: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, background 0.18s ease;
 }
-.polls-fab:hover { background: var(--cl-accent-light); }
+.polls-fab__label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.25s ease, opacity 0.18s ease;
+}
+/* Desktop / hover-capable pointers: hover pulls the label out into a pill.
+   Touch devices have no hover, so it stays a bare plus on mobile. */
+@media (hover: hover) {
+  .polls-fab:hover { max-width: 240px; justify-content: flex-start; padding: 0 18px; background: var(--cl-accent-light); }
+  .polls-fab:hover .polls-fab__label { max-width: 170px; opacity: 1; }
+}
+/* Fade out while scrolling; fade back in when the user stops. */
+.polls-fab.is-scrolling { opacity: 0; pointer-events: none; }
 .polls-fab.is-muted {
   background: white;
   color: var(--cl-text);
