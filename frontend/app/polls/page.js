@@ -47,6 +47,7 @@ import {
   filterPolls,
 } from '@/lib/pagesApi';
 import FeedCard from '@/components/polls/FeedCard';
+import NewItemsPill from '@/components/NewItemsPill';
 import PollDemographicsPicker from '@/components/polls/PollDemographicsPicker';
 import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
@@ -815,6 +816,8 @@ export function GrassrootsFeed({ tab = 'polls' }) {
           <BottomStartCTA signedIn={citizenSignedIn} onClick={handleStartPoll} />
         )}
       </div>
+
+      <NewItemsPill tab={tab} serverKinds={serverKinds} stateFilter={stateFilter} items={items} onApply={load} />
 
       {/* Mobile-only sticky FAB. CSS scopes it to ≤600px container. */}
       <button
