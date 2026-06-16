@@ -13,6 +13,7 @@ import {
 } from '@/lib/api';
 import { EmptyState, Newspaper } from './ui';
 import { useIsMobile } from '@/lib/useViewport';
+import HScroll from './HScroll';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
@@ -247,14 +248,8 @@ export default function CompareView({ open, items, onClose }) {
         {/* Body */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px' }}>
           {/* Mixed columns — each item picks its kind-appropriate renderer */}
-          <div
-            style={
-              isMobile
-                ? { display: 'flex', overflowX: 'auto', gap: '12px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', paddingBottom: '4px' }
-                : { display: 'grid', gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`, gap: '14px' }
-            }
-          >
-            {items.map((it) => {
+          {(() => {
+            const cards = items.map((it) => {
               const key = itemKey(it);
               const col = it._kind === 'candidate'
                 ? <CandidateColumn candidate={data[key]?.candidate || it} loading={loading} />
@@ -269,8 +264,25 @@ export default function CompareView({ open, items, onClose }) {
                   {col}
                 </div>
               );
-            })}
-          </div>
+            });
+            // Mobile: snap-scroll carousel wrapped in HScroll so the shared
+            // edge-arrow affordance (fades in at a scrollable edge, hides when
+            // there's nothing to scroll) tells users they can swipe between
+            // people. Desktop: plain grid, no scroll, no arrows.
+            return isMobile ? (
+              <HScroll
+                ariaLabel="Compare people"
+                scrollerStyle={{ gap: '12px', scrollSnapType: 'x mandatory', paddingBottom: '4px' }}
+                itemCount={items.length}
+              >
+                {cards}
+              </HScroll>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`, gap: '14px' }}>
+                {cards}
+              </div>
+            );
+          })()}
 
           {/* Shared topic stances — works across any kind */}
           {sharedTopics.length > 0 && (
