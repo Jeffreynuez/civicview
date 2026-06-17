@@ -251,6 +251,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [trackedOpen, setTrackedOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [dashboardInitialView, setDashboardInitialView] = useState('overview');
   const [helpBuildOpen, setHelpBuildOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
@@ -868,6 +869,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
         open={trackedOpen}
         onClose={() => setTrackedOpen(false)}
         onMemberPick={handleMemberPick}
+        onOpenInDashboard={() => {
+          setTrackedOpen(false);
+          setDashboardInitialView('tracked');
+          setDashboardOpen(true);
+        }}
       />
       {/* ConstituentDashboard — wrapped in a fixed-position scroll
           container per the home page pattern so it doesn't inherit
@@ -886,6 +892,17 @@ export function GrassrootsFeed({ tab = 'polls' }) {
           <ConstituentDashboard
             citizen={citizen}
             onClose={() => setDashboardOpen(false)}
+            initialView={dashboardInitialView}
+            onNavigate={{
+              openOfficial: (member) => {
+                setDashboardOpen(false);
+                handleMemberPick(member);
+              },
+              manageTracked: () => {
+                setDashboardOpen(false);
+                setTrackedOpen(true);
+              },
+            }}
             navbarProps={{
               citizen,
               onCitizenLogin: () => setCitizenLoginOpen(true),
