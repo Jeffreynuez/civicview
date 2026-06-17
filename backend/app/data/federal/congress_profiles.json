@@ -114,15 +114,14 @@
         "to": "Present"
       },
       {
-        "role": "U.S. Representative, Texas",
-        "from": "2013",
-        "to": "2013"
-      },
-      {
-        "role": "Solicitor General, State of Texas",
+        "role": "Solicitor General of Texas",
         "from": "2003",
         "to": "2008"
       }
+    ],
+    "bio": "Ted Cruz is a U.S. senator from Texas, serving since 2013. He previously served as the solicitor general of Texas and was a candidate for the Republican presidential nomination in 2016.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001098"
     ]
   },
   "O000172": {
@@ -1785,6 +1784,27 @@
           "https://www.cornyn.senate.gov/"
         ]
       }
+    ],
+    "bio": "John Cornyn is a U.S. senator from Texas, serving since 2002. He previously served as the attorney general of Texas and as a justice on the Texas Supreme Court.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001056"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, Texas",
+        "from": "2002",
+        "to": "Present"
+      },
+      {
+        "role": "Attorney General of Texas",
+        "from": "1999",
+        "to": "2002"
+      },
+      {
+        "role": "Justice, Texas Supreme Court",
+        "from": "1991",
+        "to": "1997"
+      }
     ]
   },
   "M001224": {
@@ -1809,6 +1829,22 @@
         "sources": [
           "https://moran.house.gov"
         ]
+      }
+    ],
+    "bio": "Nathaniel Moran represents Texas's 1st congressional district, serving since 2023. He previously served as the county judge of Smith County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001224"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Smith County Judge, Texas",
+        "from": "2017",
+        "to": "2023"
       }
     ]
   },
@@ -1835,6 +1871,22 @@
           "https://crenshaw.house.gov/"
         ]
       }
+    ],
+    "bio": "Dan Crenshaw represents Texas's 2nd congressional district, serving since 2019. A retired U.S. Navy SEAL officer, he was wounded while serving in Afghanistan before entering politics.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001120"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Navy (SEAL officer)",
+        "from": "2006",
+        "to": "2016"
+      }
     ]
   },
   "S001224": {
@@ -1859,6 +1911,22 @@
         "sources": [
           "https://keithself.house.gov"
         ]
+      }
+    ],
+    "bio": "Keith Self represents Texas's 3rd congressional district, serving since 2023. A U.S. Army veteran, he previously served as the county judge of Collin County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001224"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Collin County Judge, Texas",
+        "from": "2007",
+        "to": "2019"
       }
     ]
   },
@@ -1885,6 +1953,27 @@
           "https://fallon.house.gov"
         ]
       }
+    ],
+    "bio": "Pat Fallon represents Texas's 4th congressional district, serving since 2021. He previously served in both the Texas House of Representatives and the Texas Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000246"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "Texas Senate",
+        "from": "2019",
+        "to": "2021"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2013",
+        "to": "2019"
+      }
     ]
   },
   "G000589": {
@@ -1909,6 +1998,22 @@
         "sources": [
           "https://gooden.house.gov"
         ]
+      }
+    ],
+    "bio": "Lance Gooden represents Texas's 5th congressional district, serving since 2019. He previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000589"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2011",
+        "to": "2019"
       }
     ]
   },
@@ -1935,6 +2040,22 @@
           "https://ellzey.house.gov/"
         ]
       }
+    ],
+    "bio": "Jake Ellzey represents Texas's 6th congressional district, serving since 2021. A U.S. Navy veteran and former naval aviator, he previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/E000071"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Navy (naval aviator)",
+        "from": "1992",
+        "to": "2012"
+      }
     ]
   },
   "F000468": {
@@ -1959,6 +2080,17 @@
         "sources": [
           "https://fletcher.house.gov"
         ]
+      }
+    ],
+    "bio": "Lizzie Fletcher represents Texas's 7th congressional district, serving since 2019. She worked as a litigation attorney before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000468"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
       }
     ]
   },
@@ -1985,6 +2117,22 @@
           "https://luttrell.house.gov"
         ]
       }
+    ],
+    "bio": "Morgan Luttrell represents Texas's 8th congressional district, serving since 2023. A retired U.S. Navy SEAL, he previously worked at the U.S. Department of Energy.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000603"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Navy (SEAL)",
+        "from": "2000",
+        "to": "2014"
+      }
     ]
   },
   "G000553": {
@@ -2009,6 +2157,22 @@
         "sources": [
           "https://algreen.house.gov"
         ]
+      }
+    ],
+    "bio": "Al Green represents Texas's 9th congressional district, serving since 2005. He previously served as a justice of the peace in Harris County, Texas, and practiced law.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000553"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2005",
+        "to": "Present"
+      },
+      {
+        "role": "Justice of the Peace, Harris County, Texas",
+        "from": "1977",
+        "to": "2004"
       }
     ]
   },
@@ -2035,6 +2199,17 @@
           "https://mccaul.house.gov"
         ]
       }
+    ],
+    "bio": "Michael T. McCaul represents Texas's 10th congressional district, serving since 2005. A former federal prosecutor, he has chaired the House Homeland Security and Foreign Affairs committees.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001157"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2005",
+        "to": "Present"
+      }
     ]
   },
   "P000048": {
@@ -2060,6 +2235,22 @@
           "https://pfluger.house.gov"
         ]
       }
+    ],
+    "bio": "August Pfluger represents Texas's 11th congressional district, serving since 2021. A U.S. Air Force veteran and fighter pilot, he served on the National Security Council staff.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000048"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Air Force (fighter pilot)",
+        "from": "2000",
+        "to": "2020"
+      }
     ]
   },
   "G000601": {
@@ -2077,6 +2268,22 @@
         "sources": [
           "https://craiggoldman.house.gov/"
         ]
+      }
+    ],
+    "bio": "Craig A. Goldman represents Texas's 12th congressional district, serving since 2025. He previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000601"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2013",
+        "to": "2025"
       }
     ]
   },
@@ -2103,6 +2310,22 @@
           "https://jackson.house.gov"
         ]
       }
+    ],
+    "bio": "Ronny Jackson represents Texas's 13th congressional district, serving since 2021. A retired U.S. Navy rear admiral, he served as physician to the president in the Obama and Trump White Houses.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/J000304"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "Physician to the President, The White House",
+        "from": "2013",
+        "to": "2018"
+      }
     ]
   },
   "W000814": {
@@ -2127,6 +2350,22 @@
         "sources": [
           "https://weber.house.gov"
         ]
+      }
+    ],
+    "bio": "Randy K. Weber, Sr. represents Texas's 14th congressional district, serving since 2013. He previously served in the Texas House of Representatives and owned a small business.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000814"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2009",
+        "to": "2013"
       }
     ]
   },
@@ -2153,6 +2392,17 @@
           "https://delacruz.house.gov"
         ]
       }
+    ],
+    "bio": "Monica De La Cruz represents Texas's 15th congressional district, serving since 2023. She owned an insurance agency and worked as a businesswoman before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000594"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      }
     ]
   },
   "E000299": {
@@ -2177,6 +2427,22 @@
         "sources": [
           "https://escobar.house.gov"
         ]
+      }
+    ],
+    "bio": "Veronica Escobar represents Texas's 16th congressional district, serving since 2019. She previously served as the county judge of El Paso County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/E000299"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "El Paso County Judge, Texas",
+        "from": "2011",
+        "to": "2017"
       }
     ]
   },
@@ -2203,6 +2469,22 @@
           "https://sessions.house.gov"
         ]
       }
+    ],
+    "bio": "Pete Sessions represents Texas's 17th congressional district, serving since 2021. He previously represented a Dallas-area district in Congress from 1997 to 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S000250"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Representative, Texas (Dallas area)",
+        "from": "1997",
+        "to": "2019"
+      }
     ]
   },
   "M001245": {
@@ -2220,6 +2502,22 @@
         "sources": [
           "http://menefee.house.gov/"
         ]
+      }
+    ],
+    "bio": "Christian D. Menefee represents Texas's 18th congressional district, serving since 2026. He previously served as the county attorney of Harris County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001245"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "Harris County Attorney, Texas",
+        "from": "2021",
+        "to": "2025"
       }
     ]
   },
@@ -2246,6 +2544,17 @@
           "https://arrington.house.gov"
         ]
       }
+    ],
+    "bio": "Jodey C. Arrington represents Texas's 19th congressional district, serving since 2017. He previously worked in higher-education administration and in the George W. Bush administration.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/A000375"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2017",
+        "to": "Present"
+      }
     ]
   },
   "C001091": {
@@ -2270,6 +2579,22 @@
         "sources": [
           "https://castro.house.gov"
         ]
+      }
+    ],
+    "bio": "Joaquin Castro represents Texas's 20th congressional district, serving since 2013. He previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001091"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2003",
+        "to": "2013"
       }
     ]
   },
@@ -2296,6 +2621,27 @@
           "https://roy.house.gov"
         ]
       }
+    ],
+    "bio": "Chip Roy represents Texas's 21st congressional district, serving since 2019. He previously served as chief of staff to U.S. Senator Ted Cruz and as Texas's first assistant attorney general.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000614"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "First Assistant Attorney General of Texas",
+        "from": "2015",
+        "to": "2016"
+      },
+      {
+        "role": "Chief of Staff to U.S. Senator Ted Cruz",
+        "from": "2013",
+        "to": "2014"
+      }
     ]
   },
   "N000026": {
@@ -2320,6 +2666,22 @@
         "sources": [
           "https://nehls.house.gov"
         ]
+      }
+    ],
+    "bio": "Troy E. Nehls represents Texas's 22nd congressional district, serving since 2021. A U.S. Army veteran, he previously served as the sheriff of Fort Bend County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/N000026"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "Sheriff of Fort Bend County, Texas",
+        "from": "2013",
+        "to": "2021"
       }
     ]
   },
@@ -2371,6 +2733,27 @@
           "https://vanduyne.house.gov"
         ]
       }
+    ],
+    "bio": "Beth Van Duyne represents Texas's 24th congressional district, serving since 2021. She previously served as the mayor of Irving, Texas, and as a regional administrator at the U.S. Department of Housing and Urban Development.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/V000134"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "Regional Administrator, U.S. Dept. of Housing and Urban Development",
+        "from": "2017",
+        "to": "2019"
+      },
+      {
+        "role": "Mayor of Irving, Texas",
+        "from": "2011",
+        "to": "2017"
+      }
     ]
   },
   "W000816": {
@@ -2396,6 +2779,22 @@
           "https://williams.house.gov"
         ]
       }
+    ],
+    "bio": "Roger Williams represents Texas's 25th congressional district, serving since 2013. A businessman and former college baseball coach, he previously served as the Texas secretary of state.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000816"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Texas Secretary of State",
+        "from": "2004",
+        "to": "2007"
+      }
     ]
   },
   "G000603": {
@@ -2413,6 +2812,17 @@
         "sources": [
           "https://gill.house.gov/"
         ]
+      }
+    ],
+    "bio": "Brandon Gill represents Texas's 26th congressional district, serving since 2025. He worked as a financial analyst and conservative commentator before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000603"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2025",
+        "to": "Present"
       }
     ]
   },
@@ -2439,6 +2849,17 @@
           "https://cloud.house.gov"
         ]
       }
+    ],
+    "bio": "Michael Cloud represents Texas's 27th congressional district, serving since 2018. He previously chaired a county Republican party and worked in the printing business.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001115"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2018",
+        "to": "Present"
+      }
     ]
   },
   "C001063": {
@@ -2463,6 +2884,27 @@
         "sources": [
           "https://cuellar.house.gov/"
         ]
+      }
+    ],
+    "bio": "Henry Cuellar represents Texas's 28th congressional district, serving since 2005. He previously served as the Texas secretary of state and in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001063"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2005",
+        "to": "Present"
+      },
+      {
+        "role": "Texas Secretary of State",
+        "from": "2001",
+        "to": "2001"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "1987",
+        "to": "2001"
       }
     ]
   },
@@ -2489,6 +2931,27 @@
           "https://sylviagarcia.house.gov/"
         ]
       }
+    ],
+    "bio": "Sylvia R. Garcia represents Texas's 29th congressional district, serving since 2019. She previously served in the Texas Senate and as a Harris County commissioner.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000587"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "Texas Senate",
+        "from": "2013",
+        "to": "2018"
+      },
+      {
+        "role": "Harris County Commissioner",
+        "from": "2002",
+        "to": "2010"
+      }
     ]
   },
   "C001130": {
@@ -2513,6 +2976,22 @@
         "sources": [
           "https://crockett.house.gov"
         ]
+      }
+    ],
+    "bio": "Jasmine Crockett represents Texas's 30th congressional district, serving since 2023. A civil-rights attorney, she previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001130"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2021",
+        "to": "2023"
       }
     ]
   },
@@ -2539,6 +3018,22 @@
           "https://carter.house.gov/"
         ]
       }
+    ],
+    "bio": "John R. Carter represents Texas's 31st congressional district, serving since 2003. He previously served as a district judge in Williamson County, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001051"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2003",
+        "to": "Present"
+      },
+      {
+        "role": "District Judge, Williamson County, Texas",
+        "from": "1981",
+        "to": "2001"
+      }
     ]
   },
   "J000310": {
@@ -2563,6 +3058,22 @@
         "sources": [
           "https://juliejohnson.house.gov/"
         ]
+      }
+    ],
+    "bio": "Julie Johnson represents Texas's 32nd congressional district, serving since 2025. She previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/J000310"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2019",
+        "to": "2025"
       }
     ]
   },
@@ -2589,6 +3100,22 @@
           "https://veasey.house.gov"
         ]
       }
+    ],
+    "bio": "Marc A. Veasey represents Texas's 33rd congressional district, serving since 2013. He previously served in the Texas House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/V000131"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Texas House of Representatives",
+        "from": "2005",
+        "to": "2013"
+      }
     ]
   },
   "G000581": {
@@ -2613,6 +3140,17 @@
         "sources": [
           "https://gonzalez.house.gov"
         ]
+      }
+    ],
+    "bio": "Vicente Gonzalez represents Texas's 34th congressional district, serving since 2017. An attorney, he previously represented a neighboring Texas district in Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000581"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2017",
+        "to": "Present"
       }
     ]
   },
@@ -2639,6 +3177,22 @@
           "https://casar.house.gov"
         ]
       }
+    ],
+    "bio": "Greg Casar represents Texas's 35th congressional district, serving since 2023. He previously served on the Austin City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001131"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Austin City Council",
+        "from": "2015",
+        "to": "2021"
+      }
     ]
   },
   "B001291": {
@@ -2663,6 +3217,17 @@
         "sources": [
           "https://babin.house.gov"
         ]
+      }
+    ],
+    "bio": "Brian Babin represents Texas's 36th congressional district, serving since 2015. A dentist, he previously served as the mayor of Woodville, Texas.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001291"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2015",
+        "to": "Present"
       }
     ]
   },
@@ -2689,6 +3254,27 @@
           "https://doggett.house.gov"
         ]
       }
+    ],
+    "bio": "Lloyd Doggett represents Texas's 37th congressional district, serving since 1995. He previously served in the Texas Senate and as a justice on the Texas Supreme Court.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000399"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "1995",
+        "to": "Present"
+      },
+      {
+        "role": "Justice, Texas Supreme Court",
+        "from": "1989",
+        "to": "1994"
+      },
+      {
+        "role": "Texas Senate",
+        "from": "1973",
+        "to": "1985"
+      }
     ]
   },
   "H001095": {
@@ -2713,6 +3299,22 @@
         "sources": [
           "https://hunt.house.gov"
         ]
+      }
+    ],
+    "bio": "Wesley Hunt represents Texas's 38th congressional district, serving since 2023. A U.S. Army veteran and former Apache helicopter pilot, he worked as a businessman.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/H001095"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Army (Apache helicopter pilot)",
+        "from": "2004",
+        "to": "2013"
       }
     ]
   },
@@ -14115,6 +14717,24 @@
         "role": "Chief Executive Officer, health-care company",
         "from": "2010",
         "to": "2021"
+      }
+    ]
+  },
+  "G000595": {
+    "bio": "Tony Gonzales represents Texas's 23rd congressional district, serving since 2021. A retired U.S. Navy cryptologic technician, he served 20 years in the military before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000595"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Navy",
+        "from": "2000",
+        "to": "2019"
       }
     ]
   }
