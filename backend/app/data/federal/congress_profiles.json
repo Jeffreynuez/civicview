@@ -150,20 +150,14 @@
     ],
     "experience": [
       {
-        "role": "U.S. Representative, New York (14th District)",
+        "role": "U.S. Representative, New York",
         "from": "2019",
         "to": "Present"
-      },
-      {
-        "role": "Community Organizer and Educator",
-        "from": "2011",
-        "to": "2018"
-      },
-      {
-        "role": "Bartender and Waitress",
-        "from": "2008",
-        "to": "2018"
       }
+    ],
+    "bio": "Alexandria Ocasio-Cortez represents New York's 14th congressional district, serving since 2019. She worked as a community organizer and educator before her 2018 election to Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/O000172"
     ]
   },
   "S000148": {
@@ -197,15 +191,19 @@
         "to": "Present"
       },
       {
-        "role": "Senate Democratic Leader",
-        "from": "2021",
-        "to": "Present"
+        "role": "U.S. Representative, New York",
+        "from": "1981",
+        "to": "1999"
       },
       {
-        "role": "U.S. Representative, New York",
+        "role": "New York State Assembly",
         "from": "1975",
-        "to": "1999"
+        "to": "1980"
       }
+    ],
+    "bio": "Charles E. Schumer is a U.S. senator from New York, serving since 1999. He serves as the Senate Democratic leader and previously represented a Brooklyn-area district in the U.S. House and served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S000148"
     ]
   },
   "S001217": {
@@ -290,20 +288,19 @@
     ],
     "experience": [
       {
-        "role": "U.S. Representative, New York (13th District)",
+        "role": "U.S. Representative, New York",
         "from": "2013",
         "to": "Present"
       },
       {
-        "role": "House Democratic Leader",
-        "from": "2023",
-        "to": "Present"
-      },
-      {
-        "role": "New York State Assemblyman",
-        "from": "2006",
-        "to": "2013"
+        "role": "New York State Assembly",
+        "from": "2007",
+        "to": "2012"
       }
+    ],
+    "bio": "Hakeem S. Jeffries represents New York's 8th congressional district, serving since 2013. He serves as the House Democratic leader and previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/J000294"
     ]
   },
   "J000299": {
@@ -374,20 +371,19 @@
     ],
     "experience": [
       {
-        "role": "U.S. Representative, California (11th District)",
+        "role": "U.S. Representative, California",
         "from": "1987",
         "to": "Present"
       },
       {
-        "role": "Speaker of the House",
-        "from": "2007",
-        "to": "2011"
-      },
-      {
-        "role": "Speaker of the House",
+        "role": "Speaker of the U.S. House of Representatives",
         "from": "2019",
         "to": "2023"
       }
+    ],
+    "bio": "Nancy Pelosi represents California's 11th congressional district, serving since 1987. She previously served as speaker of the U.S. House of Representatives (2007-2011 and 2019-2023) and as House Democratic leader.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000197"
     ]
   },
   "J000289": {
@@ -3341,6 +3337,27 @@
           "https://www.schiff.senate.gov"
         ]
       }
+    ],
+    "bio": "Adam B. Schiff is a U.S. senator from California, serving since 2024. He previously represented a Los Angeles-area district in the U.S. House from 2001 to 2024 and served in the California State Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001150"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, California",
+        "from": "2024",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Representative, California",
+        "from": "2001",
+        "to": "2024"
+      },
+      {
+        "role": "California State Senate",
+        "from": "1996",
+        "to": "2000"
+      }
     ]
   },
   "P000145": {
@@ -3365,6 +3382,32 @@
         "sources": [
           "https://www.padilla.senate.gov"
         ]
+      }
+    ],
+    "bio": "Alex Padilla is a U.S. senator from California, serving since 2021. He previously served as California's secretary of state, in the California State Senate, and on the Los Angeles City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000145"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "Secretary of State of California",
+        "from": "2015",
+        "to": "2021"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2006",
+        "to": "2014"
+      },
+      {
+        "role": "Los Angeles City Council",
+        "from": "1999",
+        "to": "2006"
       }
     ]
   },
@@ -3391,6 +3434,27 @@
           "https://www.congress.gov/member/doug-lamalfa/L000578"
         ]
       }
+    ],
+    "bio": "Doug LaMalfa represents California's 1st congressional district, serving since 2013. A rice farmer, he previously served in the California State Senate and Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000578"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2010",
+        "to": "2012"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2002",
+        "to": "2008"
+      }
     ]
   },
   "H001068": {
@@ -3415,6 +3479,17 @@
         "sources": [
           "https://huffman.house.gov"
         ]
+      }
+    ],
+    "bio": "Jared Huffman represents California's 2nd congressional district, serving since 2013. An attorney and environmental advocate before Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/H001068"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
       }
     ]
   },
@@ -3441,6 +3516,22 @@
           "https://kiley.house.gov"
         ]
       }
+    ],
+    "bio": "Kevin Kiley represents California's 3rd congressional district, serving since 2023. He previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000401"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2016",
+        "to": "2023"
+      }
     ]
   },
   "T000460": {
@@ -3465,6 +3556,22 @@
         "sources": [
           "https://mikethompson.house.gov/"
         ]
+      }
+    ],
+    "bio": "Mike Thompson represents California's 4th congressional district, serving since 1999. A U.S. Army veteran, he previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000460"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "1999",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "1990",
+        "to": "1998"
       }
     ]
   },
@@ -3491,6 +3598,27 @@
           "https://mcclintock.house.gov/"
         ]
       }
+    ],
+    "bio": "Tom McClintock represents California's 5th congressional district, serving since 2009. He previously served in the California State Senate and Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001177"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2008",
+        "to": "2009"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2000",
+        "to": "2008"
+      }
     ]
   },
   "B001287": {
@@ -3515,6 +3643,22 @@
         "sources": [
           "https://bera.house.gov"
         ]
+      }
+    ],
+    "bio": "Ami Bera represents California's 6th congressional district, serving since 2013. A physician, he previously served on the Sacramento County Board of Supervisors.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001287"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Sacramento County Board of Supervisors",
+        "from": "2009",
+        "to": "2012"
       }
     ]
   },
@@ -3541,6 +3685,17 @@
           "https://matsui.house.gov"
         ]
       }
+    ],
+    "bio": "Doris O. Matsui represents California's 7th congressional district, serving since 2005. She previously worked as a senior adviser in the Clinton administration.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001163"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2005",
+        "to": "Present"
+      }
     ]
   },
   "G000559": {
@@ -3565,6 +3720,27 @@
         "sources": [
           "https://garamendi.house.gov/"
         ]
+      }
+    ],
+    "bio": "John Garamendi represents California's 8th congressional district, serving since 2009. He previously served as California's insurance commissioner and lieutenant governor.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000559"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "Lieutenant Governor of California",
+        "from": "2007",
+        "to": "2009"
+      },
+      {
+        "role": "Insurance Commissioner of California",
+        "from": "1991",
+        "to": "1995"
       }
     ]
   },
@@ -3591,6 +3767,17 @@
           "https://harder.house.gov/"
         ]
       }
+    ],
+    "bio": "Josh Harder represents California's 9th congressional district, serving since 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/H001090"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2019",
+        "to": "Present"
+      }
     ]
   },
   "D000623": {
@@ -3616,6 +3803,17 @@
           "https://desaulnier.house.gov/"
         ]
       }
+    ],
+    "bio": "Mark DeSaulnier represents California's 10th congressional district, serving since 2015.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000623"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2015",
+        "to": "Present"
+      }
     ]
   },
   "S001231": {
@@ -3634,6 +3832,17 @@
           "https://simon.house.gov/"
         ]
       }
+    ],
+    "bio": "Lateefah Simon represents California's 12th congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001231"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      }
     ]
   },
   "G000605": {
@@ -3651,6 +3860,22 @@
         "sources": [
           "https://gray.house.gov/"
         ]
+      }
+    ],
+    "bio": "Adam Gray represents California's 13th congressional district, serving since 2025. He previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000605"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2012",
+        "to": "2022"
       }
     ]
   },
@@ -3677,6 +3902,22 @@
           "https://www.congress.gov/member/eric-swalwell/S001193"
         ]
       }
+    ],
+    "bio": "Eric Swalwell represents California's 14th congressional district, serving since 2013. A former Alameda County prosecutor, he was a candidate for the Democratic presidential nomination in 2020.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001193"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Deputy District Attorney, Alameda County, California",
+        "from": "2006",
+        "to": "2012"
+      }
     ]
   },
   "M001225": {
@@ -3701,6 +3942,17 @@
         "sources": [
           "https://kevinmullin.house.gov"
         ]
+      }
+    ],
+    "bio": "Kevin Mullin represents California's 15th congressional district, serving since 2023.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001225"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2023",
+        "to": "Present"
       }
     ]
   },
@@ -3727,6 +3979,22 @@
           "https://liccardo.house.gov/"
         ]
       }
+    ],
+    "bio": "Sam T. Liccardo represents California's 16th congressional district, serving since 2025. He previously served as the mayor of San Jose, California.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000607"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Mayor of San Jose, California",
+        "from": "2015",
+        "to": "2023"
+      }
     ]
   },
   "K000389": {
@@ -3751,6 +4019,17 @@
         "sources": [
           "https://khanna.house.gov"
         ]
+      }
+    ],
+    "bio": "Ro Khanna represents California's 17th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000389"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
       }
     ]
   },
@@ -3777,6 +4056,22 @@
           "https://lofgren.house.gov/"
         ]
       }
+    ],
+    "bio": "Zoe Lofgren represents California's 18th congressional district, serving since 1995. She previously served on the Santa Clara County Board of Supervisors.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000397"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "1995",
+        "to": "Present"
+      },
+      {
+        "role": "Santa Clara County Board of Supervisors",
+        "from": "1981",
+        "to": "1994"
+      }
     ]
   },
   "P000613": {
@@ -3801,6 +4096,17 @@
         "sources": [
           "https://panetta.house.gov"
         ]
+      }
+    ],
+    "bio": "Jimmy Panetta represents California's 19th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000613"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
       }
     ]
   },
@@ -3827,6 +4133,22 @@
           "https://fong.house.gov/"
         ]
       }
+    ],
+    "bio": "Vince Fong represents California's 20th congressional district, serving since 2024. He previously served in the California State Assembly and as a district director for a member of Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000480"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2024",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2022",
+        "to": "2024"
+      }
     ]
   },
   "C001059": {
@@ -3851,6 +4173,17 @@
         "sources": [
           "https://costa.house.gov/"
         ]
+      }
+    ],
+    "bio": "Jim Costa represents California's 21st congressional district, serving since 2005.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001059"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2005",
+        "to": "Present"
       }
     ]
   },
@@ -3877,6 +4210,22 @@
           "https://valadao.house.gov"
         ]
       }
+    ],
+    "bio": "David G. Valadao represents California's 22nd congressional district, serving since 2021. A dairy farmer, he previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/V000129"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2010",
+        "to": "2013"
+      }
     ]
   },
   "O000019": {
@@ -3901,6 +4250,22 @@
         "sources": [
           "https://obernolte.house.gov"
         ]
+      }
+    ],
+    "bio": "Jay Obernolte represents California's 23rd congressional district, serving since 2021. A businessman, he previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/O000019"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2014",
+        "to": "2020"
       }
     ]
   },
@@ -3927,6 +4292,17 @@
           "https://carbajal.house.gov"
         ]
       }
+    ],
+    "bio": "Salud O. Carbajal represents California's 24th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001112"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
+      }
     ]
   },
   "R000599": {
@@ -3951,6 +4327,17 @@
         "sources": [
           "https://ruiz.house.gov"
         ]
+      }
+    ],
+    "bio": "Raul Ruiz represents California's 25th congressional district, serving since 2013.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000599"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
       }
     ]
   },
@@ -3977,6 +4364,17 @@
           "https://juliabrownley.house.gov"
         ]
       }
+    ],
+    "bio": "Julia Brownley represents California's 26th congressional district, serving since 2013.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001285"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      }
     ]
   },
   "W000830": {
@@ -4001,6 +4399,27 @@
         "sources": [
           "https://whitesides.house.gov/"
         ]
+      }
+    ],
+    "bio": "George Whitesides represents California's 27th congressional district, serving since 2025. He previously served as chief executive of Virgin Galactic and as chief of staff at NASA.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000830"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Chief Executive Officer, Virgin Galactic",
+        "from": "2010",
+        "to": "2020"
+      },
+      {
+        "role": "Chief of Staff, NASA",
+        "from": "2009",
+        "to": "2010"
       }
     ]
   },
@@ -4027,6 +4446,22 @@
           "https://chu.house.gov/"
         ]
       }
+    ],
+    "bio": "Judy Chu represents California's 28th congressional district, serving since 2009. A psychologist, she previously chaired the State Board of Equalization and served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001080"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2006",
+        "to": "2009"
+      }
     ]
   },
   "R000620": {
@@ -4052,6 +4487,22 @@
           "https://rivas.house.gov/"
         ]
       }
+    ],
+    "bio": "Luz M. Rivas represents California's 29th congressional district, serving since 2025. She previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000620"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2016",
+        "to": "2024"
+      }
     ]
   },
   "F000483": {
@@ -4069,6 +4520,22 @@
         "sources": [
           "https://friedman.house.gov/"
         ]
+      }
+    ],
+    "bio": "Laura Friedman represents California's 30th congressional district, serving since 2025. She previously served in the California State Assembly and worked as a television and film executive.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000483"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2016",
+        "to": "2024"
       }
     ]
   },
@@ -4095,6 +4562,27 @@
           "https://cisneros.house.gov/"
         ]
       }
+    ],
+    "bio": "Gilbert Ray Cisneros, Jr. represents California's 31st congressional district, serving since 2025. A U.S. Navy veteran, he previously served as a U.S. under secretary of defense and in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001123"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Under Secretary of Defense for Personnel and Readiness",
+        "from": "2021",
+        "to": "2023"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2018",
+        "to": "2021"
+      }
     ]
   },
   "S000344": {
@@ -4119,6 +4607,22 @@
         "sources": [
           "https://sherman.house.gov"
         ]
+      }
+    ],
+    "bio": "Brad Sherman represents California's 32nd congressional district, serving since 1997. He previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S000344"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "1997",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "1991",
+        "to": "1996"
       }
     ]
   },
@@ -4145,6 +4649,22 @@
           "https://aguilar.house.gov/"
         ]
       }
+    ],
+    "bio": "Pete Aguilar represents California's 33rd congressional district, serving since 2015. He previously served as mayor of Redlands, California.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/A000371"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2015",
+        "to": "Present"
+      },
+      {
+        "role": "Mayor of Redlands, California",
+        "from": "2014",
+        "to": "2015"
+      }
     ]
   },
   "G000585": {
@@ -4169,6 +4689,22 @@
         "sources": [
           "https://gomez.house.gov/"
         ]
+      }
+    ],
+    "bio": "Jimmy Gomez represents California's 34th congressional district, serving since 2017. He previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000585"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2013",
+        "to": "2017"
       }
     ]
   },
@@ -4195,6 +4731,17 @@
           "https://torres.house.gov/"
         ]
       }
+    ],
+    "bio": "Norma J. Torres represents California's 35th congressional district, serving since 2015.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000474"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2015",
+        "to": "Present"
+      }
     ]
   },
   "L000582": {
@@ -4219,6 +4766,22 @@
         "sources": [
           "https://lieu.house.gov/"
         ]
+      }
+    ],
+    "bio": "Ted Lieu represents California's 36th congressional district, serving since 2015. A U.S. Air Force veteran and attorney, he previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000582"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2015",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2014",
+        "to": "2014"
       }
     ]
   },
@@ -4245,6 +4808,17 @@
           "https://kamlager-dove.house.gov"
         ]
       }
+    ],
+    "bio": "Sydney Kamlager-Dove represents California's 37th congressional district, serving since 2023.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000400"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2023",
+        "to": "Present"
+      }
     ]
   },
   "S001156": {
@@ -4269,6 +4843,17 @@
         "sources": [
           "https://lindasanchez.house.gov/"
         ]
+      }
+    ],
+    "bio": "Linda T. Sánchez represents California's 38th congressional district, serving since 2003. She previously served as chair of the House Democratic Caucus.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001156"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2003",
+        "to": "Present"
       }
     ]
   },
@@ -4295,6 +4880,17 @@
           "https://takano.house.gov"
         ]
       }
+    ],
+    "bio": "Mark Takano represents California's 39th congressional district, serving since 2013.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000472"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      }
     ]
   },
   "K000397": {
@@ -4319,6 +4915,22 @@
         "sources": [
           "https://youngkim.house.gov"
         ]
+      }
+    ],
+    "bio": "Young Kim represents California's 40th congressional district, serving since 2021. She previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000397"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2014",
+        "to": "2016"
       }
     ]
   },
@@ -4345,6 +4957,17 @@
           "https://calvert.house.gov/"
         ]
       }
+    ],
+    "bio": "Ken Calvert represents California's 41st congressional district, serving since 1993. One of the longest-serving members of California's delegation, he previously ran a restaurant and worked in real estate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C000059"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "1993",
+        "to": "Present"
+      }
     ]
   },
   "G000598": {
@@ -4369,6 +4992,22 @@
         "sources": [
           "https://robertgarcia.house.gov"
         ]
+      }
+    ],
+    "bio": "Robert Garcia represents California's 42nd congressional district, serving since 2023. He previously served as the mayor of Long Beach, California.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000598"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Mayor of Long Beach, California",
+        "from": "2014",
+        "to": "2022"
       }
     ]
   },
@@ -4395,6 +5034,22 @@
           "https://waters.house.gov"
         ]
       }
+    ],
+    "bio": "Maxine Waters represents California's 43rd congressional district, serving since 1991. One of the longest-serving members of the California delegation, she previously served in the California State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000187"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "1991",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "1976",
+        "to": "1990"
+      }
     ]
   },
   "B001300": {
@@ -4419,6 +5074,17 @@
         "sources": [
           "https://barragan.house.gov"
         ]
+      }
+    ],
+    "bio": "Nanette Diaz Barragán represents California's 44th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001300"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
       }
     ]
   },
@@ -4445,6 +5111,17 @@
           "https://tran.house.gov/"
         ]
       }
+    ],
+    "bio": "Derek Tran represents California's 45th congressional district, serving since 2025. A U.S. Army veteran and attorney.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000491"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      }
     ]
   },
   "C001110": {
@@ -4469,6 +5146,17 @@
         "sources": [
           "https://correa.house.gov"
         ]
+      }
+    ],
+    "bio": "J. Luis Correa represents California's 46th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001110"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2017",
+        "to": "Present"
       }
     ]
   },
@@ -4495,6 +5183,22 @@
           "https://min.house.gov/"
         ]
       }
+    ],
+    "bio": "Dave Min represents California's 47th congressional district, serving since 2025. He previously served in the California State Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001241"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2020",
+        "to": "2024"
+      }
     ]
   },
   "I000056": {
@@ -4519,6 +5223,22 @@
         "sources": [
           "https://issa.house.gov"
         ]
+      }
+    ],
+    "bio": "Darrell Issa represents California's 48th congressional district, serving since 2021. A businessman, he previously represented a neighboring San Diego-area district in Congress from 2001 to 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/I000056"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Representative, California",
+        "from": "2001",
+        "to": "2019"
       }
     ]
   },
@@ -4545,6 +5265,17 @@
           "https://levin.house.gov/"
         ]
       }
+    ],
+    "bio": "Mike Levin represents California's 49th congressional district, serving since 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000593"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2019",
+        "to": "Present"
+      }
     ]
   },
   "P000608": {
@@ -4569,6 +5300,22 @@
         "sources": [
           "https://scottpeters.house.gov"
         ]
+      }
+    ],
+    "bio": "Scott H. Peters represents California's 50th congressional district, serving since 2013. An environmental attorney, he previously served on the San Diego City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000608"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "San Diego City Council",
+        "from": "2000",
+        "to": "2008"
       }
     ]
   },
@@ -4595,6 +5342,22 @@
           "https://sarajacobs.house.gov"
         ]
       }
+    ],
+    "bio": "Sara Jacobs represents California's 51st congressional district, serving since 2021. She previously served on the San Diego City Council and worked on national-security policy.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/J000305"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "San Diego City Council",
+        "from": "2020",
+        "to": "2021"
+      }
     ]
   },
   "V000130": {
@@ -4619,6 +5382,27 @@
         "sources": [
           "https://vargas.house.gov"
         ]
+      }
+    ],
+    "bio": "Juan Vargas represents California's 52nd congressional district, serving since 2013. He previously served in the California State Senate and Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/V000130"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2010",
+        "to": "2012"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2008",
+        "to": "2010"
       }
     ]
   },
@@ -4645,6 +5429,22 @@
           "https://www.gillibrand.senate.gov"
         ]
       }
+    ],
+    "bio": "Kirsten E. Gillibrand is a U.S. senator from New York, serving since 2009. She previously represented an upstate New York district in the U.S. House before her 2009 appointment to the Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000555"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, New York",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2007",
+        "to": "2009"
+      }
     ]
   },
   "L000598": {
@@ -4669,6 +5469,17 @@
         "sources": [
           "https://lalota.house.gov"
         ]
+      }
+    ],
+    "bio": "Nick LaLota represents New York's 1st congressional district, serving since 2023.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000598"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2023",
+        "to": "Present"
       }
     ]
   },
@@ -4695,6 +5506,22 @@
           "https://garbarino.house.gov"
         ]
       }
+    ],
+    "bio": "Andrew R. Garbarino represents New York's 2nd congressional district, serving since 2021. He previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000597"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "2013",
+        "to": "2021"
+      }
     ]
   },
   "S001201": {
@@ -4720,6 +5547,27 @@
           "https://suozzi.house.gov"
         ]
       }
+    ],
+    "bio": "Thomas R. Suozzi represents New York's 3rd congressional district, serving since 2024. He previously represented a Long Island district in Congress and served as the Nassau County executive.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001201"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2024",
+        "to": "Present"
+      },
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2017",
+        "to": "2023"
+      },
+      {
+        "role": "Nassau County Executive",
+        "from": "2010",
+        "to": "2017"
+      }
     ]
   },
   "G000602": {
@@ -4737,6 +5585,17 @@
         "sources": [
           "https://gillen.house.gov/"
         ]
+      }
+    ],
+    "bio": "Laura Gillen represents New York's 4th congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000602"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2025",
+        "to": "Present"
       }
     ]
   },
@@ -4763,6 +5622,22 @@
           "https://meeks.house.gov"
         ]
       }
+    ],
+    "bio": "Gregory W. Meeks represents New York's 5th congressional district, serving since 1997. He previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001137"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "1997",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "1992",
+        "to": "1998"
+      }
     ]
   },
   "M001188": {
@@ -4787,6 +5662,17 @@
         "sources": [
           "https://meng.house.gov"
         ]
+      }
+    ],
+    "bio": "Grace Meng represents New York's 6th congressional district, serving since 2013.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001188"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2013",
+        "to": "Present"
       }
     ]
   },
@@ -4813,6 +5699,22 @@
           "https://velazquez.house.gov"
         ]
       }
+    ],
+    "bio": "Nydia M. Velázquez represents New York's 7th congressional district, serving since 1993. She previously served on the New York City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/V000081"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "1993",
+        "to": "Present"
+      },
+      {
+        "role": "New York City Council",
+        "from": "1984",
+        "to": "1986"
+      }
     ]
   },
   "C001067": {
@@ -4837,6 +5739,22 @@
         "sources": [
           "https://clarke.house.gov/"
         ]
+      }
+    ],
+    "bio": "Yvette D. Clarke represents New York's 9th congressional district, serving since 2007. She previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001067"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2007",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "2001",
+        "to": "2007"
       }
     ]
   },
@@ -4863,6 +5781,17 @@
           "https://goldman.house.gov"
         ]
       }
+    ],
+    "bio": "Daniel S. Goldman represents New York's 10th congressional district, serving since 2023.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000599"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2023",
+        "to": "Present"
+      }
     ]
   },
   "M000317": {
@@ -4887,6 +5816,22 @@
         "sources": [
           "https://malliotakis.house.gov"
         ]
+      }
+    ],
+    "bio": "Nicole Malliotakis represents New York's 11th congressional district, serving since 2021. She previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M000317"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "2011",
+        "to": "2021"
       }
     ]
   },
@@ -4913,6 +5858,22 @@
           "https://nadler.house.gov"
         ]
       }
+    ],
+    "bio": "Jerrold Nadler represents New York's 12th congressional district, serving since 1992. One of the longest-serving members of the New York delegation, he previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/N000002"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "1992",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "1977",
+        "to": "1992"
+      }
     ]
   },
   "E000297": {
@@ -4937,6 +5898,22 @@
         "sources": [
           "https://espaillat.house.gov"
         ]
+      }
+    ],
+    "bio": "Adriano Espaillat represents New York's 13th congressional district, serving since 2017. He previously served in the New York State Assembly and State Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/E000297"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2017",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Senate",
+        "from": "2011",
+        "to": "2017"
       }
     ]
   },
@@ -4963,6 +5940,22 @@
           "https://ritchietorres.house.gov"
         ]
       }
+    ],
+    "bio": "Ritchie Torres represents New York's 15th congressional district, serving since 2021. He previously served on the New York City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000486"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2021",
+        "to": "Present"
+      },
+      {
+        "role": "New York City Council",
+        "from": "2014",
+        "to": "2021"
+      }
     ]
   },
   "L000606": {
@@ -4980,6 +5973,27 @@
         "sources": [
           "https://latimer.house.gov/"
         ]
+      }
+    ],
+    "bio": "George Latimer represents New York's 16th congressional district, serving since 2025. He previously served as the Westchester County executive and in the New York State Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000606"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Westchester County Executive",
+        "from": "2018",
+        "to": "2024"
+      },
+      {
+        "role": "New York State Senate",
+        "from": "2005",
+        "to": "2018"
       }
     ]
   },
@@ -5006,6 +6020,22 @@
           "https://lawler.house.gov"
         ]
       }
+    ],
+    "bio": "Michael Lawler represents New York's 17th congressional district, serving since 2023. He previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000599"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "2021",
+        "to": "2023"
+      }
     ]
   },
   "R000579": {
@@ -5030,6 +6060,22 @@
         "sources": [
           "https://patryan.house.gov/"
         ]
+      }
+    ],
+    "bio": "Patrick Ryan represents New York's 18th congressional district, serving since 2022. A U.S. Army veteran, he previously served as the Ulster County executive.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000579"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2022",
+        "to": "Present"
+      },
+      {
+        "role": "Ulster County Executive",
+        "from": "2019",
+        "to": "2022"
       }
     ]
   },
@@ -5056,6 +6102,17 @@
           "https://riley.house.gov/"
         ]
       }
+    ],
+    "bio": "Josh Riley represents New York's 19th congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000622"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2025",
+        "to": "Present"
+      }
     ]
   },
   "T000469": {
@@ -5080,6 +6137,22 @@
         "sources": [
           "https://tonko.house.gov/"
         ]
+      }
+    ],
+    "bio": "Paul Tonko represents New York's 20th congressional district, serving since 2009. He previously served in the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000469"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "2007",
+        "to": "2009"
       }
     ]
   },
@@ -5106,6 +6179,17 @@
           "https://stefanik.house.gov/"
         ]
       }
+    ],
+    "bio": "Elise M. Stefanik represents New York's 21st congressional district, serving since 2015. She previously worked in the George W. Bush administration and chaired the House Republican Conference.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001196"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2015",
+        "to": "Present"
+      }
     ]
   },
   "M001231": {
@@ -5123,6 +6207,17 @@
         "sources": [
           "https://mannion.house.gov/"
         ]
+      }
+    ],
+    "bio": "John W. Mannion represents New York's 22nd congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001231"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2025",
+        "to": "Present"
       }
     ]
   },
@@ -5149,6 +6244,17 @@
           "https://langworthy.house.gov"
         ]
       }
+    ],
+    "bio": "Nicholas A. Langworthy represents New York's 23rd congressional district, serving since 2023.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000600"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2023",
+        "to": "Present"
+      }
     ]
   },
   "T000478": {
@@ -5173,6 +6279,17 @@
         "sources": [
           "https://tenney.house.gov/"
         ]
+      }
+    ],
+    "bio": "Claudia Tenney represents New York's 24th congressional district, serving since 2021.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000478"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2021",
+        "to": "Present"
       }
     ]
   },
@@ -5199,6 +6316,22 @@
           "https://morelle.house.gov"
         ]
       }
+    ],
+    "bio": "Joseph D. Morelle represents New York's 25th congressional district, serving since 2018. He previously served as the majority leader of the New York State Assembly.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001206"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2018",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Assembly",
+        "from": "1991",
+        "to": "2018"
+      }
     ]
   },
   "K000402": {
@@ -5223,6 +6356,22 @@
         "sources": [
           "https://kennedy.house.gov"
         ]
+      }
+    ],
+    "bio": "Timothy M. Kennedy represents New York's 26th congressional district, serving since 2024. He previously served in the New York State Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000402"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New York",
+        "from": "2024",
+        "to": "Present"
+      },
+      {
+        "role": "New York State Senate",
+        "from": "2011",
+        "to": "2024"
       }
     ]
   },
@@ -12378,6 +13527,17 @@
           "https://kelly.house.gov"
         ]
       }
+    ],
+    "bio": "Mike Kelly represents Pennsylvania's 16th congressional district, serving since 2011. A businessman, he ran auto dealerships before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/K000376"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2011",
+        "to": "Present"
+      }
     ]
   },
   "T000467": {
@@ -12402,6 +13562,22 @@
         "sources": [
           "https://thompson.house.gov"
         ]
+      }
+    ],
+    "bio": "Glenn Thompson represents Pennsylvania's 15th congressional district, serving since 2009. He previously served in the Pennsylvania House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/T000467"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2009",
+        "to": "Present"
+      },
+      {
+        "role": "Pennsylvania House of Representatives",
+        "from": "2007",
+        "to": "2008"
       }
     ]
   },
@@ -12428,6 +13604,22 @@
           "https://perry.house.gov"
         ]
       }
+    ],
+    "bio": "Scott Perry represents Pennsylvania's 10th congressional district, serving since 2013. A U.S. Army veteran, he previously served in the Pennsylvania House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000605"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2013",
+        "to": "Present"
+      },
+      {
+        "role": "Pennsylvania House of Representatives",
+        "from": "2007",
+        "to": "2013"
+      }
     ]
   },
   "B001296": {
@@ -12452,6 +13644,22 @@
         "sources": [
           "https://boyle.house.gov"
         ]
+      }
+    ],
+    "bio": "Brendan F. Boyle represents Pennsylvania's 2nd congressional district, serving since 2015. He previously served in the Pennsylvania House of Representatives and on the Philadelphia City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001296"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2015",
+        "to": "Present"
+      },
+      {
+        "role": "Pennsylvania House of Representatives",
+        "from": "2009",
+        "to": "2015"
       }
     ]
   },
@@ -12478,6 +13686,22 @@
           "https://evans.house.gov"
         ]
       }
+    ],
+    "bio": "Dwight Evans represents Pennsylvania's 3rd congressional district, serving since 2016. He previously served in the Pennsylvania House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/E000296"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2016",
+        "to": "Present"
+      },
+      {
+        "role": "Pennsylvania House of Representatives",
+        "from": "1981",
+        "to": "2016"
+      }
     ]
   },
   "F000466": {
@@ -12502,6 +13726,22 @@
         "sources": [
           "https://fitzpatrick.house.gov"
         ]
+      }
+    ],
+    "bio": "Brian K. Fitzpatrick represents Pennsylvania's 1st congressional district, serving since 2017. A former FBI agent and federal prosecutor, he is the only Republican in Pennsylvania's congressional delegation from the Philadelphia suburbs.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000466"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2017",
+        "to": "Present"
+      },
+      {
+        "role": "Special Agent, Federal Bureau of Investigation",
+        "from": "2009",
+        "to": "2016"
       }
     ]
   },
@@ -12528,6 +13768,17 @@
           "https://smucker.house.gov"
         ]
       }
+    ],
+    "bio": "Lloyd Smucker represents Pennsylvania's 11th congressional district, serving since 2017.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001199"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2017",
+        "to": "Present"
+      }
     ]
   },
   "S001205": {
@@ -12552,6 +13803,17 @@
         "sources": [
           "https://scanlon.house.gov"
         ]
+      }
+    ],
+    "bio": "Mary Gay Scanlon represents Pennsylvania's 5th congressional district, serving since 2018.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001205"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2018",
+        "to": "Present"
       }
     ]
   },
@@ -12578,6 +13840,22 @@
           "https://dean.house.gov"
         ]
       }
+    ],
+    "bio": "Madeleine Dean represents Pennsylvania's 4th congressional district, serving since 2019. She previously served in the Pennsylvania House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000631"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "Pennsylvania House of Representatives",
+        "from": "2013",
+        "to": "2019"
+      }
     ]
   },
   "H001085": {
@@ -12602,6 +13880,17 @@
         "sources": [
           "https://houlahan.house.gov"
         ]
+      }
+    ],
+    "bio": "Chrissy Houlahan represents Pennsylvania's 6th congressional district, serving since 2019. A U.S. Air Force veteran and engineer, she ran a small business before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/H001085"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2019",
+        "to": "Present"
       }
     ]
   },
@@ -12628,6 +13917,22 @@
           "https://meuser.house.gov"
         ]
       }
+    ],
+    "bio": "Daniel Meuser represents Pennsylvania's 9th congressional district, serving since 2019. A businessman, he served as Pennsylvania's revenue secretary.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001204"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2019",
+        "to": "Present"
+      },
+      {
+        "role": "Secretary of Revenue, Pennsylvania",
+        "from": "2011",
+        "to": "2015"
+      }
     ]
   },
   "J000302": {
@@ -12652,6 +13957,17 @@
         "sources": [
           "https://johnjoyce.house.gov"
         ]
+      }
+    ],
+    "bio": "John Joyce represents Pennsylvania's 13th congressional district, serving since 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/J000302"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2019",
+        "to": "Present"
       }
     ]
   },
@@ -12678,6 +13994,17 @@
           "https://reschenthaler.house.gov"
         ]
       }
+    ],
+    "bio": "Guy Reschenthaler represents Pennsylvania's 14th congressional district, serving since 2019.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000610"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2019",
+        "to": "Present"
+      }
     ]
   },
   "F000479": {
@@ -12702,6 +14029,27 @@
         "sources": [
           "https://www.fetterman.senate.gov"
         ]
+      }
+    ],
+    "bio": "John Fetterman is a U.S. senator from Pennsylvania, serving since 2023. He previously served as the lieutenant governor of Pennsylvania and as mayor of Braddock.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000479"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, Pennsylvania",
+        "from": "2023",
+        "to": "Present"
+      },
+      {
+        "role": "Lieutenant Governor of Pennsylvania",
+        "from": "2019",
+        "to": "2023"
+      },
+      {
+        "role": "Mayor of Braddock, Pennsylvania",
+        "from": "2006",
+        "to": "2019"
       }
     ]
   },
@@ -12728,6 +14076,17 @@
           "https://summerlee.house.gov"
         ]
       }
+    ],
+    "bio": "Summer L. Lee represents Pennsylvania's 12th congressional district, serving since 2023. She previously worked as a community organizer in Pittsburgh.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000602"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2023",
+        "to": "Present"
+      }
     ]
   },
   "D000530": {
@@ -12752,6 +14111,17 @@
         "sources": [
           "https://deluzio.house.gov"
         ]
+      }
+    ],
+    "bio": "Christopher R. Deluzio represents Pennsylvania's 17th congressional district, serving since 2023. A U.S. Navy veteran and attorney.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000530"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2023",
+        "to": "Present"
       }
     ]
   },
@@ -12778,6 +14148,22 @@
           "https://www.mccormick.senate.gov"
         ]
       }
+    ],
+    "bio": "David McCormick is a U.S. senator from Pennsylvania, serving since 2025. A former hedge-fund executive and Army veteran, he served as a U.S. Treasury under secretary in the George W. Bush administration.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001243"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, Pennsylvania",
+        "from": "2025",
+        "to": "Present"
+      },
+      {
+        "role": "Under Secretary of the Treasury for International Affairs",
+        "from": "2007",
+        "to": "2009"
+      }
     ]
   },
   "M001230": {
@@ -12803,6 +14189,17 @@
           "https://mackenzie.house.gov"
         ]
       }
+    ],
+    "bio": "Ryan Mackenzie represents Pennsylvania's 7th congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001230"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2025",
+        "to": "Present"
+      }
     ]
   },
   "B001327": {
@@ -12827,6 +14224,17 @@
         "sources": [
           "https://bresnahan.house.gov"
         ]
+      }
+    ],
+    "bio": "Robert P. Bresnahan, Jr. represents Pennsylvania's 8th congressional district, serving since 2025.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001327"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Pennsylvania",
+        "from": "2025",
+        "to": "Present"
       }
     ]
   },
