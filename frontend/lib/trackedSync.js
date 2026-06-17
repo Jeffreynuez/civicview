@@ -23,6 +23,7 @@ import { fetchAllTracked } from './pagesApi';
 import { _bootstrapBills, _clearBills } from './trackedBills';
 import { _bootstrapOfficials, _clearOfficials } from './trackedOfficials';
 import { _bootstrapElections, _clearElections } from './trackedElections';
+import { _bootstrapFeatured, _clearFeatured } from './featuredTracked';
 
 let inFlight = null;
 
@@ -45,6 +46,7 @@ export async function loadAllTracked() {
       _bootstrapBills(data?.bills || []);
       _bootstrapOfficials(data?.officials || []);
       _bootstrapElections(data?.elections || []);
+      _bootstrapFeatured(data?.featured || {});
     } finally {
       inFlight = null;
     }
@@ -64,4 +66,5 @@ export function clearAllTracked() {
   _clearBills();
   _clearOfficials();
   _clearElections();
+  _clearFeatured();
 }

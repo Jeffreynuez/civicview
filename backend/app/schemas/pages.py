@@ -1047,6 +1047,23 @@ class TrackedPrefsPatch(BaseModel):
     prefs: dict = Field(default_factory=dict)
 
 
+class FeaturedTrackedMap(BaseModel):
+    """The user's pinned-to-Overview item key per category. null = none
+    pinned for that category. Keys are the same canonical strings the
+    frontend tracked stores use (official_key / bill_key / election_key)."""
+    representative: Optional[str] = None
+    candidate: Optional[str] = None
+    bill: Optional[str] = None
+    election: Optional[str] = None
+
+
+class FeaturedTrackedSet(BaseModel):
+    """Body for PUT /api/tracked/featured. key=null clears the pick for
+    that category. category is validated server-side."""
+    category: str
+    key: Optional[str] = None
+
+
 class TrackedListResponse(BaseModel):
     """Wrapper returned from GET /api/tracked. Lets the frontend
     bootstrap all three lists in one round-trip on login.
@@ -1054,3 +1071,4 @@ class TrackedListResponse(BaseModel):
     bills: List[TrackedBillRead] = Field(default_factory=list)
     officials: List[TrackedOfficialRead] = Field(default_factory=list)
     elections: List[TrackedElectionRead] = Field(default_factory=list)
+    featured: FeaturedTrackedMap = Field(default_factory=FeaturedTrackedMap)
