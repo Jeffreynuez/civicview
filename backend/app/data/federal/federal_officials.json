@@ -65,6 +65,11 @@
       "experience": [
         {
           "role": "President of the United States",
+          "from": "2025",
+          "to": "Present"
+        },
+        {
+          "role": "President of the United States",
           "from": "2017",
           "to": "2021"
         },
@@ -135,6 +140,11 @@
         }
       ],
       "experience": [
+        {
+          "role": "Vice President of the United States",
+          "from": "2025",
+          "to": "Present"
+        },
         {
           "role": "U.S. Senator",
           "from": "2023",
@@ -208,6 +218,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of State",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Senator from Florida",
             "from": "2011",
             "to": "2025"
@@ -277,6 +292,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of the Treasury",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Founder & CEO, Key Square Group",
             "from": "2012",
             "to": "2025"
@@ -340,6 +360,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Defense",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Host, Fox News Channel",
             "from": "2014",
@@ -405,6 +430,11 @@
         ],
         "experience": [
           {
+            "role": "Attorney General",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Attorney General of Florida",
             "from": "2011",
             "to": "2019"
@@ -468,6 +498,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of the Interior",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Governor of North Dakota",
             "from": "2016",
@@ -534,6 +569,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Agriculture",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Director, America First Policy Institute",
             "from": "2021",
             "to": "2025"
@@ -597,6 +637,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Commerce",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Chairman & CEO, Cantor Fitzgerald",
             "from": "1999",
@@ -662,6 +707,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Labor",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Representative from Oregon",
             "from": "2023",
             "to": "2025"
@@ -725,6 +775,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Health and Human Services",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Environmental Attorney & Activist",
             "from": "1984",
@@ -790,6 +845,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Housing and Urban Development",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Texas State Representative",
             "from": "2015",
             "to": "2023"
@@ -853,6 +913,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Transportation",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "U.S. Representative from Wisconsin",
             "from": "2011",
@@ -918,6 +983,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Energy",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Founder & CEO, Liberty Energy",
             "from": "1992",
             "to": "Present"
@@ -981,6 +1051,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Education",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Co-founder & CEO, World Wrestling Entertainment (WWE)",
             "from": "1998",
@@ -1046,6 +1121,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Veterans Affairs",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Representative from Georgia",
             "from": "2013",
             "to": "2021"
@@ -1109,6 +1189,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Homeland Security",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Governor of South Dakota",
             "from": "2019",
@@ -1201,7 +1286,11 @@
               "to": "2003"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Official_roberts_CJ.jpg/250px-Official_roberts_CJ.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Official_roberts_CJ.jpg/250px-Official_roberts_CJ.jpg",
+          "bio": "John G. Roberts Jr. is the chief justice of the United States, appointed in 2005 by President George W. Bush. He previously served as a judge on the U.S. Court of Appeals for the D.C. Circuit and as a deputy U.S. solicitor general.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographyroberts.aspx"
+          ]
         },
         {
           "id": "us-scotus-thomas",
@@ -1262,7 +1351,11 @@
               "to": "1979"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Clarence_Thomas_official_SCOTUS_portrait_%283x4_cropped%29.jpg/250px-Clarence_Thomas_official_SCOTUS_portrait_%283x4_cropped%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Clarence_Thomas_official_SCOTUS_portrait_%283x4_cropped%29.jpg/250px-Clarence_Thomas_official_SCOTUS_portrait_%283x4_cropped%29.jpg",
+          "bio": "Clarence Thomas is an associate justice of the U.S. Supreme Court, appointed in 1991 by President George H.W. Bush. The longest-serving current member of the Court, he previously chaired the Equal Employment Opportunity Commission and served on the D.C. Circuit Court of Appeals.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographythomas.aspx"
+          ]
         },
         {
           "id": "us-scotus-alito",
@@ -1323,7 +1416,11 @@
               "to": "1985"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Samuel_Alito_official_photo.jpg/250px-Samuel_Alito_official_photo.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Samuel_Alito_official_photo.jpg/250px-Samuel_Alito_official_photo.jpg",
+          "bio": "Samuel A. Alito Jr. is an associate justice of the U.S. Supreme Court, appointed in 2006 by President George W. Bush. He previously served as a judge on the U.S. Court of Appeals for the Third Circuit and as U.S. attorney for the District of New Jersey.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographyalito.aspx"
+          ]
         },
         {
           "id": "us-scotus-sotomayor",
@@ -1384,7 +1481,11 @@
               "to": "1984"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Sonia_Sotomayor_in_SCOTUS_robe.jpg/250px-Sonia_Sotomayor_in_SCOTUS_robe.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Sonia_Sotomayor_in_SCOTUS_robe.jpg/250px-Sonia_Sotomayor_in_SCOTUS_robe.jpg",
+          "bio": "Sonia Sotomayor is an associate justice of the U.S. Supreme Court, appointed in 2009 by President Barack Obama. The first Latina to serve on the Court, she previously served as a federal trial and appellate judge in New York.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographysotomayor.aspx"
+          ]
         },
         {
           "id": "us-scotus-kagan",
@@ -1445,7 +1546,11 @@
               "to": "2003"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Elena_Kagan_Official_SCOTUS_Portrait_%282013%29.jpg/250px-Elena_Kagan_Official_SCOTUS_Portrait_%282013%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Elena_Kagan_Official_SCOTUS_Portrait_%282013%29.jpg/250px-Elena_Kagan_Official_SCOTUS_Portrait_%282013%29.jpg",
+          "bio": "Elena Kagan is an associate justice of the U.S. Supreme Court, appointed in 2010 by President Barack Obama. She previously served as U.S. solicitor general and as dean of Harvard Law School.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographykagan.aspx"
+          ]
         },
         {
           "id": "us-scotus-gorsuch",
@@ -1506,7 +1611,11 @@
               "to": "2005"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Associate_Justice_Neil_Gorsuch_Official_Portrait.jpg/250px-Associate_Justice_Neil_Gorsuch_Official_Portrait.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Associate_Justice_Neil_Gorsuch_Official_Portrait.jpg/250px-Associate_Justice_Neil_Gorsuch_Official_Portrait.jpg",
+          "bio": "Neil M. Gorsuch is an associate justice of the U.S. Supreme Court, appointed in 2017 by President Donald Trump. He previously served as a judge on the U.S. Court of Appeals for the Tenth Circuit.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographygorsuch.aspx"
+          ]
         },
         {
           "id": "us-scotus-kavanaugh",
@@ -1567,7 +1676,11 @@
               "to": "2004"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Associate_Justice_Brett_Kavanaugh_Official_Portrait_%28full_length%29.jpg/250px-Associate_Justice_Brett_Kavanaugh_Official_Portrait_%28full_length%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Associate_Justice_Brett_Kavanaugh_Official_Portrait_%28full_length%29.jpg/250px-Associate_Justice_Brett_Kavanaugh_Official_Portrait_%28full_length%29.jpg",
+          "bio": "Brett M. Kavanaugh is an associate justice of the U.S. Supreme Court, appointed in 2018 by President Donald Trump. He previously served as a judge on the U.S. Court of Appeals for the D.C. Circuit and as White House staff secretary.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographykavanaugh.aspx"
+          ]
         },
         {
           "id": "us-scotus-barrett",
@@ -1628,7 +1741,11 @@
               "to": "2010"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Official_Amy_Barrett_photo.jpg/250px-Official_Amy_Barrett_photo.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Official_Amy_Barrett_photo.jpg/250px-Official_Amy_Barrett_photo.jpg",
+          "bio": "Amy Coney Barrett is an associate justice of the U.S. Supreme Court, appointed in 2020 by President Donald Trump. She previously served as a judge on the U.S. Court of Appeals for the Seventh Circuit and as a law professor at the University of Notre Dame.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographybarrett.aspx"
+          ]
         },
         {
           "id": "us-scotus-jackson",
@@ -1689,7 +1806,11 @@
               "to": "2014"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Ketanji_Brown_Jackson_official_SCOTUS_portrait.jpg/250px-Ketanji_Brown_Jackson_official_SCOTUS_portrait.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Ketanji_Brown_Jackson_official_SCOTUS_portrait.jpg/250px-Ketanji_Brown_Jackson_official_SCOTUS_portrait.jpg",
+          "bio": "Ketanji Brown Jackson is an associate justice of the U.S. Supreme Court, appointed in 2022 by President Joe Biden. The first Black woman to serve on the Court, she previously served as a federal appellate and trial judge and on the U.S. Sentencing Commission.",
+          "bio_sources": [
+            "https://www.supremecourt.gov/about/biographyjackson.aspx"
+          ]
         }
       ]
     }
@@ -1759,7 +1880,9 @@
               "to": "2007"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg/250px-March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg/250px-March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg",
+          "bio": "JD Vance serves as president of the U.S. Senate in his capacity as vice president of the United States — a constitutional role in which the vice president presides over the Senate and may cast tie-breaking votes.",
+          "bio_sources": []
         },
         {
           "id": "us-sen-pres-pro-tem",
@@ -1807,7 +1930,9 @@
               "to": "Present"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Chuck_Grassley_official_photo_2017.jpg/250px-Chuck_Grassley_official_photo_2017.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Chuck_Grassley_official_photo_2017.jpg/250px-Chuck_Grassley_official_photo_2017.jpg",
+          "bio": "Chuck Grassley is the president pro tempore of the U.S. Senate and the senior U.S. senator from Iowa, serving in the Senate since 1981. He previously served in the U.S. House of Representatives and the Iowa Legislature.",
+          "bio_sources": []
         },
         {
           "id": "us-sen-maj-leader",
@@ -1855,7 +1980,9 @@
               "to": "1997"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/John_Thune_117th_Congress_portrait.jpg/250px-John_Thune_117th_Congress_portrait.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/John_Thune_117th_Congress_portrait.jpg/250px-John_Thune_117th_Congress_portrait.jpg",
+          "bio": "John Thune is the U.S. Senate majority leader and a U.S. senator from South Dakota, serving in the Senate since 2005. He previously represented the state in the U.S. House of Representatives.",
+          "bio_sources": []
         },
         {
           "id": "us-sen-maj-whip",
@@ -1903,7 +2030,9 @@
               "to": "2007"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/John_Barrasso_official_portrait_112th_Congress.jpg/250px-John_Barrasso_official_portrait_112th_Congress.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/John_Barrasso_official_portrait_112th_Congress.jpg/250px-John_Barrasso_official_portrait_112th_Congress.jpg",
+          "bio": "John Barrasso is the U.S. Senate majority whip and a U.S. senator from Wyoming, serving since 2007. A physician, he previously served in the Wyoming Senate.",
+          "bio_sources": []
         },
         {
           "id": "us-sen-min-leader",
@@ -1951,7 +2080,9 @@
               "to": "1983"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Chuck_Schumer_official_photo.jpg/250px-Chuck_Schumer_official_photo.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Chuck_Schumer_official_photo.jpg/250px-Chuck_Schumer_official_photo.jpg",
+          "bio": "Chuck Schumer is the U.S. Senate Democratic leader and the senior U.S. senator from New York, serving in the Senate since 1999. He previously represented the state in the U.S. House of Representatives.",
+          "bio_sources": []
         },
         {
           "id": "us-sen-min-whip",
@@ -1999,7 +2130,9 @@
               "to": "1983"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Dick_Durbin_117th_Congress_portrait_%281%29_%28crop%29.jpeg/250px-Dick_Durbin_117th_Congress_portrait_%281%29_%28crop%29.jpeg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Dick_Durbin_117th_Congress_portrait_%281%29_%28crop%29.jpeg/250px-Dick_Durbin_117th_Congress_portrait_%281%29_%28crop%29.jpeg",
+          "bio": "Dick Durbin is the U.S. Senate Democratic whip and the senior U.S. senator from Illinois, serving in the Senate since 1997. He previously represented the state in the U.S. House of Representatives.",
+          "bio_sources": []
         }
       ]
     },
@@ -2059,7 +2192,9 @@
               "to": "2017"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Speaker_Mike_Johnson_Official_Portrait_%28cropped%29%28b%29.jpg/250px-Speaker_Mike_Johnson_Official_Portrait_%28cropped%29%28b%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Speaker_Mike_Johnson_Official_Portrait_%28cropped%29%28b%29.jpg/250px-Speaker_Mike_Johnson_Official_Portrait_%28cropped%29%28b%29.jpg",
+          "bio": "Mike Johnson is the speaker of the U.S. House of Representatives and represents Louisiana's 4th congressional district, serving in the House since 2017. He was elected speaker in 2023 and previously served in the Louisiana Legislature.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-maj-leader",
@@ -2108,7 +2243,9 @@
               "to": "2008"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Steve_Scalise_116th_Congress_official_photo.jpg/250px-Steve_Scalise_116th_Congress_official_photo.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Steve_Scalise_116th_Congress_official_photo.jpg/250px-Steve_Scalise_116th_Congress_official_photo.jpg",
+          "bio": "Steve Scalise is the U.S. House majority leader and represents Louisiana's 1st congressional district, serving in the House since 2008. He previously served in the Louisiana Legislature.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-maj-whip",
@@ -2150,7 +2287,9 @@
               "to": "2014"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Tom_Emmer_Congressional_Photo_2.jpg/250px-Tom_Emmer_Congressional_Photo_2.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Tom_Emmer_Congressional_Photo_2.jpg/250px-Tom_Emmer_Congressional_Photo_2.jpg",
+          "bio": "Tom Emmer is the U.S. House majority whip and represents Minnesota's 6th congressional district, serving in the House since 2015. He previously served in the Minnesota House of Representatives.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-rep-conf-chair",
@@ -2192,7 +2331,9 @@
               "to": "2020"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rep._Lisa_McClain.jpg/250px-Rep._Lisa_McClain.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rep._Lisa_McClain.jpg/250px-Rep._Lisa_McClain.jpg",
+          "bio": "Lisa McClain is the chair of the U.S. House Republican Conference and represents Michigan's 9th congressional district, serving in the House since 2021. She previously worked in the financial-services industry.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-min-leader",
@@ -2241,7 +2382,9 @@
               "to": "2013"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg/250px-Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg/250px-Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg",
+          "bio": "Hakeem Jeffries is the U.S. House Democratic leader and represents New York's 8th congressional district, serving in the House since 2013. He previously served in the New York State Assembly.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-min-whip",
@@ -2283,7 +2426,9 @@
               "to": "2013"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Katherine_Clark%2C_official_portrait%2C_118th_Congress_cropped%29.jpg/250px-Katherine_Clark%2C_official_portrait%2C_118th_Congress_cropped%29.jpg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Katherine_Clark%2C_official_portrait%2C_118th_Congress_cropped%29.jpg/250px-Katherine_Clark%2C_official_portrait%2C_118th_Congress_cropped%29.jpg",
+          "bio": "Katherine Clark is the U.S. House Democratic whip and represents Massachusetts's 5th congressional district, serving in the House since 2013. She previously served in the Massachusetts Legislature.",
+          "bio_sources": []
         },
         {
           "id": "us-hse-dem-caucus-chair",
@@ -2325,7 +2470,9 @@
               "to": "2015"
             }
           ],
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Pete_Aguilar_117th_congress.jpeg/250px-Pete_Aguilar_117th_congress.jpeg"
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Pete_Aguilar_117th_congress.jpeg/250px-Pete_Aguilar_117th_congress.jpeg",
+          "bio": "Pete Aguilar is the chair of the U.S. House Democratic Caucus and represents California's 33rd congressional district, serving in the House since 2015. He previously served as mayor of Redlands, California.",
+          "bio_sources": []
         }
       ]
     }
