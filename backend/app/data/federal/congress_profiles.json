@@ -259,6 +259,10 @@
         "from": "2011",
         "to": "2019"
       }
+    ],
+    "bio": "Rick Scott is the senior U.S. senator from Florida, serving since 2019. He previously served two terms as the 45th governor of Florida, from 2011 to 2019, and earlier was a health-care company executive.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001217"
     ]
   },
   "J000294": {
@@ -511,6 +515,10 @@
         "from": "1987",
         "to": "2000"
       }
+    ],
+    "bio": "Daniel Webster represents Florida's 11th congressional district, serving since 2011. He previously served as speaker of the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000806"
     ]
   },
   "F000462": {
@@ -553,6 +561,10 @@
         "from": "1995",
         "to": "2005"
       }
+    ],
+    "bio": "Lois Frankel represents Florida's 22nd congressional district, serving since 2013. She previously served as mayor of West Palm Beach and in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000462"
     ]
   },
   "B001267": {
@@ -641,6 +653,10 @@
         "from": "2019",
         "to": "2025"
       }
+    ],
+    "bio": "Ashley Moody is the junior U.S. senator from Florida, appointed in January 2025 to fill the seat vacated when Marco Rubio became secretary of state. She previously served as Florida's attorney general from 2019 to 2025, and earlier as a state circuit judge and federal prosecutor.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001244"
     ]
   },
   "P000622": {
@@ -666,6 +682,10 @@
           "https://patronis.house.gov/"
         ]
       }
+    ],
+    "bio": "Jimmy Patronis represents Florida's 1st congressional district, serving since 2025 after winning a special election. He previously served as Florida's chief financial officer and state fire marshal, and earlier in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/P000622"
     ]
   },
   "D000628": {
@@ -691,6 +711,10 @@
           "https://dunn.house.gov"
         ]
       }
+    ],
+    "bio": "Neal Dunn represents Florida's 2nd congressional district, serving since 2017. A physician, he practiced as a urologist and founded a medical practice before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000628"
     ]
   },
   "F000484": {
@@ -716,6 +740,10 @@
           "https://fine.house.gov/"
         ]
       }
+    ],
+    "bio": "Randy Fine represents Florida's 6th congressional district, serving since 2025 after winning a special election. He previously served in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000484"
     ]
   },
   "M001216": {
@@ -741,6 +769,10 @@
           "https://mills.house.gov"
         ]
       }
+    ],
+    "bio": "Cory Mills represents Florida's 7th congressional district, serving since 2023. An Army combat veteran, he later founded a defense and security equipment business.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001216"
     ]
   },
   "H001099": {
@@ -759,6 +791,10 @@
           "https://haridopolos.house.gov/"
         ]
       }
+    ],
+    "bio": "Mike Haridopolos represents Florida's 8th congressional district, serving since 2025. He previously served as president of the Florida Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/H001099"
     ]
   },
   "F000476": {
@@ -784,6 +820,10 @@
           "https://frost.house.gov"
         ]
       }
+    ],
+    "bio": "Maxwell Frost represents Florida's 10th congressional district, serving since 2023. He was the first member of Generation Z elected to Congress and previously worked as a community organizer and activist.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000476"
     ]
   },
   "C001039": {
@@ -809,6 +849,10 @@
           "https://cammack.house.gov"
         ]
       }
+    ],
+    "bio": "Kat Cammack represents Florida's 3rd congressional district, serving since 2021. She previously worked as a congressional district director and deputy chief of staff for her predecessor.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001039"
     ]
   },
   "B001314": {
@@ -834,6 +878,10 @@
           "https://bean.house.gov"
         ]
       }
+    ],
+    "bio": "Aaron Bean represents Florida's 4th congressional district, serving since 2023. He previously served in both the Florida House of Representatives and the Florida Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001314"
     ]
   },
   "R000609": {
@@ -859,6 +907,10 @@
           "https://rutherford.house.gov"
         ]
       }
+    ],
+    "bio": "John Rutherford represents Florida's 5th congressional district, serving since 2017. He previously served as the sheriff of Jacksonville and Duval County.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/R000609"
     ]
   },
   "S001200": {
@@ -884,6 +936,10 @@
           "https://soto.house.gov"
         ]
       }
+    ],
+    "bio": "Darren Soto represents Florida's 9th congressional district, serving since 2017. He previously served in the Florida House of Representatives and the Florida Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001200"
     ]
   },
   "B001257": {
@@ -909,6 +965,10 @@
           "https://bilirakis.house.gov/"
         ]
       }
+    ],
+    "bio": "Gus Bilirakis represents Florida's 12th congressional district, serving since 2007. He previously served in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001257"
     ]
   },
   "L000596": {
@@ -934,6 +994,10 @@
           "https://luna.house.gov"
         ]
       }
+    ],
+    "bio": "Anna Paulina Luna represents Florida's 13th congressional district, serving since 2023. She is a U.S. Air Force veteran who previously worked in conservative advocacy.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000596"
     ]
   },
   "C001066": {
@@ -959,6 +1023,10 @@
           "https://castor.house.gov/"
         ]
       }
+    ],
+    "bio": "Kathy Castor represents Florida's 14th congressional district, serving since 2007. She previously served on the Hillsborough County Commission.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001066"
     ]
   },
   "L000597": {
@@ -984,6 +1052,10 @@
           "https://laurellee.house.gov"
         ]
       }
+    ],
+    "bio": "Laurel Lee represents Florida's 15th congressional district, serving since 2023. She previously served as Florida's secretary of state and as a state circuit judge.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/L000597"
     ]
   },
   "B001260": {
@@ -1009,6 +1081,10 @@
           "https://buchanan.house.gov/"
         ]
       }
+    ],
+    "bio": "Vern Buchanan represents Florida's 16th congressional district, serving since 2007. A businessman, he built automotive and other companies before entering Congress.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001260"
     ]
   },
   "S001214": {
@@ -1034,6 +1110,10 @@
           "https://steube.house.gov/"
         ]
       }
+    ],
+    "bio": "Greg Steube represents Florida's 17th congressional district, serving since 2019. An Army veteran and attorney, he previously served in the Florida House of Representatives and the Florida Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S001214"
     ]
   },
   "F000472": {
@@ -1059,6 +1139,10 @@
           "https://franklin.house.gov"
         ]
       }
+    ],
+    "bio": "Scott Franklin represents Florida's 18th congressional district, serving since 2021. A U.S. Navy veteran and businessman, he previously served on the Lakeland City Commission.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/F000472"
     ]
   },
   "D000032": {
@@ -1084,6 +1168,10 @@
           "https://donalds.house.gov"
         ]
       }
+    ],
+    "bio": "Byron Donalds represents Florida's 19th congressional district, serving since 2021. He previously served in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000032"
     ]
   },
   "M001199": {
@@ -1109,6 +1197,10 @@
           "https://mast.house.gov"
         ]
       }
+    ],
+    "bio": "Brian Mast represents Florida's 21st congressional district, serving since 2017. He is a U.S. Army combat veteran who was severely wounded by an explosive device while serving in Afghanistan.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001199"
     ]
   },
   "M001217": {
@@ -1134,6 +1226,10 @@
           "https://moskowitz.house.gov"
         ]
       }
+    ],
+    "bio": "Jared Moskowitz represents Florida's 23rd congressional district, serving since 2023. He previously directed the Florida Division of Emergency Management and served in the Florida House of Representatives.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001217"
     ]
   },
   "W000808": {
@@ -1159,6 +1255,10 @@
           "https://wilson.house.gov/"
         ]
       }
+    ],
+    "bio": "Frederica Wilson represents Florida's 24th congressional district, serving since 2011. She previously served in the Florida House and Senate and founded a youth mentoring program.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000808"
     ]
   },
   "W000797": {
@@ -1184,6 +1284,10 @@
           "https://wassermanschultz.house.gov/"
         ]
       }
+    ],
+    "bio": "Debbie Wasserman Schultz represents Florida's 25th congressional district, serving since 2005. She previously chaired the Democratic National Committee and served in the Florida Legislature.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000797"
     ]
   },
   "D000600": {
@@ -1209,6 +1313,10 @@
           "https://mariodiazbalart.house.gov/"
         ]
       }
+    ],
+    "bio": "Mario Diaz-Balart represents Florida's 26th congressional district, serving since 2003. He previously served in both the Florida House of Representatives and the Florida Senate.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/D000600"
     ]
   },
   "S000168": {
@@ -1234,6 +1342,10 @@
           "https://salazar.house.gov"
         ]
       }
+    ],
+    "bio": "Maria Elvira Salazar represents Florida's 27th congressional district, serving since 2021. She previously worked for decades as a television journalist and news anchor.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/S000168"
     ]
   },
   "G000593": {
@@ -1259,6 +1371,10 @@
           "https://gimenez.house.gov"
         ]
       }
+    ],
+    "bio": "Carlos Gimenez represents Florida's 28th congressional district, serving since 2021. He previously served as mayor of Miami-Dade County and as the City of Miami's fire chief.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000593"
     ]
   },
   "C001056": {
@@ -13597,6 +13713,12 @@
           "https://www.justice.senate.gov"
         ]
       }
+    ]
+  },
+  "C001127": {
+    "bio": "Sheila Cherfilus-McCormick represents Florida's 20th congressional district, serving since 2022 after winning a special election. A health-care company executive, she was the first Haitian American elected to Congress from Florida.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/C001127"
     ]
   }
 }
