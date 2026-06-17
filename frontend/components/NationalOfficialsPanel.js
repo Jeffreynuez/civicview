@@ -2472,6 +2472,7 @@ function Footer({
               { label: 'Editorial standards', href: '/editorial-standards' },
               { label: 'Privacy',             href: '/privacy' },
               { label: 'Terms of service',    href: '/terms' },
+              { label: 'Child safety',        href: '/child-safety' },
               { label: 'Contact',             href: '/contact' },
             ]}
           />
