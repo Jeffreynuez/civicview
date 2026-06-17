@@ -86,7 +86,11 @@
           "to": "Present"
         }
       ],
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg/250px-Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg/250px-Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%28cropped%29%282%29.jpg",
+      "bio": "Donald John Trump is the 47th president of the United States, inaugurated on January 20, 2025, after winning the 2024 election. He previously served as the 45th president from 2017 to 2021. Before entering politics, he was a real-estate developer and businessman who led the Trump Organization and hosted the reality television series “The Apprentice.”",
+      "bio_sources": [
+        "https://www.whitehouse.gov/administration/donald-j-trump/"
+      ]
     },
     "vice_president": {
       "id": "us-vp-vance",
@@ -154,7 +158,11 @@
           "to": "2007"
         }
       ],
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg/250px-March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg/250px-March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg",
+      "bio": "JD Vance is the 50th vice president of the United States, inaugurated on January 20, 2025. He represented Ohio in the United States Senate from 2023 to 2025. Earlier in his career he served in the U.S. Marine Corps, worked as a venture capitalist, and wrote the best-selling memoir “Hillbilly Elegy.”",
+      "bio_sources": [
+        "https://www.whitehouse.gov/administration/jd-vance/"
+      ]
     },
     "cabinet": [
       {
@@ -220,7 +228,11 @@
             "to": "1993"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg/250px-Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg/250px-Official_portrait_of_Secretary_Marco_Rubio_%28cropped%29%282%29.jpg",
+        "bio": "Marco Rubio is the U.S. secretary of state, sworn in in January 2025. He represented Florida in the United States Senate from 2011 until joining the Cabinet, sought the Republican presidential nomination in 2016, and earlier served as speaker of the Florida House of Representatives.",
+        "bio_sources": [
+          "https://www.state.gov/secretary/"
+        ]
       },
       {
         "id": "us-sec-treasury",
@@ -280,7 +292,11 @@
             "to": "2000"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg/250px-Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg/250px-Official_portrait_of_Treasury_Secretary_Scott_Bessent_%28borderless%29_%28cropped%29.jpg",
+        "bio": "Scott Bessent is the U.S. secretary of the Treasury, confirmed in January 2025. A longtime investor, he founded the hedge fund Key Square Group and previously served as chief investment officer at Soros Fund Management.",
+        "bio_sources": [
+          "https://home.treasury.gov/about/general-information/officials/secretary-of-the-treasury"
+        ]
       },
       {
         "id": "us-sec-defense",
@@ -340,7 +356,11 @@
             "to": "2005"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pete_Hegseth_Official_Portrait.jpg/250px-Pete_Hegseth_Official_Portrait.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pete_Hegseth_Official_Portrait.jpg/250px-Pete_Hegseth_Official_Portrait.jpg",
+        "bio": "Pete Hegseth is the U.S. secretary of defense, confirmed in January 2025. An Army National Guard veteran who deployed to Iraq, Afghanistan, and Guantanamo Bay, he was previously a weekend host on Fox News and led veterans’ advocacy organizations.",
+        "bio_sources": [
+          "https://www.defense.gov/About/Biographies/Biography/Article/4042469/"
+        ]
       },
       {
         "id": "us-ag",
@@ -400,7 +420,11 @@
             "to": "2003"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg",
+        "bio": "Pam Bondi is the U.S. attorney general, confirmed in February 2025. She served as the attorney general of Florida from 2011 to 2019 and earlier worked for nearly two decades as a prosecutor in the Tampa, Florida, area.",
+        "bio_sources": [
+          "https://www.justice.gov/ag"
+        ]
       },
       {
         "id": "us-sec-interior",
@@ -461,7 +485,11 @@
             "to": "2015"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg/250px-Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg/250px-Doug_Burgum_2025_DOI_portrait_%28cropped%29%28b%29.jpg",
+        "bio": "Doug Burgum is the U.S. secretary of the interior, confirmed in 2025. He served as governor of North Dakota from 2016 to 2024 and earlier built and led the business-software company Great Plains, which was acquired by Microsoft.",
+        "bio_sources": [
+          "https://www.doi.gov/secretary"
+        ]
       },
       {
         "id": "us-sec-agriculture",
@@ -521,7 +549,11 @@
             "to": "2017"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Second_Portrait_of_Secretary_Rollins.jpg/250px-Second_Portrait_of_Secretary_Rollins.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Second_Portrait_of_Secretary_Rollins.jpg/250px-Second_Portrait_of_Secretary_Rollins.jpg",
+        "bio": "Brooke Rollins is the U.S. secretary of agriculture, confirmed in 2025. She previously led the America First Policy Institute, served as a domestic-policy adviser in the first Trump administration, and earlier worked in Texas state government.",
+        "bio_sources": [
+          "https://www.usda.gov/our-agency/about-usda/our-secretary"
+        ]
       },
       {
         "id": "us-sec-commerce",
@@ -581,7 +613,11 @@
             "to": "Present"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Howard_Lutnick_2025.jpg/250px-Howard_Lutnick_2025.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Howard_Lutnick_2025.jpg/250px-Howard_Lutnick_2025.jpg",
+        "bio": "Howard Lutnick is the U.S. secretary of commerce, confirmed in 2025. He is the longtime chairman and chief executive of the financial-services firm Cantor Fitzgerald, which he rebuilt after the September 11, 2001, attacks.",
+        "bio_sources": [
+          "https://www.commerce.gov/about/leadership/howard-lutnick"
+        ]
       },
       {
         "id": "us-sec-labor",
@@ -641,7 +677,11 @@
             "to": "2023"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg",
+        "bio": "Lori Chavez-DeRemer is the U.S. secretary of labor, confirmed in 2025. She represented Oregon’s 5th congressional district in the U.S. House from 2023 to 2025 and earlier served as mayor of Happy Valley, Oregon.",
+        "bio_sources": [
+          "https://www.dol.gov/agencies/osec"
+        ]
       },
       {
         "id": "us-sec-hhs",
@@ -701,7 +741,11 @@
             "to": "2014"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg/250px-Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg/250px-Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29_%28b%29.jpg",
+        "bio": "Robert F. Kennedy Jr. is the U.S. secretary of health and human services, confirmed in February 2025. An environmental lawyer and activist for several decades, he founded the group Children’s Health Defense and ran for president in 2024 before endorsing Donald Trump.",
+        "bio_sources": [
+          "https://www.hhs.gov/about/leadership/secretary/index.html"
+        ]
       },
       {
         "id": "us-sec-hud",
@@ -761,7 +805,11 @@
             "to": "1995"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Scott_Turner%2C_official_portrait_%282025%29.jpg/250px-Scott_Turner%2C_official_portrait_%282025%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Scott_Turner%2C_official_portrait_%282025%29.jpg/250px-Scott_Turner%2C_official_portrait_%282025%29.jpg",
+        "bio": "Scott Turner is the U.S. secretary of housing and urban development, confirmed in 2025. A former Texas state representative, he led the White House Opportunity and Revitalization Council during the first Trump administration and earlier played in the National Football League.",
+        "bio_sources": [
+          "https://www.hud.gov/about/leadership/scott_turner"
+        ]
       },
       {
         "id": "us-sec-transportation",
@@ -821,7 +869,11 @@
             "to": "2003"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg/250px-Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg/250px-Secretary_of_Transportation_Sean_Duffy_Official_Portrait.jpg",
+        "bio": "Sean Duffy is the U.S. secretary of transportation, confirmed in 2025. He represented Wisconsin’s 7th congressional district in the U.S. House from 2011 to 2019, served as a county prosecutor, and later worked as a television commentator.",
+        "bio_sources": [
+          "https://www.transportation.gov/meet-secretary/secretary-sean-p-duffy"
+        ]
       },
       {
         "id": "us-sec-energy",
@@ -881,7 +933,11 @@
             "to": "1992"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Secretary_Chris_Wright_Official_Portrait.png/250px-Secretary_Chris_Wright_Official_Portrait.png"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Secretary_Chris_Wright_Official_Portrait.png/250px-Secretary_Chris_Wright_Official_Portrait.png",
+        "bio": "Chris Wright is the U.S. secretary of energy, confirmed in February 2025. He founded and led Liberty Energy, an oilfield-services company, and has worked in the energy industry for decades.",
+        "bio_sources": [
+          "https://www.energy.gov/contributors/chris-wright"
+        ]
       },
       {
         "id": "us-sec-education",
@@ -941,7 +997,11 @@
             "to": "1998"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/ED_Sec_Linda_McMahon_%28cropped%29.jpg/250px-ED_Sec_Linda_McMahon_%28cropped%29.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/ED_Sec_Linda_McMahon_%28cropped%29.jpg/250px-ED_Sec_Linda_McMahon_%28cropped%29.jpg",
+        "bio": "Linda McMahon is the U.S. secretary of education, confirmed in March 2025. She co-founded World Wrestling Entertainment (WWE) and led the U.S. Small Business Administration during the first Trump administration.",
+        "bio_sources": [
+          "https://www.ed.gov/about/secretary"
+        ]
       },
       {
         "id": "us-sec-va",
@@ -1001,7 +1061,11 @@
             "to": "2013"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg/250px-Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg/250px-Official_portrait_of_Douglas_Collins%2C_U.S._Secretary_of_Veterans_Affairs.jpeg",
+        "bio": "Doug Collins is the U.S. secretary of veterans affairs, confirmed in February 2025. He represented Georgia’s 9th congressional district in the U.S. House from 2013 to 2021 and serves as a chaplain in the U.S. Air Force Reserve.",
+        "bio_sources": [
+          "https://www.va.gov/opa/bios/secva.asp"
+        ]
       },
       {
         "id": "us-sec-dhs",
@@ -1061,7 +1125,11 @@
             "to": "2011"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg"
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg",
+        "bio": "Kristi Noem is the U.S. secretary of homeland security, confirmed in January 2025. She served as governor of South Dakota from 2019 to 2025 and earlier represented the state in the U.S. House from 2011 to 2019.",
+        "bio_sources": [
+          "https://www.dhs.gov/person/kristi-noem"
+        ]
       }
     ]
   },
