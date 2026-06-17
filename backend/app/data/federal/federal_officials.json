@@ -65,6 +65,11 @@
       "experience": [
         {
           "role": "President of the United States",
+          "from": "2025",
+          "to": "Present"
+        },
+        {
+          "role": "President of the United States",
           "from": "2017",
           "to": "2021"
         },
@@ -135,6 +140,11 @@
         }
       ],
       "experience": [
+        {
+          "role": "Vice President of the United States",
+          "from": "2025",
+          "to": "Present"
+        },
         {
           "role": "U.S. Senator",
           "from": "2023",
@@ -208,6 +218,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of State",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Senator from Florida",
             "from": "2011",
             "to": "2025"
@@ -277,6 +292,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of the Treasury",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Founder & CEO, Key Square Group",
             "from": "2012",
             "to": "2025"
@@ -340,6 +360,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Defense",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Host, Fox News Channel",
             "from": "2014",
@@ -405,6 +430,11 @@
         ],
         "experience": [
           {
+            "role": "Attorney General",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Attorney General of Florida",
             "from": "2011",
             "to": "2019"
@@ -468,6 +498,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of the Interior",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Governor of North Dakota",
             "from": "2016",
@@ -534,6 +569,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Agriculture",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Director, America First Policy Institute",
             "from": "2021",
             "to": "2025"
@@ -597,6 +637,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Commerce",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Chairman & CEO, Cantor Fitzgerald",
             "from": "1999",
@@ -662,6 +707,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Labor",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Representative from Oregon",
             "from": "2023",
             "to": "2025"
@@ -725,6 +775,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Health and Human Services",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Environmental Attorney & Activist",
             "from": "1984",
@@ -790,6 +845,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Housing and Urban Development",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Texas State Representative",
             "from": "2015",
             "to": "2023"
@@ -853,6 +913,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Transportation",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "U.S. Representative from Wisconsin",
             "from": "2011",
@@ -918,6 +983,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Energy",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "Founder & CEO, Liberty Energy",
             "from": "1992",
             "to": "Present"
@@ -981,6 +1051,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Education",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Co-founder & CEO, World Wrestling Entertainment (WWE)",
             "from": "1998",
@@ -1046,6 +1121,11 @@
         ],
         "experience": [
           {
+            "role": "Secretary of Veterans Affairs",
+            "from": "2025",
+            "to": "Present"
+          },
+          {
             "role": "U.S. Representative from Georgia",
             "from": "2013",
             "to": "2021"
@@ -1109,6 +1189,11 @@
           }
         ],
         "experience": [
+          {
+            "role": "Secretary of Homeland Security",
+            "from": "2025",
+            "to": "Present"
+          },
           {
             "role": "Governor of South Dakota",
             "from": "2019",
