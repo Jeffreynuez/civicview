@@ -112,6 +112,34 @@ async def lifespan(app: FastAPI):
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
 
+    # ── Warm the Congress data cache (load-time perf, Task #29) ───────
+    # CongressService keeps a per-process in-memory cache that is EMPTY on
+    # every boot/redeploy, so the first visitor to each endpoint would
+    # otherwise pay the live Congress.gov round-trip. Pre-fetch the hot,
+    # high-traffic paths (full member directory + committees) in the
+    # background so requests are warm by the time users arrive. We warm
+    # the SAME service instance the /api/congress routes use, so the
+    # populated cache is the one that serves traffic. Fully non-blocking:
+    # startup returns immediately and any failure is swallowed.
+    import asyncio as _asyncio
+
+    async def _warm_congress_cache():
+        try:
+            from app.routers.congress import service as _cs
+            await _cs.get_all_members()
+            try:
+                await _cs.get_committees()
+            except Exception:
+                pass
+            logger.info("Congress cache warmup complete.")
+        except Exception:
+            logger.exception("Congress cache warmup failed — non-fatal.")
+
+    try:
+        _asyncio.get_event_loop().create_task(_warm_congress_cache())
+    except Exception:
+        logger.exception("Could not schedule Congress cache warmup — non-fatal.")
+
     # ── Weekly civic digest scheduler (Task #104) ────────────────────
     # Env-gated (DIGEST_ENABLED=true) in-process loop: sleeps until the
     # next Saturday 09:00 America/New_York, runs send_weekly_digests in
@@ -214,6 +242,48 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ── Public read-only caching (load-time perf, Task #29) ───────────────
+# The reference-data endpoints below return identical PUBLIC data for
+# every viewer (Congress members, officials, bills, votes, elections,
+# events, stats — no per-user variation), so we let the browser and the
+# Cloudflare edge cache them. This cuts repeat-load latency and offloads
+# the live Congress.gov fan-out from the request path. Personalized /
+# auth / write endpoints (pages feed, polls, tracked, saved, auth, admin,
+# billing, notifications) are deliberately NOT matched, so nothing
+# user-specific is ever served from a shared cache. We also skip any
+# response that sets a cookie, as a belt-and-suspenders guard.
+#
+# NOTE: Cloudflare does not cache API JSON by default even with these
+# headers — add a Cache Rule for these paths ("Eligible for cache",
+# respect origin TTL) in the Cloudflare dashboard to get true edge
+# caching. The header alone still enables browser-side caching today.
+_CACHEABLE_PREFIXES = (
+    "/api/congress", "/api/states", "/api/state-officials",
+    "/api/local-officials", "/api/federal-officials", "/api/elections",
+    "/api/candidates", "/api/events", "/api/bills", "/api/votes",
+    "/api/eos", "/api/stats", "/api/address", "/api/google-civic",
+)
+_PUBLIC_CACHE_CONTROL = "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+
+
+@app.middleware("http")
+async def add_public_cache_headers(request, call_next):
+    response = await call_next(request)
+    try:
+        if (
+            request.method == "GET"
+            and response.status_code == 200
+            and request.url.path.startswith(_CACHEABLE_PREFIXES)
+            and "cache-control" not in response.headers
+            and "set-cookie" not in response.headers
+        ):
+            response.headers["Cache-Control"] = _PUBLIC_CACHE_CONTROL
+    except Exception:
+        # Best-effort: a header tweak must never break a response.
+        pass
+    return response
 
 
 app.include_router(congress.router, prefix="/api/congress", tags=["Congress"])
