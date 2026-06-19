@@ -62,7 +62,15 @@ export function _clearOfficials() {
 
 export function officialKey(member) {
   if (!member) return null;
-  const raw = member.bioguide_id || member.id;
+  // Candidates are SEPARATE entities from officials even when the same
+  // person — a sitting rep running for office (e.g. Byron Donalds:
+  // Representative FL-19 + Governor candidate) shares a bioguide_id across
+  // both. Key candidates by their OWN candidate id first so tracking /
+  // un-tracking / button state never collides with the rep entity;
+  // officials keep the bioguide-first key.
+  const raw = member.role_type === 'candidate'
+    ? (member.id || member.bioguide_id)
+    : (member.bioguide_id || member.id);
   if (!raw) return null;
   return String(raw).toLowerCase();
 }

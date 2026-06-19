@@ -1884,6 +1884,40 @@ class TrackedElection(Base):
     )
 
 
+class FeaturedTracked(Base):
+    """The single tracked item a user pins to the top of their dashboard
+    Overview for each category (Task #32). One row per (tracker, category);
+    category is one of representative | candidate | bill | election.
+    item_key references the matching Tracked* row's key (official_key /
+    bill_key / election_key) and is stored verbatim so it matches the
+    frontend store key exactly. Cleared by deleting the row.
+
+    Kept in its OWN table rather than a `featured` flag on each Tracked*
+    table so that "exactly one per category" is a UNIQUE constraint, and
+    so candidates vs representatives — which share the tracked_officials
+    table — stay independently featurable.
+    """
+
+    __tablename__ = "featured_tracked"
+    __table_args__ = (
+        UniqueConstraint(
+            "tracker_kind", "tracker_id", "category",
+            name="uq_featured_tracked_owner_category",
+        ),
+        Index("ix_featured_tracked_owner", "tracker_kind", "tracker_id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    tracker_kind: Mapped[str] = mapped_column(String(16))
+    tracker_id: Mapped[int] = mapped_column(Integer)
+    # 'representative' | 'candidate' | 'bill' | 'election'
+    category: Mapped[str] = mapped_column(String(16))
+    item_key: Mapped[str] = mapped_column(String(128))
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(),
+    )
+
+
 class SavedItem(Base):
     """A post or poll a citizen saved/bookmarked to their dashboard
     (Task #16). Same per-identity polymorphic owner shape as the

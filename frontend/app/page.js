@@ -1182,6 +1182,11 @@ export default function Home() {
         onClose={() => setTrackedOpen(false)}
         onMemberPick={handleGlobalMemberPick}
         onNotify={showNotification}
+        onOpenInDashboard={() => {
+          setTrackedOpen(false);
+          setDashboardInitialView('tracked');
+          setDashboardOpen(true);
+        }}
       />
       {/* Layout pivot — desktop / tablet / mobile-landscape all show
           map and panel side-by-side (flex row, map flex-1, panel a
@@ -1536,6 +1541,10 @@ export default function Home() {
             onClose={() => setDashboardOpen(false)}
             initialView={dashboardInitialView}
             onNavigate={{
+              openOfficial: (member) => {
+                setDashboardOpen(false);
+                handleGlobalMemberPick(member);
+              },
               manageTracked: () => {
                 setDashboardOpen(false);
                 setTrackedOpen(true);

@@ -47,12 +47,15 @@ from app.db import get_db
 from app.models.pages import (
     CandidateAccount,
     CitizenAccount,
+    FeaturedTracked,
     RepAccount,
     TrackedBill,
     TrackedElection,
     TrackedOfficial,
 )
 from app.schemas.pages import (
+    FeaturedTrackedMap,
+    FeaturedTrackedSet,
     TrackedBillCreate,
     TrackedBillRead,
     TrackedElectionCreate,
@@ -151,6 +154,30 @@ def _election_to_read(row: TrackedElection) -> TrackedElectionRead:
     )
 
 
+# ── Featured (one pinned item per category for the dashboard) ────────
+
+
+_FEATURED_CATEGORIES = ("representative", "candidate", "bill", "election")
+
+
+def _featured_map(db: Session, kind: str, tid: int) -> FeaturedTrackedMap:
+    rows = (
+        db.query(FeaturedTracked)
+        .filter(
+            FeaturedTracked.tracker_kind == kind,
+            FeaturedTracked.tracker_id == tid,
+        )
+        .all()
+    )
+    by_cat = {r.category: r.item_key for r in rows}
+    return FeaturedTrackedMap(
+        representative=by_cat.get("representative"),
+        candidate=by_cat.get("candidate"),
+        bill=by_cat.get("bill"),
+        election=by_cat.get("election"),
+    )
+
+
 # ── Bulk loader (login bootstrap) ────────────────────────────────────
 
 
@@ -197,7 +224,66 @@ def list_all_tracked(
         bills=[_bill_to_read(r) for r in bills],
         officials=[_official_to_read(r) for r in officials],
         elections=[_election_to_read(r) for r in elections],
+        featured=_featured_map(db, kind, tid),
     )
+
+
+# ── Featured endpoints ───────────────────────────────────────────────
+
+
+@router.get("/featured", response_model=FeaturedTrackedMap)
+def get_featured(
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    pair = _primary_tracker(me_citizen, me_rep, me_candidate)
+    if pair is None:
+        return FeaturedTrackedMap()
+    kind, tid = pair
+    return _featured_map(db, kind, tid)
+
+
+@router.put("/featured", response_model=FeaturedTrackedMap)
+def set_featured(
+    body: FeaturedTrackedSet,
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    """Pin (or clear) the one featured item for a category. Upsert
+    semantics via the UNIQUE(tracker, category) constraint: we delete the
+    prior pick for the category, then insert the new one (key=null just
+    clears). item_key is stored verbatim so it matches the frontend store
+    key exactly."""
+    kind, tid = _require_tracker(me_citizen, me_rep, me_candidate)
+    cat = (body.category or "").strip().lower()
+    if cat not in _FEATURED_CATEGORIES:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="category must be one of: " + ", ".join(_FEATURED_CATEGORIES),
+        )
+    key = (body.key or "").strip()
+    (
+        db.query(FeaturedTracked)
+        .filter(
+            FeaturedTracked.tracker_kind == kind,
+            FeaturedTracked.tracker_id == tid,
+            FeaturedTracked.category == cat,
+        )
+        .delete(synchronize_session=False)
+    )
+    if key:
+        db.add(FeaturedTracked(
+            tracker_kind=kind,
+            tracker_id=tid,
+            category=cat,
+            item_key=key[:128],
+        ))
+    db.commit()
+    return _featured_map(db, kind, tid)
 
 
 # ── Bills ────────────────────────────────────────────────────────────
