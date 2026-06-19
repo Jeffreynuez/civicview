@@ -5,6 +5,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchPage, fetchPagePosts } from '../lib/pagesApi';
+import useScrollRestoration from '../lib/useScrollRestoration';
 import { useAuth } from '../lib/auth';
 import { useCandidateAuth } from '../lib/candidateAuth';
 import { getVoterToken } from '../lib/voterToken';
@@ -154,6 +155,9 @@ export default function PageView({
   // it into view. Cleared after highlight consumed.
   const [highlightPostId, setHighlightPostId] = useState(null);
   const feedScrollRef = useRef(null);
+  // Restore the rep/candidate page scroll on native-WebView Back (no
+  // bfcache). Keyed per official so different pages don't collide.
+  useScrollRestoration(feedScrollRef, 'pageview-' + (officialId || ''));
   // Compact viewports (mobile + tablet) drop the right-side Upcoming
   // Events sticky sidebar to a single inline section after the main
   // column. The sticky sidebar overlapped the main content on narrow
