@@ -15,7 +15,7 @@
     "@capacitor/android": "^8.4.1",
     "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.4.1",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "maplibre-gl": "^4.1.1",
     "next": "^15.5.18",
     "qrcode": "^1.5.4",
