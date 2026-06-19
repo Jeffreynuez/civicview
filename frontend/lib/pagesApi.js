@@ -1369,3 +1369,16 @@ export async function patchTrackedElectionPrefs(electionKey, prefs) {
     body: { prefs: prefs || {} },
   });
 }
+
+// ── Featured tracked (one pinned item per category, dashboard Overview) ──
+
+export async function fetchFeaturedTracked() {
+  return request('/api/tracked/featured');
+}
+
+export async function putFeaturedTracked({ category, key }) {
+  return request('/api/tracked/featured', {
+    method: 'PUT',
+    body: { category, key: key ?? null },
+  });
+}

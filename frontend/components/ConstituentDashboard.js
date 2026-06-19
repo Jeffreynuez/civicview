@@ -20,8 +20,12 @@ import {
   ArrowLeft,
   ArrowRight,
 } from './ui';
-import { getAllTrackedOfficials } from '../lib/trackedOfficials';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
+import { useTrackedOfficials } from '../lib/trackedOfficials';
+import { useTrackedBills } from '../lib/trackedBills';
+import { useTrackedElections } from '../lib/trackedElections';
+import { useFeaturedTracked } from '../lib/featuredTracked';
+import TrackedManager from './TrackedManager';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
@@ -85,21 +89,17 @@ export default function ConstituentDashboard({
   // or onOpenCommittees (deemed out-of-scope per design feedback).
   navbarProps = {},
 }) {
-  // Lazy-load tracked officials from localStorage if the parent didn't
-  // supply them. The store is purely client-side, so we only touch it
-  // after mount.
-  const [storeReps, setStoreReps] = useState([]);
-  useEffect(() => {
-    if (trackedReps !== null) return;
-    try {
-      const items = getAllTrackedOfficials();
-      setStoreReps(items || []);
-    } catch {
-      setStoreReps([]);
-    }
-  }, [trackedReps]);
-
-  const reps = trackedReps !== null ? trackedReps : storeReps;
+  // Tracked officials from the reactive, server-backed store. Split by
+  // role_type: reps -> My Representatives, candidates -> Tracked
+  // Candidates. The prior code read getAllTrackedOfficials() (the cache
+  // OBJECT, not an array), so reps.length was always undefined and the
+  // dashboard wrongly showed "not tracking anyone." Parent can still
+  // override the rep list via trackedReps for tests.
+  const { list: trackedAll } = useTrackedOfficials();
+  const reps = useMemo(() => {
+    if (trackedReps !== null) return trackedReps;
+    return (trackedAll || []).filter((o) => o && o.role_type !== 'candidate');
+  }, [trackedAll, trackedReps]);
   const today = new Date();
   const greeting = greetingFor(today);
   const dateLabel = formatDate(today);
@@ -112,7 +112,7 @@ export default function ConstituentDashboard({
   // content, 'settings' carries the account-management stack. Before
   // this split the four account sections rendered ABOVE the civic
   // content on mobile, pushing My Representatives below the fold.
-  const [view, setView] = useState(initialView === 'settings' ? 'settings' : 'overview');
+  const [view, setView] = useState(['settings', 'tracked'].includes(initialView) ? initialView : 'overview');
 
   return (
     <div
@@ -213,7 +213,7 @@ export default function ConstituentDashboard({
             sections between the greeting and MY REPRESENTATIVES —
             civic content now leads on every viewport. */}
         <div role="tablist" aria-label="Dashboard sections" style={{ display: 'flex', gap: 8 }}>
-          {[['overview', 'Overview'], ['settings', 'Account & settings']].map(([key, label]) => (
+          {[['overview', 'Overview'], ['tracked', 'Manage Tracked'], ['settings', 'Account & settings']].map(([key, label]) => (
             <button
               key={key}
               type="button"
@@ -247,7 +247,7 @@ export default function ConstituentDashboard({
           >
             {/* LEFT COLUMN — civic content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-              <MyRepresentatives reps={reps} onManage={onNavigate.manageTracked} onBrowse={onNavigate.browseReps} />
+              <FollowedSpotlights onManage={() => setView('tracked')} onOpenOfficial={onNavigate.openOfficial} />
               <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
               <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
               <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
@@ -262,6 +262,16 @@ export default function ConstituentDashboard({
               <YourActivityCard reps={reps} />
               <QuickLinksCard onNavigate={{ ...onNavigate, accountSettings: () => setView('settings') }} />
             </aside>
+          </div>
+        )}
+
+        {view === 'tracked' && (
+          <div style={{ maxWidth: 860, width: '100%' }}>
+            <SectionHeader
+              eyebrow="Manage tracked"
+              rightLabel="Everything you follow — star one per group to feature it on your Overview"
+            />
+            <TrackedManager variant="page" onMemberPick={onNavigate.openOfficial} />
           </div>
         )}
 
@@ -421,40 +431,6 @@ function VerifiedCitizenBadge() {
 // ─────────────────────────────────────────────────────────────────
 // My Representatives
 // ─────────────────────────────────────────────────────────────────
-function MyRepresentatives({ reps, onManage, onBrowse }) {
-  const hasReps = reps && reps.length > 0;
-  return (
-    <section>
-      <SectionHeader
-        eyebrow="My representatives"
-        action={
-          onManage && hasReps ? { label: 'Manage tracked reps →', onClick: onManage } : null
-        }
-      />
-      {hasReps ? (
-        <div
-          style={{
-            display: 'grid',
-            gap: 12,
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          }}
-        >
-          {reps.slice(0, 6).map((rep) => (
-            <DashboardRepCard key={rep.id || rep.bioguide_id || rep.name} rep={rep} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState
-          icon={<Newspaper size={36} active color="muted" />}
-          headline="You're not tracking anyone yet"
-          body="Tracking a rep adds their posts to your dashboard and notifies you when they vote, post, or hold a town hall."
-          cta={onBrowse ? { label: 'Browse your representatives →', onClick: onBrowse } : null}
-          tone="muted"
-        />
-      )}
-    </section>
-  );
-}
 
 function DashboardRepCard({ rep }) {
   const partyKey = (rep.party || '').toString().slice(0, 1).toUpperCase();
@@ -527,6 +503,7 @@ const UPCOMING_KIND_META = {
   'poll-closing': { label: 'Poll closing',  Icon: CalendarCheck },
   ballot:         { label: 'On your ballot', Icon: CalendarCheck },
 };
+
 
 function UpcomingInDistrict({ items, citizen, onSeeCalendar }) {
   const district = citizen?.district || 'your district';
@@ -2076,3 +2053,225 @@ const myPollSecondaryBtn = {
   cursor: 'pointer',
   fontFamily: 'var(--cl-font-sans)',
 };
+
+// ─────────────────────────────────────────────────────────────────
+// Followed spotlights (Overview) — one featured item per category,
+// each with its latest updates. Picks come from the account-synced
+// featuredTracked store, set via the star toggle on the Manage
+// Tracked tab. No pick → an empty state that points there.
+// ─────────────────────────────────────────────────────────────────
+function FollowedSpotlights({ onManage, onOpenOfficial }) {
+  const { list: officials } = useTrackedOfficials();
+  const { list: bills } = useTrackedBills();
+  const { list: elections } = useTrackedElections();
+  const { featured } = useFeaturedTracked();
+
+  const find = (list, key) => (key ? (list || []).find((x) => x.key === key) || null : null);
+  const repRaw = find(officials, featured.representative);
+  const canRaw = find(officials, featured.candidate);
+  // Guard against a stale featured key whose item changed role buckets.
+  const rep = repRaw && repRaw.role_type !== 'candidate' ? repRaw : null;
+  const can = canRaw && canRaw.role_type === 'candidate' ? canRaw : null;
+  const bill = find(bills, featured.bill);
+  const election = find(elections, featured.election);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <OfficialSpotlight eyebrow="Followed representatives" kind="representative" official={rep} onManage={onManage} onOpen={onOpenOfficial} />
+      <OfficialSpotlight eyebrow="Followed candidates" kind="candidate" official={can} onManage={onManage} onOpen={onOpenOfficial} />
+      <ElectionSpotlight election={election} onManage={onManage} />
+      <BillSpotlight bill={bill} onManage={onManage} />
+    </div>
+  );
+}
+
+const SPOTLIGHT_CARD = {
+  background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
+  borderRadius: 'var(--cl-radius-xl)', padding: 16,
+};
+
+function SpotlightEmpty({ body, onManage }) {
+  return (
+    <EmptyState
+      icon={<Newspaper size={32} color="muted" />}
+      headline="Nothing pinned yet"
+      body={body}
+      cta={onManage ? { label: 'Open Manage Tracked →', onClick: onManage } : null}
+      tone="muted"
+      dense
+    />
+  );
+}
+
+function SpotlightMuted({ children }) {
+  return <div style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>{children}</div>;
+}
+
+function SpotlightInfo({ label, value }) {
+  return (
+    <div style={{ display: 'flex', gap: 8, fontSize: 'var(--cl-text-sm)' }}>
+      <span style={{ color: 'var(--cl-text-light)', minWidth: 96, fontWeight: 600 }}>{label}</span>
+      <span style={{ color: 'var(--cl-text)', flex: 1, minWidth: 0 }}>{value}</span>
+    </div>
+  );
+}
+
+function OfficialSpotlight({ eyebrow, kind, official, onManage, onOpen }) {
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!official) { setPosts(null); return undefined; }
+    const id = official.id || official.bioguide_id || official.key;
+    if (!id) { setPosts([]); return undefined; }
+    let cancelled = false;
+    setLoading(true);
+    fetchPagePosts(id, { limit: 3 })
+      .then(({ data }) => { if (!cancelled) { setPosts((data?.items || []).slice(0, 3)); setLoading(false); } })
+      .catch(() => { if (!cancelled) { setPosts([]); setLoading(false); } });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [official ? official.key : null]);
+
+  const partyKey = (official?.party || '').toString().slice(0, 1).toUpperCase();
+  const open = () => { if (onOpen && official) onOpen(official); };
+
+  return (
+    <section>
+      <SectionHeader eyebrow={eyebrow} action={official ? { label: 'Manage tracked →', onClick: onManage } : null} />
+      {!official ? (
+        <SpotlightEmpty
+          body={`Star a ${kind === 'candidate' ? 'candidate' : 'representative'} on the Manage Tracked tab to feature their latest posts here.`}
+          onManage={onManage}
+        />
+      ) : (
+        <div style={SPOTLIGHT_CARD}>
+          <div
+            role={onOpen ? 'button' : undefined}
+            onClick={open}
+            tabIndex={onOpen ? 0 : undefined}
+            onKeyDown={onOpen ? (e) => { if (e.key === 'Enter') open(); } : undefined}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: onOpen ? 'pointer' : 'default' }}
+          >
+            <Avatar name={official.name} party={partyKey || undefined} size="md" />
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{official.name}</span>
+                {partyKey && <PartyChip party={partyKey} size="xs" />}
+              </div>
+              <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {(official.title || official.role || '')}
+                {official.state ? ` · ${official.state}` : ''}
+                {official.district ? ` · Dist. ${official.district}` : ''}
+              </div>
+            </div>
+            {onOpen && <ArrowRight size={14} color="muted" />}
+          </div>
+
+          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div className="cl-eyebrow" style={{ color: 'var(--cl-text-light)' }}>Latest posts</div>
+            {loading && <SpotlightMuted>Loading latest…</SpotlightMuted>}
+            {!loading && posts && posts.length === 0 && (
+              <SpotlightMuted>No recent posts yet. Open their page for the latest.</SpotlightMuted>
+            )}
+            {!loading && posts && posts.map((p) => (
+              <SpotlightUpdate key={p.id} text={p.body || p.question || '(no text)'} whenIso={p.created_at} onClick={open} />
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function SpotlightUpdate({ text, whenIso, onClick }) {
+  return (
+    <div
+      role={onClick ? 'button' : undefined}
+      onClick={onClick}
+      tabIndex={onClick ? 0 : undefined}
+      style={{
+        display: 'flex', gap: 10, padding: '8px 10px',
+        background: 'var(--cl-bg-soft)', borderRadius: 'var(--cl-radius-md)',
+        cursor: onClick ? 'pointer' : 'default',
+      }}
+    >
+      <Newspaper size={14} active color="accent" />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {text}
+        </div>
+        {whenIso && <div style={{ fontSize: 'var(--cl-text-2xs)', color: 'var(--cl-text-muted)', marginTop: 2 }}>{timeAgo(whenIso)}</div>}
+      </div>
+    </div>
+  );
+}
+
+function BillSpotlight({ bill, onManage }) {
+  return (
+    <section>
+      <SectionHeader eyebrow="Followed bills" action={bill ? { label: 'Manage tracked →', onClick: onManage } : null} />
+      {!bill ? (
+        <SpotlightEmpty body="Star a bill on the Manage Tracked tab to follow its latest status here." onManage={onManage} />
+      ) : (
+        <div style={SPOTLIGHT_CARD}>
+          <div style={{ fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
+            {bill.citation ? <span style={{ color: 'var(--cl-accent)' }}>{bill.citation} · </span> : null}
+            {bill.title || 'Untitled bill'}
+          </div>
+          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {bill.latest_action ? (
+              <SpotlightInfo label="Latest action" value={`${bill.latest_action}${bill.latest_action_date ? ` (${bill.latest_action_date})` : ''}`} />
+            ) : (
+              <SpotlightMuted>No recent action recorded. Use "Check for updates" on Manage Tracked.</SpotlightMuted>
+            )}
+            {bill.policy_area && <SpotlightInfo label="Policy area" value={bill.policy_area} />}
+            {bill.sponsor_name && <SpotlightInfo label="Sponsor" value={bill.sponsor_name} />}
+          </div>
+          {bill.url && (
+            <a href={bill.url} target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-block', marginTop: 12, color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--cl-text-sm)' }}>
+              View on Congress.gov →
+            </a>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ElectionSpotlight({ election, onManage }) {
+  const date = election?.date ? new Date(election.date + 'T00:00:00') : null;
+  const days = date ? daysUntil(date) : null;
+  return (
+    <section>
+      <SectionHeader eyebrow="Followed elections" action={election ? { label: 'Manage tracked →', onClick: onManage } : null} />
+      {!election ? (
+        <SpotlightEmpty body="Star an election on the Manage Tracked tab to see its countdown and details here." onManage={onManage} />
+      ) : (
+        <div style={SPOTLIGHT_CARD}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <CalendarCheck size={20} active color="accent" />
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
+                {election.name || election.office || 'Election'}
+              </div>
+              {date && (
+                <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)', marginTop: 2 }}>
+                  {formatLongDate(date)}{days != null ? ` · ${days} ${days === 1 ? 'day' : 'days'} away` : ''}
+                </div>
+              )}
+            </div>
+          </div>
+          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {election.office && <SpotlightInfo label="Office" value={election.office} />}
+            {(election.state || election.district) && (
+              <SpotlightInfo label="Where" value={[election.state, election.district ? `Dist. ${election.district}` : null].filter(Boolean).join(' · ')} />
+            )}
+            {election.candidates_count ? <SpotlightInfo label="Candidates" value={`${election.candidates_count}`} /> : null}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}

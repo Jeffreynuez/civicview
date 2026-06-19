@@ -512,7 +512,14 @@ class CongressService:
     # API helpers
     # ------------------------------------------------------------------
     async def _api_get(self, path: str, params: dict = None) -> Optional[dict]:
-        """Make a GET request to Congress.gov API."""
+        """GET the Congress.gov API with a generous timeout + retry.
+
+        The heavy calls (e.g. /member/{state}?limit=100) routinely exceed
+        a flat 15s budget on a Render cold start, which previously made the
+        whole list/detail fall back to stale data. We connect fast but allow
+        a long read for big payloads, and retry transient failures (timeouts,
+        429, 5xx) with a short backoff before giving up.
+        """
         if not self.api_key:
             return None
 
@@ -521,16 +528,37 @@ class CongressService:
         if params:
             query.update(params)
 
-        try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                resp = await client.get(url, params=query)
+        timeout = httpx.Timeout(connect=10.0, read=30.0, write=10.0, pool=10.0)
+        attempts = 3
+        for attempt in range(1, attempts + 1):
+            try:
+                async with httpx.AsyncClient(timeout=timeout) as client:
+                    resp = await client.get(url, params=query)
                 if resp.status_code == 200:
                     return resp.json()
+                if resp.status_code in (429, 500, 502, 503, 504) and attempt < attempts:
+                    logger.warning(
+                        f"Congress API {resp.status_code} for {path} "
+                        f"(attempt {attempt}/{attempts}); retrying"
+                    )
+                    await asyncio.sleep(0.6 * attempt)
+                    continue
                 logger.warning(f"Congress API {resp.status_code} for {path}")
                 return None
-        except Exception as e:
-            logger.error(f"Congress API error for {path}: {e}")
-            return None
+            except (httpx.TimeoutException, httpx.TransportError) as e:
+                if attempt < attempts:
+                    logger.warning(
+                        f"Congress API transient error for {path} "
+                        f"(attempt {attempt}/{attempts}): {e}; retrying"
+                    )
+                    await asyncio.sleep(0.6 * attempt)
+                    continue
+                logger.error(f"Congress API error for {path}: {e}")
+                return None
+            except Exception as e:
+                logger.error(f"Congress API error for {path}: {e}")
+                return None
+        return None
 
     # ------------------------------------------------------------------
     # Public methods
@@ -557,7 +585,31 @@ class CongressService:
             self._set_cached(cache_key, members)
             return members
 
-        # Fallback to sample data
+        # Live fetch failed — fall back to the committed full roster
+        # (legislators-current.json via get_all_members) filtered by state.
+        # This is the REAL current member list; only resort to the tiny
+        # SAMPLE_DATA if even the roster is unavailable. Prevents a
+        # Congress.gov hiccup / Render cold-start timeout from surfacing
+        # stale sample members (e.g. Rubio/Gaetz) to users.
+        sc = (state_code or "").upper()
+        try:
+            roster = await self.get_all_members()
+        except Exception as e:
+            logger.warning(f"Roster fallback failed for {state_code}: {e}")
+            roster = []
+        state_members = [m for m in roster if (m.get("state") or "").upper() == sc]
+        if state_members:
+            logger.info(
+                f"Live API unavailable for {state_code}; using local roster "
+                f"fallback ({len(state_members)} members)"
+            )
+            annotate_members(state_members)
+            for m in state_members:
+                self._merge_profile(m)
+            self._set_cached(cache_key, state_members)
+            return state_members
+
+        # Last resort: hardcoded sample data
         logger.info(f"Using sample data for state {state_code}")
         fallback = self._get_sample_members(state_code)
         if fallback:
@@ -598,7 +650,25 @@ class CongressService:
             self._set_cached(cache_key, detail)
             return detail
 
-        # Fallback to sample data
+        # Live fetch failed — build a lite detail from the committed roster
+        # (legislators-current.json) + curated sidecar before resorting to
+        # the hardcoded sample member, so real members never resolve to a
+        # stale/wrong sample profile.
+        try:
+            roster = await self.get_all_members()
+            lite = next(
+                (m for m in roster if m.get("bioguide_id") == bioguide_id), None
+            )
+        except Exception:
+            lite = None
+        if lite:
+            detail = dict(lite)
+            annotate_selection(detail)
+            self._merge_profile(detail)
+            self._set_cached(cache_key, detail)
+            return detail
+
+        # Last resort: hardcoded sample member
         fallback = self._find_sample_member(bioguide_id)
         if fallback:
             annotate_selection(fallback)
