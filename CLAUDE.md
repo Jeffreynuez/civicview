@@ -272,8 +272,8 @@ most importantly `search-records` and `upsert-records` against the
 `claude-memory` index (1024-dim, cosine, serverless aws us-east-1,
 embedding model `multilingual-e5-large`).
 
-**Pinecone namespace for this project:** `default`. CivicView's ~69
-records live in the `default` namespace. (Legacy name preserved
+**Pinecone namespace for this project:** `default`. CivicView's ~42
+records live in the `default` namespace (consolidated 2026-06-19 from 213; granular per-fix/per-step records folded into archive-* index records, durable lessons kept). (Legacy name preserved
 to avoid a full 69-record migration — Pinecone doesn't support
 namespace rename in place.) Cross-project records (Jeffrey's
 working-style preferences, sandbox-tooling quirks, Pinecone MCP
