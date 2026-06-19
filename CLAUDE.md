@@ -40,7 +40,7 @@ state that this file deliberately does NOT duplicate:
 4. **`backend/app/models/pages.py`** — All SQLAlchemy models in one
    file. The shape of the data layer.
 
-## Current state & open work (snapshot 2026-06-14)
+## Current state & open work (snapshot 2026-06-16)
 
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
@@ -85,7 +85,28 @@ tracked-official in-app alerts DONE (`kind='tracked_post'` fan-out);
 compare surface gained agreement-rate bar + agree/disagree filters +
 50-vote window. #107 CI hardening (CodeQL advanced + Bandit/ruff gate) DONE; #84 native wrap DONE (Capacitor remote-URL scaffold + store runbook; Android org verified on Google Play, app listing next); #103 audit follow-ups DONE 2026-06-12; #106 follow-up batch still pending.
 
-**Top open tasks** (full list = README "Pending tasks" table — recreate ALL
+**Shipped 2026-06-16:** Dashboard tracked redesign (Manage Tracked tab +
+shared `TrackedManager` + account-synced `featured_tracked` table/endpoints +
+four "Followed X" Overview spotlights + "Open in dashboard" button). Profile
+About `bio` + current-office `experience` for the executive branch + SCOTUS +
+congressional leadership (`federal_officials.json`) and the full FL/TX/CA/NY/PA
+U.S. delegations — **171 bios in `congress_profiles.json`** (roster-derived,
+chamber-aware + gap-aware "since" year; cited to bioguide). Help-Build "Already
+built" list 35→48. **GOOGLE PLAY: app SUBMITTED to Production review (status: In
+review)** — Child Safety Standards page (`/child-safety`) published to clear the
+CSAE declaration, App access demo login set, US-only, Social; org account exempt
+from the 12-tester gate; managed publishing OFF (auto-publishes on approval);
+Android developer verification COMPLETE. **Load-time perf (#29) DONE + verified:**
+`main.py` Cache-Control middleware on public read-only endpoints + startup cache
+warmup. **The API now serves from the Cloudflare-proxied `api.civicview.app`**
+(orange, Cache Rule, `NEXT_PUBLIC_API_URL` switched) with verified
+`cf-cache-status: HIT` at the Miami edge; auth/personalized routes stay
+`DYNAMIC`. Root cause was backend (no caching + cache wiped on each deploy),
+NOT Vercel and NOT cold-start (Render is Standard, no sleep). Heavier per-member
+disk precompute deferred (not needed). Auth cookies now live on api.civicview.app
+(same-site with the app).
+
+**Top open tasks (full list = README "Pending tasks" table — recreate ALL
 rows into the Cowork Progress widget on session start): #95 Vote Smart API
 (BLOCKED on budget, $4,850/yr quote, draft reply sent), #96 remaining states'
 OpenFEC candidate pass (TX/CA/NY/PA done), #97 state judiciary for other
@@ -94,7 +115,7 @@ minor filers (paid — Ballotpedia/BallotReady), #99 local officials
 sheriffs/judges/DAs (paid), **#100 AI provider base-URL flag (KIE measured
 ~72% off Haiku but flag stays OFF until Jeffrey says; user-comment
 classification stays on official Anthropic regardless)**. Plus older rows
-#91, #94, #26, #49, #95, #96, #97, #98, #99, #100, #106 (done: #71, #84, #90, #92, #93, #101, #102, #103, #104, #105, #107).
+#91, #94, #26, #49, #95, #96, #97, #98, #99, #100, #106 (done: #29, #71, #84, #90, #92, #93, #101, #102, #103, #104, #105, #107).
 
 **API keys** (all in Render env on `civicview-api` + the Keys file): 
 `CONGRESS_API_KEY`, `OPENSTATES_API_KEY`, `COURTLISTENER_TOKEN`,
