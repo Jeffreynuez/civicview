@@ -52,6 +52,7 @@ import PollDemographicsPicker from '@/components/polls/PollDemographicsPicker';
 import BranchChipV2 from '@/components/polls/BranchChip';
 import StateDropdown from '@/components/polls/StateDropdown';
 import { useHScroll } from '@/lib/useHScroll';
+import useScrollRestoration from '@/lib/useScrollRestoration';
 import HScroll, { EdgeArrow } from '@/components/HScroll';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
@@ -148,6 +149,9 @@ function pollBranch(poll) {
 // so the back button works and a deep-link to /posts opens the
 // right tab on first paint.
 export function GrassrootsFeed({ tab = 'polls' }) {
+  // Restore feed scroll on native-WebView Back (no bfcache). Feed scrolls
+  // the window; key by tab so /polls and /posts are tracked separately.
+  useScrollRestoration(null, 'feed-' + tab);
   const router = useRouter();
   const { citizen } = useCitizenAuth();
   const { me: repMe } = useRepAuth();
