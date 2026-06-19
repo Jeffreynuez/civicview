@@ -22,6 +22,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHScroll } from '@/lib/useHScroll';
+import useScrollRestoration from '@/lib/useScrollRestoration';
 import { EdgeArrow } from '@/components/HScroll';
 import { useRouter } from 'next/navigation';
 import { fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation } from '@/lib/api';
@@ -581,6 +582,8 @@ function ChartScroller({ children, chamber }) {
 }
 
 export default function BillsPage() {
+  // Restore scroll on native-WebView Back (no bfcache); /bills scrolls the body.
+  useScrollRestoration(null, 'bills');
   const router = useRouter();
   const { citizen } = useCitizenAuth();
 
