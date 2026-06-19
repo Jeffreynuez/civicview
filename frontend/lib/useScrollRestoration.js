@@ -7,29 +7,35 @@
  * Per-surface scroll-position restoration for the native Android WebView.
  *
  * Desktop/mobile Chrome restores scroll on history Back via its back-forward
- * cache (bfcache), including positions inside inner scroll containers.
- * Android's WebView has NO bfcache, so Back re-renders the previous view at
- * the top. This hook saves a surface's scroll position to sessionStorage and
- * restores it on mount.
+ * cache (bfcache), including positions inside scroll containers. Android's
+ * WebView has NO bfcache, so Back re-renders the previous view at the top.
+ * This hook saves a surface's scroll position to sessionStorage and restores
+ * it on mount.
  *
  * Modes:
  *   • Container mode — pass the scroll element's ref:
  *       useScrollRestoration(scrollRef, 'pageview');
- *   • Window mode — pass null when the surface scrolls the document
+ *   • Window/document mode — pass null when the surface scrolls the page
  *     (e.g. the /polls + /posts feed):
  *       useScrollRestoration(null, 'feed-polls');
  *
- * Correctness notes (these were real bugs in the first cut):
- *   - The storage key is FROZEN at mount from the URL the surface represents.
- *     Computing it at save time is wrong: by unmount, window.location has
- *     already changed to the destination, so the position would be written
- *     under the wrong key and never restored.
- *   - We track the last real scroll offset synchronously on every scroll and
- *     persist THAT — never a live read at unmount. In window mode the browser
- *     often resets scroll to 0 before cleanup runs, so a live read saves 0.
+ * Window-mode subtlety (this was the bug behind "always lands at the top"):
+ * the app's body is `height:100dvh; overflow-y:auto`, so on the mobile
+ * WebView the BODY is the actual scroller and window.scrollY / documentElement
+ * .scrollTop stay 0 — while on desktop the document scrolls. We therefore read
+ * the max of body / documentElement / window, write all three on restore, and
+ * listen for scroll on `document` with capture (scroll events from the body
+ * scroller don't reach a plain window listener).
+ *
+ * Other correctness notes:
+ *   - The storage key is FROZEN at mount from the surface's own URL; computing
+ *     it at save time is wrong because window.location has already changed by
+ *     the time the surface unmounts.
+ *   - We track the last real offset synchronously on each scroll and persist
+ *     THAT (never a live read at unmount, which is often already 0).
  *   - A `restoring` guard stops our own programmatic restore-scrolls (and
  *     partial offsets while async content streams in) from overwriting the
- *     saved target. The instant the user scrolls we hand control back.
+ *     saved target; a real user wheel/touch/keydown hands control back.
  */
 import { useEffect } from 'react';
 
@@ -46,25 +52,46 @@ export default function useScrollRestoration(ref, baseKey, opts = {}) {
     const getEl = () => (windowMode ? null : (ref && ref.current));
     if (!windowMode && !getEl()) return;
 
-    const evtTarget = windowMode ? window : getEl();
+    const de = document.documentElement;
+    const body = document.body;
 
     const getTop = () => {
-      if (windowMode) return window.scrollY || document.documentElement.scrollTop || 0;
+      if (windowMode) {
+        return Math.max(window.scrollY || 0, de.scrollTop || 0, body.scrollTop || 0);
+      }
       const el = getEl();
       return el ? el.scrollTop : 0;
     };
     const setTop = (v) => {
-      if (windowMode) { window.scrollTo(0, v); return; }
+      if (windowMode) {
+        try { window.scrollTo(0, v); } catch (e) {}
+        de.scrollTop = v;
+        body.scrollTop = v;
+        return;
+      }
       const el = getEl();
       if (el) el.scrollTop = v;
     };
     const getMaxTop = () => {
-      if (windowMode) return document.documentElement.scrollHeight - window.innerHeight;
+      if (windowMode) {
+        return Math.max(de.scrollHeight - window.innerHeight, body.scrollHeight - body.clientHeight, 0);
+      }
       const el = getEl();
       return el ? el.scrollHeight - el.clientHeight : 0;
     };
 
-    // Freeze the key from the URL this surface represents, captured at mount.
+    // Listen targets. In window mode the scroll fires on the body scroller,
+    // which a plain window listener misses — use document + capture.
+    const addScroll = (fn) => {
+      if (windowMode) document.addEventListener('scroll', fn, true);
+      else getEl().addEventListener('scroll', fn, { passive: true });
+    };
+    const removeScroll = (fn) => {
+      if (windowMode) document.removeEventListener('scroll', fn, true);
+      else { const el = getEl(); if (el) el.removeEventListener('scroll', fn); }
+    };
+    const userTarget = windowMode ? document : getEl();
+
     const key = STORE_PREFIX + baseKey + '|' + window.location.pathname + window.location.search;
 
     let lastTop = getTop();
@@ -81,14 +108,14 @@ export default function useScrollRestoration(ref, baseKey, opts = {}) {
       if (saveTimer) clearTimeout(saveTimer);
       saveTimer = setTimeout(persist, 120);
     };
-    evtTarget.addEventListener('scroll', onScroll, { passive: true });
+    addScroll(onScroll);
     window.addEventListener('pagehide', persist);
     document.addEventListener('visibilitychange', persist);
 
     const onUser = () => { restoring = false; };
-    evtTarget.addEventListener('wheel', onUser, { passive: true });
-    evtTarget.addEventListener('touchstart', onUser, { passive: true });
-    evtTarget.addEventListener('keydown', onUser);
+    userTarget.addEventListener('wheel', onUser, { passive: true });
+    userTarget.addEventListener('touchstart', onUser, { passive: true });
+    userTarget.addEventListener('keydown', onUser);
 
     let cancelled = false;
     let saved = NaN;
@@ -121,10 +148,10 @@ export default function useScrollRestoration(ref, baseKey, opts = {}) {
       cancelled = true;
       if (saveTimer) clearTimeout(saveTimer);
       persist();
-      evtTarget.removeEventListener('scroll', onScroll);
-      evtTarget.removeEventListener('wheel', onUser);
-      evtTarget.removeEventListener('touchstart', onUser);
-      evtTarget.removeEventListener('keydown', onUser);
+      removeScroll(onScroll);
+      userTarget.removeEventListener('wheel', onUser);
+      userTarget.removeEventListener('touchstart', onUser);
+      userTarget.removeEventListener('keydown', onUser);
       window.removeEventListener('pagehide', persist);
       document.removeEventListener('visibilitychange', persist);
     };
