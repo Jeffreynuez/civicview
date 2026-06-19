@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Skeleton } from './ui';
+import useScrollRestoration from '../lib/useScrollRestoration';
 import PersonCard from './PersonCard';
 import ProfileView from './ProfileView';
 import AddressLookup from './AddressLookup';
@@ -178,6 +179,8 @@ export default function SidePanel({
   //     state name when one is selected, and is over-cumbersome on a
   //     short mobile viewport once the user has started reading).
   const scrollRef = useRef(null);
+  // Restore the home side-panel list scroll on native-WebView Back.
+  useScrollRestoration(scrollRef, 'sidepanel');
   const [scrolled, setScrolled] = useState(false);
   // Hysteresis range for the header-collapse threshold. A single
   // threshold (e.g. scrollTop > 40) bounces erratically when content

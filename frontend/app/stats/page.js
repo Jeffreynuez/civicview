@@ -22,11 +22,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 import { fetchStatsDetail } from '@/lib/api';
+import useScrollRestoration from '@/lib/useScrollRestoration';
 
 const OPEN_KEY = 'cv:stats:open';
 const DEFAULT_OPEN = { government: true };
 
 export default function StatsPage() {
+  // Restore scroll on native-WebView Back (no bfcache); /stats scrolls the body.
+  useScrollRestoration(null, 'stats');
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
