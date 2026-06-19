@@ -10,6 +10,10 @@ import RecoveryBanner from '@/components/RecoveryBanner';
 // after the cross-account fix lands. Renders nothing visible.
 import LegacyStorageCleanup from '@/components/LegacyStorageCleanup';
 import ScrollTopButton from '@/components/ScrollTopButton';
+// Android hardware/gesture back-button handler for the Capacitor
+// native shell. Without it the back button EXITS the app instead of
+// walking in-app history. No-ops on web + iOS. Renders nothing.
+import AndroidBackButton from '@/components/AndroidBackButton';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -100,6 +104,7 @@ export default function RootLayout({ children }) {
           {children}
         </Force2FAGate>
         <ScrollTopButton />
+        <AndroidBackButton />
       </body>
     </html>
   );
