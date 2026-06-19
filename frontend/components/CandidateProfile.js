@@ -3,8 +3,9 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fetchCandidate } from '@/lib/api';
+import useScrollRestoration from '@/lib/useScrollRestoration';
 import {
   isOfficialTracked,
   toggleOfficial,
@@ -87,6 +88,9 @@ export default function CandidateProfile({
   isMobile = false,
 }) {
   const [full, setFull] = useState(candidate);
+  // Restore candidate-profile scroll on native-WebView Back (no bfcache).
+  const candProfileScrollRef = useRef(null);
+  useScrollRestoration(candProfileScrollRef, 'candprofile-' + ((candidate && candidate.id) || ''));
   const [activeTab, setActiveTab] = useState('overview');
 
   // Hero collapse state — when true, the dark hero is condensed to a
@@ -606,7 +610,7 @@ export default function CandidateProfile({
       />
 
       {/* Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '14px 16px' }}>
+      <div ref={candProfileScrollRef} style={{ flex: 1, overflowY: 'auto', padding: '14px 16px' }}>
         {activeTab === 'overview' && (
           <div>
             {/* Skeleton-record disclosure. CivicView tries to give every

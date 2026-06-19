@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Spinner } from './ui';
+import useScrollRestoration from '../lib/useScrollRestoration';
 import {
   fetchExecutiveOrders,
   fetchGovernorActions,
@@ -235,6 +236,9 @@ export default function ProfileView({
   // button stays in sync with icon buttons elsewhere in the app (roster
   // rows, local tab, etc.) and survives reloads.
   useTrackedOfficials();
+  // Restore profile scroll on native-WebView Back (no bfcache).
+  const profileScrollRef = useRef(null);
+  useScrollRestoration(profileScrollRef, 'profile-' + ((member && (member.bioguide_id || member.id)) || ''));
   const isFollowing = isOfficialTracked(member);
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -997,7 +1001,7 @@ export default function ProfileView({
 
       {/* Tab panel — wrapped in relative container by the tab strip
           above so fade indicators don't bleed into here. */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+      <div ref={profileScrollRef} style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
         {activeTab === 'overview' && (
           <OverviewTab member={member} role={role} statsState={statsState} />
         )}
