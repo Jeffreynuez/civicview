@@ -466,6 +466,11 @@ export default function Home() {
   const selectedCandidateRef = useRef(null);
   useEffect(() => { selectedMemberRef.current = selectedMember; }, [selectedMember]);
   useEffect(() => { selectedCandidateRef.current = selectedCandidate; }, [selectedCandidate]);
+  // PageView overlay ref — lets the popstate handler read the current page
+  // id without re-binding the listener on every open/close (matches the
+  // member/candidate ref pattern above).
+  const selectedPageOfficialIdRef = useRef(null);
+  useEffect(() => { selectedPageOfficialIdRef.current = selectedPageOfficialId; }, [selectedPageOfficialId]);
 
   const handleCandidateSelect = useCallback(async (candidate) => {
     if (!candidate?.id) return;
@@ -1008,6 +1013,7 @@ export default function Home() {
       _cl: true,
       memberId: selectedMember ? (selectedMember.bioguide_id || selectedMember.id) : null,
       candidateId: selectedCandidate ? selectedCandidate.id : null,
+      pageId: selectedPageOfficialId || null,
       tab: sidePanelTab,
     };
 
@@ -1047,7 +1053,8 @@ export default function Home() {
     // Only push when an overlay opened (memberId or candidateId became set).
     const opened =
       (snapshot.memberId && snapshot.memberId !== prev.memberId) ||
-      (snapshot.candidateId && snapshot.candidateId !== prev.candidateId);
+      (snapshot.candidateId && snapshot.candidateId !== prev.candidateId) ||
+      (snapshot.pageId && snapshot.pageId !== prev.pageId);
     if (opened) {
       window.history.pushState(snapshot, '', nextUrl);
     } else {
@@ -1082,6 +1089,18 @@ export default function Home() {
         if (prevC) {
           setLastViewedCandidateId(prevC.id || null);
           setSelectedCandidate(null);
+        }
+      }
+      // Close the rep/candidate PageView overlay when Back lands on an entry
+      // that no longer carries a pageId. Without this the URL changes but the
+      // full-viewport PageView stays mounted (the "flicker, doesn't go back"
+      // bug on rep/candidate pages).
+      if (!st.pageId) {
+        const prevP = selectedPageOfficialIdRef.current;
+        if (prevP) {
+          pageOpenedViaUrlRef.current = false;
+          setSelectedPageOfficialId(null);
+          setPageMeta(null);
         }
       }
       if (st.tab && st.tab !== sidePanelTab) setSidePanelTab(st.tab);
