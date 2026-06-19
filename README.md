@@ -361,6 +361,53 @@ categories:
 
 ---
 
+## Shipped this session — 2026-06-16 (Claude Opus 4.8, 1M)
+
+- **Dashboard tracked redesign.** New three-tab dashboard (Overview ·
+  **Manage Tracked** · Account & settings). Extracted a shared
+  `components/TrackedManager.js` (used by BOTH the My Tracked nav window and
+  the Manage Tracked tab — capped/scrolling sections, search, chips, per-item
+  alerts, a **star "feature" toggle**, clickable official cards). Overview is
+  now four **"Followed X"** spotlights (rep / candidate / election / bill),
+  each showing the one pinned item + its latest updates. Featured picks are
+  **account-synced** via a new `featured_tracked` table (one row per category,
+  UNIQUE constraint) + `GET/PUT /api/tracked/featured` + `lib/featuredTracked.js`.
+  My Tracked window gained an "Open in dashboard →" button; subtitle corrected
+  to "synced to your account".
+- **Profile About + Experience data.** Added neutral, cited `bio` +
+  current-office-led `experience` to: the executive branch (President, VP, 15
+  Cabinet secretaries), all 9 SCOTUS justices, 13 congressional-leadership
+  entries (`federal_officials.json`), and the full U.S. delegations of **FL
+  (30), TX (40), CA (54), NY (28), PA (19)** — 171 member bios in
+  `congress_profiles.json`. Current role/year is roster-derived with
+  **chamber-aware, gap-aware** logic (Schiff "senator since 2024", Sessions
+  "since 2021"); prior roles curated + cited to bioguide.congress.gov.
+  (The generated candidates.json bios were boilerplate — not reused.)
+- **Google Play — SUBMITTED to Production review.** Finished the store
+  submission. Created + published a **Child Safety Standards page**
+  (`/child-safety` + footer link) to clear the CSAE declaration (the final
+  blocker); filled App access (reviewer demo login), US-only, category Social;
+  promoted the v1.0 internal bundle to Production. **App status: In review.**
+  Org account ⇒ exempt from the 12-tester/14-day closed-test gate; managed
+  publishing OFF (auto-publishes on approval). Console: enabled crash/ANR +
+  reviews + pre-launch email alerts. "Prevent installs on risky devices" left
+  for Jeffrey (needs device-catalog ToS acceptance). Android developer
+  verification confirmed COMPLETE.
+- **Help-Build "Already built" list: 35 → 48.** Added shipped features that
+  had drifted off the public funding page (Bills & Votes, Compare, tracking,
+  demographic forms, 2FA, password reset, account deletion, digest, stats…);
+  native apps moved to In-progress.
+- **Load-time perf (Task #29 — caching shipped + VERIFIED).** Slowness was the
+  backend (Render Standard, NOT cold-start) — no HTTP caching, in-memory cache
+  wiped on each deploy, ~6-8 live Congress.gov calls per profile. `main.py`:
+  response middleware adds `Cache-Control: public, max-age=60, s-maxage=600,
+  swr=86400` to public read-only endpoints (auth/personalized excluded) +
+  startup background task warms the member directory + committees. Infra: API
+  now serves from the **Cloudflare-proxied `api.civicview.app`** with a Cache
+  Rule; `NEXT_PUBLIC_API_URL` points there. Verified `cf-cache-status: HIT`
+  (Miami edge); `/api/auth/me` correctly `DYNAMIC`. Frontend was already lazy.
+  Heavier per-member disk precompute deferred (not needed now).
+
 ## Shipped this session — 2026-06-10 (Claude Fable 5, 1M)
 
 - **Full standard audit** (parse / smoke-import / tests / secrets / lint /
@@ -577,13 +624,13 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | # | Task | Status | Notes |
 | --- | --- | --- | --- |
 | 71 | Build /stats expanded analytics page | done (2026-06-10) | Shipped: `GET /api/stats/detail` (60s in-process TTL cache, separate endpoint so the home hero stays sub-100ms) + rebuilt `frontend/app/stats/page.js` — government-structure constants, identity/engagement/content-library live counts, 8-week signup + poll-vote trend charts (CSS bars, zero-filled buckets), citizens-by-state top-15, explicit loading/error/retry states (no fabricated fallback). Future depth (growth curves beyond 8 weeks, verified-citizen coverage map) can extend the same endpoint. |
-| 84 | Wrap web app into iOS + Android native via Capacitor | done (2026-06-12) | Capacitor remote-URL shell scaffold + app-store runbook committed (`9fbbac0`). Android organization account verified on Google Play Console (CivicView org, ID 5150866026642573505); next step is creating the app listing + first build upload. Apple Dev $99/yr + Google Play $25 paid. |
+| 84 | Wrap web app into iOS + Android native via Capacitor | done (2026-06-12) | Capacitor remote-URL shell scaffold + app-store runbook committed (`9fbbac0`). Android organization account verified on Google Play Console (CivicView org, ID 5150866026642573505); next step is creating the app listing + first build upload. Apple Dev $99/yr + Google Play $25 paid. **2026-06-16:** app SUBMITTED to Google Play **Production review** (status: In review); Child Safety Standards page (`/child-safety`) published to clear the CSAE declaration; Android developer verification confirmed complete. |
 | 90 | File Articles of Amendment for Benefit Corp status | done (2026-06-12) | Filed with Sunbiz. Initial Profit Corp filing (#800474911808) processed — CIVICVIEW, INC. is ACTIVE; cr2e011 Articles of Amendment (Exhibit A statute cites §§607.601–607.613) filed. Language in `docs/civicview_benefit_corp_filing.pdf`. |
 | 91 | Evaluate Vercel AI Gateway for backend AI calls | pending | Post-launch / deferred. Not urgent: current AI (comment classification + post summaries in `backend/app/services/ai_service.py`) is single-provider Anthropic and already degrades gracefully. The Gateway's OpenAI-compatible endpoint makes adoption a `base_url` + key swap in `ai_service.py` (no SDK rewrite). Adopt when AI spend warrants cost/usage dashboards, when provider failover matters, or to mix models (cheap classification + stronger summaries). Pricing: $5/mo free credit, then provider list prices at zero markup (BYOK also no markup). Caveat: routing the summarize flow through the OpenAI-compatible shim instead of the native Anthropic SDK can change system-prompt / citations / prompt-caching behavior — re-test that one flow before switching. |
 | 92 | Trim /polls + /posts filter cruft (audit follow-up) | done (2026-05-31) | Removed the inert `executive` + `judicial` branch chips from `BRANCH_FILTERS` + `branchCounts` in `frontend/app/polls/page.js` (backend only emits `branch` for Congress reps, so those chips always counted ~0). Deliberately LEFT the `pollBranch`/`branchCounts`/`branchFiltered` pipeline and the client-side state re-filter (~lines 313-319) intact — the original audit overreached: the re-filter guards a real refetch race, not dead work. Original audit 2026-05-28. |
 | 93 | Unify forked comment rendering onto CommentsThread | done (2026-06-04) | Three independent comment implementations: shared `components/polls/CommentsThread.js` (feed thread — /polls, /posts, home), `components/PostCard.js` (own `renderCommentRow` ~1406-1822, rep/candidate page posts, HAS an edit path), and `components/CitizenPollsSection.js` (own local `CommentsThread` function ~903-1637 mounted ~824, citizen polls, NO edit path, uses `archived` to lock closed polls). Goal: collapse onto the shared component (the only one that's production-proven for both `post` and `poll` modes). **Increment 1 — DONE 2026-05-31:** added an `archived` (read-only) prop to the shared `CommentsThread` (closed poll → composer replaced with a "closed to new comments" note + Reply control hidden; existing edit/delete/report untouched). esbuild-verified. The missing capability that blocked consolidation. **Increment 2 — TODO (CitizenPollsSection, do first, smaller):** `import CommentsThread from './polls/CommentsThread'`; delete the local `CommentsThread` function (~903-1637) + its `renderCommentRow` + comment state/handlers; mount with `mode="poll" pollId signedIn={!!citizen\|\|isOwner} onLoginRequired={onCitizenLoginRequired} ownerOfficialId ownerKind archived={archived}`. Drop the old `pollAuthorId`/`citizen` props — the shared component infers the viewer internally and gates replies via comment authorship + `ownerOfficialId`. **Increment 3 — TODO (PostCard, bigger):** replace the inline `renderCommentRow` (~1406-1822) + render block + comment handlers (`loadComments`/edit/delete/report/react) with `<CommentsThread mode="post" postId signedIn onLoginRequired onMutated={onCommentCountChanged} ownerOfficialId={post.official_id} ownerKind />`; the shared component already covers edit + AI filter + feed-count sync on /posts. Do each increment as its OWN commit and **runtime-test on the dev server** (reply two-party gate, archived lock, feed-count pill) — these paths are not statically verifiable. Mount caveat: after a host-side edit, esbuild lags ~seconds-to-minutes (virtiofs cache, anthropics/claude-code#50873) — wait a beat before verifying, or restart the session for a fresh mount. |
 | 94 | Threat-detection v2 enhancements (post-v1) | pending | Deferred follow-ups from the threat-detection PRD (`docs/threat-detection-prd.md` §14): image/media moderation; multi-language support; repeat-offender escalation to auto-suspend; embeddings-based near-duplicate threat detection; user-facing "why was this flagged" explanations; and an optional synchronous block-on-submit path for the worst, highest-confidence cases. Revisit after the v1 flag→review pipeline (Task #41) is live and tuned. |
-| 25 | Fill out remaining states' content | in progress | DONE: federal issue-data for all 535 members of Congress + exec + SCOTUS + leadership; state legislators + governors + statewide execs for all 50 states (Open States); FL state judiciary (CourtListener opinions) + FL federal/state election candidates. REMAINING: official photos for state legislators; state judiciary rosters for the other 49 states (CourtListener, 5 req/min free-tier limit — see #97); LOCAL officials (sheriffs/judges/DAs/school boards — paid, see #99). |
+| 25 | Fill out remaining states' content | in progress | DONE: federal issue-data for all 535 members of Congress + exec + SCOTUS + leadership; state legislators + governors + statewide execs for all 50 states (Open States); FL state judiciary (CourtListener opinions) + FL federal/state election candidates. REMAINING: official photos for state legislators; state judiciary rosters for the other 49 states (CourtListener, 5 req/min free-tier limit — see #97); LOCAL officials (sheriffs/judges/DAs/school boards — paid, see #99). **2026-06-16:** added About `bio` + current-office `experience` for the executive branch, SCOTUS, congressional leadership, and the full FL/TX/CA/NY/PA U.S. delegations (171 bios in `congress_profiles.json`). |
 | 26 | Start DMARC monitoring (SPF merge done) | in progress | Email deliverability on `civicview.app`. **SPF merge DONE (2026-06-04):** the duplicate SPF TXT records were merged into a single `v=spf1 … -all` (RFC 7208 requires exactly one; multiple caused a PermError). **REMAINING:** publish a DMARC record in monitoring mode — a `_dmarc.civicview.app` TXT record with `p=none` + `rua=mailto:` aggregate-report mailbox — to watch SPF/DKIM alignment before tightening to quarantine/reject. DKIM already in place. |
 | 95 | Vote Smart API — stated issue positions | blocked (budget) | Quoted 2026-06 at $4,850/yr for the Public-Facing Platform License (dev tiers $350/mo, $1k/3mo, $1.9k/6mo, non-public only). Draft reply sent declining for now. When funded: env-gated `votesmart_service.py` (abstract+prod+dev like idme/stripe), bioguide→candidateId crosswalk, map NPAT positions to a sourced stated-positions field. ToS HARD RULE: data may NOT be used in campaign activity → only on official/rep profiles, never candidate campaign surfaces. Coverage partial. |
 | 96 | OpenFEC federal candidates for other big states | in progress | TX, CA, NY, PA DONE (2026-06-05) via `backend/scripts/build_state_federal_candidates.py` (config-driven generator; re-run playbook in Pinecone — search "state federal candidates playbook"). REMAINING: the other 45 states. Caveat: OpenFEC reflects active FEC committees, not ballot qualification → includes some withdrawn/non-qualifying filers (verify vs state). Fundraising is a static snapshot (re-run to refresh) — optional: build a live refresh endpoint. |
@@ -599,6 +646,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
 | 106 | Notifications/digest follow-ups (deferred) | pending | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) bell deep-link improvement beyond `open_page` + hash (noted in NotificationBellMenu). |
 | 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
+| 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
