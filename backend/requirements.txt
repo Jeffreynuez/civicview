@@ -68,5 +68,5 @@ postmarker>=1.0,<2
 # touching Stripe. Floor 7.0 is the first release with the stable
 # Customer Portal API surface; ceiling at 13 leaves room for the
 # in-progress 12.x line.
-stripe>=7.0,<13
+stripe>=15.2.0,<16
 defusedxml>=0.7.1
