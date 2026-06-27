@@ -383,16 +383,23 @@ categories:
   **chamber-aware, gap-aware** logic (Schiff "senator since 2024", Sessions
   "since 2021"); prior roles curated + cited to bioguide.congress.gov.
   (The generated candidates.json bios were boilerplate — not reused.)
-- **Google Play — SUBMITTED to Production review.** Finished the store
-  submission. Created + published a **Child Safety Standards page**
-  (`/child-safety` + footer link) to clear the CSAE declaration (the final
-  blocker); filled App access (reviewer demo login), US-only, category Social;
-  promoted the v1.0 internal bundle to Production. **App status: In review.**
-  Org account ⇒ exempt from the 12-tester/14-day closed-test gate; managed
-  publishing OFF (auto-publishes on approval). Console: enabled crash/ANR +
-  reviews + pre-launch email alerts. "Prevent installs on risky devices" left
-  for Jeffrey (needs device-catalog ToS acceptance). Android developer
-  verification confirmed COMPLETE.
+- **Google Play — REJECTED (Misleading Claims), fixed + RESUBMITTED.** The
+  first submission (v1.0.1, versionCode 2) was rejected 2026-06-27 on two
+  Misleading-Claims counts: (1) the store description lacked official source
+  links + a clear government disclaimer; (2) the on-device launcher icon
+  differed from the store hi-res icon (the AAB had shipped the **default
+  Capacitor placeholder icon** because `npx capacitor-assets generate` was
+  never run). Fixes: rewrote the full description with a "⚠️ NOT A GOVERNMENT
+  APP" disclaimer + a "WHERE OUR INFORMATION COMES FROM" sources block
+  (congress.gov, govinfo, House Clerk, Senate, federalregister.gov, fec.gov,
+  census.gov, openstates.org, courtlistener.com); added real brand icon/splash
+  masters to `frontend/assets/` (from `Logos & emblems/civicview_logo_solo.png`)
+  and regenerated launcher icons via `capacitor-assets`; bumped versionCode
+  2→3, versionName 1.0.1→1.0.2; rebuilt the signed AAB and **resubmitted to
+  Production review** with the revised listing. Earlier setup still stands:
+  Child Safety Standards page (`/child-safety`), App access demo login,
+  US-only, category Social, org account (exempt from the 12-tester gate),
+  managed publishing OFF, Android developer verification COMPLETE.
 - **Help-Build "Already built" list: 35 → 48.** Added shipped features that
   had drifted off the public funding page (Bills & Votes, Compare, tracking,
   demographic forms, 2FA, password reset, account deletion, digest, stats…);
