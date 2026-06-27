@@ -92,11 +92,17 @@ About `bio` + current-office `experience` for the executive branch + SCOTUS +
 congressional leadership (`federal_officials.json`) and the full FL/TX/CA/NY/PA
 U.S. delegations — **171 bios in `congress_profiles.json`** (roster-derived,
 chamber-aware + gap-aware "since" year; cited to bioguide). Help-Build "Already
-built" list 35→48. **GOOGLE PLAY: app SUBMITTED to Production review (status: In
-review)** — Child Safety Standards page (`/child-safety`) published to clear the
-CSAE declaration, App access demo login set, US-only, Social; org account exempt
-from the 12-tester gate; managed publishing OFF (auto-publishes on approval);
-Android developer verification COMPLETE. **Load-time perf (#29) DONE + verified:**
+built" list 35→48. **GOOGLE PLAY: first submission (versionCode 2) REJECTED
+2026-06-27 (Misleading Claims) → FIXED + RESUBMITTED (versionCode 3, v1.0.2).**
+Two counts: store description missing official source links + government
+disclaimer; on-device launcher icon ≠ store hi-res icon (AAB shipped the default
+Capacitor placeholder because `capacitor-assets generate` was never run). Fixed:
+revised description (disclaimer + sources block in `docs/playstore_listing.md`),
+real brand icon/splash masters added to `frontend/assets/` from `Logos &
+emblems/civicview_logo_solo.png` + regenerated launcher icons, versionCode 2→3,
+rebuilt AAB, resubmitted. Earlier setup stands — Child Safety page
+(`/child-safety`), App access demo login, US-only, Social, org account exempt
+from the 12-tester gate, managed publishing OFF, Android dev verification COMPLETE. **Load-time perf (#29) DONE + verified:**
 `main.py` Cache-Control middleware on public read-only endpoints + startup cache
 warmup. **The API now serves from the Cloudflare-proxied `api.civicview.app`**
 (orange, Cache Rule, `NEXT_PUBLIC_API_URL` switched) with verified
