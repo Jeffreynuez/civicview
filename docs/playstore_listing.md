@@ -55,6 +55,9 @@ Alt: `Find your representatives, follow their votes, and make your voice heard.`
 ```
 CivicView connects you with the people who represent you — at every level of government — and gives you the tools to understand and engage with them.
 
+⚠️ NOT A GOVERNMENT APP
+CivicView is an independent product of CIVICVIEW, INC., a Florida Benefit Corporation. It is not affiliated with, authorized by, or endorsed by any government agency, official, political party, or campaign, and it does not provide or facilitate any government services. It is an informational and civic-engagement tool only.
+
 Find and follow your federal, state, and local representatives. See the bills they sponsor, the votes they cast, the committees they sit on, and the executive orders they sign — each paired with a plain-English, AI-generated summary so you can understand what's happening without wading through legalese.
 
 WHAT YOU CAN DO
@@ -65,8 +68,19 @@ WHAT YOU CAN DO
 • Vote in polls, react, and join the conversation as a verified constituent
 • Compare how officials vote and where they stand
 
+WHERE OUR INFORMATION COMES FROM
+All government data in CivicView is compiled from official, public sources. Primary sources include:
+• U.S. Congress — bills, members, and committees: https://www.congress.gov and https://www.govinfo.gov
+• Roll-call votes: U.S. House Clerk https://clerk.house.gov and U.S. Senate https://www.senate.gov
+• Executive orders: Federal Register https://www.federalregister.gov
+• Supreme Court of the United States: https://www.supremecourt.gov (case data via https://www.courtlistener.com)
+• Candidates and campaign finance: Federal Election Commission https://www.fec.gov
+• Address-to-district matching: U.S. Census Bureau https://www.census.gov
+• State legislatures (members, bills, votes): Open States https://openstates.org
+Where available, individual bills, votes, and profiles link back to their original official source so you can verify everything yourself.
+
 NON-PARTISAN BY DESIGN
-CivicView takes no political side. Officials' data is neutral and sourced; AI summaries are written to inform, not persuade. CivicView is an independent Florida Benefit Corporation — not affiliated with, or endorsed by, any government agency, political party, or campaign.
+CivicView takes no political side. Officials' data is neutral and sourced; AI-generated summaries are written to inform, not persuade.
 
 NO ADS. NO VENTURE CAPITAL.
 Browsing is free, forever. An optional $5/month subscription unlocks engagement features (creating polls and commenting) for verified citizens. That is the entire business model — no advertising, and we do not sell your data.
@@ -75,6 +89,8 @@ BUILT ON TRUST
 Real verified identities. Transparent moderation with an appeals process. Your data is yours: full account deletion is available at any time, right from the app.
 
 Democracy works better when people can see it clearly. CivicView is here to help.
+
+CivicView is an independent civic-information service and is not a government entity. (civicview.app)
 ```
 
 **Release notes / "What's new"** (max 500) — first release:
