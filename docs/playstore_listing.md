@@ -69,15 +69,22 @@ WHAT YOU CAN DO
 • Compare how officials vote and where they stand
 
 WHERE OUR INFORMATION COMES FROM
-All government data in CivicView is compiled from official, public sources. Primary sources include:
-• U.S. Congress — bills, members, and committees: https://www.congress.gov and https://www.govinfo.gov
-• Roll-call votes: U.S. House Clerk https://clerk.house.gov and U.S. Senate https://www.senate.gov
-• Executive orders: Federal Register https://www.federalregister.gov
-• Supreme Court of the United States: https://www.supremecourt.gov (case data via https://www.courtlistener.com)
-• Candidates and campaign finance: Federal Election Commission https://www.fec.gov
-• Address-to-district matching: U.S. Census Bureau https://www.census.gov
-• State legislatures (members, bills, votes): Open States https://openstates.org
-Where available, individual bills, votes, and profiles link back to their original official source so you can verify everything yourself.
+All government information in CivicView comes from the public sources listed below. This is the complete list of the sources we use:
+• U.S. Congress — bills, members, committees, and votes: https://www.congress.gov
+• GovTrack — congressional votes and member data: https://www.govtrack.us
+• The @unitedstates project — public-domain congressional rosters, committees, offices, and photos: https://unitedstates.github.io/congress-legislators
+• U.S. House of Representatives, Office of the Clerk — roll-call votes: https://clerk.house.gov
+• U.S. Senate — roll-call votes: https://www.senate.gov
+• Federal Register — executive orders: https://www.federalregister.gov
+• CourtListener / Free Law Project — federal courts, including the U.S. Supreme Court: https://www.courtlistener.com
+• Federal Election Commission (OpenFEC) — candidates and campaign finance: https://www.fec.gov
+• Open States — state legislatures (members, bills, votes): https://openstates.org
+• Google Civic Information API — matching your address to officials and elections: https://developers.google.com/civic-information
+• U.S. Census Bureau Geocoder — matching your address to a district: https://geocoding.geo.census.gov
+• OpenStreetMap / Nominatim — address lookup fallback: https://www.openstreetmap.org
+We do not use any other sources of government information.
+
+Photos of members and officials come from the @unitedstates project and Wikimedia Commons / Wikipedia (https://commons.wikimedia.org).
 
 NON-PARTISAN BY DESIGN
 CivicView takes no political side. Officials' data is neutral and sourced; AI-generated summaries are written to inform, not persuade.
@@ -231,8 +238,12 @@ questions consent-gated; shown aggregate-only with k-anonymity). Still disclosed
 as Collected + Optional.
 
 **Sharing = No.** Processors acting on CivicView's behalf (Cloudflare; Stripe/
-Postmark/ID.me/Anthropic inert or processing on your behalf) are not "sharing"
-under Google's definition.
+Postmark/ID.me; Anthropic, which processes public government text for AI
+summaries AND user-generated polls/comments for classification + moderation on
+our behalf, does not retain it, and does not train on it) are not "sharing"
+under Google's definition. Note: per Google's 2026 clarification that User Data
+requirements apply to third-party AI integrations, the Anthropic UGC processing
+is disclosed in the privacy policy (/privacy).
 
 ---
 
