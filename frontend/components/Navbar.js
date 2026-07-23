@@ -399,6 +399,35 @@ export default function Navbar({
         <span className="text-white font-semibold text-lg">CivicView</span>
       </button>
 
+      {/* Demo-preview pill — the app's one persistent, lightweight cue
+          that the site is in demo state (decision points — waitlist
+          modal, citizen login, tutorial — carry the full story).
+          Clicking opens the launch waitlist; the title tooltip covers
+          hover users. Compact viewports abbreviate to 'Demo' to keep
+          the navbar in one row. */}
+      <button
+        type="button"
+        onClick={() => onSubscribe?.()}
+        title="CivicView is in demo preview — every feature is open to try with a free demo account. Verified citizen accounts + an optional $5/mo subscription arrive at launch. Click to join the launch waitlist."
+        style={{
+          flexShrink: 0,
+          marginLeft: isCompact ? 6 : 8,
+          padding: '2px 8px',
+          background: 'rgba(255, 186, 8, 0.16)',
+          color: '#ffd15c',
+          border: '1px solid rgba(255, 186, 8, 0.55)',
+          borderRadius: 999,
+          fontSize: '0.62rem',
+          fontWeight: 800,
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          cursor: onSubscribe ? 'pointer' : 'default',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {isCompact ? 'Demo' : 'Demo preview'}
+      </button>
+
       {/* Search Bar — true desktop (>1024px) renders the bar inline.
           On compact viewports (mobile + tablet ≤1024px) it collapses
           to an icon button (rendered later in the actions cluster)
