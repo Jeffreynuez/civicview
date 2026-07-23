@@ -92,17 +92,28 @@ About `bio` + current-office `experience` for the executive branch + SCOTUS +
 congressional leadership (`federal_officials.json`) and the full FL/TX/CA/NY/PA
 U.S. delegations — **171 bios in `congress_profiles.json`** (roster-derived,
 chamber-aware + gap-aware "since" year; cited to bioguide). Help-Build "Already
-built" list 35→48. **GOOGLE PLAY: first submission (versionCode 2) REJECTED
-2026-06-27 (Misleading Claims) → FIXED + RESUBMITTED (versionCode 3, v1.0.2).**
-Two counts: store description missing official source links + government
-disclaimer; on-device launcher icon ≠ store hi-res icon (AAB shipped the default
-Capacitor placeholder because `capacitor-assets generate` was never run). Fixed:
-revised description (disclaimer + sources block in `docs/playstore_listing.md`),
-real brand icon/splash masters added to `frontend/assets/` from `Logos &
-emblems/civicview_logo_solo.png` + regenerated launcher icons, versionCode 2→3,
-rebuilt AAB, resubmitted. Earlier setup stands — Child Safety page
-(`/child-safety`), App access demo login, US-only, Social, org account exempt
-from the 12-tester gate, managed publishing OFF, Android dev verification COMPLETE. **Load-time perf (#29) DONE + verified:**
+built" list 35→48. **GOOGLE PLAY: LIVE in Production (versionCode 3, v1.0.2)**
+after clearing three Misleading-Claims rejections: (a) 2026-06-27 icon mismatch
+(AAB shipped the default Capacitor placeholder — fixed via real brand masters in
+`frontend/assets/` from `Logos & emblems/civicview_logo_solo.png` + regenerated
+icons, versionCode 2→3) + missing government disclaimer; (b) 2026-07-05
+"Insufficient Sources" — removed hedging ("primary sources include/where
+available") and rewrote `docs/playstore_listing.md` "WHERE OUR INFORMATION COMES
+FROM" as an EXHAUSTIVE list (congress.gov, GovTrack, @unitedstates, House Clerk,
+Senate, federalregister.gov, CourtListener, fec.gov, openstates.org, Google
+Civic, Census geocoder, OpenStreetMap + Wikimedia photo credit) ending "we use
+no other sources." App verified (green ✓), US-only, Social, org account exempt
+from 12-tester gate, managed publishing OFF, Android dev verification COMPLETE.
+Appeal note in reserve: `Business info/Play_appeal_reviewer_note.md`. **PRIVACY
+AI DISCLOSURE FIXED** (Google 2026 policy update — User-Data rules apply to 3rd-
+party AI): `frontend/app/privacy/page.js` wrongly said Anthropic gets "never your
+comments," but comment_classifier/poll_classifier/moderation_service DO send
+UGC to Claude Haiku — corrected. **WAITLIST WELCOME EMAIL (Brevo, live):**
+separate CivicView Brevo, `civicview.app` authenticated; backend mirrors
+`/api/waitlist` signups → Brevo list #3 via `app/services/brevo_service.py`
+(env `BREVO_API_KEY`+`BREVO_WAITLIST_LIST_ID=3`) + `scripts/backfill_waitlist_to_brevo.py`;
+template ID 1 + a list-add automation auto-welcomes new signups (email HTML +
+images in `frontend/public/email/`). **Load-time perf (#29) DONE + verified:** **Load-time perf (#29) DONE + verified:**
 `main.py` Cache-Control middleware on public read-only endpoints + startup cache
 warmup. **The API now serves from the Cloudflare-proxied `api.civicview.app`**
 (orange, Cache Rule, `NEXT_PUBLIC_API_URL` switched) with verified
