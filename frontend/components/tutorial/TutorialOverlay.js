@@ -234,20 +234,28 @@ export default function TutorialOverlay() {
               onClose={handleClose}
             />
           ) : (
-            <SidePanelDock
-              segment={segment}
-              segIndex={segIndex}
-              step={step}
-              stepIndex={stepIndex}
-              completed={completed}
-              flatStep={flatStep}
-              isFirstStep={isFirstStep}
-              isLastStep={isLastStep}
-              onJump={jumpToSegment}
-              onNext={goNext}
-              onBack={goBack}
-              onClose={handleClose}
-            />
+            <>
+              {/* Desktop: the glassy segment list on the left + a
+                  floating step callout that rides next to whatever the
+                  spotlight is pointing at. */}
+              <SidePanelDock
+                segment={segment}
+                completed={completed}
+                onJump={jumpToSegment}
+                onClose={handleClose}
+              />
+              <StepCallout
+                rect={rect}
+                segment={segment}
+                step={step}
+                stepIndex={stepIndex}
+                flatStep={flatStep}
+                isFirstStep={isFirstStep}
+                isLastStep={isLastStep}
+                onNext={goNext}
+                onBack={goBack}
+              />
+            </>
           )}
         </>
       )}
@@ -367,9 +375,13 @@ function StepBody({ segment, step, stepIndex, flatStep, isFirstStep, isLastStep,
   );
 }
 
-// ─── Desktop: docked left panel ─────────────────────────────────────
-function SidePanelDock(props) {
-  const { segment, completed, onJump, onClose } = props;
+// ─── Desktop: docked left panel (glassy — the map shows through) ────
+// Width kept in sync with the .cvtour-panel CSS rule; the callout's
+// placement logic uses it to avoid sliding under the list.
+const PANEL_W = 300;
+const NAVBAR_H = 56;
+
+function SidePanelDock({ segment, completed, onJump, onClose }) {
   return (
     <aside className="cvtour-panel" aria-label="App tour">
       <div className="cvtour-panel__head">
@@ -396,10 +408,104 @@ function SidePanelDock(props) {
           />
         ))}
       </div>
-      <div className="cvtour-panel__stepwrap">
-        <StepBody {...props} />
-      </div>
     </aside>
+  );
+}
+
+// ─── Desktop: floating step callout ─────────────────────────────────
+// A small translucent window that rides NEXT TO the spotlighted
+// element: right of it first, then left, then below, then above —
+// overlapping the target only when nothing else fits (per spec).
+// Steps with no target (or an anchor that isn't on screen) center the
+// callout in the space right of the segment list.
+function computeCalloutPos(rect, size, vw, vh) {
+  const GAP = 14;   // breathing room between target and callout
+  const PAD = 10;   // minimum distance from viewport edges
+  const minLeft = PANEL_W + PAD;      // stay clear of the segment list
+  const minTop = NAVBAR_H + PAD;      // …and the navbar
+  const { width: w, height: h } = size;
+  const clampTop = (t) => Math.min(Math.max(t, minTop), Math.max(minTop, vh - h - PAD));
+  const clampLeft = (l) => Math.min(Math.max(l, minLeft), Math.max(minLeft, vw - w - PAD));
+
+  if (!rect) {
+    // No spotlight — center in the area right of the panel.
+    return {
+      top: Math.max(minTop, (vh - h) / 2),
+      left: Math.max(minLeft, PANEL_W + (vw - PANEL_W - w) / 2),
+    };
+  }
+  const centeredTop = clampTop(rect.top + rect.height / 2 - h / 2);
+  // 1. Right of the target.
+  if (rect.left + rect.width + GAP + w <= vw - PAD) {
+    return { top: centeredTop, left: rect.left + rect.width + GAP };
+  }
+  // 2. Left of the target (without sliding under the segment list).
+  if (rect.left - GAP - w >= minLeft) {
+    return { top: centeredTop, left: rect.left - GAP - w };
+  }
+  // 3. Below.
+  if (rect.top + rect.height + GAP + h <= vh - PAD) {
+    return { top: rect.top + rect.height + GAP, left: clampLeft(rect.left) };
+  }
+  // 4. Above.
+  if (rect.top - GAP - h >= minTop) {
+    return { top: rect.top - GAP - h, left: clampLeft(rect.left) };
+  }
+  // 5. Nothing fits — overlap is allowed as the last resort; hug the
+  //    target's near corner, clamped on-screen.
+  return { top: clampTop(rect.top + GAP), left: clampLeft(rect.left + rect.width - w) };
+}
+
+function StepCallout({ rect, segment, step, stepIndex, flatStep, isFirstStep, isLastStep, onNext, onBack }) {
+  const boxRef = useRef(null);
+  const [size, setSize] = useState(null);
+  // Re-measure whenever the step content changes (height varies with
+  // copy length). Hidden until measured so the first paint never
+  // flashes at a stale position.
+  useEffect(() => {
+    setSize(null);
+  }, [segment.id, stepIndex]);
+  useEffect(() => {
+    if (size) return;
+    const el = boxRef.current;
+    if (!el) return;
+    setSize({ width: el.offsetWidth, height: el.offsetHeight });
+  }, [size]);
+  // Window resizes reposition targeted callouts via the parent's rect
+  // poll, but a no-target (centered) callout has no rect changes to
+  // ride on — re-render explicitly so the center tracks the viewport.
+  const [, forceTick] = useState(0);
+  useEffect(() => {
+    const onResize = () => forceTick((n) => n + 1);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1280;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
+  const pos = size ? computeCalloutPos(rect, size, vw, vh) : null;
+
+  return (
+    <div
+      ref={boxRef}
+      className="cvtour-callout"
+      role="region"
+      aria-label="Tour step"
+      style={pos
+        ? { top: pos.top, left: pos.left, visibility: 'visible' }
+        : { top: NAVBAR_H + 10, left: PANEL_W + 10, visibility: 'hidden' }}
+    >
+      <StepBody
+        segment={segment}
+        step={step}
+        stepIndex={stepIndex}
+        flatStep={flatStep}
+        isFirstStep={isFirstStep}
+        isLastStep={isLastStep}
+        onNext={onNext}
+        onBack={onBack}
+      />
+    </div>
   );
 }
 

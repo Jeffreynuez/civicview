@@ -158,12 +158,17 @@
   left: 0;
   bottom: 0;
   z-index: 3000;
-  width: 300px;
+  width: 300px; /* keep in sync with PANEL_W in TutorialOverlay.js */
   display: flex;
   flex-direction: column;
-  background: white;
-  border-right: 1px solid var(--cl-border);
-  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.16);
+  /* Glassy — the map and page content stay visible behind the list.
+     backdrop-filter needs the translucent background to read well;
+     browsers without support just get the slightly-clearer rgba. */
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-right: 1px solid rgba(27, 38, 59, 0.14);
+  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.10);
   font-family: var(--cl-font-sans);
   animation: cvtour-slide-in 0.25s ease;
 }
@@ -178,7 +183,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 12px;
-  background: var(--cl-primary);
+  background: rgba(27, 38, 59, 0.90); /* translucent navy over the map */
   flex-shrink: 0;
 }
 
@@ -189,12 +194,24 @@
   min-height: 0;
 }
 
-.cvtour-panel__stepwrap {
-  flex-shrink: 0;
-  border-top: 1px solid var(--cl-border);
-  background: var(--cl-bg, #f8f9fa);
-  max-height: 46%;
-  overflow-y: auto;
+/* ── Floating step callout (desktop) ───────────────────────────────
+   Small translucent window that positions itself NEXT TO the
+   spotlighted element (right → left → below → above; overlap only
+   as a last resort — see computeCalloutPos in TutorialOverlay.js). */
+.cvtour-callout {
+  position: fixed;
+  z-index: 3001;
+  width: 330px;
+  max-width: calc(100vw - 340px); /* never wider than the space right of the list */
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  border: 1px solid rgba(27, 38, 59, 0.16);
+  border-radius: 12px;
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+  font-family: var(--cl-font-sans);
+  transition: top 0.25s ease, left 0.25s ease;
+  animation: cvtour-pop 0.25s ease;
 }
 
 /* ── Segment rows ──────────────────────────────────────────────── */
@@ -211,8 +228,8 @@
   text-align: left;
   font-family: var(--cl-font-sans);
 }
-.cvtour-seg:hover { background: var(--cl-bg-soft, #f1f3f5); }
-.cvtour-seg.is-current { background: #e9f2fb; }
+.cvtour-seg:hover { background: rgba(27, 38, 59, 0.07); }
+.cvtour-seg.is-current { background: rgba(69, 123, 157, 0.16); }
 
 .cvtour-seg__num {
   flex-shrink: 0;
@@ -347,7 +364,9 @@
   z-index: 3000;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-top: 1px solid var(--cl-border);
   border-radius: 14px 14px 0 0;
   box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.24);
