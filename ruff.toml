@@ -1,0 +1,19 @@
+# Ruff configuration — makes the CI lint gate's ruleset explicit.
+#
+# The Security & lint workflow (.github/workflows/ci-security.yml,
+# Task #107) runs `ruff check backend/app`. Without a config file,
+# ruff falls back to the default rule set of whatever release is
+# installed — and CI installed ruff unpinned. Ruff 0.16.0 expanded
+# its defaults (UP, DTZ, and friends), which turned the gate red with
+# 1,866 findings on completely unchanged backend code (2026-07-23).
+#
+# This file pins the gate to the rule families the codebase was
+# verified clean against when the workflow was introduced: pycodestyle
+# errors (E4xx imports / E7xx statements / E9xx runtime) + pyflakes
+# (F). Expanding the rule set later is welcome — as a deliberate
+# commit that also fixes the findings it introduces, not as upstream
+# default drift.
+target-version = "py312"
+
+[lint]
+select = ["E4", "E7", "E9", "F"]
