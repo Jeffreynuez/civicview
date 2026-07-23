@@ -17,12 +17,13 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends
 from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.models.pages import CitizenWaitlist
 from app.schemas.pages import WaitlistSignup, WaitlistStatus
+from app.services.brevo_service import sync_waitlist_contact
 
 
 logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ router = APIRouter()
 @router.post("", response_model=WaitlistStatus)
 def join_waitlist(
     payload: WaitlistSignup,
+    bg: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
     email = payload.email.strip().lower()
@@ -65,6 +67,9 @@ def join_waitlist(
         note=note,
     ))
     db.commit()
+    # Best-effort mirror into Brevo (no-op unless BREVO_* env vars are set).
+    # Runs after the response so a slow/failed Brevo call never blocks signup.
+    bg.add_task(sync_waitlist_contact, email, state, clicked_from)
     logger.info(
         "Waitlist signup — email=%s clicked_from=%s state=%s note_len=%d",
         email, clicked_from, state, len(note or ""),
