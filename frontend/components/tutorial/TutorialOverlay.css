@@ -1,0 +1,414 @@
+/* CivicView — guided app tour styles.
+   Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
+   Co-located with TutorialOverlay.js per the component-CSS topology
+   rule (component styles live next to the component, never in a
+   page-route stylesheet).
+
+   z-index map: the app's overlay surfaces top out around 1200
+   (ConstituentDashboard / PageView) with modals above that. The tour
+   must sit above ALL of them so the panel + close button stay
+   reachable while a step has an overlay open:
+     spotlight  2990  (visual only, pointer-events none)
+     panel/sheet 3000
+     coach mark  3000
+*/
+
+/* ── Spotlight ─────────────────────────────────────────────────── */
+.cvtour-spotlight {
+  position: fixed;
+  z-index: 2990;
+  pointer-events: none;
+  border-radius: 12px;
+  /* Dim everything except the cut-out. */
+  box-shadow: 0 0 0 9999px rgba(13, 27, 42, 0.45);
+  outline: 2px solid #ffba08;
+  outline-offset: 2px;
+  transition: top 0.25s ease, left 0.25s ease, width 0.25s ease, height 0.25s ease;
+  animation: cvtour-ring 1.8s ease-in-out infinite;
+}
+
+@keyframes cvtour-ring {
+  0%, 100% { outline-color: #ffba08; }
+  50% { outline-color: rgba(255, 186, 8, 0.35); }
+}
+
+/* ── Navbar pulse dot ──────────────────────────────────────────────
+   Worn by the ☰ hamburger until the tour has been opened once.
+   Lives here (not in the navbar) because this stylesheet is loaded
+   globally via the root-layout TutorialOverlay mount. */
+.cvtour-pulse-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  background: var(--cl-accent);
+  border-radius: 999px;
+  animation: cvtour-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes cvtour-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.55); }
+  55% { box-shadow: 0 0 0 6px rgba(82, 183, 136, 0); }
+}
+
+/* ── Coach mark ────────────────────────────────────────────────── */
+.cvtour-coach {
+  position: fixed;
+  z-index: 3000;
+  width: 232px;
+  background: white;
+  border: 1px solid var(--cl-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  padding: 12px 14px;
+  font-family: var(--cl-font-sans);
+  animation: cvtour-pop 0.25s ease;
+}
+
+@keyframes cvtour-pop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cvtour-coach__arrow {
+  position: absolute;
+  top: -6px;
+  right: 14px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-left: 1px solid var(--cl-border);
+  border-top: 1px solid var(--cl-border);
+  transform: rotate(45deg);
+}
+
+.cvtour-coach__x {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--cl-text-light);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.cvtour-coach__x:hover { background: var(--cl-bg-soft); }
+
+.cvtour-coach__title {
+  margin: 0 14px 2px 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cl-text);
+}
+
+.cvtour-coach__body {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--cl-text-light);
+}
+
+.cvtour-coach__cta {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--cl-accent);
+  color: white;
+  border: 1px solid var(--cl-accent);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cvtour-coach__cta:hover { opacity: 0.92; }
+
+/* ── Shared: close button ──────────────────────────────────────── */
+.cvtour-x {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: white;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.cvtour-x:hover { background: rgba(255, 255, 255, 0.22); }
+
+.cvtour-panel__brand {
+  color: white;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Desktop docked panel ──────────────────────────────────────── */
+.cvtour-panel {
+  position: fixed;
+  top: 56px; /* below the navbar — keep in sync with its height */
+  left: 0;
+  bottom: 0;
+  z-index: 3000;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-right: 1px solid var(--cl-border);
+  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.16);
+  font-family: var(--cl-font-sans);
+  animation: cvtour-slide-in 0.25s ease;
+}
+
+@keyframes cvtour-slide-in {
+  from { transform: translateX(-24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.cvtour-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--cl-primary);
+  flex-shrink: 0;
+}
+
+.cvtour-panel__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  min-height: 0;
+}
+
+.cvtour-panel__stepwrap {
+  flex-shrink: 0;
+  border-top: 1px solid var(--cl-border);
+  background: var(--cl-bg, #f8f9fa);
+  max-height: 46%;
+  overflow-y: auto;
+}
+
+/* ── Segment rows ──────────────────────────────────────────────── */
+.cvtour-seg {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 9px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--cl-font-sans);
+}
+.cvtour-seg:hover { background: var(--cl-bg-soft, #f1f3f5); }
+.cvtour-seg.is-current { background: #e9f2fb; }
+
+.cvtour-seg__num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cl-bg-soft, #f1f3f5);
+  color: var(--cl-text-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cvtour-seg.is-current .cvtour-seg__num {
+  background: var(--cl-primary);
+  color: white;
+}
+.cvtour-seg.is-done .cvtour-seg__num {
+  background: var(--cl-accent);
+  color: white;
+}
+
+.cvtour-seg__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--cl-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cvtour-seg.is-current .cvtour-seg__title { color: var(--cl-primary); }
+
+.cvtour-seg__badge {
+  flex-shrink: 0;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: #fff4e6;
+  color: #b85c00;
+  border: 1px solid #ffd8a8;
+}
+
+/* ── Step body + controls ──────────────────────────────────────── */
+.cvtour-step { padding: 12px 14px 14px; }
+
+.cvtour-step__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cl-text-light);
+}
+
+.cvtour-step__dots { display: inline-flex; gap: 4px; }
+.cvtour-step__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cl-border, #dee2e6);
+}
+.cvtour-step__dot.is-on { background: var(--cl-primary); }
+
+.cvtour-step__title {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cl-text);
+}
+
+.cvtour-step__body {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--cl-text);
+}
+
+.cvtour-step__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cvtour-step__progress {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cl-text-light);
+  white-space: nowrap;
+}
+
+.cvtour-step__btns { display: flex; gap: 8px; }
+
+.cvtour-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--cl-font-sans);
+}
+.cvtour-btn:disabled { opacity: 0.4; cursor: default; }
+
+.cvtour-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--cl-border);
+  color: var(--cl-text);
+}
+.cvtour-btn--ghost:hover:not(:disabled) { background: var(--cl-bg-soft, #f1f3f5); }
+
+.cvtour-btn--primary {
+  background: var(--cl-primary);
+  border: 1px solid var(--cl-primary);
+  color: white;
+}
+.cvtour-btn--primary:hover { opacity: 0.92; }
+
+/* ── Mobile / tablet bottom sheet ──────────────────────────────── */
+.cvtour-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-top: 1px solid var(--cl-border);
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.24);
+  font-family: var(--cl-font-sans);
+  max-height: 46vh;
+  /* Respect iOS home-indicator inset. */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  animation: cvtour-rise 0.25s ease;
+}
+
+@keyframes cvtour-rise {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.cvtour-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--cl-primary);
+  border-radius: 14px 14px 0 0;
+  flex-shrink: 0;
+}
+
+.cvtour-sheet__strip {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--cl-border);
+  flex-shrink: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cvtour-sheet__strip::-webkit-scrollbar { display: none; }
+
+/* Chips reuse the segment-row styles but compressed for the strip. */
+.cvtour-sheet__strip .cvtour-seg {
+  width: auto;
+  flex-shrink: 0;
+  padding: 5px 9px;
+  border: 1px solid var(--cl-border);
+  border-radius: 999px;
+  gap: 6px;
+}
+.cvtour-sheet__strip .cvtour-seg.is-current {
+  border-color: var(--cl-primary);
+  background: #e9f2fb;
+}
+.cvtour-sheet__strip .cvtour-seg__num {
+  width: 18px;
+  height: 18px;
+  font-size: 0.64rem;
+}
+.cvtour-sheet__strip .cvtour-seg__title {
+  font-size: 0.76rem;
+  max-width: 130px;
+}
+
+.cvtour-sheet__stepwrap {
+  overflow-y: auto;
+  min-height: 0;
+}

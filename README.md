@@ -383,23 +383,39 @@ categories:
   **chamber-aware, gap-aware** logic (Schiff "senator since 2024", Sessions
   "since 2021"); prior roles curated + cited to bioguide.congress.gov.
   (The generated candidates.json bios were boilerplate — not reused.)
-- **Google Play — REJECTED (Misleading Claims), fixed + RESUBMITTED.** The
-  first submission (v1.0.1, versionCode 2) was rejected 2026-06-27 on two
-  Misleading-Claims counts: (1) the store description lacked official source
-  links + a clear government disclaimer; (2) the on-device launcher icon
-  differed from the store hi-res icon (the AAB had shipped the **default
-  Capacitor placeholder icon** because `npx capacitor-assets generate` was
-  never run). Fixes: rewrote the full description with a "⚠️ NOT A GOVERNMENT
-  APP" disclaimer + a "WHERE OUR INFORMATION COMES FROM" sources block
-  (congress.gov, govinfo, House Clerk, Senate, federalregister.gov, fec.gov,
-  census.gov, openstates.org, courtlistener.com); added real brand icon/splash
-  masters to `frontend/assets/` (from `Logos & emblems/civicview_logo_solo.png`)
-  and regenerated launcher icons via `capacitor-assets`; bumped versionCode
-  2→3, versionName 1.0.1→1.0.2; rebuilt the signed AAB and **resubmitted to
-  Production review** with the revised listing. Earlier setup still stands:
-  Child Safety Standards page (`/child-safety`), App access demo login,
-  US-only, category Social, org account (exempt from the 12-tester gate),
-  managed publishing OFF, Android developer verification COMPLETE.
+- **Google Play — LIVE in Production** (versionCode 3, v1.0.2), after clearing
+  three Misleading-Claims rejections. (1) 2026-06-27: on-device launcher icon ≠
+  store hi-res icon (the AAB had shipped the **default Capacitor placeholder**
+  because `capacitor-assets generate` was never run) — fixed by adding real
+  brand masters to `frontend/assets/` (from `Logos & emblems/civicview_logo_solo.png`)
+  and regenerating icons; bumped versionCode 2→3, v1.0.1→1.0.2. (1b) same date:
+  description lacked sources + a government disclaimer — added a "⚠️ NOT A
+  GOVERNMENT APP" disclaimer. (2) 2026-07-05: "Insufficient Sources" — the
+  "primary sources include…/where available…" hedging implied a partial list;
+  rewrote "WHERE OUR INFORMATION COMES FROM" as an **exhaustive** list
+  (congress.gov, GovTrack, @unitedstates project, House Clerk, Senate,
+  federalregister.gov, CourtListener, fec.gov, openstates.org, Google Civic,
+  Census geocoder, OpenStreetMap) + a Wikimedia photo credit, ending "we use no
+  other sources." Store-listing source of truth: `docs/playstore_listing.md`.
+  App verified (green ✓), managed publishing OFF, US-only, category Social, org
+  account (exempt from the 12-tester gate), Android developer verification
+  COMPLETE. Appeal note held in reserve at `Business info/Play_appeal_reviewer_note.md`.
+- **Privacy policy — corrected AI disclosure** (Google Play 2026 policy update
+  clarified User-Data rules apply to third-party AI). `frontend/app/privacy/page.js`
+  had claimed Anthropic receives "never your comments," but `comment_classifier`
+  / `poll_classifier` / `moderation_service` do send user polls/comments to
+  Claude Haiku for tagging + moderation. Rewrote the disclosure to state UGC is
+  sent for classification/moderation (PII/engagement history are not; no
+  training). Web change — deploys instantly, no store re-review.
+- **Waitlist welcome email — Brevo, live & automated.** Separate CivicView Brevo
+  account; `civicview.app` authenticated (SPF/DKIM/DMARC — also satisfied #26).
+  Backend mirrors every `/api/waitlist` signup into Brevo list **#3 "Launch
+  Waitlist"** via `app/services/brevo_service.py` (BackgroundTask; env
+  `BREVO_API_KEY` + `BREVO_WAITLIST_LIST_ID=3` on Render) + a one-time
+  `scripts/backfill_waitlist_to_brevo.py`. Template **ID 1** "CivicView — Launch
+  Waitlist Welcome" (from Claude Design; email HTML + optimized images at
+  `frontend/public/email/`), and a Brevo automation (list-add → template)
+  auto-welcomes each new signup. Verified end-to-end in prod.
 - **Help-Build "Already built" list: 35 → 48.** Added shipped features that
   had drifted off the public funding page (Bills & Votes, Compare, tracking,
   demographic forms, 2FA, password reset, account deletion, digest, stats…);

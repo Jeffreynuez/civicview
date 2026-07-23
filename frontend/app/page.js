@@ -4,7 +4,7 @@
 // Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import MapView from '@/components/MapView';
 import SidePanel from '@/components/SidePanel';
@@ -32,6 +32,7 @@ import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
 import { useViewport, useIsLandscape } from '@/lib/useViewport';
 import { loadNavState, saveNavState } from '@/lib/navState';
+import { useTutorialActions } from '@/lib/tutorial';
 
 export default function Home() {
   // Viewport drives the desktop ↔ mobile layout pivot. Computed once at
@@ -364,6 +365,35 @@ export default function Home() {
   const handleCitizenLogoutClick = useCallback(async () => {
     await logoutCitizen();
   }, []);
+
+  // ─── Guided-tour bridge (lib/tutorial.js) ────────────────────────
+  // The TutorialOverlay (mounted in the root layout) drives surfaces
+  // that live behind this page's React state — My Tracked, Feedback,
+  // Help Build, the citizen login modal — by emitting bridge actions.
+  // Map them onto the existing open/close handlers here. Unknown
+  // actions are ignored by the listener, and on routes that don't
+  // mount this page (/polls, /bills) the emit is a harmless no-op —
+  // the tour step degrades to panel-only text.
+  const tutorialActionHandlers = useMemo(() => ({
+    'open-citizen-login': () => setCitizenLoginOpen(true),
+    'close-citizen-login': () => setCitizenLoginOpen(false),
+    'open-tracked': () => setTrackedOpen(true),
+    'close-tracked': () => setTrackedOpen(false),
+    'open-feedback': () => setFeedbackOpen(true),
+    'close-feedback': () => setFeedbackOpen(false),
+    'open-help-build': () => setHelpBuildOpen(true),
+    'close-help-build': () => setHelpBuildOpen(false),
+    // Fired when the tour jumps between segments so a surface opened
+    // by a skipped step never lingers under the next one.
+    'close-overlays': () => {
+      setCitizenLoginOpen(false);
+      setTrackedOpen(false);
+      setFeedbackOpen(false);
+      setHelpBuildOpen(false);
+      setCommitteesOpen(false);
+    },
+  }), []);
+  useTutorialActions(tutorialActionHandlers);
 
   const handleOpenPage = useCallback((id, meta) => {
     if (!id) return;
@@ -1221,6 +1251,7 @@ export default function Home() {
             shrink it to 0). Side-by-side mode: stretches to fill
             remaining horizontal space. */}
         <div
+          data-tutorial="map"
           className="relative flex overflow-hidden"
           style={
             useStackedLayout

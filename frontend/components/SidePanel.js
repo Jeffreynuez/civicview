@@ -283,6 +283,7 @@ export default function SidePanel({
 
   return (
     <div
+      data-tutorial="side-panel"
       className="flex flex-col overflow-hidden bg-white"
       style={
         isMobile

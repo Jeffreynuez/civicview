@@ -215,7 +215,7 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
     // immediately below sits closer to the lookup. Hero brings its own
     // top padding for breathing room — stacking 16 + 16 + 40 was
     // burning ~70px of empty space between the form and the NOP eyebrow.
-    <div style={{ padding: '16px 16px 0' }}>
+    <div data-tutorial="address-lookup" style={{ padding: '16px 16px 0' }}>
       {/* Search Form. marginBottom 12 (down from 16) keeps a small gap
           between the form and any error/result block below it but
           doesn't pad the no-results case unnecessarily — that case is

@@ -536,7 +536,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   };
 
   return (
-    <div className="polls-page">
+    <div className="polls-page" data-tutorial="polls-page">
       {/* Sticky navbar wrapper — the design's filter bar sticks at
           top: 56px assuming a 56px-tall navbar pinned above it. The
           shared Navbar component is position:relative by default; the

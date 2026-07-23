@@ -14,6 +14,11 @@ import ScrollTopButton from '@/components/ScrollTopButton';
 // native shell. Without it the back button EXITS the app instead of
 // walking in-app history. No-ops on web + iOS. Renders nothing.
 import AndroidBackButton from '@/components/AndroidBackButton';
+// Guided app tour ("Take the tour") — mounted at the root so the tour
+// panel + spotlight survive route hops between '/', '/polls' and
+// '/bills'. Renders nothing until the user opens the tour (or, for
+// brand-new visitors, the one-time coach mark under the ☰ menu).
+import TutorialOverlay from '@/components/tutorial/TutorialOverlay';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -105,6 +110,7 @@ export default function RootLayout({ children }) {
         </Force2FAGate>
         <ScrollTopButton />
         <AndroidBackButton />
+        <TutorialOverlay />
       </body>
     </html>
   );
