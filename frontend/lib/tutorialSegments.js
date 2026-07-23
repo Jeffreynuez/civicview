@@ -81,7 +81,16 @@ export const TUTORIAL_SEGMENTS = [
       },
       {
         route: '/',
+        target: 'map-divider',
+        title: 'Open and close the map',
+        body: 'The bar between the map and the panel is a handle. On phones, double-tap it — or slide it — to close the map and give the panel the whole screen, and again to bring the map back. On desktop, drag it to resize the split. Press Next and we’ll tuck the map away on mobile so you can see more of the panel.',
+      },
+      {
+        route: '/',
         target: 'address-lookup',
+        // Collapse the mobile map on entry so the address lookup (and
+        // the rest of the panel) has the screen. No-op on desktop.
+        action: 'collapse-map',
         title: 'Find your district by address',
         body: 'Not sure which district you live in? Enter your address here and CivicView finds your congressional district, your state legislative districts, and your county — then filters the list to the people who actually represent you. Your address is used only for the lookup.',
       },
@@ -109,12 +118,6 @@ export const TUTORIAL_SEGMENTS = [
         target: 'side-panel',
         title: 'State tabs: Congress · State · Local · Elections',
         body: 'Once a state is selected, the panel switches to four tabs: Congress (the federal delegation), State (legislators, governor, statewide officials, and the state supreme court), Local (county and city officials), and Elections (upcoming races, candidates, key dates, and your ballot).',
-      },
-      {
-        route: '/',
-        target: null,
-        title: 'Make room for what matters',
-        body: 'The divider between map and panel is draggable — widen the panel for reading, or give the map more room. On phones, the map sits on top and the handle collapses it entirely. Your layout choice is remembered.',
       },
     ],
   },

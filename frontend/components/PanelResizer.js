@@ -406,6 +406,7 @@ export default function PanelResizer({
 
   return (
     <div
+      data-tutorial="map-divider"
       onMouseDown={handleMouseDown}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}

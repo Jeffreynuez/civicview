@@ -376,6 +376,12 @@ export default function Home() {
   // the tour step degrades to panel-only text.
   const tutorialActionHandlers = useMemo(() => ({
     'open-citizen-login': () => setCitizenLoginOpen(true),
+    // Tucks the mobile stacked-layout map away (mapHeightPx is unused
+    // by the side-by-side layout, so this is a no-op on desktop).
+    // Deliberately NOT handleMapResize(0) — that would persist
+    // 'cl:map:collapsed' as if the USER closed it; a tour-driven
+    // collapse should not survive the next reload.
+    'collapse-map': () => setMapHeightPx(0),
     'close-citizen-login': () => setCitizenLoginOpen(false),
     'open-tracked': () => setTrackedOpen(true),
     'close-tracked': () => setTrackedOpen(false),
