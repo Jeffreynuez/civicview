@@ -36,6 +36,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
     return (
       <div
         role="region"
+        data-tutorial="compare-tray"
         aria-label="Compare tray (collapsed)"
         style={{
           position: 'fixed', bottom: 16, right: 16,
@@ -95,6 +96,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
 
   return (
     <div
+      data-tutorial="compare-tray"
       style={{
         position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
         background: 'white', border: '1px solid var(--cl-border)',

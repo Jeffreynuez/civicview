@@ -683,7 +683,7 @@ export default function BillsPage() {
   ) : null;
 
   return (
-    <div className="bills-page cv-stage">
+    <div className="bills-page cv-stage" data-tutorial="bills-page">
       <div style={{ position: 'sticky', top: 0, zIndex: 100 }}>
         <Navbar
           compact

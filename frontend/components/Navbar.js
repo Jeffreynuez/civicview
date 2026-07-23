@@ -14,6 +14,7 @@ import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
 import { useTrackedElections } from '@/lib/trackedElections';
 import { useIsCompact } from '@/lib/useViewport';
+import { useTutorialSeen, openTutorial } from '@/lib/tutorial';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicViewLogo from '@/components/brand/CivicViewLogo';
 import IdentitySwitcher from '@/components/IdentitySwitcher';
@@ -122,6 +123,9 @@ export default function Navbar({
   // Bumping to 1024px gives the inline layout the room it needs on
   // true desktops without leaving intermediate widths broken.
   const isCompact = useIsCompact();
+  // Guided-tour attention cue — until the user opens the tour once,
+  // the hamburger wears a pulsing dot and the menu row a NEW pill.
+  const { seen: tutorialSeen } = useTutorialSeen();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);
@@ -412,6 +416,7 @@ export default function Navbar({
       {!compact && (
       <div
         ref={containerRef}
+        data-tutorial="nav-search"
         className={isCompact ? '' : 'flex-1 mx-8'}
         style={
           isCompact
@@ -636,6 +641,7 @@ export default function Navbar({
         {isCompact && !compact && (
           <button
             type="button"
+            data-tutorial="nav-search"
             onClick={() => setMobileSearchOpen(true)}
             aria-label="Search"
             title="Search"
@@ -671,6 +677,13 @@ export default function Navbar({
             The contextual login buttons below the switcher take
             care of the not-signed-in CTAs (citizen always; rep
             only on rep pages; candidate only on candidate pages). */}
+        {/* display:none when no identity is signed in — a zero-width
+            inline-flex child would still consume the parent's 6px flex
+            gap and nudge the signed-out cluster. */}
+        <span
+          data-tutorial="nav-identity"
+          style={{ display: (effectiveCitizen || effectiveRep || effectiveCandidate) ? 'inline-flex' : 'none' }}
+        >
         <IdentitySwitcher
           citizen={effectiveCitizen}
           rep={effectiveRep}
@@ -683,6 +696,7 @@ export default function Navbar({
           onCandidateLogout={effectiveCandidateLogout}
           isCompact={isCompact}
         />
+        </span>
 
         {/* Citizen login button — always visible when no citizen
             signed in, at every breakpoint. The contextual Rep /
@@ -690,6 +704,7 @@ export default function Navbar({
             matching page type. */}
         {!effectiveCitizen && (
           <button
+            data-tutorial="nav-citizen-login"
             onClick={() => onCitizenLogin?.()}
             title="Sign in as a citizen to like, comment, and vote in polls"
             style={
@@ -905,6 +920,7 @@ export default function Navbar({
               </a>
             )}
             <button
+              data-tutorial="nav-tracked"
               onClick={() => onOpenTracked?.()}
               title="My tracked subjects"
               style={{
@@ -943,7 +959,9 @@ export default function Navbar({
 
         {/* Notification bell — visible at every breakpoint. The bell's
             own dropdown handles its mobile layout. */}
-        <NotificationBellMenu />
+        <span data-tutorial="nav-bell" style={{ display: 'inline-flex' }}>
+          <NotificationBellMenu />
+        </span>
 
         {/* Hamburger menu — always visible. On desktop it holds the
             three secondary actions the user wanted collapsed
@@ -957,6 +975,7 @@ export default function Navbar({
           <div ref={mobileMenuRef} style={{ position: 'relative' }}>
             <button
               type="button"
+              data-tutorial="nav-hamburger"
               onClick={() => setMobileMenuOpen((v) => !v)}
               aria-label="More"
               aria-expanded={mobileMenuOpen}
@@ -991,6 +1010,12 @@ export default function Navbar({
                     borderRadius: 999,
                   }}
                 />
+              ) : !tutorialSeen ? (
+                /* Tutorial pulse — new visitors get a green pulsing
+                   cue until they open the tour once. Sits below the
+                   admin red dot (moderation urgency wins) but above
+                   the tracked-count yellow dot. */
+                <span aria-hidden="true" className="cvtour-pulse-dot" />
               ) : trackedCount > 0 ? (
                 <span
                   aria-hidden="true"
@@ -1020,6 +1045,22 @@ export default function Navbar({
                   zIndex: 70,
                 }}
               >
+                {/* Take the tour — the guided app tutorial. First row
+                    so newcomers can't miss it; wears a NEW pill +
+                    accent color until the tour has been opened once. */}
+                <MobileMenuItem
+                  icon={
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                  }
+                  label="Take the tour"
+                  accent={!tutorialSeen ? 'var(--cl-accent)' : undefined}
+                  badge={!tutorialSeen ? 'NEW' : null}
+                  onClick={() => { setMobileMenuOpen(false); openTutorial(); }}
+                />
                 {/* Floor Bills — the federal Bills & Votes page. Surfaced
                     at every viewport (no inline desktop link), placed at the
                     top of the menu as a primary navigation destination. */}

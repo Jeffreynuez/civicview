@@ -54,7 +54,7 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify, 
         zIndex: 1300,
       }}
     >
-      <div style={{
+      <div data-tutorial="tracked-modal" style={{
         width: isMobile ? '100%' : 'min(860px, 100%)',
         height: isMobile ? '100vh' : undefined,
         maxHeight: isMobile ? undefined : 'calc(100vh - 48px)',
