@@ -38,6 +38,14 @@ const config: CapacitorConfig = {
       'billing.stripe.com',
     ],
   },
+  plugins: {
+    // Push notifications (FCM). presentationOptions governs how a
+    // push renders when the app is FOREGROUND (background delivery is
+    // the OS's job). Sound + badge + banner matches user expectation.
+    PushNotifications: {
+      presentationOptions: ['badge', 'sound', 'alert'],
+    },
+  },
   android: {
     allowMixedContent: false,
   },

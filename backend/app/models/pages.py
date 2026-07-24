@@ -2039,3 +2039,23 @@ class LoginAttempt(Base):
     occurred_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), index=True,
     )
+
+
+class DeviceToken(Base):
+    """A mobile device registered for push notifications (FCM).
+
+    citizen_id NULL = anonymous device — it receives only the
+    'announcements' broadcast topic (subscription managed server-side
+    in routers/push.py). Bound devices get personal tracked-activity
+    pushes via services/push_service.push_tracked_post. Tokens are
+    pruned automatically when FCM reports them unregistered."""
+
+    __tablename__ = "device_tokens"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    # FCM registration tokens are opaque strings well under 512 chars.
+    token: Mapped[str] = mapped_column(String(512), unique=True, index=True)
+    platform: Mapped[str] = mapped_column(String(16), default="android")
+    citizen_id: Mapped[Optional[int]] = mapped_column(Integer, index=True, default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    last_seen_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
