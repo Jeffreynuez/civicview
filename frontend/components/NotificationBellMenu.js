@@ -330,6 +330,7 @@ export default function NotificationBellMenu() {
                 key={opt.key}
                 label={opt.label}
                 description={opt.description}
+                badge={opt.badge}
                 checked={Boolean(prefs[opt.key])}
                 disabled={!opt.available}
                 onChange={(v) => setChannelPrefs({ [opt.key]: v })}
@@ -360,8 +361,9 @@ export default function NotificationBellMenu() {
             padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--cl-border)',
             marginTop: '6px',
           }}>
-            In-app toasts are live today. Desktop, email, SMS, and mobile push
-            are on the roadmap — toggle them now to opt-in when they ship.
+            In-app toasts are live today. Mobile push is live in the
+            CivicView Android app. Email digests arrive with launch;
+            desktop notifications are planned.
           </div>
         </div>
       )}
@@ -369,7 +371,7 @@ export default function NotificationBellMenu() {
   );
 }
 
-function ChannelToggle({ label, description, checked, disabled, onChange }) {
+function ChannelToggle({ label, description, checked, disabled, onChange, badge }) {
   return (
     <label
       style={{
@@ -398,7 +400,7 @@ function ChannelToggle({ label, description, checked, disabled, onChange }) {
               color: 'var(--cl-text-light)', border: '1px solid var(--cl-border)',
               letterSpacing: '0.4px',
             }}>
-              SOON
+              {badge || 'SOON'}
             </span>
           )}
         </div>
