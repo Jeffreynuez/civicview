@@ -50,7 +50,7 @@ cryptography>=43,<46
 # without R2 credentials don't crash on missing creds — they fall
 # back to LocalDiskStorage. Floor 1.34 is the first release with
 # native support for the SigV4 auth R2 expects.
-boto3>=1.34,<2
+boto3>=1.43.14,<2
 
 # Task #87 — Postmark transactional email (password resets, account
 # deletion confirmations, future subscription receipts). postmarker
