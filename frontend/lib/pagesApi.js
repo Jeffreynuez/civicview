@@ -1122,6 +1122,20 @@ export async function fetchDigestPreview() {
   return request('/api/citizen-auth/me/digest/preview');
 }
 
+// Account-synced delivery-channel prefs (Notifications v2 part 2).
+// GET returns { prefs: {...} | null } — null means the account has
+// never synced and the caller should keep its local values. PUT
+// replaces the whole (tiny) prefs object; no patch semantics.
+export async function fetchNotificationPrefs() {
+  return request('/api/citizen-auth/me/notification-prefs');
+}
+export async function saveNotificationPrefs(prefs) {
+  return request('/api/citizen-auth/me/notification-prefs', {
+    method: 'PUT',
+    body: { prefs },
+  });
+}
+
 // "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.
 export async function fetchMyCitizenPolls({ status = 'all' } = {}) {
   return request('/api/citizens/me/polls', { query: { status } });

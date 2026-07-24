@@ -5,7 +5,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useIsMobile } from '@/lib/useViewport';
-import { useChannelPrefs, setChannelPrefs } from '@/lib/channelPrefs';
+import {
+  useChannelPrefs,
+  setChannelPrefs,
+  enableChannelPrefsServerSync,
+  disableChannelPrefsServerSync,
+} from '@/lib/channelPrefs';
 // Mobile push went live 2026-07-24 (FCM, lib/push.js). Inside the
 // native shell the 'mobile_push' channel row below becomes a real
 // toggle; on the web it keeps its SOON placeholder.
@@ -111,6 +116,16 @@ export default function NotificationBellMenu() {
     refreshNotifs();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [repMe?.id, citizen?.id, candidate?.id]);
+
+  // Account-synced channel prefs (Notifications v2 part 2). While a
+  // citizen is signed in, the account is the source of truth for the
+  // panel below — server prefs are pulled in and every change is
+  // pushed back up. Anonymous / rep-only / candidate-only sessions
+  // stay localStorage-only (delivery prefs are a citizen feature).
+  useEffect(() => {
+    if (citizen?.id) enableChannelPrefsServerSync();
+    else disableChannelPrefsServerSync();
+  }, [citizen?.id]);
 
   const onClickNotif = async (n) => {
     if (!n.read_at) {
