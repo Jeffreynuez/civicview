@@ -11,16 +11,34 @@
   "categories": ["government", "news", "social"],
   "icons": [
     {
+      "src": "/logo/pwa-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo/pwa-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo/pwa-maskable-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/logo/pwa-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
       "src": "/logo/civicview-glyph-color.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "any"
-    },
-    {
-      "src": "/logo/civicview-glyph-reverse.svg",
-      "type": "image/svg+xml",
-      "sizes": "any",
-      "purpose": "maskable"
     }
   ]
 }

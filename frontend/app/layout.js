@@ -19,6 +19,11 @@ import AndroidBackButton from '@/components/AndroidBackButton';
 // '/bills'. Renders nothing until the user opens the tour (or, for
 // brand-new visitors, the one-time coach mark under the ☰ menu).
 import TutorialOverlay from '@/components/tutorial/TutorialOverlay';
+// Registers the minimal /sw.js service worker so civicview.app is
+// installable as a desktop PWA (Install CivicView from the browser
+// menu on Windows/macOS/Linux/ChromeOS). Skips the Capacitor native
+// shell. Renders nothing.
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -36,7 +41,10 @@ export const metadata = {
   },
   icons: {
     icon: '/logo/civicview-glyph-color.svg',
-    apple: '/logo/civicview-glyph-color.svg',
+    // Apple touch icons must be raster — iOS ignores SVG here. The
+    // 192px maskable PNG (brand background, safe-zone glyph) is the
+    // right shape for the home-screen rounded square.
+    apple: '/logo/pwa-maskable-192.png',
   },
 };
 
@@ -111,6 +119,7 @@ export default function RootLayout({ children }) {
         <ScrollTopButton />
         <AndroidBackButton />
         <TutorialOverlay />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
