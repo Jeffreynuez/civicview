@@ -14,7 +14,7 @@ pydantic[email]>=2.11,<3
 # We dropped passlib: passlib 1.7.4 has a compat bug with bcrypt >=5 ("detect
 # wrap bug" raises on import) and there's no 1.7.5 release. The auth module
 # now calls bcrypt directly, which works on bcrypt 4.x and 5.x.
-sqlalchemy>=2.0.35,<3
+sqlalchemy>=2.0.50,<3
 bcrypt>=4.3,<6
 itsdangerous>=2.2,<3
 # Required by FastAPI when endpoints accept UploadFile / multipart form
