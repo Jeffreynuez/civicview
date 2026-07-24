@@ -28,6 +28,9 @@ import { useIsMobile } from '@/lib/useViewport';
  *   - showCloseX : boolean, default true. Renders top-right (×).
  *   - showEscHint: boolean, default true. Renders bottom "esc to close".
  *   - lockScroll : boolean, default true. Locks body scroll while open.
+ *   - dataTutorial: optional [data-tutorial] anchor name applied to
+ *     the card — lets the guided tour spotlight a specific modal
+ *     and park its callout beside it (see components/tutorial/).
  *   - children   : modal contents.
  *
  * The shell does NOT render the brand mark / heading / body — that's
@@ -49,6 +52,7 @@ export default function ModalShell({
   lockScroll = true,
   className = '',
   cardStyle = {},
+  dataTutorial,
   children,
 }) {
   const cardRef = useRef(null);
@@ -128,6 +132,7 @@ export default function ModalShell({
     >
       <div
         ref={cardRef}
+        data-tutorial={dataTutorial || undefined}
         className={isMobile ? 'cl-min-h-screen-visible' : ''}
         style={{
           position: 'relative',

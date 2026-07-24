@@ -418,7 +418,7 @@ function SidePanelDock({ segment, completed, onJump, onClose }) {
 // overlapping the target only when nothing else fits (per spec).
 // Steps with no target (or an anchor that isn't on screen) center the
 // callout in the space right of the segment list.
-function computeCalloutPos(rect, size, vw, vh) {
+function computeCalloutPos(rect, size, vw, vh, corner) {
   const GAP = 14;   // breathing room between target and callout
   const PAD = 10;   // minimum distance from viewport edges
   const minLeft = PANEL_W + PAD;      // stay clear of the segment list
@@ -428,7 +428,16 @@ function computeCalloutPos(rect, size, vw, vh) {
   const clampLeft = (l) => Math.min(Math.max(l, minLeft), Math.max(minLeft, vw - w - PAD));
 
   if (!rect) {
-    // No spotlight — center in the area right of the panel.
+    // No spotlight. Steps over a full-screen surface (comparison view,
+    // an official's page) set corner:true so the callout hugs the
+    // bottom-right instead of covering the content being described.
+    if (corner) {
+      return {
+        top: Math.max(minTop, vh - h - PAD),
+        left: Math.max(minLeft, vw - w - PAD),
+      };
+    }
+    // Otherwise center in the area right of the panel.
     return {
       top: Math.max(minTop, (vh - h) / 2),
       left: Math.max(minLeft, PANEL_W + (vw - PANEL_W - w) / 2),
@@ -483,7 +492,7 @@ function StepCallout({ rect, segment, step, stepIndex, flatStep, isFirstStep, is
 
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1280;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
-  const pos = size ? computeCalloutPos(rect, size, vw, vh) : null;
+  const pos = size ? computeCalloutPos(rect, size, vw, vh, step?.corner) : null;
 
   return (
     <div

@@ -166,8 +166,9 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         // The comparison view is a full overlay with its own chrome —
-        // no spotlight needed.
+        // no spotlight; corner keeps the callout off the comparison.
         target: null,
+        corner: true,
         // Live demo: two random members, straight into the view.
         action: 'demo-compare',
         title: 'The comparison view',
@@ -183,6 +184,7 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: null,
+        corner: true, // PageView is full-screen — stay out of its way
         // Live demo: closes the comparison and opens a random
         // official's real page as a full-screen view.
         action: 'demo-open-page',
@@ -192,6 +194,7 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: null,
+        corner: true,
         title: 'Claimed vs. unclaimed pages',
         body: 'Pages exist for every official from day one — the one on your screen is almost certainly still unclaimed. When the official verifies and claims their page, their posts carry a verified badge and an “Author” marker. On unclaimed pages, citizens can still run polls about that office — the conversation doesn’t wait for the official to show up.',
       },
@@ -213,10 +216,9 @@ export const TUTORIAL_SEGMENTS = [
       },
       {
         route: '/',
-        // No spotlight — the login modal supplies its own backdrop and
-        // covers the screen; ringing the navbar button underneath it
-        // would just point at a dimmed control.
-        target: null,
+        // Anchor on the login modal's card so the callout parks BESIDE
+        // the window instead of centering on top of it.
+        target: 'citizen-login-modal',
         action: 'open-citizen-login',
         title: 'Try it — the login window',
         body: 'This is the real sign-in window (we just opened it). “Create demo account” gets you in immediately. At launch, accounts will verify through ID.me — a one-time identity check that proves you’re a real U.S. resident of your district, which is what makes every vote and comment on CivicView a verified-constituent signal.',
@@ -342,7 +344,9 @@ export const TUTORIAL_SEGMENTS = [
     steps: [
       {
         route: '/',
-        target: null,
+        // Anchor on the embedded form column so the callout sits
+        // beside it rather than covering it.
+        target: 'feedback-form',
         action: 'open-feedback',
         title: 'Tell us what you think',
         body: 'This is the Feedback page (we just opened it — it’s in the ☰ menu anytime). CivicView is in active development and feedback genuinely shapes what gets built next. Bugs, confusing screens, missing data, feature ideas — all of it is welcome.',
@@ -356,7 +360,9 @@ export const TUTORIAL_SEGMENTS = [
     steps: [
       {
         route: '/',
-        target: null,
+        // Anchor on the page's main content column — callout beside
+        // it where there's room, bottom overlap-fallback otherwise.
+        target: 'helpbuild-content',
         action: 'open-help-build',
         title: 'How CivicView gets built',
         body: 'This is the transparency page: everything already built, what’s in progress, and what’s blocked on funding — with real dollar amounts. CivicView is a Florida Benefit Corporation with no ads and no venture capital; if you want to help it exist, this page shows exactly where support goes.',

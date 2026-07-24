@@ -1228,9 +1228,22 @@ export default function Home() {
     'close-citizen-login': () => setCitizenLoginOpen(false),
     'open-tracked': () => setTrackedOpen(true),
     'close-tracked': () => setTrackedOpen(false),
-    'open-feedback': () => setFeedbackOpen(true),
+    // The full-page overlays (Feedback / Help Build) are sibling fixed
+    // layers in the same z family — whichever renders later in the DOM
+    // wins. Opening one from the tour therefore closes the other (and
+    // the login modal), or a still-open Feedback would sit on top of
+    // the Help Build page the step just asked for.
+    'open-feedback': () => {
+      setHelpBuildOpen(false);
+      setCitizenLoginOpen(false);
+      setFeedbackOpen(true);
+    },
     'close-feedback': () => setFeedbackOpen(false),
-    'open-help-build': () => setHelpBuildOpen(true),
+    'open-help-build': () => {
+      setFeedbackOpen(false);
+      setCitizenLoginOpen(false);
+      setHelpBuildOpen(true);
+    },
     'close-help-build': () => setHelpBuildOpen(false),
     // Fired when the tour jumps between segments so a surface opened
     // by a skipped step never lingers under the next one.
