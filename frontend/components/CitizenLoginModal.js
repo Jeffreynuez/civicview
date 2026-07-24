@@ -312,6 +312,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     <ModalShell
       open={open}
       onClose={onClose}
+      dataTutorial="citizen-login-modal"
       width={460}
       cardStyle={{ padding: '24px 24px 16px' }}
     >

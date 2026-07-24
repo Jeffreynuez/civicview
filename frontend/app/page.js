@@ -1196,6 +1196,27 @@ export default function Home() {
       if (m) handleGlobalMemberPick(m);
     },
     'demo-close-profile': () => handleCloseProfile(),
+    // State tab / Elections tab demos — keep the user's selected state
+    // when there is one; otherwise load Florida (the most fully
+    // curated state) directly onto the requested tab. handleStateSelect
+    // accepts a tab override, clears district/member selection, and
+    // fetches the state payload.
+    'demo-open-state-tab': async () => {
+      handleCloseProfile();
+      if (selectedState) {
+        setSidePanelTab('state');
+      } else {
+        try { await handleStateSelect('FL', 'Florida', { tab: 'state' }); } catch { /* tour degrades to text */ }
+      }
+    },
+    'demo-open-elections-tab': async () => {
+      handleCloseProfile();
+      if (selectedState) {
+        setSidePanelTab('ballot');
+      } else {
+        try { await handleStateSelect('FL', 'Florida', { tab: 'ballot' }); } catch { /* tour degrades to text */ }
+      }
+    },
     'demo-compare': async () => {
       handleCloseProfile();
       const pair = await pickRandomMembers(2);
@@ -1228,9 +1249,22 @@ export default function Home() {
     'close-citizen-login': () => setCitizenLoginOpen(false),
     'open-tracked': () => setTrackedOpen(true),
     'close-tracked': () => setTrackedOpen(false),
-    'open-feedback': () => setFeedbackOpen(true),
+    // The full-page overlays (Feedback / Help Build) are sibling fixed
+    // layers in the same z family — whichever renders later in the DOM
+    // wins. Opening one from the tour therefore closes the other (and
+    // the login modal), or a still-open Feedback would sit on top of
+    // the Help Build page the step just asked for.
+    'open-feedback': () => {
+      setHelpBuildOpen(false);
+      setCitizenLoginOpen(false);
+      setFeedbackOpen(true);
+    },
     'close-feedback': () => setFeedbackOpen(false),
-    'open-help-build': () => setHelpBuildOpen(true),
+    'open-help-build': () => {
+      setFeedbackOpen(false);
+      setCitizenLoginOpen(false);
+      setHelpBuildOpen(true);
+    },
     'close-help-build': () => setHelpBuildOpen(false),
     // Fired when the tour jumps between segments so a surface opened
     // by a skipped step never lingers under the next one.
@@ -1252,7 +1286,7 @@ export default function Home() {
     // handleGlobalMemberPick re-binds when selectedState changes; the
     // others are stable. Re-memoizing (and re-binding the listener)
     // on state switches is cheap and keeps the closures fresh.
-  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage]);
+  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage, handleStateSelect, selectedState]);
   useTutorialActions(tutorialActionHandlers);
 
   return (

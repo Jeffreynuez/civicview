@@ -309,7 +309,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
         </div>
 
         <div className="hb-scroll">
-          <main className="hb-main">
+          <main className="hb-main" data-tutorial="helpbuild-content">
             <Hero />
             <ProgressMeter />
 

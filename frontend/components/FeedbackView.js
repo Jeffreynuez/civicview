@@ -116,7 +116,7 @@ export default function FeedbackView({ onClose, compactNavbarProps = {} }) {
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '24px 16px 48px' }}>
+        <div data-tutorial="feedback-form" style={{ maxWidth: 720, margin: '0 auto', padding: '24px 16px 48px' }}>
           <Intro />
           {FEEDBACK_FORM_LIVE && FEEDBACK_FORM_URL ? (
             <FormEmbed />
