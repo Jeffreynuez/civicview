@@ -24,6 +24,9 @@ import ClaimPageModal from '@/components/ClaimPageModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
 import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
+// Contextual push-notification opt-in — renders nothing on the web;
+// in the Android shell it offers push once a citizen is signed in.
+import PushOptInPrompt from '@/components/PushOptInPrompt';
 import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
@@ -1539,6 +1542,7 @@ export default function Home() {
           />
         )}
       </div>
+      <PushOptInPrompt citizen={citizen} />
       <CompareTray
         items={compareItems}
         onRemove={handleCompareRemove}

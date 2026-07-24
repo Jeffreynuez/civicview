@@ -174,6 +174,21 @@ def emit_tracked_content_notifications(
         "tracked_post fan-out: official=%s post=%s -> %d citizens",
         official_id, post_id, len(rows),
     )
+    # Device-push mirror (v1 push scope: tracked activity only). Runs
+    # in the same background session AFTER the in-app rows commit;
+    # push_tracked_post never raises, so a push/FCM problem cannot
+    # disturb the bell notifications above.
+    from app.services.push_service import push_tracked_post
+
+    push_tracked_post(
+        db,
+        [tid for (tid,) in trackers],
+        official_id=official_id,
+        official_name=official_name,
+        post_id=post_id,
+        preview=_truncate(preview, 120),
+        has_poll=has_poll,
+    )
     return len(rows)
 
 

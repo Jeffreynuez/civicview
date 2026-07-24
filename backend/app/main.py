@@ -352,6 +352,11 @@ app.include_router(
 # Officials hero. Unauthenticated by design — these are public-facing
 # marketing numbers, no PII.
 app.include_router(stats_router.router, prefix="/api/stats", tags=["Stats"])
+# Device push-token registration (FCM). Service is env-gated on
+# FIREBASE_SERVICE_ACCOUNT_JSON — without it, registration still
+# works but sends log to stdout (DevPushService).
+from app.routers import push as push_router  # noqa: E402
+app.include_router(push_router.router, prefix="/api/push", tags=["Push"])
 app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["Polls — Demographics"])
 
 

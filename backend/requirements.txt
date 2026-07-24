@@ -70,3 +70,10 @@ postmarker>=1.0,<2
 # in-progress 12.x line.
 stripe>=7.0,<13
 defusedxml>=0.7.1
+
+# Push notifications (FCM) — firebase-admin sends device pushes +
+# manages topic subscriptions. Lazy-imported inside
+# services/push_service.FCMPushService so environments without
+# FIREBASE_SERVICE_ACCOUNT_JSON never import it — they fall back to
+# DevPushService (logs only). Floor 6.5 = stable send_each_for_multicast.
+firebase-admin>=6.5,<8
