@@ -299,28 +299,27 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'desktop_push',
       label: 'Desktop notifications',
-      description: 'Browser push notifications (coming soon).',
+      description: 'Browser push notifications.',
+      badge: 'PLANNED',
       default: false,
       available: false,
     },
     {
       key: 'email',
       label: 'Email digests',
-      description: 'Daily or weekly roll-up to your inbox (coming soon).',
+      description: 'A weekly roll-up of your tracked officials\u2019 activity \u2014 opt in from your dashboard settings. Sending begins at launch.',
+      badge: 'AT LAUNCH',
       default: false,
       available: false,
     },
-    {
-      key: 'sms',
-      label: 'SMS / text',
-      description: 'Text messages for urgent alerts only (coming soon).',
-      default: false,
-      available: false,
-    },
+    // SMS row removed 2026-07-24 (Jeffrey's call): carrier registration +
+    // per-message cost aren't worth it for a civic app; a roadmap row
+    // that never ships erodes trust. Re-add here if it ever becomes real.
     {
       key: 'mobile_push',
       label: 'Mobile push',
-      description: 'Alerts through the CivicView mobile app (coming soon).',
+      description: 'Alerts when officials you track post \u2014 available in the CivicView Android app on Google Play.',
+      badge: 'IN THE APP',
       default: false,
       available: false,
     },
