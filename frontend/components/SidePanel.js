@@ -182,36 +182,6 @@ export default function SidePanel({
   // Restore the home side-panel list scroll on native-WebView Back.
   useScrollRestoration(scrollRef, 'sidepanel');
   const [scrolled, setScrolled] = useState(false);
-  // Hysteresis range for the header-collapse threshold. A single
-  // threshold (e.g. scrollTop > 40) bounces erratically when content
-  // sits right at the boundary: the header's collapse shrinks the
-  // outer column, the scroll container grows by a few px, scrollTop
-  // crosses back below the threshold, the header reopens, the
-  // scroll container shrinks, scrollTop crosses back above, repeat.
-  // Two separate thresholds break the loop — once collapsed we don't
-  // re-expand until the user has clearly scrolled back near the top.
-  const HEAD_COLLAPSE_AT = 80;
-  const HEAD_EXPAND_AT = 8;
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const top = el.scrollTop;
-      setScrolled((wasScrolled) => {
-        if (!wasScrolled && top > HEAD_COLLAPSE_AT) return true;
-        if (wasScrolled && top < HEAD_EXPAND_AT) return false;
-        return wasScrolled;
-      });
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
-  }, []);
-  // Header collapses on any touch viewport (portrait OR landscape) when
-  // the user has scrolled into content OR when the map has been fully
-  // closed/covered. Desktop always shows the header — the larger
-  // viewport doesn't have the same vertical squeeze.
-  const hideHeader = isTouch && (scrolled || mapCollapsed);
-
   // Measure the header's natural height so the slide-up animation can
   // transition from 0 → measured-px (and back) smoothly. ResizeObserver
   // keeps the measurement live as the active-district chip appears /
@@ -230,6 +200,62 @@ export default function SidePanel({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // Hysteresis range for the header-collapse threshold. A single
+  // threshold (e.g. scrollTop > 40) bounces erratically when content
+  // sits right at the boundary: the header's collapse shrinks the
+  // outer column, the scroll container grows by a few px, scrollTop
+  // crosses back below the threshold, the header reopens, the
+  // scroll container shrinks, scrollTop crosses back above, repeat.
+  // Two separate thresholds break the loop — once collapsed we don't
+  // re-expand until the user has clearly scrolled back near the top.
+  const HEAD_COLLAPSE_AT = 80;
+  const HEAD_EXPAND_AT = 8;
+  // Hysteresis alone still bounces when the content is BARELY taller
+  // than the container (e.g. a district-filtered Congress list: two
+  // senators + one rep with no "On ballot" badge — FL-16/17/28 in
+  // testing). There, max scrollTop with the header visible is only
+  // slightly above HEAD_COLLAPSE_AT; collapsing frees ~headerHeight px,
+  // the new max scrollTop lands BELOW HEAD_EXPAND_AT, the browser
+  // clamps the position down, the header re-expands, and every scroll
+  // attempt replays the loop — the erratic up/down bounce on mobile.
+  // (Districts whose rep carries the badge are just tall enough that
+  // the clamp lands between the two thresholds, masking the bug.)
+  // Guard: only collapse when doing so still leaves the user
+  // comfortably past the expand threshold. Short lists keep the header
+  // — collapsing buys no reading room there anyway.
+  const HEAD_COLLAPSE_MIN_REMAINING = 24;
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const top = el.scrollTop;
+      setScrolled((wasScrolled) => {
+        if (!wasScrolled && top > HEAD_COLLAPSE_AT) {
+          // Post-collapse max scrollTop = current scroll range minus
+          // the freed header height. If that wouldn't clear the expand
+          // threshold with margin, collapsing can only oscillate.
+          const remainingAfterCollapse =
+            el.scrollHeight - el.clientHeight - headerHeight;
+          if (remainingAfterCollapse <= HEAD_EXPAND_AT + HEAD_COLLAPSE_MIN_REMAINING) {
+            return wasScrolled;
+          }
+          return true;
+        }
+        if (wasScrolled && top < HEAD_EXPAND_AT) return false;
+        return wasScrolled;
+      });
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+    // headerHeight is read inside the handler — re-bind when the
+    // measured height changes (rare: chip appears/disappears, resize).
+  }, [headerHeight]);
+  // Header collapses on any touch viewport (portrait OR landscape) when
+  // the user has scrolled into content OR when the map has been fully
+  // closed/covered. Desktop always shows the header — the larger
+  // viewport doesn't have the same vertical squeeze.
+  const hideHeader = isTouch && (scrolled || mapCollapsed);
 
   // NOTE: ProfileView is rendered as an absolutely-positioned overlay at
   // the bottom of this component (search for "ProfileView overlay" below)
