@@ -19,6 +19,7 @@ import json
 import logging
 import os
 from abc import ABC, abstractmethod
+from datetime import datetime, timedelta
 from typing import Iterable, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -197,8 +198,7 @@ def get_push_service() -> PushService:
 _CADENCE_MIN_GAP_HOURS = {"daily": 20, "weekly": 6 * 24}
 
 
-def _local_now(tz_offset_minutes: int) -> "datetime":
-    from datetime import datetime, timedelta
+def _local_now(tz_offset_minutes: int) -> datetime:
     return datetime.utcnow() + timedelta(minutes=tz_offset_minutes)
 
 
@@ -237,7 +237,6 @@ def _cadence_gap_ok(prefs: Optional[dict], last_push_at) -> bool:
     gap_hours = _CADENCE_MIN_GAP_HOURS.get(prefs.get("digest_cadence") or "")
     if not gap_hours or last_push_at is None:
         return True
-    from datetime import datetime, timedelta
     return datetime.utcnow() - last_push_at >= timedelta(hours=gap_hours)
 
 
@@ -269,8 +268,6 @@ def push_tracked_post(
     Never raises — a push failure must not disturb the in-app
     notification flow that calls this."""
     try:
-        from datetime import datetime as _dt
-
         from app.models.pages import CitizenAccount, DeviceToken
 
         ids = list(citizen_ids)
@@ -344,7 +341,7 @@ def push_tracked_post(
             },
         )
         invalid_set = set(invalid)
-        now = _dt.utcnow()
+        now = datetime.utcnow()
         for row in sendable:
             if row.token not in invalid_set:
                 row.last_push_at = now
