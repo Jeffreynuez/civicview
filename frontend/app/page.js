@@ -1196,6 +1196,27 @@ export default function Home() {
       if (m) handleGlobalMemberPick(m);
     },
     'demo-close-profile': () => handleCloseProfile(),
+    // State tab / Elections tab demos — keep the user's selected state
+    // when there is one; otherwise load Florida (the most fully
+    // curated state) directly onto the requested tab. handleStateSelect
+    // accepts a tab override, clears district/member selection, and
+    // fetches the state payload.
+    'demo-open-state-tab': async () => {
+      handleCloseProfile();
+      if (selectedState) {
+        setSidePanelTab('state');
+      } else {
+        try { await handleStateSelect('FL', 'Florida', { tab: 'state' }); } catch { /* tour degrades to text */ }
+      }
+    },
+    'demo-open-elections-tab': async () => {
+      handleCloseProfile();
+      if (selectedState) {
+        setSidePanelTab('ballot');
+      } else {
+        try { await handleStateSelect('FL', 'Florida', { tab: 'ballot' }); } catch { /* tour degrades to text */ }
+      }
+    },
     'demo-compare': async () => {
       handleCloseProfile();
       const pair = await pickRandomMembers(2);
@@ -1265,7 +1286,7 @@ export default function Home() {
     // handleGlobalMemberPick re-binds when selectedState changes; the
     // others are stable. Re-memoizing (and re-binding the listener)
     // on state switches is cheap and keeps the closures fresh.
-  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage]);
+  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage, handleStateSelect, selectedState]);
   useTutorialActions(tutorialActionHandlers);
 
   return (

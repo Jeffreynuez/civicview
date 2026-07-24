@@ -150,6 +150,50 @@ export const TUTORIAL_SEGMENTS = [
     ],
   },
   {
+    id: 'state-officials',
+    title: 'State officials & courts',
+    tier: 'browse',
+    steps: [
+      {
+        route: '/',
+        target: 'side-panel',
+        // Live demo: opens the State tab (keeps the user's selected
+        // state; falls back to Florida when none is selected).
+        action: 'demo-open-state-tab',
+        title: 'Your state government',
+        body: 'Congress is only half the story. The State tab covers the state level: the governor and lieutenant governor, statewide officials like the attorney general, and the FULL state legislature — every state senator and house member, for all 50 states. We just opened a real one so you can browse.',
+      },
+      {
+        route: '/',
+        target: 'side-panel',
+        title: 'State legislators & the courts',
+        body: 'Each section expands — tap a state legislator to see their profile, the bills they sponsor, and their votes, pulled live from official state records. The courts sections list the state supreme court and appellate courts, with recent opinions where available. Everything here can be tracked and compared, same as Congress.',
+      },
+    ],
+  },
+  {
+    id: 'elections',
+    title: 'Elections, your ballot & candidates',
+    tier: 'browse',
+    steps: [
+      {
+        route: '/',
+        target: 'side-panel',
+        // Live demo: opens the Elections tab for the selected state
+        // (Florida fallback — the most fully curated election data).
+        action: 'demo-open-elections-tab',
+        title: 'Upcoming elections & key dates',
+        body: 'The Elections tab lays out every upcoming election in the state: primaries and generals with their dates, voter-registration deadlines, and race-by-race sections — U.S. Senate and House, statewide offices, and the state legislature. Closed-primary states get a heads-up about party registration rules, and open seats are flagged.',
+      },
+      {
+        route: '/',
+        target: 'side-panel',
+        title: 'Candidates & your ballot',
+        body: 'Expand any race to see the full field — incumbents tagged, primaries split by party with “choose 1” guidance. Every candidate has a profile with their background, stated positions, and (for federal races) live fundraising from FEC filings. Use the address lookup from the map segment and this tab scopes to YOUR actual ballot, polling place included. Candidates can be tracked and compared, just like sitting officials.',
+      },
+    ],
+  },
+  {
     id: 'compare',
     title: 'The compare feature',
     tier: 'browse',
