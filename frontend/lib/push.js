@@ -22,6 +22,7 @@
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
+const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
 
 export function isNativeApp() {
   try {
@@ -103,6 +104,7 @@ export async function enablePush() {
       try {
         await postJson('/api/push/register', { token: value, platform: 'android' });
         setPushChoice('enabled');
+        try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
         finish({ ok: true });
       } catch { finish({ ok: false, reason: 'network' }); }
     });
@@ -112,6 +114,27 @@ export async function enablePush() {
     });
     try { PN.register(); } catch { clearTimeout(timer); finish({ ok: false, reason: 'register' }); }
   });
+}
+
+/** True when the user has enabled push on this device. */
+export function isPushEnabled() {
+  return getPushChoice() === 'enabled';
+}
+
+/**
+ * Turn push off for this device: forget the token server-side and
+ * record the choice. The OS permission stays granted (that's the
+ * user's to manage in system settings) — we simply stop sending.
+ */
+export async function disablePush() {
+  let token = null;
+  try { token = window.localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
+  if (token) {
+    try { await postJson('/api/push/unregister', { token, platform: 'android' }); } catch { /* best effort */ }
+    try { window.localStorage.removeItem(TOKEN_KEY); } catch { /* private mode */ }
+  }
+  setPushChoice('declined');
+  return { ok: true };
 }
 
 /**

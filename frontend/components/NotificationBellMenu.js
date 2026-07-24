@@ -6,6 +6,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useIsMobile } from '@/lib/useViewport';
 import { useChannelPrefs, setChannelPrefs } from '@/lib/channelPrefs';
+// Mobile push went live 2026-07-24 (FCM, lib/push.js). Inside the
+// native shell the 'mobile_push' channel row below becomes a real
+// toggle; on the web it keeps its SOON placeholder.
+import { isNativeApp, isPushEnabled, enablePush, disablePush } from '@/lib/push';
 import {
   fetchNotifications,
   markNotificationRead,
@@ -33,6 +37,23 @@ const NOTIF_POLL_MS = 60000;
  * "coming soon" toggles so users can see what's on the roadmap.
  */
 export default function NotificationBellMenu() {
+  // Live mobile-push state (native app only; harmless no-op on web).
+  // Read post-mount so SSR/hydration stay consistent.
+  const [pushOn, setPushOn] = useState(false);
+  const [pushBusy, setPushBusy] = useState(false);
+  useEffect(() => { setPushOn(isPushEnabled()); }, []);
+  const handleMobilePushToggle = async (v) => {
+    setPushBusy(true);
+    if (v) {
+      const res = await enablePush();
+      setPushOn(!!res.ok);
+    } else {
+      await disablePush();
+      setPushOn(false);
+    }
+    setPushBusy(false);
+  };
+
   const { prefs, schema } = useChannelPrefs();
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
@@ -285,16 +306,36 @@ export default function NotificationBellMenu() {
           }}>
             Delivery channels
           </div>
-          {schema.options.map((opt) => (
-            <ChannelToggle
-              key={opt.key}
-              label={opt.label}
-              description={opt.description}
-              checked={Boolean(prefs[opt.key])}
-              disabled={!opt.available}
-              onChange={(v) => setChannelPrefs({ [opt.key]: v })}
-            />
-          ))}
+          {schema.options.map((opt) => {
+            // Live mobile push in the native app — overrides the
+            // schema's available:false placeholder. Toggling on runs
+            // the permission + FCM registration flow; off forgets the
+            // device server-side.
+            if (opt.key === 'mobile_push' && isNativeApp()) {
+              return (
+                <ChannelToggle
+                  key={opt.key}
+                  label={opt.label}
+                  description={pushBusy
+                    ? 'Setting up…'
+                    : 'Alerts when officials you track post updates or run polls.'}
+                  checked={pushOn}
+                  disabled={pushBusy}
+                  onChange={handleMobilePushToggle}
+                />
+              );
+            }
+            return (
+              <ChannelToggle
+                key={opt.key}
+                label={opt.label}
+                description={opt.description}
+                checked={Boolean(prefs[opt.key])}
+                disabled={!opt.available}
+                onChange={(v) => setChannelPrefs({ [opt.key]: v })}
+              />
+            );
+          })}
 
           <div style={{
             fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
