@@ -6,7 +6,11 @@
 #                              -> token binds to the account (personal
 #                              tracked-activity pushes). Anonymous ->
 #                              token joins the 'announcements' broadcast
-#                              topic instead (background task).
+#                              topic (background task) AND — since
+#                              Notifications v2 part 3 — may carry its
+#                              own tracked-official key list + a channel
+#                              prefs snapshot, so tracked-activity
+#                              pushes reach installs that never sign in.
 # POST /api/push/unregister  — forget a token (sign-out / opt-out).
 #
 # CSRF: NOT exempt — the standard middleware applies. The frontend
@@ -16,9 +20,10 @@
 
 from __future__ import annotations
 
+import json
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import BaseModel, Field
@@ -32,10 +37,43 @@ from app.services.push_service import ANNOUNCEMENTS_TOPIC, get_push_service
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
+# Caps for the optional v2 register fields. Tracked keys use the same
+# officialKey() format as the frontend (bioguide id / backend id,
+# lowercased) — 64 chars matches TrackedOfficial.official_key.
+_TRACKED_MAX_KEYS = 200
+_TRACKED_MAX_KEY_LEN = 64
+
 
 class PushTokenIn(BaseModel):
     token: str = Field(min_length=8, max_length=512)
     platform: str = Field(default="android", max_length=16)
+    # Notifications v2 (both optional; absent = leave stored value
+    # untouched, so an old-app register can't wipe a newer one):
+    #   tracked — this device's tracked-official keys. Consulted by the
+    #     fan-out only for anonymous rows; bound accounts resolve
+    #     tracking server-side. [] explicitly clears.
+    #   prefs — channel-prefs snapshot ({quiet_hours, digest_cadence,
+    #     tz_offset_minutes}) for per-device quiet-hours/cadence
+    #     enforcement when the device is anonymous.
+    tracked: Optional[List[str]] = None
+    prefs: Optional[dict] = None
+
+
+def _normalize_tracked(keys: List[str]) -> List[str]:
+    """Lowercase, trim, dedupe, and cap the tracked-key list. Oversize
+    single keys are dropped rather than erroring — one junk entry
+    shouldn't break a whole device registration."""
+    seen: set = set()
+    out: List[str] = []
+    for raw in keys[:_TRACKED_MAX_KEYS]:
+        if not isinstance(raw, str):
+            continue
+        key = raw.strip().lower()
+        if not key or len(key) > _TRACKED_MAX_KEY_LEN or key in seen:
+            continue
+        seen.add(key)
+        out.append(key)
+    return out
 
 
 def _subscribe_announcements_bg(token: str) -> None:
@@ -64,6 +102,17 @@ def register_device(
         # (Re-)bind to the current citizen — a shared/hand-me-down
         # device follows whoever is signed in on it.
         row.citizen_id = citizen.id
+    # v2 optional fields — None means "not sent" (old app build or a
+    # launch-time re-register before stores hydrate) and leaves the
+    # stored value alone; an explicit [] / {} clears.
+    if payload.tracked is not None:
+        normalized = _normalize_tracked(payload.tracked)
+        row.tracked_json = json.dumps(normalized) if normalized else None
+    if payload.prefs is not None:
+        from app.routers.auth_citizen import sanitize_notification_prefs
+
+        prefs = sanitize_notification_prefs(payload.prefs)
+        row.prefs_json = json.dumps(prefs, ensure_ascii=False) if prefs else None
     db.commit()
     if citizen is None:
         # Anonymous device -> broadcast channel. Signed-in devices get

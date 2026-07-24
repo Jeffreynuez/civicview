@@ -110,6 +110,7 @@ export function trackOfficial(member) {
   cache[key] = snapshot;
   notify();
   apiPostTrackOfficial({ official_key: key, snapshot, prefs }).catch(() => {});
+  _syncPushTrackedList();
 }
 
 export function untrackOfficial(member) {
@@ -119,7 +120,21 @@ export function untrackOfficial(member) {
     delete cache[key];
     notify();
     apiDeleteTrackedOfficial(key).catch(() => {});
+    _syncPushTrackedList();
   }
+}
+
+// Notifications v2 part 3: a push-enabled ANONYMOUS device carries its
+// tracked-official keys on its DeviceToken row so tracked-activity
+// pushes reach installs that never sign in. Keep that server-side list
+// in step with the user's track/untrack actions. Dynamic import breaks
+// the module cycle (push.js reads this store at register time);
+// syncPushRegistration itself no-ops on web / push-off / no token and
+// debounces, so this is free everywhere it doesn't apply.
+function _syncPushTrackedList() {
+  import('./push')
+    .then((m) => m.syncPushRegistration && m.syncPushRegistration())
+    .catch(() => { /* non-critical */ });
 }
 
 export function toggleOfficial(member) {

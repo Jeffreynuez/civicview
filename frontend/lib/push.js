@@ -61,6 +61,37 @@ async function csrfToken() {
   } catch { return null; }
 }
 
+/**
+ * Optional v2 register fields (Notifications v2 parts 3+4):
+ *   tracked — this device's tracked-official keys, so ANONYMOUS
+ *     installs get tracked-activity pushes too. The tracked store is
+ *     in-memory (server-backed for signed-in identities), so we only
+ *     send the list when it's non-empty — a launch-time re-register
+ *     that runs before stores hydrate must not wipe the server-side
+ *     copy. Omitted field = "leave stored value alone" server-side.
+ *   prefs — channel-prefs snapshot + tz offset for per-device
+ *     quiet-hours/cadence enforcement while anonymous.
+ * Dynamic imports keep this module cycle-free (trackedOfficials.js
+ * imports nothing from here) and cost nothing in the native shell.
+ */
+async function v2RegisterFields() {
+  const extra = {};
+  try {
+    const { getAllTrackedOfficials } = await import('./trackedOfficials');
+    const keys = (getAllTrackedOfficials() || [])
+      .map((o) => o && o.key)
+      .filter(Boolean);
+    if (keys.length) extra.tracked = keys;
+  } catch { /* store unavailable — omit */ }
+  try {
+    const { getChannelPrefs } = await import('./channelPrefs');
+    let tz = 0;
+    try { tz = -new Date().getTimezoneOffset(); } catch { /* keep 0 */ }
+    extra.prefs = { ...getChannelPrefs(), tz_offset_minutes: tz };
+  } catch { /* omit */ }
+  return extra;
+}
+
 async function postJson(path, body) {
   const headers = { 'Content-Type': 'application/json' };
   const csrf = await csrfToken();
@@ -102,7 +133,8 @@ export async function enablePush() {
     PN.addListener('registration', async ({ value }) => {
       clearTimeout(timer);
       try {
-        await postJson('/api/push/register', { token: value, platform: 'android' });
+        const extra = await v2RegisterFields();
+        await postJson('/api/push/register', { token: value, platform: 'android', ...extra });
         setPushChoice('enabled');
         try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
         finish({ ok: true });
@@ -145,4 +177,32 @@ export async function disablePush() {
 export function refreshPushRegistration() {
   if (!isNativeApp() || getPushChoice() !== 'enabled') return;
   enablePush().catch(() => { /* silent — next launch retries */ });
+}
+
+/**
+ * Lightweight server-side re-sync of this device's tracked list +
+ * prefs snapshot — POSTs the cached token straight to /api/push/register
+ * with the v2 fields, no permission flow / native round-trip. Called
+ * (debounced) by trackedOfficials.js after track/untrack so an
+ * anonymous device's server-side tracked list follows its choices.
+ * No-op on web, when push is off, or when no token is cached.
+ */
+let syncTimer = null;
+export function syncPushRegistration() {
+  if (!isNativeApp() || getPushChoice() !== 'enabled') return;
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(async () => {
+    syncTimer = null;
+    let token = null;
+    try { token = window.localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
+    if (!token) return;
+    try {
+      const extra = await v2RegisterFields();
+      // Untracking down to zero must clear server-side: send an
+      // explicit [] here (we KNOW the store is hydrated — the user
+      // just acted on it), unlike the launch-time omit-when-empty.
+      if (!extra.tracked) extra.tracked = [];
+      await postJson('/api/push/register', { token, platform: 'android', ...extra });
+    } catch { /* best effort — next launch re-registers anyway */ }
+  }, 800);
 }

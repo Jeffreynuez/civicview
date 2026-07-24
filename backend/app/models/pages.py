@@ -1188,6 +1188,18 @@ class CitizenAccount(Base):
         Boolean, server_default=sa_expression.false(), default=False, nullable=False
     )
     digest_last_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Account-synced delivery-channel preferences (Notifications v2
+    # part 2, 2026-07-24). JSON-encoded dict mirroring the frontend's
+    # CHANNEL_SCHEMA prefs (in_app / mobile_push / quiet_hours /
+    # digest_cadence / tz_offset_minutes, ...). Same Text-holding-JSON
+    # convention as Notification.payload_json. NULL = the citizen has
+    # never synced prefs (bell panel falls back to localStorage) — and
+    # crucially, the push send path applies NO quiet-hours/cadence
+    # suppression when this is NULL, preserving pre-v2 behavior for
+    # accounts that never touched the panel while signed in.
+    # Nullable Text → boot-time auto-migrate adds it with no
+    # server_default needed (db.py BOOLEAN NOT NULL caveat n/a).
+    notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.
@@ -2044,11 +2056,14 @@ class LoginAttempt(Base):
 class DeviceToken(Base):
     """A mobile device registered for push notifications (FCM).
 
-    citizen_id NULL = anonymous device — it receives only the
-    'announcements' broadcast topic (subscription managed server-side
-    in routers/push.py). Bound devices get personal tracked-activity
-    pushes via services/push_service.push_tracked_post. Tokens are
-    pruned automatically when FCM reports them unregistered."""
+    citizen_id NULL = anonymous device. Pre-v2 those received only the
+    'announcements' broadcast topic; since Notifications v2 part 3
+    (2026-07-24) an anonymous device can also carry its own tracked-
+    official key list (tracked_json) so tracked-activity pushes reach
+    installs that never sign in. Bound devices get personal tracked-
+    activity pushes via services/push_service.push_tracked_post.
+    Tokens are pruned automatically when FCM reports them
+    unregistered."""
 
     __tablename__ = "device_tokens"
 
@@ -2059,3 +2074,26 @@ class DeviceToken(Base):
     citizen_id: Mapped[Optional[int]] = mapped_column(Integer, index=True, default=None)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     last_seen_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Notifications v2 (2026-07-24) — all three nullable, auto-migrate
+    # safe, same Text-holding-JSON convention as Notification.payload_json.
+    #
+    # tracked_json: JSON array of lowercased tracked-official keys
+    #   (bioguide id or backend id — same officialKey() format the
+    #   frontend uses). Only consulted for ANONYMOUS rows (citizen_id
+    #   NULL) in the push fan-out; bound devices resolve tracking from
+    #   the TrackedOfficial table via their account. Updated on every
+    #   /api/push/register that carries a `tracked` field. At current
+    #   scale the fan-out filters these in Python — if anonymous-device
+    #   counts ever get big, promote to JSONB + GIN containment.
+    tracked_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # prefs_json: device-local snapshot of the channel prefs
+    #   (quiet_hours / digest_cadence / tz_offset_minutes) sent at
+    #   register time. Used for quiet-hours + cadence enforcement on
+    #   ANONYMOUS devices; bound devices prefer the account's
+    #   CitizenAccount.notification_prefs_json. NULL = no enforcement
+    #   (pre-v2 devices keep pre-v2 behavior until they re-register).
+    prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # last_push_at: when we last actually sent a push to this device —
+    #   the cadence min-gap throttle's clock (daily ≈ one push / 20h,
+    #   weekly ≈ one push / 6d). NULL = never pushed.
+    last_push_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)

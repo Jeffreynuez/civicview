@@ -17,6 +17,7 @@ Citizen Jane Doe in another without juggling logins.
 from __future__ import annotations
 
 from datetime import datetime
+import json
 import logging
 import re
 import secrets
@@ -545,6 +546,114 @@ def digest_preview(
         "subject": subject,
         "html": html_body,
     }
+
+
+# ── Account-synced notification prefs (Notifications v2 part 2) ─────
+# The navbar bell panel's delivery-channel prefs (in_app, mobile_push,
+# quiet_hours, digest_cadence, ...) were localStorage-only. These two
+# endpoints make the signed-in citizen's account the source of truth so
+# choices follow them across devices. The frontend still keeps its
+# localStorage mirror for anonymous visitors and as an offline cache.
+#
+# Validation is shape-based rather than a key allowlist: the schema
+# lives in the frontend (lib/notificationPrefs.js CHANNEL_SCHEMA) and
+# evolves there; a server-side allowlist would go stale silently. We
+# instead cap size and value types hard so the column can't become a
+# junk drawer. The push send path (services/push_service.py) reads
+# quiet_hours / digest_cadence / tz_offset_minutes out of this blob.
+
+_NOTIF_PREFS_MAX_KEYS = 64
+_NOTIF_PREFS_MAX_KEY_LEN = 64
+_NOTIF_PREFS_MAX_STR_LEN = 64
+
+
+def sanitize_notification_prefs(raw: object) -> dict:
+    """Validate + normalize a prefs payload. Raises HTTP 422 on shape
+    violations. Values must be bool, int (bounded), or short strings —
+    nothing nested, so the JSON blob stays flat and small. Shared with
+    routers/push.py for the per-device prefs snapshot."""
+    if not isinstance(raw, dict):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="prefs must be an object",
+        )
+    if len(raw) > _NOTIF_PREFS_MAX_KEYS:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"prefs may hold at most {_NOTIF_PREFS_MAX_KEYS} keys",
+        )
+    out: dict = {}
+    for key, value in raw.items():
+        if not isinstance(key, str) or not key or len(key) > _NOTIF_PREFS_MAX_KEY_LEN:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="prefs keys must be non-empty strings (max 64 chars)",
+            )
+        # bool check must precede int — bool is an int subclass.
+        if isinstance(value, bool):
+            out[key] = value
+        elif isinstance(value, int):
+            # Only small ints have a legitimate use here (tz offset in
+            # minutes is the widest: ±14h = ±840).
+            if abs(value) > 100000:
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail=f"prefs int value out of range for {key!r}",
+                )
+            out[key] = value
+        elif isinstance(value, str):
+            if len(value) > _NOTIF_PREFS_MAX_STR_LEN:
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail=f"prefs string value too long for {key!r}",
+                )
+            out[key] = value
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=f"prefs values must be bool, int, or string ({key!r})",
+            )
+    return out
+
+
+class NotificationPrefsRequest(BaseModel):
+    """Body for PUT /me/notification-prefs. The full prefs object is
+    sent each time (it's tiny) — no patch semantics to get wrong."""
+    prefs: dict
+
+
+@router.get("/me/notification-prefs")
+def get_notification_prefs(
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+):
+    """Return the account's synced channel prefs, or prefs=null when
+    the citizen has never synced (frontend keeps its local values)."""
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = None
+    if citizen.notification_prefs_json:
+        try:
+            prefs = json.loads(citizen.notification_prefs_json)
+        except (ValueError, TypeError):
+            prefs = None  # Corrupt blob — treat as never-synced.
+    return {"prefs": prefs}
+
+
+@router.put("/me/notification-prefs")
+def put_notification_prefs(
+    body: NotificationPrefsRequest,
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Replace the account's synced channel prefs with the sanitized
+    payload. Returns the stored prefs so the client can reconcile."""
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = sanitize_notification_prefs(body.prefs)
+    citizen.notification_prefs_json = json.dumps(prefs, ensure_ascii=False)
+    db.add(citizen)
+    db.commit()
+    return {"prefs": prefs}
 
 
 # ── Self-serve account deletion (Task #81) ──────────────────────────

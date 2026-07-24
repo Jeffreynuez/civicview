@@ -69,6 +69,7 @@ export default function PrivacyPage() {
         <li><strong>IP address</strong> — visible to our backend on every request. Used for rate-limiting and abuse detection; not stored long-term. We don't build IP-based profiles.</li>
         <li><strong>Browser type + device info</strong> — present in standard HTTP headers; we don't log it beyond what our hosting provider's request logs retain.</li>
         <li><strong>Cookies</strong> — httpOnly session cookies (<code>cl_session</code> for reps, <code>cl_citizen</code> for citizens, <code>cl_candidate</code> for candidates). No tracking cookies. No third-party advertising cookies. No analytics cookies.</li>
+        <li><strong>Push notification token (Android app, only if you enable push)</strong> — a device identifier issued by Google Firebase Cloud Messaging so we can deliver the alerts you asked for. If you enable push without signing in, we also store the list of officials you track on that device alongside the token — that list is what lets us send you their updates, and it's used for nothing else. Your notification settings (like quiet hours and how often to be alerted, including your timezone offset) are stored so we respect them when sending. Turning push off deletes the token and everything stored with it.</li>
       </ul>
 
       <h2>How we use your data</h2>
