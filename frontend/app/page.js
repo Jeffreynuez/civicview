@@ -24,7 +24,7 @@ import ClaimPageModal from '@/components/ClaimPageModal';
 import ConstituentDashboard from '@/components/ConstituentDashboard';
 import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
-import { fetchAllStateData, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
 import { useAuth, logoutRep } from '@/lib/auth';
@@ -365,41 +365,6 @@ export default function Home() {
   const handleCitizenLogoutClick = useCallback(async () => {
     await logoutCitizen();
   }, []);
-
-  // ─── Guided-tour bridge (lib/tutorial.js) ────────────────────────
-  // The TutorialOverlay (mounted in the root layout) drives surfaces
-  // that live behind this page's React state — My Tracked, Feedback,
-  // Help Build, the citizen login modal — by emitting bridge actions.
-  // Map them onto the existing open/close handlers here. Unknown
-  // actions are ignored by the listener, and on routes that don't
-  // mount this page (/polls, /bills) the emit is a harmless no-op —
-  // the tour step degrades to panel-only text.
-  const tutorialActionHandlers = useMemo(() => ({
-    'open-citizen-login': () => setCitizenLoginOpen(true),
-    // Tucks the mobile stacked-layout map away (mapHeightPx is unused
-    // by the side-by-side layout, so this is a no-op on desktop).
-    // Deliberately NOT handleMapResize(0) — that would persist
-    // 'cl:map:collapsed' as if the USER closed it; a tour-driven
-    // collapse should not survive the next reload.
-    'collapse-map': () => setMapHeightPx(0),
-    'close-citizen-login': () => setCitizenLoginOpen(false),
-    'open-tracked': () => setTrackedOpen(true),
-    'close-tracked': () => setTrackedOpen(false),
-    'open-feedback': () => setFeedbackOpen(true),
-    'close-feedback': () => setFeedbackOpen(false),
-    'open-help-build': () => setHelpBuildOpen(true),
-    'close-help-build': () => setHelpBuildOpen(false),
-    // Fired when the tour jumps between segments so a surface opened
-    // by a skipped step never lingers under the next one.
-    'close-overlays': () => {
-      setCitizenLoginOpen(false);
-      setTrackedOpen(false);
-      setFeedbackOpen(false);
-      setHelpBuildOpen(false);
-      setCommitteesOpen(false);
-    },
-  }), []);
-  useTutorialActions(tutorialActionHandlers);
 
   const handleOpenPage = useCallback((id, meta) => {
     if (!id) return;
@@ -1188,6 +1153,107 @@ export default function Home() {
     // Now open the member profile (fetch full detail if the index entry is thin)
     await handleMemberSelect(member);
   }, [selectedState, handleMemberSelect]);
+
+  // Random member picks for the guided tour's live demos. Pulls the
+  // same index the navbar search uses (edge-cached, cheap) and
+  // samples without replacement so a pair never repeats a person.
+  const pickRandomMembers = useCallback(async (n) => {
+    try {
+      const { data } = await fetchAllMembers();
+      const pool = (data || []).filter((m) => m && (m.bioguide_id || m.id));
+      if (pool.length < n) return [];
+      const picked = [];
+      for (let i = 0; i < n; i += 1) {
+        const idx = Math.floor(Math.random() * pool.length);
+        picked.push(pool.splice(idx, 1)[0]);
+      }
+      return picked;
+    } catch {
+      return []; // demo steps degrade to text-only — never block the tour
+    }
+  }, []);
+
+  // ─── Guided-tour bridge (lib/tutorial.js) ────────────────────────
+  // The TutorialOverlay (mounted in the root layout) drives surfaces
+  // that live behind this page's React state — My Tracked, Feedback,
+  // Help Build, the citizen login modal — by emitting bridge actions.
+  // Map them onto the existing open/close handlers here. Unknown
+  // actions are ignored by the listener, and on routes that don't
+  // mount this page (/polls, /bills) the emit is a harmless no-op —
+  // the tour step degrades to panel-only text.
+  const tutorialActionHandlers = useMemo(() => ({
+    'open-citizen-login': () => setCitizenLoginOpen(true),
+    // Tucks the mobile stacked-layout map away (mapHeightPx is unused
+    // by the side-by-side layout, so this is a no-op on desktop).
+    // Deliberately NOT handleMapResize(0) — that would persist
+    // 'cl:map:collapsed' as if the USER closed it; a tour-driven
+    // collapse should not survive the next reload.
+    'collapse-map': () => setMapHeightPx(0),
+    // Live demos — the tour opens REAL surfaces with randomly-picked
+    // members of Congress so every walkthrough shows actual content.
+    'demo-open-profile': async () => {
+      const [m] = await pickRandomMembers(1);
+      if (m) handleGlobalMemberPick(m);
+    },
+    'demo-close-profile': () => handleCloseProfile(),
+    'demo-compare': async () => {
+      handleCloseProfile();
+      const pair = await pickRandomMembers(2);
+      if (pair.length === 2) {
+        setCompareItems(pair.map((m) => ({ ...m, _kind: 'official' })));
+        setCompareOpen(true);
+      }
+    },
+    'demo-open-page': async () => {
+      // Sweep the compare demo (and any open profile) first so the
+      // page view is what the user sees.
+      setCompareOpen(false);
+      setCompareItems([]);
+      handleCloseProfile();
+      const [m] = await pickRandomMembers(1);
+      if (m) {
+        handleOpenPage(m.bioguide_id || m.id, {
+          displayName: m.name,
+          role: m.chamber
+            ? `${m.chamber}${m.district ? `, District ${m.district}` : ''}`
+            : null,
+          photoUrl: m.photoUrl || null,
+        });
+      }
+    },
+    'demo-close-page': () => {
+      setSelectedPageOfficialId(null);
+      setPageMeta(null);
+    },
+    'close-citizen-login': () => setCitizenLoginOpen(false),
+    'open-tracked': () => setTrackedOpen(true),
+    'close-tracked': () => setTrackedOpen(false),
+    'open-feedback': () => setFeedbackOpen(true),
+    'close-feedback': () => setFeedbackOpen(false),
+    'open-help-build': () => setHelpBuildOpen(true),
+    'close-help-build': () => setHelpBuildOpen(false),
+    // Fired when the tour jumps between segments so a surface opened
+    // by a skipped step never lingers under the next one.
+    'close-overlays': () => {
+      setCitizenLoginOpen(false);
+      setTrackedOpen(false);
+      setFeedbackOpen(false);
+      setHelpBuildOpen(false);
+      setCommitteesOpen(false);
+      // Sweep the live-demo surfaces too so a segment jump never
+      // strands a demo profile / comparison / page under the next
+      // segment's step.
+      setCompareOpen(false);
+      setCompareItems([]);
+      handleCloseProfile();
+      setSelectedPageOfficialId(null);
+      setPageMeta(null);
+    },
+    // handleGlobalMemberPick re-binds when selectedState changes; the
+    // others are stable. Re-memoizing (and re-binding the listener)
+    // on state switches is cheap and keeps the closures fresh.
+  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage]);
+  useTutorialActions(tutorialActionHandlers);
 
   return (
     <div className="flex flex-col cl-h-screen-visible">

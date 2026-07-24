@@ -129,8 +129,11 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: 'side-panel',
+        // Live demo: opens a random member of Congress's profile so
+        // the next two steps describe a real profile on screen.
+        action: 'demo-open-profile',
         title: 'Open any official’s profile',
-        body: 'Click any person in the panel to open their full profile: who they are, the committees they sit on, and the issues they focus on — every claim sourced from official records.',
+        body: 'Click any person in the panel to open their full profile: who they are, the committees they sit on, and the issues they focus on — every claim sourced from official records. We just opened one at random so you can see the real thing.',
       },
       {
         route: '/',
@@ -154,14 +157,21 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: 'side-panel',
+        // Close the demo profile from the previous segment so the
+        // roster (with its Compare toggles) is what's on screen.
+        action: 'demo-close-profile',
         title: 'Compare officials & candidates side-by-side',
-        body: 'Every profile and candidate card has a Compare toggle. Add up to three people — officials, candidates, or a mix — and a tray appears at the bottom of the screen.',
+        body: 'Every profile and candidate card has a Compare toggle. Add up to three people — officials, candidates, or a mix — and a tray appears at the bottom of the screen. Press Next and we’ll grab two members of Congress at random and compare them for you, live.',
       },
       {
         route: '/',
-        target: 'compare-tray',
+        // The comparison view is a full overlay with its own chrome —
+        // no spotlight needed.
+        target: null,
+        // Live demo: two random members, straight into the view.
+        action: 'demo-compare',
         title: 'The comparison view',
-        body: 'Open the tray to see them side-by-side: roles, issue focus, and — for members of Congress — shared roll-call votes with an agreement-rate bar showing how often they voted the same way. It’s the fastest way to see where two people actually differ, based on votes rather than rhetoric.',
+        body: 'This is a real comparison — two members picked at random. Side-by-side you get roles, issue focus, and shared roll-call votes with an agreement-rate bar showing how often they voted the same way. It’s the fastest way to see where two people actually differ, based on votes rather than rhetoric.',
       },
     ],
   },
@@ -172,15 +182,18 @@ export const TUTORIAL_SEGMENTS = [
     steps: [
       {
         route: '/',
-        target: 'side-panel',
+        target: null,
+        // Live demo: closes the comparison and opens a random
+        // official's real page as a full-screen view.
+        action: 'demo-open-page',
         title: 'Every official has a page',
-        body: 'Beyond the data profile, every rep and candidate has a public page — a moderated, district-scoped channel where verified officials post updates, run polls, and list events like town halls. Open one via “View page” from any profile.',
+        body: 'Beyond the data profile, every rep and candidate has a public page — a moderated, district-scoped channel where verified officials post updates, run polls, and list events like town halls. You’re looking at a real one, picked at random; from any profile, “View page” brings you here.',
       },
       {
         route: '/',
         target: null,
         title: 'Claimed vs. unclaimed pages',
-        body: 'Pages exist for every official from day one. When the official themselves verifies and claims their page, their posts carry a verified badge and an “Author” marker. On unclaimed pages, citizens can still run polls about that office — the conversation doesn’t wait for the official to show up.',
+        body: 'Pages exist for every official from day one — the one on your screen is almost certainly still unclaimed. When the official verifies and claims their page, their posts carry a verified badge and an “Author” marker. On unclaimed pages, citizens can still run polls about that office — the conversation doesn’t wait for the official to show up.',
       },
     ],
   },
@@ -192,6 +205,9 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: 'nav-citizen-login',
+        // Close the demo page from the previous segment so the home
+        // navbar (and its login button) is front and center.
+        action: 'demo-close-page',
         title: 'Create a citizen account',
         body: 'Browsing needs no account. To engage — like, vote on polls, comment — you’ll want a citizen account. Right now CivicView is in demo preview: anyone can create a free demo account in seconds, no email verification required, and it unlocks the full engagement experience.',
       },
