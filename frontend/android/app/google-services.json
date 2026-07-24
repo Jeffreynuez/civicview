@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "495705028281",
+    "project_id": "civicview-18",
+    "storage_bucket": "civicview-18.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495705028281:android:ea7dd80f9d428a3e448d68",
+        "android_client_info": {
+          "package_name": "app.civicview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuUCajGEtvIJ93EaacQ1toeJTULfgyx_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
