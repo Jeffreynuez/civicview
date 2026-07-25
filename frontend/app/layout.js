@@ -29,6 +29,10 @@ import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 // APP_LATEST_VERSION_CODE — both env-gated server-side, inert by
 // default. Mounted at the root so the blocker covers every route.
 import AppUpdateGate from '@/components/AppUpdateGate';
+// Push-tap deep links (native only, renders nothing): tapping a
+// tracked-post notification opens the exact post. Root-mounted so the
+// listener exists regardless of which route the app opens on.
+import PushTapNavigator from '@/components/PushTapNavigator';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -126,6 +130,7 @@ export default function RootLayout({ children }) {
         <TutorialOverlay />
         <ServiceWorkerRegistration />
         <AppUpdateGate />
+        <PushTapNavigator />
       </body>
     </html>
   );

@@ -180,6 +180,40 @@ export function refreshPushRegistration() {
 }
 
 /**
+ * Push deep links (2026-07-25). Registers the notification-TAP
+ * listener so tapping a tracked-post push opens the exact post: the
+ * push payload carries {kind, official_id, post_id} (set server-side
+ * in push_tracked_post), and PageView's '#post-<id>' hash handler
+ * scrolls + pulses the post once the feed mounts.
+ *
+ * Full navigation (location.assign) rather than history nudging: a
+ * tap either cold-starts the app or foregrounds it from anywhere, so
+ * a clean load of the target page is the predictable path. Capacitor
+ * buffers the launching notification's tap event until a listener
+ * attaches, so registering on root-layout mount also catches taps
+ * that START the app. Module-level once-flag — the registration is
+ * process-wide, not per-component.
+ */
+let tapNavInstalled = false;
+export function initPushTapNavigation() {
+  if (tapNavInstalled || !isNativeApp()) return;
+  const PN = plugin();
+  if (!PN) return;
+  tapNavInstalled = true;
+  try {
+    PN.addListener('pushNotificationActionPerformed', (action) => {
+      try {
+        const d = (action && action.notification && action.notification.data) || {};
+        if (d.kind !== 'tracked_post' || !d.official_id) return;
+        let url = '/?page=' + encodeURIComponent(String(d.official_id));
+        if (d.post_id) url += '#post-' + encodeURIComponent(String(d.post_id));
+        window.location.assign(url);
+      } catch { /* malformed payload — open normally */ }
+    });
+  } catch { /* plugin variant without the event — fail open */ }
+}
+
+/**
  * Lightweight server-side re-sync of this device's tracked list +
  * prefs snapshot — POSTs the cached token straight to /api/push/register
  * with the v2 fields, no permission flow / native round-trip. Called
