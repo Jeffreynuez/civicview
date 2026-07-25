@@ -28,6 +28,20 @@ export default function PushOptInPrompt({ citizen }) {
     setVisible(!!citizen && shouldOfferPush());
   }, [citizen]);
 
+  // Second contextual trigger (2026-07-25, Jeffrey's ask): the moment
+  // the user TRACKS something — official, bill, or election — is the
+  // most natural time to offer push ("you just said you care about
+  // this — want alerts when it moves?"). The tracked stores dispatch
+  // 'cv:tracked-item' on every track action. No citizen requirement
+  // here: anonymous devices get tracked-activity pushes too
+  // (Notifications v2 part 3), so the offer is meaningful signed out.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onTracked = () => { if (shouldOfferPush()) setVisible(true); };
+    window.addEventListener('cv:tracked-item', onTracked);
+    return () => window.removeEventListener('cv:tracked-item', onTracked);
+  }, []);
+
   if (!visible) return null;
 
   const onEnable = async () => {

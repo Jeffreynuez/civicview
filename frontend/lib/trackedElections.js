@@ -98,6 +98,8 @@ export function trackElection(election) {
   cache[key] = snapshot;
   notify();
   apiPostTrackElection({ election_key: key, snapshot, prefs }).catch(() => {});
+  // Contextual push offer — see trackedOfficials._announceTrack.
+  import('./trackedOfficials').then((m) => m._announceTrack && m._announceTrack()).catch(() => {});
 }
 
 export function untrackElection(election) {

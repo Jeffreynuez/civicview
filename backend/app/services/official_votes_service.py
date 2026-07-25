@@ -30,6 +30,7 @@ vote_id scheme:  h-{congress}-{session}-{rollnum}  /  s-{congress}-{session}-{vo
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
@@ -281,6 +282,12 @@ def parse_house_roll(xml_text: str) -> dict:
         "vote_type": (mt("vote-type") or "").strip(),
         "result": (mt("vote-result") or "").strip(),
         "date": (mt("action-date") or "").strip(),
+        # Clerk EVS <vote-desc> is the human-readable bill name (e.g.
+        # "Removing Barriers to Work for Disabled Americans Act") —
+        # surfaced as `title` so the /bills page can show WHAT was
+        # voted on, not just the citation (2026-07-25, user feedback:
+        # bill numbers alone weren't identifiable).
+        "title": (mt("vote-desc") or "").strip(),
         "source_url": source_url,
         "totals": totals,
         "by_party": by_party,
@@ -666,17 +673,35 @@ class OfficialVotesService:
         return parse_house_vote_members(payload) if payload else None
 
     async def _enrich_house_row(self, rows: list[dict]) -> None:
-        """Fill the lead row's tally + question from its per-vote detail (the
-        list level carries neither). Bounded to one extra fetch — that lead row
-        is the only one that needs a tally (the home Bills card)."""
+        """Fill house recent rows from their per-vote details.
+
+        v1 enriched only the lead row (tally for the home Bills card).
+        2026-07-25: ALL rows now get `title` (+ question fill) so the
+        /bills page can show bill NAMES, not just citations — user
+        feedback was that numbers alone weren't identifiable. Cost
+        profile: per-vote details are cached forever (immutable), so
+        the concurrent fan-out below only hits the network for votes
+        not already in cache — in steady state that's just the votes
+        that are new since the last RECENT_TTL window. Concurrency is
+        capped so a cold cache doesn't burst-fire at the Clerk/API."""
         if not rows:
             return
-        detail = await self.get_vote_members(rows[0]["vote_id"])
-        if detail:
-            t = detail.get("totals") or {}
-            rows[0]["tally"] = {"yea": t.get("yea", 0), "nay": t.get("nay", 0)}
-            if detail.get("question") and not rows[0].get("question"):
-                rows[0]["question"] = detail["question"]
+        sem = asyncio.Semaphore(6)
+
+        async def fill(idx: int, row: dict) -> None:
+            async with sem:
+                detail = await self.get_vote_members(row["vote_id"])
+            if not detail:
+                return
+            if idx == 0:
+                t = detail.get("totals") or {}
+                row["tally"] = {"yea": t.get("yea", 0), "nay": t.get("nay", 0)}
+            if detail.get("question") and not row.get("question"):
+                row["question"] = detail["question"]
+            if detail.get("title") and not row.get("title"):
+                row["title"] = detail["title"]
+
+        await asyncio.gather(*(fill(i, r) for i, r in enumerate(rows)))
 
     async def _house_recent(self, congress: int, session: int, limit: int) -> list[dict]:
         """Enumerate recent House legislative votes. Primary source is the

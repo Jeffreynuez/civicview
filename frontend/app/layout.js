@@ -24,6 +24,11 @@ import TutorialOverlay from '@/components/tutorial/TutorialOverlay';
 // menu on Windows/macOS/Linux/ChromeOS). Skips the Capacitor native
 // shell. Renders nothing.
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
+// Force-update gate (native app only; renders nothing on web). Hard
+// block below APP_MIN_VERSION_CODE, dismissible nudge below
+// APP_LATEST_VERSION_CODE — both env-gated server-side, inert by
+// default. Mounted at the root so the blocker covers every route.
+import AppUpdateGate from '@/components/AppUpdateGate';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -120,6 +125,7 @@ export default function RootLayout({ children }) {
         <AndroidBackButton />
         <TutorialOverlay />
         <ServiceWorkerRegistration />
+        <AppUpdateGate />
       </body>
     </html>
   );

@@ -111,6 +111,7 @@ export function trackOfficial(member) {
   notify();
   apiPostTrackOfficial({ official_key: key, snapshot, prefs }).catch(() => {});
   _syncPushTrackedList();
+  _announceTrack();
 }
 
 export function untrackOfficial(member) {
@@ -135,6 +136,13 @@ function _syncPushTrackedList() {
   import('./push')
     .then((m) => m.syncPushRegistration && m.syncPushRegistration())
     .catch(() => { /* non-critical */ });
+}
+
+// Announce a track action app-wide. PushOptInPrompt listens and offers
+// push at this contextual moment (2026-07-25). Same event name is
+// dispatched by trackedBills.js / trackedElections.js.
+export function _announceTrack() {
+  try { window.dispatchEvent(new CustomEvent('cv:tracked-item')); } catch { /* SSR */ }
 }
 
 export function toggleOfficial(member) {
