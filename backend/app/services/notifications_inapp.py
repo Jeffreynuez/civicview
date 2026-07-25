@@ -139,11 +139,19 @@ def emit_tracked_content_notifications(
     Called from a BackgroundTask after create_post commits, with its
     own session — fan-out cost never rides on the posting rep's
     request latency."""
+    # Case-insensitive key match (2026-07-25): the frontend lowercases
+    # official keys (officialKey()), while page official_ids come from
+    # the DB verbatim. They agree today for registry-backed pages, but
+    # a mixed-case page id (test/internal accounts, future imports)
+    # would silently fan out to nobody. lower() both sides so tracking
+    # can never miss on case.
+    from sqlalchemy import func as _f
+
     trackers = (
         db.query(TrackedOfficial.tracker_id)
         .filter(
             TrackedOfficial.tracker_kind == "citizen",
-            TrackedOfficial.official_key == official_id,
+            _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
         )
         .all()
     )

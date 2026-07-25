@@ -5,6 +5,19 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchPage, fetchPagePosts } from '../lib/pagesApi';
+// Page-level tracking (2026-07-25): pages were only trackable through
+// their registry profiles (congress lists / candidate rosters), which
+// left page-only accounts — the internal test rep + test candidate,
+// and any future page without a registry entry — with no way to be
+// followed at all. The header Track button below closes that gap for
+// every page, registry-backed or not. Key = officialKey(member) with
+// the page's official_id, which matches how registry tracking keys
+// real officials (bioguide-first falls through to id).
+import {
+  isOfficialTracked,
+  toggleOfficial,
+  useTrackedOfficials,
+} from '../lib/trackedOfficials';
 import useScrollRestoration from '../lib/useScrollRestoration';
 import { useAuth } from '../lib/auth';
 import { useCandidateAuth } from '../lib/candidateAuth';
@@ -392,6 +405,26 @@ export default function PageView({
     (ownerName || '').split(' ').map((w) => w[0]).filter(Boolean).slice(0, 2).join('')
   ), [ownerName]);
 
+  // Header Track button (2026-07-25). Member object mirrors what the
+  // registry surfaces pass to trackOfficial, keyed by this page's
+  // official_id — for registry-backed rep pages the id IS the
+  // (lowercased) bioguide, so this stays the same tracked entry as
+  // tracking them from the congress list. useTrackedOfficials
+  // subscribes this component to store changes so the button flips
+  // between Track/Tracking wherever the change originates.
+  useTrackedOfficials();
+  const pageKindForTrack = pageKindOverride || inferPageKind(officialId);
+  const trackMember = useMemo(() => ({
+    id: officialId,
+    bioguide_id: null,
+    name: ownerName,
+    title: ownerRole,
+    role: ownerRole,
+    role_type: pageKindForTrack === 'candidate' ? 'candidate' : 'rep',
+    photoUrl: photoUrl || null,
+  }), [officialId, ownerName, ownerRole, pageKindForTrack, photoUrl]);
+  const pageTracked = isOfficialTracked(trackMember);
+
   const events = payload?.upcoming_events || [];
   const posts = payload?.posts || [];
   // Allowed composer scopes derive from the first post's allowed_scopes
@@ -633,6 +666,29 @@ export default function PageView({
                 </div>
               </div>
               </div>{/* /photo + info row */}
+              {/* Track this page (2026-07-25) — every page is followable
+                  from its own header, including page-only accounts with
+                  no registry profile (the internal test rep/candidate
+                  were previously unfollowable anywhere). Hidden for the
+                  page owner: following yourself is noise. */}
+              {!isOwner && (
+                <button
+                  type="button"
+                  onClick={() => toggleOfficial(trackMember)}
+                  aria-pressed={pageTracked}
+                  style={{
+                    padding: '8px 14px', borderRadius: '8px',
+                    border: '1px solid var(--cl-accent)',
+                    background: pageTracked ? 'var(--cl-accent-soft, #e6f4ea)' : 'white',
+                    color: 'var(--cl-accent)',
+                    fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer',
+                    width: isCompact ? '100%' : 'auto',
+                    flexShrink: 0,
+                  }}
+                >
+                  {pageTracked ? '✓ Tracking' : '+ Track'}
+                </button>
+              )}
               {!claimed && (
                 <button
                   type="button"
