@@ -108,6 +108,8 @@ export function trackBill(snapshot) {
   notify();
   // Fire-and-forget — UI already optimistic.
   apiPostTrackBill({ bill_key: key, snapshot: next, prefs }).catch(() => { /* swallow */ });
+  // Contextual push offer — see trackedOfficials._announceTrack.
+  import('./trackedOfficials').then((m) => m._announceTrack && m._announceTrack()).catch(() => {});
 }
 
 export function untrackBill(key) {

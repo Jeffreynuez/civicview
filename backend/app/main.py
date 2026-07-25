@@ -359,6 +359,12 @@ from app.routers import push as push_router  # noqa: E402
 app.include_router(push_router.router, prefix="/api/push", tags=["Push"])
 app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["Polls — Demographics"])
 
+# Native-app metadata — the force-update gate's version thresholds
+# (env-gated: APP_MIN_VERSION_CODE / APP_LATEST_VERSION_CODE; 0/unset
+# = gate inert). See routers/app_meta.py + components/AppUpdateGate.js.
+from app.routers import app_meta as app_meta_router  # noqa: E402
+app.include_router(app_meta_router.router, prefix="/api/app", tags=["App Meta"])
+
 
 @app.get("/")
 async def root():

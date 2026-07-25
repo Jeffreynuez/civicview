@@ -25,7 +25,10 @@ import { useHScroll } from '@/lib/useHScroll';
 import useScrollRestoration from '@/lib/useScrollRestoration';
 import { EdgeArrow } from '@/components/HScroll';
 import { useRouter } from 'next/navigation';
-import { fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation } from '@/lib/api';
+import {
+  fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation,
+  aiHealth, filterItems,
+} from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import SeatChart from '@/components/bills/SeatChart';
@@ -119,7 +122,9 @@ function mapVote(detail, recentRaw, chamber) {
   }));
   const title = chamber === 'Senate'
     ? (detail.title || (detail.bill && detail.bill.title) || '')
-    : ((recentRaw && recentRaw.title) || '');
+    // House detail now carries the Clerk <vote-desc> bill name
+    // (2026-07-25); recent-row enrichment is the fallback.
+    : (detail.title || (recentRaw && recentRaw.title) || '');
   return {
     id: detail.vote_id,
     chamber,
@@ -141,9 +146,16 @@ function mapVote(detail, recentRaw, chamber) {
 }
 
 function mapRecentItem(item) {
+  const cite = item.issue || ('Roll ' + item.rollcall);
+  // Bill NAME (2026-07-25, user feedback: numbers alone weren't
+  // identifiable). Senate rows carry it from the vote menu; House rows
+  // are enriched server-side from the Clerk XML's <vote-desc>. Guard
+  // against the title merely repeating the citation.
+  const title = (item.title && item.title !== cite) ? item.title : '';
   return {
     id: item.vote_id,
-    cite: item.issue || item.title || ('Roll ' + item.rollcall),
+    cite,
+    title,
     q: item.question || '',
     date: formatDate(item.date),
     result: normalizeResult(item.result),
@@ -214,6 +226,7 @@ function RecentSelector({ list, current, onPick }) {
             >
               <div className="cv-recent__rowmain">
                 <span className="cv-recent__cite">{v.cite}</span>
+                {v.title ? <span className="cv-recent__title">{v.title}</span> : null}
                 <span className="cv-recent__q">{v.q}</span>
               </div>
               <div className="cv-recent__rowmeta">
@@ -225,6 +238,136 @@ function RecentSelector({ list, current, onPick }) {
         </div>
       )}
     </div>
+  );
+}
+
+// ── Bill search over the loaded recent votes (2026-07-25) ────────────
+// Same Text/AI pattern as the rep-profile Bills tab: plain mode is a
+// live substring filter over cite+title+question; AI mode is an
+// explicit Apply that semantic-filters the loaded set via
+// /api/ai/filter-items. Works for both chambers (the corpus is
+// whatever chamber's recent list is loaded). Matches render as
+// pickable rows; picking one loads that vote.
+function VoteSearch({ list, activeId, onPick }) {
+  const [search, setSearch] = useState('');
+  const [aiMode, setAiMode] = useState(false);
+  const [aiAvailable, setAiAvailable] = useState(false);
+  const [aiBusy, setAiBusy] = useState(false);
+  const [aiMatched, setAiMatched] = useState(null); // Set<vote_id> | null
+  const [aiLabel, setAiLabel] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    aiHealth().then((h) => { if (!cancelled) setAiAvailable(!!(h && h.configured)); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const voteText = (v) => [v.cite, v.title, v.q].filter(Boolean).join(' ');
+  const clearAi = () => { setAiMatched(null); setAiLabel(''); };
+  const runAi = async () => {
+    const prompt = search.trim();
+    if (!prompt) { clearAi(); return; }
+    setAiBusy(true);
+    const items = list.map((v) => ({ id: v.id, text: voteText(v) }));
+    const res = await filterItems({ prompt, items });
+    setAiBusy(false);
+    if (!res || res.error) { setAiMatched(new Set()); setAiLabel('AI search unavailable — try Text search.'); return; }
+    setAiMatched(new Set(res.matched_ids || []));
+    setAiLabel(res.explanation || '');
+  };
+
+  const active = aiMode ? aiMatched !== null : !!search.trim();
+  const matches = useMemo(() => {
+    if (aiMode) {
+      if (aiMatched === null) return [];
+      return list.filter((v) => aiMatched.has(v.id));
+    }
+    const q = search.trim().toLowerCase();
+    if (!q) return [];
+    return list.filter((v) => voteText(v).toLowerCase().includes(q));
+  }, [list, search, aiMode, aiMatched]);
+
+  return (
+    <section className="cv-card cv-votesearch" aria-label="Search recent votes">
+      <div className="cv-votesearch__bar">
+        <input
+          type="search"
+          className="cv-votesearch__input"
+          placeholder={aiMode
+            ? 'Describe a bill — e.g. “anything about veterans’ healthcare”'
+            : 'Search recent votes by bill number or name…'}
+          value={search}
+          aria-label="Search recent votes"
+          onChange={(e) => { setSearch(e.target.value); if (!aiMode) clearAi(); }}
+          onKeyDown={(e) => { if (aiMode && e.key === 'Enter') runAi(); }}
+        />
+        {aiAvailable && (
+          <div role="tablist" aria-label="Search mode" className="cv-votesearch__modes">
+            {[['text', 'Text'], ['ai', '✨ AI']].map(([key, label]) => {
+              const on = (key === 'ai') === aiMode;
+              return (
+                <button
+                  key={key} type="button" role="tab" aria-selected={on}
+                  className={'cv-votesearch__mode' + (on ? ' is-on' : '')}
+                  onClick={() => { const wantAi = key === 'ai'; if (wantAi !== aiMode) { setAiMode(wantAi); clearAi(); } }}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {aiMode && aiAvailable && (
+          <button
+            type="button"
+            className="cv-votesearch__apply"
+            onClick={runAi}
+            disabled={aiBusy || !search.trim()}
+          >
+            {aiBusy ? 'Searching…' : 'Apply'}
+          </button>
+        )}
+        {(search || (aiMode && aiMatched !== null)) && (
+          <button
+            type="button"
+            className="cv-votesearch__clear"
+            onClick={() => { setSearch(''); clearAi(); }}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+      {aiLabel ? <p className="cv-votesearch__ailabel">{aiLabel}</p> : null}
+      {active && (
+        matches.length === 0 ? (
+          <p className="cv-votesearch__empty">
+            {aiBusy ? 'Searching…' : 'No recent votes match. Older votes aren’t searchable here yet.'}
+          </p>
+        ) : (
+          <div className="cv-votesearch__results" role="listbox" aria-label="Matching votes">
+            {matches.map((v) => (
+              <button
+                key={v.id}
+                role="option"
+                aria-selected={v.id === activeId}
+                className={'cv-recent__row' + (v.id === activeId ? ' is-active' : '')}
+                onClick={() => onPick(v)}
+              >
+                <div className="cv-recent__rowmain">
+                  <span className="cv-recent__cite">{v.cite}</span>
+                  {v.title ? <span className="cv-recent__title">{v.title}</span> : null}
+                  <span className="cv-recent__q">{v.q}</span>
+                </div>
+                <div className="cv-recent__rowmeta">
+                  <span className="cv-recent__date">{v.date}</span>
+                  <StatusChip status={v.result} />
+                </div>
+              </button>
+            ))}
+          </div>
+        )
+      )}
+    </section>
   );
 }
 
@@ -635,7 +778,10 @@ export default function BillsPage() {
       setRecent([]);
       setSel({ idx: null, anchor: null });
       const chamberApi = chamber === 'House' ? 'house' : 'senate';
-      const { data: rows } = await fetchRecentVotes(chamberApi, 20);
+      // 50 (was 20): deeper corpus for the bill search below. Details
+      // are cached server-side per vote, so the wider window costs one
+      // burst on cold cache, then rides the immutable-detail cache.
+      const { data: rows } = await fetchRecentVotes(chamberApi, 50);
       if (cancelled) return;
       const mapped = rows.map(mapRecentItem);
       setRecent(mapped);
@@ -722,6 +868,10 @@ export default function BillsPage() {
             )}
           </div>
         </div>
+
+        {recent.length > 0 && (
+          <VoteSearch list={recent} activeId={activeId} onPick={onPickVote} />
+        )}
 
         {loading && (
           <section className="cv-card bills-state" aria-busy="true">

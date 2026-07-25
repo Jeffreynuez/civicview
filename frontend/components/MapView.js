@@ -6,7 +6,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { STATE_NAME_TO_CODE, STATE_CODE_TO_FIPS } from '@/lib/constants';
 import { fetchDistrictGeometry, fetchDistrictsForState } from '@/lib/api';
-import { useIsMobile } from '@/lib/useViewport';
+import { useIsMobile, useIsCompact } from '@/lib/useViewport';
+// Native-shell detection for the zoom dock: in the app the slider is
+// never a good use of screen space regardless of viewport width
+// (tablets/landscape included) — pinch-zoom owns that job there.
+import { isNativeApp } from '@/lib/push';
 import { ArrowLeft } from './ui';
 
 // Zoom bounds for the map — the slider maps linearly between these.
@@ -92,6 +96,15 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   // NavigationControl + native pinch-zoom cover the same affordance
   // and don't burn screen space the panel needs more than the map).
   const isMobile = useIsMobile();
+  // Percent-only zoom chip on compact viewports (mobile + tablet) and
+  // ALWAYS in the native app — the full slider dock is desktop-web only.
+  // Native detection runs post-mount (state, not render-time) so the
+  // server HTML and hydration render agree; the chip corrects on the
+  // next frame inside the app, same pattern as useViewport.
+  const isCompact = useIsCompact();
+  const [nativeShell, setNativeShell] = useState(false);
+  useEffect(() => { setNativeShell(isNativeApp()); }, []);
+  const compactZoomDock = isCompact || nativeShell;
 
   // ─── One-time map init ──────────────────────────────────────────────
   useEffect(() => {
@@ -841,12 +854,35 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           floating chrome). Tokenized chrome, accent-green slider thumb,
           .cl-num percentage label.
 
-          Hidden on mobile: the slider isn't a meaningful touch
-          affordance (the thumb is a desktop-pointer interaction), and
-          MapLibre's built-in NavigationControl (top-right) plus native
-          pinch-zoom cover the same job without burning the panel's
-          horizontal real estate. */}
-      {!isMobile && (
+          2026-07-25 (Jeffrey's call): the SLIDER is desktop-web only.
+          It was hidden on mobile (≤900px) but still rendered full-width
+          on tablet/landscape widths — and always in the native app on
+          those devices — where it burns space pinch-zoom already covers.
+          Compact viewports and the native shell (any width) now get a
+          small percent-only chip instead, so the zoom readout stays
+          visible everywhere without the 200px dock. */}
+      {compactZoomDock ? (
+        <div
+          className="cl-num"
+          style={{
+            position: 'absolute',
+            left: 16,
+            bottom: 16,
+            zIndex: 10,
+            background: 'var(--cl-card)',
+            borderRadius: 'var(--cl-radius-lg)',
+            padding: '6px 10px',
+            boxShadow: 'var(--cl-shadow-pop)',
+            border: '1px solid var(--cl-border)',
+            fontSize: 'var(--cl-text-sm)',
+            fontWeight: 700,
+            color: 'var(--cl-text)',
+          }}
+          aria-label={'Map zoom ' + zoomPct + '%'}
+        >
+          {zoomPct}%
+        </div>
+      ) : (
         <div
           style={{
             position: 'absolute',
