@@ -232,16 +232,31 @@ export default function PageView({
     return () => io.disconnect();
   }, [loadMorePosts]);
 
+  // Deep-link target — a '#post-<id>' hash on the URL (set by the
+  // bell-notification click and by a push-notification tap via
+  // initPushTapNavigation) feeds the same highlight machinery the
+  // owner dashboard uses, so notification taps land ON the post
+  // instead of merely near the page (2026-07-25).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const m = (window.location.hash || '').match(/^#post-(.+)$/);
+      if (m && m[1]) setHighlightPostId(decodeURIComponent(m[1]));
+    } catch { /* malformed hash — ignore */ }
+  }, [officialId]);
+
   // Jump-to-post effect — triggered by the dashboard when the owner
-  // clicks a top-engaged post. We're guaranteed to be back in the
-  // feed view by the click handler, so just find the element by id
-  // and scroll it into view with a soft highlight pulse. The pulse
-  // uses the same CSS keyframe PostCard's return-to-list highlight
-  // uses (defined in global CSS) — here we toggle it via class.
+  // clicks a top-engaged post, and by the URL-hash deep link above.
+  // The dashboard path finds the element immediately (feed already
+  // rendered); the deep-link path may fire before the feed fetch has
+  // mounted the article, so retry briefly (bounded) instead of the
+  // old single 80ms attempt. The pulse uses the same soft highlight
+  // PostCard's return-to-list uses.
   useEffect(() => {
     if (!highlightPostId || activeView !== 'feed') return undefined;
-    // next tick so the feed render has mounted the article.
-    const t = setTimeout(() => {
+    let timer = null;
+    let attempts = 0;
+    const tryScroll = () => {
       const el = typeof document !== 'undefined'
         ? document.getElementById(`post-${highlightPostId}`)
         : null;
@@ -249,10 +264,18 @@ export default function PageView({
         try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch {}
         el.style.boxShadow = '0 0 0 3px rgba(255, 196, 64, 0.55)';
         setTimeout(() => { el.style.boxShadow = ''; }, 1500);
+        setHighlightPostId(null);
+        return;
       }
-      setHighlightPostId(null);
-    }, 80);
-    return () => clearTimeout(t);
+      attempts += 1;
+      if (attempts < 12) {           // ~3.6s of patience for the feed fetch
+        timer = setTimeout(tryScroll, 300);
+      } else {
+        setHighlightPostId(null);    // post not on this page/window — give up quietly
+      }
+    };
+    timer = setTimeout(tryScroll, 80);
+    return () => clearTimeout(timer);
   }, [highlightPostId, activeView]);
 
   // Re-fetch whenever the page id OR the signed-in rep id OR the
