@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { fetchOwnerDashboard } from '../lib/pagesApi';
+import ActivityArchive from './ActivityArchive';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
 /**
@@ -26,7 +27,7 @@ import { ThumbsUp, ThumbsDown, ChatText } from './ui';
  *                        engaged post. Parent switches back to feed
  *                        and scrolls+pulses that post.
  */
-export default function Dashboard({ officialId, scope, onJumpToPost }) {
+export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdentity = 'rep' }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
@@ -263,6 +264,14 @@ export default function Dashboard({ officialId, scope, onJumpToPost }) {
               ))}
             </ol>
           )}
+        </SectionCard>
+
+        {/* Activity archive (2026-07-26) — same feature all three
+            identity kinds get: the owner's own comments + the replies
+            they've received, kept beyond the bell's Clear. identity
+            comes from PageView (rep vs candidate owner). */}
+        <SectionCard title="Your activity archive">
+          <ActivityArchive identity={ownerIdentity} />
         </SectionCard>
       </div>
     </div>

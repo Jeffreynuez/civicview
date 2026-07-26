@@ -977,9 +977,20 @@ export async function markAllNotificationsRead() {
 
 // Bell v3 "Clear" (2026-07-26): soft-clear — rows get cleared_at
 // server-side and disappear from the bell, but survive for the
-// (planned) dashboard notification archive.
+// dashboard notification archive below.
 export async function clearAllNotifications() {
   return request('/api/notifications/clear-all', { method: 'POST' });
+}
+
+// ── Activity archive (2026-07-26) ─────────────────────────────────────
+// identity: 'citizen' | 'rep' | 'candidate' — which signed-in
+// identity's archive to read (401 if that session isn't active).
+export async function fetchActivityComments({ identity, limit = 20, offset = 0 } = {}) {
+  return request('/api/activity/comments', { query: { identity, limit, offset } });
+}
+
+export async function fetchActivityNotifications({ identity, kind, limit = 20, offset = 0 } = {}) {
+  return request('/api/activity/notifications', { query: { identity, kind, limit, offset } });
 }
 
 // ── Citizen polls (on unclaimed rep pages) ────────────────────────────

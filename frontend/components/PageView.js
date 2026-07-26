@@ -863,6 +863,7 @@ export default function PageView({
                 </div>
                 <Dashboard
                   officialId={officialId}
+                  ownerIdentity={candOwnerMatch ? 'candidate' : 'rep'}
                   scope={ownerScope}
                   onJumpToPost={(postId) => {
                     setActiveView('feed');
