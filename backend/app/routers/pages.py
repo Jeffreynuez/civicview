@@ -2468,18 +2468,30 @@ def get_post_image(image_id: int, db: Session = Depends(get_db)):
     return FileResponse(fpath, media_type=img.content_type)
 
 
-# ── Authenticated: rep events ─────────────────────────────────────────
+# ── Authenticated: page events (rep OR candidate owner) ──────────────
 @router.post("/{official_id}/events", response_model=RepEventRead, status_code=201)
 def create_rep_event(
     official_id: str,
     payload: RepEventCreate,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
-    rep: RepAccount = Depends(get_current_rep),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional["CandidateAccount"] = Depends(get_optional_candidate),
 ):
-    _assert_owns_page(rep, official_id)
+    """Create an upcoming event on the named page. 2026-07-26 parity
+    fix: accepts rep OR candidate owner via _resolve_page_owner — the
+    Events-tab composer already rendered for candidate owners, but
+    this endpoint was rep-only, so candidate event creation 401'd.
+    Also fans out kind='tracked_event' alerts to tracking citizens who
+    opted into the per-official 'on_event' pref (schema default OFF —
+    events are chatter; trackers opt in from My Tracked)."""
+    rep, candidate = _resolve_page_owner(
+        me_rep=me_rep, me_candidate=me_candidate, page_official_id=official_id,
+    )
 
     evt = RepEvent(
-        author_id=rep.id,
+        author_id=(rep.id if rep is not None else None),
+        author_candidate_id=(candidate.id if candidate is not None else None),
         official_id=official_id,
         title=payload.title.strip(),
         description=(payload.description or None),
@@ -2491,6 +2503,22 @@ def create_rep_event(
     db.add(evt)
     db.commit()
     db.refresh(evt)
+
+    # Tracked-official event alerts — background task with its own
+    # session, zero latency for the posting owner (same pattern as
+    # the create_post tracked_post fan-out).
+    from app.services.notifications_inapp import (
+        emit_tracked_event_notifications_bg,
+    )
+    bg_tasks.add_task(
+        emit_tracked_event_notifications_bg,
+        official_id,
+        (rep.display_name if rep is not None else candidate.display_name) or official_id,
+        evt.id,
+        evt.title,
+        evt.start_at,
+        evt.location,
+    )
     return RepEventRead.model_validate(evt)
 
 
@@ -2498,12 +2526,20 @@ def create_rep_event(
 def delete_rep_event(
     event_id: int,
     db: Session = Depends(get_db),
-    rep: RepAccount = Depends(get_current_rep),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional["CandidateAccount"] = Depends(get_optional_candidate),
 ):
+    if me_rep is None and me_candidate is None:
+        raise HTTPException(status_code=401, detail="Sign in to manage events.")
     evt = db.get(RepEvent, event_id)
     if not evt or evt.deleted_at is not None:
         raise HTTPException(status_code=404, detail="Event not found")
-    if evt.author_id != rep.id:
+    owns = (
+        (me_rep is not None and evt.author_id == me_rep.id)
+        or (me_candidate is not None
+            and getattr(evt, "author_candidate_id", None) == me_candidate.id)
+    )
+    if not owns:
         raise HTTPException(status_code=403, detail="You can only delete your own events")
 
     evt.deleted_at = datetime.utcnow()

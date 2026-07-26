@@ -255,9 +255,15 @@ export function initPushTapNavigation() {
     PN.addListener('pushNotificationActionPerformed', (action) => {
       try {
         const d = (action && action.notification && action.notification.data) || {};
-        if (d.kind !== 'tracked_post' || !d.official_id) return;
+        // tracked_post → land ON the post (#post-<id> scroll+pulse);
+        // tracked_event (2026-07-26) → land on the page, whose header
+        // + Events tab surface the upcoming event.
+        if (!d.official_id) return;
+        if (d.kind !== 'tracked_post' && d.kind !== 'tracked_event') return;
         let url = '/?page=' + encodeURIComponent(String(d.official_id));
-        if (d.post_id) url += '#post-' + encodeURIComponent(String(d.post_id));
+        if (d.kind === 'tracked_post' && d.post_id) {
+          url += '#post-' + encodeURIComponent(String(d.post_id));
+        }
         window.location.assign(url);
       } catch { /* malformed payload — open normally */ }
     });

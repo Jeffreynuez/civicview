@@ -200,6 +200,120 @@ def emit_tracked_content_notifications(
     return len(rows)
 
 
+def emit_tracked_event_notifications(
+    db: Session,
+    *,
+    official_id: str,
+    official_name: str,
+    event_id: int,
+    title: str,
+    start_at: str,
+    location: Optional[str],
+) -> int:
+    """Fan a kind='tracked_event' notification out to citizens who
+    track `official_id` AND opted into that official's 'on_event'
+    pref. The pref's schema default is OFF ('key events ON, chatter
+    OFF' — lib/notificationPrefs.js), so event alerts are strictly
+    opt-in per tracked official; a missing/unparseable prefs blob
+    counts as opted OUT to mirror the frontend default. Push mirror
+    is bound-devices only — anonymous devices never expressed
+    on_event, so they get no event pushes."""
+    from sqlalchemy import func as _f
+
+    rows = (
+        db.query(TrackedOfficial.tracker_id, TrackedOfficial.prefs_json)
+        .filter(
+            TrackedOfficial.tracker_kind == "citizen",
+            _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
+        )
+        .all()
+    )
+    opted: list[int] = []
+    for tid, blob in rows:
+        try:
+            prefs = json.loads(blob) if blob else {}
+        except (ValueError, TypeError):
+            prefs = {}
+        if prefs.get("on_event") is True:
+            opted.append(tid)
+    if not opted:
+        logger.info(
+            "tracked_event fan-out: official=%s event=%s -> 0 of %d tracker(s) "
+            "opted into on_event",
+            official_id, event_id, len(rows),
+        )
+        return 0
+    payload = json.dumps(
+        {
+            "official_id": official_id,
+            "official_name": official_name,
+            "event_id": event_id,
+            "preview": _truncate(title, 120),
+            "start_at": start_at,
+            "location": location or None,
+        },
+        ensure_ascii=False,
+    )
+    notif_rows = [
+        Notification(
+            recipient_kind="citizen",
+            recipient_id=tid,
+            kind="tracked_event",
+            payload_json=payload,
+        )
+        for tid in opted
+    ]
+    db.add_all(notif_rows)
+    db.commit()
+    logger.info(
+        "tracked_event fan-out: official=%s event=%s -> %d of %d tracker(s)",
+        official_id, event_id, len(notif_rows), len(rows),
+    )
+    from app.services.push_service import push_tracked_event
+
+    push_tracked_event(
+        db, opted,
+        official_id=official_id,
+        official_name=official_name,
+        event_id=event_id,
+        title=_truncate(title, 120),
+        start_at=start_at,
+        location=location,
+    )
+    return len(notif_rows)
+
+
+def emit_tracked_event_notifications_bg(
+    official_id: str,
+    official_name: str,
+    event_id: int,
+    title: str,
+    start_at: str,
+    location: Optional[str],
+) -> None:
+    """BackgroundTasks entrypoint — owns its session, swallows errors
+    (a failed courtesy notification must never surface to the event
+    author)."""
+    from app.db import SessionLocal
+
+    db = SessionLocal()
+    try:
+        emit_tracked_event_notifications(
+            db,
+            official_id=official_id,
+            official_name=official_name,
+            event_id=event_id,
+            title=title,
+            start_at=start_at,
+            location=location,
+        )
+    except Exception:
+        db.rollback()
+        logger.exception("tracked_event fan-out failed (official=%s)", official_id)
+    finally:
+        db.close()
+
+
 def emit_tracked_content_notifications_bg(
     official_id: str,
     official_name: str,
