@@ -345,11 +345,14 @@ def emit_tracked_content_notifications_bg(
 def list_for_recipient(
     db: Session, *, recipient_kind: str, recipient_id: int,
     limit: int = 50, unread_only: bool = False,
-    include_cleared: bool = False,
+    include_cleared: bool = False, offset: int = 0,
+    kind: Optional[str] = None,
 ) -> list[Notification]:
     """Most-recent-first notifications for one (kind, id) pair.
     Cleared rows are hidden by default (bell view); the dashboard
-    archive passes include_cleared=True for full history."""
+    archive passes include_cleared=True for full history, plus
+    offset pagination and an optional kind filter ('reply' is the
+    archive's replies-received view)."""
     q = (
         db.query(Notification)
         .filter(
@@ -361,7 +364,12 @@ def list_for_recipient(
         q = q.filter(Notification.cleared_at.is_(None))
     if unread_only:
         q = q.filter(Notification.read_at.is_(None))
-    return q.order_by(Notification.created_at.desc()).limit(limit).all()
+    if kind:
+        q = q.filter(Notification.kind == kind)
+    q = q.order_by(Notification.created_at.desc())
+    if offset:
+        q = q.offset(offset)
+    return q.limit(limit).all()
 
 
 def unread_count_for(

@@ -25,6 +25,7 @@ import { useTrackedBills } from '../lib/trackedBills';
 import { useTrackedElections } from '../lib/trackedElections';
 import { useFeaturedTracked } from '../lib/featuredTracked';
 import TrackedManager from './TrackedManager';
+import ActivityArchive from './ActivityArchive';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
@@ -112,7 +113,7 @@ export default function ConstituentDashboard({
   // content, 'settings' carries the account-management stack. Before
   // this split the four account sections rendered ABOVE the civic
   // content on mobile, pushing My Representatives below the fold.
-  const [view, setView] = useState(['settings', 'tracked'].includes(initialView) ? initialView : 'overview');
+  const [view, setView] = useState(['settings', 'tracked', 'activity'].includes(initialView) ? initialView : 'overview');
 
   return (
     <div
@@ -213,7 +214,7 @@ export default function ConstituentDashboard({
             sections between the greeting and MY REPRESENTATIVES —
             civic content now leads on every viewport. */}
         <div role="tablist" aria-label="Dashboard sections" style={{ display: 'flex', gap: 8 }}>
-          {[['overview', 'Overview'], ['tracked', 'Manage Tracked'], ['settings', 'Account & settings']].map(([key, label]) => (
+          {[['overview', 'Overview'], ['tracked', 'Manage Tracked'], ['activity', 'Activity'], ['settings', 'Account & settings']].map(([key, label]) => (
             <button
               key={key}
               type="button"
@@ -272,6 +273,16 @@ export default function ConstituentDashboard({
               rightLabel="Everything you follow — star one per group to feature it on your Overview"
             />
             <TrackedManager variant="page" onMemberPick={onNavigate.openOfficial} />
+          </div>
+        )}
+
+        {view === 'activity' && (
+          <div style={{ maxWidth: 720, width: '100%' }}>
+            <SectionHeader
+              eyebrow="Activity"
+              rightLabel="Your comments and the replies they've received — kept even after you clear the bell"
+            />
+            <ActivityArchive identity="citizen" />
           </div>
         )}
 

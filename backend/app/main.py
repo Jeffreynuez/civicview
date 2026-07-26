@@ -29,6 +29,7 @@ from app.routers import (
     pages as pages_router,
     citizen_polls as citizen_polls_router,
     waitlist as waitlist_router,
+    activity as activity_router,
     feed as feed_router,
     ai as ai_router,
     admin as admin_router,
@@ -308,6 +309,7 @@ app.include_router(pages_router.router, prefix="/api/pages", tags=["Pages — Fe
 app.include_router(citizen_polls_router.router, prefix="/api", tags=["Pages — Citizen Polls"])
 app.include_router(waitlist_router.router, prefix="/api/waitlist", tags=["Pages — Citizen Waitlist"])
 app.include_router(feed_router.router, prefix="/api/feed", tags=["Pages — Home Feed"])
+app.include_router(activity_router.router, prefix="/api/activity", tags=["Pages — Activity Archive"])
 app.include_router(ai_router.router, prefix="/api/ai", tags=["AI"])
 app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
 # Appeals router declares its own paths under /api/appeals AND
