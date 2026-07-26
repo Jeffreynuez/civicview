@@ -361,6 +361,68 @@ categories:
 
 ---
 
+## Shipped this session — 2026-07-24/25 (Claude Fable 5)
+
+- **Notifications v2 complete (4 parts).** Part 1 honest delivery-channels
+  panel (`7b0396d`): SMS row removed permanently, badges match reality.
+  Parts 2–4 (`01eb4f4` + ruff fix `2e85866`): **account-synced channel
+  prefs** (`CitizenAccount.notification_prefs_json` + GET/PUT
+  `/me/notification-prefs`; server wins on sign-in, 700ms debounced sync,
+  payload carries `tz_offset_minutes`); **anonymous tracked pushes**
+  (`DeviceToken.tracked_json/prefs_json/last_push_at`; `/api/push/register`
+  accepts `tracked`+`prefs`; fan-out reaches citizen-less devices);
+  **quiet-hours + cadence enforcement** in the send path (suppress, don't
+  queue — Jeffrey's call; nights 22:00–08:00 local via tz offset,
+  daily ≥20h / weekly ≥6d min-gap; **no prefs blob = no suppression**).
+- **Desktop PWA (`4620059`).** civicview.app is installable on
+  Windows/macOS/Linux/ChromeOS: the manifest's SVG-only icons (which fail
+  Chromium's install check) got real 192/512 PNG + maskable icons from the
+  brand masters; minimal service worker (no fetch handler — future Web
+  Push landing pad); registration skips the native shell; apple-touch
+  icon fixed (iOS ignores SVG).
+- **Microsoft Store: SUBMITTED, in certification (2026-07-25).** Partner
+  Center company account CIVICVIEW, INC. verified same-day via DUNS
+  146473171 (registration now free); name reserved; PWABuilder
+  `.msixbundle` v1.0.1.0 uploaded (runFullTrust justified as standard
+  PWABuilder template); US-only market, Free, ESRB Teen, gen-AI declared
+  YES, block-users NO. Product-identity values + full runbook:
+  `docs/microsoft_store_listing.md` (`0debcbc`) + Pinecone. 10 store
+  screenshots + poster/box art in `App store screenshots\_Upscaled\Desk
+  top\store-ready\`. Auto-publishes on pass; post-cert checklist in the
+  runbook §6.
+- **Five app updates (`2cb77a9`).** (1) Map zoom slider is desktop-web
+  only — compact viewports + native app get a percent-only chip; (2) bill
+  NAMES on /bills (Clerk `<vote-desc>` captured; all recent House rows
+  enriched concurrently; dropdown/card/search show titles); (3) Text/✨AI
+  vote search on /bills for both chambers (corpus = 50 recent votes via
+  `/api/ai/filter-items`); (4) **force-update gate**: `GET
+  /api/app/version` (env `APP_MIN_VERSION_CODE` / `APP_LATEST_VERSION_CODE`,
+  both unset = inert) + `AppUpdateGate` — hard full-screen block below
+  min, dismissible nudge below latest, fail-open everywhere; (5) push
+  opt-in card now also triggers on first track (any of the three stores,
+  works signed-out).
+- **Push deep links (`413c1e2`).** Tapping a tracked-post push opens the
+  exact post: root-mounted tap listener → `/?page=<id>#post-<post_id>`;
+  PageView's `#post-` hash now feeds the highlight/scroll machinery
+  (bounded retries) — which also completed the bell-notification deep
+  link (#106e).
+- **Page-header Track button + case-safe fan-out (`863db06`).** Every
+  page is followable from its own hero (page-only accounts like the
+  internal test rep/candidate were unfollowable anywhere — they have no
+  registry profile, by design); `notifications_inapp` tracker match is
+  now case-insensitive (mixed-case page ids fanned out to nobody).
+- **PRODUCT PRINCIPLE (final): no user-to-user block feature.** Users
+  report → Jeffrey moderates; reps blocking constituents = kicking them
+  out; candidates blocking voters = self-defeating. Store questionnaires
+  honestly answer "No" with this rationale as the on-file defense. Do not
+  re-propose.
+- **Ops:** Play Store v1.1.0 live; Pinecone plan downgraded
+  Standard→Starter recommended (~$600/yr saved; usage is ~1.5MB in
+  us-east-1, far inside free limits; upgrade back when in-app vector
+  features ship).
+
+---
+
 ## Shipped this session — 2026-06-16 (Claude Opus 4.8, 1M)
 
 - **Dashboard tracked redesign.** New three-tab dashboard (Overview ·
@@ -632,8 +694,12 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 - Election-win promotion flow (admin UI surface — backend shipped)
 - Crowdfunding launch — **Indiegogo** (final draft + cover/thumbnail/reward art
   ready). EIN obtained, business bank account opened, and Benefit Corp
-  Amendment filed (Task #90 done) — campaign is ready to publish. Native
-  app store submission underway (Android org verified on Google Play)
+  Amendment filed (Task #90 done) — campaign is ready to publish.
+- App distribution: **Google Play LIVE in Production** (v1.1.0);
+  **desktop PWA live** (installable from any Chromium browser);
+  **Microsoft Store submission in certification** (submitted 2026-07-25,
+  auto-publishes on pass — post-cert checklist in
+  `docs/microsoft_store_listing.md` §6).
 
 ---
 
@@ -667,9 +733,13 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | done (2026-06-12) | Completed 2026-06-12 (verify-and-fix pass over all four items). Original scope from the backend audit agent: (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
 | 104 | Weekly civic digest email | done (2026-06-10) — **sending gated on `DIGEST_ENABLED`** | Opt-in (`CitizenAccount.digest_opt_in`, default OFF) Saturday-9am-ET email: tracked officials' posts/polls this week, polls closing ≤7d, district events ≤14d. Empty digest = no send; demo-domain emails never sent; per-citizen `digest_last_sent_at` idempotency. In-process scheduler in `main.py` lifespan — set `DIGEST_ENABLED=true` in Render env to turn on. Preview: `GET /api/citizen-auth/me/digest/preview` + Settings card. |
 | 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
-| 106 | Notifications/digest follow-ups (deferred) | pending | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) bell deep-link improvement beyond `open_page` + hash (noted in NotificationBellMenu). |
+| 106 | Notifications/digest follow-ups (deferred) | pending (e done) | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) ~~bell deep-link improvement~~ **done 2026-07-25** (`413c1e2` — `#post-` hash now drives PageView scroll+pulse for bell clicks AND push taps). |
 | 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
 | 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
+
+| 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. |
+| 108 | Microsoft Store listing (Windows desktop) | **in certification** (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA — web deploys need NO store resubmission. Auto-publishes on pass (24–72h typical). NEXT SESSION: check status; on pass run runbook §6 checklist (clean-machine install test, Store badge next to Play badge, README/HelpBuild "Already built" row); on fail bring the certification report back. Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
+| 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
