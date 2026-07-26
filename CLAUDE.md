@@ -123,8 +123,30 @@ NOT Vercel and NOT cold-start (Render is Standard, no sleep). Heavier per-member
 disk precompute deferred (not needed). Auth cookies now live on api.civicview.app
 (same-site with the app).
 
+**Shipped 2026-07-24/25 (full detail in README's shipped block + Pinecone):**
+**Notifications v2 COMPLETE** — honest panel (SMS removed for good), account-
+synced channel prefs (`notification_prefs_json` + GET/PUT
+`/me/notification-prefs`), anonymous tracked pushes
+(`DeviceToken.tracked_json`), quiet-hours + cadence enforcement (SUPPRESS not
+queue; no synced prefs = no suppression). **Desktop PWA live** (PNG install
+icons — SVG-only manifests fail Chromium's install check; minimal SW, no fetch
+handler). **Microsoft Store SUBMITTED — in certification** (company acct
+CIVICVIEW, INC. via DUNS same-day; PWABuilder MSIX v1.0.1.0; US-only, Teen,
+gen-AI YES, block NO; runbook `docs/microsoft_store_listing.md`; check status
+next session — README row #108). **Google Play v1.1.0 LIVE.** Five app
+updates (`2cb77a9`): zoom slider desktop-web-only (percent chip elsewhere),
+bill NAMES on /bills (Clerk `<vote-desc>`), Text/AI vote search both chambers,
+force-update gate (env-gated, ships INERT — row #109), push offer on first
+track. Push deep links (`413c1e2`): tap → exact post via `#post-` hash (also
+fixed bell clicks). Page-header **Track button** on every page + case-
+insensitive fan-out match (`863db06` — test rep/candidate were unfollowable;
+they intentionally have no registry profiles, the page IS their surface).
+**PRODUCT PRINCIPLE (do not re-propose): NO user-to-user block feature** —
+report → Jeffrey moderates; reps must not be able to shut out constituents.
+
 **Top open tasks (full list = README "Pending tasks" table — recreate ALL
-rows into the Cowork Progress widget on session start): #95 Vote Smart API
+rows into the Cowork Progress widget on session start): #108 Microsoft Store
+certification status check + post-cert checklist, #95 Vote Smart API
 (BLOCKED on budget, $4,850/yr quote, draft reply sent), #96 remaining states'
 OpenFEC candidate pass (TX/CA/NY/PA done), #97 state judiciary for other
 states (CourtListener free tier = 5 req/min), #98 full candidate depth incl.
@@ -132,7 +154,8 @@ minor filers (paid — Ballotpedia/BallotReady), #99 local officials
 sheriffs/judges/DAs (paid), **#100 AI provider base-URL flag (KIE measured
 ~72% off Haiku but flag stays OFF until Jeffrey says; user-comment
 classification stays on official Anthropic regardless)**. Plus older rows
-#91, #94, #26, #49, #95, #96, #97, #98, #99, #100, #106 (done: #29, #71, #84, #90, #92, #93, #101, #102, #103, #104, #105, #107).
+#91, #94, #26, #49, #95–#100, #106 (a–d), #109 (arm-when-needed) (done: #29,
+#38, #71, #84, #90, #92, #93, #101, #102, #103, #104, #105, #107).
 
 **API keys** (all in Render env on `civicview-api` + the Keys file): 
 `CONGRESS_API_KEY`, `OPENSTATES_API_KEY`, `COURTLISTENER_TOKEN`,
@@ -160,7 +183,7 @@ generic "default behavior" you might otherwise reach for.
 - **Detailed commit messages.** Structured body (what / why /
   verification / env vars when relevant). ~50-100 lines is normal
   for substantive commits. Co-author trailer on every commit:
-  `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`
+  `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`
   (bump the model version when newer ones land).
 - **Use AskUserQuestion proactively** before any multi-step work
   where scope is ambiguous. Don't guess; ask once with good
@@ -364,11 +387,14 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
 
 ## Quick facts you'll be asked
 
-- **Production:** Backend on Render Pro ($25/mo), frontend on
-  Vercel, Postgres on Render. Cold-start matters: the backend
-  sleeps after 15 min and the first request after waking often
-  times out. "Failed to fetch" after long inactivity is usually
-  cold start, not a real bug.
+- **Production:** Backend on Render Standard ($25/mo — NO sleep, no
+  cold start; the old "sleeps after 15 min" note was stale, corrected
+  with #29), frontend on Vercel, Postgres on Render. Public read-only
+  API is edge-cached via Cloudflare on `api.civicview.app`.
+- **Distribution:** web (civicview.app) + installable desktop PWA +
+  Google Play (v1.1.0 LIVE) + Microsoft Store (in certification as of
+  2026-07-25 — README row #108). All four are the ONE live site; only
+  native-shell changes need a store release.
 - **Repo:** `https://github.com/Jeffreynuez/civicview` (PUBLIC —
   made public pre-Indiegogo for transparency; Jeffrey corrected the
   stale 'private' note 2026-06-10. No secrets live in the repo).
