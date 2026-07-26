@@ -249,98 +249,129 @@ def _parse_json_or_none(raw: Optional[str]):
         return None
 
 
+def _deliver_tracked_push(
+    db, citizen_ids: Iterable[int], *, anon_key: Optional[str],
+    title: str, body: str, data: dict,
+) -> int:
+    """Shared delivery engine for tracked-activity pushes (2026-07-26,
+    extracted so tracked_event could ship without cloning 60 lines).
+
+    Flow:
+      1. Bound devices — tokens for the given citizens; per-account
+         quiet-hours/cadence prefs (CitizenAccount.notification_prefs_json,
+         falling back to the device's register-time snapshot).
+      2. Anonymous devices — only when anon_key is provided: rows with
+         citizen_id NULL whose tracked_json contains the key
+         (Notifications v2 part 3). Callers pass anon_key=None to skip
+         anonymous delivery (e.g. events, where the on_event pref is an
+         explicit opt-in anonymous devices never expressed).
+      3. Suppression pass (quiet hours, cadence min-gap), send, prune
+         dead tokens, stamp last_push_at on the devices actually sent.
+
+    Raises freely — the public wrappers own the never-raise guarantee.
+    """
+    from app.models.pages import CitizenAccount, DeviceToken
+
+    ids = list(citizen_ids)
+
+    # 1. Bound devices for the tracking citizens.
+    rows = (
+        db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(ids)).all()
+        if ids else []
+    )
+    account_prefs: dict = {}
+    if rows:
+        prefs_rows = (
+            db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
+            .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
+            .all()
+        )
+        account_prefs = {cid: _parse_json_or_none(blob) for cid, blob in prefs_rows}
+
+    # 2. Anonymous devices tracking this key on-device. Python-side
+    # filter over the (small) anonymous-with-tracking set; see
+    # DeviceToken.tracked_json for the JSONB/GIN upgrade path.
+    key = (anon_key or "").strip().lower()
+    if key:
+        anon_rows = (
+            db.query(DeviceToken)
+            .filter(
+                DeviceToken.citizen_id.is_(None),
+                DeviceToken.tracked_json.isnot(None),
+            )
+            .all()
+        )
+        for row in anon_rows:
+            tracked = _parse_json_or_none(row.tracked_json)
+            if isinstance(tracked, list) and key in tracked:
+                rows.append(row)
+
+    if not rows:
+        # This exact silence cost a debugging session (2026-07-26):
+        # fan-out logged "-> N citizens" and then NOTHING, because
+        # every device row was anonymous with no tracked_json. Say
+        # so explicitly.
+        logger.info(
+            "%s: no registered devices for %d tracking citizen(s)",
+            data.get("kind", "tracked push"), len(ids),
+        )
+        return 0
+
+    # 3. Quiet-hours + cadence suppression (see module comment).
+    sendable = []
+    suppressed = 0
+    for row in rows:
+        prefs = None
+        if row.citizen_id is not None:
+            prefs = account_prefs.get(row.citizen_id)
+        if prefs is None:
+            prefs = _parse_json_or_none(row.prefs_json)
+        if _in_quiet_hours(prefs) or not _cadence_gap_ok(prefs, row.last_push_at):
+            suppressed += 1
+            continue
+        sendable.append(row)
+    if suppressed:
+        logger.info(
+            "%s: %d device(s) suppressed (quiet hours / cadence)",
+            data.get("kind", "tracked push"), suppressed,
+        )
+    if not sendable:
+        return 0
+
+    tokens = [r.token for r in sendable]
+    invalid = get_push_service().send_to_tokens(
+        tokens, title=title, body=body, data=data,
+    )
+    logger.info(
+        "%s: sent to %d device(s) (%d invalid)",
+        data.get("kind", "tracked push"), len(tokens), len(invalid),
+    )
+    invalid_set = set(invalid)
+    now = datetime.utcnow()
+    for row in sendable:
+        if row.token not in invalid_set:
+            row.last_push_at = now
+    if invalid:
+        db.query(DeviceToken).filter(DeviceToken.token.in_(invalid)).delete(
+            synchronize_session=False
+        )
+        logger.info("pruned %d dead device token(s)", len(invalid))
+    db.commit()
+    return len(tokens)
+
+
 def push_tracked_post(
     db, citizen_ids: Iterable[int], *, official_id: str,
     official_name: str, post_id: int, preview: str, has_poll: bool,
 ) -> int:
     """Device-push mirror of the tracked_post in-app fan-out.
-
-    v2 flow:
-      1. Bound devices — tokens for the tracking citizens; per-account
-         quiet-hours/cadence prefs (CitizenAccount.notification_prefs_json,
-         falling back to the device's register-time snapshot).
-      2. Anonymous devices — rows with citizen_id NULL whose tracked_json
-         contains this official (Notifications v2 part 3); per-device
-         prefs snapshot only.
-      3. Suppression pass (quiet hours, cadence min-gap), send, prune
-         dead tokens, stamp last_push_at on the devices actually sent.
-
     Never raises — a push failure must not disturb the in-app
     notification flow that calls this."""
     try:
-        from app.models.pages import CitizenAccount, DeviceToken
-
-        ids = list(citizen_ids)
-        key = (official_id or "").strip().lower()
-
-        # 1. Bound devices for the tracking citizens.
-        rows = (
-            db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(ids)).all()
-            if ids else []
-        )
-        account_prefs: dict = {}
-        if rows:
-            prefs_rows = (
-                db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
-                .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
-                .all()
-            )
-            account_prefs = {cid: _parse_json_or_none(blob) for cid, blob in prefs_rows}
-
-        # 2. Anonymous devices tracking this official on-device. Python-
-        # side filter over the (small) anonymous-with-tracking set; see
-        # DeviceToken.tracked_json for the JSONB/GIN upgrade path.
-        if key:
-            anon_rows = (
-                db.query(DeviceToken)
-                .filter(
-                    DeviceToken.citizen_id.is_(None),
-                    DeviceToken.tracked_json.isnot(None),
-                )
-                .all()
-            )
-            for row in anon_rows:
-                tracked = _parse_json_or_none(row.tracked_json)
-                if isinstance(tracked, list) and key in tracked:
-                    rows.append(row)
-
-        if not rows:
-            # This exact silence cost a debugging session (2026-07-26):
-            # fan-out logged "-> N citizens" and then NOTHING, because
-            # every device row was anonymous with no tracked_json. Say
-            # so explicitly.
-            logger.info(
-                "push_tracked_post: no registered devices for %d tracking "
-                "citizen(s) (official=%s post=%s)",
-                len(ids), official_id, post_id,
-            )
-            return 0
-
-        # 3. Quiet-hours + cadence suppression (see module comment).
-        sendable = []
-        suppressed = 0
-        for row in rows:
-            prefs = None
-            if row.citizen_id is not None:
-                prefs = account_prefs.get(row.citizen_id)
-            if prefs is None:
-                prefs = _parse_json_or_none(row.prefs_json)
-            if _in_quiet_hours(prefs) or not _cadence_gap_ok(prefs, row.last_push_at):
-                suppressed += 1
-                continue
-            sendable.append(row)
-        if suppressed:
-            logger.info(
-                "push_tracked_post: %d device(s) suppressed (quiet hours / cadence)",
-                suppressed,
-            )
-        if not sendable:
-            return 0
-
-        tokens = [r.token for r in sendable]
         title = f"{official_name} posted" + (" a poll" if has_poll else "")
-        invalid = get_push_service().send_to_tokens(
-            tokens,
+        return _deliver_tracked_push(
+            db, citizen_ids,
+            anon_key=official_id,
             title=title,
             body=preview,
             data={
@@ -349,23 +380,34 @@ def push_tracked_post(
                 "post_id": post_id,
             },
         )
-        logger.info(
-            "push_tracked_post: sent to %d device(s) (official=%s post=%s, "
-            "%d invalid)",
-            len(tokens), official_id, post_id, len(invalid),
-        )
-        invalid_set = set(invalid)
-        now = datetime.utcnow()
-        for row in sendable:
-            if row.token not in invalid_set:
-                row.last_push_at = now
-        if invalid:
-            db.query(DeviceToken).filter(DeviceToken.token.in_(invalid)).delete(
-                synchronize_session=False
-            )
-            logger.info("pruned %d dead device token(s)", len(invalid))
-        db.commit()
-        return len(tokens)
     except Exception:
         logger.exception("push_tracked_post failed (non-fatal)")
+        return 0
+
+
+def push_tracked_event(
+    db, citizen_ids: Iterable[int], *, official_id: str,
+    official_name: str, event_id: int, title: str,
+    start_at: str, location: Optional[str],
+) -> int:
+    """Device-push mirror of the tracked_event in-app fan-out.
+    Bound devices only (anon_key=None): the on_event pref is a
+    per-official opt-in that anonymous devices can't express, so
+    they never receive event pushes. Never raises."""
+    try:
+        when = (start_at or "")[:16].replace("T", " ")
+        body_bits = [b for b in (title, when, location) if b]
+        return _deliver_tracked_push(
+            db, citizen_ids,
+            anon_key=None,
+            title=f"{official_name} scheduled an event",
+            body=" · ".join(body_bits),
+            data={
+                "kind": "tracked_event",
+                "official_id": official_id,
+                "event_id": event_id,
+            },
+        )
+    except Exception:
+        logger.exception("push_tracked_event failed (non-fatal)")
         return 0

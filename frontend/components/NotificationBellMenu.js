@@ -3,7 +3,7 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIsMobile } from '@/lib/useViewport';
 import {
   useChannelPrefs,
@@ -14,11 +14,17 @@ import {
 // Mobile push went live 2026-07-24 (FCM, lib/push.js). Inside the
 // native shell the 'mobile_push' channel row below becomes a real
 // toggle; on the web it keeps its SOON placeholder.
-import { isNativeApp, isPushEnabled, enablePush, disablePush } from '@/lib/push';
+import {
+  isNativeApp,
+  isPushEnabled,
+  enablePush,
+  disablePush,
+  clearDeliveredNotifications,
+} from '@/lib/push';
 import {
   fetchNotifications,
   markNotificationRead,
-  markAllNotificationsRead,
+  clearAllNotifications,
 } from '@/lib/pagesApi';
 // Subscribe to the three identity hooks so the bell can re-fetch the
 // notification inbox the moment the active identity changes — without
@@ -31,6 +37,18 @@ import { useCandidateAuth } from '@/lib/candidateAuth';
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
 // without hammering the backend. Web-push is the real fix later.
+// Bell v3 categories (2026-07-26). Notifications group into
+// collapsible sections by kind, and tracked-activity sections
+// sub-group by the official/candidate they came from — "there is a
+// lot to follow in this app" (Jeffrey). Unknown future kinds fall
+// into 'other' so a new backend kind can never render a blank bell.
+const NOTIF_CATEGORIES = [
+  { key: 'reply', label: 'Replies', byOfficial: false },
+  { key: 'tracked_post', label: 'Posts & polls', byOfficial: true },
+  { key: 'tracked_event', label: 'Events', byOfficial: true },
+  { key: 'other', label: 'Other', byOfficial: false },
+];
+
 const NOTIF_POLL_MS = 60000;
 
 /**
@@ -71,9 +89,41 @@ export default function NotificationBellMenu() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifLoading, setNotifLoading] = useState(false);
 
+  // Per-section expand/collapse. Untouched sections default open when
+  // they hold something unread, collapsed otherwise; a user toggle
+  // overrides the default until the popover's items change identity.
+  const [sectionToggles, setSectionToggles] = useState({});
+  const notifGroups = useMemo(() => {
+    const byKey = new Map();
+    for (const n of notifItems) {
+      const cat = NOTIF_CATEGORIES.find((c) => c.key === n.kind) ||
+        NOTIF_CATEGORIES.find((c) => c.key === 'other');
+      if (!byKey.has(cat.key)) byKey.set(cat.key, { ...cat, items: [], unread: 0 });
+      const g = byKey.get(cat.key);
+      g.items.push(n);
+      if (!n.read_at) g.unread += 1;
+    }
+    // Category order is the declaration order; officials inside a
+    // category order by their most recent notification (items arrive
+    // newest-first from the API, so first-seen preserves that).
+    return NOTIF_CATEGORIES
+      .filter((c) => byKey.has(c.key))
+      .map((c) => {
+        const g = byKey.get(c.key);
+        if (!c.byOfficial) return g;
+        const subs = new Map();
+        for (const n of g.items) {
+          const name = (n.payload && n.payload.official_name) || 'Officials you track';
+          if (!subs.has(name)) subs.set(name, []);
+          subs.get(name).push(n);
+        }
+        return { ...g, byOfficial: [...subs.entries()].map(([name, items]) => ({ name, items })) };
+      });
+  }, [notifItems]);
+
   const refreshNotifs = async () => {
     setNotifLoading(true);
-    const { data } = await fetchNotifications({ limit: 20 });
+    const { data } = await fetchNotifications({ limit: 50 });
     setNotifLoading(false);
     if (data) {
       setNotifItems(data.items || []);
@@ -154,12 +204,16 @@ export default function NotificationBellMenu() {
     setOpen(false);
   };
 
-  const onMarkAllRead = async () => {
-    await markAllNotificationsRead();
-    setNotifItems((prev) => prev.map((it) =>
-      it.read_at ? it : { ...it, read_at: new Date().toISOString() },
-    ));
+  // Bell v3 "Clear" (2026-07-26, replaces "Mark all read"): one action
+  // that (a) soft-clears the inbox server-side (rows keep living for
+  // the dashboard archive), (b) empties the popover list, (c) zeroes
+  // the badge, and (d) clears the Android tray so the launcher icon
+  // badge drops too. Individual clicks still mark single rows read.
+  const onClearAll = async () => {
+    await clearAllNotifications();
+    setNotifItems([]);
     setUnreadCount(0);
+    clearDeliveredNotifications(); // native tray + icon badge; no-op on web
   };
 
   // Click outside to close
@@ -244,10 +298,10 @@ export default function NotificationBellMenu() {
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <span>Notifications</span>
-            {unreadCount > 0 && (
+            {notifItems.length > 0 && (
               <button
                 type="button"
-                onClick={onMarkAllRead}
+                onClick={onClearAll}
                 style={{
                   background: 'transparent', border: 'none',
                   color: 'var(--cl-accent)', cursor: 'pointer',
@@ -256,14 +310,14 @@ export default function NotificationBellMenu() {
                   fontFamily: 'inherit', padding: 0,
                 }}
               >
-                Mark all read
+                Clear
               </button>
             )}
           </div>
 
-          {/* Phase 5 MVP inbox — replies only for now. Empty state
-              tells the user the bell is working; loading state
-              shows the spinner-equivalent text. */}
+          {/* Bell v3 inbox — grouped into collapsible category
+              sections; tracked categories sub-group per official so a
+              heavy follower can scan by person, not by timestamp. */}
           <div style={{ marginBottom: 10 }}>
             {notifLoading && notifItems.length === 0 ? (
               <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '6px 2px' }}>
@@ -271,45 +325,116 @@ export default function NotificationBellMenu() {
               </div>
             ) : notifItems.length === 0 ? (
               <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '6px 2px', lineHeight: 1.4 }}>
-                Nothing new. Replies to your comments and updates from officials you track will show up here.
+                Nothing new. Replies to your comments and posts, polls, and
+                events from officials you track will show up here.
               </div>
             ) : (
-              notifItems.map((n) => {
-                const p = n.payload || {};
-                const isUnread = !n.read_at;
-                return (
-                  <button
-                    key={n.id}
-                    type="button"
-                    onClick={() => onClickNotif(n)}
-                    style={{
-                      display: 'block', width: '100%', textAlign: 'left',
-                      padding: '8px 8px', borderRadius: 8,
-                      border: '1px solid var(--cl-border)',
-                      background: isUnread ? 'var(--cl-accent-soft, #e6f4ea)' : 'white',
-                      marginBottom: 4, cursor: 'pointer',
-                      fontFamily: 'inherit',
-                    }}
-                  >
-                    <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', fontWeight: isUnread ? 700 : 500 }}>
-                      {n.kind === 'tracked_post' ? (
-                        <>
-                          <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
-                          {p.has_poll ? ' posted a new update with a poll' : ' posted a new update'}
-                        </>
-                      ) : (
-                        <>
-                          <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>
-                          {' '}replied to your comment
-                        </>
-                      )}
-                    </div>
-                    {p.preview && (
-                      <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.35 }}>
-                        “{p.preview}”
+              notifGroups.map((g) => {
+                const isOpen = g.key in sectionToggles ? sectionToggles[g.key] : g.unread > 0;
+                const renderNotif = (n) => {
+                  const p = n.payload || {};
+                  const isUnread = !n.read_at;
+                  return (
+                    <button
+                      key={n.id}
+                      type="button"
+                      onClick={() => onClickNotif(n)}
+                      style={{
+                        display: 'block', width: '100%', textAlign: 'left',
+                        padding: '8px 8px', borderRadius: 8,
+                        border: '1px solid var(--cl-border)',
+                        background: isUnread ? 'var(--cl-accent-soft, #e6f4ea)' : 'white',
+                        marginBottom: 4, cursor: 'pointer',
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', fontWeight: isUnread ? 700 : 500 }}>
+                        {n.kind === 'tracked_post' ? (
+                          <>
+                            <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
+                            {p.has_poll ? ' posted a new update with a poll' : ' posted a new update'}
+                          </>
+                        ) : n.kind === 'tracked_event' ? (
+                          <>
+                            <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
+                            {' '}scheduled an upcoming event
+                          </>
+                        ) : (
+                          <>
+                            <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>
+                            {' '}replied to your comment
+                          </>
+                        )}
                       </div>
+                      {p.preview && (
+                        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.35 }}>
+                          “{p.preview}”
+                        </div>
+                      )}
+                    </button>
+                  );
+                };
+                return (
+                  <div key={g.key} style={{ marginBottom: 6 }}>
+                    <button
+                      type="button"
+                      onClick={() => setSectionToggles((t) => ({ ...t, [g.key]: !isOpen }))}
+                      aria-expanded={isOpen}
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        width: '100%', padding: '6px 8px', borderRadius: 8,
+                        border: '1px solid var(--cl-border)',
+                        background: 'var(--cl-bg, #f7f8f9)', cursor: 'pointer',
+                        fontFamily: 'inherit', marginBottom: 4,
+                      }}
+                    >
+                      <span style={{
+                        fontSize: '0.7rem', fontWeight: 800, color: 'var(--cl-primary)',
+                        textTransform: 'uppercase', letterSpacing: '0.4px',
+                      }}>
+                        {g.label}
+                      </span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {g.unread > 0 && (
+                          <span style={{
+                            minWidth: 16, height: 16, padding: '0 5px', borderRadius: 8,
+                            background: '#e63946', color: 'white',
+                            fontSize: '0.6rem', fontWeight: 800,
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          }}>
+                            {g.unread}
+                          </span>
+                        )}
+                        <span style={{ fontSize: '0.64rem', color: 'var(--cl-text-light)', fontWeight: 700 }}>
+                          {g.items.length}
+                        </span>
+                        <span aria-hidden="true" style={{
+                          fontSize: '0.6rem', color: 'var(--cl-text-light)',
+                          transform: isOpen ? 'rotate(90deg)' : 'none',
+                          transition: 'transform 120ms',
+                        }}>
+                          ▶
+                        </span>
+                      </span>
+                    </button>
+                    {isOpen && (
+                      Array.isArray(g.byOfficial) ? (
+                        g.byOfficial.map((sub) => (
+                          <div key={sub.name} style={{ marginBottom: 4 }}>
+                            <div style={{
+                              fontSize: '0.66rem', fontWeight: 800,
+                              color: 'var(--cl-text-light)', padding: '2px 4px 4px',
+                            }}>
+                              {sub.name}
+                            </div>
+                            {sub.items.map(renderNotif)}
+                          </div>
+                        ))
+                      ) : (
+                        g.items.map(renderNotif)
+                      )
                     )}
-                  </button>
+                  </div>
                 );
               })
             )}

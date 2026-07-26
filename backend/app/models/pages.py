@@ -1114,7 +1114,16 @@ class RepEvent(Base):
     __tablename__ = "rep_events"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    author_id: Mapped[int] = mapped_column(ForeignKey("rep_accounts.id", ondelete="CASCADE"), index=True)
+    # Author is EITHER a rep or a candidate (2026-07-26 parity fix —
+    # candidates saw the composer but the API was rep-only). Exactly
+    # one of author_id / author_candidate_id is set; author_id went
+    # nullable for that (auto-migration drops the NOT NULL on boot).
+    author_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="CASCADE"), index=True, default=None,
+    )
+    author_candidate_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("candidate_accounts.id", ondelete="CASCADE"), index=True, default=None,
+    )
     official_id: Mapped[str] = mapped_column(String(64), index=True)
     title: Mapped[str] = mapped_column(String(500))
     description: Mapped[Optional[str]] = mapped_column(Text, default=None)
@@ -1746,6 +1755,13 @@ class Notification(Base):
     # is `WHERE recipient_kind=X AND recipient_id=Y AND read_at IS
     # NULL`, so this column carries an index for that fast path.
     read_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None, index=True,
+    )
+    # Soft-clear (bell v3, 2026-07-26). The bell's "Clear" action
+    # stamps cleared_at instead of deleting — cleared rows vanish from
+    # the popover but stay queryable for the planned dashboard
+    # notification archive. NULL = visible in the bell.
+    cleared_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None, index=True,
     )
 
