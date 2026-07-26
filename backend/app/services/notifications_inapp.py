@@ -231,8 +231,11 @@ def emit_tracked_content_notifications_bg(
 def list_for_recipient(
     db: Session, *, recipient_kind: str, recipient_id: int,
     limit: int = 50, unread_only: bool = False,
+    include_cleared: bool = False,
 ) -> list[Notification]:
-    """Most-recent-first notifications for one (kind, id) pair."""
+    """Most-recent-first notifications for one (kind, id) pair.
+    Cleared rows are hidden by default (bell view); the dashboard
+    archive passes include_cleared=True for full history."""
     q = (
         db.query(Notification)
         .filter(
@@ -240,6 +243,8 @@ def list_for_recipient(
             Notification.recipient_id == recipient_id,
         )
     )
+    if not include_cleared:
+        q = q.filter(Notification.cleared_at.is_(None))
     if unread_only:
         q = q.filter(Notification.read_at.is_(None))
     return q.order_by(Notification.created_at.desc()).limit(limit).all()
@@ -255,6 +260,9 @@ def unread_count_for(
             Notification.recipient_kind == recipient_kind,
             Notification.recipient_id == recipient_id,
             Notification.read_at.is_(None),
+            # Cleared rows never count toward the badge — "Clear"
+            # must zero the bell even if something stayed unread.
+            Notification.cleared_at.is_(None),
         )
         .count()
     )
@@ -286,3 +294,28 @@ def mark_read(
     updated = q.update({Notification.read_at: now}, synchronize_session=False)
     db.commit()
     return int(updated or 0)
+
+
+def clear_all(
+    db: Session, *, recipient_kind: str, recipient_id: int,
+) -> int:
+    """Soft-clear every visible notification for this user: stamp
+    cleared_at (and read_at where still unread — a cleared row is by
+    definition acknowledged). Returns rows cleared. The rows survive
+    for the dashboard archive; only the bell view empties."""
+    now = datetime.utcnow()
+    base = db.query(Notification).filter(
+        Notification.recipient_kind == recipient_kind,
+        Notification.recipient_id == recipient_id,
+        Notification.cleared_at.is_(None),
+    )
+    cleared = base.filter(Notification.read_at.is_(None)).update(
+        {Notification.read_at: now, Notification.cleared_at: now},
+        synchronize_session=False,
+    )
+    cleared += base.filter(Notification.read_at.isnot(None)).update(
+        {Notification.cleared_at: now},
+        synchronize_session=False,
+    )
+    db.commit()
+    return int(cleared or 0)

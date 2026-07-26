@@ -7,6 +7,7 @@ Notifications router — Phase 5 MVP.
   GET    /api/notifications         → list recent notifications + unread count
   POST   /api/notifications/{id}/read       → mark one read
   POST   /api/notifications/read-all        → mark all read
+  POST   /api/notifications/clear-all       → soft-clear the bell inbox
 
 The router resolves the caller's identity from whichever session
 cookie is present (citizen / rep / candidate). With three signed-in
@@ -173,3 +174,27 @@ def mark_all_read(
             all_for_user=True,
         )
     return {"ok": True, "updated": total}
+
+
+@router.post("/clear-all")
+def clear_all(
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    """Bell v3 "Clear": soft-clear (cleared_at) every notification
+    across the caller's active identities. Rows persist for the
+    dashboard archive; the bell list and unread badge go to zero."""
+    recipients = _active_recipients(me_citizen, me_rep, me_candidate)
+    if not recipients:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Sign in to manage notifications.",
+        )
+    total = 0
+    for kind, rid in recipients:
+        total += notifications_inapp.clear_all(
+            db, recipient_kind=kind, recipient_id=rid,
+        )
+    return {"ok": True, "cleared": total}

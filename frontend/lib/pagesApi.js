@@ -975,6 +975,13 @@ export async function markAllNotificationsRead() {
   return request('/api/notifications/read-all', { method: 'POST' });
 }
 
+// Bell v3 "Clear" (2026-07-26): soft-clear — rows get cleared_at
+// server-side and disappear from the bell, but survive for the
+// (planned) dashboard notification archive.
+export async function clearAllNotifications() {
+  return request('/api/notifications/clear-all', { method: 'POST' });
+}
+
 // ── Citizen polls (on unclaimed rep pages) ────────────────────────────
 // The page-scoped list endpoint returns active + archived buckets, the
 // caller's role, and the rate-limit signals (caller_has_active_poll,

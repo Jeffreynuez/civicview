@@ -209,6 +209,18 @@ export async function disablePush() {
 }
 
 /**
+ * Clear every delivered CivicView notification out of the system tray
+ * — and with it the launcher app-icon badge count, which Android
+ * derives from tray presence. Called by the bell's "Clear" action so
+ * in-app clear and device state stay in step. No-op on the web.
+ */
+export async function clearDeliveredNotifications() {
+  const PN = plugin();
+  if (!PN || !isNativeApp()) return;
+  try { await PN.removeAllDeliveredNotifications(); } catch { /* best effort */ }
+}
+
+/**
  * Fire-and-forget refresh — called on app load when the user already
  * enabled push, so a rotated FCM token or a new sign-in re-binds
  * server-side without any UI.

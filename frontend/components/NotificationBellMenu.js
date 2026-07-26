@@ -14,11 +14,17 @@ import {
 // Mobile push went live 2026-07-24 (FCM, lib/push.js). Inside the
 // native shell the 'mobile_push' channel row below becomes a real
 // toggle; on the web it keeps its SOON placeholder.
-import { isNativeApp, isPushEnabled, enablePush, disablePush } from '@/lib/push';
+import {
+  isNativeApp,
+  isPushEnabled,
+  enablePush,
+  disablePush,
+  clearDeliveredNotifications,
+} from '@/lib/push';
 import {
   fetchNotifications,
   markNotificationRead,
-  markAllNotificationsRead,
+  clearAllNotifications,
 } from '@/lib/pagesApi';
 // Subscribe to the three identity hooks so the bell can re-fetch the
 // notification inbox the moment the active identity changes — without
@@ -154,12 +160,16 @@ export default function NotificationBellMenu() {
     setOpen(false);
   };
 
-  const onMarkAllRead = async () => {
-    await markAllNotificationsRead();
-    setNotifItems((prev) => prev.map((it) =>
-      it.read_at ? it : { ...it, read_at: new Date().toISOString() },
-    ));
+  // Bell v3 "Clear" (2026-07-26, replaces "Mark all read"): one action
+  // that (a) soft-clears the inbox server-side (rows keep living for
+  // the dashboard archive), (b) empties the popover list, (c) zeroes
+  // the badge, and (d) clears the Android tray so the launcher icon
+  // badge drops too. Individual clicks still mark single rows read.
+  const onClearAll = async () => {
+    await clearAllNotifications();
+    setNotifItems([]);
     setUnreadCount(0);
+    clearDeliveredNotifications(); // native tray + icon badge; no-op on web
   };
 
   // Click outside to close
@@ -244,10 +254,10 @@ export default function NotificationBellMenu() {
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <span>Notifications</span>
-            {unreadCount > 0 && (
+            {notifItems.length > 0 && (
               <button
                 type="button"
-                onClick={onMarkAllRead}
+                onClick={onClearAll}
                 style={{
                   background: 'transparent', border: 'none',
                   color: 'var(--cl-accent)', cursor: 'pointer',
@@ -256,7 +266,7 @@ export default function NotificationBellMenu() {
                   fontFamily: 'inherit', padding: 0,
                 }}
               >
-                Mark all read
+                Clear
               </button>
             )}
           </div>

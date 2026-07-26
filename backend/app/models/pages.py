@@ -1748,6 +1748,13 @@ class Notification(Base):
     read_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None, index=True,
     )
+    # Soft-clear (bell v3, 2026-07-26). The bell's "Clear" action
+    # stamps cleared_at instead of deleting — cleared rows vanish from
+    # the popover but stay queryable for the planned dashboard
+    # notification archive. NULL = visible in the bell.
+    cleared_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None, index=True,
+    )
 
 
 # Composite index for "give me my recent notifications, newest first".
