@@ -33,6 +33,11 @@ import AppUpdateGate from '@/components/AppUpdateGate';
 // tracked-post notification opens the exact post. Root-mounted so the
 // listener exists regardless of which route the app opens on.
 import PushTapNavigator from '@/components/PushTapNavigator';
+// Contextual push opt-in card (native only, renders nothing on web).
+// Root-mounted (2026-07-26) so the 'cv:tracked-item' trigger reaches
+// it from EVERY route — previously it lived in app/page.js only and
+// tracking from a page header never offered push.
+import PushOptInPrompt from '@/components/PushOptInPrompt';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -131,6 +136,7 @@ export default function RootLayout({ children }) {
         <ServiceWorkerRegistration />
         <AppUpdateGate />
         <PushTapNavigator />
+        <PushOptInPrompt />
       </body>
     </html>
   );

@@ -305,6 +305,15 @@ def push_tracked_post(
                     rows.append(row)
 
         if not rows:
+            # This exact silence cost a debugging session (2026-07-26):
+            # fan-out logged "-> N citizens" and then NOTHING, because
+            # every device row was anonymous with no tracked_json. Say
+            # so explicitly.
+            logger.info(
+                "push_tracked_post: no registered devices for %d tracking "
+                "citizen(s) (official=%s post=%s)",
+                len(ids), official_id, post_id,
+            )
             return 0
 
         # 3. Quiet-hours + cadence suppression (see module comment).
@@ -339,6 +348,11 @@ def push_tracked_post(
                 "official_id": official_id,
                 "post_id": post_id,
             },
+        )
+        logger.info(
+            "push_tracked_post: sent to %d device(s) (official=%s post=%s, "
+            "%d invalid)",
+            len(tokens), official_id, post_id, len(invalid),
         )
         invalid_set = set(invalid)
         now = datetime.utcnow()
