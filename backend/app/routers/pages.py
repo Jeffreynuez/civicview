@@ -34,7 +34,7 @@ from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 
-from app.auth import get_current_rep, get_optional_rep
+from app.auth import get_optional_rep
 from app.auth_citizen import get_optional_citizen
 from app.auth_candidate import get_optional_candidate
 from app.db import get_db
