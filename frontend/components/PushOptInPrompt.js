@@ -9,12 +9,19 @@
 // signed in, or launched the app signed in) and no choice has been
 // recorded yet. The in-app card comes BEFORE the one-shot Android 13+
 // system prompt, so a reflexive "no" costs nothing permanent.
-// Mounted by app/page.js next to the other floating surfaces.
+// Mounted at the ROOT LAYOUT (2026-07-26) — it used to mount only in
+// app/page.js, which meant the 'cv:tracked-item' contextual trigger
+// fired into the void on every other route: tracking an official from
+// their PAGE HEADER (the primary flow since 863db06) never offered
+// push, so devices never registered at all. Root mount = the card can
+// appear wherever the track action happens.
 
 import { useEffect, useState } from 'react';
+import { useCitizenAuth } from '@/lib/citizenAuth';
 import { shouldOfferPush, enablePush, setPushChoice, refreshPushRegistration } from '@/lib/push';
 
-export default function PushOptInPrompt({ citizen }) {
+export default function PushOptInPrompt() {
+  const { citizen } = useCitizenAuth();
   const [visible, setVisible] = useState(false);
   const [busy, setBusy] = useState(false);
 

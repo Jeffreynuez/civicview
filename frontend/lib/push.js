@@ -20,6 +20,12 @@
 //      every other write). Signed-in citizen => token binds to the
 //      account; anonymous => backend subscribes it to 'announcements'.
 
+import {
+  getStoredRepToken,
+  getStoredCitizenToken,
+  getStoredCandidateToken,
+} from './pagesApi';
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
@@ -50,14 +56,42 @@ export function shouldOfferPush() {
   return isNativeApp() && !!plugin() && !getPushChoice();
 }
 
-async function csrfToken() {
-  // Best-effort — mirrors the pagesApi pattern. Anonymous devices may
-  // have no session (nothing to CSRF-protect); missing token is fine.
+// Identity-header fallback (2026-07-26 push deep dive): the Capacitor
+// shell's webview does NOT reliably deliver the httpOnly session
+// cookies cross-origin to api.civicview.app — which is exactly why
+// pagesApi.request() attaches X-Citizen-Token / Authorization /
+// X-Candidate-Token on every call. postJson below was cookie-only, so
+// every /api/push/register bound ANONYMOUSLY (device_tokens rows with
+// citizen_id NULL) and personal tracked-activity pushes went nowhere.
+// Same header trio here, same precedence as the backend resolver.
+function identityHeaders() {
+  const h = {};
   try {
-    const res = await fetch(`${API_BASE_URL}/api/csrf`, { credentials: 'include' });
+    const repToken = getStoredRepToken();
+    const citizenToken = getStoredCitizenToken();
+    const candidateToken = getStoredCandidateToken();
+    if (repToken) h['Authorization'] = `Bearer ${repToken}`;
+    if (citizenToken) h['X-Citizen-Token'] = citizenToken;
+    if (candidateToken) h['X-Candidate-Token'] = candidateToken;
+  } catch { /* storage unavailable — cookie-only fallback */ }
+  return h;
+}
+
+async function csrfToken() {
+  // Best-effort — anonymous devices may have no session (nothing to
+  // CSRF-protect); missing token is fine. BUG FIX (2026-07-26): this
+  // used to read data.token || data.csrf_token, but /api/csrf actually
+  // returns {rep_csrf, citizen_csrf, candidate_csrf} — so the header
+  // was ALWAYS null. Citizen first: push binding targets the citizen
+  // session (get_optional_citizen on /api/push/register).
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/csrf`, {
+      credentials: 'include',
+      headers: identityHeaders(),
+    });
     if (!res.ok) return null;
     const data = await res.json();
-    return data?.token || data?.csrf_token || null;
+    return data?.citizen_csrf || data?.rep_csrf || data?.candidate_csrf || null;
   } catch { return null; }
 }
 
@@ -78,7 +112,12 @@ async function v2RegisterFields() {
   const extra = {};
   try {
     const { getAllTrackedOfficials } = await import('./trackedOfficials');
-    const keys = (getAllTrackedOfficials() || [])
+    // BUG FIX (2026-07-26): getAllTrackedOfficials() returns the cache
+    // OBJECT keyed by official key — not an array. The old `(... || [])
+    // .map(...)` threw TypeError on every call, the catch swallowed it,
+    // and `tracked` was never sent — so anonymous devices' tracked_json
+    // stayed NULL and the anonymous push path was dead too.
+    const keys = Object.values(getAllTrackedOfficials() || {})
       .map((o) => o && o.key)
       .filter(Boolean);
     if (keys.length) extra.tracked = keys;
@@ -93,7 +132,7 @@ async function v2RegisterFields() {
 }
 
 async function postJson(path, body) {
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = { 'Content-Type': 'application/json', ...identityHeaders() };
   const csrf = await csrfToken();
   if (csrf) headers['X-CSRF-Token'] = csrf;
   const res = await fetch(`${API_BASE_URL}${path}`, {
