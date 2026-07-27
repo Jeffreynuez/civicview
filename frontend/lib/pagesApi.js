@@ -1154,6 +1154,24 @@ export async function saveNotificationPrefs(prefs) {
   });
 }
 
+// Identity notification prefs for reps + candidates (Task #23,
+// 2026-07-26). Same GET/PUT shape as the citizen endpoints; base
+// path differs by identity. reps: /api/auth, candidates:
+// /api/candidate-auth. Keys: reply_alerts (bool), show_in_bell
+// (bool | absent=auto).
+function _identityBase(identity) {
+  return identity === 'candidate' ? '/api/candidate-auth' : '/api/auth';
+}
+export async function fetchIdentityNotificationPrefs(identity) {
+  return request(`${_identityBase(identity)}/me/notification-prefs`);
+}
+export async function saveIdentityNotificationPrefs(identity, prefs) {
+  return request(`${_identityBase(identity)}/me/notification-prefs`, {
+    method: 'PUT',
+    body: { prefs },
+  });
+}
+
 // "My polls" tab on the citizen dashboard. status='active'|'archived'|'all'.
 export async function fetchMyCitizenPolls({ status = 'all' } = {}) {
   return request('/api/citizens/me/polls', { query: { status } });

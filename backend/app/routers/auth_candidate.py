@@ -332,3 +332,44 @@ def confirm_reset(
         status_code=status.HTTP_400_BAD_REQUEST,
         detail="This reset link is invalid or has expired. Request a new one.",
     )
+
+
+# ── Identity notification prefs (Task #23, 2026-07-26) ───────────────
+# Mirror of the rep endpoints — same shape, candidate table. See
+# routers/auth.py for the rationale (dashboard-first, no push).
+import json as _json  # noqa: E402
+
+from app.routers.auth_citizen import (  # noqa: E402
+    NotificationPrefsRequest,
+    sanitize_notification_prefs,
+)
+
+
+@router.get("/me/notification-prefs")
+def get_candidate_notification_prefs(
+    candidate: Optional[CandidateAccount] = Depends(get_optional_candidate_including_deleted),
+):
+    if candidate is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = None
+    if candidate.notification_prefs_json:
+        try:
+            prefs = _json.loads(candidate.notification_prefs_json)
+        except (ValueError, TypeError):
+            prefs = None
+    return {"prefs": prefs}
+
+
+@router.put("/me/notification-prefs")
+def put_candidate_notification_prefs(
+    body: NotificationPrefsRequest,
+    candidate: Optional[CandidateAccount] = Depends(get_optional_candidate_including_deleted),
+    db: Session = Depends(get_db),
+):
+    if candidate is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = sanitize_notification_prefs(body.prefs)
+    candidate.notification_prefs_json = _json.dumps(prefs, ensure_ascii=False)
+    db.add(candidate)
+    db.commit()
+    return {"prefs": prefs}
