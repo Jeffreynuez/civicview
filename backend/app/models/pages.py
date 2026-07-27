@@ -98,6 +98,18 @@ class RepAccount(Base):
     locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     consecutive_lockout_count: Mapped[int] = mapped_column(Integer, default=0)
 
+    # Identity-level notification prefs (2026-07-26, Task #23). Flat
+    # JSON blob, same sanitizer as CitizenAccount's. Keys today:
+    #   reply_alerts (bool, default True)  — create reply notifications
+    #     for this identity at all.
+    #   show_in_bell (bool, absent=auto)   — absent/auto = the smart
+    #     rule (this identity's rows reach the navbar bell only when
+    #     NO citizen session is active in the browser); explicit
+    #     true/false overrides. Decided with Jeffrey: reps/candidates
+    #     are dashboard-first, no pushes (they'd drown), bell stays
+    #     citizen-clean on multi-identity browsers.
+    notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
     posts: Mapped[List["Post"]] = relationship(
         back_populates="author", cascade="all, delete-orphan",
     )
@@ -187,6 +199,18 @@ class CandidateAccount(Base):
     failed_login_count: Mapped[int] = mapped_column(Integer, default=0)
     locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     consecutive_lockout_count: Mapped[int] = mapped_column(Integer, default=0)
+
+    # Identity-level notification prefs (2026-07-26, Task #23). Flat
+    # JSON blob, same sanitizer as CitizenAccount's. Keys today:
+    #   reply_alerts (bool, default True)  — create reply notifications
+    #     for this identity at all.
+    #   show_in_bell (bool, absent=auto)   — absent/auto = the smart
+    #     rule (this identity's rows reach the navbar bell only when
+    #     NO citizen session is active in the browser); explicit
+    #     true/false overrides. Decided with Jeffrey: reps/candidates
+    #     are dashboard-first, no pushes (they'd drown), bell stays
+    #     citizen-clean on multi-identity browsers.
+    notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
 
 
 # ── Posts + Polls ─────────────────────────────────────────────────────

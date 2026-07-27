@@ -346,3 +346,48 @@ def confirm_reset(
         status_code=status.HTTP_400_BAD_REQUEST,
         detail="This reset link is invalid or has expired. Request a new one.",
     )
+
+
+# ── Identity notification prefs (Task #23, 2026-07-26) ───────────────
+# Reps/candidates get the same prefs plumbing citizens have, but a
+# smaller surface: reply_alerts (create reply notifications at all)
+# and show_in_bell (auto = smart rule; explicit true/false overrides).
+# No push channel by design — reps/candidates would drown in reply
+# pushes. Reuses the citizen sanitizer so the blob rules stay one
+# implementation.
+import json as _json  # noqa: E402
+
+from app.routers.auth_citizen import (  # noqa: E402
+    NotificationPrefsRequest,
+    sanitize_notification_prefs,
+)
+
+
+@router.get("/me/notification-prefs")
+def get_rep_notification_prefs(
+    rep: Optional[RepAccount] = Depends(get_optional_rep_including_deleted),
+):
+    if rep is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = None
+    if rep.notification_prefs_json:
+        try:
+            prefs = _json.loads(rep.notification_prefs_json)
+        except (ValueError, TypeError):
+            prefs = None
+    return {"prefs": prefs}
+
+
+@router.put("/me/notification-prefs")
+def put_rep_notification_prefs(
+    body: NotificationPrefsRequest,
+    rep: Optional[RepAccount] = Depends(get_optional_rep_including_deleted),
+    db: Session = Depends(get_db),
+):
+    if rep is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    prefs = sanitize_notification_prefs(body.prefs)
+    rep.notification_prefs_json = _json.dumps(prefs, ensure_ascii=False)
+    db.add(rep)
+    db.commit()
+    return {"prefs": prefs}

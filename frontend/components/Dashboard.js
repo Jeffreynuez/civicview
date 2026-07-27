@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import { fetchOwnerDashboard } from '../lib/pagesApi';
 import ActivityArchive from './ActivityArchive';
+import IdentityNotificationSettings from './IdentityNotificationSettings';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 
 /**
@@ -264,6 +265,12 @@ export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdenti
               ))}
             </ol>
           )}
+        </SectionCard>
+
+        {/* Notification settings (Task #23) — reps/candidates get a
+            small dashboard-first surface (no push by design). */}
+        <SectionCard title="Notification settings">
+          <IdentityNotificationSettings identity={ownerIdentity} />
         </SectionCard>
 
         {/* Activity archive (2026-07-26) — same feature all three

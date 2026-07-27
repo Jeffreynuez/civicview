@@ -92,6 +92,47 @@ def _active_recipients(
     return out
 
 
+def _identity_show_in_bell(account) -> Optional[bool]:
+    """Read the show_in_bell override from a rep/candidate account's
+    notification_prefs_json. Returns True/False when set explicitly,
+    or None for 'auto' (the smart rule decides). Fails to None."""
+    blob = getattr(account, "notification_prefs_json", None)
+    if not blob:
+        return None
+    try:
+        val = json.loads(blob).get("show_in_bell", None)
+    except (ValueError, TypeError):
+        return None
+    return val if isinstance(val, bool) else None
+
+
+def _bell_recipients(
+    me_citizen: Optional[CitizenAccount],
+    me_rep: Optional[RepAccount],
+    me_candidate: Optional[CandidateAccount],
+) -> list[tuple[str, int]]:
+    """Recipients whose rows should appear in the NAVBAR BELL — the
+    smart-hide rule (Task #23, decided with Jeffrey): reps/candidates
+    are dashboard-first, so their rows reach the bell only when NO
+    citizen session is active in the browser (keeps a 3-identity
+    citizen's bell clean), UNLESS the identity set show_in_bell
+    explicitly. The full inbox (dashboard archive, mark/clear
+    endpoints) still uses _active_recipients — this narrowing is
+    bell-only.
+    """
+    citizen_active = me_citizen is not None
+    out: list[tuple[str, int]] = []
+    if me_citizen is not None:
+        out.append(("citizen", me_citizen.id))
+    for kind, acct in (("rep", me_rep), ("candidate", me_candidate)):
+        if acct is None:
+            continue
+        override = _identity_show_in_bell(acct)
+        if override is True or (override is None and not citizen_active):
+            out.append((kind, acct.id))
+    return out
+
+
 @router.get("", response_model=NotificationsResponse)
 def list_notifications(
     limit: int = 50,
@@ -101,7 +142,9 @@ def list_notifications(
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
     me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ):
-    recipients = _active_recipients(me_citizen, me_rep, me_candidate)
+    # Bell view uses the smart-hide recipient set (rep/candidate rows
+    # stay out of a citizen's bell — they live in the dashboard).
+    recipients = _bell_recipients(me_citizen, me_rep, me_candidate)
     if not recipients:
         # Anonymous viewer — empty inbox, no auth error so the bell
         # icon can poll harmlessly while signed out.

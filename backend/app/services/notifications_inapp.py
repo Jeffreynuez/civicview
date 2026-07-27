@@ -52,6 +52,31 @@ def _truncate(s: Optional[str], n: int = 120) -> str:
     return s if len(s) <= n else (s[: n - 1].rstrip() + "…")
 
 
+def _identity_reply_alerts_enabled(
+    db: Session, recipient_kind: str, recipient_id: int,
+) -> bool:
+    """Reply-alerts switch for a rep/candidate recipient (Task #23).
+    Default ON: only an explicit reply_alerts=False in the identity's
+    notification_prefs_json silences reply notifications. Any lookup
+    failure fails OPEN (notify) — never lose a notification to a
+    prefs read error."""
+    from app.models.pages import CandidateAccount, RepAccount
+
+    try:
+        model = RepAccount if recipient_kind == "rep" else CandidateAccount
+        blob = (
+            db.query(model.notification_prefs_json)
+            .filter(model.id == recipient_id)
+            .scalar()
+        )
+        if not blob:
+            return True
+        prefs = json.loads(blob)
+        return prefs.get("reply_alerts", True) is not False
+    except Exception:
+        return True
+
+
 def emit_reply_notification(
     db: Session,
     *,
@@ -102,6 +127,15 @@ def emit_reply_notification(
         reply_actor_id = reply.author_candidate_id
     if reply_kind == recipient_kind and reply_actor_id == recipient_id:
         return None
+
+    # Identity opt-out (Task #23): reps/candidates can turn off reply
+    # notifications entirely (reply_alerts=False) — a busy official can
+    # get a lot of replies. Citizens have no such switch (reply_alerts
+    # absent → default ON for everyone). A missing/corrupt prefs blob
+    # counts as ON.
+    if recipient_kind in ("rep", "candidate"):
+        if not _identity_reply_alerts_enabled(db, recipient_kind, recipient_id):
+            return None
 
     payload = {
         "comment_id": reply.id,
