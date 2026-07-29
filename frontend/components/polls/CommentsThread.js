@@ -853,7 +853,13 @@ function CommentRow({
     <div className={`thread__comment ${isReply ? 'is-reply' : ''}`}>
       <div className="thread__c-head">
         <span className="thread__c-name">{c.citizen_display_name || c.author || 'Citizen'}</span>
-        {c.verified === false && <span className="thread__c-unverified">Unverified</span>}
+        {/* PRD §D2 — read the row's own snapshot, never the author's
+            current state. `verified` was the old key and the backend
+            never populated it, so this pill has been dark since it was
+            written; authored_verified is the real field. Rep- and
+            candidate-authored comments come back True and stay
+            pill-free. */}
+        {c.authored_verified === false && <span className="thread__c-unverified">Unverified</span>}
         <span className="thread__c-date">{relTime(c.created_at)}</span>
         {c.edited_at && (
           <span

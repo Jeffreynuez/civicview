@@ -215,12 +215,21 @@ trust.
 
 Each is its own commit; each is independently shippable.
 
-1. **Optional `contact_email` on demo signup** — model column, schema, route, frontend
-   field + consent copy. *No dependency on ID.me. Ship immediately.* ← START HERE
-2. **In-app prompt for existing demo users** to add a contact email.
-3. **Dormant switch** — `IDME_ENABLED`, `require_verified` / `require_subscribed`, wired
+1. ~~**Optional `contact_email` on demo signup**~~ — model column, schema, route, frontend
+   field + consent copy. **DONE** 2026-07-29 (34c6d81).
+2. ~~**In-app prompt for existing demo users** to add a contact email.~~ — dismissible
+   dashboard card, `PUT /me/contact-email`, `POST /me/contact-email/dismiss`, and a
+   `contact_email_prompt_dismissed_at` column so the dismissal follows the account across
+   devices. **DONE** 2026-07-29.
+3. ~~**Dormant switch**~~ — `IDME_ENABLED`, `require_verified` / `require_subscribed`, wired
    onto all engagement endpoints, no-op when disabled, plus tests in both flag states.
-4. **`authored_verified` columns** + badge rendering from them + backfill.
+   **DONE** 2026-07-29 (3a10040).
+4. ~~**`authored_verified` columns** + badge rendering from them + backfill.~~ — landed on
+   SEVEN tables, not the five listed here: the two comment-reaction tables
+   (`comment_reactions`, `poll_comment_reactions`) were omitted from this list by
+   oversight and carry the same engagement semantics. **DONE** 2026-07-29. Poll rows
+   themselves still have no snapshot column — the poll-author pill in FeedCard continues
+   to infer from card kind. Revisit if poll authorship needs the same guarantee.
 5. **In-place upgrade path** (the real ID.me integration; blocked on the RP contract).
 6. **Fallback credential transfer** — dashboard card, one-time claim, audit log.
 7. **Sunset machinery** — `DEMO_SUNSET_AT`, countdown banner, email cadence, soft-delete

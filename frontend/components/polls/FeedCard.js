@@ -627,8 +627,12 @@ export default function FeedCard({
             )}
             {/* Citizen + candidate polls flag unverified authors.
                 Rep polls don't show the pill (reps are verified by
-                claim). The backend doesn't surface a per-item
-                verified flag yet; we infer from card.kind. */}
+                claim). Still inferred from card.kind: increment 4 put
+                an authored_verified snapshot on comments, votes and
+                reactions, but NOT on Poll itself, so there is no
+                per-card flag to read here yet. Revisit if poll
+                authorship ever needs the same non-retroactive
+                guarantee (demo-sunset PRD §D2). */}
             {(card.kind === 'citizen' || isStandalone) && (
               <span
                 className="feed-card__unverified"

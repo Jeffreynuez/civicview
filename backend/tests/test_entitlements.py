@@ -122,6 +122,25 @@ def main():
     os.environ["DEMO_SUNSET_AT"] = "2027-01-15"
     check("bare date gets UTC", lambda: _assert_dt(ent.demo_sunset_at(), 2027))
 
+    print("\nauthored_verified_flag (increment 4) — must NOT depend on the switch:")
+    for state in (True, False):
+        switch(state)
+        label = "switch ON " if state else "switch OFF"
+        check("%s: rep authors -> True" % label,
+              lambda: _assert_true(ent.authored_verified_flag(None, object(), None)))
+        check("%s: candidate authors -> True" % label,
+              lambda: _assert_true(ent.authored_verified_flag(None, None, object())))
+        check("%s: verified citizen -> True" % label,
+              lambda: _assert_true(ent.authored_verified_flag(verified)))
+        check("%s: unverified citizen -> False" % label,
+              lambda: _assert_false(ent.authored_verified_flag(nobody)))
+        check("%s: demo grant -> False" % label,
+              lambda: _assert_false(ent.authored_verified_flag(demo_grant)))
+        check("%s: no identity (legacy anon vote) -> False" % label,
+              lambda: _assert_false(ent.authored_verified_flag()))
+        check("%s: verified subscriber -> True (billing is not the input)" % label,
+              lambda: _assert_true(ent.authored_verified_flag(subscriber)))
+
     switch(False)
     os.environ.pop("DEMO_SUNSET_AT", None)
 
@@ -131,6 +150,14 @@ def main():
         return 1
     print("All entitlement guards passed.")
     return 0
+
+
+def _assert_true(value):
+    assert value is True, "expected True, got %r" % (value,)
+
+
+def _assert_false(value):
+    assert value is False, "expected False, got %r" % (value,)
 
 
 def _assert_dt(value, year):

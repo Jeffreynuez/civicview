@@ -26,7 +26,8 @@ import { useTrackedElections } from '../lib/trackedElections';
 import { useFeaturedTracked } from '../lib/featuredTracked';
 import TrackedManager from './TrackedManager';
 import ActivityArchive from './ActivityArchive';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
+import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
@@ -206,6 +207,11 @@ export default function ConstituentDashboard({
           greeting={greeting}
           dateLabel={dateLabel}
         />
+
+        {/* Demo-sunset contact ask (PRD §4, increment 2). Sits above the
+            tabs so it is reachable from every view, and self-hides the
+            moment it is answered either way. */}
+        <ContactEmailPrompt citizen={citizen} />
 
         {/* View tabs (Task #102 reorg). Overview = civic content first;
             Account & settings = the account-management stack (2FA,
@@ -1093,6 +1099,194 @@ function StartPageSection({ citizen }) {
 // ─────────────────────────────────────────────────────────────────
 // Weekly civic digest opt-in (Task #104)
 // ─────────────────────────────────────────────────────────────────
+
+function ContactEmailPrompt({ citizen }) {
+  // Demo-sunset contact ask (PRD §4, increment 2).
+  //
+  // WHY A CARD AND NOT A MODAL: this is a courtesy channel, not a
+  // required step. A modal would interrupt someone who came here to do
+  // something else, and interruption is how you teach people to dismiss
+  // without reading — which is precisely the behavior that would leave
+  // them unnotified when the sunset email actually matters.
+  //
+  // WHO SEES IT: unverified (i.e. demo) accounts that have no address on
+  // file and have not already said no. Verified accounts are excluded
+  // because their login email already reaches them; the whole problem is
+  // the synthetic @demo-citizens.civicview.app login.
+  const [value, setValue] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(null);
+  const [done, setDone] = useState(null); // null | 'saved' | 'dismissed'
+
+  const eligible = !!citizen
+    && citizen.verified === false
+    && !citizen.contact_email
+    && !citizen.contact_email_prompt_dismissed_at;
+
+  // `done` keeps the card mounted for one beat after a save so the user
+  // gets a confirmation instead of a component that vanishes — the
+  // refreshed /me makes `eligible` false on the next render pass.
+  if (!eligible && done !== 'saved') return null;
+
+  async function save(e) {
+    e.preventDefault();
+    const trimmed = value.trim();
+    if (!trimmed) {
+      setErr('Enter an email address first.');
+      return;
+    }
+    setBusy(true);
+    setErr(null);
+    try {
+      const { error } = await saveContactEmail(trimmed);
+      if (error) throw new Error(error);
+      setDone('saved');
+      // Refresh the shared auth store so every other consumer of the
+      // citizen payload sees the new address without a page reload.
+      refreshCitizenAuth();
+    } catch {
+      setErr('That doesn’t look like an email address. Check it and try again.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function dismiss() {
+    setBusy(true);
+    try {
+      await dismissContactEmailPrompt();
+      setDone('dismissed');
+      refreshCitizenAuth();
+    } catch {
+      // A failed dismissal is not worth an error message — the card
+      // simply reappears next visit, which is the safe direction to
+      // fail for a notice channel.
+      setDone('dismissed');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (done === 'saved') {
+    return (
+      <div
+        role="status"
+        style={{
+          border: '1px solid var(--cl-border)',
+          background: 'var(--cl-accent-soft, rgba(37, 99, 235, 0.08))',
+          borderRadius: 'var(--cl-radius-md)',
+          padding: '12px 16px',
+          fontSize: 'var(--cl-text-sm)',
+          color: 'var(--cl-text)',
+        }}
+      >
+        Saved — we’ll email you once, when it’s time to move your
+        account over. You can change or remove it any time in Account &amp;
+        settings.
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        border: '1px solid var(--cl-border)',
+        background: 'var(--cl-card)',
+        borderRadius: 'var(--cl-radius-md)',
+        padding: '14px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text)' }}>
+            Where should we reach you?
+          </div>
+          <p
+            style={{
+              margin: '4px 0 0',
+              fontSize: 'var(--cl-text-sm)',
+              color: 'var(--cl-text-muted)',
+              lineHeight: 1.5,
+              maxWidth: '62ch',
+            }}
+          >
+            Your demo account was created with a placeholder address that
+            doesn’t reach anyone. When identity verification opens, demo
+            accounts get a limited window to move their comments, votes and
+            reactions to a verified account — add an email and we’ll send
+            you that one notice. No newsletters, no marketing, and we
+            don’t share it.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={dismiss}
+          disabled={busy}
+          aria-label="Dismiss this reminder"
+          style={{
+            background: 'none',
+            border: 'none',
+            color: 'var(--cl-text-muted)',
+            fontSize: 'var(--cl-text-lg)',
+            lineHeight: 1,
+            cursor: busy ? 'wait' : 'pointer',
+            padding: '2px 4px',
+          }}
+        >
+          ×
+        </button>
+      </div>
+      <form onSubmit={save} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <input
+          type="email"
+          value={value}
+          onChange={(e) => { setValue(e.target.value); setErr(null); }}
+          placeholder="you@example.com"
+          disabled={busy}
+          autoComplete="email"
+          style={{
+            flex: '1 1 240px',
+            minWidth: 0,
+            padding: '8px 10px',
+            borderRadius: 'var(--cl-radius-sm, 8px)',
+            border: '1px solid ' + (err ? 'var(--cl-danger, #dc2626)' : 'var(--cl-border)'),
+            fontSize: 'var(--cl-text-sm)',
+            fontFamily: 'var(--cl-font-sans)',
+            background: 'var(--cl-bg)',
+            color: 'var(--cl-text)',
+          }}
+        />
+        <Button type="submit" disabled={busy}>
+          {busy ? 'Saving…' : 'Save email'}
+        </Button>
+        <button
+          type="button"
+          onClick={dismiss}
+          disabled={busy}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: 'var(--cl-text-muted)',
+            fontSize: 'var(--cl-text-sm)',
+            textDecoration: 'underline',
+            cursor: busy ? 'wait' : 'pointer',
+          }}
+        >
+          No thanks
+        </button>
+      </form>
+      {err && (
+        <p role="alert" style={{ margin: 0, fontSize: 'var(--cl-text-xs)', color: 'var(--cl-danger, #dc2626)' }}>
+          {err}
+        </p>
+      )}
+    </div>
+  );
+}
+
 
 function DigestSection({ citizen }) {
   const [optIn, setOptIn] = useState(!!citizen?.digest_opt_in);
