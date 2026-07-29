@@ -1130,6 +1130,24 @@ export async function saveStartPage(startPage) {
   });
 }
 
+// Demo-sunset contact address (PRD §4, increment 2). Backs the
+// dismissible dashboard card that asks existing demo accounts — created
+// before the signup field existed — for a reachable address. Pass null
+// to saveContactEmail to clear a previously-saved one. Both resolve to
+// the refreshed citizen /me payload, so callers can hand the result
+// straight back into the auth store instead of re-fetching.
+export async function saveContactEmail(contactEmail) {
+  return request('/api/citizen-auth/me/contact-email', {
+    method: 'PUT',
+    body: { contact_email: contactEmail || null },
+  });
+}
+export async function dismissContactEmailPrompt() {
+  return request('/api/citizen-auth/me/contact-email/dismiss', {
+    method: 'POST',
+  });
+}
+
 // Weekly civic digest (Task #104). Explicit opt-in; preview renders
 // the digest the caller would receive right now.
 export async function saveDigestOptIn(optIn) {

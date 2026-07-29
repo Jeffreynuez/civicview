@@ -1199,6 +1199,17 @@ class CitizenAccount(Base):
     contact_email: Mapped[Optional[str]] = mapped_column(
         String(255), default=None, index=True,
     )
+    # Set when the citizen dismisses the dashboard card that asks for
+    # contact_email (increment 2). Server-side rather than localStorage
+    # so a dismissal on the phone is honored on the desktop — the same
+    # person should not be asked twice for the same thing on two
+    # devices. A timestamp rather than a bool so we can tell how long
+    # ago they declined; if the sunset date is ever announced we may
+    # re-prompt ONCE with the deadline in the copy, and that decision
+    # needs to know the age of the dismissal.
+    contact_email_prompt_dismissed_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
 
     # Address blob. `address_line1` is optional in schema but present in
     # the demo seed so the UI can render "123 Gulf Shore Blvd · Naples,

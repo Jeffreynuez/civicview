@@ -667,6 +667,18 @@ class CitizenMeResponse(BaseModel):
     start_page: Optional[str] = None
     # Weekly digest opt-in (Task #104). Default False — explicit opt-in.
     digest_opt_in: bool = False
+    # Demo-sunset contact channel (PRD §4). The reachable address the
+    # migration notice will go to, DISTINCT from `email` above (which is
+    # the synthetic @demo-citizens.civicview.app login on demo rows and
+    # reaches nobody). NULL = we cannot notify this account. Surfaced on
+    # /me only so the dashboard knows whether to show the ask; it is the
+    # caller's own address, so there is no disclosure here.
+    contact_email: Optional[str] = None
+    # Set when the citizen dismissed the dashboard card asking for the
+    # above. The card renders iff contact_email is NULL AND this is NULL
+    # AND verified is False — server-side so the dismissal follows the
+    # account across devices instead of living in one browser's storage.
+    contact_email_prompt_dismissed_at: Optional[datetime] = None
 
     @field_validator("is_subscribed", "has_billing_account", mode="before")
     @classmethod

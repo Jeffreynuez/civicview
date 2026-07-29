@@ -117,6 +117,27 @@ def _client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
+# ── Contact-email normalization (demo-sunset PRD §4) ──────────────────
+def normalize_contact_email(raw: Optional[str]) -> Optional[str]:
+    """Strip + lowercase a contact address, returning None for anything
+    empty or obviously malformed.
+
+    Deliberately permissive: this address only has to survive an SMTP
+    handoff months from now, and a regex strict enough to reject every
+    bad address also rejects real ones (plus-tags, new TLDs, unicode
+    locals). We check the two things a typo actually breaks — a single
+    @ with something either side, and the column width. Callers decide
+    what None means: signup drops it silently, the dashboard 422s.
+    """
+    value = (raw or "").strip().lower()
+    if not value or len(value) > 255:
+        return None
+    local, sep, domain = value.partition("@")
+    if not sep or not local or not domain or "@" in domain or "." not in domain:
+        return None
+    return value
+
+
 # ── Demo signup payload / response ────────────────────────────────────
 class CitizenDemoSignupRequest(BaseModel):
     """Self-serve demo citizen payload. Display name is the only required
@@ -394,11 +415,11 @@ def demo_signup(
     # Optional sunset-notice address (demo-sunset PRD §4). Light-touch
     # validation only: this is a courtesy channel, not an auth factor, so
     # a typo costs the user a notice rather than access. A malformed value
-    # is dropped silently rather than failing the signup — nobody should
-    # lose their demo account over an email typo.
-    contact_email = (payload.contact_email or "").strip().lower() or None
-    if contact_email and ("@" not in contact_email or len(contact_email) > 255):
-        contact_email = None
+    # is dropped silently HERE rather than failing the signup — nobody
+    # should lose their demo account over an email typo. The dashboard
+    # endpoint below makes the opposite call (422) because there the user
+    # is submitting the address deliberately and can fix it.
+    contact_email = normalize_contact_email(payload.contact_email)
 
     citizen = CitizenAccount(
         email=email,
@@ -505,6 +526,81 @@ def set_start_page(
     db.add(citizen)
     db.commit()
     db.refresh(citizen)
+    return CitizenMeResponse.model_validate(citizen)
+
+
+# ── Contact email for the demo-sunset notice (PRD §4, increment 2) ──
+# Increment 1 added the field to the SIGNUP form. Every account created
+# before that ships — the entire existing demo population — has no way
+# to supply one, which is the exact unnotifiable cohort the sunset email
+# exists to reach. These two endpoints back a dismissible dashboard card
+# that closes that gap without a modal, a nag, or a second signup step.
+
+
+class ContactEmailRequest(BaseModel):
+    """Body for PUT /me/contact-email. Pass null (or "") to clear a
+    previously-saved address — the user who gave us an address must be
+    able to take it back without deleting their account."""
+    contact_email: Optional[str] = Field(default=None, max_length=255)
+
+
+@router.put("/me/contact-email", response_model=CitizenMeResponse)
+def set_contact_email(
+    body: ContactEmailRequest,
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Save (or clear) the reachable address for the demo-sunset notice.
+
+    Unlike signup, a malformed address 422s here. At signup the field is
+    incidental and silently dropping a typo protects account creation; on
+    the dashboard the user came specifically to give us this address, and
+    silently discarding it would leave them believing they are reachable
+    when they are not — the worst possible failure for a notice channel.
+
+    Saving also clears contact_email_prompt_dismissed_at so the card's
+    state is derived from one fact (do we have an address?) rather than
+    two that can disagree.
+    """
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    raw = (body.contact_email or "").strip()
+    if not raw:
+        citizen.contact_email = None
+    else:
+        normalized = normalize_contact_email(raw)
+        if normalized is None:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="That doesn't look like an email address. Check it and try again.",
+            )
+        citizen.contact_email = normalized
+        citizen.contact_email_prompt_dismissed_at = None
+    db.add(citizen)
+    db.commit()
+    db.refresh(citizen)
+    return CitizenMeResponse.model_validate(citizen)
+
+
+@router.post("/me/contact-email/dismiss", response_model=CitizenMeResponse)
+def dismiss_contact_email_prompt(
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen_including_deleted),
+    db: Session = Depends(get_db),
+):
+    """Stop showing the contact-email card on this account.
+
+    Server-side rather than localStorage so the dismissal follows the
+    account across devices. Idempotent: re-dismissing keeps the ORIGINAL
+    timestamp, because the age of the refusal is the interesting fact and
+    a stray double-click should not reset it.
+    """
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+    if citizen.contact_email_prompt_dismissed_at is None:
+        citizen.contact_email_prompt_dismissed_at = datetime.utcnow()
+        db.add(citizen)
+        db.commit()
+        db.refresh(citizen)
     return CitizenMeResponse.model_validate(citizen)
 
 
