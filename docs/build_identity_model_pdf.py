@@ -220,13 +220,13 @@ def build_story(styles):
         [
             "1 — Verified Citizen",
             "Real person, ID.me-confirmed identity + address",
-            "Everything in Tier 0, plus: like / dislike posts and comments, vote on polls (rep + candidate + citizen-authored).",
+            "Everything in Tier 0, plus: like / dislike posts and comments, vote on polls (rep + candidate + citizen-authored), and post comments and replies.",
             "ID.me identity verification (free)",
         ],
         [
             "2 — Subscribed Citizen",
             "Tier-1 citizen with an active CivicView subscription",
-            "Everything in Tier 1, plus: post comments and replies, create standalone citizen-authored polls on unclaimed pages.",
+            "Everything in Tier 1, plus: create standalone citizen-authored polls on unclaimed pages.",
             "Tier-1 + active paid subscription",
         ],
     ]
@@ -236,9 +236,12 @@ def build_story(styles):
     ))
     story.append(Spacer(1, 0.1 * inch))
     story.append(Paragraph(
-        "<b>Rationale:</b> like / dislike / vote are quantitative signals with low abuse surface, so they unlock at "
-        "Tier 1 with no subscription friction. Comments and polls are text-based and high-abuse-surface, so the "
-        "Tier-2 subscription gate doubles as a moderation signal and a revenue source.",
+        "<b>Rationale:</b> identity verification — not payment — is what makes an engagement a verified-constituent "
+        "signal, so everything a constituent says or votes on unlocks at Tier 1: like / dislike, poll votes, and "
+        "comments. Putting a price on speech is the wrong signal for a civic platform and suppresses the very "
+        "participation the product exists to create (changed 2026-07-28). Tier 2 gates poll CREATION only, where "
+        "one author sets the agenda for everyone else on a page — a scarcer, higher-leverage act that warrants both "
+        "the extra friction and the revenue.",
         styles["Body"],
     ))
 
@@ -293,8 +296,8 @@ def build_story(styles):
         ["Read posts / polls / comments", "Yes", "Yes", "Yes", "Yes"],
         ["Like / dislike posts", "Yes", "Yes", "On own page only", "On own page only"],
         ["Vote on polls", "Yes", "Yes", "On own page only", "On own page only"],
-        ["Comment on posts", "—", "Yes", "On own page only", "On own page only"],
-        ["Reply to top-level comments", "—", "If original commenter", "If post creator (own page)", "If post creator (own page)"],
+        ["Comment on posts", "Yes", "Yes", "On own page only", "On own page only"],
+        ["Reply to top-level comments", "If original commenter", "If original commenter", "If post creator (own page)", "If post creator (own page)"],
         ["Create standalone polls", "—", "On unclaimed rep pages", "On own page only", "Not applicable (use posts)"],
         ["Post on a page", "—", "—", "Own candidate page", "Own rep page"],
         ["Manage page dashboard", "—", "—", "Yes (own page)", "Yes (own page)"],

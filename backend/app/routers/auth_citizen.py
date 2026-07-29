@@ -397,10 +397,10 @@ def demo_signup(
         is_active=True,
         # ── Temporary demo-grant for subscription (Task #88) ──
         # Real billing isn't live yet (Stripe + ID.me both pending).
-        # Demo citizens get is_subscribed=True so the engagement
-        # features (creating polls on poll page / unclaimed pages,
-        # commenting on posts + polls) work end-to-end during
-        # preview. stripe_subscription_id stays NULL, which
+        # Demo citizens get is_subscribed=True so the subscriber-tier
+        # feature (creating polls on the poll page / unclaimed pages)
+        # works end-to-end during preview. Commenting is VERIFIED-tier
+        # since 2026-07-28 and does not depend on this flag. stripe_subscription_id stays NULL, which
         # distinguishes these rows from real paid subscribers when
         # we cut over post-launch. REMOVE THIS LINE once real
         # billing goes live.

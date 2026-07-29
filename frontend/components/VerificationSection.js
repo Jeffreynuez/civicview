@@ -104,9 +104,9 @@ export default function VerificationSection({ citizen }) {
 
       {!isVerified && isDemo && (
         <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
-          Demo access &mdash; engagement features (polls, comments) work
-          while we finish wiring up ID.me. Once real verification goes
-          live, demo accounts can opt in to convert.
+          Demo access &mdash; engagement features (comments, poll votes,
+          likes) work while we finish wiring up ID.me. Once real
+          verification goes live, demo accounts can opt in to convert.
         </p>
       )}
 

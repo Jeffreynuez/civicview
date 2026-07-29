@@ -639,8 +639,9 @@ class CitizenMeResponse(BaseModel):
     purge_after: Optional[datetime] = None
     # Subscription (Task #88). Only citizens carry these — reps +
     # candidates remain free in the current product. The frontend
-    # reads is_subscribed to gate premium features (creating polls,
-    # commenting). The rest are surfaced in the Account → Billing
+    # reads is_subscribed to gate the subscriber-tier feature (creating
+    # polls). Commenting moved DOWN to the verified tier on 2026-07-28 —
+    # do not re-couple it here. The rest are surfaced in Account → Billing
     # tab so the user can see when the next renewal hits and what
     # state Stripe thinks they're in. Demo citizens have
     # is_subscribed=True with stripe_subscription_id=None — the

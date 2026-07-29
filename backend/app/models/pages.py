@@ -1277,9 +1277,13 @@ class CitizenAccount(Base):
     # but cached on the row so feature checks are a single column
     # read with no join.
     #
+    # Scope note (2026-07-28): is_subscribed gates POLL CREATION only.
+    # Commenting, liking, and poll voting are VERIFIED-tier and must not
+    # be gated on this column.
+    #
     # While ID.me + real account creation aren't live yet, demo
-    # citizens get is_subscribed=True at signup time so engagement
-    # features work end-to-end. The stripe_subscription_id stays NULL
+    # citizens get is_subscribed=True at signup time so the
+    # subscriber-tier feature works end-to-end. The stripe_subscription_id stays NULL
     # for those rows, so an audit / cleanup script can later
     # distinguish "real paid subscriber" from "demo grant".
     stripe_customer_id: Mapped[Optional[str]] = mapped_column(
