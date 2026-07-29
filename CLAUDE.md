@@ -197,11 +197,17 @@ generic "default behavior" you might otherwise reach for.
 
 These shape every product decision:
 
-- **Browse everything** → free, any visitor
-- **Like / dislike posts + polls, vote on polls** → ID.me verified
-  citizen
-- **Create polls, comment on posts + polls** → ID.me verified +
-  $5/mo subscribed
+- **Browse, search, track** → free, any visitor
+- **Like / dislike posts + polls, vote on polls, comment on posts +
+  polls** → ID.me verified citizen
+- **Create polls** → ID.me verified + $5/mo subscribed
+
+CHANGED 2026-07-28 (Jeffrey, after user feedback): commenting moved
+DOWN from the subscriber tier to the verified tier. Rationale: a
+paywall on speech is the wrong signal for a civic platform, and it
+suppressed the engagement the product exists to create. Verification —
+not payment — is what makes a comment a verified-constituent signal.
+The $5/mo subscription now gates poll CREATION only.
 
 **Demo citizens currently get both grants** (`verified_method='demo'`,
 `is_subscribed=True`, `subscription_status='demo'`) so the demo

@@ -2111,7 +2111,7 @@ function PollsEmptyState({ error }) {
       >
         {error
           ? 'We couldn’t reach the polls feed. Try again in a moment.'
-          : 'Polls authored by reps and by verified citizens on unclaimed rep pages will surface here, sorted by total votes. Open any rep’s page and start one to seed the feed.'}
+          : 'Polls authored by reps and by subscribed citizens on unclaimed rep pages will surface here, sorted by total votes. Open any rep’s page and start one to seed the feed.'}
       </p>
     </div>
   );

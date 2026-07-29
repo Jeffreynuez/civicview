@@ -196,7 +196,8 @@ export default function CitizenPollsSection({
   const callerRole = data?.caller_role; // 'subscribed' | 'rep_owner' | null
   const isCitizen = !!citizen;
   // Anonymous viewers can read but not vote / comment / create.
-  // Subscribed citizens can do all three (subject to the 1-per-page rule).
+  // Verified citizens can vote + comment; CREATING a poll is the
+  // subscriber-tier action (subject to the 1-per-page rule).
   // Rep owners on a claimed page see only the archive (active is empty
   // post-claim).
   const canCreate = isCitizen && !pageClaimed && !data?.caller_has_active_poll
@@ -526,7 +527,7 @@ function SectionBanner({ ownerName, pageClaimed, archivedCount, isOwner, onDismi
         While {ownerName} hasn't joined CivicView yet…
       </div>
       <div style={{ fontSize: '0.85rem', color: 'var(--cl-text-light)', marginTop: 4, lineHeight: 1.4 }}>
-        Subscribed citizens can start polls and conversations here. The official's response — and any polls they post — will replace this section if they claim the page.
+        Verified citizens can join the conversation here, and subscribers can start a poll. The official's response — and any polls they post — will replace this section if they claim the page.
       </div>
     </div>
   );

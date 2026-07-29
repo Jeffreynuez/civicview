@@ -137,8 +137,8 @@ export default function BillingSection({ citizen }) {
       {/* Body copy varies by branch */}
       {isDemo && (
         <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
-          Demo access &mdash; you have full engagement features (creating
-          polls, commenting) while we finish wiring up Stripe + ID.me.
+          Demo access &mdash; you have full engagement features (commenting,
+          creating polls) while we finish wiring up Stripe + ID.me.
           When we flip on real accounts, your demo grant will roll over
           into a one-month trial.
         </p>
@@ -155,17 +155,20 @@ export default function BillingSection({ citizen }) {
 
       {!isDemo && !isSubscribed && isConfigured && (
         <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
-          $5/month unlocks creating polls on the polls page + commenting
-          on posts and polls. Cancel any time from the billing portal.
+          $5/month unlocks creating your own polls &mdash; standalone
+          questions on the polls page, or polls on unclaimed official
+          pages. Commenting, liking, and voting need only ID verification,
+          not a subscription. Cancel any time from the billing portal.
         </p>
       )}
 
       {!isDemo && !isSubscribed && !isConfigured && (
         <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
           Billing isn&rsquo;t live yet &mdash; we&rsquo;re finishing up
-          Stripe + ID.me. Engagement features unlock once subscriptions
-          go live. For now you can browse, track officials, and join
-          the waitlist.
+          Stripe + ID.me. Creating your own polls unlocks once
+          subscriptions go live; commenting and voting unlock with ID
+          verification. For now you can browse, track officials, and
+          join the waitlist.
         </p>
       )}
 

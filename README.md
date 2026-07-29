@@ -15,8 +15,8 @@ through a moderated, district-scoped channel.
 CivicView is filed as a **Florida Benefit Corporation** (initial Profit
 Corporation filing on the books — tracking #800474911808; Benefit Corp
 Amendment filed 2026-06-12). No ads, no venture capital, no partisan agenda. The
-revenue model is a $5/month consumer subscription for engagement features;
-browsing is free forever.
+revenue model is a $5/month consumer subscription for creating polls;
+browsing is free forever and commenting requires only identity verification.
 
 ---
 
@@ -71,8 +71,8 @@ verified candidate), each with its own permission scope.
 | Track reps / bills / elections (receive notifications) | ✅ | ✅ | ✅ |
 | Like / dislike posts and polls | — | ✅ | ✅ |
 | Vote on polls | — | ✅ | ✅ |
+| Comment on posts and polls | — | ✅ | ✅ |
 | Create polls (on poll page or unclaimed rep / candidate pages) | — | — | ✅ |
-| Comment on posts and polls | — | — | ✅ |
 
 Verification confirms the citizen is a real U.S. person at a real address
 (state + congressional district), which is the foundation for the
@@ -121,8 +121,8 @@ back this: `cl_session` (rep), `cl_citizen` (citizen), `cl_candidate`
 - `verified=False` (with `verified_method='demo'`)
 - `is_subscribed=True` (with `subscription_status='demo'`, `stripe_subscription_id=NULL`)
 
-This lets the demo cohort exercise the full engagement experience (create
-polls, comment on posts) end-to-end. The NULL `stripe_subscription_id`
+This lets the demo cohort exercise the full engagement experience (comment
+on posts + polls, create polls) end-to-end. The NULL `stripe_subscription_id`
 distinguishes demo grants from real paid subscribers when we audit
 post-launch. Both grants are flagged for removal in the codebase
 (`auth_citizen.demo_signup`) once real billing + verification go live.

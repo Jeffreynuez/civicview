@@ -338,11 +338,10 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
         className="cl-body-sm"
         style={{ color: 'var(--cl-text-light)', margin: 0, marginBottom: 14 }}
       >
-        Verified US citizens can like, dislike, and vote on polls.
-        Subscribed citizens can also comment and start polls on
-        unclaimed rep pages. Engagement is scoped by state and
-        district so reps can filter what their own constituents are
-        saying.
+        Verified US citizens can like, dislike, vote on polls, and
+        comment. Subscribed citizens can also start their own polls.
+        Engagement is scoped by state and district so reps can filter
+        what their own constituents are saying.
       </p>
 
       {/* Load-bearing yellow notice — preserved per design system rules */}

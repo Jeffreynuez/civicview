@@ -272,7 +272,7 @@ export const TUTORIAL_SEGMENTS = [
         target: null,
         action: 'close-citizen-login',
         title: 'What’s coming at launch',
-        body: 'The tiers at launch: browsing stays free for everyone; ID.me-verified citizens can like and vote on polls; a $5/month subscription (the app’s only revenue — no ads, ever) adds creating polls and commenting. Demo accounts get all of it today so you can try everything now.',
+        body: 'The tiers at launch: browsing, searching, and tracking stay free for everyone; ID.me-verified citizens can like, vote on polls, and comment; a $5/month subscription (the app’s only revenue — no ads, ever) adds creating your own polls. Demo accounts get all of it today so you can try everything now.',
       },
     ],
   },
@@ -370,8 +370,8 @@ export const TUTORIAL_SEGMENTS = [
       {
         route: '/',
         target: null,
-        title: 'Creating polls & commenting',
-        body: 'You can also comment on posts and polls and create your own polls — standalone questions on the Polls page, or polls on any unclaimed official page. Optional demographic forms let your poll collect anonymous, aggregate-only breakdowns. At launch this tier will be part of the $5/month subscription; demo accounts have it now.',
+        title: 'Commenting & creating polls',
+        body: 'Verified citizens can comment on posts and polls — no subscription needed; verification is what makes your comment a verified-constituent signal. Creating your own polls (standalone questions on the Polls page, or polls on any unclaimed official page, with optional anonymous demographic breakdowns) is the one feature in the $5/month subscription. Demo accounts have all of it now.',
       },
       {
         route: '/',

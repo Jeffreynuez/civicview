@@ -28,7 +28,7 @@ import { ModalShell, Button, EmptyState, CheckCircle } from './ui';
  */
 const DEFAULT_HEADLINE = 'Join the citizen waitlist';
 const DEFAULT_PITCH =
-  "CivicView is in demo preview right now \u2014 every feature is open to try with a free demo account. Joining the waitlist just means we'll email you when the real citizen system launches: a one-time ID verification to like and vote, plus an optional $5/month subscription that unlocks commenting and creating polls.";
+  "CivicView is in demo preview right now \u2014 every feature is open to try with a free demo account. Joining the waitlist just means we'll email you when the real citizen system launches: a one-time ID verification to like, vote, and comment, plus an optional $5/month subscription that unlocks creating your own polls.";
 
 const FIELD_LABEL = {
   display: 'block',

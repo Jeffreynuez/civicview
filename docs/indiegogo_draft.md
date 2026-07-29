@@ -146,7 +146,7 @@
 >
 > CivicView is filing as a **Florida Benefit Corporation**. That's a legal structure that requires the company to consider its public-benefit purpose alongside shareholder interests — codified into our Articles of Incorporation, reviewable in the state public record.
 >
-> No ads. Ads would mean advertisers pay to put content in front of constituents, which corrupts the editorial neutrality. The revenue model is a $5/month subscription for the engagement features (creating polls on rep pages, commenting on posts) once verified accounts go live. Browsing is free, forever — informational access shouldn't sit behind a paywall.
+> No ads. Ads would mean advertisers pay to put content in front of constituents, which corrupts the editorial neutrality. The revenue model is a $5/month subscription for creating your own polls (on the polls page or unclaimed rep pages) once verified accounts go live. Commenting and voting need only identity verification — we don't put a price on speech. Browsing is free, forever — informational access shouldn't sit behind a paywall.
 >
 > No venture capital, either. VC-backed civic-tech has a track record of pivoting toward whatever pays — political ad-tech, data brokerage, partisan tools — once the runway runs out. Crowdfunding lets us stay accountable to citizens instead.
 >
@@ -397,7 +397,7 @@ campaign, then use the proceeds to onboard ID.me + Stripe live mode.
 >
 > You joined the CivicView waitlist some time ago, so this update is overdue: the product is live and free to browse at civicview.app. All 535 members of Congress, the executive + judicial branch, every state legislator in all 50 states, candidates in five states, address-to-rep lookup, AI-translated bill summaries, and demographic-aware polling.
 >
-> What hasn't shipped yet is the verified-account system that lets you create polls + comment on rep pages as a confirmed constituent. That's blocked on ID.me verification ($2,400 setup + $1.50/user) plus the legal review and a Year-2 operating buffer — the data feeds themselves are free.
+> What hasn't shipped yet is the verified-account system that lets you comment and vote on rep pages as a confirmed constituent. That's blocked on ID.me verification ($2,400 setup + $1.50/user) plus the legal review and a Year-2 operating buffer — the data feeds themselves are free.
 >
 > We're crowdfunding it on Indiegogo. $25K covers Year 2 of operations entirely — no salaries, no marketing, no VC, no ads. Every line item is sourced at civicview.app/help-build.
 >

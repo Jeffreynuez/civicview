@@ -73,13 +73,13 @@ each required item with CivicView's answer.
 ## 2. App access — give reviewers a working login (do this carefully)
 
 CivicView lets anyone **browse** free, but **engagement (like / vote / comment)
-requires a verified, subscribed citizen** — which a reviewer can't self-serve
-(ID.me + billing). If reviewers can't exercise those features, the app gets
+requires a VERIFIED citizen, and creating polls additionally requires a
+subscription** — neither of which a reviewer can self-serve (ID.me + billing). If reviewers can't exercise those features, the app gets
 **rejected for "login required / can't access functionality."** Prevent that:
 
 1. Provision **one stable demo citizen account** with a fixed **email +
    password** that has the demo grants (`verified_method='demo'`,
-   `is_subscribed=True`) so it can like/vote/comment. It must:
+   `is_subscribed=True`) so it can like/vote/comment and create polls. It must:
    - be **reusable** and **never expire**,
    - **bypass 2FA / OTP** (no code prompt for this account),
    - work from **any location** (US reviewers, but keep it geo-independent),

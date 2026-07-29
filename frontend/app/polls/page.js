@@ -1263,7 +1263,7 @@ function BottomStartCTA({ signedIn, onClick }) {
       <div className="polls-bottom-cta__text">
         <span className="polls-bottom-cta__title">Don&rsquo;t see your question?</span>
         <span className="polls-bottom-cta__sub">
-          Start a poll — verified citizens can ask the rest of CivicView directly from this page.
+          Start a poll — subscribers can ask the rest of CivicView directly from this page.
         </span>
       </div>
       <StartButton signedIn={signedIn} onClick={onClick} />

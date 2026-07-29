@@ -90,7 +90,7 @@ NON-PARTISAN BY DESIGN
 CivicView takes no political side. Officials' data is neutral and sourced; AI-generated summaries are written to inform, not persuade.
 
 NO ADS. NO VENTURE CAPITAL.
-Browsing is free, forever. An optional $5/month subscription unlocks engagement features (creating polls and commenting) for verified citizens. That is the entire business model — no advertising, and we do not sell your data.
+Browsing is free, forever. An optional $5/month subscription lets verified citizens create their own polls. Commenting, liking, and voting require only identity verification, not a subscription. That is the entire business model — no advertising, and we do not sell your data.
 
 BUILT ON TRUST
 Real verified identities. Transparent moderation with an appeals process. Your data is yours: full account deletion is available at any time, right from the app.
