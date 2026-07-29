@@ -85,6 +85,20 @@ async def lifespan(app: FastAPI):
         # rows the auto-migrate backfilled with False. Idempotent —
         # only touches rows that still need updating.
         backfill_demo_citizen_subscriptions()
+        # Increment 4 (demo-sunset PRD §D2) — stamp authored_verified on
+        # engagement rows written before the column existed. Convergent
+        # and idempotent: rep/candidate rows become True (page owners are
+        # vetted at claim time), citizen rows inherit the author's
+        # CURRENT verified flag, and everything else stays False. Runs
+        # ahead of any ID.me launch on purpose — after the flip there is
+        # no way to reconstruct what a row's author was at write time.
+        try:
+            from app.services.authored_verified_backfill import backfill_authored_verified
+            backfill_authored_verified()
+        except Exception:
+            logger.exception(
+                "authored_verified backfill failed at boot — non-fatal, retries next boot.",
+            )
         # Pre-fetched CRS bill summaries — populates the bill_summaries
         # cache so the rep-profile Bills tab gets instant Summary
         # expansions on day one without Congress.gov round-trips.

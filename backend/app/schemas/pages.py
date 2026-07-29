@@ -433,6 +433,15 @@ class CommentRead(BaseModel):
     citizen_display_name: str
     body: str
     created_at: datetime
+    # Verification state of the AUTHOR AT WRITE TIME (demo-sunset PRD
+    # §D2) — read straight off the row, NOT from the author's current
+    # flag. The UI renders the "Unverified" pill from this and only
+    # this, so a demo account that later verifies does not retroactively
+    # launder everything it said while self-attested. True for rep- and
+    # candidate-authored comments (page owners are vetted at claim
+    # time). Defaults False for rows predating the column; the boot-time
+    # backfill corrects the rep/candidate ones.
+    authored_verified: bool = False
     # Edit-feature fields (Task #41). edited_at NULL = never edited
     # (or only edited within the 60s silent grace window). Frontend
     # renders an "Edited" chip with hover-timestamp when this is set.
@@ -946,6 +955,15 @@ class PollCommentRead(BaseModel):
     citizen_display_name: str
     body: str
     created_at: datetime
+    # Verification state of the AUTHOR AT WRITE TIME (demo-sunset PRD
+    # §D2) — read straight off the row, NOT from the author's current
+    # flag. The UI renders the "Unverified" pill from this and only
+    # this, so a demo account that later verifies does not retroactively
+    # launder everything it said while self-attested. True for rep- and
+    # candidate-authored comments (page owners are vetted at claim
+    # time). Defaults False for rows predating the column; the boot-time
+    # backfill corrects the rep/candidate ones.
+    authored_verified: bool = False
     scope_state: Optional[str] = None
     scope_district: Optional[str] = None
     scope_city: Optional[str] = None

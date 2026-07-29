@@ -140,3 +140,30 @@ def require_subscribed(citizen, *, action: str = "do this") -> None:
             ),
         },
     )
+
+
+def authored_verified_flag(citizen=None, rep=None, candidate=None) -> bool:
+    """The value to stamp on an engagement row's `authored_verified`
+    column at write time (demo-sunset PRD §D2).
+
+    Deliberately INDEPENDENT of idme_enabled(). The switch controls who
+    is ALLOWED to act; this records who they WERE when they acted, and
+    that record has to be honest in both switch states or the history
+    written before the flip becomes unreadable after it.
+
+    - rep / candidate → True. Page owners are vetted at claim time,
+      which is a stronger check than ID.me.
+    - no identity → False. Legacy anonymous poll votes.
+    - citizen → mirrors CitizenAccount.verified right now. Today that is
+      False for every account in the database, which is the correct and
+      honest value, not a placeholder.
+
+    Callers pass the ACTING identity tuple (the one _resolve_engager
+    returned), never the full set of signed-in identities — the row
+    belongs to whoever actually authored it.
+    """
+    if rep is not None or candidate is not None:
+        return True
+    if citizen is None:
+        return False
+    return _is_verified(citizen)

@@ -59,7 +59,11 @@ from sqlalchemy.orm import Session, selectinload
 from app.auth import get_optional_rep
 from app.auth_candidate import get_optional_candidate
 from app.auth_citizen import get_current_citizen, get_optional_citizen
-from app.services.entitlements import require_subscribed, require_verified
+from app.services.entitlements import (
+    authored_verified_flag,
+    require_subscribed,
+    require_verified,
+)
 from app.db import get_db
 from pydantic import BaseModel, Field
 from app.models.pages import (
@@ -561,6 +565,8 @@ def vote_on_citizen_poll(
 
     if existing:
         existing.option_id = option.id
+        # Changing your vote is a new act of authorship — re-stamp.
+        existing.authored_verified = authored_verified_flag(citizen, rep, candidate)
         if citizen is not None:
             existing.scope_state = citizen.state
             existing.scope_district = citizen.congressional_district
@@ -574,6 +580,8 @@ def vote_on_citizen_poll(
             citizen_id=citizen.id if citizen is not None else None,
             author_rep_id=rep.id if rep is not None else None,
             author_candidate_id=candidate.id if candidate is not None else None,
+            # PRD §D2 — snapshot, not a live read. See the column docs.
+            authored_verified=authored_verified_flag(citizen, rep, candidate),
             scope_state=citizen.state if citizen is not None else None,
             scope_district=citizen.congressional_district if citizen is not None else None,
             scope_city=citizen.city if citizen is not None else None,
@@ -788,6 +796,9 @@ def list_citizen_poll_comments(
             citizen_display_name=c.citizen_display_name,
             body=c.body,
             created_at=c.created_at,
+            # PRD §D2 snapshot — see the pages.py twin for why this is
+            # threaded by hand rather than serialized off the ORM row.
+            authored_verified=bool(getattr(c, "authored_verified", False)),
             scope_state=c.scope_state,
             scope_district=c.scope_district,
             scope_city=c.scope_city,
@@ -940,6 +951,7 @@ def create_citizen_poll_comment(
         author_candidate_id=candidate.id if candidate is not None else None,
         citizen_display_name=display_name,
         body=payload.body,
+        authored_verified=authored_verified_flag(citizen, rep, candidate),
         scope_state=citizen.state if citizen is not None else None,
         scope_district=citizen.congressional_district if citizen is not None else None,
         scope_city=citizen.city if citizen is not None else None,
@@ -981,6 +993,7 @@ def create_citizen_poll_comment(
         citizen_display_name=comment.citizen_display_name,
         body=comment.body,
         created_at=comment.created_at,
+        authored_verified=bool(getattr(comment, "authored_verified", False)),
         scope_state=comment.scope_state,
         scope_district=comment.scope_district,
         scope_city=comment.scope_city,
@@ -1338,6 +1351,10 @@ def react_to_citizen_poll(
             db.delete(existing)
         else:
             existing.kind = payload.kind
+            # Flipping up↔down re-authors the row — re-stamp.
+            existing.authored_verified = authored_verified_flag(
+                acting_citizen, acting_rep, acting_candidate,
+            )
             if acting_citizen is not None:
                 existing.scope_state = acting_citizen.state
                 existing.scope_district = acting_citizen.congressional_district
@@ -1350,6 +1367,7 @@ def react_to_citizen_poll(
             author_rep_id=acting_rep.id if acting_rep is not None else None,
             author_candidate_id=acting_candidate.id if acting_candidate is not None else None,
             kind=payload.kind,
+            authored_verified=authored_verified_flag(acting_citizen, acting_rep, acting_candidate),
             scope_state=acting_citizen.state if acting_citizen is not None else None,
             scope_district=acting_citizen.congressional_district if acting_citizen is not None else None,
             scope_city=acting_citizen.city if acting_citizen is not None else None,
@@ -1508,6 +1526,9 @@ def react_to_poll_comment(
             db.delete(existing)
         else:
             existing.kind = payload.kind
+            existing.authored_verified = authored_verified_flag(
+                acting_citizen, acting_rep, acting_candidate,
+            )
             if acting_citizen is not None:
                 existing.scope_state = acting_citizen.state
                 existing.scope_district = acting_citizen.congressional_district
@@ -1520,6 +1541,7 @@ def react_to_poll_comment(
             author_rep_id=acting_rep.id if acting_rep is not None else None,
             author_candidate_id=acting_candidate.id if acting_candidate is not None else None,
             kind=payload.kind,
+            authored_verified=authored_verified_flag(acting_citizen, acting_rep, acting_candidate),
             scope_state=acting_citizen.state if acting_citizen is not None else None,
             scope_district=acting_citizen.congressional_district if acting_citizen is not None else None,
             scope_city=acting_citizen.city if acting_citizen is not None else None,

@@ -401,6 +401,35 @@ class PostReaction(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Verification state of the AUTHOR AT WRITE TIME (demo-sunset PRD
+    # §D2). NOT a live read of the author's current `verified` flag —
+    # that is the entire point. When a demo account upgrades through
+    # ID.me, everything it wrote while self-attested must keep reading
+    # "Unverified", because retroactively stamping self-attested speech
+    # as verified would falsify the verified-constituent claim we make
+    # to representatives, to NSF, and to two app stores, and would
+    # silently restate historical poll tallies that were reported to
+    # page owners at the time.
+    #
+    # True for rep- and candidate-authored rows: page owners are vetted
+    # at claim time, which is a stronger check than ID.me. False for
+    # anonymous legacy rows. For citizen rows it mirrors
+    # CitizenAccount.verified as of the insert (or of the last
+    # re-authoring — changing a vote or flipping a reaction re-stamps
+    # it, since that is a new act of authorship).
+    #
+    # server_default=false() (not default=False alone) so the boot-time
+    # auto-migrate renders a dialect-correct DEFAULT — Postgres rejects
+    # `DEFAULT 0` on BOOLEAN. Backfilled from the author's current state
+    # by backfill_authored_verified() at boot; today that is a no-op
+    # everywhere because there are no verified citizens yet, which is
+    # exactly why this column has to exist before there are.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     post: Mapped["Post"] = relationship(back_populates="reactions")
@@ -450,6 +479,15 @@ class PollReaction(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
@@ -514,6 +552,15 @@ class PostComment(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Edit feature (Task #41). edited_at NULL = never edited (or only
@@ -608,6 +655,15 @@ class CommentReaction(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     comment: Mapped["PostComment"] = relationship(back_populates="reactions")
@@ -780,6 +836,15 @@ class PollComment(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
     deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
@@ -973,6 +1038,15 @@ class PollCommentReaction(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
@@ -1044,6 +1118,15 @@ class PollVote(Base):
     scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
     scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None, index=True)
     scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Author's verification state AT WRITE TIME — see PostReaction
+    # .authored_verified for the full rationale. Never a live read of
+    # the author's current flag.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     option: Mapped["PollOption"] = relationship(back_populates="votes")
