@@ -35,6 +35,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_optional_rep
+from app.services.entitlements import require_verified
 from app.auth_citizen import get_optional_citizen
 from app.auth_candidate import get_optional_candidate
 from app.db import get_db
@@ -1310,6 +1311,11 @@ def vote_on_poll(
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=official_id,
     )
+    # Dormant gate (docs/demo-sunset-and-migration-prd.md, section 3):
+    # no-ops until IDME_ENABLED is true. citizen is None on the
+    # rep / candidate paths that _resolve_engager already chose, and
+    # page owners are verified by claim rather than by ID.me.
+    require_verified(citizen, action="vote on polls")
 
     # Authoritative lookup keyed on whichever identity is acting.
     q = db.query(PollVote).filter(PollVote.poll_id == poll.id)
@@ -1458,6 +1464,11 @@ def react_to_post(
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
+    # Dormant gate (docs/demo-sunset-and-migration-prd.md, section 3):
+    # no-ops until IDME_ENABLED is true. citizen is None on the
+    # rep / candidate paths that _resolve_engager already chose, and
+    # page owners are verified by claim rather than by ID.me.
+    require_verified(citizen, action="react to posts")
 
     # Dedupe lookup keyed on whichever identity is acting. The three
     # parallel unique indexes (uq_post_reaction_citizen/_rep/_candidate)
@@ -1833,6 +1844,11 @@ def react_to_comment(
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
+    # Dormant gate (docs/demo-sunset-and-migration-prd.md, section 3):
+    # no-ops until IDME_ENABLED is true. citizen is None on the
+    # rep / candidate paths that _resolve_engager already chose, and
+    # page owners are verified by claim rather than by ID.me.
+    require_verified(citizen, action="react to comments")
 
     q = db.query(CommentReaction).filter(CommentReaction.comment_id == comment.id)
     if rep is not None:
@@ -1958,6 +1974,11 @@ def create_comment(
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
+    # Dormant gate (docs/demo-sunset-and-migration-prd.md, section 3):
+    # no-ops until IDME_ENABLED is true. citizen is None on the
+    # rep / candidate paths that _resolve_engager already chose, and
+    # page owners are verified by claim rather than by ID.me.
+    require_verified(citizen, action="comment")
 
     # Reply-path validation. Done before write so we don't half-create
     # rows that fail the gate.
