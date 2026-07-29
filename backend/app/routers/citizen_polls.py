@@ -59,6 +59,7 @@ from sqlalchemy.orm import Session, selectinload
 from app.auth import get_optional_rep
 from app.auth_candidate import get_optional_candidate
 from app.auth_citizen import get_current_citizen, get_optional_citizen
+from app.services.entitlements import require_subscribed, require_verified
 from app.db import get_db
 from pydantic import BaseModel, Field
 from app.models.pages import (
@@ -291,6 +292,10 @@ def create_citizen_poll(
     then the per-page cap (handled silently by superseding the oldest
     active poll).
     """
+    # Dormant gate (PRD section 3) — no-op until IDME_ENABLED. Poll
+    # CREATION is the one subscriber-tier action.
+    require_subscribed(citizen, action="create polls")
+
     if _page_is_claimed(db, official_id):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -407,11 +412,14 @@ def create_standalone_poll(
     citizen can have 1 standalone AND up to 20 rep-page polls
     active simultaneously.
 
-    TODO (Phase 2 / ID.me): add a `verified=True` AND
-    `subscribed=True` gate. Today every active CitizenAccount can
-    create (gated by get_current_citizen which already filters out
-    suspended accounts). Demo accounts have access by design.
+    Gating (2026-07-28): the verified + subscribed gate this TODO
+    asked for now EXISTS as require_subscribed() below — dormant
+    until IDME_ENABLED is true, at which point creating a poll
+    requires both. Demo accounts keep access until then by design.
     """
+    # Dormant gate (PRD section 3) — no-op until IDME_ENABLED.
+    require_subscribed(citizen, action="create polls")
+
     from app.schemas.pages import STANDALONE_POLL_CAP_PER_CITIZEN
     from app.services.citizen_polls_service import (
         citizen_active_standalone_poll_count,
@@ -538,6 +546,9 @@ def vote_on_citizen_poll(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sign in to vote on this poll.",
         )
+
+    # Dormant gate (PRD section 3) — no-op until IDME_ENABLED.
+    require_verified(citizen, action="vote on polls")
 
     q = db.query(PollVote).filter(PollVote.poll_id == poll.id)
     if rep is not None:
@@ -862,6 +873,11 @@ def create_citizen_poll_comment(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sign in to comment on this poll.",
         )
+
+    # Dormant gate (PRD section 3) — no-op until IDME_ENABLED. Commenting
+    # is VERIFIED-tier as of 2026-07-28; it is deliberately NOT gated on
+    # subscription. See CLAUDE.md engagement gates.
+    require_verified(citizen, action="comment")
 
     # Reply-path validation (Phase 3). The "post creator" for a
     # citizen poll is the original citizen author; the page-owning
