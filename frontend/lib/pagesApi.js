@@ -897,7 +897,7 @@ export async function loginCitizenApi(email, password) {
 // the user their credentials (they're persisted; the user can come
 // back and sign in with them from any device).
 export async function signupDemoCitizen({
-  displayName, state, congressionalDistrict, city,
+  displayName, state, congressionalDistrict, city, contactEmail,
 } = {}) {
   // Phase 6: multi-identity — no tear-down of other sessions on
   // demo-signup either.
@@ -908,6 +908,8 @@ export async function signupDemoCitizen({
       state: state || null,
       congressional_district: congressionalDistrict || null,
       city: city || null,
+      // Optional sunset-notice address (demo-sunset PRD section 4).
+      contact_email: contactEmail || null,
     },
   });
   if (result?.data?.citizen_token) {

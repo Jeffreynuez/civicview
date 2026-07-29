@@ -126,6 +126,11 @@ class CitizenDemoSignupRequest(BaseModel):
     state: Optional[str] = Field(default=None, min_length=2, max_length=2)
     congressional_district: Optional[str] = Field(default=None, max_length=8)
     city: Optional[str] = Field(default=None, max_length=128)
+    # Optional reachable address for the demo-sunset / migration notice
+    # ONLY (demo-sunset PRD §4). The signup form states that purpose
+    # explicitly; honor it. Stored on CitizenAccount.contact_email, never
+    # as the login email.
+    contact_email: Optional[str] = Field(default=None, max_length=255)
 
 
 class CitizenDemoSignupResponse(BaseModel):
@@ -386,8 +391,18 @@ def demo_signup(
     if db.query(CitizenAccount.id).filter(CitizenAccount.email == email).first():
         email, password = _generate_credentials(display_name)
 
+    # Optional sunset-notice address (demo-sunset PRD §4). Light-touch
+    # validation only: this is a courtesy channel, not an auth factor, so
+    # a typo costs the user a notice rather than access. A malformed value
+    # is dropped silently rather than failing the signup — nobody should
+    # lose their demo account over an email typo.
+    contact_email = (payload.contact_email or "").strip().lower() or None
+    if contact_email and ("@" not in contact_email or len(contact_email) > 255):
+        contact_email = None
+
     citizen = CitizenAccount(
         email=email,
+        contact_email=contact_email,
         password_hash=hash_password(password),
         display_name=display_name,
         city=city or "Demo City",
