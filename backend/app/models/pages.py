@@ -1187,6 +1187,19 @@ class CitizenAccount(Base):
     password_hash: Mapped[str] = mapped_column(String(255))
     display_name: Mapped[str] = mapped_column(String(255))
 
+    # Reachable address for demo-sunset notices (2026-07-28, demo-sunset
+    # PRD §4). DISTINCT from `email` above: demo accounts are minted with
+    # a synthetic @demo-citizens.civicview.app login that reaches nobody,
+    # so without this column every demo account is unnotifiable and we
+    # could never warn them before the sunset deletes their history.
+    # OPTIONAL and single-purpose — the signup copy promises it is used
+    # only for the migration notice. Do not repurpose it for marketing,
+    # digests, or transactional mail without changing that copy and the
+    # privacy policy. Nullable forever; most rows will be NULL.
+    contact_email: Mapped[Optional[str]] = mapped_column(
+        String(255), default=None, index=True,
+    )
+
     # Address blob. `address_line1` is optional in schema but present in
     # the demo seed so the UI can render "123 Gulf Shore Blvd · Naples,
     # FL" when the citizen reviews their own profile.

@@ -114,6 +114,12 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [demoState, setDemoState] = useState('FL');
   const [demoDistrict, setDemoDistrict] = useState('');
   const [demoCity, setDemoCity] = useState('');
+  // Optional sunset-notice address (demo-sunset PRD section 4). Demo
+  // logins are synthetic @demo-citizens.civicview.app addresses that
+  // reach nobody, so without this the account cannot be warned before
+  // the sunset. Collected NOW, months ahead of ID.me, so the
+  // contactable list builds passively instead of starting at zero.
+  const [demoContactEmail, setDemoContactEmail] = useState('');
   const [demoBusy, setDemoBusy] = useState(false);
   const [demoErr, setDemoErr] = useState(null);
   // After a successful signup we surface the freshly-minted email +
@@ -285,6 +291,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       state: demoState || null,
       congressionalDistrict: demoDistrict || null,
       city: demoCity.trim() || null,
+      contactEmail: demoContactEmail.trim() || null,
     });
     setDemoBusy(false);
     if (!result.ok) {
@@ -758,6 +765,37 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
               maxLength={128}
               style={FIELD_INPUT}
             />
+
+            {/* Sunset-notice address (demo-sunset PRD section 4). The
+                promise in this copy is narrow ON PURPOSE and is the
+                consent basis for the field: one notice, nothing else.
+                Do not repurpose without changing this text AND the
+                privacy policy. */}
+            <label htmlFor="demo-contact-email" style={FIELD_LABEL}>
+              Email <span style={{ color: 'var(--cl-text-light)', fontWeight: 400 }}>(optional)</span>
+            </label>
+            <input
+              id="demo-contact-email"
+              type="email"
+              value={demoContactEmail}
+              onChange={(e) => setDemoContactEmail(e.target.value.slice(0, 255))}
+              placeholder="you@example.com"
+              disabled={demoBusy}
+              maxLength={255}
+              autoComplete="email"
+              style={FIELD_INPUT}
+            />
+            <div style={{
+              fontSize: 'var(--cl-text-xs)',
+              color: 'var(--cl-text-light)',
+              lineHeight: 1.45,
+              marginTop: -4,
+            }}>
+              Used for one thing only: telling you when verified accounts
+              go live, so you can move this demo account&rsquo;s activity
+              over before demo accounts are retired. No newsletters, no
+              marketing, and we don&rsquo;t share it.
+            </div>
 
             {demoErr && (
               <div
