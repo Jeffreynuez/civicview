@@ -1,6 +1,6 @@
 {
   "_note": "Curated Florida state officials (demo data). Shape is modeled loosely after OpenStates so we can swap in the live API later without changing the frontend. Names/districts reflect a demo-consistent snapshot of FL state government and may not perfectly track real-world changes.",
-  "_source": "Manually curated — replace with OpenStates API or FL legislature feeds.",
+  "_source": "Executive biographies and contact details from official state department sites and the Executive Office of the Governor; portraits from Wikimedia Commons. Legislator contact from the Florida Senate and House. Retrieved 2026-07-31.",
   "state": "FL",
   "state_name": "Florida",
   "executive": {
@@ -14,7 +14,7 @@
       "term_end": "2027-01-05",
       "website": "https://www.flgov.com",
       "phone": "(850) 717-9337",
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ron_DeSantis_official_photo.jpg/250px-Ron_DeSantis_official_photo.jpg",
       "bio": "Ron DeSantis is the 46th Governor of Florida, serving since January 2019. Before that he represented Florida's 6th congressional district in the US House.",
       "top_issues": [
         {
@@ -37,14 +37,14 @@
       "selection_method": "elected",
       "selection_detail": "Elected statewide in November 2022 to a 4-year term.",
       "contact": {
-        "dc_office": "Executive Office of the Governor, PL 05, The Capitol, 400 S Monroe St, Tallahassee, FL 32399-0001",
-        "dc_phone": "(850) 717-9249",
         "official_website": "https://www.flgov.com",
         "socials": {
           "twitter": "GovRonDeSantis",
           "facebook": "RonDeSantisFL",
           "instagram": "govrondesantis"
-        }
+        },
+        "capitol_office": "Executive Office of the Governor, PL 05, The Capitol, 400 S Monroe St, Tallahassee, FL 32399-0001",
+        "capitol_phone": "(850) 717-9249"
       },
       "experience": [
         {
@@ -62,7 +62,10 @@
           "from": "2004",
           "to": "2013"
         }
-      ]
+      ],
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Ron_DeSantis"
     },
     "lt_governor": {
       "id": "fl-exec-lieutenant-governor",
@@ -71,7 +74,56 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins.jpg",
+      "serving_since": 2025,
+      "bio": "Jay Collins has served as Lieutenant Governor of Florida since Governor Ron DeSantis appointed him in August 2025. He represented Tampa in the Florida Senate from 2022 until his appointment. A retired U.S. Army Green Beret, Collins served roughly two decades in Special Forces and lost a leg on deployment. He is a candidate for Governor in the 2026 Republican primary.",
+      "selection_method": "appointed",
+      "selection_detail": "Appointed by Gov. Ron DeSantis in August 2025 to fill the vacancy left by Jeanette Nuñez. The Lieutenant Governor is normally elected on a joint ticket with the Governor.",
+      "normally_elected": true,
+      "experience": [
+        {
+          "role": "Lieutenant Governor of Florida",
+          "from": 2025,
+          "to": null,
+          "note": "Appointed by Gov. Ron DeSantis."
+        },
+        {
+          "role": "Florida State Senator, District 14",
+          "from": 2022,
+          "to": 2025
+        },
+        {
+          "role": "U.S. Army Special Forces (Green Beret)",
+          "from": 1999,
+          "to": 2019,
+          "note": "Retired after roughly two decades of service."
+        }
+      ],
+      "top_issues": [
+        {
+          "name": "Veterans and Military Families",
+          "stance": "Chairs veteran-facing state initiatives; his own Special Forces service is central to his public profile."
+        },
+        {
+          "name": "Public Safety",
+          "stance": "Endorsed by the Florida Police Benevolent Association and multiple county sheriffs in his 2026 campaign."
+        },
+        {
+          "name": "Emergency Management",
+          "stance": "Lieutenant Governors in Florida routinely lead hurricane response coordination on the Governor's behalf."
+        }
+      ],
+      "contact": {
+        "capitol_office": "Office of the Lieutenant Governor, PL 05, The Capitol, 400 S Monroe St, Tallahassee, FL 32399-0001",
+        "capitol_phone": "(850) 717-9200",
+        "official_website": "https://www.flgov.com/eog/lieutenant-governor"
+      },
+      "active_candidacy": {
+        "candidate_id": "fl-cand-jay-collins",
+        "office": "Governor of Florida",
+        "election": "2026"
+      },
+      "data_observed": "2026-07-31"
     },
     "cabinet": [
       {
@@ -81,7 +133,56 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://files.floridados.gov/media/705688/2022-photo.png"
+        "photo_url": "https://files.floridados.gov/media/705688/2022-photo.png",
+        "serving_since": 2022,
+        "bio": "Cord Byrd has served as Florida's 37th Secretary of State since Governor Ron DeSantis appointed him in May 2022. The office makes him the state's Chief Elections Officer, State Protocol Officer, and Chief Arts and Culture Officer. He served three terms in the Florida House of Representatives before the appointment and previously chaired the Florida Cybersecurity Advisory Council. He holds a BA from the University of North Florida and a JD from St. Thomas University School of Law.",
+        "selection_method": "appointed",
+        "selection_detail": "Appointed by Gov. Ron DeSantis in May 2022. The Secretary of State is appointed, not elected.",
+        "normally_elected": false,
+        "experience": [
+          {
+            "role": "Secretary of State of Florida",
+            "from": 2022,
+            "to": null,
+            "note": "Appointed by Gov. Ron DeSantis."
+          },
+          {
+            "role": "Florida State Representative",
+            "from": 2016,
+            "to": 2022,
+            "note": "Three terms."
+          },
+          {
+            "role": "Chair, Florida Cybersecurity Advisory Council",
+            "from": 2019,
+            "to": 2022
+          },
+          {
+            "role": "Attorney, private practice",
+            "from": 2000,
+            "to": 2022
+          }
+        ],
+        "top_issues": [
+          {
+            "name": "Elections Administration",
+            "stance": "As Chief Elections Officer, oversees Florida's Division of Elections, voter rolls, and candidate qualifying."
+          },
+          {
+            "name": "Corporate and Public Records",
+            "stance": "The Department of State maintains Florida's corporate registry, notary commissions, and state archives."
+          },
+          {
+            "name": "Arts and Culture",
+            "stance": "Serves as Chief Arts and Culture Officer, administering state cultural grants and historic preservation."
+          }
+        ],
+        "contact": {
+          "capitol_office": "Florida Department of State, R.A. Gray Building, 500 South Bronough Street, Tallahassee, FL 32399-0250",
+          "capitol_phone": "(850) 245-6500",
+          "official_website": "https://dos.fl.gov"
+        },
+        "data_observed": "2026-07-31"
       },
       {
         "id": "fl-exec-attorney-general",
@@ -90,7 +191,60 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-FL-Uthmeier-James.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-FL-Uthmeier-James.png",
+        "serving_since": 2025,
+        "bio": "James Uthmeier has served as Attorney General of Florida since February 2025, when Governor Ron DeSantis appointed him to the vacancy created by Ashley Moody's appointment to the U.S. Senate. He previously served more than three years as the Governor's chief of staff and managed the 2024 DeSantis presidential campaign. He is seeking a full term in 2026 — his first campaign for elected office.",
+        "selection_method": "appointed",
+        "selection_detail": "Appointed by Gov. Ron DeSantis in February 2025 after Ashley Moody moved to the U.S. Senate. The Attorney General is normally elected statewide to a 4-year term.",
+        "normally_elected": true,
+        "experience": [
+          {
+            "role": "Attorney General of Florida",
+            "from": 2025,
+            "to": null,
+            "note": "Appointed by Gov. Ron DeSantis."
+          },
+          {
+            "role": "Chief of Staff, Executive Office of the Governor",
+            "from": 2021,
+            "to": 2025
+          },
+          {
+            "role": "Campaign Manager, DeSantis for President",
+            "from": 2023,
+            "to": 2024
+          },
+          {
+            "role": "General Counsel, Executive Office of the Governor",
+            "from": 2019,
+            "to": 2021
+          }
+        ],
+        "top_issues": [
+          {
+            "name": "Criminal Prosecution and Appeals",
+            "stance": "The Attorney General represents the state in criminal appeals and capital cases."
+          },
+          {
+            "name": "Consumer Protection",
+            "stance": "The office houses Florida's consumer protection and antitrust divisions."
+          },
+          {
+            "name": "Multistate Litigation",
+            "stance": "Florida Attorneys General routinely join or lead multistate suits against federal agencies and corporations."
+          }
+        ],
+        "contact": {
+          "capitol_office": "Office of the Attorney General, The Capitol PL-01, Tallahassee, FL 32399-1050",
+          "capitol_phone": "(850) 414-3300",
+          "official_website": "https://www.myfloridalegal.com"
+        },
+        "active_candidacy": {
+          "candidate_id": "fl-cand-james-uthmeier",
+          "office": "Attorney General of Florida",
+          "election": "2026"
+        },
+        "data_observed": "2026-07-31"
       },
       {
         "id": "fl-exec-cfo",
@@ -106,7 +260,56 @@
         "normally_elected": true,
         "photo_source": "wikimedia",
         "photo_credit": "Wikimedia Commons",
-        "photo_source_url": "https://en.wikipedia.org/wiki/Blaise_Ingoglia"
+        "photo_source_url": "https://en.wikipedia.org/wiki/Blaise_Ingoglia",
+        "bio": "Blaise Ingoglia has served as Florida's Chief Financial Officer since Governor Ron DeSantis appointed him in July 2025. He previously served in the Florida Senate and the Florida House and chaired the Republican Party of Florida from 2015 to 2019. The CFO oversees state accounting, the unclaimed property program, and the Division of Investigative and Forensic Services, and sits on the Florida Cabinet. He is seeking a full term in 2026.",
+        "experience": [
+          {
+            "role": "Chief Financial Officer of Florida",
+            "from": 2025,
+            "to": null,
+            "note": "Appointed by Gov. Ron DeSantis."
+          },
+          {
+            "role": "Florida State Senator",
+            "from": 2018,
+            "to": 2025
+          },
+          {
+            "role": "Florida State Representative",
+            "from": 2014,
+            "to": 2018
+          },
+          {
+            "role": "Chairman, Republican Party of Florida",
+            "from": 2015,
+            "to": 2019
+          }
+        ],
+        "top_issues": [
+          {
+            "name": "State Financial Oversight",
+            "stance": "The CFO maintains Florida's accounting systems and settles claims against the state."
+          },
+          {
+            "name": "Insurance and Fire Marshal",
+            "stance": "The office houses the State Fire Marshal and investigates insurance fraud."
+          },
+          {
+            "name": "Unclaimed Property",
+            "stance": "The Division of Unclaimed Property returns unclaimed assets to Florida residents."
+          }
+        ],
+        "contact": {
+          "capitol_office": "Department of Financial Services, 200 East Gaines Street, Tallahassee, FL 32399-0301",
+          "capitol_phone": "(850) 413-3100",
+          "official_website": "https://www.myfloridacfo.com"
+        },
+        "active_candidacy": {
+          "candidate_id": "fl-cand-blaise-ingoglia",
+          "office": "Chief Financial Officer of Florida",
+          "election": "2026"
+        },
+        "data_observed": "2026-07-31"
       },
       {
         "id": "fl-exec-agriculture-commissioner",
@@ -122,7 +325,59 @@
         "normally_elected": true,
         "photo_source": "wikimedia",
         "photo_credit": "Wikimedia Commons",
-        "photo_source_url": "https://en.wikipedia.org/wiki/Wilton_Simpson"
+        "photo_source_url": "https://en.wikipedia.org/wiki/Wilton_Simpson",
+        "bio": "Wilton Simpson has served as Florida's Commissioner of Agriculture since 2023, elected statewide in 2022. He was President of the Florida Senate from 2020 to 2022 and served in the Senate from 2012. An egg farmer by trade, he leads the Department of Agriculture and Consumer Services and sits on the Florida Cabinet. He is seeking a second term in 2026.",
+        "experience": [
+          {
+            "role": "Commissioner of Agriculture of Florida",
+            "from": 2023,
+            "to": null
+          },
+          {
+            "role": "President, Florida Senate",
+            "from": 2020,
+            "to": 2022
+          },
+          {
+            "role": "Florida State Senator, District 10",
+            "from": 2012,
+            "to": 2022
+          },
+          {
+            "role": "Farmer and businessman",
+            "from": 1990,
+            "to": null
+          }
+        ],
+        "top_issues": [
+          {
+            "name": "Agriculture and Food Safety",
+            "stance": "The department regulates food safety, agricultural water policy, and Florida's farming industry."
+          },
+          {
+            "name": "Consumer Services",
+            "stance": "Handles consumer complaints, the Do Not Call registry, and business regulation."
+          },
+          {
+            "name": "Concealed Weapon Licensing",
+            "stance": "Florida's concealed weapon license program is administered by this department, not by law enforcement."
+          },
+          {
+            "name": "Wildfire and Forestry",
+            "stance": "The Florida Forest Service, including wildfire response, reports to this office."
+          }
+        ],
+        "contact": {
+          "capitol_office": "Florida Department of Agriculture and Consumer Services, The Capitol PL-10, Tallahassee, FL 32399-0810",
+          "capitol_phone": "(850) 617-7700",
+          "official_website": "https://www.fdacs.gov"
+        },
+        "active_candidacy": {
+          "candidate_id": "fl-cand-wilton-simpson",
+          "office": "Commissioner of Agriculture of Florida",
+          "election": "2026"
+        },
+        "data_observed": "2026-07-31"
       }
     ]
   },
@@ -141,8 +396,8 @@
         "contact": {
           "official_website": "https://www.flsenate.gov/Senators/s1",
           "email": "gaetz.don.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -157,8 +412,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S2",
           "email": "trumbull.jay.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -173,8 +428,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S3",
           "email": "simon.corey.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -189,8 +444,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S4",
           "email": "yarborough.clay.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -205,8 +460,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S5",
           "email": "davis.tracie.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -221,8 +476,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S6",
           "email": "bradley.jennifer.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -237,8 +492,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4662&LegislativeTermId=90",
           "email": "leek.tom.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -253,8 +508,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S8",
           "email": "wright.tom.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -269,8 +524,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4658&LegislativeTermId=90",
           "email": "mcclain.stan.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -285,8 +540,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S10",
           "email": "brodeur.jason.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -301,8 +556,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4624&LegislativeTermId=90",
           "email": "massullo.ralph.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -317,8 +572,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S12",
           "email": "burton.colleen.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -333,8 +588,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4772&LegislativeTermId=90",
           "email": "truenow.keith.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -345,13 +600,16 @@
         "chamber": "State Senate",
         "district": "14",
         "role": "State Senator",
-        "photo_url": null,
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Brian_Nathan.jpg/250px-Brian_Nathan.jpg",
         "contact": {
           "official_website": "https://www.flsenate.gov/Senators/S14",
           "email": "nathan.brian.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
+        },
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Brian_Nathan"
       },
       {
         "id": "fl-sen-15",
@@ -365,8 +623,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4874&LegislativeTermId=90",
           "email": "bracydavis.lavon.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -381,8 +639,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S16",
           "email": "rouson.darryl.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -397,8 +655,8 @@
         "contact": {
           "official_website": "https://www.flsenate.gov/Senators/S17",
           "email": "smith.carlos.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -413,8 +671,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S18",
           "email": "diceglie.nick.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -429,8 +687,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S19",
           "email": "mayfield.debbie.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -445,8 +703,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S20",
           "email": "boyd.jim.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -461,8 +719,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S21",
           "email": "hooper.ed.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -477,8 +735,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S22",
           "email": "gruters.joe.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -493,8 +751,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S23",
           "email": "burgess.danny.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -509,8 +767,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4422&SessionId=70",
           "email": "bernard.mack.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -525,8 +783,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4774&LegislativeTermId=90",
           "email": "arrington.kristen.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -541,8 +799,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S26",
           "email": "berman.lori.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -557,8 +815,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S27",
           "email": "albritton.ben@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -573,8 +831,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S28",
           "email": "passidomo.kathleen.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -589,8 +847,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S29",
           "email": "grall.erin.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -605,8 +863,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S30",
           "email": "polsky.tina.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -621,8 +879,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S31",
           "email": "harrell.gayle.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -637,8 +895,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S32",
           "email": "osgood.rosalind.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -653,8 +911,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S33",
           "email": "martin.jonathan.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -669,8 +927,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S34",
           "email": "jones.shevrin.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -685,8 +943,8 @@
         "contact": {
           "official_website": "https://www.flsenate.gov/Senators/S35",
           "email": "sharief.barbara.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -701,8 +959,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S36",
           "email": "garcia.ileana.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -717,8 +975,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S37",
           "email": "pizzo.jason.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -733,8 +991,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S38",
           "email": "calatayud.alexis.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -749,8 +1007,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S39",
           "email": "avila.bryan.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -765,8 +1023,8 @@
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S40",
           "email": "rodriguez.anamaria.web@flsenate.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       }
     ]
@@ -786,8 +1044,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4763&LegislativeTermId=90",
           "email": "michelle.salzman@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -802,8 +1060,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4710&LegislativeTermId=90",
           "email": "alex.andrade@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -814,13 +1072,16 @@
         "chamber": "State House",
         "district": "3",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nathan_Boyles.jpg/250px-Nathan_Boyles.jpg",
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5063",
           "email": "nathan.boyles@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
+        },
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Nathan_Boyles"
       },
       {
         "id": "fl-rep-4",
@@ -834,8 +1095,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4764&LegislativeTermId=90",
           "email": "patt.maney@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -850,8 +1111,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4864&LegislativeTermId=90",
           "email": "shane.abbott@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -866,8 +1127,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4862&LegislativeTermId=90",
           "email": "griff.griffitts@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -882,8 +1143,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4756&LegislativeTermId=90",
           "email": "jason.shoaf@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -898,8 +1159,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4863&LegislativeTermId=90",
           "email": "gallop.franklin@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -914,8 +1175,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4765&LegislativeTermId=90",
           "email": "allison.tant@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -930,8 +1191,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4708&LegislativeTermId=90",
           "email": "chuck.brannan@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -946,8 +1207,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4767&LegislativeTermId=90",
           "email": "sam.garrison@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -962,8 +1223,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4712&LegislativeTermId=90",
           "email": "wyman.duggan@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -978,8 +1239,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4766&LegislativeTermId=90",
           "email": "angela.nixon@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -994,8 +1255,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4652&LegislativeTermId=90",
           "email": "kimberly.daniels@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1010,8 +1271,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4865&LegislativeTermId=90",
           "email": "dean.black@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1026,8 +1287,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4869&LegislativeTermId=90",
           "email": "kiyan.michael@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1042,8 +1303,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4866&LegislativeTermId=90",
           "email": "jessica.baker@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1058,8 +1319,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4905",
           "email": "kim.kendall@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1074,8 +1335,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4906",
           "email": "sam.greco@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1090,8 +1351,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4907",
           "email": "judson.sapp@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1106,8 +1367,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4768&LegislativeTermId=90",
           "email": "yvonne.hinson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1122,8 +1383,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4908&LegislativeTermId=91",
           "email": "chad.johnson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1138,8 +1399,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4909",
           "email": "jj.grow@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1154,8 +1415,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4901&LegislativeTermId=90",
           "email": "ryan.chamberlin@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1170,8 +1431,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4868&LegislativeTermId=90",
           "email": "taylor.yarkosky@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1186,8 +1447,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4910",
           "email": "nan.cobb@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1202,8 +1463,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4911",
           "email": "richard.gentry@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1218,8 +1479,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4912&LegislativeTermId=91",
           "email": "bill.partington@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1234,8 +1495,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4770&LegislativeTermId=90",
           "email": "webster.barnaby@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1250,8 +1511,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4867&LegislativeTermId=90",
           "email": "chase.tramont@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1266,8 +1527,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4748&LegislativeTermId=90",
           "email": "tyler.sirois@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1278,13 +1539,16 @@
         "chamber": "State House",
         "district": "32",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Brian_Hodgers.jpg/250px-Brian_Hodgers.jpg",
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5064&LegislativeTermId=91",
           "email": "brian.hodgers@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
+        },
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Brian_Hodgers"
       },
       {
         "id": "fl-rep-33",
@@ -1298,8 +1562,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4913",
           "email": "monique.miller@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1314,8 +1578,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4870&LegislativeTermId=90",
           "email": "robert.brackett@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1330,8 +1594,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4914&LegislativeTermId=91",
           "email": "erika.booth@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1346,8 +1610,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4871&LegislativeTermId=90",
           "email": "rachel.plakon@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1362,8 +1626,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4872&LegislativeTermId=90",
           "email": "susan.plasencia@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1378,8 +1642,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4718&LegislativeTermId=90",
           "email": "david.smith@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1394,8 +1658,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4873&LegislativeTermId=90",
           "email": "doug.bankson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1406,13 +1670,16 @@
         "chamber": "State House",
         "district": "40",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/RaShon_Young.jpg/250px-RaShon_Young.jpg",
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5065",
           "email": "rashon.young@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
+        },
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/RaShon_Young"
       },
       {
         "id": "fl-rep-41",
@@ -1426,8 +1693,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4269&LegislativeTermId=90",
           "email": "bruce.antone@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1442,8 +1709,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4746&LegislativeTermId=90",
           "email": "anna.eskamani@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1458,8 +1725,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4875&LegislativeTermId=90",
           "email": "johanna.lopez@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1474,8 +1741,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4877&LegislativeTermId=90",
           "email": "rita.harris@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1490,8 +1757,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4915&LegislativeTermId=91",
           "email": "leonard.spencer@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1506,8 +1773,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4916&LegislativeTermId=91",
           "email": "jose.alvarez@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1522,8 +1789,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4878&LegislativeTermId=90",
           "email": "paula.stark@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1538,8 +1805,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4917&LegislativeTermId=91",
           "email": "jon.albert@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1554,8 +1821,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4918",
           "email": "jennifer.jonsson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1570,8 +1837,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4879&LegislativeTermId=90",
           "email": "jennifer.canady@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1586,8 +1853,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5072",
           "email": "hilary.holley@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1602,8 +1869,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5070",
           "email": "samantha.scott@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1618,8 +1885,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4890&LegislativeTermId=90",
           "email": "jeff.holcomb@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1634,8 +1901,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4758&LegislativeTermId=90",
           "email": "randy.maggard@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1650,8 +1917,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4881&LegislativeTermId=90",
           "email": "kevin.steele@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1666,8 +1933,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4882&LegislativeTermId=90",
           "email": "brad.yeager@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1682,8 +1949,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4885&LegislativeTermId=90",
           "email": "adam.anderson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1698,8 +1965,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4210&LegislativeTermId=90",
           "email": "kim.berfield@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1714,8 +1981,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4886&LegislativeTermId=90",
           "email": "berny.jacques@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1730,8 +1997,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4887&LegislativeTermId=90",
           "email": "lindsay.cross@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1746,8 +2013,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4778&LegislativeTermId=90",
           "email": "linda.chaney@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1762,8 +2029,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4781&LegislativeTermId=90",
           "email": "michele.rayner@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1778,8 +2045,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4736&LegislativeTermId=90",
           "email": "dianne.hart-lowman@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1794,8 +2061,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4752&LegislativeTermId=90",
           "email": "susan.valdes@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1810,8 +2077,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4888&LegislativeTermId=90",
           "email": "karen.pittman@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1826,8 +2093,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4779&LegislativeTermId=90",
           "email": "traci.koster@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1842,8 +2109,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4745&LegislativeTermId=90",
           "email": "fentrice.driskell@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1858,8 +2125,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4686&LegislativeTermId=90",
           "email": "lawrence.mcclure@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1874,8 +2141,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4889&LegislativeTermId=90",
           "email": "danny.alvarez@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1890,8 +2157,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4919",
           "email": "michael.owen@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1906,8 +2173,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4733&LegislativeTermId=90",
           "email": "will.robinson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1922,8 +2189,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4920",
           "email": "bill.conerly@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1938,8 +2205,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4780&LegislativeTermId=90",
           "email": "fiona.mcfarland@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1954,8 +2221,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4731&LegislativeTermId=90",
           "email": "james.buchanan@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1970,8 +2237,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4921&LegislativeTermId=91",
           "email": "danny.nix@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -1986,8 +2253,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4922",
           "email": "vanessa.oliver@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2002,8 +2269,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4892&LegislativeTermId=90",
           "email": "tiffany.esposito@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2018,8 +2285,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4785&LegislativeTermId=90",
           "email": "jenna.persons@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2034,8 +2301,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4783&LegislativeTermId=90",
           "email": "mike.giallombardo@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2050,8 +2317,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4782&LegislativeTermId=90",
           "email": "adam.botana@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2066,8 +2333,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4923",
           "email": "yvette.benarroch@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2082,8 +2349,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4784&LegislativeTermId=90",
           "email": "lauren.melo@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2098,8 +2365,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4776&LegislativeTermId=90",
           "email": "kaylee.tuck@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2114,8 +2381,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4788&LegislativeTermId=90",
           "email": "dana.trabulsy@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2130,8 +2397,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4728&LegislativeTermId=90",
           "email": "toby.overdorf@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2146,8 +2413,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4787&LegislativeTermId=90",
           "email": "john.snyder@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2162,8 +2429,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5069",
           "email": "emily.gregory@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2178,8 +2445,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4842&LegislativeTermId=90",
           "email": "jervonte.edmonds@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2194,8 +2461,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4924&LegislativeTermId=91",
           "email": "debra.tendrich@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2206,13 +2473,16 @@
         "chamber": "State House",
         "district": "90",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/State_Representative_Rob_Long.jpg/250px-State_Representative_Rob_Long.jpg",
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5067",
           "email": "rob.long@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
+        },
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Rob_Long_(Florida_politician)"
       },
       {
         "id": "fl-rep-91",
@@ -2226,8 +2496,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4891&LegislativeTermId=90",
           "email": "peggy.gossettseidman@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2242,8 +2512,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4786&LegislativeTermId=90",
           "email": "kelly.skidmore@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2258,8 +2528,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4925",
           "email": "anne.gerwig@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2274,8 +2544,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4926",
           "email": "meg.weinberger@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2290,8 +2560,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4799&LegislativeTermId=90",
           "email": "christine.hunschofsky@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2306,8 +2576,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4757&LegislativeTermId=90",
           "email": "dan.daley@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2322,8 +2592,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4893&LegislativeTermId=90",
           "email": "lisa.dunkley@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2338,8 +2608,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4927&LegislativeTermId=91",
           "email": "mitch.rosenwald@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2354,8 +2624,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4843&LegislativeTermId=90",
           "email": "daryl.campbell@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2370,8 +2640,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4722&LegislativeTermId=90",
           "email": "chip.lamarca@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2386,8 +2656,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4895&LegislativeTermId=90",
           "email": "hillary.cassel@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2402,8 +2672,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4724&LegislativeTermId=90",
           "email": "mike.gottlieb@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2418,8 +2688,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4793&LegislativeTermId=90",
           "email": "robin.bartleman@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2434,8 +2704,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4791&LegislativeTermId=90",
           "email": "felicia.robinson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2450,8 +2720,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4789&LegislativeTermId=90",
           "email": "marie.woodson@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2466,8 +2736,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4900&LegislativeTermId=90",
           "email": "fabian.basabe@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2482,8 +2752,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4928",
           "email": "wallace.aristide@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2498,8 +2768,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4716&LegislativeTermId=90",
           "email": "dotie.joseph@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2514,8 +2784,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4897&LegislativeTermId=90",
           "email": "ashley.gantt@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2530,8 +2800,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4792&LegislativeTermId=90",
           "email": "tom.fabricio@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2546,8 +2816,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4794&LegislativeTermId=90",
           "email": "david.borrero@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2562,8 +2832,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4796&LegislativeTermId=90",
           "email": "alex.rizo@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2578,8 +2848,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4800&LegislativeTermId=90",
           "email": "demi.busatta@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2594,8 +2864,8 @@
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4929",
           "email": "omar.blanco@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2610,8 +2880,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4690&LegislativeTermId=90",
           "email": "daniel.perez@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2626,8 +2896,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4798&LegislativeTermId=90",
           "email": "kevin.chambliss@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2642,8 +2912,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4902&LegislativeTermId=90",
           "email": "mike.redondo@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2658,8 +2928,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4898&LegislativeTermId=90",
           "email": "juancarlos.porras@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       },
       {
@@ -2674,8 +2944,8 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4797&LegislativeTermId=90",
           "email": "james.mooney@flhouse.gov",
-          "dc_office": null,
-          "dc_phone": null
+          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
+          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
       }
     ]
@@ -2699,11 +2969,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor DeSantis on Jan 22, 2019. Retained by voters in 2020 and last faced merit retention in 2022. Selected Chief Justice by the Court on a rotating basis starting July 2024.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg/250px-Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2735,7 +3005,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Carlos_G._Mu%C3%B1iz"
         },
         {
           "id": "fl-sc-canady",
@@ -2747,11 +3020,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor Crist in 2008. Served as Chief Justice 2010-12, 2018-22, 2022-24. Most recently retained by voters in 2022.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Florida-Supreme-Court-Justice-Charles-Canady-2019.jpg/250px-Florida-Supreme-Court-Justice-Charles-Canady-2019.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2783,7 +3056,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Charles_Canady"
         },
         {
           "id": "fl-sc-labarga",
@@ -2795,11 +3071,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor Crist in 2009. Served as Chief Justice 2014-18. Retained by voters in 2016 and 2022.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Labarga-Formal-2022.jpg/250px-Labarga-Formal-2022.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2831,7 +3107,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Jorge_Labarga"
         },
         {
           "id": "fl-sc-couriel",
@@ -2843,11 +3122,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor DeSantis on May 26, 2020. Retained by voters in 2022.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/John_D._Couriel_%28cropped%29.jpg/250px-John_D._Couriel_%28cropped%29.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2879,7 +3158,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/John_D._Couriel"
         },
         {
           "id": "fl-sc-grosshans",
@@ -2891,11 +3173,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor DeSantis on Sept 14, 2020. Retained by voters in 2022.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jamie_R._Grosshans_%28cropped%29.jpg/250px-Jamie_R._Grosshans_%28cropped%29.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2927,7 +3209,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Jamie_Grosshans"
         },
         {
           "id": "fl-sc-francis",
@@ -2939,11 +3224,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor DeSantis on Aug 29, 2022. First Caribbean-American to serve on the Florida Supreme Court.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Justice_Renatha_Francis_%28cropped%29.jpg/250px-Justice_Renatha_Francis_%28cropped%29.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -2975,7 +3260,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Renatha_Francis"
         },
         {
           "id": "fl-sc-sasso",
@@ -2987,11 +3275,11 @@
           "selection_method": "appointed",
           "selection_detail": "Appointed by Governor DeSantis on May 23, 2023, previously Chief Judge of the Sixth District Court of Appeal.",
           "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": null,
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Sasso-formal-2023_%28cropped%29.jpg/250px-Sasso-formal-2023_%28cropped%29.jpg",
           "contact": {
-            "dc_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "dc_phone": "(850) 488-0125",
-            "official_website": "https://www.floridasupremecourt.org"
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
           },
           "top_issues": [
             {
@@ -3023,7 +3311,10 @@
               "from": "1995",
               "to": "2000"
             }
-          ]
+          ],
+          "photo_source": "wikimedia",
+          "photo_credit": "Wikimedia Commons",
+          "photo_source_url": "https://en.wikipedia.org/wiki/Meredith_Sasso"
         }
       ]
     },
