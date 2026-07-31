@@ -95,6 +95,7 @@ export default function StatewideOfficialsTab({
         <Section title="Governor">
           <OfficialCard
             name={gov.name}
+            photoUrl={gov.photo_url}
             party={gov.party}
             subtitle={gov.role || 'Governor'}
             meta={[
@@ -124,6 +125,7 @@ export default function StatewideOfficialsTab({
         <Section title="Lieutenant Governor" compact>
           <OfficialCard
             name={ltGov.name}
+            photoUrl={ltGov.photo_url}
             party={ltGov.party}
             subtitle={ltGov.role || 'Lieutenant Governor'}
             website={ltGov.website}
@@ -144,6 +146,7 @@ export default function StatewideOfficialsTab({
         <Collapsible title="Attorney General">
           <OfficialCard
             name={ag.name}
+            photoUrl={ag.photo_url}
             party={ag.party}
             subtitle={ag.role}
             meta={[
@@ -168,6 +171,7 @@ export default function StatewideOfficialsTab({
         <Collapsible title="Chief Financial Officer">
           <OfficialCard
             name={cfo.name}
+            photoUrl={cfo.photo_url}
             party={cfo.party}
             subtitle={cfo.role}
             meta={[
@@ -192,6 +196,7 @@ export default function StatewideOfficialsTab({
         <Collapsible title="Commissioner of Agriculture">
           <OfficialCard
             name={agCom.name}
+            photoUrl={agCom.photo_url}
             party={agCom.party}
             subtitle={agCom.role}
             meta={[
@@ -219,6 +224,7 @@ export default function StatewideOfficialsTab({
                 <OfficialCard
                   key={m.id}
                   name={m.name}
+                  photoUrl={m.photo_url}
                   party={m.party}
                   subtitle={`District ${m.district} · ${m.role}`}
                   website={m.website}
@@ -237,6 +243,7 @@ export default function StatewideOfficialsTab({
                 <OfficialCard
                   key={m.id}
                   name={m.name}
+                  photoUrl={m.photo_url}
                   party={m.party}
                   subtitle={`District ${m.district} · ${m.role}`}
                   onClick={handleSelect(m, 'state_legislator', { chamber: m.chamber || 'State Senate' })}
@@ -260,6 +267,7 @@ export default function StatewideOfficialsTab({
                 <OfficialCard
                   key={m.id}
                   name={m.name}
+                  photoUrl={m.photo_url}
                   party={m.party}
                   subtitle={`District ${m.district} · ${m.role}`}
                   onClick={handleSelect(m, 'state_legislator', { chamber: m.chamber || 'State House' })}
@@ -277,6 +285,7 @@ export default function StatewideOfficialsTab({
                 <OfficialCard
                   key={m.id}
                   name={m.name}
+                  photoUrl={m.photo_url}
                   party={m.party}
                   subtitle={`District ${m.district} · ${m.role}`}
                   onClick={handleSelect(m, 'state_legislator', { chamber: m.chamber || 'State House' })}
@@ -305,6 +314,7 @@ export default function StatewideOfficialsTab({
             <OfficialCard
               key={j.id}
               name={j.name}
+              photoUrl={j.photo_url}
               subtitle={j.role + (j.chief ? ' (presiding)' : '')}
               meta={[
                 j.appointed_by ? `Appointed by ${j.appointed_by}` : null,
@@ -354,6 +364,7 @@ export default function StatewideOfficialsTab({
                 {d.chief_judge && (
                   <OfficialCard
                     name={d.chief_judge.name}
+                    photoUrl={d.chief_judge.photo_url}
                     subtitle={d.chief_judge.role}
                     meta={[
                       d.chief_judge.appointed_by ? `Appointed by ${d.chief_judge.appointed_by}` : null,
@@ -372,6 +383,7 @@ export default function StatewideOfficialsTab({
                   <OfficialCard
                     key={j.id}
                     name={j.name}
+                    photoUrl={j.photo_url}
                     subtitle={j.role || 'Judge'}
                     meta={j.appointed_by ? [`Appointed by ${j.appointed_by}`] : null}
                     selectionMethod={d.selection_method}
@@ -512,8 +524,17 @@ function SelectionBadge({ method, detail, normallyElected }) {
   );
 }
 
+// First + LAST initial — the previous inline version took the first two
+// tokens, which is wrong for anyone with a middle name.
+function officialInitials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 function OfficialCard({
-  name, party, subtitle, meta, website, big,
+  name, party, subtitle, meta, website, big, photoUrl,
   selectionMethod, selectionDetail, normallyElected,
   onClick, followTarget, onNotify, onCompareToggle, compareIds,
 }) {
@@ -547,16 +568,24 @@ function OfficialCard({
         transition: clickable ? 'background 0.15s' : undefined,
       }}
     >
+      {/* Portraits exist on 157 of 239 Florida officials and this row
+          never read them — so officials listed as initials here while
+          their own profile header showed a face. Background-image rather
+          than <img> so a dead URL falls through to the party-tinted
+          circle and initials with no error handler. */}
       <div
         style={{
           width: big ? '48px' : '36px', height: big ? '48px' : '36px',
-          borderRadius: '50%', background: partyBg || 'var(--cl-bg)',
+          borderRadius: '50%',
+          background: photoUrl
+            ? `${partyBg || 'var(--cl-bg)'} url(${photoUrl}) center/cover`
+            : (partyBg || 'var(--cl-bg)'),
           color: partyColor || 'var(--cl-text-light)', fontSize: big ? '1rem' : '0.82rem',
           fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0,
         }}
       >
-        {name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
+        {!photoUrl && officialInitials(name)}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: big ? '0.98rem' : '0.88rem', fontWeight: 700, lineHeight: 1.2 }}>

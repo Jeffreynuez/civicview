@@ -1017,7 +1017,8 @@ export default function ProfileView({
         {activeTab === 'contact' && (
           <ContactTab
             state={contactState}
-            fallbackOffice={member.office}
+            role={role}
+            stateCode={member.state}
             fallbackPhone={member.phone}
           />
         )}
@@ -2203,37 +2204,76 @@ function eventTypeColor(type) {
 }
 
 // ─── Contact ──────────────────────────────────────────────────────────
-function ContactTab({ state, fallbackOffice, fallbackPhone }) {
+// State roles share this component with Congress. Everything below that
+// branches on `role` exists because the two are genuinely different, not
+// because of styling preference.
+const STATE_ROLE_PREFIX = 'state_';
+
+function ContactTab({ state, role, stateCode, fallbackPhone }) {
   if (state.loading || !state.loaded) {
     return <LoadingState label="Loading contact info…" />;
   }
 
-  // The federal payload uses the same keys as Congress' contact block, so
-  // this branch works for both Congress and federal officials. `district_offices`
-  // is simply empty for federal roles.
-  const dcOffice = state.data?.dc_office || fallbackOffice;
-  const dcPhone = state.data?.dc_phone || fallbackPhone;
+  const isStateRole = String(role || '').startsWith(STATE_ROLE_PREFIX);
+
+  // Federal and state payloads share key names (dc_office / dc_phone),
+  // because state records were seeded into the federal shape. For a state
+  // official those keys hold a CAPITOL address, not a Washington one —
+  // Florida's Governor record, for instance, stores a Tallahassee street
+  // address in `dc_office`. So the value is fine and only the LABEL was
+  // ever wrong. Prefer explicit capitol_* keys when a record has them.
+  const primaryOffice = state.data?.capitol_office || state.data?.dc_office || null;
+  const primaryPhone = state.data?.capitol_phone || state.data?.dc_phone || fallbackPhone;
   const website = state.data?.official_website;
+  const email = state.data?.email;
   const districtOffices = state.data?.district_offices || [];
   const socials = state.data?.socials || {};
 
+  // `member.office` is NOT a fallback address. On state records that
+  // field holds a branch classification — the Florida Lieutenant
+  // Governor's reads "Executive" — so using it as an office address
+  // rendered the string "Executive" under a "Washington, D.C." header
+  // for a Tallahassee official. Both halves of that were wrong. An
+  // empty contact tab is the correct output when we have no contact
+  // information, and the empty state now says what to do about it.
   const hasAnything =
-    dcOffice || dcPhone || website || districtOffices.length > 0 || Object.keys(socials).length > 0;
+    primaryOffice || primaryPhone || website || email
+    || districtOffices.length > 0 || Object.keys(socials).length > 0;
 
   if (!hasAnything) {
-    return <EmptyState message="No contact information available." />;
+    return (
+      <EmptyState
+        message={
+          isStateRole
+            ? 'No contact information on file yet. State officials are typically reachable through their chamber or department website.'
+            : 'No contact information available.'
+        }
+      />
+    );
   }
+
+  const primaryHeader = isStateRole
+    ? (stateCode ? `${stateCode} State Capitol` : 'State Capitol')
+    : 'Washington, D.C.';
 
   return (
     <div>
-      {(dcOffice || dcPhone || website) && (
+      {(primaryOffice || primaryPhone || website || email) && (
         <>
-          <SectionHeader>Washington, D.C.</SectionHeader>
-          {dcOffice && <Row label="Office" value={dcOffice} />}
-          {dcPhone && (
+          <SectionHeader>{primaryHeader}</SectionHeader>
+          {primaryOffice && <Row label="Office" value={primaryOffice} />}
+          {primaryPhone && (
             <Row
               label="Phone"
-              value={<a href={`tel:${dcPhone.replace(/[^\d+]/g, '')}`} style={linkStyle}>{dcPhone}</a>}
+              value={<a href={`tel:${primaryPhone.replace(/[^\d+]/g, '')}`} style={linkStyle}>{primaryPhone}</a>}
+            />
+          )}
+          {/* 159 Florida legislators carry an official email that no
+              renderer read — dead data in the file since it was seeded. */}
+          {email && (
+            <Row
+              label="Email"
+              value={<a href={`mailto:${email}`} style={linkStyle}>{email}</a>}
             />
           )}
           {website && (
