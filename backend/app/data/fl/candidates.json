@@ -1,6 +1,6 @@
 {
-  "_note": "Curated candidate registry for Florida 2026 (demo data). Candidate IDs are stable slugs (kebab-case) referenced by elections.json. Stances are realistic but editorialized for demonstration — replace with primary-sourced candidate statements in production.",
-  "_source": "Manually curated. Candidate photos are placeholders; fundraising is illustrative.",
+  "_note": "Curated candidate registry for Florida 2026. Candidate IDs are stable slugs referenced by elections.json. Fundraising blocks that list `accounts` are editorial aggregations of separately-filed state accounts — Florida publishes no candidate-to-committee link, so the components are always kept and shown. Never present a combined total as an official state figure.",
+  "_source": "Statewide races (Governor, Attorney General): fundraising from the Florida Division of Elections campaign finance database, retrieved 2026-07-31; endorsements carry a per-entry source URL. Federal races: OpenFEC snapshot. Photos resolve at request time from public-domain congressional portraits where a bioguide_id exists. Remaining records are skeletons pending curation.",
   "candidates": {
     "fl-cand-byron-donalds": {
       "id": "fl-cand-byron-donalds",
@@ -43,39 +43,69 @@
       ],
       "endorsements": [
         {
-          "name": "Former President Donald J. Trump",
-          "org": "45th/47th President"
+          "name": "President Donald J. Trump",
+          "org": "President of the United States",
+          "date": "2025-02-25",
+          "note": "Re-endorsed 2026-05-26.",
+          "source": "https://rollcall.com/2025/02/25/byron-donalds-florida-governor-trump/"
         },
         {
-          "name": "Senator Rick Scott",
-          "org": "U.S. Senate (FL)"
+          "name": "James Uthmeier",
+          "org": "Attorney General of Florida",
+          "date": "2026-07-02",
+          "source": "https://bocapost.com/florida-news/byron-donalds-90-million-raised-uthmeier-ingoglia-endorsements/"
         },
         {
-          "name": "Rep. Anna Paulina Luna",
-          "org": "U.S. House (FL-13)"
+          "name": "Blaise Ingoglia",
+          "org": "Chief Financial Officer of Florida",
+          "date": "2026-07-03",
+          "source": "https://bocapost.com/florida-news/byron-donalds-90-million-raised-uthmeier-ingoglia-endorsements/"
         },
         {
-          "name": "U.S. Senator Rick Scott",
-          "org": "U.S. Senate (FL)"
+          "name": "Wilton Simpson",
+          "org": "Commissioner of Agriculture of Florida",
+          "date": "2026-07-03",
+          "note": "Completes an endorsement from every member of the Florida Cabinet.",
+          "source": "https://flvoicenews.com/wilton-simpson-endorses-byron-donalds-for-governor-giving-campaign-backing-from-entire-florida-cabinet/"
         },
         {
-          "name": "Elon Musk",
-          "org": "Business executive"
+          "name": "Jeff Landry",
+          "org": "Governor of Louisiana",
+          "source": "https://www.aol.com/articles/louisiana-gov-jeff-landry-backs-201815579.html"
         },
         {
-          "name": "Gov. Sarah Huckabee Sanders",
-          "org": "Governor of Arkansas"
-        },
-        {
-          "name": "27 Florida sheriffs",
-          "org": "FL law enforcement"
+          "name": "63 Florida House Republicans",
+          "org": "Florida House of Representatives",
+          "note": "About three-quarters of the caucus, including Speaker Danny Perez.",
+          "source": "https://www.aol.com/news/florida-house-republicans-throw-weight-132900818.html"
         }
       ],
       "fundraising": {
-        "total_raised": 67000000,
+        "total_raised": null,
         "total_spent": null,
         "cash_on_hand": null,
-        "as_of": "2026-03-31"
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Byron Donalds (campaign account)",
+            "acct_num": "89042",
+            "kind": "campaign",
+            "raised": 11815980.86,
+            "spent": 4809259.58
+          },
+          {
+            "label": "Friends of Byron Donalds PAC",
+            "acct_num": "89043",
+            "kind": "committee",
+            "raised": 92774274.91,
+            "spent": 27867764.91,
+            "affiliation_basis": "committee name and press reporting, and a shared treasurer (Bradley T. Crate)"
+          }
+        ]
       },
       "experience": [
         {
@@ -95,8 +125,8 @@
         }
       ],
       "data_status": "enriched",
-      "data_observed": "2026-06-04",
-      "data_source": "byrondonalds.com; Florida Politics; Emerson College poll (2026)"
+      "data_observed": "2026-07-31",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry."
     },
     "fl-cand-paul-renner": {
       "id": "fl-cand-paul-renner",
@@ -137,18 +167,39 @@
       ],
       "endorsements": [
         {
-          "name": "Former FL Senate President Kathleen Passidomo",
-          "org": "FL Senate"
-        },
-        {
-          "name": "Florida Chamber of Commerce"
+          "name": "Stand for Health Freedom",
+          "org": "Advocacy organization",
+          "date": "2025-10-22",
+          "source": "https://floridaphoenix.com/briefs/fromer-house-speaker-paul-renner-picks-up-endorsement-in-gubernatorial-bid/"
         }
       ],
       "fundraising": {
-        "total_raised": 11200000,
-        "total_spent": 6300000,
-        "cash_on_hand": 4900000,
-        "as_of": "2026-03-31"
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Paul Renner (campaign account)",
+            "acct_num": "89414",
+            "kind": "campaign",
+            "raised": 1025706.46,
+            "spent": 309164.35
+          },
+          {
+            "label": "Friends of Paul Renner",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 6055412.2,
+            "spent": 4641018.52,
+            "affiliation_basis": "committee name and press reporting"
+          }
+        ],
+        "note": "Friends of Paul Renner predates the gubernatorial campaign."
       },
       "experience": [
         {
@@ -168,8 +219,8 @@
         }
       ],
       "data_status": "enriched",
-      "data_source": "voterenner.com; ClickOrlando; WCJB; Wikipedia (2026)",
-      "data_observed": "2026-06-04"
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31"
     },
     "fl-cand-james-uthmeier": {
       "id": "fl-cand-james-uthmeier",
@@ -208,17 +259,44 @@
       ],
       "endorsements": [
         {
-          "name": "Governor Ron DeSantis"
+          "name": "President Donald J. Trump",
+          "org": "President of the United States",
+          "date": "2025-10-08",
+          "source": "https://floridaphoenix.com/2025/10/08/trump-is-backing-james-uthmeier-for-florida-attorney-general-in-2026/"
         },
         {
-          "name": "Florida Sheriffs Association"
+          "name": "Republican Party of Florida",
+          "org": "State party",
+          "date": "2026-01",
+          "source": "https://floridianpress.com/2026/01/republican-party-of-florida-endorses-james-uthmeier-for-attorney-general/"
         }
       ],
       "fundraising": {
-        "total_raised": 4800000,
-        "total_spent": 1900000,
-        "cash_on_hand": 2900000,
-        "as_of": "2026-03-31"
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "James Uthmeier (campaign account)",
+            "acct_num": "89041",
+            "kind": "campaign",
+            "raised": 1566115.95,
+            "spent": 258804.76
+          },
+          {
+            "label": "Friends of James Uthmeier",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 9357481.54,
+            "spent": 911983.0,
+            "affiliation_basis": "committee name and press reporting"
+          }
+        ]
       },
       "experience": [
         {
@@ -233,8 +311,8 @@
         }
       ],
       "data_status": "enriched",
-      "data_source": "curated",
-      "data_observed": "2026-06-04"
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31"
     },
     "fl-cand-jose-javier-rodriguez": {
       "id": "fl-cand-jose-javier-rodriguez",
@@ -271,17 +349,62 @@
       ],
       "endorsements": [
         {
-          "name": "SEIU Florida"
+          "name": "Florida AFL-CIO",
+          "org": "State labor federation",
+          "date": "2026-06-16",
+          "source": "https://flaflcio.org/florida-afl-cio-debuts-labor-2026-campaign-with-endorsement-of-jose-javier-rodriguez-for-attorney-general/"
         },
         {
-          "name": "Equality Florida Action"
+          "name": "U.S. Rep. Maxwell Frost",
+          "org": "U.S. House (FL-10)",
+          "date": "2026-06",
+          "source": "https://floridianpress.com/2026/06/congressman-maxwell-frost-endorses-jose-javier-rodriguez-for-attorney-general/"
+        },
+        {
+          "name": "Latino Victory Fund",
+          "org": "National advocacy organization",
+          "date": "2025",
+          "source": "https://floridapolitics.com/archives/762681-we-need-him-latino-victory-fund-endorses-jose-javier-rodriguez-for-attorney-general/"
+        },
+        {
+          "name": "VoteWater",
+          "org": "Environmental advocacy organization",
+          "date": "2026",
+          "source": "https://floridapolitics.com/archives/789733-jose-javier-rodriguez-crosses-1m-raised-for-attorney-general-bid-adds-votewater-endorsement/"
+        },
+        {
+          "name": "SAVE",
+          "org": "LGBTQ+ advocacy organization",
+          "date": "2026-05-17",
+          "source": "https://www.politicalcortadito.com/2026/05/17/jose-javier-rodriguez-lucia-baez-geller-among-saves-early-2026-endorsements/"
         }
       ],
       "fundraising": {
-        "total_raised": 2100000,
-        "total_spent": 840000,
-        "cash_on_hand": 1260000,
-        "as_of": "2026-03-31"
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "José Javier Rodríguez (campaign account)",
+            "acct_num": "89231",
+            "kind": "campaign",
+            "raised": 990384.96,
+            "spent": 452094.53
+          },
+          {
+            "label": "Floridians for JJR",
+            "acct_num": "89246",
+            "kind": "committee",
+            "raised": 842650.2,
+            "spent": 413330.23,
+            "affiliation_basis": "shared treasurer and address with the campaign account"
+          }
+        ]
       },
       "experience": [
         {
@@ -300,7 +423,9 @@
           "to": 2016
         }
       ],
-      "data_status": "enriched"
+      "data_status": "enriched",
+      "data_observed": "2026-07-31",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry."
     },
     "fl-cand-maxwell-frost": {
       "id": "fl-cand-maxwell-frost",
@@ -348,12 +473,7 @@
           "name": "Sierra Club"
         }
       ],
-      "fundraising": {
-        "total_raised": 3200000,
-        "total_spent": 1400000,
-        "cash_on_hand": 1800000,
-        "as_of": "2026-03-31"
-      },
+      "fundraising": null,
       "experience": [
         {
           "role": "U.S. Representative, FL-10",
@@ -406,12 +526,7 @@
           "name": "Central Florida Republican Assembly"
         }
       ],
-      "fundraising": {
-        "total_raised": 680000,
-        "total_spent": 290000,
-        "cash_on_hand": 390000,
-        "as_of": "2026-03-31"
-      },
+      "fundraising": null,
       "experience": [
         {
           "role": "Senior Pastor, The Father's House",
@@ -466,12 +581,7 @@
           "name": "Ruth's List Florida"
         }
       ],
-      "fundraising": {
-        "total_raised": 520000,
-        "total_spent": 210000,
-        "cash_on_hand": 310000,
-        "as_of": "2026-03-31"
-      },
+      "fundraising": null,
       "experience": [
         {
           "role": "Florida State Representative, Dist. 42",
@@ -514,12 +624,7 @@
         }
       ],
       "endorsements": [],
-      "fundraising": {
-        "total_raised": 180000,
-        "total_spent": 60000,
-        "cash_on_hand": 120000,
-        "as_of": "2026-03-31"
-      },
+      "fundraising": null,
       "experience": [
         {
           "role": "Owner, Jackson Insurance Group",
@@ -557,8 +662,64 @@
           "stance": "Stresses expanding skilled-trades training, noting the average Florida tradesman is 58."
         }
       ],
-      "endorsements": [],
-      "fundraising": null,
+      "endorsements": [
+        {
+          "name": "Florida Police Benevolent Association",
+          "org": "Law enforcement union",
+          "date": "2026-06",
+          "source": "https://floridianpress.com/2026/06/florida-police-benevolent-association-endorses-jay-collins-for-governor/"
+        },
+        {
+          "name": "Sheriff Bob Johnson",
+          "org": "Santa Rosa County",
+          "date": "2026-03",
+          "source": "https://floridianpress.com/2026/03/santa-rosa-county-sheriff-bob-johnson-endorses-jay-collins-for-governor/"
+        },
+        {
+          "name": "Marion County Sheriff",
+          "org": "Marion County",
+          "source": "https://flvoicenews.com/jay-collins-lands-endorsement-from-marion-county-sheriff-in-governors-race/"
+        },
+        {
+          "name": "Nassau and Levy County Sheriffs",
+          "org": "Nassau and Levy Counties",
+          "source": "https://flvoicenews.com/jay-collins-earns-endorsements-from-lakeland-official-nassau-and-levy-sheriffs/"
+        },
+        {
+          "name": "Veterans for America First",
+          "org": "Veterans advocacy group",
+          "date": "2026-05",
+          "source": "https://floridianpress.com/2026/05/veterans-for-america-first-endorses-jay-collins-for-governor/"
+        }
+      ],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Jay Collins (campaign account)",
+            "acct_num": "89690",
+            "kind": "campaign",
+            "raised": 1454456.28,
+            "spent": 238518.16
+          },
+          {
+            "label": "Quiet Professionals FL",
+            "acct_num": "83324",
+            "kind": "committee",
+            "raised": 8572022.7,
+            "spent": 8158943.82,
+            "affiliation_basis": "the candidate is the committee's listed chairperson, at the campaign's address"
+          }
+        ],
+        "note": "Quiet Professionals FL predates this campaign — Collins chaired it as a state senator — so its cycle total includes money raised before he entered the governor's race."
+      },
       "experience": [
         {
           "role": "Lieutenant Governor of Florida",
@@ -577,8 +738,8 @@
         }
       ],
       "data_status": "enriched",
-      "data_source": "WUSF; CNN; Florida Phoenix (2026)",
-      "data_observed": "2026-06-04",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31",
       "official_scope": "state"
     },
     "fl-cand-shea-cruel": {
@@ -659,15 +820,36 @@
       ],
       "endorsements": [],
       "fundraising": {
-        "total_raised": 295000,
+        "total_raised": null,
         "total_spent": null,
         "cash_on_hand": null,
-        "as_of": "2026-04-30"
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "James Fishback (campaign account)",
+            "acct_num": "89600",
+            "kind": "campaign",
+            "raised": 576722.98,
+            "spent": 555013.73
+          },
+          {
+            "label": "Florida First PAC",
+            "acct_num": "89604",
+            "kind": "committee",
+            "raised": 1069026.3,
+            "spent": 946802.0,
+            "affiliation_basis": "a registered address identical to the candidate's"
+          }
+        ]
       },
       "experience": [],
       "data_status": "enriched",
-      "data_source": "fishback2026.com; Ballotpedia; Wikipedia; Florida Phoenix (2026)",
-      "data_observed": "2026-06-04"
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31"
     },
     "fl-cand-jim-holcomb": {
       "id": "fl-cand-jim-holcomb",
@@ -966,7 +1148,26 @@
         }
       ],
       "endorsements": [],
-      "fundraising": null,
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Jerry Demings (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 558965.74,
+            "spent": 445340.65
+          }
+        ],
+        "note": "Totals are final as of the suspended campaign's last filing."
+      },
       "experience": [
         {
           "role": "Mayor, Orange County, FL",
@@ -980,8 +1181,12 @@
         }
       ],
       "data_status": "enriched",
-      "data_source": "Florida Politics; WUSF; Florida Phoenix (2026)",
-      "data_observed": "2026-06-04"
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31",
+      "withdrawn": true,
+      "withdrawn_on": "2026-06-05",
+      "withdrawn_note": "Suspended his campaign for Governor on June 5, 2026 after a prostate cancer diagnosis. He remains Mayor of Orange County.",
+      "withdrawn_source": "https://floridaphoenix.com/2026/06/05/jerry-demings-suspends-democratic-gubernatorial-bid-following-cancer-diagnosis/"
     },
     "fl-cand-thomas-fernandez": {
       "id": "fl-cand-thomas-fernandez",
@@ -1033,7 +1238,7 @@
       "party": "D",
       "seeking_office": "Governor of Florida",
       "incumbent": false,
-      "current_office": null,
+      "current_office": "Former U.S. Representative, FL-13",
       "bioguide_id": null,
       "hometown": null,
       "age": null,
@@ -1059,8 +1264,59 @@
           "stance": "Says government should 'stay out of doctor's offices and family decisions.'"
         }
       ],
-      "endorsements": [],
-      "fundraising": null,
+      "endorsements": [
+        {
+          "name": "Florida AFL-CIO",
+          "org": "State labor federation",
+          "date": "2026-06-16",
+          "note": "Endorsed the Jolly–Graham ticket.",
+          "source": "https://flaflcio.org/florida-afl-cio-releases-first-slate-of-candidate-endorsements-for-labor-2026/"
+        },
+        {
+          "name": "Florida Education Association",
+          "org": "Teachers union (~150,000 members)",
+          "date": "2026-06-23",
+          "source": "https://floridianpress.com/2026/06/florida-afl-cio-florida-education-association-endorse-david-jolly-for-governor/"
+        },
+        {
+          "name": "Florida LGBTQ+ Democratic Caucus",
+          "org": "Democratic Party caucus",
+          "date": "2026-07-14",
+          "source": "https://watermarkoutnews.com/2026/07/14/florida-lgbtq-democratic-caucus-endorses-david-jolly-for-governor-congressional-candidates/"
+        },
+        {
+          "name": "Daniella Levine Cava",
+          "org": "Mayor, Miami-Dade County",
+          "source": "https://floridianpress.com/2026/06/florida-afl-cio-florida-education-association-endorse-david-jolly-for-governor/"
+        }
+      ],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "David Jolly (campaign account)",
+            "acct_num": "89243",
+            "kind": "campaign",
+            "raised": 5531881.96,
+            "spent": 2990301.12
+          },
+          {
+            "label": "Florida 2026",
+            "acct_num": "89151",
+            "kind": "committee",
+            "raised": 3517002.17,
+            "spent": 2598382.87,
+            "affiliation_basis": "shared treasurer and address with the campaign account"
+          }
+        ]
+      },
       "experience": [
         {
           "role": "U.S. Representative, FL-13",
@@ -1069,8 +1325,8 @@
         }
       ],
       "data_status": "enriched",
-      "data_source": "davidjolly.com; NBC News; PBS NewsHour (2026)",
-      "data_observed": "2026-06-04"
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31"
     },
     "fl-cand-charles-lewis": {
       "id": "fl-cand-charles-lewis",
@@ -1832,7 +2088,9 @@
         "total_raised": 8407064,
         "total_spent": 1277672,
         "cash_on_hand": 7129392,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00640/"
       },
       "experience": [
         {
@@ -1871,7 +2129,9 @@
         "total_raised": 8188392,
         "total_spent": 1748269,
         "cash_on_hand": 6440222,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00855/"
       },
       "experience": [
         {
@@ -1910,7 +2170,9 @@
         "total_raised": 717348,
         "total_spent": 637278,
         "cash_on_hand": 80070,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00806/"
       },
       "experience": [],
       "fec_id": "S6FL00806",
@@ -1938,7 +2200,9 @@
         "total_raised": 293584,
         "total_spent": 20957,
         "cash_on_hand": 177595,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00830/"
       },
       "experience": [],
       "fec_id": "S6FL00830",
@@ -1966,7 +2230,9 @@
         "total_raised": 178052,
         "total_spent": 178582,
         "cash_on_hand": 126388,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S2FL00581/"
       },
       "experience": [],
       "fec_id": "S2FL00581",
@@ -1994,7 +2260,9 @@
         "total_raised": 32772,
         "total_spent": 27363,
         "cash_on_hand": 5409,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00657/"
       },
       "experience": [],
       "fec_id": "S6FL00657",
@@ -2022,7 +2290,9 @@
         "total_raised": 47779,
         "total_spent": 1897,
         "cash_on_hand": 45882,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL16125/"
       },
       "experience": [],
       "fec_id": "H6FL16125",
@@ -2050,7 +2320,9 @@
         "total_raised": 9124,
         "total_spent": 6891,
         "cash_on_hand": 2232,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/S6FL00749/"
       },
       "experience": [],
       "fec_id": "S6FL00749",
@@ -2078,7 +2350,9 @@
         "total_raised": 5680863,
         "total_spent": 561203,
         "cash_on_hand": 5125437,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL01247/"
       },
       "experience": [],
       "fec_id": "H4FL01247",
@@ -2106,7 +2380,9 @@
         "total_raised": 4360996,
         "total_spent": 1396397,
         "cash_on_hand": 2964599,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19129/"
       },
       "experience": [],
       "fec_id": "H6FL19129",
@@ -2156,7 +2432,9 @@
         "total_raised": 3719022,
         "total_spent": 2957461,
         "cash_on_hand": 761561,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06258/"
       },
       "experience": [],
       "fec_id": "H6FL06258",
@@ -2206,7 +2484,9 @@
         "total_raised": 3132077,
         "total_spent": 2624961,
         "cash_on_hand": 507116,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01390/"
       },
       "experience": [],
       "fec_id": "H6FL01390",
@@ -2234,7 +2514,9 @@
         "total_raised": 3104405,
         "total_spent": 2322221,
         "cash_on_hand": 2553562,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL18097/"
       },
       "experience": [],
       "fec_id": "H6FL18097",
@@ -2262,7 +2544,9 @@
         "total_raised": 2818460,
         "total_spent": 2475655,
         "cash_on_hand": 1434531,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL10259/"
       },
       "experience": [],
       "fec_id": "H2FL10259",
@@ -2290,7 +2574,9 @@
         "total_raised": 2526428,
         "total_spent": 1893255,
         "cash_on_hand": 633173,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL25035/"
       },
       "experience": [],
       "fec_id": "H6FL25035",
@@ -2340,7 +2626,9 @@
         "total_raised": 2502689,
         "total_spent": 1052517,
         "cash_on_hand": 2507480,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL20023/"
       },
       "experience": [],
       "fec_id": "H4FL20023",
@@ -2368,7 +2656,9 @@
         "total_raised": 2500000,
         "total_spent": 0,
         "cash_on_hand": 2500000,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22164/"
       },
       "experience": [],
       "fec_id": "H6FL22164",
@@ -2396,7 +2686,9 @@
         "total_raised": 2299376,
         "total_spent": 760544,
         "cash_on_hand": 2142040,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL09182/"
       },
       "experience": [],
       "fec_id": "H4FL09182",
@@ -2446,7 +2738,9 @@
         "total_raised": 2298615,
         "total_spent": 1054589,
         "cash_on_hand": 1375442,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL13158/"
       },
       "experience": [],
       "fec_id": "H0FL13158",
@@ -2474,7 +2768,9 @@
         "total_raised": 1900839,
         "total_spent": 611954,
         "cash_on_hand": 1723656,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL15241/"
       },
       "experience": [],
       "fec_id": "H2FL15241",
@@ -2502,7 +2798,9 @@
         "total_raised": 1855772,
         "total_spent": 678246,
         "cash_on_hand": 1464969,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL14053/"
       },
       "experience": [],
       "fec_id": "H2FL14053",
@@ -2530,7 +2828,9 @@
         "total_raised": 1733843,
         "total_spent": 258444,
         "cash_on_hand": 1475400,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19137/"
       },
       "experience": [],
       "fec_id": "H6FL19137",
@@ -2580,7 +2880,9 @@
         "total_raised": 1710590,
         "total_spent": 842813,
         "cash_on_hand": 1217064,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL22171/"
       },
       "experience": [],
       "fec_id": "H2FL22171",
@@ -2608,7 +2910,9 @@
         "total_raised": 1575117,
         "total_spent": 403471,
         "cash_on_hand": 1171647,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL21059/"
       },
       "experience": [],
       "fec_id": "H6FL21059",
@@ -2658,7 +2962,9 @@
         "total_raised": 1519279,
         "total_spent": 1232248,
         "cash_on_hand": 842582,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL03175/"
       },
       "experience": [],
       "fec_id": "H0FL03175",
@@ -2708,7 +3014,9 @@
         "total_raised": 1517555,
         "total_spent": 1099964,
         "cash_on_hand": 2236911,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL25018/"
       },
       "experience": [],
       "fec_id": "H2FL25018",
@@ -2736,7 +3044,9 @@
         "total_raised": 1508938,
         "total_spent": 746429,
         "cash_on_hand": 1237230,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL04211/"
       },
       "experience": [],
       "fec_id": "H2FL04211",
@@ -2786,7 +3096,9 @@
         "total_raised": 1373240,
         "total_spent": 846728,
         "cash_on_hand": 1937340,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H8FL27185/"
       },
       "experience": [],
       "fec_id": "H8FL27185",
@@ -2814,7 +3126,9 @@
         "total_raised": 1347715,
         "total_spent": 116628,
         "cash_on_hand": 1231087,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23188/"
       },
       "experience": [],
       "fec_id": "H6FL23188",
@@ -2857,7 +3171,9 @@
         "total_raised": 1250932,
         "total_spent": 664983,
         "cash_on_hand": 844112,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL08168/"
       },
       "experience": [],
       "fec_id": "H4FL08168",
@@ -2907,7 +3223,9 @@
         "total_raised": 1241415,
         "total_spent": 422928,
         "cash_on_hand": 832606,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL09179/"
       },
       "experience": [],
       "fec_id": "H6FL09179",
@@ -2957,7 +3275,9 @@
         "total_raised": 1020938,
         "total_spent": 707041,
         "cash_on_hand": 435314,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL09070/"
       },
       "experience": [],
       "fec_id": "H6FL09070",
@@ -2985,7 +3305,9 @@
         "total_raised": 974859,
         "total_spent": 584741,
         "cash_on_hand": 390118,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19186/"
       },
       "experience": [],
       "fec_id": "H6FL19186",
@@ -3013,7 +3335,9 @@
         "total_raised": 959819,
         "total_spent": 546828,
         "cash_on_hand": 2004287,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H8FL17053/"
       },
       "experience": [],
       "fec_id": "H8FL17053",
@@ -3041,7 +3365,9 @@
         "total_raised": 910000,
         "total_spent": 604436,
         "cash_on_hand": 305564,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19228/"
       },
       "experience": [],
       "fec_id": "H6FL19228",
@@ -3091,7 +3417,9 @@
         "total_raised": 876012,
         "total_spent": 386158,
         "cash_on_hand": 716584,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL11126/"
       },
       "experience": [],
       "fec_id": "H6FL11126",
@@ -3119,7 +3447,9 @@
         "total_raised": 821896,
         "total_spent": 358624,
         "cash_on_hand": 463272,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL27072/"
       },
       "experience": [],
       "fec_id": "H6FL27072",
@@ -3169,7 +3499,9 @@
         "total_raised": 805309,
         "total_spent": 730690,
         "cash_on_hand": 115511,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL07156/"
       },
       "experience": [],
       "fec_id": "H2FL07156",
@@ -3197,7 +3529,9 @@
         "total_raised": 803050,
         "total_spent": 58418,
         "cash_on_hand": 744391,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL25043/"
       },
       "experience": [],
       "fec_id": "H6FL25043",
@@ -3225,7 +3559,9 @@
         "total_raised": 779839,
         "total_spent": 756971,
         "cash_on_hand": 22868,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL20077/"
       },
       "experience": [],
       "fec_id": "H6FL20077",
@@ -3253,7 +3589,9 @@
         "total_raised": 743318,
         "total_spent": 405775,
         "cash_on_hand": 337544,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL27056/"
       },
       "experience": [],
       "fec_id": "H6FL27056",
@@ -3281,7 +3619,9 @@
         "total_raised": 722377,
         "total_spent": 47185,
         "cash_on_hand": 675192,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02331/"
       },
       "experience": [],
       "fec_id": "H6FL02331",
@@ -3309,7 +3649,9 @@
         "total_raised": 701239,
         "total_spent": 525204,
         "cash_on_hand": 176034,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23139/"
       },
       "experience": [],
       "fec_id": "H6FL23139",
@@ -3337,7 +3679,9 @@
         "total_raised": 698355,
         "total_spent": 214430,
         "cash_on_hand": 483925,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23147/"
       },
       "experience": [],
       "fec_id": "H6FL23147",
@@ -3365,7 +3709,9 @@
         "total_raised": 692231,
         "total_spent": 227794,
         "cash_on_hand": 464437,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL07215/"
       },
       "experience": [],
       "fec_id": "H6FL07215",
@@ -3415,7 +3761,9 @@
         "total_raised": 634983,
         "total_spent": 297387,
         "cash_on_hand": 819492,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL15104/"
       },
       "experience": [],
       "fec_id": "H0FL15104",
@@ -3443,7 +3791,9 @@
         "total_raised": 569489,
         "total_spent": 553304,
         "cash_on_hand": 16185,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL13239/"
       },
       "experience": [],
       "fec_id": "H6FL13239",
@@ -3471,7 +3821,9 @@
         "total_raised": 565267,
         "total_spent": 313836,
         "cash_on_hand": 251432,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06399/"
       },
       "experience": [],
       "fec_id": "H6FL06399",
@@ -3499,7 +3851,9 @@
         "total_raised": 565000,
         "total_spent": 64765,
         "cash_on_hand": 500235,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL13312/"
       },
       "experience": [],
       "fec_id": "H6FL13312",
@@ -3527,7 +3881,9 @@
         "total_raised": 532060,
         "total_spent": 265534,
         "cash_on_hand": 266526,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL15192/"
       },
       "experience": [],
       "fec_id": "H6FL15192",
@@ -3555,7 +3911,9 @@
         "total_raised": 528233,
         "total_spent": 299106,
         "cash_on_hand": 406796,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL04105/"
       },
       "experience": [],
       "fec_id": "H6FL04105",
@@ -3583,7 +3941,9 @@
         "total_raised": 519542,
         "total_spent": 286764,
         "cash_on_hand": 232778,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19178/"
       },
       "experience": [],
       "fec_id": "H6FL19178",
@@ -3611,7 +3971,9 @@
         "total_raised": 511695,
         "total_spent": 285240,
         "cash_on_hand": 226454,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL04220/"
       },
       "experience": [],
       "fec_id": "H6FL04220",
@@ -3639,7 +4001,9 @@
         "total_raised": 482037,
         "total_spent": 74565,
         "cash_on_hand": 470261,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL20043/"
       },
       "experience": [],
       "fec_id": "H2FL20043",
@@ -3667,7 +4031,9 @@
         "total_raised": 438419,
         "total_spent": 64155,
         "cash_on_hand": 384192,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22149/"
       },
       "experience": [],
       "fec_id": "H6FL22149",
@@ -3695,7 +4061,9 @@
         "total_raised": 414710,
         "total_spent": 346167,
         "cash_on_hand": 644571,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL26036/"
       },
       "experience": [],
       "fec_id": "H0FL26036",
@@ -3723,7 +4091,9 @@
         "total_raised": 406606,
         "total_spent": 76322,
         "cash_on_hand": 437027,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL28042/"
       },
       "experience": [],
       "fec_id": "H4FL28042",
@@ -3751,7 +4121,9 @@
         "total_raised": 379190,
         "total_spent": 138652,
         "cash_on_hand": 240537,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19160/"
       },
       "experience": [],
       "fec_id": "H6FL19160",
@@ -3801,7 +4173,9 @@
         "total_raised": 368123,
         "total_spent": 297618,
         "cash_on_hand": 170534,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL08208/"
       },
       "experience": [
         {
@@ -3845,7 +4219,9 @@
         "total_raised": 356387,
         "total_spent": 352822,
         "cash_on_hand": 11081,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H8FL20032/"
       },
       "experience": [],
       "fec_id": "H8FL20032",
@@ -3873,7 +4249,9 @@
         "total_raised": 346280,
         "total_spent": 48062,
         "cash_on_hand": 298218,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02315/"
       },
       "experience": [],
       "fec_id": "H6FL02315",
@@ -3901,7 +4279,9 @@
         "total_raised": 335925,
         "total_spent": 321274,
         "cash_on_hand": 14651,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06357/"
       },
       "experience": [],
       "fec_id": "H6FL06357",
@@ -3929,7 +4309,9 @@
         "total_raised": 334631,
         "total_spent": 215953,
         "cash_on_hand": 118678,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL07165/"
       },
       "experience": [],
       "fec_id": "H6FL07165",
@@ -3957,7 +4339,9 @@
         "total_raised": 327736,
         "total_spent": 145013,
         "cash_on_hand": 182724,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23154/"
       },
       "experience": [],
       "fec_id": "H6FL23154",
@@ -3985,7 +4369,9 @@
         "total_raised": 325281,
         "total_spent": 262032,
         "cash_on_hand": 63249,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02281/"
       },
       "experience": [],
       "fec_id": "H6FL02281",
@@ -4013,7 +4399,9 @@
         "total_raised": 312003,
         "total_spent": 12527,
         "cash_on_hand": 299476,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL27098/"
       },
       "experience": [],
       "fec_id": "H6FL27098",
@@ -4041,7 +4429,9 @@
         "total_raised": 306655,
         "total_spent": 146272,
         "cash_on_hand": 160383,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL21075/"
       },
       "experience": [],
       "fec_id": "H6FL21075",
@@ -4069,7 +4459,9 @@
         "total_raised": 306516,
         "total_spent": 12926,
         "cash_on_hand": 312672,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL20159/"
       },
       "experience": [],
       "fec_id": "H2FL20159",
@@ -4097,7 +4489,9 @@
         "total_raised": 300000,
         "total_spent": 184531,
         "cash_on_hand": 115469,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL17118/"
       },
       "experience": [],
       "fec_id": "H0FL17118",
@@ -4125,7 +4519,9 @@
         "total_raised": 272216,
         "total_spent": 13121,
         "cash_on_hand": 259096,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02356/"
       },
       "experience": [],
       "fec_id": "H6FL02356",
@@ -4153,7 +4549,9 @@
         "total_raised": 270146,
         "total_spent": 160862,
         "cash_on_hand": 109284,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22099/"
       },
       "experience": [],
       "fec_id": "H6FL22099",
@@ -4181,7 +4579,9 @@
         "total_raised": 204676,
         "total_spent": 110026,
         "cash_on_hand": 94650,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02299/"
       },
       "experience": [],
       "fec_id": "H6FL02299",
@@ -4209,7 +4609,9 @@
         "total_raised": 168018,
         "total_spent": 163521,
         "cash_on_hand": 4497,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22107/"
       },
       "experience": [],
       "fec_id": "H6FL22107",
@@ -4237,7 +4639,9 @@
         "total_raised": 160947,
         "total_spent": 65892,
         "cash_on_hand": 95055,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL05250/"
       },
       "experience": [],
       "fec_id": "H6FL05250",
@@ -4265,7 +4669,9 @@
         "total_raised": 140209,
         "total_spent": 100713,
         "cash_on_hand": 54867,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL02138/"
       },
       "experience": [],
       "fec_id": "H4FL02138",
@@ -4293,7 +4699,9 @@
         "total_raised": 138416,
         "total_spent": 84497,
         "cash_on_hand": 57527,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL21132/"
       },
       "experience": [],
       "fec_id": "H2FL21132",
@@ -4321,7 +4729,9 @@
         "total_raised": 135410,
         "total_spent": 4849,
         "cash_on_hand": 130561,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02364/"
       },
       "experience": [],
       "fec_id": "H6FL02364",
@@ -4349,7 +4759,9 @@
         "total_raised": 132724,
         "total_spent": 76711,
         "cash_on_hand": 56013,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06340/"
       },
       "experience": [],
       "fec_id": "H6FL06340",
@@ -4377,7 +4789,9 @@
         "total_raised": 131000,
         "total_spent": 20165,
         "cash_on_hand": 110835,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22156/"
       },
       "experience": [],
       "fec_id": "H6FL22156",
@@ -4405,7 +4819,9 @@
         "total_raised": 127486,
         "total_spent": 27580,
         "cash_on_hand": 99905,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL27028/"
       },
       "experience": [],
       "fec_id": "H4FL27028",
@@ -4433,7 +4849,9 @@
         "total_raised": 127423,
         "total_spent": 122300,
         "cash_on_hand": 5123,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL15200/"
       },
       "experience": [],
       "fec_id": "H6FL15200",
@@ -4461,7 +4879,9 @@
         "total_raised": 125820,
         "total_spent": 125820,
         "cash_on_hand": 0,
-        "as_of": "2025-02-24"
+        "as_of": "2025-02-24",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL01288/"
       },
       "experience": [],
       "fec_id": "H4FL01288",
@@ -4489,7 +4909,9 @@
         "total_raised": 125115,
         "total_spent": 3221,
         "cash_on_hand": 121893,
-        "as_of": "2025-01-08"
+        "as_of": "2025-01-08",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06274/"
       },
       "experience": [],
       "fec_id": "H6FL06274",
@@ -4517,7 +4939,9 @@
         "total_raised": 105198,
         "total_spent": 29206,
         "cash_on_hand": 75992,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL26058/"
       },
       "experience": [],
       "fec_id": "H6FL26058",
@@ -4545,7 +4969,9 @@
         "total_raised": 97519,
         "total_spent": 11163,
         "cash_on_hand": 86356,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02349/"
       },
       "experience": [],
       "fec_id": "H6FL02349",
@@ -4573,7 +4999,9 @@
         "total_raised": 95725,
         "total_spent": 95163,
         "cash_on_hand": 555,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06241/"
       },
       "experience": [],
       "fec_id": "H6FL06241",
@@ -4601,7 +5029,9 @@
         "total_raised": 93552,
         "total_spent": 55882,
         "cash_on_hand": 37670,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL10185/"
       },
       "experience": [],
       "fec_id": "H6FL10185",
@@ -4629,7 +5059,9 @@
         "total_raised": 90318,
         "total_spent": 5381,
         "cash_on_hand": 84937,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01523/"
       },
       "experience": [],
       "fec_id": "H6FL01523",
@@ -4657,7 +5089,9 @@
         "total_raised": 86976,
         "total_spent": 111976,
         "cash_on_hand": -25000,
-        "as_of": "2025-06-30"
+        "as_of": "2025-06-30",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01275/"
       },
       "experience": [],
       "fec_id": "H6FL01275",
@@ -4685,7 +5119,9 @@
         "total_raised": 82893,
         "total_spent": 64979,
         "cash_on_hand": 17914,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19194/"
       },
       "experience": [],
       "fec_id": "H6FL19194",
@@ -4713,7 +5149,9 @@
         "total_raised": 76649,
         "total_spent": 9550,
         "cash_on_hand": 67099,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL14179/"
       },
       "experience": [],
       "fec_id": "H6FL14179",
@@ -4741,7 +5179,9 @@
         "total_raised": 72322,
         "total_spent": 31978,
         "cash_on_hand": 40348,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL17060/"
       },
       "experience": [],
       "fec_id": "H4FL17060",
@@ -4769,7 +5209,9 @@
         "total_raised": 71436,
         "total_spent": 71436,
         "cash_on_hand": 0,
-        "as_of": "2025-09-11"
+        "as_of": "2025-09-11",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL21042/"
       },
       "experience": [],
       "fec_id": "H6FL21042",
@@ -4797,7 +5239,9 @@
         "total_raised": 62385,
         "total_spent": 43427,
         "cash_on_hand": 21137,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL14117/"
       },
       "experience": [],
       "fec_id": "H4FL14117",
@@ -4825,7 +5269,9 @@
         "total_raised": 61508,
         "total_spent": 60433,
         "cash_on_hand": 1075,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL20069/"
       },
       "experience": [],
       "fec_id": "H6FL20069",
@@ -4853,7 +5299,9 @@
         "total_raised": 60546,
         "total_spent": 27835,
         "cash_on_hand": 32712,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL13254/"
       },
       "experience": [],
       "fec_id": "H6FL13254",
@@ -4881,7 +5329,9 @@
         "total_raised": 50636,
         "total_spent": 133312,
         "cash_on_hand": 205,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL01213/"
       },
       "experience": [],
       "fec_id": "H4FL01213",
@@ -4909,7 +5359,9 @@
         "total_raised": 46263,
         "total_spent": 19763,
         "cash_on_hand": 26500,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01515/"
       },
       "experience": [],
       "fec_id": "H6FL01515",
@@ -4937,7 +5389,9 @@
         "total_raised": 46008,
         "total_spent": 33367,
         "cash_on_hand": 12641,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19145/"
       },
       "experience": [],
       "fec_id": "H6FL19145",
@@ -4965,7 +5419,9 @@
         "total_raised": 45190,
         "total_spent": 28247,
         "cash_on_hand": 12609,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL27036/"
       },
       "experience": [],
       "fec_id": "H4FL27036",
@@ -4993,7 +5449,9 @@
         "total_raised": 43703,
         "total_spent": 43703,
         "cash_on_hand": 0,
-        "as_of": "2026-02-12"
+        "as_of": "2026-02-12",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06373/"
       },
       "experience": [],
       "fec_id": "H6FL06373",
@@ -5021,7 +5479,9 @@
         "total_raised": 42170,
         "total_spent": 37053,
         "cash_on_hand": 5117,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL09252/"
       },
       "experience": [],
       "fec_id": "H6FL09252",
@@ -5049,7 +5509,9 @@
         "total_raised": 40747,
         "total_spent": 38280,
         "cash_on_hand": 2467,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL14141/"
       },
       "experience": [],
       "fec_id": "H4FL14141",
@@ -5077,7 +5539,9 @@
         "total_raised": 40397,
         "total_spent": 36817,
         "cash_on_hand": 3580,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL02323/"
       },
       "experience": [],
       "fec_id": "H6FL02323",
@@ -5105,7 +5569,9 @@
         "total_raised": 37661,
         "total_spent": 26986,
         "cash_on_hand": 10775,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL17065/"
       },
       "experience": [],
       "fec_id": "H6FL17065",
@@ -5133,7 +5599,9 @@
         "total_raised": 36746,
         "total_spent": 12948,
         "cash_on_hand": 23798,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL01197/"
       },
       "experience": [],
       "fec_id": "H4FL01197",
@@ -5161,7 +5629,9 @@
         "total_raised": 35199,
         "total_spent": 34949,
         "cash_on_hand": -4350,
-        "as_of": "2025-01-28"
+        "as_of": "2025-01-28",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL01146/"
       },
       "experience": [],
       "fec_id": "H0FL01146",
@@ -5189,7 +5659,9 @@
         "total_raised": 35056,
         "total_spent": 29925,
         "cash_on_hand": 5137,
-        "as_of": "2025-06-30"
+        "as_of": "2025-06-30",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL07137/"
       },
       "experience": [],
       "fec_id": "H4FL07137",
@@ -5217,7 +5689,9 @@
         "total_raised": 32769,
         "total_spent": 10530,
         "cash_on_hand": 22239,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL16117/"
       },
       "experience": [],
       "fec_id": "H6FL16117",
@@ -5245,7 +5719,9 @@
         "total_raised": 32502,
         "total_spent": 23351,
         "cash_on_hand": 21559,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL21034/"
       },
       "experience": [],
       "fec_id": "H6FL21034",
@@ -5273,7 +5749,9 @@
         "total_raised": 32473,
         "total_spent": 35205,
         "cash_on_hand": -2732,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19111/"
       },
       "experience": [],
       "fec_id": "H6FL19111",
@@ -5301,7 +5779,9 @@
         "total_raised": 32243,
         "total_spent": 30478,
         "cash_on_hand": 11387,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL07152/"
       },
       "experience": [],
       "fec_id": "H4FL07152",
@@ -5329,7 +5809,9 @@
         "total_raised": 30087,
         "total_spent": 22919,
         "cash_on_hand": 8491,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL16109/"
       },
       "experience": [],
       "fec_id": "H6FL16109",
@@ -5357,7 +5839,9 @@
         "total_raised": 29903,
         "total_spent": 22409,
         "cash_on_hand": 7494,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06365/"
       },
       "experience": [],
       "fec_id": "H6FL06365",
@@ -5385,7 +5869,9 @@
         "total_raised": 29098,
         "total_spent": 37665,
         "cash_on_hand": 0,
-        "as_of": "2025-03-31"
+        "as_of": "2025-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01432/"
       },
       "experience": [],
       "fec_id": "H6FL01432",
@@ -5413,7 +5899,9 @@
         "total_raised": 28053,
         "total_spent": 16276,
         "cash_on_hand": 11777,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23162/"
       },
       "experience": [],
       "fec_id": "H6FL23162",
@@ -5441,7 +5929,9 @@
         "total_raised": 27336,
         "total_spent": 0,
         "cash_on_hand": 27336,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL27106/"
       },
       "experience": [],
       "fec_id": "H6FL27106",
@@ -5469,7 +5959,9 @@
         "total_raised": 26386,
         "total_spent": 17032,
         "cash_on_hand": 9353,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06381/"
       },
       "experience": [],
       "fec_id": "H6FL06381",
@@ -5497,7 +5989,9 @@
         "total_raised": 25459,
         "total_spent": 24890,
         "cash_on_hand": 569,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL15168/"
       },
       "experience": [],
       "fec_id": "H6FL15168",
@@ -5525,7 +6019,9 @@
         "total_raised": 25414,
         "total_spent": 13185,
         "cash_on_hand": 12478,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL05235/"
       },
       "experience": [],
       "fec_id": "H6FL05235",
@@ -5553,7 +6049,9 @@
         "total_raised": 25150,
         "total_spent": 24815,
         "cash_on_hand": -719,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL27064/"
       },
       "experience": [],
       "fec_id": "H6FL27064",
@@ -5581,7 +6079,9 @@
         "total_raised": 24106,
         "total_spent": 6057,
         "cash_on_hand": 18711,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL16179/"
       },
       "experience": [],
       "fec_id": "H4FL16179",
@@ -5609,7 +6109,9 @@
         "total_raised": 23687,
         "total_spent": 17695,
         "cash_on_hand": 5992,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL09260/"
       },
       "experience": [],
       "fec_id": "H6FL09260",
@@ -5637,7 +6139,9 @@
         "total_raised": 22813,
         "total_spent": 4242,
         "cash_on_hand": 18571,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL19277/"
       },
       "experience": [],
       "fec_id": "H6FL19277",
@@ -5665,7 +6169,9 @@
         "total_raised": 22425,
         "total_spent": 19397,
         "cash_on_hand": 3028,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL03099/"
       },
       "experience": [],
       "fec_id": "H6FL03099",
@@ -5693,7 +6199,9 @@
         "total_raised": 21751,
         "total_spent": 11153,
         "cash_on_hand": 10597,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL05201/"
       },
       "experience": [],
       "fec_id": "H6FL05201",
@@ -5721,7 +6229,9 @@
         "total_raised": 21305,
         "total_spent": 20832,
         "cash_on_hand": 8556,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL11105/"
       },
       "experience": [],
       "fec_id": "H4FL11105",
@@ -5749,7 +6259,9 @@
         "total_raised": 21271,
         "total_spent": 3271,
         "cash_on_hand": 58920,
-        "as_of": "2026-09-30"
+        "as_of": "2026-09-30",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H2FL13139/"
       },
       "experience": [],
       "fec_id": "H2FL13139",
@@ -5777,7 +6289,9 @@
         "total_raised": 19541,
         "total_spent": 19541,
         "cash_on_hand": 0,
-        "as_of": "2025-06-16"
+        "as_of": "2025-06-16",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01457/"
       },
       "experience": [],
       "fec_id": "H6FL01457",
@@ -5805,7 +6319,9 @@
         "total_raised": 19541,
         "total_spent": 19541,
         "cash_on_hand": 0,
-        "as_of": "2025-06-16"
+        "as_of": "2025-06-16",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01440/"
       },
       "experience": [],
       "fec_id": "H6FL01440",
@@ -5833,7 +6349,9 @@
         "total_raised": 18392,
         "total_spent": 7677,
         "cash_on_hand": 10715,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL12223/"
       },
       "experience": [],
       "fec_id": "H6FL12223",
@@ -5861,7 +6379,9 @@
         "total_raised": 17862,
         "total_spent": 17862,
         "cash_on_hand": 0,
-        "as_of": "2025-06-16"
+        "as_of": "2025-06-16",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06290/"
       },
       "experience": [],
       "fec_id": "H6FL06290",
@@ -5889,7 +6409,9 @@
         "total_raised": 16194,
         "total_spent": 12726,
         "cash_on_hand": 3386,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL04204/"
       },
       "experience": [],
       "fec_id": "H6FL04204",
@@ -5917,7 +6439,9 @@
         "total_raised": 15864,
         "total_spent": 15864,
         "cash_on_hand": 0,
-        "as_of": "2025-12-31"
+        "as_of": "2025-12-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL13247/"
       },
       "experience": [],
       "fec_id": "H6FL13247",
@@ -5945,7 +6469,9 @@
         "total_raised": 15704,
         "total_spent": 5379,
         "cash_on_hand": 10324,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL12199/"
       },
       "experience": [],
       "fec_id": "H6FL12199",
@@ -5973,7 +6499,9 @@
         "total_raised": 15058,
         "total_spent": 1355,
         "cash_on_hand": 13702,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL16133/"
       },
       "experience": [],
       "fec_id": "H6FL16133",
@@ -6001,7 +6529,9 @@
         "total_raised": 15048,
         "total_spent": 15914,
         "cash_on_hand": 194,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL26041/"
       },
       "experience": [],
       "fec_id": "H6FL26041",
@@ -6029,7 +6559,9 @@
         "total_raised": 14950,
         "total_spent": 14234,
         "cash_on_hand": 1995,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL09190/"
       },
       "experience": [],
       "fec_id": "H4FL09190",
@@ -6057,7 +6589,9 @@
         "total_raised": 13575,
         "total_spent": 14190,
         "cash_on_hand": 324,
-        "as_of": "2025-03-31"
+        "as_of": "2025-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL01358/"
       },
       "experience": [],
       "fec_id": "H6FL01358",
@@ -6085,7 +6619,9 @@
         "total_raised": 11888,
         "total_spent": 9313,
         "cash_on_hand": 2576,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06332/"
       },
       "experience": [],
       "fec_id": "H6FL06332",
@@ -6113,7 +6649,9 @@
         "total_raised": 10840,
         "total_spent": 10840,
         "cash_on_hand": 0,
-        "as_of": "2026-05-11"
+        "as_of": "2026-05-11",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL08296/"
       },
       "experience": [],
       "fec_id": "H6FL08296",
@@ -6141,7 +6679,9 @@
         "total_raised": 10342,
         "total_spent": 5023,
         "cash_on_hand": 5319,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL14161/"
       },
       "experience": [],
       "fec_id": "H6FL14161",
@@ -6169,7 +6709,9 @@
         "total_raised": 9900,
         "total_spent": 10440,
         "cash_on_hand": 26688,
-        "as_of": "2025-01-08"
+        "as_of": "2025-01-08",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H4FL14158/"
       },
       "experience": [],
       "fec_id": "H4FL14158",
@@ -6197,7 +6739,9 @@
         "total_raised": 9314,
         "total_spent": 4833,
         "cash_on_hand": 4491,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL23170/"
       },
       "experience": [],
       "fec_id": "H6FL23170",
@@ -6225,7 +6769,9 @@
         "total_raised": 8615,
         "total_spent": 4152,
         "cash_on_hand": 4463,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL05284/"
       },
       "experience": [],
       "fec_id": "H6FL05284",
@@ -6253,7 +6799,9 @@
         "total_raised": 7653,
         "total_spent": 0,
         "cash_on_hand": 7653,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL18204/"
       },
       "experience": [],
       "fec_id": "H6FL18204",
@@ -6281,7 +6829,9 @@
         "total_raised": 7204,
         "total_spent": 6805,
         "cash_on_hand": 707,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL13262/"
       },
       "experience": [],
       "fec_id": "H6FL13262",
@@ -6309,7 +6859,9 @@
         "total_raised": 7089,
         "total_spent": 7089,
         "cash_on_hand": 0,
-        "as_of": "2025-05-19"
+        "as_of": "2025-05-19",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL14146/"
       },
       "experience": [],
       "fec_id": "H6FL14146",
@@ -6337,7 +6889,9 @@
         "total_raised": 6250,
         "total_spent": 6432,
         "cash_on_hand": 0,
-        "as_of": "2025-07-22"
+        "as_of": "2025-07-22",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H0FL22100/"
       },
       "experience": [],
       "fec_id": "H0FL22100",
@@ -6365,7 +6919,9 @@
         "total_raised": 6229,
         "total_spent": 1233,
         "cash_on_hand": 4996,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL20119/"
       },
       "experience": [],
       "fec_id": "H6FL20119",
@@ -6393,7 +6949,9 @@
         "total_raised": 5910,
         "total_spent": 761,
         "cash_on_hand": 5149,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL06407/"
       },
       "experience": [],
       "fec_id": "H6FL06407",
@@ -6421,7 +6979,9 @@
         "total_raised": 5129,
         "total_spent": 2165,
         "cash_on_hand": 2964,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL07223/"
       },
       "experience": [],
       "fec_id": "H6FL07223",
@@ -6449,7 +7009,9 @@
         "total_raised": 5100,
         "total_spent": 0,
         "cash_on_hand": 5100,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL22172/"
       },
       "experience": [],
       "fec_id": "H6FL22172",
@@ -6477,7 +7039,9 @@
         "total_raised": 5020,
         "total_spent": 5020,
         "cash_on_hand": 0,
-        "as_of": "2026-04-21"
+        "as_of": "2026-04-21",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL04188/"
       },
       "experience": [],
       "fec_id": "H6FL04188",
@@ -6505,7 +7069,9 @@
         "total_raised": 1637,
         "total_spent": 1637,
         "cash_on_hand": 0,
-        "as_of": "2026-03-31"
+        "as_of": "2026-03-31",
+        "jurisdiction": "Federal Election Commission",
+        "source_url": "https://www.fec.gov/data/candidate/H6FL03115/"
       },
       "experience": [],
       "fec_id": "H6FL03115",

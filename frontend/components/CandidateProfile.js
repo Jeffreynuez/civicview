@@ -319,17 +319,7 @@ export default function CandidateProfile({
             borderBottom: '1px solid rgba(255,255,255,0.18)',
           }}
         >
-          <div
-            style={{
-              width: 36, height: 36, borderRadius: '50%',
-              background: c.photo_url ? `url(${c.photo_url}) center/cover` : 'rgba(255,255,255,0.22)',
-              border: '2px solid rgba(255,255,255,0.35)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '0.78rem', fontWeight: 700, flexShrink: 0,
-            }}
-          >
-            {!c.photo_url && c.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
-          </div>
+          <CandidateAvatar candidate={c} size={36} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
               fontSize: '0.95rem', fontWeight: 700, color: 'white',
@@ -443,31 +433,53 @@ export default function CandidateProfile({
             borderBottom: '1px solid rgba(255,255,255,0.18)',
           }}
         >
-          {c.photo_url ? (
-            <img
-              src={c.photo_url}
-              alt={c.name}
-              // display:block + margin auto so the avatar reliably centers
-              // in the textAlign:center hero (same fix as ProfileView).
+          <CandidateAvatar candidate={c} size={88} centered />
+          {/* Visible attribution. Congressional portraits are public
+              domain and need none; Wikimedia images are usually
+              CC-BY-SA and REQUIRE credit, and campaign headshots are
+              the campaign's copyright, so naming the source is both
+              the licence obligation and the audit trail. */}
+          {/* Withdrawn banner. A suspended campaign that still renders
+              like an active one is the single most damaging error this
+              page can make in the weeks before an election — a voter
+              could plan around a candidate who is not running. It sits
+              in the hero, above everything, and states the date. */}
+          {c.withdrawn && (
+            <div
+              role="status"
               style={{
-                display: 'block', width: '88px', height: '88px',
-                borderRadius: '50%', objectFit: 'cover',
-                border: '3px solid rgba(255,255,255,0.35)',
-                margin: '0 auto 10px',
-                background: 'rgba(255,255,255,0.18)',
+                background: 'rgba(220, 38, 38, 0.92)',
+                color: 'white',
+                borderRadius: '8px',
+                padding: '9px 12px',
+                margin: '0 auto 12px',
+                maxWidth: '46ch',
+                fontSize: '0.8rem',
+                lineHeight: 1.45,
+                textAlign: 'left',
               }}
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
-          ) : (
-            <div style={{
-              width: '88px', height: '88px', borderRadius: '50%',
-              background: 'rgba(255,255,255,0.22)',
-              border: '3px solid rgba(255,255,255,0.35)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.75rem', fontWeight: 700, color: 'white',
-              margin: '0 auto 10px',
-            }}>
-              {c.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+            >
+              <strong>No longer running.</strong>{' '}
+              {c.withdrawn_note
+                || `This candidate withdrew${c.withdrawn_on ? ` on ${c.withdrawn_on}` : ''}.`}
+              {c.withdrawn_source && (
+                <>
+                  {' '}
+                  <a
+                    href={c.withdrawn_source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'white', textDecoration: 'underline' }}
+                  >
+                    Source
+                  </a>
+                </>
+              )}
+            </div>
+          )}
+          {c.photo_credit && c.photo_source !== 'congress' && (
+            <div style={{ fontSize: '0.66rem', color: 'rgba(255,255,255,0.6)', marginTop: '-6px', marginBottom: '8px' }}>
+              Photo: {c.photo_credit}
             </div>
           )}
           <h2 style={{ fontSize: '1.2rem', marginBottom: '4px', fontWeight: 700, color: 'white' }}>
@@ -652,7 +664,10 @@ export default function CandidateProfile({
               {c.age && <StatCard label="Age" value={c.age} />}
               {c.hometown && <StatCard label="Hometown" value={c.hometown} />}
               {c.fundraising?.total_raised != null && (
-                <StatCard label="Raised" value={`$${formatMoney(c.fundraising.total_raised)}`} />
+                <StatCard
+                  label={c.fundraising.is_aggregate ? 'Raised (all committees)' : 'Raised'}
+                  value={money(c.fundraising.total_raised)}
+                />
               )}
             </div>
             {c.top_issues && c.top_issues.length > 0 && (
@@ -734,6 +749,29 @@ export default function CandidateProfile({
               >
                 <div style={{ fontWeight: 600 }}>{e.name}</div>
                 {e.org && <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)' }}>{e.org}</div>}
+                {e.note && (
+                  <div style={{ fontSize: '0.76rem', color: 'var(--cl-text)', marginTop: '3px' }}>{e.note}</div>
+                )}
+                {/* Date + source. An endorsement without a source is a
+                    rumor with formatting — this is the one tab where an
+                    unsourced claim does the most damage, because it
+                    reads as an institution's position. */}
+                {(e.date || e.source) && (
+                  <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
+                    {e.date && <span>{prettyEndorsementDate(e.date)}</span>}
+                    {e.date && e.source && <span> · </span>}
+                    {e.source && (
+                      <a
+                        href={e.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--cl-accent)' }}
+                      >
+                        Source
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
             {(!c.endorsements || c.endorsements.length === 0) && (
@@ -778,17 +816,90 @@ export default function CandidateProfile({
             {c.fundraising ? (
               <>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                  <StatCard label="Total Raised" value={`$${formatMoney(c.fundraising.total_raised)}`} big />
-                  <StatCard label="Cash on Hand" value={`$${formatMoney(c.fundraising.cash_on_hand)}`} big />
-                  <StatCard label="Total Spent" value={`$${formatMoney(c.fundraising.total_spent)}`} />
-                  <StatCard label="Burn Rate" value={
-                    c.fundraising.total_raised
-                      ? `${Math.round((c.fundraising.total_spent / c.fundraising.total_raised) * 100)}%`
-                      : '—'
-                  } />
+                  <StatCard label="Total Raised" value={money(c.fundraising.total_raised)} big />
+                  <StatCard label="Cash on Hand" value={money(c.fundraising.cash_on_hand)} big />
+                  <StatCard label="Total Spent" value={money(c.fundraising.total_spent)} />
+                  {/* Burn rate needs BOTH operands. The old guard only
+                      checked total_raised, so a null total_spent coerced
+                      to 0 and rendered a confident "0%" for candidates
+                      who simply hadn't reported spending — a fabricated
+                      number on a page whose whole promise is sourcing. */}
+                  <StatCard label="Burn Rate" value={burnRate(c.fundraising)} />
                 </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '10px', textAlign: 'center' }}>
+
+                {/* Component committees. Florida statewide candidates
+                    raise through a campaign account AND affiliated
+                    political committees, and the state publishes them as
+                    separate, unlinked records — so a combined total is an
+                    editorial join, not a figure the state reported. When
+                    we show one, we show what it is made of. */}
+                {c.fundraising.is_aggregate && Array.isArray(c.fundraising.accounts) && (
+                  <div style={{ marginTop: '14px' }}>
+                    <SectionTitle>What this total includes</SectionTitle>
+                    {c.fundraising.accounts.map((a, i) => (
+                      <div
+                        key={a.acct_num || i}
+                        style={{
+                          display: 'flex', justifyContent: 'space-between', gap: '10px',
+                          padding: '7px 0',
+                          borderBottom: i < c.fundraising.accounts.length - 1 ? '1px solid var(--cl-border)' : 'none',
+                          fontSize: '0.82rem',
+                        }}
+                      >
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontWeight: 600 }}>{a.label || a.name}</div>
+                          {a.acct_num && (
+                            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
+                              Account {a.acct_num}
+                              {a.kind === 'committee' ? ' · political committee' : ' · campaign account'}
+                            </div>
+                          )}
+                          {a.affiliation_basis && (
+                            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
+                              Linked to this candidate by {a.affiliation_basis}
+                            </div>
+                          )}
+                        </div>
+                        <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontWeight: 700 }}>{money(a.raised)}</div>
+                          <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
+                            {money(a.spent)} spent
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '8px', lineHeight: 1.45 }}>
+                      Florida does not publish a link between a candidate and their
+                      political committees, so combining them is our editorial
+                      judgment, not an official figure. Each account above is
+                      reported separately by the state.
+                    </div>
+                  </div>
+                )}
+
+                {c.fundraising.cash_on_hand == null && c.fundraising.cash_on_hand_note && (
+                  <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '10px', lineHeight: 1.45 }}>
+                    {c.fundraising.cash_on_hand_note}
+                  </div>
+                )}
+
+                <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '10px', textAlign: 'center', lineHeight: 1.5 }}>
                   As of {c.fundraising.as_of || 'latest filing'}
+                  {c.fundraising.jurisdiction && <> · Source: {c.fundraising.jurisdiction}</>}
+                  {c.fundraising.retrieved && <> · Retrieved {c.fundraising.retrieved}</>}
+                  {c.fundraising.source_url && (
+                    <>
+                      {' · '}
+                      <a
+                        href={c.fundraising.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--cl-accent)' }}
+                      >
+                        View filings
+                      </a>
+                    </>
+                  )}
                 </div>
               </>
             ) : (
@@ -845,6 +956,99 @@ function EmptyState({ children }) {
       {children}
     </div>
   );
+}
+
+// Endorsement dates arrive as YYYY, YYYY-MM, or YYYY-MM-DD depending on
+// how precisely the source pinned it. Render each at the precision we
+// actually have rather than inventing a day. Parsed as UTC (the "Z")
+// because a bare date string is local-midnight in some engines, which
+// renders as the previous day west of Greenwich.
+function prettyEndorsementDate(raw) {
+  const v = String(raw || '').trim();
+  if (/^\d{4}$/.test(v)) return v;
+  const asDate = /^\d{4}-\d{2}$/.test(v) ? `${v}-01` : v;
+  const d = new Date(`${asDate}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return v;
+  return d.toLocaleDateString('en-US', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    month: 'long',
+    ...(/^\d{4}-\d{2}-\d{2}$/.test(v) ? { day: 'numeric' } : {}),
+  });
+}
+
+// First + LAST initial. The previous inline version took the first two
+// tokens, so "Jose Javier Rodriguez" rendered "JJ" instead of "JR" —
+// wrong for every candidate with a middle name, which in a Florida
+// field is a lot of them.
+function candidateInitials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+/**
+ * Candidate portrait with a real initials fallback.
+ *
+ * The old inline version hid the <img> on error and left an EMPTY
+ * circle. That was survivable while photo_url was almost always null;
+ * it is not survivable now that the backend derives a congressional
+ * portrait URL from bioguide_id, because a member missing from the
+ * mirror produces a 404 and therefore a blank hole where a face
+ * should be. Failure here has to land on initials, not on nothing.
+ */
+function CandidateAvatar({ candidate: c, size, centered = false }) {
+  const [failed, setFailed] = useState(false);
+  const src = !failed ? c.photo_url : null;
+  const box = {
+    width: size, height: size, borderRadius: '50%',
+    border: `${size >= 88 ? 3 : 2}px solid rgba(255,255,255,0.35)`,
+    flexShrink: 0,
+    ...(centered ? { display: 'block', margin: '0 auto 10px' } : {}),
+  };
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={c.name}
+        // display:block + margin auto so the avatar reliably centers
+        // in the textAlign:center hero (same fix as ProfileView).
+        style={{ ...box, objectFit: 'cover', background: 'rgba(255,255,255,0.18)' }}
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+  return (
+    <div
+      style={{
+        ...box,
+        background: 'rgba(255,255,255,0.22)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: size >= 88 ? '1.75rem' : '0.78rem',
+        fontWeight: 700, color: 'white',
+      }}
+    >
+      {candidateInitials(c.name)}
+    </div>
+  );
+}
+
+// Prefer money() over `$${formatMoney(x)}` at call sites: formatMoney
+// returns an em-dash for null, so the template-literal form rendered
+// the string "$—" wherever a figure was missing.
+function money(n) {
+  if (n == null) return '—';
+  return `$${formatMoney(n)}`;
+}
+
+// Null-safe burn rate. Returns '—' unless BOTH operands are real
+// numbers — see the call site for why the old guard was wrong.
+function burnRate(f) {
+  if (!f) return '—';
+  const { total_raised: raised, total_spent: spent } = f;
+  if (raised == null || spent == null || !raised) return '—';
+  return `${Math.round((spent / raised) * 100)}%`;
 }
 
 function formatMoney(n) {

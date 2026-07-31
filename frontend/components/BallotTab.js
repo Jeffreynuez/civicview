@@ -885,13 +885,21 @@ function CandidateRow({
           flex: 1, minWidth: 0, cursor: 'pointer', display: 'flex', gap: '10px', alignItems: 'center',
         }}
       >
+        {/* Ballot rows never read photo_url at all, so every candidate
+            here rendered as initials even when a portrait existed.
+            Backgrounded rather than <img> so a 404 falls through to the
+            party-tinted circle and the initials underneath with no
+            error handler and no layout shift. */}
         <div style={{
           width: '34px', height: '34px', borderRadius: '50%',
-          background: partyBg, color: partyColor, flexShrink: 0,
+          background: candidate.photo_url
+            ? `${partyBg} url(${candidate.photo_url}) center/cover`
+            : partyBg,
+          color: partyColor, flexShrink: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontWeight: 700, fontSize: '0.78rem',
         }}>
-          {candidate.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
+          {!candidate.photo_url && ballotInitials(candidate.name)}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.2 }}>
@@ -947,12 +955,25 @@ function toCandidateMember(candidate, race, stateCode, electionPhase) {
     chamber: race?.level === 'federal' ? (race?.chamber || null) : null,
     state: stateCode || race?.state || null,
     district: race?.district || null,
-    photoUrl: candidate.photoUrl || candidate.image || null,
+    // Candidate records are snake_case (photo_url); the member shape
+    // this maps into is camelCase. Reading only the camelCase keys meant
+    // this was always null for candidates.
+    photoUrl: candidate.photo_url || candidate.photoUrl || candidate.image || null,
     // Extras carried for downstream use
     race_id: race?.id || null,
     race_office: race?.office || null,
     election_phase: electionPhase || null,
   };
+}
+
+// First + LAST initial — matches CandidateProfile.candidateInitials.
+// The previous inline version took the first two tokens, which is wrong
+// for anyone with a middle name on the ballot.
+function ballotInitials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
 // ─── Ballot-measure card ─────────────────────────────────────────────

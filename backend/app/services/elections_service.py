@@ -18,6 +18,8 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from app.services.candidate_enrichment import enrich_candidate
+
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -49,9 +51,14 @@ class ElectionsService:
                         raw = json.load(fh)
                     cands = raw.get("candidates", {}) or {}
                     for cid, payload in cands.items():
-                        # Normalize — ensure id is present
+                        # Normalize — ensure id is present, then enrich.
+                        # Enrichment happens HERE, once at load, rather
+                        # than per-request in get_candidate: every
+                        # consumer (profile, ballot, compare, race
+                        # listings) reads from this same dict, so doing
+                        # it at the door means no surface can forget.
                         payload = {"id": cid, **payload}
-                        self._candidates[cid] = payload
+                        self._candidates[cid] = enrich_candidate(payload)
                     logger.info(
                         "ElectionsService: loaded %d candidates from %s",
                         len(cands),
