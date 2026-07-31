@@ -91,6 +91,38 @@
         "office": "Executive",
         "website": null,
         "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-FL-Uthmeier-James.png"
+      },
+      {
+        "id": "fl-exec-cfo",
+        "name": "Blaise Ingoglia",
+        "party": "R",
+        "role": "Chief Financial Officer",
+        "office": "Executive",
+        "serving_since": 2025,
+        "website": "https://www.myfloridacfo.com",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Official_portrait_of_Chief_Financial_Officer_Blaise_Ingoglia_%28cropped%29.jpg/250px-Official_portrait_of_Chief_Financial_Officer_Blaise_Ingoglia_%28cropped%29.jpg",
+        "selection_method": "appointed",
+        "selection_detail": "Appointed by Gov. Ron DeSantis in July 2025; normally elected statewide to a 4-year term.",
+        "normally_elected": true,
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Blaise_Ingoglia"
+      },
+      {
+        "id": "fl-exec-agriculture-commissioner",
+        "name": "Wilton Simpson",
+        "party": "R",
+        "role": "Commissioner of Agriculture",
+        "office": "Executive",
+        "serving_since": 2023,
+        "website": "https://www.fdacs.gov",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Wilton_Simpson%2C_Florida_Commissioner_of_Agriculture.jpg/250px-Wilton_Simpson%2C_Florida_Commissioner_of_Agriculture.jpg",
+        "selection_method": "elected",
+        "selection_detail": "Elected statewide in November 2022 to a 4-year term.",
+        "normally_elected": true,
+        "photo_source": "wikimedia",
+        "photo_credit": "Wikimedia Commons",
+        "photo_source_url": "https://en.wikipedia.org/wiki/Wilton_Simpson"
       }
     ]
   },

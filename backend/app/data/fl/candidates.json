@@ -7099,6 +7099,503 @@
       "data_status": "enriched",
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04"
+    },
+    "fl-cand-blaise-ingoglia": {
+      "id": "fl-cand-blaise-ingoglia",
+      "name": "Blaise Ingoglia",
+      "party": "R",
+      "seeking_office": "Chief Financial Officer of Florida",
+      "incumbent": true,
+      "current_office": "Chief Financial Officer of Florida",
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Official_portrait_of_Chief_Financial_Officer_Blaise_Ingoglia_%28cropped%29.jpg/250px-Official_portrait_of_Chief_Financial_Officer_Blaise_Ingoglia_%28cropped%29.jpg",
+      "bio": "Blaise Ingoglia has served as Florida's Chief Financial Officer since Governor Ron DeSantis appointed him in July 2025. He previously served in the Florida Senate and Florida House and chaired the Republican Party of Florida. He is seeking a full term.",
+      "top_issues": [],
+      "endorsements": [
+        {
+          "name": "Florida Chamber of Commerce",
+          "org": "Statewide business federation",
+          "date": "2026-07-16",
+          "source": "https://flvoicenews.com/florida-chamber-of-commerce-backs-simpson-ingoglia-in-statewide-cabinet-races/"
+        },
+        {
+          "name": "Incoming legislative leaders",
+          "org": "Florida Legislature",
+          "date": "2026-07",
+          "source": "https://floridapolitics.com/archives/805410-incoming-legislative-leaders-endorse-blaise-ingoglia-wilton-simpson-james-uthmeier/"
+        }
+      ],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Blaise Ingoglia (campaign account)",
+            "acct_num": "89394",
+            "kind": "campaign",
+            "raised": 1854913.81,
+            "spent": 440303.72
+          },
+          {
+            "label": "Friends of Blaise Ingoglia",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 4427980.95,
+            "spent": 1844741.88,
+            "affiliation_basis": "committee name and press reporting"
+          }
+        ]
+      },
+      "experience": [
+        {
+          "role": "Chief Financial Officer of Florida",
+          "from": 2025,
+          "to": null,
+          "note": "Appointed by Gov. Ron DeSantis."
+        },
+        {
+          "role": "Florida State Senator",
+          "from": 2018,
+          "to": 2025
+        },
+        {
+          "role": "Florida State Representative",
+          "from": 2014,
+          "to": 2018
+        },
+        {
+          "role": "Chairman, Republican Party of Florida",
+          "from": 2015,
+          "to": 2019
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Blaise_Ingoglia"
+    },
+    "fl-cand-annette-taddeo": {
+      "id": "fl-cand-annette-taddeo",
+      "name": "Annette Taddeo",
+      "party": "D",
+      "seeking_office": "Chief Financial Officer of Florida",
+      "incumbent": false,
+      "current_office": "Former Florida State Senator",
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Annette_Taddeo.jpg/250px-Annette_Taddeo.jpg",
+      "bio": "Annette Taddeo served in the Florida Senate from 2017 to 2022 and was the Democratic nominee for Lieutenant Governor in 2014. She entered the CFO race in June 2026, qualifying on the final day.",
+      "top_issues": [],
+      "endorsements": [
+        {
+          "name": "Teamsters Joint Council 75",
+          "org": "Labor union",
+          "date": "2026-07-28",
+          "source": "https://www.miamitimesonline.com/news/florida/teamsters-democratic-leaders-line-up-behind-annette-taddeo-s-cfo-campaign/article_80fd43d2-1274-4cac-ad8a-a9650951273e.amp.html"
+        },
+        {
+          "name": "Daniella Levine Cava",
+          "org": "Mayor, Miami-Dade County",
+          "date": "2026-07-16",
+          "source": "https://floridapolitics.com/archives/807786-daniella-levine-cava-jerry-demings-endorse-annette-taddeo-for-cfo/"
+        },
+        {
+          "name": "Jerry Demings",
+          "org": "Mayor, Orange County",
+          "date": "2026-07-16",
+          "source": "https://floridapolitics.com/archives/807786-daniella-levine-cava-jerry-demings-endorse-annette-taddeo-for-cfo/"
+        },
+        {
+          "name": "Alex Sink",
+          "org": "Former Chief Financial Officer of Florida",
+          "date": "2026-07",
+          "source": "https://www.miamitimesonline.com/news/florida/teamsters-democratic-leaders-line-up-behind-annette-taddeo-s-cfo-campaign/article_80fd43d2-1274-4cac-ad8a-a9650951273e.amp.html"
+        },
+        {
+          "name": "Lori Berman and Fentrice Driskell",
+          "org": "Florida Senate and House Democratic Leaders",
+          "date": "2026-07",
+          "source": "https://www.miamitimesonline.com/news/florida/teamsters-democratic-leaders-line-up-behind-annette-taddeo-s-cfo-campaign/article_80fd43d2-1274-4cac-ad8a-a9650951273e.amp.html"
+        }
+      ],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Annette Taddeo (campaign account)",
+            "acct_num": "91310",
+            "kind": "campaign",
+            "raised": 52333.0,
+            "spent": 23498.0
+          },
+          {
+            "label": "Friends of Annette Taddeo PC",
+            "acct_num": "91195",
+            "kind": "committee",
+            "raised": 30500.0,
+            "spent": 2443.46,
+            "affiliation_basis": "committee name and press reporting"
+          }
+        ],
+        "note": "Totals are low relative to the field because Taddeo entered the race on June 8, 2026 and qualified on the final day."
+      },
+      "experience": [
+        {
+          "role": "Florida State Senator, District 40",
+          "from": 2017,
+          "to": 2022
+        },
+        {
+          "role": "Democratic nominee for Lieutenant Governor of Florida",
+          "from": 2014,
+          "to": 2014
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Annette_Taddeo"
+    },
+    "fl-cand-frank-collige": {
+      "id": "fl-cand-frank-collige",
+      "name": "Frank William Collige",
+      "party": "R",
+      "seeking_office": "Chief Financial Officer of Florida",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Frank William Collige is a candidate for Chief Financial Officer of Florida.",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Frank William Collige (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 15970.0,
+            "spent": 13355.5
+          }
+        ]
+      },
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (qualified candidate)",
+      "data_observed": "2026-07-31"
+    },
+    "fl-cand-earle-ford": {
+      "id": "fl-cand-earle-ford",
+      "name": "Earle Ford",
+      "party": "D",
+      "seeking_office": "Chief Financial Officer of Florida",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Earle Ford is a candidate for Chief Financial Officer of Florida.",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Earle Ford (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 22180.17,
+            "spent": 17794.58
+          }
+        ]
+      },
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (qualified candidate)",
+      "data_observed": "2026-07-31"
+    },
+    "fl-cand-wilton-simpson": {
+      "id": "fl-cand-wilton-simpson",
+      "name": "Wilton Simpson",
+      "party": "R",
+      "seeking_office": "Commissioner of Agriculture of Florida",
+      "incumbent": true,
+      "current_office": "Commissioner of Agriculture of Florida",
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": "https://wiltonsimpson.com",
+      "social": {},
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Wilton_Simpson%2C_Florida_Commissioner_of_Agriculture.jpg/250px-Wilton_Simpson%2C_Florida_Commissioner_of_Agriculture.jpg",
+      "bio": "Wilton Simpson has served as Florida's Commissioner of Agriculture since 2023. He was President of the Florida Senate from 2020 to 2022 and is an egg farmer by trade. He is seeking a second term.",
+      "top_issues": [],
+      "endorsements": [
+        {
+          "name": "President Donald J. Trump",
+          "org": "President of the United States",
+          "date": "2025-10-22",
+          "source": "https://www.tampabay.com/news/florida-politics/elections/2025/10/22/donald-trump-wilton-simpson-endorsement-2026-election-agriculture-commissioner/"
+        },
+        {
+          "name": "Gov. Ron DeSantis",
+          "org": "Governor of Florida",
+          "note": "The only 2026 statewide race in which DeSantis has endorsed.",
+          "source": "https://wiltonsimpson.com/endorsements/"
+        },
+        {
+          "name": "Republican Party of Florida",
+          "org": "State party",
+          "date": "2026-05",
+          "source": "https://florida.gop/republican-party-of-florida-congratulates-commissioner-of-agriculture-wilton-simpson-on-re-election-announcement/"
+        },
+        {
+          "name": "Florida Chamber of Commerce",
+          "org": "Statewide business federation",
+          "date": "2026-07-16",
+          "source": "https://flvoicenews.com/florida-chamber-of-commerce-backs-simpson-ingoglia-in-statewide-cabinet-races/"
+        }
+      ],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Wilton Simpson (campaign account)",
+            "acct_num": "90560",
+            "kind": "campaign",
+            "raised": 1104573.01,
+            "spent": 590617.82
+          },
+          {
+            "label": "Friends of Wilton Simpson",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 3903341.52,
+            "spent": 9350569.95,
+            "affiliation_basis": "a shared chairperson and treasurer with the campaign account"
+          },
+          {
+            "label": "Home Grown PAC",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 211986.9,
+            "spent": 1725.0,
+            "affiliation_basis": "a shared chairperson and treasurer with the campaign account"
+          },
+          {
+            "label": "Future Florida",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 994474.54,
+            "spent": 225904.0,
+            "affiliation_basis": "a shared chairperson and treasurer with the campaign account"
+          },
+          {
+            "label": "Florida Green PAC",
+            "acct_num": null,
+            "kind": "committee",
+            "raised": 1098736.06,
+            "spent": 210235.0,
+            "affiliation_basis": "a shared chairperson and treasurer with the campaign account"
+          }
+        ],
+        "note": "Spending exceeds this cycle's receipts because Friends of Wilton Simpson entered the cycle with a balance carried over from 2022. Cycle receipts are not a war chest — do not read the difference as a deficit."
+      },
+      "experience": [
+        {
+          "role": "Commissioner of Agriculture of Florida",
+          "from": 2023,
+          "to": null
+        },
+        {
+          "role": "President, Florida Senate",
+          "from": 2020,
+          "to": 2022
+        },
+        {
+          "role": "Florida State Senator",
+          "from": 2012,
+          "to": 2022
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Wilton_Simpson"
+    },
+    "fl-cand-matt-taylor": {
+      "id": "fl-cand-matt-taylor",
+      "name": "Matt Taylor",
+      "party": "R",
+      "seeking_office": "Commissioner of Agriculture of Florida",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Matt Taylor is a Plant City welder with a large social-media following who legally changed his name to \"Matt the Welder\" in January 2026. He previously ran for the Hillsborough County Commission. He appears on the Division of Elections qualified list as \"Taylor, Matt.\"",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Matt Taylor (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 269473.84,
+            "spent": 229739.59
+          }
+        ]
+      },
+      "experience": [],
+      "data_status": "enriched",
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "data_observed": "2026-07-31"
+    },
+    "fl-cand-joey-mendoza-atkins": {
+      "id": "fl-cand-joey-mendoza-atkins",
+      "name": "Joey Mendoza Atkins",
+      "party": "D",
+      "seeking_office": "Commissioner of Agriculture of Florida",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Joey Mendoza Atkins is a candidate for Commissioner of Agriculture of Florida.",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Joey Mendoza Atkins (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 8660.0,
+            "spent": 8399.28
+          }
+        ]
+      },
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (qualified candidate)",
+      "data_observed": "2026-07-31"
+    },
+    "fl-cand-don-prichard": {
+      "id": "fl-cand-don-prichard",
+      "name": "Donald A. \"Don\" Prichard",
+      "party": "D",
+      "seeking_office": "Commissioner of Agriculture of Florida",
+      "incumbent": false,
+      "current_office": null,
+      "bioguide_id": null,
+      "hometown": null,
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Donald A. \"Don\" Prichard is a candidate for Commissioner of Agriculture of Florida.",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": {
+        "total_raised": null,
+        "total_spent": null,
+        "cash_on_hand": null,
+        "cash_on_hand_note": "Florida's public campaign finance database reports contributions and expenditures only — cash on hand appears on report cover pages and is not queryable, so we leave it blank rather than infer it. Raised minus spent would be wrong here: committees carry balances forward between cycles.",
+        "as_of": "2026-07-24",
+        "retrieved": "2026-07-31",
+        "jurisdiction": "FL Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/campaign-finance/contributions/",
+        "accounts": [
+          {
+            "label": "Donald A. Prichard (campaign account)",
+            "acct_num": null,
+            "kind": "campaign",
+            "raised": 24485.0,
+            "spent": 10678.08
+          }
+        ]
+      },
+      "experience": [],
+      "data_status": "skeleton",
+      "data_source": "FL Division of Elections (qualified candidate)",
+      "data_observed": "2026-07-31"
     }
   }
 }

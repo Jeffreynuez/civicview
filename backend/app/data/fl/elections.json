@@ -127,6 +127,68 @@
       }
     },
     {
+      "id": "fl-2026-cfo",
+      "office": "Chief Financial Officer of Florida",
+      "level": "state",
+      "jurisdiction": "FL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-blaise-ingoglia",
+      "notes": "Ingoglia was appointed CFO in July 2025 and is seeking a full term. Taddeo entered the race on June 8, 2026 and qualified on the final day. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-blaise-ingoglia",
+          "fl-cand-frank-collige"
+        ],
+        "D": [
+          "fl-cand-annette-taddeo",
+          "fl-cand-earle-ford"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-blaise-ingoglia",
+        "fl-cand-annette-taddeo"
+      ],
+      "general_candidates_note": "Projection of the R / D primary winners (update after Aug 18).",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
+        "observed": "2026-07-31"
+      }
+    },
+    {
+      "id": "fl-2026-agriculture",
+      "office": "Commissioner of Agriculture of Florida",
+      "level": "state",
+      "jurisdiction": "FL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-wilton-simpson",
+      "notes": "Simpson is seeking a second term. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates. One write-in candidate (Kyle Gibson) also qualified; write-ins do not appear on the ballot and are omitted here.",
+      "primary_candidates": {
+        "R": [
+          "fl-cand-wilton-simpson",
+          "fl-cand-matt-taylor"
+        ],
+        "D": [
+          "fl-cand-joey-mendoza-atkins",
+          "fl-cand-don-prichard"
+        ]
+      },
+      "general_candidates": [
+        "fl-cand-wilton-simpson",
+        "fl-cand-joey-mendoza-atkins"
+      ],
+      "general_candidates_note": "Projection of the R / D primary winners (update after Aug 18). The Democratic primary has no clear frontrunner.",
+      "_roster_source": {
+        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
+        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
+        "observed": "2026-07-31"
+      }
+    },
+    {
       "id": "fl-2026-us-house-10",
       "office": "U.S. House, FL-10",
       "level": "federal",

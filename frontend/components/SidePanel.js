@@ -54,7 +54,14 @@ function toStateMember(person, roleType, stateCode) {
     state: person.state || (stateCode ? stateCode.toUpperCase() : null),
     district: person.district || null,
     role_type: roleType,
-    photoUrl: person.image || person.photoUrl || null,
+    // Both state_officials.json and federal_officials.json store
+    // snake_case `photo_url`. Reading only the camelCase keys set this to
+    // null; portraits still reached the profile header purely because the
+    // `...person` spread above carried the raw field through and
+    // ProfileView normalizes three spellings. That was luck, not design —
+    // name it explicitly so a future refactor of the spread cannot
+    // silently blank every official's photo.
+    photoUrl: person.photo_url || person.image || person.photoUrl || null,
     contact: person.contact || null,
   };
 }
@@ -82,7 +89,14 @@ function toFederalMember(person, roleType) {
     title: person.role || person.title || '',
     chamber: person.chamber || chamberByRole[roleType] || null,
     role_type: roleType,
-    photoUrl: person.image || person.photoUrl || null,
+    // Both state_officials.json and federal_officials.json store
+    // snake_case `photo_url`. Reading only the camelCase keys set this to
+    // null; portraits still reached the profile header purely because the
+    // `...person` spread above carried the raw field through and
+    // ProfileView normalizes three spellings. That was luck, not design —
+    // name it explicitly so a future refactor of the spread cannot
+    // silently blank every official's photo.
+    photoUrl: person.photo_url || person.image || person.photoUrl || null,
     federal_register_slug:
       person.federal_register_slug || PRESIDENT_FEDREG_SLUGS[person.id] || null,
   };
