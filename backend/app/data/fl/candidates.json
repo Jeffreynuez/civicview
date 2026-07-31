@@ -141,7 +141,7 @@
       "social": {
         "twitter": "paulrennerfl"
       },
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Speaker_Paul_Renner.jpg/250px-Speaker_Paul_Renner.jpg",
       "bio": "Paul Renner served as Speaker of the Florida House from 2022 to 2024, presiding over major reforms in education, litigation, and property insurance. He is running on a platform of experienced conservative governance.",
       "top_issues": [
         {
@@ -220,7 +220,10 @@
       ],
       "data_status": "enriched",
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
-      "data_observed": "2026-07-31"
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Paul_Renner_(politician)"
     },
     "fl-cand-james-uthmeier": {
       "id": "fl-cand-james-uthmeier",
@@ -237,7 +240,7 @@
       "social": {
         "twitter": "jamesuthmeier"
       },
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Official_portrait_of_Attorney_General_James_Uthmeier%2C_2025_%28cropped%29.jpg/250px-Official_portrait_of_Attorney_General_James_Uthmeier%2C_2025_%28cropped%29.jpg",
       "bio": "James Uthmeier is the Attorney General of Florida, appointed in 2025; he previously served as Chief of Staff to Governor Ron DeSantis. He is the Republican candidate for Attorney General.",
       "top_issues": [
         {
@@ -312,7 +315,10 @@
       ],
       "data_status": "enriched",
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
-      "data_observed": "2026-07-31"
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/James_Uthmeier"
     },
     "fl-cand-jose-javier-rodriguez": {
       "id": "fl-cand-jose-javier-rodriguez",
@@ -327,7 +333,7 @@
       "social": {
         "twitter": "jjrfl"
       },
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Jose_Javier_Rodriguez_Senate_Photo.jpg/250px-Jose_Javier_Rodriguez_Senate_Photo.jpg",
       "bio": "José Javier Rodríguez is a former state senator and U.S. Department of Labor official. He is running for Attorney General on a platform of consumer protection, civil rights, and restoring the office's independence.",
       "top_issues": [
         {
@@ -425,7 +431,10 @@
       ],
       "data_status": "enriched",
       "data_observed": "2026-07-31",
-      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry."
+      "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Jos%C3%A9_Javier_Rodr%C3%ADguez_(Florida_politician)"
     },
     "fl-cand-maxwell-frost": {
       "id": "fl-cand-maxwell-frost",
@@ -646,7 +655,7 @@
       "age": null,
       "website": null,
       "social": {},
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins_%28cropped_5%29.jpg/250px-Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins_%28cropped_5%29.jpg",
       "bio": "Jay Collins is the Lieutenant Governor of Florida, appointed in 2025, and a former Florida state senator and retired U.S. Army Special Forces (Green Beret) combat veteran. He is a Republican candidate for Governor of Florida.",
       "top_issues": [
         {
@@ -740,7 +749,10 @@
       "data_status": "enriched",
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
       "data_observed": "2026-07-31",
-      "official_scope": "state"
+      "official_scope": "state",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Jay_Collins"
     },
     "fl-cand-shea-cruel": {
       "id": "fl-cand-shea-cruel",
@@ -798,7 +810,7 @@
       "age": null,
       "website": "https://fishback2026.com",
       "social": {},
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/James_Fishback_at_a_public_speaking_event_at_Ave_Maria_University-2_%28cropped%29.jpg/250px-James_Fishback_at_a_public_speaking_event_at_Ave_Maria_University-2_%28cropped%29.jpg",
       "bio": "James Fishback is a Republican candidate for Governor of Florida. A fourth-generation Floridian and investment-firm founder, he is running on an affordability platform.",
       "top_issues": [
         {
@@ -849,7 +861,10 @@
       "experience": [],
       "data_status": "enriched",
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
-      "data_observed": "2026-07-31"
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/James_Fishback"
     },
     "fl-cand-jim-holcomb": {
       "id": "fl-cand-jim-holcomb",
@@ -1127,7 +1142,7 @@
       "age": null,
       "website": null,
       "social": {},
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Official_portrait_of_Mayor_Jerry_Demings%2C_2025.jpg/250px-Official_portrait_of_Mayor_Jerry_Demings%2C_2025.jpg",
       "bio": "Jerry Demings is the Mayor of Orange County, Florida (since 2018) and a former Orange County Sheriff and Orlando police chief. He is a Democratic candidate for Governor of Florida.",
       "top_issues": [
         {
@@ -1186,7 +1201,10 @@
       "withdrawn": true,
       "withdrawn_on": "2026-06-05",
       "withdrawn_note": "Suspended his campaign for Governor on June 5, 2026 after a prostate cancer diagnosis. He remains Mayor of Orange County.",
-      "withdrawn_source": "https://floridaphoenix.com/2026/06/05/jerry-demings-suspends-democratic-gubernatorial-bid-following-cancer-diagnosis/"
+      "withdrawn_source": "https://floridaphoenix.com/2026/06/05/jerry-demings-suspends-democratic-gubernatorial-bid-following-cancer-diagnosis/",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/Jerry_Demings"
     },
     "fl-cand-thomas-fernandez": {
       "id": "fl-cand-thomas-fernandez",
@@ -1244,7 +1262,7 @@
       "age": null,
       "website": "https://davidjolly.com",
       "social": {},
-      "photo_url": null,
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/David_Jolly_%283x4%29.jpg/250px-David_Jolly_%283x4%29.jpg",
       "bio": "David Jolly is a Democratic candidate for Governor of Florida and the leading candidate in the Democratic primary. A former Republican, he represented Florida's 13th congressional district in the U.S. House (2014-2017) and later became a Democrat and political commentator.",
       "top_issues": [
         {
@@ -1326,7 +1344,10 @@
       ],
       "data_status": "enriched",
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
-      "data_observed": "2026-07-31"
+      "data_observed": "2026-07-31",
+      "photo_source": "wikimedia",
+      "photo_credit": "Wikimedia Commons",
+      "photo_source_url": "https://en.wikipedia.org/wiki/David_Jolly"
     },
     "fl-cand-charles-lewis": {
       "id": "fl-cand-charles-lewis",
