@@ -38,6 +38,12 @@ import PushTapNavigator from '@/components/PushTapNavigator';
 // it from EVERY route — previously it lived in app/page.js only and
 // tracking from a page header never offered push.
 import PushOptInPrompt from '@/components/PushOptInPrompt';
+// Renders its children on every route EXCEPT /embed/*. Those routes are
+// CivicView inside someone else's iframe, where a floating back-to-top button,
+// a tutorial coach mark or a push opt-in card are not chrome — they are litter
+// on a third party's page. See components/EmbedGate.js for why this is a
+// pathname check and not a second root layout.
+import EmbedGate from '@/components/EmbedGate';
 
 export const metadata = {
   title: 'CivicView - Know Your Representatives',
@@ -130,13 +136,20 @@ export default function RootLayout({ children }) {
         <Force2FAGate>
           {children}
         </Force2FAGate>
-        <ScrollTopButton />
-        <AndroidBackButton />
-        <TutorialOverlay />
-        <ServiceWorkerRegistration />
-        <AppUpdateGate />
-        <PushTapNavigator />
-        <PushOptInPrompt />
+        {/* Everything below is suppressed on /embed/*. Force2FAGate,
+            RecoveryBanner and LegacyStorageCleanup above are deliberately NOT:
+            all three render nothing visible for an anonymous visitor, and an
+            embed route that quietly opted out of the 2FA enforcement gate
+            would be a hole in it rather than a tidier iframe. */}
+        <EmbedGate>
+          <ScrollTopButton />
+          <AndroidBackButton />
+          <TutorialOverlay />
+          <ServiceWorkerRegistration />
+          <AppUpdateGate />
+          <PushTapNavigator />
+          <PushOptInPrompt />
+        </EmbedGate>
       </body>
     </html>
   );
