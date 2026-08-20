@@ -803,6 +803,19 @@ function RaceCard({
           not the same fact as "we know who won". */}
       {race.result?.winners && (
         <div style={{ marginTop: '8px' }}>
+          {/* One label for the block instead of "won the primary with" on
+              every row — same information, and it buys back the width the
+              vote counts need. */}
+          <div
+            style={{
+              fontSize: 'var(--cl-text-2xs)', fontWeight: 800,
+              color: 'var(--cl-text-light)', textTransform: 'uppercase',
+              letterSpacing: 'var(--cl-tracking-wide)', marginBottom: 3,
+            }}
+          >
+            {race.result.status === 'unopposed' ? 'Primary — not contested' : 'Primary result'}
+            {race.result.date && ` · ${prettyResultDate(race.result.date)}`}
+          </div>
           {Object.entries(race.result.winners).map(([party, w]) => (
             <div
               key={party}
@@ -822,13 +835,17 @@ function RaceCard({
               </span>
               <span style={{ fontWeight: 700 }}>{winnerName(race, w)}</span>
               <span style={{ color: 'var(--cl-text-light)' }}>
-                {w.unopposed
-                  ? 'won the primary unopposed'
-                  : `won the primary${w.pct != null ? ` with ${w.pct}%` : ''}`}
-                {w.runner_up && !w.unopposed && (
+                {w.unopposed ? (
+                  'unopposed — no primary held'
+                ) : (
                   <>
-                    {' · over '}{w.runner_up}
-                    {w.runner_up_pct != null ? ` (${w.runner_up_pct}%)` : ''}
+                    {tally(w.votes, w.party_total_votes, w.pct)}
+                    {w.runner_up && (
+                      <>
+                        {' · over '}{w.runner_up}{' '}
+                        {tally(w.runner_up_votes, w.party_total_votes, w.runner_up_pct)}
+                      </>
+                    )}
                   </>
                 )}
               </span>
@@ -841,20 +858,51 @@ function RaceCard({
           )}
           {/* Unofficial until the canvassing boards certify. Saying so is
               the difference between reporting a result and calling one. */}
-          {race.result.certified === false && (
-            <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '3px', lineHeight: 1.45 }}>
-              {race.result.certification_note || 'Unofficial returns.'}
-              {race.result.source_url && (
+          {/* Turnout, counties reporting and the unofficial-returns
+              caveat share ONE line. They are one thought — here is the
+              scale of this result and here is how much to trust it — and
+              splitting them across three rows was the difference between
+              a compact result block and a paragraph. */}
+          {(race.result.turnout?.total != null
+            || race.result.turnout_note
+            || race.result.certified === false) && (
+            <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '4px', lineHeight: 1.5 }}>
+              {race.result.turnout?.total != null && (
                 <>
-                  {' '}
-                  <a
-                    href={race.result.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'var(--cl-accent)' }}
-                  >
-                    Source
-                  </a>
+                  <strong style={{ color: 'var(--cl-text)' }}>
+                    {race.result.turnout.total.toLocaleString()}
+                  </strong>
+                  {' ballots cast'}
+                  {race.result.turnout.by_party && (
+                    <>
+                      {' ('}
+                      {Object.entries(race.result.turnout.by_party)
+                        .map(([party, n]) => `${n.toLocaleString()} ${party}`)
+                        .join(' · ')}
+                      {')'}
+                    </>
+                  )}
+                  {race.result.counties_reporting && `, ${race.result.counties_reporting} counties`}
+                  {' · '}
+                </>
+              )}
+              {race.result.turnout_note && <>{race.result.turnout_note}{' '}</>}
+              {race.result.certified === false && (
+                <>
+                  {race.result.certification_note || 'Unofficial returns.'}
+                  {race.result.source_url && (
+                    <>
+                      {' '}
+                      <a
+                        href={race.result.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--cl-accent)' }}
+                      >
+                        Source
+                      </a>
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -1053,6 +1101,31 @@ function toCandidateMember(candidate, race, stateCode, electionPhase) {
     race_office: race?.office || null,
     election_phase: electionPhase || null,
   };
+}
+
+// "2026-08-18" -> "Aug 18". Parsed as UTC so a bare date string doesn't
+// render as the previous day west of Greenwich.
+function prettyResultDate(raw) {
+  const d = new Date(`${raw}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return raw;
+  return d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
+}
+
+// Render "810,675 (47.8%)" from a raw count and its denominator.
+//
+// The percentage is DERIVED, never stored. We previously carried rounded
+// press figures (48%, 61%) alongside the counts, and the two disagreed:
+// those came from AP election-night numbers, while the state's later
+// refresh runs 200-300 votes higher per contest. Deriving from the count
+// we actually display means the two can never drift apart. `fallbackPct`
+// covers races where a percentage is known but the raw count is not.
+function tally(votes, total, fallbackPct) {
+  if (votes == null) {
+    return fallbackPct != null ? `${fallbackPct}%` : '';
+  }
+  const n = votes.toLocaleString();
+  if (!total) return n;
+  return `${n} (${((votes / total) * 100).toFixed(1)}%)`;
 }
 
 // Resolve a result winner to a display name. The result block stores a
