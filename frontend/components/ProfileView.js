@@ -39,7 +39,8 @@ import SelectionBadge from './SelectionBadge';
 import OnBallotBadge from './OnBallotBadge';
 import PageButton from './PageButton';
 import TabStrip from './TabStrip';
-import { externalLinkProps, fileSuffix, hostLabel } from '@/lib/externalLink';
+import { fileSuffix, hostLabel } from '@/lib/externalLink';
+import { FileLink } from './ui';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -2281,7 +2282,11 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
           {website && (
             <Row
               label="Website"
-              value={<a {...externalLinkProps(website)} style={linkStyle}>{websiteLabel(website)}</a>}
+              value={
+                <FileLink href={website} style={linkStyle}>
+                  {websiteLabel(website)}
+                </FileLink>
+              }
               last={!officialDoc}
             />
           )}
@@ -2294,14 +2299,14 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
               label={officialDoc.label || 'Document'}
               value={
                 <span>
-                  <a {...externalLinkProps(officialDoc.url)} style={linkStyle}>
+                  <FileLink
+                    href={officialDoc.url}
+                    description={officialDoc.note}
+                    style={linkStyle}
+                  >
                     {hostLabel(officialDoc.url)}{fileSuffix(officialDoc.url)}
-                  </a>
-                  {officialDoc.note && (
-                    <div style={{ fontSize: 'var(--cl-text-2xs)', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.4 }}>
-                      {officialDoc.note}
-                    </div>
-                  )}
+                  </FileLink>
+
                 </span>
               }
               last
