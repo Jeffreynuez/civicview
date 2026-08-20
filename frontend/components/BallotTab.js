@@ -773,6 +773,95 @@ function RaceCard({
         </div>
       )}
 
+      {/* THE GUARD. A general ballot can carry at most one nominee per
+          party, so a roster still listing two or more Republicans (or
+          Democrats) was never narrowed after the primary — it is the
+          pre-primary field wearing a ballot's label. Rendering it as
+          final would tell a voter that nine Republicans are running
+          against each other in November. We say what we actually know
+          instead, and the candidate list below is explicitly framed as
+          "who ran", not "who is on the ballot". */}
+      {phase === 'general' && race.general_roster_unresolved && (
+        <div
+          role="status"
+          style={{
+            marginTop: '8px', padding: '9px 11px', borderRadius: '8px',
+            background: 'var(--cl-warning-soft, #fff4e5)',
+            border: '1px solid var(--cl-warning, #f4a261)',
+            fontSize: '0.76rem', lineHeight: 1.45, color: 'var(--cl-text)',
+          }}
+        >
+          <strong>Nominees not confirmed yet.</strong> The list below still shows
+          everyone who ran in the primary, not the November ballot. We haven&apos;t
+          verified this race&apos;s results, so we&apos;re not going to guess at who
+          advanced.
+        </div>
+      )}
+
+      {/* Primary results. Only rendered when a human has recorded them —
+          never derived from the calendar, because "the date passed" is
+          not the same fact as "we know who won". */}
+      {race.result?.winners && (
+        <div style={{ marginTop: '8px' }}>
+          {Object.entries(race.result.winners).map(([party, w]) => (
+            <div
+              key={party}
+              style={{
+                display: 'flex', alignItems: 'baseline', gap: '7px',
+                fontSize: '0.78rem', padding: '2px 0',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.62rem', fontWeight: 800, padding: '2px 6px',
+                  borderRadius: '9px', color: 'white',
+                  background: PARTY_COLORS[party] || 'var(--cl-text-light)',
+                }}
+              >
+                {party}
+              </span>
+              <span style={{ fontWeight: 700 }}>{winnerName(race, w)}</span>
+              <span style={{ color: 'var(--cl-text-light)' }}>
+                {w.unopposed
+                  ? 'won the primary unopposed'
+                  : `won the primary${w.pct != null ? ` with ${w.pct}%` : ''}`}
+                {w.runner_up && !w.unopposed && (
+                  <>
+                    {' · over '}{w.runner_up}
+                    {w.runner_up_pct != null ? ` (${w.runner_up_pct}%)` : ''}
+                  </>
+                )}
+              </span>
+            </div>
+          ))}
+          {race.result.note && (
+            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '3px', lineHeight: 1.45 }}>
+              {race.result.note}
+            </div>
+          )}
+          {/* Unofficial until the canvassing boards certify. Saying so is
+              the difference between reporting a result and calling one. */}
+          {race.result.certified === false && (
+            <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '3px', lineHeight: 1.45 }}>
+              {race.result.certification_note || 'Unofficial returns.'}
+              {race.result.source_url && (
+                <>
+                  {' '}
+                  <a
+                    href={race.result.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--cl-accent)' }}
+                  >
+                    Source
+                  </a>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       {expanded && (
         <div style={{ marginTop: '10px' }}>
           {groupedPrimary ? (
@@ -964,6 +1053,19 @@ function toCandidateMember(candidate, race, stateCode, electionPhase) {
     race_office: race?.office || null,
     election_phase: electionPhase || null,
   };
+}
+
+// Resolve a result winner to a display name. The result block stores a
+// candidate_id, and the roster it points into is right here on the race,
+// so we look it up rather than duplicating the name into the data where
+// it could drift out of sync with the candidate record.
+function winnerName(race, winner) {
+  const pools = [
+    ...(race.general_candidates || []),
+    ...Object.values(race.primary_candidates || {}).flat(),
+  ];
+  const hit = pools.find((c) => c && c.id === winner.candidate_id);
+  return hit?.name || winner.name || winner.candidate_id;
 }
 
 // First + LAST initial — matches CandidateProfile.candidateInitials.

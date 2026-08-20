@@ -93,13 +93,28 @@ class ElectionsService:
     def list_candidates(self) -> list[dict]:
         return list(self._candidates.values())
 
-    def _resolve_ids(self, ids: list[str]) -> list[dict]:
-        """Resolve a list of candidate_ids to full records; skip unknowns."""
+    def _resolve_ids(self, ids: list[str], *, drop_withdrawn: bool = True) -> list[dict]:
+        """Resolve a list of candidate_ids to full records; skip unknowns.
+
+        Withdrawn candidates are dropped by default. A suspended campaign
+        appearing on a ballot roster is the most damaging error this data
+        can produce — a voter can plan around someone who is not running —
+        and the `withdrawn` flag was previously honored ONLY by the
+        candidate profile banner, so a withdrawn candidate still rendered
+        as a normal ballot row everywhere else. Filtering here, at the one
+        place every surface resolves ids, means no surface can forget.
+
+        Pass drop_withdrawn=False where the historical field is the point
+        (a results view showing who ran, for instance).
+        """
         out: list[dict] = []
         for cid in ids or []:
             cand = self._candidates.get(cid)
-            if cand:
-                out.append(cand)
+            if not cand:
+                continue
+            if drop_withdrawn and cand.get("withdrawn"):
+                continue
+            out.append(cand)
         return out
 
     def _resolve_race(self, race: dict) -> dict:
@@ -114,7 +129,33 @@ class ElectionsService:
         resolved["primary_candidates"] = resolved_primary
 
         # Expand general_candidates: [id] -> [record]
-        resolved["general_candidates"] = self._resolve_ids(race.get("general_candidates") or [])
+        general = self._resolve_ids(race.get("general_candidates") or [])
+        resolved["general_candidates"] = general
+
+        # ── Guard: is this general roster actually a general roster? ──
+        #
+        # A general ballot can carry at most ONE nominee per party. If two
+        # or more Republicans (or Democrats) are still listed, the roster
+        # was never narrowed after the primary and what we would render is
+        # not a ballot — it is the pre-primary field wearing a ballot's
+        # label. That is worse than showing nothing: a voter reading it
+        # would believe nine Republicans are running against each other in
+        # November.
+        #
+        # This is a STRUCTURAL check, not a data-freshness one. It cannot
+        # be satisfied by a stale file quietly passing review, and it stays
+        # correct for every state and cycle without a date to maintain.
+        # The UI reads `general_roster_unresolved` and says the nominees
+        # are not set yet rather than presenting the list as final.
+        counts: dict[str, int] = {}
+        for cand in general:
+            party = (cand.get("party") or "").upper()
+            if party in ("R", "D"):
+                counts[party] = counts.get(party, 0) + 1
+        unresolved = sorted(p for p, n in counts.items() if n > 1)
+        resolved["general_roster_unresolved"] = bool(unresolved)
+        if unresolved:
+            resolved["general_roster_unresolved_parties"] = unresolved
 
         # incumbent_candidate_id: expose resolved incumbent for convenience
         inc_id = race.get("incumbent_candidate_id")
@@ -144,6 +185,14 @@ class ElectionsService:
             # Defaults to False — open-primary states leave it unset.
             "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
+            # Whether the primary has already been held, and whether its
+            # results are certified. Carried as DATA rather than derived
+            # from today's date on purpose: a date comparison would flip
+            # this field overnight with no code change and no review,
+            # which is exactly how a ballot silently starts describing an
+            # election that already happened. A human updates it when the
+            # results are actually in hand.
+            "primary_status": raw.get("primary_status") or None,
             "races": [self._resolve_race(r) for r in raw.get("races", []) or []],
             "ballot_measures": raw.get("ballot_measures", {}),
         }
