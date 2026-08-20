@@ -52,10 +52,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/mclendon.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/mclendon.xml",
           "email": "mmclendon@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/mclendon.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -84,10 +90,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/chism.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/chism.xml",
           "email": "kchism@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/chism.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -100,10 +112,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/parks.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/parks.xml",
           "email": "rparks@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/parks.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -116,10 +134,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/sparks.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/sparks.xml",
           "email": "dsparks@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/sparks.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -132,10 +156,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/mcmahan.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/mcmahan.xml",
           "email": "cmcmahan@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/mcmahan.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -148,10 +178,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/bryan.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/bryan.xml",
           "email": "hbryan@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/bryan.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -164,10 +200,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/suber.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/suber.xml",
           "email": "bsuber@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/suber.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -180,10 +222,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/boyd.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/boyd.xml",
           "email": "nboyd@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/boyd.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -196,10 +244,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/whaley.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/whaley.xml",
           "email": "nwhaley@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/whaley.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -212,10 +266,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/jackson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/jackson.xml",
           "email": "rjackson@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/jackson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -228,10 +288,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/simmons_(12th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/simmons_(12th).xml",
           "email": "dsimmons@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/simmons_(12th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -244,10 +310,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/simmons_(13th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/simmons_(13th).xml",
           "email": "ssimmons@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/simmons_(13th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -260,10 +332,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/chassaniol.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/chassaniol.xml",
           "email": "lchassaniol@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/chassaniol.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -276,10 +354,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/williams.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/williams.xml",
           "email": "bwilliams@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/williams.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -292,10 +376,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/turner-ford.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/turner-ford.xml",
           "email": "aturner@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/turner-ford.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -308,10 +398,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/younger.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/younger.xml",
           "email": "cyounger@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/younger.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -324,10 +420,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/taylor.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/taylor.xml",
           "email": "ltaylor@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/taylor.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -340,10 +442,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/blackwell.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/blackwell.xml",
           "email": "kblackwell@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/blackwell.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -356,10 +464,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/harkins.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/harkins.xml",
           "email": "jharkins@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/harkins.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -372,10 +486,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/blackmon.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/blackmon.xml",
           "email": "bblackmon@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/blackmon.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -388,10 +508,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/thomas.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/thomas.xml",
           "email": "jthomas@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/thomas.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -404,10 +530,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/hopson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/hopson.xml",
           "email": "bhopson@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/hopson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -420,10 +552,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/Senate/Pope.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/pope.xml",
           "email": "jpope@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/pope.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -436,10 +574,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/michel.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/michel.xml",
           "email": "wmichel@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/michel.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -452,10 +596,16 @@
         "role": "State Senator",
         "photo_url": "https://i0.wp.com/www.mississippifreepress.org/wp-content/uploads/2025/11/Kamesha-Mumford_courtesy.jpg?w=1200&quality=89&ssl=1",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/mumford.xml",
           "email": "kmumford@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/mumford.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -468,10 +618,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/frazier.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/frazier.xml",
           "email": "hfrazier@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/frazier.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -484,10 +640,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/norwood.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/norwood.xml",
           "email": "snorwood@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/norwood.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -500,10 +662,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/blount.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/blount.xml",
           "email": "dblount@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/blount.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -516,10 +684,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/kirby.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/Kirby.xml",
           "email": "dkirby@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/Kirby.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -532,10 +706,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/mccaughn.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/mccaughn.xml",
           "email": "tmccaughn@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/mccaughn.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -548,10 +728,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/hickman.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/hickman.xml",
           "email": "rhickman@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/hickman.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -564,10 +750,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/tate.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/tate.xml",
           "email": "jtate@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/tate.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -580,10 +772,16 @@
         "role": "State Senator",
         "photo_url": "https://static.votesmart.org/static/canphoto/156222.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/barnett.xml",
           "email": "jbarnett@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/barnett.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -596,10 +794,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/Berry.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/berry.xml",
           "email": "aberry@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/berry.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -612,10 +816,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/rhodes.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/rhodes.xml",
           "email": "brhodes@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/rhodes.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -628,10 +838,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/butler.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/butler.xml",
           "email": "abutler@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/butler.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -644,10 +860,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/brumfield.png",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/brumfield.xml",
           "email": "gbrumfield@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/brumfield.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -660,10 +882,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/barrett.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/barrett.xml",
           "email": "jbarrett@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/barrett.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -676,10 +904,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/hill.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/hill.xml",
           "email": "ahill@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/hill.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -692,10 +926,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/fillingane.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/fillingane.xml",
           "email": "jfillingane@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/fillingane.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -708,10 +948,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/Hartness.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/hartness.xml",
           "email": "dhartness@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/hartness.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -724,10 +970,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/debar.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/debar.xml",
           "email": "ddebar@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/debar.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -740,10 +992,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/johnson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/johnson_(87th).xml",
           "email": "chjohnson@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/johnson_(87th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -756,10 +1014,16 @@
         "role": "State Senator",
         "photo_url": "https://www.nationalcivicleague.org/wp-content/uploads/2021/11/DuPree.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/dupree.xml",
           "email": "jdupree@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/dupree.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -772,10 +1036,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/Ladner.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/ladner.xml",
           "email": "pladner@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/ladner.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -788,10 +1058,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/seymour.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/seymour.xml",
           "email": "jseymour@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/seymour.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -804,10 +1080,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/thompson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/thompson.xml",
           "email": "mthompson@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/thompson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -820,10 +1102,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/carter.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/carter.xml",
           "email": "jcarter@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/carter.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -836,10 +1124,16 @@
         "role": "State Senator",
         "photo_url": "https://billstatus.ls.state.ms.us/members/senate/delano.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/delano.xml",
           "email": "sdelano@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/delano.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -852,10 +1146,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/england.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/england.xml",
           "email": "jengland@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/england.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -868,10 +1168,16 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/wiggins.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/senate/wiggins.xml",
           "email": "bwiggins@senate.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/senate/wiggins.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       }
     ]
@@ -889,10 +1195,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/carpenter.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/carpenter.xml",
           "email": "lcarpenter@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/carpenter.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -905,10 +1217,16 @@
         "role": "State Representative",
         "photo_url": "https://www.supertalk.fm/wp-content/uploads/2023/08/Brad-Mattox-960x540.png.webp",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mattox.xml",
           "email": "mattox@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mattox.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -921,10 +1239,16 @@
         "role": "State Representative",
         "photo_url": "http://da.mdah.ms.gov/series-files/legislature/composites/2016/500/house-of-representatives/2016_2020HousePhotos/Tracy.Arnold.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/arnold.xml",
           "email": "warnold@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/arnold.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -937,10 +1261,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/steverson.jpg?rand=41826",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/steverson.xml",
           "email": "jsteverson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/steverson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -953,10 +1283,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/faulkner.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/faulkner.xml",
           "email": "jfaulkner@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/faulkner.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -969,10 +1305,16 @@
         "role": "State Representative",
         "photo_url": "https://desotocountynews.com/wp-content/uploads/2023/01/Justin-Keen-800x445.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/keen.xml",
           "email": "jkeen@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/keen.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -985,10 +1327,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KimberlyRemak.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/remak.xml",
           "email": "remak@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/remak.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1001,10 +1349,16 @@
         "role": "State Representative",
         "photo_url": "https://images.squarespace-cdn.com/content/v1/5660bc77e4b02bc8dd3c055f/1463509030796-7AM0VGR04ZZUTAOF9TQW/image-asset.jpeg?format=500w",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/lamar.xml",
           "email": "jlamar@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/lamar.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1017,10 +1371,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/burnett.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/burnett.xml",
           "email": "cburnett@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/burnett.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1033,10 +1393,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/80182230_83452a1c-4a99-4e85-9c86-d12418dab31b.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hawkins.xml",
           "email": "jhawkins@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hawkins.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1049,10 +1415,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/jackson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/2023/pdf/house_authors/jackson.xml",
           "email": "ljackson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/2023/pdf/house_authors/jackson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1065,10 +1437,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/deweese.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/deweese.xml",
           "email": "cdeweese@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/deweese.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1081,10 +1459,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/massengill.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/massengill.xml",
           "email": "smassengill@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/massengill.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1097,10 +1481,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/creekmore_iv.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/creekmore_iv.xml",
           "email": "screekmore@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/creekmore_iv.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1113,10 +1503,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Beth_Luther_Waldo.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/waldo.xml",
           "email": "bwaldo@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/waldo.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1129,10 +1525,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/thompson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/thompson.xml",
           "email": "rthompson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/thompson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1145,10 +1547,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/aguirre.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/aguirre.xml",
           "email": "saguirre@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/aguirre.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1161,10 +1569,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/turner.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/turner.xml",
           "email": "jturner@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/turner.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1177,10 +1591,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/boyd_(19th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/boyd.xml",
           "email": "rboyd@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/boyd.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1193,10 +1613,16 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hall.xml",
           "email": "rhall@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hall.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1209,10 +1635,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/bell_(21st).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bell_(21st).xml",
           "email": "dbell@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bell_(21st).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1225,10 +1657,16 @@
         "role": "State Representative",
         "photo_url": "https://cdn.mississippitoday.org/wp-content/uploads/2025/07/16124016/IMG_20250627_163819-200x200.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/crosby.xml",
           "email": "jcrosby@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/crosby.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1241,10 +1679,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/bailey_(23rd).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bailey_(23rd).xml",
           "email": "pbailey@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bailey_(23rd).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1257,10 +1701,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/hale.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hale.xml",
           "email": "jhale@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hale.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1273,10 +1723,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/eubanks.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/eubanks.xml",
           "email": "deubanks@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/eubanks.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1289,10 +1745,16 @@
         "role": "State Representative",
         "photo_url": "https://magnoliatribune.com/wp-content/uploads/2025/11/Otha-Williams-1024x1024.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/williams.xml",
           "email": "owilliams@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/williams.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1305,10 +1767,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/KenjiHolloway.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/holloway_(27th).xml",
           "email": "holloway@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/holloway_(27th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1321,10 +1789,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/harrisdoc.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/harris.xml",
           "email": "wharris@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/harris.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1337,10 +1811,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/sanders.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/sanders.xml",
           "email": "rsanders@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/sanders.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1353,10 +1833,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/rosebud.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/rosebud.xml",
           "email": "trosebud@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/rosebud.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1369,10 +1855,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/anthony.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/anthony.xml",
           "email": "oanthony@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/anthony.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1385,10 +1877,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/osborne.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/osborne.xml",
           "email": "sosborne@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/osborne.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1401,10 +1899,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JimEstrada2023.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/estrada.xml",
           "email": "jestrada@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/estrada.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1417,10 +1921,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/horan.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/horan.xml",
           "email": "khoran@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/horan.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1433,10 +1943,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/hood.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hood.xml",
           "email": "jhood@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hood.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1449,10 +1965,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/gibbs_(36th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/gibbs.xml",
           "email": "kgibbs@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/gibbs.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1465,10 +1987,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/boyd_(37).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/boyd_(37).xml",
           "email": "aboyd@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/boyd_(37).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1481,10 +2009,16 @@
         "role": "State Representative",
         "photo_url": "http://www.starkvilledailynews.com/sites/default/files/styles/galleria_zoom/public/field/image/TAYLOR%20MUG_0.png?itok=jRnUfeN0",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/taylor.xml",
           "email": "ctaylor@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/taylor.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1497,10 +2031,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mclean.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mclean.xml",
           "email": "dmclean@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mclean.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1513,10 +2053,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mccray.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mccray.xml",
           "email": "hmccray@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mccray.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1529,10 +2075,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/karriem.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/karriem.xml",
           "email": "kkarriem@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/karriem.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1545,10 +2097,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mickens.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mickens.xml",
           "email": "cmickens@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mickens.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1561,10 +2119,16 @@
         "role": "State Representative",
         "photo_url": "https://robrobersonattorney.com/wp-content/uploads/2019/07/Rob-Roberson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/roberson.xml",
           "email": "rroberson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/roberson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1577,10 +2141,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/bounds.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bounds.xml",
           "email": "sbounds@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bounds.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1593,10 +2163,16 @@
         "role": "State Representative",
         "photo_url": "https://www.theclintoncourier.net/wp-content/uploads/2024/03/Statement-by-Attorney-Christopher-A.-Collins-on-Behalf-of-Keith-Jackson.png",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/jackson_(45th).xml",
           "email": "jackson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/jackson_(45th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1609,10 +2185,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/oliver.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/oliver.xml",
           "email": "koliver@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/oliver.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1625,10 +2207,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/clark.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/clark.xml",
           "email": "bclark@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/clark.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1641,10 +2229,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/white.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/White.xml",
           "email": "jwhite@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/White.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1657,10 +2251,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/bailey_(49th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bailey.xml",
           "email": "wbailey@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bailey.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1673,10 +2273,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/hines.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hines.xml",
           "email": "jhines@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hines.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1689,10 +2295,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TimakaJames-Jones2023.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/james-jones.xml",
           "email": "james-jones@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/james-jones.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1705,10 +2317,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/kinkade.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/kinkade.xml",
           "email": "bkinkade@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/kinkade.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1721,10 +2339,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mangold.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mangold.xml",
           "email": "vmangold@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mangold.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1737,10 +2361,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/ford.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/ford.xml",
           "email": "kford@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/ford.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1753,10 +2383,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/denton.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/denton.xml",
           "email": "odenton@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/denton.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1769,10 +2405,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Clay_Mansell.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mansell.xml",
           "email": "cmansell@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mansell.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1785,10 +2427,16 @@
         "role": "State Representative",
         "photo_url": "https://i0.wp.com/www.theindustrycosign.com/wp-content/uploads/2021/11/Lawrence-Blackmon-the-industry-cosign-big-ced.jpg?w=1170&ssl=1",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/blackmon.xml",
           "email": "lblackmon@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/blackmon.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1801,10 +2449,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/mcmillan.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mcmillan.xml",
           "email": "mcmillan@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mcmillan.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1817,10 +2471,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/powell.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/powell.xml",
           "email": "bpowell@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/powell.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1833,10 +2493,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/shanks.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/shanks.xml",
           "email": "fshanks@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/shanks.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1849,10 +2515,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/newman.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/newman.xml",
           "email": "gnewman@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/newman.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1865,10 +2537,16 @@
         "role": "State Representative",
         "photo_url": "https://mcgeerealtyservices.com/wp-content/uploads/2020/09/Lances-Headshot-300x400.gif",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/varner.xml",
           "email": "varner@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/varner.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1881,10 +2559,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/foster.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/foster.xml",
           "email": "sfoster@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/foster.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1897,10 +2581,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/yates.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/yates.xml",
           "email": "syates@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/yates.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1913,10 +2603,16 @@
         "role": "State Representative",
         "photo_url": "https://static.votesmart.org/static/canphoto/40229.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bell_(65th).xml",
           "email": "cbell@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bell_(65th).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1929,10 +2625,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/fnelson.JPG",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/nelson.xml",
           "email": "nelson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/nelson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1945,10 +2647,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/banks.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/banks.xml",
           "email": "ebankslaw@aol.com",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/banks.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1961,10 +2669,16 @@
         "role": "State Representative",
         "photo_url": "https://stateinnovation.org/wp-content/uploads/2021/04/Zakiya-Summers.png",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/summers.xml",
           "email": "zsummers@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/summers.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1977,10 +2691,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/TamarraGraceButlerWashington.png",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/butler-washington.xml",
           "email": "gbutlerwashington@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/butler-washington.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1993,10 +2713,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/brown_(70th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/brown.xml",
           "email": "bbrown@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/brown.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2009,10 +2735,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/crudup.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/crudup.xml",
           "email": "rcrudup@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/crudup.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2025,10 +2757,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/gibbs_(72nd).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/gibbs_(72nd).xml",
           "email": "gibbs@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/gibbs_(72nd).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2041,10 +2779,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/ford_(73rd).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/ford_(73rd).xml",
           "email": "jford@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/ford_(73rd).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2057,10 +2801,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/yancey.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/yancey.xml",
           "email": "lyancey@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/yancey.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2073,10 +2823,16 @@
         "role": "State Representative",
         "photo_url": "https://static.wixstatic.com/media/4b62c6_190e934501654befbc52179bbb3d45b0~mv2.jpeg/v1/fill/w_605,h_713,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4b62c6_190e934501654befbc52179bbb3d45b0~mv2.jpeg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hurst.xml",
           "email": "churst@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hurst.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2089,10 +2845,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/holloway.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/holloway.xml",
           "email": "gholloway@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/holloway.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2105,10 +2867,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/wallace.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/wallace.xml",
           "email": "pwallace@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/wallace.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2121,10 +2889,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/rushing.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/rushing.xml",
           "email": "rrushing@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/rushing.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2137,10 +2911,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/tullos.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/tullos.xml",
           "email": "mtullos@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/tullos.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2153,10 +2933,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/scott.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/scott.xml",
           "email": "oscott@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/scott.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2169,10 +2955,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/horne.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/horne.xml",
           "email": "shorne@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/horne.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2185,10 +2977,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/elliott.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/elliott.xml",
           "email": "gelliott@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/elliott.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2201,10 +2999,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/calvert.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/calvert.xml",
           "email": "bcalvert@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/calvert.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2217,10 +3021,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/smith.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/smith.xml",
           "email": "tsmith@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/smith.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2233,10 +3043,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/harness.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/harness.xml",
           "email": "jharness@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/harness.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2249,10 +3065,16 @@
         "role": "State Representative",
         "photo_url": "https://images.squarespace-cdn.com/content/v1/5472abbae4b0859145039552/1519227639852-W83BICPBB7LGL856WGBQ/Shane.jpg?format=500w",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/barnett.xml",
           "email": "sbarnett@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/barnett.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2265,10 +3087,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/tubb.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/tubb.xml",
           "email": "jtubb@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/tubb.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2281,10 +3109,16 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/blackwell.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/blackwell.xml",
           "email": "cblackwell@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/blackwell.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2297,10 +3131,16 @@
         "role": "State Representative",
         "photo_url": "http://files.ctctcdn.com/ee25b30f001/08bd0580-a7b2-481a-a9d2-198a61aec56d.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/scoggin.xml",
           "email": "dscoggin@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/scoggin.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2313,10 +3153,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/sanford.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/sanford.xml",
           "email": "nsanford@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/sanford.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2329,10 +3175,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/evans_(91st).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/evans_%2891st%29.xml",
           "email": "bevans@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/evans_%2891st%29.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2345,10 +3197,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/currie.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/currie.xml",
           "email": "bcurrie@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/currie.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2361,10 +3219,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/ladner.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/ladner.xml",
           "email": "tladner@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/ladner.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2377,10 +3241,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/johnson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/johnson.xml",
           "email": "rjohnson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/johnson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2393,10 +3263,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mcknight.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mcknight.xml",
           "email": "jmcknight@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mcknight.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2409,10 +3285,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Angela_Cockerham.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/cockerham.xml",
           "email": "acockerham@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/cockerham.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2425,10 +3307,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mims.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mims.xml",
           "email": "smims@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mims.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2441,10 +3329,16 @@
         "role": "State Representative",
         "photo_url": "https://www.pepperodom.com/wp-content/uploads/2019/05/daryl-porter-683x1024.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/porter.xml",
           "email": "dporter@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/porter.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2457,10 +3351,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/pigott.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/pigott.xml",
           "email": "bpigott@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/pigott.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2473,10 +3373,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/morgan.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/morgan.xml",
           "email": "kmorgan@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/morgan.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2489,10 +3395,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mccarty.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mccarty.xml",
           "email": "kmccarty@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mccarty.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2505,10 +3417,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/mcgee.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/mcgee.xml",
           "email": "mmcgee@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/mcgee.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2521,10 +3439,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/watson.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/watson.xml",
           "email": "pwatson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/watson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2537,10 +3461,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/byrd.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/byrd.xml",
           "email": "lbyrd@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/byrd.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2553,10 +3483,16 @@
         "role": "State Representative",
         "photo_url": "https://static.wixstatic.com/media/220c5e_621b140aa59647afa9d2a4370f2a9253~mv2_d_5184_3456_s_4_2.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/burch.xml",
           "email": "burch@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/burch.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2569,10 +3505,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/owen.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/owen.xml",
           "email": "jowen@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/owen.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2585,10 +3527,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/stonecountyenterprise.com/content/tncms/assets/v3/editorial/2/fa/2faf492e-910b-11ed-8a24-b33c741f2b91/63bd9eedb8c9d.image.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/lott.xml",
           "email": "lott@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/lott.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2601,10 +3549,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/hobgood-wilkes.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hobgood-wilkes.xml",
           "email": "swilkes@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hobgood-wilkes.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2617,10 +3571,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/barton.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/barton.xml",
           "email": "mbarton@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/barton.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2633,10 +3593,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/anderson_(110th).jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/anderson.xml",
           "email": "janderson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/anderson.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2649,10 +3615,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jimmy_Fondren.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/fondren.xml",
           "email": "fondren@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/fondren.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2665,10 +3637,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/read.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/read.xml",
           "email": "jread@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/read.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2681,10 +3659,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/zuber.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/zuber.xml",
           "email": "hzuber@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/zuber.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2697,10 +3681,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/guice.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/guice.xml",
           "email": "jguice@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/guice.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2713,10 +3703,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ZacharyGrady.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/grady.xml",
           "email": "zgrady@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/grady.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2729,10 +3725,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/eure.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/eure.xml",
           "email": "ceure@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/eure.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2745,10 +3747,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/felsher.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/felsher.xml",
           "email": "kfelsher@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/felsher.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2761,10 +3769,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/haney.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/haney.xml",
           "email": "ghaney@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/haney.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2777,10 +3791,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/hulum.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/hulum.xml",
           "email": "jhulum@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/hulum.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2793,10 +3813,16 @@
         "role": "State Representative",
         "photo_url": "https://static.votesmart.org/static/canphoto/69948.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/bennett.xml",
           "email": "rbennett@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/bennett.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2809,10 +3835,16 @@
         "role": "State Representative",
         "photo_url": "http://billstatus.ls.state.ms.us/members/house/crawford.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/crawford.xml",
           "email": "ccrawford@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/crawford.xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2825,10 +3857,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api/storage/uploads/thumbs/200/300/crop/best/80182230_img_6905.jpg",
         "contact": {
-          "official_website": "https://billstatus.ls.state.ms.us/members/house/anderson_(122nd).xml",
           "email": "banderson@house.ms.gov",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://billstatus.ls.state.ms.us/members/house/anderson_(122nd).xml",
+            "kind": "xml",
+            "label": "Legislative record",
+            "downloads": true,
+            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       }
     ]

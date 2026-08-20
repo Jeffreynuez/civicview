@@ -39,6 +39,7 @@ import SelectionBadge from './SelectionBadge';
 import OnBallotBadge from './OnBallotBadge';
 import PageButton from './PageButton';
 import TabStrip from './TabStrip';
+import { externalLinkProps, fileSuffix, hostLabel } from '@/lib/externalLink';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -2225,6 +2226,7 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
   const primaryOffice = state.data?.capitol_office || state.data?.dc_office || null;
   const primaryPhone = state.data?.capitol_phone || state.data?.dc_phone || fallbackPhone;
   const website = state.data?.official_website;
+  const officialDoc = state.data?.official_document;
   const email = state.data?.email;
   const districtOffices = state.data?.district_offices || [];
   const socials = state.data?.socials || {};
@@ -2237,7 +2239,7 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
   // empty contact tab is the correct output when we have no contact
   // information, and the empty state now says what to do about it.
   const hasAnything =
-    primaryOffice || primaryPhone || website || email
+    primaryOffice || primaryPhone || website || email || officialDoc
     || districtOffices.length > 0 || Object.keys(socials).length > 0;
 
   if (!hasAnything) {
@@ -2258,7 +2260,7 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
 
   return (
     <div>
-      {(primaryOffice || primaryPhone || website || email) && (
+      {(primaryOffice || primaryPhone || website || email || officialDoc) && (
         <>
           <SectionHeader>{primaryHeader}</SectionHeader>
           {primaryOffice && <Row label="Office" value={primaryOffice} />}
@@ -2279,7 +2281,29 @@ function ContactTab({ state, role, stateCode, fallbackPhone }) {
           {website && (
             <Row
               label="Website"
-              value={<a href={website} target="_blank" rel="noopener noreferrer" style={linkStyle}>{websiteLabel(website)}</a>}
+              value={<a {...externalLinkProps(website)} style={linkStyle}>{websiteLabel(website)}</a>}
+              last={!officialDoc}
+            />
+          )}
+          {/* A file the state published INSTEAD of a web page — a Vermont
+              district map, a Mississippi legislative record. Labeled by
+              what it is and marked as a download, never presented as
+              "Website". See lib/externalLink.js for the rule. */}
+          {officialDoc?.url && (
+            <Row
+              label={officialDoc.label || 'Document'}
+              value={
+                <span>
+                  <a {...externalLinkProps(officialDoc.url)} style={linkStyle}>
+                    {hostLabel(officialDoc.url)}{fileSuffix(officialDoc.url)}
+                  </a>
+                  {officialDoc.note && (
+                    <div style={{ fontSize: 'var(--cl-text-2xs)', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.4 }}>
+                      {officialDoc.note}
+                    </div>
+                  )}
+                </span>
+              }
               last
             />
           )}
@@ -2358,11 +2382,13 @@ function SocialPill({ href, label }) {
 }
 
 function websiteLabel(url) {
-  try {
-    return new URL(url).host.replace(/^www\./, '');
-  } catch {
-    return url;
-  }
+  // Appends "(PDF)" / "(XML)" when the "website" is actually a file.
+  // 173 Mississippi legislators had a raw .xml in official_website and
+  // 120 Vermont legislators had a district-map .pdf — both rendered as
+  // an ordinary "Website" link that downloaded on click. The data is
+  // being corrected separately; this makes the RENDER honest even if a
+  // file URL reaches this field again from a future import.
+  return `${hostLabel(url)}${fileSuffix(url)}`;
 }
 
 // ─── Votes ────────────────────────────────────────────────────────────
