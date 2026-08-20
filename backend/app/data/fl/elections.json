@@ -104,18 +104,29 @@
         "winners": {
           "R": {
             "candidate_id": "fl-cand-byron-donalds",
-            "pct": 48.0,
             "runner_up": "Jay Collins",
-            "runner_up_pct": 25.0
+            "votes": 810675,
+            "runner_up_votes": 426787,
+            "party_total_votes": 1696335
           },
           "D": {
             "candidate_id": "fl-cand-david-jolly",
-            "pct": 61.0,
             "runner_up": "Dayna Marie Foster",
-            "runner_up_pct": 15.0
+            "votes": 761674,
+            "runner_up_votes": 189234,
+            "party_total_votes": 1249548
           }
         },
-        "note": "Jerry Demings suspended his campaign on June 5, 2026 and was not a factor; Dayna Marie Foster finished second in the Democratic primary."
+        "note": "Jerry Demings suspended his campaign on June 5, 2026 and was not a factor; Dayna Marie Foster finished second in the Democratic primary.",
+        "turnout": {
+          "total": 2945883,
+          "by_party": {
+            "R": 1696335,
+            "D": 1249548
+          },
+          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
+        },
+        "counties_reporting": "67 of 67"
       }
     },
     {
@@ -170,7 +181,9 @@
             "unopposed": true,
             "note": "Unopposed in the primary; no contest was held."
           }
-        }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office — both parties had a single qualified candidate, so no votes were cast."
       }
     },
     {
@@ -215,17 +228,28 @@
         "winners": {
           "R": {
             "candidate_id": "fl-cand-blaise-ingoglia",
-            "pct": 61.0,
             "runner_up": "Frank William Collige",
-            "runner_up_pct": 39.0
+            "votes": 967676,
+            "runner_up_votes": 610468,
+            "party_total_votes": 1578144
           },
           "D": {
             "candidate_id": "fl-cand-annette-taddeo",
-            "pct": 66.0,
             "runner_up": "Earle Ford",
-            "runner_up_pct": 34.0
+            "votes": 796088,
+            "runner_up_votes": 416646,
+            "party_total_votes": 1212734
           }
-        }
+        },
+        "turnout": {
+          "total": 2790878,
+          "by_party": {
+            "R": 1578144,
+            "D": 1212734
+          },
+          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
+        },
+        "counties_reporting": "67 of 67"
       }
     },
     {
@@ -270,17 +294,28 @@
         "winners": {
           "R": {
             "candidate_id": "fl-cand-wilton-simpson",
-            "pct": 69.0,
             "runner_up": "Matt Taylor",
-            "runner_up_pct": 31.0
+            "votes": 1110927,
+            "runner_up_votes": 501160,
+            "party_total_votes": 1612087
           },
           "D": {
             "candidate_id": "fl-cand-joey-mendoza-atkins",
-            "pct": 60.0,
             "runner_up": "Donald Prichard",
-            "runner_up_pct": 40.0
+            "votes": 716585,
+            "runner_up_votes": 472171,
+            "party_total_votes": 1188756
           }
-        }
+        },
+        "turnout": {
+          "total": 2800843,
+          "by_party": {
+            "R": 1612087,
+            "D": 1188756
+          },
+          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
+        },
+        "counties_reporting": "67 of 67"
       }
     },
     {
@@ -425,16 +460,27 @@
         "winners": {
           "R": {
             "candidate_id": "fl-cand-ashley-moody-sen",
-            "pct": 79.6
+            "votes": 1320048,
+            "party_total_votes": 1659023
           },
           "D": {
             "candidate_id": "fl-cand-angie-nixon-sen",
-            "pct": 56.1,
             "runner_up": "Alex Vindman",
-            "runner_up_pct": 43.9
+            "votes": 705192,
+            "runner_up_votes": 552774,
+            "party_total_votes": 1257966
           }
         },
-        "note": "Special election for the unexpired Class 3 term. Nixon's win was a significant upset — she was heavily outspent by Vindman."
+        "note": "Special election for the unexpired Class 3 term. Nixon's win was a significant upset — she was heavily outspent by Vindman.",
+        "turnout": {
+          "total": 2916989,
+          "by_party": {
+            "R": 1659023,
+            "D": 1257966
+          },
+          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
+        },
+        "counties_reporting": "67 of 67"
       }
     },
     {
