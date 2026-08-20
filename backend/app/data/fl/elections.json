@@ -98,8 +98,8 @@
         "status": "reported",
         "certified": false,
         "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Division of Elections election-night results file",
-        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "source": "Florida Election Watch (Division of Elections)",
+        "source_url": "https://floridaelectionwatch.gov/",
         "retrieved": "2026-08-21",
         "winners": {
           "R": {
@@ -126,7 +126,9 @@
           },
           "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
         },
-        "counties_reporting": "67 of 67"
+        "counties_reporting": "67 of 67",
+        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
       }
     },
     {
@@ -167,8 +169,8 @@
         "status": "unopposed",
         "certified": false,
         "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Division of Elections election-night results file",
-        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "source": "Florida Election Watch (Division of Elections)",
+        "source_url": "https://floridaelectionwatch.gov/",
         "retrieved": "2026-08-21",
         "winners": {
           "R": {
@@ -183,7 +185,9 @@
           }
         },
         "turnout": null,
-        "turnout_note": "No primary was held for this office — both parties had a single qualified candidate, so no votes were cast."
+        "turnout_note": "No primary was held for this office — both parties had a single qualified candidate, so no votes were cast.",
+        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
       }
     },
     {
@@ -222,8 +226,8 @@
         "status": "reported",
         "certified": false,
         "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Division of Elections election-night results file",
-        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "source": "Florida Election Watch (Division of Elections)",
+        "source_url": "https://floridaelectionwatch.gov/",
         "retrieved": "2026-08-21",
         "winners": {
           "R": {
@@ -249,7 +253,9 @@
           },
           "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
         },
-        "counties_reporting": "67 of 67"
+        "counties_reporting": "67 of 67",
+        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
       }
     },
     {
@@ -288,8 +294,8 @@
         "status": "reported",
         "certified": false,
         "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Division of Elections election-night results file",
-        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "source": "Florida Election Watch (Division of Elections)",
+        "source_url": "https://floridaelectionwatch.gov/",
         "retrieved": "2026-08-21",
         "winners": {
           "R": {
@@ -315,7 +321,9 @@
           },
           "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
         },
-        "counties_reporting": "67 of 67"
+        "counties_reporting": "67 of 67",
+        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
       }
     },
     {
@@ -454,8 +462,8 @@
         "status": "reported",
         "certified": false,
         "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Division of Elections election-night results file",
-        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "source": "Florida Election Watch (Division of Elections)",
+        "source_url": "https://floridaelectionwatch.gov/",
         "retrieved": "2026-08-21",
         "winners": {
           "R": {
@@ -480,7 +488,9 @@
           },
           "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
         },
-        "counties_reporting": "67 of 67"
+        "counties_reporting": "67 of 67",
+        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
       }
     },
     {
@@ -1606,7 +1616,8 @@
     "concluded": true,
     "certified": false,
     "note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-    "results_source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-    "retrieved": "2026-08-21"
+    "results_source_url": "https://floridaelectionwatch.gov/",
+    "retrieved": "2026-08-21",
+    "results_data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt"
   }
 }

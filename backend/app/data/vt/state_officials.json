@@ -32,10 +32,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Ingalls,%20Russ.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Essex.pdf",
           "email": "ringalls@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Essex.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -64,10 +70,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hardy.Ruth.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADDDIST.pdf",
           "email": "rhardy@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ADDDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -112,10 +124,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Collamore,Brian.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/RUTDIST.pdf",
           "email": "bcollamore@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/RUTDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -128,10 +146,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Weeks,%20David.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
           "email": "dweeks@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -144,10 +168,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Williams,Terry.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
           "email": "tkwilliams@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -176,10 +206,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Harrison,Wendy.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windham.pdf",
           "email": "wharrison@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windham.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -192,10 +228,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Clarkson,Alison.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windsor.pdf",
           "email": "aclarkson@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windsor.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -224,10 +266,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/White,Rebecca.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
           "email": "rwhite@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -240,10 +288,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/RBrock.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRADIST.pdf",
           "email": "rbrock@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/FRADIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -256,10 +310,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Norris,%20Bob.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-4.pdf",
           "email": "rnorris@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -272,10 +332,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/RWestman.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Lamoille.pdf",
           "email": "rawestman@gmail.com",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Lamoille.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -288,10 +354,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Beck,Scott%20008.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-3.pdf",
           "email": "sbeck@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -320,10 +392,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bongartz,Seth%20031.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-4.pdf",
           "email": "sbongartz@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -336,10 +414,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brennan,Pat.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-9-2.pdf",
           "email": "pbrennan@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-9-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -352,10 +436,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Perchlik.Andrew.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
           "email": "aperchlik@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -368,10 +458,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cummings,Ann%20064.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
           "email": "acummings@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WASDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -384,10 +480,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Watson,Anne.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Washington.pdf",
           "email": "awatson@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Washington.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -400,10 +502,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Mattos,Chris.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-10.pdf",
           "email": "cmattos@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-10.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -448,10 +556,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Vyhovsky,Tanya.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-8-1.pdf",
           "email": "tvyhovsky@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-8-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -480,10 +594,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Chittenden,%20Thomas.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
           "email": "tchittenden@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -496,10 +616,16 @@
         "role": "State Senator",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Lyons,Ginny.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
           "email": "vlyons@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHIDIST.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       }
     ]
@@ -533,10 +659,16 @@
         "role": "State Representative",
         "photo_url": "http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcQJv2ebRwLbq8oEHztEt7vEj8LT_42Lj5oVZwQRIbAicBaIoWoKMCX8Q16EfoTE0AbQ",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-2.pdf",
           "email": "mpriestley@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -565,10 +697,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Sheldon,%20Amy.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
           "email": "asheldon@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -581,10 +719,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Scheu,Robin.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
           "email": "rscheu@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -597,10 +741,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/PConlon.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-2.pdf",
           "email": "pconlon@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -613,10 +763,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Birong.Matt.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-3.pdf",
           "email": "mbirong@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -661,10 +817,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cordes.Mari.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-4.pdf",
           "email": "mcordes@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ADD-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -677,10 +839,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McGill,Jubilee.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-5.pdf",
           "email": "jmcgill@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -709,10 +877,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Page,%20Woody.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-2.pdf",
           "email": "wpage@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -757,10 +931,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McCoy,%20Pattie.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-1.pdf",
           "email": "pmccoy@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -789,10 +969,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/TBurditt.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/RUT-2.pdf",
           "email": "tburditt@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/RUT-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -837,10 +1023,16 @@
         "role": "State Representative",
         "photo_url": "https://mountaintimes.info/wp-content/uploads/2022/06/Eric_Photo-2-300x300.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-5.pdf",
           "email": "emaguire@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -853,10 +1045,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Howard,Mary.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-6.pdf",
           "email": "mhoward@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-6.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -933,10 +1131,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Sibilia,Laura.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-2.pdf",
           "email": "lsibilia@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -949,10 +1153,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Goldman,Leslie.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
           "email": "lgoldman@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -965,10 +1175,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bos-Lun,%20Michelle.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
           "email": "mboslun@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -981,10 +1197,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Mrowicki,Mike.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-4.pdf",
           "email": "mmrowicki@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -997,10 +1219,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Long.Emily.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-5.pdf",
           "email": "elong@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1029,10 +1257,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/EKornheiser.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-7.pdf",
           "email": "ekornheiser@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-7.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1045,10 +1279,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burke.Mollie.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-8.pdf",
           "email": "mburke@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-8.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1077,10 +1317,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Burrows,%20Elizabeth.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
           "email": "eburrows@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1093,10 +1339,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bartholomew.John.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
           "email": "jbartholomew@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1125,10 +1377,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/AEmmons.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-3.pdf",
           "email": "aemmons@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1141,10 +1399,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/KristiMorris.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-3-2.pdf",
           "email": "kmorris2@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-3-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1157,10 +1421,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/HSurprenant.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-4.pdf",
           "email": "hsurprenant@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1189,10 +1459,16 @@
         "role": "State Representative",
         "photo_url": "https://positive-tracks-wp-assets.s3.us-east-2.amazonaws.com/wp-content/uploads/2022/01/27110842/Esme-Headhshot.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-6.pdf",
           "email": "ecole@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-6.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1205,10 +1481,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/KChristie.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
           "email": "kchristie@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-4-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1221,10 +1503,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Bartley,Ashley.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-1.pdf",
           "email": "abartley@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1253,10 +1541,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/EDickinson.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-2.pdf",
           "email": "edickinson@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1285,10 +1579,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Walker,%20Matt.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
           "email": "mwalker@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1301,10 +1601,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.newyork1.vip.townnews.com/samessenger.com/content/tncms/assets/v3/editorial/8/24/824b3bf9-596e-5956-be57-4f1de1311027/5d65cdad2a655.image.jpg?resize=250%2C250",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
           "email": "toliver@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1317,10 +1623,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/LHango.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-5.pdf",
           "email": "lhango@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/FRA-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1333,10 +1645,16 @@
         "role": "State Representative",
         "photo_url": "https://secureservercdn.net/45.40.150.47/620.605.myftpupload.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-14-at-1.png",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-5.pdf",
           "email": "wlaroche@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1349,10 +1667,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Gregoire,James.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-6.pdf",
           "email": "jgregoire@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-6.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1365,10 +1689,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Demar,Allen.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-7.pdf",
           "email": "ademar@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-7.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1381,10 +1711,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Toof,Casey.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-8.pdf",
           "email": "ctoof@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-8.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1397,10 +1733,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/b/61/b61c72f4-e286-11ec-823a-9b701652a585/6298d426f0838.image.jpg?resize=375%2C500",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-1.pdf",
           "email": "jlipsky@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1413,10 +1755,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Noyes.Daniel.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/LAM-2.pdf",
           "email": "dnoyes@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/LAM-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1445,10 +1793,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Boyden,%20Lucy.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-3.pdf",
           "email": "lboyden@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1461,10 +1815,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Canfield,Bill%20037.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-10.pdf",
           "email": "wcanfield@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-10.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1477,10 +1837,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Harrison,James.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-11.pdf",
           "email": "jharrison@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-11.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1573,10 +1939,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/TCorcoran.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-2.pdf",
           "email": "tcorcoran@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1605,10 +1977,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Durfee,David.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-3.pdf",
           "email": "ddurfee@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1621,10 +1999,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/James,Kathleen.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-4.pdf",
           "email": "kjames@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1653,10 +2037,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MMorrissey.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-5.pdf",
           "email": "mmorrissey@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1669,10 +2059,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael-Nigro.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-2-2.pdf",
           "email": "mnigro@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/BEN-2-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1685,10 +2081,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brown,Jana.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-1.pdf",
           "email": "jbrown@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1701,10 +2103,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Arsenault,Angela.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
           "email": "aarsenault@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1717,10 +2125,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Brady,%20Erin.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-2.pdf",
           "email": "ebrady@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1733,10 +2147,16 @@
         "role": "State Representative",
         "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/EdyeGraning_profile_picture_2022-06.jpg/800px-EdyeGraning_profile_picture_2022-06.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-3.pdf",
           "email": "egraning@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1749,10 +2169,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Squirell,Trevor.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-3.pdf",
           "email": "tsquirrell@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1765,10 +2191,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/8/64/864de4ee-090b-11ed-8ec8-43f0e24841bc/62d9739da0351.image.jpg?resize=225%2C281",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-4.pdf",
           "email": "ppouech@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1781,10 +2213,16 @@
         "role": "State Representative",
         "photo_url": "https://media2.fdncms.com/sevendaysvt/imager/u/blog/36217611/img-5981.jpg?cb=1660179942",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-5.pdf",
           "email": "cevans@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1797,10 +2235,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/c/36/c362315c-4958-11ea-9b08-672b8e3a4ad2/5e3cd80491bd7.image.jpg?resize=400%2C600",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-6.pdf",
           "email": "klalley@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-6.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1845,10 +2289,16 @@
         "role": "State Representative",
         "photo_url": "https://images.squarespace-cdn.com/content/620c2499aa05237b7428dec9/1651861860161-DJHK1UPY8S7PFCW32285/headshot+for+web.jpg?format=1500w&content-type=image%2Fjpeg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-9.pdf",
           "email": "ekrasnow@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-9.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1861,10 +2311,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Donahue.Anne.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-1.pdf",
           "email": "adonahue@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1877,10 +2333,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Goslant.Kenneth.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-1.pdf",
           "email": "kgoslant@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1909,10 +2371,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Torre,Dana.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-2.pdf",
           "email": "dtorre@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1957,10 +2425,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Casey,Conor.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
           "email": "ccasey@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1973,10 +2447,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McCann,Kate.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
           "email": "kmccann@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -1989,10 +2469,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Chapin,Ela.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-5.pdf",
           "email": "echapin@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-5.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2005,10 +2491,16 @@
         "role": "State Representative",
         "photo_url": "https://images.squarespace-cdn.com/content/v1/62a8e44d3687d77bbd38c9c2/537b9a9b-6969-4603-989f-8c873398b7ef/head+shot-Vermont-Law-School-web.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-6.pdf",
           "email": "mmihaly@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-6.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2021,10 +2513,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/5/c9/5c989cb2-e81c-11ec-93f2-ebc1b5b13b72/62a232bab10ed.image.jpg?resize=1200%2C1500",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-10.pdf",
           "email": "knugent@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-10.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2037,10 +2535,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/1/14/114faf4a-dd1b-11ec-b56b-cb5131044f13/628fbc3593fd3.image.jpg?resize=540%2C675",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-11.pdf",
           "email": "bminier@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-11.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2053,10 +2557,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MLaLonde.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-12.pdf",
           "email": "mlalonde@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-12.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2085,10 +2595,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Blumle.Tiff.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-13.pdf",
           "email": "tbluemle@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-13.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2101,10 +2617,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Rachelson.Barb.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
           "email": "brachelson@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2117,10 +2639,16 @@
         "role": "State Representative",
         "photo_url": "https://vermontbiz.com/sites/default/files/images/stone-mary-katherine.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
           "email": "mstone@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2133,10 +2661,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Cina,Brian3.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-4.pdf",
           "email": "bcina@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2149,10 +2683,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Headrick,Troy%20010.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-15.pdf",
           "email": "theadrick@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-15.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2165,10 +2705,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Krowinski,%20Jill.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-3.pdf",
           "email": "jkrowinski@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-3.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2181,10 +2727,16 @@
         "role": "State Representative",
         "photo_url": "https://vcrhyp.org/assets/image-cache/image-cache/Kate%20Logan%202.9e1b0b29.b09fa573.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-16.pdf",
           "email": "klogan@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-16.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2213,10 +2765,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Ode,Carol.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-18.pdf",
           "email": "code@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-18.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2229,10 +2787,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hooper,Robert.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-1.pdf",
           "email": "rhooper@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CHI-6-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2245,10 +2809,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Austin,Sarita.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
           "email": "saustin@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2325,10 +2895,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Berbeco,Daisy%20036.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-21.pdf",
           "email": "dberbeco@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-21.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2341,10 +2917,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Dolan,%20Karen.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
           "email": "kndolan@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2357,10 +2939,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Houghton,%20Lori.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
           "email": "lhoughton@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2373,10 +2961,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.newyork1.vip.townnews.com/essexreporter.com/content/tncms/assets/v3/editorial/f/79/f79ba144-d2d4-11ec-8a87-a3771555e157/627e7f522747b.image.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
           "email": "ldodge@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2389,10 +2983,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Golrang-Garofano.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
           "email": "rgarofano@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2405,10 +3005,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Black,Alyssa.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-24.pdf",
           "email": "ablack@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-24.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2437,10 +3043,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Labor,Larry.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Essex-Orleans.pdf",
           "email": "llabor@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Essex-Orleans.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2485,10 +3097,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Campbell,Scott.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Caledonia-Essex.pdf",
           "email": "scampbell@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Caledonia-Essex.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2501,10 +3119,16 @@
         "role": "State Representative",
         "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiRfTmE4t4EX7KkbsF2Leu84Nmy7GsSQrECA&s",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-4.pdf",
           "email": "jkascenska@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/CAL-4.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2533,10 +3157,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/White,Kirk.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Addison.pdf",
           "email": "kwhite@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Addison.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2565,10 +3195,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Parsons,%20Joe.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Caledonia.pdf",
           "email": "jparsons@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Caledonia.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2581,10 +3217,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/MHigley.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-Lamoille.pdf",
           "email": "mhigley@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-Lamoille.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2597,10 +3239,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Marcotte.Michael.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/ORL-2.pdf",
           "email": "mmarcotte@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/ORL-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2613,10 +3261,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/O'Brien,John.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-1.pdf",
           "email": "jobrien@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-1.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2629,10 +3283,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Masland,James.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-ORA-2.pdf",
           "email": "jmasland@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WDR-ORA-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2645,10 +3305,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rebecca_Holcombe_.png",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-2.pdf",
           "email": "rholcombe@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2661,10 +3327,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/McFaun,Topper.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-2.pdf",
           "email": "fmcfaun@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-2.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2677,10 +3349,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/timesargus.com/content/tncms/assets/v3/editorial/5/b7/5b7b1ad0-59f6-5da2-a83a-277b3e4e2423/633744ae63ab9.image.jpg?resize=1200%2C1645",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-Orange.pdf",
           "email": "ggalfetti@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-Orange.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2741,10 +3419,16 @@
         "role": "State Representative",
         "photo_url": "https://3.files.edl.io/f264/22/08/30/162354-6ed2c7ed-c20a-4c29-a9b7-5c9e39e327f9.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-Franklin.pdf",
           "email": "cataylor@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-Franklin.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2773,10 +3457,16 @@
         "role": "State Representative",
         "photo_url": "https://bloximages.chicago2.vip.townnews.com/vtcng.com/content/tncms/assets/v3/editorial/9/51/951d5c9e-d22d-11ec-9161-1beed870fe56/627d669a49c91.image.jpg?resize=1200%2C1445",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-Washington.pdf",
           "email": "slamont@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-Washington.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2805,10 +3495,16 @@
         "role": "State Representative",
         "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Leland_Morgan_2024.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/GI-CHI.pdf",
           "email": "lmorgan@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/GI-CHI.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2837,10 +3533,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Wood.Theresa.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
           "email": "twood@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2853,10 +3555,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Stevens.Thomas.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
           "email": "tstevens@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/WAS-CHI.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2869,10 +3577,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Satcowitz,%20Larry.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
           "email": "lsatcowitz@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {
@@ -2885,10 +3599,16 @@
         "role": "State Representative",
         "photo_url": "https://legislature.vermont.gov/Documents/Legislators/Hooper,Jay.jpg",
         "contact": {
-          "official_website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
           "email": "jhooper@leg.state.vt.us",
           "dc_office": null,
-          "dc_phone": null
+          "dc_phone": null,
+          "official_document": {
+            "url": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+            "kind": "pdf",
+            "label": "District map",
+            "downloads": true,
+            "note": "This link opens a PDF and may download to your device. It is not the member's website — no web page was published for this record."
+          }
         }
       },
       {

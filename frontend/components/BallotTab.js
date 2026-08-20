@@ -8,6 +8,7 @@ import { fetchElections, fetchBallotForAddress } from '@/lib/api';
 import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
+import { externalLinkProps, fileSuffix } from '@/lib/externalLink';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
@@ -894,12 +895,26 @@ function RaceCard({
                     <>
                       {' '}
                       <a
-                        href={race.result.source_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        {...externalLinkProps(race.result.source_url)}
                         style={{ color: 'var(--cl-accent)' }}
                       >
-                        Source
+                        Source{fileSuffix(race.result.source_url)}
+                      </a>
+                    </>
+                  )}
+                  {/* The raw data file we actually summed, offered
+                      SEPARATELY and labeled as a download. A citation
+                      should land on a page a person can read; the
+                      machine-readable file is a second, opt-in link for
+                      anyone who wants to check the arithmetic. */}
+                  {race.result.data_file_url && (
+                    <>
+                      {' · '}
+                      <a
+                        {...externalLinkProps(race.result.data_file_url)}
+                        style={{ color: 'var(--cl-accent)' }}
+                      >
+                        Raw results{fileSuffix(race.result.data_file_url)}
                       </a>
                     </>
                   )}
