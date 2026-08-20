@@ -7596,6 +7596,34 @@
       "data_status": "skeleton",
       "data_source": "FL Division of Elections (qualified candidate)",
       "data_observed": "2026-07-31"
+    },
+    "fl-cand-angie-nixon-sen": {
+      "id": "fl-cand-angie-nixon-sen",
+      "name": "Angie Nixon",
+      "party": "D",
+      "seeking_office": "U.S. Senate, Florida",
+      "incumbent": false,
+      "current_office": "Florida State Representative, District 13",
+      "bioguide_id": null,
+      "hometown": "Jacksonville, FL",
+      "age": null,
+      "website": null,
+      "social": {},
+      "photo_url": null,
+      "bio": "Angie Nixon is a Florida state representative from Jacksonville who won the Democratic nomination for U.S. Senate in the August 2026 primary, defeating Alex Vindman despite being substantially outspent.",
+      "top_issues": [],
+      "endorsements": [],
+      "fundraising": null,
+      "experience": [
+        {
+          "role": "Florida State Representative",
+          "from": 2020,
+          "to": null
+        }
+      ],
+      "data_status": "enriched",
+      "data_source": "Florida Division of Elections election-night results file (retrieved 2026-08-21); biography pending curation.",
+      "data_observed": "2026-08-21"
     }
   }
 }

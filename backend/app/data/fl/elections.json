@@ -62,7 +62,7 @@
       },
       "general_candidates": [
         "fl-cand-byron-donalds",
-        "fl-cand-jerry-demings",
+        "fl-cand-david-jolly",
         "fl-cand-ansaun-fisher",
         "fl-cand-charles-burkett",
         "fl-cand-dean-abrams",
@@ -84,13 +84,38 @@
         "fl-cand-kathleen-anderson",
         "fl-cand-rodney-glover"
       ],
-      "general_candidates_note": "Demo projection of the R / D primary winners (update after Aug 18) plus every NPA, minor-party, and write-in candidate who bypassed the primary and goes straight to the Nov 3 ballot.",
+      "general_candidates_note": "Republican and Democratic nominees as decided by the Aug 18 primary, plus every NPA, minor-party and write-in candidate who bypassed the primary and appears directly on the Nov 3 general ballot.",
       "_roster_source": {
         "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
         "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
         "observed": "2026-05-05",
         "count": 48,
         "note": "48 active filers as of 2026-05-05. List is fluid until the FL qualifying-period close (June 2026)."
+      },
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": false,
+        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+        "source": "Florida Division of Elections election-night results file",
+        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "retrieved": "2026-08-21",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-byron-donalds",
+            "pct": 48.0,
+            "runner_up": "Jay Collins",
+            "runner_up_pct": 25.0
+          },
+          "D": {
+            "candidate_id": "fl-cand-david-jolly",
+            "pct": 61.0,
+            "runner_up": "Dayna Marie Foster",
+            "runner_up_pct": 15.0
+          }
+        },
+        "note": "Jerry Demings suspended his campaign on June 5, 2026 and was not a factor; Dayna Marie Foster finished second in the Democratic primary."
       }
     },
     {
@@ -117,13 +142,35 @@
         "fl-cand-james-uthmeier",
         "fl-cand-jose-javier-rodriguez"
       ],
-      "general_candidates_note": "Demo projection of the R / D primary winners (update after Aug 18). No NPA, minor-party, or write-in candidates have filed for AG, so the general ballot is just the two primary winners.",
+      "general_candidates_note": "Both primaries were unopposed, so this general ballot was effectively set at the June qualifying deadline. No NPA, minor-party or write-in candidate filed for Attorney General.",
       "_roster_source": {
         "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
         "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
         "observed": "2026-05-05",
         "count": 4,
         "note": "4 active filers as of 2026-05-05 (2 R, 2 D). List is fluid until the FL qualifying-period close (June 2026)."
+      },
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": false,
+        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+        "source": "Florida Division of Elections election-night results file",
+        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "retrieved": "2026-08-21",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-james-uthmeier",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-jose-javier-rodriguez",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        }
       }
     },
     {
@@ -150,11 +197,35 @@
         "fl-cand-blaise-ingoglia",
         "fl-cand-annette-taddeo"
       ],
-      "general_candidates_note": "Projection of the R / D primary winners (update after Aug 18).",
+      "general_candidates_note": "Nominees as decided by the Aug 18 primary.",
       "_roster_source": {
         "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
         "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
         "observed": "2026-07-31"
+      },
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": false,
+        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+        "source": "Florida Division of Elections election-night results file",
+        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "retrieved": "2026-08-21",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-blaise-ingoglia",
+            "pct": 61.0,
+            "runner_up": "Frank William Collige",
+            "runner_up_pct": 39.0
+          },
+          "D": {
+            "candidate_id": "fl-cand-annette-taddeo",
+            "pct": 66.0,
+            "runner_up": "Earle Ford",
+            "runner_up_pct": 34.0
+          }
+        }
       }
     },
     {
@@ -181,11 +252,35 @@
         "fl-cand-wilton-simpson",
         "fl-cand-joey-mendoza-atkins"
       ],
-      "general_candidates_note": "Projection of the R / D primary winners (update after Aug 18). The Democratic primary has no clear frontrunner.",
+      "general_candidates_note": "Nominees as decided by the Aug 18 primary.",
       "_roster_source": {
         "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
         "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
         "observed": "2026-07-31"
+      },
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": false,
+        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+        "source": "Florida Division of Elections election-night results file",
+        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "retrieved": "2026-08-21",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-wilton-simpson",
+            "pct": 69.0,
+            "runner_up": "Matt Taylor",
+            "runner_up_pct": 31.0
+          },
+          "D": {
+            "candidate_id": "fl-cand-joey-mendoza-atkins",
+            "pct": 60.0,
+            "runner_up": "Donald Prichard",
+            "runner_up_pct": 40.0
+          }
+        }
       }
     },
     {
@@ -314,16 +409,33 @@
       },
       "general_candidates": [
         "fl-cand-ashley-moody-sen",
-        "fl-cand-alexander-vindman-sen",
-        "fl-cand-hector-daniel-mujica-sen",
-        "fl-cand-angela-nixon-sen",
-        "fl-cand-alan-mark-grayson-sen",
-        "fl-cand-tamika-lyles-sen",
-        "fl-cand-jake-lang-sen",
-        "fl-cand-joey-mendoza-atkins-sen"
+        "fl-cand-angie-nixon-sen"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Nominees as decided by the Aug 18 primary. Neil J. Gillespie (NPA) also qualified and appears on the general ballot; his candidate record is pending.",
+      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": false,
+        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+        "source": "Florida Division of Elections election-night results file",
+        "source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+        "retrieved": "2026-08-21",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-ashley-moody-sen",
+            "pct": 79.6
+          },
+          "D": {
+            "candidate_id": "fl-cand-angie-nixon-sen",
+            "pct": 56.1,
+            "runner_up": "Alex Vindman",
+            "runner_up_pct": 43.9
+          }
+        },
+        "note": "Special election for the unexpired Class 3 term. Nixon's win was a significant upset — she was heavily outspent by Vindman."
+      }
     },
     {
       "id": "fl-2026-us-house-1",
@@ -1442,5 +1554,13 @@
       ]
     },
     "notes": "Frontend will stitch 'Your Ballot' from: statewide races + statewide measures + county-matched measures + federal race matching user's congressional_district + state legislative races matching user's districts. Municipal races not yet seeded — stubs can be added under races[].jurisdiction once city election dates align."
+  },
+  "primary_status": {
+    "date": "2026-08-18",
+    "concluded": true,
+    "certified": false,
+    "note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
+    "results_source_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
+    "retrieved": "2026-08-21"
   }
 }
