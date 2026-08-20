@@ -8,7 +8,8 @@ import { fetchElections, fetchBallotForAddress } from '@/lib/api';
 import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
-import { externalLinkProps, fileSuffix } from '@/lib/externalLink';
+import { fileSuffix } from '@/lib/externalLink';
+import { FileLink } from './ui';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
@@ -894,12 +895,12 @@ function RaceCard({
                   {race.result.source_url && (
                     <>
                       {' '}
-                      <a
-                        {...externalLinkProps(race.result.source_url)}
+                      <FileLink
+                        href={race.result.source_url}
                         style={{ color: 'var(--cl-accent)' }}
                       >
                         Source{fileSuffix(race.result.source_url)}
-                      </a>
+                      </FileLink>
                     </>
                   )}
                   {/* The raw data file we actually summed, offered
@@ -910,12 +911,13 @@ function RaceCard({
                   {race.result.data_file_url && (
                     <>
                       {' · '}
-                      <a
-                        {...externalLinkProps(race.result.data_file_url)}
+                      <FileLink
+                        href={race.result.data_file_url}
+                        description={race.result.data_file_note}
                         style={{ color: 'var(--cl-accent)' }}
                       >
                         Raw results{fileSuffix(race.result.data_file_url)}
-                      </a>
+                      </FileLink>
                     </>
                   )}
                 </>

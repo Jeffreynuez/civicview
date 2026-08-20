@@ -19,6 +19,8 @@ export { default as Skeleton } from './Skeleton';
 export { default as EmptyState } from './EmptyState';
 export { default as ErrorState } from './ErrorState';
 export { default as ModalShell } from './ModalShell';
+// Confirms before any download starts — see the component for the rule.
+export { default as FileLink } from './FileLink';
 
 // Iconography
 export {
