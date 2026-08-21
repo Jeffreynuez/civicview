@@ -9,6 +9,7 @@ import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
 import { fileSuffix } from '@/lib/externalLink';
+import { useDisclosure } from '@/lib/disclosureState';
 import { FileLink } from './ui';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
@@ -363,12 +364,17 @@ function ElectionCard({
   forceOpenRaceId, focusCandidateId, highlightCandidateId,
   onFocusCandidateConsumed, onHighlightConsumed,
 }) {
-  const [open, setOpen] = useState(Boolean(defaultOpen));
+  // Persisted: closing the primary dropdown used to last exactly as long
+  // as the component stayed mounted. Keyed on the election id, never on
+  // list position — `idx === 0` is what forced this open on every visit.
+  const [open, setOpen] = useDisclosure(`election:${election.id}`, defaultOpen);
   // If a race inside this election becomes the focus target after initial
   // mount (e.g. user switches candidates), make sure we expand ourselves.
+  // This is a deep-link override and deliberately DOES persist — the user
+  // asked to be taken here, so leaving it open is the honest result.
   useEffect(() => {
     if (forceOpenRaceId) setOpen(true);
-  }, [forceOpenRaceId]);
+  }, [forceOpenRaceId, setOpen]);
   const raceCount = election.races.length;
   const measureCount = election.measures.length;
   const isPrimary = election.phase === 'primary';
@@ -538,6 +544,7 @@ function ElectionCard({
                 title={grp.label}
                 count={grp.races.length}
                 defaultOpen={grp.defaultOpen || grp.races.some((r) => r.id === forceOpenRaceId)}
+                storageKey={`racegroup:${election.id}:${grp.key}`}
               >
                 {grp.races.map((r) => (
                   <RaceCard
@@ -573,7 +580,7 @@ function ElectionCard({
               propositions in even years), surface that instead of hiding the
               section entirely. */}
           {measureCount > 0 ? (
-            <Collapsible title="Ballot Measures" count={measureCount}>
+            <Collapsible title="Ballot Measures" count={measureCount} storageKey={`measures:${election.id}`}>
               {election.measures.map((m) => (
                 <MeasureCard key={m.id || `${m.level}-${m.number || m.title}`} measure={m} />
               ))}
@@ -621,8 +628,8 @@ function groupRaces(races) {
 }
 
 // ─── Collapsible primitive ───────────────────────────────────────────
-function Collapsible({ title, count, children, defaultOpen = false }) {
-  const [open, setOpen] = useState(defaultOpen);
+function Collapsible({ title, count, children, defaultOpen = false, storageKey = null }) {
+  const [open, setOpen] = useDisclosure(storageKey, defaultOpen);
   return (
     <div style={{
       marginBottom: '8px', border: '1px solid var(--cl-border)', borderRadius: '10px',
@@ -675,7 +682,17 @@ function RaceCard({
   onFocusCandidateConsumed, onHighlightConsumed,
 }) {
   const isMobile = useIsMobile();
-  const [expanded, setExpanded] = useState(Boolean(forceExpanded));
+  const [expanded, setExpanded] = useDisclosure(
+    race?.id ? `race:${race.id}` : null,
+    Boolean(forceExpanded),
+  );
+  // Results collapse independently of the candidate list, and remember
+  // their own state — someone who wants the numbers every time should
+  // only have to say so once.
+  const [resultsOpen, setResultsOpen] = useDisclosure(
+    race?.id ? `results:${race.id}` : null,
+    false,
+  );
   useEffect(() => {
     if (forceExpanded) setExpanded(true);
   }, [forceExpanded]);
@@ -808,16 +825,57 @@ function RaceCard({
           {/* One label for the block instead of "won the primary with" on
               every row — same information, and it buys back the width the
               vote counts need. */}
-          <div
+          {/* Collapsed by default: expanded, this block runs ~10 lines on a
+              phone and pushes the actual ballot below the fold. The header
+              still names the winners, so the question most people came
+              with — who won — is answered without a tap, and the counts,
+              turnout and sourcing are one tap away. */}
+          <button
+            type="button"
+            onClick={() => setResultsOpen((v) => !v)}
+            aria-expanded={resultsOpen}
             style={{
-              fontSize: 'var(--cl-text-2xs)', fontWeight: 800,
-              color: 'var(--cl-text-light)', textTransform: 'uppercase',
-              letterSpacing: 'var(--cl-tracking-wide)', marginBottom: 3,
+              display: 'flex', alignItems: 'center', gap: 6, width: '100%',
+              padding: '4px 0', background: 'none', border: 'none',
+              cursor: 'pointer', textAlign: 'left', fontFamily: 'var(--cl-font-sans)',
             }}
           >
-            {race.result.status === 'unopposed' ? 'Primary — not contested' : 'Primary result'}
-            {race.result.date && ` · ${prettyResultDate(race.result.date)}`}
-          </div>
+            <span
+              aria-hidden
+              style={{
+                fontSize: '0.6rem', color: 'var(--cl-text-light)',
+                transform: resultsOpen ? 'rotate(90deg)' : 'none',
+                transition: 'transform 0.15s',
+              }}
+            >
+              ▶
+            </span>
+            <span
+              style={{
+                fontSize: 'var(--cl-text-2xs)', fontWeight: 800,
+                color: 'var(--cl-text-light)', textTransform: 'uppercase',
+                letterSpacing: 'var(--cl-tracking-wide)',
+              }}
+            >
+              {race.result.status === 'unopposed' ? 'Primary — not contested' : 'Primary result'}
+              {race.result.date && ` · ${prettyResultDate(race.result.date)}`}
+            </span>
+            {!resultsOpen && (
+              <span
+                style={{
+                  fontSize: '0.72rem', color: 'var(--cl-text)', fontWeight: 600,
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                  minWidth: 0, flex: 1,
+                }}
+              >
+                {Object.entries(race.result.winners)
+                  .map(([party, w]) => `${winnerName(race, w)} (${party})`)
+                  .join(' · ')}
+              </span>
+            )}
+          </button>
+          {resultsOpen && (
+          <div>
           {Object.entries(race.result.winners).map(([party, w]) => (
             <div
               key={party}
@@ -923,6 +981,8 @@ function RaceCard({
                 </>
               )}
             </div>
+          )}
+          </div>
           )}
         </div>
       )}
