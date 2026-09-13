@@ -26,7 +26,7 @@ browsing is free forever and commenting requires only identity verification.
 [civicview.app](https://civicview.app). The verified-account system + paid
 subscription flow are scaffolded end-to-end on the backend and frontend
 but inert until external accounts (ID.me, Stripe live mode) come online —
-gated on the GoFundMe campaign launch. See the **Launch sequence** section
+gated on the Indiegogo campaign launch. See the **Launch sequence** section
 below for the staged rollout plan.
 
 ---
@@ -358,6 +358,64 @@ categories:
   Demo accounts created), plus a placeholder `/stats` page that an
   expanded analytics surface (engagement curves, growth by state)
   will absorb post-launch.
+
+---
+
+## Shipped this session — 2026-07-28 → 2026-08-21 (Claude Opus 5)
+
+Thirteen commits on `Updates_and_fixes`, all pushed. Tip `718f5ab`.
+
+**Demo sunset (PRD `docs/demo-sunset-and-migration-prd.md`)**
+- `ad7ae91` — **increment 2**: dismissible dashboard card asking existing
+  demo accounts for a contact email, `PUT /me/contact-email` (422s on a bad
+  address, unlike signup which drops silently) + `POST /me/contact-email/dismiss`.
+  Dismissal is a server column so it follows the account across devices.
+- `3a10040` — **increment 3**: the dormant switch. `services/entitlements.py`
+  (`IDME_ENABLED`, `DEMO_SUNSET_AT`, `require_verified`, `require_subscribed`)
+  wired onto 8 endpoints, no-op until the flag flips. 19 tests in both states.
+- `5623cd3` — **increment 4**: `authored_verified` snapshot columns on SEVEN
+  tables (the PRD listed five; the two comment-reaction tables were an
+  oversight). Verification is never retroactive — a demo account that later
+  verifies must not relabel everything it wrote. Boot-time convergent backfill.
+
+**Florida election data — accuracy**
+- `1a6e892` — statewide fundraising re-sourced from the FL Division of
+  Elections with per-account provenance. Donalds' "$67.0M" was a hand-typed
+  literal with **no committee ID**; the real structure is a campaign account
+  plus a separate PAC, and **Florida publishes no candidate↔committee link**,
+  so any combined total is an editorial join and is labeled as ours. Also:
+  Jerry Demings was still rendering as an active candidate (suspended
+  2026-06-05), and Burn Rate printed a fabricated "0%" from `null / total`.
+- `ce7a581` — Wikimedia portrait seeding with **article validation** (surname
+  must appear in the title, extract must mention the state or office). 7 of 20
+  resolved, zero false positives — a stranger's face is worse than initials.
+- `e19cddd` — CFO + Agriculture races added (they were *absent*, not empty).
+  Fixed `ContactTab` rendering "WASHINGTON, D.C." over a Tallahassee official,
+  and falling back to `member.office`, which on state records holds the branch
+  classification `"Executive"`. Reproduces on every state's Lt. Governor.
+- `8fbc2bf` — every FL legislator now has a portrait (40/40 Senate,
+  119/119 House); 6 statewide executives got sourced bios, experience,
+  focus areas and real Capitol contact details.
+- `9566463` — **Aug 18 primary results + the un-narrowed ballot guard.**
+  24 of 35 races were showing a *fictional* November ballot (FL-1 listed nine
+  Republicans against each other). A general ballot holds at most one nominee
+  per party, so 2+ of a major party now flags `general_roster_unresolved` and
+  the UI refuses to present the list as a ballot. `withdrawn` filtering moved
+  into `_resolve_ids` so no surface can forget it.
+
+**Trust + UX rules (all from Jeffrey's review)**
+- `2b8303d` + `1659007` — **links never silently download.** A `.txt` citation
+  led to finding 173 Mississippi legislators with a raw `.xml` and 120 Vermont
+  legislators with a district-map `.pdf` in `contact.official_website`. All 293
+  relocated. `frontend/lib/externalLink.js` labels file links;
+  `components/ui/FileLink.js` **asks before any download starts** — a label is
+  not consent. Ordinary pages never prompt, or the prompt becomes noise.
+- `718f5ab` — **dropdown memory.** There was none: `navState.js` covers only
+  page-level "where am I", and `ElectionCard` was passed `defaultOpen={idx===0}`,
+  force-opening the primary on every mount. New `frontend/lib/disclosureState.js`
+  stores **choices, not states** (snapshotting every value would freeze today's
+  defaults into every browser forever) and keys describe the thing, never its
+  position. Primary results now collapse, with the winners still on the header.
 
 ---
 
@@ -740,6 +798,13 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. |
 | 108 | Microsoft Store listing (Windows desktop) | **in certification** (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA — web deploys need NO store resubmission. Auto-publishes on pass (24–72h typical). NEXT SESSION: check status; on pass run runbook §6 checklist (clean-machine install test, Store badge next to Play badge, README/HelpBuild "Already built" row); on fail bring the certification report back. Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
 | 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
+
+| 110 | Rebuild FL U.S. House rosters against the 2026 map | **pending — time-critical (Nov 3 general)** | Florida redistricted mid-decade (~May 2026); the 28 House rosters in `fl/elections.json` were built on the OLD map. 15 of 56 actual nominees have **no candidate record at all**, and incumbents changed district numbers (Wasserman Schultz 25→20, Frankel 22→23, Moskowitz 23→25). FL-10 has no general election (Frost unopposed). This is a roster REBUILD, not a results patch — patching winners onto old-map rosters trades one wrong ballot for another. 23 races currently show the `general_roster_unresolved` guard, which is honest but is not a ballot. Nominee research for all 28 districts + Senate was verified against the FDOE election-night file on 2026-08-21 (in Pinecone). |
+| 111 | Certify FL primary results + resolve FL-11 recount | pending | All recorded results are labeled `certified: false` / "Unofficial returns" — county canvassing boards have certified since, so those labels are stale. FL-11 (R) was in an automatic machine recount (Strada +403, 0.4958%) and deliberately has **no nominee recorded**; resolve and record it. |
+| 112 | Demo-sunset increments 5–7 | pending (5 blocked) | 5 — in-place ID.me upgrade path (**blocked on the RP contract**); 6 — fallback credential-transfer UI with audit log; 7 — sunset machinery (`DEMO_SUNSET_AT` countdown banner, T0/T-14/T-7/T-1 email cadence, soft-delete job, data export). Increments 1–4 are done and inert until `IDME_ENABLED` flips. |
+| 113 | Re-justify the paid tier (poll creation only) | pending (business decision) | Commenting moved from the subscriber tier to the verified tier (`64ff2ab`), so the $5/mo subscription now unlocks **poll creation only**. `HelpBuildThisView.js:217` revenue projection (3% conversion, $1.8K Y1) and `docs/indiegogo_draft.md:240-241` still lean on the old engagement bundle. Flagged, deliberately not silently edited. |
+| 114 | Privacy policy + terms — contact_email & deletion schedule | pending (attorney) | `CitizenAccount.contact_email` and the demo-account deletion schedule must appear in the privacy policy and terms **before any sunset is announced to users**. Fold into the existing `docs/LEGAL-REVIEW-ROADMAP.md` pass rather than a separate review. |
+| 115 | Automated FL Division of Elections finance ingest | pending | Today's state fundraising is curated with provenance, not automated. Path is confirmed: `TreSel.exe?account=N` returns per-period totals for candidates **and** committees, and the qualified-candidate list downloads as TSV keyed by a stable `AcctNum`. Caveat that shapes the design: the candidate↔committee mapping **cannot** be automated (the state's Affiliates field is empty for candidate-aligned PCs), so that join stays a human-signed-off table, not a scraper. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 

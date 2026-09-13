@@ -42,6 +42,13 @@ state that this file deliberately does NOT duplicate:
 
 ## Current state & open work (snapshot 2026-06-16)
 
+> **Newer than this section:** the README's "Shipped this session —
+> 2026-07-28 → 2026-08-21" block and its Pending-tasks rows #110–#115 are
+> the current picture. Pinecone record `2026-09-13-session-close-handoff`
+> carries the narrative. Read those before trusting the snapshot below.
+> Time-critical item: the 28 FL U.S. House rosters were built against the
+> pre-2026 congressional map and need a rebuild before the Nov 3 general.
+
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
 narrative. At a glance:
@@ -361,6 +368,30 @@ Repeated bites in past sessions; full workarounds live in the `shared`
 Pinecone memory records (search "sandbox quirk" / "fuse cache" /
 "edit tool"). Headline list:
 
+0. **⛔ BLOCKING (as of 2026-09-13): a Windows update released
+   2026-09-08 stops the Cowork workspace from mounting Jeffrey's
+   connected folders.** Every `device_bash` call fails with
+   `sandbox-helper: no Plan9 drive shares mounted`. Anthropic is
+   tracking it and states **Claude Code is unaffected**, so the CLI
+   is the fallback for anything needing a shell. Do NOT tell Jeffrey
+   to reconnect folders — it does not help and this is not a
+   permissions problem.
+   - **Still works:** `device_list_dir`, `device_stage_files`,
+     `device_commit_files`. So the workflow becomes *stage → edit and
+     validate in the cloud container (python / esbuild / node all
+     available there) → `device_commit_files` back*.
+   - **Does not work:** anything executed on his machine — no git, no
+     python, no tests, no `py_compile`. **Commits cannot be made from a
+     Cowork session while this lasts** — hand Jeffrey the commit message
+     to run himself, or do the git work in Claude Code.
+   - **Trick:** git state can still be READ without a shell by staging
+     `.git` files directly — `.git/HEAD` gives the branch,
+     `.git/refs/heads/<branch>` the local tip, and
+     `.git/refs/remotes/origin/<branch>` the remote tip. Comparing the
+     last two proves whether a branch is pushed.
+   - Verify whether it is fixed by probing `device_bash` once at session
+     start; if it succeeds, ignore this entry.
+
 1. **Recurring `bad signature 0x00000000` git-index corruption.**
    Fix: `rm -f .git/index .git/index.lock && git read-tree HEAD`
    (or `git reset --mixed HEAD` if read-tree errors). Check the
@@ -423,12 +454,12 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
 
 ## File paths in this environment
 
-- Workspace folder: `C:\Users\jeffr\Desktop\US apps\CivicLens`
+- Workspace folder: `C:\dev\US apps\CivicLens`
   (Windows-side, as Jeffrey sees it).
-- Sandbox mount: `/sessions/<session-id>/mnt/US apps/CivicLens`
+- Sandbox mount: `/sessions/<session-id>/mnt/dev/US apps/CivicLens`
   (bash-side). Never expose `/sessions/...` paths to Jeffrey —
   they look like backend infrastructure and cause confusion.
-- Keys + secrets live in `C:\Users\jeffr\Desktop\US apps\Keys\`
+- Keys + secrets live in `C:\dev\US apps\Keys\`
   (sibling to the repo, never inside it). Don't read those files
   unless explicitly asked.
 
