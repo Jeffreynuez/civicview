@@ -963,6 +963,13 @@ Tracked here so it stays visible across sessions:
 - **Fundraising:** [`docs/gofundme_draft.md`](./docs/gofundme_draft.md)
   — full GoFundMe campaign package (story, FAQ, tiers, share copy,
   launch checklist).
+- **Android build:** Gradle 8.14.3 + AGP 8.13.0, verified building on
+  Android Studio Quail 4 as of 2026-09-13. The Gradle JDK must be Java
+  17–24 — currently Microsoft OpenJDK 21. Studio's own bundled runtime
+  is Java 25, which is one release past what Gradle 8.14.3 supports, so
+  a fresh Studio install fails sync until the Gradle JDK is pointed at a
+  real JDK 21. Fix the JDK, never the Gradle version; see `CLAUDE.md`
+  for the two decoys that make this look already-fixed when it isn't.
 
 ---
 

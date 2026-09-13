@@ -497,22 +497,73 @@ is a decoy; the repo is only ever at `C:\dev\US apps\CivicLens`.
 If a folder listing shows two things both labeled "US apps", the
 one under `C:\dev` is live.
 
-**`Android Studio` was excluded from the move on purpose.**
-`US apps\Android Studio\` is not project files — it is the Android
-Studio IDE installation itself, 3.3 GB of `bin/`, `jbr/`, `lib/`,
-`modules/`. A program install cannot be relocated with a file copy;
-Windows shortcuts, uninstaller entries and registry keys all point
-at the install path. The documented instruction was to leave it on
-the Desktop and move everything else, which is what happened, so
-its absence from `C:\dev\US apps` is correct and needs no fixing.
-The Android **SDK** is unaffected either way — `frontend/android/
-local.properties` reads `sdk.dir=C:\Users\jeffr\AppData\Local\
-Android\Sdk`. If the IDE is ever to leave the Desktop it gets
-uninstalled and reinstalled to `C:\Program Files`, not copied.
+**`Android Studio` was excluded from the move on purpose, and has
+since been relocated properly.** `US apps\Android Studio\` was never
+project files — it was the Android Studio IDE installation itself,
+3.3 GB of `bin/`, `jbr/`, `lib/`, `modules/`. A program install
+cannot be relocated with a file copy, because Windows shortcuts,
+uninstaller entries and registry keys all point at the install path,
+so the documented instruction was to leave it on the Desktop and
+move everything else. That is why it was absent from `C:\dev\US apps`
+and why that absence was correct rather than an oversight.
+
+On 2026-09-13 it was moved the right way: uninstalled via its own
+`uninstall.exe` with the settings-removal options declined, then
+reinstalled fresh from the current stable release. **It now lives at
+`C:\Program Files\Android\Android Studio`** and the Desktop copy is
+gone. Everything user-side survived untouched, which is the whole
+reason uninstall-and-reinstall is the correct method and copying is
+not: the SDK at `C:\Users\jeffr\AppData\Local\Android\Sdk`, the IDE
+settings under `%APPDATA%\Google\`, the AVDs and debug keystore in
+`C:\Users\jeffr\.android`, and the Gradle caches in
+`C:\Users\jeffr\.gradle`.
 
 Stale Desktop paths still appear in older Pinecone records and docs
 written before the move. Substitute `C:\dev\` mentally; the folder
 names below the top level are unchanged.
+
+### The Android toolchain, and the JDK ceiling that will bite again
+
+Verified working 2026-09-13: Gradle sync and `BUILD SUCCESSFUL` on
+Android Studio Quail 4 with every Capacitor module resolving.
+
+The build pins Gradle **8.14.3** (`gradle/wrapper/gradle-wrapper.properties`)
+and AGP **8.13.0** (`frontend/android/build.gradle`), with `compileSdk`
+and `targetSdk` at 36 and `minSdk` 24. Nothing in the build references
+the IDE's location: `local.properties` points `sdk.dir` at AppData, and
+`gradle.properties` deliberately contains no `org.gradle.java.home`.
+Keep it that way — it is why moving the IDE could not break the build.
+
+**The trap.** Gradle 8.14.3 runs only on Java 17 through 24. Android
+Studio Quail 4 bundles JetBrains Runtime **25**, so the bundled runtime
+is one release too new for the wrapper and a fresh install fails sync
+with "Incompatible Gradle JVM version". The fix is always to point the
+Gradle JDK at a supported JDK, **never** to bump Gradle — going to
+Gradle 9.1+ for Java 25 would drag AGP along with it, and that is a
+real migration, not a config tweak. Do not accept the IDE's "Project
+update recommended / AGP Upgrade Assistant" or "Migrate to Gradle
+Daemon toolchain" prompts casually; they change a build config that
+ships to Play.
+
+Current setting: `gradleJvm` is **`ms-21`**, Microsoft OpenJDK 21 in
+`C:\Users\jeffr\.jdks`, downloaded through the IDE because no real
+JDK 21 remained on the machine after the reinstall. JDK 21 is the
+choice because it is the newest LTS under Gradle's ceiling and is what
+AGP 8.13 is tested against.
+
+**Two decoys to know about when this recurs.** First, the Gradle JDK
+dropdown still lists a `jbr-21` entry left over in
+`%APPDATA%\Google\AndroidStudio*\options\jdk.table.xml` from the
+previous install. Its label says 21 but its path now resolves to
+`C:\Program Files\Android\Android Studio\jbr`, which is **JBR 25**
+(`release` reads `JAVA_VERSION="25.0.3"`). Selecting it looks like a
+fix and changes nothing. Second, `frontend/android/.gradle/config.properties`
+holds `java.home` pointing at that same bundled JBR; it is the value
+behind the `GRADLE_LOCAL_JAVA_HOME` entry and applies only while that
+macro is the selected `gradleJvm`. It is inert right now, but it is
+live again the moment anything reselects `GRADLE_LOCAL_JAVA_HOME`.
+Trust the `release` file in a JDK's folder over the name in the
+dropdown.
 
 ---
 
