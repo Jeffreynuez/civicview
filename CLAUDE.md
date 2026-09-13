@@ -463,6 +463,57 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   (sibling to the repo, never inside it). Don't read those files
   unless explicitly asked.
 
+### The 2026-08 move off the Desktop, and the folder conventions it left behind
+
+`US apps` used to live at `C:\Users\jeffr\Desktop\US apps`. It was
+moved to `C:\dev\US apps` (same move that took
+`App creation business` to `C:\dev\App creation business`) to get
+off Windows Search indexing and the thumbnail cache, which were the
+suspected source of the long-running mount stale-read problems, and
+to buy back 15 characters against the 260-char path limit. The move
+was robocopy copy-then-verify-then-rename, never cut-and-paste.
+
+Three conventions came out of that transfer. They are not
+housekeeping trivia — a session that misreads any of them will go
+edit the wrong copy of the repo.
+
+**A `_old` suffix means "deliberately disconnected, do not read."**
+After the copy was verified, the source folder was *renamed* rather
+than deleted — `C:\Users\jeffr\Desktop\US apps _old`. The rename is
+the mechanism: it breaks the path that Claude projects and Cowork
+sessions had connected, so a stale session connection resolves to
+nothing instead of silently serving a months-old copy of the repo.
+The old tree is intact inside it as a rollback, and it stays that
+way on purpose. Never read from, write to, or offer to "restore"
+anything under a `_old` folder, and never suggest deleting one.
+
+**Empty folders on the Desktop are session artifacts, not content.**
+`C:\Users\jeffr\Desktop\US apps` exists again and looks like a real
+folder. It is not. Sessions that still carried the old path
+*recreated* the directory shell when they tried to write to it —
+so it holds empty stubs (an empty `CivicLens`, for one) plus
+whatever genuinely never moved. An empty `CivicLens` on the Desktop
+is a decoy; the repo is only ever at `C:\dev\US apps\CivicLens`.
+If a folder listing shows two things both labeled "US apps", the
+one under `C:\dev` is live.
+
+**`Android Studio` was excluded from the move on purpose.**
+`US apps\Android Studio\` is not project files — it is the Android
+Studio IDE installation itself, 3.3 GB of `bin/`, `jbr/`, `lib/`,
+`modules/`. A program install cannot be relocated with a file copy;
+Windows shortcuts, uninstaller entries and registry keys all point
+at the install path. The documented instruction was to leave it on
+the Desktop and move everything else, which is what happened, so
+its absence from `C:\dev\US apps` is correct and needs no fixing.
+The Android **SDK** is unaffected either way — `frontend/android/
+local.properties` reads `sdk.dir=C:\Users\jeffr\AppData\Local\
+Android\Sdk`. If the IDE is ever to leave the Desktop it gets
+uninstalled and reinstalled to `C:\Program Files`, not copied.
+
+Stale Desktop paths still appear in older Pinecone records and docs
+written before the move. Substitute `C:\dev\` mentally; the folder
+names below the top level are unchanged.
+
 ---
 
 If you've read this far, you have enough context to ask Jeffrey
