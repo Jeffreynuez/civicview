@@ -550,9 +550,11 @@ is more newsworthy than the product at this stage.
 and CourtListener are APIs you call. Calling that a partnership is exactly the kind of
 claim that gets checked and that destroys everything around it.
 
-**Do not claim Microsoft Store availability.** README row #108 has said "in
-certification" since July 25 and nobody has verified it since. Until someone checks, the
-distribution claim is web, desktop PWA, and Google Play.
+**Distribution is four places, confirmed 2026-09-15:** web, desktop PWA, Google Play,
+and the Microsoft Store. An earlier version of this memo said not to claim the Microsoft
+Store because README row #108 had read "in certification" since July 25 with nobody
+checking. Jeffrey confirmed it is live. Get the listing URL into the facts file so every
+draft links the same one.
 
 **Do not say "launched" without the qualifier.** Verified accounts and paid features are
 built but inert pending ID.me. The accurate sentence is that it is live and in
@@ -589,12 +591,14 @@ Nothing in this list is outreach. It is preparation plus one calendar decision.
 3. **Draft the integrity piece.** Not for sending. The act of writing it will tell you
    whether the story holds up, and it is the asset the whole Phase 2 ladder depends on.
 4. **Keep #110 and #111 moving.** They are the gate.
-5. **Resolve the repo-visibility contradiction.** Your project instructions say the
-   GitHub repo is private; CLAUDE.md says it was made public before the Indiegogo push
-   and that you corrected the stale note on 2026-06-10. **If it is public, it is one of
-   your strongest assets**, because "solo-built and open to inspection" is directly
-   checkable and defeats the vibe-coded pattern-match. If it is private, several claims
-   in the integrity story become unverifiable to a reader.
+5. **The repo is public, so lead with it.** Confirmed 2026-09-15, settling a
+   contradiction between the project instructions (which said private) and CLAUDE.md
+   (which said public). This matters more than it looks: it turns the five integrity
+   artifacts from claims into things a skeptical reader can verify for themselves. The
+   ballot guard is readable in `elections_service._resolve_race`, the download-consent
+   rule in `frontend/lib/externalLink.js`. "Solo-built and open to inspection" is the
+   single best answer to being pattern-matched against the flood of AI-generated
+   trackers, because almost none of them will show you the code.
 
 ---
 
@@ -649,8 +653,6 @@ they are asked to admire.
 - ACT Congress 2026 dates, venue, and cost. Not finalized as of their July newsletter.
 - Whether Hoover's RAI research seed grants are open to non-Stanford applicants.
 - Democracy Notes' actual subscriber count.
-- Current status of the Microsoft Store submission, which is a CivicView-side question,
-  not a research one.
 - Exact congressional inbound-mail volumes. The commonly cited figures trace to secondary
   syntheses of 2020 Congressional Management Foundation data rather than to a primary
   source, so section 3 states the magnitude and not the numbers.
