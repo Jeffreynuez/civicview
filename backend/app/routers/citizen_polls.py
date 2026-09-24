@@ -41,7 +41,9 @@ Rules enforced:
     a real entitlement check.
   • Page must be unclaimed at create time (rep account does not exist
     for that official_id). Once claimed, any in-flight create attempts
-    400 with a clear error and the polls already on the page archive.
+    400 with a clear error, and the polls already on the page close to
+    new votes (archived, reason 'rep_claimed') but stay public on the
+    page for every viewer.
   • 1 active poll per (citizen, page). Caller closes (or it auto-
     archives) before they can post another there.
   • PER_PAGE_ACTIVE_POLL_CAP active polls per page total. New posts
@@ -236,13 +238,19 @@ def list_citizen_polls_on_page(
     active_scope = scope if scope in allowed else "country"
 
     active_polls = list_citizen_polls_for_page(db, official_id, active=True)
-    archived_polls = (
-        list_citizen_polls_for_page(db, official_id, active=False)
-        if is_owner
-        else []
-    )
+    # Polls citizens ran before the official claimed the page close to
+    # new votes at claim time and stay public, results and all (audit
+    # P4: criticism must not vanish because its subject joined). Everyone
+    # sees them. The owner's "Hide section" only hides them from the
+    # owner's own view; the owner additionally sees any other archived
+    # polls on the page, as before.
+    all_archived = list_citizen_polls_for_page(db, official_id, active=False)
     if is_owner:
-        archived_polls = [p for p in archived_polls if p.dismissed_by_owner_at is None]
+        archived_polls = [p for p in all_archived if p.dismissed_by_owner_at is None]
+    elif owner is not None:
+        archived_polls = [p for p in all_archived if p.archived_reason == "rep_claimed"]
+    else:
+        archived_polls = []
 
     return CitizenPollListResponse(
         official_id=official_id,
@@ -1145,9 +1153,9 @@ def dismiss_pre_claim_archive(
     me_rep: RepAccount = Depends(get_optional_rep),
 ):
     """A rep who's just claimed a previously-unclaimed page can hide
-    the 'Pre-claim discussion' section from their own page view. The
-    polls themselves remain in citizens' dashboards — this only
-    affects what the rep sees on their own page."""
+    the 'Pre-claim discussion' section from their own page view. It
+    changes nothing for anyone else: the polls stay public on the page
+    and in their authors' dashboards."""
     if me_rep is None:
         raise HTTPException(status_code=401, detail="Sign in.")
     if me_rep.official_id != official_id:

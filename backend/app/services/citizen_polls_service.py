@@ -450,9 +450,11 @@ def archive_polls_for_claim(
     db: Session,
     target_official_id: str,
 ) -> int:
-    """Archive every active citizen poll on a page that just got
-    claimed by a rep. Called from the rep-account-creation pathway
-    (seed + future claim endpoint).
+    """Close every active citizen poll on a page that just got claimed
+    by a rep: archived with reason 'rep_claimed', which ends voting.
+    They are not hidden. The page listing shows rep_claimed polls to
+    every viewer (audit P4). Called from the rep-account-creation
+    pathway (seed + future claim endpoint).
 
     Returns the number of polls archived. Safe to call on a page
     with no citizen polls — returns 0.
