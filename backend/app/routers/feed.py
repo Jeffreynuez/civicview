@@ -39,7 +39,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy import case, func
+from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -64,6 +64,16 @@ from app.models.pages import (
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+
+def _poll_parent_visible():
+    """A rep or candidate poll lives inside a Post. When that post is
+    deleted by its author, hidden by an admin, or auto-hidden, only
+    post.deleted_at is set, so the poll kept showing in /polls and the
+    home Popular polls grid (audit finding B2). Standalone and citizen
+    polls have no parent post and are unaffected."""
+    hidden_posts = select(Post.id).where(Post.deleted_at.is_not(None))
+    return or_(Poll.post_id.is_(None), Poll.post_id.not_in(hidden_posts))
 
 
 # ── Party lookup ─────────────────────────────────────────────────────
@@ -755,6 +765,7 @@ def popular_polls(
         db.query(Poll, totals_by_poll.c.total)
         .outerjoin(totals_by_poll, totals_by_poll.c.pid == Poll.id)
         .filter(Poll.archived_at.is_(None))
+        .filter(_poll_parent_visible())
         # Tiebreaker on Poll.created_at descending. NULLs (legacy rows
         # before this column was added) sort to the end either way on
         # SQLite + Postgres — fine for the tail.
@@ -879,7 +890,7 @@ def polls_feed(
             return (Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
         return None
 
-    q = db.query(Poll).filter(Poll.archived_at.is_(None))
+    q = db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_parent_visible())
     if kinds:
         clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
         if clauses:
