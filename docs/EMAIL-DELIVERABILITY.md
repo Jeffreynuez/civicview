@@ -65,7 +65,7 @@ today, and is the path of least resistance for future account email
 ### 2.1 Create the Postmark account + server
 
 1. Sign up at [postmarkapp.com](https://postmarkapp.com/sign_up) with
-   `jeffreynuez1@gmail.com`.
+   the CivicView admin email address.
 2. **Servers** → **Create Server**. Name it `civicview-prod`. Color and
    icon don't matter functionally; pick anything.
 3. Inside the server, **API Tokens** → copy the **Server API Token**. This
@@ -164,7 +164,7 @@ authentication discipline applies.
 ### 3.1 Create the Resend account + verify the domain
 
 1. Sign up at [resend.com](https://resend.com) with
-   `jeffreynuez1@gmail.com`.
+   the CivicView admin email address.
 2. **Domains** → **Add Domain** → `civicview.app`. Resend gives you a
    single DKIM record:
 

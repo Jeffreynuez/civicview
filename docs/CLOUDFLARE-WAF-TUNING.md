@@ -64,8 +64,8 @@ Tailscale exits in different countries, etc.).
 Visit `whatismyipaddress.com` from every device + network you use to
 admin CivicView. For each, note:
 
-- **IPv4 address** (e.g. `73.42.18.224`).
-- **IPv6 address** (e.g. `2601:601:...`) — if your ISP gives you one.
+- **IPv4 address** (e.g. `203.0.113.24`, a documentation-only example).
+- **IPv6 address** (e.g. `2001:db8:...`), if your ISP gives you one.
 - Whether it's **dynamic** (changes on router reboot) or **static**.
   For dynamic IPs, capture the broader CIDR your ISP assigns from
   (typically `/24` for residential, `/19` to `/16` for mobile carriers).
@@ -86,7 +86,7 @@ In Cloudflare dashboard:
      - Field: `URI Path`, Operator: `starts with`, Value: `/api/admin/`
      - AND
      - Field: `IP Source Address`, Operator: `is in`, Value:
-       `73.42.18.224 2601:601:...:0:0/64 ...` (your list, space-separated)
+       `203.0.113.24 2001:db8:...:0:0/64 ...` (your list, space-separated)
    - **Then take action:** `Skip` → check **All remaining custom rules**
      AND **Rate limiting rules** AND **Managed rules**.
    - **Place at:** top of the list (priority 1).

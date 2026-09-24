@@ -177,7 +177,7 @@ from the subscriber tier to the verified tier. The subscription now gates
 **poll creation only**.
 
 This is the same drift README task #113 tracks in `HelpBuildThisView.js:217` and
-`docs/indiegogo_draft.md`. The store listing was not on that task's list and
+the Indiegogo draft (kept outside the repo since 2026-09-24). The store listing was not on that task's list and
 should be.
 
 It matters more than the dashes: Google Play rejected this app twice under

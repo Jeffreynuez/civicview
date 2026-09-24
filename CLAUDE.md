@@ -184,9 +184,14 @@ OpenFEC fundraising is a static snapshot — re-run `fec_service` to refresh.
 These come from how the project is actually run. They override any
 generic "default behavior" you might otherwise reach for.
 
-- **Don't push to GitHub on your own.** Commit locally, describe
-  what's ready, let Jeffrey decide on the push. He said it
-  directly: "I'll be the one that decides to push or not."
+- **Pushing: Jeffrey authorized Claude to commit and push (2026-09-24).**
+  His words after merging PR #249: "Go ahead and commit and push updates
+  from here on out." `main` is branch-protected and PR-only, so push a
+  feature branch and open a PR; Jeffrey merges. (Before 2026-09-24 the
+  rule was "I'll be the one that decides to push or not.") Cowork's
+  cloud workspace can only push if the civicview repo is in the
+  session's authorized sources; otherwise hand him a patch or the
+  changed files to commit in GitHub Desktop.
 - **No unilateral admin delete on user content.** Reports + a
   future threat-detection algorithm are the only paths to taking
   content down. Jeffrey's words: "I should only be able to delete
