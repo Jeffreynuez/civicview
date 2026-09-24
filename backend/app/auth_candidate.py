@@ -36,6 +36,7 @@ from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy.orm import Session
 
+from app.auth import SESSION_SIGNING_SECRET
 from app.auth import hash_password, verify_password  # noqa: F401 — re-exported
 from app.db import get_db
 from app.models.pages import CandidateAccount
@@ -47,7 +48,9 @@ logger = logging.getLogger(__name__)
 CANDIDATE_COOKIE_NAME = "cl_candidate"
 CANDIDATE_SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 14  # 14 days, parity with the other two
 
-_SECRET = os.getenv("SESSION_SECRET") or "civicview-dev-secret-DO-NOT-USE-IN-PROD"
+# Same secret as rep sessions, resolved once in app/auth.py (which also
+# refuses to boot production without it).
+_SECRET = SESSION_SIGNING_SECRET
 # Distinct salt — rep / citizen / candidate tokens can never be
 # confused with each other even if an attacker swaps cookie values.
 _serializer = URLSafeTimedSerializer(_SECRET, salt="cl-candidate-v1")

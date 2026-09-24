@@ -26,6 +26,7 @@ from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy.orm import Session
 
+from app.auth import SESSION_SIGNING_SECRET
 from app.auth import hash_password, verify_password  # noqa: F401 — re-exported for seed
 from app.db import get_db
 from app.models.pages import CitizenAccount
@@ -37,7 +38,9 @@ logger = logging.getLogger(__name__)
 CITIZEN_COOKIE_NAME = "cl_citizen"
 CITIZEN_SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 14  # 14 days, matches rep sessions
 
-_SECRET = os.getenv("SESSION_SECRET") or "civicview-dev-secret-DO-NOT-USE-IN-PROD"
+# Same secret as rep sessions, resolved once in app/auth.py (which also
+# refuses to boot production without it).
+_SECRET = SESSION_SIGNING_SECRET
 # Distinct salt from rep sessions so the two token families can't be
 # confused even if an attacker copies a cookie across.
 _serializer = URLSafeTimedSerializer(_SECRET, salt="cl-citizen-v1")

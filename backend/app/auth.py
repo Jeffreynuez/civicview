@@ -44,11 +44,25 @@ SESSION_COOKIE_NAME = "cl_session"
 # 14 day session window. Re-issued on every request via refresh_cookie().
 SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 14
 
-_SECRET = os.getenv("SESSION_SECRET")
-if not _SECRET:
+_DEV_FALLBACK_SECRET = "civicview-dev-secret-DO-NOT-USE-IN-PROD"
+_SECRET = (os.getenv("SESSION_SECRET") or "").strip()
+if not _SECRET or _SECRET == _DEV_FALLBACK_SECRET:
+    from app.services.runtime_env import is_production
+    if is_production():
+        # Refuse to boot. The fallback string is in the public repo, so
+        # sessions signed with it could be forged by anyone (audit S11).
+        raise RuntimeError(
+            "SESSION_SECRET is not set (or is the public dev fallback) in "
+            "production. Set a random value of 32+ bytes on Render and "
+            "redeploy."
+        )
     # Dev-only fallback. Logged loudly so it can't slip into prod unnoticed.
-    _SECRET = "civicview-dev-secret-DO-NOT-USE-IN-PROD"
+    _SECRET = _DEV_FALLBACK_SECRET
     logger.warning("SESSION_SECRET not set — using dev fallback. Set a real value in .env for production.")
+
+# The one signing secret for all three session families. auth_citizen
+# and auth_candidate import it instead of reading the env var again.
+SESSION_SIGNING_SECRET = _SECRET
 
 _serializer = URLSafeTimedSerializer(_SECRET, salt="cl-session-v1")
 

@@ -147,6 +147,18 @@ class DevEmailService(EmailService):
         html_body: Optional[str] = None,
         reply_to: Optional[str] = None,
     ) -> bool:
+        # In production this backend means Postmark is not configured. The
+        # body can hold a password reset link, and logs are not the place
+        # for one (audit S11), so production logs only that a message was
+        # dropped, and reports it as not sent.
+        from app.services.runtime_env import is_production
+        if is_production():
+            logger.error(
+                "Email NOT sent (no email provider configured in production): "
+                "to=%s subject=%r. Set POSTMARK_API_TOKEN and POSTMARK_FROM_EMAIL.",
+                to, subject,
+            )
+            return False
         # Use a distinct prefix so these stand out in mixed logs.
         logger.info(
             "\n"
