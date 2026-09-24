@@ -734,7 +734,12 @@ export default function SidePanel({
                 }
           }
         >
+          {/* Keyed by the member's identity so switching officials mounts a
+              fresh view. Without the key, a slow response for the previous
+              official could land after the reset and show their bills or
+              votes under the new official's name. */}
           <ProfileView
+            key={selectedMember.bioguide_id || selectedMember.id || selectedMember.name}
             member={selectedMember}
             width={width}
             isMobile={isMobile}

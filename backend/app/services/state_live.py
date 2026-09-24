@@ -487,7 +487,8 @@ async def derive_state_legislator_issues(
         blurb = (it.get("blurb") or f"A frequent focus of {last}'s sponsored state legislation.").strip()
         out.append({
             "name": nm,
-            "stance": blurb + " (Derived from sponsored bills \u2014 a focus area, not a stated position.)",
+            "stance": blurb + " (AI-generated from sponsored bill titles; a focus area, not a stated position.)",
+            "ai_generated": True,
             "sources": [source_url] if source_url else [],
         })
     _set_cached(cache_key, out)
