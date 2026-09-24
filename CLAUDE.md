@@ -42,12 +42,21 @@ state that this file deliberately does NOT duplicate:
 
 ## Current state & open work (snapshot 2026-06-16)
 
-> **Newer than this section:** the README's "Shipped this session —
-> 2026-07-28 → 2026-08-21" block and its Pending-tasks rows #110–#115 are
-> the current picture. Pinecone record `2026-09-13-session-close-handoff`
-> carries the narrative. Read those before trusting the snapshot below.
-> Time-critical item: the 28 FL U.S. House rosters were built against the
-> pre-2026 congressional map and need a rebuild before the Nov 3 general.
+> **Newest (2026-09-24):** a full code and data audit, then its Wave 0
+> and Wave 1 fixes (34 commits on top of 61e96e6, delivered to Jeffrey
+> as a `git am` patch series). Florida's 2026 ballot was rebuilt from
+> the Division of Elections candidate list and certified primary
+> results, which closes the FL U.S. House roster rebuild (Task 110) and
+> primary certification (Task 111). The audit report itself is kept
+> OUT of this public repo; Pinecone record
+> `2026-09-24-audit-wave0-wave1-fixes` carries the summary and what is
+> still open (Wave 2: pytest + CI tests, Python lockfile, Alembic, data
+> lint; Wave 3: structure).
+>
+> **Older:** the README's "Shipped this session" block for 2026-07-28
+> to 2026-08-21 and its Pending-tasks rows #110 to #115, and Pinecone
+> record `2026-09-13-session-close-handoff`. Read those
+> before trusting the snapshot below.
 
 Federal + state DATA is largely complete. The README "Shipped this session
 — 2026-06-03" block + the Pinecone `default` namespace hold the per-item
@@ -137,10 +146,9 @@ synced channel prefs (`notification_prefs_json` + GET/PUT
 (`DeviceToken.tracked_json`), quiet-hours + cadence enforcement (SUPPRESS not
 queue; no synced prefs = no suppression). **Desktop PWA live** (PNG install
 icons — SVG-only manifests fail Chromium's install check; minimal SW, no fetch
-handler). **Microsoft Store SUBMITTED — in certification** (company acct
+handler). **Microsoft Store LIVE** since mid-September 2026 (company acct
 CIVICVIEW, INC. via DUNS same-day; PWABuilder MSIX v1.0.1.0; US-only, Teen,
-gen-AI YES, block NO; runbook `docs/microsoft_store_listing.md`; check status
-next session — README row #108). **Google Play v1.1.0 LIVE.** Five app
+gen-AI YES, block NO; runbook `docs/microsoft_store_listing.md`). **Google Play v1.1.0 LIVE.** Five app
 updates (`2cb77a9`): zoom slider desktop-web-only (percent chip elsewhere),
 bill NAMES on /bills (Clerk `<vote-desc>`), Text/AI vote search both chambers,
 force-update gate (env-gated, ships INERT — row #109), push offer on first
@@ -368,9 +376,16 @@ Repeated bites in past sessions; full workarounds live in the `shared`
 Pinecone memory records (search "sandbox quirk" / "fuse cache" /
 "edit tool"). Headline list:
 
-0. **⛔ BLOCKING (as of 2026-09-13): a Windows update released
-   2026-09-08 stops the Cowork workspace from mounting Jeffrey's
-   connected folders.** Every `device_bash` call fails with
+0. **Updated 2026-09-24: `device_bash` mounts the connected folders
+   again, but NEVER run git through it.** On 2026-09-24 a plain
+   `git status` in the CivicLens repo left a `.git/index.lock` that the
+   mount cannot delete (unlink is blocked), which would block Jeffrey's
+   next git command. It was moved into `.git/_stale_locks/`. Read git
+   state by staging `.git/HEAD` and `.git/refs/...` (trick below), do git
+   work in a cloud clone, and hand Jeffrey a patch series to `git am`.
+   History of the earlier outage: **(as of 2026-09-13) a Windows update
+   released 2026-09-08 stopped the Cowork workspace from mounting
+   Jeffrey's connected folders.** Every `device_bash` call failed with
    `sandbox-helper: no Plan9 drive shares mounted`. Anthropic is
    tracking it and states **Claude Code is unaffected**, so the CLI
    is the fallback for anything needing a shell. Do NOT tell Jeffrey
@@ -389,8 +404,7 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
      `.git/refs/heads/<branch>` the local tip, and
      `.git/refs/remotes/origin/<branch>` the remote tip. Comparing the
      last two proves whether a branch is pushed.
-   - Verify whether it is fixed by probing `device_bash` once at session
-     start; if it succeeds, ignore this entry.
+   - That outage was over by 2026-09-24; the no-git rule above stands.
 
 1. **Recurring `bad signature 0x00000000` git-index corruption.**
    Fix: `rm -f .git/index .git/index.lock && git read-tree HEAD`
@@ -429,8 +443,8 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   with #29), frontend on Vercel, Postgres on Render. Public read-only
   API is edge-cached via Cloudflare on `api.civicview.app`.
 - **Distribution:** web (civicview.app) + installable desktop PWA +
-  Google Play (v1.1.0 LIVE) + Microsoft Store (in certification as of
-  2026-07-25 — README row #108). All four are the ONE live site; only
+  Google Play (v1.1.0 LIVE) + Microsoft Store (LIVE since mid-September
+  2026). All four are the ONE live site; only
   native-shell changes need a store release.
 - **Repo:** `https://github.com/Jeffreynuez/civicview` (PUBLIC —
   made public pre-Indiegogo for transparency; Jeffrey corrected the

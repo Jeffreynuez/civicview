@@ -382,8 +382,8 @@ function CityDetail({ city, stateCode, onNotify, onCompareToggle, compareIds }) 
             party={mayor.party}
             subtitle={mayor.role}
             meta={[
-              mayor.serving_since ? `Serving since ${new Date(mayor.serving_since).getFullYear()}` : null,
-              mayor.term_end ? `Term ends ${new Date(mayor.term_end).getFullYear()}` : null,
+              mayor.serving_since ? `Serving since ${String(mayor.serving_since).slice(0, 4)}` : null,
+              mayor.term_end ? `Term ends ${String(mayor.term_end).slice(0, 4)}` : null,
             ].filter(Boolean)}
             website={mayor.website}
             big
@@ -408,7 +408,7 @@ function CityDetail({ city, stateCode, onNotify, onCompareToggle, compareIds }) 
               key={m.id}
               name={m.name}
               party={m.party}
-              subtitle={`${m.district ? `District ${m.district} · ` : ''}${m.role}`}
+              subtitle={`${m.seat ? `${m.seat} · ` : (m.district ? `District ${m.district} · ` : '')}${m.role}`}
               followTarget={buildFollowTarget(m, 'local_council', {
                 chamber: bodyName,
                 state: stateUp,
@@ -611,10 +611,10 @@ function CountyJudiciary({ county, judiciary, stateCode, onNotify, onCompareTogg
       {/* Chief County Judge */}
       {chiefCounty && (
         <>
-          <SectionLabel>Chief County Judge</SectionLabel>
+          <SectionLabel>County Court</SectionLabel>
           <OfficialCard
             name={chiefCounty.name}
-            subtitle={`${chiefCounty.role || 'Chief County Judge'} · ${countyCourt?.county} County Court`}
+            subtitle={`${chiefCounty.role || 'Administrative Judge'} · ${countyCourt?.county} County Court`}
             selectionMethod={chiefCounty.selection_method}
             selectionDetail={chiefCounty.selection_detail}
             followTarget={buildFollowTarget(chiefCounty, 'state_county_judge', {

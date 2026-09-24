@@ -33,6 +33,7 @@ from app.auth import (
     verify_password,
 )
 from app.db import get_db
+from app.services.session_epoch import epoch_of
 from app.models.pages import RepAccount
 from app.schemas.pages import (
     DeleteAccountRequest,
@@ -192,7 +193,7 @@ def login(
         db, account=rep, identity_kind="rep",
         email_attempted=email, ip_address=ip, user_agent=ua,
     )
-    set_session_cookie(response, rep.id)
+    set_session_cookie(response, rep.id, epoch_of(rep))
     rep.last_login_at = datetime.utcnow()
     db.commit()
     db.refresh(rep)
@@ -202,7 +203,7 @@ def login(
     # subsequent request without state. The same session_token always
     # produces the same CSRF, so this is safe to compute twice (here
     # and in /api/csrf).
-    session_tok = issue_session_token(rep.id)
+    session_tok = issue_session_token(rep.id, epoch_of(rep))
     return LoginResponse(
         rep=MeResponse.model_validate(rep),
         csrf_token=compute_csrf_token(session_tok),
@@ -264,6 +265,7 @@ def delete_account(
         hard_delete_account,
         soft_delete_account,
         verify_email_confirmation,
+        verify_password_confirmation,
     )
     if rep is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
@@ -271,6 +273,11 @@ def delete_account(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email confirmation doesn't match the signed-in account.",
+        )
+    if not verify_password_confirmation(rep, payload.password):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Enter your current password to delete this account.",
         )
     if payload.mode == "hard":
         hard_delete_account(db, "rep", rep)

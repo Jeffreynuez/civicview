@@ -3435,15 +3435,16 @@
         ]
       }
     ],
-    "bio": "Doug LaMalfa represents California's 1st congressional district, serving since 2013. A rice farmer, he previously served in the California State Senate and Assembly.",
+    "bio": "Doug LaMalfa represented California's 1st congressional district from 2013 until his death on January 6, 2026. A rice farmer, he previously served in the California State Senate and Assembly.",
     "bio_sources": [
-      "https://bioguide.congress.gov/search/bio/L000578"
+      "https://bioguide.congress.gov/search/bio/L000578",
+      "https://clerk.house.gov/Members/ViewVacancies"
     ],
     "experience": [
       {
         "role": "U.S. Representative, California",
         "from": "2013",
-        "to": "Present"
+        "to": "2026"
       },
       {
         "role": "California State Senate",
@@ -3455,7 +3456,8 @@
         "from": "2002",
         "to": "2008"
       }
-    ]
+    ],
+    "former_member": true
   },
   "H001068": {
     "top_issues": [
@@ -3903,22 +3905,24 @@
         ]
       }
     ],
-    "bio": "Eric Swalwell represents California's 14th congressional district, serving since 2013. A former Alameda County prosecutor, he was a candidate for the Democratic presidential nomination in 2020.",
+    "bio": "Eric Swalwell represented California's 14th congressional district from 2013 until he resigned on April 14, 2026. A former Alameda County prosecutor, he was a candidate for the Democratic presidential nomination in 2020.",
     "bio_sources": [
-      "https://bioguide.congress.gov/search/bio/S001193"
+      "https://bioguide.congress.gov/search/bio/S001193",
+      "https://clerk.house.gov/Members/ViewVacancies"
     ],
     "experience": [
       {
         "role": "U.S. Representative, California",
         "from": "2013",
-        "to": "Present"
+        "to": "2026"
       },
       {
         "role": "Deputy District Attorney, Alameda County, California",
         "from": "2006",
         "to": "2012"
       }
-    ]
+    ],
+    "former_member": true
   },
   "M001225": {
     "top_issues": [
@@ -16111,39 +16115,23 @@
     ]
   },
   "C001127": {
-    "bio": "Sheila Cherfilus-McCormick represents Florida's 20th congressional district, serving since 2022 after winning a special election. A health-care company executive, she was the first Haitian American elected to Congress from Florida.",
+    "bio": "Sheila Cherfilus-McCormick represented Florida's 20th congressional district from 2022, after winning a special election, until she resigned on April 21, 2026. A health-care company executive, she was the first Haitian American elected to Congress from Florida.",
     "bio_sources": [
-      "https://bioguide.congress.gov/search/bio/C001127"
+      "https://bioguide.congress.gov/search/bio/C001127",
+      "https://clerk.house.gov/Members/ViewVacancies"
     ],
     "experience": [
       {
         "role": "U.S. Representative, Florida",
         "from": "2022",
-        "to": "Present"
+        "to": "2026"
       },
       {
         "role": "Chief Executive Officer, health-care company",
         "from": "2010",
         "to": "2021"
       }
-    ]
-  },
-  "G000595": {
-    "bio": "Tony Gonzales represents Texas's 23rd congressional district, serving since 2021. A retired U.S. Navy cryptologic technician, he served 20 years in the military before entering Congress.",
-    "bio_sources": [
-      "https://bioguide.congress.gov/search/bio/G000595"
     ],
-    "experience": [
-      {
-        "role": "U.S. Representative, Texas",
-        "from": "2021",
-        "to": "Present"
-      },
-      {
-        "role": "U.S. Navy",
-        "from": "2000",
-        "to": "2019"
-      }
-    ]
+    "former_member": true
   }
 }

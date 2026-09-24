@@ -720,7 +720,7 @@
         "chamber": "State Assembly",
         "district": "2",
         "role": "Assembly Member",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsvc9FWYBOubY6iEQhH0tArBAvSS_ZMhoOGw&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://a02.asmdc.org/",
           "email": "assemblymember.rogers@assembly.ca.gov",

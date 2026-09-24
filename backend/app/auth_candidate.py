@@ -30,15 +30,17 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Optional
+from typing import Optional, Tuple
 
 from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy.orm import Session
 
+from app.auth import SESSION_SIGNING_SECRET
 from app.auth import hash_password, verify_password  # noqa: F401 — re-exported
 from app.db import get_db
 from app.models.pages import CandidateAccount
+from app.services.session_epoch import epoch_of, token_epoch
 
 
 logger = logging.getLogger(__name__)
@@ -46,18 +48,21 @@ logger = logging.getLogger(__name__)
 CANDIDATE_COOKIE_NAME = "cl_candidate"
 CANDIDATE_SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 14  # 14 days, parity with the other two
 
-_SECRET = os.getenv("SESSION_SECRET") or "civicview-dev-secret-DO-NOT-USE-IN-PROD"
+# Same secret as rep sessions, resolved once in app/auth.py (which also
+# refuses to boot production without it).
+_SECRET = SESSION_SIGNING_SECRET
 # Distinct salt — rep / citizen / candidate tokens can never be
 # confused with each other even if an attacker swaps cookie values.
 _serializer = URLSafeTimedSerializer(_SECRET, salt="cl-candidate-v1")
 
 
 # ── Token plumbing ────────────────────────────────────────────────────
-def issue_candidate_token(candidate_id: int) -> str:
-    return _serializer.dumps({"candidate_id": candidate_id})
+def issue_candidate_token(candidate_id: int, epoch: int = 0) -> str:
+    return _serializer.dumps({"candidate_id": candidate_id, "se": int(epoch or 0)})
 
 
-def read_candidate_token(token: str) -> Optional[int]:
+def read_candidate_payload(token: str) -> Optional[Tuple[int, int]]:
+    """(account id, session epoch) for a valid, unexpired token."""
     try:
         payload = _serializer.loads(token, max_age=CANDIDATE_SESSION_MAX_AGE_SECONDS)
     except (BadSignature, SignatureExpired):
@@ -65,10 +70,19 @@ def read_candidate_token(token: str) -> Optional[int]:
     if not isinstance(payload, dict):
         return None
     cid = payload.get("candidate_id")
-    return int(cid) if isinstance(cid, int) else None
+    if not isinstance(cid, int) or isinstance(cid, bool):
+        return None
+    return int(cid), token_epoch(payload)
 
 
-def set_candidate_cookie(response: Response, candidate_id: int) -> None:
+def read_candidate_token(token: str) -> Optional[int]:
+    """Account id for a valid token. Does not check the session epoch;
+    account resolution does."""
+    got = read_candidate_payload(token)
+    return got[0] if got else None
+
+
+def set_candidate_cookie(response: Response, candidate_id: int, epoch: int = 0) -> None:
     # See app/auth.py for the rationale on COOKIE_SAMESITE +
     # COOKIE_SECURE — env-var-driven so cross-origin auth works in
     # production while local dev keeps SameSite=Lax over plain http.
@@ -76,7 +90,7 @@ def set_candidate_cookie(response: Response, candidate_id: int) -> None:
     secure = os.getenv("COOKIE_SECURE", "false").lower() == "true"
     response.set_cookie(
         key=CANDIDATE_COOKIE_NAME,
-        value=issue_candidate_token(candidate_id),
+        value=issue_candidate_token(candidate_id, epoch),
         max_age=CANDIDATE_SESSION_MAX_AGE_SECONDS,
         httponly=True,
         samesite=samesite,
@@ -132,11 +146,15 @@ def _resolve_candidate_from_session(
     token = cl_candidate or x_candidate_token or _extract_bearer(authorization)
     if not token:
         return None
-    cid = read_candidate_token(token)
-    if cid is None:
+    got = read_candidate_payload(token)
+    if got is None:
         return None
+    cid, token_se = got
     candidate = db.get(CandidateAccount, cid)
     if candidate is None or not candidate.is_active:
+        return None
+    if epoch_of(candidate) != token_se:
+        # Signed out everywhere after this token was issued (audit S7).
         return None
     if candidate.suspended_at is not None:
         return None

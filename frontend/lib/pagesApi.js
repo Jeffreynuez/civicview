@@ -156,7 +156,10 @@ const _UNSAFE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 // the URL/query-string assembly.
 async function _doFetch(url, method, body, extraCsrfOverride) {
   const headers = {};
-  if (body) headers['Content-Type'] = 'application/json';
+  // FormData (multipart uploads) must NOT get a Content-Type header: the
+  // browser sets it with the multipart boundary.
+  const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
+  if (body && !isForm) headers['Content-Type'] = 'application/json';
   const repToken = getStoredRepToken();
   const citizenToken = getStoredCitizenToken();
   const candidateToken = getStoredCandidateToken();
@@ -173,8 +176,32 @@ async function _doFetch(url, method, body, extraCsrfOverride) {
     method,
     credentials: 'include',
     headers: Object.keys(headers).length ? headers : undefined,
-    body: body ? JSON.stringify(body) : undefined,
+    body: body ? (isForm ? body : JSON.stringify(body)) : undefined,
   });
+}
+
+// Send with every identity header, the CSRF token, and one automatic
+// retry after a csrf_token_mismatch. Returns the raw Response so callers
+// with their own response handling (2FA, image upload) get the same
+// auth + CSRF behavior as request(). Those two paths used to call
+// fetch() directly and never sent X-CSRF-Token, so the backend rejected
+// every 2FA enroll/verify/disable and every post image upload for a
+// signed-in user with 403 (audit finding B1, 2026-09-24).
+export async function sendWithAuth(path, { method = 'GET', body } = {}) {
+  const url = `${API_BASE_URL}${path}`;
+  let res = await _doFetch(url, method, body);
+  if (res.status === 403 && _UNSAFE_METHODS.has(method.toUpperCase())) {
+    let code = null;
+    try {
+      const peek = await res.clone().json();
+      code = peek?.code || null;
+    } catch { /* not JSON */ }
+    if (code === 'csrf_token_mismatch') {
+      await fetchCsrf();
+      res = await _doFetch(url, method, body);
+    }
+  }
+  return res;
 }
 
 async function request(path, { method = 'GET', body, query } = {}) {
@@ -659,20 +686,9 @@ export async function uploadPostImage(file) {
   try {
     const form = new FormData();
     form.append('file', file);
-    // Same Authorization fallback as request() — mobile browsers
-    // strip cross-site cookies, so we have to carry the rep token in
-    // the Bearer header for the image upload to authenticate too.
-    const headers = {};
-    const repToken = getStoredRepToken();
-    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
-    const res = await fetch(`${API_BASE_URL}/api/pages/images/upload`, {
-      method: 'POST',
-      credentials: 'include',
-      body: form,
-      headers: Object.keys(headers).length ? headers : undefined,
-      // NOTE: do NOT set Content-Type here — the browser will set the
-      // multipart boundary automatically.
-    });
+    // Same identity headers and CSRF token as every other write, and the
+    // candidate token too (candidates upload images on their pages).
+    const res = await sendWithAuth('/api/pages/images/upload', { method: 'POST', body: form });
     if (!res.ok) {
       let detail = '';
       try { detail = (await res.json()).detail; } catch { detail = res.statusText; }
@@ -1218,22 +1234,24 @@ export async function joinWaitlist({ email, clickedFrom, state, note } = {}) {
 // the right one based on which session is signed in. Mode is 'soft'
 // (archive 30 days) or 'hard' (immediate). Returns { mode,
 // purge_after } on success.
-export async function deleteRepAccount({ confirmEmail, mode } = {}) {
+// `password` is the account's current password. The backend requires it
+// for every account except demo citizens.
+export async function deleteRepAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
-export async function deleteCitizenAccount({ confirmEmail, mode } = {}) {
+export async function deleteCitizenAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/citizen-auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
-export async function deleteCandidateAccount({ confirmEmail, mode } = {}) {
+export async function deleteCandidateAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/candidate-auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
 

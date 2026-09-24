@@ -7,7 +7,10 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.middleware.body_limit import BodySizeLimitMiddleware
+from app.services.runtime_env import is_production as _is_production
 from app.middleware.csrf import CsrfMiddleware
+from app.middleware.force_2fa import Force2FAMiddleware
 from app.middleware.rate_limit import EngagementRateLimitMiddleware
 from contextlib import asynccontextmanager
 import logging
@@ -58,6 +61,11 @@ from app.seed import (
 )
 
 logging.basicConfig(level=logging.INFO)
+# Mask API keys, tokens and street addresses in log output, and stop
+# httpx from logging every outbound URL at INFO (audit S6).
+from app.services.log_redaction import install as _install_log_redaction  # noqa: E402
+
+_install_log_redaction()
 logger = logging.getLogger(__name__)
 
 
@@ -124,6 +132,19 @@ async def lifespan(app: FastAPI):
             logger.exception(
                 "Password-reset token purge failed — non-fatal, will retry next boot.",
             )
+        # Audit B3: rows keyed by (kind, id) whose account is gone, left
+        # by deletions made before hard delete removed them itself.
+        # Audit P5: login attempts (IP and user agent) kept 90 days.
+        try:
+            from app.services.account_deletion import purge_orphaned_account_rows
+            purge_orphaned_account_rows()
+        except Exception:
+            logger.exception("Orphaned account row sweep failed; will retry next boot.")
+        try:
+            from app.services.login_attempts import purge_old_login_attempts
+            purge_old_login_attempts()
+        except Exception:
+            logger.exception("Login attempt retention purge failed; will retry next boot.")
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
 
@@ -207,11 +228,19 @@ async def lifespan(app: FastAPI):
     logger.info("CivicView API shutting down...")
 
 
+# Interactive docs (/docs, /redoc, /openapi.json) are off in production
+# unless ENABLE_API_DOCS is set: they add nothing for users and hand a
+# map of every endpoint to anyone probing api.civicview.app (audit S14).
+_docs_on = (not _is_production()) or (os.getenv("ENABLE_API_DOCS") or "").strip().lower() in ("1", "true", "yes")
+
 app = FastAPI(
     title="CivicView API",
     description="API for US political representative data",
     version="1.0.0",
     lifespan=lifespan,
+    docs_url="/docs" if _docs_on else None,
+    redoc_url="/redoc" if _docs_on else None,
+    openapi_url="/openapi.json" if _docs_on else None,
 )
 
 # CORS allow-list. Defaults cover local development (localhost +
@@ -244,11 +273,18 @@ ALLOWED_ORIGINS = (
 # console) and the frontend's retry-on-csrf-mismatch path never fires.
 # Starlette's add_middleware inserts at the FRONT of the user middleware
 # list, so the LAST add wraps everything inside — hence CORS goes last.
+# Server-side FORCE_2FA_ENABLED gate (audit S8). Inert unless the env
+# var is set. Added before CsrfMiddleware so it runs after it.
+app.add_middleware(Force2FAMiddleware)
 app.add_middleware(CsrfMiddleware)
 # Engagement write rate limiting (Task #101). Added after CsrfMiddleware
 # → runs before it (Starlette executes later-added middleware first), so
 # scripted spray gets a cheap 429 before any CSRF/token work.
 app.add_middleware(EngagementRateLimitMiddleware)
+# Request body caps (audit S12): 1 MB, 6 MB for multipart uploads.
+# Added after the others so it runs first, but before CORS so a 413
+# still carries CORS headers.
+app.add_middleware(BodySizeLimitMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

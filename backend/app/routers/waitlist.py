@@ -8,10 +8,22 @@ Phase 1 stand-in for real citizen accounts. We capture email + a
 `clicked_from` tag so Phase 2 can segment the launch list by intent
 (comment CTA, subscribe button, claim-this-page modal, etc.).
 
-Intentionally very thin: no verification, no confirmation email, no
-dedupe across distinct `clicked_from` contexts — if the same email
-signs up twice from two different CTAs we keep both rows as a signal
-of repeated interest.
+Intentionally thin, with three guards added after the 2026-09-24
+audit (S9), because an anonymous form that makes CivicView send email
+to any address it is given puts the civicview.app sending reputation
+at risk:
+  • 5 signups per caller per hour (app/middleware/rate_limit.py).
+  • Brevo is told about an address once, the first time it appears
+    here, not once per CTA. With BREVO_DOI_TEMPLATE_ID set, Brevo
+    sends a double opt-in confirmation instead of adding the contact
+    outright.
+  • An existing row is never edited. A repeat submission with a
+    different note (claim-this-page requests carry one) is stored as
+    a new row, so nobody who knows an email address can overwrite the
+    claim details someone else sent.
+
+If the same email signs up from two different CTAs we still keep both
+rows as a signal of repeated interest.
 """
 from __future__ import annotations
 
@@ -41,24 +53,25 @@ def join_waitlist(
     state = (payload.state or "").strip().upper()[:2] or None
     note = (payload.note or "").strip()[:2000] or None
 
-    # Dedupe per (email, clicked_from) to avoid flooding the table if a
-    # frontend bug re-submits the same context. Different CTAs still
-    # create distinct rows as a signal. Claim-this-page carries a
-    # `note` with the requester's details; if they re-submit we update
-    # the existing row's note so the most recent context wins.
-    existing = (
+    # Dedupe per (email, clicked_from, note) so a frontend bug that
+    # re-submits the same context does not flood the table. Different
+    # CTAs, or the same CTA with new claim details, get a new row.
+    # Existing rows are never modified (see the module docstring).
+    same_context = (
         db.query(CitizenWaitlist)
         .filter(
             CitizenWaitlist.email == email,
             CitizenWaitlist.clicked_from == clicked_from,
         )
-        .first()
+        .all()
     )
-    if existing:
-        if note and note != existing.note:
-            existing.note = note
-            db.commit()
+    if same_context and (not note or any(r.note == note for r in same_context)):
         return WaitlistStatus(ok=True, already_subscribed=True)
+
+    first_time_for_email = (
+        db.query(CitizenWaitlist.id).filter(CitizenWaitlist.email == email).first()
+        is None
+    )
 
     db.add(CitizenWaitlist(
         email=email,
@@ -69,9 +82,12 @@ def join_waitlist(
     db.commit()
     # Best-effort mirror into Brevo (no-op unless BREVO_* env vars are set).
     # Runs after the response so a slow/failed Brevo call never blocks signup.
-    bg.add_task(sync_waitlist_contact, email, state, clicked_from)
+    # Only the first time this address shows up, so Brevo mail cannot be
+    # triggered again and again for one inbox through different CTAs.
+    if first_time_for_email:
+        bg.add_task(sync_waitlist_contact, email, state, clicked_from)
     logger.info(
         "Waitlist signup — email=%s clicked_from=%s state=%s note_len=%d",
         email, clicked_from, state, len(note or ""),
     )
-    return WaitlistStatus(ok=True, already_subscribed=False)
+    return WaitlistStatus(ok=True, already_subscribed=bool(same_context))

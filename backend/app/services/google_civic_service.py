@@ -51,6 +51,12 @@ def _api_key() -> str:
     return os.getenv("GOOGLE_CIVIC_API_KEY", "").strip()
 
 
+def _key_header(key: str) -> dict:
+    """Google APIs accept the key as X-Goog-Api-Key. Sent that way it
+    stays out of the request URL, which the HTTP client logs (audit S6)."""
+    return {"X-Goog-Api-Key": key}
+
+
 def is_enabled() -> bool:
     """True iff a key is configured. Routers can short-circuit with this."""
     return bool(_api_key())
@@ -119,7 +125,6 @@ async def fetch_voter_info(
         return cached
 
     params = {
-        "key": key,
         "address": address.strip(),
         "officialOnly": "true" if official_only else "false",
         # Include contests + polling + candidate info but skip state/admin-body
@@ -132,7 +137,7 @@ async def fetch_voter_info(
     url = f"{GOOGLE_CIVIC_BASE}/voterinfo"
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.get(url, params=params)
+            resp = await client.get(url, params=params, headers=_key_header(key))
     except Exception as e:
         logger.error("Google Civic voter-info request failed: %s", e)
         return {}
@@ -243,7 +248,7 @@ async def fetch_elections() -> list[dict]:
     url = f"{GOOGLE_CIVIC_BASE}/elections"
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.get(url, params={"key": key})
+            resp = await client.get(url, headers=_key_header(key))
     except Exception as e:
         logger.error("Google Civic elections request failed: %s", e)
         return []
@@ -286,7 +291,9 @@ async def fetch_divisions(address: str) -> dict:
     url = f"{GOOGLE_CIVIC_BASE}/divisionsByAddress"
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.get(url, params={"key": key, "address": address.strip()})
+            resp = await client.get(
+                url, params={"address": address.strip()}, headers=_key_header(key),
+            )
     except Exception as e:
         logger.error("Google Civic divisions request failed: %s", e)
         return {}

@@ -1315,7 +1315,7 @@
         "chamber": "State House",
         "district": "44",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkosbA1eo1rgLKVUU8dvxAKdj_-RAIjrqKtQ&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gophouse.org/member/RepSteveFrisbie/about",
           "email": "stevefrisbie@house.mi.gov",

@@ -120,7 +120,12 @@ def main() -> int:
         assert idB != idA
         reset_cookies()
         b1 = c.get("/api/tracked", headers=hdrs(tokB)).json()
-        assert b1 == {"bills": [], "officials": [], "elections": []}, (
+        # `featured` (the dashboard spotlight picks, added 2026-06-16) is part
+        # of the payload too; for a fresh account every pick must be empty.
+        assert b1 == {
+            "bills": [], "officials": [], "elections": [],
+            "featured": {"representative": None, "candidate": None, "bill": None, "election": None},
+        }, (
             f"BUG — B's payload should be empty, got: {b1}"
         )
         print(f"[B id={idB}] empty payload — no leak from A")
@@ -152,7 +157,10 @@ def main() -> int:
         # ── PHASE 5 ─────────────────────────────────────────────────
         reset_cookies()
         anon = c.get("/api/tracked").json()
-        assert anon == {"bills": [], "officials": [], "elections": []}
+        assert anon == {
+            "bills": [], "officials": [], "elections": [],
+            "featured": {"representative": None, "candidate": None, "bill": None, "election": None},
+        }, f"anon payload should be empty, got {anon}"
         print("[anon] empty payload")
 
         # ── PHASE 6 ─────────────────────────────────────────────────

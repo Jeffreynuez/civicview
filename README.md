@@ -22,8 +22,9 @@ browsing is free forever and commenting requires only identity verification.
 
 ## Status
 
-**Phase:** Pre-launch. Demo-account preview active at
-[civicview.app](https://civicview.app). The verified-account system + paid
+**Phase:** Live in demo mode. [civicview.app](https://civicview.app), the
+installable desktop PWA, Google Play and the Microsoft Store all serve the
+live site, with demo accounts. The verified-account system + paid
 subscription flow are scaffolded end-to-end on the backend and frontend
 but inert until external accounts (ID.me, Stripe live mode) come online —
 gated on the Indiegogo campaign launch. See the **Launch sequence** section
@@ -44,7 +45,7 @@ Claude AI suite**:
   legal-doc drafting (Terms of Service, Privacy Policy, Benefit Corp
   filing language), end-to-end fundraising prep, and most of this README.
 - **Claude Code** — backend (FastAPI + SQLAlchemy + Pydantic), frontend
-  (Next.js 14 + React 18), service abstractions (Postmark, Stripe, ID.me,
+  (Next.js 15 + React 18), service abstractions (Postmark, Stripe, ID.me,
   Cloudflare R2), database auto-migrations, 2FA implementation, and
   cross-cutting refactors.
 - **Claude Design** — design system tokens, the interactive U.S. map +
@@ -152,7 +153,7 @@ flow.
 
 ### Frontend
 
-- **Next.js 14 App Router** + **React 18**
+- **Next.js 15 App Router** + **React 18**
 - Vanilla CSS + design-system tokens (no Tailwind compile step
   required — the design system is pre-compiled tokens)
 - PWA-ready (manifest + service worker)
@@ -192,7 +193,7 @@ backend boots cleanly in any environment.
 | Service | Module | Production backend | Dev fallback | Required env vars |
 | --- | --- | --- | --- | --- |
 | Image storage | `services/image_storage.py` | `R2Storage` | `LocalDiskStorage` | `R2_ACCOUNT_ID` + `R2_ACCESS_KEY_ID` + `R2_SECRET_ACCESS_KEY` + `R2_BUCKET_NAME` |
-| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (logs to stdout) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
+| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (sends nothing; logs the recipient only) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
 | Billing | `services/stripe_service.py` | `StripeBillingService` | `DevBillingService` (returns about:blank) | `STRIPE_API_KEY` + `STRIPE_PRICE_ID` + `STRIPE_WEBHOOK_SECRET` |
 | Identity verification | `services/idme_service.py` | `IdMeService` | `DevIdMeService` (fail-closed) | `IDME_CLIENT_ID` + `IDME_CLIENT_SECRET` + `IDME_REDIRECT_URI` |
 
@@ -438,7 +439,8 @@ Thirteen commits on `Updates_and_fixes`, all pushed. Tip `718f5ab`.
   brand masters; minimal service worker (no fetch handler — future Web
   Push landing pad); registration skips the native shell; apple-touch
   icon fixed (iOS ignores SVG).
-- **Microsoft Store: SUBMITTED, in certification (2026-07-25).** Partner
+- **Microsoft Store: SUBMITTED, in certification (2026-07-25); LIVE since
+  mid-September 2026.** Partner
   Center company account CIVICVIEW, INC. verified same-day via DUNS
   146473171 (registration now free); name reserved; PWABuilder
   `.msixbundle` v1.0.1.0 uploaded (runFullTrust justified as standard
@@ -755,8 +757,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
   Amendment filed (Task #90 done) — campaign is ready to publish.
 - App distribution: **Google Play LIVE in Production** (v1.1.0);
   **desktop PWA live** (installable from any Chromium browser);
-  **Microsoft Store submission in certification** (submitted 2026-07-25,
-  auto-publishes on pass — post-cert checklist in
+  **Microsoft Store LIVE** since mid-September 2026 (post-cert checklist in
   `docs/microsoft_store_listing.md` §6).
 
 ---
@@ -796,14 +797,14 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
 
 | 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. |
-| 108 | Microsoft Store listing (Windows desktop) | **in certification** (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA — web deploys need NO store resubmission. Auto-publishes on pass (24–72h typical). NEXT SESSION: check status; on pass run runbook §6 checklist (clean-machine install test, Store badge next to Play badge, README/HelpBuild "Already built" row); on fail bring the certification report back. Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
+| 108 | Microsoft Store listing (Windows desktop) | **LIVE** since mid-September 2026 (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA; web deploys need NO store resubmission. Post-cert checklist in runbook §6 (clean-machine install test, Store badge next to the Play badge, README/HelpBuild "Already built" row). Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
 | 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
 
-| 110 | Rebuild FL U.S. House rosters against the 2026 map | **pending — time-critical (Nov 3 general)** | Florida redistricted mid-decade (~May 2026); the 28 House rosters in `fl/elections.json` were built on the OLD map. 15 of 56 actual nominees have **no candidate record at all**, and incumbents changed district numbers (Wasserman Schultz 25→20, Frankel 22→23, Moskowitz 23→25). FL-10 has no general election (Frost unopposed). This is a roster REBUILD, not a results patch — patching winners onto old-map rosters trades one wrong ballot for another. 23 races currently show the `general_roster_unresolved` guard, which is honest but is not a ballot. Nominee research for all 28 districts + Senate was verified against the FDOE election-night file on 2026-08-21 (in Pinecone). |
-| 111 | Certify FL primary results + resolve FL-11 recount | pending | All recorded results are labeled `certified: false` / "Unofficial returns" — county canvassing boards have certified since, so those labels are stale. FL-11 (R) was in an automatic machine recount (Strada +403, 0.4958%) and deliberately has **no nominee recorded**; resolve and record it. |
+| 110 | Rebuild FL U.S. House rosters against the 2026 map | done (2026-09-24) | All 28 FL U.S. House races rebuilt on the 2026 map from the Division of Elections qualified-candidate list, with `roster_status: verified_nominees`, write-ins listed separately and incumbents only where they sit in the same district. Commit "fix(fl-data): rebuild Florida 2026 ballot from the official candidate list and certified results" in the 2026-09-24 audit series. |
+| 111 | Certify FL primary results + resolve FL-11 recount | done (2026-09-24) | Certified primary results recorded with a source link and shown as "Official results"; FL-11 recount outcome recorded (Joe Strada advances). Same commit as #110. |
 | 112 | Demo-sunset increments 5–7 | pending (5 blocked) | 5 — in-place ID.me upgrade path (**blocked on the RP contract**); 6 — fallback credential-transfer UI with audit log; 7 — sunset machinery (`DEMO_SUNSET_AT` countdown banner, T0/T-14/T-7/T-1 email cadence, soft-delete job, data export). Increments 1–4 are done and inert until `IDME_ENABLED` flips. |
 | 113 | Re-justify the paid tier (poll creation only) | pending (business decision) | Commenting moved from the subscriber tier to the verified tier (`64ff2ab`), so the $5/mo subscription now unlocks **poll creation only**. `HelpBuildThisView.js:217` revenue projection (3% conversion, $1.8K Y1) and `docs/indiegogo_draft.md:240-241` still lean on the old engagement bundle. Flagged, deliberately not silently edited. |
-| 114 | Privacy policy + terms — contact_email & deletion schedule | pending (attorney) | `CitizenAccount.contact_email` and the demo-account deletion schedule must appear in the privacy policy and terms **before any sunset is announced to users**. Fold into the existing `docs/LEGAL-REVIEW-ROADMAP.md` pass rather than a separate review. |
+| 114 | Privacy policy + terms: contact_email & deletion schedule | pending (attorney) | The 2026-09-24 audit rewrote the privacy policy and terms to match the code (contact email, poll answers, recipients, deletion and retention, Florida law and Orange County venue, arbitration removed pending counsel). Attorney review still pending before any demo sunset is announced. |
 | 115 | Automated FL Division of Elections finance ingest | pending | Today's state fundraising is curated with provenance, not automated. Path is confirmed: `TreSel.exe?account=N` returns per-period totals for candidates **and** committees, and the qualified-candidate list downloads as TSV keyed by a stable `AcctNum`. Caveat that shapes the design: the candidate↔committee mapping **cannot** be automated (the state's Affiliates field is empty for candidate-aligned PCs), so that join stays a human-signed-off table, not a scraper. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.

@@ -181,11 +181,12 @@ class GeocodeService:
             async with httpx.AsyncClient(timeout=15.0, headers=headers) as client:
                 resp = await client.get(NOMINATIM_URL, params=params)
                 if resp.status_code != 200:
-                    logger.warning("Nominatim returned %s for %r", resp.status_code, query)
+                    # The typed address is personal data; it stays out of the logs.
+                    logger.warning("Nominatim returned %s for an address lookup", resp.status_code)
                     return None
                 data = resp.json()
                 if not isinstance(data, list) or not data:
-                    logger.info("No Nominatim match for: %s", query)
+                    logger.info("No Nominatim match for an address lookup")
                     return None
                 hit = data[0]
                 try:
@@ -222,7 +223,7 @@ class GeocodeService:
                 data = resp.json()
                 matches = data.get("result", {}).get("addressMatches", [])
                 if not matches:
-                    logger.info(f"No address match found for: {address}")
+                    logger.info("No Census geocoder match for an address lookup")
                     return None
 
                 return matches[0]  # Best match

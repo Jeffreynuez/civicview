@@ -41,7 +41,9 @@ Rules enforced:
     a real entitlement check.
   • Page must be unclaimed at create time (rep account does not exist
     for that official_id). Once claimed, any in-flight create attempts
-    400 with a clear error and the polls already on the page archive.
+    400 with a clear error, and the polls already on the page close to
+    new votes (archived, reason 'rep_claimed') but stay public on the
+    page for every viewer.
   • 1 active poll per (citizen, page). Caller closes (or it auto-
     archives) before they can post another there.
   • PER_PAGE_ACTIVE_POLL_CAP active polls per page total. New posts
@@ -99,6 +101,7 @@ from app.schemas.pages import (
 )
 from app.services import poll_demographics
 from app.services.citizen_polls_service import (
+    HIDDEN_ARCHIVE_REASONS,
     archive_poll,
     citizen_has_active_poll_on_page,
     list_citizen_polls_for_citizen,
@@ -236,13 +239,24 @@ def list_citizen_polls_on_page(
     active_scope = scope if scope in allowed else "country"
 
     active_polls = list_citizen_polls_for_page(db, official_id, active=True)
-    archived_polls = (
-        list_citizen_polls_for_page(db, official_id, active=False)
-        if is_owner
-        else []
-    )
+    # Polls citizens ran before the official claimed the page close to
+    # new votes at claim time and stay public, results and all (audit
+    # P4: criticism must not vanish because its subject joined). Everyone
+    # sees them. The owner's "Hide section" only hides them from the
+    # owner's own view; the owner additionally sees any other archived
+    # polls on the page, as before.
+    all_archived = list_citizen_polls_for_page(db, official_id, active=False)
     if is_owner:
-        archived_polls = [p for p in archived_polls if p.dismissed_by_owner_at is None]
+        # Content taken down by moderation is hidden from the page owner
+        # too; only its author sees it (their dashboard).
+        archived_polls = [
+            p for p in all_archived
+            if p.dismissed_by_owner_at is None and p.archived_reason not in HIDDEN_ARCHIVE_REASONS
+        ]
+    elif owner is not None:
+        archived_polls = [p for p in all_archived if p.archived_reason == "rep_claimed"]
+    else:
+        archived_polls = []
 
     return CitizenPollListResponse(
         official_id=official_id,
@@ -591,7 +605,7 @@ def vote_on_citizen_poll(
     # Capture optional self-reported demographics (verified-citizen votes
     # only; mirrors the geography-scope gate).
     db.flush()
-    if citizen is not None:
+    if citizen is not None and poll_demographics.can_record_for(citizen):
         _vote_row = (
             db.query(PollVote)
             .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)
@@ -1145,9 +1159,9 @@ def dismiss_pre_claim_archive(
     me_rep: RepAccount = Depends(get_optional_rep),
 ):
     """A rep who's just claimed a previously-unclaimed page can hide
-    the 'Pre-claim discussion' section from their own page view. The
-    polls themselves remain in citizens' dashboards — this only
-    affects what the rep sees on their own page."""
+    the 'Pre-claim discussion' section from their own page view. It
+    changes nothing for anyone else: the polls stay public on the page
+    and in their authors' dashboards."""
     if me_rep is None:
         raise HTTPException(status_code=401, detail="Sign in.")
     if me_rep.official_id != official_id:
@@ -1334,6 +1348,12 @@ def react_to_citizen_poll(
     # is the public grassroots feed.
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    # Verified-tier action, like every other reaction route (audit S14).
+    # No-op until IDME_ENABLED; reps and candidates are verified by claim.
+    require_verified(
+        acting_citizen if acting_rep is None and acting_candidate is None else None,
+        action="react to polls",
+    )
 
     # Dedupe lookup keyed on the acting identity — matches the same
     # (poll, identity) unique indexes defined on PollReaction.
@@ -1509,6 +1529,12 @@ def react_to_poll_comment(
     )
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    # Verified-tier action, like every other reaction route (audit S14).
+    # No-op until IDME_ENABLED; reps and candidates are verified by claim.
+    require_verified(
+        acting_citizen if acting_rep is None and acting_candidate is None else None,
+        action="react to comments",
+    )
 
     q = db.query(PollCommentReaction).filter(
         PollCommentReaction.poll_comment_id == comment.id

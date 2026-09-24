@@ -145,12 +145,16 @@ async def fetch_state_federal_candidates(
     page = 1
     while page <= 6:
         params = {
-            "api_key": _key(), "state": state.upper(), "cycle": cycle,
+            "state": state.upper(), "cycle": cycle,
             "office": office, "per_page": 100, "page": page, "sort": "-receipts",
         }
         try:
             async with httpx.AsyncClient(timeout=25.0) as client:
-                resp = await client.get(f"{OPENFEC_BASE}/candidates/totals/", params=params)
+                # Key in the X-Api-Key header, not the URL (audit S6).
+                resp = await client.get(
+                    f"{OPENFEC_BASE}/candidates/totals/", params=params,
+                    headers={"X-Api-Key": _key()},
+                )
             if resp.status_code != 200:
                 logger.warning("OpenFEC totals %s for %s/%s", resp.status_code, state, office)
                 break

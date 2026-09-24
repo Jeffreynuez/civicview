@@ -22,8 +22,11 @@ Any elected official, declared candidate, or organization may use CivicView on
 the same terms as any other. Eligibility does not depend on party, ideology,
 platform, endorsements, or who else is already here.
 
-There is no application we approve by judgment. There is identity verification,
-which confirms that you are who you say you are, and nothing else.
+Accounts for officials and candidates are opened after a manual identity check
+by CivicView staff (today, the founder). The check confirms two things: that you
+are who you say you are, and that you hold or are running for the office you
+name. It does not consider party, positions, or anything you have said, and an
+account is not refused for any other reason.
 
 ## 2. No paid placement
 
@@ -31,8 +34,8 @@ No one can pay CivicView for visibility, ranking, priority in search, placement
 on the home page, or any form of promotional treatment. No advertising is sold
 against political content.
 
-The paid tier on CivicView buys the ability to create polls. It does not buy
-audience, reach, or position.
+CivicView plans a paid tier for citizens. It will buy the ability to create
+polls. It will not buy audience, reach, or position.
 
 ## 3. The same rules for every office
 
@@ -44,11 +47,24 @@ the gap.
 
 ## 4. Sources are published
 
-Every data source CivicView draws on is named publicly: Congress.gov, GovTrack,
-the @unitedstates project, the House Clerk, the Senate, the Federal Register,
-CourtListener, OpenFEC, Open States, Google Civic Information, the U.S. Census
-Geocoder, and OpenStreetMap. Photos come from the @unitedstates project and
-Wikimedia Commons. We use no other sources.
+Every source CivicView draws on is named here.
+
+Government sources: Congress.gov; GovTrack; the @unitedstates project; the House
+Clerk and the U.S. Senate; the Federal Register; CourtListener; the Federal
+Election Commission; Open States; the Florida Department of State and Division
+of Elections; Google Civic Information and the U.S. Census Geocoder; and the
+official websites of the offices themselves (White House, Congress, state, court
+and city websites) for names, contact details and biographies.
+
+Other sources, each linked where it appears: photos from the @unitedstates
+project, Wikimedia Commons, official websites, and image links published by Open
+States, some hosted by Ballotpedia; some candidate details from campaign
+websites, news reports, Ballotpedia and Wikipedia; maps and address lookup from
+OpenStreetMap, CARTO and U.S. Census boundary data. Plain-English summaries and
+state legislators' focus areas are written by Claude (Anthropic) and labeled
+AI-generated.
+
+We use no other sources.
 
 These are public data providers whose APIs we call. They are not partners,
 sponsors, or affiliates, and their inclusion implies nothing about their view of
@@ -67,8 +83,11 @@ claim you should not accept.
 
 ## 6. What CivicView does not do
 
-- We do not score, rank, segment, or target people by political leaning,
-  inferred or declared.
+- We do not infer anyone's political leaning, and we do not score, rank,
+  segment, or target people by it. Some polls carry optional questions the
+  poll's creator chose, such as party affiliation. Answers are self-reported and
+  optional, counted only from verified accounts, and published only as totals
+  for groups of at least 10 people, never tied to a person.
 - We do not sell placement, and we do not sell the ability to reach a specific
   group of users.
 - We do not remove lawful content because a person or organization with
@@ -78,13 +97,24 @@ claim you should not accept.
 
 ## 7. How content comes down
 
-Content on CivicView is removed only through a defined path: a report filed
-against it, reviewed under published rules, or automated detection of a genuine
-threat. There is no administrator button that quietly removes something because
-it was inconvenient.
+Content on CivicView comes down only in these ways:
 
-This constraint is deliberate and it cuts against the operator's own
-convenience, which is the point of writing it down.
+- **Reports.** Signed-in citizens and officials can report a post, poll or
+  comment. A person reviews reports under the published editorial standards
+  and decides whether the content stays or is hidden. If enough reports from verified accounts
+  arrive (five by default), the content is hidden automatically until that
+  review happens. Reports from demo accounts go to review but never count
+  toward that automatic step. The author can appeal a decision.
+- **Account suspension.** An administrator can suspend an account that breaks
+  the Terms of Service, for example for threats, impersonation or spam, and can
+  hide that account's content along with it. This is the one path that does not
+  start with a report on a specific item.
+- **Threat screening, in testing.** An automated check for genuine threats is
+  being tested. Today it only records its assessments. It removes nothing.
+
+There is no administrator button that removes a single post, poll or comment
+without a report. This constraint is deliberate and it cuts against the
+operator's own convenience, which is the point of writing it down.
 
 ## 8. Independence
 
@@ -117,32 +147,28 @@ Last updated: [DATE ON PUBLICATION]
 
 ## Notes for Jeffrey, remove before publishing
 
-**Verify before this goes live:**
+Rewritten 2026-09-24 after the code audit, so every section describes what the
+code does today. What changed and what still needs you:
 
-1. **Section 8, the funding sentence.** I wrote that CivicView has accepted no
-   money from any party, campaign, PAC, or advocacy organization. I believe that
-   is true because you have self-funded, but you are the only person who can
-   confirm it. If any of it is not exactly true, cut the sentence rather than
-   soften it. A funding claim that turns out to have an exception is worse than
-   no funding claim.
-
-2. **Section 2, the paid tier sentence.** This states the post July 28 reality,
-   poll creation only. It will contradict the Microsoft Store listing until that
-   listing is fixed, and it will contradict `HelpBuildThisView.js:217` and
-   `docs/indiegogo_draft.md` until README task #113 lands. Publishing this page
-   before those are fixed creates a visible inconsistency on exactly the topic
-   where you cannot afford one. Fix them first, or publish this page and treat
-   it as the forcing function.
-
-3. **Section 7.** This is your own rule, quoted back: reports plus threat
-   detection are the only removal paths. Before publishing, confirm the
-   automated threat detection is described accurately. If it is not built yet,
-   change "automated detection of a genuine threat" to something that describes
-   what exists today. Do not describe a planned system in the present tense.
-
-4. **Section 1.** "There is no application we approve by judgment" is a strong
-   claim. Confirm there is no manual approval step anywhere in the rep or
-   candidate onboarding flow. If there is one, describe it rather than deny it.
+1. **Section 1** now describes the manual identity check instead of denying
+   one. Candidates are approved by an admin after verification and reps are
+   onboarded by email; the Terms already say "manual verification by CivicView
+   staff".
+2. **Section 2** describes the paid tier as planned, since it is not live yet
+   (demo citizens are granted the subscriber features).
+3. **Section 4** now carries the same source list as the corrected store
+   listings. Keep the three in sync.
+4. **Section 6** discloses the optional poll questions (party, and on some
+   polls race, religion and income) instead of implying none are collected.
+5. **Section 7** describes the three paths that exist. Automatic hiding now
+   counts only reports from verified accounts and reps, the admin cannot hide a
+   single item without a report, suspension with content hiding is disclosed,
+   and threat screening is described as in testing. There is no admin audit
+   table yet and the suspension reason is optional, so the page makes no claim
+   about records. Requiring a reason and adding an audit table would let it
+   promise one; that is a follow-up, not in this batch.
+6. **Section 8, the funding sentence** still needs your confirmation. If any of
+   it is not exactly true, cut the sentence rather than soften it.
 
 **One thing this page cannot do.** It is worth being clear about the limit.
 A published neutrality policy is the right thing to have and it will help you

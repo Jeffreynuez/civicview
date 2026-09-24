@@ -67,6 +67,7 @@ export default function AccountDeletePage() {
   }, [me, candidate, citizen]);
 
   const [confirmEmail, setConfirmEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [mode, setMode] = useState('soft');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
@@ -75,13 +76,19 @@ export default function AccountDeletePage() {
 
   const emailMatches = !!target?.account?.email
     && confirmEmail.trim().toLowerCase() === target.account.email.toLowerCase();
-  const canDelete = emailMatches && !busy && !!target;
+  // Demo citizen accounts were given a generated password once at
+  // signup, so the backend does not ask them for it. Everyone else
+  // confirms with their current password.
+  const isDemoAccount = /@(demo-citizens\.civicview\.app|civiclens-demo\.com)$/i
+    .test(target?.account?.email || '');
+  const needsPassword = !!target && !isDemoAccount;
+  const canDelete = emailMatches && (!needsPassword || password.length > 0) && !busy && !!target;
 
   const handleDelete = useCallback(async () => {
     if (!canDelete) return;
     setBusy(true); setError(null);
     try {
-      const { data, error: err } = await target.deleteFn({ confirmEmail, mode });
+      const { data, error: err } = await target.deleteFn({ confirmEmail, mode, password });
       if (err) {
         setError(err);
         setBusy(false);
@@ -103,7 +110,7 @@ export default function AccountDeletePage() {
       setError(e?.message || 'Delete failed — please try again.');
       setBusy(false);
     }
-  }, [canDelete, target, confirmEmail, mode, router]);
+  }, [canDelete, target, confirmEmail, mode, password, router]);
 
   if (!target) {
     return (
@@ -331,6 +338,33 @@ export default function AccountDeletePage() {
                 boxSizing: 'border-box',
               }}
             />
+            {needsPassword && (
+              <>
+                <label htmlFor="confirm-password" style={{ display: 'block', fontSize: '0.9rem', color: 'var(--cl-text)', margin: '14px 0 6px' }}>
+                  Enter your current password.
+                </label>
+                <input
+                  id="confirm-password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); setError(null); }}
+                  disabled={busy}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 8,
+                    border: '1px solid var(--cl-border)',
+                    fontSize: '0.95rem',
+                    fontFamily: 'var(--cl-font-sans)',
+                    background: 'white',
+                    color: 'var(--cl-text)',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </>
+            )}
             {error && (
               <div style={{ marginTop: 10, fontSize: '0.85rem', color: '#a3261c' }}>
                 {error}

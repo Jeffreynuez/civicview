@@ -26,12 +26,13 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
   useEffect(() => {
     let alive = true;
     (async () => {
+      let qs = [];
       try {
         const r = await fetch(`${API_BASE}/api/polls/${pollId}/demographics`);
         const j = r.ok ? await r.json() : { questions: [] };
-        if (alive) setQuestions(j.questions || []);
+        qs = j.questions || [];
       } catch {
-        if (alive) setQuestions([]);
+        qs = [];
       }
       // Prefill: start from the citizen's saved reusable profile (Standard
       // questions, opt-in), then overlay answers they already gave on THIS poll
@@ -44,11 +45,17 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
           if (alive) setRemember(true); // already opted in — keep it fresh
         }
       } catch { /* profile is optional */ }
+      let canAnswer = true;
       try {
         const { data } = await fetchMyPollDemographics(pollId);
         if (data && data.answers) prefill = { ...prefill, ...data.answers };
+        // The server keeps answers only from verified people. Stay hidden
+        // rather than ask a demo account for answers that would be dropped.
+        if (data && data.can_answer === false) canAnswer = false;
       } catch { /* best-effort */ }
-      if (alive && Object.keys(prefill).length) setAnswers(prefill);
+      if (!alive) return;
+      setQuestions(canAnswer ? qs : []);
+      if (canAnswer && Object.keys(prefill).length) setAnswers(prefill);
     })();
     return () => { alive = false; };
   }, [pollId]);

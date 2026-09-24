@@ -11,9 +11,10 @@
  *     for signed-in citizens, comments, report. Anonymous viewers see
  *     the feed but get a "Sign in to vote / comment / report" gate
  *     when they try to engage.
- *   • Claimed pages: the rep's "Pre-claim discussion (N)" archive
- *     section (default visible, dismissible). The active feed is
- *     hidden because the page is now the rep's own.
+ *   • Claimed pages: the polls citizens ran before the claim, closed
+ *     to new votes and shown to every viewer with their results
+ *     (audit P4). The owner can hide the section from their own view
+ *     only. No new citizen polls can start on a claimed page.
  *
  * One self-contained component owns:
  *   - data fetch (fetchCitizenPolls)
@@ -203,8 +204,8 @@ export default function CitizenPollsSection({
   const canCreate = isCitizen && !pageClaimed && !data?.caller_has_active_poll
     && (data?.active_count || 0) < (data?.active_cap || 20);
 
-  // Suppress the whole section on a claimed page when the rep has
-  // dismissed the archive (archived list is empty post-dismiss).
+  // Suppress the whole section on a claimed page with no pre-claim
+  // polls (or, for the owner, after they hid it from their own view).
   if (pageClaimed && archived.length === 0) return null;
 
   // Scope chip row — only render when the office supports more than
@@ -312,10 +313,10 @@ export default function CitizenPollsSection({
         />
       ))}
 
-      {/* Owner's archived "Pre-claim discussion" section. We only fetch
-          this when isOwner is true (the backend gates it) so we just
-          render whatever came down. */}
-      {pageClaimed && isOwner && archived.length > 0 && (
+      {/* Polls from before the claim. Every viewer gets them (closed to
+          new votes, results shown); the owner's list is the same minus
+          anything they hid from their own view. */}
+      {pageClaimed && archived.length > 0 && (
         <>
           <div style={{ marginTop: 18, marginBottom: 10 }}>
             <div
@@ -325,10 +326,12 @@ export default function CitizenPollsSection({
                 color: 'var(--cl-text-light)',
               }}
             >
-              Pre-claim discussion · {archived.length} archived poll{archived.length === 1 ? '' : 's'}
+              Before this page was claimed · {archived.length} poll{archived.length === 1 ? '' : 's'}
             </div>
             <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: 4 }}>
-              These polls were started by citizens before you claimed this page. They're read-only here, but the citizens who created them keep them in their dashboards.
+              {isOwner
+                ? 'Citizens started these polls before you claimed this page. They are closed to new votes and stay public for everyone. Hiding this section only changes your own view.'
+                : `Citizens started these polls before ${ownerName} claimed this page. They are closed to new votes, and their results stay public.`}
             </div>
           </div>
           {archived.map((poll) => (
@@ -478,7 +481,7 @@ function SectionBanner({ ownerName, pageClaimed, archivedCount, isOwner, onDismi
             Citizen-led discussion archive
           </div>
           <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', marginTop: 4 }}>
-            Welcome aboard. Citizens started {archivedCount} poll{archivedCount === 1 ? '' : 's'} on this page before you claimed it. Skim what they wanted to talk about, or hide this section.
+            Welcome aboard. Citizens started {archivedCount} poll{archivedCount === 1 ? '' : 's'} on this page before you claimed it. They stay public for visitors. You can hide this section from your own view.
           </div>
         </div>
         <button
@@ -496,8 +499,22 @@ function SectionBanner({ ownerName, pageClaimed, archivedCount, isOwner, onDismi
             whiteSpace: 'nowrap',
           }}
         >
-          Hide section
+          Hide from my view
         </button>
+      </div>
+    );
+  }
+
+  // Claimed page, any viewer other than the owner.
+  if (pageClaimed) {
+    return (
+      <div>
+        <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--cl-text)' }}>
+          Citizen-led polls
+        </div>
+        <div style={{ fontSize: '0.85rem', color: 'var(--cl-text-light)', marginTop: 4, lineHeight: 1.4 }}>
+          Before {ownerName} joined CivicView, citizens ran {archivedCount === 1 ? 'this poll' : 'these polls'} on the page.
+        </div>
       </div>
     );
   }
@@ -527,7 +544,7 @@ function SectionBanner({ ownerName, pageClaimed, archivedCount, isOwner, onDismi
         While {ownerName} hasn't joined CivicView yet…
       </div>
       <div style={{ fontSize: '0.85rem', color: 'var(--cl-text-light)', marginTop: 4, lineHeight: 1.4 }}>
-        Verified citizens can join the conversation here, and subscribers can start a poll. The official's response — and any polls they post — will replace this section if they claim the page.
+        Verified citizens can join the conversation here, and subscribers can start a poll. If the official claims the page, these polls close to new votes and stay public with their results.
       </div>
     </div>
   );
@@ -908,7 +925,7 @@ function CitizenAvatar({ name }) {
 
 function labelForArchiveReason(r) {
   switch (r) {
-    case 'rep_claimed':    return 'Rep claimed page';
+    case 'rep_claimed':    return 'Closed when the page was claimed';
     case 'citizen_closed': return 'Author closed';
     case 'superseded':     return 'Auto-archived';
     case 'reported':       return 'Removed';
@@ -1085,7 +1102,7 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
     <ModalShell title="Start a poll" onClose={onClose} wide>
       <form onSubmit={submit}>
         <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', marginBottom: 12, lineHeight: 1.4 }}>
-          You're starting a citizen-led poll on this page. The official hasn't joined yet — your poll will be archived if they claim the page later, but stays in your dashboard.
+          You&rsquo;re starting a citizen-led poll on this page. The official hasn&rsquo;t joined yet. If they claim the page later, your poll closes to new votes and stays public on the page with its results.
         </div>
 
         <label style={fieldLabelStyle}>Question</label>

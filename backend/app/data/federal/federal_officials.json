@@ -1,13 +1,15 @@
 {
   "country": "US",
   "country_name": "United States of America",
-  "_source_as_of": "2025-05",
-  "_note": "Snapshot of federal officeholders as of the start of the 119th Congress and the second Trump administration. Update this file when cabinet secretaries, Supreme Court justices, or congressional leadership change. Historical predecessors are retained in 'predecessor' fields for context.",
+  "_source_as_of": "2026-09-24",
+  "_note": "Federal officeholders, checked against whitehouse.gov, senate.gov, house.gov and clerk.house.gov on 2026-09-24. Update this file when cabinet secretaries, Supreme Court justices, or congressional leadership change. Historical predecessors are retained in 'predecessor' fields for context.",
   "_sources": [
-    "https://www.whitehouse.gov/administration/",
-    "https://www.supremecourt.gov/about/biographies.aspx",
+    "https://clerk.house.gov/Members/ViewVacancies",
+    "https://www.house.gov/leadership",
     "https://www.senate.gov/senators/leadership.htm",
-    "https://www.house.gov/leadership"
+    "https://www.supremecourt.gov/about/biographies.aspx",
+    "https://www.whitehouse.gov/administration/",
+    "https://www.whitehouse.gov/administration/cabinet/"
   ],
   "executive": {
     "president": {
@@ -389,16 +391,16 @@
       },
       {
         "id": "us-ag",
-        "name": "Pam Bondi",
+        "name": "Todd Blanche",
         "role": "Attorney General",
         "department": "Department of Justice",
         "party": "R",
-        "serving_since": "2025-02-05",
-        "confirmed_on": "2025-02-04",
+        "serving_since": "2026-08-10",
+        "confirmed_on": "2026-08-08",
         "nominated_by": "Donald J. Trump",
         "selection_method": "appointed",
-        "selection_detail": "Former Attorney General of Florida (2011–2019). Confirmed by the Senate 54–46 on Feb 4, 2025 after Trump's initial nominee, Matt Gaetz, withdrew.",
-        "predecessor": "Merrick Garland",
+        "selection_detail": "Confirmed by the Senate 50 to 49 on Aug 8, 2026, and sworn in Aug 10. Served as acting attorney general from April 2, 2026, after Pam Bondi was removed.",
+        "predecessor": "Pam Bondi",
         "website": "https://www.justice.gov/ag",
         "contact": {
           "dc_phone": "(202) 514-2000",
@@ -412,48 +414,30 @@
             "sources": [
               "https://www.justice.gov/ag"
             ]
-          },
-          {
-            "name": "Violent Crime & Drugs",
-            "stance": "Focus on violent crime and drug trafficking, including fentanyl; former Florida Attorney General.",
-            "sources": [
-              "https://www.justice.gov/ag"
-            ]
-          },
-          {
-            "name": "Immigration Enforcement",
-            "stance": "Oversees immigration-related federal prosecutions.",
-            "sources": [
-              "https://www.justice.gov/ag"
-            ]
           }
         ],
         "experience": [
           {
             "role": "Attorney General",
-            "from": "2025",
+            "from": "2026",
             "to": "Present"
           },
           {
-            "role": "Attorney General of Florida",
-            "from": "2011",
-            "to": "2019"
+            "role": "Acting Attorney General",
+            "from": "2026",
+            "to": "2026"
           },
           {
-            "role": "Appellate Prosecutor, Florida",
-            "from": "2003",
-            "to": "2011"
-          },
-          {
-            "role": "Private Practice Attorney",
-            "from": "1994",
-            "to": "2003"
+            "role": "Deputy Attorney General",
+            "from": "2025",
+            "to": "2026"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg",
-        "bio": "Pam Bondi is the U.S. attorney general, confirmed in February 2025. She served as the attorney general of Florida from 2011 to 2019 and earlier worked for nearly two decades as a prosecutor in the Tampa, Florida, area.",
+        "photo_url": null,
+        "bio": "Todd Blanche is the U.S. attorney general, sworn in on Aug 10, 2026. He was the deputy attorney general and served as acting attorney general from April 2, 2026.",
         "bio_sources": [
-          "https://www.justice.gov/ag"
+          "https://www.justice.gov/ag/staff-profile/meet-attorney-general",
+          "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00230.htm"
         ]
       },
       {
@@ -666,16 +650,16 @@
       },
       {
         "id": "us-sec-labor",
-        "name": "Lori Chavez-DeRemer",
-        "role": "Secretary of Labor",
+        "name": "Keith E. Sonderling",
+        "role": "Acting Secretary of Labor",
         "department": "Department of Labor",
         "party": "R",
-        "serving_since": "2025-03-11",
-        "confirmed_on": "2025-03-10",
+        "serving_since": "2026-04-20",
+        "confirmed_on": null,
         "nominated_by": "Donald J. Trump",
         "selection_method": "appointed",
-        "selection_detail": "Former U.S. Representative from Oregon (2023–2025). Confirmed by the Senate 67–32 on Mar 10, 2025.",
-        "predecessor": "Julie Su (acting)",
+        "selection_detail": "Designated acting secretary on April 20, 2026, when Lori Chavez-DeRemer left. Nominated for the permanent post on June 29, 2026; not confirmed as of Sept 24, 2026.",
+        "predecessor": "Lori Chavez-DeRemer",
         "website": "https://www.dol.gov/agencies/osec",
         "contact": {
           "dc_phone": "(202) 693-6000",
@@ -689,49 +673,27 @@
             "sources": [
               "https://www.dol.gov/agencies/osec"
             ]
-          },
-          {
-            "name": "Job Training",
-            "stance": "Oversees federal workforce-development and apprenticeship programs.",
-            "sources": [
-              "https://www.dol.gov/agencies/osec"
-            ]
-          },
-          {
-            "name": "Workplace Safety",
-            "stance": "Administers occupational safety and health enforcement (OSHA).",
-            "sources": [
-              "https://www.dol.gov/agencies/osec"
-            ]
           }
         ],
         "experience": [
           {
-            "role": "Secretary of Labor",
+            "role": "Acting Secretary of Labor",
+            "from": "2026",
+            "to": "Present"
+          },
+          {
+            "role": "Deputy Secretary of Labor",
             "from": "2025",
             "to": "Present"
-          },
-          {
-            "role": "U.S. Representative from Oregon",
-            "from": "2023",
-            "to": "2025"
-          },
-          {
-            "role": "Small Business Owner",
-            "from": "1991",
-            "to": "Present"
-          },
-          {
-            "role": "Oregon State Legislature",
-            "from": "2017",
-            "to": "2023"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg",
-        "bio": "Lori Chavez-DeRemer is the U.S. secretary of labor, confirmed in 2025. She represented Oregon’s 5th congressional district in the U.S. House from 2023 to 2025 and earlier served as mayor of Happy Valley, Oregon.",
+        "photo_url": null,
+        "bio": "Keith Sonderling has been acting secretary of labor since April 20, 2026. He is the deputy secretary of labor and has been nominated for the permanent post.",
         "bio_sources": [
-          "https://www.dol.gov/agencies/osec"
-        ]
+          "https://www.whitehouse.gov/administration/cabinet/",
+          "https://www.senate.gov/legislative/nom_confc.htm"
+        ],
+        "acting": true
       },
       {
         "id": "us-sec-hhs",
@@ -1149,72 +1111,56 @@
       },
       {
         "id": "us-sec-dhs",
-        "name": "Kristi Noem",
+        "name": "Markwayne Mullin",
         "role": "Secretary of Homeland Security",
         "department": "Department of Homeland Security",
         "party": "R",
-        "serving_since": "2025-01-26",
-        "confirmed_on": "2025-01-25",
+        "serving_since": "2026-03-24",
+        "confirmed_on": "2026-03-23",
         "nominated_by": "Donald J. Trump",
         "selection_method": "appointed",
-        "selection_detail": "Former Governor of South Dakota (2019–2025). Confirmed by the Senate 59–34 on Jan 25, 2025.",
-        "predecessor": "Alejandro Mayorkas",
-        "website": "https://www.dhs.gov/person/kristi-noem",
+        "selection_detail": "Confirmed by the Senate 54 to 45 on March 23, 2026, and sworn in March 24. Left his Oklahoma U.S. Senate seat to take the post.",
+        "predecessor": "Kristi Noem",
+        "website": "https://www.dhs.gov/",
         "contact": {
           "dc_phone": "(202) 282-8000",
           "dc_office": "St. Elizabeths West Campus, 2707 Martin Luther King Jr. Avenue SE, Washington, DC 20528",
-          "official_website": "https://www.dhs.gov/person/kristi-noem"
+          "official_website": "https://www.dhs.gov/"
         },
         "top_issues": [
           {
             "name": "Homeland Security",
             "stance": "Leads DHS; oversees border security, immigration enforcement, TSA, FEMA, and the Secret Service.",
             "sources": [
-              "https://www.dhs.gov/person/kristi-noem"
-            ]
-          },
-          {
-            "name": "Border & Immigration",
-            "stance": "Focus on border enforcement and immigration policy.",
-            "sources": [
-              "https://www.dhs.gov/person/kristi-noem"
-            ]
-          },
-          {
-            "name": "Disaster Response",
-            "stance": "Oversees FEMA and federal disaster response and recovery.",
-            "sources": [
-              "https://www.dhs.gov/person/kristi-noem"
+              "https://www.dhs.gov/"
             ]
           }
         ],
         "experience": [
           {
             "role": "Secretary of Homeland Security",
-            "from": "2025",
+            "from": "2026",
             "to": "Present"
           },
           {
-            "role": "Governor of South Dakota",
-            "from": "2019",
-            "to": "2025"
+            "role": "U.S. Senator from Oklahoma",
+            "from": "2023",
+            "to": "2026"
           },
           {
-            "role": "U.S. Representative from South Dakota",
-            "from": "2011",
-            "to": "2019"
-          },
-          {
-            "role": "South Dakota State Legislature",
-            "from": "2007",
-            "to": "2011"
+            "role": "U.S. Representative from Oklahoma",
+            "from": "2013",
+            "to": "2023"
           }
         ],
-        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg",
-        "bio": "Kristi Noem is the U.S. secretary of homeland security, confirmed in January 2025. She served as governor of South Dakota from 2019 to 2025 and earlier represented the state in the U.S. House from 2011 to 2019.",
+        "photo_url": "https://unitedstates.github.io/images/congress/225x275/M001190.jpg",
+        "bio": "Markwayne Mullin is the U.S. secretary of homeland security, sworn in on March 24, 2026. He represented Oklahoma in the U.S. Senate from 2023 to 2026 and in the U.S. House from 2013 to 2023.",
         "bio_sources": [
-          "https://www.dhs.gov/person/kristi-noem"
-        ]
+          "https://www.whitehouse.gov/administration/cabinet/",
+          "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00063.htm",
+          "https://bioguide.congress.gov/search/bio/M001190"
+        ],
+        "bioguide_id": "M001190"
       }
     ]
   },
@@ -1818,7 +1764,7 @@
   "congress": {
     "congress_number": 119,
     "session": "2025–2027",
-    "_note": "Leadership selected at the start of the 119th Congress on Jan 3, 2025. Party breakdown reflects seats at the opening of the Congress and may shift as vacancies, resignations, or party-switches occur.",
+    "_note": "Leadership as of 2026-09-24 (unchanged since the 119th Congress opened on Jan 3, 2025). Party counts reflect current seats and shift with vacancies and special elections.",
     "senate": {
       "chamber": "U.S. Senate",
       "seats_total": 100,
@@ -1826,7 +1772,7 @@
         "R": 53,
         "D": 45,
         "I": 2,
-        "_note": "The two Independents (Sanders-VT, King-ME) caucus with Democrats, giving Republicans a 53–47 working majority."
+        "_note": "Counts as of 2026-09-24. The two independents (Sanders-VT, King-ME) caucus with Democrats, giving Republicans a 53 to 47 working majority."
       },
       "leadership": [
         {
@@ -2140,9 +2086,11 @@
       "chamber": "U.S. House of Representatives",
       "seats_total": 435,
       "party_breakdown": {
-        "R": 220,
-        "D": 215,
-        "_note": "Seat counts at the start of the 119th Congress on Jan 3, 2025; shifts with vacancies, special elections, and resignations."
+        "R": 218,
+        "D": 214,
+        "I": 1,
+        "vacant": 2,
+        "_note": "House Clerk counts as of 2026-09-24. The independent is Rep. Kevin Kiley (CA-3), who caucuses with Republicans. Vacant: TX-23 and FL-20."
       },
       "leadership": [
         {

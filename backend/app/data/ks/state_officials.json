@@ -558,7 +558,7 @@
         "chamber": "State Senate",
         "district": "34",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvKwXLW2-GGx639WKAs10NgKJgmOprF8JoSnBrc3tSNe41yMEh6bGuVEiIvAulBU795Tk&usqp=CAU",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/sen_murphy_michael_1/",
           "email": "michael.murphy@senate.ks.gov",
@@ -2035,7 +2035,7 @@
         "chamber": "State House",
         "district": "86",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLyf1OqbY53kdN7weK9WEc-d2TY_Hwkdzpng&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_boatman_abi_1/",
           "email": "abi.boatman@house.ks.gov",

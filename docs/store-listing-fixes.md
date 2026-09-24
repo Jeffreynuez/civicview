@@ -17,7 +17,8 @@
 > | Microsoft: product features | Row 1 fixed on screen, row 5 outstanding, rows past 6 unchecked |
 > | Microsoft: short description | Not yet located in the form |
 > | Microsoft: submission | Not submitted, certification not started |
-> | Repo docs sync | `playstore_listing.md` and `microsoft_store_listing.md` both still stale |
+> | Repo docs sync | Sources block synced in all four listing docs 2026-09-24; other stale text in `playstore_listing.md` and `microsoft_store_listing.md` remains |
+> | **Both: sources block (NEW 2026-09-24)** | **Paste again.** The "complete list" was incomplete; rewritten in both paste sources |
 
 Written 2026-09-15 from the Play Console, Partner Center and device screenshots.
 Three separate problems, two consoles. Work top to bottom: the first one matters

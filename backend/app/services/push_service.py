@@ -274,7 +274,19 @@ def _deliver_tracked_push(
 
     ids = list(citizen_ids)
 
-    # 1. Bound devices for the tracking citizens.
+    # 1. Bound devices for the tracking citizens. Accounts that are
+    # soft-deleted, suspended or inactive get nothing: a user inside the
+    # 30-day deletion window asked to leave (audit B3).
+    if ids:
+        live_ids = {
+            cid for (cid,) in db.query(CitizenAccount.id).filter(
+                CitizenAccount.id.in_(ids),
+                CitizenAccount.self_deleted_at.is_(None),
+                CitizenAccount.suspended_at.is_(None),
+                CitizenAccount.is_active.is_(True),
+            )
+        }
+        ids = [i for i in ids if i in live_ids]
     rows = (
         db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(ids)).all()
         if ids else []

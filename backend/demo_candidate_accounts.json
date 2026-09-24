@@ -7,12 +7,13 @@
     {
       "candidate_id": "test-civicview-internal-candidate",
       "email": "test-candidate@civicview.app",
-      "password": "TestCandidate2026",
+      "password": "PLACEHOLDER_NEVER_USED_TOPUP_ONLY",
       "display_name": "CivicView Test Candidate",
       "owner_state": "FL",
       "owner_district": null,
       "owner_city": "Testville",
       "claim_status": "active"
     }
-  ]
+  ],
+  "_security_note": "No real password belongs in this file: the repository is public. A PLACEHOLDER value makes the seed create the account with a random password (sign in via password reset). Seeding never changes the password of an existing account, so the production password must be rotated in the database or through password reset."
 }

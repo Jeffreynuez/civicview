@@ -30,7 +30,7 @@ from typing import Any, List, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -49,6 +49,7 @@ from app.models.pages import (
     RepEvent,
 )
 from app.services.admin_auth import get_current_admin
+from app.services.citizen_polls_service import poll_is_publicly_visible
 
 
 logger = logging.getLogger(__name__)
@@ -308,7 +309,7 @@ def list_reports(
         out.append(ReportRow(
             id=r.id, kind="poll", target_id=r.poll_id,
             target_preview=_snippet(target.question if target else None),
-            target_hidden=bool(target and target.archived_at is not None),
+            target_hidden=bool(target and not poll_is_publicly_visible(target)),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
             created_at=r.created_at, acted_at=r.acted_at,
@@ -399,7 +400,7 @@ def _hide_target(target: Any, kind: str) -> bool:
     appeals surface knows this was a moderator action (not an
     author-deletion) and shows the Appeal button to the author."""
     if kind == "poll":
-        if target.archived_at is not None:
+        if not poll_is_publicly_visible(target):
             return False
         target.archived_at = datetime.utcnow()
         target.archived_reason = "admin_hidden"
@@ -421,10 +422,12 @@ def _unhide_target(target: Any, kind: str) -> bool:
     hide_reason / archived_reason so the appeals surface stops
     treating the row as moderation-hidden."""
     if kind == "poll":
-        if target.archived_at is None:
+        from sqlalchemy.orm import object_session
+
+        from app.services.citizen_polls_service import restore_poll_after_takedown
+        if poll_is_publicly_visible(target):
             return False
-        target.archived_at = None
-        target.archived_reason = None
+        restore_poll_after_takedown(object_session(target), target)
         return True
     if target.deleted_at is None:
         return False
@@ -800,7 +803,8 @@ def suspend_user(
                 .filter(
                     Poll.author_kind == "citizen",
                     Poll.author_citizen_id == user_id,
-                    Poll.archived_at.is_(None),
+                    # Closed pre-claim polls are still public (audit P4).
+                    or_(Poll.archived_at.is_(None), Poll.archived_reason == "rep_claimed"),
                 )
                 .all()
             )

@@ -642,7 +642,10 @@ class FilterItem(BaseModel):
 
 
 class ItemFilterRequest(BaseModel):
-    prompt: str = ""
+    # Same 300-character ceiling as the comment and poll filters. This
+    # one had none, so a single anonymous request could send a prompt
+    # of any size into the model (audit S4).
+    prompt: str = Field("", max_length=300)
     items: List[FilterItem] = Field(default_factory=list)
 
 

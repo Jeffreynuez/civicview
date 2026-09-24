@@ -318,8 +318,10 @@ export default function StatewideOfficialsTab({
               subtitle={j.role + (j.chief ? ' (presiding)' : '')}
               meta={[
                 j.appointed_by ? `Appointed by ${j.appointed_by}` : null,
-                j.appointed_on ? new Date(j.appointed_on).getFullYear() : null,
-                j.term_end ? `Term ends ${new Date(j.term_end).getFullYear()}` : null,
+                (j.appointed_on || j.took_office) ? String(j.appointed_on || j.took_office).slice(0, 4) : null,
+                j.term_end
+                  ? `Term ends ${new Date(j.term_end).getFullYear()}`
+                  : (j.next_retention ? `Next retention vote ${j.next_retention}` : null),
               ].filter(Boolean)}
               website={j.website}
               selectionMethod={j.selection_method}

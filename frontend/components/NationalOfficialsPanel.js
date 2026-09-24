@@ -253,6 +253,7 @@ export default function NationalOfficialsPanel({
       <div ref={executiveRef}>
         <ExecutiveBranchSection
           exec={exec}
+          asOf={data?._source_as_of || null}
           onSelectPerson={onSelectPerson}
           onNotify={onNotify}
           onCompareToggle={onCompareToggle}
@@ -781,12 +782,24 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify, onState
   // Splitting them avoids a re-render of the count every 12 seconds.
   const featuredPool = useMemo(() => {
     if (!headlineRace) return [];
-    const all = [
-      ...(headlineRace.primary_candidates?.R || []),
-      ...(headlineRace.primary_candidates?.D || []),
-      ...(headlineRace.primary_candidates?.I || []),
-      ...(headlineRace.general_candidates || []),
-    ];
+    // Once the primary has been held (primary_status is DATA, set when the
+    // results are in hand), only the people still running belong here.
+    // Pooling the primary field after the fact featured candidates who had
+    // already lost, with nothing to say so. A roster the guards flag as
+    // unresolved or unverified is not featured at all: this is the home
+    // page, and a doubtful ballot does not get top billing.
+    const primaryOver = Boolean(elections?.primary_status?.concluded);
+    if (primaryOver && (headlineRace.general_roster_unresolved || headlineRace.general_roster_unverified)) {
+      return [];
+    }
+    const all = primaryOver
+      ? [...(headlineRace.general_candidates || [])]
+      : [
+        ...(headlineRace.primary_candidates?.R || []),
+        ...(headlineRace.primary_candidates?.D || []),
+        ...(headlineRace.primary_candidates?.I || []),
+        ...(headlineRace.general_candidates || []),
+      ];
     const seen = new Set();
     const unique = [];
     for (const c of all) {
@@ -795,7 +808,7 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify, onState
       unique.push(c);
     }
     return unique;
-  }, [headlineRace]);
+  }, [headlineRace, elections]);
 
   const featuredCandidates = useMemo(() => {
     if (featuredPool.length === 0) return [];
@@ -1175,7 +1188,7 @@ function FeaturedRaceCards({ race, candidates, totalCount, onCandidatePick, stat
 // ─────────────────────────────────────────────────────────────────
 // 2. EXECUTIVE BRANCH
 // ─────────────────────────────────────────────────────────────────
-function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
+function ExecutiveBranchSection({ exec, asOf, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
   const pres = exec.president;
   const vp = exec.vice_president;
   const cabinet = exec.cabinet || [];
@@ -1199,9 +1212,15 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
           eyebrow="Article II"
           title="Executive Branch"
           subhead={
-            pres?.serving_since
-              ? `The administration in power · sworn in ${formatLongDate(pres.serving_since)}`
-              : 'The administration in power'
+            // The cabinet is a curated snapshot, not a live feed, so the
+            // date it was last checked is part of the claim. It was 16
+            // months stale once with nothing on screen to say so.
+            [
+              pres?.serving_since
+                ? `The administration in power · sworn in ${formatLongDate(pres.serving_since)}`
+                : 'The administration in power',
+              asOf ? `officeholders checked ${formatLongDate(asOf)}` : null,
+            ].filter(Boolean).join(' · ')
           }
           chip={null}
           collapsible
@@ -3111,7 +3130,9 @@ function LeadershipGrid({ leadership, chamber, onSelectPerson, onNotify, onCompa
 // ─────────────────────────────────────────────────────────────────
 function formatLongDate(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
+  // Date-only strings parse as UTC midnight, which renders as the previous
+  // day in every U.S. time zone. Parse them as local dates instead.
+  const d = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? new Date(`${iso}T00:00:00`) : new Date(iso);
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 

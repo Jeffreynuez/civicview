@@ -6,7 +6,7 @@ Backfill for the `authored_verified` snapshot column (demo-sunset PRD
 §D2, increment 4).
 
 WHY A BACKFILL AT ALL, GIVEN THE COLUMN DEFAULTS TO FALSE
-Two of the three cases the column encodes are wrong at False:
+One of the cases the column encodes is wrong at False:
 
   1. Rep- and candidate-authored rows. Page owners are vetted at claim
      time — a stronger check than ID.me — so their engagement has always
@@ -14,10 +14,12 @@ Two of the three cases the column encodes are wrong at False:
      existed would otherwise read "Unverified" forever, which is the
      opposite of true and would show a rep's own comment on their own
      page with an Unverified pill.
-  2. Citizen rows whose author is already verified. Zero rows today, but
-     the ordering matters: if ID.me ever ships before this pass runs, the
-     window between the two produces rows that are permanently mislabeled
-     with no way to tell them apart afterwards.
+  2. (Removed 2026-09-24, audit B4.) This pass used to also flip old
+     citizen rows to verified whenever their author verified LATER. Run
+     at every boot, that rewrites history: speech written while the
+     author was unverified must stay labeled unverified. Every citizen
+     row records its own truth at write time, and no citizen has been
+     verified by a real method yet, so nothing was ever relabeled by it.
 
 Anonymous legacy poll votes (no identity column set) stay False, which is
 correct — nobody attested to those.
@@ -44,7 +46,6 @@ from sqlalchemy.orm import Session
 
 from app.db import SessionLocal
 from app.models.pages import (
-    CitizenAccount,
     CommentReaction,
     PollComment,
     PollCommentReaction,
@@ -72,18 +73,14 @@ _TABLES = (
 
 
 def backfill_authored_verified(db: Optional[Session] = None) -> Dict[str, int]:
-    """Stamp authored_verified=True on rows whose author was verified at
-    write time. Returns {table_name: rows_updated}; all-zero once
+    """Stamp authored_verified=True on rep- and candidate-authored rows.
+    Citizen rows are never touched: they carry the value recorded when
+    they were written. Returns {table_name: rows_updated}; all-zero once
     converged."""
     owns_session = db is None
     db = db or SessionLocal()
     updated: Dict[str, int] = {}
     try:
-        verified_citizen_ids = (
-            db.query(CitizenAccount.id)
-            .filter(CitizenAccount.verified.is_(True))
-            .scalar_subquery()
-        )
         for model in _TABLES:
             name = model.__tablename__
             count = 0
@@ -95,25 +92,6 @@ def backfill_authored_verified(db: Optional[Session] = None) -> Dict[str, int]:
                         model.authored_verified.is_(False),
                         (model.author_rep_id.isnot(None))
                         | (model.author_candidate_id.isnot(None)),
-                    )
-                    .values(authored_verified=True)
-                    .execution_options(synchronize_session=False)
-                ).rowcount
-                or 0
-            )
-            # Case 2 — citizens who are verified NOW. This is the one
-            # place a "current state" read is correct: before this column
-            # existed there was no per-row record to consult, so the
-            # author's present flag is the best available evidence of
-            # what they were. Every row written from now on records its
-            # own truth and never consults this path again.
-            count += (
-                db.execute(
-                    update(model)
-                    .where(
-                        model.authored_verified.is_(False),
-                        model.citizen_id.isnot(None),
-                        model.citizen_id.in_(verified_citizen_ids),
                     )
                     .values(authored_verified=True)
                     .execution_options(synchronize_session=False)

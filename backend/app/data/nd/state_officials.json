@@ -619,7 +619,7 @@
         "chamber": "State Senate",
         "district": "36",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYgQlKUMR3p-uneRcuoLPMxOOnOdNKtaUbkA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://ndlegis.gov/biography/desiree-van-oosting",
           "email": "dvanoosting@ndlegis.gov",
@@ -683,7 +683,7 @@
         "chamber": "State Senate",
         "district": "40",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTIu5mvWkZ1XTWpTaME5yn0rBIdqWZN3EUtg&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://ndlegis.gov/biography/jose-l-castaneda",
           "email": "jcastaneda@ndlegis.gov",
@@ -944,7 +944,7 @@
         "chamber": "State House",
         "district": "6",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyDqLw7JBj51C2bugaTTnyhM7X1pQwN2zhhQ&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://ndlegis.gov/biography/daniel-r-vollmer",
           "email": "dvollmer@ndlegis.gov",
@@ -1072,7 +1072,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQquCry9y1U0Q6TSxL9JfLhkGK0kcWujJSGdQ&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://ndlegis.gov/biography/jared-hendrix",
           "email": "jhendrix@ndlegis.gov",
@@ -2016,7 +2016,7 @@
         "chamber": "State House",
         "district": "40",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRozO487RdH1VF6tytGgra4INZIQ_QGs9v_7w&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://ndlegis.gov/biography/macy-bolinske",
           "email": "mbolinske@ndlegis.gov",

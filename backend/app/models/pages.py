@@ -72,6 +72,9 @@ class RepAccount(Base):
     # nullable here so the auto-migrate can ADD COLUMN on existing rows
     # without backfill.
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81). Distinct from
     # admin-driven `suspended_at` so we can tell user-initiated
@@ -185,6 +188,9 @@ class CandidateAccount(Base):
     # since they post on a verified page and an impersonation post would
     # be just as damaging as one on a sitting rep's page.
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
@@ -1354,6 +1360,9 @@ class CitizenAccount(Base):
     #     2FA is not active on this account, regardless of whether a
     #     secret is present (partial enrollments).
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
@@ -1787,6 +1796,11 @@ class EoSummary(Base):
     title: Mapped[Optional[str]] = mapped_column(Text, default=None)
     eo_number: Mapped[Optional[str]] = mapped_column(String(16), default=None)
 
+    # Set when the title/abstract this row was generated from came from
+    # the Federal Register itself (server-side fetch). Rows generated
+    # before 2026-09-24 took the source text from the caller's request
+    # body, so they are not shown until regenerated.
+    source_verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     plain_english: Mapped[Optional[str]] = mapped_column(Text, default=None)
     plain_english_model: Mapped[Optional[str]] = mapped_column(
         String(64), default=None,
@@ -1834,6 +1848,12 @@ class VoteExplainer(Base):
     # render time).
     vote_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
 
+    # sha256 of the vote fields the explanation was generated from. A
+    # cached explanation is only shown to a request whose vote data hashes
+    # the same, so text generated from a doctored request body is never
+    # shown to anyone else. NULL on rows from before 2026-09-24, which
+    # are treated as unverified and regenerated on request.
+    source_hash: Mapped[Optional[str]] = mapped_column(String(64), default=None)
     ai_what_was_voted: Mapped[Optional[str]] = mapped_column(Text, default=None)
     ai_what_yea_means: Mapped[Optional[str]] = mapped_column(Text, default=None)
     ai_what_nay_means: Mapped[Optional[str]] = mapped_column(Text, default=None)

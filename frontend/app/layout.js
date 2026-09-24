@@ -3,6 +3,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import './globals.css';
+import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from '@/lib/seo';
 import Force2FAGate from '@/components/Force2FAGate';
 import RecoveryBanner from '@/components/RecoveryBanner';
 // One-time wipe of the legacy tracked-items localStorage keys. Mounts
@@ -46,14 +47,37 @@ import PushOptInPrompt from '@/components/PushOptInPrompt';
 import EmbedGate from '@/components/EmbedGate';
 
 export const metadata = {
-  title: 'CivicView - Know Your Representatives',
-  description: 'Track your elected officials, legislation, and upcoming elections',
+  // metadataBase turns every relative URL below (and in the route
+  // layouts, see lib/seo.js) into an absolute https://civicview.app URL,
+  // which link-preview crawlers require.
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  // Link previews on social apps, messaging and search. The image is
+  // public/og-image.png (1200 x 630).
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_US',
+    url: '/',
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
   // PWA hooks. The manifest is the primary signal that triggers the
-  // browser's "Add to Home Screen" prompt; theme-color drives the
-  // address-bar tint on Android Chrome and the title-bar tint when
-  // the app is installed standalone.
+  // browser's "Add to Home Screen" prompt. theme-color lives in the
+  // viewport export below (Next 14+ moved it there).
   manifest: '/manifest.webmanifest',
-  themeColor: '#1b263b',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -81,20 +105,19 @@ export const metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
+  // Address-bar tint on Android Chrome and the title-bar tint when the
+  // app is installed standalone.
+  themeColor: '#1b263b',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Viewport meta tag — belt-and-suspenders alongside the
-            `viewport` metadata export above. Some Next.js setups
-            haven't been picking up the export reliably during dev,
-            and a missing viewport tag silently breaks the entire
-            mobile layout. Placing the raw <meta> here guarantees
-            the tag is in the HTML the phone receives, regardless
-            of what the metadata API does. */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* The viewport tag comes from the `viewport` export above. A
+            second hand-written <meta name="viewport"> used to sit here
+            as a fallback; Next 15 emits the export reliably, and two
+            viewport tags on one page leave the browser to pick one. */}
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css" />
         {/* Theme boot script previously lived here for the in-app
             dark-mode toggle. Removed in favor of letting the OS handle

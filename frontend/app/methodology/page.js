@@ -14,7 +14,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function MethodologyPage() {
   return (
-    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="May 20, 2026">
+    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="September 24, 2026">
       <p>
         CivicView surfaces what your elected officials say and do, then lets
         verified constituents respond — in their own districts. This page
@@ -42,28 +42,34 @@ export default function MethodologyPage() {
 
       <h2>State and local data</h2>
       <p>
-        State-level officials (governor, attorney general, state legislators)
-        are curated manually for each state we cover, sourced from the
-        state's official records, the National Conference of State
-        Legislatures, and the Secretary of State's office. Florida is fully
-        populated; other states roll out as we verify their data.
+        State legislators in all 50 states come from Open States&apos; bulk
+        data, which links each record to the legislature&apos;s own website.
+        Governors and statewide officers come from each state&apos;s official
+        website. Florida has the deepest coverage: its judiciary, local
+        officials for 28 cities, and candidates checked against the Florida
+        Division of Elections. Other states are added as we verify them.
       </p>
       <p>
-        Candidate registries (for upcoming elections) come from the same
-        official sources: state election divisions, the FEC for federal
-        candidates, and verified campaign websites. We do <strong>not</strong>{' '}
-        scrape social media or news outlets for candidate stances — every
-        position attributed to a candidate traces back to a primary source
-        we can cite.
+        Candidate lists come from the FEC for federal candidates and, in
+        Florida, from the Division of Elections. Some candidates&apos;
+        background details and endorsements cite their campaign website, a
+        news report, Ballotpedia or Wikipedia, and each one links to the
+        source it came from. We do <strong>not</strong> scrape social media,
+        and we do not write positions for candidates or officials: anything
+        attributed to a person links to where it came from.
       </p>
 
       <h2>How AI summaries work</h2>
       <p>
         The "Translate to plain English" and "What was this vote?" features
-        use Anthropic's Claude Haiku to rephrase official bill summaries and
-        vote questions for general readers. We send the model only the
-        public text of the bill or vote question — never user data, never
-        comments, never identity information.
+        use Anthropic&apos;s Claude Haiku to rephrase official bill summaries and
+        vote questions for general readers. For these features we send the
+        model only the public text of the bill or vote question. The focus
+        areas shown for state legislators are also written by Claude, from
+        the titles of their sponsored bills, and are labeled that way.
+        Separately, comments and polls are sent to Claude to tag their tone
+        and topic and to screen for threats, as described in our{' '}
+        <a href="/privacy">Privacy Policy</a>.
       </p>
       <p>
         AI-generated explanations are always shown <strong>alongside</strong>{' '}
@@ -86,6 +92,8 @@ export default function MethodologyPage() {
         candidate. Until claimed, citizens can still start polls and
         conversations on the page — these are clearly labeled as
         "Citizen-led" so a visiting reader knows the rep hasn't responded.
+        If the official later claims the page, those polls close to new
+        votes and stay public on the page with their results.
       </p>
 
       <h2>How engagement is counted</h2>

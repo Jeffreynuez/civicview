@@ -94,8 +94,8 @@ def _attach_cached_ai(payload: VoteExplainRequest, body: dict, db: Session) -> d
     if not payload.vote_id:
         body["has_ai"] = False
         return body
-    cached = vote_explainer_service.get_cached_ai(db, payload.vote_id)
-    if cached is None or not cached.ai_what_was_voted:
+    cached = vote_explainer_service.cached_ai_for(db, payload.model_dump())
+    if cached is None:
         body["has_ai"] = False
         return body
     body["ai_what_was_voted"] = cached.ai_what_was_voted

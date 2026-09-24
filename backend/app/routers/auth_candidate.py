@@ -39,6 +39,7 @@ from app.auth_candidate import (
     set_candidate_cookie,
 )
 from app.db import get_db
+from app.services.session_epoch import epoch_of
 from app.models.pages import CandidateAccount
 from app.schemas.pages import (
     CandidateLoginRequest,
@@ -201,7 +202,7 @@ def login(
         db, account=candidate, identity_kind="candidate",
         email_attempted=email, ip_address=ip, user_agent=ua,
     )
-    set_candidate_cookie(response, candidate.id)
+    set_candidate_cookie(response, candidate.id, epoch_of(candidate))
     candidate.last_login_at = datetime.utcnow()
     db.commit()
     db.refresh(candidate)
@@ -211,7 +212,7 @@ def login(
     # app/middleware/csrf.py accepts X-CSRF-Token from any active
     # identity, so a candidate signed in alongside a citizen can pick
     # either token.
-    candidate_tok = issue_candidate_token(candidate.id)
+    candidate_tok = issue_candidate_token(candidate.id, epoch_of(candidate))
     return CandidateLoginResponse(
         candidate=CandidateMeResponse.model_validate(candidate),
         # Mirror token — same value as the cookie. Used by browsers
@@ -265,6 +266,7 @@ def delete_account(
         hard_delete_account,
         soft_delete_account,
         verify_email_confirmation,
+        verify_password_confirmation,
     )
     if candidate is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
@@ -272,6 +274,11 @@ def delete_account(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email confirmation doesn't match the signed-in account.",
+        )
+    if not verify_password_confirmation(candidate, payload.password):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Enter your current password to delete this account.",
         )
     if payload.mode == "hard":
         hard_delete_account(db, "candidate", candidate)

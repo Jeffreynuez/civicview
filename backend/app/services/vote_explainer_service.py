@@ -41,6 +41,7 @@ Response shape (BillSummary-style):
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import logging
 import re
@@ -609,6 +610,40 @@ def _parse_ai_json(text: str) -> Optional[dict]:
     return {k: obj[k].strip() for k in required}
 
 
+def source_hash(vote: dict) -> str:
+    """Fingerprint of the vote fields an AI explanation is built from.
+
+    The explanation is generated from the vote payload the caller sends.
+    Binding each cached explanation to the hash of that payload means text
+    generated from a doctored request is only ever shown back to a request
+    carrying the same doctored data, never to someone viewing the real
+    vote. The member's own position is left out: it differs per profile
+    and is not part of what the explanation describes.
+    """
+    bill = vote.get("bill") or {}
+
+    def _s(v):
+        return v.strip() if isinstance(v, str) else ("" if v is None else str(v))
+
+    basis = {k: _s(vote.get(k)) for k in ("vote_id", "question", "result", "category", "date", "chamber")}
+    basis["bill_number"] = _s(bill.get("display_number"))
+    basis["bill_title"] = _s(bill.get("title"))
+    basis["bill_congress"] = _s(bill.get("congress"))
+    return hashlib.sha256(json.dumps(basis, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def cached_ai_for(db: Session, vote: dict) -> Optional[VoteExplainer]:
+    """The cached explanation for this vote, only if it was generated from
+    the same vote data (see source_hash). Rows from before 2026-09-24
+    have no hash and are treated as unverified."""
+    row = get_cached_ai(db, vote.get("vote_id"))
+    if row is None or not row.ai_what_was_voted:
+        return None
+    if not row.source_hash or row.source_hash != source_hash(vote):
+        return None
+    return row
+
+
 def get_cached_ai(db: Session, vote_id: str) -> Optional[VoteExplainer]:
     """Return the cached AI explainer row for a vote, or None."""
     if not vote_id:
@@ -633,10 +668,11 @@ async def generate_ai_explainer(
     if not vote_id:
         return None, "missing_vote_id"
 
-    # Cache hit short-circuit (unless an admin forced regen).
+    # Cache hit short-circuit (unless an admin forced regen). Only a row
+    # generated from this same vote data counts; see source_hash.
     if not force:
-        cached = get_cached_ai(db, vote_id)
-        if cached and cached.ai_what_was_voted:
+        cached = cached_ai_for(db, vote)
+        if cached is not None:
             return {
                 "what_was_voted": cached.ai_what_was_voted,
                 "what_yea_means": cached.ai_what_yea_means,
@@ -723,6 +759,7 @@ async def generate_ai_explainer(
     row.ai_outcome_meaning = body["outcome_meaning"]
     row.ai_model = ai_service.DEFAULT_MODEL
     row.ai_generated_at = now
+    row.source_hash = source_hash(vote)
     row.updated_at = now
     db.commit()
     db.refresh(row)

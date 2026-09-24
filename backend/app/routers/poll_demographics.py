@@ -29,8 +29,9 @@ from datetime import datetime
 
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
-from app.models.pages import Poll, PollOption, Post, PollVote, PollVoteDemographic
+from app.models.pages import CitizenAccount, Poll, PollOption, Post, PollVote, PollVoteDemographic
 from app.services import demographics_catalog, poll_demographics
+from app.services.verified_identity import is_verified_person
 
 router = APIRouter()
 
@@ -82,7 +83,10 @@ def my_poll_demographics(
             ):
                 answers[r.question_key] = r.answer_value
     can_edit = poll.closes_at is None or datetime.utcnow() < poll.closes_at
-    return {"poll_id": poll_id, "answers": answers, "can_edit": can_edit}
+    # Answers are stored only for verified people (audit S10). The form
+    # uses this to stay hidden instead of collecting answers it would drop.
+    can_answer = citizen is not None and poll_demographics.can_record_for(citizen)
+    return {"poll_id": poll_id, "answers": answers, "can_edit": can_edit, "can_answer": can_answer}
 
 
 @router.get("/{poll_id}/results/breakdown")
@@ -143,13 +147,21 @@ def results_breakdown(
     if by is not None and by not in attached:
         by = None
 
-    # vote_id -> {question_key: answer_value}
+    # vote_id -> {question_key: answer_value}. Answers count only when the
+    # voter is a verified person. New answers are already recorded only
+    # for them; this also ignores rows stored before that rule existed,
+    # so demo accounts cannot pad a cell around one real respondent
+    # (audit S10).
     demo_by_vote: dict[int, dict[str, str]] = defaultdict(dict)
-    for r in (
-        db.query(PollVoteDemographic)
+    for r, citizen in (
+        db.query(PollVoteDemographic, CitizenAccount)
+        .join(PollVote, PollVote.id == PollVoteDemographic.poll_vote_id)
+        .join(CitizenAccount, CitizenAccount.id == PollVote.citizen_id)
         .filter(PollVoteDemographic.poll_id == poll_id)
         .all()
     ):
+        if not is_verified_person(citizen):
+            continue
         demo_by_vote[r.poll_vote_id][r.question_key] = r.answer_value
 
     options = sorted(poll.options, key=lambda o: o.sort_order)

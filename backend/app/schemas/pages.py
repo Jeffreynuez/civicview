@@ -41,6 +41,9 @@ class DeleteAccountRequest(BaseModel):
     """
     confirm_email: EmailStr
     mode: str = Field(default="soft", pattern="^(soft|hard)$")
+    # Current password, required for every account except demo
+    # citizens (see account_deletion.verify_password_confirmation).
+    password: Optional[str] = Field(default=None, max_length=200)
 
 
 class DeleteAccountResponse(BaseModel):
@@ -505,6 +508,22 @@ class RepEventCreate(BaseModel):
     url: Optional[str] = Field(default=None, max_length=500)
     start_at: str = Field(..., min_length=4, max_length=40)  # ISO-8601
     end_at: Optional[str] = Field(default=None, max_length=40)
+
+    @field_validator("url")
+    @classmethod
+    def _http_url_only(cls, v):
+        """The event link renders as a clickable link on the page, so
+        only http and https are accepted. javascript:, data: and the
+        like are refused (audit S14)."""
+        if v is None:
+            return None
+        v = v.strip()
+        if not v:
+            return None
+        lowered = v.lower()
+        if not (lowered.startswith("https://") or lowered.startswith("http://")) or any(ch.isspace() for ch in v):
+            raise ValueError("Event link must be a web address starting with https:// or http://")
+        return v
 
 
 class RepEventRead(BaseModel):
@@ -1022,9 +1041,30 @@ class CitizenPollListMineResponse(BaseModel):
 # Shapes are intentionally permissive: the frontend has already shipped
 # variants of these snapshots and we don't want a schema bump to break
 # in-flight UI. The router enforces just the must-haves (the key).
+#
+# Size is the one thing that is enforced: a snapshot or prefs dict is a
+# few hundred bytes of display fields, and each is stored as a row, so
+# anything past 32 KB serialized is rejected (audit S12).
+_TRACKED_JSON_MAX = 32 * 1024
 
 
-class TrackedBillCreate(BaseModel):
+def _cap_tracked_json(v):
+    if v is None:
+        return v
+    import json as _json
+    if len(_json.dumps(v, default=str)) > _TRACKED_JSON_MAX:
+        raise ValueError("too large (32 KB max)")
+    return v
+
+
+class _TrackedSizeCap(BaseModel):
+    @field_validator("snapshot", "prefs", check_fields=False)
+    @classmethod
+    def _size_cap(cls, v):
+        return _cap_tracked_json(v)
+
+
+class TrackedBillCreate(_TrackedSizeCap):
     """Body for POST /api/tracked/bills.
 
     `bill_key` is the canonical "{congress}-{type}-{number}" string
@@ -1045,7 +1085,7 @@ class TrackedBillRead(BaseModel):
     tracked_at: datetime
 
 
-class TrackedOfficialCreate(BaseModel):
+class TrackedOfficialCreate(_TrackedSizeCap):
     official_key: str = Field(..., min_length=1, max_length=64)
     snapshot: dict = Field(default_factory=dict)
     prefs: Optional[dict] = None
@@ -1058,7 +1098,7 @@ class TrackedOfficialRead(BaseModel):
     followed_at: datetime
 
 
-class TrackedElectionCreate(BaseModel):
+class TrackedElectionCreate(_TrackedSizeCap):
     election_key: str = Field(..., min_length=1, max_length=128)
     snapshot: dict = Field(default_factory=dict)
     prefs: Optional[dict] = None
@@ -1071,7 +1111,7 @@ class TrackedElectionRead(BaseModel):
     tracked_at: datetime
 
 
-class TrackedPrefsPatch(BaseModel):
+class TrackedPrefsPatch(_TrackedSizeCap):
     """Body for PATCH /api/tracked/<type>/<key>/prefs.
     Permissive merge — any keys you pass overwrite, others stay.
     """

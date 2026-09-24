@@ -1,19 +1,21 @@
 {
-  "_note": "Curated Florida 2026 election cycle (demo data). Structured to be API-ready: candidate_ids point into candidates.json, office/level are stable classifications, and ballot_measures are grouped by state and county so a personalized ballot can be built from (state, county, congressional_district, state_senate_district, state_house_district, city_slug).",
-  "_source": "Manually curated; replace with Ballotpedia / FL Division of Elections / county Supervisor of Elections feeds when available.",
+  "_note": "Florida 2026 election cycle. Statewide, U.S. Senate, U.S. House, SD-40 and HD-42 rosters are verified against the Florida Division of Elections candidate list (retrieved 2026-09-24); primary results are the certified official results. Other state legislative races are not yet included.",
+  "_source": "Florida Division of Elections: 2026 General Election candidate list (retrieved 2026-09-24) and official Aug 18, 2026 primary results; Florida Department of State 2026 constitutional amendment booklet; Florida Statutes s. 101.657 for early voting.",
   "state": "FL",
   "state_name": "Florida",
   "cycle": "2026",
   "closed_primary": true,
-  "_closed_primary_note": "Florida is a closed-primary state — only voters registered with a recognized party can vote in that party's primary. Independent and No-Party-Affiliation voters can vote in nonpartisan primaries (judges, school board, county judge in some races) and on ballot measures, but not in the partisan primaries. The BallotTab disclosure key reads from this field.",
+  "_closed_primary_note": "Florida is a closed-primary state: only voters registered with a party can vote in that party's primary. Voters with no party affiliation can vote in nonpartisan contests and on ballot measures, but not in the partisan primaries. The BallotTab disclosure reads from this field.",
   "key_dates": {
     "primary": "2026-08-18",
     "general": "2026-11-03",
     "voter_registration_deadline_primary": "2026-07-20",
     "voter_registration_deadline_general": "2026-10-05",
     "vote_by_mail_request_deadline_primary": "2026-08-08",
-    "vote_by_mail_request_deadline_general": "2026-10-24",
-    "early_voting_window_general": "2026-10-19 to 2026-11-01"
+    "vote_by_mail_request_deadline_general": "2026-10-22",
+    "early_voting_window_general": "2026-10-24 to 2026-10-31",
+    "early_voting_optional_general": "Counties may add days from 2026-10-19 and on 2026-11-01",
+    "_source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html"
   },
   "races": [
     {
@@ -25,111 +27,84 @@
       "term_length_years": 4,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "Open seat — Governor DeSantis is term-limited. Florida runs a closed primary, so only registered Republican / Democratic voters choose between primary candidates on Aug 18. NPA, Libertarian, Constitution, Independent, and Write-in candidates skip the primary and appear on the Nov 3 general ballot.",
+      "notes": "Open seat: Gov. Ron DeSantis is term-limited. Candidates run on a ticket with a Lieutenant Governor running mate.",
       "primary_candidates": {
         "R": [
-          "fl-cand-bobby-williams",
           "fl-cand-byron-donalds",
-          "fl-cand-caneste-succe",
-          "fl-cand-daniel-imperato",
-          "fl-cand-daniel-nokovich",
-          "fl-cand-james-fishback",
-          "fl-cand-james-shaw",
           "fl-cand-jay-collins",
-          "fl-cand-jenny-curtman",
-          "fl-cand-jim-holcomb",
-          "fl-cand-john-mercadante",
+          "fl-cand-james-fishback",
           "fl-cand-paul-renner",
+          "fl-cand-bobby-williams",
           "fl-cand-rachel-rodriguez",
-          "fl-cand-shea-cruel"
+          "fl-cand-jim-holcomb",
+          "fl-cand-james-shaw",
+          "fl-cand-arthur-joseph-mccaffrey",
+          "fl-cand-caneste-succe",
+          "fl-cand-daniel-nokovich"
         ],
         "D": [
-          "fl-cand-bill-slater",
-          "fl-cand-charles-lewis",
           "fl-cand-david-jolly",
           "fl-cand-dayna-foster",
-          "fl-cand-donald-peterson",
+          "fl-cand-dotie-joseph",
           "fl-cand-evelyn-castillo-bach",
-          "fl-cand-faith-antonio",
-          "fl-cand-jerry-demings",
-          "fl-cand-jessica-vernekar",
-          "fl-cand-kenneth-norman",
-          "fl-cand-kevin-cichowski",
-          "fl-cand-randy-zapata",
-          "fl-cand-richard-dembinsky",
-          "fl-cand-thomas-fernandez"
+          "fl-cand-thomas-fernandez",
+          "fl-cand-kenneth-norman"
         ]
       },
       "general_candidates": [
         "fl-cand-byron-donalds",
         "fl-cand-david-jolly",
-        "fl-cand-ansaun-fisher",
-        "fl-cand-charles-burkett",
         "fl-cand-dean-abrams",
-        "fl-cand-frank-russo",
-        "fl-cand-insley-evans",
+        "fl-cand-charles-burkett",
         "fl-cand-jeffrey-datto",
-        "fl-cand-jennifer-pearl",
-        "fl-cand-mo-hylton",
         "fl-cand-moliere-dimanche",
-        "fl-cand-surindar-bedi",
-        "fl-cand-yerucham-winer",
         "fl-cand-scott-jewett",
-        "fl-cand-brandon-mcintyre",
-        "fl-cand-andrea-klink",
-        "fl-cand-james-michael-brown",
-        "fl-cand-reginald-strachan",
-        "fl-cand-christopher-powell",
-        "fl-cand-erik-morris",
-        "fl-cand-kathleen-anderson",
-        "fl-cand-rodney-glover"
+        "fl-cand-frank-russo"
       ],
-      "general_candidates_note": "Republican and Democratic nominees as decided by the Aug 18 primary, plus every NPA, minor-party and write-in candidate who bypassed the primary and appears directly on the Nov 3 general ballot.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
-        "observed": "2026-05-05",
-        "count": 48,
-        "note": "48 active filers as of 2026-05-05. List is fluid until the FL qualifying-period close (June 2026)."
-      },
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates also qualified; their names are not printed on the ballot.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
         "date": "2026-08-18",
         "status": "reported",
-        "certified": false,
-        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Election Watch (Division of Elections)",
-        "source_url": "https://floridaelectionwatch.gov/",
-        "retrieved": "2026-08-21",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
         "winners": {
           "R": {
             "candidate_id": "fl-cand-byron-donalds",
             "runner_up": "Jay Collins",
-            "votes": 810675,
-            "runner_up_votes": 426787,
-            "party_total_votes": 1696335
+            "votes": 811131,
+            "runner_up_votes": 427014,
+            "party_total_votes": 1697330
           },
           "D": {
             "candidate_id": "fl-cand-david-jolly",
             "runner_up": "Dayna Marie Foster",
-            "votes": 761674,
-            "runner_up_votes": 189234,
-            "party_total_votes": 1249548
+            "votes": 762160,
+            "runner_up_votes": 189421,
+            "party_total_votes": 1250544
           }
         },
         "note": "Jerry Demings suspended his campaign on June 5, 2026 and was not a factor; Dayna Marie Foster finished second in the Democratic primary.",
         "turnout": {
-          "total": 2945883,
+          "total": 2947874,
           "by_party": {
-            "R": 1696335,
-            "D": 1249548
+            "R": 1697330,
+            "D": 1250544
           },
-          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
-        },
-        "counties_reporting": "67 of 67",
-        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
-      }
+          "basis": "Ballots cast in this office's party primaries, all 67 counties."
+        }
+      },
+      "write_in_candidates": [
+        "fl-cand-kathleen-anderson",
+        "fl-cand-erik-morris"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "roster_retrieved": "2026-09-24"
     },
     {
       "id": "fl-2026-ag",
@@ -140,14 +115,12 @@
       "term_length_years": 4,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-james-uthmeier",
-      "notes": "Uthmeier was appointed in 2025 and is seeking a full term. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates.",
+      "notes": "Attorney General James Uthmeier was appointed in 2025 and is seeking a full term.",
       "primary_candidates": {
         "R": [
-          "fl-cand-james-uthmeier",
-          "fl-cand-steven-leskovich"
+          "fl-cand-james-uthmeier"
         ],
         "D": [
-          "fl-cand-jim-lewis",
           "fl-cand-jose-javier-rodriguez"
         ]
       },
@@ -155,23 +128,17 @@
         "fl-cand-james-uthmeier",
         "fl-cand-jose-javier-rodriguez"
       ],
-      "general_candidates_note": "Both primaries were unopposed, so this general ballot was effectively set at the June qualifying deadline. No NPA, minor-party or write-in candidate filed for Attorney General.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
-        "observed": "2026-05-05",
-        "count": 4,
-        "note": "4 active filers as of 2026-05-05 (2 R, 2 D). List is fluid until the FL qualifying-period close (June 2026)."
-      },
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
         "date": "2026-08-18",
         "status": "unopposed",
-        "certified": false,
-        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Election Watch (Division of Elections)",
-        "source_url": "https://floridaelectionwatch.gov/",
-        "retrieved": "2026-08-21",
+        "certified": true,
+        "certification_note": "No primary was held: both parties had a single qualified candidate (Florida Division of Elections).",
+        "source": "Florida Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
+        "retrieved": "2026-09-24",
         "winners": {
           "R": {
             "candidate_id": "fl-cand-james-uthmeier",
@@ -185,10 +152,12 @@
           }
         },
         "turnout": null,
-        "turnout_note": "No primary was held for this office — both parties had a single qualified candidate, so no votes were cast.",
-        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
-      }
+        "turnout_note": "No primary was held for this office: both parties had a single qualified candidate, so no votes were cast."
+      },
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
+      "roster_retrieved": "2026-09-24"
     },
     {
       "id": "fl-2026-cfo",
@@ -199,7 +168,7 @@
       "term_length_years": 4,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-blaise-ingoglia",
-      "notes": "Ingoglia was appointed CFO in July 2025 and is seeking a full term. Taddeo entered the race on June 8, 2026 and qualified on the final day. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates.",
+      "notes": "Chief Financial Officer Blaise Ingoglia was appointed in July 2025 and is seeking a full term.",
       "primary_candidates": {
         "R": [
           "fl-cand-blaise-ingoglia",
@@ -214,49 +183,46 @@
         "fl-cand-blaise-ingoglia",
         "fl-cand-annette-taddeo"
       ],
-      "general_candidates_note": "Nominees as decided by the Aug 18 primary.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
-        "observed": "2026-07-31"
-      },
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
         "date": "2026-08-18",
         "status": "reported",
-        "certified": false,
-        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Election Watch (Division of Elections)",
-        "source_url": "https://floridaelectionwatch.gov/",
-        "retrieved": "2026-08-21",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
         "winners": {
           "R": {
             "candidate_id": "fl-cand-blaise-ingoglia",
             "runner_up": "Frank William Collige",
-            "votes": 967676,
-            "runner_up_votes": 610468,
-            "party_total_votes": 1578144
+            "votes": 968222,
+            "runner_up_votes": 610860,
+            "party_total_votes": 1579082
           },
           "D": {
             "candidate_id": "fl-cand-annette-taddeo",
             "runner_up": "Earle Ford",
-            "votes": 796088,
-            "runner_up_votes": 416646,
-            "party_total_votes": 1212734
+            "votes": 796723,
+            "runner_up_votes": 416990,
+            "party_total_votes": 1213713
           }
         },
         "turnout": {
-          "total": 2790878,
+          "total": 2792795,
           "by_party": {
-            "R": 1578144,
-            "D": 1212734
+            "R": 1579082,
+            "D": 1213713
           },
-          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
-        },
-        "counties_reporting": "67 of 67",
-        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
-      }
+          "basis": "Ballots cast in this office's party primaries, all 67 counties."
+        }
+      },
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=CFO",
+      "roster_retrieved": "2026-09-24"
     },
     {
       "id": "fl-2026-agriculture",
@@ -267,7 +233,7 @@
       "term_length_years": 4,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-wilton-simpson",
-      "notes": "Simpson is seeking a second term. Florida runs a closed primary on Aug 18 — only registered Republican / Democratic voters choose between primary candidates. One write-in candidate (Kyle Gibson) also qualified; write-ins do not appear on the ballot and are omitted here.",
+      "notes": "Commissioner Wilton Simpson is seeking a second term.",
       "primary_candidates": {
         "R": [
           "fl-cand-wilton-simpson",
@@ -282,49 +248,48 @@
         "fl-cand-wilton-simpson",
         "fl-cand-joey-mendoza-atkins"
       ],
-      "general_candidates_note": "Nominees as decided by the Aug 18 primary.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN",
-        "observed": "2026-07-31"
-      },
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates also qualified; their names are not printed on the ballot.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
         "date": "2026-08-18",
         "status": "reported",
-        "certified": false,
-        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Election Watch (Division of Elections)",
-        "source_url": "https://floridaelectionwatch.gov/",
-        "retrieved": "2026-08-21",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
         "winners": {
           "R": {
             "candidate_id": "fl-cand-wilton-simpson",
             "runner_up": "Matt Taylor",
-            "votes": 1110927,
-            "runner_up_votes": 501160,
-            "party_total_votes": 1612087
+            "votes": 1111530,
+            "runner_up_votes": 501512,
+            "party_total_votes": 1613042
           },
           "D": {
             "candidate_id": "fl-cand-joey-mendoza-atkins",
-            "runner_up": "Donald Prichard",
-            "votes": 716585,
-            "runner_up_votes": 472171,
-            "party_total_votes": 1188756
+            "runner_up": "Donald A. \"Don\" Prichard",
+            "votes": 717225,
+            "runner_up_votes": 472490,
+            "party_total_votes": 1189715
           }
         },
         "turnout": {
-          "total": 2800843,
+          "total": 2802757,
           "by_party": {
-            "R": 1612087,
-            "D": 1188756
+            "R": 1613042,
+            "D": 1189715
           },
-          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
-        },
-        "counties_reporting": "67 of 67",
-        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
-      }
+          "basis": "Ballots cast in this office's party primaries, all 67 counties."
+        }
+      },
+      "write_in_candidates": [
+        "fl-cand-kyle-gibson"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=AGR",
+      "roster_retrieved": "2026-09-24"
     },
     {
       "id": "fl-2026-us-house-10",
@@ -336,31 +301,41 @@
       "seat_type": "legislative",
       "term_length_years": 2,
       "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-maxwell-frost",
+      "incumbent_candidate_id": "fl-cand-maxwell-alejandro-frost-h10",
       "primary_candidates": {
         "D": [
-          "fl-cand-maxwell-frost",
           "fl-cand-maxwell-alejandro-frost-h10"
-        ],
-        "R": [
-          "fl-cand-willie-montague",
-          "fl-cand-vibert-white"
         ]
       },
       "general_candidates": [
-        "fl-cand-maxwell-frost",
-        "fl-cand-maxwell-alejandro-frost-h10",
-        "fl-cand-willie-montague",
-        "fl-cand-vibert-white"
+        "fl-cand-maxwell-alejandro-frost-h10"
       ],
-      "general_candidates_note": "Frost is the only Democrat filed and advances to the general unopposed. Montague is the demo projection for the R primary winner — update after Aug 18.",
-      "notes": "Maxwell Frost (D) is the incumbent seeking reelection. The R primary between Montague and White (newcomer) decides who advances. No NPA / minor-party / write-in candidates have filed.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR&District=10",
-        "observed": "2026-05-05",
-        "count": 3,
-        "note": "3 active filers as of 2026-05-05 (1 D incumbent, 2 R challengers). FEC and FL Division of Elections both track US House filers; the FL list is the ballot-access authority for FL congressional races."
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "notes": "Rep. Maxwell Frost is unopposed, so this race does not appear on the Nov 3 ballot. Under Florida law (s. 101.151(7), F.S.), an unopposed candidate is not listed and is elected without a vote.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "uncontested_general": true,
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "D": {
+            "candidate_id": "fl-cand-maxwell-alejandro-frost-h10",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office; every party had a single qualified candidate."
       }
     },
     {
@@ -378,19 +353,45 @@
         "R": [
           "fl-cand-ana-maria-rodriguez"
         ],
-        "D": []
+        "D": [
+          "fl-cand-jose-antonio-stoute-sd40"
+        ]
       },
       "general_candidates": [
-        "fl-cand-ana-maria-rodriguez"
+        "fl-cand-ana-maria-rodriguez",
+        "fl-cand-jose-antonio-stoute-sd40",
+        "fl-cand-ramiro-orta-sd40"
       ],
-      "general_candidates_note": "No Democratic, NPA, minor-party, or write-in candidates have filed. Sen. Rodriguez (R, incumbent) is uncontested and advances to the general unopposed.",
-      "notes": "Sen. Ana Maria Rodriguez (R) is the incumbent. As of 2026-05-05 she is the only filer with the FL Division of Elections — no challenger in either party. The qualifying-period close in June may bring additional filers; check back closer to the deadline.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STS&District=40",
-        "observed": "2026-05-05",
-        "count": 1,
-        "note": "1 active filer as of 2026-05-05 (Republican incumbent, uncontested)."
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate.",
+      "notes": "Sen. Ana Maria Rodriguez is the incumbent.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STS&StatusCode=ALL",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "No primary was held: each party had a single qualified candidate (Florida Division of Elections).",
+        "source": "Florida Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STS&StatusCode=ALL",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-ana-maria-rodriguez",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-jose-antonio-stoute-sd40",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office."
       }
     },
     {
@@ -405,25 +406,47 @@
       "open_seat": true,
       "incumbent_candidate_id": null,
       "primary_candidates": {
-        "D": [
-          "fl-cand-felipe-sousa-lazaballet"
-        ],
         "R": [
           "fl-cand-bonnie-jackson"
+        ],
+        "D": [
+          "fl-cand-felipe-sousa-lazaballet"
         ]
       },
       "general_candidates": [
-        "fl-cand-felipe-sousa-lazaballet",
-        "fl-cand-bonnie-jackson"
+        "fl-cand-bonnie-jackson",
+        "fl-cand-felipe-sousa-lazaballet"
       ],
-      "general_candidates_note": "Both primaries are uncontested as of 2026-05-05, so Sousa Lazaballet (D) and Jackson (R) project to advance to the Nov 3 general unless another filer enters before the qualifying deadline.",
-      "notes": "Open seat — Rep. Anna Eskamani (D) is not seeking re-election. Felipe Sousa Lazaballet (D) and Bonnie Jackson (R) are the only filers in either primary as of 2026-05-05.",
-      "_roster_source": {
-        "authority": "Florida Department of State, Division of Elections — Candidate Tracking System (cross-referenced with Ballotpedia and Wikipedia 2026 FL House election coverage)",
-        "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STR&District=42",
-        "observed": "2026-05-05",
-        "count": 2,
-        "note": "2 active filers as of 2026-05-05 (1 D, 1 R). Open seat — Eskamani (D, incumbent) is not running."
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate.",
+      "notes": "Open seat: Rep. Anna Eskamani is not seeking re-election.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STR&StatusCode=ALL&CountyCode=ORA",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "No primary was held: each party had a single qualified candidate (Florida Division of Elections).",
+        "source": "Florida Division of Elections",
+        "source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STR&StatusCode=ALL&CountyCode=ORA",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-bonnie-jackson",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-felipe-sousa-lazaballet",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office."
       }
     },
     {
@@ -435,63 +458,65 @@
       "term_length_years": 6,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-ashley-moody-sen",
-      "notes": "2026 U.S. Senate election in Florida. Roster reflects active federal candidates with FEC committees; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "Special election for the rest of the Class 3 term. Sen. Ashley Moody was appointed to the seat in January 2025.",
       "primary_candidates": {
         "R": [
           "fl-cand-ashley-moody-sen",
-          "fl-cand-jake-lang-sen"
+          "fl-cand-chris-gleason-sen",
+          "fl-cand-ernest-rivera-sen",
+          "fl-cand-neelam-taneja-perry-sen"
         ],
         "D": [
-          "fl-cand-alexander-vindman-sen",
-          "fl-cand-hector-daniel-mujica-sen",
-          "fl-cand-angela-nixon-sen",
-          "fl-cand-alan-mark-grayson-sen",
-          "fl-cand-tamika-lyles-sen",
-          "fl-cand-joey-mendoza-atkins-sen"
+          "fl-cand-angie-nixon-sen",
+          "fl-cand-alexander-vindman-sen"
         ]
       },
       "general_candidates": [
         "fl-cand-ashley-moody-sen",
-        "fl-cand-angie-nixon-sen"
+        "fl-cand-angie-nixon-sen",
+        "fl-cand-neil-j-gillespie-sen"
       ],
-      "general_candidates_note": "Nominees as decided by the Aug 18 primary. Neil J. Gillespie (NPA) also qualified and appears on the general ballot; his candidate record is pending.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No write-in candidate qualified.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
         "date": "2026-08-18",
         "status": "reported",
-        "certified": false,
-        "certification_note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-        "source": "Florida Election Watch (Division of Elections)",
-        "source_url": "https://floridaelectionwatch.gov/",
-        "retrieved": "2026-08-21",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
         "winners": {
           "R": {
             "candidate_id": "fl-cand-ashley-moody-sen",
-            "votes": 1320048,
-            "party_total_votes": 1659023
+            "votes": 1320780,
+            "party_total_votes": 1660013,
+            "runner_up": "Chris Gleason",
+            "runner_up_votes": 228010
           },
           "D": {
             "candidate_id": "fl-cand-angie-nixon-sen",
             "runner_up": "Alex Vindman",
-            "votes": 705192,
-            "runner_up_votes": 552774,
-            "party_total_votes": 1257966
+            "votes": 705835,
+            "runner_up_votes": 553138,
+            "party_total_votes": 1258973
           }
         },
-        "note": "Special election for the unexpired Class 3 term. Nixon's win was a significant upset — she was heavily outspent by Vindman.",
+        "note": "Angie Nixon won the Democratic primary over Alex Vindman.",
         "turnout": {
-          "total": 2916989,
+          "total": 2918986,
           "by_party": {
-            "R": 1659023,
-            "D": 1257966
+            "R": 1660013,
+            "D": 1258973
           },
-          "basis": "Ballots cast in this office's party primaries, summed across all 67 counties."
-        },
-        "counties_reporting": "67 of 67",
-        "data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt",
-        "data_file_note": "Per-county machine-readable results file. This is the file the vote totals above were summed from."
-      }
+          "basis": "Ballots cast in this office's party primaries, all 67 counties."
+        }
+      },
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "roster_retrieved": "2026-09-24"
     },
     {
       "id": "fl-2026-us-house-1",
@@ -500,45 +525,62 @@
       "jurisdiction": "FL",
       "seat_type": "legislative",
       "term_length_years": 2,
-      "open_seat": true,
-      "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 1st U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "open_seat": false,
+      "incumbent_candidate_id": "fl-cand-jimmy-patronis-jr-h1",
+      "notes": "District lines were not changed in the 2026 redistricting.",
       "primary_candidates": {
         "R": [
           "fl-cand-jimmy-patronis-jr-h1",
-          "fl-cand-joel-rudman-h1",
           "fl-cand-john-frankman-h1",
-          "fl-cand-michael-thompson-h1",
-          "fl-cand-aaron-dimmock-h1",
-          "fl-cand-douglas-connor-chico-h1",
-          "fl-cand-gregory-charles-merk-h1",
-          "fl-cand-jeff-peacock-h1",
-          "fl-cand-kevin-james-gaffney-h1"
+          "fl-cand-douglas-connor-chico-h1"
         ],
         "D": [
           "fl-cand-jennifer-gay-valimont-h1"
-        ],
-        "I": [
-          "fl-cand-stephen-broden-h1",
-          "fl-cand-stephen-edward-broden-h1"
         ]
       },
       "general_candidates": [
         "fl-cand-jimmy-patronis-jr-h1",
-        "fl-cand-joel-rudman-h1",
-        "fl-cand-john-frankman-h1",
-        "fl-cand-michael-thompson-h1",
-        "fl-cand-aaron-dimmock-h1",
-        "fl-cand-douglas-connor-chico-h1",
         "fl-cand-jennifer-gay-valimont-h1",
-        "fl-cand-gregory-charles-merk-h1",
-        "fl-cand-jeff-peacock-h1",
-        "fl-cand-stephen-broden-h1",
-        "fl-cand-stephen-edward-broden-h1",
-        "fl-cand-kevin-james-gaffney-h1"
+        "fl-cand-tyler-l-davis-h1"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "1",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-jimmy-patronis-jr-h1",
+            "votes": 62965,
+            "party_total_votes": 88529,
+            "runner_up": "John Frankman",
+            "runner_up_votes": 17278
+          },
+          "D": {
+            "candidate_id": "fl-cand-jennifer-gay-valimont-h1",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": {
+          "total": 88529,
+          "by_party": {
+            "R": 88529
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-2",
@@ -549,37 +591,70 @@
       "term_length_years": 2,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 2nd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were not changed in the 2026 redistricting. Open seat: Rep. Neal Dunn is not seeking re-election.",
       "primary_candidates": {
         "R": [
-          "fl-cand-keith-gross-h2",
           "fl-cand-austin-rogers-h2",
+          "fl-cand-keith-gross-h2",
           "fl-cand-evan-power-h2",
-          "fl-cand-jim-norton-h2",
           "fl-cand-luke-murphy-h2",
+          "fl-cand-jim-norton-h2",
           "fl-cand-audie-rowell-h2",
-          "fl-cand-nicholas-justin-lewis-h2"
+          "fl-cand-lee-jones-h2",
+          "fl-cand-nick-lewis-h2"
         ],
         "D": [
-          "fl-cand-nicholas-zateslo-h2",
           "fl-cand-amanda-marie-green-h2",
-          "fl-cand-huy-yen-cam-bailey-h2"
+          "fl-cand-yen-bailey-h2",
+          "fl-cand-brice-barnes-h2",
+          "fl-cand-nicholas-zateslo-h2"
         ]
       },
       "general_candidates": [
-        "fl-cand-keith-gross-h2",
         "fl-cand-austin-rogers-h2",
-        "fl-cand-evan-power-h2",
-        "fl-cand-nicholas-zateslo-h2",
-        "fl-cand-jim-norton-h2",
-        "fl-cand-amanda-marie-green-h2",
-        "fl-cand-huy-yen-cam-bailey-h2",
-        "fl-cand-luke-murphy-h2",
-        "fl-cand-audie-rowell-h2",
-        "fl-cand-nicholas-justin-lewis-h2"
+        "fl-cand-amanda-marie-green-h2"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "2",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-austin-rogers-h2",
+            "votes": 26726,
+            "party_total_votes": 87705,
+            "runner_up": "Keith Gross",
+            "runner_up_votes": 14381
+          },
+          "D": {
+            "candidate_id": "fl-cand-amanda-marie-green-h2",
+            "votes": 21462,
+            "party_total_votes": 64083,
+            "runner_up": "Yen Bailey",
+            "runner_up_votes": 17924
+          }
+        },
+        "turnout": {
+          "total": 151788,
+          "by_party": {
+            "R": 87705,
+            "D": 64083
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-3",
@@ -590,23 +665,61 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-kat-cammack-h3",
-      "notes": "2026 election for Florida's 3rd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were not changed in the 2026 redistricting.",
       "primary_candidates": {
         "R": [
           "fl-cand-kat-cammack-h3"
         ],
         "D": [
           "fl-cand-seth-allan-harp-h3",
-          "fl-cand-troy-albers-h3"
+          "fl-cand-tom-wells-h3",
+          "fl-cand-troy-albers-h3",
+          "fl-cand-george-hubac-h3"
         ]
       },
       "general_candidates": [
         "fl-cand-kat-cammack-h3",
         "fl-cand-seth-allan-harp-h3",
-        "fl-cand-troy-albers-h3"
+        "fl-cand-mike-klein-h3"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "3",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-kat-cammack-h3",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-seth-allan-harp-h3",
+            "votes": 20671,
+            "party_total_votes": 45764,
+            "runner_up": "Tom Wells",
+            "runner_up_votes": 15447
+          }
+        },
+        "turnout": {
+          "total": 45764,
+          "by_party": {
+            "D": 45764
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-4",
@@ -617,25 +730,61 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-aaron-p-bean-h4",
-      "notes": "2026 election for Florida's 4th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were not changed in the 2026 redistricting.",
       "primary_candidates": {
         "R": [
           "fl-cand-aaron-p-bean-h4"
         ],
         "D": [
+          "fl-cand-lashonda-holloway-h4",
           "fl-cand-michael-kirwan-h4",
-          "fl-cand-brittney-robinson-h4",
-          "fl-cand-ricky-patric-knoles-h4"
+          "fl-cand-brit-robinson-h4"
         ]
       },
       "general_candidates": [
         "fl-cand-aaron-p-bean-h4",
-        "fl-cand-michael-kirwan-h4",
-        "fl-cand-brittney-robinson-h4",
-        "fl-cand-ricky-patric-knoles-h4"
+        "fl-cand-lashonda-holloway-h4",
+        "fl-cand-todd-schaefer-h4",
+        "fl-cand-mike-sell-h4"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "4",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-aaron-p-bean-h4",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-lashonda-holloway-h4",
+            "votes": 29772,
+            "party_total_votes": 51939,
+            "runner_up": "Michael Kirwan",
+            "runner_up_votes": 15809
+          }
+        },
+        "turnout": {
+          "total": 51939,
+          "by_party": {
+            "D": 51939
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-5",
@@ -646,7 +795,7 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-john-rutherford-h5",
-      "notes": "2026 election for Florida's 5th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were not changed in the 2026 redistricting.",
       "primary_candidates": {
         "R": [
           "fl-cand-john-rutherford-h5",
@@ -654,19 +803,57 @@
         ],
         "D": [
           "fl-cand-rachel-grage-h5",
-          "fl-cand-mark-peter-heggestad-h5",
-          "fl-cand-alexander-hazen-h5"
+          "fl-cand-alex-hazen-h5",
+          "fl-cand-mark-peter-heggestad-h5"
         ]
       },
       "general_candidates": [
         "fl-cand-john-rutherford-h5",
-        "fl-cand-rachel-grage-h5",
-        "fl-cand-mark-peter-heggestad-h5",
-        "fl-cand-mark-kaye-h5",
-        "fl-cand-alexander-hazen-h5"
+        "fl-cand-rachel-grage-h5"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "5",
+      "write_in_candidates": [
+        "fl-cand-william-lintag-upham-h5"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-john-rutherford-h5",
+            "votes": 54072,
+            "party_total_votes": 79865,
+            "runner_up": "Mark Kaye",
+            "runner_up_votes": 25793
+          },
+          "D": {
+            "candidate_id": "fl-cand-rachel-grage-h5",
+            "votes": 27427,
+            "party_total_votes": 42153,
+            "runner_up": "Alex Hazen",
+            "runner_up_votes": 9119
+          }
+        },
+        "turnout": {
+          "total": 122018,
+          "by_party": {
+            "R": 79865,
+            "D": 42153
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-6",
@@ -677,41 +864,69 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-randy-fine-h6",
-      "notes": "2026 election for Florida's 6th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were not changed in the 2026 redistricting.",
       "primary_candidates": {
         "R": [
           "fl-cand-randy-fine-h6",
-          "fl-cand-charles-gambaro-h6",
+          "fl-cand-dan-bilzerian-h6",
           "fl-cand-aaron-baker-h6",
-          "fl-cand-will-furry-h6",
-          "fl-cand-ehsan-joarder-h6"
+          "fl-cand-charles-gambaro-h6"
         ],
         "D": [
           "fl-cand-eric-yonce-h6",
-          "fl-cand-george-austin-selmont-h6",
-          "fl-cand-robert-david-cooper-ii-h6",
           "fl-cand-ronnie-murchinson-rivera-h6",
-          "fl-cand-steve-morgan-h6"
-        ],
-        "I": [
-          "fl-cand-randall-terry-h6"
+          "fl-cand-steve-morgan-h6",
+          "fl-cand-robert-david-cooper-ii-h6"
         ]
       },
       "general_candidates": [
         "fl-cand-randy-fine-h6",
-        "fl-cand-charles-gambaro-h6",
         "fl-cand-eric-yonce-h6",
-        "fl-cand-george-austin-selmont-h6",
-        "fl-cand-aaron-baker-h6",
-        "fl-cand-will-furry-h6",
-        "fl-cand-robert-david-cooper-ii-h6",
-        "fl-cand-randall-terry-h6",
-        "fl-cand-ronnie-murchinson-rivera-h6",
-        "fl-cand-ehsan-joarder-h6",
-        "fl-cand-steve-morgan-h6"
+        "fl-cand-andrew-parrott-h6"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "6",
+      "write_in_candidates": [
+        "fl-cand-alec-pavlik-h6"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-randy-fine-h6",
+            "votes": 51109,
+            "party_total_votes": 88675,
+            "runner_up": "Dan Bilzerian",
+            "runner_up_votes": 16776
+          },
+          "D": {
+            "candidate_id": "fl-cand-eric-yonce-h6",
+            "votes": 13465,
+            "party_total_votes": 41902,
+            "runner_up": "Ronnie \"Ron\" Murchinson-Rivera",
+            "runner_up_votes": 11260
+          }
+        },
+        "turnout": {
+          "total": 130577,
+          "by_party": {
+            "R": 88675,
+            "D": 41902
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-7",
@@ -720,31 +935,68 @@
       "jurisdiction": "FL",
       "seat_type": "legislative",
       "term_length_years": 2,
-      "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-cory-mills-h7",
-      "notes": "2026 election for Florida's 7th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "District lines were not changed in the 2026 redistricting. Rep. Cory Mills lost the Aug 18 Republican primary, so no incumbent is on this ballot.",
       "primary_candidates": {
         "R": [
+          "fl-cand-ryan-elijah-h7",
           "fl-cand-cory-mills-h7",
-          "fl-cand-michael-johnson-h7",
-          "fl-cand-sarah-ulrich-h7"
+          "fl-cand-sarah-ulrich-h7",
+          "fl-cand-michael-johnson-h7"
         ],
         "D": [
           "fl-cand-bale-dalton-h7",
           "fl-cand-marialana-kinter-h7",
-          "fl-cand-jennifer-adams-h7"
+          "fl-cand-alan-grayson-h7"
         ]
       },
       "general_candidates": [
-        "fl-cand-cory-mills-h7",
+        "fl-cand-ryan-elijah-h7",
         "fl-cand-bale-dalton-h7",
-        "fl-cand-marialana-kinter-h7",
-        "fl-cand-jennifer-adams-h7",
-        "fl-cand-michael-johnson-h7",
-        "fl-cand-sarah-ulrich-h7"
+        "fl-cand-christopher-dennison-h7"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "7",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-ryan-elijah-h7",
+            "votes": 31558,
+            "party_total_votes": 66732,
+            "runner_up": "Cory Lee Mills",
+            "runner_up_votes": 22753
+          },
+          "D": {
+            "candidate_id": "fl-cand-bale-dalton-h7",
+            "votes": 21776,
+            "party_total_votes": 47869,
+            "runner_up": "Marialana Kinter",
+            "runner_up_votes": 17022
+          }
+        },
+        "turnout": {
+          "total": 114601,
+          "by_party": {
+            "R": 66732,
+            "D": 47869
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-8",
@@ -755,23 +1007,50 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-mike-haridopolos-h8",
-      "notes": "2026 election for Florida's 8th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-mike-haridopolos-h8"
         ],
         "D": [
-          "fl-cand-jennifer-jenkins-h8",
-          "fl-cand-colby-shock-h8"
+          "fl-cand-jennifer-jenkins-h8"
         ]
       },
       "general_candidates": [
         "fl-cand-mike-haridopolos-h8",
-        "fl-cand-jennifer-jenkins-h8",
-        "fl-cand-colby-shock-h8"
+        "fl-cand-jennifer-jenkins-h8"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "8",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-mike-haridopolos-h8",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-jennifer-jenkins-h8",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office; every party had a single qualified candidate."
+      }
     },
     {
       "id": "fl-2026-us-house-9",
@@ -782,29 +1061,63 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-darren-soto-h9",
-      "notes": "2026 election for Florida's 9th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
+          "fl-cand-dan-green-h9",
+          "fl-cand-ben-butler-h9",
           "fl-cand-thomas-e-colonel-chalifoux-jr-h9",
-          "fl-cand-howard-steven-rance-h9",
+          "fl-cand-jorge-martinez-h9",
           "fl-cand-justin-story-h9",
-          "fl-cand-jorge-antonio-malavet-h9",
-          "fl-cand-gregory-marcus-carter-h9"
+          "fl-cand-marcus-carter-h9",
+          "fl-cand-steve-rance-h9"
         ],
         "D": [
           "fl-cand-darren-soto-h9"
         ]
       },
       "general_candidates": [
-        "fl-cand-thomas-e-colonel-chalifoux-jr-h9",
-        "fl-cand-darren-soto-h9",
-        "fl-cand-howard-steven-rance-h9",
-        "fl-cand-justin-story-h9",
-        "fl-cand-jorge-antonio-malavet-h9",
-        "fl-cand-gregory-marcus-carter-h9"
+        "fl-cand-dan-green-h9",
+        "fl-cand-darren-soto-h9"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "9",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-dan-green-h9",
+            "votes": 14748,
+            "party_total_votes": 58102,
+            "runner_up": "Ben Butler",
+            "runner_up_votes": 14161
+          },
+          "D": {
+            "candidate_id": "fl-cand-darren-soto-h9",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": {
+          "total": 58102,
+          "by_party": {
+            "R": 58102
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-11",
@@ -813,23 +1126,70 @@
       "jurisdiction": "FL",
       "seat_type": "legislative",
       "term_length_years": 2,
-      "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-daniel-webster-h11",
-      "notes": "2026 election for Florida's 11th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "open_seat": true,
+      "incumbent_candidate_id": null,
+      "notes": "District lines were redrawn in 2026. Open seat: Rep. Daniel Webster is not seeking re-election. The Republican primary went to a machine recount, which confirmed Joe Strada as the nominee.",
       "primary_candidates": {
         "R": [
-          "fl-cand-daniel-webster-h11"
+          "fl-cand-joe-strada-h11",
+          "fl-cand-carey-baker-h11",
+          "fl-cand-tim-wilkins-h11",
+          "fl-cand-nizam-razack-h11",
+          "fl-cand-ivette-palomo-h11"
         ],
         "D": [
-          "fl-cand-barbara-barbie-harden-hall-h11"
+          "fl-cand-james-pericola-h11",
+          "fl-cand-royal-webster-h11",
+          "fl-cand-dan-williams-h11"
         ]
       },
       "general_candidates": [
-        "fl-cand-daniel-webster-h11",
-        "fl-cand-barbara-barbie-harden-hall-h11"
+        "fl-cand-joe-strada-h11",
+        "fl-cand-james-pericola-h11",
+        "fl-cand-ralph-groves-h11"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "11",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-joe-strada-h11",
+            "votes": 27389,
+            "party_total_votes": 81775,
+            "runner_up": "Carey Baker",
+            "runner_up_votes": 26996
+          },
+          "D": {
+            "candidate_id": "fl-cand-james-pericola-h11",
+            "votes": 20833,
+            "party_total_votes": 44948,
+            "runner_up": "Royal Webster",
+            "runner_up_votes": 12356
+          }
+        },
+        "turnout": {
+          "total": 126723,
+          "by_party": {
+            "R": 81775,
+            "D": 44948
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        },
+        "note": "A machine recount in Lake, Orange and Sumter counties finished Aug 23 and did not change the outcome."
+      }
     },
     {
       "id": "fl-2026-us-house-12",
@@ -840,25 +1200,59 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-gus-m-bilirakis-h12",
-      "notes": "2026 election for Florida's 12th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-gus-m-bilirakis-h12"
         ],
         "D": [
-          "fl-cand-darren-mcauley-h12",
           "fl-cand-kimberly-overman-h12",
-          "fl-cand-christopher-irizarry-h12"
+          "fl-cand-darren-mcauley-h12"
         ]
       },
       "general_candidates": [
         "fl-cand-gus-m-bilirakis-h12",
-        "fl-cand-darren-mcauley-h12",
         "fl-cand-kimberly-overman-h12",
-        "fl-cand-christopher-irizarry-h12"
+        "fl-cand-branden-scrivener-h12"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "12",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-gus-m-bilirakis-h12",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-kimberly-overman-h12",
+            "votes": 21833,
+            "party_total_votes": 41459,
+            "runner_up": "Darren McAuley",
+            "runner_up_votes": 19626
+          }
+        },
+        "turnout": {
+          "total": 41459,
+          "by_party": {
+            "D": 41459
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-13",
@@ -869,29 +1263,60 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-anna-paulina-luna-h13",
-      "notes": "2026 election for Florida's 13th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-anna-paulina-luna-h13"
         ],
         "D": [
-          "fl-cand-earle-ford-h13",
           "fl-cand-leela-j-gray-h13",
-          "fl-cand-timothy-brandt-robinson-h13",
-          "fl-cand-reginald-paros-h13",
-          "fl-cand-karla-kemp-h13"
+          "fl-cand-brandt-robinson-h13",
+          "fl-cand-john-william-liccione-h13"
         ]
       },
       "general_candidates": [
         "fl-cand-anna-paulina-luna-h13",
-        "fl-cand-earle-ford-h13",
         "fl-cand-leela-j-gray-h13",
-        "fl-cand-timothy-brandt-robinson-h13",
-        "fl-cand-reginald-paros-h13",
-        "fl-cand-karla-kemp-h13"
+        "fl-cand-tony-d-arrigo-h13"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "13",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-anna-paulina-luna-h13",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-leela-j-gray-h13",
+            "votes": 32705,
+            "party_total_votes": 50311,
+            "runner_up": "Brandt Robinson",
+            "runner_up_votes": 13279
+          }
+        },
+        "turnout": {
+          "total": 50311,
+          "by_party": {
+            "D": 50311
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-14",
@@ -902,31 +1327,68 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-kathy-castor-h14",
-      "notes": "2026 election for Florida's 14th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
-        "D": [
-          "fl-cand-kathy-castor-h14"
-        ],
         "R": [
-          "fl-cand-daniel-weldon-h14",
+          "fl-cand-mike-beltran-h14",
+          "fl-cand-kevin-m-steele-h14",
+          "fl-cand-bea-valenti-h14",
           "fl-cand-robert-anthony-rocky-capt-rochford-h14",
           "fl-cand-john-peters-h14",
-          "fl-cand-shay-williams-h14",
+          "fl-cand-michael-marcel-h14",
           "fl-cand-ergin-aka-batman-tek-h14",
-          "fl-cand-john-charles-wick-h14"
+          "fl-cand-gavriel-e-soriano-h14"
+        ],
+        "D": [
+          "fl-cand-kathy-castor-h14"
         ]
       },
       "general_candidates": [
+        "fl-cand-mike-beltran-h14",
         "fl-cand-kathy-castor-h14",
-        "fl-cand-daniel-weldon-h14",
-        "fl-cand-robert-anthony-rocky-capt-rochford-h14",
-        "fl-cand-john-peters-h14",
-        "fl-cand-shay-williams-h14",
-        "fl-cand-ergin-aka-batman-tek-h14",
-        "fl-cand-john-charles-wick-h14"
+        "fl-cand-brian-lambert-h14"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "14",
+      "write_in_candidates": [
+        "fl-cand-salomon-hernandez-sr-h14",
+        "fl-cand-keith-varian-h14"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-mike-beltran-h14",
+            "votes": 25866,
+            "party_total_votes": 56734,
+            "runner_up": "Kevin M. Steele",
+            "runner_up_votes": 17140
+          },
+          "D": {
+            "candidate_id": "fl-cand-kathy-castor-h14",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": {
+          "total": 56734,
+          "by_party": {
+            "R": 56734
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-15",
@@ -937,21 +1399,60 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-laurel-lee-h15",
-      "notes": "2026 election for Florida's 15th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-laurel-lee-h15"
         ],
         "D": [
-          "fl-cand-robert-people-h15"
+          "fl-cand-robert-people-h15",
+          "fl-cand-christopher-irizarry-h15"
         ]
       },
       "general_candidates": [
         "fl-cand-laurel-lee-h15",
         "fl-cand-robert-people-h15"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "15",
+      "write_in_candidates": [
+        "fl-cand-angie-boone-h15"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-laurel-lee-h15",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-robert-people-h15",
+            "votes": 22213,
+            "party_total_votes": 41409,
+            "runner_up": "Christopher Irizarry",
+            "runner_up_votes": 19196
+          }
+        },
+        "turnout": {
+          "total": 41409,
+          "by_party": {
+            "D": 41409
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-16",
@@ -962,31 +1463,67 @@
       "term_length_years": 2,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 16th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026. Open seat: Rep. Vern Buchanan is not seeking re-election.",
       "primary_candidates": {
-        "D": [
-          "fl-cand-jonathan-harris-h16",
-          "fl-cand-glenn-keith-pearson-h16",
-          "fl-cand-jan-schneider-h16"
-        ],
-        "I": [
-          "fl-cand-mark-davis-h16"
-        ],
         "R": [
-          "fl-cand-jason-edward-speir-h16",
-          "fl-cand-edward-peter-pope-h16"
+          "fl-cand-sydney-gruters-h16",
+          "fl-cand-eddie-speir-h16",
+          "fl-cand-ed-pope-h16"
+        ],
+        "D": [
+          "fl-cand-kelly-kirschner-h16",
+          "fl-cand-tamika-lyles-h16",
+          "fl-cand-jan-schneider-h16",
+          "fl-cand-jon-harris-h16",
+          "fl-cand-glenn-keith-pearson-h16"
         ]
       },
       "general_candidates": [
-        "fl-cand-jonathan-harris-h16",
-        "fl-cand-glenn-keith-pearson-h16",
-        "fl-cand-mark-davis-h16",
-        "fl-cand-jason-edward-speir-h16",
-        "fl-cand-jan-schneider-h16",
-        "fl-cand-edward-peter-pope-h16"
+        "fl-cand-sydney-gruters-h16",
+        "fl-cand-kelly-kirschner-h16",
+        "fl-cand-mark-davis-h16"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "16",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-sydney-gruters-h16",
+            "votes": 48570,
+            "party_total_votes": 76553,
+            "runner_up": "Eddie Speir",
+            "runner_up_votes": 16291
+          },
+          "D": {
+            "candidate_id": "fl-cand-kelly-kirschner-h16",
+            "votes": 23488,
+            "party_total_votes": 54657,
+            "runner_up": "Tamika Lyles",
+            "runner_up_votes": 10888
+          }
+        },
+        "turnout": {
+          "total": 131210,
+          "by_party": {
+            "R": 76553,
+            "D": 54657
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-17",
@@ -997,7 +1534,7 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-greg-steube-h17",
-      "notes": "2026 election for Florida's 17th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-greg-steube-h17"
@@ -1010,10 +1547,46 @@
       "general_candidates": [
         "fl-cand-greg-steube-h17",
         "fl-cand-matthew-montavon-h17",
-        "fl-cand-allen-l-spence-jr-h17"
+        "fl-cand-michael-j-quirk-h17"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "17",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-greg-steube-h17",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-matthew-montavon-h17",
+            "votes": 27627,
+            "party_total_votes": 49897,
+            "runner_up": "Allen L. Spence",
+            "runner_up_votes": 22270
+          }
+        },
+        "turnout": {
+          "total": 49897,
+          "by_party": {
+            "D": 49897
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-18",
@@ -1024,21 +1597,51 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-scott-franklin-h18",
-      "notes": "2026 election for Florida's 18th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-scott-franklin-h18"
         ],
-        "I": [
-          "fl-cand-deva-simmons-h18"
+        "D": [
+          "fl-cand-curtis-gibson-h18"
         ]
       },
       "general_candidates": [
         "fl-cand-scott-franklin-h18",
+        "fl-cand-curtis-gibson-h18",
         "fl-cand-deva-simmons-h18"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "18",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-scott-franklin-h18",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-curtis-gibson-h18",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office; every party had a single qualified candidate."
+      }
     },
     {
       "id": "fl-2026-us-house-19",
@@ -1049,37 +1652,74 @@
       "term_length_years": 2,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 19th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026. Open seat: Rep. Byron Donalds is running for Governor.",
       "primary_candidates": {
         "R": [
-          "fl-cand-james-oberweis-h19",
           "fl-cand-jim-schwartzel-h19",
           "fl-cand-catalina-lauf-h19",
-          "fl-cand-chris-collins-h19",
+          "fl-cand-jim-oberweis-h19",
           "fl-cand-madison-cawthorn-h19",
-          "fl-cand-ola-nesheswat-hawatmeh-h19",
+          "fl-cand-chris-collins-h19",
+          "fl-cand-mike-pedersen-h19",
           "fl-cand-john-strand-h19",
-          "fl-cand-mike-pedersen-h19"
+          "fl-cand-ola-nesheswat-hawatmeh-h19",
+          "fl-cand-greg-bukowski-h19",
+          "fl-cand-linda-j-sawyer-h19"
         ],
         "D": [
+          "fl-cand-victor-m-arias-h19",
           "fl-cand-howard-sapp-h19",
-          "fl-cand-victor-m-arias-h19"
+          "fl-cand-robert-m-neeld-h19"
         ]
       },
       "general_candidates": [
-        "fl-cand-james-oberweis-h19",
         "fl-cand-jim-schwartzel-h19",
-        "fl-cand-catalina-lauf-h19",
-        "fl-cand-chris-collins-h19",
-        "fl-cand-madison-cawthorn-h19",
-        "fl-cand-ola-nesheswat-hawatmeh-h19",
-        "fl-cand-john-strand-h19",
-        "fl-cand-mike-pedersen-h19",
-        "fl-cand-howard-sapp-h19",
-        "fl-cand-victor-m-arias-h19"
+        "fl-cand-victor-m-arias-h19",
+        "fl-cand-seth-haskin-h19"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "19",
+      "write_in_candidates": [
+        "fl-cand-alexandra-zakhvatayev-h19"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-jim-schwartzel-h19",
+            "votes": 26153,
+            "party_total_votes": 89742,
+            "runner_up": "Catalina Lauf",
+            "runner_up_votes": 19722
+          },
+          "D": {
+            "candidate_id": "fl-cand-victor-m-arias-h19",
+            "votes": 15410,
+            "party_total_votes": 33881,
+            "runner_up": "Howard Sapp",
+            "runner_up_votes": 13918
+          }
+        },
+        "turnout": {
+          "total": 123623,
+          "by_party": {
+            "R": 89742,
+            "D": 33881
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-20",
@@ -1089,32 +1729,69 @@
       "seat_type": "legislative",
       "term_length_years": 2,
       "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-debbie-wasserman-schultz-h20",
-      "notes": "2026 election for Florida's 20th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "incumbent_candidate_id": null,
+      "notes": "District lines were redrawn in 2026. The seat has been vacant since Rep. Sheila Cherfilus-McCormick resigned on April 21, 2026. Rep. Debbie Wasserman Schultz, who currently represents FL-25, is running here.",
       "primary_candidates": {
+        "R": [
+          "fl-cand-brent-andersen-h20",
+          "fl-cand-rod-joseph-h20",
+          "fl-cand-carla-spalding-h20",
+          "fl-cand-lateresa-jones-h20"
+        ],
         "D": [
           "fl-cand-debbie-wasserman-schultz-h20",
+          "fl-cand-dale-v-c-holness-h20",
           "fl-cand-elijah-manley-h20",
           "fl-cand-sheila-cherfilus-mccormick-h20",
-          "fl-cand-dale-v-c-holness-h20"
-        ],
-        "R": [
-          "fl-cand-rodenay-joseph-h20"
-        ],
-        "I": [
-          "fl-cand-kedner-maxime-h20"
+          "fl-cand-luther-campbell-h20"
         ]
       },
       "general_candidates": [
+        "fl-cand-brent-andersen-h20",
         "fl-cand-debbie-wasserman-schultz-h20",
-        "fl-cand-elijah-manley-h20",
-        "fl-cand-sheila-cherfilus-mccormick-h20",
-        "fl-cand-dale-v-c-holness-h20",
-        "fl-cand-rodenay-joseph-h20",
         "fl-cand-kedner-maxime-h20"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "20",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-brent-andersen-h20",
+            "votes": 7442,
+            "party_total_votes": 13840,
+            "runner_up": "Rod Joseph",
+            "runner_up_votes": 2831
+          },
+          "D": {
+            "candidate_id": "fl-cand-debbie-wasserman-schultz-h20",
+            "votes": 30505,
+            "party_total_votes": 67337,
+            "runner_up": "Dale V.C. Holness",
+            "runner_up_votes": 15571
+          }
+        },
+        "turnout": {
+          "total": 81177,
+          "by_party": {
+            "R": 13840,
+            "D": 67337
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-21",
@@ -1125,25 +1802,62 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-brian-mast-h21",
-      "notes": "2026 election for Florida's 21st U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-brian-mast-h21"
         ],
         "D": [
           "fl-cand-james-martin-h21",
-          "fl-cand-elizabeth-pandich-h21",
           "fl-cand-bernard-taylor-h21"
         ]
       },
       "general_candidates": [
         "fl-cand-brian-mast-h21",
         "fl-cand-james-martin-h21",
-        "fl-cand-elizabeth-pandich-h21",
-        "fl-cand-bernard-taylor-h21"
+        "fl-cand-alexander-cooke-h21"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "21",
+      "write_in_candidates": [
+        "fl-cand-david-fabrikant-h21"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-brian-mast-h21",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-james-martin-h21",
+            "votes": 24054,
+            "party_total_votes": 47746,
+            "runner_up": "Bernard Taylor",
+            "runner_up_votes": 23692
+          }
+        },
+        "turnout": {
+          "total": 47746,
+          "by_party": {
+            "D": 47746
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        },
+        "note": "The Democratic primary was decided by 362 votes (0.76 points), above the 0.5-point automatic recount threshold."
+      }
     },
     {
       "id": "fl-2026-us-house-22",
@@ -1154,29 +1868,67 @@
       "term_length_years": 2,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 22nd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026. Rep. Lois Frankel, the current FL-22 member, is running in FL-23, so no incumbent is on this ballot.",
       "primary_candidates": {
         "R": [
+          "fl-cand-casey-askar-h22",
           "fl-cand-michael-carbonara-h22",
-          "fl-cand-herbert-od-wertheim-h22",
-          "fl-cand-anna-medvedeva-h22",
-          "fl-cand-deborah-adeimy-h22",
-          "fl-cand-david-burck-h22"
+          "fl-cand-belinda-keiser-h22",
+          "fl-cand-david-burck-h22",
+          "fl-cand-terri-hasdorff-h22",
+          "fl-cand-michael-thompson-h22",
+          "fl-cand-richard-evans-h22"
         ],
         "D": [
-          "fl-cand-pia-dandiya-h22"
+          "fl-cand-pia-dandiya-h22",
+          "fl-cand-kaysia-earley-h22"
         ]
       },
       "general_candidates": [
-        "fl-cand-michael-carbonara-h22",
-        "fl-cand-herbert-od-wertheim-h22",
-        "fl-cand-pia-dandiya-h22",
-        "fl-cand-anna-medvedeva-h22",
-        "fl-cand-deborah-adeimy-h22",
-        "fl-cand-david-burck-h22"
+        "fl-cand-casey-askar-h22",
+        "fl-cand-pia-dandiya-h22"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "22",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-casey-askar-h22",
+            "votes": 14774,
+            "party_total_votes": 47876,
+            "runner_up": "Michael Carbonara",
+            "runner_up_votes": 9072
+          },
+          "D": {
+            "candidate_id": "fl-cand-pia-dandiya-h22",
+            "votes": 26067,
+            "party_total_votes": 38014,
+            "runner_up": "Kaysia Earley",
+            "runner_up_votes": 11947
+          }
+        },
+        "turnout": {
+          "total": 85890,
+          "by_party": {
+            "R": 47876,
+            "D": 38014
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-23",
@@ -1186,32 +1938,64 @@
       "seat_type": "legislative",
       "term_length_years": 2,
       "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-lois-j-frankel-h23",
-      "notes": "2026 election for Florida's 23rd U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "incumbent_candidate_id": null,
+      "notes": "District lines were redrawn in 2026. Rep. Lois Frankel currently represents FL-22.",
       "primary_candidates": {
+        "R": [
+          "fl-cand-deborah-adeimy-h22",
+          "fl-cand-paola-branda-h23"
+        ],
         "D": [
           "fl-cand-lois-j-frankel-h23",
-          "fl-cand-oliver-adams-larkin-h23",
-          "fl-cand-victoria-jane-boker-doyle-h23"
-        ],
-        "R": [
-          "fl-cand-jared-gurfein-h23",
-          "fl-cand-sendra-dorce-h23",
-          "fl-cand-darlene-cerezo-swaffar-h23",
-          "fl-cand-paola-branda-h23"
+          "fl-cand-victoria-jane-boker-doyle-h23",
+          "fl-cand-mark-piper-h23"
         ]
       },
       "general_candidates": [
-        "fl-cand-lois-j-frankel-h23",
-        "fl-cand-oliver-adams-larkin-h23",
-        "fl-cand-victoria-jane-boker-doyle-h23",
-        "fl-cand-jared-gurfein-h23",
-        "fl-cand-sendra-dorce-h23",
-        "fl-cand-darlene-cerezo-swaffar-h23",
-        "fl-cand-paola-branda-h23"
+        "fl-cand-deborah-adeimy-h22",
+        "fl-cand-lois-j-frankel-h23"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "23",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-deborah-adeimy-h22",
+            "votes": 20641,
+            "party_total_votes": 28018,
+            "runner_up": "Paola Branda",
+            "runner_up_votes": 7377
+          },
+          "D": {
+            "candidate_id": "fl-cand-lois-j-frankel-h23",
+            "votes": 42964,
+            "party_total_votes": 57498,
+            "runner_up": "Victoria Doyle",
+            "runner_up_votes": 13438
+          }
+        },
+        "turnout": {
+          "total": 85516,
+          "by_party": {
+            "R": 28018,
+            "D": 57498
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-24",
@@ -1222,17 +2006,65 @@
       "term_length_years": 2,
       "open_seat": true,
       "incumbent_candidate_id": null,
-      "notes": "2026 election for Florida's 24th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026. Open seat: Rep. Frederica Wilson is not seeking re-election.",
       "primary_candidates": {
+        "R": [
+          "fl-cand-te-mayonna-brown-h24"
+        ],
         "D": [
-          "fl-cand-rudolph-moise-h24"
+          "fl-cand-oliver-g-gilbert-iii-h24",
+          "fl-cand-shevrin-jones-h24",
+          "fl-cand-kendrick-meek-h24",
+          "fl-cand-rudolph-moise-h24",
+          "fl-cand-jean-monestime-h24",
+          "fl-cand-marshall-l-davis-h24",
+          "fl-cand-roderick-vereen-h24"
         ]
       },
       "general_candidates": [
-        "fl-cand-rudolph-moise-h24"
+        "fl-cand-te-mayonna-brown-h24",
+        "fl-cand-oliver-g-gilbert-iii-h24"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "24",
+      "write_in_candidates": [
+        "fl-cand-patricia-gonzalez-h24"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-te-mayonna-brown-h24",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-oliver-g-gilbert-iii-h24",
+            "votes": 20445,
+            "party_total_votes": 59520,
+            "runner_up": "Shevrin \"Shev\" Jones",
+            "runner_up_votes": 19034
+          }
+        },
+        "turnout": {
+          "total": 59520,
+          "by_party": {
+            "D": 59520
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-25",
@@ -1242,32 +2074,69 @@
       "seat_type": "legislative",
       "term_length_years": 2,
       "open_seat": false,
-      "incumbent_candidate_id": "fl-cand-jared-moskowitz-h25",
-      "notes": "2026 election for Florida's 25th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "incumbent_candidate_id": null,
+      "notes": "District lines were redrawn in 2026. Rep. Jared Moskowitz currently represents FL-23. Rep. Debbie Wasserman Schultz, the current FL-25 member, is running in FL-20.",
       "primary_candidates": {
-        "D": [
-          "fl-cand-jared-moskowitz-h25"
-        ],
         "R": [
           "fl-cand-scott-m-singer-h25",
-          "fl-cand-claudia-villatoro-h25",
-          "fl-cand-raven-harrison-h25",
           "fl-cand-george-r-moraitis-h25",
-          "fl-cand-joe-kaufman-h25",
-          "fl-cand-daniel-john-franzese-h25"
+          "fl-cand-dan-franzese-h25",
+          "fl-cand-joseph-kaufman-h25",
+          "fl-cand-raven-harrison-h25"
+        ],
+        "D": [
+          "fl-cand-jared-moskowitz-h25",
+          "fl-cand-oliver-adams-larkin-h25"
         ]
       },
       "general_candidates": [
-        "fl-cand-jared-moskowitz-h25",
         "fl-cand-scott-m-singer-h25",
-        "fl-cand-claudia-villatoro-h25",
-        "fl-cand-raven-harrison-h25",
-        "fl-cand-george-r-moraitis-h25",
-        "fl-cand-joe-kaufman-h25",
-        "fl-cand-daniel-john-franzese-h25"
+        "fl-cand-jared-moskowitz-h25",
+        "fl-cand-peter-jassenoff-h25"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "25",
+      "write_in_candidates": [
+        "fl-cand-michaelangelo-hamilton-h25"
+      ],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-scott-m-singer-h25",
+            "votes": 11896,
+            "party_total_votes": 37885,
+            "runner_up": "George R. Moraitis",
+            "runner_up_votes": 10384
+          },
+          "D": {
+            "candidate_id": "fl-cand-jared-moskowitz-h25",
+            "votes": 28330,
+            "party_total_votes": 44631,
+            "runner_up": "Oliver Adams Larkin",
+            "runner_up_votes": 16301
+          }
+        },
+        "turnout": {
+          "total": 82516,
+          "by_party": {
+            "R": 37885,
+            "D": 44631
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-26",
@@ -1278,23 +2147,51 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-mario-diaz-balart-h26",
-      "notes": "2026 election for Florida's 26th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines were redrawn in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-mario-diaz-balart-h26"
         ],
         "D": [
-          "fl-cand-nicole-locklin-h26",
-          "fl-cand-yurina-gil-h26"
+          "fl-cand-nicole-locklin-h26"
         ]
       },
       "general_candidates": [
         "fl-cand-mario-diaz-balart-h26",
         "fl-cand-nicole-locklin-h26",
-        "fl-cand-yurina-gil-h26"
+        "fl-cand-deborah-ann-meidinger-hosey-h26"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "26",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-mario-diaz-balart-h26",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-nicole-locklin-h26",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office; every party had a single qualified candidate."
+      }
     },
     {
       "id": "fl-2026-us-house-27",
@@ -1305,35 +2202,62 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-maria-elvira-salazar-h27",
-      "notes": "2026 election for Florida's 27th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines changed only slightly in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-maria-elvira-salazar-h27",
-          "fl-cand-vincent-michael-arias-h27"
+          "fl-cand-v-michael-arias-h27"
         ],
         "D": [
-          "fl-cand-robin-peguero-h27",
-          "fl-cand-richard-lamondin-h27",
           "fl-cand-eliott-rodriguez-h27",
-          "fl-cand-michael-davey-h27",
-          "fl-cand-alexander-fornino-h27"
-        ],
-        "I": [
-          "fl-cand-lev-parnas-h27"
+          "fl-cand-robin-peguero-h27"
         ]
       },
       "general_candidates": [
         "fl-cand-maria-elvira-salazar-h27",
-        "fl-cand-robin-peguero-h27",
-        "fl-cand-richard-lamondin-h27",
-        "fl-cand-eliott-rodriguez-h27",
-        "fl-cand-vincent-michael-arias-h27",
-        "fl-cand-michael-davey-h27",
-        "fl-cand-lev-parnas-h27",
-        "fl-cand-alexander-fornino-h27"
+        "fl-cand-eliott-rodriguez-h27"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "27",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "reported",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-maria-elvira-salazar-h27",
+            "votes": 29233,
+            "party_total_votes": 35936,
+            "runner_up": "V. Michael Arias",
+            "runner_up_votes": 6703
+          },
+          "D": {
+            "candidate_id": "fl-cand-eliott-rodriguez-h27",
+            "votes": 17332,
+            "party_total_votes": 32388,
+            "runner_up": "Robin Peguero",
+            "runner_up_votes": 15056
+          }
+        },
+        "turnout": {
+          "total": 68324,
+          "by_party": {
+            "R": 35936,
+            "D": 32388
+          },
+          "basis": "Ballots cast in this office's party primaries."
+        }
+      }
     },
     {
       "id": "fl-2026-us-house-28",
@@ -1344,7 +2268,7 @@
       "term_length_years": 2,
       "open_seat": false,
       "incumbent_candidate_id": "fl-cand-carlos-gimenez-h28",
-      "notes": "2026 election for Florida's 28th U.S. House district. Roster reflects active FEC filers; verify ballot qualification with the Florida Division of Elections.",
+      "notes": "District lines changed only slightly in 2026.",
       "primary_candidates": {
         "R": [
           "fl-cand-carlos-gimenez-h28"
@@ -1355,10 +2279,40 @@
       },
       "general_candidates": [
         "fl-cand-carlos-gimenez-h28",
-        "fl-cand-phil-ehr-h28"
+        "fl-cand-phil-ehr-h28",
+        "fl-cand-eddy-rojas-h28"
       ],
-      "general_candidates_note": "Active FEC filers; not all may qualify for the ballot.",
-      "_roster_source": "OpenFEC (api.open.fec.gov), 2026 cycle"
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
+      "congressional_district": "28",
+      "write_in_candidates": [],
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "roster_retrieved": "2026-09-24",
+      "result": {
+        "phase": "primary",
+        "date": "2026-08-18",
+        "status": "unopposed",
+        "certified": true,
+        "certification_note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+        "source": "Florida Division of Elections, official results",
+        "source_url": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+        "retrieved": "2026-09-24",
+        "winners": {
+          "R": {
+            "candidate_id": "fl-cand-carlos-gimenez-h28",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          },
+          "D": {
+            "candidate_id": "fl-cand-phil-ehr-h28",
+            "unopposed": true,
+            "note": "Unopposed in the primary; no contest was held."
+          }
+        },
+        "turnout": null,
+        "turnout_note": "No primary was held for this office; every party had a single qualified candidate."
+      }
     }
   ],
   "ballot_measures": {
@@ -1366,230 +2320,59 @@
       {
         "id": "fl-2026-amend-1",
         "number": "Amendment 1",
-        "title": "Property-Tax Relief for Homestead Owners Over 65",
-        "summary": "Expands the homestead property-tax exemption for homeowners aged 65 and older by an additional $25,000, bringing the total exemption cap to $75,000 for qualifying residents. Applies to non-school-district millages only.",
+        "title": "Budget Stabilization Fund",
+        "official_ballot_title": "BUDGET STABILIZATION FUND",
+        "summary": "Proposing an amendment to the State Constitution to increase the amount of funds that may be retained in the budget stabilization fund from 10% to 25% of general revenue collections, require the legislature to transfer the lesser of $750 million or the amount required to reach 25% of the general revenue collections each year unless certain conditions are met, and allow the legislature to withdraw funds for critical state needs.",
+        "summary_label": "Official ballot summary",
         "level": "state",
         "type": "Constitutional Amendment",
-        "source": "Legislatively referred (SJR 224)",
+        "origin": "Placed on the ballot by the Legislature (HJR 5019, 2025 session).",
+        "source": "Florida Department of State",
+        "source_url": "https://files.floridados.gov/media/711355/eng-2026-booklet-constitutional-amendpub-updated-20260821.pdf",
+        "source_detail_url": "https://constitutionalinitiatives.dos.fl.gov/Home/InitDetail?account=10&seqnum=108",
         "threshold": "60%",
         "appears_on": "general",
-        "support": {
-          "arguments": [
-            "Lowers fixed-cost burden on seniors aging in place as insurance and HOA costs climb.",
-            "Does not affect school-district funding."
-          ],
-          "sponsors": [
-            "Florida Chamber of Commerce",
-            "AARP Florida"
-          ]
-        },
-        "opposition": {
-          "arguments": [
-            "Shifts ~$180M/yr of county tax burden onto working-age homeowners and renters.",
-            "Benefits highest-value homesteads disproportionately."
-          ],
-          "sponsors": [
-            "Florida Policy Institute"
-          ]
-        },
-        "fiscal_impact": "Estimated −$180M/yr in non-school local property-tax revenue statewide by Year 3."
+        "financial_impact_statement": null,
+        "financial_impact_note": "No financial impact statement. Florida requires one only for citizen initiatives."
       },
       {
         "id": "fl-2026-amend-2",
         "number": "Amendment 2",
-        "title": "Right to Clean Water",
-        "summary": "Establishes a fundamental right of Floridians to clean and healthy waters, enforceable against polluters via private action and state Attorney General. Directs the legislature to pass implementing statutes within two years.",
+        "title": "Exemption of Tangible Personal Property on Agricultural Land from Taxation",
+        "official_ballot_title": "EXEMPTION OF TANGIBLE PERSONAL PROPERTY ON AGRICULTURAL LAND FROM TAXATION",
+        "summary": "Proposing an amendment to the State Constitution to exempt tangible personal property habitually located or typically present on land classified as agricultural, used in the production of agricultural products or for agritourism activities, and owned by the landowner or leaseholder of the agricultural land from ad valorem taxation. If approved this amendment would first apply for tax years beginning January 1, 2027.",
+        "summary_label": "Official ballot summary",
         "level": "state",
         "type": "Constitutional Amendment",
-        "source": "Citizen-initiated (Florida Right to Clean Water Inc.)",
+        "origin": "Placed on the ballot by the Legislature (HJR 1215, 2025 session).",
+        "source": "Florida Department of State",
+        "source_url": "https://files.floridados.gov/media/711355/eng-2026-booklet-constitutional-amendpub-updated-20260821.pdf",
+        "source_detail_url": "https://constitutionalinitiatives.dos.fl.gov/Home/InitDetail?account=10&seqnum=109",
         "threshold": "60%",
         "appears_on": "general",
-        "support": {
-          "arguments": [
-            "Creates a durable standard surviving administration changes.",
-            "Empowers affected residents to act where regulators don't."
-          ],
-          "sponsors": [
-            "Florida Conservation Voters",
-            "VoteWater.org"
-          ]
-        },
-        "opposition": {
-          "arguments": [
-            "Will trigger a wave of litigation against farmers, municipalities, and utilities.",
-            "Vague language creates regulatory uncertainty."
-          ],
-          "sponsors": [
-            "Florida Farm Bureau",
-            "Associated Industries of Florida"
-          ]
-        },
-        "fiscal_impact": "Indeterminate — enforcement costs depend on implementing statute."
+        "financial_impact_statement": null,
+        "financial_impact_note": "No financial impact statement. Florida requires one only for citizen initiatives."
       },
       {
         "id": "fl-2026-amend-3",
         "number": "Amendment 3",
-        "title": "Independent Redistricting Commission",
-        "summary": "Creates a 12-member citizen redistricting commission to draw congressional and state legislative maps beginning with the 2030 cycle, replacing legislative map-drawing authority.",
+        "title": "Increased Homestead Exemption; Lower Cap on Increases in Non-Homestead Property Assessments",
+        "official_ballot_title": "INCREASED HOMESTEAD EXEMPTION; LOWER CAP ON INCREASES IN NON-HOMESTEAD PROPERTY ASSESSMENTS",
+        "summary": "This amendment increases the homestead exemption, for all non-school taxes, to $150,000 in 2027 and $250,000 in 2028, and adjusts for inflation thereafter. It requires the Legislature to prescribe a uniform procedure for counties and municipalities, for their respective levies, to increase the homestead exemption up to full assessed value, and allows special districts, subject to referendum approval, to do the same.\n\nPersons who are not Florida residents on December 31, 2026, will receive the existing homestead exemption upon qualifying for a homestead exemption, with the increased homestead exemption beginning with the fifth year of exemption, to the extent permitted by the U.S. Constitution.\n\nThis amendment reduces the annual cap on assessment increases for non-homestead properties from 10% to 5%.\n\nThis amendment requires counties and municipalities to use property taxes solely for public safety, education and schools, infrastructure, natural resources, bond debt service, retirement benefits for employees, and operations and administration. Other expenditures may be approved by county officers or county or municipal governing bodies unless prohibited by general law, notwithstanding Article VII, Section 9(a) of the Florida Constitution, which allows counties and municipalities to levy property taxes for their respective purposes.\n\nThis amendment takes effect January 1, 2027.",
+        "summary_label": "Official ballot summary",
         "level": "state",
         "type": "Constitutional Amendment",
-        "source": "Citizen-initiated (Fair Districts Florida)",
+        "origin": "Placed on the ballot by the Legislature (CS/HJR 1F, 2026 Special Session F). A court found the Legislature's original ballot title and summary misleading; the wording shown is the Attorney General's rewrite dated Aug 13, 2026, as printed in the updated state booklet.",
+        "source": "Florida Department of State",
+        "source_url": "https://files.floridados.gov/media/711355/eng-2026-booklet-constitutional-amendpub-updated-20260821.pdf",
+        "source_detail_url": "https://constitutionalinitiatives.dos.fl.gov/Home/InitDetail?account=10&seqnum=110",
         "threshold": "60%",
         "appears_on": "general",
-        "support": {
-          "arguments": [
-            "Removes self-dealing by incumbent legislators.",
-            "Track record in states like California and Michigan shows more competitive districts."
-          ],
-          "sponsors": [
-            "League of Women Voters of Florida",
-            "Common Cause Florida"
-          ]
-        },
-        "opposition": {
-          "arguments": [
-            "Removes accountability from elected officials to unelected commissioners.",
-            "Existing Fair Districts amendments already constrain legislature."
-          ],
-          "sponsors": [
-            "Republican Party of Florida"
-          ]
-        },
-        "fiscal_impact": "~$8M/yr ongoing for commission operations; ~$14M in startup IT and staffing."
+        "financial_impact_statement": null,
+        "financial_impact_note": "No financial impact statement. Florida requires one only for citizen initiatives."
       }
     ],
-    "counties": {
-      "miami-dade": [
-        {
-          "id": "fl-2026-miamidade-q1",
-          "number": "Miami-Dade Question 1",
-          "title": "Affordable Housing Bond — $450M",
-          "summary": "Authorizes Miami-Dade County to issue up to $450 million in general obligation bonds, funded by a property-tax millage increase of 0.25 mills (~$58/yr for a $300K assessed home), to construct and preserve workforce and senior affordable housing countywide.",
-          "level": "county",
-          "county": "Miami-Dade",
-          "county_fips": "12086",
-          "type": "Bond referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general",
-          "support": {
-            "arguments": [
-              "Produces ~6,000 income-restricted units over 10 years.",
-              "Dedicates 40% to seniors and essential workers."
-            ],
-            "sponsors": [
-              "Miami Homes For All",
-              "South Florida AFL-CIO"
-            ]
-          },
-          "opposition": {
-            "arguments": [
-              "Adds to property-tax burden during an affordability crisis.",
-              "County lacks capacity to deploy funds efficiently."
-            ],
-            "sponsors": [
-              "Miami-Dade Chamber of Commerce (divided)"
-            ]
-          },
-          "fiscal_impact": "+0.25 mills ad valorem; ~$28M/yr in new debt service over 25 years."
-        },
-        {
-          "id": "fl-2026-miamidade-q2",
-          "number": "Miami-Dade Question 2",
-          "title": "Countywide Transit Expansion Surtax Extension",
-          "summary": "Extends the existing half-cent People's Transportation Tax by 20 years beyond its current 2042 sunset, dedicating 50% of new revenues to the SMART Plan rapid-transit corridors.",
-          "level": "county",
-          "county": "Miami-Dade",
-          "county_fips": "12086",
-          "type": "Tax extension referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general"
-        }
-      ],
-      "orange": [
-        {
-          "id": "fl-2026-orange-q1",
-          "number": "Orange County Question 1",
-          "title": "Rent-Stabilization Advisory Referendum",
-          "summary": "Non-binding advisory question asking whether Orange County should petition the Florida Legislature to authorize local rent-stabilization ordinances in housing-emergency conditions.",
-          "level": "county",
-          "county": "Orange",
-          "county_fips": "12095",
-          "type": "Advisory referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general",
-          "notes": "Advisory only — does not create binding policy. A 2022 binding rent-stabilization measure was struck down by Florida courts."
-        },
-        {
-          "id": "fl-2026-orange-q2",
-          "number": "Orange County Question 2",
-          "title": "Tourist Development Tax Reallocation",
-          "summary": "Amends the county charter to allow up to 25% of Tourist Development Tax revenues to be directed toward workforce housing and transportation near tourist corridors.",
-          "level": "county",
-          "county": "Orange",
-          "county_fips": "12095",
-          "type": "Charter amendment",
-          "threshold": "Simple majority",
-          "appears_on": "general"
-        }
-      ],
-      "hillsborough": [
-        {
-          "id": "fl-2026-hillsborough-q1",
-          "number": "Hillsborough Question 1",
-          "title": "Transportation Sales Surtax — 1¢ for 30 Years",
-          "summary": "Imposes a 1-cent transportation sales surtax for 30 years, with revenues dedicated 45% to road/bridge maintenance, 30% to HART transit, 15% to safety/complete-streets, and 10% to planning.",
-          "level": "county",
-          "county": "Hillsborough",
-          "county_fips": "12057",
-          "type": "Tax referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general",
-          "notes": "Successor to the 2018 surtax that was struck down by the Florida Supreme Court over spending-plan language. Drafters say this version cures the earlier defect."
-        }
-      ],
-      "duval": [
-        {
-          "id": "fl-2026-duval-q1",
-          "number": "Duval Question 1",
-          "title": "JEA Governance Reform",
-          "summary": "Amends the Jacksonville city charter to require supermajority City Council approval for any sale, merger, or privatization of the JEA public utility.",
-          "level": "county",
-          "county": "Duval",
-          "county_fips": "12031",
-          "type": "Charter amendment",
-          "threshold": "Simple majority",
-          "appears_on": "general"
-        }
-      ],
-      "pinellas": [
-        {
-          "id": "fl-2026-pinellas-q1",
-          "number": "Pinellas Question 1",
-          "title": "Beach Renourishment Surtax",
-          "summary": "Imposes a 0.5% transportation and beach-resilience surtax for 15 years, with 60% dedicated to beach renourishment and coastal-resilience projects and 40% to transportation.",
-          "level": "county",
-          "county": "Pinellas",
-          "county_fips": "12103",
-          "type": "Tax referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general"
-        }
-      ],
-      "leon": [
-        {
-          "id": "fl-2026-leon-q1",
-          "number": "Leon Question 1",
-          "title": "Blueprint 2030 Infrastructure Extension",
-          "summary": "Extends the existing Blueprint infrastructure sales surtax by 10 years beyond its 2039 sunset to fund additional stormwater, parks, and regional mobility projects.",
-          "level": "county",
-          "county": "Leon",
-          "county_fips": "12073",
-          "type": "Tax extension referendum",
-          "threshold": "Simple majority",
-          "appears_on": "general"
-        }
-      ]
-    }
+    "counties": {}
   },
   "_personalization_hints": {
     "match_keys": {
@@ -1609,15 +2392,15 @@
         "state_house_district=<user.state_house_district>"
       ]
     },
-    "notes": "Frontend will stitch 'Your Ballot' from: statewide races + statewide measures + county-matched measures + federal race matching user's congressional_district + state legislative races matching user's districts. Municipal races not yet seeded — stubs can be added under races[].jurisdiction once city election dates align."
+    "notes": "Your Ballot is stitched from statewide races and measures, the U.S. Senate race, the U.S. House race matching the congressional district, and state legislative races matching the user's districts."
   },
   "primary_status": {
     "date": "2026-08-18",
     "concluded": true,
-    "certified": false,
-    "note": "Unofficial returns. County canvassing boards certify later; figures may shift slightly before certification.",
-    "results_source_url": "https://floridaelectionwatch.gov/",
-    "retrieved": "2026-08-21",
-    "results_data_file_url": "https://flelectionfiles.floridados.gov/enightfilespublic/20260818_ElecResultsFL.txt"
-  }
+    "certified": true,
+    "note": "Official results. The Elections Canvassing Commission certified the Aug 18 primary in late August 2026.",
+    "results_source_url": "https://results.elections.myflorida.com/",
+    "retrieved": "2026-09-24"
+  },
+  "_measures_note": "These are the three statewide amendments on the Nov 3, 2026 ballot, with the official ballot title and summary from the Florida Department of State. County and city measures are not yet included; check your county Supervisor of Elections sample ballot."
 }

@@ -393,21 +393,54 @@ def extract_client_signals(request) -> tuple[Optional[str], Optional[str]]:
     """Pull IP + user agent from a FastAPI Request. Centralized so
     every login endpoint resolves them the same way.
 
-    IP resolution prefers X-Forwarded-For (Render + Vercel both
-    populate this), falls back to request.client.host. We take only
-    the FIRST address in the X-F-F chain since that's the original
-    client; downstream hops are infra we control.
+    IP resolution is shared with every per-IP limit in
+    app/services/client_ip.py (the first X-Forwarded-For entry is
+    caller-supplied, so it is never trusted on its own).
     """
-    ip: Optional[str] = None
-    fwd = request.headers.get("x-forwarded-for") if request else None
-    if fwd:
-        # X-F-F is a comma-separated chain; first entry is the
-        # original client per RFC 7239 conventions.
-        ip = fwd.split(",")[0].strip() or None
-    if not ip and request and request.client:
-        ip = request.client.host
+    from app.services.client_ip import client_ip
+    ip: Optional[str] = client_ip(request) if request else None
+    if ip == "unknown":
+        ip = None
 
     ua = None
     if request:
         ua = request.headers.get("user-agent")
     return ip, ua
+
+
+# ── Retention (audit P5) ─────────────────────────────────────────────
+# Login attempts hold an IP address and user agent. They serve lockout
+# and abuse review, which look back hours or days, not years, so rows
+# older than LOGIN_ATTEMPT_RETENTION_DAYS (default 90) are deleted at
+# boot. The privacy policy states the same period.
+def purge_old_login_attempts(db: Optional[Session] = None, days: Optional[int] = None) -> int:
+    import os
+
+    from app.db import SessionLocal
+
+    if days is None:
+        try:
+            days = int(os.getenv("LOGIN_ATTEMPT_RETENTION_DAYS", "90"))
+        except ValueError:
+            days = 90
+    days = max(days, 1)
+    owns = db is None
+    db = db or SessionLocal()
+    try:
+        cutoff = _now() - timedelta(days=days)
+        n = (
+            db.query(LoginAttempt)
+            .filter(LoginAttempt.occurred_at < cutoff)
+            .delete(synchronize_session=False)
+        )
+        db.commit()
+        if n:
+            logger.info("Login attempt retention: removed %d row(s) older than %d days", n, days)
+        return n
+    except Exception:
+        db.rollback()
+        logger.exception("Login attempt retention purge failed")
+        return 0
+    finally:
+        if owns:
+            db.close()

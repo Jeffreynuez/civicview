@@ -72,6 +72,7 @@ def main() -> int:
                     display_name=f"Voter {i}", state="FL",
                     address_line1="1 Main St", city="Naples", county="Collier",
                     zip_code="34102", congressional_district="19",
+                    verified=True, verified_method="idme",
                 )
                 db.add(cit); db.flush()
                 v = PollVote(poll_id=poll_id, option_id=option_id, citizen_id=cit.id,
