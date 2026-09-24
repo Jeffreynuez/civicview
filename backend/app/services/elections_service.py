@@ -15,6 +15,7 @@ Core responsibilities:
 """
 import json
 import logging
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -23,6 +24,33 @@ from app.services.candidate_enrichment import enrich_candidate
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+# States whose primaries send the top two finishers to November regardless
+# of party. The one-nominee-per-party rule does not apply there.
+_TOP_TWO_STATES = {"CA", "WA"}
+
+# Labels that mean "no party". More than one such candidate can legitimately
+# appear on a general ballot, so they never trip the per-party check.
+_NO_PARTY_LABELS = {"NPA", "I", "WRI", "NP", "NONE", "U", "UN", "UNA"}
+
+
+def _person_key(name: Optional[str]) -> str:
+    """First and last name, lowercased, suffixes and nicknames dropped.
+    Used only to spot the same person listed twice on one roster."""
+    if not name:
+        return ""
+    cleaned = re.sub(r'"[^"]*"', " ", name.lower())
+    tokens = [
+        t for t in re.split(r"[^a-z]+", cleaned)
+        if t and t not in {"jr", "sr", "ii", "iii", "iv"}
+    ]
+    if len(tokens) < 2:
+        return ""
+    return f"{tokens[0]} {tokens[-1]}"
+
+
+def _primary_concluded(raw: dict) -> bool:
+    return bool((raw.get("primary_status") or {}).get("concluded"))
 
 
 class ElectionsService:
@@ -117,8 +145,13 @@ class ElectionsService:
             out.append(cand)
         return out
 
-    def _resolve_race(self, race: dict) -> dict:
-        """Return a copy of a race with candidate_ids expanded to full records."""
+    def _resolve_race(self, race: dict, *, state_code: str = "", primary_concluded: bool = False) -> dict:
+        """Return a copy of a race with candidate_ids expanded to full records.
+
+        `primary_concluded` comes from the state's `primary_status` DATA
+        (never from today's date) and turns on the verified-roster check
+        described below.
+        """
         resolved = dict(race)
 
         # Expand primary_candidates: {party: [id]} -> {party: [record]}
@@ -131,6 +164,11 @@ class ElectionsService:
         # Expand general_candidates: [id] -> [record]
         general = self._resolve_ids(race.get("general_candidates") or [])
         resolved["general_candidates"] = general
+        # Qualified write-ins are listed separately: Florida (and most
+        # states) print a blank write-in line, never the names, so
+        # rendering them as ballot rows would describe a ballot that does
+        # not exist.
+        resolved["write_in_candidates"] = self._resolve_ids(race.get("write_in_candidates") or [])
 
         # ── Guard: is this general roster actually a general roster? ──
         #
@@ -147,15 +185,58 @@ class ElectionsService:
         # correct for every state and cycle without a date to maintain.
         # The UI reads `general_roster_unresolved` and says the nominees
         # are not set yet rather than presenting the list as final.
-        counts: dict[str, int] = {}
-        for cand in general:
-            party = (cand.get("party") or "").upper()
-            if party in ("R", "D"):
-                counts[party] = counts.get(party, 0) + 1
-        unresolved = sorted(p for p, n in counts.items() if n > 1)
-        resolved["general_roster_unresolved"] = bool(unresolved)
-        if unresolved:
-            resolved["general_roster_unresolved_parties"] = unresolved
+        #
+        # Extended 2026-09-24 after the first version let real gaps through:
+        #   * every real party counts, not only R and D (two Libertarian
+        #     nominees is the same impossibility as two Republicans);
+        #     "no party" labels (NPA, I, WRI) can legitimately repeat;
+        #   * top-two states (CA, WA) nominate two candidates regardless of
+        #     party, so the rule there is "at most two", and a D-versus-D
+        #     general is legitimate;
+        #   * the same person listed twice (duplicate records) is flagged;
+        #   * write-ins never count, they are not printed on the ballot.
+        ballot_rows = [
+            c for c in general
+            if not c.get("write_in") and (c.get("party") or "").upper() != "WRI"
+        ]
+        reasons: list[str] = []
+        if (state_code or "").upper() in _TOP_TWO_STATES:
+            if len(ballot_rows) > 2:
+                reasons.append("top-two")
+        else:
+            counts: dict[str, int] = {}
+            for cand in ballot_rows:
+                party = (cand.get("party") or "").upper()
+                if party and party not in _NO_PARTY_LABELS:
+                    counts[party] = counts.get(party, 0) + 1
+            reasons.extend(sorted(p for p, n in counts.items() if n > 1))
+        seen_names: set[str] = set()
+        for cand in ballot_rows:
+            key = _person_key(cand.get("name"))
+            if key and key in seen_names:
+                reasons.append("duplicate-person")
+                break
+            if key:
+                seen_names.add(key)
+        resolved["general_roster_unresolved"] = bool(reasons)
+        if reasons:
+            resolved["general_roster_unresolved_parties"] = reasons
+
+        # ── Guard 2: has anyone checked this roster since the primary? ──
+        #
+        # A roster can pass the structural check and still be wrong: an
+        # FEC filer list with one Republican and one Democrat looks like a
+        # ballot but may name someone who lost, withdrew, or never
+        # qualified (FL-11 showed a retiring incumbent this way). Once the
+        # state's primary has concluded (DATA, set by a person), only a
+        # race whose roster was checked against the official candidate
+        # list (`roster_status: "verified_nominees"`) is presented as the
+        # November ballot. Everything else says what it is.
+        resolved["general_roster_unverified"] = bool(
+            primary_concluded
+            and not resolved["general_roster_unresolved"]
+            and race.get("roster_status") != "verified_nominees"
+        )
 
         # incumbent_candidate_id: expose resolved incumbent for convenience
         inc_id = race.get("incumbent_candidate_id")
@@ -193,7 +274,14 @@ class ElectionsService:
             # election that already happened. A human updates it when the
             # results are actually in hand.
             "primary_status": raw.get("primary_status") or None,
-            "races": [self._resolve_race(r) for r in raw.get("races", []) or []],
+            "races": [
+                self._resolve_race(
+                    r,
+                    state_code=raw.get("state") or state_code,
+                    primary_concluded=_primary_concluded(raw),
+                )
+                for r in raw.get("races", []) or []
+            ],
             "ballot_measures": raw.get("ballot_measures", {}),
         }
         return out
@@ -247,7 +335,13 @@ class ElectionsService:
             reason = None
 
             if level == "federal":
-                if target_cd and race_cd and race_cd == target_cd:
+                office = (race.get("office") or "").lower()
+                if office.startswith("u.s. senate") or (not race_cd and "house" not in office):
+                    # A U.S. Senate race is statewide: every voter in the
+                    # state has it on their ballot. It was previously
+                    # dropped because it has no congressional district.
+                    include, reason = True, "statewide-federal"
+                elif target_cd and race_cd and race_cd == target_cd:
                     include, reason = True, "congressional-district-match"
             elif level == "state":
                 if chamber.startswith("state senate"):
@@ -261,7 +355,9 @@ class ElectionsService:
                     include, reason = True, "statewide"
 
             if include:
-                resolved = self._resolve_race(race)
+                resolved = self._resolve_race(
+                    race, state_code=state, primary_concluded=_primary_concluded(raw)
+                )
                 resolved["_match_reason"] = reason
                 applicable_races.append(resolved)
 
@@ -300,6 +396,7 @@ class ElectionsService:
             # as get_elections — False unless explicitly set.
             "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
+            "primary_status": raw.get("primary_status") or None,
             "geography": {
                 "state": state,
                 "county_fips": county_fips,

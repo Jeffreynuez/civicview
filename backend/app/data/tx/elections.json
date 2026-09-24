@@ -13,6 +13,13 @@
   "voter_registration_deadline_general": "2026-10-05",
   "early_voting_window_general": "2026-10-19 to 2026-10-30"
  },
+ "primary_status": {
+  "date": "2026-05-26",
+  "concluded": true,
+  "certified": null,
+  "note": "The primary has been held. The candidate lists here come from FEC filings made before it and have not been checked against the official results, so they are not the November ballot.",
+  "retrieved": "2026-09-24"
+ },
  "races": [
   {
    "id": "tx-2026-us-senate",
