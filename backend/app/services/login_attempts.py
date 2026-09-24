@@ -393,19 +393,14 @@ def extract_client_signals(request) -> tuple[Optional[str], Optional[str]]:
     """Pull IP + user agent from a FastAPI Request. Centralized so
     every login endpoint resolves them the same way.
 
-    IP resolution prefers X-Forwarded-For (Render + Vercel both
-    populate this), falls back to request.client.host. We take only
-    the FIRST address in the X-F-F chain since that's the original
-    client; downstream hops are infra we control.
+    IP resolution is shared with every per-IP limit in
+    app/services/client_ip.py (the first X-Forwarded-For entry is
+    caller-supplied, so it is never trusted on its own).
     """
-    ip: Optional[str] = None
-    fwd = request.headers.get("x-forwarded-for") if request else None
-    if fwd:
-        # X-F-F is a comma-separated chain; first entry is the
-        # original client per RFC 7239 conventions.
-        ip = fwd.split(",")[0].strip() or None
-    if not ip and request and request.client:
-        ip = request.client.host
+    from app.services.client_ip import client_ip
+    ip: Optional[str] = client_ip(request) if request else None
+    if ip == "unknown":
+        ip = None
 
     ua = None
     if request:

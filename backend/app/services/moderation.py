@@ -17,7 +17,9 @@ Why this exists:
 Threshold semantics:
   REPORT_AUTO_HIDE_THRESHOLD env var. Defaults to 5. Set to 0
   to disable auto-hide entirely (reports still accumulate; an
-  admin would have to act manually).
+  admin would have to act manually). Only reports from trusted
+  identities (reps, verified non-demo citizens) count toward the
+  threshold; every report still reaches the admin queue.
 
 Hide mechanics:
   Post / PostComment / PollComment → set deleted_at (existing
@@ -55,6 +57,45 @@ def _threshold() -> int:
         return 5
 
 
+_REPORT_TABLES = {
+    # kind: (report model name, foreign-key column on that model)
+    "post": ("PostReport", "post_id"),
+    "post_comment": ("CommentReport", "comment_id"),
+    "poll": ("PollReport", "poll_id"),
+    "poll_comment": ("PollCommentReport", "poll_comment_id"),
+}
+
+
+def is_trusted_reporter_citizen(citizen: Any) -> bool:
+    """A citizen whose report may count toward auto-hide: verified by a
+    real method. Demo accounts are verified_method='demo' and do not
+    count, whatever their verified flag says."""
+    if citizen is None:
+        return False
+    method = (getattr(citizen, "verified_method", None) or "").lower()
+    return bool(getattr(citizen, "verified", False)) and method not in ("", "demo")
+
+
+def _trusted_report_count(db: Session, target: Any, kind: str) -> int:
+    """Reports on `target` filed by trusted identities: reps (manually
+    provisioned accounts) and verified, non-demo citizens."""
+    from app.models import pages as models
+
+    model_name, fk = _REPORT_TABLES[kind]
+    model = getattr(models, model_name)
+    db.flush()  # the caller just added this reporter's row
+    rows = db.query(model).filter(getattr(model, fk) == target.id).all()
+    trusted = 0
+    for row in rows:
+        if getattr(row, "reporter_rep_id", None):
+            trusted += 1
+        elif getattr(row, "reporter_citizen_id", None):
+            citizen = db.get(models.CitizenAccount, row.reporter_citizen_id)
+            if is_trusted_reporter_citizen(citizen):
+                trusted += 1
+    return trusted
+
+
 def record_report(db: Session, target: Any, *, kind: str) -> bool:
     """Bump a content row's report_count by 1, then auto-hide if the
     threshold is reached.
@@ -73,7 +114,15 @@ def record_report(db: Session, target: Any, *, kind: str) -> bool:
     """
     target.report_count = (target.report_count or 0) + 1
     threshold = _threshold()
-    if threshold <= 0 or target.report_count < threshold:
+    if threshold <= 0:
+        return False
+    # Only TRUSTED reports count toward auto-hide. report_count keeps
+    # every report so the admin queue sees them all, but a demo account
+    # costs nothing to create, and five of them could hide any post in
+    # the app (reproduced 2026-09-24). Until identity verification is
+    # live, demo reports go to the admin queue and never hide anything
+    # on their own. See _trusted_report_count.
+    if _trusted_report_count(db, target, kind) < threshold:
         return False
 
     # Don't re-hide content that's already hidden. The check is per

@@ -104,17 +104,11 @@ def _check_demo_signup_rate_limit(client_ip: str) -> None:
 
 
 def _client_ip(request: Request) -> str:
-    """Resolve the caller's IP, preferring the first X-Forwarded-For hop
-    when the app sits behind a proxy (Render, Vercel edge, Cloudflare).
-    Falls back to the direct socket address."""
-    fwd = request.headers.get("x-forwarded-for")
-    if fwd:
-        # Pick the first non-empty entry — that's the original client per
-        # the convention every standard proxy follows.
-        first = fwd.split(",")[0].strip()
-        if first:
-            return first
-    return request.client.host if request.client else "unknown"
+    """The caller's IP. See app/services/client_ip.py: the first
+    X-Forwarded-For entry is caller-supplied and was letting anyone
+    choose their own IP to get around the demo-signup limit."""
+    from app.services.client_ip import client_ip
+    return client_ip(request)
 
 
 # ── Contact-email normalization (demo-sunset PRD §4) ──────────────────

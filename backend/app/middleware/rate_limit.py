@@ -59,13 +59,29 @@ CREATE_LIMIT, CREATE_WINDOW = 10, 600.0
 
 
 def _caller_key(request: Request) -> str:
-    tokens = _collect_session_tokens(request)
-    if tokens:
-        # Truncated token is plenty for bucketing and keeps full
-        # session tokens out of limiter memory.
-        return "tok:" + tokens[0][:32]
-    client = request.client.host if request.client else "unknown"
-    return "ip:" + (request.headers.get("x-forwarded-for", client).split(",")[0].strip() or client)
+    """Bucket by the ACCOUNT behind the request, not by a raw token.
+
+    The previous version keyed on the first token it found without
+    checking it, so a junk Bearer header (collected before the real
+    X-Citizen-Token) got a brand-new bucket on every request and the
+    limit never fired. Only a token whose signature verifies names an
+    account; anything else falls back to the caller's IP.
+    """
+    from app.auth import read_session_token
+    from app.auth_candidate import read_candidate_token
+    from app.auth_citizen import read_citizen_token
+    from app.services.client_ip import client_ip
+
+    readers = (("rep", read_session_token), ("cit", read_citizen_token), ("cand", read_candidate_token))
+    for tok in _collect_session_tokens(request):
+        for kind, reader in readers:
+            try:
+                ident = reader(tok)
+            except Exception:  # noqa: BLE001 - any bad token just means "not this kind"
+                ident = None
+            if ident:
+                return f"{kind}:{ident}"
+    return "ip:" + client_ip(request)
 
 
 class EngagementRateLimitMiddleware(BaseHTTPMiddleware):

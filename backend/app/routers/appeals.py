@@ -247,12 +247,8 @@ _suspension_appeal_log: dict[str, list[float]] = {}
 
 
 def _client_ip(request: Request) -> str:
-    fwd = request.headers.get("x-forwarded-for")
-    if fwd:
-        first = fwd.split(",")[0].strip()
-        if first:
-            return first
-    return request.client.host if request.client else "unknown"
+    from app.services.client_ip import client_ip
+    return client_ip(request)
 
 
 def _check_suspension_appeal_rate(ip: str) -> None:
