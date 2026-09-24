@@ -143,6 +143,9 @@ def assess(
         messages=[{"role": "user", "content": policy.user_prompt(body)}],
         max_tokens=300,
         temperature=0.0,
+        # Moderation draws on the reserved share of the daily AI cap, so
+        # heavy use of the public AI features cannot switch it off.
+        reserved=True,
     )
     if res.error or not res.text:
         # Fail-open: log a 'skipped' verdict (could be batch re-checked later).

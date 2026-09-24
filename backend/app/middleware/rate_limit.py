@@ -22,6 +22,10 @@ but the limiter still blunts credential-less spray):
       10 hits / 10 min. Nobody legitimately creates more than a poll
       a minute, sustained.
 
+A third bucket, AI, covers the routes that spend the daily AI budget
+(40 hits / 10 min, any method, anonymous callers keyed by IP). See
+_AI_RE below.
+
 429 responses carry code='rate_limited' + Retry-After, matching the
 CSRF middleware's JSON error shape.
 """
@@ -54,8 +58,21 @@ _CREATE_RE = re.compile(
     r"^/api/(citizen-polls|pages/[^/]+/(citizen-polls|posts|polls))$"
 )
 
+# Routes that spend the shared daily AI budget. Unlike the engagement
+# routes these are open to anonymous callers, so the bucket is the
+# signed-in account when there is one and the Cloudflare-verified
+# client IP otherwise. Matched for every method: summarize-post is a
+# GET. (audit S4)
+_AI_RE = re.compile(
+    r"^/api/(ai/(filter-items|filter-comments|filter-polls|summarize-post/[^/]+)"
+    r"|eos/[^/]+/summary(/translate)?"
+    r"|votes/explain/generate"
+    r"|bills/\d+/[^/]+/[^/]+/summary/translate)$"
+)
+
 ENGAGE_LIMIT, ENGAGE_WINDOW = 30, 60.0
 CREATE_LIMIT, CREATE_WINDOW = 10, 600.0
+AI_LIMIT, AI_WINDOW = 40, 600.0
 
 
 def _caller_key(request: Request) -> str:
@@ -86,12 +103,16 @@ def _caller_key(request: Request) -> str:
 
 class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        if request.method.upper() not in UNSAFE_METHODS:
-            return await call_next(request)
         path = request.url.path
         scope = None
         limit = window = None
-        if _CREATE_RE.match(path):
+        if request.method.upper() == "OPTIONS":
+            return await call_next(request)
+        if _AI_RE.match(path):
+            scope, limit, window = "ai", AI_LIMIT, AI_WINDOW
+        elif request.method.upper() not in UNSAFE_METHODS:
+            return await call_next(request)
+        elif _CREATE_RE.match(path):
             scope, limit, window = "create", CREATE_LIMIT, CREATE_WINDOW
         elif _ENGAGE_RE.match(path):
             scope, limit, window = "engage", ENGAGE_LIMIT, ENGAGE_WINDOW
@@ -107,6 +128,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
                     "You\u2019re creating content too quickly \u2014 wait a few "
                     "minutes and try again."
                     if scope == "create"
+                    else "Too many AI requests in a short time. Wait a few minutes and try again."
+                    if scope == "ai"
                     else "You\u2019re doing that too fast \u2014 wait a moment and try again."
                 ),
             )

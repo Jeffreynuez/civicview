@@ -53,8 +53,11 @@ def main() -> int:
         if not cond:
             failures.append(msg)
 
+    reserved_seen = []
+
     def stub_chat(*, result_text=None, error=None):
-        def _chat(*, system, messages, max_tokens=512, model=None, temperature=0.3):
+        def _chat(*, system, messages, max_tokens=512, model=None, temperature=0.3, reserved=False):
+            reserved_seen.append(reserved)
             return AIResult(text=result_text, error=error, usage=None)
         return _chat
 
@@ -100,6 +103,9 @@ def main() -> int:
     # 5) fenced JSON still parses
     v = run('```json\n{"category": "doxxing", "severity": 0.7, "rationale": "address", "offending_span": "123 Main St"}\n```')
     check(v["category"] == "doxxing" and v["decision"] == "auto_hide", "fenced json + doxxing -> auto_hide")
+
+    # the screen draws on the reserved share of the AI budget (audit S4)
+    check(reserved_seen and all(reserved_seen), "moderation calls chat with reserved=True")
 
     # rows actually persisted
     cnt = db.query(ContentModerationVerdict).filter(

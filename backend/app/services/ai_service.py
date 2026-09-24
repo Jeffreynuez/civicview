@@ -60,6 +60,17 @@ _HAIKU_OUTPUT_PER_M = 5.00    # USD per 1M output tokens (Haiku 4.5)
 _DAILY_INPUT_CAP = int(os.getenv("AI_DAILY_INPUT_TOKEN_CAP", "60000000"))
 _DAILY_OUTPUT_CAP = int(os.getenv("AI_DAILY_OUTPUT_TOKEN_CAP", "15000000"))
 
+# Share of the daily cap that only reserved callers (the moderation
+# screen) may spend. Every other feature stops at the remaining share,
+# so anonymous traffic that drains the public AI features can no longer
+# switch off moderation along with them (audit S4). 0 turns the reserve
+# off; values are clamped to [0, 0.9].
+try:
+    _RESERVE_FRACTION = float(os.getenv("AI_MODERATION_RESERVE_FRACTION", "0.2"))
+except ValueError:
+    _RESERVE_FRACTION = 0.2
+_RESERVE_FRACTION = min(max(_RESERVE_FRACTION, 0.0), 0.9)
+
 
 @dataclass
 class AIResult:
@@ -136,7 +147,15 @@ def get_daily_spend() -> Dict[str, Any]:
         }
 
 
-def _would_exceed_cap(estimated_input: int, estimated_output: int) -> bool:
+def _effective_cap(cap: int, reserved: bool) -> int:
+    """The cap a caller may spend up to. Reserved callers get all of it;
+    everyone else stops short of the moderation reserve."""
+    if cap <= 0 or reserved:
+        return cap
+    return int(cap * (1.0 - _RESERVE_FRACTION))
+
+
+def _would_exceed_cap(estimated_input: int, estimated_output: int, reserved: bool = False) -> bool:
     """Pre-flight check before making the API call. Uses pessimistic
     estimates (max_tokens for output, message-token-count for input)
     so we err on the side of refusing rather than overspending.
@@ -145,9 +164,11 @@ def _would_exceed_cap(estimated_input: int, estimated_output: int) -> bool:
     want to be surprised by a cap when testing."""
     with _spend_lock:
         _maybe_reset_spend()
-        if _DAILY_INPUT_CAP > 0 and _spend_input_tokens + estimated_input > _DAILY_INPUT_CAP:
+        in_cap = _effective_cap(_DAILY_INPUT_CAP, reserved)
+        out_cap = _effective_cap(_DAILY_OUTPUT_CAP, reserved)
+        if _DAILY_INPUT_CAP > 0 and _spend_input_tokens + estimated_input > in_cap:
             return True
-        if _DAILY_OUTPUT_CAP > 0 and _spend_output_tokens + estimated_output > _DAILY_OUTPUT_CAP:
+        if _DAILY_OUTPUT_CAP > 0 and _spend_output_tokens + estimated_output > out_cap:
             return True
         return False
 
@@ -207,6 +228,7 @@ def chat(
     max_tokens: int = 512,
     model: str = DEFAULT_MODEL,
     temperature: float = 0.3,
+    reserved: bool = False,
 ) -> AIResult:
     """Single-shot non-streaming chat call.
 
@@ -221,6 +243,9 @@ def chat(
       temperature: 0.0 (deterministic) to 1.0 (creative). Default
         0.3 is a good middle ground for civic content — consistent
         outputs without being mechanical.
+      reserved: True only for the moderation screen. Lets the call
+        spend the share of the daily cap held back from every other
+        feature (AI_MODERATION_RESERVE_FRACTION).
 
     Returns: AIResult — never raises. Callers branch on `error`.
     """
@@ -242,7 +267,7 @@ def chat(
                 if isinstance(block, dict):
                     char_count += len(block.get("text", "") or "")
     estimated_input_tokens = max(char_count // 4, 1)
-    if _would_exceed_cap(estimated_input_tokens, max_tokens):
+    if _would_exceed_cap(estimated_input_tokens, max_tokens, reserved):
         logger.warning(
             "AI daily spend cap would be exceeded — refusing call. "
             "snapshot=%s",
