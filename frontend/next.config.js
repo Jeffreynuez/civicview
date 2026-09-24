@@ -37,6 +37,63 @@ const EMBED_FRAME_ANCESTORS = [
   'http://127.0.0.1:*',
 ].join(' ');
 
+// Baseline security headers for every route (audit F3). Distinct keys
+// from the two frame-ancestors rules below, so a third matching rule is
+// safe: Next emits the union.
+//
+// The CSP ships REPORT-ONLY first. With session tokens in localStorage,
+// a CSP is the main defense if an XSS ever lands, but a wrong allowlist
+// would break the map or sign-in for real users. Report-only mode logs
+// violations in the browser console and blocks nothing. Once a few days
+// of normal use show no violations, rename the header to
+// Content-Security-Policy to enforce it.
+const API_ORIGIN = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_API_URL || 'https://api.civicview.app').origin;
+  } catch {
+    return 'https://api.civicview.app';
+  }
+})();
+
+const CSP_REPORT_ONLY = [
+  "default-src 'self'",
+  // Next injects inline bootstrap scripts; nonces are the later upgrade.
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://unpkg.com",
+  // Official photos come from many public sources (Congress, state
+  // legislatures, Wikimedia, uploaded post images on R2).
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  [
+    "connect-src 'self'",
+    ...new Set([API_ORIGIN, 'https://api.civicview.app']),
+    'https://*.onrender.com',
+    'https://basemaps.cartocdn.com',
+    'https://*.cartocdn.com',
+    'https://raw.githubusercontent.com',
+    'https://tigerweb.geo.census.gov',
+    'https://nominatim.openstreetmap.org',
+    'https://unitedstates.github.io',
+  ].join(' '),
+  // MapLibre runs its tile workers from blob: URLs.
+  "worker-src 'self' blob:",
+  "child-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
+const SECURITY_HEADERS = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  // "Use my location" is the only browser capability the app asks for.
+  {
+    key: 'Permissions-Policy',
+    value: 'geolocation=(self), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()',
+  },
+  { key: 'Content-Security-Policy-Report-Only', value: CSP_REPORT_ONLY },
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -67,6 +124,7 @@ const nextConfig = {
   ],
   async headers() {
     return [
+      { source: '/:path*', headers: SECURITY_HEADERS },
       {
         source: '/embed/:path*',
         headers: [
