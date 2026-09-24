@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.middleware.body_limit import BodySizeLimitMiddleware
+from app.services.runtime_env import is_production as _is_production
 from app.middleware.csrf import CsrfMiddleware
 from app.middleware.force_2fa import Force2FAMiddleware
 from app.middleware.rate_limit import EngagementRateLimitMiddleware
@@ -214,11 +215,19 @@ async def lifespan(app: FastAPI):
     logger.info("CivicView API shutting down...")
 
 
+# Interactive docs (/docs, /redoc, /openapi.json) are off in production
+# unless ENABLE_API_DOCS is set: they add nothing for users and hand a
+# map of every endpoint to anyone probing api.civicview.app (audit S14).
+_docs_on = (not _is_production()) or (os.getenv("ENABLE_API_DOCS") or "").strip().lower() in ("1", "true", "yes")
+
 app = FastAPI(
     title="CivicView API",
     description="API for US political representative data",
     version="1.0.0",
     lifespan=lifespan,
+    docs_url="/docs" if _docs_on else None,
+    redoc_url="/redoc" if _docs_on else None,
+    openapi_url="/openapi.json" if _docs_on else None,
 )
 
 # CORS allow-list. Defaults cover local development (localhost +

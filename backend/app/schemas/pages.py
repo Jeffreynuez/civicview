@@ -509,6 +509,22 @@ class RepEventCreate(BaseModel):
     start_at: str = Field(..., min_length=4, max_length=40)  # ISO-8601
     end_at: Optional[str] = Field(default=None, max_length=40)
 
+    @field_validator("url")
+    @classmethod
+    def _http_url_only(cls, v):
+        """The event link renders as a clickable link on the page, so
+        only http and https are accepted. javascript:, data: and the
+        like are refused (audit S14)."""
+        if v is None:
+            return None
+        v = v.strip()
+        if not v:
+            return None
+        lowered = v.lower()
+        if not (lowered.startswith("https://") or lowered.startswith("http://")) or any(ch.isspace() for ch in v):
+            raise ValueError("Event link must be a web address starting with https:// or http://")
+        return v
+
 
 class RepEventRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)

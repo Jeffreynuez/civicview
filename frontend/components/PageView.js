@@ -957,7 +957,7 @@ export default function PageView({
                             {when}
                             {evt.location ? ` · ${evt.location}` : ''}
                           </div>
-                          {evt.url && (
+                          {/^https?:\/\//i.test(evt.url || '') && (
                             <a
                               href={evt.url}
                               target="_blank"
@@ -1137,7 +1137,7 @@ export default function PageView({
                         {when}
                         {evt.location ? ` · ${evt.location}` : ''}
                       </div>
-                      {evt.url && (
+                      {/^https?:\/\//i.test(evt.url || '') && (
                         <a
                           href={evt.url}
                           target="_blank"

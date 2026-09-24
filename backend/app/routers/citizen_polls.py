@@ -1334,6 +1334,12 @@ def react_to_citizen_poll(
     # is the public grassroots feed.
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    # Verified-tier action, like every other reaction route (audit S14).
+    # No-op until IDME_ENABLED; reps and candidates are verified by claim.
+    require_verified(
+        acting_citizen if acting_rep is None and acting_candidate is None else None,
+        action="react to polls",
+    )
 
     # Dedupe lookup keyed on the acting identity — matches the same
     # (poll, identity) unique indexes defined on PollReaction.
@@ -1509,6 +1515,12 @@ def react_to_poll_comment(
     )
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    # Verified-tier action, like every other reaction route (audit S14).
+    # No-op until IDME_ENABLED; reps and candidates are verified by claim.
+    require_verified(
+        acting_citizen if acting_rep is None and acting_candidate is None else None,
+        action="react to comments",
+    )
 
     q = db.query(PollCommentReaction).filter(
         PollCommentReaction.poll_comment_id == comment.id
