@@ -7,6 +7,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.middleware.body_limit import BodySizeLimitMiddleware
 from app.middleware.csrf import CsrfMiddleware
 from app.middleware.force_2fa import Force2FAMiddleware
 from app.middleware.rate_limit import EngagementRateLimitMiddleware
@@ -258,6 +259,10 @@ app.add_middleware(CsrfMiddleware)
 # → runs before it (Starlette executes later-added middleware first), so
 # scripted spray gets a cheap 429 before any CSRF/token work.
 app.add_middleware(EngagementRateLimitMiddleware)
+# Request body caps (audit S12): 1 MB, 6 MB for multipart uploads.
+# Added after the others so it runs first, but before CORS so a 413
+# still carries CORS headers.
+app.add_middleware(BodySizeLimitMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
