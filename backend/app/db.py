@@ -50,13 +50,23 @@ _RAW_DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DEFAULT_DB_PATH}")
 
 # Render (and Heroku, and several other managed-Postgres hosts) issues
 # connection strings that start with the legacy `postgres://` scheme.
-# SQLAlchemy 2.x rejects that — it expects `postgresql://`. Normalize
+# SQLAlchemy 2.x rejects that; it expects `postgresql://`. Normalize
 # here so we can paste the Render-provided URL straight into the env
 # var without thinking about it.
-if _RAW_DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = "postgresql://" + _RAW_DATABASE_URL[len("postgres://"):]
-else:
-    DATABASE_URL = _RAW_DATABASE_URL
+#
+# We also name the driver explicitly. SQLAlchemy 2.1 changed the
+# default driver for a bare `postgresql://` URL from psycopg2 to
+# psycopg (version 3), which we do not install. On 2026-09-24 a fresh
+# Render build resolved SQLAlchemy 2.1.0 and the API crashed at boot
+# with "No module named 'psycopg'". Naming psycopg2 here keeps the
+# driver fixed whichever SQLAlchemy version pip resolves. A URL that
+# already names a driver (`postgresql+something://`) is left alone.
+_BARE_POSTGRES_PREFIXES = ("postgres://", "postgresql://")
+DATABASE_URL = _RAW_DATABASE_URL
+for _prefix in _BARE_POSTGRES_PREFIXES:
+    if _RAW_DATABASE_URL.startswith(_prefix):
+        DATABASE_URL = "postgresql+psycopg2://" + _RAW_DATABASE_URL[len(_prefix):]
+        break
 
 # `check_same_thread=False` is SQLite-specific and required because
 # FastAPI uses a thread pool for sync dependencies. Harmless for other

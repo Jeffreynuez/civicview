@@ -14,7 +14,11 @@ pydantic[email]>=2.11,<3
 # We dropped passlib: passlib 1.7.4 has a compat bug with bcrypt >=5 ("detect
 # wrap bug" raises on import) and there's no 1.7.5 release. The auth module
 # now calls bcrypt directly, which works on bcrypt 4.x and 5.x.
-sqlalchemy>=2.0.35,<3
+# Capped below 2.1 on 2026-09-24. SQLAlchemy 2.1 switched the default
+# Postgres driver to psycopg 3 and broke a fresh Render build; app/db.py
+# now names psycopg2 explicitly, and 2.0.x is the line every test ran
+# on. Raise the cap only after the app is tested on 2.1.
+sqlalchemy>=2.0.35,<2.1
 bcrypt>=4.3,<6
 itsdangerous>=2.2,<3
 # Required by FastAPI when endpoints accept UploadFile / multipart form
