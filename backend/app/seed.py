@@ -151,7 +151,7 @@ def seed_demo_accounts(db: Optional[Session] = None) -> int:
             acct = RepAccount(
                 official_id=official_id,
                 email=email,
-                password_hash=hash_password(entry["password"]),
+                password_hash=hash_password(_seed_password(entry)),
                 display_name=entry["display_name"],
                 role=entry.get("role"),
                 owner_state=entry_state,
@@ -314,7 +314,7 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
 
             acct = CitizenAccount(
                 email=email,
-                password_hash=hash_password(entry["password"]),
+                password_hash=hash_password(_seed_password(entry)),
                 display_name=entry["display_name"].strip(),
                 address_line1=(entry.get("address_line1") or None),
                 city=entry["city"].strip(),
@@ -424,6 +424,23 @@ def backfill_demo_citizen_subscriptions(db: Optional[Session] = None) -> int:
     finally:
         if owns_session:
             db.close()
+
+
+def _seed_password(entry: Dict[str, Any]) -> str:
+    """Password for a NEWLY created seed account.
+
+    The seed files live in a public repository, so any real password in
+    them is public. A placeholder (or an empty value) becomes a long
+    random password nobody knows: the account exists so its page renders,
+    and whoever runs it signs in through password reset. Seeding never
+    touches the password of an account that already exists.
+    """
+    import secrets
+
+    pw = (entry.get("password") or "").strip()
+    if not pw or pw.upper().startswith("PLACEHOLDER"):
+        return secrets.token_urlsafe(32)
+    return pw
 
 
 # ── Candidate seed ────────────────────────────────────────────────────
@@ -547,7 +564,7 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
             acct = CandidateAccount(
                 candidate_id=candidate_id,
                 email=email,
-                password_hash=hash_password(entry["password"]),
+                password_hash=hash_password(_seed_password(entry)),
                 display_name=entry["display_name"].strip(),
                 owner_state=owner_state,
                 owner_district=owner_district,
