@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Optional
+from typing import Optional, Tuple
 
 from fastapi import Cookie, Depends, Header, HTTPException, Response, status
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
@@ -29,6 +29,7 @@ from sqlalchemy.orm import Session
 from app.auth import hash_password, verify_password  # noqa: F401 — re-exported for seed
 from app.db import get_db
 from app.models.pages import CitizenAccount
+from app.services.session_epoch import epoch_of, token_epoch
 
 
 logger = logging.getLogger(__name__)
@@ -43,11 +44,12 @@ _serializer = URLSafeTimedSerializer(_SECRET, salt="cl-citizen-v1")
 
 
 # ── Token plumbing ────────────────────────────────────────────────────
-def issue_citizen_token(citizen_id: int) -> str:
-    return _serializer.dumps({"citizen_id": citizen_id})
+def issue_citizen_token(citizen_id: int, epoch: int = 0) -> str:
+    return _serializer.dumps({"citizen_id": citizen_id, "se": int(epoch or 0)})
 
 
-def read_citizen_token(token: str) -> Optional[int]:
+def read_citizen_payload(token: str) -> Optional[Tuple[int, int]]:
+    """(account id, session epoch) for a valid, unexpired token."""
     try:
         payload = _serializer.loads(token, max_age=CITIZEN_SESSION_MAX_AGE_SECONDS)
     except (BadSignature, SignatureExpired):
@@ -55,10 +57,19 @@ def read_citizen_token(token: str) -> Optional[int]:
     if not isinstance(payload, dict):
         return None
     cid = payload.get("citizen_id")
-    return int(cid) if isinstance(cid, int) else None
+    if not isinstance(cid, int) or isinstance(cid, bool):
+        return None
+    return int(cid), token_epoch(payload)
 
 
-def set_citizen_cookie(response: Response, citizen_id: int) -> None:
+def read_citizen_token(token: str) -> Optional[int]:
+    """Account id for a valid token. Does not check the session epoch;
+    account resolution does."""
+    got = read_citizen_payload(token)
+    return got[0] if got else None
+
+
+def set_citizen_cookie(response: Response, citizen_id: int, epoch: int = 0) -> None:
     # See app/auth.py for the rationale on COOKIE_SAMESITE +
     # COOKIE_SECURE — same env-var-driven cookie config so cross-origin
     # auth (frontend on civicview.app, backend on Render) works in
@@ -67,7 +78,7 @@ def set_citizen_cookie(response: Response, citizen_id: int) -> None:
     secure = os.getenv("COOKIE_SECURE", "false").lower() == "true"
     response.set_cookie(
         key=CITIZEN_COOKIE_NAME,
-        value=issue_citizen_token(citizen_id),
+        value=issue_citizen_token(citizen_id, epoch),
         max_age=CITIZEN_SESSION_MAX_AGE_SECONDS,
         httponly=True,
         samesite=samesite,
@@ -122,11 +133,15 @@ def _resolve_citizen_from_session(
     token = cl_citizen or x_citizen_token or _extract_bearer(authorization)
     if not token:
         return None
-    cid = read_citizen_token(token)
-    if cid is None:
+    got = read_citizen_payload(token)
+    if got is None:
         return None
+    cid, token_se = got
     citizen = db.get(CitizenAccount, cid)
     if citizen is None or not citizen.is_active:
+        return None
+    if epoch_of(citizen) != token_se:
+        # Signed out everywhere after this token was issued (audit S7).
         return None
     if citizen.suspended_at is not None:
         return None

@@ -47,6 +47,7 @@ from datetime import datetime, timezone
 from typing import List, Literal, Optional, Tuple
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
@@ -54,6 +55,8 @@ from app.auth import get_optional_rep
 from app.auth_candidate import get_optional_candidate
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
+from app.services.session_epoch import bump as bump_session_epoch
+from app.services.session_epoch import epoch_of
 from app.models.pages import CandidateAccount, CitizenAccount, RepAccount
 from app.services import recovery_codes_service, totp_service
 from app.services.admin_auth import get_current_admin
@@ -419,6 +422,32 @@ def disable(
     return {"disabled": True}
 
 
+@router.post("/api/sessions/sign-out-everywhere")
+def sign_out_everywhere(
+    caller: Tuple[AccountKind, AccountRow] = Depends(resolve_caller),
+    db: Session = Depends(get_db),
+) -> JSONResponse:
+    """Revoke every session for the signed-in account, this one
+    included (audit S7). Same account the 2FA panel manages: rep, then
+    candidate, then citizen. Clears that identity's cookie; the
+    frontend drops its stored token and reloads."""
+    kind, account = caller
+    bump_session_epoch(account)
+    db.commit()
+    logger.info("Signed out everywhere: %s account #%d.", kind, account.id)
+    resp = JSONResponse(content={"signed_out": True, "kind": kind})
+    if kind == "rep":
+        from app.auth import clear_session_cookie
+        clear_session_cookie(resp)
+    elif kind == "candidate":
+        from app.auth_candidate import clear_candidate_cookie
+        clear_candidate_cookie(resp)
+    else:
+        from app.auth_citizen import clear_citizen_cookie
+        clear_citizen_cookie(resp)
+    return resp
+
+
 # ─────────────────────────────────────────────────────────────────────
 # Internal helpers
 # ─────────────────────────────────────────────────────────────────────
@@ -472,12 +501,12 @@ def admin_reset_2fa(
     standard logging chain; future work could add a dedicated
     AdminAuditLog table.
 
-    The caller must be in ADMIN_EMAILS. The reset doesn't sign the
-    target user out — it just clears their 2FA state so they can
-    enroll fresh. If they were enrolled and using 2FA-required
-    endpoints (Phase 3+), the next request will succeed without the
-    challenge step and they'll be prompted to re-enroll on the
-    account settings surface."""
+    The caller must be in ADMIN_EMAILS. The reset also signs the
+    target account out on every device (session epoch bump, audit S7):
+    an admin 2FA reset usually follows a lost or stolen phone, and a
+    session on that phone must not survive it. The user signs in
+    again with their password and can re-enroll from account
+    settings."""
     model_by_kind = {
         "citizen": CitizenAccount,
         "rep": RepAccount,
@@ -498,6 +527,7 @@ def admin_reset_2fa(
     had_2fa = account.totp_enabled_at is not None
     account.totp_secret_encrypted = None
     account.totp_enabled_at = None
+    bump_session_epoch(account)
     db.commit()
     deleted = recovery_codes_service.wipe_codes(db, kind, account_id)
     logger.warning(
@@ -632,7 +662,7 @@ def login_challenge(
     if account_kind == "rep":
         from app.auth import issue_session_token, set_session_cookie
         from app.schemas.pages import MeResponse
-        token = issue_session_token(account.id)
+        token = issue_session_token(account.id, epoch_of(account))
         account.last_login_at = _dt.utcnow()
         db.commit()
         db.refresh(account)
@@ -643,12 +673,12 @@ def login_challenge(
             "two_factor_required": False,
         }
         resp = JSONResponse(content=payload)
-        set_session_cookie(resp, account.id)
+        set_session_cookie(resp, account.id, epoch_of(account))
         return resp
     if account_kind == "citizen":
         from app.auth_citizen import issue_citizen_token, set_citizen_cookie
         from app.schemas.pages import CitizenMeResponse
-        token = issue_citizen_token(account.id)
+        token = issue_citizen_token(account.id, epoch_of(account))
         account.last_login_at = _dt.utcnow()
         db.commit()
         db.refresh(account)
@@ -658,12 +688,12 @@ def login_challenge(
             "two_factor_required": False,
         }
         resp = JSONResponse(content=payload)
-        set_citizen_cookie(resp, account.id)
+        set_citizen_cookie(resp, account.id, epoch_of(account))
         return resp
     # candidate
     from app.auth_candidate import issue_candidate_token, set_candidate_cookie
     from app.schemas.pages import CandidateMeResponse
-    token = issue_candidate_token(account.id)
+    token = issue_candidate_token(account.id, epoch_of(account))
     account.last_login_at = _dt.utcnow()
     db.commit()
     db.refresh(account)
@@ -673,5 +703,5 @@ def login_challenge(
         "two_factor_required": False,
     }
     resp = JSONResponse(content=payload)
-    set_candidate_cookie(resp, account.id)
+    set_candidate_cookie(resp, account.id, epoch_of(account))
     return resp

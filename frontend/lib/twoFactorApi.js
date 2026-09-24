@@ -124,6 +124,16 @@ export function adminResetTwoFactor(kind, accountId) {
 }
 
 /**
+ * POST /api/sessions/sign-out-everywhere: revokes every session of the
+ * account this panel manages (rep, then candidate, then citizen), this
+ * device included. Returns { signed_out: true, kind }. The caller drops
+ * the stored token for `kind` and reloads.
+ */
+export function signOutEverywhere() {
+  return tfaRequest('/api/sessions/sign-out-everywhere', { method: 'POST' });
+}
+
+/**
  * POST /api/2fa/login-challenge — completes a login that paused for
  * 2FA. Called after the matching login endpoint returns
  * `{ two_factor_required: true, challenge_token }`. On success the

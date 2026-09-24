@@ -235,6 +235,11 @@ def confirm_password_reset(
     # Hash the new password + update. Delete the token row so it
     # can't be replayed.
     account.password_hash = hash_password(new_password)
+    # Sign the account out everywhere. Whoever prompted the reset may
+    # have been locked out by someone holding a live session, and that
+    # session must not outlive the new password (audit S7).
+    from app.services.session_epoch import bump as _bump_epoch
+    _bump_epoch(account)
     # Lockout reset (Task #29). A successful password reset means
     # the user has demonstrated control of the email — any stale
     # lockout counters from someone brute-forcing this account

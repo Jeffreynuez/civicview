@@ -233,3 +233,19 @@ def verify_email_confirmation(account: AccountRow, typed_email: str) -> bool:
     own email correctly. Defends against accidental clicks + auto-fill
     mistakes. Case-insensitive; trims whitespace."""
     return _normalize_email(typed_email) == _normalize_email(account.email)
+
+
+def verify_password_confirmation(account: AccountRow, password) -> bool:
+    """Deleting an account requires the account password (audit S7).
+    The typed email only guards against a slip of the finger; the
+    password guards against someone holding a borrowed or stolen
+    session. Demo citizen accounts are the exception: their password
+    was generated and shown once at signup, and a demo account holds
+    nothing that would outlast it."""
+    from app.auth import verify_password
+    from app.services.digest_service import is_demo_email
+    if is_demo_email(getattr(account, "email", "") or ""):
+        return True
+    if not password or not getattr(account, "password_hash", None):
+        return False
+    return verify_password(password, account.password_hash)

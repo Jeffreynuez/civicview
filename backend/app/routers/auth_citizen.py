@@ -36,6 +36,7 @@ from app.auth_citizen import (
     set_citizen_cookie,
 )
 from app.db import get_db
+from app.services.session_epoch import epoch_of
 from app.models.pages import CitizenAccount
 from app.schemas.pages import (
     CitizenLoginRequest,
@@ -297,7 +298,7 @@ def login(
         db, account=citizen, identity_kind="citizen",
         email_attempted=email, ip_address=ip, user_agent=ua,
     )
-    set_citizen_cookie(response, citizen.id)
+    set_citizen_cookie(response, citizen.id, epoch_of(citizen))
     citizen.last_login_at = datetime.utcnow()
     db.commit()
     db.refresh(citizen)
@@ -305,7 +306,7 @@ def login(
     # Session-tied CSRF (Task #31). See app/routers/auth.py for the
     # rationale — same HMAC-of-session-token pattern across all three
     # identity tracks.
-    citizen_tok = issue_citizen_token(citizen.id)
+    citizen_tok = issue_citizen_token(citizen.id, epoch_of(citizen))
     return CitizenLoginResponse(
         citizen=CitizenMeResponse.model_validate(citizen),
         # Mirror token for cross-site-cookie-restricted environments.
@@ -450,7 +451,7 @@ def demo_signup(
     db.commit()
     db.refresh(citizen)
 
-    set_citizen_cookie(response, citizen.id)
+    set_citizen_cookie(response, citizen.id, epoch_of(citizen))
     citizen.last_login_at = datetime.utcnow()
     db.commit()
     db.refresh(citizen)
@@ -462,7 +463,7 @@ def demo_signup(
 
     return CitizenDemoSignupResponse(
         citizen=CitizenMeResponse.model_validate(citizen),
-        citizen_token=issue_citizen_token(citizen.id),
+        citizen_token=issue_citizen_token(citizen.id, epoch_of(citizen)),
         email=email,
         password=password,
     )
@@ -778,6 +779,7 @@ def delete_account(
         hard_delete_account,
         soft_delete_account,
         verify_email_confirmation,
+        verify_password_confirmation,
     )
     if citizen is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
@@ -785,6 +787,11 @@ def delete_account(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email confirmation doesn't match the signed-in account.",
+        )
+    if not verify_password_confirmation(citizen, payload.password):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Enter your current password to delete this account.",
         )
     if payload.mode == "hard":
         hard_delete_account(db, "citizen", citizen)

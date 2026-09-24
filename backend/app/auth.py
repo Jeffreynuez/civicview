@@ -26,7 +26,7 @@ import secrets
 import hashlib
 import hmac
 import logging
-from typing import Optional
+from typing import Optional, Tuple
 
 import bcrypt
 from fastapi import Cookie, Depends, Header, HTTPException, Response, status
@@ -35,6 +35,7 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.models.pages import RepAccount
+from app.services.session_epoch import epoch_of, token_epoch
 
 
 logger = logging.getLogger(__name__)
@@ -76,13 +77,15 @@ def verify_password(plain: str, hashed: str) -> bool:
 
 
 # ── Session cookies ───────────────────────────────────────────────────
-def issue_session_token(rep_id: int) -> str:
-    """Return a signed token embedding the rep id."""
-    return _serializer.dumps({"rep_id": rep_id})
+def issue_session_token(rep_id: int, epoch: int = 0) -> str:
+    """Return a signed token embedding the rep id and the account's
+    current session epoch (see app/services/session_epoch.py)."""
+    return _serializer.dumps({"rep_id": rep_id, "se": int(epoch or 0)})
 
 
-def read_session_token(token: str) -> Optional[int]:
-    """Return rep_id if the token is valid and unexpired, else None."""
+def read_session_payload(token: str) -> Optional[Tuple[int, int]]:
+    """Return (rep_id, session_epoch) if the token is valid and
+    unexpired, else None."""
     try:
         payload = _serializer.loads(token, max_age=SESSION_MAX_AGE_SECONDS)
     except SignatureExpired:
@@ -92,11 +95,20 @@ def read_session_token(token: str) -> Optional[int]:
     if not isinstance(payload, dict):
         return None
     rid = payload.get("rep_id")
-    return int(rid) if isinstance(rid, int) else None
+    if not isinstance(rid, int) or isinstance(rid, bool):
+        return None
+    return int(rid), token_epoch(payload)
 
 
-def set_session_cookie(response: Response, rep_id: int) -> None:
-    token = issue_session_token(rep_id)
+def read_session_token(token: str) -> Optional[int]:
+    """Return rep_id if the token is valid and unexpired, else None.
+    Does not check the session epoch; account resolution does."""
+    got = read_session_payload(token)
+    return got[0] if got else None
+
+
+def set_session_cookie(response: Response, rep_id: int, epoch: int = 0) -> None:
+    token = issue_session_token(rep_id, epoch)
     # Cookie attributes:
     #   COOKIE_SAMESITE   — "lax" (default, dev) or "none" (prod cross-
     #                       origin). When the frontend lives at
@@ -180,11 +192,17 @@ def _resolve_rep_from_session(
     token = cl_session or _extract_bearer(authorization)
     if not token:
         return None
-    rep_id = read_session_token(token)
-    if rep_id is None:
+    got = read_session_payload(token)
+    if got is None:
         return None
+    rep_id, token_se = got
     rep = db.get(RepAccount, rep_id)
     if rep is None or not rep.is_active:
+        return None
+    if epoch_of(rep) != token_se:
+        # Signed out everywhere (password reset, 2FA reset, or the
+        # user's own "sign out of all devices") after this token was
+        # issued.
         return None
     if rep.suspended_at is not None:
         return None

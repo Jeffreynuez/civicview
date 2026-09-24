@@ -1234,22 +1234,24 @@ export async function joinWaitlist({ email, clickedFrom, state, note } = {}) {
 // the right one based on which session is signed in. Mode is 'soft'
 // (archive 30 days) or 'hard' (immediate). Returns { mode,
 // purge_after } on success.
-export async function deleteRepAccount({ confirmEmail, mode } = {}) {
+// `password` is the account's current password. The backend requires it
+// for every account except demo citizens.
+export async function deleteRepAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
-export async function deleteCitizenAccount({ confirmEmail, mode } = {}) {
+export async function deleteCitizenAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/citizen-auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
-export async function deleteCandidateAccount({ confirmEmail, mode } = {}) {
+export async function deleteCandidateAccount({ confirmEmail, mode, password } = {}) {
   return request('/api/candidate-auth/delete', {
     method: 'POST',
-    body: { confirm_email: confirmEmail, mode },
+    body: { confirm_email: confirmEmail, mode, password: password || null },
   });
 }
 

@@ -72,6 +72,9 @@ class RepAccount(Base):
     # nullable here so the auto-migrate can ADD COLUMN on existing rows
     # without backfill.
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81). Distinct from
     # admin-driven `suspended_at` so we can tell user-initiated
@@ -185,6 +188,9 @@ class CandidateAccount(Base):
     # since they post on a verified page and an impersonation post would
     # be just as damaging as one on a sitting rep's page.
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
@@ -1354,6 +1360,9 @@ class CitizenAccount(Base):
     #     2FA is not active on this account, regardless of whether a
     #     secret is present (partial enrollments).
     totp_secret_encrypted: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # Bumped to sign the account out everywhere; tokens carry the epoch
+    # they were issued under (app/services/session_epoch.py, audit S7).
+    session_epoch: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     totp_enabled_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)

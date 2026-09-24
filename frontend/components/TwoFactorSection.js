@@ -36,9 +36,15 @@ import {
   disableTwoFactor,
   fetchTwoFactorStatus,
   regenerateRecoveryCodes,
+  signOutEverywhere,
   startEnrollment,
   verifyEnrollment,
 } from '../lib/twoFactorApi';
+import {
+  setStoredCandidateToken,
+  setStoredCitizenToken,
+  setStoredRepToken,
+} from '../lib/pagesApi';
 
 // Visual constants — keep aligned with the rest of the app's tokens.
 const STYLES = {
@@ -404,6 +410,8 @@ export default function TwoFactorSection({ onClose }) {
         />
       )}
 
+      {mode === MODE_IDLE && <SignOutEverywhere />}
+
       {/* Enrollment step 1 — show QR + secret, prompt for code */}
       {mode === MODE_ENROLLING && (
         <EnrollPanel
@@ -520,6 +528,55 @@ function StatusPanel({ status, onEnable, onDisable, onRegenerate, busy, flashErr
           Disable 2FA
         </button>
       </div>
+    </div>
+  );
+}
+
+// "Sign out of all devices": revokes every session of this account,
+// including this one, then reloads so the app drops the dead session.
+// Two clicks (ask, then confirm) because it signs this device out too.
+function SignOutEverywhere() {
+  const [confirming, setConfirming] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(null);
+
+  const run = async () => {
+    setBusy(true); setErr(null);
+    const { data, error } = await signOutEverywhere();
+    if (error) { setErr(error); setBusy(false); return; }
+    const clear = {
+      rep: setStoredRepToken,
+      candidate: setStoredCandidateToken,
+      citizen: setStoredCitizenToken,
+    }[data?.kind];
+    if (clear) clear(null);
+    if (typeof window !== 'undefined') window.location.reload();
+  };
+
+  return (
+    <div style={{ marginTop: 18, paddingTop: 14, borderTop: '1px solid var(--cl-border)' }}>
+      <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--cl-text)', marginBottom: 4 }}>
+        Sign out of all devices
+      </div>
+      <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', marginBottom: 10 }}>
+        Ends every session on this account, including this one. Use it if you
+        signed in on a device you no longer have.
+      </div>
+      {err && <ErrorBox text={err} />}
+      {!confirming ? (
+        <button type="button" style={STYLES.secondaryBtn} onClick={() => setConfirming(true)} disabled={busy}>
+          Sign out everywhere
+        </button>
+      ) : (
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" style={STYLES.dangerBtn} onClick={run} disabled={busy}>
+            {busy ? 'Signing out\u2026' : 'Yes, sign out everywhere'}
+          </button>
+          <button type="button" style={STYLES.secondaryBtn} onClick={() => setConfirming(false)} disabled={busy}>
+            Cancel
+          </button>
+        </div>
+      )}
     </div>
   );
 }

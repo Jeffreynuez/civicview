@@ -41,6 +41,9 @@ class DeleteAccountRequest(BaseModel):
     """
     confirm_email: EmailStr
     mode: str = Field(default="soft", pattern="^(soft|hard)$")
+    # Current password, required for every account except demo
+    # citizens (see account_deletion.verify_password_confirmation).
+    password: Optional[str] = Field(default=None, max_length=200)
 
 
 class DeleteAccountResponse(BaseModel):
