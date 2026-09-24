@@ -167,7 +167,10 @@ export default function Navbar({
     setLoading(true);
     Promise.all([fetchAllMembers(), fetchAllCandidates()]).then(([m, c]) => {
       setAllMembers(m.data || []);
-      setAllCandidates(c.data || []);
+      // Candidates who withdrew, lost their primary, or are duplicate
+      // records stay reachable by link but are not offered as "running"
+      // in search, where the result row would read as a live campaign.
+      setAllCandidates((c.data || []).filter((x) => !x.withdrawn && !x.eliminated && !x.duplicate_of));
       setLoading(false);
     });
   }, [focused, allMembers.length, allCandidates.length, loading]);

@@ -444,6 +444,41 @@ export default function CandidateProfile({
               page can make in the weeks before an election — a voter
               could plan around a candidate who is not running. It sits
               in the hero, above everything, and states the date. */}
+          {/* Lost the primary. Distinct from withdrawn: the person ran and
+              the voters chose someone else, which is a result, not a
+              decision to leave. Same placement, same urgency. */}
+          {c.eliminated && !c.withdrawn && (
+            <div
+              role="status"
+              style={{
+                background: 'rgba(71, 85, 105, 0.92)',
+                color: 'white',
+                borderRadius: '8px',
+                padding: '9px 12px',
+                margin: '0 auto 12px',
+                maxWidth: '46ch',
+                fontSize: '0.8rem',
+                lineHeight: 1.45,
+                textAlign: 'left',
+              }}
+            >
+              <strong>Not on the November ballot.</strong>{' '}
+              {c.eliminated_note || 'This candidate did not advance past the primary.'}
+              {c.eliminated_source && (
+                <>
+                  {' '}
+                  <a
+                    href={c.eliminated_source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'white', textDecoration: 'underline' }}
+                  >
+                    Source
+                  </a>
+                </>
+              )}
+            </div>
+          )}
           {c.withdrawn && (
             <div
               role="status"

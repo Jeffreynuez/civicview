@@ -166,7 +166,7 @@ export default function BallotTab({
         <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
           Election data not yet available for {stateName || stateCode}
         </div>
-        <div>We&apos;re building out the ballot state by state. Florida 2026 is fully seeded.</div>
+        <div>We&apos;re adding ballots state by state. Florida has the most complete coverage so far.</div>
       </EmptyState>
     );
   }
@@ -243,7 +243,10 @@ export default function BallotTab({
           <ElectionCard
             key={el.id}
             election={el}
-            defaultOpen={idx === 0 || (targetLocation && targetLocation.electionId === el.id)}
+            defaultOpen={
+              idx === firstUpcomingIdx(elections)
+              || Boolean(targetLocation && targetLocation.electionId === el.id)
+            }
             onCandidateSelect={onCandidateSelect}
             onCompareToggle={onCompareToggle}
             compareIds={compareIds}
@@ -337,7 +340,9 @@ function buildElections(view, mode, stateCode) {
       measuresNote: view._measures_note || null,
       keyDates: [
         view.key_dates?.voter_registration_deadline_general && { label: 'Voter registration', value: view.key_dates.voter_registration_deadline_general },
+        view.key_dates?.vote_by_mail_request_deadline_general && { label: 'Mail ballot request', value: view.key_dates.vote_by_mail_request_deadline_general },
         view.key_dates?.early_voting_window_general && { label: 'Early voting', value: view.key_dates.early_voting_window_general, isRange: true },
+        view.key_dates?.early_voting_optional_general && { label: 'Optional early voting', value: view.key_dates.early_voting_optional_general, isRange: true, small: true },
       ].filter(Boolean),
     });
   }
@@ -355,6 +360,22 @@ function buildElections(view, mode, stateCode) {
     return d >= today;
   };
   return out.some(isUpcoming) ? out : [];
+}
+
+// Index of the first election whose date has not passed. A completed
+// primary used to open by default (it is first in the list), which put
+// last month's closed-primary instructions in front of every voter.
+function isPastIso(iso) {
+  if (!iso) return false;
+  const d = new Date(`${String(iso).slice(0, 10)}T00:00:00`);
+  if (isNaN(d.getTime())) return false;
+  const t = new Date();
+  t.setHours(0, 0, 0, 0);
+  return d < t;
+}
+function firstUpcomingIdx(elections) {
+  const i = (elections || []).findIndex((el) => !isPastIso(el.date));
+  return i === -1 ? 0 : i;
 }
 
 // ─── Election card ───────────────────────────────────────────────────
@@ -480,7 +501,7 @@ function ElectionCard({
               primary states (CA, GA, etc.) skip the banner entirely
               since the warning would be misleading. Backend gates this
               via election.closed_primary (see ElectionsService). */}
-          {isPrimary && election.closed_primary && (
+          {isPrimary && election.closed_primary && !isPast && (
             <div
               style={{
                 marginBottom: 12,
@@ -528,7 +549,12 @@ function ElectionCard({
                 <DateLine
                   key={i}
                   label={kd.label}
-                  value={kd.isRange ? kd.value : formatDate(kd.value)}
+                  small={kd.small}
+                  value={
+                    kd.isRange
+                      ? kd.value.replace(/(\d{4})-(\d{2})-(\d{2})/g, (m) => formatDate(m))
+                      : `${formatDate(kd.value)}${isPastIso(kd.value) ? ' (passed)' : ''}`
+                  }
                 />
               ))}
             </div>
@@ -817,6 +843,42 @@ function RaceCard({
         </div>
       )}
 
+      {/* GUARD 2. The primary is over but nobody has checked this roster
+          against the official candidate list. It can look like a ballot
+          (one candidate per party) and still name someone who lost,
+          withdrew, or never qualified, so it is labeled for what it is. */}
+      {phase === 'general' && race.general_roster_unverified && (
+        <div
+          role="status"
+          style={{
+            marginTop: '8px', padding: '9px 11px', borderRadius: '8px',
+            background: 'var(--cl-warning-soft, #fff4e5)',
+            border: '1px solid var(--cl-warning, #f4a261)',
+            fontSize: '0.76rem', lineHeight: 1.45, color: 'var(--cl-text)',
+          }}
+        >
+          <strong>Not the confirmed ballot.</strong> The primary is over, but we
+          haven&apos;t checked this list against the official candidate list yet.
+          It was built from filings made before the primary, so it may include
+          people who lost, withdrew or never qualified, and may leave out people
+          who did.
+        </div>
+      )}
+
+      {phase === 'general' && race.uncontested_general && (
+        <div
+          role="status"
+          style={{
+            marginTop: '8px', padding: '9px 11px', borderRadius: '8px',
+            background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
+            fontSize: '0.76rem', lineHeight: 1.45, color: 'var(--cl-text)',
+          }}
+        >
+          <strong>Not on the November ballot.</strong> Only one candidate
+          qualified, so this contest will not appear on your ballot.
+        </div>
+      )}
+
       {/* Primary results. Only rendered when a human has recorded them —
           never derived from the calendar, because "the date passed" is
           not the same fact as "we know who won". */}
@@ -925,7 +987,7 @@ function RaceCard({
               a compact result block and a paragraph. */}
           {(race.result.turnout?.total != null
             || race.result.turnout_note
-            || race.result.certified === false) && (
+            || race.result.certified != null) && (
             <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '4px', lineHeight: 1.5 }}>
               {race.result.turnout?.total != null && (
                 <>
@@ -947,6 +1009,19 @@ function RaceCard({
                 </>
               )}
               {race.result.turnout_note && <>{race.result.turnout_note}{' '}</>}
+              {race.result.certified === true && (
+                <>
+                  {race.result.certification_note || 'Official results.'}
+                  {race.result.source_url && (
+                    <>
+                      {' '}
+                      <FileLink href={race.result.source_url} style={{ color: 'var(--cl-accent)' }}>
+                        Source{fileSuffix(race.result.source_url)}
+                      </FileLink>
+                    </>
+                  )}
+                </>
+              )}
               {race.result.certified === false && (
                 <>
                   {race.result.certification_note || 'Unofficial returns.'}
@@ -1045,6 +1120,17 @@ function RaceCard({
                 onHighlightConsumed={onHighlightConsumed}
               />
             ))
+          )}
+          {/* Qualified write-ins are real candidates, but their names are
+              not printed on the ballot: voters write them on a blank line.
+              Listing them as ordinary rows would describe a ballot that
+              does not exist, so they get one plain line instead. */}
+          {phase !== 'primary' && (race.write_in_candidates || []).length > 0 && (
+            <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginTop: '6px', lineHeight: 1.45 }}>
+              <strong style={{ color: 'var(--cl-text)' }}>Qualified write-in candidates:</strong>{' '}
+              {race.write_in_candidates.map((c) => c.name).join(', ')}.
+              {' '}Their names are not printed; the ballot has a blank line for a write-in vote.
+            </div>
           )}
         </div>
       )}
@@ -1370,15 +1456,42 @@ function MeasureCard({ measure }) {
 
       {expanded && (
         <div style={{ marginTop: '10px' }}>
+          {measure.summary_label && (
+            <div style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.4px', color: 'var(--cl-text-light)', marginBottom: '4px' }}>
+              {measure.summary_label}
+            </div>
+          )}
           {measure.summary && (
-            <p style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)', marginBottom: '10px' }}>
+            <p style={{ fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--cl-text)', marginBottom: '10px', whiteSpace: 'pre-line' }}>
               {measure.summary}
             </p>
           )}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-            <SupportOppose label="Support" items={measure.support?.arguments} color="#1d5a2c" />
-            <SupportOppose label="Oppose" items={measure.opposition?.arguments} color="#8a2424" />
-          </div>
+          {measure.origin && (
+            <p style={{ fontSize: '0.76rem', lineHeight: 1.45, color: 'var(--cl-text-light)', marginBottom: '8px' }}>
+              {measure.origin}
+            </p>
+          )}
+          {/* Support/oppose arguments render only when they exist AND are
+              sourced in the data. Empty boxes read as "nobody supports or
+              opposes this", which is a claim we cannot make. */}
+          {((measure.support?.arguments || []).length > 0 || (measure.opposition?.arguments || []).length > 0) && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <SupportOppose label="Support" items={measure.support?.arguments} color="#1d5a2c" />
+              <SupportOppose label="Oppose" items={measure.opposition?.arguments} color="#8a2424" />
+            </div>
+          )}
+          {measure.financial_impact_note && !measure.fiscal_impact && (
+            <div style={{ marginTop: '8px', fontSize: '0.74rem', color: 'var(--cl-text-light)' }}>
+              {measure.financial_impact_note}
+            </div>
+          )}
+          {measure.source_url && (
+            <div style={{ marginTop: '8px', fontSize: '0.74rem' }}>
+              <FileLink href={measure.source_url} style={{ color: 'var(--cl-accent)' }}>
+                {measure.source || 'Source'}{fileSuffix(measure.source_url)}
+              </FileLink>
+            </div>
+          )}
           {measure.fiscal_impact && (
             <div style={{
               marginTop: '8px', padding: '8px 10px', background: 'var(--cl-bg)',

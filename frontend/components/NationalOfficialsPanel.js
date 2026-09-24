@@ -781,12 +781,24 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify, onState
   // Splitting them avoids a re-render of the count every 12 seconds.
   const featuredPool = useMemo(() => {
     if (!headlineRace) return [];
-    const all = [
-      ...(headlineRace.primary_candidates?.R || []),
-      ...(headlineRace.primary_candidates?.D || []),
-      ...(headlineRace.primary_candidates?.I || []),
-      ...(headlineRace.general_candidates || []),
-    ];
+    // Once the primary has been held (primary_status is DATA, set when the
+    // results are in hand), only the people still running belong here.
+    // Pooling the primary field after the fact featured candidates who had
+    // already lost, with nothing to say so. A roster the guards flag as
+    // unresolved or unverified is not featured at all: this is the home
+    // page, and a doubtful ballot does not get top billing.
+    const primaryOver = Boolean(elections?.primary_status?.concluded);
+    if (primaryOver && (headlineRace.general_roster_unresolved || headlineRace.general_roster_unverified)) {
+      return [];
+    }
+    const all = primaryOver
+      ? [...(headlineRace.general_candidates || [])]
+      : [
+        ...(headlineRace.primary_candidates?.R || []),
+        ...(headlineRace.primary_candidates?.D || []),
+        ...(headlineRace.primary_candidates?.I || []),
+        ...(headlineRace.general_candidates || []),
+      ];
     const seen = new Set();
     const unique = [];
     for (const c of all) {
@@ -795,7 +807,7 @@ function OnTheBallotSection({ citizen, onCandidatePick, onRequestVerify, onState
       unique.push(c);
     }
     return unique;
-  }, [headlineRace]);
+  }, [headlineRace, elections]);
 
   const featuredCandidates = useMemo(() => {
     if (featuredPool.length === 0) return [];
