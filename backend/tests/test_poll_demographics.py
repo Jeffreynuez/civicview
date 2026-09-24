@@ -65,6 +65,11 @@ def main() -> int:
             t._seed(db)
             marisol_id = db.query(CitizenAccount.id).filter(
                 CitizenAccount.display_name == "Marisol Vega").first()[0]
+            # Answers are stored only for a verified person (audit S10).
+            _m = db.get(CitizenAccount, marisol_id)
+            _m.verified = True
+            _m.verified_method = "idme"
+            db.commit()
 
             # Poll WITH a form (age_band + party; bogus key dropped at attach).
             poll = Poll(

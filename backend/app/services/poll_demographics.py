@@ -75,6 +75,14 @@ def has_form(db: Session, poll_id: int) -> bool:
     )
 
 
+def can_record_for(citizen) -> bool:
+    """Only a verified person's answers are stored (audit S10). Demo
+    accounts could otherwise fill a cell to the 10-vote minimum around
+    one real respondent and read that person's answers off the result."""
+    from app.services.verified_identity import is_verified_person
+    return is_verified_person(citizen)
+
+
 def record_for_vote(db: Session, poll_id: int, vote, demographics: dict | None) -> None:
     """Replace the self-reported demographic answers tied to `vote`.
 

@@ -591,7 +591,7 @@ def vote_on_citizen_poll(
     # Capture optional self-reported demographics (verified-citizen votes
     # only; mirrors the geography-scope gate).
     db.flush()
-    if citizen is not None:
+    if citizen is not None and poll_demographics.can_record_for(citizen):
         _vote_row = (
             db.query(PollVote)
             .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)

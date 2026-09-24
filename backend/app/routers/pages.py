@@ -1393,7 +1393,7 @@ def vote_on_poll(
     # only; mirrors the geography-scope gate). Re-query the row we just
     # wrote/updated rather than thread it through every branch above.
     db.flush()
-    if citizen is not None:
+    if citizen is not None and poll_demographics.can_record_for(citizen):
         _vote_row = (
             db.query(PollVote)
             .filter(PollVote.poll_id == poll.id, PollVote.citizen_id == citizen.id)

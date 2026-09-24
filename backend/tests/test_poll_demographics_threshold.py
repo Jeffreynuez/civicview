@@ -46,7 +46,8 @@ def main() -> int:
             for i in range(11):  # 11 < 25 -> must suppress under this poll's threshold
                 cit = CitizenAccount(email=f"t{i}@e.com", password_hash="x", display_name=f"T{i}",
                                      state="FL", address_line1="1 St", city="Naples",
-                                     county="Collier", zip_code="34102", congressional_district="19")
+                                     county="Collier", zip_code="34102", congressional_district="19",
+                                     verified=True, verified_method="idme")
                 db.add(cit); db.flush()
                 v = PollVote(poll_id=poll.id, option_id=oa.id, citizen_id=cit.id, scope_state="FL")
                 db.add(v); db.flush()

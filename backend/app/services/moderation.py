@@ -70,10 +70,8 @@ def is_trusted_reporter_citizen(citizen: Any) -> bool:
     """A citizen whose report may count toward auto-hide: verified by a
     real method. Demo accounts are verified_method='demo' and do not
     count, whatever their verified flag says."""
-    if citizen is None:
-        return False
-    method = (getattr(citizen, "verified_method", None) or "").lower()
-    return bool(getattr(citizen, "verified", False)) and method not in ("", "demo")
+    from app.services.verified_identity import is_verified_person
+    return is_verified_person(citizen)
 
 
 def _trusted_report_count(db: Session, target: Any, kind: str) -> int:
