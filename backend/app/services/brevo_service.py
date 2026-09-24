@@ -13,6 +13,11 @@ succeeds — we log and move on.
 Config (env vars — set on Render, never commit):
   BREVO_API_KEY           Brevo v3 REST API key (NOT the MCP key)
   BREVO_WAITLIST_LIST_ID  numeric id of the Brevo list to add contacts to
+  BREVO_DOI_TEMPLATE_ID   optional: id of a Brevo double opt-in template.
+                          When set, a signup gets a confirmation email and
+                          joins the list only after clicking it (audit S9).
+  BREVO_DOI_REDIRECT_URL  optional: where the confirm link lands. Defaults
+                          to https://civicview.app/.
 
 Contact attributes written: STATE (2-letter) and SOURCE (the
 `clicked_from` tag). updateEnabled=True so re-syncing an existing email
@@ -28,6 +33,15 @@ import httpx
 logger = logging.getLogger(__name__)
 
 _BREVO_CONTACTS_URL = "https://api.brevo.com/v3/contacts"
+_BREVO_DOI_URL = "https://api.brevo.com/v3/contacts/doubleOptinConfirmation"
+
+
+def _doi_template_id() -> int | None:
+    raw = (os.getenv("BREVO_DOI_TEMPLATE_ID") or "").strip()
+    try:
+        return int(raw) if raw else None
+    except ValueError:
+        return None
 
 
 def _api_key() -> str:
@@ -70,17 +84,32 @@ def sync_waitlist_contact(
     if clicked_from:
         attributes["SOURCE"] = clicked_from
 
-    payload: dict = {
-        "email": email,
-        "listIds": [list_id],
-        "updateEnabled": True,
-    }
+    doi_template = _doi_template_id()
+    if doi_template is not None:
+        # Double opt-in: Brevo sends the confirmation email and adds the
+        # contact to the list only after the recipient clicks. Nothing
+        # CivicView-branded reaches an address its owner did not ask for
+        # beyond that one confirmation.
+        url = _BREVO_DOI_URL
+        payload: dict = {
+            "email": email,
+            "includeListIds": [list_id],
+            "templateId": doi_template,
+            "redirectionUrl": (os.getenv("BREVO_DOI_REDIRECT_URL") or "https://civicview.app/").strip(),
+        }
+    else:
+        url = _BREVO_CONTACTS_URL
+        payload = {
+            "email": email,
+            "listIds": [list_id],
+            "updateEnabled": True,
+        }
     if attributes:
         payload["attributes"] = attributes
 
     try:
         resp = httpx.post(
-            _BREVO_CONTACTS_URL,
+            url,
             json=payload,
             headers={
                 "api-key": api_key,

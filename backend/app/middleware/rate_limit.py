@@ -77,10 +77,15 @@ _RESET_RE = re.compile(
     r"^/api/(auth|citizen-auth|candidate-auth)/password-reset/request$"
 )
 
+# The waitlist form is anonymous and each new address can trigger a
+# Brevo email. (audit S9)
+_WAITLIST_RE = re.compile(r"^/api/waitlist/?$")
+
 ENGAGE_LIMIT, ENGAGE_WINDOW = 30, 60.0
 CREATE_LIMIT, CREATE_WINDOW = 10, 600.0
 AI_LIMIT, AI_WINDOW = 40, 600.0
 RESET_LIMIT, RESET_WINDOW = 5, 3600.0
+WAITLIST_LIMIT, WAITLIST_WINDOW = 5, 3600.0
 
 
 def _caller_key(request: Request) -> str:
@@ -122,6 +127,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
         elif _RESET_RE.match(path):
             scope, limit, window = "reset", RESET_LIMIT, RESET_WINDOW
+        elif _WAITLIST_RE.match(path):
+            scope, limit, window = "waitlist", WAITLIST_LIMIT, WAITLIST_WINDOW
         elif _CREATE_RE.match(path):
             scope, limit, window = "create", CREATE_LIMIT, CREATE_WINDOW
         elif _ENGAGE_RE.match(path):
@@ -142,6 +149,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
                     if scope == "ai"
                     else "Too many password reset requests. Try again in an hour."
                     if scope == "reset"
+                    else "Too many signups from this connection. Try again in an hour."
+                    if scope == "waitlist"
                     else "You\u2019re doing that too fast \u2014 wait a moment and try again."
                 ),
             )
