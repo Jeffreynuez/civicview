@@ -20,8 +20,11 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import re
 from datetime import datetime
 from typing import Optional
+
+import httpx
 
 from sqlalchemy.orm import Session
 
@@ -29,6 +32,47 @@ from app.models.pages import EoSummary
 from app.services import ai_service
 
 logger = logging.getLogger(__name__)
+
+_FR_DOC_URL = "https://www.federalregister.gov/api/v1/documents/{doc}.json"
+_DOC_NUMBER_RE = re.compile(r"^[A-Za-z0-9-]{4,24}$")
+
+
+async def fetch_source_text(document_number: str) -> Optional[dict]:
+    """Title, EO number and abstract for a document, straight from the
+    Federal Register. The AI summary is built ONLY from this.
+
+    Until 2026-09-24 the translation was built from a title and abstract
+    that the caller put in the request body, and the first result was
+    cached for everyone. Anyone could pre-seed an invented "summary" of a
+    real executive order. Returns None when the document cannot be
+    fetched, so no summary is generated from unverified text.
+    """
+    if not document_number or not _DOC_NUMBER_RE.match(document_number):
+        return None
+    url = _FR_DOC_URL.format(doc=document_number)
+    params = [("fields[]", f) for f in ("title", "abstract", "executive_order_number", "document_number")]
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            resp = await client.get(url, params=params)
+        if resp.status_code != 200:
+            return None
+        data = resp.json()
+    except (httpx.HTTPError, ValueError) as exc:
+        logger.warning("Federal Register fetch failed for %s: %s", document_number, exc)
+        return None
+    if (data.get("document_number") or "").lower() != document_number.lower():
+        return None
+    return {
+        "title": (data.get("title") or "").strip() or None,
+        "abstract": (data.get("abstract") or "").strip() or None,
+        "eo_number": str(data.get("executive_order_number") or "").strip() or None,
+    }
+
+
+def is_verified(row: Optional[EoSummary]) -> bool:
+    """A cached translation is shown only if it was generated from
+    Federal Register text (see fetch_source_text)."""
+    return bool(row and row.plain_english and row.source_verified_at)
 
 
 def get_cached_row(db: Session, document_number: str) -> Optional[EoSummary]:
@@ -116,12 +160,19 @@ async def generate_plain_english(
     """
     if not document_number:
         return None, "missing_document_number"
-    if not (title or abstract):
-        return None, "no_source_text"
 
     row = get_cached_row(db, document_number)
-    if row and row.plain_english and not force:
+    if is_verified(row) and not force:
         return row.plain_english, None
+
+    # The caller's title/abstract are ignored on purpose; see
+    # fetch_source_text. Kept in the signature for older callers.
+    source = await fetch_source_text(document_number)
+    if source is None:
+        return None, "source_unavailable"
+    title, abstract, eo_number = source["title"], source["abstract"], source["eo_number"]
+    if not (title or abstract):
+        return None, "no_source_text"
 
     user_msg = _build_translation_prompt(title, abstract)
     result = await asyncio.to_thread(
@@ -152,6 +203,7 @@ async def generate_plain_english(
     row.plain_english = text
     row.plain_english_model = ai_service.DEFAULT_MODEL
     row.plain_english_generated_at = now
+    row.source_verified_at = now
     row.updated_at = now
     db.commit()
     db.refresh(row)

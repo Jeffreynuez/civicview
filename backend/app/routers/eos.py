@@ -63,13 +63,16 @@ def _row_to_response(row, document_number: str) -> EoSummaryResponse:
         document_number=document_number,
         title=row.title,
         eo_number=row.eo_number,
-        plain_english=row.plain_english,
+        plain_english=row.plain_english if eo_summary_service.is_verified(row) else None,
         plain_english_model=row.plain_english_model,
         plain_english_generated_at=(
             row.plain_english_generated_at.isoformat()
             if row.plain_english_generated_at else None
         ),
-        has_plain_english=bool(row.plain_english and row.plain_english.strip()),
+        # Rows generated from a caller-supplied abstract (before
+        # 2026-09-24) are withheld until regenerated from the Federal
+        # Register, so a doctored summary can never be shown.
+        has_plain_english=eo_summary_service.is_verified(row),
     )
 
 
@@ -119,6 +122,11 @@ async def translate_eo_summary(
     if err == "budget_exceeded":
         raise HTTPException(
             status_code=503, detail="Daily AI budget reached. Try again tomorrow."
+        )
+    if err == "source_unavailable":
+        raise HTTPException(
+            status_code=502,
+            detail="Couldn't load this order from the Federal Register. Try again shortly.",
         )
     if err == "no_source_text":
         raise HTTPException(

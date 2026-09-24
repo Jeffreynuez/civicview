@@ -125,10 +125,28 @@ async def get_or_fetch_summary(
             row = BillSummary(congress=c, bill_type=t, number=n)
             db.add(row)
 
-        if bill_title:
-            row.title = bill_title[:8000]
-        if latest_action:
-            row.latest_action = latest_action[:1000]
+        # Title and latest action come from Congress.gov, never from the
+        # caller. They used to be taken from the request (a GET query
+        # parameter), stored, shown to everyone, and used as the AI prompt
+        # for bills with no CRS summary yet. `bill_title` and
+        # `latest_action` stay in the signature for older callers but are
+        # ignored.
+        snap = None
+        try:
+            snap = await _congress.get_bill_snapshot(c, t, n)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Bill snapshot fetch failed for %s %s %s: %s", c, t, n, exc)
+        if snap:
+            server_title = (snap.get("title") or "").strip()[:8000] or None
+            if server_title and row.title and server_title != row.title:
+                # The stored title did not come from Congress.gov; any
+                # translation built from it is suspect. Regenerate on demand.
+                row.plain_english = None
+            if server_title:
+                row.title = server_title
+            server_action = (snap.get("latest_action") or "").strip()[:1000] or None
+            if server_action:
+                row.latest_action = server_action
 
         if crs:
             # Only overwrite when we actually got fresh text — a

@@ -1787,6 +1787,11 @@ class EoSummary(Base):
     title: Mapped[Optional[str]] = mapped_column(Text, default=None)
     eo_number: Mapped[Optional[str]] = mapped_column(String(16), default=None)
 
+    # Set when the title/abstract this row was generated from came from
+    # the Federal Register itself (server-side fetch). Rows generated
+    # before 2026-09-24 took the source text from the caller's request
+    # body, so they are not shown until regenerated.
+    source_verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     plain_english: Mapped[Optional[str]] = mapped_column(Text, default=None)
     plain_english_model: Mapped[Optional[str]] = mapped_column(
         String(64), default=None,
@@ -1834,6 +1839,12 @@ class VoteExplainer(Base):
     # render time).
     vote_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
 
+    # sha256 of the vote fields the explanation was generated from. A
+    # cached explanation is only shown to a request whose vote data hashes
+    # the same, so text generated from a doctored request body is never
+    # shown to anyone else. NULL on rows from before 2026-09-24, which
+    # are treated as unverified and regenerated on request.
+    source_hash: Mapped[Optional[str]] = mapped_column(String(64), default=None)
     ai_what_was_voted: Mapped[Optional[str]] = mapped_column(Text, default=None)
     ai_what_yea_means: Mapped[Optional[str]] = mapped_column(Text, default=None)
     ai_what_nay_means: Mapped[Optional[str]] = mapped_column(Text, default=None)
