@@ -43,8 +43,10 @@ state that this file deliberately does NOT duplicate:
 ## Current state & open work (snapshot 2026-06-16)
 
 > **Newest (2026-09-24):** a full code and data audit, then its Wave 0
-> and Wave 1 fixes (34 commits on top of 61e96e6, delivered to Jeffrey
-> as a `git am` patch series). Florida's 2026 ballot was rebuilt from
+> and Wave 1 fixes, all MERGED to `main`: PR #249 (merge 19372cb, with
+> the CodeQL logging fix f778e16) and PR #250, which moved business
+> working files out of `docs/` (merge ba121f6). Start with Pinecone
+> record `2026-09-24-session-close-handoff`. Florida's 2026 ballot was rebuilt from
 > the Division of Elections candidate list and certified primary
 > results, which closes the FL U.S. House roster rebuild (Task 110) and
 > primary certification (Task 111). The audit report itself is kept
@@ -188,10 +190,16 @@ generic "default behavior" you might otherwise reach for.
   His words after merging PR #249: "Go ahead and commit and push updates
   from here on out." `main` is branch-protected and PR-only, so push a
   feature branch and open a PR; Jeffrey merges. (Before 2026-09-24 the
-  rule was "I'll be the one that decides to push or not.") Cowork's
-  cloud workspace can only push if the civicview repo is in the
-  session's authorized sources; otherwise hand him a patch or the
-  changed files to commit in GitHub Desktop.
+  rule was "I'll be the one that decides to push or not.") How it
+  works from Cowork: the cloud workspace cannot push (its git proxy
+  only allows repos in the session's authorized sources, and a Cowork
+  session is created from a folder, not a repo). So commit on a
+  feature branch in `C:\dev\US apps\CivicLens` through `device_bash`
+  (sandbox item 0 has the one prerequisite), then Jeffrey clicks
+  Publish branch in GitHub Desktop and opens the PR. The VM can
+  `git fetch` the public repo but has no credentials, so it cannot
+  push. Claude Code on his machine can push directly. Fallback: a
+  `git format-patch` series he applies with `git am`.
 - **No unilateral admin delete on user content.** Reports + a
   future threat-detection algorithm are the only paths to taking
   content down. Jeffrey's words: "I should only be able to delete
@@ -203,7 +211,7 @@ generic "default behavior" you might otherwise reach for.
 - **Detailed commit messages.** Structured body (what / why /
   verification / env vars when relevant). ~50-100 lines is normal
   for substantive commits. Co-author trailer on every commit:
-  `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`
+  `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`
   (bump the model version when newer ones land).
 - **Use AskUserQuestion proactively** before any multi-step work
   where scope is ambiguous. Don't guess; ask once with good
@@ -212,6 +220,19 @@ generic "default behavior" you might otherwise reach for.
   follow-ups as deferred suggestions, not as in-flight scope creep.
 - **Don't strip the "Built by" credit** in the README — Claude
   Cowork + Claude Code + Claude Design alongside the founder.
+- **No em dashes or en dashes** in anything written for or as
+  Jeffrey: emails, store copy, docs he will publish, and chat
+  replies. Check with Python for U+2014 and U+2013; grep character
+  classes miss them.
+- **Draft, never send.** Do not send email, submit forms, post
+  publicly, or contact anyone on Jeffrey's behalf. He decides every
+  send.
+- **Audit and exploit details stay out of this public repo.** Audit
+  reports live in `C:\dev\US apps\Audits\` and the Claude project.
+- **Non-partisanship is existential and numbers are never inflated.**
+  Balanced lists, copy that reads the same to either party, no
+  invented traction, and demo accounts are always called demo
+  accounts.
 
 ## Engagement permission gates (don't forget these)
 
@@ -381,13 +402,18 @@ Repeated bites in past sessions; full workarounds live in the `shared`
 Pinecone memory records (search "sandbox quirk" / "fuse cache" /
 "edit tool"). Headline list:
 
-0. **Updated 2026-09-24: `device_bash` mounts the connected folders
-   again, but NEVER run git through it.** On 2026-09-24 a plain
-   `git status` in the CivicLens repo left a `.git/index.lock` that the
-   mount cannot delete (unlink is blocked), which would block Jeffrey's
-   next git command. It was moved into `.git/_stale_locks/`. Read git
-   state by staging `.git/HEAD` and `.git/refs/...` (trick below), do git
-   work in a cloud clone, and hand Jeffrey a patch series to `git am`.
+0. **Updated 2026-09-24: git through `device_bash` works cleanly ONLY
+   after Jeffrey grants delete permission for the folder.** Without it
+   the mount blocks unlink, so git strands `.git/index.lock` (and
+   HEAD.lock) and Jeffrey's next git command fails; that happened once
+   on 2026-09-24 and the lock was moved into `.git/_stale_locks/`. With
+   delete permission granted for `C:\dev\US apps` (ask once per session
+   with `device_request_delete_permission`), status, fetch, checkout,
+   commit all ran with no locks left behind. Before any git write,
+   check `ls .git/*.lock`; if one exists and no git process is running,
+   move it into `.git/_stale_locks/`. Stage explicit paths only, never
+   `git add -A`. If permission is declined, fall back to a cloud clone
+   and a patch series.
    History of the earlier outage: **(as of 2026-09-13) a Windows update
    released 2026-09-08 stopped the Cowork workspace from mounting
    Jeffrey's connected folders.** Every `device_bash` call failed with
@@ -409,7 +435,7 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
      `.git/refs/heads/<branch>` the local tip, and
      `.git/refs/remotes/origin/<branch>` the remote tip. Comparing the
      last two proves whether a branch is pushed.
-   - That outage was over by 2026-09-24; the no-git rule above stands.
+   - That outage was over by 2026-09-24; item 0 above is current.
 
 1. **Recurring `bad signature 0x00000000` git-index corruption.**
    Fix: `rm -f .git/index .git/index.lock && git read-tree HEAD`
