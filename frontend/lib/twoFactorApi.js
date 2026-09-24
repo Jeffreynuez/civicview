@@ -15,31 +15,15 @@
  * module. Shares the same multi-identity bearer-header pattern via
  * direct fetch (no helper to import — keeps this module standalone).
  */
-import {
-  getStoredCandidateToken,
-  getStoredCitizenToken,
-  getStoredRepToken,
-} from './pagesApi';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { sendWithAuth } from './pagesApi';
 
 async function tfaRequest(path, { method = 'GET', body } = {}) {
   try {
-    const headers = {};
-    if (body) headers['Content-Type'] = 'application/json';
-    const repToken = getStoredRepToken();
-    const citizenToken = getStoredCitizenToken();
-    const candidateToken = getStoredCandidateToken();
-    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
-    if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
-    if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
-
-    const res = await fetch(`${API_BASE_URL}${path}`, {
-      method,
-      credentials: 'include',
-      headers: Object.keys(headers).length ? headers : undefined,
-      body: body ? JSON.stringify(body) : undefined,
-    });
+    // sendWithAuth attaches every identity header plus X-CSRF-Token and
+    // retries once on a stale CSRF token. This module predated the CSRF
+    // middleware and never sent the token, so every 2FA write for a
+    // signed-in user was rejected with 403.
+    const res = await sendWithAuth(path, { method, body });
     if (!res.ok) {
       let detail = '';
       try {
