@@ -406,3 +406,41 @@ def extract_client_signals(request) -> tuple[Optional[str], Optional[str]]:
     if request:
         ua = request.headers.get("user-agent")
     return ip, ua
+
+
+# ── Retention (audit P5) ─────────────────────────────────────────────
+# Login attempts hold an IP address and user agent. They serve lockout
+# and abuse review, which look back hours or days, not years, so rows
+# older than LOGIN_ATTEMPT_RETENTION_DAYS (default 90) are deleted at
+# boot. The privacy policy states the same period.
+def purge_old_login_attempts(db: Optional[Session] = None, days: Optional[int] = None) -> int:
+    import os
+
+    from app.db import SessionLocal
+
+    if days is None:
+        try:
+            days = int(os.getenv("LOGIN_ATTEMPT_RETENTION_DAYS", "90"))
+        except ValueError:
+            days = 90
+    days = max(days, 1)
+    owns = db is None
+    db = db or SessionLocal()
+    try:
+        cutoff = _now() - timedelta(days=days)
+        n = (
+            db.query(LoginAttempt)
+            .filter(LoginAttempt.occurred_at < cutoff)
+            .delete(synchronize_session=False)
+        )
+        db.commit()
+        if n:
+            logger.info("Login attempt retention: removed %d row(s) older than %d days", n, days)
+        return n
+    except Exception:
+        db.rollback()
+        logger.exception("Login attempt retention purge failed")
+        return 0
+    finally:
+        if owns:
+            db.close()

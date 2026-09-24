@@ -132,6 +132,19 @@ async def lifespan(app: FastAPI):
             logger.exception(
                 "Password-reset token purge failed — non-fatal, will retry next boot.",
             )
+        # Audit B3: rows keyed by (kind, id) whose account is gone, left
+        # by deletions made before hard delete removed them itself.
+        # Audit P5: login attempts (IP and user agent) kept 90 days.
+        try:
+            from app.services.account_deletion import purge_orphaned_account_rows
+            purge_orphaned_account_rows()
+        except Exception:
+            logger.exception("Orphaned account row sweep failed; will retry next boot.")
+        try:
+            from app.services.login_attempts import purge_old_login_attempts
+            purge_old_login_attempts()
+        except Exception:
+            logger.exception("Login attempt retention purge failed; will retry next boot.")
     except Exception:
         logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
 
