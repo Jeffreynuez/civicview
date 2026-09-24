@@ -2951,372 +2951,162 @@
     ]
   },
   "judiciary": {
-    "_note": "Florida judiciary (demo data). Supreme Court and District Courts of Appeal judges are appointed by the Governor from Judicial Nominating Commission slates, then face merit-retention votes every 6 years. Circuit and County judges are elected in non-partisan elections; mid-term vacancies are filled by gubernatorial appointment.",
+    "_note": "Florida judiciary. Supreme Court justices and court leadership were checked against official court sites, the Governor's office and the Florida Bar on 2026-09-24. Where a court's current leader could not be confirmed, no name is shown. Supreme Court and District Court of Appeal judges are appointed by the Governor from Judicial Nominating Commission slates and then face merit retention every 6 years; circuit and county judges are elected in non-partisan elections.",
     "supreme_court": {
       "body_name": "Supreme Court of Florida",
       "seat_city": "Tallahassee",
-      "website": "https://www.floridasupremecourt.org",
+      "website": "https://supremecourt.flcourts.gov/",
       "seats_total": 7,
       "members": [
         {
-          "id": "fl-sc-muniz",
-          "name": "Carlos G. Muñiz",
+          "id": "fl-sc-couriel",
+          "name": "John D. Couriel",
           "role": "Chief Justice",
           "chief": true,
           "appointed_by": "Ron DeSantis",
-          "appointed_on": "2019-01-22",
-          "term_end": "2029-01-06",
-          "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor DeSantis on Jan 22, 2019. Retained by voters in 2020 and last faced merit retention in 2022. Selected Chief Justice by the Court on a rotating basis starting July 2024.",
-          "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg/250px-Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg",
-          "contact": {
-            "official_website": "https://www.floridasupremecourt.org",
-            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "capitol_phone": "(850) 488-0125"
-          },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Carlos_G._Mu%C3%B1iz"
-        },
-        {
-          "id": "fl-sc-canady",
-          "name": "Charles T. Canady",
-          "role": "Justice",
-          "appointed_by": "Charlie Crist",
-          "appointed_on": "2008-08-28",
-          "term_end": "2029-01-06",
-          "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor Crist in 2008. Served as Chief Justice 2010-12, 2018-22, 2022-24. Most recently retained by voters in 2022.",
-          "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Florida-Supreme-Court-Justice-Charles-Canady-2019.jpg/250px-Florida-Supreme-Court-Justice-Charles-Canady-2019.jpg",
-          "contact": {
-            "official_website": "https://www.floridasupremecourt.org",
-            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "capitol_phone": "(850) 488-0125"
-          },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Charles_Canady"
-        },
-        {
-          "id": "fl-sc-labarga",
-          "name": "Jorge Labarga",
-          "role": "Justice",
-          "appointed_by": "Charlie Crist",
-          "appointed_on": "2009-01-06",
-          "term_end": "2027-01-05",
-          "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor Crist in 2009. Served as Chief Justice 2014-18. Retained by voters in 2016 and 2022.",
-          "website": "https://www.floridasupremecourt.org/Justices",
-          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Labarga-Formal-2022.jpg/250px-Labarga-Formal-2022.jpg",
-          "contact": {
-            "official_website": "https://www.floridasupremecourt.org",
-            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
-            "capitol_phone": "(850) 488-0125"
-          },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Jorge_Labarga"
-        },
-        {
-          "id": "fl-sc-couriel",
-          "name": "John D. Couriel",
-          "role": "Justice",
-          "appointed_by": "Ron DeSantis",
           "appointed_on": "2020-05-26",
-          "term_end": "2027-01-05",
+          "took_office": "2020-06-01",
+          "next_retention": "2028",
           "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor DeSantis on May 26, 2020. Retained by voters in 2022.",
-          "website": "https://www.floridasupremecourt.org/Justices",
+          "selection_detail": "Elected Chief Justice by the Court on 2026-04-16; two-year term as Chief Justice began 2026-07-01. Retained 2022; current term ends January 2029.",
+          "website": "https://supremecourt.flcourts.gov/Justices",
           "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/John_D._Couriel_%28cropped%29.jpg/250px-John_D._Couriel_%28cropped%29.jpg",
           "contact": {
             "official_website": "https://www.floridasupremecourt.org",
             "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
             "capitol_phone": "(850) 488-0125"
           },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/John_D._Couriel"
+          "source_url": "https://floridaphoenix.com/briefs/john-couriel-elected-as-next-chief-justice-of-florida-supreme-court/",
+          "verified_on": "2026-09-24"
+        },
+        {
+          "id": "fl-sc-labarga",
+          "name": "Jorge Labarga",
+          "role": "Justice",
+          "chief": false,
+          "appointed_by": "Charlie Crist",
+          "appointed_on": null,
+          "took_office": "2009-01-06",
+          "next_retention": "2028",
+          "selection_method": "appointed",
+          "selection_detail": "Current term ends January 2029 (retained 2022).",
+          "website": "https://supremecourt.flcourts.gov/Justices",
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Labarga-Formal-2022.jpg/250px-Labarga-Formal-2022.jpg",
+          "contact": {
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/Supreme_Court_of_Florida",
+          "verified_on": "2026-09-24"
+        },
+        {
+          "id": "fl-sc-muniz",
+          "name": "Carlos G. Muñiz",
+          "role": "Justice",
+          "chief": false,
+          "appointed_by": "Ron DeSantis",
+          "appointed_on": "2019-01-22",
+          "took_office": "2019-01-22",
+          "next_retention": "2026",
+          "selection_method": "appointed",
+          "selection_detail": "Chief Justice 2022-07-01 through 2026-06-30. Retained 2020; the only justice on the 2026-11-03 merit retention ballot.",
+          "website": "https://supremecourt.flcourts.gov/Justices",
+          "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg/250px-Florida-Supreme-Court-Justice-Carlos-Muniz-2019.jpg",
+          "contact": {
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
+          },
+          "source_url": "https://www.floridabar.org/the-florida-bar-news/justice-muniz-and-22-dca-judges-to-stand-for-merit-retention/",
+          "verified_on": "2026-09-24"
         },
         {
           "id": "fl-sc-grosshans",
-          "name": "Jamie Grosshans",
+          "name": "Jamie R. Grosshans",
           "role": "Justice",
+          "chief": false,
           "appointed_by": "Ron DeSantis",
           "appointed_on": "2020-09-14",
-          "term_end": "2027-01-05",
+          "took_office": "2020-09-14",
+          "next_retention": "2028",
           "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor DeSantis on Sept 14, 2020. Retained by voters in 2022.",
-          "website": "https://www.floridasupremecourt.org/Justices",
+          "selection_detail": "Current term ends January 2029 (retained 2022).",
+          "website": "https://supremecourt.flcourts.gov/Justices",
           "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jamie_R._Grosshans_%28cropped%29.jpg/250px-Jamie_R._Grosshans_%28cropped%29.jpg",
           "contact": {
             "official_website": "https://www.floridasupremecourt.org",
             "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
             "capitol_phone": "(850) 488-0125"
           },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Jamie_Grosshans"
+          "source_url": "https://en.wikipedia.org/wiki/Jamie_Grosshans",
+          "verified_on": "2026-09-24"
         },
         {
           "id": "fl-sc-francis",
           "name": "Renatha Francis",
           "role": "Justice",
+          "chief": false,
           "appointed_by": "Ron DeSantis",
-          "appointed_on": "2022-08-29",
-          "term_end": "2029-01-06",
+          "appointed_on": "2022-08-05",
+          "took_office": "2022-09-01",
+          "next_retention": "2030",
           "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor DeSantis on Aug 29, 2022. First Caribbean-American to serve on the Florida Supreme Court.",
-          "website": "https://www.floridasupremecourt.org/Justices",
+          "selection_detail": "Current term ends January 2031 (retained 2024).",
+          "website": "https://supremecourt.flcourts.gov/Justices",
           "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Justice_Renatha_Francis_%28cropped%29.jpg/250px-Justice_Renatha_Francis_%28cropped%29.jpg",
           "contact": {
             "official_website": "https://www.floridasupremecourt.org",
             "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
             "capitol_phone": "(850) 488-0125"
           },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Renatha_Francis"
+          "source_url": "https://en.wikipedia.org/wiki/Renatha_Francis",
+          "verified_on": "2026-09-24"
         },
         {
           "id": "fl-sc-sasso",
-          "name": "Meredith Sasso",
+          "name": "Meredith L. Sasso",
           "role": "Justice",
+          "chief": false,
           "appointed_by": "Ron DeSantis",
           "appointed_on": "2023-05-23",
-          "term_end": "2029-01-06",
+          "took_office": "2023-05-25",
+          "next_retention": "2030",
           "selection_method": "appointed",
-          "selection_detail": "Appointed by Governor DeSantis on May 23, 2023, previously Chief Judge of the Sixth District Court of Appeal.",
-          "website": "https://www.floridasupremecourt.org/Justices",
+          "selection_detail": "Current term ends January 2031 (retained 2024). Previously first Chief Judge of the Sixth DCA (Jan 2023).",
+          "website": "https://supremecourt.flcourts.gov/Justices",
           "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Sasso-formal-2023_%28cropped%29.jpg/250px-Sasso-formal-2023_%28cropped%29.jpg",
           "contact": {
             "official_website": "https://www.floridasupremecourt.org",
             "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
             "capitol_phone": "(850) 488-0125"
           },
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Supreme Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ],
-          "photo_source": "wikimedia",
-          "photo_credit": "Wikimedia Commons",
-          "photo_source_url": "https://en.wikipedia.org/wiki/Meredith_Sasso"
+          "source_url": "https://en.wikipedia.org/wiki/Meredith_Sasso",
+          "verified_on": "2026-09-24"
+        },
+        {
+          "id": "fl-sc-tanenbaum",
+          "name": "Adam Tanenbaum",
+          "role": "Justice",
+          "chief": false,
+          "appointed_by": "Ron DeSantis",
+          "appointed_on": "2026-01-14",
+          "took_office": "2026-01-15",
+          "next_retention": "2028",
+          "selection_method": "appointed",
+          "selection_detail": "Filled the Canady vacancy. Previously a judge of the First DCA since 2019. First retention vote is the first general election more than one year after appointment (Nov 2028); term shown as ending January 2029.",
+          "website": "https://supremecourt.flcourts.gov/Justices",
+          "photo_url": null,
+          "contact": {
+            "official_website": "https://www.floridasupremecourt.org",
+            "capitol_office": "Supreme Court of Florida, Supreme Court Building, 500 S Duval St, Tallahassee, FL 32399-1927",
+            "capitol_phone": "(850) 488-0125"
+          },
+          "source_url": "https://www.flgov.com/eog/news/press/2026/governor-ron-desantis-announces-appointment-judge-adam-tanenbaum-supreme-court",
+          "verified_on": "2026-09-24"
         }
-      ]
+      ],
+      "retention_2026": "Justice Carlos G. Muñiz is on the Nov 3, 2026 merit retention ballot."
     },
     "district_courts_of_appeal": [
       {
@@ -3330,88 +3120,20 @@
         "selection_detail": "All DCA judges are appointed by the Governor from JNC slates, then stand for merit retention every 6 years.",
         "chief_judge": {
           "id": "fl-dca-1-chief",
-          "name": "Lori S. Rowe",
+          "name": "Timothy D. Osterhaus",
           "role": "Chief Judge",
-          "appointed_by": "Rick Scott",
-          "appointed_on": "2011-06-01",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://1dca.flcourts.gov/judges/Chief-Judge-Timothy-D.-Osterhaus",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 15,
-        "judges_sample": [
-          {
-            "id": "fl-dca-1-j1",
-            "name": "Scott Makar",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-1-j2",
-            "name": "Timothy D. Osterhaus",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-1-j3",
-            "name": "Susan L. Kelsey",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-1-j4",
-            "name": "Rachel Nordby",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-1-j5",
-            "name": "M. Kemmerly Thomas",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 15
       },
       {
         "id": "fl-dca-2",
         "district": "2",
         "name": "Second District Court of Appeal",
-        "seat_city": "Lakeland",
-        "jurisdiction": "Southwest Florida; appeals from the 6th, 10th, 12th, 13th, and 20th Circuits (shares Central FL with the 6th DCA after 2023 reorg).",
+        "seat_city": "St. Petersburg",
+        "jurisdiction": "Appeals from the 6th, 12th and 13th Circuits (Pinellas, Pasco, Sarasota, Manatee, DeSoto and Hillsborough counties).",
         "website": "https://www.2dca.flcourts.gov",
         "selection_method": "appointed",
         "selection_detail": "All DCA judges are appointed by the Governor from JNC slates, then stand for merit retention every 6 years.",
@@ -3422,69 +3144,10 @@
           "appointed_by": "Rick Scott",
           "appointed_on": "2017-02-01",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://2dca.flcourts.gov/Judges",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 14,
-        "judges_sample": [
-          {
-            "id": "fl-dca-2-j1",
-            "name": "Susan H. Rothstein-Youakim",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-2-j2",
-            "name": "Morris Silberman",
-            "role": "Judge",
-            "appointed_by": "Charlie Crist",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-2-j3",
-            "name": "J. Andrew Atkinson",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-2-j4",
-            "name": "Anthony K. Black",
-            "role": "Judge",
-            "appointed_by": "Charlie Crist",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 14
       },
       {
         "id": "fl-dca-3",
@@ -3497,81 +3160,13 @@
         "selection_detail": "All DCA judges are appointed by the Governor from JNC slates, then stand for merit retention every 6 years.",
         "chief_judge": {
           "id": "fl-dca-3-chief",
-          "name": "Ivan F. Fernandez",
+          "name": "Edwin A. Scales III",
           "role": "Chief Judge",
-          "appointed_by": "Rick Scott",
-          "appointed_on": "2014-01-01",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://3dca.flcourts.gov/judges/chief-judge-edwin-a.-scales-iii",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 11,
-        "judges_sample": [
-          {
-            "id": "fl-dca-3-j1",
-            "name": "Kevin Emas",
-            "role": "Judge",
-            "appointed_by": "Charlie Crist",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-3-j2",
-            "name": "Edwin A. Scales III",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-3-j3",
-            "name": "Thomas Logue",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-3-j4",
-            "name": "Monica Gordo",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-3-j5",
-            "name": "Fleur J. Lobree",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 11
       },
       {
         "id": "fl-dca-4",
@@ -3589,69 +3184,10 @@
           "appointed_by": "Charlie Crist",
           "appointed_on": "2009-05-14",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://4dca.flcourts.gov/judges/chief-judge-jonathan-d.-gerber",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 12,
-        "judges_sample": [
-          {
-            "id": "fl-dca-4-j1",
-            "name": "Melanie G. May",
-            "role": "Judge",
-            "appointed_by": "Jeb Bush",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-4-j2",
-            "name": "Mark W. Klingensmith",
-            "role": "Judge",
-            "appointed_by": "Rick Scott",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-4-j3",
-            "name": "Martha C. Warner",
-            "role": "Judge",
-            "appointed_by": "Lawton Chiles",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-4-j4",
-            "name": "Dorian K. Damoorgian",
-            "role": "Judge",
-            "appointed_by": "Charlie Crist",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 12
       },
       {
         "id": "fl-dca-5",
@@ -3664,147 +3200,32 @@
         "selection_detail": "All DCA judges are appointed by the Governor from JNC slates, then stand for merit retention every 6 years.",
         "chief_judge": {
           "id": "fl-dca-5-chief",
-          "name": "Kerry I. Evander",
+          "name": "Harvey L. Jay III",
           "role": "Chief Judge",
-          "appointed_by": "Charlie Crist",
-          "appointed_on": "2009-09-11",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://5dca.flcourts.gov/Judges/Chief-Judge-Harvey-L.-Jay",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 10,
-        "judges_sample": [
-          {
-            "id": "fl-dca-5-j1",
-            "name": "Harvey L. Jay III",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-5-j2",
-            "name": "Eric J. Eisnaugle",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-5-j3",
-            "name": "Adrian G. Soud",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-5-j4",
-            "name": "Joe Boatwright",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 10
       },
       {
         "id": "fl-dca-6",
         "district": "6",
         "name": "Sixth District Court of Appeal",
         "seat_city": "Lakeland",
-        "jurisdiction": "Central Florida; carved from the 2nd DCA on Jan 1, 2023. Covers the 9th, 10th, and 20th Circuits plus parts of the 13th.",
+        "jurisdiction": "Appeals from the 9th, 10th and 20th Circuits. Created on Jan 1, 2023, from parts of the Second and Fifth Districts.",
         "website": "https://www.6dca.flcourts.gov",
         "selection_method": "appointed",
         "selection_detail": "All DCA judges are appointed by the Governor from JNC slates, then stand for merit retention every 6 years.",
         "chief_judge": {
           "id": "fl-dca-6-chief",
-          "name": "John L. Stargel",
+          "name": "Dan Traver",
           "role": "Chief Judge",
-          "appointed_by": "Ron DeSantis",
-          "appointed_on": "2022-11-01",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "District Court of Appeal Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://6dca.flcourts.gov/Judges/Chief-Judge-Dan-Traver",
+          "verified_on": "2026-09-24"
         },
-        "judges_total": 9,
-        "judges_sample": [
-          {
-            "id": "fl-dca-6-j1",
-            "name": "Daniel B. Traver",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-6-j2",
-            "name": "Joshua R. Mize",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          },
-          {
-            "id": "fl-dca-6-j3",
-            "name": "Paige B. Kilbane",
-            "role": "Judge",
-            "appointed_by": "Ron DeSantis",
-            "photo_url": null
-          }
-        ]
+        "judges_total": 9
       }
     ],
     "circuits": [
@@ -3823,42 +3244,13 @@
         "website": "https://www.firstjudicialcircuit.org",
         "chief_judge": {
           "id": "fl-cir-1-chief",
-          "name": "Linda L. Nobles",
+          "name": "John F. Simon, Jr.",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote within the circuit.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.firstjudicialcircuit.org/announcement/welcome-from-chief-judge-john-f-simon/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-1",
@@ -3887,45 +3279,16 @@
         ],
         "seat_city": "Tallahassee",
         "covering_dca": "1",
-        "website": "https://cj2.flcourts.gov",
+        "website": "https://2ndcircuit.leoncountyfl.gov/",
         "chief_judge": {
           "id": "fl-cir-2-chief",
-          "name": "Jonathan Sjostrom",
+          "name": "Francis J. \"Frank\" Allman",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://2ndcircuit.leoncountyfl.gov/allman.php",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-2",
@@ -3953,47 +3316,18 @@
           "Suwannee",
           "Taylor"
         ],
-        "seat_city": "Live Oak",
+        "seat_city": "Lake City",
         "covering_dca": "1",
-        "website": "https://jud3.flcourts.org",
+        "website": "https://thirdcircuitfl.org/",
         "chief_judge": {
           "id": "fl-cir-3-chief",
-          "name": "Gregory S. Parker",
+          "name": "Melissa G. Olin",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://thirdcircuitfl.org/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-3",
@@ -4027,37 +3361,8 @@
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud4.org/circuit-and-county-judges-of-the-fourth-judicial-circuit",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-4",
@@ -4088,42 +3393,13 @@
         "website": "https://www.circuit5.org",
         "chief_judge": {
           "id": "fl-cir-5-chief",
-          "name": "Heidi M. Davis",
+          "name": "Daniel B. Merritt, Jr.",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.circuit5.org/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-5",
@@ -4151,42 +3427,13 @@
         "website": "https://www.jud6.org",
         "chief_judge": {
           "id": "fl-cir-6-chief",
-          "name": "Anthony Rondolino",
+          "name": "Shawn Crane",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud6.org/chief-judge/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-6",
@@ -4216,42 +3463,13 @@
         "website": "https://www.circuit7.org",
         "chief_judge": {
           "id": "fl-cir-7-chief",
-          "name": "Michael Orfinger",
+          "name": "Leah R. Case",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://circuit7.org/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-7",
@@ -4283,42 +3501,13 @@
         "website": "https://www.circuit8.org",
         "chief_judge": {
           "id": "fl-cir-8-chief",
-          "name": "James M. Colaw",
+          "name": "William E. Davis",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://circuit8.org/courts-judges/administrative-judges/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-8",
@@ -4351,37 +3540,8 @@
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://ninthcircuit.org/judges",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-9",
@@ -4411,42 +3571,13 @@
         "website": "https://www.jud10.flcourts.org",
         "chief_judge": {
           "id": "fl-cir-10-chief",
-          "name": "Donald Jacobsen",
+          "name": "James A. Yancey",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud10.flcourts.org/gallery/chief-judge",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-10",
@@ -4473,42 +3604,13 @@
         "website": "https://www.jud11.flcourts.org",
         "chief_judge": {
           "id": "fl-cir-11-chief",
-          "name": "Nushin G. Sayfie",
+          "name": "Ariana Fajardo Orshan",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud11.flcourts.org/About-the-Court/Judges/Judicial-Directory",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-11",
@@ -4537,42 +3639,13 @@
         "website": "https://www.jud12.flcourts.org",
         "chief_judge": {
           "id": "fl-cir-12-chief",
-          "name": "Charles E. Roberts",
+          "name": "Diana L. Moreland",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud12.flcourts.org/About/Judges",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-12",
@@ -4599,42 +3672,13 @@
         "website": "https://www.fljud13.org",
         "chief_judge": {
           "id": "fl-cir-13-chief",
-          "name": "Christopher Sabella",
+          "name": "Christopher C. Sabella",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.fljud13.org/About/About-the-Court/About-the-Court-3",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-13",
@@ -4667,42 +3711,13 @@
         "website": "https://www.jud14.flcourts.org",
         "chief_judge": {
           "id": "fl-cir-14-chief",
-          "name": "Elijah Smiley",
+          "name": "Christopher N. Patterson",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://jud14.flcourts.org/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-14",
@@ -4734,37 +3749,8 @@
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.15thcircuit.com/announcements/kelly-reelect",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-15",
@@ -4792,42 +3778,13 @@
         "website": "https://www.keyscourts.net",
         "chief_judge": {
           "id": "fl-cir-16-chief",
-          "name": "Bonnie Helms",
+          "name": "Timothy J. Koenig",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://keyscourts.net/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-16",
@@ -4854,42 +3811,13 @@
         "website": "https://www.17th.flcourts.org",
         "chief_judge": {
           "id": "fl-cir-17-chief",
-          "name": "Jack Tuter",
+          "name": "Carol-Lisa Phillips",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.17th.flcourts.org/office-of-the-chief-judge/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-17",
@@ -4912,47 +3840,18 @@
           "Brevard",
           "Seminole"
         ],
-        "seat_city": "Titusville / Sanford",
+        "seat_city": "Viera",
         "covering_dca": "5",
         "website": "https://www.flcourts18.org",
         "chief_judge": {
           "id": "fl-cir-18-chief",
-          "name": "Jessica Recksiedler",
+          "name": "Melanie Chase",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://flcourts18.org/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-18",
@@ -4982,42 +3881,13 @@
         "website": "https://www.circuit19.org",
         "chief_judge": {
           "id": "fl-cir-19-chief",
-          "name": "Lawrence M. Mirman",
+          "name": "Charles A. Schwab",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.circuit19.org/judges/chief-judge/",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-19",
@@ -5048,42 +3918,13 @@
         "website": "https://www.ca.cjis20.org",
         "chief_judge": {
           "id": "fl-cir-20-chief",
-          "name": "Margaret O. Steinbeck",
+          "name": "J. Frank Porter",
           "role": "Chief Judge",
           "selection_method": "elected",
           "selection_detail": "Circuit judges are elected in non-partisan elections to 6-year terms. Chief Judge is selected by peer vote.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "Circuit Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.ca.cjis20.org/About-The-Court/judiciary.aspx",
+          "verified_on": "2026-09-24"
         },
         "state_attorney": {
           "id": "fl-sa-20",
@@ -5107,42 +3948,13 @@
         "circuit": "8",
         "chief_judge": {
           "id": "fl-cc-alachua-chief",
-          "name": "Walter M. Green",
-          "role": "Chief County Judge",
+          "name": "Susan Miller-Jones",
+          "role": "Administrative Judge, County Court",
           "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms. Vacancies are filled by gubernatorial appointment.",
+          "selection_detail": "Florida has no chief county judge. The circuit chief judge administers the county courts and designates an administrative judge (Fla. R. Gen. Prac. and Jud. Admin. 2.215). County judges are elected in non-partisan elections to 6-year terms.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://circuit8.org/courts-judges/administrative-judges/",
+          "verified_on": "2026-09-24"
         }
       },
       {
@@ -5150,45 +3962,7 @@
         "county": "Brevard",
         "county_fips": "12009",
         "circuit": "18",
-        "chief_judge": {
-          "id": "fl-cc-brevard-chief",
-          "name": "Rhonda E. Babb",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-broward",
@@ -5197,42 +3971,13 @@
         "circuit": "17",
         "chief_judge": {
           "id": "fl-cc-broward-chief",
-          "name": "Robert W. Lee",
-          "role": "Chief County Judge",
+          "name": "Kenneth A. Gottlieb",
+          "role": "Administrative Judge, County Court",
           "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
+          "selection_detail": "Florida has no chief county judge. The circuit chief judge administers the county courts and designates an administrative judge (Fla. R. Gen. Prac. and Jud. Admin. 2.215). County judges are elected in non-partisan elections to 6-year terms.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.17th.flcourts.org/wp-content/uploads/2026/07/Judiciary-assignment-chart-07-01-2026-C1.pdf",
+          "verified_on": "2026-09-24"
         }
       },
       {
@@ -5240,180 +3985,28 @@
         "county": "Duval",
         "county_fips": "12031",
         "circuit": "4",
-        "chief_judge": {
-          "id": "fl-cc-duval-chief",
-          "name": "Gary P. Flower",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-escambia",
         "county": "Escambia",
         "county_fips": "12033",
         "circuit": "1",
-        "chief_judge": {
-          "id": "fl-cc-escambia-chief",
-          "name": "Patricia A. Kinsey",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-hillsborough",
         "county": "Hillsborough",
         "county_fips": "12057",
         "circuit": "13",
-        "chief_judge": {
-          "id": "fl-cc-hillsborough-chief",
-          "name": "Margaret Taylor Courtney",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-indian-river",
         "county": "Indian River",
         "county_fips": "12061",
         "circuit": "19",
-        "chief_judge": {
-          "id": "fl-cc-indian-river-chief",
-          "name": "Nicole Menz",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-lee",
@@ -5422,42 +4015,13 @@
         "circuit": "20",
         "chief_judge": {
           "id": "fl-cc-lee-chief",
-          "name": "Patricia S. Jones",
-          "role": "Chief County Judge",
+          "name": "Devin S. George",
+          "role": "Administrative Judge, County Court",
           "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
+          "selection_detail": "Florida has no chief county judge. The circuit chief judge administers the county courts and designates an administrative judge (Fla. R. Gen. Prac. and Jud. Admin. 2.215). County judges are elected in non-partisan elections to 6-year terms.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.ca.cjis20.org/About-The-Court/judiciary.aspx",
+          "verified_on": "2026-09-24"
         }
       },
       {
@@ -5465,270 +4029,42 @@
         "county": "Leon",
         "county_fips": "12073",
         "circuit": "2",
-        "chief_judge": {
-          "id": "fl-cc-leon-chief",
-          "name": "Monique E. Richardson",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-miami-dade",
         "county": "Miami-Dade",
         "county_fips": "12086",
         "circuit": "11",
-        "chief_judge": {
-          "id": "fl-cc-miami-dade-chief",
-          "name": "Marisa Tinkler Mendez",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-orange",
         "county": "Orange",
         "county_fips": "12095",
         "circuit": "9",
-        "chief_judge": {
-          "id": "fl-cc-orange-chief",
-          "name": "Andrew Cameron",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-osceola",
         "county": "Osceola",
         "county_fips": "12097",
         "circuit": "9",
-        "chief_judge": {
-          "id": "fl-cc-osceola-chief",
-          "name": "Carlos Sandoval",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-palm-beach",
         "county": "Palm Beach",
         "county_fips": "12099",
         "circuit": "15",
-        "chief_judge": {
-          "id": "fl-cc-palm-beach-chief",
-          "name": "Marni A. Bryson",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-pinellas",
         "county": "Pinellas",
         "county_fips": "12103",
         "circuit": "6",
-        "chief_judge": {
-          "id": "fl-cc-pinellas-chief",
-          "name": "Paul Levine",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-polk",
@@ -5737,42 +4073,13 @@
         "circuit": "10",
         "chief_judge": {
           "id": "fl-cc-polk-chief",
-          "name": "Mary Catherine Green",
-          "role": "Chief County Judge",
+          "name": "Hope M. Pattey",
+          "role": "Administrative Judge, County Court",
           "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
+          "selection_detail": "Florida has no chief county judge. The circuit chief judge administers the county courts and designates an administrative judge (Fla. R. Gen. Prac. and Jud. Admin. 2.215). County judges are elected in non-partisan elections to 6-year terms.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud10.flcourts.org/gallery/county",
+          "verified_on": "2026-09-24"
         }
       },
       {
@@ -5782,42 +4089,13 @@
         "circuit": "12",
         "chief_judge": {
           "id": "fl-cc-sarasota-chief",
-          "name": "Maryann Olson Boehm",
-          "role": "Chief County Judge",
+          "name": "Maryann Olson Uzabel",
+          "role": "Administrative Judge, County Court",
           "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
+          "selection_detail": "Florida has no chief county judge. The circuit chief judge administers the county courts and designates an administrative judge (Fla. R. Gen. Prac. and Jud. Admin. 2.215). County judges are elected in non-partisan elections to 6-year terms.",
           "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
+          "source_url": "https://www.jud12.flcourts.org/About/Judges",
+          "verified_on": "2026-09-24"
         }
       },
       {
@@ -5825,90 +4103,14 @@
         "county": "St. Lucie",
         "county_fips": "12111",
         "circuit": "19",
-        "chief_judge": {
-          "id": "fl-cc-st-lucie-chief",
-          "name": "Philip J. Yacucci Jr.",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       },
       {
         "id": "fl-cc-volusia",
         "county": "Volusia",
         "county_fips": "12127",
         "circuit": "7",
-        "chief_judge": {
-          "id": "fl-cc-volusia-chief",
-          "name": "Belle B. Schumann",
-          "role": "Chief County Judge",
-          "selection_method": "elected",
-          "selection_detail": "County Court judges are elected in non-partisan elections to 6-year terms.",
-          "photo_url": null,
-          "top_issues": [
-            {
-              "name": "Judicial Independence",
-              "stance": "Committed to protecting the independence and integrity of the judiciary."
-            },
-            {
-              "name": "Case Management",
-              "stance": "Focused on fair and efficient case management and court operations."
-            },
-            {
-              "name": "Rule of Law",
-              "stance": "Dedicated to fair application of law and judicial precedent."
-            }
-          ],
-          "experience": [
-            {
-              "role": "County Court Judge",
-              "from": "2010",
-              "to": "Present"
-            },
-            {
-              "role": "Attorney / Legal Practice",
-              "from": "2000",
-              "to": "2010"
-            },
-            {
-              "role": "Law School / Bar Admission",
-              "from": "1995",
-              "to": "2000"
-            }
-          ]
-        }
+        "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       }
     ]
   }
