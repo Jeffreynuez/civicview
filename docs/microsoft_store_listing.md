@@ -38,7 +38,7 @@ listing shows "Published by CIVICVIEW, INC."
      the Sunbiz **Articles of Incorporation / certificate of status**.
      The EIN letter can serve as a supporting tax document.
 4. **Contact / employment verification:** they prefer a work email on
-   your domain. `jeffreynuez1@gmail.com` won't match `civicview.app`, so
+   your domain. A personal Gmail address won't match `civicview.app`, so
    either:
    - (Recommended, 10 min) create `jeffrey@civicview.app` via Cloudflare
      **Email Routing** (free — routes to the Gmail inbox) and use that; or
@@ -97,7 +97,7 @@ Upload the `.msixbundle` from PWABuilder. Device family: **Desktop**
 | Category | **Social** (matches Play). Alt: Government & politics — fine too, but Social keeps the two stores consistent and matches the UGC nature. |
 | Privacy policy URL | **https://civicview.app/privacy** (required) |
 | Website | https://civicview.app |
-| Support contact info | jeffreynuez1@gmail.com |
+| Support contact info | civicview@civicview.app |
 | Accessibility | Do NOT declare the app as accessibility-certified (no audit) |
 
 ### Age ratings

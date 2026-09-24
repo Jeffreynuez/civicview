@@ -284,16 +284,17 @@ frontend/
   public/                     # Static assets
 
 docs/
-  README.md                   # You are here
   SECURITY.md                 # Security posture, env-var setup, R2 setup
   INCIDENT-RESPONSE.md        # Runbook: compromised admin / DB breach / DDoS / leak
   LEGAL-REVIEW-ROADMAP.md     # Attorney engagement plan ($1.5K-$3K Tier-2 path)
-  civicview_financial_model.xlsx  # 5-year P&L driving the $25K GoFundMe goal
-  civicview_benefit_corp_filing.pdf  # Sunbiz Amendment language
+  civicview_financial_model.xlsx  # 5-year P&L behind the crowdfunding goal
   identity-model.pdf          # Source-of-truth identity model spec
-  gofundme_draft.md           # GoFundMe campaign content (story, FAQ, tiers, share copy)
-  build_benefit_corp_pdf.py   # Regenerates the Benefit Corp PDF
   build_identity_model_pdf.py # Regenerates the identity model PDF
+  access-policy.md            # Draft access and neutrality policy (not yet published)
+  *-prd.md, bills-*.md        # Product specs and design handoffs
+  *listing*.md, *runbook*.md  # Store listings and launch runbooks
+  # Business working files (outreach strategy, crowdfunding drafts, the
+  # Benefit Corp filing language) live outside the repo since 2026-09-24.
 
 Design Exports/               # Reference design-system snapshots (not in app)
 DEPLOY.md, SETUP_GUIDE.md     # Production + local-dev runbooks
@@ -624,7 +625,8 @@ Thirteen commits on `Updates_and_fixes`, all pushed. Tip `718f5ab`.
   gating; federal incumbents enriched from sourced profiles, challengers
   FEC-facts-only). Re-run playbook persisted in Pinecone.
 - **Crowdfunding pivoted GoFundMe → Indiegogo.** `docs/indiegogo_draft.md`
-  is FINAL (Flexible funding, $25K, 35 days, 4 perks w/ Dec-2026 delivery,
+  (moved out of the repo on 2026-09-24, with the rest of the business
+  working files) is FINAL (Flexible funding, $25K, 35 days, 4 perks w/ Dec-2026 delivery,
   FAQ, launch checklist, share copy, video script). Financial model gained an
   isolated one-time crowdfunding block (Assumptions rows 68–75: ~8% fees →
   ~$23K net; NOT wired into recurring P&L). Campaign art to Indiegogo spec in
@@ -773,7 +775,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | --- | --- | --- | --- |
 | 71 | Build /stats expanded analytics page | done (2026-06-10) | Shipped: `GET /api/stats/detail` (60s in-process TTL cache, separate endpoint so the home hero stays sub-100ms) + rebuilt `frontend/app/stats/page.js` — government-structure constants, identity/engagement/content-library live counts, 8-week signup + poll-vote trend charts (CSS bars, zero-filled buckets), citizens-by-state top-15, explicit loading/error/retry states (no fabricated fallback). Future depth (growth curves beyond 8 weeks, verified-citizen coverage map) can extend the same endpoint. |
 | 84 | Wrap web app into iOS + Android native via Capacitor | done (2026-06-12) | Capacitor remote-URL shell scaffold + app-store runbook committed (`9fbbac0`). Android organization account verified on Google Play Console (CivicView org, ID 5150866026642573505); next step is creating the app listing + first build upload. Apple Dev $99/yr + Google Play $25 paid. **2026-06-16:** app SUBMITTED to Google Play **Production review** (status: In review); Child Safety Standards page (`/child-safety`) published to clear the CSAE declaration; Android developer verification confirmed complete. |
-| 90 | File Articles of Amendment for Benefit Corp status | done (2026-06-12) | Filed with Sunbiz. Initial Profit Corp filing (#800474911808) processed — CIVICVIEW, INC. is ACTIVE; cr2e011 Articles of Amendment (Exhibit A statute cites §§607.601–607.613) filed. Language in `docs/civicview_benefit_corp_filing.pdf`. |
+| 90 | File Articles of Amendment for Benefit Corp status | done (2026-06-12) | Filed with Sunbiz. Initial Profit Corp filing (#800474911808) processed; CIVICVIEW, INC. is ACTIVE; cr2e011 Articles of Amendment (Exhibit A statute cites §§607.601-607.613) filed. Language in the Benefit Corp filing language (kept outside the repo since 2026-09-24). |
 | 91 | Evaluate Vercel AI Gateway for backend AI calls | pending | Post-launch / deferred. Not urgent: current AI (comment classification + post summaries in `backend/app/services/ai_service.py`) is single-provider Anthropic and already degrades gracefully. The Gateway's OpenAI-compatible endpoint makes adoption a `base_url` + key swap in `ai_service.py` (no SDK rewrite). Adopt when AI spend warrants cost/usage dashboards, when provider failover matters, or to mix models (cheap classification + stronger summaries). Pricing: $5/mo free credit, then provider list prices at zero markup (BYOK also no markup). Caveat: routing the summarize flow through the OpenAI-compatible shim instead of the native Anthropic SDK can change system-prompt / citations / prompt-caching behavior — re-test that one flow before switching. |
 | 92 | Trim /polls + /posts filter cruft (audit follow-up) | done (2026-05-31) | Removed the inert `executive` + `judicial` branch chips from `BRANCH_FILTERS` + `branchCounts` in `frontend/app/polls/page.js` (backend only emits `branch` for Congress reps, so those chips always counted ~0). Deliberately LEFT the `pollBranch`/`branchCounts`/`branchFiltered` pipeline and the client-side state re-filter (~lines 313-319) intact — the original audit overreached: the re-filter guards a real refetch race, not dead work. Original audit 2026-05-28. |
 | 93 | Unify forked comment rendering onto CommentsThread | done (2026-06-04) | Three independent comment implementations: shared `components/polls/CommentsThread.js` (feed thread — /polls, /posts, home), `components/PostCard.js` (own `renderCommentRow` ~1406-1822, rep/candidate page posts, HAS an edit path), and `components/CitizenPollsSection.js` (own local `CommentsThread` function ~903-1637 mounted ~824, citizen polls, NO edit path, uses `archived` to lock closed polls). Goal: collapse onto the shared component (the only one that's production-proven for both `post` and `poll` modes). **Increment 1 — DONE 2026-05-31:** added an `archived` (read-only) prop to the shared `CommentsThread` (closed poll → composer replaced with a "closed to new comments" note + Reply control hidden; existing edit/delete/report untouched). esbuild-verified. The missing capability that blocked consolidation. **Increment 2 — TODO (CitizenPollsSection, do first, smaller):** `import CommentsThread from './polls/CommentsThread'`; delete the local `CommentsThread` function (~903-1637) + its `renderCommentRow` + comment state/handlers; mount with `mode="poll" pollId signedIn={!!citizen\|\|isOwner} onLoginRequired={onCitizenLoginRequired} ownerOfficialId ownerKind archived={archived}`. Drop the old `pollAuthorId`/`citizen` props — the shared component infers the viewer internally and gates replies via comment authorship + `ownerOfficialId`. **Increment 3 — TODO (PostCard, bigger):** replace the inline `renderCommentRow` (~1406-1822) + render block + comment handlers (`loadComments`/edit/delete/report/react) with `<CommentsThread mode="post" postId signedIn onLoginRequired onMutated={onCommentCountChanged} ownerOfficialId={post.official_id} ownerKind />`; the shared component already covers edit + AI filter + feed-count sync on /posts. Do each increment as its OWN commit and **runtime-test on the dev server** (reply two-party gate, archived lock, feed-count pill) — these paths are not statically verifiable. Mount caveat: after a host-side edit, esbuild lags ~seconds-to-minutes (virtiofs cache, anthropics/claude-code#50873) — wait a beat before verifying, or restart the session for a fresh mount. |
@@ -803,7 +805,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 110 | Rebuild FL U.S. House rosters against the 2026 map | done (2026-09-24) | All 28 FL U.S. House races rebuilt on the 2026 map from the Division of Elections qualified-candidate list, with `roster_status: verified_nominees`, write-ins listed separately and incumbents only where they sit in the same district. Commit "fix(fl-data): rebuild Florida 2026 ballot from the official candidate list and certified results" in the 2026-09-24 audit series. |
 | 111 | Certify FL primary results + resolve FL-11 recount | done (2026-09-24) | Certified primary results recorded with a source link and shown as "Official results"; FL-11 recount outcome recorded (Joe Strada advances). Same commit as #110. |
 | 112 | Demo-sunset increments 5–7 | pending (5 blocked) | 5 — in-place ID.me upgrade path (**blocked on the RP contract**); 6 — fallback credential-transfer UI with audit log; 7 — sunset machinery (`DEMO_SUNSET_AT` countdown banner, T0/T-14/T-7/T-1 email cadence, soft-delete job, data export). Increments 1–4 are done and inert until `IDME_ENABLED` flips. |
-| 113 | Re-justify the paid tier (poll creation only) | pending (business decision) | Commenting moved from the subscriber tier to the verified tier (`64ff2ab`), so the $5/mo subscription now unlocks **poll creation only**. `HelpBuildThisView.js:217` revenue projection (3% conversion, $1.8K Y1) and `docs/indiegogo_draft.md:240-241` still lean on the old engagement bundle. Flagged, deliberately not silently edited. |
+| 113 | Re-justify the paid tier (poll creation only) | pending (business decision) | Commenting moved from the subscriber tier to the verified tier (`64ff2ab`), so the $5/mo subscription now unlocks **poll creation only**. `HelpBuildThisView.js:217` revenue projection (3% conversion, $1.8K Y1) and `the Indiegogo draft (kept outside the repo since 2026-09-24):240-241` still lean on the old engagement bundle. Flagged, deliberately not silently edited. |
 | 114 | Privacy policy + terms: contact_email & deletion schedule | pending (attorney) | The 2026-09-24 audit rewrote the privacy policy and terms to match the code (contact email, poll answers, recipients, deletion and retention, Florida law and Orange County venue, arbitration removed pending counsel). Attorney review still pending before any demo sunset is announced. |
 | 115 | Automated FL Division of Elections finance ingest | pending | Today's state fundraising is curated with provenance, not automated. Path is confirmed: `TreSel.exe?account=N` returns per-period totals for candidates **and** committees, and the qualified-candidate list downloads as TSV keyed by a stable `AcctNum`. Caveat that shapes the design: the candidate↔committee mapping **cannot** be automated (the state's Affiliates field is empty for candidate-aligned PCs), so that join stays a human-signed-off table, not a scraper. |
 
@@ -937,8 +939,8 @@ Tracked here so it stays visible across sessions:
   [dmca.copyright.gov](https://dmca.copyright.gov). Required for §512
   safe-harbor on user-generated content. Pair with a clearly-posted
   takedown contact on the site.
-- **Florida Benefit Corp Amendment** — Task #90 above; Articles
-  language in `docs/civicview_benefit_corp_filing.pdf`.
+- **Florida Benefit Corp Amendment**: Task #90 above, filed 2026-06-12.
+  The Articles language is kept with the business files outside the repo.
 - **Attorney review of ToS + Privacy Policy** — $1.5K-$3K Tier-2 path
   per `docs/LEGAL-REVIEW-ROADMAP.md`. Required before holding real
   subscription funds.

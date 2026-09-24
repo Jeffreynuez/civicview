@@ -117,7 +117,7 @@ First release of CivicView. Look up your federal, state, and local representativ
 | --- | --- | --- |
 | App category | **Social** (recommended) | Core actions are connecting with reps, following pages, polls, comments. Alt: **News & Magazines** if you'd rather emphasize the bills/votes feed — but that triggers the separate **News app** declaration. |
 | Tags | civic engagement, government, representatives, elections, voting info | Pick the closest Play-provided tags |
-| Email | jeffreynuez1@gmail.com | Required, shown publicly |
+| Email | civicview@civicview.app | Required, shown publicly |
 | Website | https://civicview.app | |
 | Phone | optional | |
 | Privacy Policy URL | **https://civicview.app/privacy** | Required (page exists in the app) |
