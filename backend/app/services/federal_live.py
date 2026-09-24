@@ -166,8 +166,9 @@ async def fetch_presidential_actions(
     if cached is not None:
         return cached
 
+    # Key in the X-Api-Key header, not the URL (audit S6).
+    auth_headers = {"X-Api-Key": api_key}
     base_params = {
-        "api_key": api_key,
         "format": "json",
         "limit": min(max(1, int(limit or 20)), 100),
         "sort": "updateDate desc",
@@ -178,7 +179,7 @@ async def fetch_presidential_actions(
             if action == "signed":
                 # Enacted laws, Congress.gov `/law/{congress}`
                 url = f"{CONGRESS_API_BASE}/law/{int(congress)}"
-                resp = await client.get(url, params=base_params)
+                resp = await client.get(url, params=base_params, headers=auth_headers)
                 if resp.status_code != 200:
                     logger.warning("Congress /law/%s returned %s", congress, resp.status_code)
                     return []
@@ -205,7 +206,7 @@ async def fetch_presidential_actions(
             if action in ("vetoed", "veto"):
                 # /bill/{congress} with action-date filter, then filter client-side.
                 url = f"{CONGRESS_API_BASE}/bill/{int(congress)}"
-                resp = await client.get(url, params=base_params)
+                resp = await client.get(url, params=base_params, headers=auth_headers)
                 if resp.status_code != 200:
                     return []
                 data = resp.json() or {}

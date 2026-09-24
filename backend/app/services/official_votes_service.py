@@ -655,11 +655,14 @@ class OfficialVotesService:
         if not key:
             return None
         p = dict(params or {})
-        p["api_key"] = key
         p.setdefault("format", "json")
         try:
             async with httpx.AsyncClient(timeout=20.0) as client:
-                resp = await client.get(url, params=p, headers={"User-Agent": "CivicView/1.0"})
+                # Key in the X-Api-Key header, not the URL (audit S6).
+                resp = await client.get(
+                    url, params=p,
+                    headers={"User-Agent": "CivicView/1.0", "X-Api-Key": key},
+                )
                 if resp.status_code == 200:
                     return resp.json()
                 logger.warning("congress.gov %s -> %s", url, resp.status_code)

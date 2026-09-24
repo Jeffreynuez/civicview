@@ -524,7 +524,11 @@ class CongressService:
             return None
 
         url = f"{CONGRESS_API_BASE}{path}"
-        query = {"api_key": self.api_key, "format": "json"}
+        # The key travels in the X-Api-Key header (api.data.gov accepts
+        # either form). As a query parameter it was part of every URL
+        # the HTTP client logged (audit S6).
+        query = {"format": "json"}
+        auth_headers = {"X-Api-Key": self.api_key}
         if params:
             query.update(params)
 
@@ -533,7 +537,7 @@ class CongressService:
         for attempt in range(1, attempts + 1):
             try:
                 async with httpx.AsyncClient(timeout=timeout) as client:
-                    resp = await client.get(url, params=query)
+                    resp = await client.get(url, params=query, headers=auth_headers)
                 if resp.status_code == 200:
                     return resp.json()
                 if resp.status_code in (429, 500, 502, 503, 504) and attempt < attempts:

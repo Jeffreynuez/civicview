@@ -58,6 +58,11 @@ from app.seed import (
 )
 
 logging.basicConfig(level=logging.INFO)
+# Mask API keys, tokens and street addresses in log output, and stop
+# httpx from logging every outbound URL at INFO (audit S6).
+from app.services.log_redaction import install as _install_log_redaction  # noqa: E402
+
+_install_log_redaction()
 logger = logging.getLogger(__name__)
 
 
