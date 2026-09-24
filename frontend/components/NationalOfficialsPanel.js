@@ -253,6 +253,7 @@ export default function NationalOfficialsPanel({
       <div ref={executiveRef}>
         <ExecutiveBranchSection
           exec={exec}
+          asOf={data?._source_as_of || null}
           onSelectPerson={onSelectPerson}
           onNotify={onNotify}
           onCompareToggle={onCompareToggle}
@@ -1187,7 +1188,7 @@ function FeaturedRaceCards({ race, candidates, totalCount, onCandidatePick, stat
 // ─────────────────────────────────────────────────────────────────
 // 2. EXECUTIVE BRANCH
 // ─────────────────────────────────────────────────────────────────
-function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
+function ExecutiveBranchSection({ exec, asOf, onSelectPerson, onNotify, onCompareToggle, compareIds, onOpenPage }) {
   const pres = exec.president;
   const vp = exec.vice_president;
   const cabinet = exec.cabinet || [];
@@ -1211,9 +1212,15 @@ function ExecutiveBranchSection({ exec, onSelectPerson, onNotify, onCompareToggl
           eyebrow="Article II"
           title="Executive Branch"
           subhead={
-            pres?.serving_since
-              ? `The administration in power · sworn in ${formatLongDate(pres.serving_since)}`
-              : 'The administration in power'
+            // The cabinet is a curated snapshot, not a live feed, so the
+            // date it was last checked is part of the claim. It was 16
+            // months stale once with nothing on screen to say so.
+            [
+              pres?.serving_since
+                ? `The administration in power · sworn in ${formatLongDate(pres.serving_since)}`
+                : 'The administration in power',
+              asOf ? `officeholders checked ${formatLongDate(asOf)}` : null,
+            ].filter(Boolean).join(' · ')
           }
           chip={null}
           collapsible
@@ -3123,7 +3130,9 @@ function LeadershipGrid({ leadership, chamber, onSelectPerson, onNotify, onCompa
 // ─────────────────────────────────────────────────────────────────
 function formatLongDate(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
+  // Date-only strings parse as UTC midnight, which renders as the previous
+  // day in every U.S. time zone. Parse them as local dates instead.
+  const d = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? new Date(`${iso}T00:00:00`) : new Date(iso);
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
