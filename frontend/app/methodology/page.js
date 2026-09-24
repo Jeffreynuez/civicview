@@ -14,7 +14,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function MethodologyPage() {
   return (
-    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="May 20, 2026">
+    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="September 24, 2026">
       <p>
         CivicView surfaces what your elected officials say and do, then lets
         verified constituents respond — in their own districts. This page
@@ -92,6 +92,8 @@ export default function MethodologyPage() {
         candidate. Until claimed, citizens can still start polls and
         conversations on the page — these are clearly labeled as
         "Citizen-led" so a visiting reader knows the rep hasn't responded.
+        If the official later claims the page, those polls close to new
+        votes and stay public on the page with their results.
       </p>
 
       <h2>How engagement is counted</h2>

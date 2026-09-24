@@ -14,7 +14,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function EditorialStandardsPage() {
   return (
-    <LegalPageLayout title="Editorial standards" eyebrow="How we moderate" lastUpdated="May 20, 2026">
+    <LegalPageLayout title="Editorial standards" eyebrow="How we moderate" lastUpdated="September 24, 2026">
       <p>
         CivicView is a civic-engagement platform, not a publisher. We surface
         what officials publicly say and do; we don't editorialize on top of
@@ -29,7 +29,7 @@ export default function EditorialStandardsPage() {
         applies to:
       </p>
       <ul>
-        <li><strong>Product decisions:</strong> we don't algorithmically boost any side. Posts and polls render in chronological order. We don't downrank a rep's content because we disagree with it.</li>
+        <li><strong>Product decisions:</strong> we don't algorithmically boost any side. The polls feed shows the newest polls first. The posts feed and the &ldquo;Popular polls&rdquo; list rank by engagement: likes, dislikes, comments and poll votes, counted the same way for everyone, whatever the content says. We don't downrank a rep's content because we disagree with it.</li>
         <li><strong>Editorial copy:</strong> AI summaries on bills + votes are neutral rephrasings of the original text. If we'd struggle to write the summary without taking a side, we don't ship the summary.</li>
         <li><strong>Curated content:</strong> top-issues, stances, and biographical info on candidate pages quote the candidate's own published positions — we don't add interpretive framing.</li>
         <li><strong>Staff conduct:</strong> CivicView employees may participate in civic life as private citizens; they don't post on behalf of the platform.</li>
@@ -37,10 +37,12 @@ export default function EditorialStandardsPage() {
 
       <h2>What gets moderated</h2>
       <p>
-        The moderation queue handles two kinds of reports — citizen reports
-        on content they encounter, and auto-flags from our content
-        classifiers. Reports go into a queue an admin reviews; we don't
-        auto-remove content based on report count alone.
+        The moderation queue is fed by reports from signed-in citizens and
+        officials. An admin reviews every report. The one automatic step is
+        the auto-hide threshold below, which hides content only until that
+        review happens. An automated threat check is in testing: it records
+        its assessment of new content but does not flag or hide anything
+        yet.
       </p>
       <p>
         Content that <strong>will</strong> be removed when reported and
@@ -67,17 +69,19 @@ export default function EditorialStandardsPage() {
 
       <h2>Auto-hide threshold</h2>
       <p>
-        A post or comment that receives a threshold number of reports
-        (currently 3, subject to change as we learn) is automatically
-        hidden from public view pending admin review. This protects users
+        A post, poll or comment that receives a threshold number of reports
+        from verified accounts (currently 5, subject to change as we learn)
+        is automatically hidden from public view pending admin review. This protects users
         from sustained abuse without giving any one reporter a veto over
         speech. The author can still see their own hidden content; the
         post or comment is restored on admin clearance, or removed if the
         report stands.
       </p>
       <p>
-        The threshold is set to be hard to game — coordinated reports from
-        a single source don't move the needle.
+        The threshold is set to be hard to game. Each account counts once,
+        and only reports from officials and verified citizens count toward
+        it. Reports from demo accounts still reach the review queue, but
+        they never hide anything on their own.
       </p>
 
       <h2>Citizen-led vs rep-authored content</h2>
@@ -92,9 +96,11 @@ export default function EditorialStandardsPage() {
         On unclaimed pages, citizens can start polls and conversations —
         these are tagged "Citizen-led conversation" so visitors know the
         rep hasn't responded. If the rep later claims their page, those
-        citizen polls archive into a "Pre-claim discussion" section that
-        stays visible but is clearly separated from posts the rep
-        authored themselves.
+        citizen polls close to new votes and stay public, with their
+        results, in a &ldquo;Before this page was claimed&rdquo; section
+        that is clearly separated from posts the rep authored themselves.
+        The rep can hide that section from their own view, not from
+        anyone else&rsquo;s.
       </p>
       <p>
         This separation matters because attribution matters. A reader
@@ -120,9 +126,9 @@ export default function EditorialStandardsPage() {
         If your content was removed and you disagree, you can appeal:
       </p>
       <ul>
-        <li><strong>From the suspension or removal notice:</strong> we're rolling out an inline appeal form in the dashboard. Until that ships, email civicview@civicview.app with the content URL and your reasoning.</li>
+        <li><strong>From your dashboard:</strong> hidden content is listed under &ldquo;Hidden by moderation&rdquo; with an Appeal button. You can also email civicview@civicview.app with the content URL and your reasoning.</li>
         <li><strong>Response time:</strong> typically 24-72 hours. Complex cases (election-law questions, IP disputes) may take longer.</li>
-        <li><strong>What we'll do:</strong> a second admin re-reviews the decision. If we got it wrong, we restore the content and add an internal note so we calibrate future calls better.</li>
+        <li><strong>What we'll do:</strong> re-review the decision against these standards. CivicView has one admin today, the founder, so the same person who made the original call reviews the appeal; we say so rather than promise a second reviewer we don't have. If we got it wrong, we restore the content and add an internal note so we calibrate future calls better.</li>
         <li><strong>What we won't do:</strong> reverse a removal because it's politically inconvenient for the reporter or the author. The original moderation standards apply equally on appeal.</li>
       </ul>
 

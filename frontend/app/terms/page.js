@@ -4,38 +4,34 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * /terms — Terms of Service. DRAFT v1.
+ * /terms: Terms of Service, in effect.
  *
- * IMPORTANT: This is a reasonable starting point but is NOT a
- * lawyer-reviewed document. Before going to general public launch
- * (and definitely before submitting to Apple's App Store), have a
- * qualified attorney review + adapt this to your jurisdiction and
- * the specific entity structure CivicView ships under.
- *
- * Placeholders explicitly marked with [PLACEHOLDER — ...] tags so
- * a lawyer (or future-you) can spot what still needs concrete
- * decisions before publishing.
+ * Not yet reviewed by an attorney (Task 114), and the page says so.
+ * The 2026-09-24 audit (P6) removed the "pre-launch draft" banner, the
+ * iOS references (there is no iOS app; the apps are on Google Play and
+ * the Microsoft Store) and the [PLACEHOLDER] tags: governing law is
+ * Florida, where CIVICVIEW, INC. is incorporated, disputes go to the
+ * courts in Orange County, Florida, and the mailing address is the
+ * company PO box. The arbitration clause and class-action waiver were
+ * taken out rather than filled in with an arbitration provider nobody
+ * chose; add them back only on counsel's advice.
  */
 
 import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function TermsPage() {
   return (
-    <LegalPageLayout title="Terms of service" eyebrow="Legal" lastUpdated="May 20, 2026">
+    <LegalPageLayout title="Terms of service" eyebrow="Legal" lastUpdated="September 24, 2026">
       <blockquote>
-        <strong>Pre-launch draft.</strong> This is CivicView's working
-        Terms of Service. The language below is a reasonable starting
-        point but has not yet been reviewed by counsel. If you are a
-        user reading this before public launch, you can rely on it
-        operationally — but expect a revised version before CivicView
-        opens to the general public, and we'll notify users in advance
-        of any material changes.
+        These Terms are in effect. They have not yet been reviewed by an
+        attorney. We plan to have them reviewed, and we will notify users
+        in advance of any material change that follows.
       </blockquote>
 
       <p>
         These Terms of Service ("Terms") govern your use of CivicView
-        (the "Service") at civicview.app and the associated iOS and
-        Android applications. By creating an account, signing in, or
+        (the "Service") at civicview.app and the associated Android app
+        (Google Play) and Windows app (Microsoft Store). By creating an account, signing in, or
         using the Service, you agree to these Terms. If you don't
         agree, don't use the Service.
       </p>
@@ -100,7 +96,7 @@ export default function TermsPage() {
       </p>
       <p>
         You're responsible for the content you post. CivicView is not
-        liable for user content; we don't pre-screen it. We may remove
+        liable for user content; we don't approve it before it appears. We may remove
         content that violates these Terms or applicable law.
       </p>
 
@@ -123,18 +119,17 @@ export default function TermsPage() {
       <p>
         CivicView's free tier provides access to public officials' pages,
         public discussion, and basic engagement features. The paid
-        subscription (currently $5/month USD) provides additional
-        features as described on the subscription signup page.
+        subscription ($5/month USD, not yet available for purchase)
+        will provide additional features as described on the
+        subscription signup page when it launches.
       </p>
       <p>
-        Subscriptions purchased via the web are processed by Stripe.
-        Subscriptions purchased via the iOS or Android applications are
-        processed by Apple or Google respectively and are subject to
-        the respective platform's billing terms.
+        Subscriptions are processed by Stripe. The Android and Windows
+        apps do not sell subscriptions.
       </p>
       <ul>
         <li><strong>Cancellation:</strong> you can cancel any time. Cancellation takes effect at the end of your current billing period — you keep access until then.</li>
-        <li><strong>Refunds:</strong> we generally don't offer refunds for partial periods, but contact us if you believe your situation warrants one. For App Store / Play Store purchases, the platform's refund policy applies.</li>
+        <li><strong>Refunds:</strong> we generally don't offer refunds for partial periods, but contact us if you believe your situation warrants one. Refunds are issued through Stripe to the original payment method.</li>
         <li><strong>Price changes:</strong> we may change subscription prices with 30 days' notice. If you don't accept a new price, you can cancel before it takes effect.</li>
         <li><strong>Failed payments:</strong> if a subscription payment fails, we may suspend paid features until payment succeeds. Your account and content are retained.</li>
       </ul>
@@ -146,7 +141,7 @@ export default function TermsPage() {
       </p>
       <ul>
         <li><strong>Archive (30 days):</strong> account is hidden; recoverable by signing in within 30 days. After 30 days the account is permanently purged.</li>
-        <li><strong>Immediate:</strong> account and content are removed immediately. For citizens, we retain only a one-way hash of your email + your ID.me verification date so a future signup doesn't pay for re-verification. See the <a href="/privacy">Privacy policy</a> for details.</li>
+        <li><strong>Immediate:</strong> account and content are removed immediately, along with your tracked items, saved items, notifications, device registrations and sign-in records. We keep only a one-way hash of a verified citizen&rsquo;s email and verification date (so a future signup doesn&rsquo;t pay for re-verification), and any appeals you filed and records of moderation decisions about your content, as an audit trail. See the <a href="/privacy">Privacy policy</a> for details.</li>
       </ul>
       <p>
         We may suspend or terminate your account if you violate these
@@ -222,23 +217,14 @@ export default function TermsPage() {
         litigation.
       </p>
       <p>
-        If informal resolution doesn't work, these Terms are governed
-        by the laws of the [PLACEHOLDER — State of incorporation, e.g.
-        "State of Florida"], without regard to its conflict-of-law
-        principles. You and CivicView agree to resolve disputes through
-        binding arbitration administered by [PLACEHOLDER — e.g. the
-        American Arbitration Association] under its Consumer Arbitration
-        Rules, unless the dispute qualifies for small-claims court.
-      </p>
-      <p>
-        <strong>Class action waiver:</strong> any dispute will be
-        resolved on an individual basis. You and CivicView waive any
-        right to participate in a class-action lawsuit or class-wide
-        arbitration.
-      </p>
-      <p>
-        This section may be unenforceable in some jurisdictions. If
-        any part of it is held unenforceable, the rest stays in effect.
+        These Terms are governed by the laws of the State of Florida,
+        where CIVICVIEW, INC. is incorporated, without regard to its
+        conflict-of-law principles. If informal resolution doesn&rsquo;t
+        work, disputes will be resolved in the state or federal courts
+        located in Orange County, Florida, unless the dispute qualifies
+        for small-claims court where you live. Nothing in this section
+        takes away rights that the law where you live gives you and
+        that cannot be waived by contract.
       </p>
 
       <h2>13. Changes to these Terms</h2>
@@ -268,7 +254,7 @@ export default function TermsPage() {
       </p>
       <p>
         Email: <a href="mailto:civicview@civicview.app">civicview@civicview.app</a><br />
-        Mailing address: [PLACEHOLDER — registered business address]<br />
+        Mailing address: CIVICVIEW, INC., PO Box 621182, Orlando, FL 32862-1182<br />
         Subject lines that help us route faster: "Legal notice",
         "DMCA notice", "Privacy request", "Security disclosure".
       </p>
