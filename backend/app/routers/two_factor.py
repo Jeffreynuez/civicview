@@ -460,9 +460,23 @@ def _verify_totp_or_recovery(
     """Try the code as a TOTP code first; if that fails, try as a
     recovery code (which burns it). Order matters: TOTP codes are
     cheap to verify (no DB hit) and overwhelmingly more common than
-    recovery codes. Recovery codes also have a distinguishable format
-    (XXXXX-XXXXX vs. 6 digits) — we could short-circuit on length,
-    but trying TOTP first is simpler and the cost is negligible."""
+    recovery codes.
+
+    Two guards (audit S8):
+    - At most 10 attempts per account per 15 minutes, counted across
+      every 2FA endpoint including the login challenge. Without it a
+      correct password plus a script could guess TOTP codes without
+      limit, because each fresh password login resets the lockout.
+    - Only input shaped like a recovery code (10 characters from the
+      recovery alphabet, dash optional) is checked against the stored
+      bcrypt hashes. Each bad guess used to run up to 10 bcrypt
+      checks, about 3 seconds of CPU on the single worker, so a few
+      requests a second could stall the whole API."""
+    from app.services.rate_limit import check_rate_limit
+    check_rate_limit(
+        "2fa-verify", f"{kind}:{account.id}", 10, 900.0,
+        detail="Too many code attempts. Wait 15 minutes and try again.",
+    )
     if account.totp_secret_encrypted:
         try:
             secret = totp_service.decrypt_secret(account.totp_secret_encrypted)
@@ -478,8 +492,20 @@ def _verify_totp_or_recovery(
         else:
             if totp_service.verify_code(secret, code):
                 return True
-    # Fall through: try as recovery code.
+    # Fall through: try as recovery code, but only if it looks like one.
+    if not _looks_like_recovery_code(code):
+        return False
     return recovery_codes_service.consume_code(db, kind, account.id, code)
+
+
+_RECOVERY_ALPHABET = set("ABCDEFGHJKLMNPQRSTUVWXYZ23456789")
+
+
+def _looks_like_recovery_code(code: str) -> bool:
+    """XXXXX-XXXXX from totp_service.generate_recovery_code, with the
+    dash and spaces optional and case ignored."""
+    cleaned = (code or "").strip().upper().replace("-", "").replace(" ", "")
+    return len(cleaned) == 10 and set(cleaned) <= _RECOVERY_ALPHABET
 
 
 # ─────────────────────────────────────────────────────────────────────

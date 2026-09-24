@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.middleware.csrf import CsrfMiddleware
+from app.middleware.force_2fa import Force2FAMiddleware
 from app.middleware.rate_limit import EngagementRateLimitMiddleware
 from contextlib import asynccontextmanager
 import logging
@@ -249,6 +250,9 @@ ALLOWED_ORIGINS = (
 # console) and the frontend's retry-on-csrf-mismatch path never fires.
 # Starlette's add_middleware inserts at the FRONT of the user middleware
 # list, so the LAST add wraps everything inside — hence CORS goes last.
+# Server-side FORCE_2FA_ENABLED gate (audit S8). Inert unless the env
+# var is set. Added before CsrfMiddleware so it runs after it.
+app.add_middleware(Force2FAMiddleware)
 app.add_middleware(CsrfMiddleware)
 # Engagement write rate limiting (Task #101). Added after CsrfMiddleware
 # → runs before it (Starlette executes later-added middleware first), so

@@ -130,6 +130,20 @@ def request_password_reset(
         )
         return
 
+    # At most 3 reset emails per address per hour, whoever asks. Over
+    # the cap we return quietly, same as for an unknown address, so the
+    # cap itself reveals nothing (audit S8).
+    from fastapi import HTTPException as _HTTPException
+    from app.services.rate_limit import check_rate_limit
+    try:
+        check_rate_limit("reset-email", f"{identity_kind}:{account.id}", 3, 3600.0)
+    except _HTTPException:
+        logger.warning(
+            "Password reset email cap reached for %s account id=%s; not sending.",
+            identity_kind, account.id,
+        )
+        return
+
     # Mint a fresh raw token + store its hash. We delete any prior
     # outstanding token for this (kind, account_id) tuple so a user
     # who requests twice doesn't accumulate orphan rows + so an

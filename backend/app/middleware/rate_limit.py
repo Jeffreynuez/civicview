@@ -70,9 +70,17 @@ _AI_RE = re.compile(
     r"|bills/\d+/[^/]+/[^/]+/summary/translate)$"
 )
 
+# Password reset requests send an email each time. Per caller (IP for
+# anonymous visitors); the service adds a silent per-address cap on
+# top so one inbox cannot be flooded from many IPs. (audit S8)
+_RESET_RE = re.compile(
+    r"^/api/(auth|citizen-auth|candidate-auth)/password-reset/request$"
+)
+
 ENGAGE_LIMIT, ENGAGE_WINDOW = 30, 60.0
 CREATE_LIMIT, CREATE_WINDOW = 10, 600.0
 AI_LIMIT, AI_WINDOW = 40, 600.0
+RESET_LIMIT, RESET_WINDOW = 5, 3600.0
 
 
 def _caller_key(request: Request) -> str:
@@ -112,6 +120,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
             scope, limit, window = "ai", AI_LIMIT, AI_WINDOW
         elif request.method.upper() not in UNSAFE_METHODS:
             return await call_next(request)
+        elif _RESET_RE.match(path):
+            scope, limit, window = "reset", RESET_LIMIT, RESET_WINDOW
         elif _CREATE_RE.match(path):
             scope, limit, window = "create", CREATE_LIMIT, CREATE_WINDOW
         elif _ENGAGE_RE.match(path):
@@ -130,6 +140,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
                     if scope == "create"
                     else "Too many AI requests in a short time. Wait a few minutes and try again."
                     if scope == "ai"
+                    else "Too many password reset requests. Try again in an hour."
+                    if scope == "reset"
                     else "You\u2019re doing that too fast \u2014 wait a moment and try again."
                 ),
             )
