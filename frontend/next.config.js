@@ -40,6 +40,12 @@ const EMBED_FRAME_ANCESTORS = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // The app renders plain <img> tags and never imports next/image, so
+    // the built-in optimizer at /_next/image served no page. Turning it
+    // off removes that endpoint, and with it the whole class of image
+    // optimizer advisories (the AVIF remote code execution fixed in
+    // 15.5.24 lived there).
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
