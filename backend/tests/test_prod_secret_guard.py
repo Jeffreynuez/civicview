@@ -54,8 +54,8 @@ def main() -> int:
     if "NOTSENT CLEAN" not in r.stdout:
         failures.append(f"production dev-email must not send or log the body: {r.stdout} {r.stderr[-200:]}")
     r = run(code, {})
-    if "SENT LEAK" not in r.stdout:
-        failures.append(f"local dev-email should still print the body: {r.stdout} {r.stderr[-200:]}")
+    if "SENT CLEAN" not in r.stdout:
+        failures.append(f"local dev-email should report sent without logging the body: {r.stdout} {r.stderr[-200:]}")
 
     if failures:
         for f in failures:

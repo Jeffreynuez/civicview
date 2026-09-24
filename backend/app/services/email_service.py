@@ -11,9 +11,10 @@ the image_storage service):
   • PostmarkEmailService — production. Uses Postmark's REST API via
     the postmarker library. Requires POSTMARK_API_TOKEN +
     POSTMARK_FROM_EMAIL.
-  • DevEmailService — dev fallback. Logs the email subject + body to
-    stdout (Render logs) so a developer can see what would have
-    been sent without needing a Postmark account.
+  • DevEmailService: fallback when Postmark is not configured. Sends
+    nothing and logs only the recipient. It never logs the subject or
+    body, which can hold a password reset link (audit S11; CodeQL
+    py/clear-text-logging-sensitive-data).
 
 Why this pattern over just calling Postmark directly: when a
 developer clones the repo, runs the backend locally, and triggers a
@@ -122,7 +123,9 @@ class PostmarkEmailService(EmailService):
             # postmarker raises for 4xx / 5xx / network failures.
             # Don't let an email failure break the caller's action —
             # log it and return False.
-            logger.exception("Postmark send failed (to=%s subject=%r)", to, subject)
+            # Recipient only: the subject comes from templates such as the
+            # password reset email, and CodeQL treats it as sensitive.
+            logger.exception("Postmark send failed (to=%s)", to)
             return False
 
 
@@ -130,13 +133,13 @@ class PostmarkEmailService(EmailService):
 # Dev — stdout fallback
 # ─────────────────────────────────────────────────────────────────────
 class DevEmailService(EmailService):
-    """Logs to stdout instead of sending. Use in dev environments
-    that don't have Postmark credentials.
+    """Sends nothing. Used when Postmark credentials are missing.
 
-    Useful pattern: a developer running the backend locally triggers
-    a password reset → sees the reset link printed to the terminal →
-    clicks it directly. No Postmark account needed for end-to-end
-    feature work."""
+    It used to print the whole email, reset link included, so a
+    developer could click it from the terminal. Reset links do not
+    belong in logs in any environment, and CodeQL blocks the pull
+    request on it, so now it logs only who the email was for. To test password reset end to end, point
+    POSTMARK_API_TOKEN at a Postmark test server."""
 
     def send(
         self,
@@ -147,30 +150,20 @@ class DevEmailService(EmailService):
         html_body: Optional[str] = None,
         reply_to: Optional[str] = None,
     ) -> bool:
-        # In production this backend means Postmark is not configured. The
-        # body can hold a password reset link, and logs are not the place
-        # for one (audit S11), so production logs only that a message was
-        # dropped, and reports it as not sent.
+        # In production this backend means Postmark is not configured:
+        # log it as an error and report the message as not sent.
         from app.services.runtime_env import is_production
         if is_production():
             logger.error(
                 "Email NOT sent (no email provider configured in production): "
-                "to=%s subject=%r. Set POSTMARK_API_TOKEN and POSTMARK_FROM_EMAIL.",
-                to, subject,
+                "to=%s. Set POSTMARK_API_TOKEN and POSTMARK_FROM_EMAIL.",
+                to,
             )
             return False
-        # Use a distinct prefix so these stand out in mixed logs.
-        logger.info(
-            "\n"
-            "═════════════════════ EMAIL (dev) ═════════════════════\n"
-            "To:         %s\n"
-            "Subject:    %s\n"
-            "Reply-To:   %s\n"
-            "─── text body ─────────────────────────────────────────\n"
-            "%s\n"
-            "═══════════════════════════════════════════════════════",
-            to, subject, reply_to or "(default)", text_body,
-        )
+        # Local development: note that a message was due, never its
+        # contents. Subject and body both come from templates such as the
+        # password reset email.
+        logger.info("EMAIL (dev, not sent) to=%s", to)
         return True
 
 
@@ -217,7 +210,7 @@ def get_email_service() -> EmailService:
             )
 
     _EMAIL_SINGLETON = DevEmailService()
-    logger.info("Email service: Dev backend active (emails will log to stdout)")
+    logger.info("Email service: Dev backend active (emails are not sent; only the recipient is logged)")
     return _EMAIL_SINGLETON
 
 

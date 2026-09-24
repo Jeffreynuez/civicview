@@ -193,7 +193,7 @@ backend boots cleanly in any environment.
 | Service | Module | Production backend | Dev fallback | Required env vars |
 | --- | --- | --- | --- | --- |
 | Image storage | `services/image_storage.py` | `R2Storage` | `LocalDiskStorage` | `R2_ACCOUNT_ID` + `R2_ACCESS_KEY_ID` + `R2_SECRET_ACCESS_KEY` + `R2_BUCKET_NAME` |
-| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (logs to stdout) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
+| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (sends nothing; logs the recipient only) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
 | Billing | `services/stripe_service.py` | `StripeBillingService` | `DevBillingService` (returns about:blank) | `STRIPE_API_KEY` + `STRIPE_PRICE_ID` + `STRIPE_WEBHOOK_SECRET` |
 | Identity verification | `services/idme_service.py` | `IdMeService` | `DevIdMeService` (fail-closed) | `IDME_CLIENT_ID` + `IDME_CLIENT_SECRET` + `IDME_REDIRECT_URI` |
 
