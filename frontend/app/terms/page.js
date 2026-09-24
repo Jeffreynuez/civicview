@@ -141,7 +141,7 @@ export default function TermsPage() {
       </p>
       <ul>
         <li><strong>Archive (30 days):</strong> account is hidden; recoverable by signing in within 30 days. After 30 days the account is permanently purged.</li>
-        <li><strong>Immediate:</strong> account and content are removed immediately, along with your tracked items, saved items, notifications, device registrations and sign-in records. We keep only a one-way hash of a verified citizen&rsquo;s email and verification date (so a future signup doesn&rsquo;t pay for re-verification), and any appeals you filed and records of moderation decisions about your content, as an audit trail. See the <a href="/privacy">Privacy policy</a> for details.</li>
+        <li><strong>Immediate:</strong> account and content (including polls you started) are removed immediately, along with your tracked items, saved items, notifications, device registrations and sign-in records. Your votes on other people&rsquo;s polls stay in their totals with no link to you. We keep only a one-way hash of a verified citizen&rsquo;s email and verification date (so a future signup doesn&rsquo;t pay for re-verification), and any appeals you filed and records of moderation decisions about your content, as an audit trail. See the <a href="/privacy">Privacy policy</a> for details.</li>
       </ul>
       <p>
         We may suspend or terminate your account if you violate these

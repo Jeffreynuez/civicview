@@ -446,6 +446,42 @@ def maybe_supersede_oldest_active_poll(
     return oldest
 
 
+# Archive reasons that mean "taken down by moderation". Everything else
+# in the archive (closed by its author, superseded, closed at claim) is
+# a lifecycle state, not a takedown.
+HIDDEN_ARCHIVE_REASONS = frozenset({"admin_hidden", "auto_hidden", "reported"})
+
+
+def poll_is_publicly_visible(poll) -> bool:
+    """Visible to the public: active, or closed when the page was
+    claimed. Pre-claim polls stay public after a claim (audit P4), so
+    every takedown path has to treat them as visible, or a report on
+    one would 'succeed' without hiding anything."""
+    return poll.archived_at is None or poll.archived_reason == "rep_claimed"
+
+
+def restore_poll_after_takedown(db: Session, poll) -> None:
+    """Undo a moderation hide on a poll. A citizen poll on a page that
+    has been claimed goes back to its closed, public 'rep_claimed'
+    state instead of reopening for votes; anything else goes back to
+    active, as before."""
+    from app.models.pages import RepAccount
+
+    claimed = (
+        poll.author_kind == "citizen"
+        and poll.target_official_id
+        and db.query(RepAccount.id)
+        .filter(RepAccount.official_id == poll.target_official_id, RepAccount.is_active.is_(True))
+        .first()
+        is not None
+    )
+    if claimed:
+        poll.archived_reason = "rep_claimed"
+    else:
+        poll.archived_at = None
+        poll.archived_reason = None
+
+
 def archive_polls_for_claim(
     db: Session,
     target_official_id: str,

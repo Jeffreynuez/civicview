@@ -28,7 +28,7 @@ import re
 _SENSITIVE_PARAMS = (
     "api_key", "apikey", "key", "token", "access_token", "password",
     "address", "street", "zip", "zipcode", "lat", "lon", "lng",
-    "latitude", "longitude", "email",
+    "latitude", "longitude", "email", "q", "onelineaddress",
 )
 _PARAM_RE = re.compile(
     r"(?i)([?&](?:" + "|".join(_SENSITIVE_PARAMS) + r")=)[^&\s\"'#]*"
@@ -47,20 +47,24 @@ def redact(text: str) -> str:
 
 
 class RedactingFilter(logging.Filter):
-    """Rewrites a record's final message with sensitive values masked.
+    """Masks sensitive values in a record before any handler formats it.
 
-    The message is rendered once (msg % args), redacted, and stored back
-    with empty args, so every handler downstream sees the clean text."""
+    The args are redacted one by one, in place, and the arg count and
+    types are kept. Some formatters need them: uvicorn's access
+    formatter unpacks exactly five args, so flattening the message into
+    msg with empty args made it raise and drop the line. A record with
+    no args has its msg redacted directly."""
 
     def filter(self, record: logging.LogRecord) -> bool:
         try:
-            rendered = record.getMessage()
-        except Exception:  # noqa: BLE001 - a bad format string is not ours to fix here
-            return True
-        clean = redact(rendered)
-        if clean != rendered:
-            record.msg = clean
-            record.args = ()
+            if isinstance(record.args, tuple) and record.args:
+                record.args = tuple(redact(a) if isinstance(a, str) else a for a in record.args)
+            elif isinstance(record.args, dict) and record.args:
+                record.args = {k: (redact(v) if isinstance(v, str) else v) for k, v in record.args.items()}
+            if isinstance(record.msg, str):
+                record.msg = redact(record.msg)
+        except Exception:  # noqa: BLE001 - never let redaction break logging
+            pass
         return True
 
 

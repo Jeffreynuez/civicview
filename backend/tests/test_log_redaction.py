@@ -56,6 +56,26 @@ def main() -> int:
     if "SECRET3" in buf.getvalue() or "state=FL" not in buf.getvalue():
         failures.append(f"filter output wrong: {buf.getvalue()!r}")
 
+    # uvicorn's access formatter unpacks exactly five args; redaction
+    # must keep them (review finding: flattening them raised and lost
+    # the line).
+    from uvicorn.logging import AccessFormatter
+    abuf = io.StringIO()
+    ah = logging.StreamHandler(abuf)
+    ah.setFormatter(AccessFormatter('%(client_addr)s - "%(request_line)s" %(status_code)s', use_colors=False))
+    ah.addFilter(RedactingFilter())
+    al = logging.getLogger("redaction-access-test")
+    al.addHandler(ah)
+    al.propagate = False
+    al.setLevel(logging.INFO)
+    rec_err = []
+    ah.handleError = lambda record: rec_err.append(record)
+    al.info('%s - "%s %s HTTP/%s" %d', "1.2.3.4:5", "GET",
+            "/api/address/lookup?address=742%20Evergreen%20Terrace", "1.1", 200)
+    out = abuf.getvalue()
+    if rec_err or "Evergreen" in out or "/api/address/lookup" not in out:
+        failures.append(f"access log line lost or unredacted: {out!r} errors={len(rec_err)}")
+
     # 2. httpx quiet
     for name in ("httpx", "httpcore"):
         if logging.getLogger(name).getEffectiveLevel() < logging.WARNING:

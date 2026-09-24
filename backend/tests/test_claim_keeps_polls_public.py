@@ -31,6 +31,7 @@ def main() -> int:
     from app.auth import compute_csrf_token, hash_password, issue_session_token
     from app.db import SessionLocal
     from app.models.pages import CitizenAccount, Poll, PollOption, RepAccount
+    from app.schemas.pages import POLL_REPORT_REASONS
     from app.services.citizen_polls_service import archive_polls_for_claim
 
     failures = []
@@ -98,11 +99,52 @@ def main() -> int:
                    headers={"X-Citizen-Token": vt, "X-CSRF-Token": compute_csrf_token(vt)})
         check(r.status_code >= 400, f"voting on a claimed-page poll should be refused, got {r.status_code}")
 
+        # Takedown still works on a pre-claim poll (review finding on P4):
+        # a report plus an admin Hide must actually hide it, and Unhide
+        # must put it back closed and public, not open for votes.
+        from app.models.pages import PollReport
+        os.environ["ADMIN_EMAILS"] = "admin.person@example.com"
+        with SessionLocal() as db:
+            adm = RepAccount(email="admin.person@example.com", password_hash=hash_password("pw-12345678"),
+                             display_name="Admin", official_id="admin-test-official", is_active=True)
+            db.add(adm)
+            db.commit()
+            adm_id = adm.id
+        at = issue_session_token(adm_id)
+        ah = {"Authorization": f"Bearer {at}", "X-CSRF-Token": compute_csrf_token(at)}
+        c.cookies.clear()
+        r = c.post(f"/api/citizen-polls/{poll_id}/report", json={"reason": POLL_REPORT_REASONS[0]}, headers=h)
+        check(r.status_code == 200, f"rep report on pre-claim poll {r.status_code} {r.text[:120]}")
+        with SessionLocal() as db:
+            rid = db.query(PollReport).filter_by(poll_id=poll_id).first().id
+        c.cookies.clear()
+        r = c.post(f"/api/admin/reports/poll/{rid}/hide", headers=ah)
+        check(r.status_code == 200, f"admin hide {r.status_code} {r.text[:120]}")
+        c.cookies.clear()
+        r = c.get(f"/api/pages/{oid}/citizen-polls").json()
+        check(poll_id not in [p["id"] for p in r.get("archived", [])], "hidden pre-claim poll must leave the public listing")
+        c.cookies.clear()
+        r = c.get(f"/api/pages/{oid}/citizen-polls", headers={"Authorization": f"Bearer {tok}"}).json()
+        check(poll_id not in [p["id"] for p in r.get("archived", [])], "hidden poll must not show to the page owner either")
+        with SessionLocal() as db:
+            reason = db.get(Poll, poll_id).archived_reason
+        check(reason == "admin_hidden", f"reason should be admin_hidden, got {reason}")
+        c.cookies.clear()
+        r = c.post(f"/api/admin/targets/poll/{poll_id}/unhide", headers=ah)
+        check(r.status_code == 200, f"admin unhide {r.status_code} {r.text[:120]}")
+        with SessionLocal() as db:
+            p = db.get(Poll, poll_id)
+            check(p.archived_reason == "rep_claimed" and p.archived_at is not None,
+                  f"unhide should restore closed-and-public, got {p.archived_reason} {p.archived_at}")
+        c.cookies.clear()
+        r = c.get(f"/api/pages/{oid}/citizen-polls").json()
+        check(poll_id in [p["id"] for p in r.get("archived", [])], "restored poll should be public again")
+
     if failures:
         for f in failures:
             print("FAIL:", f)
         return 1
-    print("PRE-CLAIM POLLS STAY PUBLIC AND CLOSED.")
+    print("PRE-CLAIM POLLS STAY PUBLIC AND CLOSED, AND CAN STILL BE TAKEN DOWN.")
     return 0
 
 

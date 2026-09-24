@@ -130,7 +130,8 @@ def record_report(db: Session, target: Any, *, kind: str) -> bool:
     # an admin Hide click — both are appealable, but the audit log
     # carries the difference.
     if kind == "poll":
-        if getattr(target, "archived_at", None) is not None:
+        from app.services.citizen_polls_service import poll_is_publicly_visible
+        if not poll_is_publicly_visible(target):
             return False
         target.archived_at = datetime.utcnow()
         target.archived_reason = "auto_hidden"

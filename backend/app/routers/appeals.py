@@ -741,10 +741,11 @@ def _restore_appeal_target(db: Session, appeal: Appeal) -> bool:
     if target is None:
         return False
     if appeal.target_kind == "poll":
-        if target.archived_at is None:
+        from app.services.citizen_polls_service import poll_is_publicly_visible, restore_poll_after_takedown
+        if poll_is_publicly_visible(target):
             return False
-        target.archived_at = None
-        target.archived_reason = None
+        # A pre-claim poll goes back to closed-and-public, not open.
+        restore_poll_after_takedown(db, target)
         return True
     if target.deleted_at is None:
         return False

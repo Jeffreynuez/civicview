@@ -188,13 +188,18 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
     specs.append((PasswordResetToken, [
         PasswordResetToken.identity_kind == kind, PasswordResetToken.account_id == account_id,
     ]))
-    # Login attempts: the account's own rows, plus failed attempts that
-    # carry its email address but were never tied to an id.
+    # Login attempts: the account's own rows, plus failed attempts on the
+    # same sign-in form that carry its email address but were never tied
+    # to an id. A rep or candidate account sharing the email keeps its
+    # own records.
     own_attempt = (LoginAttempt.identity_kind == kind) & (LoginAttempt.identity_id == account_id)
     if email:
-        specs.append((LoginAttempt, [or_(
-            own_attempt, func.lower(LoginAttempt.email_attempted) == email.strip().lower(),
-        )]))
+        unmatched_same_email = (
+            (LoginAttempt.identity_kind == kind)
+            & LoginAttempt.identity_id.is_(None)
+            & (func.lower(LoginAttempt.email_attempted) == email.strip().lower())
+        )
+        specs.append((LoginAttempt, [or_(own_attempt, unmatched_same_email)]))
     else:
         specs.append((LoginAttempt, [own_attempt]))
     if kind == "citizen":
@@ -221,6 +226,36 @@ def delete_account_keyed_rows(
     return counts
 
 
+def _delete_citizen_authored(db: Session, citizen_id: int) -> dict:
+    """Content a citizen created whose foreign key is SET NULL rather
+    than CASCADE, so the database would keep it without the author:
+    the polls they started (their options, votes and comments go with
+    them) and the demographic answers attached to their votes. Their
+    votes on other people's polls stay in the totals, unlinked. Found in
+    review of audit B3."""
+    from app.models.pages import Poll, PollVote, PollVoteDemographic
+
+    counts = {}
+    vote_ids = db.query(PollVote.id).filter(PollVote.citizen_id == citizen_id)
+    n = (
+        db.query(PollVoteDemographic)
+        .filter(PollVoteDemographic.poll_vote_id.in_(vote_ids))
+        .delete(synchronize_session=False)
+    )
+    if n:
+        counts["poll_vote_demographics"] = n
+    polls = (
+        db.query(Poll)
+        .filter(Poll.author_kind == "citizen", Poll.author_citizen_id == citizen_id)
+        .all()
+    )
+    for p in polls:
+        db.delete(p)
+    if polls:
+        counts["citizen_polls"] = len(polls)
+    return counts
+
+
 # ── Hard delete (immediate) ──────────────────────────────────────────
 def hard_delete_account(
     db: Session,
@@ -235,6 +270,8 @@ def hard_delete_account(
         _archive_citizen_verification(db, account)
     account_id = account.id
     removed = delete_account_keyed_rows(db, kind, account_id, getattr(account, "email", None))
+    if kind == "citizen":
+        removed.update(_delete_citizen_authored(db, account_id))
     db.delete(account)
     db.commit()
     logger.info("Hard-deleted %s account id=%s; also removed %s", kind, account_id, removed or "nothing else")

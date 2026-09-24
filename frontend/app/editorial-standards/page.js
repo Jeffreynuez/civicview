@@ -29,7 +29,7 @@ export default function EditorialStandardsPage() {
         applies to:
       </p>
       <ul>
-        <li><strong>Product decisions:</strong> we don't algorithmically boost any side. The polls feed shows the newest polls first. The posts feed and the &ldquo;Popular polls&rdquo; list rank by engagement: likes, dislikes, comments and poll votes, counted the same way for everyone, whatever the content says. We don't downrank a rep's content because we disagree with it.</li>
+        <li><strong>Product decisions:</strong> we don't algorithmically boost any side. The polls feed shows the newest polls first. The posts feed ranks by engagement (likes, dislikes, comments, and votes on an attached poll), and the &ldquo;Popular polls&rdquo; list ranks by total votes, counted the same way for everyone, whatever the content says. We don't downrank a rep's content because we disagree with it.</li>
         <li><strong>Editorial copy:</strong> AI summaries on bills + votes are neutral rephrasings of the original text. If we'd struggle to write the summary without taking a side, we don't ship the summary.</li>
         <li><strong>Curated content:</strong> top-issues, stances, and biographical info on candidate pages quote the candidate's own published positions — we don't add interpretive framing.</li>
         <li><strong>Staff conduct:</strong> CivicView employees may participate in civic life as private citizens; they don't post on behalf of the platform.</li>

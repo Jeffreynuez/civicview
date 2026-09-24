@@ -65,9 +65,10 @@ _CREATE_RE = re.compile(
 # GET. (audit S4)
 _AI_RE = re.compile(
     r"^/api/(ai/(filter-items|filter-comments|filter-polls|summarize-post/[^/]+)"
-    r"|eos/[^/]+/summary(/translate)?"
+    r"|eos/[^/]+/summary/translate"
     r"|votes/explain/generate"
-    r"|bills/\d+/[^/]+/[^/]+/summary/translate)$"
+    r"|bills/\d+/[^/]+/[^/]+/summary/translate"
+    r"|state-officials/[^/]+/legislator-issues)$"
 )
 
 # Password reset requests send an email each time. Per caller (IP for

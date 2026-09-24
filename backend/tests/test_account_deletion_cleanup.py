@@ -99,6 +99,50 @@ def main() -> int:
             other = count_for(db, kept)
             check(all(v == 1 for v in other.values()), f"other account's rows touched: {other}")
 
+        # 1b. a citizen's own polls and their demographic answers go too
+        from app.models.pages import Poll, PollComment, PollOption, PollVote, PollVoteDemographic
+        with SessionLocal() as db:
+            author = CitizenAccount(email="author3@example.com", password_hash=hash_password("pw-12345678"),
+                                    display_name="C3", city="Orlando", state="FL",
+                                    congressional_district="FL-10", is_active=True, verified=False)
+            db.add(author)
+            db.flush()
+            poll = Poll(post_id=None, question="Mine?", author_kind="citizen", author_citizen_id=author.id,
+                        target_official_id="X", default_visibility_scope="country",
+                        presentation_mode="full", created_at=now)
+            db.add(poll)
+            db.flush()
+            opt = PollOption(poll_id=poll.id, text="A", sort_order=0)
+            db.add(opt)
+            db.flush()
+            other_vote = PollVote(poll_id=poll.id, option_id=opt.id, citizen_id=kept)
+            db.add(other_vote)
+            db.add(PollComment(poll_id=poll.id, citizen_id=kept, citizen_display_name="C2", body="a comment"))
+            # the author's own vote on someone else's poll, with an answer
+            poll2 = Poll(post_id=None, question="Theirs?", author_kind="citizen", author_citizen_id=kept,
+                         target_official_id="X", default_visibility_scope="country",
+                         presentation_mode="full", created_at=now)
+            db.add(poll2)
+            db.flush()
+            opt2 = PollOption(poll_id=poll2.id, text="B", sort_order=0)
+            db.add(opt2)
+            db.flush()
+            v2 = PollVote(poll_id=poll2.id, option_id=opt2.id, citizen_id=author.id)
+            db.add(v2)
+            db.flush()
+            db.add(PollVoteDemographic(poll_id=poll2.id, poll_vote_id=v2.id, question_key="party",
+                                       answer_value="democrat"))
+            db.commit()
+            author_id, poll_id, poll2_id, v2_id = author.id, poll.id, poll2.id, v2.id
+        with SessionLocal() as db:
+            account_deletion.hard_delete_account(db, "citizen", db.get(CitizenAccount, author_id))
+        with SessionLocal() as db:
+            check(db.get(Poll, poll_id) is None, "the deleted citizen's poll should be gone")
+            check(db.query(PollOption).filter_by(poll_id=poll_id).count() == 0, "its options should be gone")
+            check(db.get(Poll, poll2_id) is not None, "someone else's poll stays")
+            check(db.query(PollVoteDemographic).filter_by(poll_vote_id=v2_id).count() == 0,
+                  "the deleted citizen's demographic answers should be gone")
+
         # 2. boot sweep for rows already orphaned
         with SessionLocal() as db:
             seed_rows(db, 99999, "9")

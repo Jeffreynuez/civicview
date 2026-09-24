@@ -78,6 +78,8 @@ const CSP_REPORT_ONLY = [
   // MapLibre runs its tile workers from blob: URLs.
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
+  // The feedback page embeds a Google Form.
+  "frame-src 'self' https://docs.google.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -89,7 +91,7 @@ const SECURITY_HEADERS = [
   // "Use my location" is the only browser capability the app asks for.
   {
     key: 'Permissions-Policy',
-    value: 'geolocation=(self), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()',
+    value: 'geolocation=(self), camera=(), microphone=(), payment=(), usb=()',
   },
   { key: 'Content-Security-Policy-Report-Only', value: CSP_REPORT_ONLY },
 ];

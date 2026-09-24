@@ -101,6 +101,7 @@ from app.schemas.pages import (
 )
 from app.services import poll_demographics
 from app.services.citizen_polls_service import (
+    HIDDEN_ARCHIVE_REASONS,
     archive_poll,
     citizen_has_active_poll_on_page,
     list_citizen_polls_for_citizen,
@@ -246,7 +247,12 @@ def list_citizen_polls_on_page(
     # polls on the page, as before.
     all_archived = list_citizen_polls_for_page(db, official_id, active=False)
     if is_owner:
-        archived_polls = [p for p in all_archived if p.dismissed_by_owner_at is None]
+        # Content taken down by moderation is hidden from the page owner
+        # too; only its author sees it (their dashboard).
+        archived_polls = [
+            p for p in all_archived
+            if p.dismissed_by_owner_at is None and p.archived_reason not in HIDDEN_ARCHIVE_REASONS
+        ]
     elif owner is not None:
         archived_polls = [p for p in all_archived if p.archived_reason == "rep_claimed"]
     else:

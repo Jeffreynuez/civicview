@@ -61,8 +61,12 @@ def _needs_enrollment(tokens) -> bool:
     readers = (
         (read_session_payload, RepAccount, lambda a: "rep"),
         (read_candidate_payload, CandidateAccount, lambda a: "candidate"),
+        # A citizen is an admin only when verified, same rule as
+        # get_current_admin; an unverified citizen with a listed email
+        # has no admin powers to protect.
         (read_citizen_payload, CitizenAccount,
-         lambda a: "admin" if is_admin_email(getattr(a, "email", None)) else "citizen"),
+         lambda a: "admin" if (is_admin_email(getattr(a, "email", None)) and getattr(a, "verified", False))
+         else "citizen"),
     )
     db = SessionLocal()
     try:
