@@ -4,9 +4,14 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * /privacy — what CivicView collects, who can see it, how long we
- * keep it, and your rights. Required for iOS App Store submission +
- * Google Play submission. Accurate to the codebase as of May 2026:
+ * /privacy: what CivicView collects, who can see it, how long we
+ * keep it, and your rights. Required for the Google Play and Microsoft
+ * Store listings. Re-checked against the code on 2026-09-24 (audit P5),
+ * which added the missing recipients (Postmark, Resend, Brevo, Google
+ * Civic, the Census geocoder, Nominatim, Google Forms, CARTO, unpkg,
+ * GitHub, Stripe) and data (contact email, poll demographic answers,
+ * address fields, waitlist notes, AI search text), and corrected the
+ * IP retention and deletion statements. Earlier notes:
  *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
  *    cookies + bearer-token mirror.
  *  - ID.me verification on citizens; verification hash preserved
@@ -14,14 +19,15 @@
  *  - 2FA secrets encrypted at rest via Fernet keyed off SESSION_SECRET.
  *  - Post images live in Cloudflare R2 (when prod); local disk in dev.
  *  - Soft delete has a 30-day grace; hard delete removes everything
- *    except the verification hash.
+ *    tied to the account except the verification hash, appeals and
+ *    moderation verdicts (audit B3).
  */
 
 import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="May 20, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="September 24, 2026">
       <p>
         This policy describes what CivicView collects, why we collect it,
         who can see it, and how long we keep it. We've tried to write it in
@@ -42,43 +48,53 @@ export default function PrivacyPage() {
 
       <h3>Citizens</h3>
       <ul>
-        <li><strong>Email address</strong> — for login and account recovery. Required.</li>
-        <li><strong>Display name</strong> — shown next to your comments + poll votes. You choose what to use.</li>
-        <li><strong>City, state, and (optional) congressional district</strong> — so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Required.</li>
-        <li><strong>Address verification status</strong> — provided by ID.me when you complete identity proofing. We store only the result ("verified" / "not verified") plus the verification date — not the underlying documents ID.me used.</li>
-        <li><strong>Engagement history</strong> — the polls you've voted in, posts you've reacted to, comments you've made. Tied to your account.</li>
+        <li><strong>Email address</strong>: for login and account recovery. Required. Demo accounts are given a generated address that receives no mail.</li>
+        <li><strong>Contact email (optional, demo accounts)</strong>: if you add one, we use it only to tell you before demo accounts are retired.</li>
+        <li><strong>Display name</strong>: shown next to your comments + poll votes. You choose what to use.</li>
+        <li><strong>City, state, and (optional) congressional district</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Required.</li>
+        <li><strong>Address verification status (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date, plus the street address and ZIP code ID.me confirms, which we use to place you in the right districts. We never receive the documents ID.me used.</li>
+        <li><strong>Engagement history</strong>: the polls you've voted in, posts you've reacted to, comments you've made. Tied to your account.</li>
+        <li><strong>Optional poll questions</strong>: some polls include questions the poll&apos;s creator chose, such as age range or party, and on some polls race, religion or income. Answering is optional. Answers are stored with your vote so you can change them until the poll closes, are counted only from verified accounts, and are published only as totals for groups of at least 10 people, never tied to you. You can also save the non-sensitive answers as a reusable profile; sensitive categories are never saved to it, and you can clear it from your dashboard.</li>
       </ul>
 
       <h3>Representatives and candidates</h3>
       <ul>
-        <li><strong>Email + display name</strong> — for login + page attribution.</li>
-        <li><strong>Official identifier</strong> — your bioguide_id (for reps) or candidate_id (for declared candidates). Used to bind your account to your public page.</li>
+        <li><strong>Email + display name</strong>: for login + page attribution.</li>
+        <li><strong>Official identifier</strong>: your bioguide_id (for reps) or candidate_id (for declared candidates). Used to bind your account to your public page.</li>
         <li><strong>Posts, polls, and events you publish.</strong> These are public — that's the point of the page.</li>
+      </ul>
+
+      <h3>Waitlist and claim requests</h3>
+      <ul>
+        <li>If you join the waitlist or ask to claim a page, we store your email, your state if you give it, which button you used, and any note you write (for a claim request, the details you send us).</li>
       </ul>
 
       <h3>Security data (all identity types)</h3>
       <ul>
-        <li><strong>Password hash</strong> — bcrypt with a per-account salt. We never see your actual password.</li>
-        <li><strong>2FA secret (when enabled)</strong> — encrypted at rest using Fernet symmetric encryption keyed off our application secret. Unusable without access to both the database AND the application secret.</li>
-        <li><strong>Recovery codes (when 2FA enabled)</strong> — bcrypt-hashed, single-use, never shown to anyone but you at generation time.</li>
-        <li><strong>Last login timestamp</strong> — used to surface "active recently" indicators + spot abandoned accounts.</li>
+        <li><strong>Password hash</strong>: bcrypt with a per-account salt. We never see your actual password.</li>
+        <li><strong>2FA secret (when enabled)</strong>: encrypted at rest using Fernet symmetric encryption keyed off our application secret. Unusable without access to both the database AND the application secret.</li>
+        <li><strong>Recovery codes (when 2FA enabled)</strong>: bcrypt-hashed, single-use, never shown to anyone but you at generation time.</li>
+        <li><strong>Last login timestamp</strong>: used to surface "active recently" indicators + spot abandoned accounts.</li>
+        <li><strong>Sign-in records</strong>: each sign-in attempt is recorded with the email tried, the result, your IP address and your browser&apos;s user agent, to detect password guessing and lock accounts under attack. Deleted after 90 days, and at once when you delete your account.</li>
       </ul>
 
       <h3>Technical data</h3>
       <ul>
-        <li><strong>IP address</strong> — visible to our backend on every request. Used for rate-limiting and abuse detection; not stored long-term. We don't build IP-based profiles.</li>
-        <li><strong>Browser type + device info</strong> — present in standard HTTP headers; we don't log it beyond what our hosting provider's request logs retain.</li>
-        <li><strong>Cookies</strong> — httpOnly session cookies (<code>cl_session</code> for reps, <code>cl_citizen</code> for citizens, <code>cl_candidate</code> for candidates). No tracking cookies. No third-party advertising cookies. No analytics cookies.</li>
-        <li><strong>Push notification token (Android app, only if you enable push)</strong> — a device identifier issued by Google Firebase Cloud Messaging so we can deliver the alerts you asked for. If you enable push without signing in, we also store the list of officials you track on that device alongside the token — that list is what lets us send you their updates, and it's used for nothing else. Your notification settings (like quiet hours and how often to be alerted, including your timezone offset) are stored so we respect them when sending. Turning push off deletes the token and everything stored with it.</li>
+        <li><strong>IP address</strong>: visible to our backend on every request and used for rate limiting and abuse detection. Apart from the sign-in records above, we don&apos;t store it. Our hosting and network providers keep their own request logs for a limited time. We don&apos;t build IP-based profiles.</li>
+        <li><strong>Addresses you look up</strong>: when you type an address to find your representatives, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and to Google Civic Information to find its districts. We don&apos;t store it, and it is masked in our logs.</li>
+        <li><strong>&ldquo;Use my location&rdquo;</strong>: only if you tap it and your browser allows it. Your device&apos;s coordinates go directly from your browser to OpenStreetMap&apos;s Nominatim service, which returns the nearest address. We don&apos;t store the coordinates.</li>
+        <li><strong>Browser type + device info</strong>: present in standard HTTP headers; we don't log it beyond what our hosting provider's request logs retain.</li>
+        <li><strong>Cookies</strong>: httpOnly session cookies (<code>cl_session</code> for reps, <code>cl_citizen</code> for citizens, <code>cl_candidate</code> for candidates). No tracking cookies. No third-party advertising cookies. No analytics cookies.</li>
+        <li><strong>Push notification token (Android app, only if you enable push)</strong>: a device identifier issued by Google Firebase Cloud Messaging so we can deliver the alerts you asked for. If you enable push without signing in, we also store the list of officials you track on that device alongside the token. That list is what lets us send you their updates, and it's used for nothing else. Your notification settings (like quiet hours and how often to be alerted, including your timezone offset) are stored so we respect them when sending. Turning push off deletes the token and everything stored with it.</li>
       </ul>
 
       <h2>How we use your data</h2>
       <ul>
-        <li><strong>To match you with your representatives</strong> — your city / state / district is the lookup key for which rep pages, ballots, and elections we show you.</li>
-        <li><strong>To attribute your engagement</strong> — your display name and verification status appear next to comments + poll responses so reps can tell verified constituents from anonymous visitors.</li>
-        <li><strong>To roll up engagement for reps</strong> — your rep sees that <em>X people in their district</em> voted in their poll, but never the individual list. Aggregates only.</li>
-        <li><strong>To send notifications you've opted into</strong> — tracked items, new posts on pages you follow, replies to your comments.</li>
-        <li><strong>To enforce account security</strong> — 2FA, rate limits on login attempts, automatic moderation thresholds.</li>
+        <li><strong>To match you with your representatives</strong>: your city / state / district is the lookup key for which rep pages, ballots, and elections we show you.</li>
+        <li><strong>To attribute your engagement</strong>: your display name and verification status appear next to comments + poll responses so reps can tell verified constituents from anonymous visitors.</li>
+        <li><strong>To roll up engagement for reps</strong>: your rep sees that <em>X people in their district</em> voted in their poll, but never the individual list. Aggregates only.</li>
+        <li><strong>To send notifications you've opted into</strong>: tracked items, new posts on pages you follow, replies to your comments.</li>
+        <li><strong>To enforce account security</strong>: 2FA, rate limits on login attempts, automatic moderation thresholds.</li>
       </ul>
 
       <h2>Who can see your data</h2>
@@ -122,12 +138,22 @@ export default function PrivacyPage() {
 
       <h3>Third parties we share data with</h3>
       <ul>
-        <li><strong>ID.me</strong> — for citizen identity verification. They see what they need to verify you (name, address, ID document); we receive only the verification result. Their{' '}
+        <li><strong>ID.me</strong>: for citizen identity verification. They see what they need to verify you (name, address, ID document); we receive only the verification result. Their{' '}
           <a href="https://www.id.me/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>{' '}applies to their handling of that data.</li>
-        <li><strong>Anthropic</strong> — for AI features. We use Anthropic&apos;s Claude models to (a) generate plain-English summaries of public bills, votes, and executive orders (only public government text is sent), and (b) classify and moderate user-generated content: when you create a poll or post a comment, its text is sent to Anthropic to tag it (sentiment, tone, topic) and to screen it for safety and policy violations. We do not send your name, email, address, ID verification, or engagement history. Anthropic processes this content on our behalf and does not use it to train its models.</li>
-        <li><strong>Render</strong> — our hosting provider. They have access to the underlying server + database. We chose Render because of their privacy posture; we don't make them our data processor for any analytics use.</li>
-        <li><strong>Cloudflare</strong> — DNS + WAF + CDN. Sees the IP address of every visitor (that's how DNS works). Doesn't see the contents of HTTPS-encrypted application traffic.</li>
-        <li><strong>Cloudflare R2</strong> — object storage for post images. Images uploaded by reps + candidates are stored in R2 buckets in our account.</li>
+        <li><strong>Anthropic</strong>: for AI features. We use Anthropic&apos;s Claude models to (a) generate plain-English summaries of public bills, votes, and executive orders (only public government text is sent), (b) classify and moderate user-generated content: when you create a poll or post a comment, its text is sent to Anthropic to tag it (sentiment, tone, topic) and to screen it for safety and policy violations, and (c) run AI search: the words you type into an AI search box are sent along with the list of items being searched. We do not send your name, email, address, ID verification, or engagement history. Anthropic processes this content on our behalf and does not use it to train its models.</li>
+        <li><strong>Postmark</strong>: sends account email such as password reset links. Sees your email address and the message.</li>
+        <li><strong>Resend</strong>: sends CivicView&apos;s admins an email when content is reported. That email contains the reported content, the reason given, and the reporter&apos;s display name.</li>
+        <li><strong>Brevo</strong>: holds the waitlist mailing list. Receives your email, state, and which button you used.</li>
+        <li><strong>Google Civic Information and the U.S. Census Geocoder</strong>: receive addresses you type into the address lookup, to find your districts.</li>
+        <li><strong>OpenStreetMap Nominatim</strong>: receives your device&apos;s coordinates if you use &ldquo;Use my location,&rdquo; and a typed address when the Census Geocoder can&apos;t place it.</li>
+        <li><strong>Google Firebase Cloud Messaging</strong>: delivers push notifications on Android if you turn them on (see the push token above).</li>
+        <li><strong>Google Forms</strong>: the feedback form is a Google Form. What you type there goes to Google and to us, under{' '}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google&apos;s privacy policy</a>.</li>
+        <li><strong>Map and file hosts</strong>: map tiles come from CARTO, the map&apos;s stylesheet from unpkg, and state boundary files from GitHub and the U.S. Census. Like any website, they see your IP address when your browser loads them.</li>
+        <li><strong>Stripe</strong>: will process payments when paid subscriptions launch. We will never see your full card number.</li>
+        <li><strong>Render</strong>: our hosting provider. They have access to the underlying server + database. We chose Render because of their privacy posture; we don't make them our data processor for any analytics use.</li>
+        <li><strong>Cloudflare</strong>: DNS + WAF + CDN. Sees the IP address of every visitor (that's how DNS works). Doesn't see the contents of HTTPS-encrypted application traffic.</li>
+        <li><strong>Cloudflare R2</strong>: object storage for post images. Images uploaded by reps + candidates are stored in R2 buckets in our account.</li>
       </ul>
       <p>
         We don't share data with advertisers, analytics platforms (Google
@@ -139,9 +165,11 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Active accounts:</strong> kept indefinitely until you delete.</li>
         <li><strong>Soft-deleted accounts:</strong> kept for 30 days, then permanently purged. During the grace period you can sign back in and recover.</li>
-        <li><strong>Permanently deleted accounts:</strong> the account row + all your content (posts, polls, comments, reactions) is removed. For citizens, we retain only a one-way hash of your email + the date your ID.me verification ran. This lets us recognize you on a future signup so you don't pay for re-verification ($1.50). The hash is salted with our application secret, so the table isn't reversible to your actual email even if it leaked.</li>
-        <li><strong>Reported content:</strong> kept for 90 days after the report resolves so we can audit moderation decisions, then anonymized.</li>
-        <li><strong>Audit logs:</strong> admin actions (suspensions, content removals) are logged with timestamps and the responsible admin's account. Kept indefinitely as a moderation audit trail.</li>
+        <li><strong>Permanently deleted accounts:</strong> the account, your content (posts, polls, comments, reactions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. We keep three things. For verified citizens, a one-way hash of your email and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hash is salted with our application secret, so it can&apos;t be turned back into your email even if it leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
+        <li><strong>Sign-in records:</strong> 90 days.</li>
+        <li><strong>Content hidden by moderation:</strong> stays in our database, hidden from everyone but its author, so it can be appealed and decisions can be reviewed. Reports are kept with that history.</li>
+        <li><strong>Admin actions:</strong> suspensions and decisions on reports are recorded in our server logs. We don&apos;t yet keep a separate admin audit table.</li>
+        <li><strong>Waitlist entries:</strong> kept until you ask us to remove them.</li>
       </ul>
 
       <h2>Your rights</h2>
