@@ -928,7 +928,7 @@
         "chamber": "State House",
         "district": "5",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTmXpiok-J6R_vUlOit1nC52uvUkP1E-Wag&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://repweaknecht.com/",
           "email": "eweaknecht@pahousegop.com",
@@ -1280,7 +1280,7 @@
         "chamber": "State House",
         "district": "28",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSorGMaPu0r-cmKNo0wUJlamXWmBuybfdPUA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.palegis.us/house/members/bio/2023/rep-shaffer",
           "email": "jshaffer@pahousegop.com",
@@ -2752,7 +2752,7 @@
         "chamber": "State House",
         "district": "120",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqVdrj2w84kNrKi7RN0poR6kywKVZcSV7m-g&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.palegis.us/house/members/bio/2033/rep-pugh",
           "email": "bpugh@pahousegop.com",
@@ -2848,7 +2848,7 @@
         "chamber": "State House",
         "district": "126",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQN8TGsUPRmCdJJis2P-yzcJsfaJRABStMDA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.pahouse.com/Rusnock/",
           "email": "jrusnock@pahouse.net",
@@ -3584,7 +3584,7 @@
         "chamber": "State House",
         "district": "172",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDqcsfeSV2Emc5tJreNLOLeI1PEIX1XE82Hw&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.pahouse.com/dougherty/",
           "email": "repdougherty@pahouse.net",

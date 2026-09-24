@@ -542,7 +542,7 @@
         "chamber": "State Senate",
         "district": "33",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgg9y84-E8FaeDWzhd1s97N3Ko90lCow4sAQ&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://oksenate.gov/senators/christi-gillespie",
           "email": "christi.gillespie@oksenate.gov",
@@ -1027,7 +1027,7 @@
         "chamber": "State House",
         "district": "15",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdKW8Yps28Qqd_HZ-KGr8HDljGbqjeswJrSA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.okhouse.gov/representatives/tim-turner",
           "email": "tim.turner@okhouse.gov",
@@ -1107,7 +1107,7 @@
         "chamber": "State House",
         "district": "20",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQcSK-0G7vutoYpyD-I4rn3EZVvTgV8ij17A&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.okhouse.gov/representatives/jonathan-wilk",
           "email": "jonathan.wilk@okhouse.gov",
@@ -1875,7 +1875,7 @@
         "chamber": "State House",
         "district": "68",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6rbtW0elpYl-o3FI3jbR9-PkUylFA7p5-Ig&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.okhouse.gov/representatives/mike-lay",
           "email": "mike.lay@okhouse.gov",

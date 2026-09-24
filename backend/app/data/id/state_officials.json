@@ -475,7 +475,7 @@
         "chamber": "State Senate",
         "district": "27",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzBUr0WfBwwJVjrJhYaJYV9f99Qba5dm5P6g&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://legislature.idaho.gov/legislators/membership/2023/id3524/",
           "email": "kanthon@senate.idaho.gov",
@@ -848,7 +848,7 @@
         "chamber": "State House",
         "district": "8A",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9psK7gbvCRFwbID4kl-z8CYjGocsNnfsafQ&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://legislature.idaho.gov/legislators/membership/2025/id9416/",
           "email": "rbeiswenger@house.idaho.gov",

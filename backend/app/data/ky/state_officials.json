@@ -286,7 +286,7 @@
         "chamber": "State Senate",
         "district": "17",
         "role": "State Senator",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkAwk-VsxWc9P7zUFu6kXXFswQiXfHR8HdEg&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=117",
           "email": "matt.nunn@kylegislature.gov",

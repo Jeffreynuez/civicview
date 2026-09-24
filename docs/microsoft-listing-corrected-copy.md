@@ -1,5 +1,15 @@
 # Microsoft Store listing, corrected copy
 
+> **Update 2026-09-24: paste the sources block again.** An audit found the
+> "complete list" was not complete. The app also uses the Florida Division of
+> Elections, the official websites of the offices themselves, Ballotpedia-hosted
+> photos from Open States, some campaign sites and news reports, Wikipedia, and
+> CARTO map tiles, and 41 photos were Google image-search thumbnails (now
+> removed from the data). The block below is rewritten so that "We do not use
+> any other sources" is true again. Google rejected this listing twice for
+> sources, so an incomplete list is the riskier state to leave it in. The full
+> description still fits: 3,717 of 4,000 characters.
+
 Paste source for the Partner Center submission. 2026-09-16.
 Status: attempted, **save failed with a server error**, work not persisted.
 
@@ -30,23 +40,26 @@ WHAT YOU CAN DO
 • Compare how officials vote and where they stand
 
 WHERE OUR INFORMATION COMES FROM
-All government information in CivicView comes from the public sources listed below. This is the complete list of the sources we use:
-• U.S. Congress (bills, members, committees, and votes): https://www.congress.gov
-• GovTrack (congressional votes and member data): https://www.govtrack.us
-• The @unitedstates project (public-domain congressional rosters, committees, offices, and photos): https://unitedstates.github.io/congress-legislators
-• U.S. House of Representatives, Office of the Clerk (roll-call votes): https://clerk.house.gov
-• U.S. Senate (roll-call votes): https://www.senate.gov
-• Federal Register (executive orders): https://www.federalregister.gov
-• CourtListener / Free Law Project (federal courts, including the U.S. Supreme Court): https://www.courtlistener.com
-• Federal Election Commission / OpenFEC (candidates and campaign finance): https://www.fec.gov
-• Open States (state legislatures: members, bills, votes): https://openstates.org
-• Google Civic Information API (matching your address to officials and elections): https://developers.google.com/civic-information
-• U.S. Census Bureau Geocoder (matching your address to a district): https://geocoding.geo.census.gov
-• OpenStreetMap / Nominatim (address lookup fallback): https://www.openstreetmap.org
+Government sources:
+- U.S. Congress (bills, members, committees, votes): https://www.congress.gov
+- GovTrack (congressional votes and member data): https://www.govtrack.us
+- The @unitedstates project (congressional rosters, offices, photos): https://unitedstates.github.io
+- House Clerk and U.S. Senate (roll-call votes): https://clerk.house.gov and https://www.senate.gov
+- Federal Register (executive orders): https://www.federalregister.gov
+- CourtListener (court opinions): https://www.courtlistener.com
+- Federal Election Commission (federal candidates, campaign finance): https://www.fec.gov
+- Open States (state legislators, bills, votes): https://openstates.org
+- Florida Department of State and Division of Elections (candidates, results, campaign finance, amendments): https://dos.fl.gov
+- Google Civic Information and the U.S. Census Geocoder (matching an address to districts)
+- The official websites of the offices themselves (White House, Congress, state, court and city websites) for names, contact details and biographies
 
-We do not use any other sources of government information.
+Other sources, each linked where it appears:
+- Photos: the @unitedstates project, Wikimedia Commons, official websites, and image links published by Open States, some hosted by Ballotpedia
+- Some candidate details: campaign websites, news reports, Ballotpedia and Wikipedia
+- Maps and address lookup: OpenStreetMap, CARTO and U.S. Census boundary data
+- AI: plain-English summaries and state legislators' focus areas are written by Claude (Anthropic) and labeled AI-generated
 
-Photos of members and officials come from the @unitedstates project and Wikimedia Commons / Wikipedia (https://commons.wikimedia.org).
+We do not use any other sources.
 
 NON-PARTISAN BY DESIGN
 CivicView takes no political side. Officials' data is neutral and sourced; AI-generated summaries are written to inform, not persuade.

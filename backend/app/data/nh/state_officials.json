@@ -595,7 +595,7 @@
         "chamber": "State House",
         "district": "Belknap 4",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRizqJ_tS8jAPyZ-fKtwnpQbcWBFXF3QEH0ug&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11309",
           "email": "travis.toner@gc.nh.gov",
@@ -2979,7 +2979,7 @@
         "chamber": "State House",
         "district": "Rockingham 1",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHivbnkev9ZEmBU7qQV5RFV-iAnBnb1Fs8GA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11392",
           "email": "scott.bryer@gc.nh.gov",
@@ -3491,7 +3491,7 @@
         "chamber": "State House",
         "district": "Strafford 19",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ZbTDURwWF8S0AVA9twgNvOu92KPEOL5v4A&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11288",
           "email": "john.larochelle@gc.nh.gov",
@@ -3619,7 +3619,7 @@
         "chamber": "State House",
         "district": "Rockingham 10",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeF798K5fu9ufFGapNpGIR3cL9CQU3pTwebA&s",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11252",
           "email": "toni.weinstein@gc.nh.gov",

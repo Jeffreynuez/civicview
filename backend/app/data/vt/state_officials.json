@@ -657,7 +657,7 @@
         "chamber": "State House",
         "district": "Orange-2",
         "role": "State Representative",
-        "photo_url": "http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcQJv2ebRwLbq8oEHztEt7vEj8LT_42Lj5oVZwQRIbAicBaIoWoKMCX8Q16EfoTE0AbQ",
+        "photo_url": null,
         "contact": {
           "email": "mpriestley@leg.state.vt.us",
           "dc_office": null,
@@ -2577,7 +2577,7 @@
         "chamber": "State House",
         "district": "Chittenden-13",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzxkKy2iYtXf9A7hjEK6JRZVEHbg581a1p2wGhCM59GjV9Gbry",
+        "photo_url": null,
         "contact": {
           "official_website": "https://legislature.vermont.gov/people/single/2026/40409",
           "email": "bkleppner@leg.state.vt.us",
@@ -3117,7 +3117,7 @@
         "chamber": "State House",
         "district": "Essex-Caledonia",
         "role": "State Representative",
-        "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiRfTmE4t4EX7KkbsF2Leu84Nmy7GsSQrECA&s",
+        "photo_url": null,
         "contact": {
           "email": "jkascenska@leg.state.vt.us",
           "dc_office": null,
