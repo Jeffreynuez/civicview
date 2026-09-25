@@ -59,7 +59,7 @@ const CSP_REPORT_ONLY = [
   "default-src 'self'",
   // Next injects inline bootstrap scripts; nonces are the later upgrade.
   "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline' https://unpkg.com",
+  "style-src 'self' 'unsafe-inline'",
   // Official photos come from many public sources (Congress, state
   // legislatures, Wikimedia, uploaded post images on R2).
   "img-src 'self' data: blob: https:",
@@ -75,9 +75,10 @@ const CSP_REPORT_ONLY = [
     'https://nominatim.openstreetmap.org',
     'https://unitedstates.github.io',
   ].join(' '),
-  // MapLibre runs its tile workers from blob: URLs.
-  "worker-src 'self' blob:",
-  "child-src 'self' blob:",
+  // MapLibre's tile worker is served from this site (/maplibre/), so it
+  // no longer needs blob: URLs.
+  "worker-src 'self'",
+  "child-src 'self'",
   // The feedback page embeds a Google Form.
   "frame-src 'self' https://docs.google.com",
   "object-src 'none'",
@@ -96,8 +97,15 @@ const SECURITY_HEADERS = [
   { key: 'Content-Security-Policy-Report-Only', value: CSP_REPORT_ONLY },
 ];
 
+// maplibre-gl's version, so MapView can load the module files that
+// scripts/copy-maplibre.mjs puts in public/maplibre/<version>/.
+const MAPLIBRE_VERSION = require('maplibre-gl/package.json').version;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    NEXT_PUBLIC_MAPLIBRE_VERSION: MAPLIBRE_VERSION,
+  },
   images: {
     // The app renders plain <img> tags and never imports next/image, so
     // the built-in optimizer at /_next/image served no page. Turning it
@@ -127,6 +135,17 @@ const nextConfig = {
   async headers() {
     return [
       { source: '/:path*', headers: SECURITY_HEADERS },
+      {
+        // MapLibre's module files. The folder name is the library
+        // version, so a file at a given path never changes. The explicit
+        // type matters: module scripts and workers are refused unless
+        // served as JavaScript, and nosniff is on.
+        source: '/maplibre/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'Content-Type', value: 'text/javascript; charset=utf-8' },
+        ],
+      },
       {
         source: '/embed/:path*',
         headers: [

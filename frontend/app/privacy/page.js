@@ -11,7 +11,9 @@
  * Civic, the Census geocoder, Nominatim, Google Forms, CARTO, unpkg,
  * GitHub, Stripe) and data (contact email, poll demographic answers,
  * address fields, waitlist notes, AI search text), and corrected the
- * IP retention and deletion statements. Earlier notes:
+ * IP retention and deletion statements. 2026-09-25: the map stylesheet
+ * is now bundled with the app, so unpkg no longer receives requests and
+ * was taken off the list. Earlier notes:
  *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
  *    cookies + bearer-token mirror.
  *  - ID.me verification on citizens; verification hash preserved
@@ -27,7 +29,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="September 24, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="September 25, 2026">
       <p>
         This policy describes what CivicView collects, why we collect it,
         who can see it, and how long we keep it. We've tried to write it in
@@ -149,7 +151,7 @@ export default function PrivacyPage() {
         <li><strong>Google Firebase Cloud Messaging</strong>: delivers push notifications on Android if you turn them on (see the push token above).</li>
         <li><strong>Google Forms</strong>: the feedback form is a Google Form. What you type there goes to Google and to us, under{' '}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google&apos;s privacy policy</a>.</li>
-        <li><strong>Map and file hosts</strong>: map tiles come from CARTO, the map&apos;s stylesheet from unpkg, and state boundary files from GitHub and the U.S. Census. Like any website, they see your IP address when your browser loads them.</li>
+        <li><strong>Map and file hosts</strong>: map tiles come from CARTO and state boundary files from GitHub and the U.S. Census. Like any website, they see your IP address when your browser loads them.</li>
         <li><strong>Stripe</strong>: will process payments when paid subscriptions launch. We will never see your full card number.</li>
         <li><strong>Render</strong>: our hosting provider. They have access to the underlying server + database. We chose Render because of their privacy posture; we don't make them our data processor for any analytics use.</li>
         <li><strong>Cloudflare</strong>: DNS + WAF + CDN. Sees the IP address of every visitor (that's how DNS works). Doesn't see the contents of HTTPS-encrypted application traffic.</li>

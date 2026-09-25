@@ -78,10 +78,18 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   // its on('zoom') handler updates this state in response, so the
   // slider catches up on the client without a hydration warning.
   const [zoomPct, setZoomPct] = useState(zoomToPct(3));
-  // True only when we restored a saved camera on mount — used to skip the
-  // first selectedState fitBounds so we don't yank the user off the view
-  // they left (camera persistence, request 2026-06-01).
-  const cameraRestoredRef = useRef(false);
+  // Set only when we restored a saved camera on mount: the state code that
+  // was selected when that camera was saved. The first selectedState
+  // fitBounds is skipped when it is for that same state, so we don't yank
+  // the user off the view they left (camera persistence, request
+  // 2026-06-01). A link to a different state still flies there.
+  const cameraRestoredRef = useRef(null);
+  // The selected state code, for the camera save below (a map event
+  // handler, which cannot read the current prop).
+  const selectedCodeRef = useRef(null);
+  // What the state-selection effect last handled, so a re-run caused only
+  // by the outlines cache arriving does not fit the camera a second time.
+  const selectionRunRef = useRef({ state: null, district: null, applied: false });
   // The last DELIBERATE camera target — every programmatic fit/fly and
   // every user gesture records here, and the container-resize observer
   // below re-asserts it once the map's box settles at a new real size.
@@ -103,6 +111,19 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   // next frame inside the app, same pattern as useViewport.
   const isCompact = useIsCompact();
   const [nativeShell, setNativeShell] = useState(false);
+  // Why the map could not start, if it could not: 'webgl' (MapLibre 6
+  // needs WebGL 2) or 'load' (its files did not download).
+  const [mapUnavailable, setMapUnavailable] = useState(null);
+  // mapReady: the map's 'load' ran and its sources and layers exist.
+  // statesCached: the state outlines cache (stateFeaturesByCode) is
+  // filled, or its fetch failed. The selection effects below wait for
+  // mapReady, so a state or district chosen before the map finished
+  // loading (a /?state=FL link, a quick click in the lists) is applied
+  // once it has; the state effect also tries again when the cache
+  // arrives if it could not find the outline before. Without these the
+  // effects ran once with no map and never again.
+  const [mapReady, setMapReady] = useState(false);
+  const [statesCached, setStatesCached] = useState(false);
   useEffect(() => { setNativeShell(isNativeApp()); }, []);
   const compactZoomDock = isCompact || nativeShell;
 
@@ -111,7 +132,24 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     if (!mapContainer.current || map.current) return;
 
     const initMap = async () => {
-      const maplibregl = await import('maplibre-gl');
+      // MapLibre is loaded from this site's /maplibre/<version>/ folder
+      // with a native import() rather than bundled by webpack, so the
+      // page and its tile worker share one download of the library's
+      // shared code (see scripts/copy-maplibre.mjs).
+      const base = `/maplibre/${process.env.NEXT_PUBLIC_MAPLIBRE_VERSION}/`;
+      // Start the shared file's download now rather than after the main
+      // file has been parsed; the second import below reuses it.
+      import(/* webpackIgnore: true */ `${base}maplibre-gl-shared.mjs`).catch(() => {});
+      let maplibregl;
+      try {
+        maplibregl = await import(/* webpackIgnore: true */ `${base}maplibre-gl.mjs`);
+      } catch (err) {
+        console.warn('Map library failed to load:', err);
+        setMapUnavailable('load');
+        return;
+      }
+      if (!mapContainer.current || map.current) return;
+      maplibregl.setWorkerUrl(`${base}maplibre-gl-worker.mjs`);
 
       // useIsMobile() returns 'desktop' during the first render
       // (SSR-safety) so the closure here can't trust the React-state
@@ -134,20 +172,30 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         if (saved && Number.isFinite(saved.lng) && Number.isFinite(saved.lat) && Number.isFinite(saved.zoom)) {
           initialCenter = [saved.lng, saved.lat];
           initialZoom = saved.zoom;
-          cameraRestoredRef.current = true;
+          cameraRestoredRef.current = saved.state || null;
         }
       } catch { /* private mode / bad JSON — fall back to defaults */ }
 
       intendedCameraRef.current = { kind: 'jump', center: initialCenter, zoom: initialZoom };
 
-      map.current = new maplibregl.Map({
-        container: mapContainer.current,
-        style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-        center: initialCenter,
-        zoom: initialZoom,
-        minZoom: MIN_ZOOM,
-        maxZoom: MAX_ZOOM,
-      });
+      try {
+        map.current = new maplibregl.Map({
+          container: mapContainer.current,
+          style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+          center: initialCenter,
+          zoom: initialZoom,
+          minZoom: MIN_ZOOM,
+          maxZoom: MAX_ZOOM,
+        });
+      } catch (err) {
+        // No WebGL 2 (an old browser, or graphics acceleration turned
+        // off). Say so instead of leaving a blank panel; every list and
+        // the address lookup still work without the map.
+        console.warn('Map unavailable:', err);
+        map.current = null;
+        setMapUnavailable('webgl');
+        return;
+      }
 
       map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
@@ -220,6 +268,8 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
             stateFeaturesByCode.current = cache;
           } catch (err) {
             console.warn('MapView: failed to pre-cache state features', err);
+          } finally {
+            setStatesCached(true);
           }
         })();
 
@@ -531,7 +581,9 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
             const c = map.current.getCenter();
             window.sessionStorage.setItem(
               'cl:map:camera',
-              JSON.stringify({ lng: c.lng, lat: c.lat, zoom: map.current.getZoom() }),
+              JSON.stringify({
+                lng: c.lng, lat: c.lat, zoom: map.current.getZoom(), state: selectedCodeRef.current,
+              }),
             );
           } catch { /* private mode */ }
         };
@@ -543,12 +595,16 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         // gesture-initiated events — programmatic moves skip this.
         const recordUserCamera = (e) => {
           if (!e || !e.originalEvent || !map.current) return;
+          // The user has moved on from the restored view.
+          cameraRestoredRef.current = null;
           const c = map.current.getCenter();
           intendedCameraRef.current = { kind: 'jump', center: [c.lng, c.lat], zoom: map.current.getZoom() };
         };
         map.current.on('dragend', recordUserCamera);
         map.current.on('zoomend', recordUserCamera);
         map.current.on('moveend', recordUserCamera);
+
+        setMapReady(true);
       });
     };
 
@@ -560,6 +616,8 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
         map.current = null;
         mapLoaded.current = false;
       }
+      setMapReady(false);
+      setStatesCached(false);
     };
   }, []);
 
@@ -567,10 +625,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   useEffect(() => {
     let cancelled = false;
     const apply = async () => {
-      if (!map.current) return;
-      if (!mapLoaded.current) {
-        await new Promise((resolve) => map.current.once('load', resolve));
-      }
+      if (!map.current || !mapReady) return;
       const src = map.current.getSource('state-districts');
       if (!src) return;
 
@@ -595,16 +650,13 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     };
     apply();
     return () => { cancelled = true; };
-  }, [selectedState]);
+  }, [selectedState, mapReady]);
 
   // ─── Fetch + render the single active district ─────────────────────
   useEffect(() => {
     let cancelled = false;
     const applyDistrict = async () => {
-      if (!map.current) return;
-      if (!mapLoaded.current) {
-        await new Promise((resolve) => map.current.once('load', resolve));
-      }
+      if (!map.current || !mapReady) return;
       const src = map.current.getSource('active-district');
       if (!src) return;
 
@@ -638,7 +690,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     };
     applyDistrict();
     return () => { cancelled = true; };
-  }, [activeDistrict]);
+  }, [activeDistrict, mapReady]);
 
   // ─── React to selectedState prop (when set externally, e.g. via lookup ──
   // or via the Browse-by-state grid). Two-step strategy:
@@ -653,9 +705,24 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   //     immediately (works when the state was already partially rendered),
   //     and if that fails we wait for the camera to settle on its new
   //     center via 'idle' before re-querying.
+  useEffect(() => { selectedCodeRef.current = selectedState || null; }, [selectedState]);
+
   useEffect(() => {
-    if (!map.current || !mapLoaded.current || !selectedState) return;
-    if (activeDistrict) return;
+    if (!selectedState) {
+      selectionRunRef.current = { state: null, district: null, applied: false };
+      return;
+    }
+    if (!map.current || !mapReady) return;
+    if (activeDistrict) {
+      selectionRunRef.current = { state: selectedState, district: activeDistrict, applied: false };
+      return;
+    }
+    // A re-run for the same selection (only statesCached changed) after it
+    // was already applied does nothing; one that found no outline yet
+    // tries again now that the cache is here.
+    const prevRun = selectionRunRef.current;
+    if (prevRun.applied && prevRun.state === selectedState && prevRun.district === null) return;
+    selectionRunRef.current = { state: selectedState, district: null, applied: false };
 
     // Try cache first (works for any state regardless of viewport), then
     // fall back to querySourceFeatures (works pre-cache while the upstream
@@ -695,12 +762,13 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
     }
 
     // Fly to the cached geometry — works for any state in the cache.
-    // Skip ONCE if we just restored a saved camera on mount, so we keep
-    // the user's prior view instead of snapping to the state bounds. The
-    // highlight above still applies; only the camera move is skipped.
-    if (cameraRestoredRef.current) {
-      cameraRestoredRef.current = false;
-    } else {
+    // Skip ONCE if we just restored a camera that was saved while this
+    // same state was selected, so we keep the user's prior view instead of
+    // snapping to the state bounds. The highlight above still applies;
+    // only the camera move is skipped.
+    const keepRestoredView = cameraRestoredRef.current === selectedState;
+    cameraRestoredRef.current = null;
+    if (!keepRestoredView) {
       try {
         const [sw, ne] = geometryBounds(geomFeature.geometry);
         intendedCameraRef.current = { kind: 'fit', bounds: [sw, ne], options: { padding: 60, maxZoom: 7 } };
@@ -708,6 +776,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
       } catch { /* noop */ }
     }
     setCurrentLabel(geomFeature.properties?.name || selectedState);
+    selectionRunRef.current.applied = true;
 
     // If the highlight didn't apply yet (state was outside the viewport),
     // re-query once the camera settles. 'idle' fires after the move + tile
@@ -732,7 +801,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
       };
       map.current.on('idle', onIdle);
     }
-  }, [selectedState, activeDistrict]);
+  }, [selectedState, activeDistrict, mapReady, statesCached]);
 
   // ─── Re-assert the intended camera after container resizes ─────────
   // The map's box changes size outside our control: the mobile stacked
@@ -815,6 +884,23 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
   return (
     <div className="relative flex-1">
       <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+
+      {mapUnavailable && (
+        <div
+          role="status"
+          style={{
+            position: 'absolute', inset: 0, display: 'flex',
+            alignItems: 'center', justifyContent: 'center', padding: 24,
+            textAlign: 'center', color: 'var(--cl-text-light)',
+            fontSize: 'var(--cl-text-sm)', background: 'var(--cl-bg)',
+          }}
+        >
+          {mapUnavailable === 'webgl'
+            ? 'The map needs WebGL 2, which this browser does not have turned on.'
+            : 'The map could not load. Check your connection and reload the page.'}
+          {' '}The address lookup and the officials lists work without it.
+        </div>
+      )}
 
       {/* Back-to-state view pill — top-left, only when a district is active.
           Phase 4B: tokenized chrome + Phosphor ArrowLeft glyph + accent-
