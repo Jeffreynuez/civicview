@@ -108,7 +108,6 @@ Path: `frontend/components/`. Components grouped by role:
 - `ClaimPageModal.js` — for unclaimed pages, captures rep contact info
 - `CommitteesModal.js` — browse-by-committee
 - `MyTrackedModal.js` — bills + officials + elections all-in-one
-- `TrackedBillsModal.js` — older single-purpose, mostly superseded
 
 ### Library modules (`frontend/lib/`)
 - `auth.js`, `citizenAuth.js` — pub-sub auth stores (rep + citizen)

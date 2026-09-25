@@ -10,6 +10,7 @@
  * help-build + feedback overlays where they make sense.
  */
 
+import Link from 'next/link';
 import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function ContactPage() {
@@ -86,7 +87,7 @@ export default function ContactPage() {
       </p>
       <p>
         Want to know what we're already working on? See{' '}
-        <a href="/?help-build">Help build this</a> for the public
+        <Link href="/?help-build">Help build this</Link> for the public
         roadmap.
       </p>
 

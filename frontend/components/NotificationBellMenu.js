@@ -141,7 +141,6 @@ export default function NotificationBellMenu() {
   // Refresh on open so the dropdown shows the freshest inbox.
   useEffect(() => {
     if (open) refreshNotifs();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   // Refresh immediately when the active identity changes (login,

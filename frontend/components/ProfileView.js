@@ -2517,7 +2517,9 @@ const CATEGORY_LABELS = {
 };
 
 function VotesTab({ role, member }) {
-  // VP short-circuit — no meaningful roll-call record to show.
+  // VP short-circuit: no meaningful roll-call record to show. A separate
+  // component, so the hooks in MemberVotesTab always run in the same
+  // order (lint rules-of-hooks; they used to sit after this early return).
   if (role === 'vice_president') {
     return (
       <div>
@@ -2528,7 +2530,10 @@ function VotesTab({ role, member }) {
       </div>
     );
   }
+  return <MemberVotesTab role={role} member={member} />;
+}
 
+function MemberVotesTab({ role, member }) {
   const currentYear = new Date().getFullYear();
   const startYear = parseInt(String(member.serving_since || currentYear).slice(0, 4), 10) || currentYear;
 

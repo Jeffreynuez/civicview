@@ -35,6 +35,7 @@
  * ./admin.css.
  */
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   adminWhoami,
@@ -321,7 +322,6 @@ function AdminPageInner() {
       setSuspended(data?.suspended?.items || []);
       setLockouts(data?.lockouts?.items || []);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authState]);
 
   // Re-fetch a tab when its filters change.
@@ -442,7 +442,7 @@ function AdminPageInner() {
               The moderation surface is restricted to accounts on the{' '}
               <strong>ADMIN_EMAILS</strong> allowlist.
             </p>
-            <a className="ad-access__cta" href="/">Go to CivicView home</a>
+            <Link className="ad-access__cta" href="/">Go to CivicView home</Link>
           </div>
         </div>
       </div>
@@ -467,7 +467,7 @@ function AdminPageInner() {
               {' '}isn&rsquo;t on the moderator allowlist. Ask the deploy owner to add your
               email to <strong>ADMIN_EMAILS</strong> and redeploy.
             </p>
-            <a className="ad-access__link" href="/">← Back to CivicView home</a>
+            <Link className="ad-access__link" href="/">← Back to CivicView home</Link>
           </div>
         </div>
       </div>
@@ -561,9 +561,9 @@ function AdminPageInner() {
               <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
               <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
             </HScroll>
-            <a className="ad-subnav__home" href="/">
+            <Link className="ad-subnav__home" href="/">
               <span aria-hidden="true">←</span> CivicView home
-            </a>
+            </Link>
           </div>
 
           <div className="ad-kpis">

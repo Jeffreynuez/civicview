@@ -219,7 +219,6 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
             }
             stateFeaturesByCode.current = cache;
           } catch (err) {
-            // eslint-disable-next-line no-console
             console.warn('MapView: failed to pre-cache state features', err);
           }
         })();

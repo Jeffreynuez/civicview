@@ -34,6 +34,8 @@ export default function GlobalError({ error, reset }) {
             >
               Try again
             </button>
+            {/* A full page load on purpose: the root layout itself failed. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/" style={{ color: '#2d6a4f', fontWeight: 600, textDecoration: 'none' }}>
               Reload CivicView
             </a>

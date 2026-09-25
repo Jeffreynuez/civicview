@@ -1,0 +1,40 @@
+name: Frontend lint and build
+
+# Lint (ESLint, including no-undef and the React hooks rules) and a
+# production build of the Next.js app on every pull request and on main
+# (audit F8). Vercel builds the deploy itself; this catches a broken
+# build or an undefined name before merge. It runs on every PR, not only
+# ones that touch frontend/, so it can be made a required check without
+# backend-only PRs waiting on a check that never starts.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.civicview.app
+          NEXT_TELEMETRY_DISABLED: "1"

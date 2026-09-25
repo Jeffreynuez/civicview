@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  CivicView keeps sign-in tokens in the WebView's storage inside the app's
+  data directory. Nothing in the app needs backing up (it reloads the live
+  site), so every domain is excluded from both cloud backup and
+  device-to-device transfer (audit F8). android:allowBackup="false" covers
+  Android 11 and older; on Android 12 and newer it stops cloud backup but
+  not device transfer, which these rules cover.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+    </device-transfer>
+</data-extraction-rules>

@@ -150,6 +150,12 @@ const nextConfig = {
       },
     ];
   },
+  // Lint runs as its own CI step (npm run lint, .github/workflows/
+  // frontend.yml). Keeping it out of next build means a lint-only issue
+  // cannot block a Vercel deploy, and the build does not lint twice.
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;
