@@ -32,6 +32,7 @@ import uuid
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, UploadFile, status
 from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_optional_rep
@@ -1389,10 +1390,23 @@ def vote_on_poll(
                 scope_county=citizen.county if citizen is not None else None,
             ))
 
+    # Two votes from the same identity can race (a double tap, two tabs):
+    # both find no row above, both insert, and the unique index rejects
+    # the second. That used to surface as a 500 (audit B9). Keep the row
+    # that won and point it at this choice instead.
+    try:
+        db.flush()
+    except IntegrityError:
+        db.rollback()
+        existing = q.first()
+        if existing is None:
+            raise
+        existing.option_id = option.id
+        existing.authored_verified = authored_verified_flag(citizen, rep, candidate)
+        db.flush()
     # Capture optional self-reported demographics (verified-citizen votes
     # only; mirrors the geography-scope gate). Re-query the row we just
     # wrote/updated rather than thread it through every branch above.
-    db.flush()
     if citizen is not None and poll_demographics.can_record_for(citizen):
         _vote_row = (
             db.query(PollVote)
@@ -1742,9 +1756,8 @@ def list_comments(
         elif filter_by == "my_state" and me_citizen.state:
             q = q.filter(PostComment.scope_state == me_citizen.state)
 
-    # SQL-side ordering for latest/oldest. Most-liked / most-disliked
-    # are computed in Python since we need aggregate counts over the
-    # reactions relationship.
+    # SQL-side ordering for every sort. Most-liked / most-disliked rank
+    # by a grouped count of this post's comment reactions.
     #
     # `id` is always the tiebreaker. SQLite's CURRENT_TIMESTAMP has
     # second-level resolution, so two comments posted in the same
@@ -1757,25 +1770,27 @@ def list_comments(
         q = q.order_by(PostComment.created_at.desc(), PostComment.id.desc())
     elif sort == "oldest":
         q = q.order_by(PostComment.created_at.asc(), PostComment.id.asc())
+    elif sort in ("most_liked", "most_disliked"):
+        # Rank in SQL, then limit (audit B9). The old code took the
+        # first `limit` rows in arbitrary order and sorted only those,
+        # so on a long thread the most-liked comment could be missing.
+        # Ties: newer (higher id) first, as before.
+        want = "up" if sort == "most_liked" else "down"
+        tally = (
+            db.query(
+                CommentReaction.comment_id.label("cid"),
+                func.count(CommentReaction.id).label("n"),
+            )
+            .join(PostComment, PostComment.id == CommentReaction.comment_id)
+            .filter(PostComment.post_id == post.id, CommentReaction.kind == want)
+            .group_by(CommentReaction.comment_id)
+            .subquery()
+        )
+        q = q.outerjoin(tally, tally.c.cid == PostComment.id).order_by(
+            func.coalesce(tally.c.n, 0).desc(), PostComment.id.desc(),
+        )
 
     rows = q.limit(limit).all()
-
-    if sort == "most_liked":
-        rows.sort(
-            key=lambda c: (
-                sum(1 for r in (c.reactions or []) if r.kind == "up"),
-                c.id,   # tiebreak by id — newer rows first under ties
-            ),
-            reverse=True,
-        )
-    elif sort == "most_disliked":
-        rows.sort(
-            key=lambda c: (
-                sum(1 for r in (c.reactions or []) if r.kind == "down"),
-                c.id,
-            ),
-            reverse=True,
-        )
 
     return [
         _comment_to_read(c, me_citizen, me_rep=me, me_candidate=me_candidate)

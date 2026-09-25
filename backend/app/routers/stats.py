@@ -46,7 +46,7 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -95,41 +95,32 @@ class StatsSummary(BaseModel):
 
 @router.get("/summary", response_model=StatsSummary)
 def stats_summary(db: Session = Depends(get_db)) -> StatsSummary:
-    """Return the small bundle of stats rendered on the home hero."""
-    try:
-        reps_joined = (
-            db.query(func.count(RepAccount.id))
-            .filter(RepAccount.is_active.is_(True))
-            .scalar()
-            or 0
-        )
-    except Exception:
-        logger.exception("stats_summary: reps_joined count failed; returning 0")
-        reps_joined = 0
+    """Return the small bundle of stats rendered on the home hero.
 
-    try:
-        verified_citizens = (
-            db.query(func.count(CitizenAccount.id))
-            .filter(CitizenAccount.verified.is_(True))
-            .scalar()
-            or 0
-        )
-    except Exception:
-        logger.exception("stats_summary: verified_citizens count failed; returning 0")
-        verified_citizens = 0
-
-    try:
-        demo_accounts_created = (
-            db.query(func.count(CitizenAccount.id))
-            .filter(CitizenAccount.verified.is_(False))
-            .scalar()
-            or 0
-        )
-    except Exception:
-        logger.exception(
-            "stats_summary: demo_accounts_created count failed; returning 0"
-        )
-        demo_accounts_created = 0
+    If any count fails the endpoint answers 503 instead of a 0 (audit
+    B9). A 0 in a 200 response was cached by the browser and by
+    Cloudflare for up to ten minutes and shown as a real number; a 503
+    is never cached (main.py only adds cache headers to a 200), and
+    the home page shows a dash for the counts it could not load.
+    """
+    failures: list[str] = []
+    reps_joined = _count(
+        db,
+        lambda: db.query(func.count(RepAccount.id)).filter(RepAccount.is_active.is_(True)).scalar(),
+        "reps_joined", failures,
+    )
+    verified_citizens = _count(
+        db,
+        lambda: db.query(func.count(CitizenAccount.id)).filter(CitizenAccount.verified.is_(True)).scalar(),
+        "verified_citizens", failures,
+    )
+    demo_accounts_created = _count(
+        db,
+        lambda: db.query(func.count(CitizenAccount.id)).filter(CitizenAccount.verified.is_(False)).scalar(),
+        "demo_accounts_created", failures,
+    )
+    if failures:
+        raise HTTPException(status_code=503, detail=_UNAVAILABLE)
 
     return StatsSummary(
         senators=100,
@@ -159,7 +150,10 @@ def stats_summary(db: Session = Depends(get_db)) -> StatsSummary:
 #     fabricated, nothing estimated.
 
 STATS_DETAIL_TTL = 60.0  # seconds
-_detail_cache: dict = {"at": 0.0, "payload": None}
+# After a failed build, answer from the last good payload (or 503) for
+# this long before running the twenty-odd counts again.
+STATS_DETAIL_RETRY_AFTER = 15.0  # seconds
+_detail_cache: dict = {"at": 0.0, "payload": None, "failed_at": None}
 
 
 class WeekBucket(BaseModel):
@@ -213,14 +207,18 @@ class StatsDetail(BaseModel):
     generated_at: str
 
 
-def _count(db: Session, query_fn, label: str) -> int:
-    """COUNT() with the same belt-and-suspenders error handling the
-    /summary endpoint uses — a single failed aggregate degrades to 0
-    instead of failing the whole payload."""
+_UNAVAILABLE = "Stats are temporarily unavailable. Try again in a moment."
+
+
+def _count(db: Session, query_fn, label: str, failures: list) -> int:
+    """Run one COUNT(). On failure, log it, note `label` in `failures`
+    and return 0; the endpoint then answers 503 rather than publish (and
+    let caches keep) a zero it never measured."""
     try:
         return int(query_fn() or 0)
     except Exception:
-        logger.exception("stats_detail: %s count failed; returning 0", label)
+        logger.exception("stats: %s count failed", label)
+        failures.append(label)
         return 0
 
 
@@ -249,15 +247,22 @@ def _week_buckets(rows, weeks: int = 8) -> list[WeekBucket]:
 @router.get("/detail", response_model=StatsDetail)
 def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
     """Return the expanded stats bundle for the /stats page. Cached
-    in-process for STATS_DETAIL_TTL seconds."""
+    in-process for STATS_DETAIL_TTL seconds. If any query fails, the
+    new result is thrown away: it answers with the last good payload
+    (its generated_at shows its age) or 503, never zeros (audit B9),
+    and waits STATS_DETAIL_RETRY_AFTER seconds before trying again."""
     import time
     from datetime import datetime, timedelta
 
     now = time.monotonic()
     if _detail_cache["payload"] is not None and now - _detail_cache["at"] < STATS_DETAIL_TTL:
         return _detail_cache["payload"]
+    failed_at = _detail_cache.get("failed_at")
+    if failed_at is not None and now - failed_at < STATS_DETAIL_RETRY_AFTER:
+        return _detail_fallback()
 
-    c = lambda q, label: _count(db, q, label)  # noqa: E731
+    failures: list[str] = []
+    c = lambda q, label: _count(db, q, label, failures)  # noqa: E731
 
     citizens_total = c(lambda: db.query(func.count(CitizenAccount.id)).scalar(), "citizens_total")
     citizens_verified = c(
@@ -291,6 +296,7 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         )
     except Exception:
         logger.exception("stats_detail: signup trend query failed")
+        failures.append("signup trend")
         signup_rows = []
     try:
         vote_rows = (
@@ -300,6 +306,7 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         )
     except Exception:
         logger.exception("stats_detail: vote trend query failed")
+        failures.append("vote trend")
         vote_rows = []
 
     try:
@@ -312,6 +319,7 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         )
     except Exception:
         logger.exception("stats_detail: by-state query failed")
+        failures.append("by-state")
         state_rows = []
 
     payload = StatsDetail(
@@ -347,7 +355,19 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         ],
         generated_at=datetime.utcnow().isoformat() + "Z",
     )
+    if failures:
+        _detail_cache["failed_at"] = now
+        return _detail_fallback()
     _detail_cache["at"] = now
     _detail_cache["payload"] = payload
+    _detail_cache["failed_at"] = None
     return payload
+
+
+def _detail_fallback():
+    """After a failed build: the last good payload, which carries its own
+    generated_at, or 503 when there is none. Never a payload of zeros."""
+    if _detail_cache["payload"] is not None:
+        return _detail_cache["payload"]
+    raise HTTPException(status_code=503, detail=_UNAVAILABLE)
 

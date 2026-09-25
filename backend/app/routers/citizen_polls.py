@@ -56,6 +56,7 @@ import logging
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from app.auth import get_optional_rep
@@ -602,9 +603,22 @@ def vote_on_citizen_poll(
             scope_county=citizen.county if citizen is not None else None,
         ))
 
+    # Two votes from the same identity can race (a double tap, two tabs):
+    # both find no row above, both insert, and the unique index rejects
+    # the second. That used to surface as a 500 (audit B9). Keep the row
+    # that won and point it at this choice instead.
+    try:
+        db.flush()
+    except IntegrityError:
+        db.rollback()
+        existing = q.first()
+        if existing is None:
+            raise
+        existing.option_id = option.id
+        existing.authored_verified = authored_verified_flag(citizen, rep, candidate)
+        db.flush()
     # Capture optional self-reported demographics (verified-citizen votes
     # only; mirrors the geography-scope gate).
-    db.flush()
     if citizen is not None and poll_demographics.can_record_for(citizen):
         _vote_row = (
             db.query(PollVote)
