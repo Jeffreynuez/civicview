@@ -86,8 +86,48 @@ export async function fetchAllStateData(stateCode) {
 // ─── Congressional district geometry (Census TIGERweb) ───────────────
 // Returns a GeoJSON FeatureCollection for the given state FIPS + district.
 // Free, no API key. CORS-enabled. Cached in-memory for the session.
-const TIGERWEB_CD_URL =
-  'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer/0/query';
+//
+// The map shows the districts that sitting members represent: the 119th
+// Congress's. TIGERweb numbers its layers by position, and the positions
+// move when the Census Bureau adds a vintage. In September 2026 layer 0,
+// which this used to query, became the 120th Congress's districts (the
+// maps for the 2026 elections, field CD120), so every query for CD119
+// failed and the map lost its districts. The layer is now found by name
+// from the service's own layer list, with the current position as a
+// fallback. When the 120th Congress is seated (January 2027), change
+// CONGRESS_DISTRICTS_LAYER to '120th Congressional Districts' and the
+// CD119 field names below to CD120.
+const TIGERWEB_LEGISLATIVE =
+  'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer';
+const CONGRESS_DISTRICTS_LAYER = '119th Congressional Districts';
+const CONGRESS_DISTRICTS_LAYER_FALLBACK = 4;
+let _cdLayerPromise = null;
+
+function districtsQueryUrl() {
+  if (!_cdLayerPromise) {
+    _cdLayerPromise = (async () => {
+      try {
+        const resp = await fetch(`${TIGERWEB_LEGISLATIVE}?f=json`);
+        if (resp.ok) {
+          const info = await resp.json();
+          // The first match is the newest vintage (the list runs newest
+          // first); group layers have sublayers and are skipped.
+          const layer = (info?.layers || []).find(
+            (l) => l?.name === CONGRESS_DISTRICTS_LAYER && !(l.subLayerIds && l.subLayerIds.length),
+          );
+          if (layer && Number.isInteger(layer.id)) return `${TIGERWEB_LEGISLATIVE}/${layer.id}/query`;
+        }
+      } catch (e) {
+        console.warn('TIGERweb layer list failed; using the default layer:', e);
+      }
+      // Do not keep a failed lookup: try the list again next time.
+      _cdLayerPromise = null;
+      return `${TIGERWEB_LEGISLATIVE}/${CONGRESS_DISTRICTS_LAYER_FALLBACK}/query`;
+    })();
+  }
+  return _cdLayerPromise;
+}
+
 const _districtCache = new Map();
 
 export async function fetchDistrictGeometry(stateFips, district) {
@@ -119,7 +159,7 @@ export async function fetchDistrictGeometry(stateFips, district) {
       geometryPrecision: '4',
     });
     try {
-      const resp = await fetch(`${TIGERWEB_CD_URL}?${params}`);
+      const resp = await fetch(`${await districtsQueryUrl()}?${params}`);
       if (!resp.ok) continue;
       const gj = await resp.json();
       if (gj?.features?.length) {
@@ -153,7 +193,7 @@ export async function fetchDistrictsForState(stateFips) {
     maxAllowableOffset: '0.005',
   });
   try {
-    const resp = await fetch(`${TIGERWEB_CD_URL}?${params}`);
+    const resp = await fetch(`${await districtsQueryUrl()}?${params}`);
     if (!resp.ok) return null;
     const gj = await resp.json();
     if (gj?.features?.length) {
