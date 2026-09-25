@@ -168,9 +168,9 @@
 
 /* party badge */
 .cv-pb { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 18px; border-radius: var(--cl-radius-xs); font-size: 0.62rem; font-weight: 800; flex-shrink: 0; }
-.cv-pb--r { background: var(--cl-republican-soft); color: var(--cl-republican); }
-.cv-pb--d { background: var(--cl-democrat-soft); color: var(--cl-democrat); }
-.cv-pb--i { background: var(--cl-independent-soft); color: var(--cl-independent); }
+.cv-pb--r { background: var(--cl-republican-soft); color: var(--cl-republican-text); }
+.cv-pb--d { background: var(--cl-democrat-soft); color: var(--cl-democrat-text); }
+.cv-pb--i { background: var(--cl-independent-soft); color: var(--cl-independent-text); }
 
 /* mini-card position pill */
 .cv-pospill { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: var(--cl-radius-pill); font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; }

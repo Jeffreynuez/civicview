@@ -334,7 +334,6 @@ export default function AccountDeletePage() {
                 fontFamily: 'var(--cl-font-sans)',
                 background: 'white',
                 color: 'var(--cl-text)',
-                outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
@@ -359,7 +358,6 @@ export default function AccountDeletePage() {
                     fontFamily: 'var(--cl-font-sans)',
                     background: 'white',
                     color: 'var(--cl-text)',
-                    outline: 'none',
                     boxSizing: 'border-box',
                   }}
                 />

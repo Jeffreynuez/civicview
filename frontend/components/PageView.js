@@ -325,7 +325,6 @@ export default function PageView({
   // like" badges would all be wrong.
   useEffect(() => {
     loadPage();
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [loadPage, me?.id, citizen?.id, candidate?.id]);
 
   // ── Optimistic mutations keep the feed snappy ─────────────────────
@@ -635,7 +634,6 @@ export default function PageView({
                 minWidth: 0, flex: isCompact ? '0 0 auto' : 1,
               }}>
               {photoUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={photoUrl}
                   alt={ownerName}

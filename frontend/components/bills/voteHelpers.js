@@ -16,10 +16,12 @@ export function partyWord(p) {
     : 'Unknown';
 }
 
-export function partyHueVar(p) {
-  return p === 'R' ? 'var(--cl-republican)'
-    : p === 'D' ? 'var(--cl-democrat)'
-    : p === 'I' ? 'var(--cl-independent)'
+// Party color for text: the darker shades that stay 4.5:1 or better on
+// white and on the party tints (audit F6).
+export function partyTextVar(p) {
+  return p === 'R' ? 'var(--cl-republican-text)'
+    : p === 'D' ? 'var(--cl-democrat-text)'
+    : p === 'I' ? 'var(--cl-independent-text)'
     : 'var(--cl-text-muted)';
 }
 

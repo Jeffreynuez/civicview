@@ -75,6 +75,18 @@ export const PARTY_COLORS = {
   I: '#6c757d', // Independent - Gray
 };
 
+// Party colors for TEXT: letters and labels on the soft party tints and
+// on white. The brand colors above (and in PersonCard and elsewhere) are
+// too light for small text: R 3.55:1 and D 3.95:1 on their tints, under
+// the 4.5:1 WCAG minimum. Same hue, darker, about 5.5:1 for all three
+// parties alike, so none reads stronger than another (audit F6). The
+// brand colors stay for fills, borders and dots.
+export const PARTY_TEXT_COLORS = {
+  R: '#ba1824',
+  D: '#38637f',
+  I: '#6c3ec1',
+};
+
 export const PARTY_NAMES = {
   R: 'Republican',
   D: 'Democrat',

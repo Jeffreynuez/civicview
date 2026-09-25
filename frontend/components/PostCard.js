@@ -3,7 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import PollCard from './PollCard';
 import {
   deletePost,
@@ -265,19 +266,15 @@ export default function PostCard({
       setPostEditErr(error);
       return;
     }
-    // PageView doesn't pass an onMutated handler today, so capture the
+    // PageView doesn't pass an onMutated handler, so capture the
     // updated body + edited_at locally. The textarea closes, the body
     // re-renders from the override, and on the next page reload the
-    // backend ships the new body — both paths converge to the same
-    // visible state. Still bubble onMutated if the parent ever DOES
-    // wire one (defensive future-proofing, no harm if it stays
-    // undefined).
+    // backend ships the new body; both paths converge to the same
+    // visible state. (A call to an `onMutated` that was never a prop of
+    // this component was removed; lint flagged it as undefined.)
     setPostBodyOverride(data?.body ?? draft);
     setPostEditedAtOverride(data?.edited_at ?? new Date().toISOString());
     setEditingPostBody(null);
-    if (typeof onMutated === 'function') {
-      onMutated({ kind: 'post-edited', post: data });
-    }
   };
 
   // Post-level Report. Same shape as the comment-level one. Hidden
@@ -851,6 +848,8 @@ function ReactionButton({ kind, count, active, disabled, onClick, title }) {
 // full-size view; click the backdrop or press Esc to dismiss.
 function PostImageGallery({ images }) {
   const [openIndex, setOpenIndex] = useState(null);
+  const lightboxRef = useRef(null);
+  useFocusTrap(lightboxRef, openIndex !== null);
 
   useEffect(() => {
     if (openIndex === null) return undefined;
@@ -918,6 +917,7 @@ function PostImageGallery({ images }) {
 
       {openIndex !== null && (
         <div
+          ref={lightboxRef}
           role="dialog"
           aria-modal="true"
           onClick={() => setOpenIndex(null)}

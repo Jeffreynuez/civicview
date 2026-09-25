@@ -29,7 +29,8 @@
  *                   identity that's being enforced
  */
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import TwoFactorSection from './TwoFactorSection';
 
 const KIND_LABEL = {
@@ -44,6 +45,9 @@ export default function Force2FAOverlay({
   onComplete,
   onSignOut,
 }) {
+  // Keep Tab inside this dialog; give focus back when it closes (audit F6).
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, true);
   // Lock the underlying page from scrolling while the overlay is up.
   // The overlay has its own scroll container so the user can still
   // reach the enrollment buttons on short viewports.
@@ -55,6 +59,7 @@ export default function Force2FAOverlay({
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby="force-2fa-title"

@@ -7,17 +7,19 @@
   "license": "UNLICENSED",
   "copyright": "Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.",
   "scripts": {
-    "dev": "next dev",
+    "postinstall": "node scripts/copy-maplibre.mjs",
+    "dev": "node scripts/copy-maplibre.mjs && next dev",
+    "prebuild": "node scripts/copy-maplibre.mjs",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint app components lib scripts"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.1",
     "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.4.1",
     "@capacitor/push-notifications": "^8.0.0",
-    "esbuild": "^0.28.0",
-    "maplibre-gl": "^4.1.1",
+    "maplibre-gl": "^6.11.2",
     "next": "^15.5.26",
     "qrcode": "^1.5.4",
     "react": "^18.2.0",
@@ -27,6 +29,10 @@
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.4.1",
     "autoprefixer": "^10.4.17",
+    "esbuild": "^0.28.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.26",
+    "globals": "^16.5.0",
     "postcss": "^8.5.28",
     "tailwindcss": "^3.4.1",
     "typescript": "^6.0.3"

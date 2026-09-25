@@ -27,7 +27,8 @@
  * citizen-polls UX in one place — easy to lift out later if we want
  * to render the feed on the home page or a profile.
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import {
   fetchCitizenPolls,
   createCitizenPoll,
@@ -1248,6 +1249,8 @@ function CreateCitizenPollModal({ officialId, onClose, onCreated }) {
 // Modal shell (centered, scrim, close on backdrop / Esc)
 // ─────────────────────────────────────────────────────────────────────
 function ModalShell({ title, onClose, children, wide = false }) {
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, true);
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose?.(); };
     window.addEventListener('keydown', onKey);
@@ -1255,6 +1258,7 @@ function ModalShell({ title, onClose, children, wide = false }) {
   }, [onClose]);
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       onClick={(e) => { if (e.target === e.currentTarget) onClose?.(); }}

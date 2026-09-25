@@ -27,7 +27,8 @@
  *                       describing what's being appealed (for the
  *                       modal's title + preview block)
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import { submitAppeal } from '@/lib/pagesApi';
 
 const KIND_LABEL = {
@@ -55,6 +56,9 @@ export default function AppealModal({ open, onClose, onSuccess, target }) {
     }
   }, [open]);
 
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, Boolean(open && target));
+
   if (!open || !target) return null;
 
   const charCount = rationale.length;
@@ -80,7 +84,9 @@ export default function AppealModal({ open, onClose, onSuccess, target }) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Appeal moderation decision"
       onClick={onClose}
       style={{

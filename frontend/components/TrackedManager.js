@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useMemo, useState } from 'react';
+import { activateOnKey } from '@/lib/a11y';
 import { fetchBillSnapshot } from '@/lib/api';
 import {
   untrackBill, updateTrackedBill, useTrackedBills, setBillPrefs,
@@ -480,7 +481,7 @@ function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, s
       onClick={clickable ? () => onCardClick(official) : undefined}
       role={clickable ? 'button' : undefined}
       tabIndex={clickable ? 0 : undefined}
-      onKeyDown={clickable ? (e) => { if (e.key === 'Enter') onCardClick(official); } : undefined}
+      onKeyDown={clickable ? activateOnKey(() => onCardClick(official)) : undefined}
       style={{
         padding: '10px 12px', borderRadius: '10px', marginBottom: '6px',
         background: 'var(--cl-bg)', border: '1px solid transparent',

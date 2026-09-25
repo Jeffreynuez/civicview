@@ -12,6 +12,7 @@ import {
 import FollowButton from './FollowButton';
 import { LoadError } from './ui';
 import CompareButton from './CompareButton';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
 /**
  * Local officials tab with a three-way sub-nav:
@@ -1029,7 +1030,7 @@ function SearchInput({ value, onChange, placeholder }) {
         style={{
           width: '100%', padding: '8px 10px 8px 32px', fontSize: '0.84rem',
           background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
-          outline: 'none', color: 'var(--cl-text)',
+          color: 'var(--cl-text)',
         }}
       />
     </div>
@@ -1076,7 +1077,7 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
 }
 
 function PartyPill({ party }) {
-  const color = party === 'R' ? '#e63946' : party === 'D' ? '#457b9d' : '#6c3ec1';
+  const color = PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I;
   const bg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff';
   return (
     <span style={{
@@ -1119,8 +1120,8 @@ function OfficialCard({
   selectionMethod, selectionDetail, normallyElected,
   followTarget, onNotify, onCompareToggle, compareIds,
 }) {
-  const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
-  const partyColor = party ? (PARTY_COLORS[party] || '#666') : null;
+  // Initials sit on the party tint, so they use the text shades (F6).
+  const partyColor = party ? (PARTY_TEXT_COLORS[party] || '#666') : null;
   const partyBg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : party === 'I' ? '#f0eaff' : '#eef';
   const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);
   const isComparing = Boolean(compareIds && memberCmpId && compareIds.has(memberCmpId));

@@ -41,6 +41,12 @@
   --cl-democrat-soft:     #e3f0f7;
   --cl-independent:       #6c3ec1;
   --cl-independent-soft:  #f0eaff;
+  /* Text on the soft tints (and on white): the brand colors above fall
+     under 4.5:1 for small text. Same hue, about 5.5:1 for each party
+     alike (audit F6). */
+  --cl-republican-text:   #ba1824;
+  --cl-democrat-text:     #38637f;
+  --cl-independent-text:  #6c3ec1;
 
   /* Reaction colors (used in PostCard / Dashboard) */
   --cl-up:        #1877f2;

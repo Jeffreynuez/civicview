@@ -9,8 +9,8 @@ import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import PageButton from './PageButton';
 import OnBallotBadge from './OnBallotBadge';
+import { PARTY_TEXT_COLORS } from '../lib/constants';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
 // Short-form tag text. The full party name is kept on the `title`/aria-label
 // so screen readers + hover tooltips still get the unabbreviated word.
@@ -108,9 +108,20 @@ export default function PersonCard({
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--cl-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {/* The name is a real button so the row opens from the keyboard
+            (Tab, then Enter or Space); its click bubbles to the row's
+            onClick like a mouse click anywhere on the row (audit F6). */}
+        <button
+          type="button"
+          style={{
+            display: 'block', width: '100%', padding: 0, margin: 0, border: 0,
+            background: 'none', font: 'inherit', textAlign: 'left', cursor: 'inherit',
+            fontSize: '0.95rem', fontWeight: 600, color: 'var(--cl-text)',
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}
+        >
           {member.name}
-        </div>
+        </button>
         <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '1px' }}>
           {member.title || member.role || ''}
         </div>
@@ -129,7 +140,7 @@ export default function PersonCard({
             minWidth: '22px', padding: '2px 7px', borderRadius: '12px',
             fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.3px',
             background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_COLORS[party],
+            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
           }}
         >
           {PARTY_LETTERS[party] || party}

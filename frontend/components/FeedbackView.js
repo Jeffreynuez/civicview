@@ -38,7 +38,8 @@
  *   onClose() — collapse the overlay
  *   compactNavbarProps — same chrome wires PageView + Help-build use
  */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import Navbar from './Navbar';
 
 // Google Form embed URL. The `embedded=true` query param keeps the
@@ -52,6 +53,9 @@ const FEEDBACK_FORM_URL =
 const FEEDBACK_FORM_LIVE = true;
 
 export default function FeedbackView({ onClose, compactNavbarProps = {} }) {
+  // Keep Tab inside this dialog; give focus back when it closes (audit F6).
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, true);
   // Lock background scroll while the overlay is up — same pattern as
   // PageView and HelpBuildThisView.
   useEffect(() => {
@@ -63,7 +67,9 @@ export default function FeedbackView({ onClose, compactNavbarProps = {} }) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Send feedback"
       style={{
         position: 'fixed',

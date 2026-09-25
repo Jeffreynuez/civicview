@@ -383,7 +383,7 @@ const NAVBAR_H = 56;
 
 function SidePanelDock({ segment, completed, onJump, onClose }) {
   return (
-    <aside className="cvtour-panel" aria-label="App tour">
+    <aside className="cvtour-panel" aria-label="App tour" data-focus-trap-allow>
       <div className="cvtour-panel__head">
         <span className="cvtour-panel__brand">App tour</span>
         <button
@@ -498,11 +498,14 @@ function StepCallout({ rect, segment, step, stepIndex, flatStep, isFirstStep, is
     <div
       ref={boxRef}
       className="cvtour-callout"
+      data-focus-trap-allow
       role="region"
       aria-label="Tour step"
+      // Transparent (not visibility: hidden) while it measures, so the
+      // Next button keeps keyboard focus from one step to the next.
       style={pos
-        ? { top: pos.top, left: pos.left, visibility: 'visible' }
-        : { top: NAVBAR_H + 10, left: PANEL_W + 10, visibility: 'hidden' }}
+        ? { top: pos.top, left: pos.left, opacity: 1 }
+        : { top: NAVBAR_H + 10, left: PANEL_W + 10, opacity: 0, pointerEvents: 'none' }}
     >
       <StepBody
         segment={segment}
@@ -530,7 +533,7 @@ function BottomSheet(props) {
     }
   }, [segment.id]);
   return (
-    <section className="cvtour-sheet" aria-label="App tour">
+    <section className="cvtour-sheet" aria-label="App tour" data-focus-trap-allow>
       <div className="cvtour-sheet__head">
         <span className="cvtour-panel__brand">App tour</span>
         <button

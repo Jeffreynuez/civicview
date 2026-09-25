@@ -3,7 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import {
   fetchMemberBills,
   fetchMemberDetail,
@@ -13,6 +14,7 @@ import {
 } from '@/lib/api';
 import { EmptyState, LoadError, Newspaper } from './ui';
 import { useIsMobile } from '@/lib/useViewport';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 import HScroll from './HScroll';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
@@ -182,6 +184,9 @@ export default function CompareView({ open, items, onClose }) {
     return rows;
   }, [items, data]);
 
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, open);
+
   if (!open) return null;
 
   const officialCount = items.filter((i) => i._kind !== 'candidate').length;
@@ -204,6 +209,7 @@ export default function CompareView({ open, items, onClose }) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Compare"
@@ -556,7 +562,7 @@ function MemberColumn({ member, state, loading }) {
         {stats && stats.party_line_pct != null && (
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: partyColor }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: PARTY_TEXT_COLORS[member.party] || PARTY_TEXT_COLORS.I }}>
                 {stats.party_line_pct}%
               </div>
               <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
@@ -735,7 +741,7 @@ function CandidateColumn({ candidate, loading }) {
           style={{
             width: '48px', height: '48px', borderRadius: '50%',
             background: PARTY_BG[party] || '#eef',
-            color: partyColor,
+            color: PARTY_TEXT_COLORS[party] || '#666',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 700, fontSize: '1rem', flexShrink: 0,
           }}

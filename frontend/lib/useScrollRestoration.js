@@ -155,6 +155,5 @@ export default function useScrollRestoration(ref, baseKey, opts = {}) {
       window.removeEventListener('pagehide', persist);
       document.removeEventListener('visibilitychange', persist);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, baseKey, enabled]);
 }

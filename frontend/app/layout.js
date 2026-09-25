@@ -2,6 +2,10 @@
 // Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
+// MapLibre's stylesheet, bundled with the app instead of loaded from
+// unpkg. Imported before globals.css so the app's overrides (bigger
+// zoom buttons on phones) still win.
+import 'maplibre-gl/dist/maplibre-gl.css';
 import './globals.css';
 import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from '@/lib/seo';
 import Force2FAGate from '@/components/Force2FAGate';
@@ -118,7 +122,6 @@ export default function RootLayout({ children }) {
             second hand-written <meta name="viewport"> used to sit here
             as a fallback; Next 15 emits the export reliably, and two
             viewport tags on one page leave the browser to pick one. */}
-        <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css" />
         {/* Theme boot script previously lived here for the in-app
             dark-mode toggle. Removed in favor of letting the OS handle
             dark mode at the chrome level — many components hardcode

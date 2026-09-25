@@ -27,7 +27,7 @@
  *   _clearBills()                           empty the cache
  *
  * Cache shape is the same as the prior localStorage shape, so the
- * existing call sites (TrackedBillsModal, ProfileView, MyTrackedModal,
+ * existing call sites (ProfileView, MyTrackedModal,
  * the navbar badge) don't need adjustments beyond the import surface.
  *
  * Bill key format: "{congress}-{type}-{number}" (lowercased),

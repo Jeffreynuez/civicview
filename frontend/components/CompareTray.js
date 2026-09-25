@@ -6,8 +6,8 @@
 import { useState } from 'react';
 import HScroll from './HScroll';
 import { useIsMobile } from '@/lib/useViewport';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
 
 /**
@@ -147,7 +147,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
                   style={{
                     width: '28px', height: '28px', borderRadius: '50%',
                     background: PARTY_BG[party] || '#eef',
-                    color: PARTY_COLORS[party] || '#666',
+                    color: PARTY_TEXT_COLORS[party] || '#666',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontWeight: 700, fontSize: '0.7rem', flexShrink: 0,
                   }}
@@ -178,7 +178,7 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
                 style={{
                   padding: '1px 6px', borderRadius: '8px', fontSize: '0.65rem', fontWeight: 700,
                   background: PARTY_BG[party] || '#f0eaff',
-                  color: PARTY_COLORS[party] || PARTY_COLORS.I,
+                  color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
                 }}
               >
                 {party}

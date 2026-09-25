@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { activateOnKey } from '@/lib/a11y';
 import { useIsCompact } from '@/lib/useViewport';
 import {
   Avatar,
@@ -561,6 +562,7 @@ function UpcomingRow({ item }) {
     <div
       role={item.onClick ? 'button' : undefined}
       onClick={item.onClick}
+      onKeyDown={item.onClick ? activateOnKey(item.onClick) : undefined}
       tabIndex={item.onClick ? 0 : undefined}
       style={{
         background: 'var(--cl-card)',
@@ -719,6 +721,7 @@ function ActivityRow({ item }) {
     <div
       role={item.onClick ? 'button' : undefined}
       onClick={item.onClick}
+      onKeyDown={item.onClick ? activateOnKey(item.onClick) : undefined}
       tabIndex={item.onClick ? 0 : undefined}
       style={{
         background: 'var(--cl-card)',
@@ -2355,7 +2358,7 @@ function OfficialSpotlight({ eyebrow, kind, official, onManage, onOpen }) {
             role={onOpen ? 'button' : undefined}
             onClick={open}
             tabIndex={onOpen ? 0 : undefined}
-            onKeyDown={onOpen ? (e) => { if (e.key === 'Enter') open(); } : undefined}
+            onKeyDown={onOpen ? activateOnKey(open) : undefined}
             style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: onOpen ? 'pointer' : 'default' }}
           >
             <Avatar name={official.name} party={partyKey || undefined} size="md" />
@@ -2394,6 +2397,7 @@ function SpotlightUpdate({ text, whenIso, onClick }) {
     <div
       role={onClick ? 'button' : undefined}
       onClick={onClick}
+      onKeyDown={onClick ? activateOnKey(onClick) : undefined}
       tabIndex={onClick ? 0 : undefined}
       style={{
         display: 'flex', gap: 10, padding: '8px 10px',

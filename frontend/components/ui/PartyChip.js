@@ -40,9 +40,12 @@ const PARTY_KEY = {
 };
 
 const PARTY_COLORS = {
-  D: { solid: 'var(--cl-democrat)', soft: 'var(--cl-democrat-soft)' },
-  R: { solid: 'var(--cl-republican)', soft: 'var(--cl-republican-soft)' },
-  I: { solid: 'var(--cl-independent)', soft: 'var(--cl-independent-soft)' },
+  // `text` is the darker shade that keeps small type at 4.5:1 or more,
+  // used for the letters on the soft chip and as the fill behind white
+  // letters on the solid chip (audit F6).
+  D: { solid: 'var(--cl-democrat)', soft: 'var(--cl-democrat-soft)', text: 'var(--cl-democrat-text)' },
+  R: { solid: 'var(--cl-republican)', soft: 'var(--cl-republican-soft)', text: 'var(--cl-republican-text)' },
+  I: { solid: 'var(--cl-independent)', soft: 'var(--cl-independent-soft)', text: 'var(--cl-independent-text)' },
   // Minor-party / no-party chips intentionally use neutral surface
   // tokens — no party-coded color — so they sit outside the R/D/I
   // visual hierarchy without inventing new brand colors.
@@ -104,14 +107,14 @@ export default function PartyChip({
   } else if (variant === 'soft') {
     visual = {
       background: colors.soft,
-      color: colors.solid,
+      color: colors.text,
       border: `1px solid ${colors.solid}`,
     };
   } else {
     visual = {
-      background: colors.solid,
+      background: colors.text,
       color: 'var(--cl-text-on-dark)',
-      border: `1px solid ${colors.solid}`,
+      border: `1px solid ${colors.text}`,
     };
   }
 

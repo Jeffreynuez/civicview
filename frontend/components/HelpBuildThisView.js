@@ -26,7 +26,8 @@
  *   compactNavbarProps — the slim Navbar shown at the top of the
  *                       overlay (forwarded to <Navbar compact ... />)
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import Navbar from './Navbar';
 import './HelpBuildThisView.css';
 
@@ -265,6 +266,9 @@ const LARGEST_PENDING_SUB = 'unlocks all-50-states bill data';
 const fmt$ = (n) => '$' + n.toLocaleString('en-US');
 
 export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) {
+  // Keep Tab inside this dialog; give focus back when it closes (audit F6).
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, true);
   // Lock background scroll while the overlay is up — same pattern as
   // PageView. Prevents iOS rubber-band from exposing the map behind.
   useEffect(() => {
@@ -286,7 +290,9 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Help build CivicView"
       style={{
         position: 'fixed',

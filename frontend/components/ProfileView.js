@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useRef, useState } from 'react';
+import { activateOnKey } from '@/lib/a11y';
 import { Spinner, LoadError } from './ui';
 import useScrollRestoration from '../lib/useScrollRestoration';
 import {
@@ -42,6 +43,7 @@ import TabStrip from './TabStrip';
 import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { FileLink } from './ui';
 import PhotoCredit from './PhotoCredit';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -604,7 +606,7 @@ export default function ProfileView({
           onClick={onBack}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onBack?.(); }}
+          onKeyDown={activateOnKey(onBack)}
           style={{
             flex: 1,
             display: 'flex', alignItems: 'center', gap: '6px',
@@ -830,7 +832,7 @@ export default function ProfileView({
             display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
             fontSize: '0.7rem', fontWeight: 700,
             background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_COLORS[party],
+            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
             flexShrink: 0,
           }}>
             {party}
@@ -865,7 +867,7 @@ export default function ProfileView({
           <span style={{
             display: 'inline-block', padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
             background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_COLORS[party], marginRight: '6px',
+            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I, marginRight: '6px',
           }}>
             {partyFull}
           </span>
@@ -942,7 +944,7 @@ export default function ProfileView({
                 fontWeight: 600,
                 cursor: 'pointer',
                 background: isComparing ? `${PARTY_COLORS[party]}14` : 'white',
-                color: isComparing ? PARTY_COLORS[party] : 'var(--cl-text)',
+                color: isComparing ? (PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I) : 'var(--cl-text)',
                 border: isComparing ? `1.5px solid ${PARTY_COLORS[party]}` : '1px solid var(--cl-border)',
                 minHeight: isMobile ? 44 : undefined,
               }}
@@ -1229,6 +1231,7 @@ function OverviewTab({ member, role, statsState, onRetryStats }) {
 
 function StatsBlock({ party, stats, loading }) {
   const partyColor = PARTY_COLORS[party] || PARTY_COLORS.I;
+  const partyText = PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I;
   const pct = stats?.party_line_pct;
   const analyzed = stats?.votes_analyzed || 0;
   const issues = stats?.top_issues || [];
@@ -1252,7 +1255,7 @@ function StatsBlock({ party, stats, loading }) {
             Party-line voting
           </div>
           {typeof pct === 'number' && (
-            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: partyColor }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: partyText }}>
               {pct}%
             </div>
           )}
@@ -2517,7 +2520,9 @@ const CATEGORY_LABELS = {
 };
 
 function VotesTab({ role, member }) {
-  // VP short-circuit — no meaningful roll-call record to show.
+  // VP short-circuit: no meaningful roll-call record to show. A separate
+  // component, so the hooks in MemberVotesTab always run in the same
+  // order (lint rules-of-hooks; they used to sit after this early return).
   if (role === 'vice_president') {
     return (
       <div>
@@ -2528,7 +2533,10 @@ function VotesTab({ role, member }) {
       </div>
     );
   }
+  return <MemberVotesTab role={role} member={member} />;
+}
 
+function MemberVotesTab({ role, member }) {
   const currentYear = new Date().getFullYear();
   const startYear = parseInt(String(member.serving_since || currentYear).slice(0, 4), 10) || currentYear;
 

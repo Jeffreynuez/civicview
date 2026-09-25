@@ -28,6 +28,9 @@ export default function RouteError({ error, reset }) {
           <button type="button" onClick={() => reset()} style={styles.primary}>
             Try again
           </button>
+          {/* A full page load on purpose: after an error, start clean
+              rather than keep the broken client state. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/" style={styles.secondary}>Go to the home page</a>
         </div>
         {error?.digest && (

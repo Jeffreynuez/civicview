@@ -30,7 +30,6 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import QRCode from 'qrcode';
 
 import {
   disableTwoFactor,
@@ -159,17 +158,20 @@ export default function TwoFactorSection({ onClose }) {
 
   // Render the QR client-side from the otpauth:// URI whenever we
   // get a fresh provisioning URI. Run async; toDataURL returns a
-  // PNG data: URL we drop straight into an <img>.
+  // PNG data: URL we drop straight into an <img>. The qrcode library
+  // loads only here, when someone starts 2FA setup, instead of riding
+  // along with every page that can show this section (audit F5).
   useEffect(() => {
     if (!pendingProvisioningUri) {
       setQrDataUrl(null);
       return;
     }
     let cancelled = false;
-    QRCode.toDataURL(pendingProvisioningUri, {
-      width: 220, margin: 1,
-      color: { dark: '#0e3460', light: '#ffffff' },
-    })
+    import('qrcode')
+      .then(({ default: QRCode }) => QRCode.toDataURL(pendingProvisioningUri, {
+        width: 220, margin: 1,
+        color: { dark: '#0e3460', light: '#ffffff' },
+      }))
       .then((url) => { if (!cancelled) setQrDataUrl(url); })
       .catch((err) => {
         if (cancelled) return;

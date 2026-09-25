@@ -17,17 +17,19 @@ import React from 'react';
  *   xs: 24, sm: 32, md: 40 (default), lg: 56, xl: 72, 2xl: 96
  *
  * Party prop tints the fallback circle:
- *   'D' -> --cl-democrat
- *   'R' -> --cl-republican
- *   'I' -> --cl-independent
+ *   'D' -> --cl-democrat-text
+ *   'R' -> --cl-republican-text
+ *   'I' -> --cl-independent-text
+ * (the darker party shades: white initials on them are 6.4:1 or better
+ * for both parties; on the brand colors R was 4.17:1, audit F6)
  *   undefined -> neutral surface-200 with text-light initials
  */
 const SIZES = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72, '2xl': 96 };
 
 const PARTY_BG = {
-  D: 'var(--cl-democrat)',
-  R: 'var(--cl-republican)',
-  I: 'var(--cl-independent)',
+  D: 'var(--cl-democrat-text)',
+  R: 'var(--cl-republican-text)',
+  I: 'var(--cl-independent-text)',
 };
 
 function initialsOf(name) {
