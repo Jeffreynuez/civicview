@@ -71,10 +71,39 @@ for _prefix in _BARE_POSTGRES_PREFIXES:
 # `check_same_thread=False` is SQLite-specific and required because
 # FastAPI uses a thread pool for sync dependencies. Harmless for other
 # backends (the connect_args is simply ignored).
-_connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+#
+# Postgres gets a connect timeout: without one, an unreachable database
+# host makes every connection attempt hang for minutes.
+_connect_args = (
+    {"check_same_thread": False} if DATABASE_URL.startswith("sqlite")
+    else {"connect_timeout": 10}
+)
 
 engine = create_engine(DATABASE_URL, connect_args=_connect_args, future=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
+
+
+def _make_health_engine():
+    """Engine used only by GET /healthz (audit O2).
+
+    It opens a fresh connection per check with short timeouts instead of
+    borrowing from the app's pool. A pool busy with slow requests then
+    cannot make the health check wait past Render's 5-second limit and
+    get a healthy instance restarted; only a database that really does
+    not answer fails the check.
+    """
+    if DATABASE_URL.startswith("sqlite"):
+        return engine
+    from sqlalchemy.pool import NullPool
+    return create_engine(
+        DATABASE_URL,
+        poolclass=NullPool,
+        connect_args={"connect_timeout": 3, "options": "-c statement_timeout=3000"},
+        future=True,
+    )
+
+
+health_engine = _make_health_engine()
 
 
 class Base(DeclarativeBase):
@@ -201,19 +230,96 @@ def _render_server_default(col) -> Optional[str]:
     return None
 
 
+class SchemaMigrationError(RuntimeError):
+    """A startup schema change failed, so the database no longer matches
+    the models. Raised by init_db() in production only (audit O2)."""
+
+
+# Failures recorded by the auto-migrate passes during one init_db() run.
+# The passes keep going after a failure so the log names every problem,
+# then init_db() decides what a failure means (see its docstring).
+_MIGRATION_FAILURES: list[str] = []
+
+
+def _record_migration_failure(message: str) -> None:
+    _MIGRATION_FAILURES.append(message)
+    logger.error("Auto-migrate FAILED: %s", message)
+
+
+def wait_for_database(attempts: int = 5, delay_seconds: float = 3.0) -> None:
+    """Block until the database answers a trivial query.
+
+    Retries so a brief connection hiccup during a deploy does not fail
+    the boot; after `attempts` tries the last error propagates. SQLite
+    answers immediately.
+    """
+    import time
+    from sqlalchemy.exc import DBAPIError
+
+    for attempt in range(1, attempts + 1):
+        try:
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            return
+        except DBAPIError:
+            if attempt == attempts:
+                raise
+            logger.warning(
+                "Database not reachable yet (attempt %d of %d); retrying in %.0fs.",
+                attempt, attempts, delay_seconds,
+            )
+            time.sleep(delay_seconds)
+
+
 def init_db() -> None:
-    """Create all tables if they don't exist + dev auto-migrate any
+    """Create all tables if they don't exist + auto-migrate any
     new columns on existing tables. Safe to call repeatedly. Invoked
-    from main.py's lifespan startup hook."""
+    from main.py's lifespan startup hook.
+
+    What a failed schema change means depends on where we run:
+      * Production: raise SchemaMigrationError. A column the models
+        expect but the table lacks makes every query on that table
+        fail, and before 2026-09-25 the app still started and passed
+        its health check, serving a broken site. Refusing to start
+        makes the Render deploy fail, so the previous version stays
+        live until the problem is fixed (audit O2).
+        Emergency override: CIVICVIEW_ALLOW_SCHEMA_DRIFT=true logs the
+        failures as CRITICAL and starts anyway, for a hotfix that has to
+        ship before the schema can be repaired. Unset it afterwards.
+      * Development: log every failure and keep going, which is the
+        ergonomics this auto-migrate was written for.
+    """
     # Import models so they're registered with Base.metadata. The import
     # is inside the function to avoid a circular at module-load time.
     from app.models import pages  # noqa: F401
+    from app.services.runtime_env import is_production
+
+    _MIGRATION_FAILURES.clear()
     Base.metadata.create_all(bind=engine)
     _auto_migrate_new_columns()
     _auto_migrate_nullability_changes()
     _auto_migrate_string_widening()
     _auto_migrate_missing_indexes()
     _repair_bad_now_defaults()
+    if _MIGRATION_FAILURES:
+        summary = "; ".join(_MIGRATION_FAILURES)
+        override = (os.getenv("CIVICVIEW_ALLOW_SCHEMA_DRIFT") or "").strip().lower() in ("1", "true", "yes")
+        if is_production() and not override:
+            raise SchemaMigrationError(
+                f"{len(_MIGRATION_FAILURES)} startup schema change(s) failed: {summary}"
+            )
+        if is_production():
+            logger.critical(
+                "Starting DESPITE %d failed schema change(s) because "
+                "CIVICVIEW_ALLOW_SCHEMA_DRIFT is set. Tables involved will error "
+                "until fixed; unset the override afterwards: %s",
+                len(_MIGRATION_FAILURES), summary,
+            )
+            return
+        logger.error(
+            "Auto-migrate finished with %d failure(s); the tables involved will "
+            "error until fixed: %s", len(_MIGRATION_FAILURES), summary,
+        )
 
 
 def _auto_migrate_missing_indexes() -> None:
@@ -251,17 +357,17 @@ def _auto_migrate_missing_indexes() -> None:
             if ix.name in existing_index_names:
                 continue
             try:
-                ix.create(bind=engine)
+                ix.create(bind=engine, checkfirst=True)
                 logger.info(
                     "Auto-migrate: created index %s on %s", ix.name, table.name,
                 )
             except Exception as e:
-                # Most likely a race with another worker — both saw
-                # the index missing, one won. Log + continue rather
-                # than crash startup over an already-existing index.
-                logger.warning(
-                    "Auto-migrate: failed to create index %s on %s: %s",
-                    ix.name, table.name, e,
+                # We run a single worker, so a lost race is unlikely;
+                # the usual cause is existing rows that break a new
+                # unique index, which leaves the dedupe rule it
+                # enforces switched off. Recorded as a failure.
+                _record_migration_failure(
+                    f"could not create index {ix.name} on {table.name}: {e}"
                 )
 
 
@@ -400,10 +506,11 @@ def _auto_migrate_new_columns() -> None:
             if col.name in existing_cols:
                 continue
             if not col.nullable and col.server_default is None and col.default is None:
-                logger.warning(
-                    "Auto-migrate skipped %s.%s — NOT NULL without a default. "
-                    "Add a server_default in the model or migrate manually.",
-                    table.name, col.name,
+                # Skipping still leaves the model and table out of step,
+                # so every query on the table fails. Recorded as a failure.
+                _record_migration_failure(
+                    f"{table.name}.{col.name} is missing and is NOT NULL without "
+                    "a default; add a server_default in the model or migrate manually"
                 )
                 continue
 
@@ -429,13 +536,11 @@ def _auto_migrate_new_columns() -> None:
             try:
                 with engine.begin() as conn:
                     conn.execute(text(ddl))
-            except Exception:
-                logger.exception(
-                    "Auto-migrate: ADD COLUMN failed for %s.%s — continuing "
-                    "with the rest of the migration. Inspect the model "
-                    "column type/default and fix; subsequent boots will "
-                    "retry this column.",
-                    table.name, col.name,
+            except Exception as e:
+                # Keep going so the log names every failed column, then
+                # init_db() decides whether the boot can continue.
+                _record_migration_failure(
+                    f"ADD COLUMN failed for {table.name}.{col.name}: {e}"
                 )
                 continue
 

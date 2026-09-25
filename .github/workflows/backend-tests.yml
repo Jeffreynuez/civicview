@@ -1,0 +1,81 @@
+# Backend tests (audit O1, 2026-09-25).
+#
+# Before this workflow, CI ran lint and security scans but no tests, and
+# Render deploys main as soon as a PR merges. Two jobs now run on every
+# PR and on main, using the same Python version and the same locked
+# dependencies Render installs (.python-version, backend/requirements.txt):
+#
+#   test-scripts    every backend/tests/test_*.py script, through pytest
+#                   (see backend/pytest.ini for how they are collected)
+#   postgres-boot   boots the API in production mode against a fresh
+#                   PostgreSQL, twice, and checks it answers
+#                   (backend/scripts/smoke_boot.py)
+#
+# Make both required checks on main in the branch protection settings so
+# a failing PR cannot be merged.
+name: Backend tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-scripts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+      - name: Install locked dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Run the backend test scripts
+        run: python -m pytest
+
+  postgres-boot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        # Production runs PostgreSQL 18 on Render.
+        image: postgres:18
+        env:
+          POSTGRES_USER: civicview
+          POSTGRES_PASSWORD: civicview
+          POSTGRES_DB: civicview_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U civicview"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Install locked dependencies
+        run: pip install -r requirements.txt
+      - name: Boot in production mode against PostgreSQL
+        env:
+          # Same URL shape Render injects (postgres://, no driver name).
+          DATABASE_URL: postgres://civicview:civicview@localhost:5432/civicview_ci
+        run: python scripts/smoke_boot.py

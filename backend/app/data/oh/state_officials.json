@@ -848,7 +848,7 @@
         "chamber": "State House",
         "district": "17",
         "role": "State Representative",
-        "photo_url": "http://www.ohiohouse.gov/Assets/Headshots/Small/7.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.ohiohouse.gov/members/michael-d-dovilla",
           "email": "rep17@ohiohouse.gov",

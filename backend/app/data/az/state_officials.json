@@ -807,7 +807,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "http://www.azleg.gov/alisImages/MemberPhotos/51leg/House/OLSON.gif",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/51leg/House/OLSON.gif",
         "contact": {
           "official_website": "https://www.azleg.gov/house-member/?legislature=57&legislator=2359",
           "email": "jolson@azleg.gov",
@@ -1431,7 +1431,7 @@
         "chamber": "State House",
         "district": "29",
         "role": "State Representative",
-        "photo_url": "http://www.azleg.gov/alisImages/MemberPhotos/49leg/House/MONTENEGRO.gif",
+        "photo_url": "https://www.azleg.gov/alisImages/MemberPhotos/49leg/House/MONTENEGRO.gif",
         "contact": {
           "official_website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2183",
           "email": "smontenegro@azleg.gov",

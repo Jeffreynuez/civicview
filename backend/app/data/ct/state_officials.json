@@ -59,7 +59,7 @@
         "chamber": "State Senate",
         "district": "1",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/fonfara/images/fonfara-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S01%27&dist_name=Fonfara,%20John%20W.",
           "email": "fonfara@senatedems.ct.gov",
@@ -75,7 +75,7 @@
         "chamber": "State Senate",
         "district": "2",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/mccrory/images/mccrory-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S02%27&dist_name=McCrory,%20Douglas",
           "email": "douglas.mccrory@cga.ct.gov",
@@ -91,7 +91,7 @@
         "chamber": "State Senate",
         "district": "3",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/anwar/images/anwar-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S03%27&dist_name=Anwar,%20Saud",
           "email": "saud.anwar@cga.ct.gov",
@@ -123,7 +123,7 @@
         "chamber": "State Senate",
         "district": "5",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/slap/images/slap-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S05%27&dist_name=Slap,%20Derek",
           "email": "derek.slap@cga.ct.gov",
@@ -139,7 +139,7 @@
         "chamber": "State Senate",
         "district": "6",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/lopes/images/lopes-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S06%27&dist_name=Lopes,%20Rick",
           "email": "rick.lopes@cga.ct.gov",
@@ -187,7 +187,7 @@
         "chamber": "State Senate",
         "district": "9",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/Lesser/images/Lesser1x1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S09%27&dist_name=Lesser,%20Matthew%20L.",
           "email": "matthew.lesser@cga.ct.gov",
@@ -203,7 +203,7 @@
         "chamber": "State Senate",
         "district": "10",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/winfield/images/winfield-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S10%27&dist_name=Winfield,%20Gary%20A.",
           "email": "winfield@senatedems.ct.gov",
@@ -219,7 +219,7 @@
         "chamber": "State Senate",
         "district": "11",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/looney/images/looney-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S11%27&dist_name=Looney,%20Martin%20M.",
           "email": "looney@senatedems.ct.gov",
@@ -235,7 +235,7 @@
         "chamber": "State Senate",
         "district": "12",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/Cohen/images/Cohen-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S12%27&dist_name=Cohen,%20Christine",
           "email": "christine.cohen@cga.ct.gov",
@@ -267,7 +267,7 @@
         "chamber": "State Senate",
         "district": "14",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/Maroney/images/Maroney-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S14%27&dist_name=Maroney,%20James%20J.",
           "email": "maroney@senatedems.ct.gov",
@@ -283,7 +283,7 @@
         "chamber": "State Senate",
         "district": "15",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/hartley/images/hartley-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.senatedems.ct.gov/Hartley",
           "email": "hartley@senatedems.ct.gov",
@@ -315,7 +315,7 @@
         "chamber": "State Senate",
         "district": "17",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/cabrera/images/cabrera-hi.png",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S17%27&dist_name=Cabrera,%20Jorge",
           "email": "jorge.cabrera@cga.ct.gov",
@@ -347,7 +347,7 @@
         "chamber": "State Senate",
         "district": "19",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/osten/images/osten1x1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S19%27&dist_name=Osten,%20Catherine%20A.",
           "email": "osten@senatedems.ct.gov",
@@ -427,7 +427,7 @@
         "chamber": "State Senate",
         "district": "24",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/Kushner/images/Kushner-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S24%27&dist_name=Kushner,%20Julie",
           "email": "julie.kushner@cga.ct.gov",
@@ -443,7 +443,7 @@
         "chamber": "State Senate",
         "district": "25",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/duff/images/duff-headshot.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S25%27&dist_name=Duff,%20Bob",
           "email": "duff@senatedems.ct.gov",
@@ -475,7 +475,7 @@
         "chamber": "State Senate",
         "district": "27",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/miller/images/miller-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S27%27&dist_name=Miller,%20Patricia%20Billie",
           "email": "patricia.miller@cga.ct.gov",
@@ -507,7 +507,7 @@
         "chamber": "State Senate",
         "district": "29",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/flexer/images/flexer-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S29%27&dist_name=Flexer,%20Mae",
           "email": "flexer@senatedems.ct.gov",
@@ -571,7 +571,7 @@
         "chamber": "State Senate",
         "district": "33",
         "role": "State Senator",
-        "photo_url": "http://www.senatedems.ct.gov/templates/Needleman/images/Needleman-hi.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S33%27&dist_name=Needleman,%20Norman",
           "email": "norm.needleman@cga.ct.gov",
@@ -640,7 +640,7 @@
         "chamber": "State House",
         "district": "1",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Ritter/images/Ritter_HS.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27001%27&dist_name=001%20-%Ritter,%Matt",
           "email": "matthew.ritter@cga.ct.gov",
@@ -656,7 +656,7 @@
         "chamber": "State House",
         "district": "2",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Allie-Brennan/images/Allie-Brennan_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Allie-Brennan/images/Allie-Brennan_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27002%27&dist_name=Allie-Brennan,%20Raghib",
           "email": "raghib.allie-brennan@cga.ct.gov",
@@ -672,7 +672,7 @@
         "chamber": "State House",
         "district": "3",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Gonzalez/images/Gonzalez_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Gonzalez/images/Gonzalez_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27003%27&dist_name=Gonzalez,%20Minnie",
           "email": "minnie.gonzalez@cga.ct.gov",
@@ -688,7 +688,7 @@
         "chamber": "State House",
         "district": "4",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Concepcion/images/Concepcion_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Concepcion/images/Concepcion_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27004%27&dist_name=004%20-%Concepcion,%Julio",
           "email": "julio.concepcion@cga.ct.gov",
@@ -704,7 +704,7 @@
         "chamber": "State House",
         "district": "5",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Khan/images/Khan_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Khan/images/Khan_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27005%27&dist_name=005%20-%Khan,%Maryam",
           "email": "maryam.khan@cga.ct.gov",
@@ -736,7 +736,7 @@
         "chamber": "State House",
         "district": "7",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Hall/images/Hall_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Hall/images/Hall_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27007%27&dist_name=007%20-%Hall,%Joshua",
           "email": "joshua.hall@cga.ct.gov",
@@ -768,7 +768,7 @@
         "chamber": "State House",
         "district": "9",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Rojas/images/Rojas_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Rojas/images/Rojas_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27009%27&dist_name=009%20-%Rojas,%Jason",
           "email": "jason.rojas@cga.ct.gov",
@@ -784,7 +784,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Genga/images/Genga_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Genga/images/Genga_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27010%27&dist_name=Genga,%20Henry%20J.",
           "email": "henry.genga@cga.ct.gov",
@@ -816,7 +816,7 @@
         "chamber": "State House",
         "district": "12",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Luxenberg/images/Luxenberg_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Luxenberg/images/Luxenberg_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27012%27&dist_name=Luxenberg,%20Geoff",
           "email": "geoff.luxenberg@cga.ct.gov",
@@ -832,7 +832,7 @@
         "chamber": "State House",
         "district": "13",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Doucette/images/Doucette_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Doucette/images/Doucette_HS.jpg",
         "contact": {
           "official_website": "https://housedems.ct.gov/doucette",
           "email": "jason.doucette@cga.ct.gov",
@@ -864,7 +864,7 @@
         "chamber": "State House",
         "district": "15",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Gibson/images/Gibson_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Gibson/images/Gibson_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27015%27&dist_name=Gibson,%20Bobby%20G.",
           "email": "bobby.gibson@cga.ct.gov",
@@ -896,7 +896,7 @@
         "chamber": "State House",
         "district": "17",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/KavrosDeGraw/images/KavrosDeGraw_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/KavrosDeGraw/images/KavrosDeGraw_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27017%27&dist_name=Kavros%20DeGraw,%20Eleni",
           "email": "elenikavros.degraw@cga.ct.gov",
@@ -912,7 +912,7 @@
         "chamber": "State House",
         "district": "18",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Gilchrest/images/Gilchrest_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Gilchrest/images/Gilchrest_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27018%27&dist_name=018%20-%Gilchrest,%Jillian",
           "email": "jillian.gilchrest@cga.ct.gov",
@@ -928,7 +928,7 @@
         "chamber": "State House",
         "district": "19",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Exum/images/Exum_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Exum/images/Exum_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27019%27&dist_name=Exum,%20Tammy%20R.",
           "email": "tammy.exum@cga.ct.gov",
@@ -944,7 +944,7 @@
         "chamber": "State House",
         "district": "20",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Farrar/images/Farrar_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Farrar/images/Farrar_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27020%27&dist_name=020%20-%Farrar,%Kate",
           "email": "kate.farrar@cga.ct.gov",
@@ -960,7 +960,7 @@
         "chamber": "State House",
         "district": "21",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Demicco/images/Demicco_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Demicco/images/Demicco_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27021%27&dist_name=Demicco,%20Mike",
           "email": "mike.demicco@cga.ct.gov",
@@ -1008,7 +1008,7 @@
         "chamber": "State House",
         "district": "24",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/SanchezM/images/SanchezM_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/SanchezM/images/SanchezM_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27024%27&dist_name=Sanchez,%20Emmanuel",
           "email": "emmanuel.sanchez@cga.ct.gov",
@@ -1056,7 +1056,7 @@
         "chamber": "State House",
         "district": "27",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Turco/images/Turco_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Turco/images/Turco_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27027%27&dist_name=Turco,%20Gary%20A.",
           "email": "gary.turco@cga.ct.gov",
@@ -1072,7 +1072,7 @@
         "chamber": "State House",
         "district": "28",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/MorrinBello/images/MorrinBello_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/MorrinBello/images/MorrinBello_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27028%27&dist_name=Morrin%20Bello,%20Amy",
           "email": "amy.morrinbello@cga.ct.gov",
@@ -1088,7 +1088,7 @@
         "chamber": "State House",
         "district": "29",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Wood/images/Wood_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Wood/images/Wood_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27029%27&dist_name=029%20-%Wood,%Kerry",
           "email": "kerry.wood@cga.ct.gov",
@@ -1120,7 +1120,7 @@
         "chamber": "State House",
         "district": "31",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Barry/images/Barry_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Barry/images/Barry_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27031%27&dist_name=031%20-%Barry,%Jill",
           "email": "jill.barry@cga.ct.gov",
@@ -1152,7 +1152,7 @@
         "chamber": "State House",
         "district": "33",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Chafee/images/Chafee_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Chafee/images/Chafee_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27033%27&dist_name=Chafee,%20Brandon",
           "email": "brandon.chafee@cga.ct.gov",
@@ -1248,7 +1248,7 @@
         "chamber": "State House",
         "district": "39",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Nolan/images/Nolan_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Nolan/images/Nolan_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27039%27&dist_name=Nolan,%20Anthony%20L.",
           "email": "anthony.nolan@cga.ct.gov",
@@ -1408,7 +1408,7 @@
         "chamber": "State House",
         "district": "49",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Johnson/images/Johnson_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Johnson/images/Johnson_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27049%27&dist_name=Johnson,%20Susan%20M.",
           "email": "susan.johnson@cga.ct.gov",
@@ -1424,7 +1424,7 @@
         "chamber": "State House",
         "district": "50",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Boyd/images/Boyd_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Boyd/images/Boyd_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27050%27&dist_name=Boyd,%20Patrick%20S.",
           "email": "pat.boyd@cga.ct.gov",
@@ -1488,7 +1488,7 @@
         "chamber": "State House",
         "district": "54",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Haddad/images/Haddad_19.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Haddad/images/Haddad_19.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27054%27&dist_name=Haddad,%20Gregory",
           "email": "gregory.haddad@cga.ct.gov",
@@ -1536,7 +1536,7 @@
         "chamber": "State House",
         "district": "57",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Foster/images/Foster_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Foster/images/Foster_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27057%27&dist_name=057%20-%Foster,%Jaime",
           "email": "jaime.foster@cga.ct.gov",
@@ -1584,7 +1584,7 @@
         "chamber": "State House",
         "district": "60",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Garibay/images/Garibay_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Garibay/images/Garibay_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27060%27&dist_name=060%20-%Garibay,%Jane",
           "email": "jane.garibay@cga.ct.gov",
@@ -1648,7 +1648,7 @@
         "chamber": "State House",
         "district": "64",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Horn/images/Horn_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Horn/images/Horn_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27064%27&dist_name=064%20-%Horn,%Maria",
           "email": "maria.horn@cga.ct.gov",
@@ -1664,7 +1664,7 @@
         "chamber": "State House",
         "district": "65",
         "role": "State Representative",
-        "photo_url": "http://ctlobby.com/wp-content/uploads/2022/03/Joe-Headshot-BW.png",
+        "photo_url": "https://ctlobby.com/wp-content/uploads/2022/03/Joe-Headshot-BW.png",
         "contact": {
           "official_website": "https://www.cthousegop.com/canino/",
           "email": "joe.canino@housegop.ct.gov",
@@ -1776,7 +1776,7 @@
         "chamber": "State House",
         "district": "72",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Butler/images/Butler_HS.jpg?ver=",
+        "photo_url": "https://www2.housedems.ct.gov/Butler/images/Butler_HS.jpg?ver=",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27072%27&dist_name=072%20-%Butler,%Larry%20B.",
           "email": "larry.butler@cga.ct.gov",
@@ -1792,7 +1792,7 @@
         "chamber": "State House",
         "district": "73",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Napoli/images/Napoli_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Napoli/images/Napoli_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27073%27&dist_name=Napoli,%20Ronald%20A.",
           "email": "ron.napoli@cga.ct.gov",
@@ -1808,7 +1808,7 @@
         "chamber": "State House",
         "district": "74",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/DiGiovancarlo/images/DiGiovancarlo_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/DiGiovancarlo/images/DiGiovancarlo_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27074%27&dist_name=074%20-%DiGiovancarlo,%Michael",
           "email": "michael.digiovancarlo@cga.ct.gov",
@@ -1824,7 +1824,7 @@
         "chamber": "State House",
         "district": "75",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Reyes/images/Reyes_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Reyes/images/Reyes_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27075%27&dist_name=Reyes,%20Geraldo%20C.",
           "email": "geraldo.reyes@cga.ct.gov",
@@ -1936,7 +1936,7 @@
         "chamber": "State House",
         "district": "82",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Quinn/images/Quinn_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Quinn/images/Quinn_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27082%27&dist_name=082%20-%Quinn,%Michael%20D.",
           "email": "michaeld.quinn@cga.ct.gov",
@@ -1968,7 +1968,7 @@
         "chamber": "State House",
         "district": "84",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/SantiagoH/images/SantiagoH_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/SantiagoH/images/SantiagoH_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27084%27&dist_name=Santiago,%20Hilda%20E.",
           "email": "hilda.santiago@cga.ct.gov",
@@ -1984,7 +1984,7 @@
         "chamber": "State House",
         "district": "85",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Mushinsky/images/Mushinsky_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Mushinsky/images/Mushinsky_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27085%27&dist_name=085%20-%Mushinsky,%Mary%20M.",
           "email": "mary.mushinsky@cga.ct.gov",
@@ -2032,7 +2032,7 @@
         "chamber": "State House",
         "district": "88",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Elliott/images/Elliott_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Elliott/images/Elliott_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27088%27&dist_name=088%20-%Elliott,%Josh",
           "email": "josh.elliott@cga.ct.gov",
@@ -2096,7 +2096,7 @@
         "chamber": "State House",
         "district": "92",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Dillon/images/Dillon_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Dillon/images/Dillon_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27092%27&dist_name=Dillon,%20Patricia%20A.",
           "email": "patricia.dillon@cga.ct.gov",
@@ -2112,7 +2112,7 @@
         "chamber": "State House",
         "district": "93",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Walker/images/Walker_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Walker/images/Walker_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27093%27&dist_name=Walker,%20Toni%20E.",
           "email": "toni.walker@cga.ct.gov",
@@ -2144,7 +2144,7 @@
         "chamber": "State House",
         "district": "95",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Candelaria/images/Candelaria_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Candelaria/images/Candelaria_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27095%27&dist_name=095%20-%Candelaria,%Juan%20R.",
           "email": "juan.candelaria@cga.ct.gov",
@@ -2160,7 +2160,7 @@
         "chamber": "State House",
         "district": "96",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Lemar/images/Lemar_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Lemar/images/Lemar_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27096%27&dist_name=Lemar,%20Roland%20J.",
           "email": "roland.lemar@cga.ct.gov",
@@ -2176,7 +2176,7 @@
         "chamber": "State House",
         "district": "97",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Paolillo/images/Paolillo_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Paolillo/images/Paolillo_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27097%27&dist_name=Paolillo,%20Alphonse",
           "email": "alphonse.paolillo@cga.ct.gov",
@@ -2240,7 +2240,7 @@
         "chamber": "State House",
         "district": "101",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Parker/images/Parker_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Parker/images/Parker_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27101%27&dist_name=101%20-%Parker,%John-Michael",
           "email": "john-michael.parker@cga.ct.gov",
@@ -2256,7 +2256,7 @@
         "chamber": "State House",
         "district": "102",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Comey/images/Comey_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Comey/images/Comey_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27102%27&dist_name=Comey,%20Robin%20E.",
           "email": "robin.comey@cga.ct.gov",
@@ -2272,7 +2272,7 @@
         "chamber": "State House",
         "district": "103",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Linehan/images/Linehan_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Linehan/images/Linehan_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27103%27&dist_name=103%20-%Linehan,%Liz",
           "email": "liz.linehan@cga.ct.gov",
@@ -2288,7 +2288,7 @@
         "chamber": "State House",
         "district": "104",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Rochelle/images/Rochelle_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Rochelle/images/Rochelle_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27104%27&dist_name=104%20-%Rochelle,%Kara",
           "email": "kara.rochelle@cga.ct.gov",
@@ -2384,7 +2384,7 @@
         "chamber": "State House",
         "district": "110",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Godfrey/images/Godfrey_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Godfrey/images/Godfrey_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27110%27&dist_name=Godfrey,%20Bob",
           "email": "bob.godfrey@cga.ct.gov",
@@ -2400,7 +2400,7 @@
         "chamber": "State House",
         "district": "111",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Berger-Girvalo/images/Berger-Girvalo_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Berger-Girvalo/images/Berger-Girvalo_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27111%27&dist_name=Berger-Girvalo,%20Aimee",
           "email": "aimee.berger-girvalo@cga.ct.gov",
@@ -2448,7 +2448,7 @@
         "chamber": "State House",
         "district": "114",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Welander/images/Welander_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Welander/images/Welander_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27114%27&dist_name=114%20-%Welander,%Mary",
           "email": "mary.welander@cga.ct.gov",
@@ -2480,7 +2480,7 @@
         "chamber": "State House",
         "district": "116",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/McGeeT/images/McGeeT_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/McGeeT/images/McGeeT_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27116%27&dist_name=McGee,%20Trenee",
           "email": "trenee.mcgee@cga.ct.gov",
@@ -2512,7 +2512,7 @@
         "chamber": "State House",
         "district": "118",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/SmithF/images/SmithF_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/SmithF/images/SmithF_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27118%27&dist_name=Smith,%20Frank",
           "email": "frank.smith@cga.ct.gov",
@@ -2560,7 +2560,7 @@
         "chamber": "State House",
         "district": "121",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Gresko/images/gresko_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Gresko/images/gresko_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27121%27&dist_name=121%20-%Gresko,%Joseph%20P.",
           "email": "joseph.gresko@cga.ct.gov",
@@ -2608,7 +2608,7 @@
         "chamber": "State House",
         "district": "124",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Baker/images/Baker_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Baker/images/Baker_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27124%27&dist_name=Baker,%20Andre%20F.",
           "email": "andre.baker@cga.ct.gov",
@@ -2672,7 +2672,7 @@
         "chamber": "State House",
         "district": "128",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Rosario/images/Rosario_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Rosario/images/Rosario_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27128%27&dist_name=Rosario,%20Christopher",
           "email": "christopher.rosario@cga.ct.gov",
@@ -2688,7 +2688,7 @@
         "chamber": "State House",
         "district": "129",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Stafstrom/images/Stafstrom_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Stafstrom/images/Stafstrom_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27129%27&dist_name=Stafstrom,%20Steven%20J.",
           "email": "steven.stafstrom@cga.ct.gov",
@@ -2704,7 +2704,7 @@
         "chamber": "State House",
         "district": "130",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Felipe/images/Felipe_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Felipe/images/Felipe_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27130%27&dist_name=Felipe,%20Antonio",
           "email": "antonio.felipe@cga.ct.gov",
@@ -2736,7 +2736,7 @@
         "chamber": "State House",
         "district": "132",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Leeper/images/Leeper_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Leeper/images/Leeper_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27132%27&dist_name=132%20-%Leeper,%Jennifer",
           "email": "jennifer.leeper@cga.ct.gov",
@@ -2752,7 +2752,7 @@
         "chamber": "State House",
         "district": "133",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/McCarthyVahey/images/McCarthyVahey_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/McCarthyVahey/images/McCarthyVahey_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27133%27&dist_name=McCarthy%20Vahey,%20Cristin",
           "email": "cristin.mccarthyvahey@cga.ct.gov",
@@ -2784,7 +2784,7 @@
         "chamber": "State House",
         "district": "135",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Hughes/images/Hughes_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Hughes/images/Hughes_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27135%27&dist_name=Hughes,%20Anne%20M.",
           "email": "anne.hughes@cga.ct.gov",
@@ -2800,7 +2800,7 @@
         "chamber": "State House",
         "district": "136",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Steinberg/images/Steinberg_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Steinberg/images/Steinberg_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27136%27&dist_name=136%20-%Steinberg,%Jonathan",
           "email": "jonathan.steinberg@cga.ct.gov",
@@ -2864,7 +2864,7 @@
         "chamber": "State House",
         "district": "140",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Simms/images/Simms_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Simms/images/Simms_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27140%27&dist_name=Simms,%20Travis",
           "email": "travis.simms@cga.ct.gov",
@@ -2896,7 +2896,7 @@
         "chamber": "State House",
         "district": "142",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Dathan/images/Dathan_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Dathan/images/Dathan_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27142%27&dist_name=142%20-%Dathan,%Lucy",
           "email": "lucy.dathan@cga.ct.gov",
@@ -2928,7 +2928,7 @@
         "chamber": "State House",
         "district": "144",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Delany/images/Delany_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Delany/images/Delany_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27144%27&dist_name=144%20-%Delany,%Hubert",
           "email": "hubert.delany@cga.ct.gov",
@@ -2944,7 +2944,7 @@
         "chamber": "State House",
         "district": "145",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Paris/images/Paris_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Paris/images/Paris_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27145%27&dist_name=Paris,%20Corey%20P.",
           "email": "corey.paris@cga.ct.gov",
@@ -2976,7 +2976,7 @@
         "chamber": "State House",
         "district": "147",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Blumenthal/images/Blumenthal_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Blumenthal/images/Blumenthal_HS.jpg",
         "contact": {
           "official_website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27147%27&dist_name=147%20-%Blumenthal,%Matt",
           "email": "matt.blumenthal@cga.ct.gov",
@@ -3024,7 +3024,7 @@
         "chamber": "State House",
         "district": "150",
         "role": "State Representative",
-        "photo_url": "http://www2.housedems.ct.gov/Meskers/images/Meskers_HS.jpg",
+        "photo_url": "https://www2.housedems.ct.gov/Meskers/images/Meskers_HS.jpg",
         "contact": {
           "official_website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27150%27&dist_name=Meskers,%20Stephen%20R",
           "email": "stephen.meskers@cga.ct.gov",

@@ -1415,7 +1415,7 @@
         "chamber": "State Assembly",
         "district": "53",
         "role": "Assembly Member",
-        "photo_url": "http://legis.wisconsin.gov/sitecollectionimages/2013/asm55.jpeg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2852",
           "email": "rep.kaufert@legis.wisconsin.gov",

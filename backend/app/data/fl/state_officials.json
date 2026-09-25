@@ -1,5 +1,5 @@
 {
-  "_note": "Curated Florida state officials (demo data). Shape is modeled loosely after OpenStates so we can swap in the live API later without changing the frontend. Names/districts reflect a demo-consistent snapshot of FL state government and may not perfectly track real-world changes.",
+  "_note": "Curated Florida state officials from official sources, updated July to September 2026. Sources and retrieval dates are in _source, and for the judiciary in its own _note. The shape follows Open States so the live API can replace this file without frontend changes.",
   "_source": "Executive biographies and contact details from official state department sites and the Executive Office of the Governor; portraits from Wikimedia Commons. Legislator contact from the Florida Senate and House. Retrieved 2026-07-31.",
   "state": "FL",
   "state_name": "Florida",
@@ -392,7 +392,7 @@
         "chamber": "State Senate",
         "district": "1",
         "role": "State Senator",
-        "photo_url": "http://www.flsenate.gov/PublishedContent/Senators/2014-2016/Photos/s01_4804.jpg",
+        "photo_url": "https://www.flsenate.gov/PublishedContent/Senators/2014-2016/Photos/s01_4804.jpg",
         "contact": {
           "official_website": "https://www.flsenate.gov/Senators/s1",
           "email": "gaetz.don.web@flsenate.gov",
@@ -763,7 +763,7 @@
         "chamber": "State Senate",
         "district": "24",
         "role": "State Senator",
-        "photo_url": "http://www.flhouse.gov/FileStores/Web/Imaging/Member/4422.jpg",
+        "photo_url": "https://www.flhouse.gov/FileStores/Web/Imaging/Member/4422.jpg",
         "contact": {
           "official_website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4422&SessionId=70",
           "email": "bernard.mack.web@flsenate.gov",

@@ -59,7 +59,7 @@
         "chamber": "State Senate",
         "district": "1",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/CruzCrawford.MicheleeShelly.419.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/CruzCrawford.MicheleeShelly.419.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/1",
           "email": "shelly.cruzcrawford@sen.state.nv.us",
@@ -75,7 +75,7 @@
         "chamber": "State Senate",
         "district": "2",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Flores.Edgar.273.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Flores.Edgar.273.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=273",
           "email": "edgar.flores@sen.state.nv.us",
@@ -91,7 +91,7 @@
         "chamber": "State Senate",
         "district": "3",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Nguyen.Rochelle.372.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Nguyen.Rochelle.372.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=372",
           "email": "rochelle.nguyen@sen.state.nv.us",
@@ -107,7 +107,7 @@
         "chamber": "State Senate",
         "district": "4",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Senators/Images/Neal.Dina.129.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/81st2021/legislators/Senators/Images/Neal.Dina.129.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=129",
           "email": "dina.neal@sen.state.nv.us",
@@ -123,7 +123,7 @@
         "chamber": "State Senate",
         "district": "5",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Buck.Carrie.387.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Buck.Carrie.387.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=387",
           "email": "carrie.buck@sen.state.nv.us",
@@ -139,7 +139,7 @@
         "chamber": "State Senate",
         "district": "6",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Cannizzaro.Nicole.347.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Cannizzaro.Nicole.347.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=347",
           "email": "nicole.cannizzaro@sen.state.nv.us",
@@ -155,7 +155,7 @@
         "chamber": "State Senate",
         "district": "7",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Lange.Roberta.383.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Lange.Roberta.383.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=383",
           "email": "roberta.lange@sen.state.nv.us",
@@ -171,7 +171,7 @@
         "chamber": "State Senate",
         "district": "8",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/DonderoLoop.Marilyn.92.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/DonderoLoop.Marilyn.92.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=92",
           "email": "marilyn.donderoloop@sen.state.nv.us",
@@ -187,7 +187,7 @@
         "chamber": "State Senate",
         "district": "9",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Scheible.Melanie.358.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Scheible.Melanie.358.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=358",
           "email": "melanie.scheible@sen.state.nv.us",
@@ -203,7 +203,7 @@
         "chamber": "State Senate",
         "district": "10",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Doate.Fabian.350.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Doate.Fabian.350.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/10",
           "email": "fabian.donate@sen.state.nv.us",
@@ -219,7 +219,7 @@
         "chamber": "State Senate",
         "district": "11",
         "role": "State Senator",
-        "photo_url": "http://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Rogich.Lori.425.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Rogich.Lori.425.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/11",
           "email": "lori.rogich@sen.state.nv.us",
@@ -235,7 +235,7 @@
         "chamber": "State Senate",
         "district": "12",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Pazina.Julie.391.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Pazina.Julie.391.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/12",
           "email": "julie.pazina@sen.state.nv.us",
@@ -251,7 +251,7 @@
         "chamber": "State Senate",
         "district": "13",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Daly.Skip.155.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Senators/Images/Daly.Skip.155.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/13",
           "email": "skip.daly@sen.state.nv.us",
@@ -267,7 +267,7 @@
         "chamber": "State Senate",
         "district": "14",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Hansen.Ira.157.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Hansen.Ira.157.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=157",
           "email": "ira.hansen@sen.state.nv.us",
@@ -283,7 +283,7 @@
         "chamber": "State Senate",
         "district": "15",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Taylor.Angela.424.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Taylor.Angela.424.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/27",
           "email": "angela.taylor@sen.state.nv.us",
@@ -299,7 +299,7 @@
         "chamber": "State Senate",
         "district": "16",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Krasner.Lisa.327.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Krasner.Lisa.327.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=327",
           "email": "lisa.krasner@sen.state.nv.us",
@@ -315,7 +315,7 @@
         "chamber": "State Senate",
         "district": "17",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Titus.Robin.281.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Titus.Robin.281.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=281",
           "email": "robin.titus@sen.state.nv.us",
@@ -331,7 +331,7 @@
         "chamber": "State Senate",
         "district": "18",
         "role": "State Senator",
-        "photo_url": "http://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Steinbeck.John.418.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Steinbeck.John.418.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/18",
           "email": "john.steinbeck@sen.state.nv.us",
@@ -347,7 +347,7 @@
         "chamber": "State Senate",
         "district": "19",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Ellison.John.159.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Ellison.John.159.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=159",
           "email": "john.ellison@sen.state.nv.us",
@@ -363,7 +363,7 @@
         "chamber": "State Senate",
         "district": "20",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Stone.Jeff.390.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Senators/Images/Stone.Jeff.390.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/20",
           "email": "jeff.stone@sen.state.nv.us",
@@ -379,7 +379,7 @@
         "chamber": "State Senate",
         "district": "21",
         "role": "State Senator",
-        "photo_url": "http://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/Ohrenschall.James.67.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/80th2019/legislators/Senators/Images/Ohrenschall.James.67.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=67",
           "email": "james.ohrenschall@sen.state.nv.us",
@@ -400,7 +400,7 @@
         "chamber": "State Assembly",
         "district": "1",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/MonroeMoreno.Daniele.307.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/MonroeMoreno.Daniele.307.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=307",
           "email": "daniele.monroemoreno@asm.state.nv.us",
@@ -416,7 +416,7 @@
         "chamber": "State Assembly",
         "district": "2",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Kasama.Heidi.379.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Kasama.Heidi.379.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=379",
           "email": "heidi.kasama@asm.state.nv.us",
@@ -432,7 +432,7 @@
         "chamber": "State Assembly",
         "district": "3",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Torres.Selena.359.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Torres.Selena.359.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=359",
           "email": "selena.torres@asm.state.nv.us",
@@ -448,7 +448,7 @@
         "chamber": "State Assembly",
         "district": "4",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Cole.Lisa.410.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Cole.Lisa.410.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/4",
           "email": "lisa.cole@asm.state.nv.us",
@@ -464,7 +464,7 @@
         "chamber": "State Assembly",
         "district": "5",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Miller.Brittney.304.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Miller.Brittney.304.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=304",
           "email": "brittney.miller@asm.state.nv.us",
@@ -480,7 +480,7 @@
         "chamber": "State Assembly",
         "district": "6",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jackson.Jovan.422.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jackson.Jovan.422.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/6",
           "email": "jovan.jackson@asm.state.nv.us",
@@ -496,7 +496,7 @@
         "chamber": "State Assembly",
         "district": "7",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Flanagan.Tanya.423.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Flanagan.Tanya.423.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/7",
           "email": "tanya.flanagan@asm.state.nv.us",
@@ -512,7 +512,7 @@
         "chamber": "State Assembly",
         "district": "8",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Nguyen.Duy.392.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Nguyen.Duy.392.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/8",
           "email": "duy.nguyen@asm.state.nv.us",
@@ -528,7 +528,7 @@
         "chamber": "State Assembly",
         "district": "9",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Yeager.Steve.310.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Yeager.Steve.310.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=310",
           "email": "steve.yeager@asm.state.nv.us",
@@ -560,7 +560,7 @@
         "chamber": "State Assembly",
         "district": "11",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Moore.Cinthia.412.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Moore.Cinthia.412.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/11",
           "email": "cinthia.moore@asm.state.nv.us",
@@ -576,7 +576,7 @@
         "chamber": "State Assembly",
         "district": "12",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Carter.Max.393.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Carter.Max.393.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/12",
           "email": "max.carter@asm.state.nv.us",
@@ -592,7 +592,7 @@
         "chamber": "State Assembly",
         "district": "13",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Hibbetts.Brian.394.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Hibbetts.Brian.394.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/13",
           "email": "brian.hibbetts@asm.state.nv.us",
@@ -608,7 +608,7 @@
         "chamber": "State Assembly",
         "district": "14",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Mosca.Erica.395.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Mosca.Erica.395.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/14",
           "email": "erica.mosca@asm.state.nv.us",
@@ -624,7 +624,7 @@
         "chamber": "State Assembly",
         "district": "15",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Watts.Howard.363.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Watts.Howard.363.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=363",
           "email": "howard.watts@asm.state.nv.us",
@@ -640,7 +640,7 @@
         "chamber": "State Assembly",
         "district": "16",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Gonzlez.Cecelia.378.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Gonzlez.Cecelia.378.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=378",
           "email": "cecelia.gonzalez@asm.state.nv.us",
@@ -656,7 +656,7 @@
         "chamber": "State Assembly",
         "district": "17",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hunt.Linda.420.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hunt.Linda.420.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/17",
           "email": "linda.hunt@asm.state.nv.us",
@@ -672,7 +672,7 @@
         "chamber": "State Assembly",
         "district": "18",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Considine.Venicia.380.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/Considine.Venicia.380.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=380",
           "email": "venicia.considine@asm.state.nv.us",
@@ -704,7 +704,7 @@
         "chamber": "State Assembly",
         "district": "20",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Orentlicher.David.377.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Orentlicher.David.377.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=377",
           "email": "david.orentlicher@asm.state.nv.us",
@@ -720,7 +720,7 @@
         "chamber": "State Assembly",
         "district": "21",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Marzola.Elaine.376.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Marzola.Elaine.376.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=376",
           "email": "elaine.marzola@asm.state.nv.us",
@@ -736,7 +736,7 @@
         "chamber": "State Assembly",
         "district": "22",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hardy.Melissa.364.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hardy.Melissa.364.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=364",
           "email": "melissa.hardy@asm.state.nv.us",
@@ -752,7 +752,7 @@
         "chamber": "State Assembly",
         "district": "23",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gallant.Danielle.397.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gallant.Danielle.397.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/23",
           "email": "danielle.gallant@asm.state.nv.us",
@@ -768,7 +768,7 @@
         "chamber": "State Assembly",
         "district": "24",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Roth.Erica.413.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Roth.Erica.413.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/24",
           "email": "erica.roth@asm.state.nv.us",
@@ -784,7 +784,7 @@
         "chamber": "State Assembly",
         "district": "25",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/LaRueHatch.Selena.398.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/LaRueHatch.Selena.398.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/25",
           "email": "selena.la.rue.hatch@asm.state.nv.us",
@@ -800,7 +800,7 @@
         "chamber": "State Assembly",
         "district": "26",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DeLong.Rich.399.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DeLong.Rich.399.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/26",
           "email": "rich.delong@asm.state.nv.us",
@@ -816,7 +816,7 @@
         "chamber": "State Assembly",
         "district": "27",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Goulding.Heather.416.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Goulding.Heather.416.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/27",
           "email": "heather.goulding@asm.state.nv.us",
@@ -832,7 +832,7 @@
         "chamber": "State Assembly",
         "district": "28",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DSilva.Reuben.401.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/DSilva.Reuben.401.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/28",
           "email": "reuben.dsilva@asm.state.nv.us",
@@ -848,7 +848,7 @@
         "chamber": "State Assembly",
         "district": "29",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Dalia.Joe.414.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Dalia.Joe.414.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/29",
           "email": "joe.dalia@asm.state.nv.us",
@@ -864,7 +864,7 @@
         "chamber": "State Assembly",
         "district": "30",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Anderson.Natha.375.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Anderson.Natha.375.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=375",
           "email": "natha.anderson@asm.state.nv.us",
@@ -880,7 +880,7 @@
         "chamber": "State Assembly",
         "district": "31",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Dickman.Jill.277.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Dickman.Jill.277.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=277",
           "email": "jill.dickman@asm.state.nv.us",
@@ -896,7 +896,7 @@
         "chamber": "State Assembly",
         "district": "32",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hansen.Alexis.366.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hansen.Alexis.366.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=366",
           "email": "alexis.hansen@asm.state.nv.us",
@@ -912,7 +912,7 @@
         "chamber": "State Assembly",
         "district": "33",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gurr.Bert.402.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/82nd2023/legislators/Assembly/Images/Gurr.Bert.402.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/33",
           "email": "bert.gurr@asm.state.nv.us",
@@ -944,7 +944,7 @@
         "chamber": "State Assembly",
         "district": "35",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Edgeworth.Rebecca.411.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Edgeworth.Rebecca.411.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/35",
           "email": "rebecca.edgeworth@asm.state.nv.us",
@@ -960,7 +960,7 @@
         "chamber": "State Assembly",
         "district": "36",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hafen.Gregory.371.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Hafen.Gregory.371.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=371",
           "email": "gregory.hafen@asm.state.nv.us",
@@ -976,7 +976,7 @@
         "chamber": "State Assembly",
         "district": "37",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Backus.Shea.368.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Backus.Shea.368.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/37",
           "email": "shea.backus@asm.state.nv.us",
@@ -992,7 +992,7 @@
         "chamber": "State Assembly",
         "district": "38",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Koenig.Gregory.403.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Koenig.Gregory.403.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/38",
           "email": "gregory.koenig@asm.state.nv.us",
@@ -1008,7 +1008,7 @@
         "chamber": "State Assembly",
         "district": "39",
         "role": "Assembly Member",
-        "photo_url": "http://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Osborn.Blayne.427.jpg",
+        "photo_url": "https://www.leg.state.nv.us/Session/36th2025Special/legislators/Assembly/Images/Osborn.Blayne.427.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/36th2025Special/39",
           "email": "blayne.osborn@asm.state.nv.us",
@@ -1024,7 +1024,7 @@
         "chamber": "State Assembly",
         "district": "40",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/ONeill.PhilipPK.285.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/81st2021/legislators/Assembly/Images/ONeill.PhilipPK.285.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=285",
           "email": "pk.oneill@asm.state.nv.us",
@@ -1040,7 +1040,7 @@
         "chamber": "State Assembly",
         "district": "41",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jauregui.Sandra.344.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/Jauregui.Sandra.344.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=344",
           "email": "sandra.jauregui@asm.state.nv.us",
@@ -1056,7 +1056,7 @@
         "chamber": "State Assembly",
         "district": "42",
         "role": "Assembly Member",
-        "photo_url": "http://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/BrownMay.Tracy.353.jpg",
+        "photo_url": "https://leg.state.nv.us/Session/83rd2025/legislators/Assembly/Images/BrownMay.Tracy.353.jpg",
         "contact": {
           "official_website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/42",
           "email": "tracy.brownmay@asm.state.nv.us",

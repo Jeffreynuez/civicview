@@ -63,15 +63,6 @@
         "office": "Executive",
         "website": null,
         "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AG-Griffin-1.png"
-      },
-      {
-        "id": "ar-exec-attorney-general",
-        "name": "Tim Griffin",
-        "party": "R",
-        "role": "Attorney General",
-        "office": "Executive",
-        "website": null,
-        "photo_url": null
       }
     ]
   },
@@ -1771,7 +1762,7 @@
         "chamber": "State House",
         "district": "72",
         "role": "State Representative",
-        "photo_url": "http://www.arkleg.state.ar.us/assembly/2011/Member%20Pictures/Steele_t.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://arkansashouse.org/district/72",
           "email": "sensteele@yahoo.com",

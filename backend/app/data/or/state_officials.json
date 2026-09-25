@@ -78,7 +78,7 @@
         "chamber": "State Senate",
         "district": "4",
         "role": "State Senator",
-        "photo_url": "http://www.oregonlegislature.gov/senate/MemberPhotos/prozanski.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/senate/MemberPhotos/prozanski.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/prozanski",
           "email": "sen.floydprozanski@oregonlegislature.gov",
@@ -142,7 +142,7 @@
         "chamber": "State Senate",
         "district": "8",
         "role": "State Senator",
-        "photo_url": "http://www.oregonlegislature.gov/senate/MemberPhotos/gelser.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/senate/MemberPhotos/gelser.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/gelser",
           "email": "sen.saragelser@oregonlegislature.gov",
@@ -158,7 +158,7 @@
         "chamber": "State Senate",
         "district": "9",
         "role": "State Senator",
-        "photo_url": "http://www.oregonlegislature.gov/senate/MemberPhotos/girod.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/senate/MemberPhotos/girod.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/girod",
           "email": "sen.fredgirod@oregonlegislature.gov",
@@ -414,7 +414,7 @@
         "chamber": "State Senate",
         "district": "25",
         "role": "State Senator",
-        "photo_url": "http://www.oregonlegislature.gov/house/MemberPhotos/gorsek.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/house/MemberPhotos/gorsek.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/gorsek",
           "email": "sen.chrisgorsek@oregonlegislature.gov",
@@ -494,7 +494,7 @@
         "chamber": "State Senate",
         "district": "30",
         "role": "State Senator",
-        "photo_url": "http://www.oregonlegislature.gov/house/MemberPhotos/mclane.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/house/MemberPhotos/mclane.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/mclane",
           "email": "sen.mikemclane@oregonlegislature.gov",
@@ -1171,7 +1171,7 @@
         "chamber": "State House",
         "district": "42",
         "role": "State Representative",
-        "photo_url": "http://www.oregonlegislature.gov/house/MemberPhotos/nosse.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/house/MemberPhotos/nosse.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/nosse",
           "email": "rep.robnosse@oregonlegislature.gov",
@@ -1411,7 +1411,7 @@
         "chamber": "State House",
         "district": "57",
         "role": "State Representative",
-        "photo_url": "http://www.oregonlegislature.gov/house/MemberPhotos/smithg.jpg",
+        "photo_url": "https://www.oregonlegislature.gov/house/MemberPhotos/smithg.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/smithg",
           "email": "rep.gregsmith@oregonlegislature.gov",

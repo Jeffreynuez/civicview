@@ -5,6 +5,8 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+from sqlalchemy import text
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.middleware.body_limit import BodySizeLimitMiddleware
@@ -50,7 +52,7 @@ from app.routers import (
     stats as stats_router,
     poll_demographics as poll_demographics_router,
 )
-from app.db import init_db
+from app.db import health_engine as _health_engine, init_db, wait_for_database
 from app.seed import (
     backfill_demo_citizen_subscriptions,
     maybe_run_fresh_start_wipe,
@@ -72,81 +74,105 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("CivicView API starting up...")
-    # Phase 1 Pages feature — create tables (idempotent) + seed demo reps.
-    # Wrapped in try/except so a DB hiccup on boot doesn't take the whole
-    # API down; the read-only endpoints (Congress, States, etc.) still work
-    # without the pages schema.
+    # Audit O3: in production, refuse to start without a real database
+    # and log every missing setting that turns a feature off.
+    from app.services.runtime_env import check_production_config
+    check_production_config()
+
+    # Create tables (idempotent) and apply the auto-migrate. Audit O2:
+    # in production a failure here stops the boot, so Render keeps the
+    # previous deploy live instead of swapping in a version whose
+    # database no longer matches its models. In development it is
+    # logged and the read-only endpoints (Congress, States, etc.) still
+    # work without the pages schema, as before.
+    db_ready = False
     try:
+        wait_for_database()
         init_db()
-        # One-shot pre-launch cleanup gated by CIVICVIEW_WIPE_REP_DEMO.
-        # Runs BEFORE seed so a fresh-start deploy ends with empty
-        # tables, not "wiped and then re-seeded." Unset the env var
-        # after the wipe boot to prevent repeated runs.
-        maybe_run_fresh_start_wipe()
-        seed_demo_accounts()
-        seed_demo_citizens()
-        seed_demo_candidates()
-        # Task #88 hotfix — flip is_subscribed=True + status='demo' on
-        # any existing demo-citizen row that pre-dates the
-        # subscription columns. New signups already get the grant at
-        # creation time (auth_citizen.demo_signup); this catches the
-        # rows the auto-migrate backfilled with False. Idempotent —
-        # only touches rows that still need updating.
-        backfill_demo_citizen_subscriptions()
-        # Increment 4 (demo-sunset PRD §D2) — stamp authored_verified on
-        # engagement rows written before the column existed. Convergent
-        # and idempotent: rep/candidate rows become True (page owners are
-        # vetted at claim time), citizen rows inherit the author's
-        # CURRENT verified flag, and everything else stays False. Runs
-        # ahead of any ID.me launch on purpose — after the flip there is
-        # no way to reconstruct what a row's author was at write time.
-        try:
-            from app.services.authored_verified_backfill import backfill_authored_verified
-            backfill_authored_verified()
-        except Exception:
-            logger.exception(
-                "authored_verified backfill failed at boot — non-fatal, retries next boot.",
-            )
-        # Pre-fetched CRS bill summaries — populates the bill_summaries
-        # cache so the rep-profile Bills tab gets instant Summary
-        # expansions on day one without Congress.gov round-trips.
-        seed_bill_summaries()
-        # Task #81 — purge soft-deleted accounts whose 30-day grace
-        # window has elapsed. Runs at every backend boot; for
-        # tighter recovery-window precision a daily cron via Render
-        # Cron Jobs would also call this same helper.
-        try:
-            from app.services.account_deletion import purge_expired_accounts
-            purge_expired_accounts()
-        except Exception:
-            logger.exception("Soft-delete purge failed — non-fatal, will retry next boot.")
-        # Task #87 — purge expired password-reset tokens. Cheap O(N)
-        # delete over a tiny table; same boot-time pattern as the
-        # soft-delete purge above so we don't accumulate orphans.
-        # Independent try/except so a token-purge failure can't take
-        # down account-purge or vice versa.
-        try:
-            from app.services.password_reset import purge_expired_password_reset_tokens
-            purge_expired_password_reset_tokens()
-        except Exception:
-            logger.exception(
-                "Password-reset token purge failed — non-fatal, will retry next boot.",
-            )
-        # Audit B3: rows keyed by (kind, id) whose account is gone, left
-        # by deletions made before hard delete removed them itself.
-        # Audit P5: login attempts (IP and user agent) kept 90 days.
-        try:
-            from app.services.account_deletion import purge_orphaned_account_rows
-            purge_orphaned_account_rows()
-        except Exception:
-            logger.exception("Orphaned account row sweep failed; will retry next boot.")
-        try:
-            from app.services.login_attempts import purge_old_login_attempts
-            purge_old_login_attempts()
-        except Exception:
-            logger.exception("Login attempt retention purge failed; will retry next boot.")
+        db_ready = True
     except Exception:
-        logger.exception("Pages DB init/seed failed — read-only endpoints will still work.")
+        if _is_production():
+            logger.critical(
+                "Database setup failed at startup. Refusing to start in "
+                "production so the previous deploy stays live.",
+                exc_info=True,
+            )
+            raise
+        logger.exception("Pages DB init failed; read-only endpoints will still work.")
+
+    # Seeds and housekeeping. Failures here are logged and never stop
+    # the boot, in any environment.
+    if db_ready:
+        try:
+            # One-shot pre-launch cleanup gated by CIVICVIEW_WIPE_REP_DEMO.
+            # Runs BEFORE seed so a fresh-start deploy ends with empty
+            # tables, not "wiped and then re-seeded." Unset the env var
+            # after the wipe boot to prevent repeated runs.
+            maybe_run_fresh_start_wipe()
+            seed_demo_accounts()
+            seed_demo_citizens()
+            seed_demo_candidates()
+            # Task #88 hotfix — flip is_subscribed=True + status='demo' on
+            # any existing demo-citizen row that pre-dates the
+            # subscription columns. New signups already get the grant at
+            # creation time (auth_citizen.demo_signup); this catches the
+            # rows the auto-migrate backfilled with False. Idempotent —
+            # only touches rows that still need updating.
+            backfill_demo_citizen_subscriptions()
+            # Increment 4 (demo-sunset PRD §D2) — stamp authored_verified on
+            # engagement rows written before the column existed. Convergent
+            # and idempotent: rep/candidate rows become True (page owners are
+            # vetted at claim time), citizen rows inherit the author's
+            # CURRENT verified flag, and everything else stays False. Runs
+            # ahead of any ID.me launch on purpose — after the flip there is
+            # no way to reconstruct what a row's author was at write time.
+            try:
+                from app.services.authored_verified_backfill import backfill_authored_verified
+                backfill_authored_verified()
+            except Exception:
+                logger.exception(
+                    "authored_verified backfill failed at boot — non-fatal, retries next boot.",
+                )
+            # Pre-fetched CRS bill summaries — populates the bill_summaries
+            # cache so the rep-profile Bills tab gets instant Summary
+            # expansions on day one without Congress.gov round-trips.
+            seed_bill_summaries()
+            # Task #81 — purge soft-deleted accounts whose 30-day grace
+            # window has elapsed. Runs at every backend boot; for
+            # tighter recovery-window precision a daily cron via Render
+            # Cron Jobs would also call this same helper.
+            try:
+                from app.services.account_deletion import purge_expired_accounts
+                purge_expired_accounts()
+            except Exception:
+                logger.exception("Soft-delete purge failed — non-fatal, will retry next boot.")
+            # Task #87 — purge expired password-reset tokens. Cheap O(N)
+            # delete over a tiny table; same boot-time pattern as the
+            # soft-delete purge above so we don't accumulate orphans.
+            # Independent try/except so a token-purge failure can't take
+            # down account-purge or vice versa.
+            try:
+                from app.services.password_reset import purge_expired_password_reset_tokens
+                purge_expired_password_reset_tokens()
+            except Exception:
+                logger.exception(
+                    "Password-reset token purge failed — non-fatal, will retry next boot.",
+                )
+            # Audit B3: rows keyed by (kind, id) whose account is gone, left
+            # by deletions made before hard delete removed them itself.
+            # Audit P5: login attempts (IP and user agent) kept 90 days.
+            try:
+                from app.services.account_deletion import purge_orphaned_account_rows
+                purge_orphaned_account_rows()
+            except Exception:
+                logger.exception("Orphaned account row sweep failed; will retry next boot.")
+            try:
+                from app.services.login_attempts import purge_old_login_attempts
+                purge_old_login_attempts()
+            except Exception:
+                logger.exception("Login attempt retention purge failed; will retry next boot.")
+        except Exception:
+            logger.exception("Pages DB seed failed; read-only endpoints will still work.")
 
     # ── Warm the Congress data cache (load-time perf, Task #29) ───────
     # CongressService keeps a per-process in-memory cache that is EMPTY on
@@ -416,6 +442,35 @@ app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["
 # = gate inert). See routers/app_meta.py + components/AppUpdateGate.js.
 from app.routers import app_meta as app_meta_router  # noqa: E402
 app.include_router(app_meta_router.router, prefix="/api/app", tags=["App Meta"])
+
+
+@app.get("/healthz", include_in_schema=False)
+def healthz():
+    """Health check that proves the database answers (audit O2).
+
+    Render polls this path. The old check ("/") returned static JSON, so
+    a deploy whose database was unreachable still counted as healthy.
+    A 503 here makes a new deploy fail its health check and keeps the
+    previous one live. Sync on purpose: FastAPI runs it in a worker
+    thread, so a slow database never blocks the event loop. It uses its
+    own short-timeout connection (app.db.health_engine), so a busy pool
+    cannot fail the check.
+    """
+    try:
+        with _health_engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+    except Exception as e:
+        # One line, no traceback: Render polls every few seconds.
+        logger.warning("Health check: database unreachable (%s)", type(e).__name__)
+        return JSONResponse(
+            {"status": "error", "database": "unreachable"},
+            status_code=503,
+            headers={"Cache-Control": "no-store"},
+        )
+    return JSONResponse(
+        {"status": "ok", "database": "ok"},
+        headers={"Cache-Control": "no-store"},
+    )
 
 
 @app.get("/")

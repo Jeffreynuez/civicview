@@ -1237,7 +1237,7 @@
         "chamber": "State House",
         "district": "3",
         "role": "State Representative",
-        "photo_url": "http://da.mdah.ms.gov/series-files/legislature/composites/2016/500/house-of-representatives/2016_2020HousePhotos/Tracy.Arnold.jpg",
+        "photo_url": "https://da.mdah.ms.gov/series-files/legislature/composites/2016/500/house-of-representatives/2016_2020HousePhotos/Tracy.Arnold.jpg",
         "contact": {
           "email": "warnold@house.ms.gov",
           "dc_office": null,
@@ -2007,7 +2007,7 @@
         "chamber": "State House",
         "district": "38",
         "role": "State Representative",
-        "photo_url": "http://www.starkvilledailynews.com/sites/default/files/styles/galleria_zoom/public/field/image/TAYLOR%20MUG_0.png?itok=jRnUfeN0",
+        "photo_url": null,
         "contact": {
           "email": "ctaylor@house.ms.gov",
           "dc_office": null,
@@ -3129,7 +3129,7 @@
         "chamber": "State House",
         "district": "89",
         "role": "State Representative",
-        "photo_url": "http://files.ctctcdn.com/ee25b30f001/08bd0580-a7b2-481a-a9d2-198a61aec56d.jpg",
+        "photo_url": "https://files.ctctcdn.com/ee25b30f001/08bd0580-a7b2-481a-a9d2-198a61aec56d.jpg",
         "contact": {
           "email": "dscoggin@house.ms.gov",
           "dc_office": null,
