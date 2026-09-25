@@ -21,6 +21,7 @@ import {
   Eyebrow,
   Skeleton,
   EmptyState,
+  ErrorState,
   ArrowRight,
   Building,
   CheckCircle,
@@ -183,24 +184,30 @@ export default function NationalOfficialsPanel({
   };
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
+  const [notSeeded, setNotSeeded] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    setLoading(true);
+    setError(null);
     (async () => {
       try {
         const res = await fetchFederalOfficials();
         if (cancelled) return;
         setData(res?.data || null);
+        setError(res?.error || null);
+        setNotSeeded(!!res?.notSeeded);
         setLoading(false);
       } catch {
         if (cancelled) return;
-        setError(true);
+        setError('Could not load federal officials.');
         setLoading(false);
       }
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [retryKey]);
 
   const handleVerifyClick = () => {
     if (onRequestVerify) onRequestVerify();
@@ -224,13 +231,28 @@ export default function NationalOfficialsPanel({
     );
   }
 
-  if (error || !data) {
+  if (notSeeded) {
+    // The backend answered, with no federal snapshot loaded (a fresh
+    // development database). Not an outage, so no Retry.
     return (
       <EmptyState
         icon={<Building size={36} active color="muted" />}
-        headline="Federal data unavailable"
-        body="Start the API to load President, Cabinet, Supreme Court, and Congress leadership."
+        headline="Federal officials are not loaded yet"
+        body="The federal officials snapshot has not been loaded on this server."
         tone="muted"
+      />
+    );
+  }
+
+  if (error || !data) {
+    // An outage, not an empty government: say so and offer a retry
+    // (audit B7). The old copy told visitors to "start the API".
+    return (
+      <ErrorState
+        kind="network"
+        headline="Couldn't load federal officials"
+        body={error || 'Check your connection and try again.'}
+        cta={{ label: 'Retry', onClick: () => setRetryKey((k) => k + 1) }}
       />
     );
   }
@@ -347,11 +369,17 @@ function Hero({ onVerifyClick }) {
   // big counts to human-friendly suffixes (12.4k, 1.2M) so a viral
   // demo-signup spike doesn't blow out the tile width.
   const [statsData, setStatsData] = useState(null);
+  // True when the stats call failed. The structural counts (100, 435,
+  // 9) are constants and still show; the live activity counts show a
+  // dash instead of a zero we never measured.
+  const [statsUnavailable, setStatsUnavailable] = useState(false);
   useEffect(() => {
     let mounted = true;
     fetchStatsSummary()
-      .then(({ data }) => {
-        if (mounted) setStatsData(data);
+      .then(({ data, isLive }) => {
+        if (!mounted) return;
+        setStatsData(data);
+        setStatsUnavailable(!isLive);
       })
       .catch(() => {
         // fetchStatsSummary already returns fallback on error — this
@@ -363,6 +391,7 @@ function Hero({ onVerifyClick }) {
   }, []);
 
   const STATS = useMemo(() => {
+    const live = (n) => (statsUnavailable ? '-' : formatCount(n));
     const s = statsData || {
       senators: 100,
       representatives: 435,
@@ -375,16 +404,16 @@ function Hero({ onVerifyClick }) {
       { value: formatCount(s.senators),               label: 'Senators' },
       { value: formatCount(s.representatives),        label: 'Representatives' },
       { value: formatCount(s.scotus_justices),        label: 'SCOTUS Justices' },
-      { value: formatCount(s.reps_joined),            label: 'Reps joined' },
-      { value: formatCount(s.verified_citizens),      label: 'Verified citizens' },
+      { value: live(s.reps_joined),                   label: 'Reps joined' },
+      { value: live(s.verified_citizens),             label: 'Verified citizens' },
       // Demo accounts tile is intentionally placed last so it's the
       // first thing to drop off the row at narrow widths. Removed
       // when ID.me verification ships and `verified_citizens` becomes
       // a meaningful non-zero number (Task #71 will absorb the
       // detail breakdown into the expanded /stats page).
-      { value: formatCount(s.demo_accounts_created),  label: 'Demo accounts created' },
+      { value: live(s.demo_accounts_created),         label: 'Demo accounts created' },
     ];
-  }, [statsData]);
+  }, [statsData, statsUnavailable]);
 
   // CivicView Stats dropdown — starts collapsed per design feedback.
   // The numbers are a "nice to have" peek; collapsing them by default

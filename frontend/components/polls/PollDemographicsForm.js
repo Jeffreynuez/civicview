@@ -14,8 +14,7 @@
 
 import { useEffect, useState } from 'react';
 import { fetchMyPollDemographics, fetchDemographicProfile, saveDemographicProfile } from '../../lib/pagesApi';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { getJson } from '../../lib/http';
 
 export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
   const [questions, setQuestions] = useState(null); // null = loading
@@ -28,9 +27,8 @@ export default function PollDemographicsForm({ pollId, onSubmit, onDismiss }) {
     (async () => {
       let qs = [];
       try {
-        const r = await fetch(`${API_BASE}/api/polls/${pollId}/demographics`);
-        const j = r.ok ? await r.json() : { questions: [] };
-        qs = j.questions || [];
+        const j = await getJson(`/api/polls/${encodeURIComponent(pollId)}/demographics`);
+        qs = (j && j.questions) || [];
       } catch {
         qs = [];
       }

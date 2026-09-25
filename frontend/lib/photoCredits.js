@@ -9,7 +9,7 @@
  * so every profile that shows a photo can look its credit up by URL.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { getJson } from './http';
 
 let creditsPromise = null;
 
@@ -20,10 +20,10 @@ export function isWikimediaPhoto(url) {
 /** Resolves to { retrieved, credits: [...] }; an empty list on failure. */
 export function fetchPhotoCredits() {
   if (!creditsPromise) {
-    creditsPromise = fetch(`${API_BASE_URL}/api/photo-credits`)
-      .then((r) => (r.ok ? r.json() : { retrieved: null, credits: [] }))
-      .catch(() => ({ retrieved: null, credits: [] }))
-      .then((doc) => {
+    creditsPromise = getJson('/api/photo-credits')
+      .catch(() => null)
+      .then((raw) => {
+        const doc = raw || { retrieved: null, credits: [] };
         // A failed fetch should be retried by the next caller.
         if (!doc.credits || doc.credits.length === 0) creditsPromise = null;
         return doc;

@@ -15,10 +15,10 @@
 // the poll has a form. ALL suppression is enforced server-side — this view just
 // renders whatever the API returns, including "not enough responses" buckets.
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './PollResultsModal.css';
+import { getJson, describeError } from '../../lib/http';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 const SCOPE_LABELS = {
   country: 'Country', state: 'State', district: 'District', city: 'City',
@@ -162,35 +162,33 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
     let alive = true;
     (async () => {
       try {
-        const r = await fetch(`${API_BASE}/api/polls/${pollId}/demographics`);
-        if (!r.ok) return;
-        const j = await r.json();
-        if (alive) setQuestions(j.questions || []);
-      } catch { /* form is optional — ignore */ }
+        const j = await getJson(`/api/polls/${encodeURIComponent(pollId)}/demographics`);
+        if (alive) setQuestions((j && j.questions) || []);
+      } catch { /* the form is optional; ignore */ }
     })();
     return () => { alive = false; };
   }, [open, pollId]);
 
+  // Clicking through filters quickly fires several requests; only the
+  // newest may land, or an older, slower answer would show results for
+  // filters that are no longer selected (audit B6).
+  const breakdownReqRef = useRef(0);
   const loadBreakdown = useCallback(async () => {
     if (pollId == null) return;
+    const rid = ++breakdownReqRef.current;
     setLoading(true);
     setError(null);
     try {
-      const params = new URLSearchParams();
-      params.set('scope', scope);
+      const query = { scope, by: by || undefined };
       for (const [k, v] of Object.entries(filters)) {
-        if (v) params.set(`filter_${k}`, v);
+        if (v) query[`filter_${k}`] = v;
       }
-      if (by) params.set('by', by);
-      const r = await fetch(
-        `${API_BASE}/api/polls/${pollId}/results/breakdown?${params.toString()}`,
-      );
-      if (!r.ok) throw new Error('Could not load results');
-      setData(await r.json());
+      const j = await getJson(`/api/polls/${encodeURIComponent(pollId)}/results/breakdown`, { query });
+      if (rid === breakdownReqRef.current) setData(j);
     } catch (e) {
-      setError(e.message || 'Could not load results');
+      if (rid === breakdownReqRef.current) setError(describeError(e) || 'Could not load results');
     } finally {
-      setLoading(false);
+      if (rid === breakdownReqRef.current) setLoading(false);
     }
   }, [pollId, scope, filtersKey, by]); // eslint-disable-line react-hooks/exhaustive-deps
 

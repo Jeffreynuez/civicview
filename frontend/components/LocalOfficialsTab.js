@@ -10,6 +10,7 @@ import {
   fetchStateOfficials,
 } from '@/lib/api';
 import FollowButton from './FollowButton';
+import { LoadError } from './ui';
 import CompareButton from './CompareButton';
 
 /**
@@ -37,6 +38,10 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
   const [cityData, setCityData] = useState(null);
   const [loadingCity, setLoadingCity] = useState(false);
   const [cityNotFound, setCityNotFound] = useState(false);
+  // Outage or timeout, never shown as "no data seeded" (audit B7).
+  const [citiesError, setCitiesError] = useState(null);
+  const [cityError, setCityError] = useState(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   // County and district selection
   const [selectedCounty, setSelectedCounty] = useState(null);
@@ -47,15 +52,17 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
     if (!stateCode) return;
     let cancelled = false;
     setLoadingCities(true);
+    setCitiesError(null);
     (async () => {
-      const { data } = await fetchLocalCities(stateCode);
+      const { data, error } = await fetchLocalCities(stateCode);
       if (!cancelled) {
         setCities(data || []);
+        setCitiesError(error || null);
         setLoadingCities(false);
       }
     })();
     return () => { cancelled = true; };
-  }, [stateCode]);
+  }, [stateCode, retryKey]);
 
   // Load state officials once — used for counties / districts derivation
   useEffect(() => {
@@ -86,6 +93,7 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
     let cancelled = false;
     setLoadingCity(true);
     setCityNotFound(false);
+    setCityError(null);
     (async () => {
       const res = await fetchLocalOfficials(stateCode, citySlug);
       if (cancelled) return;
@@ -94,11 +102,12 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
         setCityData(null);
       } else {
         setCityData(res.data);
+        setCityError(res.error || null);
       }
       setLoadingCity(false);
     })();
     return () => { cancelled = true; };
-  }, [stateCode, citySlug]);
+  }, [stateCode, citySlug, retryKey]);
 
   // Counties derived from the seeded city index
   const counties = useMemo(() => {
@@ -128,6 +137,15 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
 
   // Early: no data at all
   if (loadingCities && !cities.length) return <Loading>Loading cities…</Loading>;
+  if (!cities.length && !loadingCities && citiesError) {
+    return (
+      <LoadError
+        message={`Could not load local officials for ${stateName || stateCode}.`}
+        detail={citiesError}
+        onRetry={() => setRetryKey((k) => k + 1)}
+      />
+    );
+  }
   if (!cities.length && !loadingCities) {
     return (
       <EmptyState>
@@ -159,6 +177,8 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
           onPick={setCitySlug}
           cityData={cityData}
           cityNotFound={cityNotFound}
+          cityError={cityError}
+          onRetryCity={() => setRetryKey((k) => k + 1)}
           loading={loadingCity}
           stateCode={stateCode}
           onNotify={onNotify}
@@ -249,7 +269,7 @@ function buildFollowTarget(person, roleType, extras = {}) {
 }
 
 // ─── Cities view ────────────────────────────────────────────────────
-function CitiesView({ cities, citySlug, onPick, cityData, cityNotFound, loading, stateCode, onNotify, onCompareToggle, compareIds }) {
+function CitiesView({ cities, citySlug, onPick, cityData, cityNotFound, cityError, onRetryCity, loading, stateCode, onNotify, onCompareToggle, compareIds }) {
   const [query, setQuery] = useState('');
 
   // Split by tier — "major" is the curated top metros, everything else is "city".
@@ -320,6 +340,9 @@ function CitiesView({ cities, citySlug, onPick, cityData, cityNotFound, loading,
       <BackButton onClick={() => onPick(null)}>← All cities</BackButton>
       {loading && <Loading>Loading…</Loading>}
       {cityNotFound && <EmptyState>No local-officials data seeded for this city yet.</EmptyState>}
+      {!loading && !cityData && cityError && (
+        <LoadError message="Could not load this city's officials." detail={cityError} onRetry={onRetryCity} />
+      )}
       {cityData && (
         <CityDetail
           city={cityData}

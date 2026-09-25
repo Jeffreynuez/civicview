@@ -110,7 +110,10 @@ export async function loginCandidate(email, password) {
 export async function completeLoginCandidate(challengeToken, code) {
   const { verifyLoginChallenge } = await import('./twoFactorApi');
   const { setStoredCandidateToken, setStoredCandidateCsrf } = await import('./pagesApi');
-  const { data, error, status } = await verifyLoginChallenge(challengeToken, code);
+  // `payload` carries structured error fields (a 423 lockout's
+  // locked_until). It was returned below without being read here, so a
+  // wrong code threw a ReferenceError instead of showing the error.
+  const { data, error, status, payload } = await verifyLoginChallenge(challengeToken, code);
   if (data && data.candidate) {
     if (data.candidate_token) setStoredCandidateToken(data.candidate_token);
     if (data.csrf_token) setStoredCandidateCsrf(data.csrf_token);

@@ -754,11 +754,19 @@ export default function BillsPage() {
     return () => mq.removeEventListener('change', on);
   }, []);
 
+  // Clicking through votes quickly must not let a slow earlier answer
+  // replace the vote picked last (audit B6).
+  const voteReqRef = useRef(0);
+  // Bumped by Retry when the recent-votes list itself failed to load.
+  const [listNonce, setListNonce] = useState(0);
+
   const loadVote = useCallback(async (voteId, recentRaw, chamberCap) => {
+    const rid = ++voteReqRef.current;
     setLoading(true);
     setError(null);
     setSel({ idx: null, anchor: null });
     const { data } = await fetchVoteMembers(voteId);
+    if (rid !== voteReqRef.current) return;
     if (!data) { setLoading(false); setError('load'); return; }
     setVote(mapVote(data, recentRaw, chamberCap));
     setActiveId(voteId);
@@ -771,6 +779,10 @@ export default function BillsPage() {
 
   useEffect(() => {
     let cancelled = false;
+    // A vote still loading for the previous chamber must not land here,
+    // and Retry must not reload the previous chamber's vote.
+    voteReqRef.current += 1;
+    setActiveId(null);
     (async () => {
       setLoading(true);
       setError(null);
@@ -781,8 +793,11 @@ export default function BillsPage() {
       // 50 (was 20): deeper corpus for the bill search below. Details
       // are cached server-side per vote, so the wider window costs one
       // burst on cold cache, then rides the immutable-detail cache.
-      const { data: rows } = await fetchRecentVotes(chamberApi, 50);
+      const { data: rows, error: rowsError } = await fetchRecentVotes(chamberApi, 50);
       if (cancelled) return;
+      // An outage is not a recess (audit B7): only an answered, empty
+      // list means the chamber is not recording floor votes.
+      if (rowsError) { setLoading(false); setError('load'); return; }
       const mapped = rows.map(mapRecentItem);
       setRecent(mapped);
       if (!mapped.length) { setLoading(false); setError('recess'); return; }
@@ -800,7 +815,7 @@ export default function BillsPage() {
       await loadVote(mapped[0].id, mapped[0].raw, chamber);
     })();
     return () => { cancelled = true; };
-  }, [chamber, loadVote]);
+  }, [chamber, loadVote, listNonce]);
 
   const pick = (idx, anchor) => setSel({ idx, anchor });
   const closeCard = () => setSel({ idx: null, anchor: null });
@@ -808,6 +823,10 @@ export default function BillsPage() {
   const onPickVote = (item) => { closeCard(); loadVote(item.id, item.raw, chamber); };
   const onViewProfile = (bioguide) => { closeCard(); router.push('/?member=' + encodeURIComponent(bioguide)); };
   const retry = () => {
+    if (!activeId || !recent.length) {
+      setListNonce((n) => n + 1);
+      return;
+    }
     const cur = recent.find((r) => r.id === activeId);
     loadVote(activeId, cur && cur.raw, chamber);
   };

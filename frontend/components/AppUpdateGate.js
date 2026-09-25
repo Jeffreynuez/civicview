@@ -26,8 +26,8 @@
 
 import { useEffect, useState } from 'react';
 import { isNativeApp } from '@/lib/push';
+import { getJson } from '@/lib/http';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const NUDGE_DISMISSED_KEY = 'cv:update-nudge-dismissed';
 
 async function installedBuild() {
@@ -52,8 +52,7 @@ export default function AppUpdateGate() {
       if (build == null) return; // old shell without the App plugin — fail open
       let cfg = null;
       try {
-        const res = await fetch(`${API_BASE_URL}/api/app/version`);
-        if (res.ok) cfg = await res.json();
+        cfg = await getJson('/api/app/version');
       } catch { /* offline — fail open */ }
       if (cancelled || !cfg) return;
       const min = cfg.min_version_code || 0;

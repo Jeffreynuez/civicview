@@ -2,11 +2,21 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * CivicView API Client
- * Fetches data from the FastAPI backend, with fallback to sample data.
+ * CivicView public data client: officials, bills, votes, elections.
+ *
+ * Every read goes through getJson() in lib/http.js (audit F4), which
+ * adds a timeout and tells a network failure apart from an empty
+ * answer. On failure these functions still resolve the same empty shape
+ * they always did, so no caller crashes, but they now also carry
+ * `error` (a short message for the screen). A screen that gets `error`
+ * shows "could not load" with a Retry instead of an empty list, so an
+ * outage no longer reads as "this official has no bills" (audit B7).
+ *
+ * `notSeeded: true` still means the backend answered 404: we have no
+ * data for that state or person, which is a real answer, not an error.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { getJson, describeError, loadErrorText, UPSTREAM_TIMEOUT_MS } from './http';
 const IMAGE_BASE = 'https://unitedstates.github.io/images/congress/225x275';
 
 // ─── Transform backend member to frontend format ─────────────────────
@@ -57,6 +67,10 @@ export async function fetchAllStateData(stateCode) {
   const stateInfo = stateResult.status === 'fulfilled' ? stateResult.value.data : { stateLeg: { senate: [], house: [] }, elections: [] };
   const isLive = (congressResult.status === 'fulfilled' && congressResult.value.isLive) ||
                  (stateResult.status === 'fulfilled' && stateResult.value.isLive);
+  // Either half failing means the lists below are incomplete; say so
+  // rather than show a short list as if it were the whole delegation.
+  const errorOf = (r) => (r.status === 'rejected' ? describeError(r.reason) : r.value.error || null);
+  const error = errorOf(congressResult) || errorOf(stateResult);
 
   return {
     data: {
@@ -65,6 +79,7 @@ export async function fetchAllStateData(stateCode) {
       elections: stateInfo.elections || [],
     },
     isLive,
+    error,
   };
 }
 
@@ -154,14 +169,7 @@ export async function fetchDistrictsForState(stateFips) {
 // ─── Address lookup ──────────────────────────────────────────────────
 export async function lookupAddress(address) {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/address/lookup?address=${encodeURIComponent(address)}`
-    );
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err.detail || `API Error ${response.status}`);
-    }
-    const data = await response.json();
+    const data = await getJson('/api/address/lookup', { query: { address } });
 
     // Transform members to frontend format
     const yourRep = data.yourRepresentative ? transformMember(data.yourRepresentative) : null;
@@ -190,7 +198,10 @@ export async function lookupAddress(address) {
   } catch (error) {
     return {
       success: false,
-      error: error.message || 'Could not look up that address. Make sure the backend is running.',
+      // A 4xx carries the backend's reason (a 404 here is "Could not
+      // find that location", which the user must see); an outage or
+      // timeout gets the standard could-not-reach message.
+      error: describeError(error),
     };
   }
 }
@@ -198,9 +209,7 @@ export async function lookupAddress(address) {
 // ─── Congress members ────────────────────────────────────────────────
 export async function fetchCongressMembers(stateCode) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/congress/members?state=${stateCode}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members?state=${stateCode}`);
 
     // Backend returns {state, count, members: [...]}
     // Transform into {senators, representatives}
@@ -210,11 +219,11 @@ export async function fetchCongressMembers(stateCode) {
 
     return { data: { senators, representatives }, isLive: true };
   } catch (error) {
-    console.warn('Congress API unavailable, using sample data:', error.message);
-    const fallback = SAMPLE_DATA[stateCode];
+    console.warn('Congress API unavailable:', error.message);
     return {
-      data: fallback ? fallback.congress : { senators: [], representatives: [] },
+      data: { senators: [], representatives: [] },
       isLive: false,
+      error: loadErrorText(error),
     };
   }
 }
@@ -230,9 +239,7 @@ export async function fetchAllMembers() {
 
   _allMembersPromise = (async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/congress/members/all`);
-      if (!response.ok) throw new Error(`API Error ${response.status}`);
-      const data = await response.json();
+      const data = await getJson(`/api/congress/members/all`);
       const members = (data.members || []).map(transformMember);
       // Enrich transformed output with raw-level fields not in transformMember
       for (let i = 0; i < members.length; i++) {
@@ -244,7 +251,7 @@ export async function fetchAllMembers() {
       return { data: members, isLive: true };
     } catch (error) {
       console.warn('All-members index unavailable:', error.message);
-      return { data: [], isLive: false };
+      return { data: [], isLive: false, error: loadErrorText(error) };
     } finally {
       _allMembersPromise = null;
     }
@@ -256,19 +263,11 @@ export async function fetchAllMembers() {
 // ─── Member detail ───────────────────────────────────────────────────
 export async function fetchMemberDetail(bioguideId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/congress/members/${bioguideId}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members/${bioguideId}`);
     return { data: transformMember(data), isLive: true };
   } catch (error) {
     console.warn('Member detail API unavailable:', error.message);
-    // Search sample data
-    for (const state of Object.values(SAMPLE_DATA)) {
-      const allMembers = [...state.congress.senators, ...state.congress.representatives];
-      const found = allMembers.find((m) => m.bioguide_id === bioguideId);
-      if (found) return { data: found, isLive: false };
-    }
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -278,11 +277,7 @@ export async function fetchMemberDetail(bioguideId) {
 //     latest_action, latest_action_date, url }
 export async function fetchMemberBills(bioguideId, limit = 10) {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/congress/members/${bioguideId}/bills?limit=${limit}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members/${bioguideId}/bills?limit=${limit}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     return {
       data: {
         sponsored: data.sponsored || [],
@@ -292,7 +287,7 @@ export async function fetchMemberBills(bioguideId, limit = 10) {
     };
   } catch (error) {
     console.warn('Member bills API unavailable:', error.message);
-    return { data: { sponsored: [], cosponsored: [] }, isLive: false };
+    return { data: { sponsored: [], cosponsored: [] }, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -300,11 +295,7 @@ export async function fetchMemberBills(bioguideId, limit = 10) {
 // Returns { dc_office, dc_phone, official_website, district_offices, socials }
 export async function fetchMemberContact(bioguideId) {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/congress/members/${bioguideId}/contact`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members/${bioguideId}/contact`);
     return {
       data: {
         dc_office: data.dc_office || null,
@@ -326,6 +317,7 @@ export async function fetchMemberContact(bioguideId) {
         socials: {},
       },
       isLive: false,
+      error: loadErrorText(error),
     };
   }
 }
@@ -366,11 +358,7 @@ export async function fetchMemberVotes(bioguideId, opts = {}) {
     if (!yearVotes || yearVotes.length === 0) {
       try {
         const qs = new URLSearchParams({ year: String(year) }).toString();
-        const response = await fetch(
-          `${API_BASE_URL}/api/congress/members/${bioguideId}/votes?${qs}`
-        );
-        if (!response.ok) throw new Error(`API Error ${response.status}`);
-        const data = await response.json();
+        const data = await getJson(`/api/congress/members/${bioguideId}/votes?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
         yearVotes = data.votes || [];
         // Only cache when we got real data; empty results retry on
         // next call rather than getting stuck.
@@ -379,7 +367,7 @@ export async function fetchMemberVotes(bioguideId, opts = {}) {
         }
       } catch (error) {
         console.warn('Member votes API unavailable:', error.message);
-        return { data: [], isLive: false };
+        return { data: [], isLive: false, error: loadErrorText(error) };
       }
     }
     const filtered = month == null
@@ -393,15 +381,11 @@ export async function fetchMemberVotes(bioguideId, opts = {}) {
 
   // Recent-votes mode (unchanged behavior).
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/congress/members/${bioguideId}/votes?limit=${limit}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members/${bioguideId}/votes?limit=${limit}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     return { data: data.votes || [], isLive: true };
   } catch (error) {
     console.warn('Member votes API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -417,13 +401,11 @@ const _voteMembersCache = new Map();
 export async function fetchRecentVotes(chamber, limit = 20) {
   try {
     const qs = new URLSearchParams({ chamber, limit: String(limit) }).toString();
-    const response = await fetch(`${API_BASE_URL}/api/votes/recent?${qs}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/votes/recent?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     return { data: data.votes || [], isLive: true };
   } catch (error) {
     console.warn('Recent votes API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -433,16 +415,12 @@ export async function fetchVoteMembers(voteId) {
     return { data: _voteMembersCache.get(voteId), isLive: true };
   }
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/votes/${encodeURIComponent(voteId)}/members`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/votes/${encodeURIComponent(voteId)}/members`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     _voteMembersCache.set(voteId, data);
     return { data, isLive: true };
   } catch (error) {
     console.warn('Vote members API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -451,11 +429,7 @@ export async function fetchVoteMembers(voteId) {
 export async function fetchMemberStats(bioguideId, party = null) {
   try {
     const qs = party ? `?party=${encodeURIComponent(party)}` : '';
-    const response = await fetch(
-      `${API_BASE_URL}/api/congress/members/${bioguideId}/stats${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/members/${bioguideId}/stats${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     return {
       data: {
         party_line_pct: data.party_line_pct ?? null,
@@ -469,6 +443,7 @@ export async function fetchMemberStats(bioguideId, party = null) {
     return {
       data: { party_line_pct: null, votes_analyzed: 0, top_issues: [] },
       isLive: false,
+      error: loadErrorText(error),
     };
   }
 }
@@ -483,14 +458,12 @@ export async function fetchCommittees() {
   if (_committeesPromise) return _committeesPromise;
   _committeesPromise = (async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/congress/committees`);
-      if (!response.ok) throw new Error(`API Error ${response.status}`);
-      const data = await response.json();
+      const data = await getJson(`/api/congress/committees`);
       _committeesCache = data.committees || [];
       return { data: _committeesCache, isLive: true };
     } catch (error) {
       console.warn('Committees API unavailable:', error.message);
-      return { data: [], isLive: false };
+      return { data: [], isLive: false, error: loadErrorText(error) };
     } finally {
       _committeesPromise = null;
     }
@@ -508,9 +481,7 @@ export async function fetchCommitteeDetail(thomasId) {
     return { data: _committeeDetailCache.get(id), isLive: true };
   }
   try {
-    const response = await fetch(`${API_BASE_URL}/api/congress/committees/${id}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/committees/${id}`);
     // Promote roster member fields into the same shape used elsewhere
     data.members = (data.members || []).map((m) => ({
       ...m,
@@ -520,7 +491,7 @@ export async function fetchCommitteeDetail(thomasId) {
     return { data, isLive: true };
   } catch (error) {
     console.warn('Committee detail API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -535,15 +506,11 @@ export async function fetchCommitteeDetail(thomasId) {
 export async function fetchOfficialEvents(officialId) {
   if (!officialId) return { data: [], isLive: false };
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/events/upcoming?official_id=${encodeURIComponent(officialId)}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/events/upcoming?official_id=${encodeURIComponent(officialId)}`);
     return { data: data.events || [], isLive: true };
   } catch (error) {
     console.warn('Official events API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -558,13 +525,11 @@ export async function fetchMemberEvents(bioguideId) {
 // Each item also includes a `bioguide_id` field.
 export async function fetchAllEvents() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/events/all`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/events/all`);
     return { data: data.events || [], isLive: true };
   } catch (error) {
     console.warn('All-events API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -577,15 +542,24 @@ export async function fetchBillSnapshot(congress, billType, number) {
   if (!congress || !billType || !number) return { data: null, isLive: false };
   const bt = String(billType).toLowerCase();
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/congress/bills/${congress}/${bt}/${encodeURIComponent(number)}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/congress/bills/${congress}/${bt}/${encodeURIComponent(number)}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     return { data, isLive: true };
   } catch (error) {
     console.warn('Bill snapshot API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
+  }
+}
+
+// Shared by the summary and explainer calls below: they can wait on a
+// model, so they get a longer timeout, and they keep their historical
+// { data, error } shape (no isLive).
+async function _aiJson(path, opts, label) {
+  try {
+    const data = await getJson(path, { timeoutMs: 60000, ...opts });
+    return { data, error: null };
+  } catch (error) {
+    console.warn(label, error.message);
+    return { data: null, error: describeError(error) };
   }
 }
 
@@ -608,24 +582,11 @@ export async function fetchBillSummary(
   }
   const bt = String(billType).toUpperCase();
   const num = String(number);
-  const params = new URLSearchParams();
-  if (title) params.set('title', title);
-  if (latestAction) params.set('latest_action', latestAction);
-  const qs = params.toString() ? `?${params.toString()}` : '';
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary${qs}`,
-    );
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('Bill summary fetch failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson(
+    `/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary`,
+    { query: { title, latest_action: latestAction } },
+    'Bill summary fetch failed:',
+  );
 }
 
 // ─── Vote explainer ──────────────────────────────────────────────────
@@ -639,44 +600,18 @@ export async function fetchBillSummary(
 // flips between them via a toggle once both are present.
 export async function explainVote(votePayload) {
   if (!votePayload) return { data: null, error: 'missing_vote' };
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/votes/explain`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(votePayload),
-    });
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('Vote explainer failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson('/api/votes/explain', { method: 'POST', body: votePayload }, 'Vote explainer failed:');
 }
 
 export async function generateVoteExplanation(votePayload) {
   if (!votePayload || !votePayload.vote_id) {
     return { data: null, error: 'missing_vote_id' };
   }
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/votes/explain/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(votePayload),
-    });
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('Vote AI explanation failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson(
+    '/api/votes/explain/generate',
+    { method: 'POST', body: votePayload },
+    'Vote AI explanation failed:',
+  );
 }
 
 export async function translateBillSummary(congress, billType, number) {
@@ -685,21 +620,11 @@ export async function translateBillSummary(congress, billType, number) {
   }
   const bt = String(billType).toUpperCase();
   const num = String(number);
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary/translate`,
-      { method: 'POST' },
-    );
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('Bill summary translate failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson(
+    `/api/bills/${congress}/${bt}/${encodeURIComponent(num)}/summary/translate`,
+    { method: 'POST' },
+    'Bill summary translate failed:',
+  );
 }
 
 // ─── Federal officials (President, VP, Cabinet, SCOTUS, Congress lead) ─
@@ -715,17 +640,13 @@ export async function fetchFederalOfficials() {
 
   _federalOfficialsPromise = (async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/federal-officials`);
-      if (response.status === 404) {
-        return { data: null, isLive: true, notSeeded: true };
-      }
-      if (!response.ok) throw new Error(`API Error ${response.status}`);
-      const data = await response.json();
+      const data = await getJson(`/api/federal-officials`);
       _federalOfficialsCache = data;
       return { data, isLive: true };
     } catch (error) {
+      if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
       console.warn('Federal officials API unavailable:', error.message);
-      return { data: null, isLive: false };
+      return { data: null, isLive: false, error: loadErrorText(error) };
     } finally {
       _federalOfficialsPromise = null;
     }
@@ -745,19 +666,13 @@ export async function fetchFederalPerson(personId) {
     return { data: _federalPersonCache.get(personId), isLive: true };
   }
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/federal-officials/person/${encodeURIComponent(personId)}`
-    );
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/federal-officials/person/${encodeURIComponent(personId)}`);
     _federalPersonCache.set(personId, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('Federal person API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -773,56 +688,26 @@ const _execOrdersCache = new Map();
 // upgrade, fetched on demand and stored per document_number.
 export async function fetchEoSummary(documentNumber, { title, eoNumber, abstract } = {}) {
   if (!documentNumber) return { data: null, error: 'missing_document_number' };
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/eos/${encodeURIComponent(documentNumber)}/summary`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: title || null,
-          eo_number: eoNumber || null,
-          abstract: abstract || null,
-        }),
-      },
-    );
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('EO summary fetch failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson(
+    `/api/eos/${encodeURIComponent(documentNumber)}/summary`,
+    {
+      method: 'POST',
+      body: { title: title || null, eo_number: eoNumber || null, abstract: abstract || null },
+    },
+    'EO summary fetch failed:',
+  );
 }
 
 export async function translateEoSummary(documentNumber, { title, eoNumber, abstract } = {}) {
   if (!documentNumber) return { data: null, error: 'missing_document_number' };
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/eos/${encodeURIComponent(documentNumber)}/summary/translate`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: title || null,
-          eo_number: eoNumber || null,
-          abstract: abstract || null,
-        }),
-      },
-    );
-    if (!response.ok) {
-      const detail = await response.json().catch(() => ({ detail: '' }));
-      return { data: null, error: detail.detail || `HTTP ${response.status}` };
-    }
-    const data = await response.json();
-    return { data, error: null };
-  } catch (error) {
-    console.warn('EO summary translate failed:', error.message);
-    return { data: null, error: error.message || 'network' };
-  }
+  return _aiJson(
+    `/api/eos/${encodeURIComponent(documentNumber)}/summary/translate`,
+    {
+      method: 'POST',
+      body: { title: title || null, eo_number: eoNumber || null, abstract: abstract || null },
+    },
+    'EO summary translate failed:',
+  );
 }
 
 export async function fetchExecutiveOrders(presidentSlug, limit = 20) {
@@ -836,17 +721,13 @@ export async function fetchExecutiveOrders(presidentSlug, limit = 20) {
       president_slug: presidentSlug,
       limit: String(limit),
     });
-    const response = await fetch(
-      `${API_BASE_URL}/api/federal-officials/executive-orders?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/federal-officials/executive-orders?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const orders = data.orders || [];
     _execOrdersCache.set(key, orders);
     return { data: orders, isLive: true };
   } catch (error) {
     console.warn('Executive orders API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -870,17 +751,13 @@ export async function fetchPresidentialActions({
       type,
       limit: String(limit),
     });
-    const response = await fetch(
-      `${API_BASE_URL}/api/federal-officials/presidential-actions?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/federal-officials/presidential-actions?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const bills = data.bills || [];
     _presidentialActionsCache.set(key, bills);
     return { data: bills, isLive: true };
   } catch (error) {
     console.warn('Presidential actions API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -897,17 +774,13 @@ export async function fetchSCOTUSCases({ justiceName = null, limit = 15 } = {}) 
   try {
     const qs = new URLSearchParams({ limit: String(limit) });
     if (justiceName) qs.set('justice_name', justiceName);
-    const response = await fetch(
-      `${API_BASE_URL}/api/federal-officials/scotus-cases?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/federal-officials/scotus-cases?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const cases = data.cases || [];
     _scotusCasesCache.set(key, cases);
     return { data: cases, isLive: true };
   } catch (error) {
     console.warn('SCOTUS cases API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -922,17 +795,13 @@ export async function fetchStateOfficials(stateCode) {
     return { data: _stateOfficialsCache.get(key), isLive: true };
   }
   try {
-    const response = await fetch(`${API_BASE_URL}/api/state-officials/${key}`);
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${key}`);
     _stateOfficialsCache.set(key, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('State officials API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -948,19 +817,13 @@ export async function fetchStatePerson(stateCode, personId) {
     return { data: _statePersonCache.get(key), isLive: true };
   }
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/person/${encodeURIComponent(personId)}`
-    );
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/person/${encodeURIComponent(personId)}`);
     _statePersonCache.set(key, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('State person API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -980,17 +843,13 @@ export async function fetchStateLegislatorBills({
     if (chamber) qs.set('chamber', chamber);
     if (district) qs.set('district', String(district));
     if (openStatesId) qs.set('openstates_id', openStatesId);
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-bills?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/legislator-bills?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const bills = data.bills || [];
     _stateLegBillsCache.set(key, bills);
     return { data: bills, isLive: true };
   } catch (error) {
     console.warn('State legislator bills API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1011,17 +870,13 @@ export async function fetchStateLegislatorIssues({
     if (district) qs.set('district', String(district));
     if (openStatesId) qs.set('openstates_id', openStatesId);
     if (sourceUrl) qs.set('source_url', sourceUrl);
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-issues?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/legislator-issues?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const issues = data.issues || [];
     _stateLegIssuesCache.set(key, issues);
     return { data: issues, isLive: true };
   } catch (error) {
     console.warn('State legislator issues API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1041,17 +896,13 @@ export async function fetchStateLegislatorVotes({
     if (chamber) qs.set('chamber', chamber);
     if (district) qs.set('district', String(district));
     if (openStatesId) qs.set('openstates_id', openStatesId);
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/legislator-votes?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/legislator-votes?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const votes = data.votes || [];
     _stateLegVotesCache.set(key, votes);
     return { data: votes, isLive: true };
   } catch (error) {
     console.warn('State legislator votes API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1068,17 +919,13 @@ export async function fetchGovernorActions({
   }
   try {
     const qs = new URLSearchParams({ type, limit: String(limit) });
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/governor-actions?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/governor-actions?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const bills = data.bills || [];
     _governorActionsCache.set(key, bills);
     return { data: bills, isLive: true };
   } catch (error) {
     console.warn('Governor actions API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1096,17 +943,13 @@ export async function fetchStateCourtCases({
   try {
     const qs = new URLSearchParams({ limit: String(limit) });
     if (justiceName) qs.set('justice_name', justiceName);
-    const response = await fetch(
-      `${API_BASE_URL}/api/state-officials/${stateCode.toUpperCase()}/court-cases?${qs}`
-    );
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/state-officials/${stateCode.toUpperCase()}/court-cases?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
     const cases = data.cases || [];
     _stateCourtCasesCache.set(key, cases);
     return { data: cases, isLive: true };
   } catch (error) {
     console.warn('State court cases API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1122,14 +965,12 @@ export async function fetchLocalCities(stateCode) {
     return { data: _localCitiesCache.get(key), isLive: true };
   }
   try {
-    const response = await fetch(`${API_BASE_URL}/api/local-officials/${key}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/local-officials/${key}`);
     _localCitiesCache.set(key, data.cities || []);
     return { data: data.cities || [], isLive: true };
   } catch (error) {
     console.warn('Local cities API unavailable:', error.message);
-    return { data: [], isLive: false };
+    return { data: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1140,19 +981,13 @@ export async function fetchLocalOfficials(stateCode, citySlug) {
     return { data: _localOfficialsCache.get(cacheKey), isLive: true };
   }
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/local-officials/${stateCode.toUpperCase()}/${encodeURIComponent(citySlug.toLowerCase())}`
-    );
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/local-officials/${stateCode.toUpperCase()}/${encodeURIComponent(citySlug.toLowerCase())}`);
     _localOfficialsCache.set(cacheKey, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('Local officials API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1164,17 +999,13 @@ export async function fetchElections(stateCode) {
   const key = stateCode.toUpperCase();
   if (_electionsCache.has(key)) return { data: _electionsCache.get(key), isLive: true };
   try {
-    const response = await fetch(`${API_BASE_URL}/api/elections/${key}`);
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/elections/${key}`);
     _electionsCache.set(key, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('Elections API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1191,18 +1022,12 @@ export async function fetchBallotForAddress(stateCode, geo = {}) {
   if (geo.stateHouseDistrict) qs.set('state_house_district', geo.stateHouseDistrict);
   if (geo.citySlug) qs.set('city_slug', geo.citySlug);
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/elections/${stateCode.toUpperCase()}/ballot?${qs.toString()}`
-    );
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/elections/${stateCode.toUpperCase()}/ballot?${qs.toString()}`);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('Personalized ballot API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1218,9 +1043,7 @@ const _voterInfoCache = new Map();
 
 export async function fetchGoogleCivicStatus() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/google-civic/status`);
-    if (!response.ok) return { enabled: false };
-    return await response.json();
+    return await getJson('/api/google-civic/status');
   } catch (error) {
     console.warn('Google Civic status unavailable:', error.message);
     return { enabled: false };
@@ -1237,28 +1060,24 @@ export async function fetchVoterInfo(address, { electionId = null, officialOnly 
   if (officialOnly) qs.set('official_only', 'true');
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/google-civic/voter-info?${qs.toString()}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const payload = await response.json();
+    const payload = await getJson(`/api/google-civic/voter-info?${qs.toString()}`);
     if (!payload.enabled) return { data: null, disabled: true };
     _voterInfoCache.set(cacheKey, payload.data);
     return { data: payload.data, disabled: false };
   } catch (error) {
     console.warn('Google Civic voter-info unavailable:', error.message);
-    return { data: null, disabled: false, error: error.message };
+    return { data: null, disabled: false, error: loadErrorText(error) };
   }
 }
 
 export async function fetchGoogleCivicElections() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/google-civic/elections`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const payload = await response.json();
+    const payload = await getJson(`/api/google-civic/elections`);
     if (!payload.enabled) return { data: [], disabled: true };
     return { data: payload.data || [], disabled: false };
   } catch (error) {
     console.warn('Google Civic elections unavailable:', error.message);
-    return { data: [], disabled: false, error: error.message };
+    return { data: [], disabled: false, error: loadErrorText(error) };
   }
 }
 
@@ -1266,14 +1085,12 @@ export async function fetchOcdDivisions(address) {
   if (!address || !address.trim()) return { data: null, disabled: false };
   try {
     const qs = new URLSearchParams({ address: address.trim() });
-    const response = await fetch(`${API_BASE_URL}/api/google-civic/divisions?${qs.toString()}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const payload = await response.json();
+    const payload = await getJson(`/api/google-civic/divisions?${qs.toString()}`);
     if (!payload.enabled) return { data: null, disabled: true };
     return { data: payload.data, disabled: false };
   } catch (error) {
     console.warn('Google Civic divisions unavailable:', error.message);
-    return { data: null, disabled: false, error: error.message };
+    return { data: null, disabled: false, error: loadErrorText(error) };
   }
 }
 
@@ -1296,9 +1113,7 @@ export async function fetchAllCandidates() {
 
   _allCandidatesPromise = (async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/candidates`);
-      if (!response.ok) throw new Error(`API Error ${response.status}`);
-      const data = await response.json();
+      const data = await getJson(`/api/candidates`);
       const candidates = (data.candidates || []).map((c) => ({
         ...c,
         state: c.state || _stateFromCandidateId(c.id),
@@ -1307,7 +1122,7 @@ export async function fetchAllCandidates() {
       return { data: candidates, isLive: true };
     } catch (error) {
       console.warn('All-candidates index unavailable:', error.message);
-      return { data: [], isLive: false };
+      return { data: [], isLive: false, error: loadErrorText(error) };
     } finally {
       _allCandidatesPromise = null;
     }
@@ -1325,28 +1140,20 @@ export async function fetchCandidate(candidateId) {
     return { data: _candidateCache.get(candidateId), isLive: true };
   }
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/candidates/${encodeURIComponent(candidateId)}`
-    );
-    if (response.status === 404) {
-      return { data: null, isLive: true, notSeeded: true };
-    }
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/candidates/${encodeURIComponent(candidateId)}`);
     _candidateCache.set(candidateId, data);
     return { data, isLive: true };
   } catch (error) {
+    if (error.status === 404) return { data: null, isLive: true, notSeeded: true };
     console.warn('Candidate API unavailable:', error.message);
-    return { data: null, isLive: false };
+    return { data: null, isLive: false, error: loadErrorText(error) };
   }
 }
 
 // ─── State info (legislature + elections) ────────────────────────────
 export async function fetchStateInfo(stateCode) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/states/${stateCode}`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/states/${stateCode}`);
 
     // Backend returns {name, stateLeg: [{chamber, ...}], elections: [...]}
     // Transform stateLeg into {senate, house}
@@ -1378,13 +1185,11 @@ export async function fetchStateInfo(stateCode) {
       isLive: true,
     };
   } catch (error) {
-    console.warn('State API unavailable, using sample data:', error.message);
-    const fallback = SAMPLE_DATA[stateCode];
+    console.warn('State API unavailable:', error.message);
     return {
-      data: fallback
-        ? { stateLeg: fallback.stateLeg, elections: fallback.elections }
-        : { stateLeg: { senate: [], house: [] }, elections: [] },
+      data: { stateLeg: { senate: [], house: [] }, elections: [] },
       isLive: false,
+      error: loadErrorText(error),
     };
   }
 }
@@ -1411,13 +1216,11 @@ export async function fetchStatsSummary() {
     demo_accounts_created: 0,
   };
   try {
-    const response = await fetch(`${API_BASE_URL}/api/stats/summary`);
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
+    const data = await getJson(`/api/stats/summary`);
     return { data: { ...FALLBACK, ...data }, isLive: true };
   } catch (error) {
     console.warn('Stats summary unavailable, using fallback:', error.message);
-    return { data: FALLBACK, isLive: false };
+    return { data: FALLBACK, isLive: false, error: loadErrorText(error) };
   }
 }
 
@@ -1425,33 +1228,8 @@ export async function fetchStatsSummary() {
 // fetchStatsSummary there is deliberately NO fallback payload — the
 // page renders an explicit error state instead of fabricated zeros.
 export async function fetchStatsDetail() {
-  const response = await fetch(`${API_BASE_URL}/api/stats/detail`);
-  if (!response.ok) throw new Error(`API Error ${response.status}`);
-  return response.json();
+  return getJson('/api/stats/detail');
 }
-
-// ─── Sample / Fallback Data ──────────────────────────────────────────
-// Historically this object carried a hand-curated snapshot of a few
-// senators + reps per sample state so the UI had *something* to show
-// when the backend was unreachable. Problem: the snapshot rots. It was
-// still showing Marco Rubio as a FL senator in April 2026 (he resigned
-// in January 2025 and was replaced by Ashley Moody), and it only
-// covered 4 of Florida's 28 House reps.
-//
-// Strategy now: empty fallbacks. If the backend is down we want the
-// caller to surface an honest "unavailable" state rather than silently
-// serve stale data that's indistinguishable from a live response. The
-// shape is preserved so existing consumers don't NPE.
-const EMPTY_STATE_FALLBACK = {
-  congress: { senators: [], representatives: [] },
-  stateLeg: { senate: [], house: [] },
-  elections: [],
-};
-
-const SAMPLE_DATA = new Proxy({}, {
-  get: () => EMPTY_STATE_FALLBACK,
-  has: () => false,
-});
 
 // ── AI search (rep-profile Bills + Votes tabs) ────────────────────────
 // aiHealth gates the AI-search toggle; filterItems runs a scoped
@@ -1460,9 +1238,7 @@ const SAMPLE_DATA = new Proxy({}, {
 // any network/error so the caller can fall back to plain text search.
 export async function aiHealth() {
   try {
-    const r = await fetch(`${API_BASE_URL}/api/ai/health`);
-    if (!r.ok) return { configured: false };
-    return await r.json();
+    return (await getJson('/api/ai/health')) || { configured: false };
   } catch {
     return { configured: false };
   }
@@ -1470,14 +1246,12 @@ export async function aiHealth() {
 
 export async function filterItems({ prompt, items } = {}) {
   try {
-    const r = await fetch(`${API_BASE_URL}/api/ai/filter-items`, {
+    return await getJson('/api/ai/filter-items', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, items: items || [] }),
+      body: { prompt, items: items || [] },
+      timeoutMs: 60000,
     });
-    if (!r.ok) return { error: `HTTP ${r.status}`, matched_ids: null };
-    return await r.json();
   } catch (e) {
-    return { error: String(e), matched_ids: null };
+    return { error: describeError(e), matched_ids: null };
   }
 }
