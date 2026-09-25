@@ -67,14 +67,17 @@ export default function NotificationBanner({ message, onDismiss }) {
       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {message}
       </span>
-      <span
-        role="button"
+      <button
+        type="button"
         aria-label="Dismiss notification"
-        style={{ cursor: 'pointer', marginLeft: '4px', opacity: 0.75, lineHeight: 1 }}
+        style={{
+          cursor: 'pointer', marginLeft: '4px', opacity: 0.75, lineHeight: 1,
+          background: 'none', border: 0, padding: 0, color: 'inherit', font: 'inherit',
+        }}
         onClick={() => { setVisible(false); if (onDismiss) onDismiss(); }}
       >
         ✕
-      </span>
+      </button>
     </div>
   );
 }

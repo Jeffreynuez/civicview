@@ -5,8 +5,9 @@
 
 import { useEffect, useState } from 'react';
 import { lookupAddress } from '@/lib/api';
+import { activateOnKey } from '@/lib/a11y';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
 
 // Reverse-geocodes a (lat, lon) pair to a postal address using OpenStreetMap's
@@ -168,7 +169,10 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
     const party = member.party || 'I';
     return (
       <div
+        role="button"
+        tabIndex={0}
         onClick={() => onMemberSelect && onMemberSelect(member)}
+        onKeyDown={activateOnKey(() => onMemberSelect && onMemberSelect(member))}
         style={{
           display: 'flex', alignItems: 'center', gap: '12px', padding: '12px',
           borderRadius: '10px', cursor: 'pointer', border: '1px solid var(--cl-border)',
@@ -202,7 +206,7 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
         <span style={{
           padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
           background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-          color: PARTY_COLORS[party],
+          color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
         }}>
           {PARTY_NAMES[party]}
         </span>
@@ -235,7 +239,7 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
             placeholder="e.g. 123 Main St, Orlando, FL 32801"
             style={{
               flex: 1, padding: '10px 14px', borderRadius: '8px', border: '1px solid var(--cl-border)',
-              fontSize: '0.88rem', outline: 'none', transition: 'border-color 0.2s',
+              fontSize: '0.88rem', transition: 'border-color 0.2s',
             }}
             onFocus={(e) => (e.target.style.borderColor = 'var(--cl-accent)')}
             onBlur={(e) => (e.target.style.borderColor = 'var(--cl-border)')}

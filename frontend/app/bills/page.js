@@ -522,13 +522,13 @@ function VoteHeader({ vote }) {
       <div className="cv-header__byparty">
         <span className="cl-num">
           {'By party: '}
-          <span style={{ color: 'var(--cl-republican)', fontWeight: 600 }}>{'R ' + seg('R')}</span>
+          <span style={{ color: 'var(--cl-republican-text)', fontWeight: 600 }}>{'R ' + seg('R')}</span>
           {' · '}
-          <span style={{ color: 'var(--cl-democrat)', fontWeight: 600 }}>{'D ' + seg('D')}</span>
+          <span style={{ color: 'var(--cl-democrat-text)', fontWeight: 600 }}>{'D ' + seg('D')}</span>
           {hasI ? (
             <>
               {' · '}
-              <span style={{ color: 'var(--cl-independent)', fontWeight: 600 }}>{'I ' + seg('I')}</span>
+              <span style={{ color: 'var(--cl-independent-text)', fontWeight: 600 }}>{'I ' + seg('I')}</span>
             </>
           ) : null}
         </span>

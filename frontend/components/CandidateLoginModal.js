@@ -53,7 +53,6 @@ const FIELD_INPUT = {
   color: 'var(--cl-text)',
   background: 'var(--cl-card)',
   boxSizing: 'border-box',
-  outline: 'none',
 };
 
 export default function CandidateLoginModal({

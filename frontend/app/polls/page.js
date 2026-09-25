@@ -37,6 +37,7 @@
  * /Design Exports/civicview-polls-page/. Styles live in ./polls.css.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useFocusTrap from '@/lib/useFocusTrap';
 import { useRouter } from 'next/navigation';
 import {
   fetchPollsFeed,
@@ -1348,6 +1349,8 @@ function normalizeCreatedPoll(citizenPollRead, citizen) {
 // as authoring one on a rep / candidate page.
 // ─────────────────────────────────────────────────────────────────────
 function StandaloneComposer({ onCancel, onCreated }) {
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, true);
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   // Close timing — 'none' = stays open indefinitely; 'duration' =
@@ -1436,7 +1439,9 @@ function StandaloneComposer({ onCancel, onCreated }) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Start a standalone poll"
       style={{
         position: 'fixed', inset: 0, zIndex: 200,

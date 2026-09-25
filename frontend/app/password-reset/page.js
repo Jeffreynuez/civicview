@@ -152,7 +152,6 @@ function PasswordResetInner() {
     fontFamily: 'var(--cl-font-sans)',
     color: 'var(--cl-text)',
     background: 'white',
-    outline: 'none',
     boxSizing: 'border-box',
   }), []);
   const primaryButton = (disabled) => ({

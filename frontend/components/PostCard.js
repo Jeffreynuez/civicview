@@ -3,7 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import PollCard from './PollCard';
 import {
   deletePost,
@@ -847,6 +848,8 @@ function ReactionButton({ kind, count, active, disabled, onClick, title }) {
 // full-size view; click the backdrop or press Esc to dismiss.
 function PostImageGallery({ images }) {
   const [openIndex, setOpenIndex] = useState(null);
+  const lightboxRef = useRef(null);
+  useFocusTrap(lightboxRef, openIndex !== null);
 
   useEffect(() => {
     if (openIndex === null) return undefined;
@@ -914,6 +917,7 @@ function PostImageGallery({ images }) {
 
       {openIndex !== null && (
         <div
+          ref={lightboxRef}
           role="dialog"
           aria-modal="true"
           onClick={() => setOpenIndex(null)}

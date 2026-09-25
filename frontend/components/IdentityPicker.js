@@ -157,6 +157,9 @@ export default function IdentityPicker({
     <div
       ref={ref}
       role="menu"
+      // Portaled to <body>, outside any dialog it was opened from; this
+      // lets a dialog's focus trap leave Tab alone inside the menu.
+      data-focus-trap-allow
       aria-label="Choose identity"
       style={{
         position: 'fixed',

@@ -3,7 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import { useIsMobile } from '@/lib/useViewport';
 import { useTrackedBills } from '@/lib/trackedBills';
 import { useTrackedOfficials } from '@/lib/trackedOfficials';
@@ -37,10 +38,14 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify, 
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, open);
+
   if (!open) return null;
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="My tracked"

@@ -13,7 +13,7 @@
  */
 import { useRef, useState, useLayoutEffect, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { partyWord, partyHueVar, partySoftVar, initials, displayName } from './voteHelpers';
+import { partyWord, partyTextVar, partySoftVar, initials, displayName } from './voteHelpers';
 import { STATE_NAMES } from '@/lib/usStates';
 
 function PositionPill({ pos }) {
@@ -84,7 +84,7 @@ export default function SeatMiniCard({ seat, chamber, anchorEl, idx, onClose, on
   }, [anchor, onClose]);
 
   if (!seat || typeof document === 'undefined') return null;
-  const hue = partyHueVar(seat.party);
+  const hue = partyTextVar(seat.party);
   const stName = STATE_NAMES[seat.st] || seat.st;
   const caucusNote =
     seat.party === 'I' && seat.caucus

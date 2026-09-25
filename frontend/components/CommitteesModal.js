@@ -3,7 +3,8 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import useFocusTrap from '../lib/useFocusTrap';
 import {
   Skeleton,
   EmptyState,
@@ -13,6 +14,7 @@ import {
 } from './ui';
 import { fetchCommittees, fetchCommitteeDetail } from '@/lib/api';
 import { useIsMobile } from '@/lib/useViewport';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const CHAMBER_LABEL = { House: 'House', Senate: 'Senate', Joint: 'Joint' };
@@ -86,6 +88,9 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
     return g;
   }, [filtered]);
 
+  const dialogRef = useRef(null);
+  useFocusTrap(dialogRef, open);
+
   if (!open) return null;
 
   const handlePickMember = (m) => {
@@ -95,6 +100,7 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Browse Committees"
@@ -175,7 +181,7 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
                 style={{
                   width: '100%', padding: '8px 10px', fontSize: '0.85rem',
                   border: '1px solid var(--cl-border)', borderRadius: '8px',
-                  outline: 'none', background: 'var(--cl-bg)',
+                  background: 'var(--cl-bg)',
                 }}
               />
               <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
@@ -524,7 +530,7 @@ function MemberRow({ m, onPick, showTitle }) {
         style={{
           padding: '2px 8px', borderRadius: '10px', fontSize: '0.68rem', fontWeight: 700,
           background: m.party === 'R' ? '#fde8e8' : m.party === 'D' ? '#e3f0f7' : '#f0eaff',
-          color: partyColor, flexShrink: 0,
+          color: PARTY_TEXT_COLORS[m.party] || PARTY_TEXT_COLORS.I, flexShrink: 0,
         }}
       >
         {m.party || 'I'}

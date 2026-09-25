@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useRef, useState } from 'react';
+import { activateOnKey } from '@/lib/a11y';
 import { fetchCandidate } from '@/lib/api';
 import useScrollRestoration from '@/lib/useScrollRestoration';
 import {
@@ -220,7 +221,7 @@ export default function CandidateProfile({
           onClick={onBack}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onBack?.(); }}
+          onKeyDown={activateOnKey(onBack)}
           style={{
             flex: 1,
             display: 'flex', alignItems: 'center', gap: 6,

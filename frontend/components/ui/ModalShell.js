@@ -4,6 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import React, { useEffect, useRef } from 'react';
+import useFocusTrap from '../../lib/useFocusTrap';
 import { useIsMobile } from '@/lib/useViewport';
 
 /**
@@ -61,6 +62,8 @@ export default function ModalShell({
   // larger close × that clears 44px tap-target. Backdrop is hidden
   // because the card covers everything anyway.
   const isMobile = useIsMobile();
+  // Keep Tab inside the card while open; give focus back on close.
+  useFocusTrap(cardRef, open);
 
   // ESC key handler.
   useEffect(() => {

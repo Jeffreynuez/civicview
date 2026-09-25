@@ -11,6 +11,7 @@ import { useIsMobile } from '@/lib/useViewport';
 import { fileSuffix } from '@/lib/externalLink';
 import { useDisclosure } from '@/lib/disclosureState';
 import { FileLink, LoadError } from './ui';
+import { activateOnKey } from '@/lib/a11y';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
@@ -30,6 +31,14 @@ const PARTY_COLORS = {
   R: 'var(--cl-republican)',
   D: 'var(--cl-democrat)',
   I: 'var(--cl-independent)',
+  NP: 'var(--cl-text-light)',
+};
+// Darker shades for party-colored text, 4.5:1 or better on white and on
+// the tints below (audit F6). R and D get the same contrast.
+const PARTY_TEXT = {
+  R: 'var(--cl-republican-text)',
+  D: 'var(--cl-democrat-text)',
+  I: 'var(--cl-independent-text)',
   NP: 'var(--cl-text-light)',
 };
 const PARTY_BG = {
@@ -971,7 +980,7 @@ function RaceCard({
                 style={{
                   fontSize: '0.62rem', fontWeight: 800, padding: '2px 6px',
                   borderRadius: '9px', color: 'white',
-                  background: PARTY_COLORS[party] || 'var(--cl-text-light)',
+                  background: PARTY_TEXT[party] || 'var(--cl-text-light)',
                 }}
               >
                 {party}
@@ -1091,7 +1100,7 @@ function RaceCard({
                 <div
                   style={{
                     fontSize: 'var(--cl-text-2xs)',
-                    color: PARTY_COLORS[party] || 'var(--cl-text-light)',
+                    color: PARTY_TEXT[party] || 'var(--cl-text-light)',
                     fontWeight: 800,
                     textTransform: 'uppercase',
                     letterSpacing: 'var(--cl-tracking-wide)',
@@ -1165,7 +1174,7 @@ function CandidateRow({
   isFocused, isHighlighted, onFocusCandidateConsumed, onHighlightConsumed,
 }) {
   const party = candidate.party || 'NP';
-  const partyColor = PARTY_COLORS[party] || '#666';
+  const partyColor = PARTY_TEXT[party] || '#666';
   const partyBg = PARTY_BG[party] || '#eef';
   const followTarget = toCandidateMember(candidate, race, stateCode, electionPhase);
 
@@ -1201,7 +1210,9 @@ function CandidateRow({
     >
       <div
         onClick={() => onSelect && onSelect(candidate)}
+        onKeyDown={activateOnKey(() => onSelect && onSelect(candidate))}
         role="button"
+        tabIndex={0}
         style={{
           flex: 1, minWidth: 0, cursor: 'pointer', display: 'flex', gap: '10px', alignItems: 'center',
         }}

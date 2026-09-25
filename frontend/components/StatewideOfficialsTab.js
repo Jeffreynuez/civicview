@@ -8,8 +8,8 @@ import { fetchStateOfficials } from '@/lib/api';
 import FollowButton from './FollowButton';
 import { LoadError } from './ui';
 import CompareButton from './CompareButton';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 
 /**
  * Statewide officials — governor + cabinet + state senate/house leadership + members.
@@ -556,7 +556,9 @@ function OfficialCard({
   selectionMethod, selectionDetail, normallyElected,
   onClick, followTarget, onNotify, onCompareToggle, compareIds,
 }) {
-  const partyColor = party ? (PARTY_COLORS[party] || '#666') : null;
+  // Initials and the pill sit on the party tint, so they use the text
+  // shades (audit F6).
+  const partyColor = party ? (PARTY_TEXT_COLORS[party] || '#666') : null;
   const partyBg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : party === 'I' ? '#f0eaff' : '#eef';
   const clickable = typeof onClick === 'function';
   const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);

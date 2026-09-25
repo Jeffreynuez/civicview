@@ -18,8 +18,8 @@ import { useTutorialSeen, openTutorial } from '@/lib/tutorial';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicViewLogo from '@/components/brand/CivicViewLogo';
 import IdentitySwitcher from '@/components/IdentitySwitcher';
+import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 
 export default function Navbar({
   onMemberPick, onCandidatePick, onOpenCommittees, onOpenTracked,
@@ -643,7 +643,7 @@ export default function Navbar({
                       padding: '2px 8px', borderRadius: '10px',
                       fontSize: '0.7rem', fontWeight: 700,
                       background: item.party === 'R' ? '#fde8e8' : item.party === 'D' ? '#e3f0f7' : '#f0eaff',
-                      color: PARTY_COLORS[item.party] || PARTY_COLORS.I,
+                      color: PARTY_TEXT_COLORS[item.party] || PARTY_TEXT_COLORS.I,
                       flexShrink: 0,
                     }}
                   >
