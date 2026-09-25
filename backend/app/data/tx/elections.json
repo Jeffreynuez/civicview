@@ -1412,7 +1412,7 @@
    "general_candidates": [
     "tx-cand-bryan-hughes-sd1"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1435,7 +1435,7 @@
    "general_candidates": [
     "tx-cand-bob-hall-sd2"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1458,7 +1458,7 @@
    "general_candidates": [
     "tx-cand-robert-nichols-sd3"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1481,76 +1481,7 @@
    "general_candidates": [
     "tx-cand-charles-schwertner-sd5"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-6",
-   "office": "Texas State Senate, Dist. 6",
-   "level": "state",
-   "jurisdiction": "TX-SD-6",
-   "chamber": "State Senate",
-   "state_senate_district": "6",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-carol-alvarado-sd6",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-carol-alvarado-sd6"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-carol-alvarado-sd6"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-7",
-   "office": "Texas State Senate, Dist. 7",
-   "level": "state",
-   "jurisdiction": "TX-SD-7",
-   "chamber": "State Senate",
-   "state_senate_district": "7",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-paul-bettencourt-sd7",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-paul-bettencourt-sd7"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-paul-bettencourt-sd7"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-8",
-   "office": "Texas State Senate, Dist. 8",
-   "level": "state",
-   "jurisdiction": "TX-SD-8",
-   "chamber": "State Senate",
-   "state_senate_district": "8",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-angela-paxton-sd8",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-angela-paxton-sd8"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-angela-paxton-sd8"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1573,30 +1504,7 @@
    "general_candidates": [
     "tx-cand-taylor-rehmet-sd9"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-10",
-   "office": "Texas State Senate, Dist. 10",
-   "level": "state",
-   "jurisdiction": "TX-SD-10",
-   "chamber": "State Senate",
-   "state_senate_district": "10",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-phil-king-sd10",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-phil-king-sd10"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-phil-king-sd10"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1619,30 +1527,7 @@
    "general_candidates": [
     "tx-cand-mayes-middleton-sd11"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-12",
-   "office": "Texas State Senate, Dist. 12",
-   "level": "state",
-   "jurisdiction": "TX-SD-12",
-   "chamber": "State Senate",
-   "state_senate_district": "12",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-tan-parker-sd12",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-tan-parker-sd12"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-tan-parker-sd12"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1665,99 +1550,7 @@
    "general_candidates": [
     "tx-cand-borris-miles-sd13"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-14",
-   "office": "Texas State Senate, Dist. 14",
-   "level": "state",
-   "jurisdiction": "TX-SD-14",
-   "chamber": "State Senate",
-   "state_senate_district": "14",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-sarah-eckhardt-sd14",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-sarah-eckhardt-sd14"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-sarah-eckhardt-sd14"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-15",
-   "office": "Texas State Senate, Dist. 15",
-   "level": "state",
-   "jurisdiction": "TX-SD-15",
-   "chamber": "State Senate",
-   "state_senate_district": "15",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-molly-cook-sd15",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-molly-cook-sd15"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-molly-cook-sd15"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-16",
-   "office": "Texas State Senate, Dist. 16",
-   "level": "state",
-   "jurisdiction": "TX-SD-16",
-   "chamber": "State Senate",
-   "state_senate_district": "16",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-nathan-johnson-sd16",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-nathan-johnson-sd16"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-nathan-johnson-sd16"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-17",
-   "office": "Texas State Senate, Dist. 17",
-   "level": "state",
-   "jurisdiction": "TX-SD-17",
-   "chamber": "State Senate",
-   "state_senate_district": "17",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-joan-huffman-sd17",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-joan-huffman-sd17"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-joan-huffman-sd17"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1780,7 +1573,7 @@
    "general_candidates": [
     "tx-cand-lois-kolkhorst-sd18"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1803,30 +1596,7 @@
    "general_candidates": [
     "tx-cand-roland-gutierrez-sd19"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-20",
-   "office": "Texas State Senate, Dist. 20",
-   "level": "state",
-   "jurisdiction": "TX-SD-20",
-   "chamber": "State Senate",
-   "state_senate_district": "20",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-chuy-hinojosa-sd20",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-chuy-hinojosa-sd20"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-chuy-hinojosa-sd20"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1849,7 +1619,7 @@
    "general_candidates": [
     "tx-cand-judith-zaffirini-sd21"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1872,30 +1642,7 @@
    "general_candidates": [
     "tx-cand-brian-birdwell-sd22"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-23",
-   "office": "Texas State Senate, Dist. 23",
-   "level": "state",
-   "jurisdiction": "TX-SD-23",
-   "chamber": "State Senate",
-   "state_senate_district": "23",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-royce-west-sd23",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-royce-west-sd23"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-royce-west-sd23"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1918,30 +1665,7 @@
    "general_candidates": [
     "tx-cand-pete-flores-sd24"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-25",
-   "office": "Texas State Senate, Dist. 25",
-   "level": "state",
-   "jurisdiction": "TX-SD-25",
-   "chamber": "State Senate",
-   "state_senate_district": "25",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-donna-campbell-sd25",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-donna-campbell-sd25"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-donna-campbell-sd25"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1964,30 +1688,7 @@
    "general_candidates": [
     "tx-cand-jos-men-ndez-sd26"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-27",
-   "office": "Texas State Senate, Dist. 27",
-   "level": "state",
-   "jurisdiction": "TX-SD-27",
-   "chamber": "State Senate",
-   "state_senate_district": "27",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-adam-hinojosa-sd27",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-adam-hinojosa-sd27"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-adam-hinojosa-sd27"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2010,53 +1711,7 @@
    "general_candidates": [
     "tx-cand-charles-perry-sd28"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-29",
-   "office": "Texas State Senate, Dist. 29",
-   "level": "state",
-   "jurisdiction": "TX-SD-29",
-   "chamber": "State Senate",
-   "state_senate_district": "29",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-c-sar-blanco-sd29",
-   "primary_candidates": {
-    "D": [
-     "tx-cand-c-sar-blanco-sd29"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-c-sar-blanco-sd29"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "tx-2026-state-senate-30",
-   "office": "Texas State Senate, Dist. 30",
-   "level": "state",
-   "jurisdiction": "TX-SD-30",
-   "chamber": "State Senate",
-   "state_senate_district": "30",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-brent-hagenbuch-sd30",
-   "primary_candidates": {
-    "R": [
-     "tx-cand-brent-hagenbuch-sd30"
-    ]
-   },
-   "general_candidates": [
-    "tx-cand-brent-hagenbuch-sd30"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2079,7 +1734,7 @@
    "general_candidates": [
     "tx-cand-kevin-sparks-sd31"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. Texas Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Texas Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },

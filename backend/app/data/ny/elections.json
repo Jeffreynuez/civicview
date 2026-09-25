@@ -825,7 +825,7 @@
    "chamber": "State Senate",
    "state_senate_district": "1",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-tony-palumbo-sd1",
    "primary_candidates": {
@@ -836,7 +836,7 @@
    "general_candidates": [
     "ny-cand-tony-palumbo-sd1"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -848,7 +848,7 @@
    "chamber": "State Senate",
    "state_senate_district": "2",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-mario-mattera-sd2",
    "primary_candidates": {
@@ -859,7 +859,7 @@
    "general_candidates": [
     "ny-cand-mario-mattera-sd2"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -871,7 +871,7 @@
    "chamber": "State Senate",
    "state_senate_district": "3",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-dean-murray-sd3",
    "primary_candidates": {
@@ -882,7 +882,7 @@
    "general_candidates": [
     "ny-cand-dean-murray-sd3"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -894,7 +894,7 @@
    "chamber": "State Senate",
    "state_senate_district": "4",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-monica-martinez-sd4",
    "primary_candidates": {
@@ -905,7 +905,7 @@
    "general_candidates": [
     "ny-cand-monica-martinez-sd4"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -917,7 +917,7 @@
    "chamber": "State Senate",
    "state_senate_district": "5",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-steve-rhoads-sd5",
    "primary_candidates": {
@@ -928,7 +928,7 @@
    "general_candidates": [
     "ny-cand-steve-rhoads-sd5"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -940,7 +940,7 @@
    "chamber": "State Senate",
    "state_senate_district": "6",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-siela-bynoe-sd6",
    "primary_candidates": {
@@ -951,7 +951,7 @@
    "general_candidates": [
     "ny-cand-siela-bynoe-sd6"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -963,7 +963,7 @@
    "chamber": "State Senate",
    "state_senate_district": "7",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jack-martins-sd7",
    "primary_candidates": {
@@ -974,7 +974,7 @@
    "general_candidates": [
     "ny-cand-jack-martins-sd7"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -986,7 +986,7 @@
    "chamber": "State Senate",
    "state_senate_district": "8",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-alexis-weik-sd8",
    "primary_candidates": {
@@ -997,7 +997,7 @@
    "general_candidates": [
     "ny-cand-alexis-weik-sd8"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1009,7 +1009,7 @@
    "chamber": "State Senate",
    "state_senate_district": "9",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-patricia-canzoneri-fitzpatrick-sd9",
    "primary_candidates": {
@@ -1020,7 +1020,7 @@
    "general_candidates": [
     "ny-cand-patricia-canzoneri-fitzpatrick-sd9"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1032,7 +1032,7 @@
    "chamber": "State Senate",
    "state_senate_district": "10",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-james-sanders-sd10",
    "primary_candidates": {
@@ -1043,7 +1043,7 @@
    "general_candidates": [
     "ny-cand-james-sanders-sd10"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1055,7 +1055,7 @@
    "chamber": "State Senate",
    "state_senate_district": "11",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-toby-stavisky-sd11",
    "primary_candidates": {
@@ -1066,7 +1066,7 @@
    "general_candidates": [
     "ny-cand-toby-stavisky-sd11"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1078,7 +1078,7 @@
    "chamber": "State Senate",
    "state_senate_district": "12",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-mike-gianaris-sd12",
    "primary_candidates": {
@@ -1089,7 +1089,7 @@
    "general_candidates": [
     "ny-cand-mike-gianaris-sd12"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1101,7 +1101,7 @@
    "chamber": "State Senate",
    "state_senate_district": "13",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jessica-ramos-sd13",
    "primary_candidates": {
@@ -1112,7 +1112,7 @@
    "general_candidates": [
     "ny-cand-jessica-ramos-sd13"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1124,7 +1124,7 @@
    "chamber": "State Senate",
    "state_senate_district": "14",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-leroy-comrie-sd14",
    "primary_candidates": {
@@ -1135,7 +1135,7 @@
    "general_candidates": [
     "ny-cand-leroy-comrie-sd14"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1147,7 +1147,7 @@
    "chamber": "State Senate",
    "state_senate_district": "15",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-joe-addabbo-sd15",
    "primary_candidates": {
@@ -1158,7 +1158,7 @@
    "general_candidates": [
     "ny-cand-joe-addabbo-sd15"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1170,7 +1170,7 @@
    "chamber": "State Senate",
    "state_senate_district": "16",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-john-liu-sd16",
    "primary_candidates": {
@@ -1181,7 +1181,7 @@
    "general_candidates": [
     "ny-cand-john-liu-sd16"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1193,7 +1193,7 @@
    "chamber": "State Senate",
    "state_senate_district": "17",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-steve-chan-sd17",
    "primary_candidates": {
@@ -1204,7 +1204,7 @@
    "general_candidates": [
     "ny-cand-steve-chan-sd17"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1216,7 +1216,7 @@
    "chamber": "State Senate",
    "state_senate_district": "18",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-julia-salazar-sd18",
    "primary_candidates": {
@@ -1227,7 +1227,7 @@
    "general_candidates": [
     "ny-cand-julia-salazar-sd18"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1239,7 +1239,7 @@
    "chamber": "State Senate",
    "state_senate_district": "19",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-roxanne-persaud-sd19",
    "primary_candidates": {
@@ -1250,7 +1250,7 @@
    "general_candidates": [
     "ny-cand-roxanne-persaud-sd19"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1262,7 +1262,7 @@
    "chamber": "State Senate",
    "state_senate_district": "20",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-zellnor-myrie-sd20",
    "primary_candidates": {
@@ -1273,7 +1273,7 @@
    "general_candidates": [
     "ny-cand-zellnor-myrie-sd20"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1285,7 +1285,7 @@
    "chamber": "State Senate",
    "state_senate_district": "21",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-kevin-parker-sd21",
    "primary_candidates": {
@@ -1296,7 +1296,7 @@
    "general_candidates": [
     "ny-cand-kevin-parker-sd21"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1308,7 +1308,7 @@
    "chamber": "State Senate",
    "state_senate_district": "22",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-sam-sutton-sd22",
    "primary_candidates": {
@@ -1319,7 +1319,7 @@
    "general_candidates": [
     "ny-cand-sam-sutton-sd22"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1331,7 +1331,7 @@
    "chamber": "State Senate",
    "state_senate_district": "23",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jessica-scarcella-spanton-sd23",
    "primary_candidates": {
@@ -1342,7 +1342,7 @@
    "general_candidates": [
     "ny-cand-jessica-scarcella-spanton-sd23"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1354,7 +1354,7 @@
    "chamber": "State Senate",
    "state_senate_district": "24",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-andrew-lanza-sd24",
    "primary_candidates": {
@@ -1365,7 +1365,7 @@
    "general_candidates": [
     "ny-cand-andrew-lanza-sd24"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1377,7 +1377,7 @@
    "chamber": "State Senate",
    "state_senate_district": "25",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jabari-brisport-sd25",
    "primary_candidates": {
@@ -1388,7 +1388,7 @@
    "general_candidates": [
     "ny-cand-jabari-brisport-sd25"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1400,7 +1400,7 @@
    "chamber": "State Senate",
    "state_senate_district": "26",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-andrew-gounardes-sd26",
    "primary_candidates": {
@@ -1411,7 +1411,7 @@
    "general_candidates": [
     "ny-cand-andrew-gounardes-sd26"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1423,7 +1423,7 @@
    "chamber": "State Senate",
    "state_senate_district": "27",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-brian-kavanagh-sd27",
    "primary_candidates": {
@@ -1434,7 +1434,7 @@
    "general_candidates": [
     "ny-cand-brian-kavanagh-sd27"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1446,7 +1446,7 @@
    "chamber": "State Senate",
    "state_senate_district": "28",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-liz-krueger-sd28",
    "primary_candidates": {
@@ -1457,7 +1457,7 @@
    "general_candidates": [
     "ny-cand-liz-krueger-sd28"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1469,7 +1469,7 @@
    "chamber": "State Senate",
    "state_senate_district": "29",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jose-serrano-sd29",
    "primary_candidates": {
@@ -1480,7 +1480,7 @@
    "general_candidates": [
     "ny-cand-jose-serrano-sd29"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1492,7 +1492,7 @@
    "chamber": "State Senate",
    "state_senate_district": "30",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-cordell-cleare-sd30",
    "primary_candidates": {
@@ -1503,7 +1503,7 @@
    "general_candidates": [
     "ny-cand-cordell-cleare-sd30"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1515,7 +1515,7 @@
    "chamber": "State Senate",
    "state_senate_district": "31",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-robert-jackson-sd31",
    "primary_candidates": {
@@ -1526,7 +1526,7 @@
    "general_candidates": [
     "ny-cand-robert-jackson-sd31"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1538,7 +1538,7 @@
    "chamber": "State Senate",
    "state_senate_district": "32",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-luis-sep-lveda-sd32",
    "primary_candidates": {
@@ -1549,7 +1549,7 @@
    "general_candidates": [
     "ny-cand-luis-sep-lveda-sd32"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1561,7 +1561,7 @@
    "chamber": "State Senate",
    "state_senate_district": "33",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-gustavo-rivera-sd33",
    "primary_candidates": {
@@ -1572,7 +1572,7 @@
    "general_candidates": [
     "ny-cand-gustavo-rivera-sd33"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1584,7 +1584,7 @@
    "chamber": "State Senate",
    "state_senate_district": "34",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-nathalia-ferna-ndez-sd34",
    "primary_candidates": {
@@ -1595,7 +1595,7 @@
    "general_candidates": [
     "ny-cand-nathalia-ferna-ndez-sd34"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1607,7 +1607,7 @@
    "chamber": "State Senate",
    "state_senate_district": "35",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-andrea-stewart-cousins-sd35",
    "primary_candidates": {
@@ -1618,7 +1618,7 @@
    "general_candidates": [
     "ny-cand-andrea-stewart-cousins-sd35"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1630,7 +1630,7 @@
    "chamber": "State Senate",
    "state_senate_district": "36",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jamaal-bailey-sd36",
    "primary_candidates": {
@@ -1641,7 +1641,7 @@
    "general_candidates": [
     "ny-cand-jamaal-bailey-sd36"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1653,7 +1653,7 @@
    "chamber": "State Senate",
    "state_senate_district": "37",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-shelley-mayer-sd37",
    "primary_candidates": {
@@ -1664,7 +1664,7 @@
    "general_candidates": [
     "ny-cand-shelley-mayer-sd37"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1676,7 +1676,7 @@
    "chamber": "State Senate",
    "state_senate_district": "38",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-bill-weber-sd38",
    "primary_candidates": {
@@ -1687,7 +1687,7 @@
    "general_candidates": [
     "ny-cand-bill-weber-sd38"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1699,7 +1699,7 @@
    "chamber": "State Senate",
    "state_senate_district": "39",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-rob-rolison-sd39",
    "primary_candidates": {
@@ -1710,7 +1710,7 @@
    "general_candidates": [
     "ny-cand-rob-rolison-sd39"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1722,7 +1722,7 @@
    "chamber": "State Senate",
    "state_senate_district": "40",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-pete-harckham-sd40",
    "primary_candidates": {
@@ -1733,7 +1733,7 @@
    "general_candidates": [
     "ny-cand-pete-harckham-sd40"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1745,7 +1745,7 @@
    "chamber": "State Senate",
    "state_senate_district": "41",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-michelle-hinchey-sd41",
    "primary_candidates": {
@@ -1756,7 +1756,7 @@
    "general_candidates": [
     "ny-cand-michelle-hinchey-sd41"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1768,7 +1768,7 @@
    "chamber": "State Senate",
    "state_senate_district": "42",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-james-skoufis-sd42",
    "primary_candidates": {
@@ -1779,7 +1779,7 @@
    "general_candidates": [
     "ny-cand-james-skoufis-sd42"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1791,7 +1791,7 @@
    "chamber": "State Senate",
    "state_senate_district": "43",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jake-ashby-sd43",
    "primary_candidates": {
@@ -1802,7 +1802,7 @@
    "general_candidates": [
     "ny-cand-jake-ashby-sd43"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1814,7 +1814,7 @@
    "chamber": "State Senate",
    "state_senate_district": "44",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jim-tedisco-sd44",
    "primary_candidates": {
@@ -1825,7 +1825,7 @@
    "general_candidates": [
     "ny-cand-jim-tedisco-sd44"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1837,7 +1837,7 @@
    "chamber": "State Senate",
    "state_senate_district": "45",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-dan-stec-sd45",
    "primary_candidates": {
@@ -1848,7 +1848,7 @@
    "general_candidates": [
     "ny-cand-dan-stec-sd45"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1860,7 +1860,7 @@
    "chamber": "State Senate",
    "state_senate_district": "46",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-pat-fahy-sd46",
    "primary_candidates": {
@@ -1871,7 +1871,7 @@
    "general_candidates": [
     "ny-cand-pat-fahy-sd46"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1883,7 +1883,7 @@
    "chamber": "State Senate",
    "state_senate_district": "47",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-erik-bottcher-sd47",
    "primary_candidates": {
@@ -1894,7 +1894,7 @@
    "general_candidates": [
     "ny-cand-erik-bottcher-sd47"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1906,7 +1906,7 @@
    "chamber": "State Senate",
    "state_senate_district": "48",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-rachel-may-sd48",
    "primary_candidates": {
@@ -1917,7 +1917,7 @@
    "general_candidates": [
     "ny-cand-rachel-may-sd48"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1929,7 +1929,7 @@
    "chamber": "State Senate",
    "state_senate_district": "49",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-mark-walczyk-sd49",
    "primary_candidates": {
@@ -1940,7 +1940,7 @@
    "general_candidates": [
     "ny-cand-mark-walczyk-sd49"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1952,7 +1952,7 @@
    "chamber": "State Senate",
    "state_senate_district": "50",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-chris-ryan-sd50",
    "primary_candidates": {
@@ -1963,7 +1963,7 @@
    "general_candidates": [
     "ny-cand-chris-ryan-sd50"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1975,7 +1975,7 @@
    "chamber": "State Senate",
    "state_senate_district": "51",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-peter-oberacker-sd51",
    "primary_candidates": {
@@ -1986,7 +1986,7 @@
    "general_candidates": [
     "ny-cand-peter-oberacker-sd51"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1998,7 +1998,7 @@
    "chamber": "State Senate",
    "state_senate_district": "52",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-lea-webb-sd52",
    "primary_candidates": {
@@ -2009,7 +2009,7 @@
    "general_candidates": [
     "ny-cand-lea-webb-sd52"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2021,7 +2021,7 @@
    "chamber": "State Senate",
    "state_senate_district": "53",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-joe-griffo-sd53",
    "primary_candidates": {
@@ -2032,7 +2032,7 @@
    "general_candidates": [
     "ny-cand-joe-griffo-sd53"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2044,7 +2044,7 @@
    "chamber": "State Senate",
    "state_senate_district": "54",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-pam-helming-sd54",
    "primary_candidates": {
@@ -2055,7 +2055,7 @@
    "general_candidates": [
     "ny-cand-pam-helming-sd54"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2067,7 +2067,7 @@
    "chamber": "State Senate",
    "state_senate_district": "55",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-samra-brouk-sd55",
    "primary_candidates": {
@@ -2078,7 +2078,7 @@
    "general_candidates": [
     "ny-cand-samra-brouk-sd55"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2090,7 +2090,7 @@
    "chamber": "State Senate",
    "state_senate_district": "56",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jeremy-cooney-sd56",
    "primary_candidates": {
@@ -2101,7 +2101,7 @@
    "general_candidates": [
     "ny-cand-jeremy-cooney-sd56"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2113,7 +2113,7 @@
    "chamber": "State Senate",
    "state_senate_district": "57",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-george-borrello-sd57",
    "primary_candidates": {
@@ -2124,7 +2124,7 @@
    "general_candidates": [
     "ny-cand-george-borrello-sd57"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2136,7 +2136,7 @@
    "chamber": "State Senate",
    "state_senate_district": "58",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-tom-o-mara-sd58",
    "primary_candidates": {
@@ -2147,7 +2147,7 @@
    "general_candidates": [
     "ny-cand-tom-o-mara-sd58"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2159,7 +2159,7 @@
    "chamber": "State Senate",
    "state_senate_district": "59",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-kristen-gonzalez-sd59",
    "primary_candidates": {
@@ -2170,7 +2170,7 @@
    "general_candidates": [
     "ny-cand-kristen-gonzalez-sd59"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2182,7 +2182,7 @@
    "chamber": "State Senate",
    "state_senate_district": "60",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-patrick-gallivan-sd60",
    "primary_candidates": {
@@ -2193,7 +2193,7 @@
    "general_candidates": [
     "ny-cand-patrick-gallivan-sd60"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2205,7 +2205,7 @@
    "chamber": "State Senate",
    "state_senate_district": "61",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-jeremy-zellner-sd61",
    "primary_candidates": {
@@ -2216,7 +2216,7 @@
    "general_candidates": [
     "ny-cand-jeremy-zellner-sd61"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2228,7 +2228,7 @@
    "chamber": "State Senate",
    "state_senate_district": "62",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-rob-ortt-sd62",
    "primary_candidates": {
@@ -2239,7 +2239,7 @@
    "general_candidates": [
     "ny-cand-rob-ortt-sd62"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2251,7 +2251,7 @@
    "chamber": "State Senate",
    "state_senate_district": "63",
    "seat_type": "legislative",
-   "term_length_years": 4,
+   "term_length_years": 2,
    "open_seat": false,
    "incumbent_candidate_id": "ny-cand-april-baskin-sd63",
    "primary_candidates": {
@@ -2262,7 +2262,7 @@
    "general_candidates": [
     "ny-cand-april-baskin-sd63"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races. New York Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the New York Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },

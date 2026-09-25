@@ -16,6 +16,11 @@ Elections (every <state>/elections.json):
   E-5  roster_status, when present, is a known value
   E-6  a reported result names an https source_url
   E-7  term_length_years is a whole number from 1 to 6
+  E-8  a state legislative race is for a seat that is actually on the
+       ballot this cycle, with that chamber's term length, per
+       legislative_seats_2026.json (seats not up were listed as 2026
+       races in CA, PA and TX until 2026-09-25)
+  E-9  no chamber lists the same district twice
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -136,12 +141,51 @@ def _check_dates(where: str, value: str) -> None:
             problem("E-3", where, f"not a real date: {y}-{m}-{d}")
 
 
+def _legislative_district(race: dict):
+    return race.get("state_senate_district") or race.get("state_house_district")
+
+
+def lint_legislative_seats(state: str, races: list, where: str) -> None:
+    seats_doc = _load(DATA / "legislative_seats_2026.json")
+    table = seats_doc.get("states", {}).get(state.upper())
+    seen: set[tuple] = set()
+    for race in races:
+        chamber = race.get("chamber")
+        if race.get("level") != "state" or not chamber:
+            continue
+        rid = race.get("id")
+        if table is None or chamber not in table:
+            problem("E-8", f"{where} {rid}", f"no seat table for {state.upper()} {chamber} in legislative_seats_2026.json")
+            continue
+        cfg = table[chamber]
+        district = _legislative_district(race)
+        if district is None:
+            problem("E-8", f"{where} {rid}", "legislative race has no district")
+            continue
+        if not str(district).isdigit():
+            problem("E-8", f"{where} {rid}", f"district {district!r} is not a number")
+            continue
+        up = cfg["districts_up"]
+        # A special election fills an off-cycle seat early; mark the race
+        # "special_election": true and it is allowed.
+        if up != "all" and int(district) not in up and not race.get("special_election"):
+            problem("E-8", f"{where} {rid}", f"{chamber} district {district} is not on the {seats_doc.get('cycle')} ballot")
+        if race.get("term_length_years") != cfg["term_length_years"]:
+            problem("E-8", f"{where} {rid}",
+                    f"term_length_years {race.get('term_length_years')} but {chamber} terms are {cfg['term_length_years']}")
+        key = (chamber, str(district))
+        if key in seen:
+            problem("E-9", f"{where} {rid}", f"{chamber} district {district} listed twice")
+        seen.add(key)
+
+
 def lint_elections(state_dir: Path) -> None:
     path = state_dir / "elections.json"
     state = state_dir.name
     doc = _load(path)
     where = _rel(path)
     cands = _load(state_dir / "candidates.json").get("candidates", {})
+    lint_legislative_seats(state, doc.get("races", []), where)
 
     seen: set[str] = set()
     for i, race in enumerate(doc.get("races", [])):
