@@ -19,6 +19,7 @@ const ROUTES = [
   { path: '/privacy', priority: 0.3, changeFrequency: 'monthly' },
   { path: '/terms', priority: 0.3, changeFrequency: 'monthly' },
   { path: '/child-safety', priority: 0.3, changeFrequency: 'monthly' },
+  { path: '/photo-credits', priority: 0.2, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.3, changeFrequency: 'monthly' },
   { path: '/account/delete', priority: 0.2, changeFrequency: 'yearly' },
 ];

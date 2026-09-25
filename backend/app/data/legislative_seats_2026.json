@@ -1,0 +1,165 @@
+{
+ "_note": "State legislative seats on the November 2026 ballot, for every state CivicView has an elections.json for. A chamber marked \"all\" elects every seat. tests/test_data_lint.py rejects a race for a seat that is not up, or with the wrong term length, and scripts/build_state_federal_candidates.py only builds races for seats that are up. Checked 2026-09-25 against the sources listed.",
+ "cycle": 2026,
+ "states": {
+  "CA": {
+   "State Senate": {
+    "term_length_years": 4,
+    "districts_up": [
+     2,
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34,
+     36,
+     38,
+     40
+    ],
+    "rule": "The 20 even-numbered districts. Odd-numbered districts were elected in 2024.",
+    "source_urls": [
+     "https://en.wikipedia.org/wiki/2026_California_State_Senate_election",
+     "https://ballotpedia.org/California_State_Senate_elections,_2026"
+    ]
+   },
+   "State Assembly": {
+    "term_length_years": 2,
+    "districts_up": "all"
+   }
+  },
+  "FL": {
+   "State Senate": {
+    "term_length_years": 4,
+    "districts_up": [
+     2,
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34,
+     36,
+     38,
+     40
+    ],
+    "rule": "The 20 even-numbered districts.",
+    "source_urls": [
+     "https://ballotpedia.org/Florida_State_Senate_elections,_2026"
+    ]
+   },
+   "State House": {
+    "term_length_years": 2,
+    "districts_up": "all"
+   }
+  },
+  "NY": {
+   "State Senate": {
+    "term_length_years": 2,
+    "districts_up": "all",
+    "rule": "Every seat, every two years.",
+    "source_urls": [
+     "https://en.wikipedia.org/wiki/New_York_State_Senate"
+    ]
+   },
+   "State Assembly": {
+    "term_length_years": 2,
+    "districts_up": "all"
+   }
+  },
+  "PA": {
+   "State Senate": {
+    "term_length_years": 4,
+    "districts_up": [
+     2,
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34,
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50
+    ],
+    "rule": "The 25 even-numbered districts. Odd-numbered districts were elected in 2024.",
+    "source_urls": [
+     "https://en.wikipedia.org/wiki/2026_Pennsylvania_Senate_election",
+     "https://ballotpedia.org/Pennsylvania_State_Senate_elections,_2026"
+    ]
+   },
+   "State House": {
+    "term_length_years": 2,
+    "districts_up": "all"
+   }
+  },
+  "TX": {
+   "State Senate": {
+    "term_length_years": 4,
+    "districts_up": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     9,
+     11,
+     13,
+     18,
+     19,
+     21,
+     22,
+     24,
+     26,
+     28,
+     31
+    ],
+    "rule": "The 16 districts whose senators drew four-year terms in the January 2023 lot drawing after redistricting. The other 15 were elected in 2024.",
+    "source_urls": [
+     "https://www.texastribune.org/2023/01/11/texas-senate-2023-terms/",
+     "https://en.wikipedia.org/wiki/2026_Texas_Senate_election",
+     "https://ballotpedia.org/Texas_State_Senate_elections,_2026"
+    ]
+   },
+   "State House": {
+    "term_length_years": 2,
+    "districts_up": "all"
+   }
+  }
+ }
+}

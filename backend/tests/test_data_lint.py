@@ -16,6 +16,11 @@ Elections (every <state>/elections.json):
   E-5  roster_status, when present, is a known value
   E-6  a reported result names an https source_url
   E-7  term_length_years is a whole number from 1 to 6
+  E-8  a state legislative race is for a seat that is actually on the
+       ballot this cycle, with that chamber's term length, per
+       legislative_seats_2026.json (seats not up were listed as 2026
+       races in CA, PA and TX until 2026-09-25)
+  E-9  no chamber lists the same district twice
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -25,6 +30,11 @@ Officials (every <state>/state_officials.json, fl/local_officials.json,
 federal/federal_officials.json):
   O-1  ids are unique within the file
   O-2  the same person is not listed twice for the same office
+Photo credits:
+  P-1  every Wikimedia Commons photo in the data has an entry in
+       photo_credits.json with a file page and a license, and every
+       entry there is still used (audit P2; run
+       scripts/build_photo_credits.py --write after changing photos)
 Everywhere:
   A-1  no placeholder domains (example.com / .org / .net, localhost)
   A-2  photo, website and source URLs are https
@@ -136,12 +146,51 @@ def _check_dates(where: str, value: str) -> None:
             problem("E-3", where, f"not a real date: {y}-{m}-{d}")
 
 
+def _legislative_district(race: dict):
+    return race.get("state_senate_district") or race.get("state_house_district")
+
+
+def lint_legislative_seats(state: str, races: list, where: str) -> None:
+    seats_doc = _load(DATA / "legislative_seats_2026.json")
+    table = seats_doc.get("states", {}).get(state.upper())
+    seen: set[tuple] = set()
+    for race in races:
+        chamber = race.get("chamber")
+        if race.get("level") != "state" or not chamber:
+            continue
+        rid = race.get("id")
+        if table is None or chamber not in table:
+            problem("E-8", f"{where} {rid}", f"no seat table for {state.upper()} {chamber} in legislative_seats_2026.json")
+            continue
+        cfg = table[chamber]
+        district = _legislative_district(race)
+        if district is None:
+            problem("E-8", f"{where} {rid}", "legislative race has no district")
+            continue
+        if not str(district).isdigit():
+            problem("E-8", f"{where} {rid}", f"district {district!r} is not a number")
+            continue
+        up = cfg["districts_up"]
+        # A special election fills an off-cycle seat early; mark the race
+        # "special_election": true and it is allowed.
+        if up != "all" and int(district) not in up and not race.get("special_election"):
+            problem("E-8", f"{where} {rid}", f"{chamber} district {district} is not on the {seats_doc.get('cycle')} ballot")
+        if race.get("term_length_years") != cfg["term_length_years"]:
+            problem("E-8", f"{where} {rid}",
+                    f"term_length_years {race.get('term_length_years')} but {chamber} terms are {cfg['term_length_years']}")
+        key = (chamber, str(district))
+        if key in seen:
+            problem("E-9", f"{where} {rid}", f"{chamber} district {district} listed twice")
+        seen.add(key)
+
+
 def lint_elections(state_dir: Path) -> None:
     path = state_dir / "elections.json"
     state = state_dir.name
     doc = _load(path)
     where = _rel(path)
     cands = _load(state_dir / "candidates.json").get("candidates", {})
+    lint_legislative_seats(state, doc.get("races", []), where)
 
     seen: set[str] = set()
     for i, race in enumerate(doc.get("races", [])):
@@ -252,6 +301,27 @@ def lint_officials(path: Path) -> None:
             problem("O-2", where, f"{name!r} listed {n} times as {office!r}{' ' + district if district else ''}")
 
 
+WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")
+
+
+def lint_photo_credits(files) -> None:
+    path = DATA / "photo_credits.json"
+    credits = _load(path).get("credits", {}) if path.exists() else {}
+    used: set[str] = set()
+    for f in files:
+        if f == path:
+            continue
+        for url in set(WIKIMEDIA_RE.findall(f.read_text(encoding="utf-8"))):
+            used.add(url)
+            entry = credits.get(url)
+            if not entry:
+                problem("P-1", _rel(f), f"no photo credit for {url[:90]}")
+            elif not entry.get("file_page") or not entry.get("license"):
+                problem("P-1", _rel(f), f"photo credit missing file page or license for {url[:90]}")
+    for url in sorted(set(credits) - used):
+        problem("P-1", "photo_credits.json", f"credit for a photo no longer used anywhere: {url[:90]}")
+
+
 def main() -> int:
     state_dirs = sorted(p for p in DATA.iterdir() if p.is_dir() and not p.name.startswith("_") and p.name != "federal")
     files = sorted(DATA.rglob("*.json"))
@@ -267,6 +337,7 @@ def main() -> int:
     if (DATA / "fl" / "local_officials.json").exists():
         lint_officials(DATA / "fl" / "local_officials.json")
     lint_officials(DATA / "federal" / "federal_officials.json")
+    lint_photo_credits(files)
 
     print(f"Checked {len(files)} data files.")
     if problems:

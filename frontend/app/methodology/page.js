@@ -14,7 +14,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function MethodologyPage() {
   return (
-    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="September 24, 2026">
+    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="September 25, 2026">
       <p>
         CivicView surfaces what your elected officials say and do, then lets
         verified constituents respond — in their own districts. This page
@@ -32,7 +32,9 @@ export default function MethodologyPage() {
         image mirror. For newly-sworn members who haven't been added to either
         source yet (mid-cycle appointees, etc.), we fall back to a Wikipedia
         thumbnail and surface the member with the same placeholder treatment
-        used for unclaimed pages.
+        used for unclaimed pages. The author and license of every Wikimedia
+        Commons photo are listed on our <a href="/photo-credits">Photo credits</a>{' '}
+        page and shown under the photo on each profile.
       </p>
       <p>
         Bills, votes, and presidential actions come from Congress.gov + the

@@ -41,6 +41,7 @@ import PageButton from './PageButton';
 import TabStrip from './TabStrip';
 import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { FileLink } from './ui';
+import PhotoCredit from './PhotoCredit';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -856,6 +857,7 @@ export default function ProfileView({
             {member.name.split(' ').map((n) => n[0]).join('')}
           </div>
         )}
+        {photoUrl && <PhotoCredit url={photoUrl} />}
         <h2 style={{ fontSize: '1.2rem', marginBottom: '4px', fontWeight: 700 }}>{member.name}</h2>
         <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
           <span style={{

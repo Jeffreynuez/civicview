@@ -2492,6 +2492,7 @@ function Footer({
               { label: 'Privacy',             href: '/privacy' },
               { label: 'Terms of service',    href: '/terms' },
               { label: 'Child safety',        href: '/child-safety' },
+              { label: 'Photo credits',       href: '/photo-credits' },
               { label: 'Contact',             href: '/contact' },
             ]}
           />

@@ -326,13 +326,23 @@ def build_state_leg(state_abbr: str, state_name: str):
     races: list[dict] = []
     counts = {"state_senate": 0, "state_house": 0}
     sos = f"{state_name} Secretary of State"
+    # Which seats are on the ballot this cycle, and each chamber's term
+    # length (added 2026-09-25, audit E10: every seat used to be listed,
+    # including senate seats not up until 2028). A chamber missing from
+    # the table is skipped rather than guessed.
+    seats_doc = json.loads((DATA_DIR / "legislative_seats_2026.json").read_text(encoding="utf-8"))
+    seat_table = seats_doc.get("states", {}).get(state_abbr.upper(), {})
+    if not seat_table:
+        print(f"WARNING: {state_abbr.upper()} is not in legislative_seats_2026.json, so no state "
+              "legislative races are built. Add the state's seats up this cycle first.",
+              file=sys.stderr)
 
-    # (body_key, district field used by the personalized-ballot matcher, term years)
+    # (body_key, district field used by the personalized-ballot matcher)
     bodies = (
-        ("state_senate", "state_senate_district", 4),
-        ("state_house", "state_house_district", 2),
+        ("state_senate", "state_senate_district"),
+        ("state_house", "state_house_district"),
     )
-    for body_key, dist_field, term_yrs in bodies:
+    for body_key, dist_field in bodies:
         body = so.get(body_key) or {}
         members = body.get("members", []) or []
         default_chamber = "State Senate" if body_key == "state_senate" else "State House"
@@ -345,6 +355,13 @@ def build_state_leg(state_abbr: str, state_name: str):
             party = (m.get("party") or "I").strip().upper()[:1] or "I"
             pw = PARTY_WORD.get(party)
             chamber = m.get("chamber") or default_chamber  # "State Senate"/"State House"/"State Assembly"
+            seat_cfg = seat_table.get(chamber)
+            if seat_cfg is None:
+                continue
+            up = seat_cfg["districts_up"]
+            if up != "all" and dist.isdigit() and int(dist) not in up:
+                continue
+            term_yrs = seat_cfg["term_length_years"]
             role_word = m.get("role") or ("State Senator" if body_key == "state_senate"
                                           else "State Representative")
             seat_abbr = ("SD" if body_key == "state_senate"
@@ -373,10 +390,9 @@ def build_state_leg(state_abbr: str, state_name: str):
                     f"roster). Challenger filings and the certified ballot must be "
                     f"verified against the {sos}; FEC/federal data does not cover "
                     "state races.")
-            if body_key == "state_senate":
-                note += (f" {state_name} Senate seats have staggered {term_yrs}-year "
-                         "terms — only a subset is up in 2026; confirm which against "
-                         f"the {sos}.")
+            if body_key == "state_senate" and up != "all":
+                note += (f" This seat is one of the {len(up)} {state_name} Senate "
+                         "seats on the 2026 ballot.")
             race = {
                 "id": f"{state_abbr.lower()}-2026-{chamber.lower().replace(' ', '-')}-{dist}",
                 "office": seeking, "level": "state",

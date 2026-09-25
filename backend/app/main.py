@@ -341,6 +341,7 @@ _CACHEABLE_PREFIXES = (
     "/api/local-officials", "/api/federal-officials", "/api/elections",
     "/api/candidates", "/api/events", "/api/bills", "/api/votes",
     "/api/eos", "/api/stats", "/api/address", "/api/google-civic",
+    "/api/photo-credits",
 )
 _PUBLIC_CACHE_CONTROL = "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
 
@@ -430,6 +431,9 @@ app.include_router(
 # Officials hero. Unauthenticated by design — these are public-facing
 # marketing numbers, no PII.
 app.include_router(stats_router.router, prefix="/api/stats", tags=["Stats"])
+# Photo credits (audit P2) for the Wikimedia Commons photos in the data.
+from app.routers import photo_credits as photo_credits_router  # noqa: E402
+app.include_router(photo_credits_router.router, prefix="/api/photo-credits", tags=["Photo credits"])
 # Device push-token registration (FCM). Service is env-gated on
 # FIREBASE_SERVICE_ACCOUNT_JSON — without it, registration still
 # works but sends log to stdout (DevPushService).

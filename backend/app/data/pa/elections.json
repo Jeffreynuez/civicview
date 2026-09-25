@@ -521,29 +521,6 @@
    "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
   },
   {
-   "id": "pa-2026-state-senate-1",
-   "office": "Pennsylvania State Senate, Dist. 1",
-   "level": "state",
-   "jurisdiction": "PA-SD-1",
-   "chamber": "State Senate",
-   "state_senate_district": "1",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-nikil-saval-sd1",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-nikil-saval-sd1"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-nikil-saval-sd1"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
    "id": "pa-2026-state-senate-2",
    "office": "Pennsylvania State Senate, Dist. 2",
    "level": "state",
@@ -562,30 +539,7 @@
    "general_candidates": [
     "pa-cand-tina-tartaglione-sd2"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-3",
-   "office": "Pennsylvania State Senate, Dist. 3",
-   "level": "state",
-   "jurisdiction": "PA-SD-3",
-   "chamber": "State Senate",
-   "state_senate_district": "3",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-sharif-street-sd3",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-sharif-street-sd3"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-sharif-street-sd3"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -608,30 +562,7 @@
    "general_candidates": [
     "pa-cand-art-haywood-sd4"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-5",
-   "office": "Pennsylvania State Senate, Dist. 5",
-   "level": "state",
-   "jurisdiction": "PA-SD-5",
-   "chamber": "State Senate",
-   "state_senate_district": "5",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-joe-picozzi-sd5",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-joe-picozzi-sd5"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-joe-picozzi-sd5"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -654,30 +585,7 @@
    "general_candidates": [
     "pa-cand-frank-farry-sd6"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-7",
-   "office": "Pennsylvania State Senate, Dist. 7",
-   "level": "state",
-   "jurisdiction": "PA-SD-7",
-   "chamber": "State Senate",
-   "state_senate_district": "7",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-vincent-hughes-sd7",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-vincent-hughes-sd7"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-vincent-hughes-sd7"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -700,30 +608,7 @@
    "general_candidates": [
     "pa-cand-tony-williams-sd8"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-9",
-   "office": "Pennsylvania State Senate, Dist. 9",
-   "level": "state",
-   "jurisdiction": "PA-SD-9",
-   "chamber": "State Senate",
-   "state_senate_district": "9",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-john-kane-sd9",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-john-kane-sd9"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-john-kane-sd9"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -746,30 +631,7 @@
    "general_candidates": [
     "pa-cand-steve-santarsiero-sd10"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-11",
-   "office": "Pennsylvania State Senate, Dist. 11",
-   "level": "state",
-   "jurisdiction": "PA-SD-11",
-   "chamber": "State Senate",
-   "state_senate_district": "11",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-judy-schwank-sd11",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-judy-schwank-sd11"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-judy-schwank-sd11"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -792,30 +654,7 @@
    "general_candidates": [
     "pa-cand-maria-collett-sd12"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-13",
-   "office": "Pennsylvania State Senate, Dist. 13",
-   "level": "state",
-   "jurisdiction": "PA-SD-13",
-   "chamber": "State Senate",
-   "state_senate_district": "13",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-scott-martin-sd13",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-scott-martin-sd13"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-scott-martin-sd13"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -838,30 +677,7 @@
    "general_candidates": [
     "pa-cand-nick-miller-sd14"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-15",
-   "office": "Pennsylvania State Senate, Dist. 15",
-   "level": "state",
-   "jurisdiction": "PA-SD-15",
-   "chamber": "State Senate",
-   "state_senate_district": "15",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-patty-kim-sd15",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-patty-kim-sd15"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-patty-kim-sd15"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -884,30 +700,7 @@
    "general_candidates": [
     "pa-cand-jarrett-coleman-sd16"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-17",
-   "office": "Pennsylvania State Senate, Dist. 17",
-   "level": "state",
-   "jurisdiction": "PA-SD-17",
-   "chamber": "State Senate",
-   "state_senate_district": "17",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-amanda-cappelletti-sd17",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-amanda-cappelletti-sd17"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-amanda-cappelletti-sd17"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -930,30 +723,7 @@
    "general_candidates": [
     "pa-cand-lisa-boscola-sd18"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-19",
-   "office": "Pennsylvania State Senate, Dist. 19",
-   "level": "state",
-   "jurisdiction": "PA-SD-19",
-   "chamber": "State Senate",
-   "state_senate_district": "19",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-carolyn-comitta-sd19",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-carolyn-comitta-sd19"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-carolyn-comitta-sd19"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -976,30 +746,7 @@
    "general_candidates": [
     "pa-cand-lisa-baker-sd20"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-21",
-   "office": "Pennsylvania State Senate, Dist. 21",
-   "level": "state",
-   "jurisdiction": "PA-SD-21",
-   "chamber": "State Senate",
-   "state_senate_district": "21",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-scott-hutchinson-sd21",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-scott-hutchinson-sd21"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-scott-hutchinson-sd21"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1022,30 +769,7 @@
    "general_candidates": [
     "pa-cand-marty-flynn-sd22"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-23",
-   "office": "Pennsylvania State Senate, Dist. 23",
-   "level": "state",
-   "jurisdiction": "PA-SD-23",
-   "chamber": "State Senate",
-   "state_senate_district": "23",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-gene-yaw-sd23",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-gene-yaw-sd23"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-gene-yaw-sd23"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1068,30 +792,7 @@
    "general_candidates": [
     "pa-cand-tracy-pennycuick-sd24"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-25",
-   "office": "Pennsylvania State Senate, Dist. 25",
-   "level": "state",
-   "jurisdiction": "PA-SD-25",
-   "chamber": "State Senate",
-   "state_senate_district": "25",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-cris-dush-sd25",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-cris-dush-sd25"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-cris-dush-sd25"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1114,30 +815,7 @@
    "general_candidates": [
     "pa-cand-tim-kearney-sd26"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-27",
-   "office": "Pennsylvania State Senate, Dist. 27",
-   "level": "state",
-   "jurisdiction": "PA-SD-27",
-   "chamber": "State Senate",
-   "state_senate_district": "27",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-lynda-culver-sd27",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-lynda-culver-sd27"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-lynda-culver-sd27"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1160,30 +838,7 @@
    "general_candidates": [
     "pa-cand-kristin-phillips-hill-sd28"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-29",
-   "office": "Pennsylvania State Senate, Dist. 29",
-   "level": "state",
-   "jurisdiction": "PA-SD-29",
-   "chamber": "State Senate",
-   "state_senate_district": "29",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-dave-argall-sd29",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-dave-argall-sd29"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-dave-argall-sd29"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1206,30 +861,7 @@
    "general_candidates": [
     "pa-cand-judy-ward-sd30"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-31",
-   "office": "Pennsylvania State Senate, Dist. 31",
-   "level": "state",
-   "jurisdiction": "PA-SD-31",
-   "chamber": "State Senate",
-   "state_senate_district": "31",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-dawn-keefer-sd31",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-dawn-keefer-sd31"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-dawn-keefer-sd31"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1252,30 +884,7 @@
    "general_candidates": [
     "pa-cand-pat-stefano-sd32"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-33",
-   "office": "Pennsylvania State Senate, Dist. 33",
-   "level": "state",
-   "jurisdiction": "PA-SD-33",
-   "chamber": "State Senate",
-   "state_senate_district": "33",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-doug-mastriano-sd33",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-doug-mastriano-sd33"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-doug-mastriano-sd33"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1298,30 +907,7 @@
    "general_candidates": [
     "pa-cand-greg-rothman-sd34"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-35",
-   "office": "Pennsylvania State Senate, Dist. 35",
-   "level": "state",
-   "jurisdiction": "PA-SD-35",
-   "chamber": "State Senate",
-   "state_senate_district": "35",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-wayne-langerholc-sd35",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-wayne-langerholc-sd35"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-wayne-langerholc-sd35"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1344,30 +930,7 @@
    "general_candidates": [
     "pa-cand-james-malone-sd36"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-37",
-   "office": "Pennsylvania State Senate, Dist. 37",
-   "level": "state",
-   "jurisdiction": "PA-SD-37",
-   "chamber": "State Senate",
-   "state_senate_district": "37",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-devlin-robinson-sd37",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-devlin-robinson-sd37"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-devlin-robinson-sd37"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1390,30 +953,7 @@
    "general_candidates": [
     "pa-cand-lindsey-williams-sd38"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-39",
-   "office": "Pennsylvania State Senate, Dist. 39",
-   "level": "state",
-   "jurisdiction": "PA-SD-39",
-   "chamber": "State Senate",
-   "state_senate_district": "39",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-kim-ward-sd39",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-kim-ward-sd39"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-kim-ward-sd39"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1436,30 +976,7 @@
    "general_candidates": [
     "pa-cand-rosemary-brown-sd40"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-41",
-   "office": "Pennsylvania State Senate, Dist. 41",
-   "level": "state",
-   "jurisdiction": "PA-SD-41",
-   "chamber": "State Senate",
-   "state_senate_district": "41",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-joe-pittman-sd41",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-joe-pittman-sd41"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-joe-pittman-sd41"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1482,30 +999,7 @@
    "general_candidates": [
     "pa-cand-wayne-fontana-sd42"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-43",
-   "office": "Pennsylvania State Senate, Dist. 43",
-   "level": "state",
-   "jurisdiction": "PA-SD-43",
-   "chamber": "State Senate",
-   "state_senate_district": "43",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-jay-costa-sd43",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-jay-costa-sd43"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-jay-costa-sd43"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1528,30 +1022,7 @@
    "general_candidates": [
     "pa-cand-katie-muth-sd44"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-45",
-   "office": "Pennsylvania State Senate, Dist. 45",
-   "level": "state",
-   "jurisdiction": "PA-SD-45",
-   "chamber": "State Senate",
-   "state_senate_district": "45",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-nick-pisciottano-sd45",
-   "primary_candidates": {
-    "D": [
-     "pa-cand-nick-pisciottano-sd45"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-nick-pisciottano-sd45"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1574,30 +1045,7 @@
    "general_candidates": [
     "pa-cand-camera-bartolotta-sd46"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-47",
-   "office": "Pennsylvania State Senate, Dist. 47",
-   "level": "state",
-   "jurisdiction": "PA-SD-47",
-   "chamber": "State Senate",
-   "state_senate_district": "47",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-elder-vogel-sd47",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-elder-vogel-sd47"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-elder-vogel-sd47"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1620,30 +1068,7 @@
    "general_candidates": [
     "pa-cand-chris-gebhard-sd48"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "pa-2026-state-senate-49",
-   "office": "Pennsylvania State Senate, Dist. 49",
-   "level": "state",
-   "jurisdiction": "PA-SD-49",
-   "chamber": "State Senate",
-   "state_senate_district": "49",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "pa-cand-dan-laughlin-sd49",
-   "primary_candidates": {
-    "R": [
-     "pa-cand-dan-laughlin-sd49"
-    ]
-   },
-   "general_candidates": [
-    "pa-cand-dan-laughlin-sd49"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1666,7 +1091,7 @@
    "general_candidates": [
     "pa-cand-michele-brooks-sd50"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. Pennsylvania Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the Pennsylvania Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Pennsylvania Secretary of State; FEC/federal data does not cover state races. This seat is one of the 25 Pennsylvania Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },

@@ -1662,29 +1662,6 @@
    "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
   },
   {
-   "id": "ca-2026-state-senate-1",
-   "office": "California State Senate, Dist. 1",
-   "level": "state",
-   "jurisdiction": "CA-SD-1",
-   "chamber": "State Senate",
-   "state_senate_district": "1",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-megan-dahle-sd1",
-   "primary_candidates": {
-    "R": [
-     "ca-cand-megan-dahle-sd1"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-megan-dahle-sd1"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
    "id": "ca-2026-state-senate-2",
    "office": "California State Senate, Dist. 2",
    "level": "state",
@@ -1703,30 +1680,7 @@
    "general_candidates": [
     "ca-cand-mike-mcguire-sd2"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-3",
-   "office": "California State Senate, Dist. 3",
-   "level": "state",
-   "jurisdiction": "CA-SD-3",
-   "chamber": "State Senate",
-   "state_senate_district": "3",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-christopher-cabaldon-sd3",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-christopher-cabaldon-sd3"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-christopher-cabaldon-sd3"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1749,30 +1703,7 @@
    "general_candidates": [
     "ca-cand-marie-alvarado-gil-sd4"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-5",
-   "office": "California State Senate, Dist. 5",
-   "level": "state",
-   "jurisdiction": "CA-SD-5",
-   "chamber": "State Senate",
-   "state_senate_district": "5",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-jerry-mcnerney-sd5",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-jerry-mcnerney-sd5"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-jerry-mcnerney-sd5"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1795,30 +1726,7 @@
    "general_candidates": [
     "ca-cand-roger-niello-sd6"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-7",
-   "office": "California State Senate, Dist. 7",
-   "level": "state",
-   "jurisdiction": "CA-SD-7",
-   "chamber": "State Senate",
-   "state_senate_district": "7",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-jesse-arregu-n-sd7",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-jesse-arregu-n-sd7"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-jesse-arregu-n-sd7"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1841,30 +1749,7 @@
    "general_candidates": [
     "ca-cand-angelique-ashby-sd8"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-9",
-   "office": "California State Senate, Dist. 9",
-   "level": "state",
-   "jurisdiction": "CA-SD-9",
-   "chamber": "State Senate",
-   "state_senate_district": "9",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-tim-grayson-sd9",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-tim-grayson-sd9"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-tim-grayson-sd9"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1887,30 +1772,7 @@
    "general_candidates": [
     "ca-cand-aisha-wahab-sd10"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-11",
-   "office": "California State Senate, Dist. 11",
-   "level": "state",
-   "jurisdiction": "CA-SD-11",
-   "chamber": "State Senate",
-   "state_senate_district": "11",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-scott-wiener-sd11",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-scott-wiener-sd11"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-scott-wiener-sd11"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1933,30 +1795,7 @@
    "general_candidates": [
     "ca-cand-shannon-grove-sd12"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-13",
-   "office": "California State Senate, Dist. 13",
-   "level": "state",
-   "jurisdiction": "CA-SD-13",
-   "chamber": "State Senate",
-   "state_senate_district": "13",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-josh-becker-sd13",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-josh-becker-sd13"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-josh-becker-sd13"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -1979,30 +1818,7 @@
    "general_candidates": [
     "ca-cand-anna-caballero-sd14"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-15",
-   "office": "California State Senate, Dist. 15",
-   "level": "state",
-   "jurisdiction": "CA-SD-15",
-   "chamber": "State Senate",
-   "state_senate_district": "15",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-dave-cortese-sd15",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-dave-cortese-sd15"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-dave-cortese-sd15"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2025,30 +1841,7 @@
    "general_candidates": [
     "ca-cand-melissa-hurtado-sd16"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-17",
-   "office": "California State Senate, Dist. 17",
-   "level": "state",
-   "jurisdiction": "CA-SD-17",
-   "chamber": "State Senate",
-   "state_senate_district": "17",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-john-laird-sd17",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-john-laird-sd17"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-john-laird-sd17"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2071,30 +1864,7 @@
    "general_candidates": [
     "ca-cand-steve-padilla-sd18"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-19",
-   "office": "California State Senate, Dist. 19",
-   "level": "state",
-   "jurisdiction": "CA-SD-19",
-   "chamber": "State Senate",
-   "state_senate_district": "19",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-rosilicie-ochoa-bogh-sd19",
-   "primary_candidates": {
-    "R": [
-     "ca-cand-rosilicie-ochoa-bogh-sd19"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-rosilicie-ochoa-bogh-sd19"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2117,30 +1887,7 @@
    "general_candidates": [
     "ca-cand-caroline-menjivar-sd20"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-21",
-   "office": "California State Senate, Dist. 21",
-   "level": "state",
-   "jurisdiction": "CA-SD-21",
-   "chamber": "State Senate",
-   "state_senate_district": "21",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-monique-lim-n-sd21",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-monique-lim-n-sd21"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-monique-lim-n-sd21"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2163,30 +1910,7 @@
    "general_candidates": [
     "ca-cand-susan-rubio-sd22"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-23",
-   "office": "California State Senate, Dist. 23",
-   "level": "state",
-   "jurisdiction": "CA-SD-23",
-   "chamber": "State Senate",
-   "state_senate_district": "23",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-suzette-valladares-sd23",
-   "primary_candidates": {
-    "R": [
-     "ca-cand-suzette-valladares-sd23"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-suzette-valladares-sd23"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2209,30 +1933,7 @@
    "general_candidates": [
     "ca-cand-ben-allen-sd24"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-25",
-   "office": "California State Senate, Dist. 25",
-   "level": "state",
-   "jurisdiction": "CA-SD-25",
-   "chamber": "State Senate",
-   "state_senate_district": "25",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-sasha-p-rez-sd25",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-sasha-p-rez-sd25"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-sasha-p-rez-sd25"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2255,30 +1956,7 @@
    "general_candidates": [
     "ca-cand-mar-a-elena-durazo-sd26"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-27",
-   "office": "California State Senate, Dist. 27",
-   "level": "state",
-   "jurisdiction": "CA-SD-27",
-   "chamber": "State Senate",
-   "state_senate_district": "27",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-henry-stern-sd27",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-henry-stern-sd27"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-henry-stern-sd27"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2301,30 +1979,7 @@
    "general_candidates": [
     "ca-cand-lola-smallwood-cuevas-sd28"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-29",
-   "office": "California State Senate, Dist. 29",
-   "level": "state",
-   "jurisdiction": "CA-SD-29",
-   "chamber": "State Senate",
-   "state_senate_district": "29",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-eloise-reyes-sd29",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-eloise-reyes-sd29"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-eloise-reyes-sd29"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2347,30 +2002,7 @@
    "general_candidates": [
     "ca-cand-bob-archuleta-sd30"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-31",
-   "office": "California State Senate, Dist. 31",
-   "level": "state",
-   "jurisdiction": "CA-SD-31",
-   "chamber": "State Senate",
-   "state_senate_district": "31",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-sabrina-cervantes-sd31",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-sabrina-cervantes-sd31"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-sabrina-cervantes-sd31"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2393,30 +2025,7 @@
    "general_candidates": [
     "ca-cand-kelly-seyarto-sd32"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-33",
-   "office": "California State Senate, Dist. 33",
-   "level": "state",
-   "jurisdiction": "CA-SD-33",
-   "chamber": "State Senate",
-   "state_senate_district": "33",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-lena-gonzalez-sd33",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-lena-gonzalez-sd33"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-lena-gonzalez-sd33"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2439,30 +2048,7 @@
    "general_candidates": [
     "ca-cand-tom-umberg-sd34"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-35",
-   "office": "California State Senate, Dist. 35",
-   "level": "state",
-   "jurisdiction": "CA-SD-35",
-   "chamber": "State Senate",
-   "state_senate_district": "35",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-laura-richardson-sd35",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-laura-richardson-sd35"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-laura-richardson-sd35"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2485,30 +2071,7 @@
    "general_candidates": [
     "ca-cand-tony-strickland-sd36"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-37",
-   "office": "California State Senate, Dist. 37",
-   "level": "state",
-   "jurisdiction": "CA-SD-37",
-   "chamber": "State Senate",
-   "state_senate_district": "37",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-steve-choi-sd37",
-   "primary_candidates": {
-    "R": [
-     "ca-cand-steve-choi-sd37"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-steve-choi-sd37"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2531,30 +2094,7 @@
    "general_candidates": [
     "ca-cand-catherine-blakespear-sd38"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
-  },
-  {
-   "id": "ca-2026-state-senate-39",
-   "office": "California State Senate, Dist. 39",
-   "level": "state",
-   "jurisdiction": "CA-SD-39",
-   "chamber": "State Senate",
-   "state_senate_district": "39",
-   "seat_type": "legislative",
-   "term_length_years": 4,
-   "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-akilah-weber-pierson-sd39",
-   "primary_candidates": {
-    "D": [
-     "ca-cand-akilah-weber-pierson-sd39"
-    ]
-   },
-   "general_candidates": [
-    "ca-cand-akilah-weber-pierson-sd39"
-   ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },
@@ -2577,7 +2117,7 @@
    "general_candidates": [
     "ca-cand-brian-jones-sd40"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. California Senate seats have staggered 4-year terms — only a subset is up in 2026; confirm which against the California Secretary of State.",
+   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
    "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
    "_roster_source": "Open States current members (state_officials.json)"
   },

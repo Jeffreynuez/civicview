@@ -44,13 +44,11 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     # /healthz answers 200 only when the database does (audit O2); the
-    # old path, /, returns static JSON even with the database down. This
-    # stays on / until the release that adds /healthz is live: if this
-    # file is ever synced as a Blueprint, switching the path in the same
-    # release could point Render at /healthz while the old version, which
-    # 404s on it, is still serving. Set /healthz in the dashboard after
-    # that deploy, then change this line to match.
-    healthCheckPath: /
+    # old path, /, returned static JSON even with the database down.
+    # Switched in the release after the one that added /healthz, so a
+    # Blueprint sync never points Render at it before it exists. Merge
+    # that release first and let it go live before this one.
+    healthCheckPath: /healthz
     envVars:
       # Python version for the build. Keep in step with .python-version
       # at the repo root, which CI reads. Render needs the full x.y.z.
