@@ -6,7 +6,13 @@
 #
 #   1. civicview-api   — FastAPI backend (Python, Standard $25/mo —
 #                        always-on, 2GB RAM, 1 CPU)
-#   2. civicview-db    — Postgres (free tier, 1GB, retained 30 days)
+#   2. civicview-db    (Postgres) The live database is on a PAID plan
+#                        (basic_1gb, PostgreSQL 18, 5 GB disk, checked
+#                        2026-09-25). This file deliberately sets no
+#                        plan for it: Render keeps an existing
+#                        database's plan when the field is omitted, and
+#                        the old `plan: free` line here could have
+#                        downgraded it if the Blueprint were ever synced.
 #
 # After first deploy:
 #   • DATABASE_URL is auto-injected into civicview-api from the DB.
@@ -18,9 +24,9 @@
 #   • Set GOOGLE_CIVIC_API_KEY if/when you wire BallotTab live data.
 #
 # Plan note: Standard ($25/mo) is the published prod plan. NEVER set
-# this to `free` — the blueprint sync on every deploy will drag the
-# live dashboard's plan back to whatever's here, which means a free-
-# tier downgrade would silently revert any manual upgrade and put
+# this to `free`: if this file is synced as a Blueprint, the sync
+# drags the live dashboard's plan back to whatever's here, which means
+# a free-tier downgrade would silently revert any manual upgrade and put
 # api.civicview.app back to "spins down after 15min, ~30s cold
 # starts." If you genuinely need to downgrade, change this AND
 # confirm in the dashboard on the next sync.
@@ -37,8 +43,19 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
+    # /healthz answers 200 only when the database does (audit O2); the
+    # old path, /, returns static JSON even with the database down. This
+    # stays on / until the release that adds /healthz is live: if this
+    # file is ever synced as a Blueprint, switching the path in the same
+    # release could point Render at /healthz while the old version, which
+    # 404s on it, is still serving. Set /healthz in the dashboard after
+    # that deploy, then change this line to match.
     healthCheckPath: /
     envVars:
+      # Python version for the build. Keep in step with .python-version
+      # at the repo root, which CI reads. Render needs the full x.y.z.
+      - key: PYTHON_VERSION
+        value: "3.14.3"
       - key: DATABASE_URL
         fromDatabase:
           name: civicview-db
@@ -106,8 +123,114 @@ services:
       - key: PYTHONUNBUFFERED
         value: "1"            # flush logs immediately so Render shows them in real time
 
+      # Everything below is read by the code but was missing from this
+      # file until 2026-09-25 (audit O3). All are secrets or per-deploy
+      # choices, so none carries a value here: set them in the Render
+      # dashboard. In production the app logs an ERROR at every boot for
+      # each missing one that turns a feature off (see
+      # RECOMMENDED_SETTINGS in backend/app/services/runtime_env.py).
+
+      # Live data sources.
+      - key: CONGRESS_API_KEY
+        sync: false
+      - key: OPENSTATES_API_KEY
+        sync: false
+      - key: OPEN_FEC_API_KEY
+        sync: false
+      - key: COURTLISTENER_TOKEN
+        sync: false
+      # Post images on Cloudflare R2. Without all four, images go to the
+      # server's temporary disk and are lost on the next deploy.
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET_NAME
+        sync: false
+      - key: R2_PUBLIC_BASE_URL
+        sync: false           # optional; without it images use presigned URLs
+      # Transactional email (password resets, account emails).
+      - key: POSTMARK_API_TOKEN
+        sync: false
+      - key: POSTMARK_FROM_EMAIL
+        sync: false
+      - key: POSTMARK_MESSAGE_STREAM
+        sync: false           # optional, defaults to "outbound"
+      - key: PASSWORD_RESET_URL_BASE
+        sync: false           # optional, defaults to https://civicview.app
+      # Waitlist mirror to Brevo.
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_WAITLIST_LIST_ID
+        sync: false
+      - key: BREVO_DOI_TEMPLATE_ID
+        sync: false           # optional; turns on double opt-in
+      - key: BREVO_DOI_REDIRECT_URL
+        sync: false           # optional; used with the DOI template
+      # Push notifications (FCM).
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false
+      # Feature switches. Unset means off.
+      - key: FORCE_2FA_ENABLED
+        sync: false
+      - key: DIGEST_ENABLED
+        sync: false
+      - key: IDME_ENABLED
+        sync: false
+      - key: ENABLE_API_DOCS
+        sync: false           # leave unset in production
+      - key: DEMO_SUNSET_AT
+        sync: false
+      - key: APP_MIN_VERSION_CODE
+        sync: false           # native force-update gate; 0 or unset = inert
+      - key: APP_LATEST_VERSION_CODE
+        sync: false
+      # Emergency only: lets production start even though a startup
+      # schema change failed (see init_db in backend/app/db.py). Unset
+      # it as soon as the schema is repaired.
+      - key: CIVICVIEW_ALLOW_SCHEMA_DRIFT
+        sync: false
+      # Tuning.
+      - key: AI_MODERATION_RESERVE_FRACTION
+        sync: false
+      - key: LOGIN_ATTEMPT_RETENTION_DAYS
+        sync: false
+      # Seeding and one-off maintenance.
+      - key: DEMO_ACCOUNTS_JSON
+        sync: false
+      - key: DEMO_CANDIDATE_ACCOUNTS_JSON
+        sync: false
+      - key: CIVICVIEW_WIPE_REP_DEMO
+        sync: false           # one-shot wipe; unset it after the boot that uses it
+      # Billing (Stripe) and identity verification (ID.me). Unset until
+      # those features launch.
+      - key: STRIPE_API_KEY
+        sync: false
+      - key: STRIPE_PRICE_ID
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: IDME_CLIENT_ID
+        sync: false
+      - key: IDME_CLIENT_SECRET
+        sync: false
+      - key: IDME_REDIRECT_URI
+        sync: false
+      - key: IDME_POST_AUTH_REDIRECT
+        sync: false
+      - key: IDME_SCOPES
+        sync: false
+      - key: IDME_AUTHORIZE_URL
+        sync: false
+      - key: IDME_TOKEN_URL
+        sync: false
+      - key: IDME_USERINFO_URL
+        sync: false
+
 databases:
   - name: civicview-db
-    plan: free
+    # No plan on purpose; see the note at the top of this file.
     region: oregon
     databaseName: civicview
