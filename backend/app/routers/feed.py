@@ -340,7 +340,7 @@ def _serialize_poll_feed_items(
     Callers pass `rows` already filtered, ordered, and (for /polls)
     candidate-narrowed; this helper preserves that order in the result.
     """
-    from app.services.page_tags import resolve_page_tag, is_candidate_id
+    from app.services.page_tags import resolve_page_tags, is_candidate_id
 
     # Batched: which of these polls the viewing citizen has saved
     # (Task #16). Empty when there's no citizen session — reps /
@@ -471,25 +471,88 @@ def _serialize_poll_feed_items(
                 for pid, k in prq.filter(PollReaction.author_candidate_id == me_candidate.id).all():
                     my_reactions_by_poll.setdefault(int(pid), {})["candidate"] = k
 
-    items: List[Dict[str, Any]] = []
-    for poll in rows:
-        # Per-option vote counts (re-use the same query shape as
-        # popular_polls; this is N+1 over polls in the result set
-        # but with limit=100 it's fine).
-        option_rows = (
+    # ── Batched per-poll lookups (audit O5) ──────────────────────────
+    # Options with tallies, comment counts, authors, parent posts and
+    # page tags used to cost four or five queries per poll (453 for a
+    # 100-poll page). Each is now one query for the whole page, and the
+    # loop below only reads these dicts.
+    options_by_poll: Dict[int, list] = {}
+    if poll_ids:
+        for oid, pid, text, sort_order, vcnt in (
             db.query(
                 PollOption.id,
+                PollOption.poll_id,
                 PollOption.text,
                 PollOption.sort_order,
-                func.count(PollVote.id).label("vcnt"),
+                func.count(PollVote.id),
             )
             .outerjoin(PollVote, PollVote.option_id == PollOption.id)
-            .filter(PollOption.poll_id == poll.id)
-            .group_by(PollOption.id, PollOption.text, PollOption.sort_order)
-            .order_by(PollOption.sort_order)
+            .filter(PollOption.poll_id.in_(poll_ids))
+            .group_by(PollOption.id, PollOption.poll_id, PollOption.text, PollOption.sort_order)
+            .order_by(PollOption.poll_id, PollOption.sort_order, PollOption.id)
             .all()
-        )
-        total = sum(int(r.vcnt or 0) for r in option_rows)
+        ):
+            options_by_poll.setdefault(int(pid), []).append((oid, text, sort_order, vcnt))
+
+    poll_comment_counts: Dict[int, int] = {}
+    if citizen_poll_ids:
+        poll_comment_counts = {
+            int(pid): int(cnt or 0)
+            for pid, cnt in (
+                db.query(PollComment.poll_id, func.count(PollComment.id))
+                .filter(PollComment.poll_id.in_(citizen_poll_ids))
+                .filter(PollComment.deleted_at.is_(None))
+                .group_by(PollComment.poll_id)
+                .all()
+            )
+        }
+    parent_post_ids = sorted({int(p.post_id) for p in rows if p.author_kind != "citizen" and p.post_id})
+    post_comment_counts: Dict[int, int] = {}
+    posts_by_id: Dict[int, Post] = {}
+    if parent_post_ids:
+        post_comment_counts = {
+            int(pid): int(cnt or 0)
+            for pid, cnt in (
+                db.query(PostComment.post_id, func.count(PostComment.id))
+                .filter(PostComment.post_id.in_(parent_post_ids))
+                .filter(PostComment.deleted_at.is_(None))
+                .group_by(PostComment.post_id)
+                .all()
+            )
+        }
+        posts_by_id = {
+            int(p.id): p for p in db.query(Post).filter(Post.id.in_(parent_post_ids)).all()
+        }
+
+    author_citizen_ids = sorted({int(p.author_citizen_id) for p in rows if p.author_kind == "citizen" and p.author_citizen_id})
+    citizens_by_id: Dict[int, CitizenAccount] = (
+        {int(c.id): c for c in db.query(CitizenAccount).filter(CitizenAccount.id.in_(author_citizen_ids)).all()}
+        if author_citizen_ids else {}
+    )
+    post_rep_ids = sorted({int(pp.author_id) for pp in posts_by_id.values() if pp.author_id and not pp.author_candidate_id})
+    reps_by_id: Dict[int, RepAccount] = (
+        {int(r.id): r for r in db.query(RepAccount).filter(RepAccount.id.in_(post_rep_ids)).all()}
+        if post_rep_ids else {}
+    )
+    post_cand_ids = sorted({int(pp.author_candidate_id) for pp in posts_by_id.values() if pp.author_candidate_id})
+    cands_by_id: Dict[int, CandidateAccount] = (
+        {int(c.id): c for c in db.query(CandidateAccount).filter(CandidateAccount.id.in_(post_cand_ids)).all()}
+        if post_cand_ids else {}
+    )
+
+    def _poll_official_id(poll: Poll) -> Optional[str]:
+        if poll.author_kind == "citizen":
+            return poll.target_official_id
+        post = posts_by_id.get(int(poll.post_id)) if poll.post_id else None
+        return post.official_id if post else None
+
+    page_tags = resolve_page_tags(db, (_poll_official_id(p) for p in rows))
+
+    items: List[Dict[str, Any]] = []
+    for poll in rows:
+        # Per-option vote counts, in sort order (batched above).
+        option_rows = options_by_poll.get(int(poll.id), [])
+        total = sum(int(vcnt or 0) for _oid, _text, _so, vcnt in option_rows)
         options = []
         for _oid, text, _so, vcnt in option_rows:
             pct = round((int(vcnt or 0) / total) * 100) if total else 0
@@ -502,21 +565,9 @@ def _serialize_poll_feed_items(
 
         # Comment count by author_kind.
         if poll.author_kind == "citizen":
-            comments = (
-                db.query(func.count(PollComment.id))
-                .filter(PollComment.poll_id == poll.id)
-                .filter(PollComment.deleted_at.is_(None))
-                .scalar()
-                or 0
-            )
+            comments = poll_comment_counts.get(int(poll.id), 0)
         else:
-            comments = (
-                db.query(func.count(PostComment.id))
-                .filter(PostComment.post_id == poll.post_id)
-                .filter(PostComment.deleted_at.is_(None))
-                .scalar()
-                or 0
-            )
+            comments = post_comment_counts.get(int(poll.post_id), 0) if poll.post_id else 0
 
         # Author resolution + display kind chip.
         # display_kind: 'rep' | 'citizen' | 'standalone'
@@ -533,11 +584,7 @@ def _serialize_poll_feed_items(
         # ("Failed to fetch" on the frontend after 3beeb44).
         _branch_override = None
         if poll.author_kind == "citizen":
-            cz = (
-                db.query(CitizenAccount)
-                .filter(CitizenAccount.id == poll.author_citizen_id)
-                .first()
-            )
+            cz = citizens_by_id.get(int(poll.author_citizen_id)) if poll.author_citizen_id else None
             author = cz.display_name if cz else "Citizen"
             role_parts: list[str] = []
             if cz and cz.state:
@@ -558,23 +605,16 @@ def _serialize_poll_feed_items(
                 display_kind = "citizen"
         else:
             # Rep- or candidate-authored poll attached to a Post. Branch
-            # on the Post's author fields (mirrors the /posts endpoint at
-            # feed.py:1086) — candidate posts populate author_candidate_id,
-            # rep posts populate author_id. Pre-fix, this branch hardcoded
+            # on the Post's author fields (mirrors the /posts endpoint):
+            # candidate posts populate author_candidate_id, rep posts
+            # populate author_id. Pre-fix, this branch hardcoded
             # display_kind='rep' which mis-labeled every candidate poll
             # on the /polls feed (and fell back to the literal string
             # "Representative" for the author name because the
             # RepAccount lookup returned None for a candidate's post).
-            post = (
-                db.query(Post).filter(Post.id == poll.post_id).first()
-                if poll.post_id else None
-            )
+            post = posts_by_id.get(int(poll.post_id)) if poll.post_id else None
             if post and post.author_candidate_id:
-                cand = (
-                    db.query(CandidateAccount)
-                    .filter(CandidateAccount.id == post.author_candidate_id)
-                    .first()
-                )
+                cand = cands_by_id.get(int(post.author_candidate_id))
                 author = cand.display_name if cand else "Candidate"
                 # CandidateAccount has no role column by design (see model
                 # docstring) — seeking_office lives in the registry and
@@ -585,10 +625,7 @@ def _serialize_poll_feed_items(
                 display_kind = "candidate"
                 party = _party_for(official_id) if official_id else None
             else:
-                rep = (
-                    db.query(RepAccount).filter(RepAccount.id == post.author_id).first()
-                    if post else None
-                )
+                rep = reps_by_id.get(int(post.author_id)) if post and post.author_id else None
                 author = rep.display_name if rep else "Representative"
                 role = rep.role if rep else None
                 official_id = post.official_id if post else None
@@ -624,7 +661,7 @@ def _serialize_poll_feed_items(
         # Page-tag for the chip. Standalone polls get the literal
         # 'Standalone' string at the UI layer; this endpoint returns
         # None for that case so the frontend can branch.
-        page_tag = resolve_page_tag(db, official_id) if official_id else None
+        page_tag = page_tags.get(official_id) if official_id else None
 
         # Per-viewer context. Anonymous viewers get is_author=False
         # and voter_choice_id=None. Citizens see is_author=True on
@@ -1043,11 +1080,10 @@ def posts_feed(
         likes + dislikes + comments + attached_poll_votes
       where attached_poll_votes is the total option-vote count on the
       Poll attached to the post (0 if no poll is attached). The score
-      is computed in Python at response time over the full non-deleted
-      result set, then the top `limit` are returned. There's no
-      cached engagement column yet; with the early-launch volume the
-      Python sum over ~hundreds of posts is comfortably cheap and
-      keeps the model schema unchanged.
+      is computed in SQL from grouped subqueries, and the ordering,
+      offset and limit happen there too, so only one page of posts is
+      loaded (audit O5). There's no cached engagement column; the
+      schema is unchanged.
 
     Item shape:
       {
@@ -1080,8 +1116,7 @@ def posts_feed(
         }
       }
     """
-    from app.services.page_tags import resolve_page_tag
-    from sqlalchemy import or_
+    from app.services.page_tags import resolve_page_tags
 
     kinds: List[str] = [k for k in (kind or []) if k] or []
 
@@ -1092,7 +1127,54 @@ def posts_feed(
             return Post.author_candidate_id.is_not(None)
         return None
 
-    q = db.query(Post).filter(Post.deleted_at.is_(None))
+    # Engagement parts per post, as grouped subqueries, so the ranking,
+    # the offset and the limit all happen in SQL (audit O5). This used
+    # to load every post and every tally on every request and sort in
+    # Python.
+    rxn_sq = (
+        db.query(
+            PostReaction.post_id.label("pid"),
+            func.sum(case((PostReaction.kind == "up", 1), else_=0)).label("up"),
+            func.sum(case((PostReaction.kind == "down", 1), else_=0)).label("down"),
+        )
+        .group_by(PostReaction.post_id)
+        .subquery()
+    )
+    cmt_sq = (
+        db.query(
+            PostComment.post_id.label("pid"),
+            func.count(PostComment.id).label("n"),
+        )
+        .filter(PostComment.deleted_at.is_(None))
+        .group_by(PostComment.post_id)
+        .subquery()
+    )
+    # Poll.post_id is unique, so at most one attached poll per post.
+    poll_sq = (
+        db.query(
+            Poll.post_id.label("pid"),
+            Poll.id.label("poll_id"),
+            func.count(PollVote.id).label("votes"),
+        )
+        .outerjoin(PollOption, PollOption.poll_id == Poll.id)
+        .outerjoin(PollVote, PollVote.option_id == PollOption.id)
+        .filter(Poll.post_id.is_not(None), Poll.archived_at.is_(None))
+        .group_by(Poll.id, Poll.post_id)
+        .subquery()
+    )
+    up_c = func.coalesce(rxn_sq.c.up, 0)
+    down_c = func.coalesce(rxn_sq.c.down, 0)
+    cmt_c = func.coalesce(cmt_sq.c.n, 0)
+    votes_c = func.coalesce(poll_sq.c.votes, 0)
+    score = up_c + down_c + cmt_c + votes_c
+
+    q = (
+        db.query(Post, up_c, down_c, cmt_c, poll_sq.c.poll_id, votes_c)
+        .outerjoin(rxn_sq, rxn_sq.c.pid == Post.id)
+        .outerjoin(cmt_sq, cmt_sq.c.pid == Post.id)
+        .outerjoin(poll_sq, poll_sq.c.pid == Post.id)
+        .filter(Post.deleted_at.is_(None))
+    )
     if kinds:
         clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
         if clauses:
@@ -1112,19 +1194,45 @@ def posts_feed(
             )
         )
 
-    # Pull the full filtered set so we can score-sort in Python. The
-    # `limit` is applied after sort, not at SQL — otherwise we'd be
-    # ordering by created_at and chopping before engagement entered
-    # the picture. Within the cap (300) this is a few hundred rows
-    # tops with current usage.
     if ids:
         q = q.filter(Post.id.in_(ids))
-    posts = q.all()
 
-    if not posts:
+    # Score DESC, then newest first (posts with no timestamp last), then
+    # id so equal rows keep one stable order from page to page. Slice
+    # pagination: fetch one extra row to know whether more exist.
+    # (Keyset isn't usable because the sort key is a computed score.)
+    page_rows = (
+        q.order_by(
+            score.desc(),
+            Post.created_at.desc().nulls_last(),
+            Post.id.asc(),
+        )
+        .offset(offset)
+        .limit(limit + 1)
+        .all()
+    )
+    has_more = len(page_rows) > limit
+    page_rows = page_rows[:limit]
+    next_offset = (offset + limit) if has_more else None
+    if not page_rows:
         return {"items": [], "has_more": False, "next_offset": None}
 
-    post_ids = [p.id for p in posts]
+    posts = [row[0] for row in page_rows]
+    post_ids = [int(p.id) for p in posts]
+    likes_by_post: Dict[int, int] = {}
+    dislikes_by_post: Dict[int, int] = {}
+    comments_by_post: Dict[int, int] = {}
+    poll_id_by_post: Dict[int, int] = {}
+    poll_votes_by_post: Dict[int, int] = {}
+    for p, up, down, n_cmt, poll_id, votes in page_rows:
+        pid = int(p.id)
+        likes_by_post[pid] = int(up or 0)
+        dislikes_by_post[pid] = int(down or 0)
+        comments_by_post[pid] = int(n_cmt or 0)
+        if poll_id is not None:
+            poll_id_by_post[pid] = int(poll_id)
+            poll_votes_by_post[pid] = int(votes or 0)
+
     # Batched: which of these posts the viewing citizen has saved (Task #16).
     saved_post_ids: set = set()
     if me_citizen is not None:
@@ -1137,61 +1245,6 @@ def posts_feed(
                 SavedItem.item_id.in_(post_ids),
             ).all()
         }
-
-    # Batched: reaction counts per post (up + down separately).
-    rxn_rows = (
-        db.query(
-            PostReaction.post_id,
-            PostReaction.kind,
-            func.count(PostReaction.id),
-        )
-        .filter(PostReaction.post_id.in_(post_ids))
-        .group_by(PostReaction.post_id, PostReaction.kind)
-        .all()
-    )
-    likes_by_post: Dict[int, int] = {}
-    dislikes_by_post: Dict[int, int] = {}
-    for pid, k, cnt in rxn_rows:
-        if k == "up":
-            likes_by_post[int(pid)] = int(cnt or 0)
-        elif k == "down":
-            dislikes_by_post[int(pid)] = int(cnt or 0)
-
-    # Batched: non-deleted comment counts per post.
-    cmt_rows = (
-        db.query(
-            PostComment.post_id,
-            func.count(PostComment.id),
-        )
-        .filter(PostComment.post_id.in_(post_ids))
-        .filter(PostComment.deleted_at.is_(None))
-        .group_by(PostComment.post_id)
-        .all()
-    )
-    comments_by_post: Dict[int, int] = {pid: int(cnt or 0) for pid, cnt in cmt_rows}
-
-    # Batched: attached-poll lookup. Poll.post_id is unique so this
-    # is at most one Poll per Post. We also fetch each attached poll's
-    # total vote count in the same join — saves an N+1 in the items
-    # loop and folds neatly into the engagement-score formula below.
-    poll_rows = (
-        db.query(
-            Poll.id,
-            Poll.post_id,
-            func.count(PollVote.id),
-        )
-        .outerjoin(PollOption, PollOption.poll_id == Poll.id)
-        .outerjoin(PollVote, PollVote.option_id == PollOption.id)
-        .filter(Poll.post_id.in_(post_ids))
-        .filter(Poll.archived_at.is_(None))
-        .group_by(Poll.id, Poll.post_id)
-        .all()
-    )
-    poll_id_by_post: Dict[int, int] = {}
-    poll_votes_by_post: Dict[int, int] = {}
-    for poll_id, post_id, vcnt in poll_rows:
-        poll_id_by_post[int(post_id)] = int(poll_id)
-        poll_votes_by_post[int(post_id)] = int(vcnt or 0)
 
     # Batched: viewer's reaction per post, KEPT PER-IDENTITY so the
     # IdentityPicker can mark "✓ Liked" / "✓ Disliked" against the
@@ -1231,34 +1284,6 @@ def posts_feed(
         m = viewer_rxns_by_identity.get(int(post_id), {})
         return m.get("citizen") or m.get("rep") or m.get("candidate")
 
-    # Score, sort, slice. Tiebreaker is created_at DESC so newer posts
-    # win when engagement is equal (matches the design brief's note
-    # that recency is the tiebreaker).
-    def _score(p: Post) -> int:
-        return (
-            likes_by_post.get(int(p.id), 0)
-            + dislikes_by_post.get(int(p.id), 0)
-            + comments_by_post.get(int(p.id), 0)
-            + poll_votes_by_post.get(int(p.id), 0)
-        )
-
-    posts.sort(
-        key=lambda p: (
-            -_score(p),
-            -(p.created_at.timestamp() if p.created_at else 0),
-        )
-    )
-    # Slice pagination over the engagement-ranked list. Ranking still
-    # runs in Python over the full set (unchanged cost); we just return
-    # a window of it so the client can infinite-scroll. next_offset/
-    # has_more drive the load-more sentinel. (Keyset isn't usable here
-    # because the sort key is a computed score, not a stored column;
-    # swap to keyset if a cached engagement column ever lands.)
-    _total = len(posts)
-    posts = posts[offset:offset + limit]
-    has_more = (offset + limit) < _total
-    next_offset = (offset + limit) if has_more else None
-
     # Resolve authors in two batched lookups (one per identity kind).
     rep_ids = [p.author_id for p in posts if p.author_id]
     cand_ids = [p.author_candidate_id for p in posts if p.author_candidate_id]
@@ -1272,6 +1297,7 @@ def posts_feed(
         if cand_ids
         else {}
     )
+    page_tags = resolve_page_tags(db, (p.official_id for p in posts))
 
     items: List[Dict[str, Any]] = []
     for p in posts:
@@ -1302,7 +1328,7 @@ def posts_feed(
             role = None
             party = None
 
-        page_tag = resolve_page_tag(db, p.official_id) if p.official_id else None
+        page_tag = page_tags.get(p.official_id) if p.official_id else None
         attached_poll_id = poll_id_by_post.get(int(p.id))
         attached_poll_votes = poll_votes_by_post.get(int(p.id), 0)
 
