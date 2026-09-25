@@ -35,7 +35,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Optional
+from typing import Dict, Iterable, Optional
 
 from sqlalchemy.orm import Session
 
@@ -118,7 +118,38 @@ def resolve_page_tag(db: Session, official_id: Optional[str]) -> Optional[str]:
     """
     if not official_id:
         return None
+    rep = (
+        db.query(RepAccount)
+        .filter(RepAccount.official_id == official_id)
+        .first()
+    )
+    return _tag_for(official_id, rep)
 
+
+def resolve_page_tags(db: Session, official_ids: Iterable[Optional[str]]) -> Dict[str, str]:
+    """resolve_page_tag for many ids with ONE query (audit O5).
+
+    The feeds used to call resolve_page_tag once per row, one SELECT
+    each. Returns {official_id: tag} for every non-empty id given.
+    """
+    ids = sorted({i for i in official_ids if i})
+    if not ids:
+        return {}
+    reps: Dict[str, RepAccount] = {}
+    # Same row resolve_page_tag's .first() picks when official_id is
+    # not unique: the lowest id.
+    for rep in (
+        db.query(RepAccount)
+        .filter(RepAccount.official_id.in_(ids))
+        .order_by(RepAccount.id.asc())
+        .all()
+    ):
+        reps.setdefault(rep.official_id, rep)
+    return {oid: _tag_for(oid, reps.get(oid)) for oid in ids}
+
+
+def _tag_for(official_id: str, rep: Optional[RepAccount]) -> str:
+    """The tag for one id, given its claimed-page row (or None)."""
     # Display name + geography candidates.
     display_name: Optional[str] = None
     geo: Optional[str] = None
@@ -126,11 +157,6 @@ def resolve_page_tag(db: Session, official_id: Optional[str]) -> Optional[str]:
     # Prefer DB row when present — a rep who's claimed their page
     # may have edited owner_state / owner_district, which is more
     # current than the curated index.
-    rep = (
-        db.query(RepAccount)
-        .filter(RepAccount.official_id == official_id)
-        .first()
-    )
     if rep is not None:
         display_name = rep.display_name
         if rep.owner_district:

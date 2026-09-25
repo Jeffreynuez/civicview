@@ -28,7 +28,13 @@ import FeedbackView from '@/components/FeedbackView';
 // in the Android shell it offers push once a citizen is signed in.
 import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
-import { getAllTrackedBills, updateTrackedBill } from '@/lib/trackedBills';
+import {
+  getAllTrackedBills,
+  updateTrackedBill,
+  getBillsLoadGeneration,
+  subscribeBillsLoaded,
+  claimBillsCheck,
+} from '@/lib/trackedBills';
 import { useAuth, logoutRep } from '@/lib/auth';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
@@ -244,8 +250,6 @@ export default function Home() {
   const compareCandidateIds = new Set(
     compareItems.filter((i) => i._kind === 'candidate').map((c) => c.id)
   );
-  // Ensure the on-load tracked-bill check only runs once per session
-  const trackedCheckedRef = useRef(false);
 
   // ─── Side-panel scroll preservation ────────────────────────────────
   // The right-side panel hosts a single scroll container (NOP / state
@@ -994,53 +998,77 @@ export default function Home() {
   // and compares latest_action_date / latest_action against the stored value.
   // If anything has changed, we update the stored snapshot and surface an
   // in-app notification banner with a link to open the tracked-bills modal.
+  //
+  // Tracked bills load from the server after sign-in, so on a cold page
+  // load the store is still empty on the first render. This used to
+  // check once, find nothing and never look again, so the status-change
+  // alert never fired on a fresh load (audit B9). It now runs once per
+  // load of the tracked list from the server (sign-in, or a switch of
+  // identity), not when a user tracks a bill by hand.
+  const [billsLoadGen, setBillsLoadGen] = useState(0);
+  const homeAliveRef = useRef(true);
   useEffect(() => {
-    if (trackedCheckedRef.current) return;
-    trackedCheckedRef.current = true;
-    const map = getAllTrackedBills();
-    const bills = Object.values(map);
-    if (bills.length === 0) return;
-
-    let cancelled = false;
-    (async () => {
-      const changed = [];
-      // Limited concurrency: 3 workers
-      const queue = [...bills];
-      const worker = async () => {
-        while (queue.length) {
-          const b = queue.shift();
-          try {
-            const { data } = await fetchBillSnapshot(b.congress, b.type, b.number);
-            if (!data) continue;
-            if (
-              (data.latest_action_date || '') !== (b.latest_action_date || '') ||
-              (data.latest_action || '') !== (b.latest_action || '')
-            ) {
-              changed.push({ ...b, latest_action: data.latest_action, latest_action_date: data.latest_action_date });
-              updateTrackedBill(b.key, {
-                latest_action: data.latest_action,
-                latest_action_date: data.latest_action_date,
-                policy_area: data.policy_area || b.policy_area,
-                url: data.url || b.url,
-                title: data.title || b.title,
-                last_change_seen_at: new Date().toISOString(),
-              });
-            }
-          } catch (e) {
-            // Ignore — partial failures are fine
-          }
-        }
-      };
-      await Promise.all([worker(), worker(), worker()]);
-      if (cancelled || changed.length === 0) return;
-      const summary = changed.length === 1
-        ? `Update on ${changed[0].citation || changed[0].title}: ${changed[0].latest_action || 'status changed'}.`
-        : `${changed.length} of your tracked bills had status updates.`;
-      setNotification(summary);
-    })();
-
-    return () => { cancelled = true; };
+    homeAliveRef.current = true;
+    setBillsLoadGen(getBillsLoadGeneration());
+    const unsubscribe = subscribeBillsLoaded((gen) => setBillsLoadGen(gen));
+    return () => {
+      homeAliveRef.current = false;
+      unsubscribe();
+    };
   }, []);
+  useEffect(() => {
+    if (billsLoadGen === 0) return undefined;
+    // A cold start can load the list once per signed-in identity, one
+    // after another; let those settle, then check the latest once.
+    const timer = setTimeout(() => {
+      const gen = getBillsLoadGeneration();
+      // Once per load, across remounts of this page too.
+      if (!claimBillsCheck(gen)) return;
+      const bills = Object.values(getAllTrackedBills());
+      if (bills.length === 0) return;
+      // A sign-out or another load while the check runs makes its
+      // results stale: they belong to the previous identity's list.
+      const current = () => getBillsLoadGeneration() === gen;
+
+      (async () => {
+        const changed = [];
+        // Limited concurrency: 3 workers
+        const queue = [...bills];
+        const worker = async () => {
+          while (queue.length && current()) {
+            const b = queue.shift();
+            try {
+              const { data } = await fetchBillSnapshot(b.congress, b.type, b.number);
+              if (!data || !current()) continue;
+              if (
+                (data.latest_action_date || '') !== (b.latest_action_date || '') ||
+                (data.latest_action || '') !== (b.latest_action || '')
+              ) {
+                changed.push({ ...b, latest_action: data.latest_action, latest_action_date: data.latest_action_date });
+                updateTrackedBill(b.key, {
+                  latest_action: data.latest_action,
+                  latest_action_date: data.latest_action_date,
+                  policy_area: data.policy_area || b.policy_area,
+                  url: data.url || b.url,
+                  title: data.title || b.title,
+                  last_change_seen_at: new Date().toISOString(),
+                });
+              }
+            } catch (e) {
+              // Ignore; partial failures are fine
+            }
+          }
+        };
+        await Promise.all([worker(), worker(), worker()]);
+        if (!homeAliveRef.current || !current() || changed.length === 0) return;
+        const summary = changed.length === 1
+          ? `Update on ${changed[0].citation || changed[0].title}: ${changed[0].latest_action || 'status changed'}.`
+          : `${changed.length} of your tracked bills had status updates.`;
+        setNotification(summary);
+      })();
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [billsLoadGen]);
 
   // ─── Browser back/forward integration ────────────────────────────────
   // Mirror the three "overlay" bits of nav state (selectedMember,

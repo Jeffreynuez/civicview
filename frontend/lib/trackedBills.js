@@ -49,12 +49,49 @@ function notify() {
   }
 }
 
+// Bumped each time the cache is (re)loaded from the server or cleared
+// on sign-out, so a screen can act once per load. Home uses it for the
+// tracked-bill status check (audit B9): the load arrives after the
+// first render, and a signed-in user adding their first bill is not a
+// load. A check started for one load treats a later generation as the
+// signal that its results are stale.
+let loadGeneration = 0;
+let checkedGeneration = 0;
+const loadListeners = new Set();
+
+export function getBillsLoadGeneration() {
+  return loadGeneration;
+}
+
+export function subscribeBillsLoaded(fn) {
+  loadListeners.add(fn);
+  return () => { loadListeners.delete(fn); };
+}
+
+/**
+ * True, once, for each generation a caller may check. Kept at module
+ * level so a page that remounts does not check the same load again.
+ */
+export function claimBillsCheck(gen) {
+  if (!gen || gen <= checkedGeneration) return false;
+  checkedGeneration = gen;
+  return true;
+}
+
+function announceLoaded() {
+  loadGeneration += 1;
+  for (const fn of loadListeners) {
+    try { fn(loadGeneration); } catch (_) { /* swallow */ }
+  }
+}
+
 // Internal — used by trackedSync.loadAllTracked() to seed the cache
 // from the server response on login.
 export function _bootstrapBills(rows) {
   cache = {};
   if (!Array.isArray(rows)) {
     notify();
+    announceLoaded();
     return;
   }
   for (const row of rows) {
@@ -70,12 +107,14 @@ export function _bootstrapBills(rows) {
     };
   }
   notify();
+  announceLoaded();
 }
 
 // Internal — used by trackedSync.clearAllTracked() on logout.
 export function _clearBills() {
   cache = {};
   notify();
+  announceLoaded();
 }
 
 export function billKey(congress, type, number) {

@@ -21,12 +21,12 @@ Design notes:
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import List, Optional
 
 from sqlalchemy import (
     String, Integer, Float, DateTime, ForeignKey, Boolean, Text, Index,
-    UniqueConstraint, func,
+    UniqueConstraint, func, BigInteger, Date,
 )
 from sqlalchemy.sql import expression as sa_expression
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -2268,3 +2268,22 @@ class DeviceToken(Base):
     #   the cadence min-gap throttle's clock (daily ≈ one push / 20h,
     #   weekly ≈ one push / 6d). NULL = never pushed.
     last_push_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class AiDailySpend(Base):
+    """Tokens spent on the Anthropic API per UTC day (audit O7).
+
+    ai_service keeps the running total in memory for its pre-flight
+    budget check and adds every call's usage here, so a restart or
+    deploy resumes from the day's real total instead of zero. Before
+    this table the daily cap reset on every deploy. One row per day;
+    old rows are harmless and tiny.
+    """
+    __tablename__ = "ai_daily_spend"
+
+    day: Mapped[date] = mapped_column(Date, primary_key=True)
+    input_tokens: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
+    output_tokens: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, server_default=func.now(), onupdate=func.now(),
+    )

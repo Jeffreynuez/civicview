@@ -42,6 +42,7 @@ import os
 from datetime import datetime
 from typing import Any
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 
@@ -110,7 +111,16 @@ def record_report(db: Session, target: Any, *, kind: str) -> bool:
       surface "this content was just auto-hidden" in the response
       to the reporter as a small signal.
     """
-    target.report_count = (target.report_count or 0) + 1
+    # One atomic UPDATE (report_count = report_count + 1) instead of
+    # read, add one, write back: two reports landing together used to
+    # both read N and both write N + 1, losing one (audit B9). The
+    # refresh reads the new value back into this session.
+    model = type(target)
+    db.query(model).filter(model.id == target.id).update(
+        {model.report_count: func.coalesce(model.report_count, 0) + 1},
+        synchronize_session=False,
+    )
+    db.refresh(target, attribute_names=["report_count"])
     threshold = _threshold()
     if threshold <= 0:
         return False

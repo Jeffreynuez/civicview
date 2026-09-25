@@ -29,10 +29,12 @@ Design principles:
 """
 from __future__ import annotations
 
+import atexit
 import datetime as _dt
 import logging
 import os
 import threading
+import time
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
@@ -98,33 +100,199 @@ class AIResult:
 
 
 # ── Daily-spend tracking ──────────────────────────────────────────────
-# In-memory counter, reset at UTC midnight. Per-process semantics on
-# Render's free tier (only one worker). If we ever multi-worker we'd
-# move this to Redis; for now the simpler approach is fine and the cap
-# is approximate by design.
+# The running total lives in memory for the pre-flight check and resets
+# at UTC midnight. Usage is also stored in the ai_daily_spend table, and
+# a process starts each day from the stored total, so a restart or
+# deploy no longer resets the cap to zero (audit O7).
+#
+# Nothing here touches the database on a request's path: calls queue
+# their tokens in `_pending`, and one background thread both loads the
+# stored total (each day, retrying a minute after a failure) and adds
+# the queue to the table every few seconds, over its own connection
+# (db.make_isolated_engine). Because that thread is the only writer, a
+# load never races a write, and the lock is never held during a query.
+# One worker today; two overlapping processes during a deploy each see
+# the stored total, so the cap stays approximate by design.
 _spend_lock = threading.Lock()
 _spend_date: Optional[_dt.date] = None
 _spend_input_tokens = 0
 _spend_output_tokens = 0
+# Tokens recorded in memory but not yet written: {day: [input, output]}.
+_pending: Dict[_dt.date, List[int]] = {}
+# The day whose stored total has been folded into the counters, and when
+# a failed load may be retried (time.monotonic()).
+_loaded_for: Optional[_dt.date] = None
+_load_retry_at = 0.0
+_LOAD_RETRY_SECONDS = 60.0
+_FLUSH_SECONDS = 5.0
+_flusher_started = False
+_flusher_lock = threading.Lock()
+_spend_engine = None
+_spend_engine_lock = threading.Lock()
+
+
+def _spend_session():
+    """A session on the isolated engine (see the block comment above)."""
+    global _spend_engine
+    from sqlalchemy.orm import Session
+    if _spend_engine is None:
+        with _spend_engine_lock:
+            if _spend_engine is None:
+                from app.db import make_isolated_engine
+                _spend_engine = make_isolated_engine(5000)
+    return Session(bind=_spend_engine)
+
+
+def _load_persisted_spend(day: _dt.date) -> Optional[tuple]:
+    """(input_tokens, output_tokens) stored for `day`; (0, 0) when no
+    row exists yet; None when the database could not be read. Never
+    raises: the budget guard must not take the AI features down."""
+    try:
+        from app.models.pages import AiDailySpend
+        db = _spend_session()
+        try:
+            row = db.get(AiDailySpend, day)
+            if row is None:
+                return (0, 0)
+            return (int(row.input_tokens or 0), int(row.output_tokens or 0))
+        finally:
+            db.close()
+    except Exception:
+        logger.warning("Could not load today's stored AI spend; retrying in a minute.", exc_info=True)
+        return None
+
+
+def _persist_usage(day: _dt.date, input_tokens: int, output_tokens: int) -> bool:
+    """Add tokens to the stored total for `day`, atomically (UPDATE ...
+    SET n = n + k, or INSERT for the day's first write). Returns False
+    on failure (logged); the caller queues the tokens again."""
+    i, o = max(int(input_tokens), 0), max(int(output_tokens), 0)
+    if not (i or o):
+        return True
+    try:
+        from sqlalchemy.exc import IntegrityError
+        from app.models.pages import AiDailySpend
+        db = _spend_session()
+        try:
+            def _add() -> int:
+                return (
+                    db.query(AiDailySpend)
+                    .filter(AiDailySpend.day == day)
+                    .update(
+                        {
+                            AiDailySpend.input_tokens: AiDailySpend.input_tokens + i,
+                            AiDailySpend.output_tokens: AiDailySpend.output_tokens + o,
+                        },
+                        synchronize_session=False,
+                    )
+                )
+            if not _add():
+                db.add(AiDailySpend(day=day, input_tokens=i, output_tokens=o))
+                try:
+                    db.commit()
+                    return True
+                except IntegrityError:
+                    # Another process created the day's row first.
+                    db.rollback()
+                    _add()
+            db.commit()
+            return True
+        finally:
+            db.close()
+    except Exception:
+        logger.warning("Could not store AI spend; it will be retried.", exc_info=True)
+        return False
+
+
+def _flush_pending() -> None:
+    """Write every queued day's tokens; a failed day goes back in the
+    queue for the next round."""
+    with _spend_lock:
+        batch = {day: list(v) for day, v in _pending.items() if v[0] or v[1]}
+        _pending.clear()
+    for day, (i, o) in batch.items():
+        if not _persist_usage(day, i, o):
+            with _spend_lock:
+                slot = _pending.setdefault(day, [0, 0])
+                slot[0] += i
+                slot[1] += o
+
+
+def _load_if_needed() -> None:
+    """Fold the day's stored total into the counters once per day, from
+    the flusher thread. The query runs outside the lock. Counters become
+    stored + this process's tokens not yet written (those written are in
+    the stored total); nothing is being written at that moment because
+    this thread is the only writer."""
+    global _spend_input_tokens, _spend_output_tokens, _loaded_for, _load_retry_at
+    today = _dt.datetime.utcnow().date()
+    with _spend_lock:
+        _maybe_reset_spend()
+        if _loaded_for == today or time.monotonic() < _load_retry_at:
+            return
+    stored = _load_persisted_spend(today)
+    with _spend_lock:
+        if _spend_date != today:
+            return  # midnight passed meanwhile; the next round loads the new day
+        if stored is None:
+            _load_retry_at = time.monotonic() + _LOAD_RETRY_SECONDS
+            return
+        unwritten = _pending.get(today, [0, 0])
+        _spend_input_tokens = stored[0] + unwritten[0]
+        _spend_output_tokens = stored[1] + unwritten[1]
+        _loaded_for = today
+
+
+def _flusher_loop() -> None:
+    while True:
+        try:
+            _load_if_needed()
+            _flush_pending()
+        except Exception:
+            logger.exception("AI spend load or flush failed; retrying next round.")
+        time.sleep(_FLUSH_SECONDS)
+
+
+def _ensure_flusher() -> None:
+    """Start the background thread once per process (daemon), and flush
+    what is left when the process exits normally. The thread's first
+    round loads the day's stored total."""
+    global _flusher_started
+    if _flusher_started:
+        return
+    with _flusher_lock:
+        if _flusher_started:
+            return
+        _flusher_started = True
+        threading.Thread(target=_flusher_loop, name="ai-spend-flush", daemon=True).start()
+        atexit.register(_flush_pending)
 
 
 def _maybe_reset_spend() -> None:
-    """Reset the spend counters at UTC midnight rollover."""
-    global _spend_date, _spend_input_tokens, _spend_output_tokens
+    """Called with _spend_lock held. Starts the day's counters at UTC
+    midnight; the flusher thread then folds in the day's stored total
+    (_load_if_needed). No database access here."""
+    global _spend_date, _spend_input_tokens, _spend_output_tokens, _loaded_for, _load_retry_at
     today = _dt.datetime.utcnow().date()
     if _spend_date != today:
         _spend_date = today
         _spend_input_tokens = 0
         _spend_output_tokens = 0
+        _loaded_for = None
+        _load_retry_at = 0.0
 
 
 def _record_usage(input_tokens: int, output_tokens: int) -> None:
-    """Tick the daily counters by the tokens this request consumed.
-    Called inside the lock from chat()."""
+    """Tick the daily counters by the tokens this request consumed and
+    queue them for storage. Called inside the lock from chat()."""
     global _spend_input_tokens, _spend_output_tokens
     _maybe_reset_spend()
-    _spend_input_tokens += max(int(input_tokens), 0)
-    _spend_output_tokens += max(int(output_tokens), 0)
+    i, o = max(int(input_tokens), 0), max(int(output_tokens), 0)
+    _spend_input_tokens += i
+    _spend_output_tokens += o
+    slot = _pending.setdefault(_spend_date, [0, 0])
+    slot[0] += i
+    slot[1] += o
 
 
 def get_daily_spend() -> Dict[str, Any]:
@@ -315,5 +483,6 @@ def chat(
     }
     with _spend_lock:
         _record_usage(usage["input_tokens"], usage["output_tokens"])
+    _ensure_flusher()
 
     return AIResult(text=text, error=None, usage=usage, raw=msg)
