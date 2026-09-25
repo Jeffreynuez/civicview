@@ -1,0 +1,5 @@
+# Test-only dependencies, on top of requirements.txt. Not installed on
+# Render. Regenerate the lock the same way as requirements.txt:
+#   cd backend && uv pip compile requirements-dev.in --universal --python-version 3.11 -o requirements-dev.txt
+-c requirements.txt
+pytest>=8,<10
