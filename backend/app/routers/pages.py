@@ -2394,7 +2394,7 @@ _MAX_IMAGE_BYTES = 5 * 1024 * 1024  # 5 MB per image
 
 
 @router.post("/images/upload", response_model=PostImageRead)
-async def upload_post_image(
+def upload_post_image(
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
@@ -2413,6 +2413,14 @@ async def upload_post_image(
     whichever applies. Requires a rep OR candidate session — pure
     citizen sessions can't upload images (no surface for them to
     attach images to today).
+
+    A plain `def`, not `async def` (audit O6): the storage write is a
+    blocking boto3 call to R2, and inside an async handler it stalled
+    the event loop, so every other request on the single worker waited
+    for the upload. FastAPI runs a sync handler in its thread pool, and
+    the multipart body is already parsed into a temporary file before
+    the handler starts, so the sync read below does not block the loop
+    either.
     """
     if me_rep is None and me_candidate is None:
         raise HTTPException(
@@ -2431,7 +2439,7 @@ async def upload_post_image(
     # reject large payloads after the fact. Reading one byte past the
     # limit is the canonical way to detect overrun without buffering
     # the whole oversized stream.
-    data = await file.read(_MAX_IMAGE_BYTES + 1)
+    data = file.file.read(_MAX_IMAGE_BYTES + 1)
     if len(data) > _MAX_IMAGE_BYTES:
         raise HTTPException(
             status_code=400,

@@ -137,40 +137,12 @@ async def lifespan(app: FastAPI):
             # cache so the rep-profile Bills tab gets instant Summary
             # expansions on day one without Congress.gov round-trips.
             seed_bill_summaries()
-            # Task #81 — purge soft-deleted accounts whose 30-day grace
-            # window has elapsed. Runs at every backend boot; for
-            # tighter recovery-window precision a daily cron via Render
-            # Cron Jobs would also call this same helper.
-            try:
-                from app.services.account_deletion import purge_expired_accounts
-                purge_expired_accounts()
-            except Exception:
-                logger.exception("Soft-delete purge failed — non-fatal, will retry next boot.")
-            # Task #87 — purge expired password-reset tokens. Cheap O(N)
-            # delete over a tiny table; same boot-time pattern as the
-            # soft-delete purge above so we don't accumulate orphans.
-            # Independent try/except so a token-purge failure can't take
-            # down account-purge or vice versa.
-            try:
-                from app.services.password_reset import purge_expired_password_reset_tokens
-                purge_expired_password_reset_tokens()
-            except Exception:
-                logger.exception(
-                    "Password-reset token purge failed — non-fatal, will retry next boot.",
-                )
-            # Audit B3: rows keyed by (kind, id) whose account is gone, left
-            # by deletions made before hard delete removed them itself.
-            # Audit P5: login attempts (IP and user agent) kept 90 days.
-            try:
-                from app.services.account_deletion import purge_orphaned_account_rows
-                purge_orphaned_account_rows()
-            except Exception:
-                logger.exception("Orphaned account row sweep failed; will retry next boot.")
-            try:
-                from app.services.login_attempts import purge_old_login_attempts
-                purge_old_login_attempts()
-            except Exception:
-                logger.exception("Login attempt retention purge failed; will retry next boot.")
+            # Data-retention jobs (expired accounts, reset tokens, orphaned
+            # rows, old login attempts). Also re-run once a day by the
+            # loop below, so deletion no longer waits for a deploy
+            # (audit O7). See app/services/maintenance.py.
+            from app.services.maintenance import run_retention_jobs
+            run_retention_jobs()
         except Exception:
             logger.exception("Pages DB seed failed; read-only endpoints will still work.")
 
@@ -201,6 +173,25 @@ async def lifespan(app: FastAPI):
         _asyncio.get_event_loop().create_task(_warm_congress_cache())
     except Exception:
         logger.exception("Could not schedule Congress cache warmup — non-fatal.")
+
+    # ── Daily data-retention jobs (audit O7) ─────────────────────────
+    # The boot run above covers a fresh process; this repeats the same
+    # idempotent jobs every 24 hours for as long as the process lives.
+    retention_task = None
+    if db_ready:
+        import asyncio as _retention_asyncio
+        from app.services.maintenance import RETENTION_INTERVAL_SECONDS, run_retention_jobs
+
+        async def _retention_loop():
+            while True:
+                await _retention_asyncio.sleep(RETENTION_INTERVAL_SECONDS)
+                try:
+                    results = await _retention_asyncio.to_thread(run_retention_jobs)
+                    logger.info("Daily retention jobs: %s", results)
+                except Exception:
+                    logger.exception("Daily retention jobs failed; retrying in 24 hours.")
+
+        retention_task = _retention_asyncio.get_event_loop().create_task(_retention_loop())
 
     # ── Weekly civic digest scheduler (Task #104) ────────────────────
     # Env-gated (DIGEST_ENABLED=true) in-process loop: sleeps until the
@@ -249,6 +240,8 @@ async def lifespan(app: FastAPI):
         logger.info("Weekly digest scheduler disabled (set DIGEST_ENABLED=true to enable).")
 
     yield
+    if retention_task is not None:
+        retention_task.cancel()
     if digest_task is not None:
         digest_task.cancel()
     logger.info("CivicView API shutting down...")

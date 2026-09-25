@@ -79,18 +79,25 @@ _connect_args = (
     else {"connect_timeout": 10}
 )
 
-engine = create_engine(DATABASE_URL, connect_args=_connect_args, future=True)
+# pool_pre_ping tests a pooled connection with a cheap round trip
+# before handing it out. Render's Postgres (and any network hop) can
+# drop an idle connection; without the ping, the first request after
+# that gets an OperationalError instead of a fresh connection
+# (audit O7).
+engine = create_engine(
+    DATABASE_URL, connect_args=_connect_args, pool_pre_ping=True, future=True,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
 
 
-def _make_health_engine():
-    """Engine used only by GET /healthz (audit O2).
+def make_isolated_engine(statement_timeout_ms: int = 3000):
+    """An engine outside the app's connection pool, with short timeouts.
 
-    It opens a fresh connection per check with short timeouts instead of
-    borrowing from the app's pool. A pool busy with slow requests then
-    cannot make the health check wait past Render's 5-second limit and
-    get a healthy instance restarted; only a database that really does
-    not answer fails the check.
+    Each use opens a fresh connection (NullPool) instead of borrowing
+    from `engine`'s pool, so it can neither wait behind a pool busy with
+    slow requests nor take a connection those requests need. On SQLite
+    (tests and local development only) it returns `engine` itself, pool
+    included; production runs on Postgres.
     """
     if DATABASE_URL.startswith("sqlite"):
         return engine
@@ -98,9 +105,23 @@ def _make_health_engine():
     return create_engine(
         DATABASE_URL,
         poolclass=NullPool,
-        connect_args={"connect_timeout": 3, "options": "-c statement_timeout=3000"},
+        connect_args={
+            "connect_timeout": 3,
+            "options": f"-c statement_timeout={int(statement_timeout_ms)}",
+        },
         future=True,
     )
+
+
+def _make_health_engine():
+    """Engine used only by GET /healthz (audit O2).
+
+    A pool busy with slow requests then cannot make the health check
+    wait past Render's 5-second limit and get a healthy instance
+    restarted; only a database that really does not answer fails the
+    check.
+    """
+    return make_isolated_engine(3000)
 
 
 health_engine = _make_health_engine()

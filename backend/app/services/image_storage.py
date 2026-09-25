@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import logging
 import os
+import threading
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Optional
@@ -212,12 +213,23 @@ def _require_env(name: str) -> str:
 # Factory
 # ─────────────────────────────────────────────────────────────────────
 _STORAGE_SINGLETON: Optional[Storage] = None
+# Uploads and image reads run on worker threads; two first requests at
+# once must not both build the boto3 client, which is not thread-safe
+# to create.
+_STORAGE_LOCK = threading.Lock()
 
 
 def get_storage() -> Storage:
     """Return the active storage backend. Picks R2 when the full R2
     env var set is present, otherwise falls back to LocalDiskStorage.
     Cached singleton — re-uses the same boto3 client across requests."""
+    if _STORAGE_SINGLETON is not None:
+        return _STORAGE_SINGLETON
+    with _STORAGE_LOCK:
+        return _make_storage()
+
+
+def _make_storage() -> Storage:
     global _STORAGE_SINGLETON
     if _STORAGE_SINGLETON is not None:
         return _STORAGE_SINGLETON

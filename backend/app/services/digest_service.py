@@ -22,6 +22,9 @@ Design rules:
     people to ignore the real ones.
   • Per-citizen idempotency via digest_last_sent_at (skip if mailed
     within the last 6 days) — a restart on send day can't double-send.
+    Each citizen is also claimed with one conditional UPDATE before
+    the send (_claim_for_send), so two processes running the job at
+    once during a deploy cannot both mail the same person.
   • All content comes from CivicView's own tables (posts, polls,
     events the officials themselves created). Nothing fabricated.
 
@@ -276,6 +279,55 @@ def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[s
     return subject, html_body, text_body
 
 
+def _claim_for_send(db: Session, citizen_id: int, cutoff: datetime) -> Optional[datetime]:
+    """Stamp digest_last_sent_at before sending, only if the citizen is
+    still due, in one conditional UPDATE (audit O7).
+
+    Two processes running the weekly job at once (an old and a new
+    instance overlapping during a deploy) used to read the same due
+    list and both send. The UPDATE is atomic, so only one of them gets
+    rowcount 1 for a citizen. Returns the claim time, or None when the
+    citizen was already claimed.
+
+    Trade-off: a process killed between the claim and the send leaves
+    the citizen marked as sent, so that one week's digest is skipped
+    rather than sent twice.
+    """
+    claimed_at = datetime.utcnow()
+    claimed = (
+        db.query(CitizenAccount)
+        .filter(
+            CitizenAccount.id == citizen_id,
+            or_(
+                CitizenAccount.digest_last_sent_at.is_(None),
+                CitizenAccount.digest_last_sent_at < cutoff,
+            ),
+        )
+        .update({CitizenAccount.digest_last_sent_at: claimed_at}, synchronize_session=False)
+    )
+    db.commit()
+    return claimed_at if claimed else None
+
+
+def _release_claim(db: Session, citizen_id: int, claimed_at: datetime, previous: Optional[datetime]) -> None:
+    """Undo _claim_for_send when nothing was sent (an empty digest or a
+    failed send), so the citizen stays due. Only touches the row if it
+    still carries our claim."""
+    try:
+        (
+            db.query(CitizenAccount)
+            .filter(
+                CitizenAccount.id == citizen_id,
+                CitizenAccount.digest_last_sent_at == claimed_at,
+            )
+            .update({CitizenAccount.digest_last_sent_at: previous}, synchronize_session=False)
+        )
+        db.commit()
+    except Exception:
+        db.rollback()
+        logger.exception("could not release the digest claim for citizen id=%s", citizen_id)
+
+
 def send_weekly_digests(db: Session) -> dict:
     """Send the digest to every eligible opted-in citizen. Returns
     summary counts. Caller owns the session/transaction."""
@@ -297,42 +349,60 @@ def send_weekly_digests(db: Session) -> dict:
         )
         .all()
     )
-    sent = skipped_empty = skipped_demo = failed = 0
-    for citizen in citizens:
-        if is_demo_email(citizen.email):
+    sent = skipped_empty = skipped_demo = skipped_claimed = failed = 0
+    # Plain values read once: each commit below expires the ORM objects,
+    # and re-reading them outside the try could end the whole run.
+    due = [(c.id, c.email, c.digest_last_sent_at) for c in citizens]
+    for citizen_id, email, previous in due:
+        if is_demo_email(email):
             skipped_demo += 1
             continue
+        claimed_at = None
         try:
+            claimed_at = _claim_for_send(db, citizen_id, cutoff)
+            if claimed_at is None:
+                # Another process (an overlapping deploy) claimed this
+                # citizen after our list was read; it sends, we don't.
+                skipped_claimed += 1
+                continue
+            citizen = db.get(CitizenAccount, citizen_id)
+            if citizen is None:
+                # Hard-deleted since the list was read.
+                _release_claim(db, citizen_id, claimed_at, previous)
+                continue
             data = build_digest(db, citizen)
             if data is None:
                 skipped_empty += 1
+                _release_claim(db, citizen_id, claimed_at, previous)
                 continue
             subject, html_body, text_body = render_digest(data)
             ok = email_svc.send(
-                to=citizen.email,
+                to=email,
                 subject=subject,
                 html_body=html_body,
                 text_body=text_body,
             )
             if not ok:
-                # send() never raises — False means the backend failed.
-                # Leave digest_last_sent_at untouched so the next run
-                # retries this citizen.
+                # send() never raises; False means the backend failed.
+                # Put digest_last_sent_at back so the next run retries
+                # this citizen.
                 failed += 1
+                _release_claim(db, citizen_id, claimed_at, previous)
                 continue
-            citizen.digest_last_sent_at = datetime.utcnow()
-            db.add(citizen)
-            db.commit()
+            # The claim already stamped digest_last_sent_at.
             sent += 1
         except Exception:
             db.rollback()
             failed += 1
-            logger.exception("digest send failed for citizen id=%s", citizen.id)
+            logger.exception("digest send failed for citizen id=%s", citizen_id)
+            if claimed_at is not None:
+                _release_claim(db, citizen_id, claimed_at, previous)
     summary = {
         "eligible": len(citizens),
         "sent": sent,
         "skipped_empty": skipped_empty,
         "skipped_demo": skipped_demo,
+        "skipped_claimed": skipped_claimed,
         "failed": failed,
     }
     logger.info("weekly digest run: %s", summary)
