@@ -22,6 +22,7 @@ both tiers — same response shape regardless of which tier matched.
 """
 
 import logging
+import os
 import re
 from typing import Optional
 
@@ -30,6 +31,18 @@ import httpx
 logger = logging.getLogger(__name__)
 
 CENSUS_GEOCODER_BASE = "https://geocoding.geo.census.gov/geocoder"
+# Which boundaries the district lookup uses. The address must map to the
+# districts that sitting officials represent: the 119th Congress's, and
+# the 2024 state legislative districts they were elected under. The
+# Census "Current_Current" vintage used to give those, but in September
+# 2026 it moved to the 120th Congress's districts (the maps for the 2026
+# elections), which differ in states that redrew for 2026: downtown
+# Austin came back as TX-10 instead of TX-37. ACS2025_Current keeps the
+# 119th districts. When the 120th Congress is seated (January 2027), set
+# CENSUS_GEOCODER_VINTAGE to Current_Current (or ACS2026_Current) and
+# change CURRENT_CONGRESS to 120.
+CENSUS_GEOCODER_VINTAGE = os.environ.get("CENSUS_GEOCODER_VINTAGE", "ACS2025_Current")
+CURRENT_CONGRESS = 119
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 # Nominatim's terms require a contact User-Agent. Keeps us in their
 # acceptable-use range; the email is the same address that owns the
@@ -42,6 +55,37 @@ NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; jeffreynuez1@gmail.com)"
 _ZIP_ONLY_RE = re.compile(r"^\s*\d{5}(?:-\d{4})?\s*$")
 _HAS_STREET_NUMBER_RE = re.compile(r"^\s*\d+\s+\S")
 
+
+
+def _district_code(record: dict) -> Optional[str]:
+    """Two-digit district code ("07", "00" at-large, "98" delegate) from a
+    Census congressional district record. The CD<session> field is not
+    in every vintage (ACS2025 leaves it out), so fall back to the last
+    two digits of the GEOID (state FIPS + district), then BASENAME."""
+    for key in (f"CD{CURRENT_CONGRESS}", "CD119", "CD118", "CD117", "CD", "CDFP"):
+        if record.get(key):
+            return str(record[key])
+    geoid = str(record.get("GEOID") or "")
+    if len(geoid) == 4 and geoid.isdigit():
+        return geoid[2:]
+    return record.get("BASENAME") or None
+
+
+def _pick_congressional_district(geographies: dict) -> Optional[dict]:
+    """The congressional district record for the current Congress, with
+    its code normalized into "CD". Prefers the layer named for
+    CURRENT_CONGRESS (e.g. "119th Congressional Districts") so a response
+    that carries more than one Congress's maps never picks the wrong one."""
+    wanted = f"{CURRENT_CONGRESS}th Congressional Districts"
+    keys = [k for k, v in geographies.items() if "Congressional" in k and v]
+    if not keys:
+        return None
+    key = wanted if wanted in keys else keys[0]
+    if key != wanted:
+        logger.warning("Census geography returned %s, not %s", key, wanted)
+    record = dict(geographies[key][0])  # shallow copy so we can add extras
+    record["CD"] = _district_code(record)
+    return record
 
 class GeocodeService:
     """Converts US addresses to coordinates and congressional districts."""
@@ -238,7 +282,7 @@ class GeocodeService:
             "x": lng,
             "y": lat,
             "benchmark": "Public_AR_Current",
-            "vintage": "Current_Current",
+            "vintage": CENSUS_GEOCODER_VINTAGE,
             "format": "json",
         }
 
@@ -252,19 +296,7 @@ class GeocodeService:
                 data = resp.json()
                 geographies = data.get("result", {}).get("geographies", {})
 
-                # Look for Congressional Districts — the key name includes the session number
-                # e.g., "119th Congressional Districts", "118th Congressional Districts"
-                cd_result = None
-                for key, value in geographies.items():
-                    if "Congressional" in key and value:
-                        cd_result = dict(value[0])  # shallow copy so we can add extras
-                        # The district field can be CD, CD118, CD119, CDFP, BASENAME, etc.
-                        # Normalize to "CD" for downstream code
-                        for cd_key in ("CD119", "CD118", "CD117", "CD", "CDFP", "BASENAME"):
-                            if cd_key in cd_result and cd_result[cd_key]:
-                                cd_result["CD"] = cd_result[cd_key]
-                                break
-                        break
+                cd_result = _pick_congressional_district(geographies)
 
                 if cd_result is None:
                     # Fall back to a stub so we still try to extract other geographies
