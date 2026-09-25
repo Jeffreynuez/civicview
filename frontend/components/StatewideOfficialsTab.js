@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import { fetchStateOfficials } from '@/lib/api';
 import FollowButton from './FollowButton';
+import { LoadError } from './ui';
 import CompareButton from './CompareButton';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -35,12 +36,16 @@ export default function StatewideOfficialsTab({
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [notSeeded, setNotSeeded] = useState(false);
+  // An outage is not "no data" (audit B7): keep the two apart.
+  const [loadError, setLoadError] = useState(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     if (!stateCode) return;
     let cancelled = false;
     setLoading(true);
     setNotSeeded(false);
+    setLoadError(null);
     (async () => {
       const res = await fetchStateOfficials(stateCode);
       if (cancelled) return;
@@ -49,13 +54,24 @@ export default function StatewideOfficialsTab({
         setData(null);
       } else {
         setData(res.data);
+        setLoadError(res.error || null);
       }
       setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, [stateCode]);
+  }, [stateCode, retryKey]);
 
   if (loading) return <Loading>Loading statewide officials…</Loading>;
+
+  if (loadError && !data) {
+    return (
+      <LoadError
+        message={`Could not load statewide officials for ${stateName || stateCode}.`}
+        detail={loadError}
+        onRetry={() => setRetryKey((k) => k + 1)}
+      />
+    );
+  }
 
   if (notSeeded) {
     return (

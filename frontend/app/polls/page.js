@@ -196,7 +196,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const [postsOffset, setPostsOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
-  const sentinelRef = useRef(null);
+  // The infinite-scroll sentinel, held in state (a callback ref) rather
+  // than a plain ref. TabContent below mounts its children one render
+  // late, so with a plain ref the observer effect ran while the ref was
+  // still null and never ran again: page two never loaded.
+  const [sentinelEl, setSentinelEl] = useState(null);
 
   // Additive chip toggler.
   //   • Clicking 'all' clears every other chip and shows everything.
@@ -301,6 +305,8 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
+    // A fresh list starts with auto-loading on (see loadMore).
+    setLoadMoreError(false);
     const feedFn = tab === 'posts' ? fetchPostsFeed : fetchPollsFeed;
     const { data, error: err } = await feedFn({
       kinds: serverKinds,
@@ -327,9 +333,16 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // Append the next page (infinite scroll). Polls use the keyset
   // `cursor`; posts use `postsOffset`. No-op while an AI filter is
   // active (that mode loads a single larger batch with has_more=false).
+  //
+  // After a failed page the sentinel stops loading on its own (audit
+  // B8). The observer is rebuilt every time loadMore changes, and a new
+  // observer reports the still-visible sentinel at once, so without this
+  // guard an API outage turned every open tab into a tight request loop.
+  // The "Tap to retry" button passes { retry: true }.
   const [loadMoreError, setLoadMoreError] = useState(false);
-  const loadMore = useCallback(async () => {
+  const loadMore = useCallback(async ({ retry = false } = {}) => {
     if (loadingMore || loading || !hasMore || aiFilterIds !== null) return;
+    if (loadMoreError && !retry) return;
     setLoadingMore(true);
     const feedFn = tab === 'posts' ? fetchPostsFeed : fetchPollsFeed;
     const { data, error: err } = await feedFn({
@@ -350,12 +363,12 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     setCursor(data.next_cursor || null);
     setPostsOffset(typeof data.next_offset === 'number' ? data.next_offset : postsOffset);
     setHasMore(!!data.has_more);
-  }, [loadingMore, loading, hasMore, aiFilterIds, tab, serverKinds, stateFilter, cursor, postsOffset]);
+  }, [loadingMore, loading, hasMore, aiFilterIds, loadMoreError, tab, serverKinds, stateFilter, cursor, postsOffset]);
 
   // Infinite-scroll sentinel — load the next page when the bottom marker
   // scrolls within 600px of the viewport.
   useEffect(() => {
-    const el = sentinelRef.current;
+    const el = sentinelEl;
     if (!el) return undefined;
     const io = new IntersectionObserver(
       (entries) => { if (entries[0]?.isIntersecting) loadMore(); },
@@ -363,7 +376,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [loadMore]);
+  }, [loadMore, sentinelEl]);
+
+  // A new filter or tab starts a fresh list, so forget an earlier
+  // page failure.
+  useEffect(() => { setLoadMoreError(false); }, [serverKinds, stateFilter, tab]);
 
   // Branch counts driven from the loaded items. Standalone counts
   // are exact; the page-bound branches (Bill/Committee/Executive/
@@ -783,7 +800,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               active (single-batch mode) or there's nothing more to load. */}
           {!loading && !isFullEmpty && !isInlineEmpty && !aiActive && hasMore && (
             <div
-              ref={sentinelRef}
+              ref={setSentinelEl}
               style={{
                 padding: '16px 0',
                 textAlign: 'center',
@@ -797,7 +814,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               ) : loadMoreError ? (
                 <button
                   type="button"
-                  onClick={() => { setLoadMoreError(false); loadMore(); }}
+                  onClick={() => loadMore({ retry: true })}
                   style={{
                     background: 'transparent',
                     border: '1px solid var(--cl-border)',
@@ -809,7 +826,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                     cursor: 'pointer',
                   }}
                 >
-                  Couldn’t load more — tap to retry
+                  Couldn’t load more. Tap to retry.
                 </button>
               ) : ''}
             </div>

@@ -11,7 +11,7 @@ import {
   fetchMemberVotes,
   fetchCandidate,
 } from '@/lib/api';
-import { EmptyState, Newspaper } from './ui';
+import { EmptyState, LoadError, Newspaper } from './ui';
 import { useIsMobile } from '@/lib/useViewport';
 import HScroll from './HScroll';
 
@@ -38,11 +38,16 @@ export default function CompareView({ open, items, onClose }) {
   // return, so opening the modal rendered one extra hook and threw
   // "rendered more hooks than during the previous render" (hard crash).
   const [voteFilter, setVoteFilter] = useState('all');
+  // Any member's records failing to load makes the comparison partial;
+  // say so rather than show "No overlapping votes" as fact (audit B7).
+  const [loadError, setLoadError] = useState(null);
+  const [reloadNonce, setReloadNonce] = useState(0);
 
   useEffect(() => {
     if (!open || !items?.length) return;
     let cancelled = false;
     setLoading(true);
+    setLoadError(null);
     Promise.all(
       items.map(async (it) => {
         const key = itemKey(it);
@@ -89,16 +94,19 @@ export default function CompareView({ open, items, onClose }) {
           votes: votes.data,
           top_issues: d.top_issues || it.top_issues || [],
           experience: d.experience || it.experience || [],
+          loadError: stats.error || bills.error || votes.error || null,
         }];
       })
     ).then((entries) => {
       if (cancelled) return;
       setData(Object.fromEntries(entries));
+      const firstError = entries.map(([, v]) => v && v.loadError).find(Boolean);
+      setLoadError(firstError || null);
     }).finally(() => {
       if (!cancelled) setLoading(false);
     });
     return () => { cancelled = true; };
-  }, [open, items]);
+  }, [open, items, reloadNonce]);
 
   // Esc closes
   useEffect(() => {
@@ -247,6 +255,13 @@ export default function CompareView({ open, items, onClose }) {
 
         {/* Body */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '18px 20px' }}>
+          {!loading && loadError && (
+            <LoadError
+              message="Some records could not be loaded, so this comparison is incomplete."
+              detail={loadError}
+              onRetry={() => setReloadNonce((n) => n + 1)}
+            />
+          )}
           {/* Mixed columns — each item picks its kind-appropriate renderer */}
           {(() => {
             const cards = items.map((it) => {
@@ -398,7 +413,7 @@ export default function CompareView({ open, items, onClose }) {
                 </div>
               )}
 
-              {!loading && sharedVotes.length === 0 && (
+              {!loading && !loadError && sharedVotes.length === 0 && (
                 <EmptyState
                   icon={<Newspaper size={32} active color="muted" />}
                   headline="No overlapping votes"

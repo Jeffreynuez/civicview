@@ -4,7 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useRef, useState } from 'react';
-import { Spinner } from './ui';
+import { Spinner, LoadError } from './ui';
 import useScrollRestoration from '../lib/useScrollRestoration';
 import {
   fetchExecutiveOrders,
@@ -328,8 +328,8 @@ export default function ProfileView({
     if (!isCongressRole || !member.bioguide_id) return;
     if (statsState.loaded || statsState.loading) return;
     setStatsState((s) => ({ ...s, loading: true }));
-    fetchMemberStats(member.bioguide_id, member.party).then(({ data, isLive }) => {
-      setStatsState({ loading: false, loaded: true, data, isLive });
+    fetchMemberStats(member.bioguide_id, member.party).then(({ data, isLive, error }) => {
+      setStatsState({ loading: false, loaded: true, data, isLive, error });
     });
   }, [isCongressRole, member.bioguide_id, member.party, statsState.loaded, statsState.loading]);
 
@@ -344,8 +344,8 @@ export default function ProfileView({
       // + cosponsored) so the BillsTab can offer a "Show all" expansion
       // without a second round-trip. The default render still caps at
       // the first 10 visually; the rest are revealed on demand.
-      fetchMemberBills(member.bioguide_id, 50).then(({ data, isLive }) => {
-        setBillsState({ loading: false, loaded: true, data, isLive });
+      fetchMemberBills(member.bioguide_id, 50).then(({ data, isLive, error }) => {
+        setBillsState({ loading: false, loaded: true, data, isLive, error });
       });
     }
     // Votes tab is self-managing now — it owns year/month/search state and
@@ -353,14 +353,14 @@ export default function ProfileView({
     // No outer prefetch required.
     if (activeTab === 'contact' && isCongressRole && !contactState.loaded && !contactState.loading) {
       setContactState((s) => ({ ...s, loading: true }));
-      fetchMemberContact(member.bioguide_id).then(({ data, isLive }) => {
-        setContactState({ loading: false, loaded: true, data, isLive });
+      fetchMemberContact(member.bioguide_id).then(({ data, isLive, error }) => {
+        setContactState({ loading: false, loaded: true, data, isLive, error });
       });
     }
     if (activeTab === 'events' && isCongressRole && !eventsState.loaded && !eventsState.loading) {
       setEventsState((s) => ({ ...s, loading: true }));
-      fetchMemberEvents(member.bioguide_id).then(({ data, isLive }) => {
-        setEventsState({ loading: false, loaded: true, data, isLive });
+      fetchMemberEvents(member.bioguide_id).then(({ data, isLive, error }) => {
+        setEventsState({ loading: false, loaded: true, data, isLive, error });
       });
     }
 
@@ -386,8 +386,8 @@ export default function ProfileView({
         const officialId = member.id || member.bioguide_id;
         if (officialId) {
           setEventsState((s) => ({ ...s, loading: true }));
-          fetchMemberEvents(officialId).then(({ data, isLive }) => {
-            setEventsState({ loading: false, loaded: true, data, isLive });
+          fetchMemberEvents(officialId).then(({ data, isLive, error }) => {
+            setEventsState({ loading: false, loaded: true, data, isLive, error });
           });
         } else {
           setEventsState({ loading: false, loaded: true, data: [], isLive: false });
@@ -404,8 +404,8 @@ export default function ProfileView({
         // still renders 10 inline by default with a Show-more button
         // — bumping the fetch ceiling means the expansion is a
         // pure client-side reveal with no second round-trip.
-        fetchExecutiveOrders(slug, 100).then(({ data, isLive }) => {
-          setEoState({ loading: false, loaded: true, data, isLive });
+        fetchExecutiveOrders(slug, 100).then(({ data, isLive, error }) => {
+          setEoState({ loading: false, loaded: true, data, isLive, error });
         });
       } else {
         setEoState({ loading: false, loaded: true, data: [], isLive: false });
@@ -439,6 +439,7 @@ export default function ProfileView({
           loaded: true,
           data: { signed: signed.data || [], vetoed: vetoed.data || [] },
           isLive: signed.isLive || vetoed.isLive,
+          error: signed.error || vetoed.error || null,
         });
       });
     }
@@ -448,8 +449,8 @@ export default function ProfileView({
       setCasesState((s) => ({ ...s, loading: true }));
       // Use the justice's surname as a client-side filter hint.
       const surname = (member.name || '').split(' ').slice(-1)[0] || null;
-      fetchSCOTUSCases({ justiceName: surname, limit: 15 }).then(({ data, isLive }) => {
-        setCasesState({ loading: false, loaded: true, data, isLive });
+      fetchSCOTUSCases({ justiceName: surname, limit: 15 }).then(({ data, isLive, error }) => {
+        setCasesState({ loading: false, loaded: true, data, isLive, error });
       });
     }
 
@@ -465,8 +466,8 @@ export default function ProfileView({
         district: member.district,
         openStatesId: member.openstates_id,
         limit: 15,
-      }).then(({ data, isLive }) => {
-        setStateBillsState({ loading: false, loaded: true, data, isLive });
+      }).then(({ data, isLive, error }) => {
+        setStateBillsState({ loading: false, loaded: true, data, isLive, error });
       });
     }
 
@@ -481,8 +482,8 @@ export default function ProfileView({
         district: member.district,
         openStatesId: member.openstates_id,
         limit: 15,
-      }).then(({ data, isLive }) => {
-        setStateVotesState({ loading: false, loaded: true, data, isLive });
+      }).then(({ data, isLive, error }) => {
+        setStateVotesState({ loading: false, loaded: true, data, isLive, error });
       });
     }
 
@@ -499,8 +500,8 @@ export default function ProfileView({
         district: member.district,
         openStatesId: member.openstates_id,
         sourceUrl: member.contact && member.contact.official_website,
-      }).then(({ data }) => {
-        setStateIssuesState({ loading: false, loaded: true, data, isLive: true });
+      }).then(({ data, error }) => {
+        setStateIssuesState({ loading: false, loaded: true, data, isLive: true, error });
       });
     }
 
@@ -517,6 +518,7 @@ export default function ProfileView({
           loaded: true,
           data: { signed: signed.data || [], vetoed: vetoed.data || [] },
           isLive: signed.isLive || vetoed.isLive,
+          error: signed.error || vetoed.error || null,
         });
       });
     }
@@ -530,8 +532,8 @@ export default function ProfileView({
         stateCode: member.state || 'FL',
         justiceName: surname,
         limit: 15,
-      }).then(({ data, isLive }) => {
-        setStateCasesState({ loading: false, loaded: true, data, isLive });
+      }).then(({ data, isLive, error }) => {
+        setStateCasesState({ loading: false, loaded: true, data, isLive, error });
       });
     }
   }, [
@@ -1007,59 +1009,111 @@ export default function ProfileView({
           above so fade indicators don't bleed into here. */}
       <div ref={profileScrollRef} style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
         {activeTab === 'overview' && (
-          <OverviewTab member={member} role={role} statsState={statsState} />
+          <OverviewTab
+            member={member}
+            role={role}
+            statsState={statsState}
+            onRetryStats={() => setStatsState(EMPTY_TAB_STATE)}
+          />
         )}
         {activeTab === 'issues' && (
-          <IssuesTab member={member} role={role} statsState={statsState} stateIssuesState={stateIssuesState} />
+          <IssuesTab
+            member={member}
+            role={role}
+            statsState={statsState}
+            stateIssuesState={stateIssuesState}
+            onRetryStateIssues={() => setStateIssuesState(EMPTY_TAB_STATE)}
+            onRetryStats={() => setStatsState(EMPTY_TAB_STATE)}
+          />
         )}
         {activeTab === 'experience' && (
           <ExperienceTab member={member} />
         )}
         {activeTab === 'bills' && (
-          <BillsTab state={billsState} member={member} onNotify={onNotify} />
+          <TabLoadGuard state={billsState} what="bills" onRetry={() => setBillsState(EMPTY_TAB_STATE)}>
+            <BillsTab state={billsState} member={member} onNotify={onNotify} />
+          </TabLoadGuard>
         )}
         {activeTab === 'contact' && (
-          <ContactTab
-            state={contactState}
-            role={role}
-            stateCode={member.state}
-            fallbackPhone={member.phone}
-          />
+          <TabLoadGuard state={contactState} what="contact details" onRetry={() => setContactState(EMPTY_TAB_STATE)}>
+            <ContactTab
+              state={contactState}
+              role={role}
+              stateCode={member.state}
+              fallbackPhone={member.phone}
+            />
+          </TabLoadGuard>
         )}
         {activeTab === 'votes' && (
           <VotesTab role={role} member={member} />
         )}
         {activeTab === 'events' && (
-          <EventsTab state={eventsState} memberName={member.name} />
+          <TabLoadGuard state={eventsState} what="upcoming events" onRetry={() => setEventsState(EMPTY_TAB_STATE)}>
+            <EventsTab state={eventsState} memberName={member.name} />
+          </TabLoadGuard>
         )}
         {activeTab === 'exec_orders' && (
-          <ExecutiveOrdersTab state={eoState} member={member} />
+          <TabLoadGuard state={eoState} what="executive orders" onRetry={() => setEoState(EMPTY_TAB_STATE)}>
+            <ExecutiveOrdersTab state={eoState} member={member} />
+          </TabLoadGuard>
         )}
         {activeTab === 'pres_actions' && (
-          <PresidentialActionsTab state={paState} role={role} />
+          <TabLoadGuard state={paState} what="signed and vetoed bills" onRetry={() => setPaState(EMPTY_TAB_STATE)}>
+            <PresidentialActionsTab state={paState} role={role} />
+          </TabLoadGuard>
         )}
         {activeTab === 'cases' && (
-          <SCOTUSCasesTab state={casesState} member={member} />
+          <TabLoadGuard state={casesState} what="recent cases" onRetry={() => setCasesState(EMPTY_TAB_STATE)}>
+            <SCOTUSCasesTab state={casesState} member={member} />
+          </TabLoadGuard>
         )}
         {activeTab === 'state_bills' && (
-          <StateLegislatorBillsTab state={stateBillsState} member={member} />
+          <TabLoadGuard state={stateBillsState} what="sponsored bills" onRetry={() => setStateBillsState(EMPTY_TAB_STATE)}>
+            <StateLegislatorBillsTab state={stateBillsState} member={member} />
+          </TabLoadGuard>
         )}
         {activeTab === 'state_votes' && (
-          <StateLegislatorVotesTab state={stateVotesState} member={member} />
+          <TabLoadGuard state={stateVotesState} what="recent votes" onRetry={() => setStateVotesState(EMPTY_TAB_STATE)}>
+            <StateLegislatorVotesTab state={stateVotesState} member={member} />
+          </TabLoadGuard>
         )}
         {activeTab === 'gov_actions' && (
-          <GovernorActionsTab state={govActionsState} member={member} />
+          <TabLoadGuard state={govActionsState} what="signed and vetoed bills" onRetry={() => setGovActionsState(EMPTY_TAB_STATE)}>
+            <GovernorActionsTab state={govActionsState} member={member} />
+          </TabLoadGuard>
         )}
         {activeTab === 'state_cases' && (
-          <StateCourtCasesTab state={stateCasesState} member={member} />
+          <TabLoadGuard state={stateCasesState} what="recent cases" onRetry={() => setStateCasesState(EMPTY_TAB_STATE)}>
+            <StateCourtCasesTab state={stateCasesState} member={member} />
+          </TabLoadGuard>
         )}
       </div>
     </div>
   );
 }
 
+// A tab's lazy-load state before its first fetch. Setting a tab back to
+// this makes the lazy-load effect above fetch it again (the Retry path).
+const EMPTY_TAB_STATE = { loading: false, loaded: false, data: null, isLive: false, error: null };
+
+// When a tab's data could not be loaded, show that with a Retry instead
+// of the tab's empty state, which would read as "this official has no
+// bills" during an outage (audit B7). A successful load renders the tab.
+function TabLoadGuard({ state, what, onRetry, children }) {
+  if (state && state.loaded && !state.loading && state.error) {
+    return (
+      <LoadError
+        message={`Could not load ${what}.`}
+        detail={state.error}
+        onRetry={onRetry}
+      />
+    );
+  }
+  return children;
+}
+
 // ─── Overview ─────────────────────────────────────────────────────────
-function OverviewTab({ member, role, statsState }) {
+function OverviewTab({ member, role, statsState, onRetryStats }) {
   const isCongressRole = role === 'congress' || role === 'congress_leader';
   const hasBio = Boolean(member.bio);
   const hasCommittees = member.committees && member.committees.length > 0;
@@ -1079,11 +1133,19 @@ function OverviewTab({ member, role, statsState }) {
       {isCongressRole ? (
         <>
           <SectionHeader>At a Glance</SectionHeader>
-          <StatsBlock
-            party={member.party}
-            stats={stats}
-            loading={statsLoading}
-          />
+          {statsState?.loaded && statsState?.error ? (
+            <LoadError
+              message="Could not load voting stats."
+              detail={statsState.error}
+              onRetry={onRetryStats}
+            />
+          ) : (
+            <StatsBlock
+              party={member.party}
+              stats={stats}
+              loading={statsLoading}
+            />
+          )}
         </>
       ) : (
         <>
@@ -1274,7 +1336,7 @@ function StatsBlock({ party, stats, loading }) {
 // ─── Issues (curated top_issues with stance) ─────────────────────────
 // Shared across every role. Renders the curated `member.top_issues` array
 // of `{name, stance}` objects with the same card styling candidates use.
-function IssuesTab({ member, role, statsState, stateIssuesState }) {
+function IssuesTab({ member, role, statsState, stateIssuesState, onRetryStateIssues, onRetryStats }) {
   const issues = Array.isArray(member?.top_issues)
     ? member.top_issues.filter((i) => i && typeof i === 'object' && i.name)
     : [];
@@ -1297,6 +1359,15 @@ function IssuesTab({ member, role, statsState, stateIssuesState }) {
       if (stateIssuesState?.loading || !stateIssuesState?.loaded) {
         return <EmptyState message="Deriving focus areas from sponsored bills…" />;
       }
+      if (stateIssuesState?.error) {
+        return (
+          <LoadError
+            message="Could not load focus areas."
+            detail={stateIssuesState.error}
+            onRetry={onRetryStateIssues}
+          />
+        );
+      }
     }
 
     const derived = Array.isArray(statsState?.data?.top_issues)
@@ -1304,6 +1375,17 @@ function IssuesTab({ member, role, statsState, stateIssuesState }) {
       : [];
     if (!judicialRoles.has(role) && derived.length > 0) {
       return <DerivedIssueAreas areas={derived} />;
+    }
+    // Congress members' derived areas come from the stats call; if it
+    // failed, say so instead of "No issue positions listed yet."
+    if (!judicialRoles.has(role) && statsState?.loaded && statsState?.error) {
+      return (
+        <LoadError
+          message="Could not load focus areas."
+          detail={statsState.error}
+          onRetry={onRetryStats}
+        />
+      );
     }
 
     const msg = judicialRoles.has(role)
@@ -2456,6 +2538,9 @@ function VotesTab({ role, member }) {
   const [showProcedural, setShowProcedural] = useState(false);
   const [loading, setLoading] = useState(false);
   const [votes, setVotes] = useState(null); // null = initial, [] = loaded+empty
+  // Set when the year could not be loaded at all (outage, timeout), as
+  // opposed to GovTrack answering with no votes (audit B7).
+  const [votesError, setVotesError] = useState(null);
   // AI search toggle (item 4). Plain mode = the substring search
   // below; AI mode = explicit Apply that semantic-filters the loaded
   // year's votes via /api/ai/filter-items.
@@ -2474,9 +2559,11 @@ function VotesTab({ role, member }) {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetchMemberVotes(member.bioguide_id, { year }).then(({ data }) => {
+    setVotesError(null);
+    fetchMemberVotes(member.bioguide_id, { year }).then(({ data, error }) => {
       if (cancelled) return;
       setVotes(data);
+      setVotesError(error || null);
       setLoading(false);
     });
     return () => { cancelled = true; };
@@ -2645,7 +2732,15 @@ function VotesTab({ role, member }) {
 
       {loading && <LoadingState label={`Loading ${year} voting record…`} />}
 
-      {!loading && votes !== null && votes.length === 0 && (
+      {!loading && votesError && (
+        <LoadError
+          message={`Could not load ${year} votes.`}
+          detail={votesError}
+          onRetry={() => setReloadNonce((n) => n + 1)}
+        />
+      )}
+
+      {!loading && !votesError && votes !== null && votes.length === 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
           <EmptyState
             message={

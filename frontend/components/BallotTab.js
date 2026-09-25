@@ -10,7 +10,7 @@ import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs
 import { useIsMobile } from '@/lib/useViewport';
 import { fileSuffix } from '@/lib/externalLink';
 import { useDisclosure } from '@/lib/disclosureState';
-import { FileLink } from './ui';
+import { FileLink, LoadError } from './ui';
 import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import TrackElectionButton from './TrackElectionButton';
@@ -75,6 +75,11 @@ export default function BallotTab({
   const [personalized, setPersonalized] = useState(null);
   const [loading, setLoading] = useState(false);
   const [notSeeded, setNotSeeded] = useState(false);
+  // Outage or timeout, kept apart from "no data for this state" so an
+  // empty ballot is never shown as fact (audit B7).
+  const [fullError, setFullError] = useState(null);
+  const [personalError, setPersonalError] = useState(null);
+  const [retryKey, setRetryKey] = useState(0);
   const [mode, setMode] = useState('full'); // 'full' | 'personal'
 
   const hasPersonalGeo = Boolean(
@@ -97,6 +102,7 @@ export default function BallotTab({
     let cancelled = false;
     setLoading(true);
     setNotSeeded(false);
+    setFullError(null);
     (async () => {
       const res = await fetchElections(stateCode);
       if (cancelled) return;
@@ -105,16 +111,18 @@ export default function BallotTab({
         setFull(null);
       } else {
         setFull(res.data);
+        setFullError(res.error || null);
       }
       setLoading(false);
     })();
     return () => { cancelled = true; };
-  }, [stateCode]);
+  }, [stateCode, retryKey]);
 
   // Personalized ballot for the current geography
   useEffect(() => {
-    if (!stateCode || !hasPersonalGeo) { setPersonalized(null); return; }
+    if (!stateCode || !hasPersonalGeo) { setPersonalized(null); setPersonalError(null); return; }
     let cancelled = false;
+    setPersonalError(null);
     (async () => {
       const res = await fetchBallotForAddress(stateCode, {
         countyFips: activeDistrict.countyFips,
@@ -124,10 +132,13 @@ export default function BallotTab({
         stateHouseDistrict: activeDistrict.stateHouseDistrict,
         citySlug: activeDistrict.citySlug,
       });
-      if (!cancelled) setPersonalized(res.data);
+      if (!cancelled) {
+        setPersonalized(res.data);
+        setPersonalError(res.notSeeded ? null : res.error || null);
+      }
     })();
     return () => { cancelled = true; };
-  }, [stateCode, hasPersonalGeo, activeDistrict]);
+  }, [stateCode, hasPersonalGeo, activeDistrict, retryKey]);
 
   const view = mode === 'personal' ? personalized : full;
 
@@ -168,6 +179,16 @@ export default function BallotTab({
         </div>
         <div>We&apos;re adding ballots state by state. Florida has the most complete coverage so far.</div>
       </EmptyState>
+    );
+  }
+  const viewError = mode === 'personal' ? personalError : fullError;
+  if (!view && viewError) {
+    return (
+      <LoadError
+        message={`Could not load ${mode === 'personal' ? 'your ballot' : 'elections'} for ${stateName || stateCode}.`}
+        detail={viewError}
+        onRetry={() => setRetryKey((k) => k + 1)}
+      />
     );
   }
   if (!view) return null;

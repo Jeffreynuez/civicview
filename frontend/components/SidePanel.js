@@ -4,7 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useRef, useState } from 'react';
-import { Skeleton } from './ui';
+import { Skeleton, LoadError } from './ui';
 import useScrollRestoration from '../lib/useScrollRestoration';
 import PersonCard from './PersonCard';
 import ProfileView from './ProfileView';
@@ -114,6 +114,10 @@ export default function SidePanel({
   onOnBallotClick,
   loading,
   isLive,
+  // Set when this state's officials could not be loaded; shown with a
+  // Retry so an outage does not read as "no officials" (audit B7).
+  loadError,
+  onRetryLoad,
   onNotify,
   onAddressResult,
   activeDistrict,
@@ -506,6 +510,14 @@ export default function SidePanel({
               onSubscribe={onSubscribe}
             />
           </div>
+        )}
+
+        {!loading && stateCode && loadError && activeTab === 'congress' && (
+          <LoadError
+            message="Some of this state's officials could not be loaded, so the lists below may be incomplete."
+            detail={loadError}
+            onRetry={onRetryLoad}
+          />
         )}
 
         {/* Congress Tab */}

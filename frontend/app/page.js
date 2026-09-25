@@ -69,6 +69,17 @@ export default function Home() {
   const [stateName, setStateName] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isLive, setIsLive] = useState(false);
+  // Set when the state's officials could not be loaded (API outage or
+  // timeout). SidePanel shows it with a Retry instead of empty lists
+  // that would read as "this state has no officials" (audit B7).
+  const [stateLoadError, setStateLoadError] = useState(null);
+  // Every state load takes a ticket; only the newest may write. Two
+  // quick clicks (Florida, then Texas) used to leave whichever answer
+  // arrived last on screen, so Florida's delegation could sit under
+  // Texas's name (audit B6). Deselecting a state bumps it too.
+  const stateReqRef = useRef(0);
+  const memberReqRef = useRef(0);
+  const candidateReqRef = useRef(0);
   const [notification, setNotification] = useState(null);
   // When set, we filter the Congress list to just this district + senators and
   // tell MapView to zoom to / highlight this district.
@@ -482,11 +493,15 @@ export default function Home() {
     // back to the list.
     const prev = selectedMemberRef.current;
     if (prev) setLastViewedMemberId(prev.bioguide_id || prev.id || null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
+    // Newest pick wins (audit B6), same as handleMemberSelect.
+    const cid = ++candidateReqRef.current;
     // If candidate is a thin stub, try to hydrate with full detail
     if (!candidate.top_issues) {
       try {
         const { data } = await fetchCandidate(candidate.id);
+        if (cid !== candidateReqRef.current) return;
         if (data) {
           setSelectedCandidate(data);
           return;
@@ -495,13 +510,40 @@ export default function Home() {
         // Fall through
       }
     }
+    if (cid !== candidateReqRef.current) return;
     setSelectedCandidate(candidate);
   }, []);
 
   const handleCandidateBack = useCallback(() => {
     const prev = selectedCandidateRef.current;
     if (prev) setLastViewedCandidateId(prev.id || null);
+    candidateReqRef.current += 1;
     setSelectedCandidate(null);
+  }, []);
+
+  // Load one state's officials and elections. Returns true when this was
+  // still the newest request and its result was applied, false when the
+  // user moved on (another state, or back to the national view) first.
+  const loadStateData = useCallback(async (stateCode) => {
+    const rid = ++stateReqRef.current;
+    setLoading(true);
+    setStateLoadError(null);
+    try {
+      const result = await fetchAllStateData(stateCode);
+      if (rid !== stateReqRef.current) return false;
+      setStateData(result.data);
+      setIsLive(result.isLive);
+      setStateLoadError(result.error || null);
+      return true;
+    } catch (error) {
+      if (rid !== stateReqRef.current) return false;
+      console.error('Error fetching state data:', error);
+      setStateData(null);
+      setStateLoadError('Could not load this state. Try again in a moment.');
+      return true;
+    } finally {
+      if (rid === stateReqRef.current) setLoading(false);
+    }
   }, []);
 
   // Cross-nav from a candidate profile → the sitting official's state profile.
@@ -511,32 +553,25 @@ export default function Home() {
   const handleStatePersonPick = useCallback(async ({ state, id }) => {
     if (!state || !id) return;
     // Close candidate view first so ProfileView is the visible panel.
+    candidateReqRef.current += 1;
     setSelectedCandidate(null);
     setActiveDistrict(null);
 
+    const mid = ++memberReqRef.current;
     if (state !== selectedState) {
       setSelectedState(state);
       const nameEntry = Object.entries(STATE_NAME_TO_CODE).find(([, code]) => code === state);
       setStateName(nameEntry ? nameEntry[0] : state);
-      setLoading(true);
-      try {
-        const result = await fetchAllStateData(state);
-        setStateData(result.data);
-        setIsLive(result.isLive);
-      } catch (e) {
-        console.error('Error loading state after cross-nav:', e);
-      } finally {
-        setLoading(false);
-      }
+      if (!(await loadStateData(state))) return;
     }
 
     try {
       const { data } = await fetchStatePerson(state, id);
-      if (data) setSelectedMember(data);
+      if (data && mid === memberReqRef.current) setSelectedMember(data);
     } catch (e) {
       console.error('Error fetching state person for cross-nav:', e);
     }
-  }, [selectedState]);
+  }, [selectedState, loadStateData]);
 
   const showNotification = useCallback((text) => {
     setNotification(text);
@@ -547,8 +582,8 @@ export default function Home() {
     setActiveDistrict(null);
     setSelectedState(stateCode);
     setStateName(name);
+    memberReqRef.current += 1;
     setSelectedMember(null);
-    setLoading(true);
     // Optional tab override — used by the "View {state} page" button in
     // OnTheBallotSection to land directly on the Elections tab instead
     // of the default Congress view. Map clicks and Browse-by-state grid
@@ -557,23 +592,18 @@ export default function Home() {
       setSidePanelTab(options.tab);
     }
 
-    try {
-      const result = await fetchAllStateData(stateCode);
-      setStateData(result.data);
-      setIsLive(result.isLive);
-    } catch (error) {
-      console.error('Error fetching state data:', error);
-      setStateData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    await loadStateData(stateCode);
+  }, [loadStateData]);
 
   const handleMemberSelect = useCallback(async (member) => {
+    // Newest pick wins: a slow detail fetch for the first person tapped
+    // must not replace a second person tapped meanwhile (audit B6).
+    const mid = ++memberReqRef.current;
     // If the member has a bioguide_id and limited data, try fetching full detail
     if (member.bioguide_id && !member.bio) {
       try {
         const result = await fetchMemberDetail(member.bioguide_id);
+        if (mid !== memberReqRef.current) return;
         if (result.data) {
           setSelectedMember(result.data);
           return;
@@ -582,12 +612,14 @@ export default function Home() {
         // Fall through to use the member as-is
       }
     }
+    if (mid !== memberReqRef.current) return;
     setSelectedMember(member);
   }, []);
 
   const handleBack = useCallback(() => {
     const prev = selectedMemberRef.current;
     if (prev) setLastViewedMemberId(prev.bioguide_id || prev.id || null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
   }, []);
 
@@ -599,7 +631,9 @@ export default function Home() {
     const prevC = selectedCandidateRef.current;
     if (prevM) setLastViewedMemberId(prevM.bioguide_id || prevM.id || null);
     if (prevC) setLastViewedCandidateId(prevC.id || null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
+    candidateReqRef.current += 1;
     setSelectedCandidate(null);
   }, []);
 
@@ -611,6 +645,7 @@ export default function Home() {
     if (!activeCandidacy?.candidate_id) return;
     const prevM = selectedMemberRef.current;
     if (prevM) setLastViewedMemberId(prevM.bioguide_id || prevM.id || null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
     setSidePanelTab('ballot');
     setFocusCandidateId(activeCandidacy.candidate_id);
@@ -637,6 +672,7 @@ export default function Home() {
     const stateNameEntry = Object.entries(STATE_NAME_TO_CODE).find(([, code]) => code === data.stateCode);
     const name = stateNameEntry ? stateNameEntry[0] : data.stateCode;
     setStateName(name);
+    memberReqRef.current += 1;
     setSelectedMember(null);
 
     // Stash the district info — MapView reacts to this to zoom into the CD,
@@ -656,17 +692,12 @@ export default function Home() {
       stateHouseDistrict: data.stateHouseDistrict,
     });
 
-    try {
-      const result = await fetchAllStateData(data.stateCode);
-      setStateData(result.data);
-      setIsLive(result.isLive);
+    if (await loadStateData(data.stateCode)) {
       showNotification(
         `Found your district: ${data.districtLabel || data.stateCode}. Showing your representatives.`
       );
-    } catch (e) {
-      console.error('Error loading state after address lookup:', e);
     }
-  }, [showNotification]);
+  }, [showNotification, loadStateData]);
 
   const clearDistrictFilter = useCallback(() => {
     setActiveDistrict(null);
@@ -675,11 +706,18 @@ export default function Home() {
   // Clicking on the ocean / outside the US on the map deselects everything
   // but leaves the zoom where it is (non-jarring reset to the welcome state).
   const handleStateDeselect = useCallback(() => {
+    // Drop any state load still in flight so it cannot repopulate the
+    // panel after the user went back to the national view.
+    stateReqRef.current += 1;
+    setLoading(false);
+    setStateLoadError(null);
     setSelectedState(null);
     setStateName(null);
     setStateData(null);
     setActiveDistrict(null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
+    candidateReqRef.current += 1;
     setSelectedCandidate(null);
   }, []);
 
@@ -687,6 +725,7 @@ export default function Home() {
   // Same effect as an address lookup: zoom in, filter reps.
   const handleDistrictSelect = useCallback((info) => {
     if (!info?.stateFips || !info?.district) return;
+    memberReqRef.current += 1;
     setSelectedMember(null);
     setActiveDistrict(info);
     showNotification(
@@ -699,6 +738,7 @@ export default function Home() {
   // the state-wide view.
   const handleDistrictBack = useCallback(() => {
     setActiveDistrict(null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
   }, []);
 
@@ -1084,6 +1124,7 @@ export default function Home() {
         const prevM = selectedMemberRef.current;
         if (prevM) {
           setLastViewedMemberId(prevM.bioguide_id || prevM.id || null);
+          memberReqRef.current += 1;
           setSelectedMember(null);
         }
       }
@@ -1091,6 +1132,7 @@ export default function Home() {
         const prevC = selectedCandidateRef.current;
         if (prevC) {
           setLastViewedCandidateId(prevC.id || null);
+          candidateReqRef.current += 1;
           setSelectedCandidate(null);
         }
       }
@@ -1132,29 +1174,22 @@ export default function Home() {
   // CandidateProfile back to SidePanel/ProfileView.
   const handleGlobalMemberPick = useCallback(async (member) => {
     if (!member) return;
+    candidateReqRef.current += 1;
     setSelectedCandidate(null);
     setActiveDistrict(null);
+    memberReqRef.current += 1;
     setSelectedMember(null);
 
     if (member.state && member.state !== selectedState) {
       setSelectedState(member.state);
       const nameEntry = Object.entries(STATE_NAME_TO_CODE).find(([, code]) => code === member.state);
       setStateName(nameEntry ? nameEntry[0] : member.state);
-      setLoading(true);
-      try {
-        const result = await fetchAllStateData(member.state);
-        setStateData(result.data);
-        setIsLive(result.isLive);
-      } catch (e) {
-        console.error('Error loading state after search pick:', e);
-      } finally {
-        setLoading(false);
-      }
+      if (!(await loadStateData(member.state))) return;
     }
 
     // Now open the member profile (fetch full detail if the index entry is thin)
     await handleMemberSelect(member);
-  }, [selectedState, handleMemberSelect]);
+  }, [selectedState, handleMemberSelect, loadStateData]);
 
   // Random member picks for the guided tour's live demos. Pulls the
   // same index the navbar search uses (edge-cached, cheap) and
@@ -1499,6 +1534,8 @@ export default function Home() {
             onOnBallotClick={handleOnBallotClick}
             loading={loading}
             isLive={isLive}
+            loadError={stateLoadError}
+            onRetryLoad={selectedState ? () => loadStateData(selectedState) : undefined}
             onNotify={showNotification}
             onAddressResult={handleAddressResult}
             activeDistrict={activeDistrict}

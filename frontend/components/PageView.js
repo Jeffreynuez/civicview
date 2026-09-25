@@ -142,12 +142,16 @@ export default function PageView({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const reqIdRef = useRef(0);
+  // Set when a later page of posts failed to load (see loadMorePosts).
+  const [postsLoadError, setPostsLoadError] = useState(false);
   // Infinite-scroll state for the page's post feed. The advancing
   // keyset cursor + has_more live in `payload` (posts_next_cursor /
   // posts_has_more), seeded by the page payload and updated as more
   // pages are appended — same pattern as the in-place patch helpers.
   const [loadingMorePosts, setLoadingMorePosts] = useState(false);
-  const postsSentinelRef = useRef(null);
+  // Callback ref (state, not useRef) so the observer effect re-runs
+  // when the sentinel mounts after the payload arrives.
+  const [postsSentinelEl, setPostsSentinelEl] = useState(null);
   // Two scope states — only one is visible at a time depending on who's
   // looking. `ownerScope` drives the OwnerScopeFilter and affects
   // polls + reactions + comment_count (the engagement filter is
@@ -197,6 +201,7 @@ export default function PageView({
     const rid = ++reqIdRef.current;
     setLoading(true);
     setError(null);
+    setPostsLoadError(false);
     const { data, error: err } = await fetchPage(officialId, {
       voterToken: getVoterToken(),
       scope: effectiveScope || undefined,
@@ -214,29 +219,49 @@ export default function PageView({
   // Append the next page of posts (infinite scroll). Keyset cursor +
   // has_more come from the payload; we fold the new page back into
   // payload.posts and advance the cursor so the next scroll continues.
-  const loadMorePosts = useCallback(async () => {
-    if (loadingMorePosts) return;
+  //
+  // A failed page stops the sentinel from loading on its own (audit B8):
+  // the observer is rebuilt whenever this callback changes and reports
+  // the still-visible sentinel at once, so an API error used to loop
+  // forever. The retry button passes { retry: true }.
+  const loadMorePosts = useCallback(async ({ retry = false } = {}) => {
+    if (loadingMorePosts || loading) return;
+    if (postsLoadError && !retry) return;
     if (!officialId || !payload?.posts_has_more || !payload?.posts_next_cursor) return;
+    const rid = reqIdRef.current;
+    const cursorUsed = payload.posts_next_cursor;
     setLoadingMorePosts(true);
     const { data, error: err } = await fetchPagePosts(officialId, {
       cursor: payload.posts_next_cursor,
       voterToken: getVoterToken(),
       scope: effectiveScope || undefined,
     });
+    // The page reloaded (another official, scope, or sign-in) while
+    // this page of posts was in flight; it belongs to the old list.
+    if (rid !== reqIdRef.current) {
+      setLoadingMorePosts(false);
+      return;
+    }
     setLoadingMorePosts(false);
-    if (err || !data) return;
-    setPayload((p) => (p ? {
+    if (err || !data) {
+      setPostsLoadError(true);
+      return;
+    }
+    setPostsLoadError(false);
+    // Append only onto the list this page continues; if the payload was
+    // replaced meanwhile, its cursor no longer matches and we drop it.
+    setPayload((p) => (p && p.posts_next_cursor === cursorUsed ? {
       ...p,
       posts: [...p.posts, ...(data.items || [])],
       posts_next_cursor: data.next_cursor || null,
       posts_has_more: !!data.has_more,
     } : p));
-  }, [loadingMorePosts, officialId, payload, effectiveScope]);
+  }, [loadingMorePosts, loading, postsLoadError, officialId, payload, effectiveScope]);
 
   // Sentinel observer — fetch the next page when the bottom marker
   // scrolls within 600px of the viewport.
   useEffect(() => {
-    const el = postsSentinelRef.current;
+    const el = postsSentinelEl;
     if (!el) return undefined;
     const io = new IntersectionObserver(
       (entries) => { if (entries[0]?.isIntersecting) loadMorePosts(); },
@@ -244,7 +269,7 @@ export default function PageView({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [loadMorePosts]);
+  }, [loadMorePosts, postsSentinelEl]);
 
   // Deep-link target — a '#post-<id>' hash on the URL (set by the
   // bell-notification click and by a push-notification tap via
@@ -1006,7 +1031,7 @@ export default function PageView({
                     kind="network"
                     headline="Couldn't load this page"
                     body={error}
-                    cta={{ label: 'Retry', onClick: () => window.location.reload() }}
+                    cta={{ label: 'Retry', onClick: () => loadPage() }}
                   />
                 )}
                 {!loading && !error && posts.length === 0 && (
@@ -1044,7 +1069,7 @@ export default function PageView({
                 {/* Infinite-scroll sentinel for the post feed. */}
                 {payload?.posts_has_more && (
                   <div
-                    ref={postsSentinelRef}
+                    ref={setPostsSentinelEl}
                     style={{
                       padding: '16px 0',
                       textAlign: 'center',
@@ -1052,7 +1077,24 @@ export default function PageView({
                       fontSize: '0.85rem',
                     }}
                   >
-                    {loadingMorePosts ? 'Loading more…' : ''}
+                    {loadingMorePosts ? 'Loading more…' : postsLoadError ? (
+                      <button
+                        type="button"
+                        onClick={() => loadMorePosts({ retry: true })}
+                        style={{
+                          background: 'transparent',
+                          border: '1px solid var(--cl-border)',
+                          borderRadius: 8,
+                          padding: '6px 14px',
+                          color: 'var(--cl-text)',
+                          fontSize: '0.85rem',
+                          fontFamily: 'var(--cl-font-sans)',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Couldn’t load more posts. Tap to retry.
+                      </button>
+                    ) : ''}
                   </div>
                 )}
 
