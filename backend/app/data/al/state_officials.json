@@ -25,7 +25,7 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "http://www.legislature.state.al.us/ALISWWW/House/Representative%20Pictures/Ainsworth_27.jpeg"
+      "photo_url": null
     },
     "cabinet": [
       {
@@ -33,15 +33,6 @@
         "name": "Andrew Sorrell",
         "party": "R",
         "role": "Auditor",
-        "office": "Executive",
-        "website": null,
-        "photo_url": "http://www.legislature.state.al.us/ALISWWW/House/Representative%20Pictures/Sorrell_3.jpeg"
-      },
-      {
-        "id": "al-exec-attorney-general",
-        "name": "Steve Marshall",
-        "party": "R",
-        "role": "Attorney General",
         "office": "Executive",
         "website": null,
         "photo_url": null

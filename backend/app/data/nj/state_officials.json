@@ -695,7 +695,7 @@
         "chamber": "State House",
         "district": "1",
         "role": "State Representative",
-        "photo_url": "http://www.njleg.state.nj.us/members/memberphotos/mcclellan_antwan_2020.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.njassemblygop.com/212/Antwan-McClellan",
           "email": "asmmcclellan@njleg.org",
@@ -711,7 +711,7 @@
         "chamber": "State House",
         "district": "1",
         "role": "State Representative",
-        "photo_url": "http://www.njleg.state.nj.us/members/memberphotos/simonsen_erik_2020.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.njassemblygop.com/235/Erik-Simonsen",
           "email": "asmsimonsen@njleg.org",
@@ -1079,7 +1079,7 @@
         "chamber": "State House",
         "district": "13",
         "role": "State Representative",
-        "photo_url": "http://www.njleg.state.nj.us/members/memberphotos/scharfenberger_gerard_2020a.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.njassemblygop.com/234/Gerry-Scharfenberger",
           "email": "asmscharfenberger@njleg.org",

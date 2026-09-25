@@ -5718,33 +5718,10 @@
   }
  ],
  "ballot_measures": {
-  "state": [
-   {
-    "id": "ny-2026-prop-small-city-school-debt",
-    "number": "NY Statewide Proposal",
-    "title": "Small City School Districts Debt Limitation",
-    "summary": "Amends Article VIII, Section 4 of the New York State Constitution to remove the special constitutional debt limit currently placed on small city school districts (cities under 125,000 people), so they are treated the same as all other school districts.",
-    "level": "state",
-    "type": "Constitutional Amendment (legislatively referred)",
-    "source": "N.Y. Const. Art. VIII, §4; legislatively referred. Verify final ballot number and official wording with the New York State Board of Elections.",
-    "threshold": "Majority",
-    "appears_on": "general"
-   },
-   {
-    "id": "ny-2026-prop-sewage-facilities-debt",
-    "number": "NY Statewide Proposal",
-    "title": "Sewage Facilities Debt Exclusion (10-Year Extension)",
-    "summary": "Amends Article VIII, Section 5 of the New York State Constitution to extend for ten years the authority of counties, cities, towns, and villages to exclude debt incurred to build sewage facilities from their constitutional debt limits.",
-    "level": "state",
-    "type": "Constitutional Amendment (legislatively referred)",
-    "source": "N.Y. Const. Art. VIII, §5; legislatively referred. Verify final ballot number and official wording with the New York State Board of Elections.",
-    "threshold": "Majority",
-    "appears_on": "general"
-   }
-  ],
+  "state": [],
   "counties": {}
  },
- "_measures_note": "New York's two statewide constitutional-amendment proposals for the November 2026 general election are listed below. Local and New York City ballot proposals are not yet integrated; confirm final ballot numbering and official wording with the New York State Board of Elections.",
+ "_measures_note": "New York's statewide ballot proposals for the November 2026 general election are not yet integrated, pending the New York State Board of Elections' certified list. Local and New York City ballot proposals are not yet integrated either.",
  "_personalization_hints": {
   "match_keys": {
    "state": [

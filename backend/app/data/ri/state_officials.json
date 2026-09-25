@@ -46,7 +46,7 @@
         "chamber": "State Senate",
         "district": "2",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/senators/pictures/quezada.jpg",
+        "photo_url": "https://www.rilegislature.gov/senators/pictures/quezada.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-quezada@rilegislature.gov",
@@ -94,7 +94,7 @@
         "chamber": "State Senate",
         "district": "5",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/bell.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/bell.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-bell@rilegislature.gov",
@@ -126,7 +126,7 @@
         "chamber": "State Senate",
         "district": "7",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/ciccone.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/ciccone.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-ciccone@rilegislature.gov",
@@ -206,7 +206,7 @@
         "chamber": "State Senate",
         "district": "12",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/dipalma.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/dipalma.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-dipalma@rilegislature.gov",
@@ -222,7 +222,7 @@
         "chamber": "State Senate",
         "district": "13",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/senators/pictures/euer.jpg",
+        "photo_url": "https://www.rilegislature.gov/senators/pictures/euer.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-euer@rilegislature.gov",
@@ -318,7 +318,7 @@
         "chamber": "State Senate",
         "district": "19",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/pearson.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/pearson.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-pearson@rilegislature.gov",
@@ -382,7 +382,7 @@
         "chamber": "State Senate",
         "district": "23",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/de%20la%20cruz%20NEW%202022.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/de%20la%20cruz%20NEW%202022.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-delacruz@rilegislature.gov",
@@ -398,7 +398,7 @@
         "chamber": "State Senate",
         "district": "24",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/murray.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/murray.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-murray@rilegislature.gov",
@@ -446,7 +446,7 @@
         "chamber": "State Senate",
         "district": "27",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/gallo.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/gallo.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-gallo@rilegislature.gov",
@@ -542,7 +542,7 @@
         "chamber": "State Senate",
         "district": "33",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/raptakis.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/raptakis.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-raptakis@rilegislature.gov",
@@ -558,7 +558,7 @@
         "chamber": "State Senate",
         "district": "34",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/morgan.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/morgan.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-morgan@rilegislature.gov",
@@ -574,7 +574,7 @@
         "chamber": "State Senate",
         "district": "35",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/valverde.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/valverde.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-valverde@rilegislature.gov",
@@ -606,7 +606,7 @@
         "chamber": "State Senate",
         "district": "37",
         "role": "State Senator",
-        "photo_url": "http://www.rilegislature.gov/Senators/Pictures/sosnowski.jpg",
+        "photo_url": "https://www.rilegislature.gov/Senators/Pictures/sosnowski.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
           "email": "sen-sosnowski@rilegislature.gov",
@@ -643,7 +643,7 @@
         "chamber": "State House",
         "district": "1",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/ajello.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/ajello.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/ajello/default.aspx",
           "email": "rep-ajello@rilegislature.gov",
@@ -659,7 +659,7 @@
         "chamber": "State House",
         "district": "2",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/blazejewski.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/blazejewski.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/blazejewski/default.aspx",
           "email": "rep-blazejewski@rilegislature.gov",
@@ -675,7 +675,7 @@
         "chamber": "State House",
         "district": "3",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/biah.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/biah.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/biah/default.aspx",
           "email": "rep-biah@rilegislature.gov",
@@ -691,7 +691,7 @@
         "chamber": "State House",
         "district": "4",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kislak.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/kislak.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-kislak@rilegislature.gov",
@@ -723,7 +723,7 @@
         "chamber": "State House",
         "district": "6",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/hull.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/hull.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-hull@rilegislature.gov",
@@ -739,7 +739,7 @@
         "chamber": "State House",
         "district": "7",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Morales.JPG",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Morales.JPG",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-morales@rilegislature.gov",
@@ -755,7 +755,7 @@
         "chamber": "State House",
         "district": "8",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/lombardi.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/lombardi.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-lombardi@rilegislature.gov",
@@ -787,7 +787,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/slater.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/slater.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-slater@rilegislature.gov",
@@ -803,7 +803,7 @@
         "chamber": "State House",
         "district": "11",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/diaz.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/diaz.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-diaz@rilegislature.gov",
@@ -819,7 +819,7 @@
         "chamber": "State House",
         "district": "12",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/batista.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/batista.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/batista/default.aspx",
           "email": "rep-batista@rilegislature.gov",
@@ -835,7 +835,7 @@
         "chamber": "State House",
         "district": "13",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/perez.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/perez.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-perez@rilegislature.gov",
@@ -851,7 +851,7 @@
         "chamber": "State House",
         "district": "14",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/lima.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/lima.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-lima@rilegislature.gov",
@@ -883,7 +883,7 @@
         "chamber": "State House",
         "district": "16",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/potter.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/potter.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-potter@rilegislature.gov",
@@ -899,7 +899,7 @@
         "chamber": "State House",
         "district": "17",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Baginski.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Baginski.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/baginski/default.aspx",
           "email": "rep-baginski@rilegislature.gov",
@@ -915,7 +915,7 @@
         "chamber": "State House",
         "district": "18",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/handy.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/handy.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-handy@rilegislature.gov",
@@ -931,7 +931,7 @@
         "chamber": "State House",
         "district": "19",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/mcnamara.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/mcnamara.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-mcnamara@rilegislature.gov",
@@ -947,7 +947,7 @@
         "chamber": "State House",
         "district": "20",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/bennett.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/bennett.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/bennett/default.aspx",
           "email": "rep-bennett@rilegislature.gov",
@@ -979,7 +979,7 @@
         "chamber": "State House",
         "district": "22",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/solomon.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/solomon.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-solomon@rilegislature.gov",
@@ -995,7 +995,7 @@
         "chamber": "State House",
         "district": "23",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/shekarchi.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/shekarchi.jpg",
         "contact": {
           "official_website": "https://joeshekarchi.com/",
           "email": "rep-shekarchi@rilegislature.gov",
@@ -1011,7 +1011,7 @@
         "chamber": "State House",
         "district": "24",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/shanley.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/shanley.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-shanley@rilegislature.gov",
@@ -1027,7 +1027,7 @@
         "chamber": "State House",
         "district": "25",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/noret.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/noret.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-noret@rilegislature.gov",
@@ -1059,7 +1059,7 @@
         "chamber": "State House",
         "district": "27",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/serpa.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/serpa.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-serpa@rilegislature.gov",
@@ -1075,7 +1075,7 @@
         "chamber": "State House",
         "district": "28",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/nardone.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/nardone.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-nardone@rilegislature.gov",
@@ -1091,7 +1091,7 @@
         "chamber": "State House",
         "district": "29",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/roberts.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/roberts.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-roberts@rilegislature.gov",
@@ -1107,7 +1107,7 @@
         "chamber": "State House",
         "district": "30",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/caldwell.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/caldwell.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/caldwell/default.aspx",
           "email": "rep-caldwell@rilegislature.gov",
@@ -1123,7 +1123,7 @@
         "chamber": "State House",
         "district": "31",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/casimiro.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/casimiro.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-casimiro@rilegislature.gov",
@@ -1139,7 +1139,7 @@
         "chamber": "State House",
         "district": "32",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/craven.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/craven.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-craven@rilegislature.gov",
@@ -1155,7 +1155,7 @@
         "chamber": "State House",
         "district": "33",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/McEntee.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/McEntee.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-mcentee@rilegislature.gov",
@@ -1171,7 +1171,7 @@
         "chamber": "State House",
         "district": "34",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/tanzi.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/tanzi.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-tanzi@rilegislature.gov",
@@ -1187,7 +1187,7 @@
         "chamber": "State House",
         "district": "35",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/fogarty.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/fogarty.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-fogarty@rilegislature.gov",
@@ -1219,7 +1219,7 @@
         "chamber": "State House",
         "district": "37",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/azzinaro.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/azzinaro.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/azzinaro/default.aspx",
           "email": "rep-azzinaro@rilegislature.gov",
@@ -1235,7 +1235,7 @@
         "chamber": "State House",
         "district": "38",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kennedy.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/kennedy.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-kennedy@rilegislature.gov",
@@ -1267,7 +1267,7 @@
         "chamber": "State House",
         "district": "40",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/chippendale.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/chippendale.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-chippendale@rilegislature.gov",
@@ -1315,7 +1315,7 @@
         "chamber": "State House",
         "district": "43",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/fellela.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/fellela.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-fellela@rilegislature.gov",
@@ -1331,7 +1331,7 @@
         "chamber": "State House",
         "district": "44",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/costantino.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/costantino.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-costantino@rilegislature.gov",
@@ -1347,7 +1347,7 @@
         "chamber": "State House",
         "district": "45",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/ackerman.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/ackerman.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/ackerman/default.aspx",
           "email": "rep-ackerman@rilegislature.gov",
@@ -1363,7 +1363,7 @@
         "chamber": "State House",
         "district": "46",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/shallcross%20smith.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/shallcross%20smith.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-shallcross-smith@rilegislature.gov",
@@ -1379,7 +1379,7 @@
         "chamber": "State House",
         "district": "47",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/place.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/place.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-place@rilegislature.gov",
@@ -1395,7 +1395,7 @@
         "chamber": "State House",
         "district": "48",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/newberry.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/newberry.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-newberry@rilegislature.gov",
@@ -1427,7 +1427,7 @@
         "chamber": "State House",
         "district": "50",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/casey.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/casey.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-casey@rilegislature.gov",
@@ -1459,7 +1459,7 @@
         "chamber": "State House",
         "district": "52",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/marszalkowski.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/marszalkowski.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-marszalkowski@rilegislature.gov",
@@ -1491,7 +1491,7 @@
         "chamber": "State House",
         "district": "54",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/o'brien.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/o'brien.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-obrien@rilegislature.gov",
@@ -1507,7 +1507,7 @@
         "chamber": "State House",
         "district": "55",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/corvese.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/corvese.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-corvese@rilegislature.gov",
@@ -1523,7 +1523,7 @@
         "chamber": "State House",
         "district": "56",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Giraldo.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Giraldo.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-giraldo@rilegislature.gov",
@@ -1587,7 +1587,7 @@
         "chamber": "State House",
         "district": "60",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/alzate.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/alzate.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/alzate/default.aspx",
           "email": "rep-alzate@rilegislature.gov",
@@ -1603,7 +1603,7 @@
         "chamber": "State House",
         "district": "61",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/Felix.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/Felix.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-felix@rilegislature.gov",
@@ -1619,7 +1619,7 @@
         "chamber": "State House",
         "district": "62",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/messier.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/messier.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-messier@rilegislature.gov",
@@ -1635,7 +1635,7 @@
         "chamber": "State House",
         "district": "63",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/kazarian.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/kazarian.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-kazarian@rilegislature.gov",
@@ -1715,7 +1715,7 @@
         "chamber": "State House",
         "district": "68",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/speakman.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/speakman.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-speakman@rilegislature.gov",
@@ -1731,7 +1731,7 @@
         "chamber": "State House",
         "district": "69",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/donovan.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/donovan.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-donovan@rilegislature.gov",
@@ -1747,7 +1747,7 @@
         "chamber": "State House",
         "district": "70",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/edwards.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/edwards.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-edwards@rilegislature.gov",
@@ -1763,7 +1763,7 @@
         "chamber": "State House",
         "district": "71",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/Pictures/mcgaw.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/mcgaw.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-mcgaw@rilegislature.gov",
@@ -1779,7 +1779,7 @@
         "chamber": "State House",
         "district": "72",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/cortvriend.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/cortvriend.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-cortvriend@rilegislature.gov",
@@ -1795,7 +1795,7 @@
         "chamber": "State House",
         "district": "73",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/abney.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/abney.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/abney/default.aspx",
           "email": "rep-abney@rilegislature.gov",
@@ -1827,7 +1827,7 @@
         "chamber": "State House",
         "district": "75",
         "role": "State Representative",
-        "photo_url": "http://www.rilegislature.gov/representatives/pictures/carson.jpg",
+        "photo_url": "https://www.rilegislature.gov/representatives/pictures/carson.jpg",
         "contact": {
           "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
           "email": "rep-carson@rilegislature.gov",

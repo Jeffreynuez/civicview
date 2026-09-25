@@ -62,7 +62,7 @@
         "chamber": "State Senate",
         "district": "3",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s3.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s3.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S3",
           "email": "sen.rusty.crowe@capitol.tn.gov",
@@ -94,7 +94,7 @@
         "chamber": "State Senate",
         "district": "5",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s5.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s5.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S5",
           "email": "sen.randy.mcnally@capitol.tn.gov",
@@ -110,7 +110,7 @@
         "chamber": "State Senate",
         "district": "6",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s6.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s6.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S6",
           "email": "sen.becky.massey@capitol.tn.gov",
@@ -126,7 +126,7 @@
         "chamber": "State Senate",
         "district": "7",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s7.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s7.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S7",
           "email": "sen.richard.briggs@capitol.tn.gov",
@@ -190,7 +190,7 @@
         "chamber": "State Senate",
         "district": "11",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s11.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s11.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S11",
           "email": "sen.bo.watson@capitol.tn.gov",
@@ -206,7 +206,7 @@
         "chamber": "State Senate",
         "district": "12",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s12.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s12.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S12",
           "email": "sen.ken.yager@capitol.tn.gov",
@@ -222,7 +222,7 @@
         "chamber": "State Senate",
         "district": "13",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s13.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s13.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S13",
           "email": "sen.dawn.white@capitol.tn.gov",
@@ -238,7 +238,7 @@
         "chamber": "State Senate",
         "district": "14",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s14.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s14.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S14",
           "email": "sen.shane.reeves@capitol.tn.gov",
@@ -254,7 +254,7 @@
         "chamber": "State Senate",
         "district": "15",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s15.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s15.jpg",
         "contact": {
           "official_website": "https://paulbaileyfortn.com/",
           "email": "sen.paul.bailey@capitol.tn.gov",
@@ -270,7 +270,7 @@
         "chamber": "State Senate",
         "district": "16",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s16.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s16.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S16",
           "email": "sen.janice.bowling@capitol.tn.gov",
@@ -286,7 +286,7 @@
         "chamber": "State Senate",
         "district": "17",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s17.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s17.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S17",
           "email": "sen.mark.pody@capitol.tn.gov",
@@ -302,7 +302,7 @@
         "chamber": "State Senate",
         "district": "18",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s18.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s18.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S18",
           "email": "sen.ferrell.haile@capitol.tn.gov",
@@ -350,7 +350,7 @@
         "chamber": "State Senate",
         "district": "21",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s21.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s21.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S21",
           "email": "sen.jeff.yarbro@capitol.tn.gov",
@@ -366,7 +366,7 @@
         "chamber": "State Senate",
         "district": "22",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s22.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s22.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S22",
           "email": "sen.bill.powers@capitol.tn.gov",
@@ -398,7 +398,7 @@
         "chamber": "State Senate",
         "district": "24",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s24.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s24.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S24",
           "email": "sen.john.stevens@capitol.tn.gov",
@@ -430,7 +430,7 @@
         "chamber": "State Senate",
         "district": "26",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/S26.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/S26.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S26",
           "email": "sen.page.walley@capitol.tn.gov",
@@ -462,7 +462,7 @@
         "chamber": "State Senate",
         "district": "28",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s28.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s28.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S28",
           "email": "sen.joey.hensley@capitol.tn.gov",
@@ -478,7 +478,7 @@
         "chamber": "State Senate",
         "district": "29",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s29.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s29.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S29",
           "email": "sen.raumesh.akbari@capitol.tn.gov",
@@ -494,7 +494,7 @@
         "chamber": "State Senate",
         "district": "30",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s30.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s30.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S30",
           "email": "sen.sara.kyle@capitol.tn.gov",
@@ -526,7 +526,7 @@
         "chamber": "State Senate",
         "district": "32",
         "role": "State Senator",
-        "photo_url": "http://www.capitol.tn.gov/senate/members/images/s32.jpg",
+        "photo_url": "https://www.capitol.tn.gov/senate/members/images/s32.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=S32",
           "email": "sen.paul.rose@capitol.tn.gov",
@@ -563,7 +563,7 @@
         "chamber": "State House",
         "district": "1",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h1.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h1.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-john-crawford/",
           "email": "rep.john.crawford@capitol.tn.gov",
@@ -579,7 +579,7 @@
         "chamber": "State House",
         "district": "2",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h2.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h2.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H2",
           "email": "rep.bud.hulsey@capitol.tn.gov",
@@ -627,7 +627,7 @@
         "chamber": "State House",
         "district": "5",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h5.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h5.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-david-hawk/",
           "email": "rep.david.hawk@capitol.tn.gov",
@@ -643,7 +643,7 @@
         "chamber": "State House",
         "district": "6",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h6.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h6.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-tim-hicks/",
           "email": "rep.tim.hicks@capitol.tn.gov",
@@ -675,7 +675,7 @@
         "chamber": "State House",
         "district": "8",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h8.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h8.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H8",
           "email": "rep.jerome.moon@capitol.tn.gov",
@@ -691,7 +691,7 @@
         "chamber": "State House",
         "district": "9",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h9.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h9.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-gary-hicks/",
           "email": "rep.gary.hicks@capitol.tn.gov",
@@ -707,7 +707,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/H10.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H10.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H10",
           "email": "rep.rick.eldridge@capitol.tn.gov",
@@ -723,7 +723,7 @@
         "chamber": "State House",
         "district": "11",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h11.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h11.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-jeremy-faison/",
           "email": "rep.jeremy.faison@capitol.tn.gov",
@@ -771,7 +771,7 @@
         "chamber": "State House",
         "district": "14",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h14.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h14.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-jason-zachary/",
           "email": "rep.jason.zachary@capitol.tn.gov",
@@ -787,7 +787,7 @@
         "chamber": "State House",
         "district": "15",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h15.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h15.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H15",
           "email": "rep.sam.mckenzie@capitol.tn.gov",
@@ -803,7 +803,7 @@
         "chamber": "State House",
         "district": "16",
         "role": "State Representative",
-        "photo_url": "http://nebula.wsimg.com/ec18d700041ee80017970cc4f5b0d8cb?AccessKeyId=C9D09D69010A6C1BCFA5&disposition=0&alloworigin=1",
+        "photo_url": null,
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-michele-carringer/",
           "email": "rep.michele.carringer@capitol.tn.gov",
@@ -819,7 +819,7 @@
         "chamber": "State House",
         "district": "17",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h17.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h17.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H17",
           "email": "rep.andrew.farmer@capitol.tn.gov",
@@ -851,7 +851,7 @@
         "chamber": "State House",
         "district": "19",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/H19.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H19.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-dave-wright/",
           "email": "rep.dave.wright@capitol.tn.gov",
@@ -899,7 +899,7 @@
         "chamber": "State House",
         "district": "22",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h22.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h22.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H22",
           "email": "rep.dan.howell@capitol.tn.gov",
@@ -947,7 +947,7 @@
         "chamber": "State House",
         "district": "25",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h25.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h25.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H25",
           "email": "speaker.cameron.sexton@capitol.tn.gov",
@@ -1043,7 +1043,7 @@
         "chamber": "State House",
         "district": "31",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h31.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h31.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-ron-travis/",
           "email": "rep.ron.travis@capitol.tn.gov",
@@ -1091,7 +1091,7 @@
         "chamber": "State House",
         "district": "34",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h34.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h34.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H34",
           "email": "rep.tim.rudd@capitol.tn.gov",
@@ -1123,7 +1123,7 @@
         "chamber": "State House",
         "district": "36",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h36.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h36.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H36",
           "email": "rep.dennis.powers@capitol.tn.gov",
@@ -1139,7 +1139,7 @@
         "chamber": "State House",
         "district": "37",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/H37.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H37.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-charlie-baum/",
           "email": "rep.charlie.baum@capitol.tn.gov",
@@ -1155,7 +1155,7 @@
         "chamber": "State House",
         "district": "38",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h38.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h38.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-kelly-keisling/",
           "email": "rep.kelly.keisling@capitol.tn.gov",
@@ -1203,7 +1203,7 @@
         "chamber": "State House",
         "district": "41",
         "role": "State Representative",
-        "photo_url": "http://edbutlerfortn.com/wp-content/uploads/2018/04/Ed-Butler.jpg",
+        "photo_url": "https://edbutlerfortn.com/wp-content/uploads/2018/04/Ed-Butler.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H41",
           "email": "rep.ed.butler@capitol.tn.gov",
@@ -1219,7 +1219,7 @@
         "chamber": "State House",
         "district": "42",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h42.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h42.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H42",
           "email": "rep.ryan.williams@capitol.tn.gov",
@@ -1235,7 +1235,7 @@
         "chamber": "State House",
         "district": "43",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h43.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h43.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-paul-sherrell/",
           "email": "rep.paul.sherrell@capitol.tn.gov",
@@ -1251,7 +1251,7 @@
         "chamber": "State House",
         "district": "44",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h44.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h44.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H44",
           "email": "rep.william.lamberth@capitol.tn.gov",
@@ -1283,7 +1283,7 @@
         "chamber": "State House",
         "district": "46",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h46.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h46.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H46",
           "email": "rep.clark.boyd@capitol.tn.gov",
@@ -1315,7 +1315,7 @@
         "chamber": "State House",
         "district": "48",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h48.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h48.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-bryan-terry/",
           "email": "rep.bryan.terry@capitol.tn.gov",
@@ -1331,7 +1331,7 @@
         "chamber": "State House",
         "district": "49",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h49.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h49.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H49",
           "email": "rep.mike.sparks@capitol.tn.gov",
@@ -1347,7 +1347,7 @@
         "chamber": "State House",
         "district": "50",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h50.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h50.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H50",
           "email": "rep.bo.mitchell@capitol.tn.gov",
@@ -1427,7 +1427,7 @@
         "chamber": "State House",
         "district": "55",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h55.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h55.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H55",
           "email": "rep.john.ray.clemmons@capitol.tn.gov",
@@ -1459,7 +1459,7 @@
         "chamber": "State House",
         "district": "57",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h57.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h57.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-susan-lynn/",
           "email": "rep.susan.lynn@capitol.tn.gov",
@@ -1475,7 +1475,7 @@
         "chamber": "State House",
         "district": "58",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h58.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h58.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H58",
           "email": "rep.harold.love@capitol.tn.gov",
@@ -1539,7 +1539,7 @@
         "chamber": "State House",
         "district": "62",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h62.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h62.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-pat-marsh/",
           "email": "rep.pat.marsh@capitol.tn.gov",
@@ -1603,7 +1603,7 @@
         "chamber": "State House",
         "district": "66",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h66.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h66.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H66",
           "email": "rep.sabi.kumar@capitol.tn.gov",
@@ -1667,7 +1667,7 @@
         "chamber": "State House",
         "district": "70",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/H70.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/H70.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-clay-doggett/",
           "email": "rep.clay.doggett@capitol.tn.gov",
@@ -1731,7 +1731,7 @@
         "chamber": "State House",
         "district": "74",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h74.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h74.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H74",
           "email": "rep.jay.reedy@capitol.tn.gov",
@@ -1763,7 +1763,7 @@
         "chamber": "State House",
         "district": "76",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h76.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h76.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-tandy-darby/",
           "email": "rep.tandy.darby@capitol.tn.gov",
@@ -1779,7 +1779,7 @@
         "chamber": "State House",
         "district": "77",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h77.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h77.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H77",
           "email": "rep.rusty.grills@capitol.tn.gov",
@@ -1795,7 +1795,7 @@
         "chamber": "State House",
         "district": "78",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h78.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h78.jpg",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-mary-littleton/",
           "email": "rep.mary.littleton@capitol.tn.gov",
@@ -1827,7 +1827,7 @@
         "chamber": "State House",
         "district": "80",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h80.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h80.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H80",
           "email": "rep.johnny.shaw@capitol.tn.gov",
@@ -1843,7 +1843,7 @@
         "chamber": "State House",
         "district": "81",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h81.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h81.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H81",
           "email": "rep.debra.moody@capitol.tn.gov",
@@ -1875,7 +1875,7 @@
         "chamber": "State House",
         "district": "83",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h83.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h83.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H83",
           "email": "rep.mark.white@capitol.tn.gov",
@@ -1891,7 +1891,7 @@
         "chamber": "State House",
         "district": "84",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h84.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h84.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H84",
           "email": "rep.joe.towns@capitol.tn.gov",
@@ -1939,7 +1939,7 @@
         "chamber": "State House",
         "district": "87",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h87.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h87.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H87",
           "email": "rep.karen.camper@capitol.tn.gov",
@@ -1955,7 +1955,7 @@
         "chamber": "State House",
         "district": "88",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h88.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h88.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H88",
           "email": "rep.larry.miller@capitol.tn.gov",
@@ -2035,7 +2035,7 @@
         "chamber": "State House",
         "district": "93",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h93.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h93.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H93",
           "email": "rep.ga.hardaway@capitol.tn.gov",
@@ -2051,7 +2051,7 @@
         "chamber": "State House",
         "district": "94",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h94.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h94.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H94",
           "email": "rep.ron.gant@capitol.tn.gov",
@@ -2067,7 +2067,7 @@
         "chamber": "State House",
         "district": "95",
         "role": "State Representative",
-        "photo_url": "http://www.capitol.tn.gov/house/members/images/h95.jpg",
+        "photo_url": "https://www.capitol.tn.gov/house/members/images/h95.jpg",
         "contact": {
           "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H95",
           "email": "rep.kevin.vaughan@capitol.tn.gov",

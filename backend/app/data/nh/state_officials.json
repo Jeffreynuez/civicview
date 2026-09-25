@@ -691,7 +691,7 @@
         "chamber": "State House",
         "district": "Belknap 6",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/377203.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/377203.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=806",
           "email": "glennaldrich@proton.me",
@@ -1347,7 +1347,7 @@
         "chamber": "State House",
         "district": "Cheshire 6",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/377068.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/377068.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=676",
           "email": "paul.berch@gc.nh.gov",
@@ -1747,7 +1747,7 @@
         "chamber": "State House",
         "district": "Sullivan 6",
         "role": "State Representative",
-        "photo_url": "http://img1.wsimg.com/isteam/ip/dd261d25-a088-4d57-bcaf-6c1d15a130ab/IMG_1581.jpg",
+        "photo_url": "https://img1.wsimg.com/isteam/ip/dd261d25-a088-4d57-bcaf-6c1d15a130ab/IMG_1581.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11439",
           "email": "wayne.hemingway@gc.nh.gov",
@@ -3267,7 +3267,7 @@
         "chamber": "State House",
         "district": "Strafford 10",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/373142.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/373142.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=974",
           "email": "wayne.burton@gc.nh.gov",
@@ -5187,7 +5187,7 @@
         "chamber": "State House",
         "district": "Hillsborough 8",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/408351.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/408351.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=8351",
           "email": "kevin.scully@gc.nh.gov",
@@ -5235,7 +5235,7 @@
         "chamber": "State House",
         "district": "Hillsborough 9",
         "role": "State Representative",
-        "photo_url": "http://dolanforrep.com/wp-content/uploads/2022/10/Professional-Photo-SMALL.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=10784",
           "email": "william.dolan@gc.nh.gov",
@@ -5251,7 +5251,7 @@
         "chamber": "State House",
         "district": "Hillsborough 10",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/376994.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/376994.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=968",
           "email": "bill.ohm@gc.nh.gov",
@@ -6643,7 +6643,7 @@
         "chamber": "State House",
         "district": "Hillsborough 45",
         "role": "State Representative",
-        "photo_url": "http://www.gencourt.state.nh.us/house/images/memberpics/376936.jpg",
+        "photo_url": "https://gc.nh.gov/house/images/memberpics/376936.jpg",
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=623",
           "email": "jack.flanagan@gc.nh.gov",

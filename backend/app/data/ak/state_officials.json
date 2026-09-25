@@ -50,7 +50,7 @@
         "chamber": "State Senate",
         "district": "A",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/SMN.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/SMN.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/stedman/",
           "email": "senator.bert.stedman@akleg.gov",
@@ -66,7 +66,7 @@
         "chamber": "State Senate",
         "district": "B",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/KIE.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/KIE.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/kiehl/",
           "email": "senator.jesse.kiehl@akleg.gov",
@@ -82,7 +82,7 @@
         "chamber": "State Senate",
         "district": "C",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/STG.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/STG.jpg",
         "contact": {
           "official_website": "https://www.akleg.gov/basis/Member/Detail/30?code=stg",
           "email": "senator.gary.stevens@akleg.gov",
@@ -98,7 +98,7 @@
         "chamber": "State Senate",
         "district": "D",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/BJK.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/BJK.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/bjorkman/",
           "email": "senator.jesse.bjorkman@akleg.gov",
@@ -114,7 +114,7 @@
         "chamber": "State Senate",
         "district": "E",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/GIE.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/GIE.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/giessel/",
           "email": "senator.cathy.giessel@akleg.gov",
@@ -130,7 +130,7 @@
         "chamber": "State Senate",
         "district": "F",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/KAU.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/KAU.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/kaufman/",
           "email": "senator.james.kaufman@akleg.gov",
@@ -146,7 +146,7 @@
         "chamber": "State Senate",
         "district": "G",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/GRA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/GRA.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/gray-jackson/",
           "email": "senator.elvi.gray-jackson@akleg.gov",
@@ -162,7 +162,7 @@
         "chamber": "State Senate",
         "district": "H",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/CLA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/CLA.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/matt-claman/",
           "email": "senator.matt.claman@akleg.gov",
@@ -178,7 +178,7 @@
         "chamber": "State Senate",
         "district": "I",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/TOB.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/TOB.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/tobin/",
           "email": "senator.loki.tobin@akleg.gov",
@@ -194,7 +194,7 @@
         "chamber": "State Senate",
         "district": "J",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/DNB.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/DNB.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/dunbar/",
           "email": "senator.forrest.dunbar@akleg.gov",
@@ -210,7 +210,7 @@
         "chamber": "State Senate",
         "district": "K",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/WIE.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/WIE.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/wielechowski/",
           "email": "senator.bill.wielechowski@akleg.gov",
@@ -226,7 +226,7 @@
         "chamber": "State Senate",
         "district": "L",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/MRR.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/MRR.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/merrick/",
           "email": "senator.kelly.merrick@akleg.gov",
@@ -242,7 +242,7 @@
         "chamber": "State Senate",
         "district": "M",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/TLT.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/TLT.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-tilton/",
           "email": "senator.cathy.tilton@akleg.gov",
@@ -274,7 +274,7 @@
         "chamber": "State Senate",
         "district": "O",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/RAU.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/RAU.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-rauscher/",
           "email": "senator.george.rauscher@akleg.gov",
@@ -290,7 +290,7 @@
         "chamber": "State Senate",
         "district": "P",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/KAW.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/KAW.jpg",
         "contact": {
           "official_website": "https://aksenatedems.com/sen-kawasaki/",
           "email": "senator.scott.kawasaki@akleg.gov",
@@ -306,7 +306,7 @@
         "chamber": "State Senate",
         "district": "Q",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/MYE.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/MYE.jpg",
         "contact": {
           "official_website": "https://www.akleg.gov/basis/Member/Detail/32?code=mye",
           "email": "senator.robert.myers@akleg.gov",
@@ -322,7 +322,7 @@
         "chamber": "State Senate",
         "district": "R",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/CRN.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/CRN.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-cronk/",
           "email": "senator.mike.cronk@akleg.gov",
@@ -338,7 +338,7 @@
         "chamber": "State Senate",
         "district": "S",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/HOF.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/HOF.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/hoffman/",
           "email": "senator.lyman.hoffman@akleg.gov",
@@ -354,7 +354,7 @@
         "chamber": "State Senate",
         "district": "T",
         "role": "State Senator",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/OLS.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/OLS.jpg",
         "contact": {
           "official_website": "https://alaskasenate.org/olson/",
           "email": "senator.donald.olson@akleg.gov",
@@ -391,7 +391,7 @@
         "chamber": "State House",
         "district": "2",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/HMS.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/HMS.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-himschoot/",
           "email": "representative.rebecca.himschoot@akleg.gov",
@@ -407,7 +407,7 @@
         "chamber": "State House",
         "district": "3",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/STO.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/STO.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-story/",
           "email": "representative.andi.story@akleg.gov",
@@ -423,7 +423,7 @@
         "chamber": "State House",
         "district": "4",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/HNN.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/HNN.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-hannan/",
           "email": "representative.sara.hannan@akleg.gov",
@@ -439,7 +439,7 @@
         "chamber": "State House",
         "district": "5",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/STS.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/STS.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep_stutes",
           "email": "representative.louise.stutes@akleg.gov",
@@ -455,7 +455,7 @@
         "chamber": "State House",
         "district": "6",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/VAN.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/VAN.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-vance/",
           "email": "representative.sarah.vance@akleg.gov",
@@ -471,7 +471,7 @@
         "chamber": "State House",
         "district": "7",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/RUF.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/RUF.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-ruffridge/",
           "email": "representative.justin.ruffridge@akleg.gov",
@@ -519,7 +519,7 @@
         "chamber": "State House",
         "district": "10",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/kop.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/kop.jpg",
         "contact": {
           "official_website": "https://www.akleg.gov/basis/Member/Detail/30?code=kop",
           "email": "representative.chuck.kopp@akleg.gov",
@@ -535,7 +535,7 @@
         "chamber": "State House",
         "district": "11",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/COU.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/COU.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-coulombe/",
           "email": "representative.julie.coulombe@akleg.gov",
@@ -551,7 +551,7 @@
         "chamber": "State House",
         "district": "12",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/SCG.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/SCG.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-schrage/",
           "email": "representative.calvin.schrage@akleg.gov",
@@ -567,7 +567,7 @@
         "chamber": "State House",
         "district": "13",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/JOS.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/JOS.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep_josephson/",
           "email": "representative.andy.josephson@akleg.gov",
@@ -583,7 +583,7 @@
         "chamber": "State House",
         "district": "14",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/GAL.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/GAL.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-galvin/",
           "email": "representative.alyse.galvin@akleg.gov",
@@ -599,7 +599,7 @@
         "chamber": "State House",
         "district": "15",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/cos.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/cos.jpg",
         "contact": {
           "official_website": "https://akleg.gov/legislator.php?id=cos",
           "email": "representative.mia.costello@akleg.gov",
@@ -631,7 +631,7 @@
         "chamber": "State House",
         "district": "17",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/FIE.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/FIE.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-fields/",
           "email": "representative.zack.fields@akleg.gov",
@@ -647,7 +647,7 @@
         "chamber": "State House",
         "district": "18",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/ned.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.akleg.gov/basis/Member/Detail/32?code=ned",
           "email": "representative.david.nelson@akleg.gov",
@@ -663,7 +663,7 @@
         "chamber": "State House",
         "district": "19",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/MNA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/MNA.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-mina/",
           "email": "representative.genevieve.mina@akleg.gov",
@@ -679,7 +679,7 @@
         "chamber": "State House",
         "district": "20",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/GRY.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/GRY.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-gray/",
           "email": "representative.andrew.gray@akleg.gov",
@@ -695,7 +695,7 @@
         "chamber": "State House",
         "district": "21",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/MEA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/MEA.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-mears/",
           "email": "representative.donna.mears@akleg.gov",
@@ -727,7 +727,7 @@
         "chamber": "State House",
         "district": "23",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/ALR.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/ALR.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-allard/",
           "email": "representative.jamie.allard@akleg.gov",
@@ -743,7 +743,7 @@
         "chamber": "State House",
         "district": "24",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/SAD.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/SAD.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-saddler/",
           "email": "representative.dan.saddler@akleg.gov",
@@ -759,7 +759,7 @@
         "chamber": "State House",
         "district": "25",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/JHS.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/JHS.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-d-johnson/",
           "email": "representative.delena.johnson@akleg.gov",
@@ -839,7 +839,7 @@
         "chamber": "State House",
         "district": "30",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/MCA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/MCA.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-mccabe/",
           "email": "representative.kevin.mccabe@akleg.gov",
@@ -855,7 +855,7 @@
         "chamber": "State House",
         "district": "31",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/DIB.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/DIB.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-dibert/",
           "email": "representative.maxine.dibert@akleg.gov",
@@ -871,7 +871,7 @@
         "chamber": "State House",
         "district": "32",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/SPP.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/SPP.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-stapp/",
           "email": "representative.will.stapp@akleg.gov",
@@ -887,7 +887,7 @@
         "chamber": "State House",
         "district": "33",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/PRA.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/PRA.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-prax/",
           "email": "representative.mike.prax@akleg.gov",
@@ -903,7 +903,7 @@
         "chamber": "State House",
         "district": "34",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/TMZ.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/TMZ.jpg",
         "contact": {
           "official_website": "https://www.akleg.gov/basis/Member/Detail/33?code=tmz",
           "email": "representative.frank.tomaszewski@akleg.gov",
@@ -919,7 +919,7 @@
         "chamber": "State House",
         "district": "35",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/CAI.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/CAI.jpg",
         "contact": {
           "official_website": "https://akhouse.org/rep-carrick/",
           "email": "representative.ashley.carrick@akleg.gov",
@@ -951,7 +951,7 @@
         "chamber": "State House",
         "district": "37",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/EDG.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/EDG.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-edgmon/",
           "email": "representative.bryce.edgmon@akleg.gov",
@@ -983,7 +983,7 @@
         "chamber": "State House",
         "district": "39",
         "role": "State Representative",
-        "photo_url": "http://akleg.gov/images/legislators/450x600/FON.jpg",
+        "photo_url": "https://akleg.gov/images/legislators/450x600/FON.jpg",
         "contact": {
           "official_website": "https://akhousemajority.com/rep-foster/",
           "email": "representative.neal.foster@akleg.gov",

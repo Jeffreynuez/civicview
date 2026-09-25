@@ -211,16 +211,14 @@
     ],
     "D": [
      "tx-cand-ruth-torres-h5",
-     "tx-cand-chelsey-alexandra-hockett-h5",
-     "tx-cand-chelsey-alexandra-hockett-h5-5197"
+     "tx-cand-chelsey-alexandra-hockett-h5"
     ]
    },
    "general_candidates": [
     "tx-cand-lance-gooden-h5",
     "tx-cand-ruth-torres-h5",
     "tx-cand-travis-edwards-h5",
-    "tx-cand-chelsey-alexandra-hockett-h5",
-    "tx-cand-chelsey-alexandra-hockett-h5-5197"
+    "tx-cand-chelsey-alexandra-hockett-h5"
    ],
    "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the Texas Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
    "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
@@ -393,13 +391,11 @@
      "tx-cand-rob-altman-h10",
      "tx-cand-jeremy-story-h10",
      "tx-cand-jennifer-sharon-h10",
-     "tx-cand-robert-brown-h10",
-     "tx-cand-robert-brown-h10-7127"
+     "tx-cand-robert-brown-h10"
     ],
     "D": [
      "tx-cand-caitlin-mcclay-rourk-h10",
      "tx-cand-sarah-eckhardt-h10",
-     "tx-cand-sarah-eckhardt-h10-0262",
      "tx-cand-tayhlor-coleman-h10",
      "tx-cand-dawn-marshall-h10"
     ]
@@ -413,13 +409,11 @@
     "tx-cand-jessica-karlsruher-h10",
     "tx-cand-rob-altman-h10",
     "tx-cand-sarah-eckhardt-h10",
-    "tx-cand-sarah-eckhardt-h10-0262",
     "tx-cand-tayhlor-coleman-h10",
     "tx-cand-jeremy-story-h10",
     "tx-cand-jennifer-sharon-h10",
     "tx-cand-dawn-marshall-h10",
-    "tx-cand-robert-brown-h10",
-    "tx-cand-robert-brown-h10-7127"
+    "tx-cand-robert-brown-h10"
    ],
    "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the Texas Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
    "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
@@ -526,16 +520,14 @@
     "D": [
      "tx-cand-richard-harvey-davis-iii-h14",
      "tx-cand-thurman-bill-bartie-h14",
-     "tx-cand-konstantinos-vogiatzis-h14",
-     "tx-cand-konstantinos-vogiatzis-h14-4157"
+     "tx-cand-konstantinos-vogiatzis-h14"
     ]
    },
    "general_candidates": [
     "tx-cand-randy-k-weber-sr-h14",
     "tx-cand-richard-harvey-davis-iii-h14",
     "tx-cand-thurman-bill-bartie-h14",
-    "tx-cand-konstantinos-vogiatzis-h14",
-    "tx-cand-konstantinos-vogiatzis-h14-4157"
+    "tx-cand-konstantinos-vogiatzis-h14"
    ],
    "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the Texas Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
    "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
@@ -1056,7 +1048,6 @@
     "D": [
      "tx-cand-frederick-haynes-iii-h30",
      "tx-cand-barbara-mallory-caraway-h30",
-     "tx-cand-barbara-mallory-caraway-h30-0073",
      "tx-cand-rodney-labruce-h30"
     ]
    },
@@ -1065,7 +1056,6 @@
     "tx-cand-frederick-haynes-iii-h30",
     "tx-cand-gregor-heinrich-heise-h30",
     "tx-cand-barbara-mallory-caraway-h30",
-    "tx-cand-barbara-mallory-caraway-h30-0073",
     "tx-cand-everett-honorable-jackson-h30",
     "tx-cand-rodney-labruce-h30"
    ],

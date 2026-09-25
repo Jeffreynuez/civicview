@@ -174,7 +174,7 @@
         "chamber": "State Senate",
         "district": "10",
         "role": "State Senator",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/sen_thompson_mike_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/sen_thompson_mike_1/",
           "email": "mike.thompson@senate.ks.gov",
@@ -222,7 +222,7 @@
         "chamber": "State Senate",
         "district": "13",
         "role": "State Senator",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/sen_shallenburger_tim_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/sen_shallenburger_tim_1/",
           "email": "tim.shallenburger@senate.ks.gov",
@@ -771,7 +771,7 @@
         "chamber": "State House",
         "district": "7",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_goddard_dan_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_goddard_dan_1/",
           "email": "dan.goddard@house.ks.gov",
@@ -803,7 +803,7 @@
         "chamber": "State House",
         "district": "9",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_gardner_fred_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_gardner_fred_1/",
           "email": "fred.gardner@house.ks.gov",
@@ -1027,7 +1027,7 @@
         "chamber": "State House",
         "district": "23",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_ruiz_susan_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_ruiz_susan_1/",
           "email": "susan.ruiz@house.ks.gov",
@@ -1139,7 +1139,7 @@
         "chamber": "State House",
         "district": "30",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_williams_laura_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_williams_laura_1/",
           "email": "laura.williams@house.ks.gov",
@@ -1427,7 +1427,7 @@
         "chamber": "State House",
         "district": "48",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_osman_dan_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_osman_dan_1/",
           "email": "dan.osman@house.ks.gov",
@@ -1603,7 +1603,7 @@
         "chamber": "State House",
         "district": "59",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_schmoe_rebecca_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_schmoe_rebecca_1/",
           "email": "rebecca.schmoe@house.ks.gov",
@@ -1923,7 +1923,7 @@
         "chamber": "State House",
         "district": "79",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_roth_webster_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_roth_webster_1/",
           "email": "webster.roth@house.ks.gov",
@@ -2067,7 +2067,7 @@
         "chamber": "State House",
         "district": "88",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_pickert_sandy_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_pickert_sandy_1/",
           "email": "sandy.pickert@house.ks.gov",
@@ -2307,7 +2307,7 @@
         "chamber": "State House",
         "district": "103",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_martinez_angela_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_martinez_angela_1/",
           "email": "angela.martinez@house.ks.gov",
@@ -2531,7 +2531,7 @@
         "chamber": "State House",
         "district": "117",
         "role": "State Representative",
-        "photo_url": "http://www.kslegislature.org/li/s/images/pics/rep_turk_adam_1.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_turk_adam_1/",
           "email": "adam.turk@house.ks.gov",

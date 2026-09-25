@@ -418,7 +418,7 @@
         "chamber": "State Senate",
         "district": "24",
         "role": "State Senator",
-        "photo_url": "http://www.nmlegis.gov/Images/Legislators/House/HTRUL.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTRUL",
           "email": "linda.trujillo@nmlegis.gov",
@@ -482,7 +482,7 @@
         "chamber": "State Senate",
         "district": "28",
         "role": "State Senator",
-        "photo_url": "http://www.nmlegis.gov/Images/Legislators/Senate/SRAMO.jpg",
+        "photo_url": "https://www.nmlegis.gov/Images/Legislators/Senate/SRAMO.jpg",
         "contact": {
           "official_website": "https://www.linkedin.com/in/gabriel-ramos-a5aa74109/",
           "email": "gabriel.ramos@nmlegis.gov",

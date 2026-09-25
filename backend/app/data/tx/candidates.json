@@ -4111,7 +4111,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "duplicate_of": "tx-cand-sarah-eckhardt-h10",
+   "withdrawn": true,
+   "withdrawn_note": "Duplicate record (a second FEC candidate id, H6TX10262). See the current profile for Sarah Eckhardt."
   },
   "tx-cand-lauren-b-pena-h37": {
    "name": "Lauren B. Pena",
@@ -5596,7 +5599,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "duplicate_of": "tx-cand-barbara-mallory-caraway-h30",
+   "withdrawn": true,
+   "withdrawn_note": "Duplicate record (a second FEC candidate id, H0TX30073). See the current profile for Barbara Mallory Caraway."
   },
   "tx-cand-masika-akilah-ray-h1": {
    "name": "Masika Akilah Ray",
@@ -6028,7 +6034,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "duplicate_of": "tx-cand-konstantinos-vogiatzis-h14",
+   "withdrawn": true,
+   "withdrawn_note": "Duplicate record (a second FEC candidate id, H6TX14157). See the current profile for Konstantinos Vogiatzis."
   },
   "tx-cand-mauro-everett-garza-h34": {
    "name": "Mauro Everett Garza",
@@ -6298,7 +6307,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "duplicate_of": "tx-cand-chelsey-alexandra-hockett-h5",
+   "withdrawn": true,
+   "withdrawn_note": "Duplicate record (a second FEC candidate id, H6TX05197). See the current profile for Chelsey Alexandra Hockett."
   },
   "tx-cand-hector-miguel-cabildo-jr-h16": {
    "name": "Hector Miguel Cabildo Jr.",
@@ -6676,7 +6688,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "duplicate_of": "tx-cand-robert-brown-h10",
+   "withdrawn": true,
+   "withdrawn_note": "Duplicate record (a second FEC candidate id, H6TX17127). See the current profile for Robert Brown."
   },
   "tx-cand-william-p-abel-h31": {
    "name": "William P Abel",

@@ -2883,7 +2883,7 @@
         "chamber": "State House",
         "district": "145",
         "role": "State Representative",
-        "photo_url": "http://www.maine.gov/legis/house/photo128/folera.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/64",
           "email": "robert.foley@legislature.maine.gov",

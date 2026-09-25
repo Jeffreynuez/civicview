@@ -619,7 +619,7 @@
         "chamber": "State Senate",
         "district": "36",
         "role": "State Senator",
-        "photo_url": "http://votesmart.org/canphoto/16765.jpg",
+        "photo_url": "https://votesmart.org/canphoto/16765.jpg",
         "contact": {
           "official_website": "https://cssrc.us/web/19/",
           "email": "senator.strickland@senate.ca.gov",
@@ -1104,7 +1104,7 @@
         "chamber": "State Assembly",
         "district": "26",
         "role": "Assembly Member",
-        "photo_url": "http://www.fhda.edu/_images/PatrickAhrens2018.jpg",
+        "photo_url": "https://www.fhda.edu/_images/PatrickAhrens2018.jpg",
         "contact": {
           "official_website": "https://a26.asmdc.org/",
           "email": "assemblymember.ahrens@assembly.ca.gov",

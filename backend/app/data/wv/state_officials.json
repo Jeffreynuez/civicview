@@ -57,7 +57,7 @@
         "chamber": "State Senate",
         "district": "1",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/weld_ryan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/senate/weld_ryan.jpg",
         "contact": {
           "official_website": "https://ryanweld.com/",
           "email": "ryan.weld@wvsenate.gov",
@@ -73,7 +73,7 @@
         "chamber": "State Senate",
         "district": "2",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/clements_charles.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/senate/clements_charles.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Clements",
           "email": "charles.clements@wvsenate.gov",
@@ -121,7 +121,7 @@
         "chamber": "State Senate",
         "district": "3",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/barnhart_trenton.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/barnhart_trenton.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Barnhart",
           "email": "trenton.barnhart@wvsenate.gov",
@@ -153,7 +153,7 @@
         "chamber": "State Senate",
         "district": "4",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/tarr_eric.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/tarr_eric.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Tarr",
           "email": "eric.tarr@wvsenate.gov",
@@ -217,7 +217,7 @@
         "chamber": "State Senate",
         "district": "6",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/maynard_mark.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/maynard_mark.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Maynard",
           "email": "mark.maynard@wvsenate.gov",
@@ -233,7 +233,7 @@
         "chamber": "State Senate",
         "district": "7",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/phillips_rupie.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/senate/phillips_rupie.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Phillips",
           "email": "rupie.phillips@wvsenate.gov",
@@ -249,7 +249,7 @@
         "chamber": "State Senate",
         "district": "7",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/maynard_zack.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/maynard_zack.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Maynard",
           "email": "zack.maynard@wvsenate.gov",
@@ -265,7 +265,7 @@
         "chamber": "State Senate",
         "district": "8",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/jeffries_glenn.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/jeffries_glenn.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Jeffries",
           "email": "glenn.jeffries@wvsenate.gov",
@@ -281,7 +281,7 @@
         "chamber": "State Senate",
         "district": "8",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/bartlett_t.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2019/house/bartlett_t.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Bartlett",
           "email": "kevan.bartlett@wvsenate.gov",
@@ -313,7 +313,7 @@
         "chamber": "State Senate",
         "district": "9",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/roberts_rollan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/roberts_rollan.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Roberts",
           "email": "rollan.roberts@wvsenate.gov",
@@ -329,7 +329,7 @@
         "chamber": "State Senate",
         "district": "10",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/woodrum_jack.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/woodrum_jack.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Woodrum",
           "email": "jack.woodrum@wvsenate.gov",
@@ -345,7 +345,7 @@
         "chamber": "State Senate",
         "district": "10",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/deeds_vince.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/deeds_vince.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Deeds",
           "email": "vince.deeds@wvsenate.gov",
@@ -409,7 +409,7 @@
         "chamber": "State Senate",
         "district": "12",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/martin_patrick.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/senate/martin_patrick.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
           "email": "patrick.martin@wvsenate.gov",
@@ -441,7 +441,7 @@
         "chamber": "State Senate",
         "district": "13",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/oliverio_michael.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/oliverio_michael.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Oliverio",
           "email": "mike.oliverio@wvsenate.gov",
@@ -457,7 +457,7 @@
         "chamber": "State Senate",
         "district": "14",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/taylor_jay.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/taylor_jay.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Taylor",
           "email": "jay.taylor@wvsenate.gov",
@@ -489,7 +489,7 @@
         "chamber": "State Senate",
         "district": "15",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/thorne_darren.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/thorne_darren.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Thorne",
           "email": "darren.thorne@wvsenate.gov",
@@ -521,7 +521,7 @@
         "chamber": "State Senate",
         "district": "16",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/senate/barrett_jason.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/senate/barrett_jason.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Barrett",
           "email": "jason.barrett@wvsenate.gov",
@@ -569,7 +569,7 @@
         "chamber": "State Senate",
         "district": "17",
         "role": "State Senator",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/senate/takubo_tom.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/senate/takubo_tom.jpg",
         "contact": {
           "official_website": "https://senatortomtakubo.com/",
           "email": "tom.takubo@wvsenate.gov",
@@ -590,7 +590,7 @@
         "chamber": "House of Delegates",
         "district": "1",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/mcgeehan_pat.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/mcgeehan_pat.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+McGeehan",
           "email": "pat.mcgeehan@wvhouse.gov",
@@ -606,7 +606,7 @@
         "chamber": "House of Delegates",
         "district": "2",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/zatezalo_mark.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/zatezalo_mark.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Zatezalo",
           "email": "mark.zatezalo@wvhouse.gov",
@@ -622,7 +622,7 @@
         "chamber": "House of Delegates",
         "district": "3",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/willis_jimmy.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/willis_jimmy.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Willis",
           "email": "jimmy.willis@wvhouse.gov",
@@ -654,7 +654,7 @@
         "chamber": "House of Delegates",
         "district": "5",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/fluharty_shawn.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/fluharty_shawn.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Fluharty",
           "email": "shawn.fluharty@wvhouse.gov",
@@ -686,7 +686,7 @@
         "chamber": "House of Delegates",
         "district": "7",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/sheedy_charles.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/sheedy_charles.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Sheedy",
           "email": "charles.sheedy@wvhouse.gov",
@@ -734,7 +734,7 @@
         "chamber": "House of Delegates",
         "district": "10",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/anderson_bill.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2022/house/anderson_bill.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Anderson",
           "email": "bill.anderson@wvhouse.gov",
@@ -750,7 +750,7 @@
         "chamber": "House of Delegates",
         "district": "11",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/fehrenbacher_bob.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/fehrenbacher_bob.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Fehrenbacher",
           "email": "bob.fehrenbacher@wvhouse.gov",
@@ -782,7 +782,7 @@
         "chamber": "House of Delegates",
         "district": "13",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/heckert_scot.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/heckert_scot.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Heckert",
           "email": "scot.heckert@wvhouse.gov",
@@ -798,7 +798,7 @@
         "chamber": "House of Delegates",
         "district": "14",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/foggin_dave.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/foggin_dave.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Foggin",
           "email": "dave.foggin@wvhouse.gov",
@@ -814,7 +814,7 @@
         "chamber": "House of Delegates",
         "district": "15",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/moore_erica.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/moore_erica.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Moore",
           "email": "erica.moore@wvhouse.gov",
@@ -910,7 +910,7 @@
         "chamber": "House of Delegates",
         "district": "21",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/cannon_jarred.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2022/house/cannon_jarred.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Cannon",
           "email": "jarred.cannon@wvhouse.gov",
@@ -926,7 +926,7 @@
         "chamber": "House of Delegates",
         "district": "22",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/linville_daniel.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/linville_daniel.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Linville",
           "email": "daniel.linville@wvhouse.gov",
@@ -942,7 +942,7 @@
         "chamber": "House of Delegates",
         "district": "23",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/worrell_evan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/worrell_evan.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Worrell",
           "email": "evan.worrell@wvhouse.gov",
@@ -974,7 +974,7 @@
         "chamber": "House of Delegates",
         "district": "25",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hornbuckle_sean.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/hornbuckle_sean.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hornbuckle",
           "email": "sean.hornbuckle@wvhouse.gov",
@@ -990,7 +990,7 @@
         "chamber": "House of Delegates",
         "district": "26",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/rohrbach_matthew.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/rohrbach_matthew.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Rohrbach",
           "email": "matthew.rohrbach@wvhouse.gov",
@@ -1102,7 +1102,7 @@
         "chamber": "House of Delegates",
         "district": "33",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/bridges_jordan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/bridges_jordan.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Bridges",
           "email": "jordan.bridges@wvhouse.gov",
@@ -1118,7 +1118,7 @@
         "chamber": "House of Delegates",
         "district": "34",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/dean_mark.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/dean_mark.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Dean",
           "email": "mark.dean@wvhouse.gov",
@@ -1134,7 +1134,7 @@
         "chamber": "House of Delegates",
         "district": "35",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/vance_adam.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/vance_adam.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Vance",
           "email": "adam.vance@wvhouse.gov",
@@ -1166,7 +1166,7 @@
         "chamber": "House of Delegates",
         "district": "37",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/gearheart_marty.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/gearheart_marty.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Gearheart",
           "email": "marty.gearheart@wvhouse.gov",
@@ -1198,7 +1198,7 @@
         "chamber": "House of Delegates",
         "district": "39",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/smith_doug.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/smith_doug.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Smith",
           "email": "doug.smith@wvhouse.gov",
@@ -1230,7 +1230,7 @@
         "chamber": "House of Delegates",
         "district": "41",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/maynor_jordan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/maynor_jordan.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Maynor",
           "email": "jordan.maynor@wvhouse.gov",
@@ -1262,7 +1262,7 @@
         "chamber": "House of Delegates",
         "district": "43",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/toney_christopher.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/toney_christopher.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Toney",
           "email": "chris.toney@wvhouse.gov",
@@ -1438,7 +1438,7 @@
         "chamber": "House of Delegates",
         "district": "54",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/pushkin_mike.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/pushkin_mike.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Pushkin",
           "email": "mike.pushkin@wvhouse.gov",
@@ -1502,7 +1502,7 @@
         "chamber": "House of Delegates",
         "district": "58",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hall_walter.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/hall_walter.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hall",
           "email": "walter.hall@wvhouse.gov",
@@ -1518,7 +1518,7 @@
         "chamber": "House of Delegates",
         "district": "59",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/shamblin_andy.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/shamblin_andy.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Shamblin",
           "email": "andy.shamblin@wvhouse.gov",
@@ -1534,7 +1534,7 @@
         "chamber": "House of Delegates",
         "district": "60",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ferrell_dana.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/ferrell_dana.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ferrell",
           "email": "dana.ferrell@wvhouse.gov",
@@ -1550,7 +1550,7 @@
         "chamber": "House of Delegates",
         "district": "61",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2022/house/jeffries_dean.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2022/house/jeffries_dean.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jeffries",
           "email": "dean.jeffries@wvhouse.gov",
@@ -1566,7 +1566,7 @@
         "chamber": "House of Delegates",
         "district": "62",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/hanshaw_roger.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/hanshaw_roger.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Speaker+Hanshaw",
           "email": "roger.hanshaw@wvhouse.gov",
@@ -1614,7 +1614,7 @@
         "chamber": "House of Delegates",
         "district": "65",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/martin_carl.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2019/house/martin_carl.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
           "email": "carl.martin@wvhouse.gov",
@@ -1646,7 +1646,7 @@
         "chamber": "House of Delegates",
         "district": "67",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/coopgonzalez_elias.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/coopgonzalez_elias.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Coop-Gonzalez",
           "email": "elias.coop-gonzalez@wvhouse.gov",
@@ -1662,7 +1662,7 @@
         "chamber": "House of Delegates",
         "district": "68",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/phillips_chris.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2019/house/phillips_chris.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Phillips",
           "email": "chris.phillips@wvhouse.gov",
@@ -1678,7 +1678,7 @@
         "chamber": "House of Delegates",
         "district": "69",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/marple_keith.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/marple_keith.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Marple",
           "email": "keith.marple@wvhouse.gov",
@@ -1694,7 +1694,7 @@
         "chamber": "House of Delegates",
         "district": "70",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/petitto_mickey.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/petitto_mickey.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Petitto",
           "email": "mickey.petitto@wvhouse.gov",
@@ -1726,7 +1726,7 @@
         "chamber": "House of Delegates",
         "district": "72",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/riley_clay.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/riley_clay.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Riley",
           "email": "clay.riley@wvhouse.gov",
@@ -1774,7 +1774,7 @@
         "chamber": "House of Delegates",
         "district": "75",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/mallow_phil.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/mallow_phil.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Mallow",
           "email": "phil.mallow@wvhouse.gov",
@@ -1806,7 +1806,7 @@
         "chamber": "House of Delegates",
         "district": "77",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/statler_joe.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/statler_joe.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Statler",
           "email": "joe.statler@wvhouse.gov",
@@ -1838,7 +1838,7 @@
         "chamber": "House of Delegates",
         "district": "79",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2019/house/hansen_evan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2019/house/hansen_evan.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hansen",
           "email": "evan.hansen@wvhouse.gov",
@@ -1854,7 +1854,7 @@
         "chamber": "House of Delegates",
         "district": "80",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/williams_john.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/williams_john.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Williams",
           "email": "john.williams@wvhouse.gov",
@@ -1870,7 +1870,7 @@
         "chamber": "House of Delegates",
         "district": "81",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hamilton_anitra.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/hamilton_anitra.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hamilton",
           "email": "anitra.hamilton@wvhouse.gov",
@@ -1902,7 +1902,7 @@
         "chamber": "House of Delegates",
         "district": "83",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/street_george.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/street_george.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Street",
           "email": "george.street@wvhouse.gov",
@@ -1918,7 +1918,7 @@
         "chamber": "House of Delegates",
         "district": "84",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/jennings_d.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/jennings_d.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jennings",
           "email": "buck.jennings@wvhouse.gov",
@@ -1934,7 +1934,7 @@
         "chamber": "House of Delegates",
         "district": "85",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2021/house/hott_john.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2021/house/hott_john.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hott",
           "email": "johnpaul.hott@wvhouse.gov",
@@ -1950,7 +1950,7 @@
         "chamber": "House of Delegates",
         "district": "86",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ward_bryan.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/ward_bryan.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ward%2C+B.",
           "email": "bryan.ward@wvhouse.gov",
@@ -1966,7 +1966,7 @@
         "chamber": "House of Delegates",
         "district": "87",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/howell_gary.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/howell_gary.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Howell",
           "email": "gary.howell@wvhouse.gov",
@@ -2014,7 +2014,7 @@
         "chamber": "House of Delegates",
         "district": "90",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/miller_george.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/miller_george.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Miller",
           "email": "george.miller@wvhouse.gov",
@@ -2046,7 +2046,7 @@
         "chamber": "House of Delegates",
         "district": "92",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/hite_michael.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/hite_michael.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hite",
           "email": "michael.hite@wvhouse.gov",
@@ -2094,7 +2094,7 @@
         "chamber": "House of Delegates",
         "district": "95",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/horst_chuck.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/horst_chuck.jpg",
         "contact": {
           "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Horst",
           "email": "charles.horst@wvhouse.gov",
@@ -2174,7 +2174,7 @@
         "chamber": "House of Delegates",
         "district": "100",
         "role": "Delegate",
-        "photo_url": "http://www.wvlegislature.gov/images/members/2023/house/ridenour_bill.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/ridenour_bill.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Ridenour",
           "email": "bill.ridenour@wvhouse.gov",

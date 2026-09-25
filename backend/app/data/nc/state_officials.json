@@ -754,7 +754,7 @@
         "chamber": "State Senate",
         "district": "45",
         "role": "State Senator",
-        "photo_url": "http://www.ncga.state.nc.us/House/pictures/hiRes/619.jpg",
+        "photo_url": null,
         "contact": {
           "official_website": "https://www.ncga.state.nc.us/gascripts/members/viewMember.pl?sChamber=House&nUserID=619",
           "email": "mark.hollo@ncleg.gov",
