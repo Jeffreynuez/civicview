@@ -10,38 +10,16 @@
  * when the request fires wins, with the rep > candidate > citizen
  * priority enforced server-side.
  *
- * Mirrors the {data, error, status} response shape used elsewhere
- * in lib/pagesApi.js so callers don't have to special-case this
- * module. Shares the same multi-identity bearer-header pattern via
- * direct fetch (no helper to import — keeps this module standalone).
+ * Uses request() from lib/http.js, the shared client: every identity
+ * header, X-CSRF-Token with one retry on a stale token, a timeout, and
+ * the same {data, error, status} shape as lib/pagesApi.js. This module
+ * used to carry its own fetch and never sent the CSRF token, so every
+ * 2FA write for a signed-in user was rejected with 403 (audit B1, F4).
  */
-import { sendWithAuth } from './pagesApi';
+import { request } from './http';
 
-async function tfaRequest(path, { method = 'GET', body } = {}) {
-  try {
-    // sendWithAuth attaches every identity header plus X-CSRF-Token and
-    // retries once on a stale CSRF token. This module predated the CSRF
-    // middleware and never sent the token, so every 2FA write for a
-    // signed-in user was rejected with 403.
-    const res = await sendWithAuth(path, { method, body });
-    if (!res.ok) {
-      let detail = '';
-      try {
-        const payload = await res.json();
-        detail = payload?.detail || payload?.error || res.statusText;
-        if (Array.isArray(detail)) {
-          detail = detail.map((d) => d.msg || JSON.stringify(d)).join('; ');
-        }
-      } catch {
-        detail = res.statusText;
-      }
-      return { data: null, error: detail || `HTTP ${res.status}`, status: res.status };
-    }
-    if (res.status === 204) return { data: null, error: null, status: 204 };
-    return { data: await res.json(), error: null, status: res.status };
-  } catch (e) {
-    return { data: null, error: e?.message || 'Network error', status: 0 };
-  }
+function tfaRequest(path, { method = 'GET', body } = {}) {
+  return request(path, { method, body });
 }
 
 /**

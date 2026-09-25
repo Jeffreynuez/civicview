@@ -20,13 +20,8 @@
 //      every other write). Signed-in citizen => token binds to the
 //      account; anonymous => backend subscribes it to 'announcements'.
 
-import {
-  getStoredRepToken,
-  getStoredCitizenToken,
-  getStoredCandidateToken,
-} from './pagesApi';
+import { request } from './http';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
 
@@ -56,44 +51,14 @@ export function shouldOfferPush() {
   return isNativeApp() && !!plugin() && !getPushChoice();
 }
 
-// Identity-header fallback (2026-07-26 push deep dive): the Capacitor
-// shell's webview does NOT reliably deliver the httpOnly session
-// cookies cross-origin to api.civicview.app — which is exactly why
-// pagesApi.request() attaches X-Citizen-Token / Authorization /
-// X-Candidate-Token on every call. postJson below was cookie-only, so
-// every /api/push/register bound ANONYMOUSLY (device_tokens rows with
-// citizen_id NULL) and personal tracked-activity pushes went nowhere.
-// Same header trio here, same precedence as the backend resolver.
-function identityHeaders() {
-  const h = {};
-  try {
-    const repToken = getStoredRepToken();
-    const citizenToken = getStoredCitizenToken();
-    const candidateToken = getStoredCandidateToken();
-    if (repToken) h['Authorization'] = `Bearer ${repToken}`;
-    if (citizenToken) h['X-Citizen-Token'] = citizenToken;
-    if (candidateToken) h['X-Candidate-Token'] = candidateToken;
-  } catch { /* storage unavailable — cookie-only fallback */ }
-  return h;
-}
-
-async function csrfToken() {
-  // Best-effort — anonymous devices may have no session (nothing to
-  // CSRF-protect); missing token is fine. BUG FIX (2026-07-26): this
-  // used to read data.token || data.csrf_token, but /api/csrf actually
-  // returns {rep_csrf, citizen_csrf, candidate_csrf} — so the header
-  // was ALWAYS null. Citizen first: push binding targets the citizen
-  // session (get_optional_citizen on /api/push/register).
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/csrf`, {
-      credentials: 'include',
-      headers: identityHeaders(),
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data?.citizen_csrf || data?.rep_csrf || data?.candidate_csrf || null;
-  } catch { return null; }
-}
+// Identity headers and CSRF (2026-07-26 push deep dive, audit F4): the
+// Capacitor webview does not reliably send the httpOnly session cookies
+// cross-origin to api.civicview.app, so a cookie-only register bound
+// every device anonymously. Requests now go through request() in
+// lib/http.js, which sends every identity header and the stored CSRF
+// token and refreshes the token once on a mismatch. This file used to
+// keep its own copy of that logic, which read the wrong /api/csrf field
+// for months.
 
 /**
  * Optional v2 register fields (Notifications v2 parts 3+4):
@@ -132,17 +97,9 @@ async function v2RegisterFields() {
 }
 
 async function postJson(path, body) {
-  const headers = { 'Content-Type': 'application/json', ...identityHeaders() };
-  const csrf = await csrfToken();
-  if (csrf) headers['X-CSRF-Token'] = csrf;
-  const res = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers,
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error(`push api ${path} -> ${res.status}`);
-  return res.json();
+  const { data, error, status } = await request(path, { method: 'POST', body });
+  if (error) throw new Error(`push api ${path} -> ${status || error}`);
+  return data;
 }
 
 /**

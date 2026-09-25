@@ -12,8 +12,7 @@
 // Voters always answer optionally; this only chooses which questions appear.
 
 import { useEffect, useState } from 'react';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { getJson } from '../../lib/http';
 
 export default function PollDemographicsPicker({ value = [], onChange, threshold = 10, onThresholdChange }) {
   const [catalog, setCatalog] = useState([]);
@@ -24,10 +23,8 @@ export default function PollDemographicsPicker({ value = [], onChange, threshold
     let alive = true;
     (async () => {
       try {
-        const r = await fetch(`${API_BASE}/api/polls/demographics/catalog`);
-        if (!r.ok) return;
-        const j = await r.json();
-        if (alive) setCatalog(j.questions || []);
+        const j = await getJson('/api/polls/demographics/catalog');
+        if (alive) setCatalog((j && j.questions) || []);
       } catch { /* optional feature — ignore */ }
     })();
     return () => { alive = false; };

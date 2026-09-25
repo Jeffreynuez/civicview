@@ -11,276 +11,34 @@
  * Response convention mirrors lib/api.js: `{ data, error }` tuples so
  * callers don't need try/catch around every fetch.
  */
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Tokens, CSRF, timeouts and the fetch itself live in lib/http.js, the
+// one HTTP client every module shares (audit F4). They are re-exported
+// here so existing imports from './pagesApi' keep working.
+import {
+  API_BASE_URL,
+  request,
+  setStoredRepToken,
+  setStoredCitizenToken,
+  setStoredCandidateToken,
+} from './http';
 
-// ── Token storage ─────────────────────────────────────────────────────
-// Mobile browsers (Samsung Internet, Safari with ITP, etc.) block
-// cross-site cookies by default, so the httpOnly cl_session /
-// cl_citizen / cl_candidate cookies the backend sets on
-// civicview-api.onrender.com never make it back when the frontend
-// on civicview.app fetches. As a fallback we mirror each login
-// token into localStorage and attach it via:
-//   • `Authorization: Bearer ...`   (rep)
-//   • `X-Citizen-Token: <token>`    (citizen)
-//   • `X-Candidate-Token: <token>`  (candidate)
-// on every request. The backend accepts either cookies or headers.
-//
-// In-memory fallback handles SSR / private-mode Safari where
-// localStorage may throw.
-const REP_TOKEN_KEY = 'cl:rep_token';
-const CITIZEN_TOKEN_KEY = 'cl:citizen_token';
-const CANDIDATE_TOKEN_KEY = 'cl:candidate_token';
-const _memTokens = { rep: null, citizen: null, candidate: null };
-
-function _safeStorageGet(key) {
-  try {
-    if (typeof window === 'undefined') return null;
-    return window.localStorage.getItem(key);
-  } catch { return null; }
-}
-function _safeStorageSet(key, value) {
-  try {
-    if (typeof window === 'undefined') return;
-    if (value == null) window.localStorage.removeItem(key);
-    else window.localStorage.setItem(key, value);
-  } catch { /* ignore — fall back to in-memory */ }
-}
-
-export function getStoredRepToken() {
-  return _memTokens.rep || _safeStorageGet(REP_TOKEN_KEY) || null;
-}
-export function setStoredRepToken(token) {
-  _memTokens.rep = token || null;
-  _safeStorageSet(REP_TOKEN_KEY, token || null);
-}
-export function getStoredCitizenToken() {
-  return _memTokens.citizen || _safeStorageGet(CITIZEN_TOKEN_KEY) || null;
-}
-export function setStoredCitizenToken(token) {
-  _memTokens.citizen = token || null;
-  _safeStorageSet(CITIZEN_TOKEN_KEY, token || null);
-}
-export function getStoredCandidateToken() {
-  return _memTokens.candidate || _safeStorageGet(CANDIDATE_TOKEN_KEY) || null;
-}
-export function setStoredCandidateToken(token) {
-  _memTokens.candidate = token || null;
-  _safeStorageSet(CANDIDATE_TOKEN_KEY, token || null);
-}
-
-// ── CSRF storage (Task #31) ──────────────────────────────────────────
-// Per-identity CSRF tokens. Each is HMAC(SESSION_SECRET, session_token)
-// computed by the backend at login time and on /api/csrf. The frontend
-// stores all three and attaches the appropriate one as X-CSRF-Token on
-// non-GET fetches. If the request carries multiple auth tokens (multi-
-// identity browser), preference order is rep → citizen → candidate —
-// arbitrary but stable; the backend's middleware accepts a match
-// against any active session.
-const REP_CSRF_KEY = 'cl:rep_csrf';
-const CITIZEN_CSRF_KEY = 'cl:citizen_csrf';
-const CANDIDATE_CSRF_KEY = 'cl:candidate_csrf';
-const _memCsrfs = { rep: null, citizen: null, candidate: null };
-
-export function getStoredRepCsrf() {
-  return _memCsrfs.rep || _safeStorageGet(REP_CSRF_KEY) || null;
-}
-export function setStoredRepCsrf(value) {
-  _memCsrfs.rep = value || null;
-  _safeStorageSet(REP_CSRF_KEY, value || null);
-}
-export function getStoredCitizenCsrf() {
-  return _memCsrfs.citizen || _safeStorageGet(CITIZEN_CSRF_KEY) || null;
-}
-export function setStoredCitizenCsrf(value) {
-  _memCsrfs.citizen = value || null;
-  _safeStorageSet(CITIZEN_CSRF_KEY, value || null);
-}
-export function getStoredCandidateCsrf() {
-  return _memCsrfs.candidate || _safeStorageGet(CANDIDATE_CSRF_KEY) || null;
-}
-export function setStoredCandidateCsrf(value) {
-  _memCsrfs.candidate = value || null;
-  _safeStorageSet(CANDIDATE_CSRF_KEY, value || null);
-}
-
-// Pick the right CSRF for a request based on which auth tokens are
-// loaded. Returns null when no identity is signed in (anonymous
-// requests don't need a CSRF — the backend middleware skips the
-// check on no-session paths). Preference order matches the auth
-// header attachment order in request() below.
-function _pickActiveCsrf() {
-  if (getStoredRepToken() && getStoredRepCsrf()) return getStoredRepCsrf();
-  if (getStoredCitizenToken() && getStoredCitizenCsrf()) return getStoredCitizenCsrf();
-  if (getStoredCandidateToken() && getStoredCandidateCsrf()) return getStoredCandidateCsrf();
-  return null;
-}
-
-// Fetch /api/csrf and persist all three tokens. Called on:
-//   • A 403 csrf_token_mismatch response (auto-recovery, see request()).
-//   • Explicit invocation from auth flows after login / logout to keep
-//     the CSRF store fresh alongside the session tokens themselves.
-// Safe to call at any time. Always returns a Promise that resolves
-// once storage is updated (or quietly resolves on network error so
-// callers can retry on their own schedule).
-export async function fetchCsrf() {
-  try {
-    const repToken = getStoredRepToken();
-    const citizenToken = getStoredCitizenToken();
-    const candidateToken = getStoredCandidateToken();
-    const headers = {};
-    if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
-    if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
-    if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
-    const res = await fetch(`${API_BASE_URL}/api/csrf`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: Object.keys(headers).length ? headers : undefined,
-    });
-    if (!res.ok) return;
-    const data = await res.json();
-    setStoredRepCsrf(data?.rep_csrf || null);
-    setStoredCitizenCsrf(data?.citizen_csrf || null);
-    setStoredCandidateCsrf(data?.candidate_csrf || null);
-  } catch {
-    // Network error — leave whatever's in storage. Next non-GET
-    // attempt will retry via the 403-recovery path in request().
-  }
-}
-
-// Methods that need CSRF protection on the client side. GET/HEAD/OPTIONS
-// don't carry CSRF — the backend skips the check on safe methods.
-const _UNSAFE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
-
-// Internal worker that does the actual fetch. Pulled out of request()
-// so the csrf-mismatch retry path can re-invoke it without re-running
-// the URL/query-string assembly.
-async function _doFetch(url, method, body, extraCsrfOverride) {
-  const headers = {};
-  // FormData (multipart uploads) must NOT get a Content-Type header: the
-  // browser sets it with the multipart boundary.
-  const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
-  if (body && !isForm) headers['Content-Type'] = 'application/json';
-  const repToken = getStoredRepToken();
-  const citizenToken = getStoredCitizenToken();
-  const candidateToken = getStoredCandidateToken();
-  if (repToken) headers['Authorization'] = `Bearer ${repToken}`;
-  if (citizenToken) headers['X-Citizen-Token'] = citizenToken;
-  if (candidateToken) headers['X-Candidate-Token'] = candidateToken;
-  // Attach CSRF on non-GET. extraCsrfOverride lets the retry path
-  // force-use a freshly-fetched token without re-reading storage.
-  if (_UNSAFE_METHODS.has(method.toUpperCase())) {
-    const csrf = extraCsrfOverride !== undefined ? extraCsrfOverride : _pickActiveCsrf();
-    if (csrf) headers['X-CSRF-Token'] = csrf;
-  }
-  return fetch(url, {
-    method,
-    credentials: 'include',
-    headers: Object.keys(headers).length ? headers : undefined,
-    body: body ? (isForm ? body : JSON.stringify(body)) : undefined,
-  });
-}
-
-// Send with every identity header, the CSRF token, and one automatic
-// retry after a csrf_token_mismatch. Returns the raw Response so callers
-// with their own response handling (2FA, image upload) get the same
-// auth + CSRF behavior as request(). Those two paths used to call
-// fetch() directly and never sent X-CSRF-Token, so the backend rejected
-// every 2FA enroll/verify/disable and every post image upload for a
-// signed-in user with 403 (audit finding B1, 2026-09-24).
-export async function sendWithAuth(path, { method = 'GET', body } = {}) {
-  const url = `${API_BASE_URL}${path}`;
-  let res = await _doFetch(url, method, body);
-  if (res.status === 403 && _UNSAFE_METHODS.has(method.toUpperCase())) {
-    let code = null;
-    try {
-      const peek = await res.clone().json();
-      code = peek?.code || null;
-    } catch { /* not JSON */ }
-    if (code === 'csrf_token_mismatch') {
-      await fetchCsrf();
-      res = await _doFetch(url, method, body);
-    }
-  }
-  return res;
-}
-
-async function request(path, { method = 'GET', body, query } = {}) {
-  try {
-    let url = `${API_BASE_URL}${path}`;
-    if (query) {
-      // Build the query string by hand so array values append repeated
-      // params (e.g. { kind: ['rep', 'standalone'] } → "?kind=rep&kind=standalone").
-      // URLSearchParams's array support is implementation-specific, so
-      // we iterate explicitly to keep behavior identical across runtimes.
-      const q = new URLSearchParams();
-      for (const [k, v] of Object.entries(query)) {
-        if (v === undefined || v === null || v === '') continue;
-        if (Array.isArray(v)) {
-          for (const item of v) {
-            if (item === undefined || item === null || item === '') continue;
-            q.append(k, String(item));
-          }
-        } else {
-          q.append(k, String(v));
-        }
-      }
-      const qs = q.toString();
-      if (qs) url += `?${qs}`;
-    }
-    let res = await _doFetch(url, method, body);
-
-    // CSRF auto-recovery (Task #31). If the backend rejects with
-    // 403 + code='csrf_token_mismatch' (stale stored CSRF, session
-    // rotated, fresh browser tab on an existing session, etc.),
-    // fetch a fresh batch from /api/csrf and retry the original
-    // request ONCE. If the retry still fails, fall through to the
-    // normal error path so the caller sees a real failure.
-    if (res.status === 403 && _UNSAFE_METHODS.has(method.toUpperCase())) {
-      let code = null;
-      // Peek at the body without consuming res twice — clone.
-      try {
-        const peek = await res.clone().json();
-        code = peek?.code || null;
-      } catch { /* not JSON, fall through */ }
-      if (code === 'csrf_token_mismatch') {
-        await fetchCsrf();
-        res = await _doFetch(url, method, body);
-      }
-    }
-
-    if (!res.ok) {
-      let detail = '';
-      let parsedPayload = null;
-      try {
-        parsedPayload = await res.json();
-        detail = parsedPayload?.detail || parsedPayload?.error || res.statusText;
-        if (Array.isArray(detail)) {
-          detail = detail.map((d) => d.msg || JSON.stringify(d)).join('; ');
-        }
-        // Structured detail (Task #56 revision — 423 Locked carries
-        // {message, code, locked_until} so the UI can render a
-        // countdown). Extract a string for the `error` field; the
-        // full object is still available via `payload` below.
-        if (detail && typeof detail === 'object') {
-          detail = detail.message || detail.detail || JSON.stringify(detail);
-        }
-      } catch {
-        detail = res.statusText;
-      }
-      return {
-        data: null,
-        error: detail || `HTTP ${res.status}`,
-        status: res.status,
-        payload: parsedPayload,
-      };
-    }
-    if (res.status === 204) return { data: null, error: null, status: 204 };
-    const data = await res.json();
-    return { data, error: null, status: res.status };
-  } catch (e) {
-    return { data: null, error: e?.message || 'Network error', status: 0 };
-  }
-}
+export {
+  API_BASE_URL,
+  sendWithAuth,
+  fetchCsrf,
+  getStoredRepToken,
+  setStoredRepToken,
+  getStoredCitizenToken,
+  setStoredCitizenToken,
+  getStoredCandidateToken,
+  setStoredCandidateToken,
+  getStoredRepCsrf,
+  setStoredRepCsrf,
+  getStoredCitizenCsrf,
+  setStoredCitizenCsrf,
+  getStoredCandidateCsrf,
+  setStoredCandidateCsrf,
+} from './http';
 
 // ── AI features ───────────────────────────────────────────────────────
 // Lightweight client wrappers for /api/ai/*. The endpoints degrade
@@ -683,22 +441,13 @@ export async function fetchOwnerDashboard(officialId, { scope } = {}) {
 // `url` is a relative path that resolveImageUrl() prefixes with the
 // API base so the <img src> works cross-origin in dev.
 export async function uploadPostImage(file) {
-  try {
-    const form = new FormData();
-    form.append('file', file);
-    // Same identity headers and CSRF token as every other write, and the
-    // candidate token too (candidates upload images on their pages).
-    const res = await sendWithAuth('/api/pages/images/upload', { method: 'POST', body: form });
-    if (!res.ok) {
-      let detail = '';
-      try { detail = (await res.json()).detail; } catch { detail = res.statusText; }
-      return { data: null, error: detail || `HTTP ${res.status}`, status: res.status };
-    }
-    const data = await res.json();
-    return { data, error: null, status: res.status };
-  } catch (e) {
-    return { data: null, error: e?.message || 'Upload failed', status: 0 };
-  }
+  const form = new FormData();
+  form.append('file', file);
+  // Same identity headers and CSRF token as every other write, and the
+  // candidate token too (candidates upload images on their pages).
+  // request() leaves Content-Type to the browser for FormData and
+  // allows uploads a longer timeout.
+  return request('/api/pages/images/upload', { method: 'POST', body: form });
 }
 
 export function resolveImageUrl(url) {

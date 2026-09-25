@@ -17,8 +17,7 @@ import {
   saveDemographicProfile,
   clearDemographicProfile,
 } from '../lib/pagesApi';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { getJson } from '../lib/http';
 
 export default function DemographicProfileSection() {
   const [questions, setQuestions] = useState([]); // standard-tier only
@@ -30,8 +29,7 @@ export default function DemographicProfileSection() {
     let alive = true;
     (async () => {
       try {
-        const r = await fetch(`${API_BASE}/api/polls/demographics/catalog`);
-        const j = r.ok ? await r.json() : { questions: [] };
+        const j = (await getJson('/api/polls/demographics/catalog')) || { questions: [] };
         if (alive) setQuestions((j.questions || []).filter((q) => q.tier !== 'sensitive'));
       } catch { /* optional */ }
       try {
