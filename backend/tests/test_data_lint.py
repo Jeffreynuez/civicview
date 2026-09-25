@@ -30,6 +30,11 @@ Officials (every <state>/state_officials.json, fl/local_officials.json,
 federal/federal_officials.json):
   O-1  ids are unique within the file
   O-2  the same person is not listed twice for the same office
+Photo credits:
+  P-1  every Wikimedia Commons photo in the data has an entry in
+       photo_credits.json with a file page and a license, and every
+       entry there is still used (audit P2; run
+       scripts/build_photo_credits.py --write after changing photos)
 Everywhere:
   A-1  no placeholder domains (example.com / .org / .net, localhost)
   A-2  photo, website and source URLs are https
@@ -296,6 +301,27 @@ def lint_officials(path: Path) -> None:
             problem("O-2", where, f"{name!r} listed {n} times as {office!r}{' ' + district if district else ''}")
 
 
+WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")
+
+
+def lint_photo_credits(files) -> None:
+    path = DATA / "photo_credits.json"
+    credits = _load(path).get("credits", {}) if path.exists() else {}
+    used: set[str] = set()
+    for f in files:
+        if f == path:
+            continue
+        for url in set(WIKIMEDIA_RE.findall(f.read_text(encoding="utf-8"))):
+            used.add(url)
+            entry = credits.get(url)
+            if not entry:
+                problem("P-1", _rel(f), f"no photo credit for {url[:90]}")
+            elif not entry.get("file_page") or not entry.get("license"):
+                problem("P-1", _rel(f), f"photo credit missing file page or license for {url[:90]}")
+    for url in sorted(set(credits) - used):
+        problem("P-1", "photo_credits.json", f"credit for a photo no longer used anywhere: {url[:90]}")
+
+
 def main() -> int:
     state_dirs = sorted(p for p in DATA.iterdir() if p.is_dir() and not p.name.startswith("_") and p.name != "federal")
     files = sorted(DATA.rglob("*.json"))
@@ -311,6 +337,7 @@ def main() -> int:
     if (DATA / "fl" / "local_officials.json").exists():
         lint_officials(DATA / "fl" / "local_officials.json")
     lint_officials(DATA / "federal" / "federal_officials.json")
+    lint_photo_credits(files)
 
     print(f"Checked {len(files)} data files.")
     if problems:

@@ -13,6 +13,8 @@ import {
 } from '../lib/trackedOfficials';
 import PageButton from './PageButton';
 import TabStrip from './TabStrip';
+import PhotoCredit from './PhotoCredit';
+import { isWikimediaPhoto } from '@/lib/photoCredits';
 
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent', NP: 'Non-partisan' };
 
@@ -512,7 +514,12 @@ export default function CandidateProfile({
               )}
             </div>
           )}
-          {c.photo_credit && c.photo_source !== 'congress' && (
+          {/* Wikimedia Commons photos get the full credit (author,
+              license, link; audit P2). Other sourced photos keep the
+              plain credit line. */}
+          {isWikimediaPhoto(c.photo_url) ? (
+            <PhotoCredit url={c.photo_url} tone="dark" style={{ marginTop: '-6px' }} />
+          ) : c.photo_credit && c.photo_source !== 'congress' && (
             <div style={{ fontSize: '0.66rem', color: 'rgba(255,255,255,0.6)', marginTop: '-6px', marginBottom: '8px' }}>
               Photo: {c.photo_credit}
             </div>

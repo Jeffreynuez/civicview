@@ -30,6 +30,7 @@ import ViewerScopeFilter from './ViewerScopeFilter';
 import Dashboard from './Dashboard';
 import CitizenPollsSection from './CitizenPollsSection';
 import Navbar from './Navbar';
+import PhotoCredit from './PhotoCredit';
 import TwoFactorSection from './TwoFactorSection';
 import { Skeleton, EmptyState, ErrorState, Newspaper } from './ui';
 import { useIsCompact } from '@/lib/useViewport';
@@ -664,6 +665,9 @@ export default function PageView({
                     </>
                   )}
                 </div>
+                {photoUrl && (
+                  <PhotoCredit url={photoUrl} style={{ margin: '4px 0 0', maxWidth: 'none' }} />
+                )}
               </div>
               </div>{/* /photo + info row */}
               {/* Track this page (2026-07-25) — every page is followable
