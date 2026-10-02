@@ -13,7 +13,12 @@
  * address fields, waitlist notes, AI search text), and corrected the
  * IP retention and deletion statements. 2026-09-25: the map stylesheet
  * is now bundled with the app, so unpkg no longer receives requests and
- * was taken off the list. Earlier notes:
+ * was taken off the list. 2026-10-01: the ID.me entries now match
+ * routers/identity_verification.py and services/idme_service.py (the
+ * legal name kept encrypted, city and state from the verified address,
+ * the street address kept only as a one-way hash, the date of birth
+ * neither read nor stored), and the deletion entry now lists the name
+ * and address hashes the verification archive keeps. Earlier notes:
  *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
  *    cookies + bearer-token mirror.
  *  - ID.me verification on citizens; verification hash preserved
@@ -29,7 +34,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="September 25, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 1, 2026">
       <p>
         This policy describes what CivicView collects, why we collect it,
         who can see it, and how long we keep it. We've tried to write it in
@@ -54,7 +59,7 @@ export default function PrivacyPage() {
         <li><strong>Contact email (optional, demo accounts)</strong>: if you add one, we use it only to tell you before demo accounts are retired.</li>
         <li><strong>Display name</strong>: shown next to your comments + poll votes. You choose what to use.</li>
         <li><strong>City, state, and (optional) congressional district</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Required.</li>
-        <li><strong>Address verification status (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date, plus the street address and ZIP code ID.me confirms, which we use to place you in the right districts. We never receive the documents ID.me used.</li>
+        <li><strong>Identity verification (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date; your legal name as ID.me confirms it, stored encrypted so it can only be read with our application secret; and the city and state from the address ID.me confirms, which replace the ones you entered. Your street address itself is not stored. We keep only a one-way hash of it, salted with our application secret, which we use with a one-way hash of your name to recognize someone who has already verified, so we don&apos;t pay to verify the same person twice. ID.me&apos;s reply may also include your date of birth; we don&apos;t read or store it. We never receive the documents ID.me used.</li>
         <li><strong>Engagement history</strong>: the polls you've voted in, posts you've reacted to, comments you've made. Tied to your account.</li>
         <li><strong>Optional poll questions</strong>: some polls include questions the poll&apos;s creator chose, such as age range or party, and on some polls race, religion or income. Answering is optional. Answers are stored with your vote so you can change them until the poll closes, are counted only from verified accounts, and are published only as totals for groups of at least 10 people, never tied to you. You can also save the non-sensitive answers as a reusable profile; sensitive categories are never saved to it, and you can clear it from your dashboard.</li>
       </ul>
@@ -140,7 +145,7 @@ export default function PrivacyPage() {
 
       <h3>Third parties we share data with</h3>
       <ul>
-        <li><strong>ID.me</strong>: for citizen identity verification. They see what they need to verify you (name, address, ID document); we receive only the verification result. Their{' '}
+        <li><strong>ID.me</strong>: for citizen identity verification. Verification happens on ID.me&apos;s own site. They see what they need to verify you (such as your name, address, date of birth and ID document). We receive the result along with your name and address, and keep only what&apos;s listed under Identity verification above. Their{' '}
           <a href="https://www.id.me/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>{' '}applies to their handling of that data.</li>
         <li><strong>Anthropic</strong>: for AI features. We use Anthropic&apos;s Claude models to (a) generate plain-English summaries of public bills, votes, and executive orders (only public government text is sent), (b) classify and moderate user-generated content: when you create a poll or post a comment, its text is sent to Anthropic to tag it (sentiment, tone, topic) and to screen it for safety and policy violations, and (c) run AI search: the words you type into an AI search box are sent along with the list of items being searched. We do not send your email, address, ID verification, or engagement history. When AI search filters a comment thread, the public display names shown on those comments are included. Anthropic processes this content on our behalf and does not use it to train its models.</li>
         <li><strong>Postmark</strong>: sends account email such as password reset links. Sees your email address and the message.</li>
@@ -167,7 +172,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Active accounts:</strong> kept indefinitely until you delete.</li>
         <li><strong>Soft-deleted accounts:</strong> kept for 30 days, then permanently purged. During the grace period you can sign back in and recover.</li>
-        <li><strong>Permanently deleted accounts:</strong> the account, your content (posts, polls you started, comments, reactions, and your answers to optional poll questions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. Your votes on other people&apos;s polls stay in their totals with no link to you. We keep three things. For verified citizens, a one-way hash of your email and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hash is salted with our application secret, so it can&apos;t be turned back into your email even if it leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
+        <li><strong>Permanently deleted accounts:</strong> the account, your content (posts, polls you started, comments, reactions, and your answers to optional poll questions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. Your votes on other people&apos;s polls stay in their totals with no link to you. We keep three things. For verified citizens, one-way hashes of your email, your verified name and your verified street address, and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hashes are salted with our application secret, so they can&apos;t be turned back into your email, name or address even if they leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
         <li><strong>Sign-in records:</strong> about 90 days (older records are deleted whenever our server restarts).</li>
         <li><strong>Content hidden by moderation:</strong> stays in our database, hidden from everyone but its author, so it can be appealed and decisions can be reviewed. Reports are kept with that history.</li>
         <li><strong>Admin actions:</strong> suspensions and decisions on reports are recorded in our server logs. We don&apos;t yet keep a separate admin audit table.</li>

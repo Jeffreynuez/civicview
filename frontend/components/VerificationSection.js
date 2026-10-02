@@ -97,8 +97,9 @@ export default function VerificationSection({ citizen }) {
         <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
           You&rsquo;re verified via {labelMethod(citizen.verified_method)}
           {citizen.verified_at ? ` · since ${formatDate(citizen.verified_at)}` : ''}.
-          We store the verification flag, your state, and a one-way hash of
-          your address &mdash; nothing else from ID.me lives on our servers.
+          We store the verification flag and date, your legal name
+          (encrypted), your city and state, and a one-way hash of your
+          street address. Nothing else from ID.me is kept on our servers.
         </p>
       )}
 
