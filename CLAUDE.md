@@ -343,6 +343,24 @@ should reach for these first.
 - **`IdentityPicker`** + **`PostingAsPicker`** — see the "Act as"
   section above. Required for every engagement write surface.
 
+- **`PageChrome`** (`frontend/components/PageChrome.js`, 2026-10-03):
+  the header for any standalone route: navbar + translucent back row
+  pinned together (`StickyPageHeader`), with every navbar button
+  (Citizen login, Subscribe, My Tracked, dashboard, Help build,
+  Feedback) opening its window on the page, never `router.push('/')`.
+  Used by /bills, /stats and the 404; /polls has the same set inline.
+  Any wrapper holding a sticky header needs `flex-shrink: 0`, because
+  `<body>` is a fixed-height flex column that does the scrolling.
+  Deep components ask for the sign-in with `requestCitizenLogin()`
+  (`lib/loginRequest.js`) instead of threading a callback.
+
+- **`BillReactions`** + **`BillScopeProvider`**
+  (`frontend/components/bills/`): bill likes on every bill surface.
+  State / district counts use the page's rep on a profile (their
+  constituents) and the viewer's own geography elsewhere (Jeffrey,
+  2026-10-03). Per-viewer data, so the API lives at `/api/engagement`,
+  never under the edge-cached `/api/bills`.
+
 **CSS topology rule:** Component styles co-locate with the component.
 Page chrome stays in the page-route stylesheet. FeedCard's styles
 live in `frontend/components/polls/FeedCard.css` (imported by
