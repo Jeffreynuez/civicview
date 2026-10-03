@@ -1088,14 +1088,25 @@ def promote_candidate(
     # Mint the new rep account. We do NOT reuse the defeated rep's
     # row even when one existed — a fresh row keeps the audit trail
     # readable and avoids accidentally inheriting suspended state.
+    # Scope fields carry over from the candidate account. When the
+    # candidate had none, fall back to the curated officials index for
+    # the seat they now hold, so the new rep's State / District
+    # filters work from day one (2026-10-03).
+    new_state, new_district = candidate.owner_state, candidate.owner_district
+    if not new_state or not new_district:
+        from app.services.officials_index import owner_scope_fallback
+        geo_state, geo_district = owner_scope_fallback(new_official_id)
+        new_state = new_state or geo_state
+        if not new_district and geo_district and new_state and geo_district.startswith(f"{new_state}-"):
+            new_district = geo_district
     new_rep = RepAccount(
         email=candidate.email,
         password_hash=hash_password(payload.new_password),
         display_name=candidate.display_name,
         official_id=new_official_id,
         role=(payload.new_role or "").strip() or None,
-        owner_state=candidate.owner_state,
-        owner_district=candidate.owner_district,
+        owner_state=new_state,
+        owner_district=new_district,
         owner_city=candidate.owner_city,
         is_active=True,
     )

@@ -3,7 +3,7 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPost, uploadPostImage, resolveImageUrl } from '../lib/pagesApi';
 import PollDemographicsPicker from './polls/PollDemographicsPicker';
 import { Button } from './ui';
@@ -85,6 +85,19 @@ export default function PostComposer({
   // specific signal by default.
   const defaultScope = allowedScopes[allowedScopes.length - 1] || 'country';
   const [scope, setScope] = useState(defaultScope);
+  // Follow the default until the author picks a chip themselves. The
+  // allowed scopes can arrive after first render (page payload still
+  // loading), and useState only reads its initial value once, so
+  // without this the composer stayed stuck on whatever was known at
+  // mount. A pick the author made is never overridden, unless the
+  // scope they picked stops being offered at all.
+  const scopeTouchedRef = useRef(false);
+  useEffect(() => {
+    if (!scopeTouchedRef.current || !allowedScopes.includes(scope)) {
+      setScope(defaultScope);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultScope, allowedScopes.join(',')]);
   // Timer controls. `timing` is the chosen strategy, the other three
   // are just the input buffers — they're only read if `timing` picks
   // their shape.
@@ -131,7 +144,7 @@ export default function PostComposer({
 
   const reset = () => {
     setBody(''); setQuestion(''); setOptions(['', '']);
-    setPollOpen(false); setErr(null); setScope(defaultScope);
+    setPollOpen(false); setErr(null); setScope(defaultScope); scopeTouchedRef.current = false;
     setTiming('none'); setDurationValue('24'); setDurationUnit('hours');
     setDateValue(''); setPresentationMode('full');
     setImages([]);
@@ -448,7 +461,7 @@ export default function PostComposer({
                   <button
                     key={s}
                     type="button"
-                    onClick={() => setScope(s)}
+                    onClick={() => { scopeTouchedRef.current = true; setScope(s); }}
                     title={meta.hint}
                     style={{
                       padding: '5px 10px',
@@ -466,7 +479,10 @@ export default function PostComposer({
               })}
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '5px', fontStyle: 'italic' }}>
-              {SCOPE_META[scope]?.hint || ''} — viewers will see these counts first.
+              {SCOPE_META[scope]?.hint ? `${SCOPE_META[scope].hint}. ` : ''}
+              {allowedScopes.length > 1
+                ? 'Viewers see these counts first and can switch to the others.'
+                : 'Viewers see these counts.'}
             </div>
           </div>
 

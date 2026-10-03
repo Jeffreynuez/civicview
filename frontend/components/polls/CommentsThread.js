@@ -429,9 +429,31 @@ export default function CommentsThread({
     await load();
   };
 
+  // Has THIS identity already reacted with THIS kind? Read the
+  // per-identity map only. The backend sends a slot for every identity
+  // the viewer is signed in to, with null when that identity has not
+  // reacted, so a null slot means "not yet". (It used to fall back to
+  // the row-level my_reaction, which reports ANY signed-in identity's
+  // reaction: once the rep had liked a comment, picking the citizen
+  // sent an undo for the citizen instead of a like, and the click
+  // silently did nothing.) The row-level value is only a fallback for
+  // a response that carries no per-identity map at all.
+  const identityAlreadyReacted = (row, asIdentity, kind) => {
+    const map = row?.my_reactions;
+    if (map && typeof map === 'object' && Object.keys(map).length > 0) {
+      return map[asIdentity] === kind;
+    }
+    return row?.my_reaction === kind;
+  };
+
   const handleReact = (commentId, kind, _legacyCurrentlyActive) => {
-    if (!signedIn) { onLoginRequired?.(); return; }
-    // Decide which identity acts. Mirrors FeedCard:
+    // Likes are open to every signed-in identity on every surface
+    // (Jeffrey, 2026-10-03: "Anyone that is a citizen, rep, or
+    // candidate should be able to give likes to any comment or
+    // post"). So the gate here is "signed in to anything", not the
+    // composer's signedIn prop: a rep or candidate on someone else's
+    // page can't start a top-level comment there, but can still react.
+    // Mirrors FeedCard:
     //   • Zero identities → login prompt.
     //   • One identity   → fire immediately, toggle based on whether
     //                      that identity's my_reactions already shows
@@ -448,8 +470,7 @@ export default function CommentsThread({
     const row = (comments || []).find((c) => c.id === commentId);
     const myReactions = row?.my_reactions || {};
     if (decision.single) {
-      const already = (myReactions[decision.single] || row?.my_reaction) === kind;
-      fireReact(commentId, kind, decision.single, already);
+      fireReact(commentId, kind, decision.single, identityAlreadyReacted(row, decision.single, kind));
       return;
     }
     setCommentReactPicker({
@@ -469,9 +490,10 @@ export default function CommentsThread({
     setCommentReactPicker(null);
     if (!pending) return;
     const row = (comments || []).find((c) => c.id === pending.commentId);
-    const myReactions = row?.my_reactions || {};
-    const already = (myReactions[asIdentity] || row?.my_reaction) === pending.kind;
-    fireReact(pending.commentId, pending.kind, asIdentity, already);
+    fireReact(
+      pending.commentId, pending.kind, asIdentity,
+      identityAlreadyReacted(row, asIdentity, pending.kind),
+    );
   };
 
   const toggleTone = (id) => {

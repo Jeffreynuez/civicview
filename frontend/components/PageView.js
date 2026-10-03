@@ -452,19 +452,21 @@ export default function PageView({
 
   const events = payload?.upcoming_events || [];
   const posts = payload?.posts || [];
-  // Allowed composer scopes derive from the first post's allowed_scopes
-  // — server-computed per the page owner's role. Fall back to country
-  // until the first post comes back. For a fresh page with no posts
-  // we use a reasonable default based on owner_district presence in
-  // the owner summary (Phase 2 can expose this explicitly on the page
-  // payload).
+  // Scopes the composer's "Default visibility" chips offer. The page
+  // payload already carries them (allowed_engagement_scopes, derived
+  // server-side from the owner's state / district / city), so read
+  // them from there. This used to read the newest poll's
+  // allowed_scopes instead, which left a page with no polls yet on
+  // Country only, the exact moment an owner is choosing a scope for
+  // the first time. The newest-poll value stays as a fallback for an
+  // older backend response, and the backend clamps on save anyway.
   const composerAllowedScopes = useMemo(() => {
+    const fromPayload = payload?.allowed_engagement_scopes;
+    if (Array.isArray(fromPayload) && fromPayload.length) return fromPayload;
     const fromPost = posts.find((p) => p?.poll?.allowed_scopes?.length)?.poll?.allowed_scopes;
     if (fromPost && fromPost.length) return fromPost;
-    // No poll posted yet — fall back to a safe minimum. The backend
-    // clamps on save anyway.
     return ['country'];
-  }, [posts]);
+  }, [payload, posts]);
 
   // Prevent background scroll while the overlay is up
   useEffect(() => {

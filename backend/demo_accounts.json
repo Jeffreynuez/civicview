@@ -3,15 +3,14 @@
   "_history": "If you need to restore the original seeded accounts for local development, the git history at HEAD~ contains the previous payload.",
   "accounts": [
     {
-      "_note": "Internal-use test rep \u2014 same account ID Jeffrey created in prod manually. Re-listing here so the seed top-up branch fills owner_state / owner_district / role on the existing row whenever NULL. Required for the Congress filter chip on /polls to find this rep's polls (the chip matches branch='congress' which the backend computes from owner_district). Email + password intentionally placeholder strings; the production row already has a real password set, and seed only tops up NULL fields so these never overwrite credentials.",
+      "_note": "Internal-use test rep, the same account ID Jeffrey created in prod by hand. Listed here so the seed fills owner_state / owner_district on the existing row whenever they are NULL; it never overwrites a value that is already set, and never touches credentials (the email and password here are placeholders). Production seeds from the DEMO_ACCOUNTS_JSON env var, and since 2026-10-03 the seed also reads the scope fields from this file when that env copy leaves them out. FL-17 (chosen 2026-10-03) drives the State and District filter chips and the Congress chip on /polls. No owner_city: a city chip would filter by a city this test account does not have.",
       "official_id": "test-civicview-internal",
       "email": "civicview-test-rep@civicview.app",
       "password": "PLACEHOLDER_NEVER_USED_TOPUP_ONLY",
       "display_name": "CivicView Test Rep",
       "role": "U.S. Representative",
       "owner_state": "FL",
-      "owner_district": "FL-19",
-      "owner_city": "Test Account \u2014 Internal Use Only"
+      "owner_district": "FL-17"
     }
   ]
 }
