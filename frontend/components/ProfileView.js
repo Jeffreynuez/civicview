@@ -43,6 +43,7 @@ import TabStrip from './TabStrip';
 import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { FileLink } from './ui';
 import PhotoCredit from './PhotoCredit';
+import BillReactions from './bills/BillReactions';
 import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -2110,7 +2111,7 @@ function BillCard({ bill, member, onNotify }) {
 
       <BillSummarySection bill={bill} />
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
         {bill.url ? (
           <a
             href={bill.url}
@@ -2121,22 +2122,25 @@ function BillCard({ bill, member, onNotify }) {
             View on Congress.gov →
           </a>
         ) : <span />}
-        {key && (
-          <button
-            onClick={handleTrack}
-            title={tracked ? 'Stop tracking this bill' : 'Track this bill for status updates'}
-            style={{
-              padding: '4px 10px', borderRadius: '12px', fontSize: '0.72rem',
-              fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
-              background: tracked ? 'var(--cl-accent)' : 'white',
-              color: tracked ? 'white' : 'var(--cl-accent)',
-              border: tracked ? '1px solid var(--cl-accent)' : '1px solid var(--cl-accent)',
-              transition: 'background 0.15s, color 0.15s',
-            }}
-          >
-            {tracked ? '✓ Tracking' : '+ Track'}
-          </button>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+          {key && <BillReactions billKey={key} />}
+          {key && (
+            <button
+              onClick={handleTrack}
+              title={tracked ? 'Stop tracking this bill' : 'Track this bill for status updates'}
+              style={{
+                padding: '4px 10px', borderRadius: '12px', fontSize: '0.72rem',
+                fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
+                background: tracked ? 'var(--cl-accent)' : 'white',
+                color: tracked ? 'white' : 'var(--cl-accent)',
+                border: tracked ? '1px solid var(--cl-accent)' : '1px solid var(--cl-accent)',
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              {tracked ? '✓ Tracking' : '+ Track'}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -3863,16 +3867,20 @@ function StateBillCard({ bill }) {
           {bill.latest_action}
         </div>
       )}
-      {bill.url && (
-        <a
-          href={bill.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: '6px', fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
-        >
-          View on OpenStates →
-        </a>
-      )}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '6px', flexWrap: 'wrap' }}>
+        {bill.url ? (
+          <a
+            href={bill.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontSize: '0.75rem', color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600 }}
+          >
+            View on OpenStates →
+          </a>
+        ) : <span />}
+        {/* Open States bill id ("ocd-bill/<uuid>") is the reaction key. */}
+        <BillReactions billKey={bill.id} />
+      </div>
     </div>
   );
 }

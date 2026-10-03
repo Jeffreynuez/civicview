@@ -18,7 +18,10 @@
  * legal name kept encrypted, city and state from the verified address,
  * the street address kept only as a one-way hash, the date of birth
  * neither read nor stored), and the deletion entry now lists the name
- * and address hashes the verification archive keeps. Earlier notes:
+ * and address hashes the verification archive keeps. 2026-10-03:
+ * engagement history now includes likes and dislikes on bills
+ * (bill_reactions; removed with the account like other reactions).
+ * Earlier notes:
  *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
  *    cookies + bearer-token mirror.
  *  - ID.me verification on citizens; verification hash preserved
@@ -34,7 +37,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 1, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 3, 2026">
       <p>
         This policy describes what CivicView collects, why we collect it,
         who can see it, and how long we keep it. We've tried to write it in
@@ -60,7 +63,7 @@ export default function PrivacyPage() {
         <li><strong>Display name</strong>: shown next to your comments + poll votes. You choose what to use.</li>
         <li><strong>City, state, and (optional) congressional district</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Required.</li>
         <li><strong>Identity verification (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date; your legal name as ID.me confirms it, stored encrypted so it can only be read with our application secret; and the city and state from the address ID.me confirms, which replace the ones you entered. Your street address itself is not stored. We keep only a one-way hash of it, salted with our application secret, which we use with a one-way hash of your name to recognize someone who has already verified, so we don&apos;t pay to verify the same person twice. ID.me&apos;s reply may also include your date of birth; we don&apos;t read or store it. We never receive the documents ID.me used.</li>
-        <li><strong>Engagement history</strong>: the polls you've voted in, posts you've reacted to, comments you've made. Tied to your account.</li>
+        <li><strong>Engagement history</strong>: the polls you've voted in, the posts, comments and bills you've liked or disliked, and the comments you've made. Tied to your account.</li>
         <li><strong>Optional poll questions</strong>: some polls include questions the poll&apos;s creator chose, such as age range or party, and on some polls race, religion or income. Answering is optional. Answers are stored with your vote so you can change them until the poll closes, are counted only from verified accounts, and are published only as totals for groups of at least 10 people, never tied to you. You can also save the non-sensitive answers as a reusable profile; sensitive categories are never saved to it, and you can clear it from your dashboard.</li>
       </ul>
 

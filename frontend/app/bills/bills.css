@@ -84,6 +84,8 @@
 .cv-header__caucus { margin: 8px 0 0; font-size: var(--cl-text-xs); color: var(--cl-text-muted); font-style: italic; }
 .cv-header__src { display: inline-block; margin: -4px 0 12px; font-size: var(--cl-text-sm); color: var(--cl-accent); font-weight: 600; text-decoration: none; }
 .cv-header__src:hover { text-decoration: underline; text-underline-offset: 2px; }
+.cv-header__react { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; padding: 10px 12px; border: 1px solid var(--cl-border); border-radius: var(--cl-radius-lg); background: var(--cl-bg); }
+.cv-header__react-label { font-size: var(--cl-text-sm); font-weight: 600; color: var(--cl-text); }
 
 /* ---------- tally bar ---------- */
 .cv-tally { display: flex; flex-direction: column; gap: 9px; }

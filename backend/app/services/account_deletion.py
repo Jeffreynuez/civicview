@@ -171,6 +171,7 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
     from sqlalchemy import func, or_
 
     from app.models.pages import (
+        BillReaction,
         DeviceToken,
         FeaturedTracked,
         LoginAttempt,
@@ -202,6 +203,16 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
         specs.append((LoginAttempt, [or_(own_attempt, unmatched_same_email)]))
     else:
         specs.append((LoginAttempt, [own_attempt]))
+    # Bill likes and dislikes. The foreign keys cascade on Postgres, but
+    # deleting them here as well keeps the account's removal complete on
+    # any database and makes it visible in the "also removed" log line.
+    bill_reaction_author = {
+        "citizen": BillReaction.citizen_id,
+        "rep": BillReaction.author_rep_id,
+        "candidate": BillReaction.author_candidate_id,
+    }.get(kind)
+    if bill_reaction_author is not None:
+        specs.append((BillReaction, [bill_reaction_author == account_id]))
     if kind == "citizen":
         # Push devices are bound to citizens only. Dropping the row is
         # what stops pushes to a deleted user's phone; the app registers

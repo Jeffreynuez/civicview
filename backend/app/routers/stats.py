@@ -57,6 +57,7 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.models.pages import (
+    BillReaction,
     BillSummary,
     CandidateAccount,
     CitizenAccount,
@@ -299,6 +300,7 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         + c(lambda: db.query(func.count(PollReaction.id)).scalar(), "poll_reactions")
         + c(lambda: db.query(func.count(CommentReaction.id)).scalar(), "comment_reactions")
         + c(lambda: db.query(func.count(PollCommentReaction.id)).scalar(), "poll_comment_reactions")
+        + c(lambda: db.query(func.count(BillReaction.id)).scalar(), "bill_reactions")
     )
     tracked_items = (
         c(lambda: db.query(func.count(TrackedBill.id)).scalar(), "tracked_bills")
