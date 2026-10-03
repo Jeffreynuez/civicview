@@ -18,6 +18,7 @@ import {
 } from '@/lib/trackedElections';
 import { useFeaturedTracked, setFeatured, isFeatured } from '@/lib/featuredTracked';
 import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
+import BillReactions from '@/components/bills/BillReactions';
 
 /**
  * TrackedManager — the shared "everything you follow" surface.
@@ -593,6 +594,9 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick, canFeature, starred
                 Congress.gov →
               </a>
             )}
+          </div>
+          <div style={{ marginTop: '6px' }}>
+            <BillReactions billKey={bill.key} />
           </div>
         </div>
         <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>

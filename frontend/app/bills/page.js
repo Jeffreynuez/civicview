@@ -34,6 +34,9 @@ import StickyPageHeader from '@/components/StickyPageHeader';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import SeatChart from '@/components/bills/SeatChart';
 import SeatMiniCard from '@/components/bills/SeatMiniCard';
+import BillReactions from '@/components/bills/BillReactions';
+import CitizenLoginModal from '@/components/CitizenLoginModal';
+import { billKeyFromCitation } from '@/lib/billReactions';
 import {
   POS_LABEL,
   PARTY_RANK,
@@ -494,8 +497,11 @@ function VoteExplainer({ vote }) {
   );
 }
 
-function VoteHeader({ vote }) {
+function VoteHeader({ vote, onLoginRequired }) {
   const bp = vote.tally.byParty;
+  // Only votes on a bill or resolution get likes (not nominations or
+  // procedural votes): the key is built from the citation.
+  const reactKey = billKeyFromCitation(vote.congress, vote.cite);
   const seg = (p) => bp[p].yea + '-' + bp[p].nay;
   const hasI = (bp.I.yea + bp.I.nay) > 0;
   return (
@@ -518,6 +524,12 @@ function VoteHeader({ vote }) {
         >
           View the bill on Congress.gov <span aria-hidden="true">↗</span>
         </a>
+      )}
+      {reactKey && (
+        <div className="cv-header__react">
+          <span className="cv-header__react-label">What do you think of {vote.cite}?</span>
+          <BillReactions billKey={reactKey} size="md" onLoginRequired={onLoginRequired} />
+        </div>
       )}
       <TallyBar vote={vote} />
       <div className="cv-header__byparty">
@@ -730,6 +742,8 @@ export default function BillsPage() {
   useScrollRestoration(null, 'bills');
   const router = useRouter();
   const { citizen } = useCitizenAuth();
+  // Sign-in for a like or dislike from a signed-out visitor, in place.
+  const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
 
   const [chamber, setChamber] = useState('House');
   const [recent, setRecent] = useState([]);
@@ -917,7 +931,7 @@ export default function BillsPage() {
 
         {!loading && !error && vote && (
           <>
-            <VoteHeader vote={vote} />
+            <VoteHeader vote={vote} onLoginRequired={() => setCitizenLoginOpen(true)} />
 
             <section className="cv-card cv-chartcard">
               <div className="cv-chartcard__head">
@@ -953,6 +967,12 @@ export default function BillsPage() {
           onViewProfile={onViewProfile}
         />
       )}
+
+      <CitizenLoginModal
+        open={citizenLoginOpen}
+        onClose={() => setCitizenLoginOpen(false)}
+        onSuccess={() => setCitizenLoginOpen(false)}
+      />
     </div>
   );
 }

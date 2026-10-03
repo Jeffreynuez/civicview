@@ -40,6 +40,7 @@ from app.routers import (
     admin as admin_router,
     appeals as appeals_router,
     bills as bills_router,
+    bill_reactions as bill_reactions_router,
     votes as votes_router,
     eos as eos_router,
     notifications as notifications_router,
@@ -388,6 +389,9 @@ app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(appeals_router.router, prefix="/api", tags=["Appeals"])
 # Bills router — per-bill summary cache (CRS + Haiku translation).
 app.include_router(bills_router.router, prefix="/api/bills", tags=["Bills"])
+# Bill likes and dislikes (2026-10-03). Per-viewer, so deliberately
+# outside the edge-cached /api/bills prefix; see the router's docstring.
+app.include_router(bill_reactions_router.router, prefix="/api/engagement", tags=["Bill reactions"])
 # Votes router — per-vote "what was this vote?" explainer.
 app.include_router(votes_router.router, prefix="/api/votes", tags=["Votes"])
 # Executive orders router — per-EO Haiku plain-English summary cache.

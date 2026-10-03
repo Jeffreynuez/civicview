@@ -26,6 +26,7 @@ import { useTrackedBills } from '../lib/trackedBills';
 import { useTrackedElections } from '../lib/trackedElections';
 import { useFeaturedTracked } from '../lib/featuredTracked';
 import TrackedManager from './TrackedManager';
+import BillReactions from './bills/BillReactions';
 import ActivityArchive from './ActivityArchive';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
@@ -2437,12 +2438,15 @@ function BillSpotlight({ bill, onManage }) {
             {bill.policy_area && <SpotlightInfo label="Policy area" value={bill.policy_area} />}
             {bill.sponsor_name && <SpotlightInfo label="Sponsor" value={bill.sponsor_name} />}
           </div>
-          {bill.url && (
-            <a href={bill.url} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'inline-block', marginTop: 12, color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--cl-text-sm)' }}>
-              View on Congress.gov →
-            </a>
-          )}
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
+            {bill.url ? (
+              <a href={bill.url} target="_blank" rel="noopener noreferrer"
+                style={{ color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--cl-text-sm)' }}>
+                View on Congress.gov →
+              </a>
+            ) : <span />}
+            <BillReactions billKey={bill.key} />
+          </div>
         </div>
       )}
     </section>

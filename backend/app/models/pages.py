@@ -680,6 +680,67 @@ Index("uq_comment_reaction_rep",      CommentReaction.comment_id, CommentReactio
 Index("uq_comment_reaction_candidate", CommentReaction.comment_id, CommentReaction.author_candidate_id, unique=True)
 
 
+# ── Bill reactions (2026-10-03) ───────────────────────────────────────
+class BillReaction(Base):
+    """
+    Up/down reaction on a bill, federal or state. Jeffrey, 2026-10-03:
+    "Likes and dislikes should be added to all bills. Even on the reps
+    profile sections." Same shape as PostReaction / CommentReaction:
+    exactly one of citizen_id / author_rep_id / author_candidate_id per
+    row (enforced at the route), the citizen's geography denormalized at
+    write time, and authored_verified stamped at write time.
+
+    Bills are not rows in our database (they come from Congress.gov and
+    Open States), so a reaction is keyed by a canonical string instead
+    of a foreign key:
+      • federal: "{congress}-{type}-{number}", lowercase, e.g.
+        "119-hr-1234" (the frontend's billKey in lib/trackedBills.js);
+      • state: the Open States bill id, e.g. "ocd-bill/<uuid>".
+    routers/bill_reactions.py validates the format before anything is
+    stored.
+
+    Any signed-in identity may react to any bill. A bill has no page
+    owner, so reps and candidates react as themselves everywhere, with
+    the Act as picker choosing when several identities are signed in.
+    """
+    __tablename__ = "bill_reactions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    bill_key: Mapped[str] = mapped_column(String(96), index=True)
+    citizen_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    author_rep_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("rep_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    author_candidate_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("candidate_accounts.id", ondelete="CASCADE"),
+        default=None, index=True,
+    )
+    kind: Mapped[str] = mapped_column(String(8))   # 'up' | 'down'
+    scope_state: Mapped[Optional[str]] = mapped_column(String(2), default=None, index=True)
+    scope_district: Mapped[Optional[str]] = mapped_column(String(8), default=None, index=True)
+    scope_city: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    scope_county: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    # Verification state of the author AT WRITE TIME; see the long note
+    # on PostReaction.authored_verified. Re-stamped on a flip.
+    authored_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        server_default=sa_expression.false(),
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+# One reaction per (bill, identity), per identity kind. NULLs in the
+# author columns don't collide, as on post_reactions.
+Index("uq_bill_reaction_citizen",   BillReaction.bill_key, BillReaction.citizen_id, unique=True)
+Index("uq_bill_reaction_rep",       BillReaction.bill_key, BillReaction.author_rep_id, unique=True)
+Index("uq_bill_reaction_candidate", BillReaction.bill_key, BillReaction.author_candidate_id, unique=True)
+
+
 class Poll(Base):
     """
     A poll. Two flavors share this table:
