@@ -239,8 +239,11 @@ generic "default behavior" you might otherwise reach for.
 These shape every product decision:
 
 - **Browse, search, track** → free, any visitor
-- **Like / dislike posts + polls, vote on polls, comment on posts +
-  polls** → ID.me verified citizen
+- **Like / dislike posts, polls, comments and bills, vote on polls,
+  comment on posts + polls** → ID.me verified citizen. Reps and
+  candidates can like or dislike any post, comment or bill as
+  themselves (Jeffrey, 2026-10-03: "Anyone that is a citizen, rep, or
+  candidate should be able to give likes to any comment or post").
 - **Create polls** → ID.me verified + $5/mo subscribed
 
 CHANGED 2026-07-28 (Jeffrey, after user feedback): commenting moved
@@ -294,6 +297,12 @@ How it shows up in the UI:
   • Rep page PostCard / PollCard / CitizenPollsSection: same pattern
     via PostingAsPicker (a sibling component) for the composer +
     IdentityPicker for action buttons.
+  • Bill likes (components/bills/BillReactions.js, 2026-10-03): same
+    picker. Decide add vs undo from THAT identity's slot in
+    my_reactions, never from the row-level my_reaction: the backend
+    sends a null slot per signed-in identity, and falling back to the
+    row value made a citizen's like send an undo once the rep had liked
+    (the CommentsThread bug fixed the same day).
 
 Backend contract: every write endpoint that takes engagement accepts
 an optional `as_identity` body field — one of `'citizen' | 'rep' |
