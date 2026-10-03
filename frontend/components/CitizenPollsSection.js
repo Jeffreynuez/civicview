@@ -827,7 +827,7 @@ function CitizenPollCard({
 
       {/* Footer: votes + comments toggle */}
       <div style={{ marginTop: 10, display: 'flex', gap: 14, alignItems: 'center', fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>
-        <span><strong style={{ color: 'var(--cl-text)' }}>{total}</strong> votes</span>
+        <span><strong style={{ color: 'var(--cl-text)' }}>{total}</strong> {total === 1 ? 'vote' : 'votes'}</span>
         <button
           type="button"
           onClick={() => setCommentsOpen((v) => !v)}

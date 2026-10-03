@@ -30,6 +30,7 @@ import {
   aiHealth, filterItems,
 } from '@/lib/api';
 import Navbar from '@/components/Navbar';
+import StickyPageHeader from '@/components/StickyPageHeader';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import SeatChart from '@/components/bills/SeatChart';
 import SeatMiniCard from '@/components/bills/SeatMiniCard';
@@ -271,7 +272,7 @@ function VoteSearch({ list, activeId, onPick }) {
     const items = list.map((v) => ({ id: v.id, text: voteText(v) }));
     const res = await filterItems({ prompt, items });
     setAiBusy(false);
-    if (!res || res.error) { setAiMatched(new Set()); setAiLabel('AI search unavailable — try Text search.'); return; }
+    if (!res || res.error) { setAiMatched(new Set()); setAiLabel('AI search unavailable. Try Text search.'); return; }
     setAiMatched(new Set(res.matched_ids || []));
     setAiLabel(res.explanation || '');
   };
@@ -294,7 +295,7 @@ function VoteSearch({ list, activeId, onPick }) {
           type="search"
           className="cv-votesearch__input"
           placeholder={aiMode
-            ? 'Describe a bill — e.g. “anything about veterans’ healthcare”'
+            ? 'Describe a bill, e.g. “anything about veterans’ healthcare”'
             : 'Search recent votes by bill number or name…'}
           value={search}
           aria-label="Search recent votes"
@@ -495,7 +496,7 @@ function VoteExplainer({ vote }) {
 
 function VoteHeader({ vote }) {
   const bp = vote.tally.byParty;
-  const seg = (p) => bp[p].yea + '–' + bp[p].nay;
+  const seg = (p) => bp[p].yea + '-' + bp[p].nay;
   const hasI = (bp.I.yea + bp.I.nay) > 0;
   return (
     <section className="cv-card cv-header" aria-label="Vote outcome">
@@ -635,11 +636,11 @@ function VoteList({ vote, onPick, mobilePrimary }) {
   const rangeEnd = safePage * PAGE_SIZE + slice.length;
 
   return (
-    <section className="cv-card cv-list" aria-label={vote.chamber + ' vote list — full record'}>
+    <section className="cv-card cv-list" aria-label={vote.chamber + ' vote list, full record'}>
       <div className="cv-list__head">
         <div>
           <p className="cl-eyebrow">Full record</p>
-          <h3 className="cv-list__title">{vote.chamber + ' — every member'}</h3>
+          <h3 className="cv-list__title">{vote.chamber + ': every member'}</h3>
           <p className="cv-list__hint">{mobilePrimary ? 'Tap a member for their vote detail.' : 'Click a member for their vote detail.'}</p>
         </div>
         <div className="cv-list__tools">
@@ -648,7 +649,7 @@ function VoteList({ vote, onPick, mobilePrimary }) {
             <input
               type="text"
               value={q}
-              placeholder={'Search all ' + vote.total + ' — name or state'}
+              placeholder={'Search all ' + vote.total + ' by name or state'}
               aria-label={'Search the full ' + vote.chamber + ' record'}
               onChange={(e) => setQ(e.target.value)}
             />
@@ -670,7 +671,7 @@ function VoteList({ vote, onPick, mobilePrimary }) {
         <span className="cv-list__count cl-num">
           {q.trim()
             ? filtered.length + ' match' + (filtered.length === 1 ? '' : 'es')
-            : rangeStart + '–' + rangeEnd + ' of ' + filtered.length}
+            : rangeStart + '-' + rangeEnd + ' of ' + filtered.length}
         </span>
         <Pager page={safePage} pages={pages} onSet={setPage} idLabel="Top" />
       </div>
@@ -849,7 +850,9 @@ export default function BillsPage() {
 
   return (
     <div className="bills-page cv-stage" data-tutorial="bills-page">
-      <div style={{ position: 'sticky', top: 0, zIndex: 100 }}>
+      {/* Navbar + "Back to map" row, pinned together. This page had no
+          back button at all before 2026-10-03. */}
+      <StickyPageHeader backLabel="Back to map" onBack={() => router.push('/')}>
         <Navbar
           compact
           onMemberPick={(m) => { if (m && m.bioguide_id) router.push('/?member=' + encodeURIComponent(m.bioguide_id)); else router.push('/'); }}
@@ -866,13 +869,13 @@ export default function BillsPage() {
           onOpenFeedback={() => router.push('/')}
           onHome={() => router.push('/')}
         />
-      </div>
+      </StickyPageHeader>
 
       <div className="cv-hero">
         <div className="cv-hero__inner">
           <p className="cv-hero__eyebrow">Federal legislation</p>
           <h1 className="cv-hero__title">Bills &amp; Votes</h1>
-          <p className="cv-hero__sub">See how Congress voted — pick a chamber and a vote.</p>
+          <p className="cv-hero__sub">See how Congress voted. Pick a chamber and a vote.</p>
         </div>
       </div>
 
@@ -922,7 +925,7 @@ export default function BillsPage() {
                   <p className="cl-eyebrow">{chamber + ' roll-call'}</p>
                   <p className="cv-chartcard__sub">
                     {isMobile
-                      ? 'Democrats left · Republicans right, sorted by state. Scroll and tap a seat — or use the full record below.'
+                      ? 'Democrats left · Republicans right, sorted by state. Scroll and tap a seat, or use the full record below.'
                       : 'Democrats left · Republicans right, sorted by state. Click or arrow-key a seat.'}
                   </p>
                 </div>

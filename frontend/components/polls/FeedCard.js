@@ -696,7 +696,7 @@ export default function FeedCard({
               })}
             </div>
             <div className="poll-block__total">
-              <span>{formatCount(card.votes || 0)}</span> votes
+              <span>{formatCount(card.votes || 0)}</span> {card.votes === 1 ? 'vote' : 'votes'}
             </div>
             <button
               type="button"
@@ -735,7 +735,7 @@ export default function FeedCard({
                 {deletionTarget?.kind === 'citizen-poll'
                   ? 'Close this poll? It moves to the archived section of your dashboard and frees your standalone-poll slot so you can post another.'
                   : (kind === 'post'
-                      ? 'Delete this post? This action cannot be undone — the post and any attached poll will be removed for everyone.'
+                      ? 'Delete this post? This cannot be undone. The post and any attached poll will be removed for everyone.'
                       : 'Delete this poll? The poll and its parent post will be removed for everyone.')
                 }
               </p>

@@ -14,9 +14,9 @@
  * The layout intentionally stays minimal:
  *   - Compact navbar at top so users can still reach search, login,
  *     identity switcher, etc.
- *   - Back button row that calls router.back() — gracefully degrades
- *     to /home for users who landed here via direct link with no
- *     history.
+ *   - Navbar and back row pinned to the top (StickyPageHeader). Back
+ *     calls router.back(), or goes home for users who landed here
+ *     via a direct link with no history.
  *   - Centered max-width content container so 60-char-ish line
  *     length stays comfortable on wide desktops while still
  *     filling the column on mobile.
@@ -34,45 +34,19 @@
 import { useRouter } from 'next/navigation';
 
 import Navbar from '@/components/Navbar';
+import StickyPageHeader from '@/components/StickyPageHeader';
 
 export default function LegalPageLayout({ title, eyebrow, lastUpdated, children }) {
   const router = useRouter();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--cl-bg)' }}>
-      <Navbar compact onHome={() => router.push('/')} />
-
-      {/* Back row — matches the pattern used on PageView +
-          /account/delete for navigation consistency. */}
-      <div style={{
-        background: 'white', borderBottom: '1px solid var(--cl-border)',
-        padding: '10px 18px',
-      }}>
-        <button
-          type="button"
-          onClick={() => {
-            // router.back() throws on stale history (e.g. user
-            // landed via direct link). Fall through to home.
-            if (typeof window !== 'undefined' && window.history.length > 1) {
-              router.back();
-            } else {
-              router.push('/');
-            }
-          }}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '6px 10px', borderRadius: 8,
-            border: '1px solid var(--cl-border)', background: 'white',
-            color: 'var(--cl-text)', fontSize: '0.85rem', cursor: 'pointer',
-            fontFamily: 'var(--cl-font-sans)',
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          Back
-        </button>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', flexShrink: 0, background: 'var(--cl-bg)' }}>
+      {/* Navbar + back row, pinned together (StickyPageHeader), the
+          same header as every other full-page route. Without onBack it
+          goes back in history, or home on a direct link. */}
+      <StickyPageHeader backLabel="Back">
+        <Navbar compact onHome={() => router.push('/')} />
+      </StickyPageHeader>
 
       <main style={{
         flex: 1,

@@ -1,0 +1,50 @@
+/* /stats page chrome. The dark hero band matches Bills & Votes
+   (app/bills/bills.css .cv-hero) so the full-page routes share one look. */
+
+.stats-page {
+  background: var(--cl-bg);
+  color: var(--cl-text);
+  min-height: 100vh;
+  font-family: var(--cl-font-sans);
+  /* Grow with the content, not shrink to the viewport, so the sticky
+     header sticks the whole way down (see StickyPageHeader.css). */
+  flex-shrink: 0;
+}
+
+.stats-hero {
+  background: var(--cl-primary);
+  color: var(--cl-text-on-dark);
+  padding: 30px 18px 34px;
+}
+.stats-hero__inner {
+  max-width: 832px;
+  margin: 0 auto;
+}
+.stats-hero__eyebrow {
+  margin: 0 0 8px;
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  letter-spacing: var(--cl-tracking-wider);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+.stats-hero__title {
+  margin: 0;
+  font-family: var(--cl-font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.stats-hero__sub {
+  margin: 10px 0 0;
+  max-width: 620px;
+  font-size: var(--cl-text-md);
+  line-height: var(--cl-leading-normal);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (max-width: 900px) {
+  .stats-hero { padding: 24px 16px 26px; }
+  .stats-hero__title { font-size: 1.7rem; }
+}

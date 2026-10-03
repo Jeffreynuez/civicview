@@ -60,6 +60,7 @@ import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useAuth as useRepAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import Navbar from '@/components/Navbar';
+import StickyPageHeader from '@/components/StickyPageHeader';
 import CitizenLoginModal from '@/components/CitizenLoginModal';
 import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
 import MyTrackedModal from '@/components/MyTrackedModal';
@@ -555,16 +556,15 @@ export function GrassrootsFeed({ tab = 'polls' }) {
 
   return (
     <div className="polls-page" data-tutorial="polls-page">
-      {/* Sticky navbar wrapper — the design's filter bar sticks at
-          top: 56px assuming a 56px-tall navbar pinned above it. The
-          shared Navbar component is position:relative by default; the
-          wrapper here promotes it to sticky so the filter bar's sticky
-          offset lines up with what's actually on screen.
+      {/* Sticky header: the navbar plus the "Back to map" row, pinned
+          together (StickyPageHeader). The back row used to sit in normal
+          flow below the sticky navbar, so it scrolled away (2026-10-03).
+          The filter bar sticks just below this header (polls.css).
           `compact` drops the global search bar (this page is itself a
           full-screen destination, search would compete with the polls
           feed) and `hidePollsLink` suppresses the redundant Polls
           self-link in the right cluster + hamburger. */}
-      <div style={{ position: 'sticky', top: 0, zIndex: 100 }}>
+      <StickyPageHeader backLabel="Back to map" onBack={handleHome}>
         <Navbar
           compact
           hidePollsLink
@@ -598,25 +598,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
           onOpenFeedback={() => setFeedbackOpen(true)}
           onHome={handleHome}
         />
-      </div>
-
-      {/* Page-level top bar — back to home. Sits between the navbar
-          and the hero so the user always has a one-tap escape regardless
-          of whether they arrived from the home map, a deep link, or a
-          bookmark. */}
-      <div className="polls-topbar">
-        <button
-          type="button"
-          className="polls-topbar__back"
-          onClick={handleHome}
-          aria-label="Back to CivicView home"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M14 6 L8 12 L14 18" />
-          </svg>
-          <span>Back to map</span>
-        </button>
-      </div>
+      </StickyPageHeader>
 
       <PollsHero counts={branchCounts} tab={tab} />
 
@@ -1026,8 +1008,8 @@ function PollsHero({ counts, tab = 'polls' }) {
   const eyebrow = isPosts ? 'Posts · grassroots feed' : 'Civic polls · grassroots feed';
   const title = isPosts ? 'Posts' : 'Polls';
   const sub = isPosts
-    ? "Every post from verified reps and candidates — see what they're saying without scrolling each page individually."
-    : 'Every active poll on CivicView — what reps are asking constituents, what citizens are asking each other and the officials who serve them, and standalone polls on civic topics that don\u2019t belong to any single page.';
+    ? "Every post from verified reps and candidates. See what they're saying without opening each page."
+    : 'Every active poll on CivicView: what reps are asking constituents, what citizens are asking each other and the officials who serve them, and standalone polls on civic topics that don\u2019t belong to any single page.';
   const stat1Label = isPosts ? 'Total posts' : 'Live polls';
   const stat2Label = 'From reps';
   const stat3Label = 'From candidates';
@@ -1127,7 +1109,7 @@ function StartButton({ signedIn, onClick }) {
       onClick={onClick}
       title={signedIn
         ? 'Start a standalone poll'
-        : 'Citizen sign-in required — reps and candidates create polls from their own page'}
+        : 'Citizen sign-in required. Reps and candidates create polls from their own page'}
     >
       {signedIn ? <PlusGlyph size={14} color="white" /> : <LockGlyph size={13} />}
       {signedIn ? 'Start a poll' : 'Citizen sign-in to start a poll'}
@@ -1191,7 +1173,7 @@ function ActiveFilterBanner({ label, shown, total, onClear }) {
       <span className="polls-active-banner__sparkle"><SparkleGlyph size={14} /></span>
       <span className="polls-active-banner__text">
         AI-filtered: <strong>{label}</strong>{' '}
-        <span className="polls-active-banner__count">— showing {shown} of {total}</span>
+        <span className="polls-active-banner__count">· showing {shown} of {total}</span>
       </span>
       <button type="button" className="polls-active-banner__clear" onClick={onClear}>
         Clear <CloseGlyph size={11} />
@@ -1221,8 +1203,8 @@ function FullEmpty({ branch, onClearFilters, onStartPoll, signedIn }) {
       </div>
       <div className="polls-empty__body">
         {isAll
-          ? 'When reps and citizens start posting polls, they appear here. The feed is grassroots — what citizens ask is what other citizens see next.'
-          : 'Try clearing your filter — or start a poll yourself. The feed is grassroots: what citizens ask here is what other citizens see next.'}
+          ? 'When reps and citizens start posting polls, they appear here. The feed is grassroots: what citizens ask is what other citizens see next.'
+          : 'Try clearing your filter, or start a poll yourself. The feed is grassroots: what citizens ask here is what other citizens see next.'}
       </div>
       <div className="polls-empty__actions">
         {!isAll && (
@@ -1254,7 +1236,7 @@ function InlineEmpty({ query, tags, onClear, onStartMatching, signedIn }) {
       <div className="polls-empty__body-wrap">
         <div className="polls-empty__title">Nothing matches your AI filter yet.</div>
         <div className="polls-empty__filter">
-          Filtered for <strong>&ldquo;{filterStr}&rdquo;</strong> — no polls in the current
+          Filtered for <strong>&ldquo;{filterStr}&rdquo;</strong>. No polls in the current
           feed match. Try a different angle, clear the filter, or start one yourself.
         </div>
       </div>
@@ -1281,7 +1263,7 @@ function BottomStartCTA({ signedIn, onClick }) {
       <div className="polls-bottom-cta__text">
         <span className="polls-bottom-cta__title">Don&rsquo;t see your question?</span>
         <span className="polls-bottom-cta__sub">
-          Start a poll — subscribers can ask the rest of CivicView directly from this page.
+          Start a poll. Subscribers can ask the rest of CivicView directly from this page.
         </span>
       </div>
       <StartButton signedIn={signedIn} onClick={onClick} />
@@ -1477,7 +1459,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
           Standalone polls aren&rsquo;t tied to any single rep&rsquo;s page.
           Use this for federal-policy questions, cross-jurisdictional issues,
           or anything that affects everyone. You can have one active standalone
-          poll at a time — close it to start another.
+          poll at a time, so close it to start another.
         </p>
         <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>Question</span>
@@ -1500,7 +1482,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
           <span style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', alignSelf: 'flex-end' }}>{question.length}/500</span>
         </label>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>Options (2–8)</span>
+          <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>Options (2 to 8)</span>
           {options.map((opt, i) => (
             <div key={i} style={{ display: 'flex', gap: 6 }}>
               <input
@@ -1570,7 +1552,7 @@ function StandaloneComposer({ onCancel, onCreated }) {
           <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>When does this poll close?</span>
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem' }}>
             <input type="radio" name="sp-timing" checked={timing === 'none'} onChange={() => setTiming('none')} />
-            <span>No close time — stays open</span>
+            <span>No close time (stays open)</span>
           </label>
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem', flexWrap: 'wrap' }}>
             <input type="radio" name="sp-timing" checked={timing === 'duration'} onChange={() => setTiming('duration')} />

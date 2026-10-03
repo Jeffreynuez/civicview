@@ -27,6 +27,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Navbar from '@/components/Navbar';
+import StickyPageHeader from '@/components/StickyPageHeader';
 import { useAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
@@ -114,7 +115,7 @@ export default function AccountDeletePage() {
 
   if (!target) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--cl-bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', flexShrink: 0, background: 'var(--cl-bg)' }}>
         <Navbar compact onHome={() => router.push('/')} />
         <div style={{
           flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -154,7 +155,7 @@ export default function AccountDeletePage() {
   // Successful-deletion confirmation card (brief — page auto-redirects).
   if (result) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--cl-bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', flexShrink: 0, background: 'var(--cl-bg)' }}>
         <Navbar compact onHome={() => router.push('/')} />
         <div style={{
           flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -191,32 +192,11 @@ export default function AccountDeletePage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--cl-bg)' }}>
-      <Navbar compact onHome={() => router.push('/')} />
-
-      {/* Back button row — matches the pattern used on PageView +
-          ConstituentDashboard for navigation consistency. */}
-      <div style={{
-        background: 'white', borderBottom: '1px solid var(--cl-border)',
-        padding: '10px 18px',
-      }}>
-        <button
-          type="button"
-          onClick={() => router.back()}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '6px 10px', borderRadius: 8,
-            border: '1px solid var(--cl-border)', background: 'white',
-            color: 'var(--cl-text)', fontSize: '0.85rem', cursor: 'pointer',
-            fontFamily: 'var(--cl-font-sans)',
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          Back
-        </button>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', flexShrink: 0, background: 'var(--cl-bg)' }}>
+      {/* Navbar + back row, pinned together (StickyPageHeader). */}
+      <StickyPageHeader backLabel="Back">
+        <Navbar compact onHome={() => router.push('/')} />
+      </StickyPageHeader>
 
       <div style={{
         flex: 1, padding: '32px 18px 64px',
