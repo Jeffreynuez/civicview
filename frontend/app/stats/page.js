@@ -19,10 +19,14 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
+import Navbar from '@/components/Navbar';
+import StickyPageHeader from '@/components/StickyPageHeader';
 import { fetchStatsDetail } from '@/lib/api';
+import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import useScrollRestoration from '@/lib/useScrollRestoration';
+import './stats.css';
 
 const OPEN_KEY = 'cv:stats:open';
 const DEFAULT_OPEN = { government: true };
@@ -30,6 +34,8 @@ const DEFAULT_OPEN = { government: true };
 export default function StatsPage() {
   // Restore scroll on native-WebView Back (no bfcache); /stats scrolls the body.
   useScrollRestoration(null, 'stats');
+  const router = useRouter();
+  const { citizen } = useCitizenAuth();
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -65,221 +71,201 @@ export default function StatsPage() {
   const fmt = (n) => Number(n || 0).toLocaleString();
 
   return (
-    <main
-      style={{
-        maxWidth: 880,
-        margin: '0 auto',
-        padding: '40px 24px 80px',
-        fontFamily: 'var(--cl-font-sans)',
-        color: 'var(--cl-text)',
-      }}
-    >
-      <Link
-        href="/"
-        style={{
-          fontSize: 'var(--cl-text-sm)',
-          color: 'var(--cl-accent)',
-          textDecoration: 'none',
-          fontWeight: 600,
-        }}
-      >
-        ← Home
-      </Link>
-
-      {/* Hero */}
-      <div style={{ margin: '28px 0 8px' }}>
-        <div
-          style={{
-            textTransform: 'uppercase',
-            letterSpacing: 'var(--cl-tracking-wider)',
-            fontSize: 'var(--cl-text-2xs)',
-            fontWeight: 800,
-            color: 'var(--cl-accent)',
-            marginBottom: 8,
-          }}
-        >
-          Transparency
-        </div>
-        <h1
-          style={{
-            margin: 0,
-            fontSize: 'var(--cl-text-3xl)',
-            fontWeight: 800,
-            letterSpacing: 'var(--cl-tracking-tight)',
-            lineHeight: 1.15,
-          }}
-        >
-          CivicView stats
-        </h1>
-        <div
-          style={{
-            width: 56,
-            height: 4,
-            borderRadius: 2,
-            background: 'var(--cl-accent)',
-            margin: '14px 0 14px',
-          }}
+    <div className="stats-page">
+      {/* Same header as the other full-page routes (2026-10-03): the
+          navbar and a "Back to map" row, pinned together, then the dark
+          hero band Bills & Votes uses. This page used to have neither,
+          only a "← Home" link that scrolled away. */}
+      <StickyPageHeader backLabel="Back to map" onBack={() => router.push('/')}>
+        <Navbar
+          compact
+          onMemberPick={(mbr) => { if (mbr && mbr.bioguide_id) router.push('/?member=' + encodeURIComponent(mbr.bioguide_id)); else router.push('/'); }}
+          onCandidatePick={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); else router.push('/'); }}
+          onOpenTracked={() => router.push('/?open=tracked')}
+          onSubscribe={() => router.push('/')}
+          citizen={citizen}
+          onCitizenLogin={() => router.push('/')}
+          onCitizenLogout={() => { try { logoutCitizen && logoutCitizen(); } catch (e) { /* signed out either way */ } router.push('/'); }}
+          onCitizenDashboard={() => router.push('/?open=dashboard')}
+          onOpenRepDashboard={(r) => { if (r && r.official_id) router.push('/?page=' + encodeURIComponent(r.official_id)); }}
+          onOpenCandidateDashboard={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); }}
+          onOpenHelpBuild={() => router.push('/')}
+          onOpenFeedback={() => router.push('/')}
+          onHome={() => router.push('/')}
         />
-        <p
-          style={{
-            color: 'var(--cl-text-light)',
-            margin: 0,
-            maxWidth: 620,
-            lineHeight: 'var(--cl-leading-normal)',
-          }}
-        >
-          A live snapshot of the platform and the government it covers.
-          Every figure is counted from live CivicView data or is a
-          structural fact about US government — nothing estimated,
-          nothing made up.
-        </p>
-      </div>
+      </StickyPageHeader>
 
-      {loading && (
-        <div style={noticeStyle('var(--cl-card)')}>
-          <Pulse /> Loading live stats…
-        </div>
-      )}
-
-      {!loading && error && (
-        <div style={noticeStyle('var(--cl-warning-soft)')}>
-          <strong>Couldn’t load stats.</strong> The data service may be
-          waking up — give it a few seconds and{' '}
-          <button
-            type="button"
-            onClick={load}
-            style={{
-              background: 'transparent', border: 'none', padding: 0,
-              color: 'var(--cl-accent)', fontWeight: 700, fontSize: 'inherit',
-              fontFamily: 'inherit', cursor: 'pointer', textDecoration: 'underline',
-            }}
-          >
-            try again
-          </button>
-          .
-        </div>
-      )}
-
-      {!loading && !error && data && (
-        <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <StatSection
-            id="government"
-            title="The government CivicView covers"
-            preview={`${fmt(data.senators + data.representatives)} members of Congress · ${data.states_covered} states`}
-            open={!!open.government}
-            onToggle={toggle}
-            icon={<LandmarkIcon />}
-          >
-            <TileGrid
-              tiles={[
-                { value: data.senators + data.representatives, label: 'Members of Congress' },
-                { value: data.senators, label: 'Senators' },
-                { value: data.representatives, label: 'Representatives' },
-                { value: data.scotus_justices, label: 'SCOTUS justices' },
-                { value: data.states_covered, label: 'States covered' },
-              ]}
-            />
-            <p style={footnoteStyle}>
-              Structural facts — 100 Senators, 435 Representatives, and 9
-              Supreme Court justices are set by law; CivicView seeds
-              officials for all 50 states.
-            </p>
-          </StatSection>
-
-          <StatSection
-            id="people"
-            title="Who's on CivicView"
-            preview={`${fmt(data.citizens_total)} citizen account${data.citizens_total === 1 ? '' : 's'} · ${fmt(data.reps_joined + data.candidates_joined)} officials`}
-            open={!!open.people}
-            onToggle={toggle}
-            icon={<PeopleIcon />}
-          >
-            <TileGrid
-              tiles={[
-                { value: data.citizens_total, label: 'Citizen accounts' },
-                { value: data.citizens_verified, label: 'Verified citizens' },
-                { value: data.citizens_demo, label: 'Demo accounts' },
-                { value: data.reps_joined, label: 'Reps joined' },
-                { value: data.candidates_joined, label: 'Candidates joined' },
-              ]}
-            />
-            <WeeklyChart title="Citizen signups — last 8 weeks" buckets={data.signups_by_week} />
-          </StatSection>
-
-          <StatSection
-            id="engagement"
-            title="Engagement"
-            preview={`${fmt(data.poll_votes)} poll vote${data.poll_votes === 1 ? '' : 's'} · ${fmt(data.posts + data.polls)} posts & polls`}
-            open={!!open.engagement}
-            onToggle={toggle}
-            icon={<PulseIcon />}
-          >
-            <TileGrid
-              tiles={[
-                { value: data.posts, label: 'Posts' },
-                { value: data.polls, label: 'Polls' },
-                { value: data.poll_votes, label: 'Poll votes' },
-                { value: data.comments, label: 'Comments' },
-                { value: data.reactions, label: 'Reactions' },
-                { value: data.tracked_items, label: 'Items tracked' },
-                { value: data.saved_items, label: 'Items saved' },
-              ]}
-            />
-            <WeeklyChart title="Poll votes — last 8 weeks" buckets={data.poll_votes_by_week} />
-          </StatSection>
-
-          <StatSection
-            id="content"
-            title="Civic content library"
-            preview={`${fmt(data.bill_summaries)} bill summaries`}
-            open={!!open.content}
-            onToggle={toggle}
-            icon={<BookIcon />}
-          >
-            <TileGrid
-              tiles={[
-                { value: data.bill_summaries, label: 'Bill summaries' },
-                { value: data.eo_summaries, label: 'Executive-order summaries' },
-                { value: data.vote_explainers, label: 'Vote explainers' },
-              ]}
-            />
-            <p style={footnoteStyle}>
-              Plain-language summaries generated from official sources
-              (Congress.gov, the Federal Register) so legislation is
-              readable without legalese.
-            </p>
-          </StatSection>
-
-          {data.citizens_by_state?.length > 0 && (
-            <StatSection
-              id="geography"
-              title="Citizens by state"
-              preview={`top: ${data.citizens_by_state[0].state} (${fmt(data.citizens_by_state[0].count)})`}
-              open={!!open.geography}
-              onToggle={toggle}
-              icon={<MapPinIcon />}
-            >
-              <StateBars rows={data.citizens_by_state} />
-            </StatSection>
-          )}
-
-          <p
-            style={{
-              marginTop: 16,
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-muted)',
-              lineHeight: 'var(--cl-leading-normal)',
-            }}
-          >
-            Demo accounts is a temporary metric — once ID.me verification is
-            live, signups will count toward Verified citizens and that row
-            will retire. Live counts refresh every minute. Source:{' '}
-            <code>/api/stats/detail</code>
-            {data.generated_at ? ` · generated ${new Date(data.generated_at).toLocaleString()}` : ''}.
+      <div className="stats-hero">
+        <div className="stats-hero__inner">
+          <p className="stats-hero__eyebrow">Transparency</p>
+          <h1 className="stats-hero__title">CivicView stats</h1>
+          <p className="stats-hero__sub">
+            A live snapshot of the platform and the government it covers.
+            Every figure is counted from live CivicView data or is a
+            structural fact about US government. Nothing is estimated and
+            nothing is made up.
           </p>
         </div>
-      )}
-    </main>
+      </div>
+
+      <main
+        style={{
+          maxWidth: 880,
+          margin: '0 auto',
+          padding: '24px 24px 80px',
+          fontFamily: 'var(--cl-font-sans)',
+          color: 'var(--cl-text)',
+        }}
+      >
+
+        {loading && (
+          <div style={noticeStyle('var(--cl-card)')}>
+            <Pulse /> Loading live stats…
+          </div>
+        )}
+
+        {!loading && error && (
+          <div style={noticeStyle('var(--cl-warning-soft)')}>
+            <strong>Couldn’t load stats.</strong> The data service may be
+            waking up. Give it a few seconds and{' '}
+            <button
+              type="button"
+              onClick={load}
+              style={{
+                background: 'transparent', border: 'none', padding: 0,
+                color: 'var(--cl-accent)', fontWeight: 700, fontSize: 'inherit',
+                fontFamily: 'inherit', cursor: 'pointer', textDecoration: 'underline',
+              }}
+            >
+              try again
+            </button>
+            .
+          </div>
+        )}
+
+        {!loading && !error && data && (
+          <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <StatSection
+              id="government"
+              title="The government CivicView covers"
+              preview={`${fmt(data.senators + data.representatives)} members of Congress · ${data.states_covered} states`}
+              open={!!open.government}
+              onToggle={toggle}
+              icon={<LandmarkIcon />}
+            >
+              <TileGrid
+                tiles={[
+                  { value: data.senators + data.representatives, label: 'Members of Congress' },
+                  { value: data.senators, label: 'Senators' },
+                  { value: data.representatives, label: 'Representatives' },
+                  { value: data.scotus_justices, label: 'SCOTUS justices' },
+                  { value: data.states_covered, label: 'States covered' },
+                ]}
+              />
+              <p style={footnoteStyle}>
+                Structural facts: 100 Senators, 435 Representatives and 9
+                Supreme Court justices are set by law, and CivicView seeds
+                officials for all 50 states.
+              </p>
+            </StatSection>
+
+            <StatSection
+              id="people"
+              title="Who's on CivicView"
+              preview={`${fmt(data.citizens_total)} citizen account${data.citizens_total === 1 ? '' : 's'} · ${fmt(data.reps_joined + data.candidates_joined)} official${data.reps_joined + data.candidates_joined === 1 ? '' : 's'}`}
+              open={!!open.people}
+              onToggle={toggle}
+              icon={<PeopleIcon />}
+            >
+              <TileGrid
+                tiles={[
+                  { value: data.citizens_total, label: 'Citizen accounts', one: 'Citizen account' },
+                  { value: data.citizens_verified, label: 'Verified citizens', one: 'Verified citizen' },
+                  { value: data.citizens_demo, label: 'Demo accounts', one: 'Demo account' },
+                  { value: data.reps_joined, label: 'Reps joined', one: 'Rep joined' },
+                  { value: data.candidates_joined, label: 'Candidates joined', one: 'Candidate joined' },
+                ]}
+              />
+              <WeeklyChart title="Citizen signups, last 8 weeks" buckets={data.signups_by_week} />
+            </StatSection>
+
+            <StatSection
+              id="engagement"
+              title="Engagement"
+              preview={`${fmt(data.poll_votes)} poll vote${data.poll_votes === 1 ? '' : 's'} · ${fmt(data.posts + data.polls)} posts & polls`}
+              open={!!open.engagement}
+              onToggle={toggle}
+              icon={<PulseIcon />}
+            >
+              <TileGrid
+                tiles={[
+                  { value: data.posts, label: 'Posts', one: 'Post' },
+                  { value: data.polls, label: 'Polls', one: 'Poll' },
+                  { value: data.poll_votes, label: 'Poll votes', one: 'Poll vote' },
+                  { value: data.comments, label: 'Comments', one: 'Comment' },
+                  { value: data.reactions, label: 'Reactions', one: 'Reaction' },
+                  { value: data.tracked_items, label: 'Items tracked', one: 'Item tracked' },
+                  { value: data.saved_items, label: 'Items saved', one: 'Item saved' },
+                ]}
+              />
+              <WeeklyChart title="Poll votes, last 8 weeks" buckets={data.poll_votes_by_week} />
+            </StatSection>
+
+            <StatSection
+              id="content"
+              title="Civic content library"
+              preview={`${fmt(data.bill_summaries)} bill summar${data.bill_summaries === 1 ? 'y' : 'ies'}`}
+              open={!!open.content}
+              onToggle={toggle}
+              icon={<BookIcon />}
+            >
+              <TileGrid
+                tiles={[
+                  { value: data.bill_summaries, label: 'Bill summaries', one: 'Bill summary' },
+                  { value: data.eo_summaries, label: 'Executive-order summaries', one: 'Executive-order summary' },
+                  { value: data.vote_explainers, label: 'Vote explainers', one: 'Vote explainer' },
+                ]}
+              />
+              <p style={footnoteStyle}>
+                Plain-language summaries generated from official sources
+                (Congress.gov, the Federal Register) so legislation is
+                readable without legalese.
+              </p>
+            </StatSection>
+
+            {data.citizens_by_state?.length > 0 && (
+              <StatSection
+                id="geography"
+                title="Citizens by state"
+                preview={`top: ${data.citizens_by_state[0].state} (${fmt(data.citizens_by_state[0].count)})`}
+                open={!!open.geography}
+                onToggle={toggle}
+                icon={<MapPinIcon />}
+              >
+                <StateBars rows={data.citizens_by_state} />
+              </StatSection>
+            )}
+
+            <p
+              style={{
+                marginTop: 16,
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text-muted)',
+                lineHeight: 'var(--cl-leading-normal)',
+              }}
+            >
+              Demo accounts is a temporary metric. Verified citizens counts
+              only people verified through ID.me, so it reads 0 until ID.me
+              verification is live; after that, new signups count there and
+              the demo tile retires. Live counts refresh every minute.
+              Source:{' '}
+              <code>/api/stats/detail</code>
+              {data.generated_at ? ` · generated ${new Date(data.generated_at).toLocaleString()}` : ''}.
+            </p>
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
@@ -459,7 +445,9 @@ function TileGrid({ tiles }) {
         marginTop: 10,
       }}
     >
-      {tiles.map((t) => <Tile key={t.label} value={t.value} label={t.label} />)}
+      {tiles.map((t) => (
+        <Tile key={t.label} value={t.value} label={t.value === 1 && t.one ? t.one : t.label} />
+      ))}
     </div>
   );
 }

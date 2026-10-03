@@ -31,10 +31,14 @@ Demo accounts:
     this is effectively "total signups." Once ID.me ships we plan to
     drop this tile from the hero and surface it on the expanded
     /stats page instead (Task #71).
-  - `verified_citizens` counts the verified=True rows. Today this
-    will return 0 until ID.me goes live — that's fine, the tile
-    still renders and gives the visitor an honest signal of "we
-    don't yet have verified citizens" rather than a fake number.
+  - `verified_citizens` counts citizens verified by a real method
+    (the same rule as services/verified_identity.is_verified_person:
+    verified=True AND a verified_method other than empty or 'demo').
+    It used to count every verified=True row, which included the
+    operator's own admin account (verified set by hand, no method),
+    so the public page read "1 verified citizen" before ID.me was
+    live (fixed 2026-10-03). It reads 0 until ID.me goes live, and
+    that is the honest number.
 
 Reps joined:
   - Counts RepAccount rows where is_active=True. Seeded demo accounts
@@ -48,7 +52,7 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import func
+from sqlalchemy import and_, func
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -76,6 +80,16 @@ from app.models.pages import (
 
 
 logger = logging.getLogger(__name__)
+
+
+def _verified_person_filter():
+    """SQL form of services/verified_identity.is_verified_person: a
+    real verification method, never 'demo', never a bare flag."""
+    return and_(
+        CitizenAccount.verified.is_(True),
+        CitizenAccount.verified_method.isnot(None),
+        CitizenAccount.verified_method.notin_(("", "demo")),
+    )
 router = APIRouter()
 
 
@@ -111,7 +125,7 @@ def stats_summary(db: Session = Depends(get_db)) -> StatsSummary:
     )
     verified_citizens = _count(
         db,
-        lambda: db.query(func.count(CitizenAccount.id)).filter(CitizenAccount.verified.is_(True)).scalar(),
+        lambda: db.query(func.count(CitizenAccount.id)).filter(_verified_person_filter()).scalar(),
         "verified_citizens", failures,
     )
     demo_accounts_created = _count(
@@ -266,8 +280,15 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
 
     citizens_total = c(lambda: db.query(func.count(CitizenAccount.id)).scalar(), "citizens_total")
     citizens_verified = c(
-        lambda: db.query(func.count(CitizenAccount.id)).filter(CitizenAccount.verified.is_(True)).scalar(),
+        lambda: db.query(func.count(CitizenAccount.id)).filter(_verified_person_filter()).scalar(),
         "citizens_verified",
+    )
+    # Demo accounts are the unverified signups, counted directly. Not
+    # "total minus verified": an account that is neither (the
+    # operator's admin account) would otherwise land in the demo tile.
+    citizens_demo = c(
+        lambda: db.query(func.count(CitizenAccount.id)).filter(CitizenAccount.verified.is_(False)).scalar(),
+        "citizens_demo",
     )
     comments = (
         c(lambda: db.query(func.count(PostComment.id)).scalar(), "post_comments")
@@ -329,7 +350,7 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         states_covered=50,
         citizens_total=citizens_total,
         citizens_verified=citizens_verified,
-        citizens_demo=max(citizens_total - citizens_verified, 0),
+        citizens_demo=citizens_demo,
         reps_joined=c(
             lambda: db.query(func.count(RepAccount.id)).filter(RepAccount.is_active.is_(True)).scalar(),
             "reps_joined",

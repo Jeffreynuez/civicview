@@ -640,7 +640,7 @@ def _serialize_poll_feed_items(
                 # role check below catches Senators) OR (b) the role
                 # string mentions a Congress chamber. The test rep
                 # (official_id='test-civicview-internal') is seeded with
-                # owner_district='FL-19' + role='U.S. Representative'
+                # owner_district='FL-17' (backend/demo_accounts.json)
                 # so this rule catches it without a special-case branch.
                 # Prefer the curated branch from federal_officials.json
                 # (executive / judicial / congress). Fall back to the

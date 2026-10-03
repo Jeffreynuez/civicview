@@ -22,6 +22,12 @@
   color: var(--cl-text);
   font-family: var(--cl-font-sans);
   min-height: 100vh;
+  /* Grow with the content instead of shrinking to the viewport.
+     <body> is a fixed-height flex column that scrolls, so a page
+     wrapper shrinks to 100dvh by default and its content overflows it;
+     a sticky header can only stick within its parent's box, so it
+     scrolled away after one screen (2026-10-03). */
+  flex-shrink: 0;
   /* Trailing breathing room below the "Don't see your question?" CTA so
      the bottom of the feed doesn't kiss the viewport edge. The actual
      bottom-cta carries 24px of margin-bottom; this stacks on top for
@@ -36,37 +42,8 @@
   padding: 0 16px;
 }
 
-/* ===============================================================
-   PAGE TOP BAR — back link
-   Sits between the navbar and the hero. Light surface so it visually
-   separates from the navy hero band below.
-   =============================================================== */
-.polls-topbar {
-  background: white;
-  border-bottom: 1px solid var(--cl-border);
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-}
-.polls-topbar__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px 6px 8px;
-  border-radius: 8px;
-  font-size: var(--cl-text-sm);
-  font-weight: 600;
-  color: var(--cl-text);
-  background: transparent;
-  border: 1px solid transparent;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all var(--cl-duration-fast) var(--cl-ease-standard);
-}
-.polls-topbar__back:hover {
-  background: var(--cl-bg-soft);
-  border-color: var(--cl-border);
-}
+/* The page's back row now lives in the shared sticky header
+   (components/StickyPageHeader.css). */
 
 /* ===============================================================
    1. HERO — dark "grassroots" treatment
@@ -160,7 +137,9 @@
    =============================================================== */
 .polls-filters {
   position: sticky;
-  top: 56px; /* sits below the 56px-tall global Navbar */
+  /* Sits below the sticky header: the 56px navbar plus the back row
+     (StickyPageHeader.css). */
+  top: calc(56px + var(--cv-backbar-h, 44px));
   z-index: 50;
   background: var(--cl-bg);
   border-bottom: 1px solid var(--cl-border);

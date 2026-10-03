@@ -18,6 +18,18 @@ Source of seed data:
   2. Otherwise, backend/demo_accounts.json — the checked-in dev seed.
   3. If neither is available, we log a note and skip seeding.
 
+Scope fields (owner_state / owner_district / owner_city) are filled in
+from two fallbacks when the chosen source leaves them out, and only
+ever onto NULL columns (see _seed_scope_for):
+  a. backend/demo_accounts.json, matched by official_id or email, even
+     when DEMO_ACCOUNTS_JSON is the source. Production seeds from the
+     env var (it holds the real password), and that copy had no scope
+     fields, so the Test Rep never got a state or district and its
+     State / District filters never appeared (2026-10-03).
+  b. The curated officials index (app/services/officials_index.py),
+     for a real official's page: state, plus the congressional
+     district for a U.S. House seat.
+
 Shape of the JSON payload:
   {
     "accounts": [
@@ -82,6 +94,70 @@ def _load_seed_payload() -> Optional[Dict[str, Any]]:
     return None
 
 
+def _file_scope_fields() -> Dict[str, Dict[str, Optional[str]]]:
+    """Scope fields from the checked-in demo_accounts.json, keyed by
+    official_id and by lowercased email. Never reads passwords."""
+    out: Dict[str, Dict[str, Optional[str]]] = {}
+    if not DEFAULT_SEED_PATH.exists():
+        return out
+    try:
+        with DEFAULT_SEED_PATH.open("r", encoding="utf-8") as fh:
+            payload = json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return out
+    for entry in (payload or {}).get("accounts") or []:
+        if not isinstance(entry, dict):
+            continue
+        fields = {
+            "owner_state": entry.get("owner_state") or None,
+            "owner_district": entry.get("owner_district") or None,
+            "owner_city": entry.get("owner_city") or None,
+        }
+        if entry.get("official_id"):
+            out[str(entry["official_id"]).strip()] = fields
+        if entry.get("email"):
+            out[str(entry["email"]).strip().lower()] = fields
+    return out
+
+
+def _seed_scope_for(
+    entry: Dict[str, Any],
+    file_scopes: Dict[str, Dict[str, Optional[str]]],
+) -> tuple:
+    """Return (state, district, city) for a rep seed entry.
+
+    The entry's own fields win. Missing ones come from the checked-in
+    file (fallback a in the module docstring), then from the curated
+    officials index (fallback b), which only ever offers a
+    congressional district ("FL-17"; see owner_scope_fallback).
+    """
+    official_id = str(entry.get("official_id") or "").strip()
+    email = str(entry.get("email") or "").strip().lower()
+    state = (entry.get("owner_state") or "").strip().upper()[:2] or None
+    district = (entry.get("owner_district") or None)
+    city = (entry.get("owner_city") or None)
+
+    from_file = file_scopes.get(official_id) or file_scopes.get(email) or {}
+    if not state and from_file.get("owner_state"):
+        state = str(from_file["owner_state"]).strip().upper()[:2] or None
+    if not district and from_file.get("owner_district"):
+        district = from_file["owner_district"]
+    if not city and from_file.get("owner_city"):
+        city = from_file["owner_city"]
+
+    if (not state or not district) and official_id:
+        try:
+            from app.services.officials_index import owner_scope_fallback
+            geo_state, geo_district = owner_scope_fallback(official_id)
+        except Exception:
+            geo_state, geo_district = None, None
+        if not state and geo_state:
+            state = geo_state
+        if not district and geo_district and state and geo_district.startswith(f"{state}-"):
+            district = geo_district
+    return state, district, city
+
+
 def _validate_account(entry: Dict[str, Any]) -> bool:
     required = ("official_id", "email", "password", "display_name")
     for k in required:
@@ -110,6 +186,7 @@ def seed_demo_accounts(db: Optional[Session] = None) -> int:
     db = db or SessionLocal()
     created = 0
     topped_up = 0
+    file_scopes = _file_scope_fields()
     try:
         for entry in accounts:
             if not _validate_account(entry):
@@ -126,9 +203,7 @@ def seed_demo_accounts(db: Optional[Session] = None) -> int:
                 )
                 .first()
             )
-            entry_state = (entry.get("owner_state") or "").strip().upper()[:2] or None
-            entry_district = (entry.get("owner_district") or None)
-            entry_city = (entry.get("owner_city") or None)
+            entry_state, entry_district, entry_city = _seed_scope_for(entry, file_scopes)
 
             if existing:
                 # Top up newly-added scope fields on old rows. We only

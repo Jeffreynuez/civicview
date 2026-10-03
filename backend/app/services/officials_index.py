@@ -382,6 +382,24 @@ def lookup(official_id: str) -> Optional[dict]:
     return _INDEX.get(str(official_id).strip())
 
 
+def owner_scope_fallback(official_id: str) -> tuple[Optional[str], Optional[str]]:
+    """(state, congressional_district) for a page owner's account,
+    from the curated index, for filling a rep account's owner_state /
+    owner_district when nothing else supplied them.
+
+    The district is only returned when it is shaped like a
+    congressional district ("FL-17"), because engagement rows store
+    the citizen's congressional district in scope_district. A state
+    legislative district number would never match one, so it is left
+    out rather than producing filters that always read zero."""
+    geo = lookup(official_id) or {}
+    state = geo.get("state") or None
+    district = str(geo.get("district") or "").strip().upper()
+    if not (state and district.startswith(f"{state}-") and district.split("-", 1)[1].isdigit()):
+        district = ""
+    return state, (district or None)
+
+
 def allowed_scopes_for_official(official_id: str) -> list[str]:
     """Return the list of geographic scopes the official's office
     supports — same shape `_allowed_scopes_for_owner` returns for a

@@ -2,7 +2,10 @@
    Ported from the Claude Design export, trimmed of prototype-only chrome
    (harness, annotations, tweaks, phone frame, mock navbar, resolved panel). */
 
-.bills-page { background: var(--cl-bg); color: var(--cl-text); min-height: 100vh; font-family: var(--cl-font-sans); }
+.bills-page { background: var(--cl-bg); color: var(--cl-text); min-height: 100vh; font-family: var(--cl-font-sans);
+  /* Grow with the content, not shrink to the viewport, so the sticky
+     header sticks the whole way down (see StickyPageHeader.css). */
+  flex-shrink: 0; }
 
 /* ---------- hero band (matches /polls) ---------- */
 .cv-hero { background: var(--cl-primary); color: var(--cl-text-on-dark); padding: 30px 18px 34px; }
