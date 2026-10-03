@@ -33,7 +33,7 @@ import PageChrome from '@/components/PageChrome';
 import SeatChart from '@/components/bills/SeatChart';
 import SeatMiniCard from '@/components/bills/SeatMiniCard';
 import BillReactions from '@/components/bills/BillReactions';
-import CitizenLoginModal from '@/components/CitizenLoginModal';
+import { useViewerGeo } from '@/components/bills/BillScope';
 import { billKeyFromCitation } from '@/lib/billReactions';
 import {
   POS_LABEL,
@@ -500,6 +500,8 @@ function VoteHeader({ vote }) {
   // Only votes on a bill or resolution get likes (not nominations or
   // procedural votes): the key is built from the citation.
   const reactKey = billKeyFromCitation(vote.congress, vote.cite);
+  // Likes by state / district here use the viewer's own geography.
+  const viewerGeo = useViewerGeo();
   const seg = (p) => bp[p].yea + '-' + bp[p].nay;
   const hasI = (bp.I.yea + bp.I.nay) > 0;
   return (
@@ -526,7 +528,7 @@ function VoteHeader({ vote }) {
       {reactKey && (
         <div className="cv-header__react">
           <span className="cv-header__react-label">What do you think of {vote.cite}?</span>
-          <BillReactions billKey={reactKey} size="md" />
+          <BillReactions billKey={reactKey} size="md" geo={viewerGeo} scopeSwitch />
         </div>
       )}
       <TallyBar vote={vote} />

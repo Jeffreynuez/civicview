@@ -26,6 +26,7 @@ import { useTrackedElections } from '../lib/trackedElections';
 import { useFeaturedTracked } from '../lib/featuredTracked';
 import TrackedManager from './TrackedManager';
 import BillReactions from './bills/BillReactions';
+import { useViewerGeo } from './bills/BillScope';
 import ActivityArchive from './ActivityArchive';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
@@ -2375,6 +2376,8 @@ function SpotlightUpdate({ text, whenIso, onClick }) {
 }
 
 function BillSpotlight({ bill, onManage }) {
+  // Likes by state / district use the viewer's own geography.
+  const viewerGeo = useViewerGeo();
   return (
     <section>
       <SectionHeader eyebrow="Followed bills" action={bill ? { label: 'Manage tracked →', onClick: onManage } : null} />
@@ -2402,7 +2405,7 @@ function BillSpotlight({ bill, onManage }) {
                 View on Congress.gov →
               </a>
             ) : <span />}
-            <BillReactions billKey={bill.key} />
+            <BillReactions billKey={bill.key} geo={viewerGeo} scopeSwitch />
           </div>
         </div>
       )}

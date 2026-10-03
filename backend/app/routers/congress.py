@@ -36,6 +36,16 @@ async def get_member_detail(bioguide_id: str):
     member = await service.get_member_detail(bioguide_id)
     if not member:
         raise HTTPException(status_code=404, detail=f"Member {bioguide_id} not found")
+    # The detail payload has no `state` (the list endpoint does), so a
+    # profile opened from a link knew the district number but not the
+    # state, and its Bills tab could not offer state / district likes
+    # (2026-10-03). Fill it from the sitting-Congress index; a copy, so
+    # the service's cached dict is not changed.
+    if isinstance(member, dict) and not member.get("state"):
+        from app.services.officials_index import lookup as _geo_lookup
+        geo = _geo_lookup(bioguide_id) or {}
+        if geo.get("state"):
+            member = {**member, "state": geo["state"]}
     return member
 
 

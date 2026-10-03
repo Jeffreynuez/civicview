@@ -19,6 +19,7 @@ import {
 import { useFeaturedTracked, setFeatured, isFeatured } from '@/lib/featuredTracked';
 import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
 import BillReactions from '@/components/bills/BillReactions';
+import { BillScopeProvider, useViewerGeo } from '@/components/bills/BillScope';
 
 /**
  * TrackedManager — the shared "everything you follow" surface.
@@ -49,6 +50,9 @@ export default function TrackedManager({
   const { list: officialsAll } = useTrackedOfficials();
   const { list: elections } = useTrackedElections();
   const { featured } = useFeaturedTracked();
+  // Likes by state / district on tracked bills use the viewer's own
+  // geography (BillScope.js).
+  const viewerGeo = useViewerGeo();
 
   const { representatives, candidates } = useMemo(() => {
     const reps = [], cans = [];
@@ -267,15 +271,17 @@ export default function TrackedManager({
               : 'All tracked bills are up to date.'}
           </div>
         )}
-        {fBills.map((bill) => (
-          <BillRow
-            key={bill.key} bill={bill} changed={changedBillKeys.has(bill.key)}
-            canFeature={canFeature} starred={featured.bill === bill.key}
-            onToggleFeature={toggleFeature}
-            onUntrack={() => { untrackBill(bill.key); if (onNotify) onNotify(`Stopped tracking ${bill.citation || bill.title}.`); }}
-            onSponsorClick={() => { if (bill.sponsor_bioguide && onMemberPick) onMemberPick({ bioguide_id: bill.sponsor_bioguide }); }}
-          />
-        ))}
+        <BillScopeProvider geo={fBills.length ? viewerGeo : null} label="Likes from">
+          {fBills.map((bill) => (
+            <BillRow
+              key={bill.key} bill={bill} changed={changedBillKeys.has(bill.key)}
+              canFeature={canFeature} starred={featured.bill === bill.key}
+              onToggleFeature={toggleFeature}
+              onUntrack={() => { untrackBill(bill.key); if (onNotify) onNotify(`Stopped tracking ${bill.citation || bill.title}.`); }}
+              onSponsorClick={() => { if (bill.sponsor_bioguide && onMemberPick) onMemberPick({ bioguide_id: bill.sponsor_bioguide }); }}
+            />
+          ))}
+        </BillScopeProvider>
       </Section>
 
       <Section

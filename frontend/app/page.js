@@ -610,7 +610,12 @@ export default function Home() {
         const result = await fetchMemberDetail(member.bioguide_id);
         if (mid !== memberReqRef.current) return;
         if (result.data) {
-          setSelectedMember(result.data);
+          // The detail payload had no `state` (the list row does); keep
+          // the list's so the profile knows its state (bill likes by
+          // state / district, 2026-10-03). The backend now fills it too.
+          setSelectedMember(
+            result.data.state || !member.state ? result.data : { ...result.data, state: member.state },
+          );
           return;
         }
       } catch (e) {
