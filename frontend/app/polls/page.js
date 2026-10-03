@@ -57,6 +57,7 @@ import useScrollRestoration from '@/lib/useScrollRestoration';
 import HScroll, { EdgeArrow } from '@/components/HScroll';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
+import { useCitizenLoginRequest } from '@/lib/loginRequest';
 import { useAuth as useRepAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import Navbar from '@/components/Navbar';
@@ -258,6 +259,8 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // store, so the Navbar's citizen / Subscribe / My Tracked / Dashboard
   // callbacks all route to local state here.
   const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
+  // A deep component (a tracked bill's like button) asking for the sign-in.
+  useCitizenLoginRequest(() => setCitizenLoginOpen(true));
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [trackedOpen, setTrackedOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);

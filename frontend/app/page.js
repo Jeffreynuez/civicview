@@ -41,6 +41,7 @@ import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
 import { useViewport, useIsLandscape } from '@/lib/useViewport';
 import { loadNavState, saveNavState } from '@/lib/navState';
 import { useTutorialActions } from '@/lib/tutorial';
+import { useCitizenLoginRequest } from '@/lib/loginRequest';
 
 export default function Home() {
   // Viewport drives the desktop ↔ mobile layout pivot. Computed once at
@@ -1353,6 +1354,8 @@ export default function Home() {
     // on state switches is cheap and keeps the closures fresh.
   }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage, handleStateSelect, selectedState]);
   useTutorialActions(tutorialActionHandlers);
+  // A deep component (a bill's like button) asking for the sign-in.
+  useCitizenLoginRequest(handleCitizenLoginOpen);
 
   return (
     <div className="flex flex-col cl-h-screen-visible">

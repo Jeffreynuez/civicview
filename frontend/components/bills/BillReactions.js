@@ -11,8 +11,9 @@
  * should be added to all bills. Even on the reps profile sections."
  *
  * Engagement follows the app's "Act as" pattern (CLAUDE.md):
- *   - nobody signed in: onLoginRequired, or the citizen sign-in modal
- *     through the tutorial bridge on pages that host it;
+ *   - nobody signed in: onLoginRequired, or requestCitizenLogin(), which
+ *     the page that owns the sign-in window answers (home, /polls, and
+ *     PageChrome on /bills and /stats);
  *   - one identity: the click fires as that identity;
  *   - two or more: the IdentityPicker asks which one, with a check on
  *     the identities that already reacted this way.
@@ -38,7 +39,7 @@ import { useActiveIdentities, pickEngagementIdentity } from '@/lib/activeIdentit
 import {
   clearBillReaction, normalizeBillKey, reactToBill, useBillReaction,
 } from '@/lib/billReactions';
-import { emitTutorialAction } from '@/lib/tutorial';
+import { requestCitizenLogin } from '@/lib/loginRequest';
 
 import './BillReactions.css';
 
@@ -84,7 +85,7 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
     const decision = pickEngagementIdentity({ identities });
     if (decision.none) {
       if (onLoginRequired) onLoginRequired();
-      else emitTutorialAction('open-citizen-login');
+      else requestCitizenLogin();
       return;
     }
     if (decision.single) {
