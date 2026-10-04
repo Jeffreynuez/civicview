@@ -374,7 +374,7 @@ should reach for these first.
   pinned together (`StickyPageHeader`), with every navbar button
   (Citizen login, Subscribe, My Tracked, dashboard, Help build,
   Feedback) opening its window on the page, never `router.push('/')`.
-  Used by /bills, /stats and the 404; /polls has the same set inline.
+  Used by /bills, /stats, /polls (and /posts) and the 404.
   Any wrapper holding a sticky header needs `flex-shrink: 0`, because
   `<body>` is a fixed-height flex column that does the scrolling.
   Deep components ask for the sign-in with `requestCitizenLogin()`

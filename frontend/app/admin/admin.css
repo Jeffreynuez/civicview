@@ -21,6 +21,10 @@
   text-rendering: optimizeLegibility;
   font-variant-numeric: tabular-nums;
   min-height: 100vh;
+  /* <body> is a fixed-height flex column that does the scrolling; a
+     child allowed to shrink would cut the pinned section row short
+     (CLAUDE.md, PageChrome note). */
+  flex-shrink: 0;
 }
 .ad-root button { font: inherit; cursor: pointer; font-variant-numeric: tabular-nums; }
 .ad-root input, .ad-root textarea, .ad-root select { font: inherit; color: inherit; }
@@ -101,6 +105,23 @@
   padding: 4px 0;
   border-top: 1px solid var(--cl-border);
   border-bottom: 1px solid var(--cl-border);
+}
+/* Pinned: the section tabs and "CivicView home" stay in reach while
+   the queue scrolls. Translucent like the app's StickyPageHeader. */
+.ad-subnav-row--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ad-subnav-row--sticky { background: rgba(255, 255, 255, 0.94); }
+}
+.ad-kpis--page {
+  margin-bottom: 18px;
 }
 .ad-subnav {
   display: inline-flex;

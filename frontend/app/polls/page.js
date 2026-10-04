@@ -21,9 +21,12 @@
  * Standalone polls have no source page; they live and die here.
  *
  * Page chrome:
- *   • Existing global Navbar at the top (citizen wires routed to
- *     local modal state on this page so /polls doesn't depend on
- *     the home orchestrator).
+ *   • PageChrome at the top: the navbar and back row pinned together,
+ *     with every navbar window (citizen sign-in, Subscribe, My Tracked,
+ *     the dashboard, Help build, Feedback) opening over this page. It
+ *     also answers requestCitizenLogin(), which this page uses for
+ *     "Start a poll" and card engagement. Until 2026-10-03 /polls kept
+ *     its own copy of all of that.
  *   • Dark "grassroots" hero band with eyebrow + title + sub + 3
  *     headline stats.
  *   • Sticky two-row filter bar (branch chips + Start CTA, then
@@ -56,18 +59,11 @@ import { useHScroll } from '@/lib/useHScroll';
 import useScrollRestoration from '@/lib/useScrollRestoration';
 import HScroll, { EdgeArrow } from '@/components/HScroll';
 import { TabStrip, TabContent } from '@/components/polls/TabStrip';
-import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
-import { useCitizenLoginRequest } from '@/lib/loginRequest';
+import { useCitizenAuth } from '@/lib/citizenAuth';
+import { requestCitizenLogin } from '@/lib/loginRequest';
 import { useAuth as useRepAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
-import Navbar from '@/components/Navbar';
-import StickyPageHeader from '@/components/StickyPageHeader';
-import CitizenLoginModal from '@/components/CitizenLoginModal';
-import CitizenWaitlistModal from '@/components/CitizenWaitlistModal';
-import MyTrackedModal from '@/components/MyTrackedModal';
-import ConstituentDashboard from '@/components/ConstituentDashboard';
-import HelpBuildThisView from '@/components/HelpBuildThisView';
-import FeedbackView from '@/components/FeedbackView';
+import PageChrome from '@/components/PageChrome';
 import './polls.css';
 
 // Branch filters — replaces the old kind enum. Standalone is a
@@ -255,18 +251,9 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const { overflow: chipsOverflow, scrollByDir: chipsScrollBy, dragHandlers: chipsDrag } =
     useHScroll(kindChipsRef, { step: 160, deps: [activeBranchFilters.length, tab] });
 
-  // Local modal state — /polls doesn't share the home orchestrator's
-  // store, so the Navbar's citizen / Subscribe / My Tracked / Dashboard
-  // callbacks all route to local state here.
-  const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
-  // A deep component (a tracked bill's like button) asking for the sign-in.
-  useCitizenLoginRequest(() => setCitizenLoginOpen(true));
-  const [waitlistOpen, setWaitlistOpen] = useState(false);
-  const [trackedOpen, setTrackedOpen] = useState(false);
-  const [dashboardOpen, setDashboardOpen] = useState(false);
-  const [dashboardInitialView, setDashboardInitialView] = useState('overview');
-  const [helpBuildOpen, setHelpBuildOpen] = useState(false);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  // The navbar's windows (sign-in, Subscribe, My Tracked, dashboard,
+  // Help build, Feedback) live in PageChrome; this page asks for the
+  // sign-in with requestCitizenLogin().
 
   // AI filter state.
   const [aiAvailable, setAiAvailable] = useState(false);
@@ -522,13 +509,13 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     load();
   };
 
-  // Navbar handlers. Citizen modals live on this page so /polls
-  // works as a standalone destination, not just a deep-link from home.
+  // "Start a poll" and the back row. The navbar's own windows live in
+  // PageChrome, so /polls works as a standalone destination.
   const handleStartPoll = async () => {
     // Start a poll is citizen-only — rep + candidate users get pushed
     // through citizen login if they want a standalone poll on this
     // feed (or they can use their own page's composer).
-    if (!citizenSignedIn) { setCitizenLoginOpen(true); return; }
+    if (!citizenSignedIn) { requestCitizenLogin(); return; }
     // Pre-check the one-active-standalone-poll cap BEFORE opening the
     // composer, so a citizen doesn't write a whole poll only to be
     // rejected on submit. A standalone poll has an empty target_official_id.
@@ -544,64 +531,15 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     setComposerOpen(true);
   };
   const handleHome = () => router.push('/');
-  const handleMemberPick = (m) => {
-    if (m?.bioguide_id) router.push(`/?member=${encodeURIComponent(m.bioguide_id)}`);
-    else router.push('/');
-  };
-  const handleCandidatePick = (c) => {
-    if (c?.id) router.push(`/?candidate=${encodeURIComponent(c.id)}`);
-    else router.push('/');
-  };
-  const handleCitizenLogout = async () => {
-    await logoutCitizen();
-    setDashboardOpen(false);
-  };
 
   return (
     <div className="polls-page" data-tutorial="polls-page">
       {/* Sticky header: the navbar plus the "Back to map" row, pinned
-          together (StickyPageHeader). The back row used to sit in normal
-          flow below the sticky navbar, so it scrolled away (2026-10-03).
-          The filter bar sticks just below this header (polls.css).
-          `compact` drops the global search bar (this page is itself a
-          full-screen destination, search would compete with the polls
-          feed) and `hidePollsLink` suppresses the redundant Polls
-          self-link in the right cluster + hamburger. */}
-      <StickyPageHeader backLabel="Back to map" onBack={handleHome}>
-        <Navbar
-          compact
-          hidePollsLink
-          onMemberPick={handleMemberPick}
-          onCandidatePick={handleCandidatePick}
-          onOpenTracked={() => setTrackedOpen(true)}
-          onSubscribe={() => setWaitlistOpen(true)}
-          citizen={citizen}
-          onCitizenLogin={() => setCitizenLoginOpen(true)}
-          onCitizenLogout={handleCitizenLogout}
-          onCitizenDashboard={() => setDashboardOpen(true)}
-          /* IdentitySwitcher dashboard-jump handlers — same pattern as
-             app/page.js. /polls is its own Next.js route so it can't
-             call the home page's local state setters directly; we
-             navigate home with the page slug in the query string and
-             the URL-restore branch on app/page.js opens the matching
-             rep/candidate page. The Dashboard tab is reached by
-             clicking it once the page loads (a sessionStorage signal
-             would pre-select it; deferred until needed). */
-          onOpenRepDashboard={(r) => {
-            if (r?.official_id) {
-              router.push(`/?page=${encodeURIComponent(r.official_id)}`);
-            }
-          }}
-          onOpenCandidateDashboard={(c) => {
-            if (c?.candidate_id) {
-              router.push(`/?page=${encodeURIComponent(c.candidate_id)}`);
-            }
-          }}
-          onOpenHelpBuild={() => setHelpBuildOpen(true)}
-          onOpenFeedback={() => setFeedbackOpen(true)}
-          onHome={handleHome}
-        />
-      </StickyPageHeader>
+          together, with every navbar window opening over this page
+          (PageChrome, the same header /bills and /stats use). The filter
+          bar sticks just below it (polls.css). `hidePollsLink` drops the
+          navbar's Polls link, which would point at this page. */}
+      <PageChrome backLabel="Back to map" onBack={handleHome} navbarProps={{ hidePollsLink: true }} />
 
       <PollsHero counts={branchCounts} tab={tab} />
 
@@ -765,7 +703,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               isCommentsOpen={openCommentId === p.id}
               onToggleComments={() => toggleComments(p.id)}
               signedIn={signedIn}
-              onLoginRequired={() => setCitizenLoginOpen(true)}
+              onLoginRequired={requestCitizenLogin}
               // Preferred: shallow-merge the patch into the matching
               // item so React re-renders ONE card. No scroll jump.
               onCardUpdated={(cardId, patch) => {
@@ -862,135 +800,6 @@ export function GrassrootsFeed({ tab = 'polls' }) {
         </div>
       )}
 
-      <CitizenLoginModal
-        open={citizenLoginOpen}
-        onClose={() => setCitizenLoginOpen(false)}
-        onSuccess={() => setCitizenLoginOpen(false)}
-      />
-      <CitizenWaitlistModal
-        open={waitlistOpen}
-        onClose={() => setWaitlistOpen(false)}
-        clickedFrom="subscribe"
-      />
-      <MyTrackedModal
-        open={trackedOpen}
-        onClose={() => setTrackedOpen(false)}
-        onMemberPick={handleMemberPick}
-        onOpenInDashboard={() => {
-          setTrackedOpen(false);
-          setDashboardInitialView('tracked');
-          setDashboardOpen(true);
-        }}
-      />
-      {/* ConstituentDashboard — wrapped in a fixed-position scroll
-          container per the home page pattern so it doesn't inherit
-          the polls page's existing scroll offset (which caused the
-          dashboard to open partway down the page). */}
-      {dashboardOpen && citizen && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 1200,
-            background: 'var(--cl-bg)',
-            overflowY: 'auto',
-          }}
-        >
-          <ConstituentDashboard
-            citizen={citizen}
-            onClose={() => setDashboardOpen(false)}
-            initialView={dashboardInitialView}
-            onNavigate={{
-              openOfficial: (member) => {
-                setDashboardOpen(false);
-                handleMemberPick(member);
-              },
-              manageTracked: () => {
-                setDashboardOpen(false);
-                setTrackedOpen(true);
-              },
-            }}
-            navbarProps={{
-              citizen,
-              onCitizenLogin: () => setCitizenLoginOpen(true),
-              onCitizenLogout: handleCitizenLogout,
-              onOpenTracked: () => {
-                setDashboardOpen(false);
-                setTrackedOpen(true);
-              },
-              onSubscribe: () => {
-                setDashboardOpen(false);
-                setWaitlistOpen(true);
-              },
-              onOpenHelpBuild: () => {
-                setDashboardOpen(false);
-                setHelpBuildOpen(true);
-              },
-              onOpenFeedback: () => {
-                setDashboardOpen(false);
-                setFeedbackOpen(true);
-              },
-            }}
-          />
-        </div>
-      )}
-
-      {/* Help-build overlay — surfaced via the navbar hamburger and
-          forwarded through from the dashboard's embedded navbar. */}
-      {helpBuildOpen && (
-        <HelpBuildThisView
-          onClose={() => setHelpBuildOpen(false)}
-          compactNavbarProps={{
-            citizen,
-            onCitizenLogin: () => setCitizenLoginOpen(true),
-            onCitizenLogout: handleCitizenLogout,
-            onCitizenDashboard: () => {
-              setHelpBuildOpen(false);
-              setDashboardOpen(true);
-            },
-            onOpenTracked: () => {
-              setHelpBuildOpen(false);
-              setTrackedOpen(true);
-            },
-            onSubscribe: () => {
-              setHelpBuildOpen(false);
-              setWaitlistOpen(true);
-            },
-            onOpenFeedback: () => {
-              setHelpBuildOpen(false);
-              setFeedbackOpen(true);
-            },
-          }}
-        />
-      )}
-
-      {/* Feedback overlay — embedded Google Form. */}
-      {feedbackOpen && (
-        <FeedbackView
-          onClose={() => setFeedbackOpen(false)}
-          compactNavbarProps={{
-            citizen,
-            onCitizenLogin: () => setCitizenLoginOpen(true),
-            onCitizenLogout: handleCitizenLogout,
-            onCitizenDashboard: () => {
-              setFeedbackOpen(false);
-              setDashboardOpen(true);
-            },
-            onOpenTracked: () => {
-              setFeedbackOpen(false);
-              setTrackedOpen(true);
-            },
-            onSubscribe: () => {
-              setFeedbackOpen(false);
-              setWaitlistOpen(true);
-            },
-            onOpenHelpBuild: () => {
-              setFeedbackOpen(false);
-              setHelpBuildOpen(true);
-            },
-          }}
-        />
-      )}
     </div>
   );
 }
