@@ -110,6 +110,17 @@ async def lifespan(app: FastAPI):
             # tables, not "wiped and then re-seeded." Unset the env var
             # after the wipe boot to prevent repeated runs.
             maybe_run_fresh_start_wipe()
+            # Account rules of 2026-10-03: canonical districts, no two
+            # citizens with one name, name_key filled for the unique
+            # index. Runs before the seeds so a seeded citizen is checked
+            # against clean keys. See services/citizen_account_repair.py.
+            try:
+                from app.services.citizen_account_repair import repair_citizen_accounts
+                repair_citizen_accounts()
+            except Exception:
+                logger.exception(
+                    "Citizen account repair failed at boot; non-fatal, retries next boot.",
+                )
             seed_demo_accounts()
             seed_demo_citizens()
             seed_demo_candidates()
@@ -174,6 +185,22 @@ async def lifespan(app: FastAPI):
         _asyncio.get_event_loop().create_task(_warm_congress_cache())
     except Exception:
         logger.exception("Could not schedule Congress cache warmup — non-fatal.")
+
+    # Officials' names a citizen can't take (services/display_names.py,
+    # 2026-10-03). Built here, off the request path, because the first
+    # build may fetch the Congress roster; otherwise the first sign-up
+    # after a deploy would wait for it.
+    async def _warm_reserved_names():
+        try:
+            from app.services.display_names import reserved_name_keys
+            await _asyncio.to_thread(reserved_name_keys)
+        except Exception:
+            logger.exception("Reserved-name warmup failed; non-fatal, it builds on the first sign-up.")
+
+    try:
+        _asyncio.get_event_loop().create_task(_warm_reserved_names())
+    except Exception:
+        logger.exception("Could not schedule the reserved-name warmup; non-fatal.")
 
     # ── Daily data-retention jobs (audit O7) ─────────────────────────
     # The boot run above covers a fresh process; this repeats the same

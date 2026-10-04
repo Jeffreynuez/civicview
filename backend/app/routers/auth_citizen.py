@@ -26,11 +26,13 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from pydantic import BaseModel, ConfigDict, Field
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.auth import compute_csrf_token, hash_password, verify_password
 from app.auth_citizen import (
     clear_citizen_cookie,
+    get_optional_citizen,
     get_optional_citizen_including_deleted,
     issue_citizen_token,
     set_citizen_cookie,
@@ -60,20 +62,17 @@ router = APIRouter()
 # enumerate registered emails.
 _DUMMY_BCRYPT = "$2b$12$invalidhashinvalidhashinvalidhashinvalidhashinvalidhashinvalid"
 
-# Two-letter state code, plus DC + a few US territories that have congressional
-# delegates. Used to validate demo-signup payloads. Keep in sync with the
-# frontend state dropdown.
-_VALID_STATES = frozenset({
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI",
-    "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN",
-    "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH",
-    "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-    "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI",
-})
+# States, DC and the territories with a House delegate, and the seat
+# count of each, live in services/citizen_geo.py (shared with the
+# location endpoint and the boot repair). The frontend keeps the same
+# table in lib/usStates.js.
 
 # Slug-friendly characters only. Stripped from display_name before being
 # folded into the generated email handle.
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
+
+# Domain of every generated demo sign-in email. No MX records, ever.
+DEMO_LOGIN_SUFFIX = "@demo-citizens.civicview.app"
 
 
 # ── Rate limiting ─────────────────────────────────────────────────────
@@ -135,18 +134,31 @@ def normalize_contact_email(raw: Optional[str]) -> Optional[str]:
 
 # ── Demo signup payload / response ────────────────────────────────────
 class CitizenDemoSignupRequest(BaseModel):
-    """Self-serve demo citizen payload. Display name is the only required
-    field — state / district / city are optional but improve the engagement
-    experience (poll scope filters, district-level rep matching)."""
-    display_name: str = Field(..., min_length=1, max_length=80)
-    state: Optional[str] = Field(default=None, min_length=2, max_length=2)
-    congressional_district: Optional[str] = Field(default=None, max_length=8)
+    """Self-serve demo citizen payload.
+
+    Required (2026-10-03): display name, state and congressional
+    district. Jeffrey: "no one that creates a demo account should not
+    have a state and district. The only thing they can forgo is not
+    having their city or county." Engagement is counted by state and
+    district, so an account without them has nothing to count under.
+    state and congressional_district are typed Optional only so a
+    missing one gets a readable message from demo_signup instead of
+    pydantic's generic 422."""
+    display_name: str = Field(..., min_length=1, max_length=120)
+    state: Optional[str] = Field(default=None, max_length=2)
+    congressional_district: Optional[str] = Field(default=None, max_length=16)
     city: Optional[str] = Field(default=None, max_length=128)
-    # Optional reachable address for the demo-sunset / migration notice
-    # ONLY (demo-sunset PRD §4). The signup form states that purpose
-    # explicitly; honor it. Stored on CitizenAccount.contact_email, never
-    # as the login email.
+    # Optional reachable address (demo-sunset PRD §4). Stored on
+    # CitizenAccount.contact_email, never as the login email. Used for
+    # the one migration notice, and since 2026-10-03 for this account's
+    # own sign-in help: the sign-in email below when asked for, and
+    # "Forgot password?" (services/password_reset.py). The sign-up form
+    # and the privacy policy say exactly that; keep them in step.
     contact_email: Optional[str] = Field(default=None, max_length=255)
+    # "Email me my sign-in details": send the generated sign-in email
+    # and a link to choose a new password to contact_email. Never the
+    # password. Ignored without a contact email.
+    send_signin_email: bool = False
 
 
 class CitizenDemoSignupResponse(BaseModel):
@@ -158,11 +170,15 @@ class CitizenDemoSignupResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     citizen: CitizenMeResponse
     citizen_token: str
-    # Plaintext credentials — only ever returned for newly-minted demo
-    # accounts. The frontend stashes these in localStorage so the user can
-    # see them in their account settings and reuse them across sessions.
+    # Plaintext credentials, only ever returned for newly minted demo
+    # accounts. The frontend shows them once with ways to keep them
+    # (copy, download, the browser's password manager); it does not
+    # store them. The server keeps only the bcrypt hash.
     email: str
     password: str
+    # True when the sign-in email went out (send_signin_email with a
+    # contact email, and the email service accepted it).
+    signin_email_sent: bool = False
 
 
 def _slugify(name: str) -> str:
@@ -186,7 +202,7 @@ def _generate_credentials(display_name: str) -> tuple[str, str]:
     """
     handle = _slugify(display_name)
     suffix = secrets.token_hex(4)  # 8 hex chars
-    email = f"{handle}-{suffix}@demo-citizens.civicview.app"
+    email = f"{handle}-{suffix}{DEMO_LOGIN_SUFFIX}"
     alphabet = string.ascii_letters + string.digits + "-_"
     password = "".join(secrets.choice(alphabet) for _ in range(16))
     return email, password
@@ -334,8 +350,8 @@ def demo_signup(
       could exercise the engagement features. That list maxes out at
       60 and forces every reviewer to share the same identities. This
       endpoint lets any visitor mint their own demo account with a
-      display name + (optional) state / district they choose — no
-      cap, no shared inbox, real engagement attribution.
+      display name, state and congressional district they choose (city
+      optional), with no shared inbox and real engagement attribution.
 
       `verified=False` on every demo account: the schema's existing
       "Unverified" labeling continues to mark these throughout the UI,
@@ -353,59 +369,46 @@ def demo_signup(
     user is signed in immediately — they don't need to call /login
     after this.
     """
-    _check_demo_signup_rate_limit(_client_ip(request))
+    from app.services.citizen_geo import normalize_district, normalize_state
+    from app.services.display_names import clean_display_name, name_conflict
 
-    display_name = payload.display_name.strip()
-    if not display_name:
-        raise HTTPException(status_code=400, detail="Display name is required.")
+    try:
+        display_name = clean_display_name(payload.display_name)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
 
-    # Display-name uniqueness, case-insensitive. Two demo citizens
-    # with the same visible name break the @-mention semantics in
-    # the AI comment filter ("@Fred" can't disambiguate between
-    # multiple Freds) and create general identity confusion in
-    # threads. We use func.lower() for the compare so "Fred Smith"
-    # and "fred smith" are treated as the same name. Soft-deleted
-    # rows DO count (you can't squat on a name even after closing
-    # an account, mirroring most social-platform conventions).
-    from sqlalchemy import func as _sa_func
-    existing = (
-        db.query(CitizenAccount.id)
-        .filter(_sa_func.lower(CitizenAccount.display_name) == display_name.lower())
-        .first()
-    )
-    if existing is not None:
+    # One name, one person (2026-10-03, services/display_names.py):
+    # ignoring capitals, spacing, punctuation and accents, the name must
+    # not belong to another citizen, a rep or candidate account, or a
+    # sitting official. Soft-deleted rows count: a closed account's name
+    # isn't up for grabs during its grace period. The unique index on
+    # citizen_accounts.name_key backs this up against a race (below).
+    conflict = name_conflict(db, display_name)
+    if conflict:
+        raise HTTPException(status_code=409, detail=conflict)
+
+    raw_state = (payload.state or "").strip()
+    if not raw_state:
+        raise HTTPException(status_code=422, detail="Choose your state.")
+    state = normalize_state(raw_state)
+    if not state:
+        raise HTTPException(status_code=422, detail=f"Unknown state code: {raw_state.upper()!r}")
+
+    # Canonical "FL-17" / "WY-AL" (services/citizen_geo.py). The form
+    # sends "17", "AL" or "FL-17"; anything that isn't a real seat in
+    # the chosen state is refused.
+    if not (payload.congressional_district or "").strip():
+        raise HTTPException(status_code=422, detail="Choose your congressional district.")
+    district = normalize_district(state, payload.congressional_district)
+    if not district:
         raise HTTPException(
-            status_code=409,
-            detail=(
-                f'The display name "{display_name}" is already in use. '
-                "Try a variation (initials, middle name, location, etc.)."
-            ),
+            status_code=422,
+            detail=f"That isn't a congressional district in {state}. Choose one from the list.",
         )
 
-    state = (payload.state or "").strip().upper() or None
-    if state and state not in _VALID_STATES:
-        raise HTTPException(status_code=400, detail=f"Unknown state code: {state!r}")
-
-    district = (payload.congressional_district or "").strip() or None
-    if district:
-        # Normalize "19" + state "FL" → "FL-19" so the value stored
-        # matches the format used elsewhere (CitizenAccount rows,
-        # scope filtering, address-lookup output).
-        if district.isdigit() and state:
-            district = f"{state}-{int(district)}"
-        if len(district) > 8:
-            raise HTTPException(
-                status_code=400,
-                detail="Congressional district must be in 'XX-NN' format.",
-            )
-
-    city = (payload.city or "").strip() or None
-
-    # Generate creds; retry once on the astronomically unlikely email
-    # collision before failing out.
-    email, password = _generate_credentials(display_name)
-    if db.query(CitizenAccount.id).filter(CitizenAccount.email == email).first():
-        email, password = _generate_credentials(display_name)
+    # Optional. An empty string, not a placeholder: "Demo City" used to
+    # be stored here and showed up as a real place.
+    city = re.sub(r"\s+", " ", (payload.city or "")).strip()
 
     # Optional sunset-notice address (demo-sunset PRD §4). Light-touch
     # validation only: this is a courtesy channel, not an auth factor, so
@@ -415,14 +418,33 @@ def demo_signup(
     # endpoint below makes the opposite call (422) because there the user
     # is submitting the address deliberately and can fix it.
     contact_email = normalize_contact_email(payload.contact_email)
+    # Except when they asked us to email their sign-in details there:
+    # dropping the address then would leave them waiting for an email
+    # that never comes.
+    if payload.send_signin_email and (payload.contact_email or "").strip() and not contact_email:
+        raise HTTPException(
+            status_code=422,
+            detail="That email address doesn't look right. Check it, or untick the email option.",
+        )
+
+    # The per-IP cap counts accounts, not attempts: it runs after the
+    # checks above, so a taken name or a missing district doesn't use
+    # up one of the day's five sign-ups.
+    _check_demo_signup_rate_limit(_client_ip(request))
+
+    # Generate creds; retry once on the astronomically unlikely email
+    # collision before failing out.
+    email, password = _generate_credentials(display_name)
+    if db.query(CitizenAccount.id).filter(CitizenAccount.email == email).first():
+        email, password = _generate_credentials(display_name)
 
     citizen = CitizenAccount(
         email=email,
         contact_email=contact_email,
         password_hash=hash_password(password),
         display_name=display_name,
-        city=city or "Demo City",
-        state=state or "FL",  # Backend column is NOT NULL; default to FL.
+        city=city,
+        state=state,
         congressional_district=district,
         verified=False,  # Always false for demo. ID.me flips this in v2.
         is_active=True,
@@ -448,7 +470,19 @@ def demo_signup(
         verified_method="demo",
     )
     db.add(citizen)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Another sign-up took the same name between the check above and
+        # this insert; the unique index on name_key caught it.
+        db.rollback()
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f'The name "{display_name}" was just taken. Add a middle initial, '
+                "a middle name or a number to make it yours."
+            ),
+        )
     db.refresh(citizen)
 
     set_citizen_cookie(response, citizen.id, epoch_of(citizen))
@@ -461,11 +495,20 @@ def demo_signup(
         citizen.id, citizen.display_name, citizen.state, citizen.congressional_district,
     )
 
+    # "Email me my sign-in details" (2026-10-03): the sign-in email and a
+    # link to choose a new password, to the contact address. Best effort:
+    # the account exists either way and the screen still shows both.
+    signin_email_sent = False
+    if payload.send_signin_email and contact_email:
+        from app.services.password_reset import send_demo_signin_email
+        signin_email_sent = send_demo_signin_email(db, citizen)
+
     return CitizenDemoSignupResponse(
         citizen=CitizenMeResponse.model_validate(citizen),
         citizen_token=issue_citizen_token(citizen.id, epoch_of(citizen)),
         email=email,
         password=password,
+        signin_email_sent=signin_email_sent,
     )
 
 
@@ -596,6 +639,99 @@ def dismiss_contact_email_prompt(
         db.add(citizen)
         db.commit()
         db.refresh(citizen)
+    return CitizenMeResponse.model_validate(citizen)
+
+
+# ── State and congressional district (2026-10-03) ─────────────────
+# Every citizen account needs both before it can engage (the location
+# gate, services/entitlements.require_location). This is where an
+# account without them sets them, from the prompt the app shows, and
+# where a demo account corrects them later (Account settings).
+# Verified accounts keep the state ID.me confirmed: they can choose
+# their district within it, not move the account to another state.
+# Jeffrey, 2026-10-03: "Edit location in settings".
+
+class LocationRequest(BaseModel):
+    """Body for PUT /me/location. city: omit to keep the current one,
+    "" to clear it."""
+    state: Optional[str] = Field(default=None, max_length=2)
+    congressional_district: Optional[str] = Field(default=None, max_length=16)
+    city: Optional[str] = Field(default=None, max_length=128)
+
+
+_LOCATION_CHANGES_PER_DAY = 10
+
+
+@router.put("/me/location", response_model=CitizenMeResponse)
+def set_location(
+    body: LocationRequest,
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    db: Session = Depends(get_db),
+):
+    """Set the account's state, congressional district and (optional)
+    city. Rows already written keep the district they were stamped
+    with; new likes, votes and comments use the new one."""
+    from app.services.citizen_geo import normalize_district, normalize_state
+
+    if citizen is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+
+    raw_state = (body.state or "").strip()
+    if citizen.verified:
+        state = normalize_state(citizen.state)
+        if raw_state and raw_state.upper() != (citizen.state or "").upper():
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=(
+                    "Your state comes from your identity verification, so it can't be "
+                    "changed here. You can choose your district within it."
+                ),
+            )
+    else:
+        state = normalize_state(raw_state)
+        if not raw_state:
+            raise HTTPException(status_code=422, detail="Choose your state.")
+    if not state:
+        raise HTTPException(status_code=422, detail=f"Unknown state code: {raw_state.upper()!r}")
+
+    if not (body.congressional_district or "").strip():
+        raise HTTPException(status_code=422, detail="Choose your congressional district.")
+    district = normalize_district(state, body.congressional_district)
+    if not district:
+        raise HTTPException(
+            status_code=422,
+            detail=f"That isn't a congressional district in {state}. Choose one from the list.",
+        )
+
+    city = None if body.city is None else re.sub(r"\s+", " ", body.city).strip()
+    moved = state != (citizen.state or "").upper()
+    if state == citizen.state and district == citizen.congressional_district and (
+        city is None or city == citizen.city
+    ):
+        return CitizenMeResponse.model_validate(citizen)
+
+    # Moving an account around is not free: the counts by state and
+    # district are the point of the product.
+    check_rate_limit(
+        "location-change", str(citizen.id), _LOCATION_CHANGES_PER_DAY, 24 * 3600,
+        detail="You've changed your location several times today. Try again tomorrow.",
+    )
+
+    citizen.state = state
+    citizen.congressional_district = district
+    if city is not None:
+        citizen.city = city
+    if moved:
+        # The rest of the old address belonged to the old state.
+        citizen.county = None
+        citizen.zip_code = None
+        citizen.address_line1 = None
+        if city is None:
+            citizen.city = ""
+    db.add(citizen)
+    db.commit()
+    db.refresh(citizen)
+    logger.info("Citizen id=%d set location %s (moved state: %s)", citizen.id, district, moved)
     return CitizenMeResponse.model_validate(citizen)
 
 

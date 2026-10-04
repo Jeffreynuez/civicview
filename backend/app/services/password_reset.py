@@ -24,6 +24,15 @@ Anti-enumeration: the request endpoint ALWAYS returns 200 (success
 shape) whether or not the email matches an account. Otherwise an
 attacker can probe for registered emails by watching response
 codes. The email only goes out if a match exists.
+
+Demo citizen accounts (2026-10-03): their sign-in email is generated
+(@demo-citizens.civicview.app) and reaches nobody, so a reset email
+sent there was lost. Now a citizen can ask for a reset with either
+address. The sign-in email finds the account as before; the optional
+contact email finds every demo account that gave it. Either way the
+email goes to the contact address and names the sign-in email, because
+that is the part people lose. The same address also gets the one-time
+sign-in email offered at sign-up (send_demo_signin_email).
 """
 from __future__ import annotations
 
@@ -45,6 +54,7 @@ from app.models.pages import (
 )
 from app.services.email_service import (
     get_email_service,
+    render_demo_signin_email,
     render_password_reset_confirmation_email,
     render_password_reset_email,
 )
@@ -59,6 +69,33 @@ IdentityKind = Literal["citizen", "rep", "candidate"]
 # (e.g., user forwarded the email by accident) doesn't stay valid
 # overnight.
 TOKEN_TTL = timedelta(hours=1)
+# The link in the sign-in email sent right after a demo sign-up. Longer
+# than a reset link because nobody asked for it this minute: the person
+# may read it tomorrow. After it lapses, "Forgot password?" with the
+# same address sends a fresh one-hour link.
+SIGNIN_EMAIL_TTL = timedelta(hours=24)
+
+# Generated sign-in addresses that no mailbox receives. Same list as
+# digest_service.DEMO_EMAIL_DOMAINS.
+UNDELIVERABLE_DOMAINS = ("@demo-citizens.civicview.app", "@civiclens-demo.com")
+# A contact address can be shared by a household's demo accounts; one
+# reset request mails at most this many of them.
+MAX_ACCOUNTS_PER_CONTACT = 5
+
+
+def is_generated_login(email: Optional[str]) -> bool:
+    """True for a demo account's generated, undeliverable sign-in email."""
+    return (email or "").strip().lower().endswith(UNDELIVERABLE_DOMAINS)
+
+
+def deliverable_address(account) -> Optional[str]:
+    """Where mail for this account can actually arrive: the sign-in
+    email, or for a demo account its contact email (None when it gave
+    none)."""
+    email = getattr(account, "email", None)
+    if not is_generated_login(email):
+        return email
+    return getattr(account, "contact_email", None) or None
 
 
 def _hash_token(raw_token: str) -> str:
@@ -98,6 +135,44 @@ def _account_for_kind(
     return None
 
 
+def _accounts_for_request(db: Session, kind: IdentityKind, email: str) -> list:
+    """The accounts a reset request for `email` should reach. The sign-in
+    email first; for citizens with no such sign-in, the demo accounts
+    that gave `email` as their contact address."""
+    account = _account_for_kind(db, kind, email)
+    if account is not None:
+        return [account]
+    norm = (email or "").strip().lower()
+    if kind != "citizen" or not norm or is_generated_login(norm):
+        return []
+    rows = (
+        db.query(CitizenAccount)
+        .filter(CitizenAccount.contact_email == norm)
+        .order_by(CitizenAccount.id)
+        .limit(MAX_ACCOUNTS_PER_CONTACT * 2)
+        .all()
+    )
+    return [r for r in rows if is_generated_login(r.email)][:MAX_ACCOUNTS_PER_CONTACT]
+
+
+def _mint_token(db: Session, identity_kind: IdentityKind, account, ttl: timedelta) -> str:
+    """Replace any outstanding token for the account with a fresh one;
+    returns the raw token (only its hash is stored)."""
+    db.query(PasswordResetToken).filter(
+        PasswordResetToken.identity_kind == identity_kind,
+        PasswordResetToken.account_id == account.id,
+    ).delete()
+    raw_token = secrets.token_urlsafe(32)
+    db.add(PasswordResetToken(
+        token_hash=_hash_token(raw_token),
+        identity_kind=identity_kind,
+        account_id=account.id,
+        expires_at=datetime.utcnow() + ttl,
+    ))
+    db.commit()
+    return raw_token
+
+
 def _build_reset_url(raw_token: str, identity_kind: IdentityKind) -> str:
     """Compose the password-reset confirmation URL the email links to.
     Base origin defaults to https://civicview.app for prod; override
@@ -121,12 +196,25 @@ def request_password_reset(
     matched. The caller's HTTP response is always 200 regardless of
     whether an email actually went out. This blunts the enumeration
     oracle that would otherwise leak which emails are registered."""
-    account = _account_for_kind(db, identity_kind, email)
-    if account is None:
+    accounts = _accounts_for_request(db, identity_kind, email)
+    if not accounts:
         # No-op — don't leak that the email doesn't match.
         logger.info(
-            "Password reset requested for %s email that doesn't match an account (kind=%s)",
-            email, identity_kind,
+            "Password reset requested for an email that doesn't match an account (kind=%s)",
+            identity_kind,
+        )
+        return
+    for account in accounts:
+        _send_reset_email(db, identity_kind, account)
+
+
+def _send_reset_email(db: Session, identity_kind: IdentityKind, account) -> None:
+    to = deliverable_address(account)
+    if not to:
+        # A demo account with no contact email: nowhere to send it.
+        logger.info(
+            "Password reset for %s account id=%s skipped: no deliverable address",
+            identity_kind, account.id,
         )
         return
 
@@ -144,24 +232,11 @@ def request_password_reset(
         )
         return
 
-    # Mint a fresh raw token + store its hash. We delete any prior
-    # outstanding token for this (kind, account_id) tuple so a user
-    # who requests twice doesn't accumulate orphan rows + so an
-    # attacker can't farm tokens.
-    db.query(PasswordResetToken).filter(
-        PasswordResetToken.identity_kind == identity_kind,
-        PasswordResetToken.account_id == account.id,
-    ).delete()
-
-    raw_token = secrets.token_urlsafe(32)
-    row = PasswordResetToken(
-        token_hash=_hash_token(raw_token),
-        identity_kind=identity_kind,
-        account_id=account.id,
-        expires_at=datetime.utcnow() + TOKEN_TTL,
-    )
-    db.add(row)
-    db.commit()
+    # Mint a fresh raw token + store its hash. Any prior outstanding
+    # token for this (kind, account_id) is deleted so a user who
+    # requests twice doesn't accumulate orphan rows + so an attacker
+    # can't farm tokens.
+    raw_token = _mint_token(db, identity_kind, account, TOKEN_TTL)
 
     # Send the email. Failure is logged but doesn't abort — the token
     # is in the DB; if the email service is temporarily down the user
@@ -172,9 +247,10 @@ def request_password_reset(
         identity_kind=identity_kind,
         reset_url=reset_url,
         expires_in_hours=int(TOKEN_TTL.total_seconds() // 3600) or 1,
+        sign_in_email=account.email if to != account.email else None,
     )
     ok = get_email_service().send(
-        to=account.email,
+        to=to,
         subject=subject,
         text_body=body,
     )
@@ -183,6 +259,28 @@ def request_password_reset(
             "Password reset token minted for %s account id=%s but email send failed",
             identity_kind, account.id,
         )
+
+
+def send_demo_signin_email(db: Session, citizen) -> bool:
+    """Email a new demo citizen their sign-in email and a link to choose
+    a new password (never the password). Sent once, at sign-up, only
+    when they asked for it and gave a contact email. Returns whether
+    the email service accepted it."""
+    to = getattr(citizen, "contact_email", None)
+    if not to:
+        return False
+    raw_token = _mint_token(db, "citizen", citizen, SIGNIN_EMAIL_TTL)
+    subject, body = render_demo_signin_email(
+        display_name=citizen.display_name or "",
+        sign_in_email=citizen.email,
+        reset_url=_build_reset_url(raw_token, "citizen"),
+        expires_in_hours=int(SIGNIN_EMAIL_TTL.total_seconds() // 3600),
+    )
+    try:
+        return bool(get_email_service().send(to=to, subject=subject, text_body=body))
+    except Exception:
+        logger.exception("Demo sign-in email failed for citizen id=%s", citizen.id)
+        return False
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -274,8 +372,10 @@ def confirm_password_reset(
         display_name=getattr(account, "display_name", None) or "",
         identity_kind=identity_kind,
     )
+    to = deliverable_address(account)
     try:
-        get_email_service().send(to=account.email, subject=subject, text_body=body)
+        if to:
+            get_email_service().send(to=to, subject=subject, text_body=body)
     except Exception:
         logger.exception("Password change confirmation email failed (kind=%s)", identity_kind)
 

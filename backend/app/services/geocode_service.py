@@ -203,6 +203,28 @@ class GeocodeService:
             "stateHouseDistrict": state_house_district,
         }
 
+    async def congressional_district_for_street_address(
+        self, address: str,
+    ) -> Optional[tuple[str, str]]:
+        """(state, district) in the canonical form of services/citizen_geo
+        ("FL-17", "WY-AL") for a full street address, or None.
+
+        Census only, never the Nominatim fallback: this reads the address
+        ID.me verified (identity_verification.verification_callback), and
+        that address goes to the U.S. Census geocoder and nowhere else."""
+        from app.services.citizen_geo import normalize_district
+
+        hit = await self._geocode_address((address or "").strip())
+        if not hit:
+            return None
+        coords = hit.get("coordinates") or {}
+        info = await self._get_district_from_coords(coords.get("y"), coords.get("x"))
+        if not info:
+            return None
+        state = FIPS_TO_STATE.get(info.get("STATE", ""))
+        district = normalize_district(state, info.get("CD"))
+        return (state, district) if state and district else None
+
     async def _geocode_nominatim(self, query: str) -> Optional[dict]:
         """Geocode via Nominatim (OpenStreetMap). Looser than Census —
         accepts ZIPs, city names, partial addresses. Returns the same
