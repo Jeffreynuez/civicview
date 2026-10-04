@@ -660,9 +660,12 @@ export async function loginCitizenApi(email, password) {
 // and auto-logs the caller in. Returns the freshly-generated email +
 // password alongside the standard login payload so the UI can show
 // the user their credentials (they're persisted; the user can come
-// back and sign in with them from any device).
+// back and sign in with them from any device). State and district are
+// required (2026-10-03); congressionalDistrict is the picker value
+// ("17", or "AL" for at-large). sendSigninEmail asks the backend to
+// email the sign-in email and a set-password link to contactEmail.
 export async function signupDemoCitizen({
-  displayName, state, congressionalDistrict, city, contactEmail,
+  displayName, state, congressionalDistrict, city, contactEmail, sendSigninEmail,
 } = {}) {
   // Phase 6: multi-identity — no tear-down of other sessions on
   // demo-signup either.
@@ -673,8 +676,10 @@ export async function signupDemoCitizen({
       state: state || null,
       congressional_district: congressionalDistrict || null,
       city: city || null,
-      // Optional sunset-notice address (demo-sunset PRD section 4).
+      // Optional contact address (demo-sunset PRD section 4, plus
+      // sign-in help since 2026-10-03).
       contact_email: contactEmail || null,
+      send_signin_email: !!(sendSigninEmail && contactEmail),
     },
   });
   if (result?.data?.citizen_token) {
@@ -906,6 +911,16 @@ export async function saveContactEmail(contactEmail) {
     method: 'PUT',
     body: { contact_email: contactEmail || null },
   });
+}
+// State, congressional district and (optional) city, 2026-10-03. Every
+// citizen needs a state and district before engaging; this saves them
+// from the location prompt and from Account & settings. district is the
+// picker value ("17" / "AL"). Pass city undefined to leave it as is.
+// Resolves to the refreshed /me payload.
+export async function saveCitizenLocation({ state, district, city } = {}) {
+  const body = { state: state || null, congressional_district: district || null };
+  if (city !== undefined) body.city = city || '';
+  return request('/api/citizen-auth/me/location', { method: 'PUT', body });
 }
 export async function dismissContactEmailPrompt() {
   return request('/api/citizen-auth/me/contact-email/dismiss', {

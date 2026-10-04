@@ -342,6 +342,24 @@ export async function sendWithAuth(path, opts = {}) {
   }
 }
 
+// The location gate (2026-10-03): a citizen without a state and
+// congressional district gets 409 {detail: {code: 'location_required'}}
+// from any like, vote, comment or new poll. Every surface goes through
+// here, so instead of each one handling it, announce it once and let
+// the LocationPrompt (mounted in app/layout.js) ask for the location.
+// The caller still gets its error and shows it as usual.
+export const LOCATION_REQUIRED_EVENT = 'cv:location-required';
+
+function _announceLocationRequired(res) {
+  if (typeof window === 'undefined') return;
+  res.clone().json().then((body) => {
+    const d = body?.detail;
+    if (d && typeof d === 'object' && d.code === 'location_required') {
+      window.dispatchEvent(new CustomEvent(LOCATION_REQUIRED_EVENT, { detail: { message: d.message || '' } }));
+    }
+  }).catch(() => { /* not JSON */ });
+}
+
 // The body of sendWithAuth, with the timeout owned by the caller so
 // request() can keep it running while it reads the response body.
 async function _sendLinked(path, { method = 'GET', body, query, headers } = {}, link) {
@@ -362,6 +380,7 @@ async function _sendLinked(path, { method = 'GET', body, query, headers } = {}, 
         res = await _fetchOnce(url, { method: verb, body, headers, signal: link.signal });
       }
     }
+    if (res.status === 409) _announceLocationRequired(res);
     return res;
   } catch (e) {
     if (link.wasTimeout()) throw new ApiError(TIMEOUT_MESSAGE, { timedOut: true });

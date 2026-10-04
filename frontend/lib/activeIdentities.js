@@ -31,6 +31,7 @@ import { useMemo } from 'react';
 import { useAuth } from './auth';
 import { useCitizenAuth } from './citizenAuth';
 import { useCandidateAuth } from './candidateAuth';
+import { formatDistrict } from './usStates';
 
 export function useActiveIdentities({ isOwner = false } = {}) {
   const { me } = useAuth();
@@ -40,7 +41,7 @@ export function useActiveIdentities({ isOwner = false } = {}) {
   return useMemo(() => {
     const out = [];
     if (citizen) {
-      const district = citizen.congressional_district || citizen.state || '';
+      const district = formatDistrict(citizen.congressional_district) || citizen.state || '';
       out.push({
         kind: 'citizen',
         label: citizen.display_name,

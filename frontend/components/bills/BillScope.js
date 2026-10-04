@@ -29,7 +29,7 @@ import { createContext, useContext, useMemo, useState } from 'react';
 import { normalizeGeo } from '@/lib/billReactions';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
-import { STATE_NAMES } from '@/lib/usStates';
+import { STATE_NAMES, formatDistrict } from '@/lib/usStates';
 
 import './BillReactions.css';
 
@@ -56,7 +56,7 @@ export function BillScopeSwitch({ geo, value, onChange, label = 'Likes from', co
     { id: 'state', text: geo.state, title: `From citizens in ${STATE_NAMES[geo.state] || geo.state}` },
   ];
   if (geo.district) {
-    options.push({ id: 'district', text: geo.district, title: `From citizens in ${geo.district}` });
+    options.push({ id: 'district', text: formatDistrict(geo.district), title: `From citizens in ${formatDistrict(geo.district)}` });
   }
   return (
     <div className={`bill-scope${compact ? ' bill-scope--compact' : ''}`} role="group" aria-label={label}>

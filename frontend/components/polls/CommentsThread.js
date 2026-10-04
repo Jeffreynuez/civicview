@@ -59,6 +59,7 @@ import { useCitizenAuth } from '../../lib/citizenAuth';
 import { useAuth as useRepAuth } from '../../lib/auth';
 import { useCandidateAuth } from '../../lib/candidateAuth';
 import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIdentities';
+import { formatDistrict } from '../../lib/usStates';
 import IdentityPicker, { PostingAsPicker } from '../IdentityPicker';
 import PostActionsMenu from '../PostActionsMenu';
 // Thread chrome styles live in FeedCard.css; import here so the
@@ -658,7 +659,7 @@ export default function CommentsThread({
             {mode === 'post' && citizen && POST_CITIZEN_FILTERS.map((o) => (
               <option key={o.id} value={o.id}>
                 {o.id === 'my_district'
-                  ? `From my district${citizen.congressional_district ? ` (${citizen.congressional_district})` : ''}`
+                  ? `From my district${citizen.congressional_district ? ` (${formatDistrict(citizen.congressional_district)})` : ''}`
                   : `From my state${citizen.state ? ` (${citizen.state})` : ''}`}
               </option>
             ))}

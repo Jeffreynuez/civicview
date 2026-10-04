@@ -21,6 +21,12 @@
  * and address hashes the verification archive keeps. 2026-10-03:
  * engagement history now includes likes and dislikes on bills
  * (bill_reactions; removed with the account like other reactions).
+ * Same day, account creation rules: state and congressional district
+ * are required (city optional) and editable in Account & settings;
+ * the demo contact email now also carries this account's sign-in help
+ * (the opt-in sign-in email at sign-up, Forgot password); and ID.me
+ * verification looks up the district of the verified address once with
+ * the Census Geocoder (identity_verification._district_from_verified_address).
  * Earlier notes:
  *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
  *    cookies + bearer-token mirror.
@@ -59,10 +65,10 @@ export default function PrivacyPage() {
       <h3>Citizens</h3>
       <ul>
         <li><strong>Email address</strong>: for login and account recovery. Required. Demo accounts are given a generated address that receives no mail.</li>
-        <li><strong>Contact email (optional, demo accounts)</strong>: if you add one, we use it only to tell you before demo accounts are retired.</li>
+        <li><strong>Contact email (optional, demo accounts)</strong>: if you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in email and a link to choose a new password, never your password), password reset emails when you use Forgot password, and one notice before demo accounts are retired. No newsletters or marketing.</li>
         <li><strong>Display name</strong>: shown next to your comments + poll votes. You choose what to use.</li>
-        <li><strong>City, state, and (optional) congressional district</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Required.</li>
-        <li><strong>Identity verification (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date; your legal name as ID.me confirms it, stored encrypted so it can only be read with our application secret; and the city and state from the address ID.me confirms, which replace the ones you entered. Your street address itself is not stored. We keep only a one-way hash of it, salted with our application secret, which we use with a one-way hash of your name to recognize someone who has already verified, so we don&apos;t pay to verify the same person twice. ID.me&apos;s reply may also include your date of birth; we don&apos;t read or store it. We never receive the documents ID.me used.</li>
+        <li><strong>State and congressional district (required) and city (optional)</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Your likes, votes and comments are counted by them. You can change them in Account &amp; settings; a verified account&apos;s state comes from its verification. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved.</li>
+        <li><strong>Identity verification (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date; your legal name as ID.me confirms it, stored encrypted so it can only be read with our application secret; and the city and state from the address ID.me confirms, which replace the ones you entered, plus that address&apos;s congressional district, which we look up once by sending the address to the U.S. Census Geocoder. Your street address itself is not stored. We keep only a one-way hash of it, salted with our application secret, which we use with a one-way hash of your name to recognize someone who has already verified, so we don&apos;t pay to verify the same person twice. ID.me&apos;s reply may also include your date of birth; we don&apos;t read or store it. We never receive the documents ID.me used.</li>
         <li><strong>Engagement history</strong>: the polls you've voted in, the posts, comments and bills you've liked or disliked, and the comments you've made. Tied to your account.</li>
         <li><strong>Optional poll questions</strong>: some polls include questions the poll&apos;s creator chose, such as age range or party, and on some polls race, religion or income. Answering is optional. Answers are stored with your vote so you can change them until the poll closes, are counted only from verified accounts, and are published only as totals for groups of at least 10 people, never tied to you. You can also save the non-sensitive answers as a reusable profile; sensitive categories are never saved to it, and you can clear it from your dashboard.</li>
       </ul>
@@ -154,7 +160,7 @@ export default function PrivacyPage() {
         <li><strong>Postmark</strong>: sends account email such as password reset links. Sees your email address and the message.</li>
         <li><strong>Resend</strong>: sends CivicView&apos;s admins an email when content is reported. That email contains the reported content, the reason given, and the reporter&apos;s display name.</li>
         <li><strong>Brevo</strong>: holds the waitlist mailing list. Receives your email, state, and which button you used.</li>
-        <li><strong>Google Civic Information and the U.S. Census Geocoder</strong>: receive addresses you type into the address lookup, to find your districts.</li>
+        <li><strong>Google Civic Information and the U.S. Census Geocoder</strong>: receive addresses you type into the address lookup, to find your districts. The Census Geocoder also receives, once, the address ID.me verifies, to find its congressional district.</li>
         <li><strong>OpenStreetMap Nominatim</strong>: receives your device&apos;s coordinates if you use &ldquo;Use my location,&rdquo; and a typed address when the Census Geocoder can&apos;t place it.</li>
         <li><strong>Google Firebase Cloud Messaging</strong>: delivers push notifications on Android if you turn them on (see the push token above).</li>
         <li><strong>Google Forms</strong>: the feedback form is a Google Form. What you type there goes to Google and to us, under{' '}

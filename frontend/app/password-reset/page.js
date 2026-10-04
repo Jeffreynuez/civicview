@@ -222,6 +222,19 @@ function PasswordResetInner() {
                 we&apos;ll send you a link to choose a new password. The link
                 expires in 1 hour.
               </p>
+              {identityKind === 'citizen' && (
+                <p style={{
+                  fontSize: '0.85rem',
+                  lineHeight: 1.5,
+                  color: 'var(--cl-text-light)',
+                  margin: '-8px 0 18px 0',
+                }}>
+                  Demo account? Enter the email address you added when you
+                  created it (or in Account &amp; settings). We&apos;ll send the
+                  link there, along with your sign-in email. Without one,
+                  write to us at the address below.
+                </p>
+              )}
 
               <label style={labelStyle} htmlFor="reset-email">Email</label>
               <input

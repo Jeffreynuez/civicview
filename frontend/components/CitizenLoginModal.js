@@ -3,47 +3,14 @@
 // CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { completeLoginCitizen, loginCitizen, signupDemoCitizen } from '../lib/citizenAuth';
+import LocationFields, { locationComplete } from './account/LocationFields';
+import SaveCredentials from './account/SaveCredentials';
 import LoginChallengeStep from './LoginChallengeStep';
 import { submitSuspensionAppeal } from '../lib/pagesApi';
 import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button } from './ui';
-
-// US states + DC + territories with congressional delegates. Same set
-// the backend validates against — keep in sync.
-const US_STATES = [
-  ['AL', 'Alabama'], ['AK', 'Alaska'], ['AZ', 'Arizona'], ['AR', 'Arkansas'],
-  ['CA', 'California'], ['CO', 'Colorado'], ['CT', 'Connecticut'],
-  ['DE', 'Delaware'], ['DC', 'District of Columbia'], ['FL', 'Florida'],
-  ['GA', 'Georgia'], ['HI', 'Hawaii'], ['ID', 'Idaho'], ['IL', 'Illinois'],
-  ['IN', 'Indiana'], ['IA', 'Iowa'], ['KS', 'Kansas'], ['KY', 'Kentucky'],
-  ['LA', 'Louisiana'], ['ME', 'Maine'], ['MD', 'Maryland'],
-  ['MA', 'Massachusetts'], ['MI', 'Michigan'], ['MN', 'Minnesota'],
-  ['MS', 'Mississippi'], ['MO', 'Missouri'], ['MT', 'Montana'],
-  ['NE', 'Nebraska'], ['NV', 'Nevada'], ['NH', 'New Hampshire'],
-  ['NJ', 'New Jersey'], ['NM', 'New Mexico'], ['NY', 'New York'],
-  ['NC', 'North Carolina'], ['ND', 'North Dakota'], ['OH', 'Ohio'],
-  ['OK', 'Oklahoma'], ['OR', 'Oregon'], ['PA', 'Pennsylvania'],
-  ['RI', 'Rhode Island'], ['SC', 'South Carolina'], ['SD', 'South Dakota'],
-  ['TN', 'Tennessee'], ['TX', 'Texas'], ['UT', 'Utah'], ['VT', 'Vermont'],
-  ['VA', 'Virginia'], ['WA', 'Washington'], ['WV', 'West Virginia'],
-  ['WI', 'Wisconsin'], ['WY', 'Wyoming'],
-  ['AS', 'American Samoa'], ['GU', 'Guam'], ['MP', 'Northern Mariana Islands'],
-  ['PR', 'Puerto Rico'], ['VI', 'U.S. Virgin Islands'],
-];
-
-// Max House district number per state, based on the 119th Congress
-// apportionment. States with a single at-large district are listed as
-// 1 (we'll surface that as "At-large" in the UI). Drives the district
-// dropdown so a user can't pick a number that doesn't exist.
-const STATE_HOUSE_DISTRICTS = {
-  AL: 7, AK: 1, AZ: 9, AR: 4, CA: 52, CO: 8, CT: 5, DE: 1, FL: 28, GA: 14,
-  HI: 2, ID: 2, IL: 17, IN: 9, IA: 4, KS: 4, KY: 6, LA: 6, ME: 2, MD: 8,
-  MA: 9, MI: 13, MN: 8, MS: 4, MO: 8, MT: 2, NE: 3, NV: 4, NH: 2, NJ: 12,
-  NM: 3, NY: 26, NC: 14, ND: 1, OH: 15, OK: 5, OR: 6, PA: 17, RI: 2, SC: 7,
-  SD: 1, TN: 9, TX: 38, UT: 4, VT: 1, VA: 11, WA: 10, WV: 2, WI: 8, WY: 1,
-};
 
 /**
  * Citizen login modal — parallel to RepLoginModal.
@@ -106,19 +73,22 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   const [lockedUntil, setLockedUntil] = useState(null);
 
   // Self-serve demo signup form state. Replaces the old fixed
-  // 60-account list — any visitor can mint their own demo citizen
-  // with a name + state + (optional) district + city.
+  // 60-account list: any visitor can mint their own demo citizen with a
+  // name, state and congressional district (required since 2026-10-03,
+  // no default state) and an optional city. See LocationFields.
   const [showDemo, setShowDemo] = useState(false);
   const [demoDisplayName, setDemoDisplayName] = useState('');
-  const [demoState, setDemoState] = useState('FL');
-  const [demoDistrict, setDemoDistrict] = useState('');
-  const [demoCity, setDemoCity] = useState('');
+  const [demoLocation, setDemoLocation] = useState({ state: '', district: '', city: '' });
   // Optional sunset-notice address (demo-sunset PRD section 4). Demo
   // logins are synthetic @demo-citizens.civicview.app addresses that
   // reach nobody, so without this the account cannot be warned before
   // the sunset. Collected NOW, months ahead of ID.me, so the
   // contactable list builds passively instead of starting at zero.
   const [demoContactEmail, setDemoContactEmail] = useState('');
+  // "Email me my sign-in details" (2026-10-03): opt-in, and only with a
+  // contact address. The email carries the generated sign-in email and
+  // a link to choose a new password, never the password.
+  const [demoSendEmail, setDemoSendEmail] = useState(false);
   const [demoBusy, setDemoBusy] = useState(false);
   const [demoErr, setDemoErr] = useState(null);
   // After a successful signup we surface the freshly-minted email +
@@ -157,9 +127,9 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       setBusy(false);
       setShowDemo(false);
       setDemoDisplayName('');
-      setDemoState('FL');
-      setDemoDistrict('');
-      setDemoCity('');
+      setDemoLocation({ state: '', district: '', city: '' });
+      setDemoContactEmail('');
+      setDemoSendEmail(false);
       setDemoBusy(false);
       setDemoErr(null);
       setIssuedCreds(null);
@@ -173,26 +143,6 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       setTwoFactorChallenge(null);
     }
   }, [open]);
-
-  // Whenever the user changes states, clamp the district to whatever
-  // that state actually supports. Avoids "FL-19" sticking around
-  // after the user picks Vermont (which only has 1 at-large district).
-  useEffect(() => {
-    const max = STATE_HOUSE_DISTRICTS[demoState] || 0;
-    if (demoDistrict && parseInt(demoDistrict, 10) > max) {
-      setDemoDistrict('');
-    }
-  }, [demoState, demoDistrict]);
-
-  // District options for the dropdown — empty (use State only) plus
-  // 1..max. At-large states (max === 1) get an "At-large" label so
-  // it's clear there's no choice to make.
-  const districtOptions = useMemo(() => {
-    const max = STATE_HOUSE_DISTRICTS[demoState] || 0;
-    if (max <= 0) return [];
-    if (max === 1) return [['1', 'At-large']];
-    return Array.from({ length: max }, (_, i) => [String(i + 1), `District ${i + 1}`]);
-  }, [demoState]);
 
   if (!open) return null;
 
@@ -277,20 +227,29 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   // generated email + password (the user requested this — feels less
   // magic than "you're suddenly signed in with no idea how"), then
   // close the modal via onSuccess so they can start engaging.
+  const demoContactOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(demoContactEmail.trim());
+  const canSubmitDemo = !!demoDisplayName.trim() && locationComplete(demoLocation) && !demoBusy;
+
   const submitDemoSignup = async () => {
     const name = demoDisplayName.trim();
     if (!name) {
       setDemoErr('Pick a display name.');
       return;
     }
+    if (!locationComplete(demoLocation)) {
+      setDemoErr('Choose your state and congressional district.');
+      return;
+    }
+    const wantsEmail = demoSendEmail && demoContactOk;
     setDemoBusy(true);
     setDemoErr(null);
     const result = await signupDemoCitizen({
       displayName: name,
-      state: demoState || null,
-      congressionalDistrict: demoDistrict || null,
-      city: demoCity.trim() || null,
+      state: demoLocation.state,
+      congressionalDistrict: demoLocation.district,
+      city: demoLocation.city.trim() || null,
       contactEmail: demoContactEmail.trim() || null,
+      sendSigninEmail: wantsEmail,
     });
     setDemoBusy(false);
     if (!result.ok) {
@@ -300,7 +259,13 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     // Stash the issued credentials so the user can see them; pre-fill
     // the login form so it's obvious they can sign back in with these
     // values from another device or after clearing cookies.
-    setIssuedCreds({ email: result.email, password: result.password });
+    setIssuedCreds({
+      email: result.email,
+      password: result.password,
+      emailRequested: wantsEmail,
+      emailSent: !!result.signinEmailSent,
+      contactEmail: demoContactEmail.trim().toLowerCase(),
+    });
     setEmail(result.email);
     setPassword(result.password);
   };
@@ -713,63 +678,20 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
               style={FIELD_INPUT}
             />
 
-            <div style={{ display: 'flex', gap: 8 }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <label htmlFor="demo-state" style={FIELD_LABEL}>
-                  State
-                </label>
-                <select
-                  id="demo-state"
-                  value={demoState}
-                  onChange={(e) => setDemoState(e.target.value)}
-                  disabled={demoBusy}
-                  style={{ ...FIELD_INPUT, cursor: 'pointer' }}
-                >
-                  {US_STATES.map(([code, name]) => (
-                    <option key={code} value={code}>
-                      {code} — {name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <label htmlFor="demo-district" style={FIELD_LABEL}>
-                  District
-                </label>
-                <select
-                  id="demo-district"
-                  value={demoDistrict}
-                  onChange={(e) => setDemoDistrict(e.target.value)}
-                  disabled={demoBusy || districtOptions.length === 0}
-                  style={{ ...FIELD_INPUT, cursor: 'pointer' }}
-                >
-                  <option value="">— none —</option>
-                  {districtOptions.map(([val, label]) => (
-                    <option key={val} value={val}>{label}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <label htmlFor="demo-city" style={FIELD_LABEL}>
-              City <span style={{ color: 'var(--cl-text-light)', fontWeight: 400 }}>(optional)</span>
-            </label>
-            <input
-              id="demo-city"
-              type="text"
-              value={demoCity}
-              onChange={(e) => setDemoCity(e.target.value.slice(0, 128))}
-              placeholder="Naples"
+            <LocationFields
+              value={demoLocation}
+              onChange={setDemoLocation}
               disabled={demoBusy}
-              maxLength={128}
-              style={FIELD_INPUT}
+              idPrefix="demo"
             />
 
-            {/* Sunset-notice address (demo-sunset PRD section 4). The
-                promise in this copy is narrow ON PURPOSE and is the
-                consent basis for the field: one notice, nothing else.
-                Do not repurpose without changing this text AND the
-                privacy policy. */}
+            {/* Contact address (demo-sunset PRD section 4). The promise
+                in this copy is narrow ON PURPOSE and is the consent
+                basis for the field: this account's sign-in help (the
+                opt-in email below, Forgot password) and the one
+                migration notice, nothing else (widened from the notice
+                alone on 2026-10-03). Do not repurpose without changing
+                this text AND the privacy policy. */}
             <label htmlFor="demo-contact-email" style={FIELD_LABEL}>
               Email <span style={{ color: 'var(--cl-text-light)', fontWeight: 400 }}>(optional)</span>
             </label>
@@ -790,11 +712,38 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
               lineHeight: 1.45,
               marginTop: -4,
             }}>
-              Used for one thing only: telling you when verified accounts
-              go live, so you can move this demo account&rsquo;s activity
+              Used only for this account: your sign-in details if you ask
+              for them below, Forgot password, and one notice when verified
+              accounts go live so you can move this account&rsquo;s activity
               over before demo accounts are retired. No newsletters, no
               marketing, and we don&rsquo;t share it.
             </div>
+
+            <label
+              htmlFor="demo-send-email"
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 8,
+                fontSize: 'var(--cl-text-xs)',
+                color: demoContactOk ? 'var(--cl-text)' : 'var(--cl-text-light)',
+                lineHeight: 1.45,
+                cursor: demoContactOk ? 'pointer' : 'default',
+              }}
+            >
+              <input
+                id="demo-send-email"
+                type="checkbox"
+                checked={demoSendEmail && demoContactOk}
+                onChange={(e) => setDemoSendEmail(e.target.checked)}
+                disabled={demoBusy || !demoContactOk}
+                style={{ marginTop: 2 }}
+              />
+              <span>
+                Email me my sign-in email and a link to set my password.
+                We never email passwords.
+              </span>
+            </label>
 
             {demoErr && (
               <div
@@ -817,7 +766,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
               size="md"
               onClick={submitDemoSignup}
               loading={demoBusy}
-              disabled={!demoDisplayName.trim() || demoBusy}
+              disabled={!canSubmitDemo}
               style={{ width: '100%' }}
             >
               Create demo account &amp; sign in
@@ -830,44 +779,16 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
             shows them the email + password they can use to sign back in
             from another device or after clearing cookies. */}
         {showDemo && issuedCreds && (
-          <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div
-              style={{
-                padding: '10px 12px',
-                background: 'var(--cl-accent-soft)',
-                border: '1px solid var(--cl-accent-soft)',
-                borderRadius: 'var(--cl-radius-md)',
-                fontSize: 'var(--cl-text-xs)',
-                color: 'var(--cl-text)',
-                lineHeight: 1.4,
-              }}
-            >
-              <strong>You&rsquo;re signed in.</strong> Save these credentials
-              if you want to sign back in from another device. They&rsquo;re
-              also pre-filled in the sign-in fields above.
-            </div>
-            <div
-              style={{
-                background: 'var(--cl-bg-soft)',
-                borderRadius: 'var(--cl-radius-md)',
-                padding: 10,
-                fontFamily: 'var(--cl-font-mono)',
-                fontSize: 'var(--cl-text-xs)',
-                color: 'var(--cl-text)',
-                lineHeight: 1.6,
-              }}
-            >
-              <div><strong>Email:</strong> {issuedCreds.email}</div>
-              <div><strong>Password:</strong> {issuedCreds.password}</div>
-            </div>
-            <Button
-              variant="primary"
-              size="md"
-              onClick={proceedWithIssuedCreds}
-              style={{ width: '100%' }}
-            >
-              Continue
-            </Button>
+          <div style={{ marginTop: 10 }}>
+            <SaveCredentials
+              email={issuedCreds.email}
+              password={issuedCreds.password}
+              displayName={demoDisplayName.trim()}
+              emailRequested={issuedCreds.emailRequested}
+              emailSent={issuedCreds.emailSent}
+              contactEmail={issuedCreds.contactEmail}
+              onContinue={proceedWithIssuedCreds}
+            />
           </div>
         )}
       </div>

@@ -43,6 +43,7 @@ import PollResultsModal from './polls/PollResultsModal';
 import PollDemographicsPicker from './polls/PollDemographicsPicker';
 import PollDemographicsForm from './polls/PollDemographicsForm';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
+import { formatDistrict } from '../lib/usStates';
 
 const REPORT_REASONS = [
   { value: 'spam',           label: 'Spam' },
@@ -681,7 +682,7 @@ function CitizenPollCard({
           </div>
           <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginTop: 2 }}>
             {[
-              author.congressional_district,
+              formatDistrict(author.congressional_district),
               author.state ? null : null, // district already says state
               author.state && !author.congressional_district ? author.state : null,
               author.city,

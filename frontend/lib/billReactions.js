@@ -29,6 +29,7 @@
 import { useEffect, useState } from 'react';
 
 import { request } from './http';
+import { isAtLarge } from './usStates';
 
 const PATH = '/api/engagement/bills/reactions';
 const MAX_KEYS = 100;
@@ -60,8 +61,9 @@ export function billKeyFromCitation(congress, citation) {
 /**
  * A geography for the State / District counts, or null. Accepts
  * { state: 'FL', district: 'FL-17' } (district optional); anything that
- * isn't a two-letter state and an "XX-N" district in that state is
- * dropped, so the request never 422s on odd profile data.
+ * isn't a two-letter state and an "XX-N" (or at-large "XX-AL") district
+ * in that state is dropped, so the request never 422s on odd profile
+ * data.
  */
 export function normalizeGeo(geo) {
   if (!geo) return null;
@@ -70,20 +72,26 @@ export function normalizeGeo(geo) {
   const district = String(geo.district || '').trim().toUpperCase();
   return {
     state,
-    district: /^[A-Z]{2}-\d{1,2}$/.test(district) && district.startsWith(`${state}-`) ? district : null,
+    district: /^[A-Z]{2}-(?:\d{1,2}|AL)$/.test(district) && district.startsWith(`${state}-`) ? district : null,
   };
 }
 
-/** Geography of a profile's member: state, plus "XX-N" for a numbered House seat. */
+/**
+ * Geography of a profile's member: state, plus the House seat: "XX-N",
+ * or "XX-AL" for an at-large state, DC or a territory (citizens there
+ * store the same, see lib/usStates.js).
+ */
 export function geoForMember(member, { withDistrict = true } = {}) {
   if (!member) return null;
   const state = String(member.state || '').trim().toUpperCase();
   const n = Number(member.district);
   const house = String(member.chamber || '').toLowerCase().includes('house');
-  return normalizeGeo({
-    state,
-    district: withDistrict && house && Number.isInteger(n) && n > 0 ? `${state}-${n}` : null,
-  });
+  let district = null;
+  if (withDistrict && house) {
+    if (isAtLarge(state)) district = `${state}-AL`;
+    else if (Number.isInteger(n) && n > 0) district = `${state}-${n}`;
+  }
+  return normalizeGeo({ state, district });
 }
 
 // ── store ────────────────────────────────────────────────────────────

@@ -42,6 +42,7 @@
  *                                pills at <=1024px to fit the navbar
  */
 import { useEffect, useRef, useState } from 'react';
+import { formatDistrict } from '../lib/usStates';
 
 // Colours have two contexts: the single-identity pill renders on the
 // dark navbar background, while the multi-identity dropdown rows
@@ -79,7 +80,7 @@ function buildEntries({ citizen, rep, candidate }) {
     out.push({
       kind: 'citizen',
       label: citizen.display_name,
-      sublabel: citizen.congressional_district || `${citizen.city || ''}${citizen.state ? ', ' + citizen.state : ''}`,
+      sublabel: formatDistrict(citizen.congressional_district) || `${citizen.city || ''}${citizen.state ? ', ' + citizen.state : ''}`,
       session: citizen,
     });
   }
