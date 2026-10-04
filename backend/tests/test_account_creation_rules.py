@@ -27,6 +27,9 @@ two people can have the same name". Guards:
   8. A refused sign-up doesn't use up the per-IP daily cap.
   9. ID.me: the verified address sets the district, and a lookup that
      fails or lands in another state leaves it for the person to choose.
+ 10. The boot repair clears the old "Demo City" placeholder, and an
+     existing account with a sitting official's name is logged for
+     review, not renamed.
 """
 import os
 import sys
@@ -54,7 +57,7 @@ def main() -> int:
     from app.db import SessionLocal
     from app.models.pages import BillReaction, CitizenAccount, Post, PostComment, RepAccount
     from app.services import email_service, rate_limit
-    from app.services.citizen_account_repair import repair_citizen_accounts
+    from app.services.citizen_account_repair import flag_official_name_matches, repair_citizen_accounts
     from app.services.citizen_geo import house_district, normalize_district
     from app.services.display_names import clean_display_name, name_key
 
@@ -349,6 +352,8 @@ def main() -> int:
                     "UPDATE citizen_accounts SET display_name = :n, congressional_district = :d, "
                     "name_key = NULL WHERE email = :e"
                 ), {"e": email, "n": name, "d": dist})
+            # The old sign-up placeholder city on one of them.
+            db.execute(text("UPDATE citizen_accounts SET city = 'Demo City' WHERE email = 'old3@example.com'"))
             db.commit()
             ids = {e: i for e, i in db.execute(text(
                 "SELECT email, id FROM citizen_accounts WHERE email LIKE 'old%'")).all()}
@@ -371,6 +376,7 @@ def main() -> int:
             check(rows["old2@example.com"].congressional_district == "FL-7", "FL-07 -> FL-7")
             check(rows["old3@example.com"].congressional_district == "WY-AL", "WY-1 -> WY-AL")
             check(rows["old4@example.com"].congressional_district is None, "a seat that doesn't exist is cleared")
+            check(rows["old3@example.com"].city == "", f"'Demo City' is cleared: {rows['old3@example.com'].city!r}")
             check(all(r.name_key for r in rows.values()), "every key filled")
             copied = db.query(PostComment.citizen_display_name).filter(
                 PostComment.citizen_id == ids["old1@example.com"]).scalar()
@@ -381,6 +387,31 @@ def main() -> int:
         check(not again["renamed"] and again["keys_filled"] == 0 and again["districts_fixed"] == 0,
               f"the repair is idempotent: {again}")
         check(len(report["renamed"]) == 1, f"one rename reported: {report}")
+        check(report["placeholder_cities_cleared"] == 1 and again["placeholder_cities_cleared"] == 0,
+              f"one placeholder city cleared, once: {report} {again}")
+
+        # ── 10. officials' names on existing accounts: logged, not changed
+        with SessionLocal() as db:
+            db.add(CitizenAccount(email="rick@example.com", password_hash="x", display_name="Rick Scott",
+                                  city="", state="FL", congressional_district="FL-19", is_active=True))
+            db.commit()
+        logging.disable(logging.NOTSET)
+        logged = []
+
+        class Grab(logging.Handler):
+            def emit(self, record):
+                logged.append(record.getMessage())
+
+        grab = Grab(level=logging.WARNING)
+        logging.getLogger("app.services.citizen_account_repair").addHandler(grab)
+        matches = flag_official_name_matches()
+        logging.getLogger("app.services.citizen_account_repair").removeHandler(grab)
+        logging.disable(logging.WARNING)
+        check([m["name"] for m in matches] == ["Rick Scott"], f"an official's name is flagged: {matches}")
+        check(any("Rick Scott" in m and "for review" in m for m in logged), f"and logged for review: {logged}")
+        with SessionLocal() as db:
+            still = db.query(CitizenAccount.display_name).filter(CitizenAccount.email == "rick@example.com").scalar()
+        check(still == "Rick Scott", f"the account is not renamed: {still!r}")
 
     email_service.reset_email_service_for_tests()
     if failures:

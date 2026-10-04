@@ -22,6 +22,17 @@ every row and writes nothing.
 
 3. Keys. name_key is filled on every row whose key is missing or stale,
    after the renames, so the unique index never sees two equal keys.
+
+4. Placeholder city. Sign-up used to store "Demo City" when no city was
+   given; city is optional now and stored empty, so the placeholder is
+   cleared on the accounts that still carry it (Jeffrey, 2026-10-03).
+
+Separately, flag_official_name_matches() logs any citizen whose name is
+now a sitting official's (a person can share a name with someone newly
+elected). It only reports: Jeffrey chose "log it for review" over a
+rename, since renaming a person who really has that name would be
+unfair. It runs from the boot warm-up in main.py, after the reserved
+names are built, so a slow Congress roster fetch never holds up boot.
 """
 from __future__ import annotations
 
@@ -33,6 +44,9 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 logger = logging.getLogger(__name__)
+
+# What demo sign-up stored before city became optional (2026-10-03).
+PLACEHOLDER_CITY = "Demo City"
 
 
 def _activity_counts(db: Session, ids: list[int]) -> dict[int, int]:
@@ -70,7 +84,10 @@ def repair_citizen_accounts(db: Optional[Session] = None) -> dict:
 
     owns = db is None
     db = db or SessionLocal()
-    report = {"districts_fixed": 0, "districts_cleared": 0, "renamed": [], "keys_filled": 0}
+    report = {
+        "districts_fixed": 0, "districts_cleared": 0, "renamed": [], "keys_filled": 0,
+        "placeholder_cities_cleared": 0,
+    }
     try:
         citizens = db.query(CitizenAccount).order_by(CitizenAccount.id).all()
 
@@ -118,18 +135,63 @@ def repair_citizen_accounts(db: Optional[Session] = None) -> dict:
                 c.name_key = key
                 report["keys_filled"] += 1
 
+        # 4. The old sign-up placeholder city.
+        for c in citizens:
+            if (c.city or "").strip().casefold() == PLACEHOLDER_CITY.casefold():
+                c.city = ""
+                report["placeholder_cities_cleared"] += 1
+
         db.commit()
-        if report["districts_fixed"] or report["districts_cleared"] or report["renamed"]:
+        if (report["districts_fixed"] or report["districts_cleared"] or report["renamed"]
+                or report["placeholder_cities_cleared"]):
             logger.info(
                 "Citizen account repair: %d district(s) reformatted, %d invalid district(s) "
-                "cleared (those accounts will be asked again), renamed %s",
+                "cleared (those accounts will be asked again), %d placeholder city value(s) "
+                "cleared, renamed %s",
                 report["districts_fixed"], report["districts_cleared"],
+                report["placeholder_cities_cleared"],
                 [f"#{r['id']} {r['from']!r} -> {r['to']!r}" for r in report["renamed"]] or "none",
             )
         return report
     except Exception:
         db.rollback()
         raise
+    finally:
+        if owns:
+            db.close()
+
+
+def flag_official_name_matches(db: Optional[Session] = None) -> list[dict]:
+    """Log every citizen whose display name is a sitting official's.
+
+    Sign-up already refuses those names (display_names.name_conflict);
+    this catches accounts that got one some other way, most likely a
+    real person who shares a name with someone newly elected. Nothing
+    is changed: the warning is for review. Returns the matches."""
+    from app.db import SessionLocal
+    from app.models.pages import CitizenAccount
+    from app.services.display_names import reserved_name_keys
+
+    reserved = reserved_name_keys()
+    if not reserved:
+        return []
+    owns = db is None
+    db = db or SessionLocal()
+    try:
+        rows = (
+            db.query(CitizenAccount.id, CitizenAccount.display_name, CitizenAccount.name_key)
+            .filter(CitizenAccount.name_key.in_(reserved))
+            .order_by(CitizenAccount.id)
+            .all()
+        )
+        matches = [{"id": r.id, "name": r.display_name} for r in rows]
+        if matches:
+            logger.warning(
+                "Citizen account(s) whose name matches a sitting official, for review "
+                "(not changed): %s",
+                ", ".join(f"#{m['id']} {m['name']!r}" for m in matches),
+            )
+        return matches
     finally:
         if owns:
             db.close()
