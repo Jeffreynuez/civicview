@@ -47,6 +47,8 @@ from typing import Optional
 import urllib.request
 import urllib.error
 
+from app.services.citizen_geo import house_district, normalize_district
+
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -143,8 +145,8 @@ def _ingest_federal_officials(payload: dict) -> None:
             district = h.get("district")
             state = h.get("state")
             district_full = (
-                f"{state}-{int(district)}"
-                if state and district and str(district).isdigit()
+                house_district(state, district)
+                if state and district is not None and str(district).isdigit()
                 else district
             )
             _put(h.get("id"), state=state, district=district_full)
@@ -236,8 +238,10 @@ def _ingest_sitting_congress(legislators: list) -> None:
             if chamber == "rep":
                 d = latest.get("district")
                 if d is not None:
+                    # The roster numbers an at-large seat 0; citizens
+                    # store it as "WY-AL" (services/citizen_geo.py).
                     district = (
-                        f"{state}-{int(d)}"
+                        house_district(state, d)
                         if state and isinstance(d, (int, str)) and str(d).isdigit()
                         else None
                     )
@@ -274,7 +278,7 @@ def _ingest_sample_congress() -> None:
                 continue
             d = m.get("district")
             district = (
-                f"{state_code}-{int(d)}"
+                house_district(state_code, d)
                 if d is not None and str(d).isdigit() else None
             )
             _put(bioguide, state=state_code, district=district)
@@ -388,16 +392,17 @@ def owner_scope_fallback(official_id: str) -> tuple[Optional[str], Optional[str]
     owner_district when nothing else supplied them.
 
     The district is only returned when it is shaped like a
-    congressional district ("FL-17"), because engagement rows store
-    the citizen's congressional district in scope_district. A state
-    legislative district number would never match one, so it is left
-    out rather than producing filters that always read zero."""
+    congressional district ("FL-17", or "WY-AL" for an at-large seat),
+    because engagement rows store the citizen's congressional district
+    in scope_district. A state legislative district number would never
+    match one, so it is left out rather than producing filters that
+    always read zero."""
     geo = lookup(official_id) or {}
     state = geo.get("state") or None
     district = str(geo.get("district") or "").strip().upper()
-    if not (state and district.startswith(f"{state}-") and district.split("-", 1)[1].isdigit()):
+    if not (state and district.startswith(f"{state}-")):
         district = ""
-    return state, (district or None)
+    return state, (normalize_district(state, district) if district else None)
 
 
 def allowed_scopes_for_official(official_id: str) -> list[str]:

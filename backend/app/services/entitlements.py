@@ -26,6 +26,16 @@ changed 2026-07-28 when commenting moved down a tier)
     Verified     like / dislike, vote on polls, COMMENT
     Subscribed   create polls
 
+ONE GATE IS ALWAYS ON: LOCATION (2026-10-03)
+Every citizen action above also needs a state and congressional
+district on the account, whatever the switch says. Jeffrey: "no one
+that creates a demo account should not have a state and district."
+Engagement is counted by state and district, so an account without
+them can browse but is asked for them before it likes, votes, comments
+or starts a poll. require_verified and require_subscribed both check it
+first, so every engagement endpoint already calls it. A 409 with code
+"location_required" tells the app to open the location prompt.
+
 WHAT THESE FUNCTIONS DELIBERATELY DO NOT GATE
   • Reporting content — a safety valve must never require a paid or
     verified account. Abuse reporting stays open to every signed-in user.
@@ -53,6 +63,7 @@ from fastapi import HTTPException, status
 # and a generic 403 would send users to the wrong one.
 CODE_VERIFICATION_REQUIRED = "verification_required"
 CODE_SUBSCRIPTION_REQUIRED = "subscription_required"
+CODE_LOCATION_REQUIRED = "location_required"
 
 _TRUTHY = ("1", "true", "yes", "on")
 
@@ -88,13 +99,37 @@ def _is_verified(citizen) -> bool:
     return bool(getattr(citizen, "verified", False))
 
 
+def require_location(citizen, *, action: str = "do this") -> None:
+    """Gate every citizen engagement on a state and congressional
+    district (see ONE GATE IS ALWAYS ON above). Always enforced, switch
+    or not. citizen=None (a rep or candidate acting) passes: their
+    geography is their page's."""
+    if citizen is None:
+        return
+    from app.services.citizen_geo import needs_location
+    if not needs_location(citizen):
+        return
+    raise HTTPException(
+        status_code=status.HTTP_409_CONFLICT,
+        detail={
+            "code": CODE_LOCATION_REQUIRED,
+            "message": (
+                f"Add your state and congressional district to {action}. "
+                "Likes, votes and comments are counted by where you live."
+            ),
+        },
+    )
+
+
 def require_verified(citizen, *, action: str = "do this") -> None:
     """Gate a VERIFIED-tier action (comment, like / dislike, poll vote).
 
-    No-ops when the switch is off, and when `citizen` is None — None
+    Checks the location gate first, always. The verification part
+    no-ops when the switch is off, and when `citizen` is None: None
     means _resolve_engager picked the rep or candidate path, and page
     owners are verified by claim.
     """
+    require_location(citizen, action=action)
     if not idme_enabled():
         return
     if citizen is None:
@@ -121,7 +156,9 @@ def require_subscribed(citizen, *, action: str = "do this") -> None:
     and returns the verification error when that's what's actually
     missing. Sending an unverified user to a payment screen they can't
     complete is the kind of dead end that makes people leave.
+    The location gate comes before both, always.
     """
+    require_location(citizen, action=action)
     if not idme_enabled():
         return
     if citizen is None:

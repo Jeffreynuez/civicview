@@ -32,6 +32,10 @@ Guards:
   9.  demo_sunset_at() parses ISO input, tolerates junk, and returns
       None when unset — None must read as "no sunset scheduled",
       never as "sunset now".
+  10. The location gate (2026-10-03) is on in BOTH switch states: a
+      citizen with no state and district, or a district outside their
+      state, gets 409 code='location_required' from both gates, and it
+      is checked before verification. citizen=None still passes.
 
 Run:  cd backend && python3 tests/test_entitlements.py   (exit 0 = pass)
 """
@@ -42,11 +46,14 @@ FAILURES = []
 
 
 class FakeCitizen:
-    """Minimal stand-in — the gates read exactly two attributes."""
+    """Minimal stand-in. The gates read verified, is_subscribed, and the
+    state and district the location gate checks."""
 
-    def __init__(self, verified=False, is_subscribed=False):
+    def __init__(self, verified=False, is_subscribed=False, state="FL", district="FL-17"):
         self.verified = verified
         self.is_subscribed = is_subscribed
+        self.state = state
+        self.congressional_district = district
 
 
 def check(label, fn):
@@ -76,11 +83,11 @@ def main():
         except HTTPException as exc:
             raise AssertionError("expected no exception, got %s %s" % (exc.status_code, exc.detail))
 
-    def blocks_with(fn, expected_code):
+    def blocks_with(fn, expected_code, status=403):
         try:
             fn()
         except HTTPException as exc:
-            assert exc.status_code == 403, "expected 403, got %s" % exc.status_code
+            assert exc.status_code == status, "expected %s, got %s" % (status, exc.status_code)
             code = exc.detail.get("code") if isinstance(exc.detail, dict) else None
             assert code == expected_code, "expected code=%r, got %r" % (expected_code, code)
             return
@@ -111,6 +118,29 @@ def main():
     check("rep/candidate path allowed for verified gate", lambda: allows(lambda: ent.require_verified(None, action="comment")))
     check("rep/candidate path allowed for subscriber gate", lambda: allows(lambda: ent.require_subscribed(None, action="create polls")))
     check("demo grant does NOT count as verified", lambda: blocks_with(lambda: ent.require_verified(demo_grant, action="comment"), ent.CODE_VERIFICATION_REQUIRED))
+
+    print("\nLocation gate (always on):")
+    homeless = FakeCitizen(verified=True, is_subscribed=True, district=None)
+    wrong_state = FakeCitizen(verified=True, is_subscribed=True, state="FL", district="GA-3")
+    no_state = FakeCitizen(verified=True, is_subscribed=True, state=None, district=None)
+    at_large = FakeCitizen(verified=True, is_subscribed=True, state="WY", district="WY-AL")
+    for state in (False, True):
+        switch(state)
+        label = "switch ON " if state else "switch OFF"
+        for who, name in ((homeless, "no district"), (wrong_state, "district outside state"), (no_state, "no state")):
+            check("%s: %s BLOCKED from commenting" % (label, name),
+                  lambda who=who: blocks_with(lambda: ent.require_verified(who, action="comment"), ent.CODE_LOCATION_REQUIRED, 409))
+            check("%s: %s BLOCKED from poll creation" % (label, name),
+                  lambda who=who: blocks_with(lambda: ent.require_subscribed(who, action="create polls"), ent.CODE_LOCATION_REQUIRED, 409))
+        check("%s: at-large district passes" % label,
+              lambda: allows(lambda: ent.require_subscribed(at_large, action="create polls")))
+        check("%s: rep/candidate path (None) allowed" % label,
+              lambda: allows(lambda: ent.require_verified(None, action="comment")))
+    switch(True)
+    unverified_homeless = FakeCitizen(verified=False, district=None)
+    check("location is asked for before verification",
+          lambda: blocks_with(lambda: ent.require_verified(unverified_homeless, action="comment"), ent.CODE_LOCATION_REQUIRED, 409))
+    switch(False)
 
     print("\nDEMO_SUNSET_AT parsing:")
     os.environ.pop("DEMO_SUNSET_AT", None)

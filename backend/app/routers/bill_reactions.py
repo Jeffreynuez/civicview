@@ -73,7 +73,8 @@ _FEDERAL_KEY = r"\d{2,3}-(?:hr|s|hjres|sjres|hconres|sconres|hres|sres)-\d{1,5}"
 _STATE_KEY = r"ocd-bill/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 BILL_KEY_RE = re.compile(rf"^(?:{_FEDERAL_KEY}|{_STATE_KEY})$")
 GEO_STATE_RE = re.compile(r"^[A-Z]{2}$")
-GEO_DISTRICT_RE = re.compile(r"^([A-Z]{2})-\d{1,2}$")
+# "FL-17", or "WY-AL" for an at-large seat (services/citizen_geo.py).
+GEO_DISTRICT_RE = re.compile(r"^([A-Z]{2})-(?:\d{1,2}|AL)$")
 
 
 def normalize_bill_key(raw: Optional[str]) -> Optional[str]:

@@ -238,21 +238,29 @@ def _postmark_env_present() -> bool:
 
 def render_password_reset_email(
     *, display_name: str, identity_kind: str, reset_url: str, expires_in_hours: int = 1,
+    sign_in_email: Optional[str] = None,
 ) -> tuple[str, str]:
     """Compose the password reset email. identity_kind in
     {'citizen', 'rep', 'candidate'} so the copy can name which
-    account is being reset (relevant for multi-identity users)."""
+    account is being reset (relevant for multi-identity users).
+
+    sign_in_email: set when the email goes to a demo account's contact
+    address, whose sign-in email is a generated one the person may not
+    have kept (2026-10-03)."""
     kind_label = {
         "citizen": "citizen",
         "rep": "representative",
         "candidate": "candidate",
     }.get(identity_kind, "account")
 
+    sign_in_line = (
+        f"\nYour sign-in email for this account is: {sign_in_email}\n" if sign_in_email else ""
+    )
     subject = "Reset your CivicView password"
     body = f"""Hi {display_name or 'there'},
 
 We received a request to reset the password for your CivicView {kind_label} account.
-
+{sign_in_line}
 Click the link below to choose a new password. The link expires in {expires_in_hours} hour{'s' if expires_in_hours != 1 else ''} and can only be used once.
 
 {reset_url}
@@ -296,6 +304,39 @@ If you DIDN'T change your password, your account may be compromised. Please:
   3. Email civicview@civicview.app so we can help secure the account.
 
 — The CivicView team
+"""
+    return subject, body
+
+
+def render_demo_signin_email(
+    *, display_name: str, sign_in_email: str, reset_url: str, expires_in_hours: int,
+) -> tuple[str, str]:
+    """Sent once, right after a demo citizen account is created, when
+    the person ticked "Email me my sign-in details" (2026-10-03).
+
+    Carries the generated sign-in email and a link to choose a new
+    password. Never the password itself: an email can sit in an inbox
+    for years, and a password in it would work for as long as it does.
+    """
+    hours = f"{expires_in_hours} hour{'s' if expires_in_hours != 1 else ''}"
+    subject = "Your CivicView demo account sign-in"
+    body = f"""Hi {display_name or 'there'},
+
+Your CivicView demo account is ready. You asked us to email you how to sign back in.
+
+Sign-in email: {sign_in_email}
+
+Your password was shown once on the screen when you created the account. We don't keep a readable copy, so it isn't in this email. If you didn't save it, choose a new one with this link (it works for {hours}, once):
+
+{reset_url}
+
+After that, use "Forgot password?" in the sign-in window and enter this email address (the one this message came to). We'll send a new link.
+
+Demo accounts are a preview. When verified accounts open, we'll write to this address once so you can move your activity over before demo accounts are retired. We don't use it for anything else.
+
+If you didn't create a CivicView account, you can ignore this email. Nothing happens unless someone uses the link.
+
+The CivicView team
 """
     return subject, body
 

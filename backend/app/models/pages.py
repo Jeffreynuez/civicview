@@ -26,7 +26,7 @@ from typing import List, Optional
 
 from sqlalchemy import (
     String, Integer, Float, DateTime, ForeignKey, Boolean, Text, Index,
-    UniqueConstraint, func, BigInteger, Date,
+    UniqueConstraint, func, BigInteger, Date, event,
 )
 from sqlalchemy.sql import expression as sa_expression
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -1331,11 +1331,23 @@ class CitizenAccount(Base):
     a join to every engagement read.
     """
     __tablename__ = "citizen_accounts"
+    __table_args__ = (
+        # One name, one citizen (2026-10-03). NULL until the boot pass
+        # (services/citizen_account_repair.py) fills it, and NULLs never
+        # collide, so the index can be created on a table that still
+        # holds a duplicate. See services/display_names.py.
+        Index("uq_citizen_accounts_name_key", "name_key", unique=True),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255))
     display_name: Mapped[str] = mapped_column(String(255))
+    # display_name reduced to letters and digits, accents dropped and
+    # case folded (display_names.name_key). Set by the ORM hook below on
+    # every insert and update; the unique index above is what stops two
+    # citizens from sharing a name.
+    name_key: Mapped[Optional[str]] = mapped_column(String(255), default=None)
 
     # Reachable address for demo-sunset notices (2026-07-28, demo-sunset
     # PRD §4). DISTINCT from `email` above: demo accounts are minted with
@@ -1546,6 +1558,23 @@ class CitizenAccount(Base):
         'Subscribe' (opens Stripe Checkout). True iff there's a
         Stripe Customer object backing this row."""
         return self.stripe_customer_id is not None
+
+    @property
+    def needs_location(self) -> bool:
+        """True until the account has a valid state and congressional
+        district (services/citizen_geo.py). Surfaced on /me so the app
+        can ask for them; engagement waits until then."""
+        from app.services.citizen_geo import needs_location
+        return needs_location(self)
+
+
+def _set_citizen_name_key(_mapper, _connection, target) -> None:
+    from app.services.display_names import name_key
+    target.name_key = name_key(target.display_name) or None
+
+
+event.listen(CitizenAccount, "before_insert", _set_citizen_name_key)
+event.listen(CitizenAccount, "before_update", _set_citizen_name_key)
 
 
 # ── Password reset tokens (Task #87) ─────────────────────────────────

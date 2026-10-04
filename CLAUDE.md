@@ -260,6 +260,32 @@ cohort exercises the full engagement model. Two lines in
 removal once real billing + ID.me go live. Don't ship them to
 production by accident.
 
+**Account rules (Jeffrey, 2026-10-03), always on:**
+
+- **Every citizen has a state and congressional district.** Sign-up
+  requires both (city optional, stored empty, never "Demo City").
+  An account without them can browse, but every like, vote, comment
+  and new poll answers 409 `location_required`
+  (`entitlements.require_location`, called first inside
+  `require_verified` / `require_subscribed`), and the root-mounted
+  `LocationPrompt` asks. `PUT /api/citizen-auth/me/location` sets
+  them; verified accounts keep their ID.me state. ID.me sets the
+  district from the verified address (Census geocoder).
+- **One district format:** `"FL-17"`, and `"WY-AL"` for an at-large
+  state, DC and the territories. `services/citizen_geo.py` (backend)
+  and `lib/usStates.js` (frontend) hold the seat table; normalize
+  through them, never build `f"{state}-{n}"` by hand.
+- **No two people share a name.** Ignoring case, spacing,
+  punctuation and accents (`services/display_names.py`).
+  `citizen_accounts.name_key` has a unique index; a citizen can't
+  take a rep's, a candidate's or a sitting official's name. The boot
+  repair (`services/citizen_account_repair.py`) renames older
+  duplicates to "Name 2".
+- **Demo sign-in help:** the generated password is shown once with
+  copy / download / password-manager options; an opt-in email sends
+  the sign-in email plus a set-password link (never the password) to
+  the contact address, and Forgot password accepts that address.
+
 ## The "Act as" multi-identity pattern (foundational)
 
 When a viewer is signed in to 2+ identities (citizen + rep + candidate)

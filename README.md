@@ -121,6 +121,8 @@ back this: `cl_session` (rep), `cl_citizen` (citizen), `cl_candidate`
 
 - `verified=False` (with `verified_method='demo'`)
 - `is_subscribed=True` (with `subscription_status='demo'`, `stripe_subscription_id=NULL`)
+- a required state and congressional district (city optional) and a
+  display name no other account uses (see CLAUDE.md, "Account rules")
 
 This lets the demo cohort exercise the full engagement experience (comment
 on posts + polls, create polls) end-to-end. The NULL `stripe_subscription_id`

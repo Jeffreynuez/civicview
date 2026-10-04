@@ -120,6 +120,20 @@ def _file_scope_fields() -> Dict[str, Dict[str, Optional[str]]]:
     return out
 
 
+def _warn_if_citizen_has_name(db: Session, name: str, what: str) -> None:
+    """Rep and candidate accounts use the person's real name, so a seed
+    never refuses one, but no two people should share a name
+    (services/display_names.py). Log it so the operator can sort it out."""
+    from app.services.display_names import name_key
+    key = name_key(name)
+    if key and db.query(CitizenAccount.id).filter(CitizenAccount.name_key == key).first():
+        logger.warning(
+            "Seeded %s %r has the same name as an existing citizen account; "
+            "names should be unique across citizens, reps and candidates.",
+            what, name,
+        )
+
+
 def _seed_scope_for(
     entry: Dict[str, Any],
     file_scopes: Dict[str, Dict[str, Optional[str]]],
@@ -223,6 +237,7 @@ def seed_demo_accounts(db: Optional[Session] = None) -> int:
                     topped_up += 1
                 continue
 
+            _warn_if_citizen_has_name(db, entry["display_name"], "rep account")
             acct = RepAccount(
                 official_id=official_id,
                 email=email,
@@ -387,6 +402,24 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
                     )
                 continue
 
+            # One name, one citizen (services/display_names.py). A
+            # seeded citizen whose name is taken is skipped rather than
+            # renamed: the operator chose the name, so they choose the
+            # fix. Inserting it would break the unique index and roll
+            # back the whole seed.
+            from app.services.citizen_geo import normalize_district as _normalize_district
+            from app.services.display_names import name_key as _name_key
+            seed_key = _name_key(entry["display_name"])
+            if seed_key and (
+                db.query(CitizenAccount.id).filter(CitizenAccount.name_key == seed_key).first()
+                or any(_name_key(getattr(o, "display_name", "")) == seed_key
+                       for o in db.new if isinstance(o, CitizenAccount))
+            ):
+                logger.warning(
+                    "Skipped seeding citizen %s: another citizen already has the name %r.",
+                    email, entry["display_name"].strip(),
+                )
+                continue
             acct = CitizenAccount(
                 email=email,
                 password_hash=hash_password(_seed_password(entry)),
@@ -396,7 +429,11 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
                 county=(entry.get("county") or None),
                 state=entry["state"].strip().upper()[:2],
                 zip_code=(entry.get("zip_code") or None),
-                congressional_district=(entry.get("congressional_district") or None),
+                # Canonical form ("FL-7", "WY-AL"); a seat that doesn't
+                # exist in the state is left empty and the app asks.
+                congressional_district=_normalize_district(
+                    entry["state"].strip().upper()[:2], entry.get("congressional_district"),
+                ),
                 verified=is_verified,
                 is_active=True,
             )
@@ -636,6 +673,7 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
                 )
                 claim_status = "pending"
 
+            _warn_if_citizen_has_name(db, entry["display_name"], "candidate account")
             acct = CandidateAccount(
                 candidate_id=candidate_id,
                 email=email,

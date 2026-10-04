@@ -707,6 +707,11 @@ class CitizenMeResponse(BaseModel):
     # AND verified is False — server-side so the dismissal follows the
     # account across devices instead of living in one browser's storage.
     contact_email_prompt_dismissed_at: Optional[datetime] = None
+    # True until the account has a valid state and congressional
+    # district (2026-10-03, services/citizen_geo.py). The app opens the
+    # location prompt while it is True, and engagement answers 409
+    # location_required. Read from CitizenAccount.needs_location.
+    needs_location: bool = False
 
     @field_validator("is_subscribed", "has_billing_account", mode="before")
     @classmethod

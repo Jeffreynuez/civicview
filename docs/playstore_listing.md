@@ -215,7 +215,7 @@ without deleting the account" → **No** (no separate partial-deletion flow).
 | Personal info → **Email address** | No | Required | App functionality, Account management, Fraud prevention/security (+ Developer communications if you send notification/digest emails) |
 | Personal info → **User IDs** | No | Required | App functionality, Account management (+ Fraud prevention/security) |
 | Personal info → **Address** | No | Optional | App functionality |
-| Location → **Approximate location** (city/state) | No | Optional | App functionality (+ Personalization — local reps) |
+| Location → **Approximate location** (state + congressional district required since 2026-10-03; city optional) | No | Required | App functionality (+ Personalization: local reps) |
 | Personal info → **Race and ethnicity** | No | Optional | App functionality, Analytics |
 | Personal info → **Political or religious beliefs** (party + religion) | No | Optional | App functionality, Analytics |
 | Personal info → **Other info** (age, sex, income, education, employment, home ownership, veteran, parent/guardian) | No | Optional | App functionality, Analytics |

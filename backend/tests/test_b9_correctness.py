@@ -54,10 +54,12 @@ def main() -> int:
         db = SessionLocal()
         rep = RepAccount(official_id="xx-b9-rep", email="b9rep@x.test", password_hash="x",
                          display_name="B9 Rep", owner_state="FL")
+        # Every citizen needs a state and district to engage (location
+        # gate, 2026-10-03).
         cz = CitizenAccount(email="b9c@x.test", password_hash="x", display_name="B9 Citizen",
-                            city="Miami", state="FL")
+                            city="Miami", state="FL", congressional_district="FL-27")
         rivals = [CitizenAccount(email=f"b9r{i}@x.test", password_hash="x", display_name=f"Rival {i}",
-                                 city="Tampa", state="FL") for i in range(3)]
+                                 city="Tampa", state="FL", congressional_district="FL-14") for i in range(3)]
         db.add_all([rep, cz, *rivals])
         db.flush()
         post = Post(official_id=rep.official_id, body="post with poll", author_id=rep.id)

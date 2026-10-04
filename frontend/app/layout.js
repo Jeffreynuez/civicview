@@ -49,6 +49,10 @@ import PushOptInPrompt from '@/components/PushOptInPrompt';
 // on a third party's page. See components/EmbedGate.js for why this is a
 // pathname check and not a second root layout.
 import EmbedGate from '@/components/EmbedGate';
+// Asks a signed-in citizen with no state or congressional district to
+// choose them (2026-10-03): once per visit, and whenever a like, vote or
+// comment is held for it. Root-mounted so every route gets the same ask.
+import LocationPrompt from '@/components/account/LocationPrompt';
 
 export const metadata = {
   // metadataBase turns every relative URL below (and in the route
@@ -175,6 +179,7 @@ export default function RootLayout({ children }) {
           <AppUpdateGate />
           <PushTapNavigator />
           <PushOptInPrompt />
+          <LocationPrompt />
         </EmbedGate>
       </body>
     </html>

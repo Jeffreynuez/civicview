@@ -16,7 +16,9 @@
  *   {
  *     id, email, display_name,
  *     city, county, state, zip_code, congressional_district,
- *     verified: boolean
+ *     verified: boolean,
+ *     needs_location: boolean   // no valid state + district yet; the
+ *                               // LocationPrompt asks (2026-10-03)
  *   } | null
  *
  * `verified` is always false in Phase 1.5 — any UI that surfaces the
@@ -27,6 +29,7 @@ import {
   fetchCitizenMe,
   loginCitizenApi,
   logoutCitizenApi,
+  saveCitizenLocation as saveCitizenLocationApi,
   signupDemoCitizen as signupDemoCitizenApi,
 } from './pagesApi';
 // Tracked-items sync — bootstrap the in-memory caches on login /
@@ -158,9 +161,32 @@ export async function signupDemoCitizen(payload) {
     loaded = true;
     notify();
     loadAllTracked().catch(() => {});
-    return { ok: true, email: data.email, password: data.password, citizen: data.citizen };
+    return {
+      ok: true,
+      email: data.email,
+      password: data.password,
+      citizen: data.citizen,
+      signinEmailSent: !!data.signin_email_sent,
+    };
   }
   return { ok: false, error: error || 'Demo signup failed', status, payload };
+}
+
+/**
+ * Save the signed-in citizen's state, district and (optional) city
+ * (PUT /me/location) and update the store, so every component reading
+ * the citizen (and the location prompt) sees it at once.
+ * Returns { ok: true, citizen } or { ok: false, error, status }.
+ */
+export async function updateCitizenLocation({ state, district, city } = {}) {
+  const { data, error, status } = await saveCitizenLocationApi({ state, district, city });
+  if (data && data.id) {
+    currentCitizen = data;
+    loaded = true;
+    notify();
+    return { ok: true, citizen: data };
+  }
+  return { ok: false, error: error || 'Could not save your location.', status };
 }
 
 /**

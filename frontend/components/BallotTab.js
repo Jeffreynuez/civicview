@@ -23,6 +23,7 @@ import {
   WarningCircle,
   MapPin,
 } from './ui';
+import { formatDistrict } from '@/lib/usStates';
 
 // Phase 4C: party colors resolve through canonical --cl-* tokens. NP
 // (non-partisan races, common at the local level) keeps a neutral grey
@@ -1609,7 +1610,7 @@ function VoterStatusBanner({ status }) {
             }}
           >
             This is {status.browsing}&rsquo;s ballot. Your verified district
-            is {status.district || status.state}.
+            is {formatDistrict(status.district) || status.state}.
           </div>
         </div>
       </div>
@@ -1640,7 +1641,7 @@ function VoterStatusBanner({ status }) {
             color: 'var(--cl-text)',
           }}
         >
-          You&rsquo;re registered to vote in {status.district || status.state}
+          You&rsquo;re registered to vote in {formatDistrict(status.district) || status.state}
         </div>
         <div
           style={{

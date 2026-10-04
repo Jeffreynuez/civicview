@@ -141,6 +141,31 @@ def start_verification(
 # ─────────────────────────────────────────────────────────────────────
 # OAuth callback — ID.me → us
 # ─────────────────────────────────────────────────────────────────────
+def _district_from_verified_address(attrs) -> Optional[str]:
+    """Canonical district ("FL-17") for an ID.me verified address, or
+    None. Called from the sync callback, which runs in FastAPI's thread
+    pool, so asyncio.run has no event loop to collide with."""
+    import asyncio
+
+    from app.services.citizen_geo import normalize_state
+    from app.services.geocode_service import GeocodeService
+
+    state = normalize_state(attrs.address_state)
+    parts = [attrs.address_line1, attrs.address_city, f"{attrs.address_state or ''} {attrs.address_zip or ''}".strip()]
+    address = ", ".join(p.strip() for p in parts if p and p.strip())
+    if not state or not attrs.address_line1:
+        return None
+    try:
+        found = asyncio.run(GeocodeService().congressional_district_for_street_address(address))
+    except Exception:
+        logger.exception("ID.me callback: district lookup failed; the citizen will be asked")
+        return None
+    if not found or found[0] != state:
+        logger.info("ID.me callback: no district for the verified address; the citizen will be asked")
+        return None
+    return found[1]
+
+
 @router.get("/callback")
 def verification_callback(
     code: Optional[str] = Query(default=None),
@@ -255,10 +280,15 @@ def verification_callback(
         citizen.state = attrs.address_state
     if attrs.address_city:
         citizen.city = attrs.address_city
-    # NOTE: we don't auto-update congressional_district here —
-    # that requires a Census-geocoder round-trip from the
-    # verified address. Wire that into the cutover work; for now
-    # the citizen's previously-set district stays put.
+    # Congressional district from the verified address (2026-10-03,
+    # Jeffrey: "ID.me sets the district"). One Census geocoder lookup,
+    # before the address is reduced to its hash; the address itself is
+    # not stored. If the lookup fails or disagrees with the verified
+    # state, the district is cleared rather than kept: a self-chosen
+    # district on a verified account would be counted as verified
+    # geography. needs_location then asks the person to choose one
+    # within their verified state.
+    citizen.congressional_district = _district_from_verified_address(attrs)
     db.commit()
 
     # ── Write / update the archive ──

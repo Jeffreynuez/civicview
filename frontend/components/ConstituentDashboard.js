@@ -38,6 +38,8 @@ import TwoFactorSection from './TwoFactorSection';
 import BillingSection from './BillingSection';
 import DemographicProfileSection from './DemographicProfileSection';
 import VerificationSection from './VerificationSection';
+import LocationSection from './account/LocationSection';
+import { formatDistrict } from '../lib/usStates';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -259,6 +261,7 @@ export default function ConstituentDashboard({
                 preferences, data privacy, and moderation status. */}
             <TwoFactorSection />
             <VerificationSection citizen={citizen} />
+            <LocationSection />
             <BillingSection citizen={citizen} />
             <StartPageSection citizen={citizen} />
             <DigestSection citizen={citizen} />
@@ -282,7 +285,7 @@ function WelcomeHeader({ citizen, greeting, dateLabel }) {
   // surface opened the dashboard.
   const displayName = citizen?.display_name || citizen?.name || '';
   const firstName = displayName.split(' ')[0] || 'there';
-  const district = citizen?.congressional_district || citizen?.district || '—';
+  const district = formatDistrict(citizen?.congressional_district || citizen?.district) || '—';
   const city = citizen?.city || '';
   const state = citizen?.state || '';
 
@@ -1142,9 +1145,10 @@ function ContactEmailPrompt({ citizen }) {
           color: 'var(--cl-text)',
         }}
       >
-        Saved — we’ll email you once, when it’s time to move your
-        account over. You can change or remove it any time in Account &amp;
-        settings.
+        Saved. We&rsquo;ll email you once, when it&rsquo;s time to move your
+        account over, and you can use this address with Forgot password
+        if you lose your sign-in. You can change or remove it any time in
+        Account &amp; settings.
       </div>
     );
   }
@@ -1176,11 +1180,12 @@ function ContactEmailPrompt({ citizen }) {
             }}
           >
             Your demo account was created with a placeholder address that
-            doesn’t reach anyone. When identity verification opens, demo
+            doesn&rsquo;t reach anyone. When identity verification opens, demo
             accounts get a limited window to move their comments, votes and
-            reactions to a verified account — add an email and we’ll send
-            you that one notice. No newsletters, no marketing, and we
-            don’t share it.
+            reactions to a verified account. Add an email and we&rsquo;ll send
+            you that one notice, and you can use it with Forgot password if
+            you lose your sign-in. No newsletters, no marketing, and we
+            don&rsquo;t share it.
           </p>
         </div>
         <button
