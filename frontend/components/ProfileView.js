@@ -44,6 +44,8 @@ import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { FileLink } from './ui';
 import PhotoCredit from './PhotoCredit';
 import BillReactions from './bills/BillReactions';
+import { BillScopeProvider } from './bills/BillScope';
+import { geoForMember } from '@/lib/billReactions';
 import { PARTY_TEXT_COLORS } from '@/lib/constants';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
@@ -1625,8 +1627,10 @@ function BillsTab({ state, member, onNotify }) {
   const cosponsoredVisible = cosponsoredShowAll ? fCosponsored : fCosponsored.slice(0, INITIAL_VISIBLE);
   const searchActive = !!search.trim() || aiMode;
 
+  // Likes by state / district use this member's constituents (Jeffrey,
+  // 2026-10-03): their state, plus their district for a House seat.
   return (
-    <div>
+    <BillScopeProvider geo={geoForMember(member)} label="Likes from">
       <SearchModeBar
         search={search} setSearch={setSearch}
         placeholder="Search bills by number or text…"
@@ -1677,7 +1681,7 @@ function BillsTab({ state, member, onNotify }) {
           )}
         </>
       )}
-    </div>
+    </BillScopeProvider>
   );
 }
 
@@ -3834,13 +3838,16 @@ function StateLegislatorBillsTab({ state, member }) {
       />
     );
   }
+  // Likes by state use this legislator's state. Their seat's district
+  // is a state legislative one, which citizens' rows don't carry, so
+  // there is no district option here.
   return (
-    <div>
+    <BillScopeProvider geo={geoForMember(member, { withDistrict: false })} label="Likes from">
       <SectionHeader>Recent Bills ({bills.length})</SectionHeader>
       {bills.map((b) => (
         <StateBillCard key={b.id || b.identifier} bill={b} />
       ))}
-    </div>
+    </BillScopeProvider>
   );
 }
 

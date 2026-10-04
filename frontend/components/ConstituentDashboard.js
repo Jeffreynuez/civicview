@@ -18,7 +18,6 @@ import {
   ChatCircleDots,
   Newspaper,
   MapPin,
-  ArrowLeft,
   ArrowRight,
 } from './ui';
 import { useTrackedOfficials } from '../lib/trackedOfficials';
@@ -27,12 +26,14 @@ import { useTrackedElections } from '../lib/trackedElections';
 import { useFeaturedTracked } from '../lib/featuredTracked';
 import TrackedManager from './TrackedManager';
 import BillReactions from './bills/BillReactions';
+import { useViewerGeo } from './bills/BillScope';
 import ActivityArchive from './ActivityArchive';
 import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
 import Navbar from './Navbar';
+import StickyPageHeader from './StickyPageHeader';
 import TwoFactorSection from './TwoFactorSection';
 import BillingSection from './BillingSection';
 import DemographicProfileSection from './DemographicProfileSection';
@@ -134,61 +135,18 @@ export default function ConstituentDashboard({
           onOpenCommittees (omitted). The home/CivicView-logo click
           falls through to onHome → onClose so it doubles as a back
           affordance. */}
-      <Navbar compact {...navbarProps} onHome={onClose} />
-
-      {/* Sticky Back pill — pinned to the top of the scroll container
-          so the escape hatch stays reachable as the user scrolls
-          through tracked reps + activity. The dashboard mounts inside
-          a `position: fixed; overflowY: auto` wrapper (app/page.js),
-          so `position: sticky; top: 0` here anchors to that scroll
-          context. Renamed from "Back to map" to "Back" per design
-          feedback — the button returns to whichever surface the user
-          opened the dashboard from, not necessarily the map. */}
-      {onClose && (
-        <div
-          style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 50,
-            background: 'var(--cl-bg)',
-            padding: '12px 24px 6px',
-            display: 'flex',
-            justifyContent: 'flex-start',
-          }}
-        >
-          <button
-            type="button"
-            onClick={onClose}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '8px 14px',
-              background: 'var(--cl-card)',
-              border: '1px solid var(--cl-border)',
-              borderRadius: 'var(--cl-radius-pill)',
-              fontSize: 'var(--cl-text-sm)',
-              fontWeight: 600,
-              fontFamily: 'var(--cl-font-sans)',
-              color: 'var(--cl-accent)',
-              cursor: 'pointer',
-              boxShadow: 'var(--cl-shadow-sticky)',
-              transition:
-                'background var(--cl-duration-fast) var(--cl-ease-standard), border-color var(--cl-duration-fast) var(--cl-ease-standard)',
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = 'var(--cl-accent-soft)';
-              e.currentTarget.style.borderColor = 'var(--cl-accent)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = 'var(--cl-card)';
-              e.currentTarget.style.borderColor = 'var(--cl-border)';
-            }}
-          >
-            <ArrowLeft size={14} color="accent" active />
-            Back
-          </button>
-        </div>
+      {/* Navbar + back row pinned together (StickyPageHeader), the same
+          header as every full-page route (2026-10-03). The navbar used to
+          scroll away while a lone Back pill stuck. The dashboard mounts
+          inside a `position: fixed; overflowY: auto` wrapper (app/page.js,
+          /polls, PageChrome), so sticky anchors to that scroll context.
+          "Back" returns to whichever surface opened the dashboard. */}
+      {onClose ? (
+        <StickyPageHeader backLabel="Back" onBack={onClose}>
+          <Navbar compact {...navbarProps} onHome={onClose} />
+        </StickyPageHeader>
+      ) : (
+        <Navbar compact {...navbarProps} onHome={onClose} />
       )}
 
       <div
@@ -2418,6 +2376,8 @@ function SpotlightUpdate({ text, whenIso, onClick }) {
 }
 
 function BillSpotlight({ bill, onManage }) {
+  // Likes by state / district use the viewer's own geography.
+  const viewerGeo = useViewerGeo();
   return (
     <section>
       <SectionHeader eyebrow="Followed bills" action={bill ? { label: 'Manage tracked →', onClick: onManage } : null} />
@@ -2445,7 +2405,7 @@ function BillSpotlight({ bill, onManage }) {
                 View on Congress.gov →
               </a>
             ) : <span />}
-            <BillReactions billKey={bill.key} />
+            <BillReactions billKey={bill.key} geo={viewerGeo} scopeSwitch />
           </div>
         </div>
       )}

@@ -21,10 +21,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import Navbar from '@/components/Navbar';
-import StickyPageHeader from '@/components/StickyPageHeader';
+import PageChrome from '@/components/PageChrome';
 import { fetchStatsDetail } from '@/lib/api';
-import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import useScrollRestoration from '@/lib/useScrollRestoration';
 import './stats.css';
 
@@ -35,7 +33,6 @@ export default function StatsPage() {
   // Restore scroll on native-WebView Back (no bfcache); /stats scrolls the body.
   useScrollRestoration(null, 'stats');
   const router = useRouter();
-  const { citizen } = useCitizenAuth();
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -75,25 +72,10 @@ export default function StatsPage() {
       {/* Same header as the other full-page routes (2026-10-03): the
           navbar and a "Back to map" row, pinned together, then the dark
           hero band Bills & Votes uses. This page used to have neither,
-          only a "← Home" link that scrolled away. */}
-      <StickyPageHeader backLabel="Back to map" onBack={() => router.push('/')}>
-        <Navbar
-          compact
-          onMemberPick={(mbr) => { if (mbr && mbr.bioguide_id) router.push('/?member=' + encodeURIComponent(mbr.bioguide_id)); else router.push('/'); }}
-          onCandidatePick={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); else router.push('/'); }}
-          onOpenTracked={() => router.push('/?open=tracked')}
-          onSubscribe={() => router.push('/')}
-          citizen={citizen}
-          onCitizenLogin={() => router.push('/')}
-          onCitizenLogout={() => { try { logoutCitizen && logoutCitizen(); } catch (e) { /* signed out either way */ } router.push('/'); }}
-          onCitizenDashboard={() => router.push('/?open=dashboard')}
-          onOpenRepDashboard={(r) => { if (r && r.official_id) router.push('/?page=' + encodeURIComponent(r.official_id)); }}
-          onOpenCandidateDashboard={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); }}
-          onOpenHelpBuild={() => router.push('/')}
-          onOpenFeedback={() => router.push('/')}
-          onHome={() => router.push('/')}
-        />
-      </StickyPageHeader>
+          only a "← Home" link that scrolled away. PageChrome opens the
+          navbar's windows (sign-in, Subscribe, Help build, Feedback, My
+          Tracked, dashboard) on this page instead of the home map. */}
+      <PageChrome backLabel="Back to map" onBack={() => router.push('/')} />
 
       <div className="stats-hero">
         <div className="stats-hero__inner">

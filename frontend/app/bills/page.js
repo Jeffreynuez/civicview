@@ -29,13 +29,11 @@ import {
   fetchRecentVotes, fetchVoteMembers, explainVote, generateVoteExplanation,
   aiHealth, filterItems,
 } from '@/lib/api';
-import Navbar from '@/components/Navbar';
-import StickyPageHeader from '@/components/StickyPageHeader';
-import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
+import PageChrome from '@/components/PageChrome';
 import SeatChart from '@/components/bills/SeatChart';
 import SeatMiniCard from '@/components/bills/SeatMiniCard';
 import BillReactions from '@/components/bills/BillReactions';
-import CitizenLoginModal from '@/components/CitizenLoginModal';
+import { useViewerGeo } from '@/components/bills/BillScope';
 import { billKeyFromCitation } from '@/lib/billReactions';
 import {
   POS_LABEL,
@@ -497,11 +495,13 @@ function VoteExplainer({ vote }) {
   );
 }
 
-function VoteHeader({ vote, onLoginRequired }) {
+function VoteHeader({ vote }) {
   const bp = vote.tally.byParty;
   // Only votes on a bill or resolution get likes (not nominations or
   // procedural votes): the key is built from the citation.
   const reactKey = billKeyFromCitation(vote.congress, vote.cite);
+  // Likes by state / district here use the viewer's own geography.
+  const viewerGeo = useViewerGeo();
   const seg = (p) => bp[p].yea + '-' + bp[p].nay;
   const hasI = (bp.I.yea + bp.I.nay) > 0;
   return (
@@ -528,7 +528,7 @@ function VoteHeader({ vote, onLoginRequired }) {
       {reactKey && (
         <div className="cv-header__react">
           <span className="cv-header__react-label">What do you think of {vote.cite}?</span>
-          <BillReactions billKey={reactKey} size="md" onLoginRequired={onLoginRequired} />
+          <BillReactions billKey={reactKey} size="md" geo={viewerGeo} scopeSwitch />
         </div>
       )}
       <TallyBar vote={vote} />
@@ -741,9 +741,6 @@ export default function BillsPage() {
   // Restore scroll on native-WebView Back (no bfcache); /bills scrolls the body.
   useScrollRestoration(null, 'bills');
   const router = useRouter();
-  const { citizen } = useCitizenAuth();
-  // Sign-in for a like or dislike from a signed-out visitor, in place.
-  const [citizenLoginOpen, setCitizenLoginOpen] = useState(false);
 
   const [chamber, setChamber] = useState('House');
   const [recent, setRecent] = useState([]);
@@ -864,26 +861,10 @@ export default function BillsPage() {
 
   return (
     <div className="bills-page cv-stage" data-tutorial="bills-page">
-      {/* Navbar + "Back to map" row, pinned together. This page had no
-          back button at all before 2026-10-03. */}
-      <StickyPageHeader backLabel="Back to map" onBack={() => router.push('/')}>
-        <Navbar
-          compact
-          onMemberPick={(m) => { if (m && m.bioguide_id) router.push('/?member=' + encodeURIComponent(m.bioguide_id)); else router.push('/'); }}
-          onCandidatePick={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); else router.push('/'); }}
-          onOpenTracked={() => router.push('/?open=tracked')}
-          onSubscribe={() => router.push('/')}
-          citizen={citizen}
-          onCitizenLogin={() => router.push('/')}
-          onCitizenLogout={() => { try { logoutCitizen && logoutCitizen(); } catch (e) {} router.push('/'); }}
-          onCitizenDashboard={() => router.push('/?open=dashboard')}
-          onOpenRepDashboard={(r) => { if (r && r.official_id) router.push('/?page=' + encodeURIComponent(r.official_id)); }}
-          onOpenCandidateDashboard={(c) => { if (c && c.candidate_id) router.push('/?page=' + encodeURIComponent(c.candidate_id)); }}
-          onOpenHelpBuild={() => router.push('/')}
-          onOpenFeedback={() => router.push('/')}
-          onHome={() => router.push('/')}
-        />
-      </StickyPageHeader>
+      {/* Navbar + "Back to map" row, pinned together, with every navbar
+          button opening its window here instead of on the home map
+          (PageChrome). Signed-out likes on this page open its sign-in. */}
+      <PageChrome backLabel="Back to map" onBack={() => router.push('/')} />
 
       <div className="cv-hero">
         <div className="cv-hero__inner">
@@ -931,7 +912,7 @@ export default function BillsPage() {
 
         {!loading && !error && vote && (
           <>
-            <VoteHeader vote={vote} onLoginRequired={() => setCitizenLoginOpen(true)} />
+            <VoteHeader vote={vote} />
 
             <section className="cv-card cv-chartcard">
               <div className="cv-chartcard__head">
@@ -967,12 +948,6 @@ export default function BillsPage() {
           onViewProfile={onViewProfile}
         />
       )}
-
-      <CitizenLoginModal
-        open={citizenLoginOpen}
-        onClose={() => setCitizenLoginOpen(false)}
-        onSuccess={() => setCitizenLoginOpen(false)}
-      />
     </div>
   );
 }

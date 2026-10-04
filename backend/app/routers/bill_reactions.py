@@ -10,7 +10,7 @@ would show one viewer's "my reaction" to everyone. These responses are
 per-viewer and say Cache-Control: no-store.
 
 Routes:
-  GET    /api/engagement/bills/reactions?keys=k1,k2,...
+  GET    /api/engagement/bills/reactions?keys=k1,k2,...[&state=FL&district=FL-17]
          Totals plus the caller's own reaction for up to 100 bills in
          one request (a rep profile lists dozens of bills). Anonymous
          callers get totals.
@@ -30,6 +30,16 @@ rep or candidate reacts as themselves on every bill; with several
 identities signed in the frontend's Act as picker sends as_identity.
 Citizens pass the dormant verification gate (require_verified), which
 does nothing until IDME_ENABLED is on, exactly like post reactions.
+
+State and district counts (2026-10-03): every route takes optional
+`state` ("FL") and `district` ("FL-17") and then also returns
+`scoped.state` / `scoped.district`: likes and dislikes from citizens
+whose state or congressional district, stamped at write time, matches.
+Reps' and candidates' reactions carry no geography and count only in
+the nationwide totals, the same rule as post reactions. The frontend
+picks the geography: on a rep's profile the rep's state and district
+(that rep's constituents), elsewhere the viewer's own (Jeffrey's call,
+2026-10-03).
 
 Bill keys: "{congress}-{type}-{number}" for federal bills (the
 frontend's billKey, lowercase) and the Open States id "ocd-bill/<uuid>"
@@ -62,6 +72,8 @@ MAX_KEYS = 100
 _FEDERAL_KEY = r"\d{2,3}-(?:hr|s|hjres|sjres|hconres|sconres|hres|sres)-\d{1,5}"
 _STATE_KEY = r"ocd-bill/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 BILL_KEY_RE = re.compile(rf"^(?:{_FEDERAL_KEY}|{_STATE_KEY})$")
+GEO_STATE_RE = re.compile(r"^[A-Z]{2}$")
+GEO_DISTRICT_RE = re.compile(r"^([A-Z]{2})-\d{1,2}$")
 
 
 def normalize_bill_key(raw: Optional[str]) -> Optional[str]:
@@ -75,6 +87,15 @@ class BillReactionRequest(BaseModel):
     bill_key: str = Field(..., min_length=1, max_length=96)
     kind: str = Field(..., pattern=r"^(up|down)$")
     as_identity: Optional[str] = Field(default=None, pattern=r"^(citizen|rep|candidate)$")
+    # Optional geography for the scoped counts in the response.
+    state: Optional[str] = Field(default=None, max_length=2)
+    district: Optional[str] = Field(default=None, max_length=8)
+
+
+class ScopedCounts(BaseModel):
+    label: str
+    up_count: int = 0
+    down_count: int = 0
 
 
 class BillReactionSummary(BaseModel):
@@ -86,6 +107,10 @@ class BillReactionSummary(BaseModel):
     # signed-in identity, null when that identity has not reacted.
     my_reaction: Optional[str] = None
     my_reactions: Dict[str, Optional[str]] = Field(default_factory=dict)
+    # Present only when the request named a geography: "state" and/or
+    # "district", each counting citizens stamped with that state or
+    # congressional district.
+    scoped: Dict[str, ScopedCounts] = Field(default_factory=dict)
 
 
 class BillReactionsBatch(BaseModel):
@@ -139,8 +164,11 @@ def summarize(
     me_citizen: Optional[CitizenAccount] = None,
     me_rep: Optional[RepAccount] = None,
     me_candidate: Optional[CandidateAccount] = None,
+    geo_state: Optional[str] = None,
+    geo_district: Optional[str] = None,
 ) -> Dict[str, BillReactionSummary]:
-    """Totals and per-identity state for each key, one query."""
+    """Totals and per-identity state for each key, one query. With a
+    geography, also the counts from citizens in that state / district."""
     base_slots: Dict[str, Optional[str]] = {}
     if me_citizen is not None:
         base_slots["citizen"] = None
@@ -148,8 +176,16 @@ def summarize(
         base_slots["rep"] = None
     if me_candidate is not None:
         base_slots["candidate"] = None
+    def empty_scopes() -> Dict[str, ScopedCounts]:
+        scopes: Dict[str, ScopedCounts] = {}
+        if geo_state:
+            scopes["state"] = ScopedCounts(label=geo_state)
+        if geo_district:
+            scopes["district"] = ScopedCounts(label=geo_district)
+        return scopes
+
     out = {
-        k: BillReactionSummary(bill_key=k, my_reactions=dict(base_slots))
+        k: BillReactionSummary(bill_key=k, my_reactions=dict(base_slots), scoped=empty_scopes())
         for k in keys
     }
     if not keys:
@@ -158,11 +194,12 @@ def summarize(
         db.query(
             BillReaction.bill_key, BillReaction.kind, BillReaction.citizen_id,
             BillReaction.author_rep_id, BillReaction.author_candidate_id,
+            BillReaction.scope_state, BillReaction.scope_district,
         )
         .filter(BillReaction.bill_key.in_(keys))
         .all()
     )
-    for bill_key, kind, citizen_id, rep_id, candidate_id in rows:
+    for bill_key, kind, citizen_id, rep_id, candidate_id, row_state, row_district in rows:
         s = out.get(bill_key)
         if s is None:
             continue
@@ -170,6 +207,18 @@ def summarize(
             s.up_count += 1
         elif kind == "down":
             s.down_count += 1
+        # Geography counts: citizen rows only (rep and candidate rows
+        # have no scope columns), matched on what was stamped at write.
+        if citizen_id is not None:
+            for scope, wanted, have in (
+                ("state", geo_state, row_state),
+                ("district", geo_district, row_district),
+            ):
+                if wanted and have and have.upper() == wanted:
+                    if kind == "up":
+                        s.scoped[scope].up_count += 1
+                    elif kind == "down":
+                        s.scoped[scope].down_count += 1
         if me_citizen is not None and citizen_id == me_citizen.id:
             s.my_reactions["citizen"] = kind
         if me_rep is not None and rep_id == me_rep.id:
@@ -202,10 +251,30 @@ def _parse_keys(keys: List[str]) -> List[str]:
     return seen
 
 
+def _parse_geo(state: Optional[str], district: Optional[str]):
+    """Validated (state, district). A district implies its state; a
+    district from a different state than the one named is refused."""
+    st = (state or "").strip().upper() or None
+    dist = (district or "").strip().upper() or None
+    if st is not None and not GEO_STATE_RE.match(st):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown state.")
+    if dist is not None:
+        m = GEO_DISTRICT_RE.match(dist)
+        if not m:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown district.")
+        if st is None:
+            st = m.group(1)
+        elif m.group(1) != st:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="District is not in that state.")
+    return st, dist
+
+
 @router.get("/bills/reactions", response_model=BillReactionsBatch)
 def list_bill_reactions(
     response: Response,
     keys: List[str] = Query(default=[]),
+    state: Optional[str] = Query(default=None, max_length=2),
+    district: Optional[str] = Query(default=None, max_length=8),
     db: Session = Depends(get_db),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
@@ -213,7 +282,10 @@ def list_bill_reactions(
 ):
     response.headers["Cache-Control"] = "no-store"
     parsed = _parse_keys(keys)
-    return BillReactionsBatch(reactions=summarize(db, parsed, me_citizen, me_rep, me_candidate))
+    geo_state, geo_district = _parse_geo(state, district)
+    return BillReactionsBatch(reactions=summarize(
+        db, parsed, me_citizen, me_rep, me_candidate, geo_state, geo_district,
+    ))
 
 
 @router.post("/bills/reactions", response_model=BillReactionSummary)
@@ -229,6 +301,7 @@ def react_to_bill(
     bill_key = normalize_bill_key(payload.bill_key)
     if bill_key is None:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown bill.")
+    geo_state, geo_district = _parse_geo(payload.state, payload.district)
     citizen, rep, candidate = _acting_identity(me_citizen, me_rep, me_candidate, payload.as_identity)
     # Dormant gate: a no-op until IDME_ENABLED is on; never applies to
     # reps or candidates (citizen is None on those paths).
@@ -265,7 +338,9 @@ def react_to_bill(
         # A double-click raced the first insert onto the unique index.
         # The first one won, which is the state the user asked for.
         db.rollback()
-    return summarize(db, [bill_key], me_citizen, me_rep, me_candidate)[bill_key]
+    return summarize(
+        db, [bill_key], me_citizen, me_rep, me_candidate, geo_state, geo_district,
+    )[bill_key]
 
 
 @router.delete("/bills/reactions", response_model=BillReactionSummary)
@@ -273,6 +348,8 @@ def clear_bill_reaction(
     response: Response,
     bill_key: str = Query(..., min_length=1, max_length=96),
     as_identity: Optional[str] = Query(default=None, pattern=r"^(citizen|rep|candidate)$"),
+    state: Optional[str] = Query(default=None, max_length=2),
+    district: Optional[str] = Query(default=None, max_length=8),
     db: Session = Depends(get_db),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
@@ -282,9 +359,10 @@ def clear_bill_reaction(
     key = normalize_bill_key(bill_key)
     if key is None:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown bill.")
+    geo_state, geo_district = _parse_geo(state, district)
     citizen, rep, candidate = _acting_identity(me_citizen, me_rep, me_candidate, as_identity)
     existing = _own_reaction_query(db, key, citizen, rep, candidate).first()
     if existing is not None:
         db.delete(existing)
         db.commit()
-    return summarize(db, [key], me_citizen, me_rep, me_candidate)[key]
+    return summarize(db, [key], me_citizen, me_rep, me_candidate, geo_state, geo_district)[key]

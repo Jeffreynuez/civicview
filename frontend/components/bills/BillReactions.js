@@ -11,8 +11,9 @@
  * should be added to all bills. Even on the reps profile sections."
  *
  * Engagement follows the app's "Act as" pattern (CLAUDE.md):
- *   - nobody signed in: onLoginRequired, or the citizen sign-in modal
- *     through the tutorial bridge on pages that host it;
+ *   - nobody signed in: onLoginRequired, or requestCitizenLogin(), which
+ *     the page that owns the sign-in window answers (home, /polls, and
+ *     PageChrome on /bills and /stats);
  *   - one identity: the click fires as that identity;
  *   - two or more: the IdentityPicker asks which one, with a check on
  *     the identities that already reacted this way.
@@ -23,22 +24,32 @@
  * identity's slot in my_reactions, never from the row-level
  * my_reaction (the bug fixed in CommentsThread the same day).
  *
+ * State and district counts (BillScope.js): inside a BillScopeProvider
+ * the pills show the provider's chosen scope. On its own, pass `geo`
+ * and `scopeSwitch` to render an inline Everyone / state / district
+ * switch (the /bills vote card and the dashboard spotlight do, with the
+ * viewer's geography).
+ *
  * Props:
  *   billKey          canonical key (lib/billReactions normalizeBillKey);
  *                    renders nothing when it is not a bill
- *   onLoginRequired  optional; defaults to opening the citizen sign-in
+ *   onLoginRequired  optional; defaults to requestCitizenLogin()
  *   size             'sm' (lists) or 'md' (the /bills vote card)
+ *   geo              optional { state, district } for an inline switch
+ *   scopeSwitch      render that inline switch (needs geo)
  */
 
 import { useMemo, useState } from 'react';
+
+import { BillScopeSwitch, useBillScope } from '@/components/bills/BillScope';
 
 import IdentityPicker from '@/components/IdentityPicker';
 import { ThumbsDown, ThumbsUp } from '@/components/ui';
 import { useActiveIdentities, pickEngagementIdentity } from '@/lib/activeIdentities';
 import {
-  clearBillReaction, normalizeBillKey, reactToBill, useBillReaction,
+  clearBillReaction, normalizeBillKey, normalizeGeo, reactToBill, useBillReaction,
 } from '@/lib/billReactions';
-import { emitTutorialAction } from '@/lib/tutorial';
+import { requestCitizenLogin } from '@/lib/loginRequest';
 
 import './BillReactions.css';
 
@@ -50,14 +61,23 @@ function alreadyReacted(summary, asIdentity, kind) {
   return summary?.my_reaction === kind;
 }
 
-export default function BillReactions({ billKey, onLoginRequired, size = 'sm' }) {
+export default function BillReactions({
+  billKey, onLoginRequired, size = 'sm', geo: geoProp = null, scopeSwitch = false,
+}) {
   const key = normalizeBillKey(billKey);
   const identities = useActiveIdentities({ isOwner: true });
   const sig = useMemo(
     () => identities.map((i) => `${i.kind}:${i.label}`).join('|'),
     [identities],
   );
-  const summary = useBillReaction(key, sig);
+  // Scope: a surrounding BillScopeProvider wins; otherwise this
+  // control's own inline switch, when asked for.
+  const ctx = useBillScope();
+  const ownGeo = ctx ? null : normalizeGeo(geoProp);
+  const [ownScope, setOwnScope] = useState('all');
+  const geo = ctx ? ctx.geo : ownGeo;
+  const scope = ctx ? ctx.scope : (ownGeo && scopeSwitch ? ownScope : 'all');
+  const summary = useBillReaction(key, sig, geo);
   const [picker, setPicker] = useState(null); // { kind, identities }
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
@@ -74,8 +94,8 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
     setError(null);
     const undo = alreadyReacted(summary, asIdentity, kind);
     const res = undo
-      ? await clearBillReaction(key, asIdentity)
-      : await reactToBill(key, kind, asIdentity);
+      ? await clearBillReaction(key, asIdentity, geo)
+      : await reactToBill(key, kind, asIdentity, geo);
     setBusy(false);
     if (res.error) setError(typeof res.error === 'string' ? res.error : 'Could not save that.');
   };
@@ -84,7 +104,7 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
     const decision = pickEngagementIdentity({ identities });
     if (decision.none) {
       if (onLoginRequired) onLoginRequired();
-      else emitTutorialAction('open-citizen-login');
+      else requestCitizenLogin();
       return;
     }
     if (decision.single) {
@@ -106,8 +126,12 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
     if (pending) fire(pending.kind, asIdentity);
   };
 
-  const up = summary ? summary.up_count : null;
-  const down = summary ? summary.down_count : null;
+  // The counts for the chosen scope. Everyone: the nationwide totals;
+  // State / District: likes from citizens there (BillScope.js).
+  const scoped = scope !== 'all' ? summary?.scoped?.[scope] : null;
+  const up = summary ? (scoped ? scoped.up_count : summary.up_count) : null;
+  const down = summary ? (scoped ? scoped.down_count : summary.down_count) : null;
+  const where = scoped ? ` from ${scoped.label}` : '';
 
   return (
     <div className={`bill-rx bill-rx--${size}`} role="group" aria-label="Like or dislike this bill">
@@ -117,7 +141,7 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
           className={`bill-rx__btn${upActive ? ' is-up' : ''}`}
           onClick={(e) => { e.stopPropagation(); handle('up'); }}
           aria-pressed={upActive}
-          aria-label={`Like${up != null ? ` (${up})` : ''}`}
+          aria-label={`Like${up != null ? ` (${up}${where})` : ''}`}
           title="Like this bill"
           disabled={busy}
         >
@@ -137,7 +161,7 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
           className={`bill-rx__btn${downActive ? ' is-down' : ''}`}
           onClick={(e) => { e.stopPropagation(); handle('down'); }}
           aria-pressed={downActive}
-          aria-label={`Dislike${down != null ? ` (${down})` : ''}`}
+          aria-label={`Dislike${down != null ? ` (${down}${where})` : ''}`}
           title="Dislike this bill"
           disabled={busy}
         >
@@ -151,6 +175,9 @@ export default function BillReactions({ billKey, onLoginRequired, size = 'sm' })
           onClose={() => setPicker(null)}
         />
       </span>
+      {!ctx && scopeSwitch && ownGeo && (
+        <BillScopeSwitch geo={ownGeo} value={ownScope} onChange={setOwnScope} label={null} compact />
+      )}
       {error && <span className="bill-rx__err" role="status">{error}</span>}
     </div>
   );

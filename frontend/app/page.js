@@ -41,6 +41,7 @@ import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
 import { useViewport, useIsLandscape } from '@/lib/useViewport';
 import { loadNavState, saveNavState } from '@/lib/navState';
 import { useTutorialActions } from '@/lib/tutorial';
+import { useCitizenLoginRequest } from '@/lib/loginRequest';
 
 export default function Home() {
   // Viewport drives the desktop ↔ mobile layout pivot. Computed once at
@@ -609,7 +610,12 @@ export default function Home() {
         const result = await fetchMemberDetail(member.bioguide_id);
         if (mid !== memberReqRef.current) return;
         if (result.data) {
-          setSelectedMember(result.data);
+          // The detail payload had no `state` (the list row does); keep
+          // the list's so the profile knows its state (bill likes by
+          // state / district, 2026-10-03). The backend now fills it too.
+          setSelectedMember(
+            result.data.state || !member.state ? result.data : { ...result.data, state: member.state },
+          );
           return;
         }
       } catch (e) {
@@ -1353,6 +1359,8 @@ export default function Home() {
     // on state switches is cheap and keeps the closures fresh.
   }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage, handleStateSelect, selectedState]);
   useTutorialActions(tutorialActionHandlers);
+  // A deep component (a bill's like button) asking for the sign-in.
+  useCitizenLoginRequest(handleCitizenLoginOpen);
 
   return (
     <div className="flex flex-col cl-h-screen-visible">
