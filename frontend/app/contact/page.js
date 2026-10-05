@@ -87,7 +87,7 @@ export default function ContactPage() {
       </p>
       <p>
         Want to know what we're already working on? See{' '}
-        <Link href="/?help-build">Help build this</Link> for the public
+        <Link href="/?open=help-build">Help build this</Link> for the public
         roadmap.
       </p>
 

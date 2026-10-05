@@ -330,6 +330,9 @@ export default function Home() {
   // /?open=tracked|dashboard|settings opens the matching overlay
   // directly — used by the /bills navbar (and any future surface) so
   // "Tracked items" / "Dashboard" don't dead-end on the home map.
+  // /?open=help-build opens the Help build this page: it's the address the
+  // Indiegogo campaign and the contact page give people for checking every
+  // funded line.
   // An explicit ?open= also suppresses the start-page redirect below.
   const startPageHandledRef = useRef(false);
   useEffect(() => {
@@ -339,6 +342,8 @@ export default function Home() {
     startPageHandledRef.current = true; // explicit destination wins
     if (open === 'tracked') {
       setTrackedOpen(true);
+    } else if (open === 'help-build') {
+      setHelpBuildOpen(true);
     } else if (open === 'dashboard' || open === 'settings') {
       // Dashboard needs the citizen session — wait for it below.
       setDashboardInitialView(open === 'settings' ? 'settings' : 'overview');
