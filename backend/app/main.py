@@ -196,6 +196,15 @@ async def lifespan(app: FastAPI):
             await _asyncio.to_thread(reserved_name_keys)
         except Exception:
             logger.exception("Reserved-name warmup failed; non-fatal, it builds on the first sign-up.")
+            return
+        # Then report any existing citizen who has one of those names
+        # (log for review, never renamed; see citizen_account_repair).
+        if db_ready:
+            try:
+                from app.services.citizen_account_repair import flag_official_name_matches
+                await _asyncio.to_thread(flag_official_name_matches)
+            except Exception:
+                logger.exception("Official-name check failed; non-fatal.")
 
     try:
         _asyncio.get_event_loop().create_task(_warm_reserved_names())

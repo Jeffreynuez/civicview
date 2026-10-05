@@ -4,7 +4,7 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * HelpBuildThisView — full-page overlay for the project's transparent
+ * HelpBuildThisView: full-page overlay for the project's transparent
  * status: what's shipped, what's in progress, what's blocked on
  * real-dollar funding (with exact amounts and source citations so
  * backers can sanity-check the numbers), the future product features
@@ -22,8 +22,8 @@
  * ./HelpBuildThisView.css.
  *
  * Props:
- *   onClose() — collapse the overlay
- *   compactNavbarProps — the slim Navbar shown at the top of the
+ *   onClose()           collapse the overlay
+ *   compactNavbarProps  the slim Navbar shown at the top of the
  *                       overlay (forwarded to <Navbar compact ... />)
  */
 import { useEffect, useRef, useState } from 'react';
@@ -31,43 +31,51 @@ import useFocusTrap from '../lib/useFocusTrap';
 import Navbar from './Navbar';
 import './HelpBuildThisView.css';
 
-// Crowdfund link — flip CROWDFUND_LIVE to true once the campaign is up.
+// Crowdfund link. Flip CROWDFUND_LIVE to true once the campaign is up.
 // CTA copy + progress meter + per-line "Fund this line" buttons all
 // branch on this single flag.
 const CROWDFUND_URL = 'https://www.gofundme.com/civicview';
 const CROWDFUND_LIVE = false;
 
-// Goal — line-item costs + operating buffer that bridges us to
+// Goal: line-item costs + the operating buffer that bridges us to
 // recurring subscription revenue. The 5-year financial model (in
 // docs/civicview_financial_model.xlsx) shows cumulative break-even
 // at the end of Year 3, once we hit ~50K users and ~1,500 paying
 // subscribers at the modeled 3% conversion rate. The buffer covers
-// ~6 months of Year-2 operations + LLC formation + a modest launch
+// ~6 months of Year-2 operations, legal review and a modest launch
 // push so we don't run out of runway while subscription revenue
 // ramps from $1.8K in Y1 to $90K in Y3.
-//   One-time line items:    2,400 + 1,050 + 6           =  3,456
-//   Year-1 recurring (12mo): (500 + 100 + 350 + 25 + 20)*12 + 15 = 11,955
-//                                                       = 15,411
-//   + Year-2 runway buffer (6 months)                   ≈  7,000
-//   + LLC formation + legal + launch outreach           ≈  2,700
-//                                                       ≈ 25,000 (rounded — small overage absorbs into the buffer)
-const FUND_GOAL = 25000;
+//   One-time line items:     2,400 + 1,050 + 6            =  3,456
+//   Year-1 recurring (12mo): (100 + 45 + 20)*12 + 15      =  1,995
+//                                                         =  5,451
+//   + Year-2 runway buffer (6 months)                     ≈  7,000
+//   + Legal review + launch outreach                      ≈  2,700
+//                                                         ≈ 15,151, shown as 15,000
+//                                         (the small overage is absorbed by the buffer)
+// 2026-10-03: down from 25,000. The ProPublica Congress API ($500/mo)
+// shut down and we use the free Congress.gov API instead; the Google
+// Civic API is free (it was listed at $200-500/mo); hosting is the
+// real Render bill ($25 Standard web service + $19 Basic Postgres +
+// storage, about $45/mo, not $25); CivicView, Inc. is already
+// incorporated, so there is no formation fee. Vote Smart stays
+// optional and outside the total.
+const FUND_GOAL = 15000;
 
 // ────────────────────────────────────────────────────────────────────
-// CONTENT — single source of truth. Keep entries concise; long-form
+// CONTENT: single source of truth. Keep entries concise; long-form
 // rationale lives in the README. Each blocked-on-funding line carries
 // an exact dollar amount and a source the user can audit, which is
 // the whole point of going transparent.
 // ────────────────────────────────────────────────────────────────────
 
-// What's shipped — 48 items. AI integration, moderation, appeals,
+// What's shipped: 49 items. AI integration, moderation, appeals,
 // /polls feed, self-engagement, reply threading, candidate slice
 // (auth + composer + dashboard + engagement parity), bill / vote /
 // EO AI summaries, official photos, identity-model spec, plus
 // recent Phase 5 / 6 work (in-app notifications, multi-identity
 // engagement picker, events as a tab, candidate profile redesign,
 // congress photo backfill, feedback triage pipeline, security
-// foundation). Volume itself is a trust signal — don't truncate.
+// foundation). Volume itself is a trust signal: don't truncate.
 const SHIPPED = [
   ['Interactive U.S. map', 'All 50 states + 435 congressional districts, click to drill in.'],
   ['Federal officials directory', 'President, VP, Cabinet, SCOTUS, House + Senate leadership, all 535 Congress members with profile photos.'],
@@ -77,12 +85,12 @@ const SHIPPED = [
   ['Citizen-led polls on unclaimed pages', 'Per-user / per-page caps, archive-on-claim.'],
   ['Standalone citizen polls', 'Not tied to any rep page, global rate-limited.'],
   ['Global /polls feed', 'Kind chips, comments, AI-powered semantic filter.'],
-  ['AI integration', 'Claude Haiku 4.5 — comment sentiment + tone, semantic filter chips, post summarization, poll classification.'],
+  ['AI integration', 'Claude Haiku 4.5: comment sentiment + tone, semantic filter chips, post summarization, poll classification.'],
   ['Bill / vote / executive-order AI summaries', 'CRS summary + Haiku plain-English translation on every bill, "What was this vote?" explainer, EO abstract + Haiku translation on every EO. Cached per-bill, per-vote, per-EO.'],
   ['Moderation system', 'Report flow on every surface, auto-hide threshold, admin queue: Dismiss / Hide / Unhide / Suspend, cascade-hide on suspension.'],
   ['Appeals system', 'Citizens and reps can appeal hidden content + suspensions; admin queue with Grant / Deny + reason logging.'],
-  ['Email notifications', 'Resend-powered — moderation events, appeal submissions, decisions, suspension notices.'],
-  ['Three-identity auth', 'Rep / citizen / candidate sessions with distinct cookies + bearer tokens. Mutually-exclusive on the client, cross-origin-safe cookies.'],
+  ['Email notifications', 'Built on Resend: moderation events, appeal submissions, decisions, suspension notices. Switches on with the launch email setup.'],
+  ['Three-identity auth', 'Rep / citizen / candidate sessions with distinct cookies + bearer tokens. One person can be signed in as all three at once, with cross-origin-safe cookies.'],
   ['Candidate accounts', 'Self-serve login modal, admin-approved claim flow, dedicated dashboard. Shipped alongside the identity-model spec doc.'],
   ['Candidate page composer', 'Verified candidates can post + manage polls + run events on their own candidate page.'],
   ['Self-engagement', 'Reps + candidates can like, vote, and comment on their own posts and polls. Author badge surfaces page-owner voice in comment threads.'],
@@ -97,15 +105,15 @@ const SHIPPED = [
   ['Light-only theme', 'Respects each component’s design; OS dark mode handled at the chrome level.'],
   ['Two waitlists', 'Address verification + "Claim this page" for real reps.'],
   ['Identity model spec', 'Source-of-truth PDF in docs/identity-model.pdf covering the three-tier engagement ladder, verification gates, lifecycle transitions, and the election-win promotion path.'],
-  ['Phase 5 polish — in-app notifications, image uploads, long-post collapse', 'Notification bell + dropdown menu with cross-identity inbox; reps and candidates can attach images to posts; posts longer than ~400 characters collapse to a preview with an "Expand" pill in the corner; body is now optional so poll-only and image-only posts are supported.'],
+  ['Phase 5 polish: in-app notifications, image uploads, long-post collapse', 'Notification bell + dropdown menu with cross-identity inbox; reps and candidates can attach images to posts; posts longer than ~400 characters collapse to a preview with an "Expand" pill in the corner; body is now optional so poll-only and image-only posts are supported.'],
   ['Multi-identity engagement picker (Phase 6)', 'Users signed into multiple accounts (citizen + rep, or all three) see a small picker when reacting, voting, or commenting so they choose which identity engages. Per-identity ✓ markers on reactions and votes, edge-aware popover positioning, reply threading enforced per the two-party rule.'],
   ['Events as a tab on rep + candidate pages', 'Upcoming events moved out of the bottom-of-feed position into a top tab strip alongside Feed (and Dashboard for owners), so events stay one tap from the hero regardless of post volume on mobile.'],
   ['Candidate profile centered hero + collapse toggle', 'Candidates now have the same centered-hero layout + chevron-collapse treatment as reps, with their signature dark color preserved so the two profile types stay visually distinct at a glance.'],
-  ['Congress photo coverage backfill', 'Wikipedia-sourced portraits added for 91 sitting members of Congress missing from the community photo mirror — entire new 119th Congress class + mid-cycle appointees (Ashley Moody, John James, Mike Lawler, Nick Begich III, and ~87 others) now render with real photos instead of initials.'],
+  ['Congress photo coverage backfill', 'Wikipedia-sourced portraits added for 91 sitting members of Congress missing from the community photo mirror: the entire new 119th Congress class + mid-cycle appointees (Ashley Moody, John James, Mike Lawler, Nick Begich III, and ~87 others) now render with real photos instead of initials.'],
   ['Feedback button + triage pipeline', 'Users tap Feedback from the navbar menu → embedded Google Form opens in an overlay → submission lands in a linked Sheet. From there: an Apps Script trigger sends an instant acknowledgement to submitters who included an email, and a weekly Monday digest classifies new submissions (bug / feature / correction / praise / general) + drafts personalized reply emails for review.'],
   ['Security foundation', 'Cloudflare WAF + DDoS protection + rate-limiting on /api/admin/* sits in front of the FastAPI backend; GitHub Dependabot security updates + CodeQL static analysis + Secret Scanning with Push Protection are active on the public source repo; automated daily Postgres backups on the paid Render plan; documented incident-response runbook (docs/INCIDENT-RESPONSE.md) and security-posture doc (docs/SECURITY.md) covering setup, rotation cadences, and the playbook for compromised-admin / DB-breach / DDoS / credential-leak scenarios.'],
   ['Bills & Votes', 'Interactive bills page with a selectable House / Senate seat chart, recent roll-call votes, a slate tally, an inline "What was this vote?" AI explainer, deep-linkable votes, and a full voting record on every member profile.'],
-  ['Compare officials & candidates', 'Side-by-side compare of any reps and/or candidates — party-line %, top-issue stances, experience, recent bills, and shared roll-call votes with an agreement-rate bar and agree / disagree filters. Swipeable cards on mobile.'],
+  ['Compare officials & candidates', 'Side-by-side compare of any reps and/or candidates: party-line %, top-issue stances, experience, recent bills, and shared roll-call votes with an agreement-rate bar and agree / disagree filters. Swipeable cards on mobile.'],
   ['Track reps, candidates, bills & elections', 'Follow anything from a bookmark on its card, with per-item “notify me when…” preferences and reminder cadences. In-app alerts fire when a followed official posts; one tap re-checks tracked bill status.'],
   ['My Tracked center', 'One place to view and manage everything you follow, grouped by type with per-category search / filter and quick notification settings.'],
   ['Save / bookmark posts & polls', 'Bookmark any post or poll to a Saved section on your dashboard.'],
@@ -113,21 +121,21 @@ const SHIPPED = [
   ['Two-factor authentication', 'TOTP 2FA with encrypted secrets and bcrypt-hashed recovery codes, enforced at first login for rep / candidate / admin identities.'],
   ['Password reset', 'Single-use, time-limited email reset links, with anti-enumeration on the request step.'],
   ['Self-serve account deletion', 'Soft delete with a 30-day recovery window, or immediate hard delete; verified identities archive a one-way hash so re-signup skips re-verification.'],
-  ['Weekly civic digest email', 'Opt-in weekly roundup of your tracked officials’ posts and polls, polls closing soon, and upcoming district events — built and ready to switch on at launch.'],
+  ['Weekly civic digest email', 'Opt-in weekly roundup of your tracked officials’ posts and polls, polls closing soon, and upcoming district events. Built and ready to switch on at launch.'],
   ['Engagement rate limiting', 'Sliding-window limits on comments, reactions, votes, reports, and poll / post creation to curb spam and abuse.'],
   ['Public stats page', 'Live transparency dashboard: government-structure counts, identity / engagement / content totals, and 8-week signup and poll-vote trend charts.'],
-  ['Start-page preference', 'Citizens choose which surface CivicView opens on — Home, Polls, Posts, Bills, Dashboard, or Stats.'],
+  ['Start-page preference', 'Citizens choose which surface CivicView opens on: Home, Polls, Posts, Bills, Dashboard, or Stats.'],
+  ['Android and Windows apps', 'Live on Google Play and the Microsoft Store. Both are thin shells around the live site, so a web deploy updates the apps instantly.'],
 ];
 
 const IN_PROGRESS = [
-  ['Native iOS / Android apps (Capacitor)', 'Thin native shells that load the live site so a web deploy updates the apps instantly; the Android build is in Google Play internal testing ahead of a public release.'],
-  ['Filling out the remaining 49 states', 'Profile photos, issues, experience, state legislators, local-rep data — content work, ongoing.'],
+  ['Deeper coverage beyond Florida', 'State legislators and statewide officials are in for all 50 states. Candidates, local officials, photos and issue summaries for the other 49 states are ongoing content work.'],
   ['Email deliverability hardening', 'Adding SPF / DKIM / DMARC records on civicview.app so acknowledgement and notification emails clear Yahoo / Gmail / Outlook spam filters reliably. Setup happens in the Workspace admin console + DNS provider.'],
   ['Election-win promotion flow (UI)', 'Backend endpoint shipped (admin can promote a winning candidate to a rep account and archive the defeated incumbent). UI surface for triggering the promotion + a confirmation flow still pending.'],
-  ['Crowdfunding launch + legal structure', 'Forming an LLC, evaluating 501(c)(3).'],
+  ['Crowdfunding launch', 'CivicView, Inc. is incorporated as a Florida benefit corporation. The crowdfund that pays for the lines below is next.'],
 ];
 
-// Funding — grouped one-time vs recurring with cluster subtotals.
+// Funding: grouped one-time vs recurring with cluster subtotals.
 const FUNDING_ONETIME = [
   {
     title: 'Verified citizen identity (ID.me Relying Party contract)',
@@ -154,39 +162,25 @@ const FUNDING_ONETIME = [
 
 const FUNDING_RECURRING = [
   {
-    title: 'ProPublica Congress API (Pro tier)',
-    cost: '$500',
-    costSuffix: '/ month',
-    body: 'Real-time bill text, sponsor lists, roll-call votes, committee membership across all 535 members. Currently we ship a curated snapshot.',
-    source: 'projects.propublica.org/api-docs/congress-api — Pro tier for full historical + commercial use',
-  },
-  {
-    title: 'OpenStates API (Pro tier)',
+    title: 'Open States API (higher-volume access)',
     cost: '$100',
-    costSuffix: '/ month',
-    body: 'State legislature data for all 50 states. Today we have Florida hand-curated; this unblocks the other 49 states’ state senators, reps, and bills.',
-    source: 'openstates.org/pricing',
+    costSuffix: '/ month, estimate',
+    body: 'Live state legislature bills and votes for all 50 states at production volume. State legislator rosters are already curated for every state; this keeps their bills and votes current. An estimate until Plural, which now runs Open States, quotes it.',
+    source: 'docs.openstates.org/api-v3 (Open States, now run by Plural)',
   },
   {
-    title: 'Google Civic Information API (paid tier at scale)',
-    cost: '$200–500',
-    costSuffix: '/ month at scale',
-    body: 'Polling-place lookup, sample-ballot data, official-rep contact info that stays current automatically. Free up to current usage.',
-    source: 'developers.google.com/civic-information',
-  },
-  {
-    title: 'Domain renewal — civicview.app',
+    title: 'Domain renewal: civicview.app',
     cost: '$15',
     costSuffix: '/ year',
     body: 'Keeps the project at its primary domain.',
     source: 'Cloudflare Registrar at-cost pricing',
   },
   {
-    title: 'Hosting — Render web service + Postgres (Pro tier)',
-    cost: '$25',
+    title: 'Hosting: Render web service + Postgres',
+    cost: '$45',
     costSuffix: '/ month combined',
-    body: 'No 50-second cold-start on first visit; database stays warm. Currently running on the Pro tier funded out of pocket — the campaign moves this onto the project so it doesn’t depend on the founder absorbing it.',
-    source: 'render.com/pricing — Pro plan eliminates the free-tier cold-start delay',
+    body: 'A Standard web service ($25) and a Basic Postgres database ($19 plus storage): no cold start on first visit, and the database stays warm with daily backups. Paid out of pocket today; the campaign moves it onto the project so it doesn’t depend on the founder absorbing it.',
+    source: 'render.com/pricing: Standard web service $25/mo, Basic-1GB Postgres $19/mo, storage $0.30/GB',
   },
   {
     title: 'Vercel Pro (frontend)',
@@ -196,15 +190,15 @@ const FUNDING_RECURRING = [
     source: 'vercel.com/pricing',
   },
   {
-    title: 'Vote Smart API — issue positions (optional, future add-on)',
+    title: 'Vote Smart API: issue positions (optional, future add-on)',
     cost: '$4,850',
     costSuffix: '/ year (Public-Facing Platform License)',
-    body: 'Non-partisan, candidate-submitted issue positions (Political Courage Test) for officials and candidates \u2014 the one profile field no free API fully provides. Strictly optional: today we ship neutral, sourced issue summaries derived from each official\u2019s legislative record, and that stays free. This license would layer in stated stances where available. Deferred until post-launch budget allows; quoted June 2026.',
-    source: 'votesmart.org/votesmart-api \u2014 Public-Facing Platform License, 1-year subscription',
+    body: 'Non-partisan, candidate-submitted issue positions (Political Courage Test) for officials and candidates: the one profile field no free API fully provides. Strictly optional: today we ship neutral, sourced issue summaries derived from each official\u2019s legislative record, and that stays free. This license would layer in stated stances where available. Deferred until post-launch budget allows; quoted June 2026.',
+    source: 'votesmart.org/votesmart-api: Public-Facing Platform License, 1-year subscription',
   },
 ];
 
-// Buffer cluster — bridges the gap between Year-1 line items and the
+// Buffer cluster: bridges the gap between Year-1 line items and the
 // point at which subscription revenue covers recurring costs. The
 // 5-year financial model projects cumulative break-even at the end
 // of Year 3; raising buffer here means we don't have to do an
@@ -215,19 +209,19 @@ const FUNDING_BUFFER = [
     title: 'Year-2 operating runway (6 months)',
     cost: '$7,000',
     costSuffix: 'one-time buffer',
-    body: 'Subscription revenue at the modeled 3% conversion is $1.8K in Y1 and $18K in Y2 — not enough to fully cover the growing ID.me verification bill + Render Pro tier yet. This 6-month cushion buys us through the ramp until paid users cross break-even (~end of Y2 at 300 paying subscribers).',
-    source: '5-year financial model — see docs/civicview_financial_model.xlsx',
+    body: 'Subscription revenue at the modeled 3% conversion is $1.8K in Y1 and $18K in Y2, not enough to fully cover the growing ID.me verification bill + Render hosting yet. This 6-month cushion buys us through the ramp until paid users cross break-even (~end of Y2 at 300 paying subscribers).',
+    source: '5-year financial model: docs/civicview_financial_model.xlsx',
   },
   {
-    title: 'LLC formation + legal + launch outreach',
+    title: 'Legal review + launch outreach',
     cost: '$2,700',
     costSuffix: 'one-time',
-    body: 'State LLC filing fee, registered agent, lawyer review of terms of service + privacy policy (required before holding subscription funds or signing the ID.me Relying Party contract), plus a modest civic-tech press / event budget for launch.',
-    source: 'Stripe Atlas / LegalZoom comparable pricing + civic-tech event fee schedules',
+    body: 'Registered agent, an attorney review of the terms of service + privacy policy (required before holding subscription funds or signing the ID.me Relying Party contract), plus a modest civic-tech press / event budget for launch. CivicView, Inc. is already incorporated, so there is no formation fee.',
+    source: 'LegalZoom comparable pricing + civic-tech event fee schedules',
   },
 ];
 
-// Roadmap — aspirational features, no cost estimates yet. Dropped
+// Roadmap: aspirational features, no cost estimates yet. Dropped
 // the standalone "AI integration" entry because AI shipped (it now
 // lives in SHIPPED).
 const ROADMAP = [
@@ -258,10 +252,10 @@ const ROADMAP = [
 ];
 
 const ONETIME_TOTAL_LABEL = '$3,456 total one-time';
-const RECURRING_TOTAL_LABEL = '~$11,800 / first year';
+const RECURRING_TOTAL_LABEL = '~$2,000 / first year';
 const BUFFER_TOTAL_LABEL = '$9,700 operating buffer';
-const LARGEST_PENDING = 'ProPublica · $500/mo';
-const LARGEST_PENDING_SUB = 'unlocks all-50-states bill data';
+const LARGEST_PENDING = 'ID.me · $2,400';
+const LARGEST_PENDING_SUB = 'unlocks verified citizen accounts';
 
 const fmt$ = (n) => '$' + n.toLocaleString('en-US');
 
@@ -269,7 +263,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
   // Keep Tab inside this dialog; give focus back when it closes (audit F6).
   const dialogRef = useRef(null);
   useFocusTrap(dialogRef, true);
-  // Lock background scroll while the overlay is up — same pattern as
+  // Lock background scroll while the overlay is up, same pattern as
   // PageView. Prevents iOS rubber-band from exposing the map behind.
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -278,7 +272,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
     return () => { document.body.style.overflow = prev; };
   }, []);
 
-  // Section open/close state — funding section opens by default
+  // Section open/close state. The funding section opens by default
   // (it's the trust artifact; receipts visible on first paint).
   const [open, setOpen] = useState(new Set(['money']));
   const toggle = (k) => setOpen((prev) => {
@@ -301,10 +295,10 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
       }}
     >
       <div className="hb-page">
-        {/* Compact navbar — same chrome as PageView. */}
+        {/* Compact navbar, same chrome as PageView. */}
         <Navbar compact {...compactNavbarProps} onHome={onClose} />
 
-        {/* Page top bar — back to map, page title, spacer. */}
+        {/* Page top bar: back to map, page title, spacer. */}
         <div className="hb-topbar">
           <button type="button" className="hb-topbar__back" onClick={onClose}>
             <ArrowLeftIcon size={14} />
@@ -325,7 +319,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
               count={SHIPPED.length}
               isOpen={open.has('shipped')}
               onToggle={() => toggle('shipped')}
-              sub={open.has('shipped') ? null : 'Every feature already in production. The volume itself is the trust signal — expand to read the list.'}
+              sub={open.has('shipped') ? null : 'Every feature already in production. The volume itself is the trust signal; expand to read the list.'}
             >
               <Checklist items={SHIPPED} kind="shipped" />
             </Section>
@@ -384,7 +378,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
               count={ROADMAP.length}
               isOpen={open.has('roadmap')}
               onToggle={() => toggle('roadmap')}
-              sub={open.has('roadmap') ? 'Aspirational — no costs yet. These get a "Fund this" treatment only after we scope the infra.' : null}
+              sub={open.has('roadmap') ? 'Aspirational, no costs yet. These get a "Fund this" treatment only after we scope the infra.' : null}
             >
               <Roadmap />
             </Section>
@@ -405,7 +399,7 @@ export default function HelpBuildThisView({ onClose, compactNavbarProps = {} }) 
 function Hero() {
   return (
     <section className="hb-hero">
-      {/* Faint watermark behind the headline — radial circles forming a
+      {/* Faint watermark behind the headline: radial circles forming a
           large CIVIC·TECH glyph at low opacity. */}
       <svg className="hb-hero__watermark" viewBox="0 0 100 100" aria-hidden="true">
         <circle cx="50" cy="50" r="48" fill="none" stroke="white" strokeWidth="0.8" />
@@ -424,11 +418,11 @@ function Hero() {
           We&rsquo;re making politicians actually accessible.
         </h1>
         <p className="hb-hero__body">
-          CivicView gives every U.S. citizen a direct line to their representatives &mdash;
+          CivicView gives every U.S. citizen a direct line to their representatives:
           track their votes, see their posts, ask them questions in polls, push back in comments,
           all scoped to the district they actually represent. Below is a transparent breakdown
           of what&rsquo;s built, what&rsquo;s in progress, and what specific dollar amounts unlock the rest.
-          {' '}<strong>No equity, no ads, no investor carve-outs</strong> &mdash; just citizens funding citizen infrastructure.
+          {' '}<strong>No equity, no ads, no investor carve-outs</strong>, just citizens funding citizen infrastructure.
         </p>
 
         <div className="hb-hero__cta-row">
@@ -483,14 +477,14 @@ function ProgressMeter() {
             <>
               <span className="hb-progress__raised hb-progress__raised--muted">{fmt$(goal)}</span>
               <span className="hb-progress__goal">
-                to fully unlock CivicView &mdash; <strong>one-time costs + first year of recurring</strong>
+                to fully unlock CivicView: <strong>one-time costs, the first year of recurring costs, and the operating buffer</strong>
               </span>
             </>
           )}
         </div>
         <div className="hb-progress__subline">
           {CROWDFUND_LIVE
-            ? <>Covers ID.me setup, federal trademark, DMCA agent, and 12 months of ProPublica, OpenStates, Google Civic, hosting, and domain. Surplus rolls into year&nbsp;2.</>
+            ? <>Covers ID.me setup, federal trademark, DMCA agent, 12 months of Open States, hosting and domain, and the operating buffer. Surplus rolls into year&nbsp;2.</>
             : <>Bar fills in once the campaign opens. The total below is itemized, sourced, and broken into <em>&ldquo;fund this line&rdquo;</em>&nbsp;buttons.</>}
         </div>
         <div className="hb-progress__bar">
@@ -513,7 +507,7 @@ function ProgressMeter() {
           <span className="hb-tile__eye">Backers</span>
           {CROWDFUND_LIVE
             ? <span className="hb-tile__num">0</span>
-            : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>&mdash;</span>}
+            : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>Not yet</span>}
           <span className="hb-tile__sub">
             {CROWDFUND_LIVE ? 'across the campaign' : 'opens with the campaign'}
           </span>
@@ -521,10 +515,10 @@ function ProgressMeter() {
         <div className="hb-tile">
           <span className="hb-tile__eye">Days remaining</span>
           {CROWDFUND_LIVE
-            ? <span className="hb-tile__num">&mdash;</span>
+            ? <span className="hb-tile__num">TBA</span>
             : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>Pre&nbsp;launch</span>}
           <span className="hb-tile__sub">
-            {CROWDFUND_LIVE ? 'until campaign close' : 'launch tba — subscribe to be notified'}
+            {CROWDFUND_LIVE ? 'until campaign close' : 'launch date TBA; subscribe to be notified'}
           </span>
         </div>
         <div className="hb-tile">
@@ -685,8 +679,8 @@ function Footer() {
         </span>
       )}
       <p className="hb-footer__caption">
-        Questions or feedback? Use the Feedback tab in the navbar &mdash;
-        we read every submission and either turn it into a fix, an
+        Questions or feedback? Use the Feedback tab in the navbar.
+        We read every submission and either turn it into a fix, an
         update, or a new entry on the future-features list.
       </p>
     </div>
@@ -713,7 +707,7 @@ function StickyMobileCTA() {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// GLYPHS — lifted from /Design Exports/civicview-help-build-this-page/
+// GLYPHS: lifted from /Design Exports/civicview-help-build-this-page/
 // project/help-build/Icons.jsx. Inlined here so the file is
 // self-contained.
 // ─────────────────────────────────────────────────────────────────────

@@ -553,24 +553,28 @@ function AdminPageInner() {
               {' · '}{me?.kind === 'citizen' ? 'citizen' : 'rep'} account on ADMIN_EMAILS allowlist
             </div>
           </div>
+        </div>
 
-          <div className="ad-subnav-row">
-            <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={4}>
-              <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
-              <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
-              <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
-              <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
-            </HScroll>
-            <Link className="ad-subnav__home" href="/">
-              <span aria-hidden="true">←</span> CivicView home
-            </Link>
-          </div>
+        {/* Section tabs and the way home stay pinned while the queue
+            scrolls (2026-10-03). A sibling of the title block rather than
+            inside it, so the sticky row's containing block is the whole
+            page, not the header band. */}
+        <div className="ad-subnav-row ad-subnav-row--sticky">
+          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={4}>
+            <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
+          </HScroll>
+          <Link className="ad-subnav__home" href="/">
+            <span aria-hidden="true">←</span> CivicView home
+          </Link>
+        </div>
 
-          <div className="ad-kpis">
-            {kpis.map((k) => (
-              <KpiTile key={k.label} label={k.label} value={k.value} dotClass={k.dot} />
-            ))}
-          </div>
+        <div className="ad-kpis ad-kpis--page">
+          {kpis.map((k) => (
+            <KpiTile key={k.label} label={k.label} value={k.value} dotClass={k.dot} />
+          ))}
         </div>
 
         {error && (

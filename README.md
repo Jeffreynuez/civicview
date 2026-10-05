@@ -843,7 +843,9 @@ share text + GoFundMe story + perk tiers + FAQ. High-level:
 3. Stripe live mode activation (after EIN + bank land)
 4. Attorney review of ToS + Privacy Policy ($1.5K-$3K via Tier-2 solo
    attorney — see `docs/LEGAL-REVIEW-ROADMAP.md`)
-5. ProPublica + OpenStates Pro API subscriptions ($600/mo combined)
+5. Open States higher-volume API access (about $100/mo, to be quoted by
+   Plural). The ProPublica Congress API shut down; bills and votes come
+   from the free Congress.gov API
 6. Remainder → Year-2 operating buffer
 
 **Phase 5 — transition demo cohort to verified accounts:**
