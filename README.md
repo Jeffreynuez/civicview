@@ -309,7 +309,7 @@ render.yaml                   # Render service definition
 ## What's shipped (high level)
 
 The canonical, item-by-item list of shipped features lives on the
-**[Help build this](https://civicview.app/help-build)** page (source:
+**[Help build this](https://civicview.app/?open=help-build)** page (source:
 `frontend/components/HelpBuildThisView.js`). Maintained as the single
 source of truth so the public funding ask and the internal status doc
 never drift. As of May 2026 the list runs ~35 entries; high-level

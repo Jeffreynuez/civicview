@@ -31,11 +31,27 @@ import useFocusTrap from '../lib/useFocusTrap';
 import Navbar from './Navbar';
 import './HelpBuildThisView.css';
 
-// Crowdfund link. Flip CROWDFUND_LIVE to true once the campaign is up.
-// CTA copy + progress meter + per-line "Fund this line" buttons all
-// branch on this single flag.
-const CROWDFUND_URL = 'https://www.gofundme.com/civicview';
-const CROWDFUND_LIVE = false;
+// The crowdfund runs on Indiegogo. CROWDFUND_STAGE moves through three
+// stages, and the CTAs, the progress meter and the per-line "Fund this
+// line" buttons all branch on it:
+//   'soon'     no public Indiegogo page yet: the CTA is a disabled pill
+//   'preview'  the Indiegogo preview page is up: the CTA links to it so
+//              people can follow the campaign before it launches
+//   'live'     pledges are open (planned launch: January 12, 2027)
+// CROWDFUND_URL is the project URL from Indiegogo's Settings > General,
+// in the new platform's /en/projects/<creator>/<project> form. Check it
+// against the real page before moving past 'soon'.
+const CROWDFUND_URL = 'https://www.indiegogo.com/en/projects/civicview/civicview';
+const CROWDFUND_STAGE = 'soon';
+const CROWDFUND_LIVE = CROWDFUND_STAGE === 'live';
+const CROWDFUND_FOLLOWABLE = CROWDFUND_STAGE === 'preview' || CROWDFUND_LIVE;
+
+// The campaign's goal. Indiegogo campaigns are all or nothing, so the
+// goal is the amount that switches verification on (ID.me setup, the
+// attorney review, the DMCA agent, a year of hosting, Indiegogo's fees
+// and reserve, the first verifications). Stretch goals then run down
+// the lines on this page to the full plan, FUND_GOAL below.
+const CAMPAIGN_GOAL = 7000;
 
 // Goal: line-item costs + the operating buffer that bridges us to
 // recurring subscription revenue. The 5-year financial model (in
@@ -132,7 +148,7 @@ const IN_PROGRESS = [
   ['Deeper coverage beyond Florida', 'State legislators and statewide officials are in for all 50 states. Candidates, local officials, photos and issue summaries for the other 49 states are ongoing content work.'],
   ['Email deliverability hardening', 'Adding SPF / DKIM / DMARC records on civicview.app so acknowledgement and notification emails clear Yahoo / Gmail / Outlook spam filters reliably. Setup happens in the Workspace admin console + DNS provider.'],
   ['Election-win promotion flow (UI)', 'Backend endpoint shipped (admin can promote a winning candidate to a rep account and archive the defeated incumbent). UI surface for triggering the promotion + a confirmation flow still pending.'],
-  ['Crowdfunding launch', 'CivicView, Inc. is incorporated as a Florida benefit corporation. The crowdfund that pays for the lines below is next.'],
+  ['Crowdfunding launch', 'CivicView, Inc. is incorporated as a Florida benefit corporation. The Indiegogo campaign that pays for the lines below is planned for January 2027.'],
 ];
 
 // Funding: grouped one-time vs recurring with cluster subtotals.
@@ -426,16 +442,7 @@ function Hero() {
         </p>
 
         <div className="hb-hero__cta-row">
-          {CROWDFUND_LIVE ? (
-            <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
-              <HeartIcon size={16} />
-              <span>Back the crowdfund</span>
-            </a>
-          ) : (
-            <span className="hb-cta hb-cta--pending" aria-disabled="true">
-              Crowdfund launching soon
-            </span>
-          )}
+          <CampaignCTA iconSize={16} />
           <a href="#money" className="hb-cta hb-cta--ghost">See where the money goes &rarr;</a>
         </div>
 
@@ -484,8 +491,8 @@ function ProgressMeter() {
         </div>
         <div className="hb-progress__subline">
           {CROWDFUND_LIVE
-            ? <>Covers ID.me setup, federal trademark, DMCA agent, 12 months of Open States, hosting and domain, and the operating buffer. Surplus rolls into year&nbsp;2.</>
-            : <>Bar fills in once the campaign opens. The total below is itemized, sourced, and broken into <em>&ldquo;fund this line&rdquo;</em>&nbsp;buttons.</>}
+            ? <>Covers ID.me setup, federal trademark, DMCA agent, 12 months of Open States, hosting and domain, and the operating buffer. Surplus rolls into year&nbsp;2. The campaign&rsquo;s goal is {fmt$(CAMPAIGN_GOAL)}, the part that switches verification on; past that, stretch goals run to the full {fmt$(goal)}.</>
+            : <>Bar fills in once the campaign opens. The Indiegogo campaign&rsquo;s goal is {fmt$(CAMPAIGN_GOAL)}, the part that switches verification on; past that, pledges go down this list to the full {fmt$(goal)}. The total below is itemized, sourced, and broken into <em>&ldquo;fund this line&rdquo;</em>&nbsp;buttons.</>}
         </div>
         <div className="hb-progress__bar">
           {CROWDFUND_LIVE && (
@@ -518,7 +525,11 @@ function ProgressMeter() {
             ? <span className="hb-tile__num">TBA</span>
             : <span className="hb-tile__num hb-tile__num--sm" style={{ color: 'var(--cl-text-muted)' }}>Pre&nbsp;launch</span>}
           <span className="hb-tile__sub">
-            {CROWDFUND_LIVE ? 'until campaign close' : 'launch date TBA; subscribe to be notified'}
+            {CROWDFUND_LIVE
+              ? 'until campaign close'
+              : CROWDFUND_FOLLOWABLE
+                ? 'launching January 2027; follow it on Indiegogo'
+                : 'launching January 2027'}
           </span>
         </div>
         <div className="hb-tile">
@@ -668,16 +679,7 @@ function Roadmap() {
 function Footer() {
   return (
     <div className="hb-footer">
-      {CROWDFUND_LIVE ? (
-        <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
-          <HeartIcon size={16} />
-          <span>Back the crowdfund</span>
-        </a>
-      ) : (
-        <span className="hb-cta hb-cta--pending hb-cta--pending-light">
-          Crowdfund launching soon
-        </span>
-      )}
+      <CampaignCTA iconSize={16} light />
       <p className="hb-footer__caption">
         Questions or feedback? Use the Feedback tab in the navbar.
         We read every submission and either turn it into a fix, an
@@ -687,20 +689,38 @@ function Footer() {
   );
 }
 
+// The one campaign button, used in the hero, the footer and the sticky
+// mobile bar, so every place follows CROWDFUND_STAGE the same way.
+// "Fund this line" stays live-only: a preview page can't take pledges.
+function CampaignCTA({ iconSize = 16, light = false }) {
+  if (CROWDFUND_LIVE) {
+    return (
+      <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
+        <HeartIcon size={iconSize} />
+        <span>Back the crowdfund</span>
+      </a>
+    );
+  }
+  if (CROWDFUND_FOLLOWABLE) {
+    return (
+      <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
+        <HeartIcon size={iconSize} />
+        <span>Follow the campaign on Indiegogo</span>
+      </a>
+    );
+  }
+  return (
+    <span className={`hb-cta hb-cta--pending${light ? ' hb-cta--pending-light' : ''}`} aria-disabled="true">
+      Crowdfund launching soon
+    </span>
+  );
+}
+
 function StickyMobileCTA() {
   return (
     <div className="hb-sticky-cta">
       <div className="hb-sticky-cta__inner">
-        {CROWDFUND_LIVE ? (
-          <a href={CROWDFUND_URL} target="_blank" rel="noopener noreferrer" className="hb-cta hb-cta--primary">
-            <HeartIcon size={14} />
-            <span>Back the crowdfund</span>
-          </a>
-        ) : (
-          <span className="hb-cta hb-cta--pending hb-cta--pending-light">
-            Crowdfund launching soon
-          </span>
-        )}
+        <CampaignCTA iconSize={14} light />
       </div>
     </div>
   );
