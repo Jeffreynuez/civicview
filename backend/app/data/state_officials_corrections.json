@@ -51,6 +51,55 @@
       "source_url": "https://www.legis.ga.gov/api/document/docs/default-source/bios/carden-adrienne-white-5097.pdf",
       "checked": "2026-10-14",
       "note": "The Georgia Senate's official biography reads 'Senator Adrienne White Carden'. Open States has 'Adrienne White'."
+    },
+    {
+      "state": "MA",
+      "openstates_id": "ocd-person/0587c400-b81a-4ced-b560-a4009519076a",
+      "name": "Kim Driscoll",
+      "family_name": "Driscoll",
+      "source_url": "https://www.mass.gov/person/kim-driscoll-lieutenant-governor",
+      "checked": "2026-10-14",
+      "note": "The Commonwealth's page for the Lieutenant Governor reads 'Kim Driscoll'. Open States has 'Kimberly Driscoll'."
+    },
+    {
+      "state": "UT",
+      "openstates_id": "ocd-person/34430fff-d52e-4218-a99b-3d2764578bc9",
+      "name": "Derek Brown",
+      "family_name": "Brown",
+      "source_url": "https://attorneygeneral.utah.gov/",
+      "checked": "2026-10-14",
+      "note": "The Attorney General's office writes 'Derek Brown'. Open States has 'Derek E Brown'."
+    }
+  ],
+  "party": [
+    {
+      "state": "VT",
+      "openstates_id": "ocd-person/2cb218ea-52a4-4d1f-9732-217940ba260e",
+      "name": "John Rodgers",
+      "party": "R",
+      "source_url": "https://outside.vermont.gov/dept/sos/Elections_Division/election_info_resources/elections_results_data/2024_general_election_winner_listing.xlsx",
+      "checked": "2026-10-14",
+      "note": "The Secretary of State's 2024 general election winner listing shows Lieutenant Governor, REPUBLICAN, JOHN S. RODGERS. Open States has him as a Democrat, from his earlier years in the Legislature."
+    },
+    {
+      "state": "NE",
+      "openstates_id": "ocd-person/3eafc2ab-5448-40ac-9d5f-b317abdbc747",
+      "name": "Mike Hilgers",
+      "party": "R",
+      "source_url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2022/2022%20General%20Canvass%20Book.pdf",
+      "checked": "2026-10-14",
+      "note": "The Board of State Canvassers' 2022 report lists Attorney General: Mike Hilgers (Republican). Open States has 'Nonpartisan', from his years in the officially nonpartisan Legislature, which our file showed as I."
+    }
+  ],
+  "exclude": [
+    {
+      "state": "TN",
+      "openstates_id": "ocd-person/8a5fa491-f871-4b57-962e-8db9adf2c8c3",
+      "name": "Jonathan Skrmetti",
+      "office": "Attorney General",
+      "source_url": "https://www.tn.gov/attorneygeneral/news/2022/9/1/pr22-32.html",
+      "checked": "2026-10-14",
+      "note": "Tennessee's Attorney General is appointed by the state Supreme Court, not elected, and no official source gives a party. With no party the profile would show 'Independent', so he is not added until that is decided."
     }
   ]
 }

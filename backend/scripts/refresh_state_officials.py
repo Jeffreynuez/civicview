@@ -79,6 +79,12 @@ is ahead of it, record that in app/data/state_officials_corrections.json
   vacancies list.
 * name: the name as the official site writes it, when Open States has
   it short or wrong (and the family name the new id is built from).
+* party: the party an official source gives (certified election
+  results, the legislature's roster) when Open States or our own
+  record has it wrong.
+* exclude: a statewide officeholder not to add, with the reason (for
+  example an appointed office with no party on any official source,
+  which the profile would otherwise show as "Independent").
 Every run reports each correction; once Open States agrees, the report
 says the correction can be deleted.
 
@@ -474,6 +480,10 @@ class StateRefresher:
         self.names = {c.get("openstates_id"): c for c in corrections.get("name") or []
                       if str(c.get("state", "")).lower() == state}
         self.names_used: set[str] = set()
+        self.parties = {c.get("openstates_id"): c for c in corrections.get("party") or []
+                        if str(c.get("state", "")).lower() == state}
+        self.excluded = {c.get("openstates_id"): c for c in corrections.get("exclude") or []
+                         if str(c.get("state", "")).lower() == state}
         self.report = Report(state)
         retired = doc.get("_retired_ids") or []
         self.retired_ids = {r["id"] for r in retired if isinstance(r, dict) and r.get("id")}
@@ -496,6 +506,17 @@ class StateRefresher:
         self.report.notes.append(
             f"correction applied: name {person.get('name')!r} -> {fix['name']!r} ({fix.get('source_url')})")
         return {**person, "name": fix["name"], "family_name": fix.get("family_name") or person.get("family_name")}
+
+    def corrected_party(self, person: dict) -> tuple[str | None, dict | None]:
+        """(party code, the correction used or None) for a person."""
+        fix = self.parties.get(person.get("id"))
+        if fix:
+            if fix.get("party") == party_code(current_party(person)):
+                self.report.notes.append(
+                    f"correction no longer needed: Open States now gives {person['name']} party "
+                    f"{fix['party']}; delete it from {CORRECTIONS_FILE}")
+            return fix.get("party"), fix
+        return party_code(current_party(person)), None
 
     # ids ------------------------------------------------------------
     def _collect_ids(self) -> set[str]:
@@ -579,7 +600,7 @@ class StateRefresher:
             "id": self.new_id(stem, person),
             "openstates_id": person["id"],
             "name": person["name"],
-            "party": party_code(current_party(person)),
+            "party": self.corrected_party(person)[0],
             "chamber": chamber_label,
             "district": district,
             "role": role_label,
@@ -705,13 +726,17 @@ class StateRefresher:
                     if person["name"] != m.get("name"):
                         self.report.changed.append(f"{m['id']}: name {m.get('name')!r} -> {person['name']!r}")
                         rec["name"] = person["name"]
-                    code = party_code(current_party(person))
+                    code, fix = self.corrected_party(person)
                     if code and code != m.get("party"):
                         self.report.changed.append(
                             f"{m['id']} ({person['name']}): party {m.get('party')} -> {code}")
-                        self.report.unverified.append(
-                            f"{m['id']} ({person['name']}): party change {m.get('party')} -> {code} "
-                            f"is from Open States; confirm on the legislature's website")
+                        if fix:
+                            self.report.notes.append(
+                                f"{m['id']}: party per correction ({fix.get('source_url')})")
+                        else:
+                            self.report.unverified.append(
+                                f"{m['id']} ({person['name']}): party change {m.get('party')} -> {code} "
+                                f"is from Open States; confirm on the legislature's website")
                         rec["party"] = code
                     if not person.get("_api"):
                         if not rec.get("photo_url"):
@@ -842,7 +867,11 @@ class StateRefresher:
                 if not is_active(role, self.today):
                     continue
                 rtype = role.get("type")
-                if rtype in EXEC_OFFICES:
+                if rtype in EXEC_OFFICES and person["id"] in self.excluded:
+                    fix = self.excluded[person["id"]]
+                    self.report.notes.append(
+                        f"not added, per correction: {person['name']} ({rtype}): {fix.get('note')}")
+                elif rtype in EXEC_OFFICES:
                     holders[rtype].append({**person, "_role": role})
                 elif rtype in SKIPPED_EXEC_TYPES:
                     self.report.notes.append(
@@ -875,8 +904,13 @@ class StateRefresher:
                 if person["name"] != ours.get("name") and name_key(person["name"]) != name_key(ours.get("name")):
                     self.report.notes.append(
                         f"{ours['id']}: kept our name {ours.get('name')!r} (Open States: {person['name']!r})")
-                code = party_code(current_party(person))
-                if code and code != ours.get("party"):
+                code, fix = self.corrected_party(person)
+                if fix and code != ours.get("party"):
+                    rec["party"] = code
+                    self.report.changed.append(
+                        f"{ours['id']} ({ours.get('name')}): party {ours.get('party')} -> {code} "
+                        f"per correction ({fix.get('source_url')})")
+                elif code and code != ours.get("party"):
                     self.report.unverified.append(
                         f"{ours['id']} ({ours.get('name')}): our party {ours.get('party')}, Open States "
                         f"{current_party(person)}; kept ours, confirm on the official site")
@@ -886,10 +920,10 @@ class StateRefresher:
                     self.retire(ours, f"officeholder changed to {rec['id']}")
                     self.report.removed.append(f"{ours['id']} ({ours.get('name')}): no longer {label}")
                     self.report.unverified.append(
-                        f"{rec['id']} ({person['name']}): new {label}. Confirm on the official state "
+                        f"{rec['id']} ({rec['name']}): new {label}. Confirm on the official state "
                         f"website and write a short neutral bio with sources before merging")
                 else:
-                    self.report.added.append(f"{rec['id']} ({person['name']}, {rec['party']}): {label}")
+                    self.report.added.append(f"{rec['id']} ({rec['name']}, {rec['party']}): {label}")
             if slot == "cabinet":
                 if idx is None:
                     cabinet.append(rec)
@@ -906,7 +940,7 @@ class StateRefresher:
             "id": self.new_id(f"{self.state}-{stem}", person),
             "openstates_id": person["id"],
             "name": person["name"],
-            "party": party_code(current_party(person)) or current_party(person),
+            "party": self.corrected_party(person)[0] or current_party(person),
             "role": label,
             "office": "Executive Office of the Governor" if slot == "governor" else "Executive",
         }
@@ -920,12 +954,14 @@ class StateRefresher:
             rec["sources"] = [prior["website"]] if prior.get("website") else []
             self.report.empty.append(f"{rec['id']} ({person['name']}): bio and photo")
             return rec
+        # Open States' first link is often the person's old legislature
+        # page, so the office's website is left for the person who
+        # confirms the officeholder to fill in.
+        rec["website"] = None
         page, _ = pick_website(person)
-        if page and not page.startswith("https://"):
-            page = None
-        rec["website"] = page
-        if not page:
-            self.report.empty.append(f"{rec['id']} ({person['name']}): website (none on an https address)")
+        self.report.empty.append(
+            f"{rec['id']} ({person['name']}): website. Add the office's official site"
+            + (f" (Open States links {page[:80]})" if page else ""))
         url, why = self.photos.usable(person.get("image"))
         rec["photo_url"] = url
         self.note_photo(rec, person, url, why)
