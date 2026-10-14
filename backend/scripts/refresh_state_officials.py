@@ -77,6 +77,8 @@ is ahead of it, record that in app/data/state_officials_corrections.json
 * seat_not_vacant: a seat the official source says is held (or is in
   dispute) while Open States lists nobody. The seat is left out of the
   vacancies list.
+* name: the name as the official site writes it, when Open States has
+  it short or wrong (and the family name the new id is built from).
 Every run reports each correction; once Open States agrees, the report
 says the correction can be deleted.
 
@@ -469,6 +471,9 @@ class StateRefresher:
                             if str(c.get("state", "")).lower() == state]
         self.not_vacant = [c for c in corrections.get("seat_not_vacant") or []
                            if str(c.get("state", "")).lower() == state]
+        self.names = {c.get("openstates_id"): c for c in corrections.get("name") or []
+                      if str(c.get("state", "")).lower() == state}
+        self.names_used: set[str] = set()
         self.report = Report(state)
         retired = doc.get("_retired_ids") or []
         self.retired_ids = {r["id"] for r in retired if isinstance(r, dict) and r.get("id")}
@@ -476,6 +481,21 @@ class StateRefresher:
         self.all_ids = self._collect_ids()
         # (chamber, district) -> names of members who left that seat in this run
         self.vacated: dict[tuple[str, str], list[str]] = defaultdict(list)
+
+    def apply_name(self, person: dict) -> dict:
+        """The person, with a name correction applied when one exists."""
+        fix = self.names.get(person.get("id"))
+        if not fix:
+            return person
+        self.names_used.add(person["id"])
+        if fix.get("name") == person.get("name"):
+            self.report.notes.append(
+                f"correction no longer needed: Open States now writes {fix['name']!r}; "
+                f"delete it from {CORRECTIONS_FILE}")
+            return person
+        self.report.notes.append(
+            f"correction applied: name {person.get('name')!r} -> {fix['name']!r} ({fix.get('source_url')})")
+        return {**person, "name": fix["name"], "family_name": fix.get("family_name") or person.get("family_name")}
 
     # ids ------------------------------------------------------------
     def _collect_ids(self) -> set[str]:
@@ -676,7 +696,7 @@ class StateRefresher:
                 ocd_id = m.get("openstates_id")
                 hit = current.get(ocd_id)
                 if hit and hit[1] == chamber and hit[2] == str(m.get("district")):
-                    person = hit[0]
+                    person = self.apply_name(hit[0])
                     rec = dict(m)
                     if not person.get("_api") and person["id"] != ocd_id:
                         rec["openstates_id"] = person["id"]
@@ -726,6 +746,7 @@ class StateRefresher:
             if ocd_id in ours_by_os and ocd_id not in moved_from:
                 continue
             old = moved_from.get(ocd_id)
+            person = self.apply_name(person)
             rec = self.new_member(person, chamber, district, carry=old)
             if old:
                 self.retire(old, f"moved to {rec['id']}")
@@ -860,7 +881,7 @@ class StateRefresher:
                         f"{ours['id']} ({ours.get('name')}): our party {ours.get('party')}, Open States "
                         f"{current_party(person)}; kept ours, confirm on the official site")
             else:
-                rec = self.new_exec(person, slot, label, stem)
+                rec = self.new_exec(self.apply_name(person), slot, label, stem)
                 if ours:
                     self.retire(ours, f"officeholder changed to {rec['id']}")
                     self.report.removed.append(f"{ours['id']} ({ours.get('name')}): no longer {label}")

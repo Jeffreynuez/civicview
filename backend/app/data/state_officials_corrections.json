@@ -41,5 +41,16 @@
       "checked": "2026-10-14",
       "note": "The General Assembly's 2025-2026 roster still lists Freddie Powell Sims with no end date, while Open States lists nobody. Unresolved, so the seat is neither listed as vacant nor given a member."
     }
+  ],
+  "name": [
+    {
+      "state": "GA",
+      "openstates_id": "ocd-person/3cfc8d4f-68d4-44b2-81f4-a162465e1aed",
+      "name": "Adrienne White Carden",
+      "family_name": "Carden",
+      "source_url": "https://www.legis.ga.gov/api/document/docs/default-source/bios/carden-adrienne-white-5097.pdf",
+      "checked": "2026-10-14",
+      "note": "The Georgia Senate's official biography reads 'Senator Adrienne White Carden'. Open States has 'Adrienne White'."
+    }
   ]
 }
