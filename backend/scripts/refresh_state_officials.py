@@ -107,6 +107,7 @@ import re
 import subprocess  # nosec B404 - runs git with fixed arguments only
 import sys
 import tempfile
+import time
 import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -302,8 +303,16 @@ def load_metadata(state: str, metadata_dir: str | None, client: httpx.Client) ->
     if metadata_dir:
         source = (Path(metadata_dir) / f"{name}.py").read_text(encoding="utf-8")
     else:
-        resp = client.get(METADATA_URL.format(name=name))
-        resp.raise_for_status()
+        url = METADATA_URL.format(name=name)
+        for attempt in range(4):
+            try:
+                resp = client.get(url)
+                resp.raise_for_status()
+                break
+            except httpx.HTTPError:
+                if attempt == 3:
+                    raise
+                time.sleep(2 ** (attempt + 1))
         source = resp.text
     return parse_metadata(source)
 
@@ -1024,6 +1033,7 @@ def main(argv=None) -> int:
     data, sha = checkout_people(args.people_dir)
     reports: dict[str, dict] = {}
     totals = Counter()
+    pending: list[tuple[Path, dict]] = []
     with httpx.Client(timeout=20, follow_redirects=True,
                       headers={"User-Agent": "CivicView-state-officials-refresh/1.0 (+https://civicview.app)"}) as client:
         photos = PhotoChecker(client, enabled=not args.no_network_checks)
@@ -1051,11 +1061,17 @@ def main(argv=None) -> int:
             totals.update(counts)
             reports[state] = {"counts": counts, **rep.as_dict(), "file_changed": changed}
             print_state(state, rep, counts, changed)
-            if args.write and changed:
-                tmp = path.with_suffix(".json.tmp")
-                tmp.write_text(dump(new_doc), encoding="utf-8")
-                json.loads(tmp.read_text(encoding="utf-8"))
-                os.replace(tmp, path)
+            if changed:
+                pending.append((path, new_doc))
+
+    # Write only after every state was computed, so a network error part
+    # way through never leaves a batch half written.
+    if args.write:
+        for path, new_doc in pending:
+            tmp = path.with_suffix(".json.tmp")
+            tmp.write_text(dump(new_doc), encoding="utf-8")
+            json.loads(tmp.read_text(encoding="utf-8"))
+            os.replace(tmp, path)
 
     print()
     print(f"Open States people data at commit {sha[:12]}, as of {today}.")
