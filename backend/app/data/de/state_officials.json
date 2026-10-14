@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "DE",
   "state_name": "Delaware",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Matt Meyer is the Governor of Delaware, serving since 2025.",
       "sources": [
         "https://governor.delaware.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/8c05321d-6737-437f-928b-adaf129103f5"
     },
     "lt_governor": {
       "id": "de-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.delaware.gov/wp-content/uploads/sites/222/2024/12/kyle-evans-gay-hero-landscape.jpg"
+      "photo_url": "https://ltgov.delaware.gov/wp-content/uploads/sites/222/2024/12/kyle-evans-gay-hero-landscape.jpg",
+      "openstates_id": "ocd-person/96f29b7f-bd5a-4a83-8ed0-7a5c6d3c6036"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://attorneygeneral.delaware.gov/wp-content/themes/dosgic_AG_theme/img/ag-jennings-bio-photo.jpg"
+        "photo_url": "https://attorneygeneral.delaware.gov/wp-content/themes/dosgic_AG_theme/img/ag-jennings-bio-photo.jpg",
+        "openstates_id": "ocd-person/d1ed8b9a-53e1-4cd6-b1b2-ef6632fbde5d"
       }
     ]
   },

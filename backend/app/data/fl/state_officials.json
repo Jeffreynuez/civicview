@@ -1,6 +1,11 @@
 {
   "_note": "Curated Florida state officials from official sources, updated July to September 2026. Sources and retrieval dates are in _source, and for the judiciary in its own _note. The shape follows Open States so the live API can replace this file without frontend changes.",
   "_source": "Executive biographies and contact details from official state department sites and the Executive Office of the Governor; portraits from Wikimedia Commons. Legislator contact from the Florida Senate and House. Retrieved 2026-07-31.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "FL",
   "state_name": "Florida",
   "executive": {
@@ -65,7 +70,8 @@
       ],
       "photo_source": "wikimedia",
       "photo_credit": "Wikimedia Commons",
-      "photo_source_url": "https://en.wikipedia.org/wiki/Ron_DeSantis"
+      "photo_source_url": "https://en.wikipedia.org/wiki/Ron_DeSantis",
+      "openstates_id": "ocd-person/284392c5-5708-4014-9ea1-9552536c5a3e"
     },
     "lt_governor": {
       "id": "fl-exec-lieutenant-governor",
@@ -123,7 +129,8 @@
         "office": "Governor of Florida",
         "election": "2026"
       },
-      "data_observed": "2026-07-31"
+      "data_observed": "2026-07-31",
+      "openstates_id": "ocd-person/34dac893-eae3-495e-9237-9689a1114895"
     },
     "cabinet": [
       {
@@ -182,7 +189,8 @@
           "capitol_phone": "(850) 245-6500",
           "official_website": "https://dos.fl.gov"
         },
-        "data_observed": "2026-07-31"
+        "data_observed": "2026-07-31",
+        "openstates_id": "ocd-person/bf19e4db-85d0-4b4e-a980-e30d84905d8a"
       },
       {
         "id": "fl-exec-attorney-general",
@@ -244,7 +252,8 @@
           "office": "Attorney General of Florida",
           "election": "2026"
         },
-        "data_observed": "2026-07-31"
+        "data_observed": "2026-07-31",
+        "openstates_id": "ocd-person/669df589-03af-4b3a-9588-d95ab977e171"
       },
       {
         "id": "fl-exec-cfo",
@@ -814,7 +823,7 @@
         "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s27_5342.jpg",
         "contact": {
           "official_website": "https://flsenate.gov/Senators/2022-2024/S27",
-          "email": "albritton.ben@flsenate.gov",
+          "email": "albritton.ben.web@flsenate.gov",
           "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
           "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
@@ -996,22 +1005,6 @@
         }
       },
       {
-        "id": "fl-sen-39",
-        "openstates_id": "ocd-person/a4a5f92e-62cf-401b-9fc6-9d9a63498d5c",
-        "name": "Bryan Ávila",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "39",
-        "role": "State Senator",
-        "photo_url": "https://flsenate.gov/PublishedContent/Senators/2022-2024/Photos/s39_5459.jpg",
-        "contact": {
-          "official_website": "https://flsenate.gov/Senators/2022-2024/S39",
-          "email": "avila.bryan.web@flsenate.gov",
-          "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
-          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
-        }
-      },
-      {
         "id": "fl-sen-40",
         "openstates_id": "ocd-person/afd55a58-b8f6-4dd7-9d93-a2207b65e425",
         "name": "Ana Maria Rodriguez",
@@ -1026,6 +1019,16 @@
           "capitol_office": "The Florida Senate, 404 South Monroe Street, Tallahassee, FL 32399-1100",
           "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "39",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Bryan Ávila"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -1906,22 +1909,6 @@
         }
       },
       {
-        "id": "fl-rep-55",
-        "openstates_id": "ocd-person/7cf27467-9070-4d4a-9a45-24bfe980dfb8",
-        "name": "Kevin Steele",
-        "party": "R",
-        "chamber": "State House",
-        "district": "55",
-        "role": "State Representative",
-        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4881.jpg",
-        "contact": {
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4881&LegislativeTermId=90",
-          "email": "kevin.steele@flhouse.gov",
-          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
-          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
-        }
-      },
-      {
         "id": "fl-rep-56",
         "openstates_id": "ocd-person/8d746fc8-370b-4d12-bcf8-3dd4a4061707",
         "name": "Brad Yeager",
@@ -2269,22 +2256,6 @@
         "contact": {
           "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4892&LegislativeTermId=90",
           "email": "tiffany.esposito@flhouse.gov",
-          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
-          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
-        }
-      },
-      {
-        "id": "fl-rep-78",
-        "openstates_id": "ocd-person/bc54a6ff-f7b3-4bbf-a23a-4acc9caa8064",
-        "name": "Jenna Persons-Mulicka",
-        "party": "R",
-        "chamber": "State House",
-        "district": "78",
-        "role": "State Representative",
-        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4785.jpg",
-        "contact": {
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4785&LegislativeTermId=90",
-          "email": "jenna.persons@flhouse.gov",
           "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
           "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
@@ -2869,22 +2840,6 @@
         }
       },
       {
-        "id": "fl-rep-116",
-        "openstates_id": "ocd-person/ed30b061-bbdc-44f3-8a40-e574646d6cf8",
-        "name": "Daniel Perez",
-        "party": "R",
-        "chamber": "State House",
-        "district": "116",
-        "role": "State Representative",
-        "photo_url": "https://myfloridahouse.gov//FileStores/Web/Imaging/Member/4690.jpg",
-        "contact": {
-          "official_website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4690&LegislativeTermId=90",
-          "email": "daniel.perez@flhouse.gov",
-          "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
-          "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
-        }
-      },
-      {
         "id": "fl-rep-117",
         "openstates_id": "ocd-person/313e81ee-19af-4d9d-9186-fbbca7e6d65d",
         "name": "Kevin Chambliss",
@@ -2947,6 +2902,37 @@
           "capitol_office": "The Florida House of Representatives, 402 South Monroe Street, Tallahassee, FL 32399-1300",
           "capitol_office_note": "Chamber address without a suite number — mail addressed to the member at this address reaches their Capitol office."
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "55",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Kevin Steele"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "78",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Jenna Persons-Mulicka"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "113",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "116",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Daniel Perez"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -4113,5 +4099,35 @@
         "chief_judge_note": "We could not confirm who currently leads this court. See the court's website."
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "fl-sen-39",
+      "name": "Bryan Ávila",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/a4a5f92e-62cf-401b-9fc6-9d9a63498d5c"
+    },
+    {
+      "id": "fl-rep-55",
+      "name": "Kevin Steele",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/7cf27467-9070-4d4a-9a45-24bfe980dfb8"
+    },
+    {
+      "id": "fl-rep-78",
+      "name": "Jenna Persons-Mulicka",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/bc54a6ff-f7b3-4bbf-a23a-4acc9caa8064"
+    },
+    {
+      "id": "fl-rep-116",
+      "name": "Daniel Perez",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/ed30b061-bbdc-44f3-8a40-e574646d6cf8"
+    }
+  ]
 }

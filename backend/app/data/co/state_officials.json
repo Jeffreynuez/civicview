@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "CO",
   "state_name": "Colorado",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Jared Polis is the Governor of Colorado, serving since 2019.",
       "sources": [
         "https://www.colorado.gov/governor"
-      ]
+      ],
+      "openstates_id": "ocd-person/be56ceea-ca7e-46b1-acdd-d4266e9d2893"
     },
     "lt_governor": {
       "id": "co-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgovernor.colorado.gov/sites/ltgovernor/files/styles/large/public/2019-07/diannep.jpg"
+      "photo_url": "https://ltgovernor.colorado.gov/sites/ltgovernor/files/styles/large/public/2019-07/diannep.jpg",
+      "openstates_id": "ocd-person/21632200-6ff5-4b76-9c2e-190d8804ac16"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.sos.state.co.us/pubs/images/Griswold.png"
+        "photo_url": "https://www.sos.state.co.us/pubs/images/Griswold.png",
+        "openstates_id": "ocd-person/570385fc-0dd8-4754-9e94-3faeae5f2287"
       },
       {
         "id": "co-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-CO-weiser.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-CO-weiser.jpg",
+        "openstates_id": "ocd-person/fb02dd97-db94-4350-841f-e5adb9065c0c"
       }
     ]
   },
@@ -158,7 +167,7 @@
         "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzVTQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--afd770f3635f91909fdcc0bde3b95c1599089da7/Rich,%20Janice.jpg",
         "contact": {
           "official_website": "https://leg.colorado.gov/legislators/janice-rich",
-          "email": "janicerichsd7@gmail.com",
+          "email": "janice.rich.senate@coleg.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1113,22 +1122,6 @@
         }
       },
       {
-        "id": "co-rep-32",
-        "openstates_id": "ocd-person/ce4bd827-c1bc-4736-a580-f4f0215e727d",
-        "name": "Manny Rutinel",
-        "party": "D",
-        "chamber": "State House",
-        "district": "32",
-        "role": "State Representative",
-        "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBelZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef4c74094f42d481f610cc35459aa4ca3a78b6eb/Rutinel,%20Manny.jpg",
-        "contact": {
-          "official_website": "https://leg.colorado.gov/legislators/manny-rutinel",
-          "email": "manny.rutinel.house@coleg.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "co-rep-33",
         "openstates_id": "ocd-person/f84befdc-bf1b-4b0b-92df-27155caf403f",
         "name": "Kenny Nguyen",
@@ -1657,5 +1650,14 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "co-rep-32",
+      "name": "Manny Rutinel",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/ce4bd827-c1bc-4736-a580-f4f0215e727d"
+    }
+  ]
 }

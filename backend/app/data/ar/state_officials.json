@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "AR",
   "state_name": "Arkansas",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Sarah Huckabee Sanders is the Governor of Arkansas, serving since 2023.",
       "sources": [
         "https://governor.arkansas.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/1c9262ce-53a4-4d0c-ab9e-45edb5377fa0"
     },
     "lt_governor": {
       "id": "ar-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgovernor.arkansas.gov/wp-content/uploads/LR-photo.png"
+      "photo_url": "https://ltgovernor.arkansas.gov/wp-content/uploads/LR-photo.png",
+      "openstates_id": "ocd-person/29e6b6e2-82fc-48f8-9177-96b1ec30a2a6"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/77a57e2c-188c-42fd-adad-24066f27ec3c"
       },
       {
         "id": "ar-exec-auditor",
@@ -44,7 +52,8 @@
         "role": "Auditor",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/7cf8a839-6c34-4375-bfd5-7cfe92233b72"
       },
       {
         "id": "ar-exec-treasurer",
@@ -53,7 +62,8 @@
         "role": "Treasurer",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/20b42b64-6dd3-4b52-97f2-def9b8207a7d"
       },
       {
         "id": "ar-exec-attorney-general",
@@ -62,29 +72,14 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AG-Griffin-1.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AG-Griffin-1.png",
+        "openstates_id": "ocd-person/99f67d4f-c181-46a8-b7a9-4b45ada32c50"
       }
     ]
   },
   "state_senate": {
     "body_name": "Arkansas State Senate",
     "members": [
-      {
-        "id": "ar-sen-1",
-        "openstates_id": "ocd-person/821d4077-0022-48a9-86b1-eb4d3bdef2e7",
-        "name": "Ben Gilmore",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "1",
-        "role": "State Senator",
-        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/583_sm.jpg",
-        "contact": {
-          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gilmore",
-          "email": "ben.gilmore@senate.ar.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
       {
         "id": "ar-sen-2",
         "openstates_id": "ocd-person/2b67c2a6-d80e-48f4-9bc7-a40d7e5bc2bc",
@@ -337,22 +332,6 @@
         "contact": {
           "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Johnson",
           "email": "mark.johnson@senate.ar.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ar-sen-18",
-        "openstates_id": "ocd-person/75b8a2ef-c463-4317-ba03-a368a2f203f2",
-        "name": "Jonathan Dismang",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "18",
-        "role": "State Senator",
-        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/337_sm.jpg",
-        "contact": {
-          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Dismang",
-          "email": "jonathan.dismang@senate.ar.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -629,6 +608,24 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "1",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Ben Gilmore"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "18",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Jonathan Dismang"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
   },
   "state_house": {
@@ -742,22 +739,6 @@
         "contact": {
           "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+McKenzie",
           "email": "brit.mckenzie@arkansashouse.org",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ar-rep-8",
-        "openstates_id": "ocd-person/30ea7268-a48a-424e-aadf-007b61874985",
-        "name": "Austin McCollum",
-        "party": "R",
-        "chamber": "State House",
-        "district": "8",
-        "role": "State Representative",
-        "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/531_sm.jpg",
-        "contact": {
-          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=McCollum",
-          "email": "austin.mccollum@arkansashouse.org",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1318,6 +1299,22 @@
         "contact": {
           "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Beck",
           "email": "rick.beck@arkansashouse.org",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ar-rep-44-teeter",
+        "openstates_id": "ocd-person/a9eb9004-ed2b-41b1-a51a-81e59790718f",
+        "name": "Bill Teeter",
+        "party": "R",
+        "chamber": "State House",
+        "district": "44",
+        "role": "State Representative",
+        "photo_url": "https://static.wixstatic.com/media/1e7b93_82c600f3f8754e95b4320e4c18b3696b~mv2.jpg/v1/crop/x_134,y_594,w_1019,h_1171/fill/w_339,h_392,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_6621_JPG.jpg",
+        "contact": {
+          "official_website": "https://arkleg.state.ar.us/Legislators/Detail?member=Teeter",
+          "email": "bill.teeter@arkansashouse.org",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2218,6 +2215,39 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "8",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Austin McCollum"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ar-sen-1",
+      "name": "Ben Gilmore",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/821d4077-0022-48a9-86b1-eb4d3bdef2e7"
+    },
+    {
+      "id": "ar-sen-18",
+      "name": "Jonathan Dismang",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/75b8a2ef-c463-4317-ba03-a368a2f203f2"
+    },
+    {
+      "id": "ar-rep-8",
+      "name": "Austin McCollum",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/30ea7268-a48a-424e-aadf-007b61874985"
+    }
+  ]
 }

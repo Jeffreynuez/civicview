@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "AL",
   "state_name": "Alabama",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Kay Ivey is the Governor of Alabama, serving since 2017.",
       "sources": [
         "https://governor.alabama.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/1fcc4f8d-90c5-4e7c-aa4c-3b58a3a87ba5"
     },
     "lt_governor": {
       "id": "al-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": null
+      "photo_url": null,
+      "openstates_id": "ocd-person/cb01dcb8-b382-48af-a781-d4019eb3dfa6"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Auditor",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/6e7f8f74-90fd-416b-b08e-188d6315b3ce"
       },
       {
         "id": "al-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://live-al-ago.pantheonsite.io/wp-content/uploads/2023/04/Steve-Marshall-headshot-283x300.jpg"
+        "photo_url": "https://live-al-ago.pantheonsite.io/wp-content/uploads/2023/04/Steve-Marshall-headshot-283x300.jpg",
+        "openstates_id": "ocd-person/3636b6ed-56b0-44bb-97b8-dee266b6d9c8"
       },
       {
         "id": "al-exec-secretary-of-state",
@@ -53,7 +62,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.sos.alabama.gov/sites/default/files/inline-images/AllenBioHighRes.jpg?_ga=2.173722979.1183358616.1677197705-807791829.1677197705"
+        "photo_url": "https://www.sos.alabama.gov/sites/default/files/inline-images/AllenBioHighRes.jpg?_ga=2.173722979.1183358616.1677197705-807791829.1677197705",
+        "openstates_id": "ocd-person/f8daba65-dcf6-43b4-8c38-8b02b5b59db7"
       },
       {
         "id": "al-exec-treasurer",
@@ -62,7 +72,8 @@
         "role": "Treasurer",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/7a749447-b86f-4788-ab1f-235b8f7a0097"
       }
     ]
   },
@@ -788,7 +799,7 @@
         "role": "State Representative",
         "photo_url": "https://storage.googleapis.com/enview-public-general/legislative-people-photos/141174.jpg",
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=lands",
           "email": "marilyn.lands@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -804,7 +815,7 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=Allbright",
           "email": "heathallbright@gmail.com",
           "dc_office": null,
           "dc_phone": null
@@ -820,7 +831,7 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=myrex",
           "email": "cindy.myrex@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -836,7 +847,7 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=barnes",
           "email": "greg.barnes@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -884,7 +895,7 @@
         "role": "State Representative",
         "photo_url": "https://www.legislature.state.al.us/pdf/house/members/Brinyark_16.png",
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=brinyark",
           "email": "bryan.brinyark@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -1060,7 +1071,7 @@
         "role": "State Representative",
         "photo_url": "https://education.ua.edu/wp-content/uploads/2023/02/Jeana-Ross.jpg",
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=Ross",
           "email": "jeana.ross@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -1236,7 +1247,7 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=nelson",
           "email": "kristin.nelson@alhouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -1636,7 +1647,7 @@
         "role": "State Representative",
         "photo_url": null,
         "contact": {
-          "official_website": null,
+          "official_website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=crow",
           "email": "norman.crow@alhouse.gov",
           "dc_office": null,
           "dc_phone": null

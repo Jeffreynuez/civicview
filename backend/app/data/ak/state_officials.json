@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "AK",
   "state_name": "Alaska",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mike Dunleavy is the Governor of Alaska, serving since 2018.",
       "sources": [
         "https://gov.alaska.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/80f0f5f8-976d-427b-b980-ce3a23a23e84"
     },
     "lt_governor": {
       "id": "ak-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.alaska.gov/wp-content/uploads/Screenshot-2022-12-14-150552-e1682445198168.png"
+      "photo_url": "https://ltgov.alaska.gov/wp-content/uploads/Screenshot-2022-12-14-150552-e1682445198168.png",
+      "openstates_id": "ocd-person/6b940121-937e-47ba-916a-626b67fe54f4"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://law.alaska.gov/img/headshot_CoxLG2601.jpg"
+        "photo_url": "https://law.alaska.gov/img/headshot_CoxLG2601.jpg",
+        "openstates_id": "ocd-person/671acdf5-e1ec-4259-ba3d-19d1df9a146e"
       }
     ]
   },
@@ -301,7 +309,7 @@
       {
         "id": "ak-sen-Q",
         "openstates_id": "ocd-person/697cb834-6aa1-44f1-9c6e-9cf57ad30774",
-        "name": "Robert Myers",
+        "name": "Robb Myers",
         "party": "R",
         "chamber": "State Senate",
         "district": "Q",
