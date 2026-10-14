@@ -66,6 +66,20 @@ What it does, per state
   before merging. Appointed election administrators that Open States
   lists as "chief election officer" are skipped.
 
+Corrections
+-----------
+Open States can lag the legislatures by weeks. When an official source
+is ahead of it, record that in app/data/state_officials_corrections.json
+(each entry names its official source_url and the date it was checked):
+* left_office: a person the official site no longer lists, though Open
+  States still does. The script retires them and the seat shows as
+  vacant.
+* seat_not_vacant: a seat the official source says is held (or is in
+  dispute) while Open States lists nobody. The seat is left out of the
+  vacancies list.
+Every run reports each correction; once Open States agrees, the report
+says the correction can be deleted.
+
 Photos must be https. An http photo is upgraded only when the https
 address serves an image; otherwise it is left out and listed. Search
 engine thumbnails are never used. After the run, if any Wikimedia photo
@@ -97,6 +111,7 @@ except ImportError:  # pragma: no cover - present via backend/requirements.txt
 import httpx
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "app" / "data"
+CORRECTIONS_FILE = "state_officials_corrections.json"
 PEOPLE_REPO = "https://github.com/openstates/people.git"
 METADATA_URL = (
     "https://raw.githubusercontent.com/openstates/openstates-core/main/"
@@ -439,7 +454,8 @@ def same_person_name(ours: str, person: dict) -> bool:
 
 class StateRefresher:
     def __init__(self, state: str, doc: dict, people: dict, seats: dict, today: str,
-                 photos: PhotoChecker, client: httpx.Client, use_api: bool):
+                 photos: PhotoChecker, client: httpx.Client, use_api: bool,
+                 corrections: dict | None = None):
         self.state = state
         self.doc = doc
         self.people = people
@@ -448,6 +464,11 @@ class StateRefresher:
         self.photos = photos
         self.client = client
         self.use_api = use_api
+        corrections = corrections or {}
+        self.left_office = [c for c in corrections.get("left_office") or []
+                            if str(c.get("state", "")).lower() == state]
+        self.not_vacant = [c for c in corrections.get("seat_not_vacant") or []
+                           if str(c.get("state", "")).lower() == state]
         self.report = Report(state)
         retired = doc.get("_retired_ids") or []
         self.retired_ids = {r["id"] for r in retired if isinstance(r, dict) and r.get("id")}
@@ -615,6 +636,19 @@ class StateRefresher:
             for m in (self.doc.get(chamber) or {}).get("members") or []:
                 ours_by_os[m.get("openstates_id")] = (chamber, m)
 
+        # Corrections: people an official site shows have left
+        for c in self.left_office:
+            ocd_id = c.get("openstates_id")
+            if ocd_id in current:
+                del current[ocd_id]
+                self.report.notes.append(
+                    f"correction applied: {c.get('name')} has left ({c.get('source_url')}, checked "
+                    f"{c.get('checked')}); Open States still lists them")
+            else:
+                self.report.notes.append(
+                    f"correction no longer needed: Open States no longer lists {c.get('name')}; "
+                    f"delete it from {CORRECTIONS_FILE}")
+
         # Our people missing from the repository entirely
         for ocd_id, (chamber, m) in list(ours_by_os.items()):
             if ocd_id in self.people or not ocd_id:
@@ -680,7 +714,9 @@ class StateRefresher:
                 elif hit:
                     moved_from[ocd_id] = m
                 else:
-                    self.retire(m, "left office (no longer listed by Open States)")
+                    fix = next((c for c in self.left_office if c.get("openstates_id") == ocd_id), None)
+                    self.retire(m, f"left office per {fix['source_url']}" if fix
+                                else "left office (no longer listed by Open States)")
                     self.vacated[(chamber, str(m.get("district")))].append(m.get("name"))
                     self.report.removed.append(f"{m['id']} ({m.get('name')}): left office")
 
@@ -730,6 +766,19 @@ class StateRefresher:
             block.pop("vacancies", None)
             return
         filled = Counter(str(m.get("district")) for m in block.get("members") or [])
+        for c in self.not_vacant:
+            if c.get("chamber") != chamber:
+                continue
+            district = str(c.get("district"))
+            if filled.get(district, 0) >= seats.get(district, 0):
+                self.report.notes.append(
+                    f"correction no longer needed: {chamber} district {district} is filled in Open States; "
+                    f"delete it from {CORRECTIONS_FILE}")
+                continue
+            filled[district] += int(c.get("seats") or 1)
+            self.report.unverified.append(
+                f"{chamber} district {district}: not listed as vacant, per correction: {c.get('note')} "
+                f"({c.get('source_url')})")
         before = {str(v.get("district")): v for v in block.get("vacancies") or []}
         vacancies = []
         for district in sorted(seats, key=district_sort_key):
@@ -912,6 +961,9 @@ def main(argv=None) -> int:
         ap.error(f"give --all or --state XX (unknown: {', '.join(unknown)})" if unknown else "give --all or --state XX")
 
     today = args.as_of or dt.date.today().isoformat()
+    corrections_path = Path(args.data_dir) / CORRECTIONS_FILE
+    corrections = (json.loads(corrections_path.read_text(encoding="utf-8"))
+                   if corrections_path.exists() else {})
     data, sha = checkout_people(args.people_dir)
     reports: dict[str, dict] = {}
     totals = Counter()
@@ -925,7 +977,8 @@ def main(argv=None) -> int:
             seats = load_metadata(state, args.metadata_dir, client)
             people = load_people(data, state)
             refresher = StateRefresher(state, json.loads(original), people, seats, today,
-                                       photos, client, use_api=not args.no_api)
+                                       photos, client, use_api=not args.no_api,
+                                       corrections=corrections)
             new_doc = refresher.run()
             rep = refresher.report
             changed = dump(new_doc) != dump(doc)

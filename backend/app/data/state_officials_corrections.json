@@ -1,0 +1,45 @@
+{
+  "_note": "Corrections that scripts/refresh_state_officials.py applies on top of Open States, for cases where an official source is ahead of it. Every entry names the official page and the date it was checked. The script reports each one on every run and says when Open States has caught up, so the entry can be deleted.",
+  "left_office": [
+    {
+      "state": "TN",
+      "chamber": "state_house",
+      "district": "31",
+      "name": "Ron Travis",
+      "openstates_id": "ocd-person/7429d345-6ad7-421c-936b-3ef9755c6d1f",
+      "source_url": "https://wapp.capitol.tn.gov/apps/LegislatorInfo/Member?district=H31&ga=114",
+      "checked": "2026-10-14",
+      "note": "The General Assembly's member page shows House District 31 as vacant. Open States still lists him."
+    },
+    {
+      "state": "OH",
+      "chamber": "state_house",
+      "district": "89",
+      "name": "D.J. Swearingen",
+      "openstates_id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
+      "source_url": "https://ohiohouse.gov/members",
+      "checked": "2026-10-14",
+      "note": "The Ohio House member list shows District 89 as vacant. Open States still lists him."
+    }
+  ],
+  "seat_not_vacant": [
+    {
+      "state": "CO",
+      "chamber": "state_house",
+      "district": "32",
+      "seats": 1,
+      "source_url": "https://governorsoffice.colorado.gov/governor/news/governor-polis-appoints-maria-gonzalez-fill-house-district-32-vacancy",
+      "checked": "2026-10-14",
+      "note": "The Governor's office announced on 2026-10-09 that Maria Gonzalez was appointed to fill the vacancy left by Manny Rutinel. The legislature's site does not list her yet and no official page gives her party, so no record is added for her."
+    },
+    {
+      "state": "GA",
+      "chamber": "state_senate",
+      "district": "12",
+      "seats": 1,
+      "source_url": "https://www.legis.ga.gov/members/senate",
+      "checked": "2026-10-14",
+      "note": "The General Assembly's 2025-2026 roster still lists Freddie Powell Sims with no end date, while Open States lists nobody. Unresolved, so the seat is neither listed as vacant nor given a member."
+    }
+  ]
+}
