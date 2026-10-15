@@ -49,6 +49,12 @@ federal/federal_officials.json):
        codes now carry the state's own word: NP Nonpartisan, U
        Unaffiliated, NA Not Affiliated, UNE Unenrolled, NPA No Party
        Affiliation, TM Tribal Member)
+Federal profiles (federal/congress_profiles.json, federal/federal_officials.json):
+  F-1  every Areas of Focus (top_issues) source is a specific https
+       page, never a site's home page (until 2026-10-15, 1,581
+       stances for members of Congress and one for a Cabinet secretary
+       cited only an official's home page, which supports nothing in
+       particular)
 Photo credits:
   P-1  every Wikimedia Commons photo in the data has an entry in
        photo_credits.json with a file page and a license, and every
@@ -380,6 +386,38 @@ def lint_officials(path: Path) -> None:
             problem("O-4", where, f"{rec.get('id')}: party {code!r} is not a known code")
 
 
+# ── Federal profiles ─────────────────────────────────────────────────
+
+def _is_home_page(url: str) -> bool:
+    page = urlsplit(url).path.strip("/").lower()
+    return page in ("", "index.html", "index.htm", "home", "en", "en-us", "public")
+
+
+def lint_federal_stances(path: Path) -> None:
+    where = _rel(path)
+
+    def issues(node, owner=""):
+        if isinstance(node, dict):
+            owner = str(node.get("id") or owner)
+            for k, v in node.items():
+                if k == "top_issues" and isinstance(v, list):
+                    for t in v:
+                        if isinstance(t, dict):
+                            yield owner, t
+                elif not str(k).startswith("_"):
+                    yield from issues(v, owner if node.get("id") else str(k))
+        elif isinstance(node, list):
+            for v in node:
+                yield from issues(v, owner)
+
+    for owner, t in issues(_load(path)):
+        for url in t.get("sources") or []:
+            if not isinstance(url, str) or not url.startswith("https://"):
+                problem("F-1", where, f"{owner} {t.get('name')!r}: source is not an https URL: {str(url)[:80]!r}")
+            elif _is_home_page(url):
+                problem("F-1", where, f"{owner} {t.get('name')!r}: source is a home page: {url}")
+
+
 WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")
 
 
@@ -416,6 +454,8 @@ def main() -> int:
     if (DATA / "fl" / "local_officials.json").exists():
         lint_officials(DATA / "fl" / "local_officials.json")
     lint_officials(DATA / "federal" / "federal_officials.json")
+    lint_federal_stances(DATA / "federal" / "congress_profiles.json")
+    lint_federal_stances(DATA / "federal" / "federal_officials.json")
     lint_photo_credits(files)
 
     print(f"Checked {len(files)} data files.")
