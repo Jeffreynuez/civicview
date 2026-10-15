@@ -33,6 +33,9 @@ import sys
 _failures = []
 
 
+# Failure details name only the fields a check compares. CodeQL's
+# sensitive-data heuristic reads "appointment" as medical data, so the
+# selection text (a public appointment date) is never printed.
 def check(name, cond, detail=""):
     print(("PASS " if cond else "FAIL ") + name + ("" if cond else f"  [{detail}]"))
     if not cond:
@@ -121,13 +124,15 @@ def main() -> int:
     svc._profiles_sidecar = {}
     detail = asyncio.run(svc._fetch_member_detail_from_api("G000594"))
     check("5: detail says former_member, left in 2026",
-          detail and detail.get("former_member") is True and detail.get("left_office_year") == "2026", str(detail))
+          detail and detail.get("former_member") is True and detail.get("left_office_year") == "2026",
+          f"former_member={detail and detail.get('former_member')}, left_office_year={detail and detail.get('left_office_year')}")
     check("5b: detail experience is closed",
           detail and all(e["to"] != "Present" for e in detail["experience"]), str(detail and detail["experience"]))
 
     svc._profiles_sidecar = {"X000001": {"former_member": True}}
     merged = svc._merge_profile({"bioguide_id": "X000001", "name": "Someone"})
-    check("6: curated former_member reaches the payload", merged.get("former_member") is True, str(merged))
+    check("6: curated former_member reaches the payload", merged.get("former_member") is True,
+          f"former_member={merged.get('former_member')}")
 
     appointed = annotate_selection({
         "bioguide_id": "A000383", "name": "Alan Armstrong", "chamber": "Senate", "state": "OK",
@@ -137,21 +142,24 @@ def main() -> int:
           appointed["selection_method"] == "appointed" and appointed["normally_elected"] is True
           and appointed["selection_detail"] == "Appointed to fill a vacancy and sworn in on March 24, 2026. "
                                                "Serves until the term ends on January 3, 2027.",
-          str(appointed))
+          f"selection_method={appointed['selection_method']}, normally_elected={appointed['normally_elected']}; "
+          "or the detail text differs")
     special = annotate_selection({
         "bioguide_id": "H001104", "name": "Jon Husted", "chamber": "Senate", "state": "OH",
         "appointment": {"start": "2025-01-21", "end": "2026-11-03", "end_type": "special-election"},
     })
     check("7b: a special-election appointment says so",
           special["selection_detail"].endswith("The seat is filled by a special election on November 3, 2026."),
-          special["selection_detail"])
+          "the detail text does not end with the special-election sentence")
     moody = annotate_selection({
         "bioguide_id": "M001244", "name": "Ashley Moody", "chamber": "Senate", "state": "FL",
         "appointment": {"start": "2025-01-21", "end": "2026-11-03", "end_type": "special-election"},
     })
-    check("7c: the curated override still wins", "DeSantis" in (moody.get("selection_detail") or ""), str(moody))
+    check("7c: the curated override still wins", "DeSantis" in (moody.get("selection_detail") or ""),
+          "the detail text is not the curated one")
     elected = annotate_selection({"bioguide_id": "S001217", "name": "Rick Scott", "chamber": "Senate", "state": "FL"})
-    check("7d: a senator without an appointment stays elected", elected["selection_method"] == "elected", str(elected))
+    check("7d: a senator without an appointment stays elected", elected["selection_method"] == "elected",
+          f"selection_method={elected['selection_method']}")
 
     async def roster_with(rows):
         async def _r():
