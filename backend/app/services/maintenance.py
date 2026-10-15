@@ -29,6 +29,7 @@ def _jobs():
     module can load before the models."""
     from app.services.account_deletion import purge_expired_accounts, purge_orphaned_account_rows
     from app.services.login_attempts import purge_old_login_attempts
+    from app.services.page_lifecycle_job import run_page_lifecycle
     from app.services.password_reset import purge_expired_password_reset_tokens
 
     return [
@@ -40,6 +41,10 @@ def _jobs():
         ("orphaned account row sweep", purge_orphaned_account_rows),
         # Audit P5: login attempts (IP and user agent) kept 90 days.
         ("login attempt retention purge", purge_old_login_attempts),
+        # 2026-10-15: former officials and candidates. Sends the notices
+        # dates call for and ends tracking at the archive. It deletes
+        # nothing; it shares this loop only because it runs daily too.
+        ("former pages pass", run_page_lifecycle),
     ]
 
 

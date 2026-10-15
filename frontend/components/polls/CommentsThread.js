@@ -62,6 +62,7 @@ import { useActiveIdentities, pickEngagementIdentity } from '../../lib/activeIde
 import { formatDistrict } from '../../lib/usStates';
 import IdentityPicker, { PostingAsPicker } from '../IdentityPicker';
 import PostActionsMenu from '../PostActionsMenu';
+import CitizenName from '../CitizenCard';
 // Thread chrome styles live in FeedCard.css; import here so the
 // shared thread is styled on every surface it mounts (rep/candidate
 // pages + citizen polls), not just inside FeedCard.
@@ -875,7 +876,14 @@ function CommentRow({
   return (
     <div className={`thread__comment ${isReply ? 'is-reply' : ''}`}>
       <div className="thread__c-head">
-        <span className="thread__c-name">{c.citizen_display_name || c.author || 'Citizen'}</span>
+        {/* A citizen's name opens their card: the name and, when a
+            former official chose it, the Served as line (2026-10-15).
+            Rep and candidate comments keep the plain name. */}
+        <CitizenName
+          className="thread__c-name"
+          citizenId={c.citizen_id || null}
+          name={c.citizen_display_name || c.author || 'Citizen'}
+        />
         {/* PRD §D2 — read the row's own snapshot, never the author's
             current state. `verified` was the old key and the backend
             never populated it, so this pill has been dark since it was

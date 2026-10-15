@@ -1,0 +1,105 @@
+/* CivicView. Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
+/* FormerAccountPanel: the former account's dashboard (2026-10-15). */
+
+.former-panel {
+  border: 1px solid var(--cl-border);
+  border-radius: 12px;
+  background: white;
+  padding: 16px;
+  margin: 0 0 18px;
+  color: var(--cl-text);
+}
+
+.former-panel__title {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.former-panel__dates {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+}
+
+.former-panel__dates dt {
+  color: var(--cl-text-light);
+}
+
+.former-panel__dates dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.former-panel__text {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.former-panel__step {
+  border-top: 1px solid var(--cl-border);
+  padding-top: 10px;
+}
+
+.former-panel__choice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.former-panel__choice input {
+  margin-top: 3px;
+}
+
+.former-panel__status,
+.former-panel__preview {
+  display: block;
+  margin-top: 4px;
+  color: var(--cl-text-light);
+}
+
+.former-panel__preview {
+  font-style: italic;
+}
+
+.former-panel__btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--cl-accent);
+  background: var(--cl-accent);
+  color: white;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.former-panel__btn--small {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+}
+
+.former-panel__btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.former-panel__link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--cl-accent);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.former-panel__error {
+  margin: 8px 0 0;
+  color: #a3261c;
+  font-size: 0.82rem;
+}

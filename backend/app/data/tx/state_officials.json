@@ -2943,6 +2943,62 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "tx-sen-22",
+      "openstates_id": "ocd-person/44a23037-5ccd-4781-9e93-c4b950f74355",
+      "name": "Brian Birdwell",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "22",
+      "role": "State Senator",
+      "photo_url": "https://senate.texas.gov/members/d22/img/headshot.jpg",
+      "served_from": "2010",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/tx/retired/Brian-Birdwell-44a23037-5ccd-4781-9e93-c4b950f74355.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "tx-rep-1",
+      "openstates_id": "ocd-person/26617394-4276-4aa7-878c-d20552b260a4",
+      "name": "Gary VanDeaver",
+      "party": "R",
+      "chamber": "State House",
+      "district": "1",
+      "role": "State Representative",
+      "photo_url": "https://house.texas.gov/images/members/2540.jpg?v=1",
+      "served_from": "2015",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/tx/retired/Gary-VanDeaver-26617394-4276-4aa7-878c-d20552b260a4.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "tx-rep-93",
+      "openstates_id": "ocd-person/c6308fcd-b1e1-4ce3-9a29-c05e420e8012",
+      "name": "Nate Schatzline",
+      "party": "R",
+      "chamber": "State House",
+      "district": "93",
+      "role": "State Representative",
+      "photo_url": "https://house.texas.gov/images/members/4355.jpg?v=1",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/tx/retired/Nate-Schatzline-c6308fcd-b1e1-4ce3-9a29-c05e420e8012.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "tx-sen-22",

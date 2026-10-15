@@ -3,7 +3,11 @@
 
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+
+from app.db import get_db
+from app.services import lifecycle_rosters, page_lifecycle
 from app.services.federal_officials_service import FederalOfficialsService
 from app.services import federal_live
 from app.services.congress_calendar import current_congress
@@ -13,7 +17,7 @@ service = FederalOfficialsService()
 
 
 @router.get("")
-async def get_federal_officials():
+async def get_federal_officials(db: Session = Depends(get_db)):
     """Return the curated national-level officials snapshot
     (executive branch, judiciary, congressional leadership, upcoming
     federal elections)."""
@@ -23,7 +27,7 @@ async def get_federal_officials():
             status_code=404,
             detail="Federal officials data not seeded.",
         )
-    return payload
+    return lifecycle_rosters.filter_federal_payload(payload, lifecycle_rosters.departed_ids(db))
 
 
 @router.get("/executive")
@@ -102,10 +106,17 @@ async def get_scotus_cases(
 
 # ── Single-person lookup — must be last so static subpaths win ────────
 @router.get("/person/{person_id}")
-async def get_person(person_id: str):
+async def get_person(person_id: str, db: Session = Depends(get_db)):
     """Return an individual federal official's profile with role_type and
-    Federal Register president slug (when applicable)."""
+    Federal Register president slug (when applicable). A former
+    officeholder's id opens their former page (2026-10-15)."""
     person = service.find_by_id(person_id)
+    if not person:
+        person = lifecycle_rosters.find_former_federal_person(service.get_federal_officials(), person_id)
+    if person:
+        block = page_lifecycle.lifecycle_block(db, person_id)
+        if block:
+            person = {**person, "lifecycle": block, "former": bool(block.get("former"))}
     if not person:
         raise HTTPException(
             status_code=404,

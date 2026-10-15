@@ -1869,6 +1869,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ri-rep-31",
+      "openstates_id": "ocd-person/6e1cd170-ab5c-4095-9fb2-8e92138f6db3",
+      "name": "Julie Casimiro",
+      "party": "D",
+      "chamber": "State House",
+      "district": "31",
+      "role": "State Representative",
+      "photo_url": "https://www.rilegislature.gov/representatives/Pictures/casimiro.jpg",
+      "served_from": "2017",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ri/retired/Julie-A-Casimiro-6e1cd170-ab5c-4095-9fb2-8e92138f6db3.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ri-rep-31",

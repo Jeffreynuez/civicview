@@ -2191,6 +2191,68 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "wv-rep-4",
+      "openstates_id": "ocd-person/84ae4ee5-01d1-402d-8267-787a78dd58e5",
+      "name": "Bill Flanigan",
+      "party": "R",
+      "chamber": "House of Delegates",
+      "district": "4",
+      "role": "Delegate",
+      "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/flanigan_bill.jpg",
+      "served_from": "2024",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/wv/retired/Bill-Flanigan-84ae4ee5-01d1-402d-8267-787a78dd58e5.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "wv-rep-4-stack"
+      ]
+    },
+    {
+      "id": "wv-rep-22",
+      "openstates_id": "ocd-person/32c4e5cf-81f5-4564-bb9b-568d13156dec",
+      "name": "Daniel Linville",
+      "party": "R",
+      "chamber": "House of Delegates",
+      "district": "22",
+      "role": "Delegate",
+      "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/linville_daniel.jpg",
+      "served_from": "2018",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/wv/retired/Daniel-Linville-32c4e5cf-81f5-4564-bb9b-568d13156dec.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "wv-rep-22-holley"
+      ]
+    },
+    {
+      "id": "wv-rep-50",
+      "openstates_id": "ocd-person/d7f119af-3e41-40a1-9541-bfa1a1e7a9b4",
+      "name": "Elliott Pritt",
+      "party": "R",
+      "chamber": "House of Delegates",
+      "district": "50",
+      "role": "Delegate",
+      "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/pritt_david.jpg",
+      "served_from": "2022",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/wv/retired/David-Elliott-Pritt-d7f119af-3e41-40a1-9541-bfa1a1e7a9b4.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "wv-rep-50-vest"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "wv-rep-4",

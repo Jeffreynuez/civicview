@@ -1835,6 +1835,44 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "nm-rep-37",
+      "openstates_id": "ocd-person/05309266-c7a0-455b-94f2-ebf1d436daff",
+      "name": "Joanne Ferrary",
+      "party": "D",
+      "chamber": "State House",
+      "district": "37",
+      "role": "State Representative",
+      "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HFERJ.jpg",
+      "served_from": "2017",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nm/retired/Joanne-J-Ferrary-05309266-c7a0-455b-94f2-ebf1d436daff.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "nm-rep-41",
+      "openstates_id": "ocd-person/d5d0e9d9-bd6f-4f28-9a3f-13a56cadcc0f",
+      "name": "Susan Herrera",
+      "party": "D",
+      "chamber": "State House",
+      "district": "41",
+      "role": "State Representative",
+      "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHERS.jpg",
+      "served_from": "2019",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nm/retired/Susan-K-Herrera-d5d0e9d9-bd6f-4f28-9a3f-13a56cadcc0f.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "nm-rep-37",

@@ -32,6 +32,14 @@ take the name of a sitting member of Congress, the President, the Vice
 President, a Cabinet member, a Supreme Court justice, or a governor or
 other statewide official. The names come from the same data the
 officials index reads, so they follow the roster.
+
+Former officials (2026-10-15). A name stays reserved after its holder
+leaves office: former federal and statewide officials stay on the list
+(the files' _former_members), and a rep or candidate account keeps its
+name when it is closed. The one exception is the person themselves:
+their name is freed for their own citizen account only, once they opt
+in from the former account and ID.me verifies a matching legal name
+(services/former_links.py).
 """
 from __future__ import annotations
 
@@ -113,6 +121,8 @@ def _collect_reserved_names() -> set[str]:
     try:
         fed = json.loads(fed_path.read_text(encoding="utf-8"))
         names.update(_names_in(fed.get("executive") or {}))
+        # Former federal officeholders keep their names reserved.
+        names.update(_names_in(fed.get("_former_members") or []))
         names.update(_names_in(((fed.get("judiciary") or {}).get("supreme_court") or {}).get("members") or []))
         congress = fed.get("congress") or {}
         for chamber in ("senate", "house"):
@@ -130,6 +140,9 @@ def _collect_reserved_names() -> set[str]:
             try:
                 payload = json.loads(path.read_text(encoding="utf-8"))
                 names.update(_names_in(payload.get("executive") or {}))
+                # Former statewide officeholders stay reserved too.
+                names.update(_names_in([f for f in payload.get("_former_members") or []
+                                        if not f.get("district")]))
             except (OSError, json.JSONDecodeError, AttributeError) as e:
                 logger.warning("display_names: could not read %s: %s", path, e)
 
@@ -197,6 +210,12 @@ def name_conflict(db, name: str, *, exclude_citizen_id: Optional[int] = None) ->
 
     # Rep and candidate accounts have no key column; their numbers are
     # small (a few per claimed page), so compare in Python.
+    # The person's own name, handed to their own verified citizen
+    # account from a former official's or candidate's account.
+    from app.services.former_links import name_handoff_allowed
+    if name_handoff_allowed(db, exclude_citizen_id, key):
+        return None
+
     for model in (RepAccount, CandidateAccount):
         for (other,) in db.query(model.display_name).all():
             if name_key(other) == key:

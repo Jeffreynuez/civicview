@@ -95,7 +95,9 @@ export default function AccountDeletePage() {
         setBusy(false);
         return;
       }
-      setResult(data);
+      // Remember which kind of account this was: after a hard delete
+      // the session is gone and `target` no longer names it.
+      setResult({ ...data, kind: target.kind });
       // For hard delete, the cookie is cleared server-side. For soft,
       // the user stays signed in so the RecoveryBanner can offer
       // recovery. Either way, route them home — the banner / sign-in
@@ -177,13 +179,15 @@ export default function AccountDeletePage() {
             </div>
             <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--cl-text)', marginBottom: 8 }}>
               {result.mode === 'hard'
-                ? 'Your account has been deleted.'
-                : 'Your account is now scheduled for deletion.'}
+                ? (result.kind !== 'citizen' ? 'Your account has been closed.' : 'Your account has been deleted.')
+                : (result.kind !== 'citizen' ? 'Your account is now scheduled to close.' : 'Your account is now scheduled for deletion.')}
             </h2>
             <p style={{ fontSize: '0.9rem', color: 'var(--cl-text-light)' }}>
               {result.mode === 'hard'
                 ? 'You\'ve been signed out. Returning to the home page…'
-                : `It will be permanently removed on ${new Date(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. Returning to the home page…`}
+                : result.kind !== 'citizen'
+                  ? `It will be closed on ${new Date(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. What you published stays on your page. Returning to the home page…`
+                  : `It will be permanently removed on ${new Date(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. Returning to the home page…`}
             </p>
           </div>
         </div>
@@ -231,6 +235,23 @@ export default function AccountDeletePage() {
             }}>
               What happens when you delete
             </div>
+            {/* Representative and candidate accounts are closed, never
+                emptied (2026-10-15, Jeffrey: "Otherwise someone could
+                delete their account the day before leaving to erase
+                what they posted in office."). Citizen accounts delete
+                as before. */}
+            {target.kind !== 'citizen' ? (
+            <ul style={{ margin: 0, paddingLeft: 18, fontSize: '0.92rem', lineHeight: 1.6, color: 'var(--cl-text)' }}>
+              <li>Your account is closed. You can no longer sign in, and your sign-in email, password, 2FA secret and recovery codes are removed.</li>
+              <li>
+                <strong>What you published stays on your page as a public record:</strong> your posts, polls,
+                events, comments, likes and votes. This is the same whether or not you are in office, so that
+                deleting an account can never erase what was published on it.
+              </li>
+              <li>Your private lists (tracked items, saved posts and notifications) are removed.</li>
+              <li>Other identities you have on CivicView (citizen, etc.) are unaffected.</li>
+            </ul>
+            ) : (
             <ul style={{ margin: 0, paddingLeft: 18, fontSize: '0.92rem', lineHeight: 1.6, color: 'var(--cl-text)' }}>
               <li>Your account profile, email, and password are removed.</li>
               <li>{copy.contentSummary.charAt(0).toUpperCase() + copy.contentSummary.slice(1)} are deleted.</li>
@@ -243,10 +264,8 @@ export default function AccountDeletePage() {
                   the original verification date — no other personal data is retained.
                 </li>
               )}
-              {target.kind !== 'citizen' && (
-                <li>Your page reverts to "unclaimed" state. Other identities you have on CivicView (citizen, etc.) are unaffected.</li>
-              )}
             </ul>
+            )}
           </div>
 
           {/* Mode selector */}
@@ -267,7 +286,9 @@ export default function AccountDeletePage() {
               title="Archive for 30 days"
               badge="Recoverable"
               badgeColor="#2e7d32"
-              description="Your account is hidden and content removed from public view, but kept on file for 30 days. Sign back in any time within that window and click Recover to restore everything exactly as it was. After 30 days the archive is permanently purged."
+              description={target.kind !== 'citizen'
+                ? 'Your account is closed in 30 days. Until then, sign back in and click Recover to keep it. What you published stays on your page either way.'
+                : 'Your account is hidden and content removed from public view, but kept on file for 30 days. Sign back in any time within that window and click Recover to restore everything exactly as it was. After 30 days the archive is permanently purged.'}
             />
 
             <div style={{ height: 1, background: 'var(--cl-border)', margin: '12px 0' }} />
@@ -278,7 +299,9 @@ export default function AccountDeletePage() {
               title="Delete immediately"
               badge="Permanent"
               badgeColor="#a3261c"
-              description="Your account and content are removed right now. No recovery window. The verification preservation rule still applies for citizens — your ID.me record is kept as a one-way hash so a future signup doesn't pay for re-verification."
+              description={target.kind !== 'citizen'
+                ? 'Your account is closed right now. No recovery window. What you published stays on your page.'
+                : "Your account and content are removed right now. No recovery window. The verification preservation rule still applies for citizens: your ID.me record is kept as a one-way hash so a future signup doesn't pay for re-verification."}
             />
           </div>
 

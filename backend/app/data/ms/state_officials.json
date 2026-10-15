@@ -3841,6 +3841,62 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ms-sen-34",
+      "openstates_id": "ocd-person/fcb35ef2-7463-4f8a-9a8a-3bc45b235ecb",
+      "name": "Juan Barnett",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "34",
+      "role": "State Senator",
+      "photo_url": "https://static.votesmart.org/static/canphoto/156222.jpg",
+      "served_from": "2016",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ms/retired/Juan-Barnett-fcb35ef2-7463-4f8a-9a8a-3bc45b235ecb.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ms-rep-70",
+      "openstates_id": "ocd-person/b8541474-47fd-4dd2-8576-53b7fe911039",
+      "name": "Bo Brown",
+      "party": "D",
+      "chamber": "State House",
+      "district": "70",
+      "role": "State Representative",
+      "photo_url": "http://billstatus.ls.state.ms.us/members/house/brown_(70th).jpg",
+      "served_from": "2020",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ms/retired/Bo-Brown-b8541474-47fd-4dd2-8576-53b7fe911039.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ms-rep-77",
+      "openstates_id": "ocd-person/35bf01bd-be16-4ce6-b07c-bfff3d25e7e3",
+      "name": "Price Wallace",
+      "party": "R",
+      "chamber": "State House",
+      "district": "77",
+      "role": "State Representative",
+      "photo_url": "http://billstatus.ls.state.ms.us/members/house/wallace.jpg",
+      "served_from": "2018",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ms/retired/Price-Wallace-35bf01bd-be16-4ce6-b07c-bfff3d25e7e3.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ms-sen-34",

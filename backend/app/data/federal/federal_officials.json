@@ -2442,5 +2442,64 @@
         "description": "Quadrennial presidential election. Incumbent Donald J. Trump is term-limited under the 22nd Amendment and may not seek a further term."
       }
     ]
-  }
+  },
+  "_former_members": [
+    {
+      "id": "us-ag-bondi",
+      "seat_id": "us-ag",
+      "name": "Pam Bondi",
+      "party": "R",
+      "role": "Attorney General",
+      "department": "Department of Justice",
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg",
+      "served_from": "2025",
+      "served_to": null,
+      "years_source": "https://www.justice.gov/ag",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-09-24",
+      "reason": "officeholder changed to Todd Blanche; the seat id us-ag went to the next officeholder on 2026-09-24, before the 2026-10-15 rule that ids stay with the person",
+      "successor_ids": [
+        "us-ag"
+      ]
+    },
+    {
+      "id": "us-sec-labor-chavez-deremer",
+      "seat_id": "us-sec-labor",
+      "name": "Lori Chavez-DeRemer",
+      "party": "R",
+      "role": "Secretary of Labor",
+      "department": "Department of Labor",
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg",
+      "served_from": "2025",
+      "served_to": null,
+      "years_source": "https://www.dol.gov/agencies/osec",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-09-24",
+      "reason": "officeholder changed to Keith E. Sonderling; the seat id us-sec-labor went to the next officeholder on 2026-09-24, before the 2026-10-15 rule that ids stay with the person",
+      "successor_ids": [
+        "us-sec-labor"
+      ]
+    },
+    {
+      "id": "us-sec-dhs-noem",
+      "seat_id": "us-sec-dhs",
+      "name": "Kristi Noem",
+      "party": "R",
+      "role": "Secretary of Homeland Security",
+      "department": "Department of Homeland Security",
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg",
+      "served_from": "2025",
+      "served_to": null,
+      "years_source": "https://www.dhs.gov/person/kristi-noem",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-09-24",
+      "reason": "officeholder changed to Markwayne Mullin; the seat id us-sec-dhs went to the next officeholder on 2026-09-24, before the 2026-10-15 rule that ids stay with the person",
+      "successor_ids": [
+        "us-sec-dhs"
+      ]
+    }
+  ]
 }

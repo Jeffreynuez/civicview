@@ -1341,16 +1341,18 @@ function ExecutiveBranchSection({ exec, asOf, onSelectPerson, onNotify, onCompar
                 }}
               >
                 {cabinet.map((c) => (
+                  // A seat whose holder has left office reads "Vacant"
+                  // until the next officeholder is in (2026-10-15).
                   <CompactPersonCard
-                    key={c.id}
+                    key={c.id || `vacant-${c.role}`}
                     person={c}
                     eyebrow={c.role}
-                    onClick={onSelectPerson ? () => onSelectPerson(c, 'cabinet') : null}
-                    followTarget={{ ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
+                    onClick={onSelectPerson && !c.vacant ? () => onSelectPerson(c, 'cabinet') : null}
+                    followTarget={c.vacant ? null : { ...c, role_type: 'cabinet', chamber: c.department || 'Cabinet' }}
                     onNotify={onNotify}
-                    onCompareToggle={onCompareToggle}
+                    onCompareToggle={c.vacant ? null : onCompareToggle}
                     compareIds={compareIds}
-                    onOpenPage={onOpenPage}
+                    onOpenPage={c.vacant ? null : onOpenPage}
                   />
                 ))}
               </div>

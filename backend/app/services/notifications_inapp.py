@@ -186,6 +186,8 @@ def emit_tracked_content_notifications(
         .filter(
             TrackedOfficial.tracker_kind == "citizen",
             _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
+            # Tracking ends at the archive (2026-10-15); ended rows stay.
+            TrackedOfficial.ended_at.is_(None),
         )
         .all()
     )
@@ -259,6 +261,8 @@ def emit_tracked_event_notifications(
         .filter(
             TrackedOfficial.tracker_kind == "citizen",
             _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
+            # Tracking ends at the archive (2026-10-15); ended rows stay.
+            TrackedOfficial.ended_at.is_(None),
         )
         .all()
     )

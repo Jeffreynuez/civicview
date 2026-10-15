@@ -2777,6 +2777,68 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "nc-sen-1",
+      "openstates_id": "ocd-person/8911db0d-01aa-4e61-a0f5-727d07a5d232",
+      "name": "Bobby Hanig",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "1",
+      "role": "State Senator",
+      "photo_url": "https://www.ncleg.gov/Members/MemberImage/S/435/Low",
+      "served_from": "2025",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nc/retired/Bobby-Hanig-8911db0d-01aa-4e61-a0f5-727d07a5d232.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "nc-sen-1-tillett"
+      ]
+    },
+    {
+      "id": "nc-sen-18",
+      "openstates_id": "ocd-person/1217dc52-8590-4c6b-832b-666b57ef121c",
+      "name": "Terence Everitt",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "18",
+      "role": "State Senator",
+      "photo_url": "https://www.ncleg.gov/Members/MemberImage/H/741/Low",
+      "served_from": "2025",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nc/retired/Terence-Everitt-1217dc52-8590-4c6b-832b-666b57ef121c.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "nc-sen-18-fatmi"
+      ]
+    },
+    {
+      "id": "nc-rep-90",
+      "openstates_id": "ocd-person/09099128-27fc-463f-af36-28253d1e7a60",
+      "name": "Sarah Stevens",
+      "party": "R",
+      "chamber": "State House",
+      "district": "90",
+      "role": "State Representative",
+      "photo_url": "https://www.ncleg.gov/Members/MemberImage/H/592/Low",
+      "served_from": "2009",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nc/retired/Sarah-Stevens-09099128-27fc-463f-af36-28253d1e7a60.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "nc-rep-90-kiger"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "nc-sen-1",

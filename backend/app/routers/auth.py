@@ -255,7 +255,9 @@ def delete_account(
 
     confirm_email must match the signed-in account (case-insensitive).
     mode='soft' archives for 30 days (recoverable via /recover);
-    mode='hard' deletes immediately and cascades dependent content.
+    mode='hard' closes the account immediately: the sign-in and the
+    private lists go, and everything it published stays on the page as
+    the record (2026-10-15, services/account_deletion.close_page_account).
 
     Hard delete also clears the session cookie so the now-deleted
     session token can't be replayed. Soft delete leaves the cookie

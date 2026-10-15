@@ -47,6 +47,9 @@ export function _bootstrapOfficials(rows) {
       key: row.official_key,
       ...snap,
       followed_at: row.followed_at || snap.followed_at || new Date().toISOString(),
+      // Former officials and candidates (2026-10-15): the server adds
+      // the "Former ..." title and archive date while tracking lasts.
+      lifecycle: row.lifecycle || null,
       prefs: (row.prefs && typeof row.prefs === 'object')
         ? row.prefs
         : defaultPrefsFor(prefsTypeForMember(snap)),

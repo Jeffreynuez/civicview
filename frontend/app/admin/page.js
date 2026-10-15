@@ -55,8 +55,9 @@ import {
 } from '@/lib/pagesApi';
 import './admin.css';
 import HScroll from '@/components/HScroll';
+import TransitionsTab from '@/components/admin/TransitionsTab';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -332,6 +333,10 @@ function AdminPageInner() {
     if (authState === 'allowed') loadAppeals();
   }, [authState, loadAppeals]);
 
+  // Former officials and candidates (2026-10-15): stage counts for the
+  // Transitions tab's KPI tiles, reported by the tab itself.
+  const [transitionCounts, setTransitionCounts] = useState({});
+
   const switchTab = (tab) => {
     const next = VALID_TABS.has(tab) ? tab : 'queue';
     const qs = next === 'queue' ? '' : `?tab=${next}`;
@@ -480,6 +485,7 @@ function AdminPageInner() {
     appeals:   { crumb: 'Admin · Appeals',     title: 'Appeals queue' },
     suspended: { crumb: 'Admin · Suspended users', title: 'Suspended accounts' },
     lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
+    transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
   }[activeTab];
 
   // Per-tab KPI strip.
@@ -528,6 +534,12 @@ function AdminPageInner() {
       { label: 'Suspended this week', value: suspendedThisWeek, dot: 'danger' },
       { label: 'Reps suspended', value: suspended.filter((u) => u.kind === 'rep').length, dot: 'hidden' },
     ];
+  } else if (activeTab === 'transitions') {
+    kpis = [
+      { label: 'Farewell window', value: transitionCounts.farewell || 0, dot: 'warning' },
+      { label: 'Read-only', value: transitionCounts.read_only || 0, dot: 'hidden' },
+      { label: 'Archived', value: transitionCounts.archived || 0, dot: 'resolved' },
+    ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.
     const repsLocked = lockouts.filter((l) => l.identity_kind === 'rep').length;
@@ -560,11 +572,12 @@ function AdminPageInner() {
             inside it, so the sticky row's containing block is the whole
             page, not the header band. */}
         <div className="ad-subnav-row ad-subnav-row--sticky">
-          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={4}>
+          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={5}>
             <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
             <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
             <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
             <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
           </HScroll>
           <Link className="ad-subnav__home" href="/">
             <span aria-hidden="true">←</span> CivicView home
@@ -642,6 +655,8 @@ function AdminPageInner() {
             onViewAppeal={() => switchTab('appeals')}
           />
         )}
+
+        {activeTab === 'transitions' && <TransitionsTab onCounts={setTransitionCounts} />}
 
         {activeTab === 'lockouts' && (
           <section className="ad-tab-body">

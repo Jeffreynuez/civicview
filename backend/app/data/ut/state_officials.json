@@ -1715,6 +1715,46 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ut-rep-16",
+      "openstates_id": "ocd-person/3187c9ea-c509-45f3-9eb4-a8ba2d8fd7d9",
+      "name": "Trevor Lee",
+      "party": "R",
+      "chamber": "State House",
+      "district": "16",
+      "role": "State Representative",
+      "photo_url": "https://le.utah.gov/images/legislator/LEETA.jpg",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ut/retired/Trevor-A-Lee-3187c9ea-c509-45f3-9eb4-a8ba2d8fd7d9.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ut-rep-64",
+      "openstates_id": "ocd-person/1773d5d5-4967-4af5-9880-3106ace372d7",
+      "name": "Jeff Burton",
+      "party": "R",
+      "chamber": "State House",
+      "district": "64",
+      "role": "State Representative",
+      "photo_url": "https://le.utah.gov/images/legislator/BURTOJS.jpg",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ut/retired/Jefferson-S-Burton-1773d5d5-4967-4af5-9880-3106ace372d7.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "ut-rep-64-larson"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ut-rep-16",

@@ -3277,6 +3277,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "mn-rep-21A",
+      "openstates_id": "ocd-person/f08531c2-0974-4606-ab08-f5453ff76edd",
+      "name": "Joe Schomacker",
+      "party": "R",
+      "chamber": "State House",
+      "district": "21A",
+      "role": "State Representative",
+      "photo_url": "https://www.house.mn.gov/hinfo/memberimgls94/21A.gif?v=112221",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/mn/retired/Joe-Schomacker-f08531c2-0974-4606-ab08-f5453ff76edd.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "mn-rep-21A",

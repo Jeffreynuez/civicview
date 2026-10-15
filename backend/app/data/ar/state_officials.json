@@ -2227,6 +2227,62 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ar-sen-1",
+      "openstates_id": "ocd-person/821d4077-0022-48a9-86b1-eb4d3bdef2e7",
+      "name": "Ben Gilmore",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "1",
+      "role": "State Senator",
+      "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/583_sm.jpg",
+      "served_from": "2021",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ar/retired/Ben-Gilmore-821d4077-0022-48a9-86b1-eb4d3bdef2e7.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ar-sen-18",
+      "openstates_id": "ocd-person/75b8a2ef-c463-4317-ba03-a368a2f203f2",
+      "name": "Jonathan Dismang",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "18",
+      "role": "State Senator",
+      "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/Senate/337_sm.jpg",
+      "served_from": "2011",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ar/retired/Jonathan-Dismang-75b8a2ef-c463-4317-ba03-a368a2f203f2.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ar-rep-8",
+      "openstates_id": "ocd-person/30ea7268-a48a-424e-aadf-007b61874985",
+      "name": "Austin McCollum",
+      "party": "R",
+      "chamber": "State House",
+      "district": "8",
+      "role": "State Representative",
+      "photo_url": "https://www.arkleg.state.ar.us/Content/photos/2023/House/531_sm.jpg",
+      "served_from": "2017",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ar/retired/Austin-McCollum-30ea7268-a48a-424e-aadf-007b61874985.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ar-sen-1",

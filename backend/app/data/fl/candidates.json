@@ -228,7 +228,8 @@
       "photo_source_url": "https://en.wikipedia.org/wiki/Paul_Renner_(politician)",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-james-uthmeier": {
       "id": "fl-cand-james-uthmeier",
@@ -562,7 +563,8 @@
       "data_status": "enriched",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-anna-eskamani": {
       "id": "fl-cand-anna-eskamani",
@@ -752,7 +754,8 @@
       "photo_source_url": "https://en.wikipedia.org/wiki/Jay_Collins",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-shea-cruel": {
       "id": "fl-cand-shea-cruel",
@@ -777,7 +780,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jenny-curtman": {
       "id": "fl-cand-jenny-curtman",
@@ -802,7 +806,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-james-fishback": {
       "id": "fl-cand-james-fishback",
@@ -873,7 +878,8 @@
       "photo_source_url": "https://en.wikipedia.org/wiki/James_Fishback",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jim-holcomb": {
       "id": "fl-cand-jim-holcomb",
@@ -898,7 +904,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-daniel-imperato": {
       "id": "fl-cand-daniel-imperato",
@@ -923,7 +930,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-mercadante": {
       "id": "fl-cand-john-mercadante",
@@ -948,7 +956,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-daniel-nokovich": {
       "id": "fl-cand-daniel-nokovich",
@@ -973,7 +982,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-rachel-rodriguez": {
       "id": "fl-cand-rachel-rodriguez",
@@ -998,7 +1008,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-james-shaw": {
       "id": "fl-cand-james-shaw",
@@ -1023,7 +1034,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-caneste-succe": {
       "id": "fl-cand-caneste-succe",
@@ -1048,7 +1060,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-bobby-williams": {
       "id": "fl-cand-bobby-williams",
@@ -1073,7 +1086,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-faith-antonio": {
       "id": "fl-cand-faith-antonio",
@@ -1098,7 +1112,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-evelyn-castillo-bach": {
       "id": "fl-cand-evelyn-castillo-bach",
@@ -1123,7 +1138,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind David Jolly in the Aug 18, 2026 Democratic primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kevin-cichowski": {
       "id": "fl-cand-kevin-cichowski",
@@ -1148,7 +1164,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-richard-dembinsky": {
       "id": "fl-cand-richard-dembinsky",
@@ -1173,7 +1190,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jerry-demings": {
       "id": "fl-cand-jerry-demings",
@@ -1249,7 +1267,8 @@
       "withdrawn_source": "https://floridaphoenix.com/2026/06/05/jerry-demings-suspends-democratic-gubernatorial-bid-following-cancer-diagnosis/",
       "photo_source": "wikimedia",
       "photo_credit": "Wikimedia Commons",
-      "photo_source_url": "https://en.wikipedia.org/wiki/Jerry_Demings"
+      "photo_source_url": "https://en.wikipedia.org/wiki/Jerry_Demings",
+      "ended_recorded_on": "2026-07-31"
     },
     "fl-cand-thomas-fernandez": {
       "id": "fl-cand-thomas-fernandez",
@@ -1274,7 +1293,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind David Jolly in the Aug 18, 2026 Democratic primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-dayna-foster": {
       "id": "fl-cand-dayna-foster",
@@ -1299,7 +1319,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind David Jolly in the Aug 18, 2026 Democratic primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-david-jolly": {
       "id": "fl-cand-david-jolly",
@@ -1425,7 +1446,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kenneth-norman": {
       "id": "fl-cand-kenneth-norman",
@@ -1450,7 +1472,8 @@
       "data_observed": "2026-05-05",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind David Jolly in the Aug 18, 2026 Democratic primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-donald-peterson": {
       "id": "fl-cand-donald-peterson",
@@ -1475,7 +1498,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-bill-slater": {
       "id": "fl-cand-bill-slater",
@@ -1500,7 +1524,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jessica-vernekar": {
       "id": "fl-cand-jessica-vernekar",
@@ -1525,7 +1550,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-randy-zapata": {
       "id": "fl-cand-randy-zapata",
@@ -1550,7 +1576,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-dean-abrams": {
       "id": "fl-cand-dean-abrams",
@@ -1599,7 +1626,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-charles-burkett": {
       "id": "fl-cand-charles-burkett",
@@ -1696,7 +1724,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ansaun-fisher": {
       "id": "fl-cand-ansaun-fisher",
@@ -1721,7 +1750,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mo-hylton": {
       "id": "fl-cand-mo-hylton",
@@ -1746,7 +1776,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jennifer-pearl": {
       "id": "fl-cand-jennifer-pearl",
@@ -1771,7 +1802,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-frank-russo": {
       "id": "fl-cand-frank-russo",
@@ -1820,7 +1852,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-scott-jewett": {
       "id": "fl-cand-scott-jewett",
@@ -1869,7 +1902,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-james-michael-brown": {
       "id": "fl-cand-james-michael-brown",
@@ -1894,7 +1928,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-andrea-klink": {
       "id": "fl-cand-andrea-klink",
@@ -1919,7 +1954,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-reginald-strachan": {
       "id": "fl-cand-reginald-strachan",
@@ -1944,7 +1980,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kathleen-anderson": {
       "id": "fl-cand-kathleen-anderson",
@@ -1994,7 +2031,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-erik-morris": {
       "id": "fl-cand-erik-morris",
@@ -2044,7 +2082,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Governor candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jim-lewis": {
       "id": "fl-cand-jim-lewis",
@@ -2069,7 +2108,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Attorney General candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-steven-leskovich": {
       "id": "fl-cand-steven-leskovich",
@@ -2094,7 +2134,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified Attorney General candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-vibert-white": {
       "id": "fl-cand-vibert-white",
@@ -2119,7 +2160,8 @@
       "data_observed": "2026-05-05",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ana-maria-rodriguez": {
       "id": "fl-cand-ana-maria-rodriguez",
@@ -2309,7 +2351,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Angie Nixon in the Aug 18, 2026 Democratic primary for U.S. Senate.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-hector-daniel-mujica-sen": {
       "id": "fl-cand-hector-daniel-mujica-sen",
@@ -2342,7 +2385,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. Senate candidates and did not win the 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-angela-nixon-sen": {
       "id": "fl-cand-angela-nixon-sen",
@@ -2409,7 +2453,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. Senate candidates and did not win the 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jake-lang-sen": {
       "id": "fl-cand-jake-lang-sen",
@@ -2442,7 +2487,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. Senate candidates and did not win the 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-tamika-lyles-sen": {
       "id": "fl-cand-tamika-lyles-sen",
@@ -2475,7 +2521,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. Senate candidates and did not win the 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-joey-mendoza-atkins-sen": {
       "id": "fl-cand-joey-mendoza-atkins-sen",
@@ -2508,7 +2555,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. Senate candidates and did not win the 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-keith-gross-h2": {
       "id": "fl-cand-keith-gross-h2",
@@ -2541,7 +2589,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-james-oberweis-h19": {
       "id": "fl-cand-james-oberweis-h19",
@@ -2574,7 +2623,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-randy-fine-h6": {
       "id": "fl-cand-randy-fine-h6",
@@ -2775,7 +2825,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-debbie-wasserman-schultz-h20": {
       "id": "fl-cand-debbie-wasserman-schultz-h20",
@@ -2861,7 +2912,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-thomas-e-colonel-chalifoux-jr-h9": {
       "id": "fl-cand-thomas-e-colonel-chalifoux-jr-h9",
@@ -2894,7 +2946,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-anna-paulina-luna-h13": {
       "id": "fl-cand-anna-paulina-luna-h13",
@@ -3530,7 +3583,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-greg-steube-h17": {
       "id": "fl-cand-greg-steube-h17",
@@ -3594,7 +3648,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kathy-castor-h14": {
       "id": "fl-cand-kathy-castor-h14",
@@ -3680,7 +3735,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Eliott Rodriguez in the Aug 18, 2026 Democratic primary for FL-27.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-cory-mills-h7": {
       "id": "fl-cand-cory-mills-h7",
@@ -3735,7 +3791,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ryan Elijah in the Aug 18, 2026 Republican primary for FL-7.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-claudia-villatoro-h25": {
       "id": "fl-cand-claudia-villatoro-h25",
@@ -3768,7 +3825,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-elijah-manley-h20": {
       "id": "fl-cand-elijah-manley-h20",
@@ -3801,7 +3859,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Debbie Wasserman Schultz in the Aug 18, 2026 Democratic primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-richard-lamondin-h27": {
       "id": "fl-cand-richard-lamondin-h27",
@@ -3834,7 +3893,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-austin-rogers-h2": {
       "id": "fl-cand-austin-rogers-h2",
@@ -3898,7 +3958,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Scott Singer in the Aug 18, 2026 Republican primary for FL-25.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-george-r-moraitis-h25": {
       "id": "fl-cand-george-r-moraitis-h25",
@@ -3931,7 +3992,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Scott Singer in the Aug 18, 2026 Republican primary for FL-25.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-bale-dalton-h7": {
       "id": "fl-cand-bale-dalton-h7",
@@ -4048,7 +4110,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jennifer-jenkins-h8": {
       "id": "fl-cand-jennifer-jenkins-h8",
@@ -4143,7 +4206,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Kimberly Overman in the Aug 18, 2026 Democratic primary for FL-12.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-rutherford-h5": {
       "id": "fl-cand-john-rutherford-h5",
@@ -4207,7 +4271,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-kirwan-h4": {
       "id": "fl-cand-michael-kirwan-h4",
@@ -4240,7 +4305,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind LaShonda \"L.J.\" Holloway in the Aug 18, 2026 Democratic primary for FL-4.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-joe-kaufman-h25": {
       "id": "fl-cand-joe-kaufman-h25",
@@ -4273,7 +4339,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-daniel-john-franzese-h25": {
       "id": "fl-cand-daniel-john-franzese-h25",
@@ -4306,7 +4373,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-carlos-gimenez-h28": {
       "id": "fl-cand-carlos-gimenez-h28",
@@ -4401,7 +4469,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-daniel-webster-h11": {
       "id": "fl-cand-daniel-webster-h11",
@@ -4472,7 +4541,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-sheila-cherfilus-mccormick-h20": {
       "id": "fl-cand-sheila-cherfilus-mccormick-h20",
@@ -4505,7 +4575,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Debbie Wasserman Schultz in the Aug 18, 2026 Democratic primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-evan-power-h2": {
       "id": "fl-cand-evan-power-h2",
@@ -4538,7 +4609,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-charles-gambaro-h6": {
       "id": "fl-cand-charles-gambaro-h6",
@@ -4571,7 +4643,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Randy Fine in the Aug 18, 2026 Republican primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-marialana-kinter-h7": {
       "id": "fl-cand-marialana-kinter-h7",
@@ -4604,7 +4677,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Bale Dalton in the Aug 18, 2026 Democratic primary for FL-7.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-oliver-adams-larkin-h23": {
       "id": "fl-cand-oliver-adams-larkin-h23",
@@ -4637,7 +4711,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-nicholas-zateslo-h2": {
       "id": "fl-cand-nicholas-zateslo-h2",
@@ -4670,7 +4745,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Amanda Marie Green in the Aug 18, 2026 Democratic primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-eliott-rodriguez-h27": {
       "id": "fl-cand-eliott-rodriguez-h27",
@@ -4765,7 +4841,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Debbie Wasserman Schultz in the Aug 18, 2026 Democratic primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-rudolph-moise-h24": {
       "id": "fl-cand-rudolph-moise-h24",
@@ -4798,7 +4875,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jim-norton-h2": {
       "id": "fl-cand-jim-norton-h2",
@@ -4831,7 +4909,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-anna-medvedeva-h22": {
       "id": "fl-cand-anna-medvedeva-h22",
@@ -4864,7 +4943,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-amanda-marie-green-h2": {
       "id": "fl-cand-amanda-marie-green-h2",
@@ -4928,7 +5008,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Lois Frankel in the Aug 18, 2026 Democratic primary for FL-23.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-rachel-grage-h5": {
       "id": "fl-cand-rachel-grage-h5",
@@ -4992,7 +5073,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-deborah-adeimy-h22": {
       "id": "fl-cand-deborah-adeimy-h22",
@@ -5056,7 +5138,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-eric-yonce-h6": {
       "id": "fl-cand-eric-yonce-h6",
@@ -5120,7 +5203,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-vincent-michael-arias-h27": {
       "id": "fl-cand-vincent-michael-arias-h27",
@@ -5153,7 +5237,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kimberly-overman-h12": {
       "id": "fl-cand-kimberly-overman-h12",
@@ -5217,7 +5302,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-george-austin-selmont-h6": {
       "id": "fl-cand-george-austin-selmont-h6",
@@ -5250,7 +5336,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-nicole-locklin-h26": {
       "id": "fl-cand-nicole-locklin-h26",
@@ -5314,7 +5401,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-aaron-baker-h6": {
       "id": "fl-cand-aaron-baker-h6",
@@ -5347,7 +5435,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Randy Fine in the Aug 18, 2026 Republican primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-howard-steven-rance-h9": {
       "id": "fl-cand-howard-steven-rance-h9",
@@ -5380,7 +5469,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-frankman-h1": {
       "id": "fl-cand-john-frankman-h1",
@@ -5413,7 +5503,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jimmy Patronis in the Aug 18, 2026 Republican primary for FL-1.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-thompson-h1": {
       "id": "fl-cand-michael-thompson-h1",
@@ -5446,7 +5537,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-strand-h19": {
       "id": "fl-cand-john-strand-h19",
@@ -5479,7 +5571,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-daniel-weldon-h14": {
       "id": "fl-cand-daniel-weldon-h14",
@@ -5512,7 +5605,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-matthew-montavon-h17": {
       "id": "fl-cand-matthew-montavon-h17",
@@ -5576,7 +5670,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-robert-anthony-rocky-capt-rochford-h14": {
       "id": "fl-cand-robert-anthony-rocky-capt-rochford-h14",
@@ -5609,7 +5704,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-rodenay-joseph-h20": {
       "id": "fl-cand-rodenay-joseph-h20",
@@ -5642,7 +5738,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-timothy-brandt-robinson-h13": {
       "id": "fl-cand-timothy-brandt-robinson-h13",
@@ -5675,7 +5772,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-aaron-dimmock-h1": {
       "id": "fl-cand-aaron-dimmock-h1",
@@ -5708,7 +5806,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-douglas-connor-chico-h1": {
       "id": "fl-cand-douglas-connor-chico-h1",
@@ -5741,7 +5840,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jimmy Patronis in the Aug 18, 2026 Republican primary for FL-1.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mike-pedersen-h19": {
       "id": "fl-cand-mike-pedersen-h19",
@@ -5774,7 +5874,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-davey-h27": {
       "id": "fl-cand-michael-davey-h27",
@@ -5807,7 +5908,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-will-furry-h6": {
       "id": "fl-cand-will-furry-h6",
@@ -5840,7 +5942,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-justin-story-h9": {
       "id": "fl-cand-justin-story-h9",
@@ -5873,7 +5976,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-peters-h14": {
       "id": "fl-cand-john-peters-h14",
@@ -5906,7 +6010,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-nicholas-justin-lewis-h2": {
       "id": "fl-cand-nicholas-justin-lewis-h2",
@@ -5939,7 +6044,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-allen-l-spence-jr-h17": {
       "id": "fl-cand-allen-l-spence-jr-h17",
@@ -5972,7 +6078,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Matthew Montavon in the Aug 18, 2026 Democratic primary for FL-17.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jennifer-gay-valimont-h1": {
       "id": "fl-cand-jennifer-gay-valimont-h1",
@@ -6036,7 +6143,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jennifer-adams-h7": {
       "id": "fl-cand-jennifer-adams-h7",
@@ -6069,7 +6177,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jonathan-harris-h16": {
       "id": "fl-cand-jonathan-harris-h16",
@@ -6102,7 +6211,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-bernard-taylor-h21": {
       "id": "fl-cand-bernard-taylor-h21",
@@ -6135,7 +6245,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind James T. Martin in the Aug 18, 2026 Democratic primary for FL-21.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-howard-sapp-h19": {
       "id": "fl-cand-howard-sapp-h19",
@@ -6168,7 +6279,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Victor Arias in the Aug 18, 2026 Democratic primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-johnson-h7": {
       "id": "fl-cand-michael-johnson-h7",
@@ -6201,7 +6313,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ryan Elijah in the Aug 18, 2026 Republican primary for FL-7.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-glenn-keith-pearson-h16": {
       "id": "fl-cand-glenn-keith-pearson-h16",
@@ -6234,7 +6347,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Kelly Kirschner in the Aug 18, 2026 Democratic primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mark-davis-h16": {
       "id": "fl-cand-mark-davis-h16",
@@ -6298,7 +6412,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jared-gurfein-h23": {
       "id": "fl-cand-jared-gurfein-h23",
@@ -6331,7 +6446,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-lev-parnas-h27": {
       "id": "fl-cand-lev-parnas-h27",
@@ -6364,7 +6480,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-robert-david-cooper-ii-h6": {
       "id": "fl-cand-robert-david-cooper-ii-h6",
@@ -6397,7 +6514,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Eric Yonce in the Aug 18, 2026 Democratic primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-robert-people-h15": {
       "id": "fl-cand-robert-people-h15",
@@ -6461,7 +6579,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Rachel Grage in the Aug 18, 2026 Democratic primary for FL-5.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-alexander-fornino-h27": {
       "id": "fl-cand-alexander-fornino-h27",
@@ -6494,7 +6613,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jason-edward-speir-h16": {
       "id": "fl-cand-jason-edward-speir-h16",
@@ -6527,7 +6647,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jorge-antonio-malavet-h9": {
       "id": "fl-cand-jorge-antonio-malavet-h9",
@@ -6560,7 +6681,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-victor-m-arias-h19": {
       "id": "fl-cand-victor-m-arias-h19",
@@ -6655,7 +6777,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind John H. Rutherford in the Aug 18, 2026 Republican primary for FL-5.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-barbara-barbie-harden-hall-h11": {
       "id": "fl-cand-barbara-barbie-harden-hall-h11",
@@ -6688,7 +6811,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jan-schneider-h16": {
       "id": "fl-cand-jan-schneider-h16",
@@ -6721,7 +6845,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Kelly Kirschner in the Aug 18, 2026 Democratic primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-stephen-broden-h1": {
       "id": "fl-cand-stephen-broden-h1",
@@ -6754,7 +6879,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-stephen-edward-broden-h1": {
       "id": "fl-cand-stephen-edward-broden-h1",
@@ -6787,7 +6913,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-shay-williams-h14": {
       "id": "fl-cand-shay-williams-h14",
@@ -6820,7 +6947,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-randall-terry-h6": {
       "id": "fl-cand-randall-terry-h6",
@@ -6853,7 +6981,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-brittney-robinson-h4": {
       "id": "fl-cand-brittney-robinson-h4",
@@ -6886,7 +7015,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-reginald-paros-h13": {
       "id": "fl-cand-reginald-paros-h13",
@@ -6919,7 +7049,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-christopher-irizarry-h12": {
       "id": "fl-cand-christopher-irizarry-h12",
@@ -6952,7 +7083,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-edward-peter-pope-h16": {
       "id": "fl-cand-edward-peter-pope-h16",
@@ -6985,7 +7117,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-yurina-gil-h26": {
       "id": "fl-cand-yurina-gil-h26",
@@ -7018,7 +7151,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-gregory-marcus-carter-h9": {
       "id": "fl-cand-gregory-marcus-carter-h9",
@@ -7051,7 +7185,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kevin-james-gaffney-h1": {
       "id": "fl-cand-kevin-james-gaffney-h1",
@@ -7084,7 +7219,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ronnie-murchinson-rivera-h6": {
       "id": "fl-cand-ronnie-murchinson-rivera-h6",
@@ -7117,7 +7253,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Eric Yonce in the Aug 18, 2026 Democratic primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-colby-shock-h8": {
       "id": "fl-cand-colby-shock-h8",
@@ -7150,7 +7287,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ergin-aka-batman-tek-h14": {
       "id": "fl-cand-ergin-aka-batman-tek-h14",
@@ -7183,7 +7321,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ehsan-joarder-h6": {
       "id": "fl-cand-ehsan-joarder-h6",
@@ -7216,7 +7355,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-sendra-dorce-h23": {
       "id": "fl-cand-sendra-dorce-h23",
@@ -7249,7 +7389,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-alexander-hazen-h5": {
       "id": "fl-cand-alexander-hazen-h5",
@@ -7282,7 +7423,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-deva-simmons-h18": {
       "id": "fl-cand-deva-simmons-h18",
@@ -7346,7 +7488,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-charles-wick-h14": {
       "id": "fl-cand-john-charles-wick-h14",
@@ -7379,7 +7522,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-darlene-cerezo-swaffar-h23": {
       "id": "fl-cand-darlene-cerezo-swaffar-h23",
@@ -7412,7 +7556,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kedner-maxime-h20": {
       "id": "fl-cand-kedner-maxime-h20",
@@ -7476,7 +7621,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Eric Yonce in the Aug 18, 2026 Democratic primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-sarah-ulrich-h7": {
       "id": "fl-cand-sarah-ulrich-h7",
@@ -7509,7 +7655,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ryan Elijah in the Aug 18, 2026 Republican primary for FL-7.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-paola-branda-h23": {
       "id": "fl-cand-paola-branda-h23",
@@ -7542,7 +7689,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Deborah Adeimy in the Aug 18, 2026 Republican primary for FL-23.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ricky-patric-knoles-h4": {
       "id": "fl-cand-ricky-patric-knoles-h4",
@@ -7575,7 +7723,8 @@
       "data_observed": "2026-06-04",
       "withdrawn": true,
       "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the Florida Division of Elections list of qualified U.S. House candidates and did not win a 2026 primary.",
-      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR"
+      "withdrawn_source": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-troy-albers-h3": {
       "id": "fl-cand-troy-albers-h3",
@@ -7608,7 +7757,8 @@
       "data_observed": "2026-06-04",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Seth Harp in the Aug 18, 2026 Democratic primary for FL-3.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-blaise-ingoglia": {
       "id": "fl-cand-blaise-ingoglia",
@@ -7833,7 +7983,8 @@
       "data_observed": "2026-07-31",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Blaise Ingoglia in the Aug 18, 2026 Republican primary for Chief Financial Officer.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-earle-ford": {
       "id": "fl-cand-earle-ford",
@@ -7876,7 +8027,8 @@
       "data_observed": "2026-07-31",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Annette Taddeo in the Aug 18, 2026 Democratic primary for Chief Financial Officer.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-wilton-simpson": {
       "id": "fl-cand-wilton-simpson",
@@ -8037,7 +8189,8 @@
       "data_observed": "2026-07-31",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Wilton Simpson in the Aug 18, 2026 Republican primary for Commissioner of Agriculture.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-joey-mendoza-atkins": {
       "id": "fl-cand-joey-mendoza-atkins",
@@ -8121,7 +8274,8 @@
       "data_observed": "2026-07-31",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Joey Mendoza Atkins in the Aug 18, 2026 Democratic primary for Commissioner of Agriculture.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-angie-nixon-sen": {
       "id": "fl-cand-angie-nixon-sen",
@@ -8208,7 +8362,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-nick-lewis-h2": {
       "id": "fl-cand-nick-lewis-h2",
@@ -8234,7 +8389,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Austin Rogers in the Aug 18, 2026 Republican primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-yen-bailey-h2": {
       "id": "fl-cand-yen-bailey-h2",
@@ -8260,7 +8416,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Amanda Marie Green in the Aug 18, 2026 Democratic primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-brice-barnes-h2": {
       "id": "fl-cand-brice-barnes-h2",
@@ -8286,7 +8443,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Amanda Marie Green in the Aug 18, 2026 Democratic primary for FL-2.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mike-klein-h3": {
       "id": "fl-cand-mike-klein-h3",
@@ -8336,7 +8494,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Seth Harp in the Aug 18, 2026 Democratic primary for FL-3.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-george-hubac-h3": {
       "id": "fl-cand-george-hubac-h3",
@@ -8362,7 +8521,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Seth Harp in the Aug 18, 2026 Democratic primary for FL-3.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-lashonda-holloway-h4": {
       "id": "fl-cand-lashonda-holloway-h4",
@@ -8460,7 +8620,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind LaShonda \"L.J.\" Holloway in the Aug 18, 2026 Democratic primary for FL-4.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-william-lintag-upham-h5": {
       "id": "fl-cand-william-lintag-upham-h5",
@@ -8511,7 +8672,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Rachel Grage in the Aug 18, 2026 Democratic primary for FL-5.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-andrew-parrott-h6": {
       "id": "fl-cand-andrew-parrott-h6",
@@ -8586,7 +8748,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Randy Fine in the Aug 18, 2026 Republican primary for FL-6.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-christopher-dennison-h7": {
       "id": "fl-cand-christopher-dennison-h7",
@@ -8660,7 +8823,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Bale Dalton in the Aug 18, 2026 Democratic primary for FL-7.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-dan-green-h9": {
       "id": "fl-cand-dan-green-h9",
@@ -8710,7 +8874,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jorge-martinez-h9": {
       "id": "fl-cand-jorge-martinez-h9",
@@ -8736,7 +8901,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-marcus-carter-h9": {
       "id": "fl-cand-marcus-carter-h9",
@@ -8762,7 +8928,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-steve-rance-h9": {
       "id": "fl-cand-steve-rance-h9",
@@ -8788,7 +8955,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Dan Green in the Aug 18, 2026 Republican primary for FL-9.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ralph-groves-h11": {
       "id": "fl-cand-ralph-groves-h11",
@@ -8886,7 +9054,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Joe Strada in the Aug 18, 2026 Republican primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-tim-wilkins-h11": {
       "id": "fl-cand-tim-wilkins-h11",
@@ -8912,7 +9081,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Joe Strada in the Aug 18, 2026 Republican primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-nizam-razack-h11": {
       "id": "fl-cand-nizam-razack-h11",
@@ -8938,7 +9108,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Joe Strada in the Aug 18, 2026 Republican primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ivette-palomo-h11": {
       "id": "fl-cand-ivette-palomo-h11",
@@ -8964,7 +9135,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Joe Strada in the Aug 18, 2026 Republican primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-royal-webster-h11": {
       "id": "fl-cand-royal-webster-h11",
@@ -8990,7 +9162,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind James Pericola in the Aug 18, 2026 Democratic primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-dan-williams-h11": {
       "id": "fl-cand-dan-williams-h11",
@@ -9016,7 +9189,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind James Pericola in the Aug 18, 2026 Democratic primary for FL-11.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-branden-scrivener-h12": {
       "id": "fl-cand-branden-scrivener-h12",
@@ -9090,7 +9264,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Leela Gray in the Aug 18, 2026 Democratic primary for FL-13.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-john-william-liccione-h13": {
       "id": "fl-cand-john-william-liccione-h13",
@@ -9116,7 +9291,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Leela Gray in the Aug 18, 2026 Democratic primary for FL-13.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mike-beltran-h14": {
       "id": "fl-cand-mike-beltran-h14",
@@ -9240,7 +9416,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-bea-valenti-h14": {
       "id": "fl-cand-bea-valenti-h14",
@@ -9266,7 +9443,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-marcel-h14": {
       "id": "fl-cand-michael-marcel-h14",
@@ -9292,7 +9470,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-gavriel-e-soriano-h14": {
       "id": "fl-cand-gavriel-e-soriano-h14",
@@ -9318,7 +9497,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Mike Beltran in the Aug 18, 2026 Republican primary for FL-14.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-angie-boone-h15": {
       "id": "fl-cand-angie-boone-h15",
@@ -9369,7 +9549,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Robert People in the Aug 18, 2026 Democratic primary for FL-15.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-sydney-gruters-h16": {
       "id": "fl-cand-sydney-gruters-h16",
@@ -9443,7 +9624,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Sydney Gruters in the Aug 18, 2026 Republican primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ed-pope-h16": {
       "id": "fl-cand-ed-pope-h16",
@@ -9469,7 +9651,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Sydney Gruters in the Aug 18, 2026 Republican primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-tamika-lyles-h16": {
       "id": "fl-cand-tamika-lyles-h16",
@@ -9495,7 +9678,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Kelly Kirschner in the Aug 18, 2026 Democratic primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jon-harris-h16": {
       "id": "fl-cand-jon-harris-h16",
@@ -9521,7 +9705,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Kelly Kirschner in the Aug 18, 2026 Democratic primary for FL-16.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-j-quirk-h17": {
       "id": "fl-cand-michael-j-quirk-h17",
@@ -9644,7 +9829,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-greg-bukowski-h19": {
       "id": "fl-cand-greg-bukowski-h19",
@@ -9670,7 +9856,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-linda-j-sawyer-h19": {
       "id": "fl-cand-linda-j-sawyer-h19",
@@ -9696,7 +9883,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jim Schwartzel in the Aug 18, 2026 Republican primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-robert-m-neeld-h19": {
       "id": "fl-cand-robert-m-neeld-h19",
@@ -9722,7 +9910,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Victor Arias in the Aug 18, 2026 Democratic primary for FL-19.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-brent-andersen-h20": {
       "id": "fl-cand-brent-andersen-h20",
@@ -9772,7 +9961,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Brent Andersen in the Aug 18, 2026 Republican primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-carla-spalding-h20": {
       "id": "fl-cand-carla-spalding-h20",
@@ -9798,7 +9988,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Brent Andersen in the Aug 18, 2026 Republican primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-lateresa-jones-h20": {
       "id": "fl-cand-lateresa-jones-h20",
@@ -9824,7 +10015,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Brent Andersen in the Aug 18, 2026 Republican primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-luther-campbell-h20": {
       "id": "fl-cand-luther-campbell-h20",
@@ -9850,7 +10042,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Debbie Wasserman Schultz in the Aug 18, 2026 Democratic primary for FL-20.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-alexander-cooke-h21": {
       "id": "fl-cand-alexander-cooke-h21",
@@ -9949,7 +10142,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-terri-hasdorff-h22": {
       "id": "fl-cand-terri-hasdorff-h22",
@@ -9975,7 +10169,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michael-thompson-h22": {
       "id": "fl-cand-michael-thompson-h22",
@@ -10001,7 +10196,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-richard-evans-h22": {
       "id": "fl-cand-richard-evans-h22",
@@ -10027,7 +10223,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Casey Askar in the Aug 18, 2026 Republican primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kaysia-earley-h22": {
       "id": "fl-cand-kaysia-earley-h22",
@@ -10053,7 +10250,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Pia Dandiya in the Aug 18, 2026 Democratic primary for FL-22.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-mark-piper-h23": {
       "id": "fl-cand-mark-piper-h23",
@@ -10079,7 +10277,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Lois Frankel in the Aug 18, 2026 Democratic primary for FL-23.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-te-mayonna-brown-h24": {
       "id": "fl-cand-te-mayonna-brown-h24",
@@ -10178,7 +10377,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kendrick-meek-h24": {
       "id": "fl-cand-kendrick-meek-h24",
@@ -10204,7 +10404,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-jean-monestime-h24": {
       "id": "fl-cand-jean-monestime-h24",
@@ -10230,7 +10431,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-marshall-l-davis-h24": {
       "id": "fl-cand-marshall-l-davis-h24",
@@ -10256,7 +10458,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-roderick-vereen-h24": {
       "id": "fl-cand-roderick-vereen-h24",
@@ -10282,7 +10485,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Oliver G. Gilbert in the Aug 18, 2026 Democratic primary for FL-24.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-michaelangelo-hamilton-h25": {
       "id": "fl-cand-michaelangelo-hamilton-h25",
@@ -10357,7 +10561,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Scott Singer in the Aug 18, 2026 Republican primary for FL-25.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-joseph-kaufman-h25": {
       "id": "fl-cand-joseph-kaufman-h25",
@@ -10383,7 +10588,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Scott Singer in the Aug 18, 2026 Republican primary for FL-25.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-oliver-adams-larkin-h25": {
       "id": "fl-cand-oliver-adams-larkin-h25",
@@ -10409,7 +10615,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Jared Moskowitz in the Aug 18, 2026 Democratic primary for FL-25.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-deborah-ann-meidinger-hosey-h26": {
       "id": "fl-cand-deborah-ann-meidinger-hosey-h26",
@@ -10459,7 +10666,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Maria Elvira Salazar in the Aug 18, 2026 Republican primary for FL-27.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-eddy-rojas-h28": {
       "id": "fl-cand-eddy-rojas-h28",
@@ -10533,7 +10741,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ashley Moody in the Aug 18, 2026 Republican primary for U.S. Senate.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-ernest-rivera-sen": {
       "id": "fl-cand-ernest-rivera-sen",
@@ -10559,7 +10768,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ashley Moody in the Aug 18, 2026 Republican primary for U.S. Senate.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-neelam-taneja-perry-sen": {
       "id": "fl-cand-neelam-taneja-perry-sen",
@@ -10585,7 +10795,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Ashley Moody in the Aug 18, 2026 Republican primary for U.S. Senate.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=FED&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-arthur-joseph-mccaffrey": {
       "id": "fl-cand-arthur-joseph-mccaffrey",
@@ -10611,7 +10822,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind Byron Donalds in the Aug 18, 2026 Republican primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=REP&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-dotie-joseph": {
       "id": "fl-cand-dotie-joseph",
@@ -10637,7 +10849,8 @@
       "data_observed": "2026-09-24",
       "eliminated": true,
       "eliminated_note": "Did not advance: finished behind David Jolly in the Aug 18, 2026 Democratic primary for Governor.",
-      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE="
+      "eliminated_source": "https://results.elections.myflorida.com/SummaryRpt.asp?ElectionDate=8/18/2026&Race=CAB&Party=DEM&DATAMODE=",
+      "ended_recorded_on": "2026-09-24"
     },
     "fl-cand-kyle-gibson": {
       "id": "fl-cand-kyle-gibson",

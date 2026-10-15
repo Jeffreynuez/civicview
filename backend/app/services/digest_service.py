@@ -77,6 +77,8 @@ def _tracked_official_keys(db: Session, citizen_id: int) -> list[str]:
         .filter(
             TrackedOfficial.tracker_kind == "citizen",
             TrackedOfficial.tracker_id == citizen_id,
+            # Tracking ends when a page is archived (2026-10-15).
+            TrackedOfficial.ended_at.is_(None),
         )
         .all()
     )

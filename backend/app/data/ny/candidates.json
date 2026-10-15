@@ -3790,7 +3790,8 @@
    "data_observed": "2026-06-04",
    "withdrawn": true,
    "withdrawn_note": "Not on the Nov 3, 2026 ballot. The State Senate lists Michael Gianaris as serving until August 10, 2026, and the State Board of Elections certification for Senate District 12 does not include him.",
-   "withdrawn_source": "https://elections.ny.gov/certification-november-3-2026-general-election"
+   "withdrawn_source": "https://elections.ny.gov/certification-november-3-2026-general-election",
+   "ended_recorded_on": "2026-10-15"
   },
   "ny-cand-jessica-ramos-sd13": {
    "name": "Jessica Ramos",

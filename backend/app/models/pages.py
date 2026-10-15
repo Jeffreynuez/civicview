@@ -84,12 +84,20 @@ class RepAccount(Base):
     #                    auth dep but the row + content still exist
     #                    so the user can recover.
     #   purge_after    — timestamp at which the startup purge job
-    #                    hard-deletes the row + cascade content.
+    #                    closes the account (closed_at below).
     #                    Typically self_deleted_at + 30 days.
-    # Both stay NULL on active accounts. Hard delete bypasses these
-    # columns entirely (row gone immediately).
+    # Both stay NULL on active accounts. Hard delete closes the
+    # account immediately.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Set when the account is closed (2026-10-15). Deleting a rep or
+    # candidate account closes it instead of removing it: the person
+    # can no longer sign in, their sign-in email, password and private
+    # lists are removed, and what they published stays on their page.
+    # Jeffrey: "Otherwise someone could delete their account the day
+    # before leaving to erase what they posted in office." Citizen
+    # accounts still delete as before. See services/account_deletion.py.
+    closed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
     # Login attempt tracking + lockout (Task #29). Counter is bumped on
     # each wrong-password attempt; when it hits the per-identity-kind
@@ -195,6 +203,14 @@ class CandidateAccount(Base):
     # Self-serve account deletion (Task #81) — see RepAccount for docs.
     self_deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     purge_after: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Set when the account is closed (2026-10-15). Deleting a rep or
+    # candidate account closes it instead of removing it: the person
+    # can no longer sign in, their sign-in email, password and private
+    # lists are removed, and what they published stays on their page.
+    # Jeffrey: "Otherwise someone could delete their account the day
+    # before leaving to erase what they posted in office." Citizen
+    # accounts still delete as before. See services/account_deletion.py.
+    closed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
     # Login attempt tracking + lockout (Task #29). Counter is bumped on
     # each wrong-password attempt; when it hits the per-identity-kind
@@ -2133,6 +2149,12 @@ class TrackedOfficial(Base):
     followed_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(),
     )
+    # Tracking ends when the page is archived (2026-10-15): the daily
+    # job stamps these instead of deleting the row, so nothing is lost
+    # ("Nothing is ever deleted by this feature"). An ended row is
+    # left out of the tracked lists, the fan-outs and the digest.
+    ended_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    ended_reason: Mapped[Optional[str]] = mapped_column(String(32), default=None)
 
 
 class TrackedElection(Base):
@@ -2189,6 +2211,142 @@ class FeaturedTracked(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(),
     )
+
+
+# ── Former officials and candidates (2026-10-15) ─────────────────────
+#
+# Jeffrey: former officials "are considered just citizens if they are
+# not in office, so it would seem like they have special privileges
+# just because they served." A page moves through in office, Former
+# (with a 30-day farewell window for posts), read-only and archived.
+# The stage is worked out from dates every time a page is read
+# (services/page_lifecycle.py); these tables hold what the data files
+# do not: dates and results set by an admin, who set them and when,
+# and which notices the daily job has already sent. Nothing in them is
+# ever deleted.
+
+
+class PageTransition(Base):
+    """One row per page that has left office, ended a campaign or won.
+
+    origin='data' rows mirror a record in the data files (a former
+    state legislator, a withdrawn candidate) so the job has somewhere to
+    stamp the notices it sent; origin='admin' rows were set by hand in
+    the admin Transitions tab and win over the data. Dates:
+      event_on     the day it happened, from an official source (left
+                   office, result certified, withdrew)
+      recorded_on  the day our data recorded it, used only when
+                   event_on is unknown, and never shown as the day it
+                   happened
+    """
+    __tablename__ = "page_transitions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    page_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    # 'official' | 'candidate'
+    page_kind: Mapped[str] = mapped_column(String(16))
+    # 'left_office' | 'lost_primary' | 'lost_general' | 'withdrew' | 'won'
+    event: Mapped[str] = mapped_column(String(16))
+    event_on: Mapped[Optional[date]] = mapped_column(Date, default=None)
+    recorded_on: Mapped[Optional[date]] = mapped_column(Date, default=None)
+    # Won: True for an incumbent re-elected (no -elect label, no
+    # hand-off). Lost: True for an incumbent who lost (their official
+    # page turns Former at the end of the term, not here).
+    incumbent: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default=sa_expression.false(), nullable=False,
+    )
+    sworn_in_on: Mapped[Optional[date]] = mapped_column(Date, default=None)
+    handoff_on: Mapped[Optional[date]] = mapped_column(Date, default=None)
+    # "State Senator, Florida District 39" / "Governor of Florida".
+    office_label: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    served_from: Mapped[Optional[str]] = mapped_column(String(8), default=None)
+    served_to: Mapped[Optional[str]] = mapped_column(String(8), default=None)
+    election_year: Mapped[Optional[str]] = mapped_column(String(8), default=None)
+    # JSON list of page ids: who holds the seat now (officials).
+    successor_ids_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # Campaign page <-> official page of the same person (a winner).
+    linked_page_id: Mapped[Optional[str]] = mapped_column(String(64), default=None, index=True)
+    display_name: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    state: Mapped[Optional[str]] = mapped_column(String(2), default=None)
+    source_url: Mapped[Optional[str]] = mapped_column(String(500), default=None)
+    source_note: Mapped[Optional[str]] = mapped_column(String(1000), default=None)
+    origin: Mapped[str] = mapped_column(String(8), default="data", server_default="data")
+    set_by: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    set_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    # Daily job bookkeeping. Each is stamped once, when the notice was
+    # sent or deliberately skipped (a backlog on the first run sends
+    # only the one notice that fits today's stage).
+    first_processed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    person_left_notice_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    person_pre_archive_notice_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    person_archived_notice_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    trackers_notice_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    followers_notice_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    tracking_ended_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Comma-separated notice names stamped without sending (backlog).
+    skipped_notices: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+
+
+class PageTransitionLog(Base):
+    """Append-only history: every date, result or hand-off an admin
+    set, with the values before and after, who did it and when."""
+    __tablename__ = "page_transition_log"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    page_id: Mapped[str] = mapped_column(String(64), index=True)
+    # 'set' | 'handoff' | 'name_review'
+    action: Mapped[str] = mapped_column(String(32))
+    before_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    after_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    actor: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
+
+
+class FormerAccountLink(Base):
+    """A former official's or candidate's account linked to the same
+    person's citizen account, and what they chose to carry over (each
+    only if they opt in, Jeffrey's decision 4):
+      name       their own name, freed for this citizen account only,
+                 once ID.me verifies a matching legal name (a nickname
+                 goes to an admin with a source); still reserved
+                 against everyone else
+      copies     a copy of their tracked items, saved posts and
+                 notification settings
+      served_as  a "Served as" line on their citizen card, generated
+                 from our records, plain text, removable any time
+    Turning something off stamps the *_off_at column; rows are never
+    deleted (a new link after an unlink is a new row)."""
+    __tablename__ = "former_account_links"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # 'rep' | 'candidate'
+    former_kind: Mapped[str] = mapped_column(String(16), index=True)
+    former_id: Mapped[int] = mapped_column(Integer, index=True)
+    citizen_id: Mapped[int] = mapped_column(
+        ForeignKey("citizen_accounts.id", ondelete="CASCADE"), index=True,
+    )
+    linked_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    unlinked_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+    name_on_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    name_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # 'waiting' (opted in, citizen not ID.me verified yet) | 'approved'
+    # (legal name matched, or an admin approved) | 'review' (first
+    # names differ, e.g. Chuck and Charles: an admin decides, with a
+    # source) | 'refused'
+    name_status: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+    name_review_source: Mapped[Optional[str]] = mapped_column(String(500), default=None)
+    name_reviewed_by: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    name_reviewed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    name_applied_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+    copies_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    copies_counts_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
+    served_as_on_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    served_as_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
 class SavedItem(Base):

@@ -34,6 +34,7 @@ import {
 import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
+import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -47,6 +48,9 @@ const NOTIF_CATEGORIES = [
   { key: 'reply', label: 'Replies', byOfficial: false },
   { key: 'tracked_post', label: 'Posts & polls', byOfficial: true },
   { key: 'tracked_event', label: 'Events', byOfficial: true },
+  // Former officials and candidates (2026-10-15): leaving office,
+  // campaigns ending, archives, and Follow in office.
+  { key: 'lifecycle', label: 'Changes in office', byOfficial: false },
   { key: 'other', label: 'Other', byOfficial: false },
 ];
 
@@ -97,7 +101,8 @@ export default function NotificationBellMenu() {
   const notifGroups = useMemo(() => {
     const byKey = new Map();
     for (const n of notifItems) {
-      const cat = NOTIF_CATEGORIES.find((c) => c.key === n.kind) ||
+      const catKey = LIFECYCLE_KINDS.has(n.kind) ? 'lifecycle' : n.kind;
+      const cat = NOTIF_CATEGORIES.find((c) => c.key === catKey) ||
         NOTIF_CATEGORIES.find((c) => c.key === 'other');
       if (!byKey.has(cat.key)) byKey.set(cat.key, { ...cat, items: [], unread: 0 });
       const g = byKey.get(cat.key);
@@ -342,6 +347,9 @@ export default function NotificationBellMenu() {
               notifGroups.map((g) => {
                 const isOpen = g.key in sectionToggles ? sectionToggles[g.key] : g.unread > 0;
                 const renderNotif = (n) => {
+                  if (LIFECYCLE_KINDS.has(n.kind)) {
+                    return <LifecycleNotice key={n.id} notification={n} onOpen={onClickNotif} />;
+                  }
                   const p = n.payload || {};
                   const isUnread = !n.read_at;
                   return (

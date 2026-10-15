@@ -3065,6 +3065,28 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "md-rep-42A",
+      "openstates_id": "ocd-person/7817a7bd-51a6-456a-a2df-4b9e3523d181",
+      "name": "Nino Mangione",
+      "party": "R",
+      "chamber": "House of Delegates",
+      "district": "42A",
+      "role": "Delegate",
+      "photo_url": "https://mgaleg.maryland.gov/2019RS/images/mangione01.jpg",
+      "served_from": "2019",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/md/retired/Nino-Mangione-7817a7bd-51a6-456a-a2df-4b9e3523d181.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "md-rep-42A-harlan"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "md-rep-42A",

@@ -2323,6 +2323,48 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "nd-sen-44",
+      "openstates_id": "ocd-person/50d67a3d-7267-4f21-93af-6827c45077f0",
+      "name": "Josh Boschee",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "44",
+      "role": "State Senator",
+      "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jboschee2023.jpg?itok=dn-POEYf",
+      "served_from": "2012",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nd/retired/Joshua-A-Boschee-50d67a3d-7267-4f21-93af-6827c45077f0.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "nd-sen-44-selzler"
+      ]
+    },
+    {
+      "id": "nd-rep-11-2",
+      "openstates_id": "ocd-person/d8e43158-838e-40fc-a960-c29c46aa512e",
+      "name": "Liz Conmy",
+      "party": "D",
+      "chamber": "State House",
+      "district": "11",
+      "role": "State Representative",
+      "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lconmy2023.jpg?itok=4p3lHbz-",
+      "served_from": "2022",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/nd/retired/Liz-Conmy-d8e43158-838e-40fc-a960-c29c46aa512e.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "nd-rep-11-goldwyn"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "nd-sen-44",

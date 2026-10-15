@@ -2779,7 +2779,14 @@
         "to": "2026"
       }
     ],
-    "former_member": true
+    "former_member": true,
+    "left_office_on": "2026-04-14",
+    "left_office_source": "https://clerk.house.gov/Members/ViewVacancies",
+    "former_office_label": "U.S. Representative, Texas District 23",
+    "former_name": "Tony Gonzales",
+    "served_from": "2021",
+    "served_to": "2026",
+    "state": "TX"
   },
   "V000134": {
     "top_issues": [
@@ -3551,7 +3558,14 @@
         "to": "2008"
       }
     ],
-    "former_member": true
+    "former_member": true,
+    "left_office_on": "2026-01-06",
+    "left_office_source": "https://clerk.house.gov/Members/ViewVacancies",
+    "former_office_label": "U.S. Representative, California District 1",
+    "former_name": "Doug LaMalfa",
+    "served_from": "2013",
+    "served_to": "2026",
+    "state": "CA"
   },
   "H001068": {
     "top_issues": [
@@ -4028,7 +4042,14 @@
         "to": "2012"
       }
     ],
-    "former_member": true
+    "former_member": true,
+    "left_office_on": "2026-04-14",
+    "left_office_source": "https://clerk.house.gov/Members/ViewVacancies",
+    "former_office_label": "U.S. Representative, California District 14",
+    "former_name": "Eric Swalwell",
+    "served_from": "2013",
+    "served_to": "2026",
+    "state": "CA"
   },
   "M001225": {
     "top_issues": [
@@ -15175,7 +15196,14 @@
         "to": "2003"
       }
     ],
-    "former_member": true
+    "former_member": true,
+    "left_office_on": "2026-07-11",
+    "left_office_source": "https://www.senate.gov/senators/SenatorsDiedinOffice.htm",
+    "former_office_label": "U.S. Senator, South Carolina",
+    "former_name": "Lindsey Graham",
+    "served_from": "2003",
+    "served_to": "2026",
+    "state": "SC"
   },
   "C000537": {
     "top_issues": [
@@ -17046,7 +17074,14 @@
         "to": "2021"
       }
     ],
-    "former_member": true
+    "former_member": true,
+    "left_office_on": "2026-04-21",
+    "left_office_source": "https://clerk.house.gov/Members/ViewVacancies",
+    "former_office_label": "U.S. Representative, Florida District 20",
+    "former_name": "Sheila Cherfilus-McCormick",
+    "served_from": "2022",
+    "served_to": "2026",
+    "state": "FL"
   },
   "B001328": {
     "bio": "Everton Blair Jr. represents Georgia's 13th congressional district, serving since 2026 after winning a special election. A former teacher and nonprofit program director, Blair served on the Gwinnett County Board of Education from 2019 to 2022 and was a White House fellow in 2016.",

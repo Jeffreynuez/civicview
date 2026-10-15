@@ -41,6 +41,7 @@ import DemographicProfileSection from './DemographicProfileSection';
 import VerificationSection from './VerificationSection';
 import LocationSection from './account/LocationSection';
 import { formatDistrict } from '../lib/usStates';
+import ServedAsSection from './ServedAsSection';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -262,6 +263,7 @@ export default function ConstituentDashboard({
                 preferences, data privacy, and moderation status. */}
             <TwoFactorSection />
             <VerificationSection citizen={citizen} />
+            <ServedAsSection />
             <LocationSection />
             <BillingSection citizen={citizen} />
             <StartPageSection citizen={citizen} />

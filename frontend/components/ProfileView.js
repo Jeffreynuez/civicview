@@ -43,6 +43,7 @@ import TabStrip from './TabStrip';
 import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { FileLink } from './ui';
 import PhotoCredit from './PhotoCredit';
+import LifecycleBanner from './LifecycleBanner';
 import BillReactions from './bills/BillReactions';
 import { BillScopeProvider } from './bills/BillScope';
 import { geoForMember } from '@/lib/billReactions';
@@ -750,7 +751,7 @@ export default function ProfileView({
               fontSize: '0.72rem', color: 'var(--cl-text-light)',
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>
-              {member.chamber || member.title || ''}
+              {member.lifecycle?.title || member.chamber || member.title || ''}
             </div>
           </div>
           {/* Action icons — Follow / Compare / View Candidate / Page.
@@ -849,6 +850,14 @@ export default function ProfileView({
         </div>
       )}
 
+      {/* The page's status shows without expanding the hero
+          (2026-10-15): a former member must never look in office. */}
+      {heroCollapsed && member.lifecycle?.title && (
+        <div style={{ padding: '10px 12px 0' }}>
+          <LifecycleBanner lifecycle={member.lifecycle} />
+        </div>
+      )}
+
       {/* Hero — full version. Hidden when collapsed. */}
       {!heroCollapsed && (
       <div style={{ textAlign: 'center', padding: '20px 20px 14px', borderBottom: '1px solid var(--cl-border)' }}>
@@ -872,7 +881,11 @@ export default function ProfileView({
         )}
         {photoUrl && <PhotoCredit url={photoUrl} />}
         <h2 style={{ fontSize: '1.2rem', marginBottom: '4px', fontWeight: 700 }}>{member.name}</h2>
-        {member.former_member && (
+        {member.lifecycle?.title ? (
+          <div style={{ textAlign: 'left', margin: '8px 0 6px' }}>
+            <LifecycleBanner lifecycle={member.lifecycle} />
+          </div>
+        ) : member.former_member && (
           <p style={{ fontSize: '0.8rem', color: 'var(--cl-text)', fontWeight: 600, marginBottom: '4px' }}>
             Former member of Congress{member.left_office_year ? `, left office in ${member.left_office_year}` : ''}
           </p>
@@ -932,6 +945,9 @@ export default function ProfileView({
             flexWrap: isMobile ? 'wrap' : 'nowrap',
           }}
         >
+          {/* No new follows once someone has left office (2026-10-15);
+              people already following can still stop. */}
+          {(isFollowing || !member.lifecycle || member.lifecycle.accepts_tracking !== false) && (
           <button
             onClick={toggleFollow}
             style={{
@@ -949,6 +965,7 @@ export default function ProfileView({
           >
             {isFollowing ? '✓ Following' : '+ Follow'}
           </button>
+          )}
           {onCompareToggle && (
             <button
               onClick={() => onCompareToggle(member)}

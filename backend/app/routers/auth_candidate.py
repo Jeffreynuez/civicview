@@ -259,9 +259,9 @@ def delete_account(
     """Delete the signed-in candidate account. See app/routers/auth.py
     delete_account for the rep equivalent (same shape, same modes).
 
-    Cascade behavior: candidate-authored posts, polls, events, comments
-    are all removed via the SQLAlchemy delete-orphan cascade on the
-    candidate row."""
+    Hard delete closes the account (2026-10-15): the sign-in and the
+    private lists go; posts, polls, events and comments it published
+    stay on the page as the record (account_deletion.close_page_account)."""
     from app.services.account_deletion import (
         hard_delete_account,
         soft_delete_account,

@@ -24,6 +24,8 @@ import { useCandidateAuth } from '../lib/candidateAuth';
 import { getVoterToken } from '../lib/voterToken';
 import PostCard from './PostCard';
 import PostComposer from './PostComposer';
+import LifecycleBanner from './LifecycleBanner';
+import FormerAccountPanel from './FormerAccountPanel';
 import RepEventComposer from './RepEventComposer';
 import OwnerScopeFilter from './OwnerScopeFilter';
 import ViewerScopeFilter from './ViewerScopeFilter';
@@ -425,7 +427,13 @@ export default function PageView({
     || candOwnerMatch;
   const claimed = !!payload?.claimed;
   const ownerName = payload?.owner?.display_name || displayName || 'This official';
-  const ownerRole = payload?.owner?.role || role || '';
+  // Former officials and candidates (2026-10-15): the page's stage,
+  // title and what still works, from services/page_lifecycle.py.
+  const lifecycle = payload?.lifecycle || null;
+  const isFormer = !!lifecycle?.former;
+  const ownerRole = (lifecycle?.title && lifecycle.stage !== 'active')
+    ? lifecycle.title
+    : (payload?.owner?.role || role || '');
   const initials = useMemo(() => (
     (ownerName || '').split(' ').map((w) => w[0]).filter(Boolean).slice(0, 2).join('')
   ), [ownerName]);
@@ -700,7 +708,9 @@ export default function PageView({
                   no registry profile (the internal test rep/candidate
                   were previously unfollowable anywhere). Hidden for the
                   page owner: following yourself is noise. */}
-              {!isOwner && (
+              {/* No new tracking once someone leaves office or a campaign
+                  ends; people already tracking can still stop. */}
+              {!isOwner && (pageTracked || !lifecycle || lifecycle.accepts_tracking !== false) && (
                 <button
                   type="button"
                   onClick={() => toggleOfficial(trackMember)}
@@ -718,7 +728,7 @@ export default function PageView({
                   {pageTracked ? '✓ Tracking' : '+ Track'}
                 </button>
               )}
-              {!claimed && (
+              {!claimed && !isFormer && (
                 <button
                   type="button"
                   onClick={onRequestClaim}
@@ -772,7 +782,8 @@ export default function PageView({
                 claim it manually while the automated verified-rep
                 flow is still pre-launch. Hidden once the page is
                 claimed (the rep is already onboard). */}
-            {!claimed && (
+            <LifecycleBanner lifecycle={lifecycle} isOwner={isOwner} />
+            {!claimed && !isFormer && (
               <div
                 style={{
                   marginTop: 10,
@@ -887,6 +898,7 @@ export default function PageView({
                 the page they own. */}
             {isOwner && activeView === 'dashboard' && (
               <>
+                {isFormer && <FormerAccountPanel />}
                 <div style={{ marginBottom: 18 }}>
                   <TwoFactorSection />
                 </div>
@@ -902,12 +914,15 @@ export default function PageView({
               </>
             )}
 
-            {/* Composer — owner only, feed view only */}
-            {isOwner && activeView === 'feed' && (
+            {/* Composer: owner only, feed view only. After leaving office
+                or ending a campaign: posts only during the 30-day
+                farewell window, no polls; nothing after it. */}
+            {isOwner && activeView === 'feed' && (!lifecycle || lifecycle.can_post !== false) && (
               <PostComposer
                 officialId={officialId}
                 onCreated={handlePostCreated}
                 allowedScopes={composerAllowedScopes}
+                allowPoll={!lifecycle || lifecycle.can_poll !== false}
               />
             )}
 
@@ -1007,7 +1022,7 @@ export default function PageView({
                     })}
                   </ul>
                 )}
-                {isOwner && (
+                {isOwner && (!lifecycle || lifecycle.can_act_as_owner !== false) && (
                   <RepEventComposer
                     officialId={officialId}
                     events={events.filter((e) => e?.source === 'rep')}
@@ -1113,6 +1128,7 @@ export default function PageView({
                     citizen={citizen}
                     isOwner={isOwner}
                     pageClaimed={claimed}
+                    pageArchived={!!lifecycle?.archived}
                     onCitizenLoginRequired={onCitizenLoginRequired}
                   />
                 )}
@@ -1208,7 +1224,7 @@ export default function PageView({
                 remove list doesn't show curated seed events they
                 can't actually delete. Rep-created events are marked
                 source === 'rep' on the backend. */}
-            {isOwner && (
+            {isOwner && (!lifecycle || lifecycle.can_act_as_owner !== false) && (
               <RepEventComposer
                 officialId={officialId}
                 events={events.filter((e) => e?.source === 'rep')}
