@@ -74,9 +74,8 @@ def geocoder_vintage(congress: Optional[int] = None) -> str:
 
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 # Nominatim's terms require a contact User-Agent. Keeps us in their
-# acceptable-use range; the email is the same address that owns the
-# project's domain.
-NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; jeffreynuez1@gmail.com)"
+# acceptable-use range; the email is the project's contact address.
+NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; civicview@civicview.app)"
 
 # A query is treated as "loose" (= ZIP / city / state only) when it
 # matches one of these shapes. We send loose queries straight to
