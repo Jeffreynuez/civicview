@@ -30,6 +30,10 @@ Officials (every <state>/state_officials.json, fl/local_officials.json,
 federal/federal_officials.json):
   O-1  ids are unique within the file
   O-2  the same person is not listed twice for the same office
+  O-3  no two people in a file share one email address (until
+       2026-10-14 the record for Kentucky Rep. Samara Heavrin, House
+       District 18, carried Rep. Ryan Dotson's address, the one on his
+       own House District 73 record)
 Photo credits:
   P-1  every Wikimedia Commons photo in the data has an entry in
        photo_credits.json with a file page and a license, and every
@@ -63,6 +67,17 @@ HTTP_ONLY_HOSTS = {
     # Unreachable from our test network on either scheme, so we could
     # not tell whether https works. Left as Open States supplied them.
     "billstatus.ls.state.ms.us",
+}
+
+# Addresses two people share in the data, checked by hand on
+# 2026-10-14. Open States gives both members the same address and
+# neither legislature publishes member emails we could read, so we
+# cannot tell whose it is. Remove an entry once it is resolved.
+SHARED_EMAILS_UNRESOLVED = {
+    # CA Assembly 36 (Jeff Gonzalez) and 54 (Mark González)
+    "assemblymember.gonzalez@assembly.ca.gov",
+    # NJ Assembly 20 (Ed Rodriguez) and 33 (Gabe Rodriguez)
+    "asmrodriguez@njleg.org",
 }
 
 problems: list[str] = []
@@ -282,10 +297,14 @@ def lint_officials(path: Path) -> None:
     where = _rel(path)
     ids: set[str] = set()
     seen: dict[tuple, int] = {}
+    emails: dict[str, list[str]] = {}
     for records in _official_lists(doc):
         for rec in records:
             if not isinstance(rec, dict):
                 continue
+            email = (rec.get("contact") or {}).get("email") if isinstance(rec.get("contact"), dict) else None
+            if isinstance(email, str) and email.strip():
+                emails.setdefault(email.strip().lower(), []).append(str(rec.get("id") or rec.get("name")))
             oid = rec.get("id")
             if oid is not None:
                 if oid in ids:
@@ -299,6 +318,9 @@ def lint_officials(path: Path) -> None:
     for (name, office, district), n in seen.items():
         if n > 1:
             problem("O-2", where, f"{name!r} listed {n} times as {office!r}{' ' + district if district else ''}")
+    for email, owners in emails.items():
+        if len(owners) > 1 and email not in SHARED_EMAILS_UNRESOLVED:
+            problem("O-3", where, f"{email} is on {len(owners)} records: {', '.join(owners)}")
 
 
 WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")
