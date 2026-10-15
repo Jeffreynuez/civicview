@@ -73,6 +73,17 @@ async def lookup_address(
         if len(house_members) == 1:
             my_rep = house_members[0]
 
+    # A district with nobody seated (death, resignation) is vacant: say
+    # so, rather than leaving the representative out without a reason.
+    representative_vacant = False
+    if my_rep is None and district:
+        vacant = await congress.get_house_vacancies(state_code, members)
+        try:
+            district_num = 0 if district == "At-Large" else int(district)
+            representative_vacant = district_num in vacant
+        except (ValueError, TypeError):
+            pass
+
     # Senators always represent the full state
     my_senators = [m for m in members if m.get("chamber") == "Senate"]
 
@@ -106,6 +117,7 @@ async def lookup_address(
         "stateSenateDistrict": result.get("stateSenateDistrict"),
         "stateHouseDistrict": result.get("stateHouseDistrict"),
         "yourRepresentative": my_rep,
+        "representativeVacant": representative_vacant,
         "yourSenators": my_senators,
         "allMembers": members,
         "ocdDivisions": ocd_divisions,

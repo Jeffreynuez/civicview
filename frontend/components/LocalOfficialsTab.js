@@ -12,7 +12,7 @@ import {
 import FollowButton from './FollowButton';
 import { LoadError } from './ui';
 import CompareButton from './CompareButton';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
 /**
  * Local officials tab with a three-way sub-nav:
@@ -909,7 +909,8 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
     return (
       String(m.district).includes(q) ||
       (m.name || '').toLowerCase().includes(q) ||
-      (m.party || '').toLowerCase().includes(q)
+      (m.party || '').toLowerCase().includes(q) ||
+      (partyInfo(m.party)?.label || '').toLowerCase().includes(q)
     );
   });
 
@@ -1077,14 +1078,16 @@ function Collapsible({ title, count, children, defaultOpen = false }) {
 }
 
 function PartyPill({ party }) {
-  const color = PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I;
-  const bg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff';
+  // The label as the official source writes it (lib/party.js).
+  const meta = partyInfo(party);
+  if (!meta) return null;
+  const { text, tint } = partyStyle(meta.code);
   return (
-    <span style={{
+    <span title={meta.label} style={{
       padding: '1px 8px', borderRadius: '10px',
-      background: bg, color, fontSize: '0.68rem', fontWeight: 800,
+      background: tint, color: text, fontSize: '0.68rem', fontWeight: 800,
     }}>
-      {party}
+      {meta.short}
     </span>
   );
 }
@@ -1121,8 +1124,9 @@ function OfficialCard({
   followTarget, onNotify, onCompareToggle, compareIds,
 }) {
   // Initials sit on the party tint, so they use the text shades (F6).
-  const partyColor = party ? (PARTY_TEXT_COLORS[party] || '#666') : null;
-  const partyBg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : party === 'I' ? '#f0eaff' : '#eef';
+  const partyMeta = partyInfo(party);
+  const partyColor = partyMeta ? partyStyle(partyMeta.code).text : null;
+  const partyBg = partyMeta ? partyStyle(partyMeta.code).tint : null;
   const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);
   const isComparing = Boolean(compareIds && memberCmpId && compareIds.has(memberCmpId));
   return (

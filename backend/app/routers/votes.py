@@ -186,9 +186,9 @@ async def generate_explain(
 # this is public civic data and carries no engagement gate.
 # ---------------------------------------------------------------------------
 
-# Derived from today's date (e.g. 119th Congress, 2nd session in 2026).
-# A server restart picks up the new congress/session at the year boundary.
-CURRENT_CONGRESS, CURRENT_SESSION = current_congress_session()
+# The congress and session default to the ones sitting at request time
+# (services/congress_calendar.py), so the new Congress is picked up at
+# noon on January 3 without a restart.
 
 
 class RecentVoteItem(BaseModel):
@@ -239,13 +239,17 @@ class VoteMembersResponse(BaseModel):
 async def recent_votes(
     chamber: str = Query(..., pattern="^(house|senate)$"),
     limit: int = Query(20, ge=1, le=100),
-    congress: int = CURRENT_CONGRESS,
-    session: int = CURRENT_SESSION,
+    congress: Optional[int] = Query(None, ge=1, le=300),
+    session: Optional[int] = Query(None, ge=1, le=3),
 ) -> RecentVotesResponse:
     """Most recent in-scope (passage + nomination) roll-call votes for a
     chamber, newest first. Senate comes from the official vote_menu; House is
     enumerated via GovTrack (per-member truth still comes from the official
     Clerk XML on /{vote_id}/members)."""
+    if congress is None or session is None:
+        cur_congress, cur_session = current_congress_session()
+        congress = cur_congress if congress is None else congress
+        session = cur_session if session is None else session
     rows = await get_service().get_recent(chamber, congress, session, limit)
     return RecentVotesResponse(
         chamber=chamber, congress=congress, session=session, votes=rows

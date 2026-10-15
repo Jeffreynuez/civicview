@@ -980,6 +980,17 @@ Tracked here so it stays visible across sessions:
 
 ---
 
+## January turnover
+
+Each odd-numbered January a new Congress is sworn in (the 120th at noon
+Eastern on January 3, 2027) and most legislatures seat new members.
+[`docs/january-turnover.md`](./docs/january-turnover.md) is the
+checklist: what switches by itself, then the state refresh below, the
+federal roster refresh (`backend/scripts/refresh_congress_roster.py`),
+and the checks.
+
+---
+
 ## Refreshing state officials
 
 The 50 `backend/app/data/<state>/state_officials.json` files (state

@@ -20,6 +20,7 @@ import { useFeaturedTracked, setFeatured, isFeatured } from '@/lib/featuredTrack
 import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
 import BillReactions from '@/components/bills/BillReactions';
 import { BillScopeProvider, useViewerGeo } from '@/components/bills/BillScope';
+import { partyInfo } from '@/lib/party';
 
 /**
  * TrackedManager — the shared "everything you follow" surface.
@@ -506,7 +507,7 @@ function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, s
               official.chamber,
               official.state,
               official.district ? `Dist. ${official.district}` : null,
-              official.party ? `(${official.party})` : null,
+              partyInfo(official.party) ? `(${partyInfo(official.party).short})` : null,
             ].filter(Boolean).join(' · ')}
           </div>
         </div>

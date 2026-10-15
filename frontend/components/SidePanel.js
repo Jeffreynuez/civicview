@@ -13,6 +13,7 @@ import StatewideOfficialsTab from './StatewideOfficialsTab';
 import LocalOfficialsTab from './LocalOfficialsTab';
 import BallotTab from './BallotTab';
 import NationalOfficialsPanel from './NationalOfficialsPanel';
+import { partyCodesIn, partyInfo, partyStyle } from '@/lib/party';
 
 // Known Federal Register slugs for presidents we have data on — mirrors
 // PRESIDENT_FEDREG_SLUGS in the backend so we can build an executive-orders
@@ -301,7 +302,9 @@ export default function SidePanel({
 
   const applyUserFilters = (members) => {
     let out = members;
-    if (partyFilter !== 'all') out = out.filter((m) => (m.party || 'I') === partyFilter);
+    // Exact codes (lib/party.js): a member with no party matches no
+    // party chip, rather than being counted as Independent.
+    if (partyFilter !== 'all') out = out.filter((m) => (partyInfo(m.party)?.code || '') === partyFilter);
     // chamberFilter applies at the section level (senators vs reps), so it's
     // interpreted in rendering rather than here
     const comparators = {
@@ -316,6 +319,13 @@ export default function SidePanel({
 
   const rawSenators = stateData?.congress?.senators || [];
   const rawReps = filterByDistrict(stateData?.congress?.representatives);
+  // House districts with nobody seated (0 = the at-large seat), so a
+  // vacant seat reads as vacant rather than as missing data.
+  const vacantDistricts = stateData?.congress?.vacantHouseDistricts || [];
+  const vacantLabel = (d) => (Number(d) === 0 ? 'The at-large seat' : `District ${d}`);
+  const activeDistrictVacant = !!activeDistrict && vacantDistricts.some((d) => (
+    activeDistrict.district === 'At-Large' ? Number(d) === 0 : Number(d) === Number(activeDistrict.district)
+  ));
 
   const showSenators = chamberFilter === 'all' || chamberFilter === 'Senate';
   const showReps = chamberFilter === 'all' || chamberFilter === 'House';
@@ -527,6 +537,10 @@ export default function SidePanel({
             {!activeDistrict && (
               <FilterBar
                 partyFilter={partyFilter} setPartyFilter={setPartyFilter}
+                partyCodes={partyCodesIn([
+                  ...(stateData?.congress?.senators || []),
+                  ...(stateData?.congress?.representatives || []),
+                ])}
                 chamberFilter={chamberFilter} setChamberFilter={setChamberFilter}
                 sortBy={sortBy} setSortBy={setSortBy}
                 activeFilterCount={activeFilterCount}
@@ -624,7 +638,24 @@ export default function SidePanel({
                 ))}
               </div>
             )}
-            {activeDistrict && districtReps.length === 0 && (
+            {!activeDistrict && showReps && vacantDistricts.length > 0 && (
+              <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', padding: '4px 12px 8px' }}>
+                Vacant House {vacantDistricts.length === 1 ? 'seat' : 'seats'}:{' '}
+                {vacantDistricts.map(vacantLabel).join(', ')}. Nobody holds {vacantDistricts.length === 1 ? 'it' : 'them'} until a successor is sworn in.
+              </div>
+            )}
+            {activeDistrict && districtReps.length === 0 && activeDistrictVacant && (
+              <div style={{ padding: '12px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '8px', fontSize: '0.82rem', color: 'var(--cl-text)', margin: '8px 0' }}>
+                {activeDistrict.district === 'At-Large' ? 'This state\'s at-large House seat' : `The District ${activeDistrict.district} House seat`} is vacant. Nobody represents it until a successor is sworn in.
+                <button
+                  onClick={onClearDistrict}
+                  style={{ marginLeft: '6px', padding: '2px 8px', background: 'white', border: '1px solid var(--cl-border)', borderRadius: '6px', fontSize: '0.75rem', cursor: 'pointer', color: 'var(--cl-text)', fontWeight: 600 }}
+                >
+                  Show all reps
+                </button>
+              </div>
+            )}
+            {activeDistrict && districtReps.length === 0 && !activeDistrictVacant && (
               <div style={{ padding: '12px', background: '#fff8e1', border: '1px solid #ffe08a', borderRadius: '8px', fontSize: '0.82rem', color: '#856404', margin: '8px 0' }}>
                 Couldn&apos;t find the District {activeDistrict.district} representative in our current data set.
                 <button
@@ -773,7 +804,7 @@ export default function SidePanel({
 
 // ─── Filter / sort bar ────────────────────────────────────────────────
 function FilterBar({
-  partyFilter, setPartyFilter,
+  partyFilter, setPartyFilter, partyCodes = [],
   chamberFilter, setChamberFilter,
   sortBy, setSortBy,
   activeFilterCount, onReset,
@@ -787,9 +818,17 @@ function FilterBar({
       }}
     >
       <Chip label="All" active={partyFilter === 'all'} onClick={() => setPartyFilter('all')} />
-      <Chip label="R" active={partyFilter === 'R'} onClick={() => setPartyFilter('R')} color="#e63946" />
-      <Chip label="D" active={partyFilter === 'D'} onClick={() => setPartyFilter('D')} color="#457b9d" />
-      <Chip label="I" active={partyFilter === 'I'} onClick={() => setPartyFilter('I')} color="#6c3ec1" />
+      {/* R, D and I always, then any other label the delegation has, each
+          with its own chip in the same style (lib/party.js). */}
+      {[...new Set(['R', 'D', 'I', ...partyCodes])].map((code) => (
+        <Chip
+          key={code}
+          label={partyInfo(code).short}
+          active={partyFilter === code}
+          onClick={() => setPartyFilter(code)}
+          color={partyStyle(code).fill}
+        />
+      ))}
       <div style={{ width: '1px', height: '18px', background: 'var(--cl-border)', margin: '0 4px' }} />
       <Chip label="Both" active={chamberFilter === 'all'} onClick={() => setChamberFilter('all')} />
       <Chip label="Senate" active={chamberFilter === 'Senate'} onClick={() => setChamberFilter('Senate')} />

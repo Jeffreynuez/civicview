@@ -15,6 +15,7 @@ import {
 import { EmptyState, LoadError, Newspaper } from './ui';
 import { useIsMobile } from '@/lib/useViewport';
 import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyStyle } from '@/lib/party';
 import HScroll from './HScroll';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1', NP: '#666' };
@@ -521,7 +522,7 @@ export default function CompareView({ open, items, onClose }) {
 
 // ─── Per-official column ──────────────────────────────────────────────
 function MemberColumn({ member, state, loading }) {
-  const partyColor = PARTY_COLORS[member.party] || PARTY_COLORS.I;
+  const partyColor = partyStyle(member.party).fill;
   const stats = state?.stats;
   const bills = state?.bills;
 
@@ -562,7 +563,7 @@ function MemberColumn({ member, state, loading }) {
         {stats && stats.party_line_pct != null && (
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: PARTY_TEXT_COLORS[member.party] || PARTY_TEXT_COLORS.I }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: partyStyle(member.party).text }}>
                 {stats.party_line_pct}%
               </div>
               <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>

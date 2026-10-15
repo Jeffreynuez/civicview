@@ -17,23 +17,34 @@ we mark them:
     normally_elected   = True         # the seat is normally filled by voters
     selection_detail   = free-text explanation
 
-The map below is intentionally small. Add entries as vacancies are filled.
-Sources to double-check before shipping: Senate.gov "Appointed Senators" table.
+Every other appointee is marked from the legislators-current roster
+itself: its term entry carries "how": "appointment", with the start date
+(the oath, matching senate.gov's "Appointed Senators" table) and how the
+appointment ends ("end-type": "special-election", or the end of the
+term). congress_service copies that onto the member as `appointment`.
+Until 2026-10-15 only the one curated entry below existed, so Jon Husted
+(OH), Alan Armstrong (OK) and Darline Graham (SC) were reported as
+elected. The curated entries still win when present.
 """
+import datetime as _dt
 
 # Bioguide ID → override dict.
 # Use UPPERCASE IDs — Congress.gov returns them uppercase.
 APPOINTED_SENATORS: dict[str, dict] = {
-    # Ashley Moody (R-FL): appointed by Gov. DeSantis on Jan 16, 2025 to fill
-    # the seat Marco Rubio vacated to become U.S. Secretary of State. She is
-    # expected to run in a 2026 special election.
-    "M001234": {  # Placeholder — real bioguide is resolved by last-name match below
+    # Ashley Moody (R-FL): appointed by Gov. DeSantis to fill the seat Marco
+    # Rubio vacated to become U.S. Secretary of State. senate.gov's
+    # "Appointed Senators" table gives January 21, 2025 for both the
+    # appointment and the oath, and moody.senate.gov says she "was sworn
+    # into the United States Senate on January 21, 2025, after being
+    # appointed by Governor Ron DeSantis" (checked 2026-10-15; the text
+    # here used to say January 16, the day the choice was announced).
+    "M001244": {
         "selection_method": "appointed",
         "normally_elected": True,
         "selection_detail": (
-            "Appointed by Gov. Ron DeSantis on Jan 16, 2025 to fill the "
-            "seat vacated by Marco Rubio. Must stand in a special election "
-            "in 2026 to keep the seat."
+            "Appointed by Gov. Ron DeSantis and sworn in on January 21, 2025 "
+            "to fill the seat vacated by Marco Rubio. Must stand in a special "
+            "election in 2026 to keep the seat."
         ),
     },
 }
@@ -51,6 +62,31 @@ APPOINTED_BY_STATE_LAST: dict[tuple[str, str], dict] = {
         ),
     },
 }
+
+_MONTHS = ("January", "February", "March", "April", "May", "June", "July",
+           "August", "September", "October", "November", "December")
+
+
+def _long_date(iso: object) -> str:
+    """'2026-03-24' -> 'March 24, 2026' ('' when it is not a date)."""
+    try:
+        d = _dt.date.fromisoformat(str(iso)[:10])
+    except ValueError:
+        return ""
+    return f"{_MONTHS[d.month - 1]} {d.day}, {d.year}"
+
+
+def appointment_detail(appointment: dict) -> str:
+    """One factual sentence pair from the roster's appointment fields."""
+    sworn = _long_date(appointment.get("start"))
+    end = _long_date(appointment.get("end"))
+    text = "Appointed to fill a vacancy" + (f" and sworn in on {sworn}." if sworn else ".")
+    if end and appointment.get("end_type") == "special-election":
+        text += f" The seat is filled by a special election on {end}."
+    elif end:
+        text += f" Serves until the term ends on {end}."
+    return text
+
 
 # Default selection_detail text for the common cases.
 HOUSE_DEFAULT_DETAIL = (
@@ -90,6 +126,12 @@ def annotate_selection(member: dict) -> dict:
             member["selection_method"] = override.get("selection_method", "appointed")
             member["selection_detail"] = override.get("selection_detail")
             member["normally_elected"] = override.get("normally_elected", True)
+            return member
+        appointment = member.get("appointment")
+        if isinstance(appointment, dict):
+            member["selection_method"] = "appointed"
+            member["selection_detail"] = appointment_detail(appointment)
+            member["normally_elected"] = True
             return member
         # No override — treat as elected.
         member["selection_method"] = "elected"

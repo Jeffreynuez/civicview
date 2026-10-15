@@ -23,7 +23,35 @@
         "https://www.tn.gov/governor"
       ],
       "openstates_id": "ocd-person/d94cf7a2-1ba6-46f2-bdbf-54ace20b8dfc"
-    }
+    },
+    "cabinet": [
+      {
+        "id": "tn-exec-attorney-general-skrmetti",
+        "openstates_id": "ocd-person/8a5fa491-f871-4b57-962e-8db9adf2c8c3",
+        "name": "Jonathan Skrmetti",
+        "party": null,
+        "role": "Attorney General",
+        "title": "Attorney General and Reporter",
+        "office": "Executive",
+        "website": "https://www.tn.gov/attorneygeneral.html",
+        "photo_url": "https://www.tn.gov/attorneygeneral/about-the-office/general-skrmetti/_jcr_content/contentFullWidth/tn_textandimage/image.img.jpg/1740766397785.jpg",
+        "serving_since": "2022-09-01",
+        "term_end": "2030-08-31",
+        "selection_method": "appointed",
+        "normally_elected": false,
+        "selection_detail": "Appointed by the Tennessee Supreme Court on August 10, 2022, for an eight-year term from September 1, 2022 to August 31, 2030 (Tennessee Constitution, Article VI, Section 5).",
+        "contact": {
+          "capitol_office": "Office of the Attorney General and Reporter, P.O. Box 20207, Nashville, TN 37202-0207",
+          "capitol_phone": "(615) 741-3491"
+        },
+        "sources": [
+          "https://tncourts.gov/sites/default/files/docs/agorder.ord_.pdf",
+          "https://www.tn.gov/attorneygeneral/news/2022/9/1/pr22-32.html",
+          "https://www.tn.gov/attorneygeneral/about-the-office/general-skrmetti.html",
+          "https://www.tn.gov/attorneygeneral/contact-us.html"
+        ]
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Tennessee State Senate",

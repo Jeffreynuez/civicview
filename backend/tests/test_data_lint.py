@@ -21,6 +21,11 @@ Elections (every <state>/elections.json):
        legislative_seats_2026.json (seats not up were listed as 2026
        races in CA, PA and TX until 2026-09-25)
   E-9  no chamber lists the same district twice
+  E-10 no race names a candidate marked withdrawn: someone who is not on
+       the ballot is taken off the race and keeps their record, with
+       withdrawn, withdrawn_note and withdrawn_source (the Florida
+       convention, followed on 2026-10-15 for six CA, NY and TX races
+       that listed a member who had left the seat)
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -38,6 +43,18 @@ federal/federal_officials.json):
        2026-10-14 the record for Kentucky Rep. Samara Heavrin, House
        District 18, carried Rep. Ryan Dotson's address, the one on his
        own House District 73 record)
+  O-4  every official's party is a code frontend/lib/party.js knows,
+       or null for none (until 2026-10-15 every non-party status was
+       stored as "I" and an empty party showed as "Independent"; the
+       codes now carry the state's own word: NP Nonpartisan, U
+       Unaffiliated, NA Not Affiliated, UNE Unenrolled, NPA No Party
+       Affiliation, TM Tribal Member)
+Federal profiles (federal/congress_profiles.json, federal/federal_officials.json):
+  F-1  every Areas of Focus (top_issues) source is a specific https
+       page, never a site's home page (until 2026-10-15, 1,581
+       stances for members of Congress and one for a Cabinet secretary
+       cited only an official's home page, which supports nothing in
+       particular)
 Photo credits:
   P-1  every Wikimedia Commons photo in the data has an entry in
        photo_credits.json with a file page and a license, and every
@@ -72,6 +89,9 @@ HTTP_ONLY_HOSTS = {
     # not tell whether https works. Left as Open States supplied them.
     "billstatus.ls.state.ms.us",
 }
+
+# Party codes frontend/lib/party.js maps to a label (rule O-4).
+PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
 
 # Addresses two people share in the data, checked by hand on
 # 2026-10-14. Open States gives both members the same address and
@@ -222,6 +242,8 @@ def lint_elections(state_dir: Path) -> None:
         for field, cid in _race_candidate_ids(race):
             if cid not in cands:
                 problem("E-2", f"{where} {rid}.{field}", f"unknown candidate id {cid}")
+            elif cands[cid].get("withdrawn") and not field.startswith("result."):
+                problem("E-10", f"{where} {rid}.{field}", f"{cid} is marked withdrawn")
         status = race.get("roster_status")
         if status is not None and status not in ROSTER_STATUSES:
             problem("E-5", f"{where} {rid}", f"unknown roster_status {status!r}")
@@ -347,6 +369,54 @@ def lint_officials(path: Path) -> None:
         if len(owners) > 1 and email not in SHARED_EMAILS_UNRESOLVED:
             problem("O-3", where, f"{email} is on {len(owners)} records: {', '.join(owners)}")
 
+    def parties(node):
+        if isinstance(node, dict):
+            if "party" in node and "name" in node and "id" in node:
+                yield node
+            for k, v in node.items():
+                if not str(k).startswith("_"):
+                    yield from parties(v)
+        elif isinstance(node, list):
+            for v in node:
+                yield from parties(v)
+
+    for rec in parties(doc):
+        code = rec.get("party")
+        if code is not None and code not in PARTY_CODES:
+            problem("O-4", where, f"{rec.get('id')}: party {code!r} is not a known code")
+
+
+# ── Federal profiles ─────────────────────────────────────────────────
+
+def _is_home_page(url: str) -> bool:
+    page = urlsplit(url).path.strip("/").lower()
+    return page in ("", "index.html", "index.htm", "home", "en", "en-us", "public")
+
+
+def lint_federal_stances(path: Path) -> None:
+    where = _rel(path)
+
+    def issues(node, owner=""):
+        if isinstance(node, dict):
+            owner = str(node.get("id") or owner)
+            for k, v in node.items():
+                if k == "top_issues" and isinstance(v, list):
+                    for t in v:
+                        if isinstance(t, dict):
+                            yield owner, t
+                elif not str(k).startswith("_"):
+                    yield from issues(v, owner if node.get("id") else str(k))
+        elif isinstance(node, list):
+            for v in node:
+                yield from issues(v, owner)
+
+    for owner, t in issues(_load(path)):
+        for url in t.get("sources") or []:
+            if not isinstance(url, str) or not url.startswith("https://"):
+                problem("F-1", where, f"{owner} {t.get('name')!r}: source is not an https URL: {str(url)[:80]!r}")
+            elif _is_home_page(url):
+                problem("F-1", where, f"{owner} {t.get('name')!r}: source is a home page: {url}")
+
 
 WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")
 
@@ -384,6 +454,8 @@ def main() -> int:
     if (DATA / "fl" / "local_officials.json").exists():
         lint_officials(DATA / "fl" / "local_officials.json")
     lint_officials(DATA / "federal" / "federal_officials.json")
+    lint_federal_stances(DATA / "federal" / "congress_profiles.json")
+    lint_federal_stances(DATA / "federal" / "federal_officials.json")
     lint_photo_credits(files)
 
     print(f"Checked {len(files)} data files.")

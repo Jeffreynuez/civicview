@@ -6,6 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { activateOnKey } from '@/lib/a11y';
 import { useIsCompact } from '@/lib/useViewport';
+import { partyInfo } from '@/lib/party';
 import {
   Avatar,
   PartyChip,
@@ -412,8 +413,26 @@ function VerifiedCitizenBadge() {
 // My Representatives
 // ─────────────────────────────────────────────────────────────────
 
+// The PartyChip key for an official's party: a known code as is (so
+// "NP" stays Nonpartisan, lib/party.js), else the first letter of a
+// full name such as "Republican". No party, no chip.
+function dashboardPartyKey(party) {
+  const raw = String(party || '').trim();
+  if (!raw) return '';
+  const meta = partyInfo(raw);
+  if (meta && meta.label !== meta.code) return meta.code;
+  return raw.slice(0, 1).toUpperCase();
+}
+
+// Avatar tints exist for R, D and I; every other label uses I's, as
+// everywhere else.
+function avatarParty(key) {
+  if (!key) return undefined;
+  return key === 'R' || key === 'D' ? key : 'I';
+}
+
 function DashboardRepCard({ rep }) {
-  const partyKey = (rep.party || '').toString().slice(0, 1).toUpperCase();
+  const partyKey = dashboardPartyKey(rep.party);
   const lastActive = rep.last_active_at
     ? `Active ${timeAgo(rep.last_active_at)}`
     : 'Following';
@@ -429,7 +448,7 @@ function DashboardRepCard({ rep }) {
         gap: 12,
       }}
     >
-      <Avatar name={rep.name} party={partyKey || undefined} size="md" />
+      <Avatar name={rep.name} party={avatarParty(partyKey)} size="md" />
       <div style={{ minWidth: 0, flex: 1 }}>
         <div
           style={{
@@ -2305,7 +2324,7 @@ function OfficialSpotlight({ eyebrow, kind, official, onManage, onOpen }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [official ? official.key : null]);
 
-  const partyKey = (official?.party || '').toString().slice(0, 1).toUpperCase();
+  const partyKey = dashboardPartyKey(official?.party);
   const open = () => { if (onOpen && official) onOpen(official); };
 
   return (
@@ -2325,7 +2344,7 @@ function OfficialSpotlight({ eyebrow, kind, official, onManage, onOpen }) {
             onKeyDown={onOpen ? activateOnKey(open) : undefined}
             style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: onOpen ? 'pointer' : 'default' }}
           >
-            <Avatar name={official.name} party={partyKey || undefined} size="md" />
+            <Avatar name={official.name} party={avatarParty(partyKey)} size="md" />
             <div style={{ minWidth: 0, flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{official.name}</span>

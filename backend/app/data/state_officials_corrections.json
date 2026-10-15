@@ -89,17 +89,160 @@
       "source_url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2022/2022%20General%20Canvass%20Book.pdf",
       "checked": "2026-10-14",
       "note": "The Board of State Canvassers' 2022 report lists Attorney General: Mike Hilgers (Republican). Open States has 'Nonpartisan', from his years in the officially nonpartisan Legislature, which our file showed as I."
-    }
-  ],
-  "exclude": [
+    },
+    {
+      "state": "AK",
+      "openstates_id": "ocd-person/5637be3f-7a59-48cc-8f8a-ad7a8bac8ee9",
+      "name": "Rebecca Himschoot",
+      "party": "NA",
+      "source_url": "https://www.akleg.gov/basis/Member/Detail/34?code=hms",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"District: 2 Party: Not Affiliated\". Open States has Independent."
+    },
+    {
+      "state": "AK",
+      "openstates_id": "ocd-person/a669e6fd-ba4c-42db-b2e8-079600a60f58",
+      "name": "Ky Holland",
+      "party": "NA",
+      "source_url": "https://www.akleg.gov/basis/Member/Detail/34?code=hla",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"District: 9 Party: Not Affiliated\". Open States has Nonpartisan."
+    },
+    {
+      "state": "AK",
+      "openstates_id": "ocd-person/8ed150a0-45be-4844-abe5-d921c9f5a435",
+      "name": "Calvin Schrage",
+      "party": "NA",
+      "source_url": "https://www.akleg.gov/basis/Member/Detail/34?code=scg",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"District: 12 Party: Not Affiliated\". Open States has Independent."
+    },
+    {
+      "state": "AK",
+      "openstates_id": "ocd-person/2a1a6b8f-1f9c-4a1b-9059-7b2f8cc93ed9",
+      "name": "Alyse Galvin",
+      "party": "NA",
+      "source_url": "https://www.akleg.gov/basis/Member/Detail/34?code=gal",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"District: 14 Party: Not Affiliated\". Open States has Independent."
+    },
+    {
+      "state": "AK",
+      "openstates_id": "ocd-person/b097e069-345d-42da-b821-0c2c9747ccfc",
+      "name": "Bryce Edgmon",
+      "party": "NA",
+      "source_url": "https://www.akleg.gov/basis/Member/Detail/34?code=edg",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"District: 37 Party: Not Affiliated\" on his member page (the House roster page on the same site says \"Party: Independent\"; the member page is used, as for the other four). Open States has Independent."
+    },
+    {
+      "state": "FL",
+      "openstates_id": "ocd-person/42278250-8dc9-4fcc-ab11-964aa8e369e7",
+      "name": "Jason Pizzo",
+      "party": "NPA",
+      "source_url": "https://www.flsenate.gov/Senators/s37",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Party: No Party Affiliation\". Open States has Independent."
+    },
+    {
+      "state": "HI",
+      "openstates_id": "ocd-person/8145b3ac-aaee-43d1-a534-d51d5e80f178",
+      "name": "Anne Lopez",
+      "party": "D",
+      "source_url": "https://ag.hawaii.gov/wp-content/uploads/2023/08/HI-Attorney-General-Anne-E.-Lopez.pdf",
+      "checked": "2026-10-15",
+      "note": "The official source gives the office's own biography reads \"Anne E. Lopez (D)\". She is appointed by the Governor, not elected. Open States has Nonpartisan."
+    },
+    {
+      "state": "IN",
+      "openstates_id": "ocd-person/d01b6bbc-9c5e-4479-afd6-3e7410946367",
+      "name": "Ed Clere",
+      "party": "R",
+      "source_url": "https://iga.in.gov/api/getLegislators?session_lpid=session_2026",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"party\": \"Republican\" for district 72 (the JSON the iga.in.gov member pages load). Open States has Independent."
+    },
+    {
+      "state": "MA",
+      "openstates_id": "ocd-person/76b07f35-1876-4259-9c0a-bdf595541c39",
+      "name": "Susannah Whipps",
+      "party": "UNE",
+      "source_url": "https://malegislature.gov/Legislators/Profile/SLG1",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Unenrolled - 2nd Franklin\". Open States has Independent."
+    },
+    {
+      "state": "ME",
+      "openstates_id": "ocd-person/05a89099-12b0-46b5-9f6e-002e1e621583",
+      "name": "Sharon Frost",
+      "party": "UNE",
+      "source_url": "https://legislature.maine.gov/house/MemberProfiles/Details/3117",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Party: Unenrolled District: House District 58\". Open States has Independent."
+    },
+    {
+      "state": "ME",
+      "openstates_id": "ocd-person/3fbfa65e-661c-4b82-a754-9ae0c6956797",
+      "name": "Ed Crockett",
+      "party": "UNE",
+      "source_url": "https://legislature.maine.gov/house/MemberProfiles/Details/1351",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Party: Unenrolled District: House District 112\". Open States has Independent."
+    },
+    {
+      "state": "ME",
+      "openstates_id": "ocd-person/906cd606-c6ff-41e5-87a6-e038b711fa61",
+      "name": "Aaron Dana",
+      "party": "TM",
+      "source_url": "https://legislature.maine.gov/house/MemberProfiles/Details/1507",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Party: Tribal Member District: Non-Voting Tribal Member - Passamaquoddy Tribe\". Open States has Independent."
+    },
+    {
+      "state": "ME",
+      "openstates_id": "ocd-person/81ab0331-83cd-4551-bf74-b732623c86b8",
+      "name": "Brian Reynolds",
+      "party": "TM",
+      "source_url": "https://legislature.maine.gov/house/MemberProfiles/Details/3140",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Party: Tribal Member District: Non-Voting Tribal Member - Houlton Band of Maliseet Indians\". Open States has Independent."
+    },
+    {
+      "state": "NC",
+      "openstates_id": "ocd-person/6acc3963-2724-4d88-8762-f78df333be94",
+      "name": "Nasif Majeed",
+      "party": "U",
+      "source_url": "https://www.ncleg.gov/Members/Biography/H/752",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Unaffiliated - District 99 Mecklenburg\". Open States has Independent."
+    },
+    {
+      "state": "NC",
+      "openstates_id": "ocd-person/f1ba290a-c2a5-453a-884c-6d03a2c8e83a",
+      "name": "Carla Cunningham",
+      "party": "U",
+      "source_url": "https://www.ncleg.gov/Members/Biography/H/642",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Unaffiliated - District 106 Mecklenburg\". Open States has Independent."
+    },
+    {
+      "state": "NH",
+      "openstates_id": "ocd-person/8f685697-5fb0-4966-8cd0-ad3059650f8d",
+      "name": "Tom Ploszaj",
+      "party": "R",
+      "source_url": "https://gc.nh.gov/house/members/member.aspx?pid=9860",
+      "checked": "2026-10-15",
+      "note": "The official source gives \"Representative Tom Ploszaj (R)\". Open States has Independent."
+    },
     {
       "state": "TN",
       "openstates_id": "ocd-person/8a5fa491-f871-4b57-962e-8db9adf2c8c3",
       "name": "Jonathan Skrmetti",
-      "office": "Attorney General",
-      "source_url": "https://www.tn.gov/attorneygeneral/news/2022/9/1/pr22-32.html",
-      "checked": "2026-10-14",
-      "note": "Tennessee's Attorney General is appointed by the state Supreme Court, not elected, and no official source gives a party. With no party the profile would show 'Independent', so he is not added until that is decided."
+      "party": null,
+      "source_url": "https://tncourts.gov/sites/default/files/docs/agorder.ord_.pdf",
+      "checked": "2026-10-15",
+      "note": "Appointed by the Tennessee Supreme Court (order of August 10, 2022), not elected, and no official source gives a party: not the court order, the oath of office or the office's own pages. Stored with no party, so no party label shows. Open States has Republican."
     }
-  ]
+  ],
+  "exclude": []
 }

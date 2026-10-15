@@ -9,12 +9,7 @@ import FollowButton from './FollowButton';
 import CompareButton from './CompareButton';
 import PageButton from './PageButton';
 import OnBallotBadge from './OnBallotBadge';
-import { PARTY_TEXT_COLORS } from '../lib/constants';
-
-const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
-// Short-form tag text. The full party name is kept on the `title`/aria-label
-// so screen readers + hover tooltips still get the unabbreviated word.
-const PARTY_LETTERS = { R: 'R', D: 'D', I: 'I' };
+import { partyInfo, partyStyle } from '../lib/party';
 
 export default function PersonCard({
   member, onClick, onCompareToggle, isComparing, onNotify,
@@ -29,9 +24,13 @@ export default function PersonCard({
   // the Follow bookmark semantics.
   onOpenPage,
 }) {
-  const party = member.party || 'I';
-  const partyClass = `party-${party}`;
-  const partyFull = PARTY_NAMES[party] || 'Independent';
+  // Short-form tag text (R / D / I, or the official word for any other
+  // label); the full label is kept on the `title`/aria-label so screen
+  // readers and hover tooltips get the unabbreviated word. No party, no
+  // pill (lib/party.js).
+  const partyMeta = partyInfo(member.party);
+  const partyFull = partyMeta?.label || '';
+  const partyColors = partyStyle(partyMeta?.code);
 
   const initials = member.name
     .split(' ')
@@ -132,19 +131,21 @@ export default function PersonCard({
           The party pill uses just the single letter (R/D/I) to keep the
           column narrow; the full word is on title/aria-label for a11y. */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
-        <span
-          title={partyFull}
-          aria-label={partyFull}
-          style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            minWidth: '22px', padding: '2px 7px', borderRadius: '12px',
-            fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.3px',
-            background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
-          }}
-        >
-          {PARTY_LETTERS[party] || party}
-        </span>
+        {partyMeta && (
+          <span
+            title={partyFull}
+            aria-label={partyFull}
+            style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              minWidth: '22px', padding: '2px 7px', borderRadius: '12px',
+              fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.3px',
+              background: partyColors.tint,
+              color: partyColors.text,
+            }}
+          >
+            {partyMeta.short}
+          </span>
+        )}
         {member.active_candidacy && (
           <OnBallotBadge
             activeCandidacy={member.active_candidacy}

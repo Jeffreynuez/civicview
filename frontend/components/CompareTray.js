@@ -7,6 +7,7 @@ import { useState } from 'react';
 import HScroll from './HScroll';
 import { useIsMobile } from '@/lib/useViewport';
 import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
 const PARTY_BG = { R: '#fde8e8', D: '#e3f0f7', I: '#f0eaff', NP: '#eef' };
 
@@ -123,7 +124,10 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
       <HScroll style={{ flexGrow: 1, minWidth: 0, maxWidth: '520px' }} scrollerStyle={{ gap: '6px' }} itemCount={items.length}>
         {items.map((m) => {
           const isCandidate = m._kind === 'candidate';
-          const party = m.party || (isCandidate ? 'NP' : 'I');
+          // An official with no party shows no pill (lib/party.js); the
+          // candidate default is unchanged.
+          const party = m.party || (isCandidate ? 'NP' : '');
+          const partyMeta = partyInfo(party);
           const key = `${m._kind || 'official'}-${m.bioguide_id || m.id}`;
           return (
             <div
@@ -174,15 +178,18 @@ export default function CompareTray({ items, onRemove, onClear, onOpen }) {
                   🗳
                 </span>
               )}
-              <span
-                style={{
-                  padding: '1px 6px', borderRadius: '8px', fontSize: '0.65rem', fontWeight: 700,
-                  background: PARTY_BG[party] || '#f0eaff',
-                  color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
-                }}
-              >
-                {party}
-              </span>
+              {partyMeta && (
+                <span
+                  title={partyMeta.label}
+                  style={{
+                    padding: '1px 6px', borderRadius: '8px', fontSize: '0.65rem', fontWeight: 700,
+                    background: partyStyle(partyMeta.code).tint,
+                    color: partyStyle(partyMeta.code).text,
+                  }}
+                >
+                  {partyMeta.short}
+                </span>
+              )}
               <button
                 onClick={() => onRemove(m)}
                 aria-label={`Remove ${m.name} from compare`}

@@ -28,26 +28,54 @@ from typing import Optional
 
 import httpx
 
+from app.services import congress_calendar
+
 logger = logging.getLogger(__name__)
 
 CENSUS_GEOCODER_BASE = "https://geocoding.geo.census.gov/geocoder"
-# Which boundaries the district lookup uses. The address must map to the
-# districts that sitting officials represent: the 119th Congress's, and
-# the 2024 state legislative districts they were elected under. The
-# Census "Current_Current" vintage used to give those, but in September
-# 2026 it moved to the 120th Congress's districts (the maps for the 2026
-# elections), which differ in states that redrew for 2026: downtown
-# Austin came back as TX-10 instead of TX-37. ACS2025_Current keeps the
-# 119th districts. When the 120th Congress is seated (January 2027), set
-# CENSUS_GEOCODER_VINTAGE to Current_Current (or ACS2026_Current) and
-# change CURRENT_CONGRESS to 120.
-CENSUS_GEOCODER_VINTAGE = os.environ.get("CENSUS_GEOCODER_VINTAGE", "ACS2025_Current")
-CURRENT_CONGRESS = 119
+# Which boundaries the district lookup uses. An address must map to the
+# districts that sitting officials represent, which change when a new
+# Congress is seated at noon on January 3 of an odd year. The Census
+# geocoder serves each set of maps under a "vintage". Checked against
+# the geocoder on 2026-10-15:
+#   ACS2025_Current  "119th Congressional Districts" and the 2024 state
+#                    legislative districts (what members represent
+#                    until January 3, 2027)
+#   Current_Current  "120th Congressional Districts" and the 2026 state
+#                    legislative districts (the maps the 2026 elections
+#                    use; ACS2026_Current returns the same)
+# In states that redrew for 2026 the two differ: downtown Austin is
+# TX-37 on the 119th map and TX-10 on the 120th. The vintage follows
+# the Congress sitting today (services/congress_calendar.py), so the
+# switch needs no one to remember it. If the vintage asked for does not
+# return the sitting Congress's layer yet, _pick_congressional_district
+# falls back to the previous Congress's layer (the 119th, for the 120th)
+# and logs a warning. CENSUS_GEOCODER_VINTAGE in the environment
+# overrides the table, for an emergency switch without a deploy.
+VINTAGE_FOR_CONGRESS = {119: "ACS2025_Current", 120: "Current_Current"}
+# A Congress not in the table yet (the 121st, from 2029) asks for the
+# geocoder's current maps, and falls back as above if they lag.
+DEFAULT_VINTAGE = "Current_Current"
+
+
+def _current_congress() -> int:
+    return congress_calendar.current_congress()
+
+
+def geocoder_vintage(congress: Optional[int] = None) -> str:
+    """The Census geocoder vintage for `congress` (default: the one
+    sitting now), or the CENSUS_GEOCODER_VINTAGE override."""
+    override = os.environ.get("CENSUS_GEOCODER_VINTAGE", "").strip()
+    if override:
+        return override
+    n = congress or _current_congress()
+    return VINTAGE_FOR_CONGRESS.get(n, DEFAULT_VINTAGE)
+
+
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 # Nominatim's terms require a contact User-Agent. Keeps us in their
-# acceptable-use range; the email is the same address that owns the
-# project's domain.
-NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; jeffreynuez1@gmail.com)"
+# acceptable-use range; the email is the project's contact address.
+NOMINATIM_UA = "CivicView/1.0 (https://civicview.app; civicview@civicview.app)"
 
 # A query is treated as "loose" (= ZIP / city / state only) when it
 # matches one of these shapes. We send loose queries straight to
@@ -57,12 +85,14 @@ _HAS_STREET_NUMBER_RE = re.compile(r"^\s*\d+\s+\S")
 
 
 
-def _district_code(record: dict) -> Optional[str]:
+def _district_code(record: dict, congress: Optional[int] = None) -> Optional[str]:
     """Two-digit district code ("07", "00" at-large, "98" delegate) from a
     Census congressional district record. The CD<session> field is not
     in every vintage (ACS2025 leaves it out), so fall back to the last
     two digits of the GEOID (state FIPS + district), then BASENAME."""
-    for key in (f"CD{CURRENT_CONGRESS}", "CD119", "CD118", "CD117", "CD", "CDFP"):
+    n = congress or _current_congress()
+    keys = [f"CD{n}", f"CD{n - 1}", "CD119", "CD118", "CD117", "CD", "CDFP"]
+    for key in dict.fromkeys(keys):
         if record.get(key):
             return str(record[key])
     geoid = str(record.get("GEOID") or "")
@@ -71,20 +101,27 @@ def _district_code(record: dict) -> Optional[str]:
     return record.get("BASENAME") or None
 
 
-def _pick_congressional_district(geographies: dict) -> Optional[dict]:
-    """The congressional district record for the current Congress, with
-    its code normalized into "CD". Prefers the layer named for
-    CURRENT_CONGRESS (e.g. "119th Congressional Districts") so a response
-    that carries more than one Congress's maps never picks the wrong one."""
-    wanted = f"{CURRENT_CONGRESS}th Congressional Districts"
+def _pick_congressional_district(geographies: dict, congress: Optional[int] = None) -> Optional[dict]:
+    """The congressional district record for the sitting Congress, with
+    its code normalized into "CD". Prefers the layer named for that
+    Congress (e.g. "120th Congressional Districts") so a response that
+    carries more than one Congress's maps never picks the wrong one;
+    until the geocoder publishes it, the previous Congress's layer is
+    used instead."""
+    n = congress or _current_congress()
+    wanted = f"{congress_calendar.ordinal(n)} Congressional Districts"
+    previous = f"{congress_calendar.ordinal(n - 1)} Congressional Districts"
     keys = [k for k, v in geographies.items() if "Congressional" in k and v]
     if not keys:
         return None
-    key = wanted if wanted in keys else keys[0]
-    if key != wanted:
-        logger.warning("Census geography returned %s, not %s", key, wanted)
+    if wanted in keys:
+        key = wanted
+    else:
+        key = previous if previous in keys else keys[0]
+        logger.warning("Census geography returned %s, not %s; using it until the "
+                       "geocoder publishes the %s", key, wanted, wanted)
     record = dict(geographies[key][0])  # shallow copy so we can add extras
-    record["CD"] = _district_code(record)
+    record["CD"] = _district_code(record, n)
     return record
 
 class GeocodeService:
@@ -299,12 +336,15 @@ class GeocodeService:
 
     async def _get_district_from_coords(self, lat: float, lng: float) -> Optional[dict]:
         """Look up congressional district from coordinates using Census Geocoder."""
+        # One Congress for the whole lookup, so a request that straddles
+        # the January 3 switch cannot ask for one map and read another.
+        congress = _current_congress()
         url = f"{CENSUS_GEOCODER_BASE}/geographies/coordinates"
         params = {
             "x": lng,
             "y": lat,
             "benchmark": "Public_AR_Current",
-            "vintage": CENSUS_GEOCODER_VINTAGE,
+            "vintage": geocoder_vintage(congress),
             "format": "json",
         }
 
@@ -318,7 +358,7 @@ class GeocodeService:
                 data = resp.json()
                 geographies = data.get("result", {}).get("geographies", {})
 
-                cd_result = _pick_congressional_district(geographies)
+                cd_result = _pick_congressional_district(geographies, congress)
 
                 if cd_result is None:
                     # Fall back to a stub so we still try to extract other geographies

@@ -1,9 +1,12 @@
 # CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 # Proprietary and confidential. See LICENSE at the repository root.
 
+from typing import Optional
+
 from fastapi import APIRouter, HTTPException, Query
 from app.services.federal_officials_service import FederalOfficialsService
 from app.services import federal_live
+from app.services.congress_calendar import current_congress
 
 router = APIRouter()
 service = FederalOfficialsService()
@@ -68,12 +71,14 @@ async def get_executive_orders(
 
 @router.get("/presidential-actions")
 async def get_presidential_actions(
-    congress: int = Query(119, ge=100, le=200),
+    congress: Optional[int] = Query(None, ge=100, le=200),
     type: str = Query("signed", pattern="^(signed|vetoed|veto)$"),
     limit: int = Query(20, ge=1, le=100),
 ):
     """Return bills enacted as law ('signed') or vetoed during the given
-    congress. Requires CONGRESS_API_KEY on the server."""
+    congress (default: the one sitting today). Requires CONGRESS_API_KEY
+    on the server."""
+    congress = congress or current_congress()
     rows = await federal_live.fetch_presidential_actions(
         congress=congress, action_type=type, limit=limit,
     )

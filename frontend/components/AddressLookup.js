@@ -6,9 +6,8 @@
 import { useEffect, useState } from 'react';
 import { lookupAddress } from '@/lib/api';
 import { activateOnKey } from '@/lib/a11y';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
-const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
 
 // Reverse-geocodes a (lat, lon) pair to a postal address using OpenStreetMap's
 // free Nominatim service. We never log raw coordinates and never send the
@@ -166,7 +165,8 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
 
   const MemberCard = ({ member, label }) => {
     if (!member) return null;
-    const party = member.party || 'I';
+    const partyMeta = partyInfo(member.party);
+    const partyColors = partyStyle(partyMeta?.code);
     return (
       <div
         role="button"
@@ -203,13 +203,15 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
           <div style={{ fontSize: '0.92rem', fontWeight: 600 }}>{member.name}</div>
           <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)' }}>{member.title || member.role}</div>
         </div>
-        <span style={{
-          padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
-          background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-          color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
-        }}>
-          {PARTY_NAMES[party]}
-        </span>
+        {partyMeta && (
+          <span style={{
+            padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
+            background: partyColors.tint,
+            color: partyColors.text,
+          }}>
+            {partyMeta.label}
+          </span>
+        )}
       </div>
     );
   };
@@ -364,6 +366,20 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
           {/* Your Rep */}
           {result.yourRepresentative && (
             <MemberCard member={result.yourRepresentative} label="Your Representative" />
+          )}
+          {!result.yourRepresentative && result.representativeVacant && (
+            <div style={{
+              padding: '12px', borderRadius: '10px', border: '1px solid var(--cl-border)',
+              marginBottom: '6px', background: 'white',
+            }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--cl-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '2px' }}>
+                Your Representative
+              </div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 600 }}>This House seat is vacant</div>
+              <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
+                Nobody represents this district until a successor is sworn in.
+              </div>
+            </div>
           )}
 
           {/* Your Senators */}

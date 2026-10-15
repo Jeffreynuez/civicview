@@ -1632,19 +1632,20 @@
    "state_senate_district": "22",
    "seat_type": "legislative",
    "term_length_years": 4,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "R": [
-     "tx-cand-brian-birdwell-sd22"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "tx-cand-brian-birdwell-sd22"
+    "tx-cand-david-cook-sd22",
+    "tx-cand-amy-martinez-salas-sd22"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races. This seat is one of the 16 Texas Senate seats on the 2026 ballot.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The nominees on the Secretary of State's ballot certification for the Nov 3, 2026 general election.",
+   "notes": "Open seat. Brian Birdwell resigned (Governor's proclamation of August 18, 2026). The same two candidates are also on the Nov 3 ballot in a special election for the rest of his term.",
+   "_roster_source": "Texas Secretary of State, 2026 General Election ballot certification (August 28, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "tx-2026-state-senate-24",
@@ -1747,19 +1748,20 @@
    "state_house_district": "1",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "R": [
-     "tx-cand-gary-vandeaver-hd1"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "tx-cand-gary-vandeaver-hd1"
+    "tx-cand-chris-spencer-hd1",
+    "tx-cand-sean-huffman-hd1"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The nominees on the Secretary of State's ballot certification for the Nov 3, 2026 general election.",
+   "notes": "Open seat. Gary VanDeaver was not a candidate in the March 3, 2026 primary.",
+   "_roster_source": "Texas Secretary of State, 2026 General Election ballot certification (August 28, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "tx-2026-state-house-2",
@@ -3863,19 +3865,20 @@
    "state_house_district": "93",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "R": [
-     "tx-cand-nate-schatzline-hd93"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "tx-cand-nate-schatzline-hd93"
+    "tx-cand-alan-blaylock-hd93",
+    "tx-cand-ericka-lomick-hd93"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the Texas Secretary of State; FEC/federal data does not cover state races.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The nominees on the Secretary of State's ballot certification for the Nov 3, 2026 general election.",
+   "notes": "Open seat. Nate Schatzline resigned (Governor's proclamation of August 20, 2026). The same two candidates are also on the Nov 3 ballot in a special election for the rest of his term.",
+   "_roster_source": "Texas Secretary of State, 2026 General Election ballot certification (August 28, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "tx-2026-state-house-94",

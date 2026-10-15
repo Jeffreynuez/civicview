@@ -37,6 +37,15 @@ const PARTY_KEY = {
   LPF: 'LPF', lpf: 'LPF', libertarian: 'LPF', lib: 'LPF',
   CPF: 'CPF', cpf: 'CPF', constitution: 'CPF',
   WRI: 'WRI', wri: 'WRI', 'write-in': 'WRI', writein: 'WRI',
+  // Officials' labels as their official sources write them (lib/party.js).
+  // They share Independent's styling so no label reads stronger than
+  // another.
+  NP: 'NP', nonpartisan: 'NP',
+  U: 'U', unaffiliated: 'U',
+  NA: 'NA', 'not affiliated': 'NA',
+  UNE: 'UNE', unenrolled: 'UNE',
+  TM: 'TM', 'tribal member': 'TM',
+  F: 'F', forward: 'F',
 };
 
 const PARTY_COLORS = {
@@ -54,6 +63,7 @@ const PARTY_COLORS = {
   CPF: null,
   WRI: null,
 };
+for (const k of ['NP', 'U', 'NA', 'UNE', 'TM', 'F']) PARTY_COLORS[k] = PARTY_COLORS.I;
 
 const PARTY_LABEL = {
   D: 'D',
@@ -63,6 +73,12 @@ const PARTY_LABEL = {
   LPF: 'LIB',
   CPF: 'CON',
   WRI: 'WI',
+  NP: 'Nonpartisan',
+  U: 'Unaffiliated',
+  NA: 'Not Affiliated',
+  UNE: 'Unenrolled',
+  TM: 'Tribal Member',
+  F: 'Forward',
 };
 
 const PARTY_FULL = {
@@ -73,6 +89,12 @@ const PARTY_FULL = {
   LPF: 'Libertarian',
   CPF: 'Constitution Party',
   WRI: 'Write-in',
+  NP: 'Nonpartisan',
+  U: 'Unaffiliated',
+  NA: 'Not Affiliated',
+  UNE: 'Unenrolled',
+  TM: 'Tribal Member',
+  F: 'Forward',
 };
 
 export default function PartyChip({
@@ -90,7 +112,7 @@ export default function PartyChip({
 
   // Wider sizes for multi-letter labels (NPA / LIB / CON / WI) so the
   // text doesn't get clipped inside the pill.
-  const isWide = key === 'NPA' || key === 'LPF' || key === 'CPF' || key === 'WRI';
+  const isWide = Boolean(key) && !['D', 'R', 'I'].includes(key);
   const sizeStyle = {
     xs: { height: 16, padding: isWide ? '0 6px' : '0 5px', fontSize: 10, minWidth: isWide ? 28 : 16 },
     sm: { height: 18, padding: isWide ? '0 7px' : '0 6px', fontSize: 11, minWidth: isWide ? 32 : 18 },

@@ -14,9 +14,8 @@ import {
 } from './ui';
 import { fetchCommittees, fetchCommitteeDetail } from '@/lib/api';
 import { useIsMobile } from '@/lib/useViewport';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const CHAMBER_LABEL = { House: 'House', Senate: 'Senate', Joint: 'Joint' };
 
 export default function CommitteesModal({ open, onClose, onMemberPick }) {
@@ -496,7 +495,7 @@ function Section({ title, children }) {
 }
 
 function MemberRow({ m, onPick, showTitle }) {
-  const partyColor = PARTY_COLORS[m.party] || PARTY_COLORS.I;
+  const partyColor = partyStyle(m.party).fill;
   return (
     <button
       onClick={() => onPick(m)}
@@ -526,15 +525,18 @@ function MemberRow({ m, onPick, showTitle }) {
           {showTitle && m.title ? ` · ${m.title}` : ''}
         </div>
       </div>
-      <span
-        style={{
-          padding: '2px 8px', borderRadius: '10px', fontSize: '0.68rem', fontWeight: 700,
-          background: m.party === 'R' ? '#fde8e8' : m.party === 'D' ? '#e3f0f7' : '#f0eaff',
-          color: PARTY_TEXT_COLORS[m.party] || PARTY_TEXT_COLORS.I, flexShrink: 0,
-        }}
-      >
-        {m.party || 'I'}
-      </span>
+      {partyInfo(m.party) && (
+        <span
+          title={partyInfo(m.party).label}
+          style={{
+            padding: '2px 8px', borderRadius: '10px', fontSize: '0.68rem', fontWeight: 700,
+            background: partyStyle(m.party).tint,
+            color: partyStyle(m.party).text, flexShrink: 0,
+          }}
+        >
+          {partyInfo(m.party).short}
+        </span>
+      )}
     </button>
   );
 }

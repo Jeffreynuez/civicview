@@ -1132,7 +1132,8 @@
             "name": "Homeland Security",
             "stance": "Leads DHS; oversees border security, immigration enforcement, TSA, FEMA, and the Secret Service.",
             "sources": [
-              "https://www.dhs.gov/"
+              "https://www.whitehouse.gov/administration/cabinet/",
+              "https://www.dhs.gov/operational-and-support-components"
             ]
           }
         ],

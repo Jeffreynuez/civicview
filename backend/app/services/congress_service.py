@@ -209,6 +209,18 @@ def _term_start_year(term: dict) -> str:
     return ""
 
 
+def _term_end_year(term: dict) -> str:
+    """End year of a term ("" while it is still running). The detail
+    endpoint gives ``endYear`` only for terms that have ended: a member
+    who resigned, died or moved to another office has one on their last
+    term, a sitting member does not."""
+    for k in ("endYear", "end"):
+        v = term.get(k)
+        if v:
+            return str(v)[:4]
+    return ""
+
+
 def _term_state(term: dict) -> Optional[str]:
     """State of a term, tolerant of both API term shapes.
 
@@ -267,30 +279,58 @@ def _committee_leadership_label(title: str) -> Optional[str]:
     return None
 
 
-def _derive_experience(terms: list) -> list:
+def _service_runs(terms: list) -> list:
+    """Consecutive same chamber/state/district terms collapsed into
+    stints, oldest first: {chamber, state, district, from, end}."""
+    ordered = sorted(terms, key=lambda t: _term_start_year(t) or "0")
+    runs: list = []
+    for t in ordered:
+        chamber = _term_chamber(t)
+        state = _state_label(_term_state(t))
+        district = t.get("district") if chamber == "House" else None
+        start = _term_start_year(t)
+        key = (chamber, state, str(district))
+        if runs and runs[-1]["key"] == key:
+            runs[-1]["end"] = _term_end_year(t)  # same stint; keep its start
+            continue
+        runs.append({"key": key, "chamber": chamber, "state": state,
+                     "district": district, "from": start, "end": _term_end_year(t)})
+    return runs
+
+
+def _has_left(terms: list, current_member: Optional[bool] = None) -> bool:
+    """True when the member no longer serves: Congress.gov says
+    currentMember is false, or their latest term has an end year."""
+    if current_member is False:
+        return True
+    if current_member is True or not terms:
+        return False
+    latest = sorted(terms, key=lambda t: _term_start_year(t) or "0")[-1]
+    return bool(_term_end_year(latest))
+
+
+def _derive_experience(terms: list, current_member: Optional[bool] = None) -> list:
     """Build a {role, from, to} timeline of congressional service from the
     API terms. Consecutive same chamber/state/district terms collapse into
-    one stint; a stint's end is the start of the next stint, and the most
-    recent stint is 'Present'. Returns most-recent-first. Pre-Congress
-    roles aren't in the API — those come from the curated sidecar."""
+    one stint; a stint's end is the start of the next stint. The most
+    recent stint is 'Present' only while the member still serves: for a
+    member who has left (current_member False, or an end year on the last
+    term) it ends with that term's end year. Until 2026-10-15 it was
+    always 'Present', so members who resigned, died or joined the Cabinet
+    during the 119th Congress read as still serving. Returns
+    most-recent-first. Pre-Congress roles aren't in the API; those come
+    from the curated sidecar."""
     if not terms:
         return []
     try:
-        ordered = sorted(terms, key=lambda t: _term_start_year(t) or "0")
-        runs = []
-        for t in ordered:
-            chamber = _term_chamber(t)
-            state = _state_label(_term_state(t))
-            district = t.get("district") if chamber == "House" else None
-            start = _term_start_year(t)
-            key = (chamber, state, str(district))
-            if runs and runs[-1]["key"] == key:
-                continue  # same ongoing stint — keep its original start
-            runs.append({"key": key, "chamber": chamber, "state": state,
-                         "district": district, "from": start})
+        runs = _service_runs(terms)
+        left = _has_left(terms, current_member)
         out = []
         for i, r in enumerate(runs):
-            to = "Present" if i == len(runs) - 1 else (runs[i + 1]["from"] or "")
+            if i < len(runs) - 1:
+                to = runs[i + 1]["from"] or ""
+            else:
+                to = (r["end"] or "") if left else "Present"
             if r["chamber"] == "Senate":
                 role = f"U.S. Senator, {r['state']}".rstrip(", ")
             else:
@@ -304,9 +344,11 @@ def _derive_experience(terms: list) -> list:
         return []
 
 
-def _derive_bio(name: str, terms: list) -> str:
+def _derive_bio(name: str, terms: list, current_member: Optional[bool] = None) -> str:
     """A neutral, factual one-liner from the API terms. Curated sidecar
-    bios override this (see _merge_profile)."""
+    bios override this (see _merge_profile). For a member who has left,
+    the sentence is in the past tense with the years of their last
+    stint."""
     if not terms:
         return f"{name} serves in the United States Congress."
     try:
@@ -315,6 +357,17 @@ def _derive_bio(name: str, terms: list) -> str:
         first_year = _term_start_year(ordered[0])
         chamber = _term_chamber(latest)
         state = _state_label(_term_state(latest))
+        if _has_left(terms, current_member):
+            last = _service_runs(terms)[-1]
+            span = f" from {last['from']}" if last["from"] else ""
+            if last["end"]:
+                span += f" to {last['end']}"
+            if chamber == "Senate":
+                return f"{name} represented {state} in the United States Senate{span}."
+            district = latest.get("district")
+            if district and str(district).lower() not in ("0", "at-large"):
+                return f"{name} represented {state}'s {_ordinal(district)} congressional district in the U.S. House of Representatives{span}."
+            return f"{name} represented {state} in the U.S. House of Representatives{span}."
         since = f", serving since {first_year}" if first_year else ""
         if chamber == "Senate":
             return f"{name} is a United States Senator from {state}{since}.".replace(" from .", ".")
@@ -484,6 +537,11 @@ class CongressService:
         elif candidacy and candidacy.get("bio"):
             detail["bio"] = candidacy["bio"]
 
+        # A curated departure (congress_profiles.json former_member) wins
+        # when the live API has not caught up yet.
+        if sidecar and sidecar.get("former_member") and not detail.get("former_member"):
+            detail["former_member"] = True
+
         # Cross-nav pointer — minimal shape; the frontend hydrates as needed
         if candidacy and not detail.get("active_candidacy"):
             detail["active_candidacy"] = {
@@ -624,7 +682,8 @@ class CongressService:
         return fallback
 
     async def _enrich_with_tenure(self, members: list) -> None:
-        """Mutates `members` adding `serving_since` (year string) where possible.
+        """Mutates `members` adding `serving_since` (year string) and, for
+        a senator appointed to a vacancy, `appointment`, where possible.
 
         Uses the all-members index, which is sourced from legislators-current.json
         and already cached.
@@ -636,8 +695,44 @@ class CongressService:
                 bg = m.get("bioguide_id")
                 if bg and bg in by_bg and not m.get("serving_since"):
                     m["serving_since"] = by_bg[bg].get("serving_since")
+                if bg and bg in by_bg and by_bg[bg].get("appointment") and not m.get("appointment"):
+                    m["appointment"] = by_bg[bg]["appointment"]
         except Exception as e:
             logger.debug(f"Tenure enrich skipped: {e}")
+
+    async def get_house_vacancies(self, state_code: str, members: list) -> list:
+        """House districts in a state with nobody seated, as numbers (0 for
+        an at-large seat). A district counts as vacant only when neither
+        the member list nor the legislators-current roster has anyone in
+        it, so a lag in one source never marks a filled seat vacant."""
+        from app.services.citizen_geo import HOUSE_SEATS
+
+        sc = (state_code or "").upper()
+        seats = HOUSE_SEATS.get(sc)
+        if not seats:
+            return []
+        expected = [0] if seats == 1 else list(range(1, seats + 1))
+
+        def held(rows) -> set:
+            out = set()
+            for r in rows or []:
+                if (r.get("chamber") or "") != "House" or (r.get("state") or sc).upper() != sc:
+                    continue
+                d = r.get("district")
+                try:
+                    out.add(0 if seats == 1 else int(d))
+                except (TypeError, ValueError):
+                    continue
+            return out
+
+        filled = held(members)
+        try:
+            roster = await self.get_all_members()
+        except Exception:
+            roster = []
+        if roster:
+            filled |= held([r for r in roster if (r.get("state") or "").upper() == sc])
+        return [d for d in expected if d not in filled]
 
     async def get_member_detail(self, bioguide_id: str) -> Optional[dict]:
         """Get detailed info for a single member. Tries API, falls back to sample data."""
@@ -649,6 +744,7 @@ class CongressService:
         # Try live API
         detail = await self._fetch_member_detail_from_api(bioguide_id)
         if detail:
+            await self._enrich_with_tenure([detail])
             annotate_selection(detail)
             self._merge_profile(detail)
             self._set_cached(cache_key, detail)
@@ -1020,6 +1116,17 @@ class CongressService:
                 )
 
                 serving_since = (terms[0].get("start") or "")[:4]  # year only
+                # A senator appointed to a vacancy: the roster's own
+                # "how": "appointment" on the current term, with its
+                # start, end and how it ends (special election or the
+                # end of the term). congress_selection reads it.
+                appointment = None
+                if latest.get("how") == "appointment":
+                    appointment = {
+                        "start": latest.get("start"),
+                        "end": latest.get("end"),
+                        "end_type": latest.get("end-type"),
+                    }
 
                 members.append({
                     "bioguide_id": bioguide,
@@ -1031,6 +1138,7 @@ class CongressService:
                     "role": role,
                     "image": _resolve_image_url(bioguide),
                     "serving_since": serving_since,
+                    **({"appointment": appointment} if appointment else {}),
                 })
             except Exception as e:
                 logger.debug(f"Skipping legislator due to parse error: {e}")
@@ -1227,7 +1335,8 @@ class CongressService:
                 roster.append({
                     "bioguide_id": bioguide,
                     "name": m.get("name") or "",
-                    "party": party_by_bg.get(bioguide) or "I",
+                    # Unknown stays unknown (no party label), never "I".
+                    "party": party_by_bg.get(bioguide) or None,
                     "state": state_by_bg.get(bioguide),
                     "title": m.get("title") or "",
                     "rank": m.get("rank"),
@@ -1848,6 +1957,7 @@ class CongressService:
 
             office = latest_term.get("officeAddress", "")
             phone = latest_term.get("officePhone", "")
+            current_member = m.get("currentMember")
 
             # Photo: prefer API-provided depiction.imageUrl when present,
             # else flow through the override resolver.
@@ -1867,12 +1977,18 @@ class CongressService:
                 "image": _resolve_image_url(bioguide_id, api_image_url),
                 "office": office or "Washington, D.C.",
                 "phone": phone or "N/A",
-                "bio": _derive_bio(name, terms),
-                "experience": _derive_experience(terms),
+                "bio": _derive_bio(name, terms, current_member),
+                "experience": _derive_experience(terms, current_member),
                 "committees": await self.get_member_committees(bioguide_id),
                 "bills": bills,
                 "votes": [],
             }
+            if _has_left(terms, current_member):
+                # Reachable from old links, follows and posts. Say plainly
+                # that this person no longer holds the seat.
+                detail["former_member"] = True
+                detail["left_office_year"] = _term_end_year(
+                    sorted(terms, key=lambda t: _term_start_year(t) or "0")[-1]) or None
 
             return detail
         except Exception as e:
@@ -1908,16 +2024,32 @@ class CongressService:
     # ------------------------------------------------------------------
     # Sample / fallback data
     # ------------------------------------------------------------------
+    @staticmethod
+    def _sample_copy(member: dict) -> dict:
+        """A copy of a sample member with its photo resolved the same way
+        as live members (API, then our override, then the mirror)."""
+        return {**member, "image": _resolve_image_url(member.get("bioguide_id"))}
+
     def _get_sample_members(self, state_code: str) -> list:
-        return self.SAMPLE_DATA.get(state_code, {}).get("congress", [])
+        return [self._sample_copy(m) for m in self.SAMPLE_DATA.get(state_code, {}).get("congress", [])]
 
     def _find_sample_member(self, bioguide_id: str) -> Optional[dict]:
         for state_data in self.SAMPLE_DATA.values():
             for member in state_data.get("congress", []):
                 if member["bioguide_id"] == bioguide_id:
-                    return member
+                    return self._sample_copy(member)
         return None
 
+    # The last-resort list when both Congress.gov and the
+    # legislators-current roster are unreachable (and the officials
+    # index's offline fallback). Rebuilt on 2026-10-15 from
+    # legislators-current.yaml: sitting members only, with the
+    # roster's own name, party, district, office and phone. It carries
+    # no bills, votes, committees or bios, because none could be
+    # sourced; the live paths fill those in. The earlier list showed
+    # Marco Rubio and Matt Gaetz as sitting members, filed Gaetz under
+    # Marjorie Taylor Greene's bioguide id and Daniel Webster under
+    # Michael Waltz's, and invented bills and votes.
     SAMPLE_DATA = {
         "FL": {
             "congress": [
@@ -1926,109 +2058,84 @@ class CongressService:
                     "name": "Rick Scott",
                     "party": "R",
                     "chamber": "Senate",
+                    "state": "FL",
                     "district": None,
                     "role": "Senator",
-                    "image": f"{IMAGE_BASE}/S001217.jpg",
-                    "office": "502 Hart Senate Office Building",
-                    "phone": "(202) 224-5274",
-                    "bio": "Rick Scott is the senior United States senator from Florida, serving since 2019. He previously served as the 45th governor of Florida from 2011 to 2019.",
-                    "committees": ["Commerce, Science & Transportation", "Armed Services", "Homeland Security"],
-                    "bills": [
-                        {"title": "SALT Cap Repeal Act", "status": "Introduced", "date": "2025-03-15"},
-                        {"title": "Florida Flood Protection Act", "status": "In Committee", "date": "2025-02-01"},
-                    ],
-                    "votes": [
-                        {"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"},
-                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
-                        {"desc": "Veterans Healthcare Expansion", "vote": "Yea", "date": "2025-01-20"},
-                    ],
+                    "office": "110 Hart Senate Office Building",
+                    "phone": "202-224-5274",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
-                    "bioguide_id": "R000595",
-                    "name": "Marco Rubio",
+                    "bioguide_id": "M001244",
+                    "name": "Ashley Moody",
                     "party": "R",
                     "chamber": "Senate",
+                    "state": "FL",
                     "district": None,
                     "role": "Senator",
-                    "image": f"{IMAGE_BASE}/R000595.jpg",
-                    "office": "284 Russell Senate Office Building",
-                    "phone": "(202) 224-3041",
-                    "bio": "Marco Rubio is the junior United States senator from Florida, serving since 2011. He was a candidate for the Republican presidential nomination in 2016.",
-                    "committees": ["Foreign Relations", "Intelligence", "Small Business"],
-                    "bills": [
-                        {"title": "China Trade Accountability Act", "status": "In Committee", "date": "2025-03-10"},
-                        {"title": "Caribbean Security Act", "status": "Introduced", "date": "2025-01-22"},
-                    ],
-                    "votes": [
-                        {"desc": "Infrastructure Investment Act", "vote": "Nay", "date": "2025-03-01"},
-                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
-                    ],
+                    "office": "387 Russell Senate Office Building",
+                    "phone": "202-224-3041",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
-                    "bioguide_id": "G000596",
-                    "name": "Matt Gaetz",
+                    "bioguide_id": "P000622",
+                    "name": "Jimmy Patronis",
                     "party": "R",
                     "chamber": "House",
+                    "state": "FL",
                     "district": 1,
                     "role": "Representative, District 1",
-                    "image": f"{IMAGE_BASE}/G000596.jpg",
-                    "office": "1728 Longworth HOB",
-                    "phone": "(202) 225-4136",
-                    "bio": "Matt Gaetz represents Florida's 1st congressional district in the United States House of Representatives, serving since 2017.",
-                    "committees": ["Armed Services", "Judiciary"],
-                    "bills": [{"title": "Fair Tax Act", "status": "Introduced", "date": "2025-02-20"}],
-                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Yea", "date": "2025-02-15"}],
+                    "office": "2021 Rayburn House Office Building",
+                    "phone": "202-225-4136",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
                     "bioguide_id": "R000609",
-                    "name": "John Rutherford",
+                    "name": "John H. Rutherford",
                     "party": "R",
                     "chamber": "House",
+                    "state": "FL",
                     "district": 5,
                     "role": "Representative, District 5",
-                    "image": f"{IMAGE_BASE}/R000609.jpg",
-                    "office": "2187 Rayburn HOB",
-                    "phone": "(202) 225-2501",
-                    "bio": "John Rutherford represents Florida's 5th congressional district, serving since 2017. He previously served as Sheriff of Jacksonville.",
-                    "committees": ["Appropriations", "Ethics"],
-                    "bills": [{"title": "Law Enforcement Officers Safety Act", "status": "In Committee", "date": "2025-03-05"}],
-                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                    "office": "1711 Longworth House Office Building",
+                    "phone": "202-225-2501",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
-                    "bioguide_id": "C001129",
+                    "bioguide_id": "F000476",
                     "name": "Maxwell Frost",
                     "party": "D",
                     "chamber": "House",
+                    "state": "FL",
                     "district": 10,
                     "role": "Representative, District 10",
-                    "image": f"{IMAGE_BASE}/C001129.jpg",
-                    "office": "1233 Longworth HOB",
-                    "phone": "(202) 225-2176",
-                    "bio": "Maxwell Frost represents Florida's 10th congressional district, the first member of Generation Z elected to Congress in 2022.",
-                    "committees": ["Oversight", "Science, Space & Technology"],
-                    "bills": [
-                        {"title": "Youth Civic Engagement Act", "status": "Introduced", "date": "2025-03-12"},
-                        {"title": "Affordable Housing Now Act", "status": "In Committee", "date": "2025-01-30"},
-                    ],
-                    "votes": [
-                        {"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"},
-                        {"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"},
-                    ],
+                    "office": "1224 Longworth House Office Building",
+                    "phone": "202-225-2176",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
-                    "bioguide_id": "W000823",
+                    "bioguide_id": "W000806",
                     "name": "Daniel Webster",
                     "party": "R",
                     "chamber": "House",
+                    "state": "FL",
                     "district": 11,
                     "role": "Representative, District 11",
-                    "image": f"{IMAGE_BASE}/W000823.jpg",
-                    "office": "2184 Rayburn HOB",
-                    "phone": "(202) 225-1002",
-                    "bio": "Daniel Webster represents Florida's 11th congressional district, serving since 2011.",
-                    "committees": ["Natural Resources", "Transportation & Infrastructure"],
-                    "bills": [{"title": "Government Spending Oversight Act", "status": "Introduced", "date": "2025-02-08"}],
-                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Yea", "date": "2025-02-15"}],
+                    "office": "2184 Rayburn House Office Building",
+                    "phone": "202-225-1002",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
             ]
         },
@@ -2039,30 +2146,28 @@ class CongressService:
                     "name": "Ted Cruz",
                     "party": "R",
                     "chamber": "Senate",
+                    "state": "TX",
                     "district": None,
                     "role": "Senator",
-                    "image": f"{IMAGE_BASE}/C001098.jpg",
-                    "office": "127A Russell SOB",
-                    "phone": "(202) 224-5922",
-                    "bio": "Ted Cruz is the senior United States senator from Texas, serving since 2013.",
-                    "committees": ["Commerce, Science & Transportation", "Judiciary", "Foreign Relations"],
-                    "bills": [{"title": "Border Security Act", "status": "In Committee", "date": "2025-03-18"}],
-                    "votes": [{"desc": "Federal Budget Resolution", "vote": "Nay", "date": "2025-02-15"}],
+                    "office": "167 Russell Senate Office Building",
+                    "phone": "202-224-5922",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
                 {
                     "bioguide_id": "C001091",
                     "name": "Joaquin Castro",
                     "party": "D",
                     "chamber": "House",
+                    "state": "TX",
                     "district": 20,
                     "role": "Representative, District 20",
-                    "image": f"{IMAGE_BASE}/C001091.jpg",
-                    "office": "2241 Rayburn HOB",
-                    "phone": "(202) 225-3236",
-                    "bio": "Joaquin Castro represents Texas's 20th congressional district, serving since 2013.",
-                    "committees": ["Foreign Affairs", "Intelligence"],
-                    "bills": [{"title": "Dream Act Reauthorization", "status": "Introduced", "date": "2025-02-14"}],
-                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                    "office": "2241 Rayburn House Office Building",
+                    "phone": "202-225-3236",
+                    "committees": [],
+                    "bills": [],
+                    "votes": [],
                 },
             ]
         },
@@ -2073,15 +2178,14 @@ class CongressService:
                     "name": "Nancy Pelosi",
                     "party": "D",
                     "chamber": "House",
+                    "state": "CA",
                     "district": 11,
                     "role": "Representative, District 11",
-                    "image": f"{IMAGE_BASE}/P000197.jpg",
-                    "office": "2371 Rayburn HOB",
-                    "phone": "(202) 225-4965",
-                    "bio": "Nancy Pelosi represents California's 11th congressional district and previously served as Speaker of the House.",
+                    "office": "1236 Longworth House Office Building",
+                    "phone": "202-225-4965",
                     "committees": [],
-                    "bills": [{"title": "Democracy Restoration Act", "status": "Introduced", "date": "2025-03-20"}],
-                    "votes": [{"desc": "Infrastructure Investment Act", "vote": "Yea", "date": "2025-03-01"}],
+                    "bills": [],
+                    "votes": [],
                 },
             ]
         },
