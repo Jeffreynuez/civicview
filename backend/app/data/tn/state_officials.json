@@ -2161,6 +2161,64 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "tn-rep-31",
+      "openstates_id": "ocd-person/7429d345-6ad7-421c-936b-3ef9755c6d1f",
+      "name": "Ron Travis",
+      "party": "R",
+      "chamber": "State House",
+      "district": "31",
+      "role": "State Representative",
+      "photo_url": "https://www.capitol.tn.gov/house/members/images/h31.jpg",
+      "served_from": "2012",
+      "served_to": null,
+      "years_source": "https://github.com/openstates/people/blob/main/data/tn/legislature/Ron-Travis-7429d345-6ad7-421c-936b-3ef9755c6d1f.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office per https://wapp.capitol.tn.gov/apps/LegislatorInfo/Member?district=H31&ga=114",
+      "successor_ids": []
+    },
+    {
+      "id": "tn-rep-84",
+      "openstates_id": "ocd-person/7a3177a1-118c-48ce-bbb8-17ebb1240e00",
+      "name": "Joe Towns",
+      "party": "D",
+      "chamber": "State House",
+      "district": "84",
+      "role": "State Representative",
+      "photo_url": "https://www.capitol.tn.gov/house/members/images/h84.jpg",
+      "served_from": "1994",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/tn/retired/Joe-Towns-Jr-7a3177a1-118c-48ce-bbb8-17ebb1240e00.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "tn-rep-93",
+      "openstates_id": "ocd-person/740ad1ee-4445-41ef-b6b9-1d31185b4916",
+      "name": "G.A. Hardaway",
+      "party": "D",
+      "chamber": "State House",
+      "district": "93",
+      "role": "State Representative",
+      "photo_url": "https://www.capitol.tn.gov/house/members/images/h93.jpg",
+      "served_from": "2007",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/tn/retired/G-A-Hardaway-740ad1ee-4445-41ef-b6b9-1d31185b4916.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "tn-rep-93-hardaway"
+      ]
+    }
+  ],
   "_retired_ids": [
     {
       "id": "tn-rep-31",

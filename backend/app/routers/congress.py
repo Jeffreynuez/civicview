@@ -3,7 +3,11 @@
 
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+
+from app.db import get_db
+from app.services import lifecycle_rosters, page_lifecycle
 from app.services.congress_service import CongressService
 
 router = APIRouter()
@@ -12,7 +16,8 @@ service = CongressService()
 
 @router.get("/members")
 async def get_members(
-    state: str = Query(..., description="Two-letter state code (e.g., FL, TX, CA)")
+    state: str = Query(..., description="Two-letter state code (e.g., FL, TX, CA)"),
+    db: Session = Depends(get_db),
 ):
     """Get all Congress members for a state."""
     state = state.upper()
@@ -20,26 +25,52 @@ async def get_members(
         raise HTTPException(status_code=400, detail="State must be a two-letter code")
 
     members = await service.get_members_by_state(state)
+    # Someone who has left office is nobody's current member, even
+    # before the roster catches up (2026-10-15); their seat reads vacant.
+    members, gone = lifecycle_rosters.filter_congress_members(members, lifecycle_rosters.departed_ids(db))
     # House districts with nobody seated (0 = an at-large seat), so the
     # map can say a seat is vacant instead of that a member is missing.
     vacant = await service.get_house_vacancies(state, members)
+    vacant = lifecycle_rosters.add_house_vacancies(vacant, gone, members)
     return {"state": state, "count": len(members), "members": members,
             "vacant_house_districts": vacant}
 
 
 @router.get("/members/all")
-async def get_all_members():
-    """Return a lightweight index of all current Congress members (for global search)."""
+async def get_all_members(db: Session = Depends(get_db)):
+    """Return a lightweight index of all current Congress members (for global search).
+
+    Former members stay findable by search until their page is archived
+    (2026-10-15): one who left before the roster caught up keeps their
+    entry with former_title set; once archived they are left out. Members
+    the roster already dropped come from /api/former/search-index."""
     members = await service.get_all_members()
+    archived = page_lifecycle.archived_keys_lower(db)
+    departed = lifecycle_rosters.departed_ids(db)
+    if archived or departed:
+        out = []
+        for m in members:
+            key = str(m.get("bioguide_id") or "").lower()
+            if key in archived:
+                continue
+            if key in departed:
+                block = page_lifecycle.lifecycle_block(db, m.get("bioguide_id")) or {}
+                m = {**m, "former_title": block.get("title")}
+            out.append(m)
+        members = out
     return {"count": len(members), "members": members}
 
 
 @router.get("/members/{bioguide_id}")
-async def get_member_detail(bioguide_id: str):
+async def get_member_detail(bioguide_id: str, db: Session = Depends(get_db)):
     """Get detailed information for a specific Congress member."""
     member = await service.get_member_detail(bioguide_id)
     if not member:
         raise HTTPException(status_code=404, detail=f"Member {bioguide_id} not found")
+    # Former members (2026-10-15): the title, dates and archive state.
+    block = page_lifecycle.lifecycle_block(db, bioguide_id)
+    if block:
+        member = {**member, "lifecycle": block, "former_member": member.get("former_member") or block.get("former")}
     # The detail payload has no `state` (the list endpoint does), so a
     # profile opened from a link knew the district number but not the
     # state, and its Bills tab could not offer state / district likes

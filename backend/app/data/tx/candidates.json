@@ -7433,7 +7433,8 @@
    "data_observed": "2026-06-04",
    "withdrawn": true,
    "withdrawn_note": "Not on the Nov 3, 2026 ballot. Brian Birdwell resigned from the Senate (Governor's proclamation of August 18, 2026), and the Secretary of State's ballot certification for Senate District 22 does not include him.",
-   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf"
+   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "ended_recorded_on": "2026-10-15"
   },
   "tx-cand-pete-flores-sd24": {
    "name": "Pete Flores",
@@ -7551,7 +7552,8 @@
    "data_observed": "2026-06-04",
    "withdrawn": true,
    "withdrawn_note": "Not on the Nov 3, 2026 ballot. Gary VanDeaver was not a candidate in the March 3, 2026 primary, and the Secretary of State's ballot certification for House District 1 does not include him.",
-   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf"
+   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "ended_recorded_on": "2026-10-15"
   },
   "tx-cand-brent-money-hd2": {
    "name": "Brent Money",
@@ -9670,7 +9672,8 @@
    "data_observed": "2026-06-04",
    "withdrawn": true,
    "withdrawn_note": "Not on the Nov 3, 2026 ballot. Nate Schatzline resigned from the House (Governor's proclamation of August 20, 2026), and the Secretary of State's ballot certification for House District 93 does not include him.",
-   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf"
+   "withdrawn_source": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
+   "ended_recorded_on": "2026-10-15"
   },
   "tx-cand-tony-tinderholt-hd94": {
    "name": "Tony Tinderholt",

@@ -37,13 +37,19 @@
  *  - Soft delete has a 30-day grace; hard delete removes everything
  *    tied to the account except the verification hash, appeals and
  *    moderation verdicts (audit B3).
+ *  - 2026-10-15 (former officials and candidates): deleting a rep or
+ *    candidate account closes it and keeps what it published (Jeffrey:
+ *    "Otherwise someone could delete their account the day before
+ *    leaving to erase what they posted in office"), and pages of
+ *    people who left office are archived, never deleted. DRAFT wording,
+ *    pending the attorney review in README task #114.
  */
 
 import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 3, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 15, 2026">
       <p>
         This policy describes what CivicView collects, why we collect it,
         who can see it, and how long we keep it. We've tried to write it in
@@ -181,7 +187,9 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Active accounts:</strong> kept indefinitely until you delete.</li>
         <li><strong>Soft-deleted accounts:</strong> kept for 30 days, then permanently purged. During the grace period you can sign back in and recover.</li>
-        <li><strong>Permanently deleted accounts:</strong> the account, your content (posts, polls you started, comments, reactions, and your answers to optional poll questions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. Your votes on other people&apos;s polls stay in their totals with no link to you. We keep three things. For verified citizens, one-way hashes of your email, your verified name and your verified street address, and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hashes are salted with our application secret, so they can&apos;t be turned back into your email, name or address even if they leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
+        <li><strong>Permanently deleted accounts:</strong> for citizen accounts, the account, your content (posts, polls you started, comments, reactions, and your answers to optional poll questions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. Your votes on other people&apos;s polls stay in their totals with no link to you. We keep three things. For verified citizens, one-way hashes of your email, your verified name and your verified street address, and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hashes are salted with our application secret, so they can&apos;t be turned back into your email, name or address even if they leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
+        <li><strong>Representative and candidate accounts:</strong> deleting one closes it; it is never emptied. You can no longer sign in, and your sign-in email, password, two-factor secret and recovery codes, your tracked and saved items, notifications and sign-in records are removed. What you published on your page (posts, polls, events, comments, likes and votes) stays on it as a public record, whether or not you are in office, so that deleting an account can never erase what was published on it.</li>
+        <li><strong>Pages of people who leave office or end a campaign:</strong> the page is kept and labeled as a former official&apos;s or former candidate&apos;s page. Six months after the person leaves office (three months after a campaign ends) it is archived: it no longer appears in search, the map, feeds or tracked lists, and stays readable by direct link. Nothing on it is deleted. Tracking of the page ends at the archive. If the person later links a citizen account, only what they choose to carry over is copied to it.</li>
         <li><strong>Sign-in records:</strong> about 90 days (older records are deleted whenever our server restarts).</li>
         <li><strong>Content hidden by moderation:</strong> stays in our database, hidden from everyone but its author, so it can be appealed and decisions can be reviewed. Reports are kept with that history.</li>
         <li><strong>Admin actions:</strong> suspensions and decisions on reports are recorded in our server logs. We don&apos;t yet keep a separate admin audit table.</li>
@@ -194,7 +202,7 @@ export default function PrivacyPage() {
           <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
           and we'll send you a copy of everything we have associated with your account within 30 days.</li>
         <li><strong>Correct your data:</strong> most fields are editable in your dashboard. For fields we control (your verification status, your bioguide_id binding, etc.), email us.</li>
-        <li><strong>Delete your account:</strong> go to <a href="/account/delete">/account/delete</a>. Two options — 30-day archive (recoverable) or immediate hard delete.</li>
+        <li><strong>Delete your account:</strong> go to <a href="/account/delete">/account/delete</a>. Two options: a 30-day archive (recoverable) or an immediate hard delete. Representative and candidate accounts are closed instead, and what was published on the page stays (see above).</li>
         <li><strong>Port your data:</strong> the access-data export above is in a portable JSON format you can re-import elsewhere.</li>
         <li><strong>Opt out of any communication:</strong> notifications can be turned off in your dashboard. Email us for any communication channels not exposed in the UI.</li>
       </ul>

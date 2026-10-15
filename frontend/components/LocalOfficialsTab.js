@@ -127,10 +127,20 @@ export default function LocalOfficialsTab({ stateCode, stateName, initialCitySlu
   const districts = useMemo(() => {
     if (!stateOfficials) return { senate: [], house: [] };
     const flatten = (group) => [...(group?.leadership || []), ...(group?.members || [])];
-    const senate = flatten(stateOfficials.state_senate)
+    // Seats nobody holds read "Vacant" (2026-10-15): someone who left
+    // office is never shown as the district's current official.
+    const vacant = (group, chamber) => (group?.vacancies || []).map((v) => ({
+      id: `vacant-${chamber}-${v.district}`,
+      district: v.district,
+      name: 'Vacant',
+      role: v.seats_vacant > 1 ? `${v.seats_vacant} seats vacant` : 'Seat vacant',
+      vacant: true,
+      chamber,
+    }));
+    const senate = [...flatten(stateOfficials.state_senate), ...vacant(stateOfficials.state_senate, 'State Senate')]
       .map((m) => ({ ...m, chamber: 'State Senate' }))
       .sort((a, b) => Number(a.district) - Number(b.district));
-    const house = flatten(stateOfficials.state_house)
+    const house = [...flatten(stateOfficials.state_house), ...vacant(stateOfficials.state_house, 'State House')]
       .map((m) => ({ ...m, chamber: 'State House' }))
       .sort((a, b) => Number(a.district) - Number(b.district));
     return { senate, house };
@@ -950,7 +960,28 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
         Districts ({filtered.length})
       </div>
       <div style={{ maxHeight: '55vh', overflowY: 'auto' }}>
-        {filtered.map((m) => (
+        {filtered.map((m) => (m.vacant ? (
+          <div
+            key={m.id}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '10px',
+              padding: '8px 10px', background: 'white', border: '1px dashed var(--cl-border)',
+              borderRadius: '10px', marginBottom: '4px',
+            }}
+          >
+            <div style={{
+              minWidth: '44px', padding: '4px 8px', borderRadius: '8px',
+              background: 'var(--cl-bg)', color: 'var(--cl-text-light)',
+              fontWeight: 800, fontSize: '0.8rem', textAlign: 'center',
+            }}>
+              #{m.district}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--cl-text-light)' }}>Vacant</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)' }}>{m.role}</div>
+            </div>
+          </div>
+        ) : (
           <button
             key={m.id}
             onClick={() => onPick({ chamber: chamber === 'senate' ? 'State Senate' : 'State House', district: m.district })}
@@ -975,7 +1006,7 @@ function DistrictsView({ districts, selected, onPick, cities, loading, stateCode
             </div>
             {m.party && <PartyPill party={m.party} />}
           </button>
-        ))}
+        )))}
         {!filtered.length && (
           <div style={{ padding: '10px 14px', color: 'var(--cl-text-light)', fontSize: '0.82rem' }}>
             No districts matched.

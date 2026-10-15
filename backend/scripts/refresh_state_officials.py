@@ -49,6 +49,18 @@ What it does, per state
   person, because posts, claimed pages, citizen polls and follows are
   keyed on it (Jeffrey, 2026-10-14). Ids that leave the roster are kept
   in the file's _retired_ids list so they are never reused.
+* The person who leaves keeps their id and moves to the file's
+  _former_members list, with the full record they had (office,
+  district, party, photo), the years they served in that seat from Open
+  States' role dates, the date this run recorded the change, and the
+  successor's id. Their old page then opens as a former official's
+  page, and the successor never inherits it: not its posts, polls,
+  followers or account (Jeffrey, 2026-10-15). This holds for statewide
+  offices too, whose first ids were named for the seat (fl-exec-gov):
+  a new governor gets fl-exec-gov-<family name>, and fl-exec-gov stays
+  with the person who held it. The day a person left is never guessed:
+  recorded_on is the day this run noticed, and left_office_on stays
+  empty until an official source gives the date.
 * A person who moved to another seat or chamber is treated the same
   way: the old id retires and the person gets a new id for the new
   seat. Their photo and photo credit come with them.
@@ -93,8 +105,10 @@ says the correction can be deleted.
 Photos must be https. An http photo is upgraded only when the https
 address serves an image; otherwise it is left out and listed. Search
 engine thumbnails are never used. After the run, if any Wikimedia photo
-changed, run scripts/build_photo_credits.py --write, then
-tests/test_data_lint.py.
+changed, run scripts/build_photo_credits.py --write. When anyone was
+added, run scripts/build_id_holders.py --write, which records whose id
+each new one is (data lint rule S-1 then stops any later hand edit from
+giving that id to someone else). Then run tests/test_data_lint.py.
 
 Needs PyYAML and httpx, both in backend/requirements.txt, and git.
 """
@@ -410,6 +424,83 @@ class PhotoChecker:
         return result
 
 
+# ── former members ───────────────────────────────────────────────────
+
+# Open States role types per chamber block (Nebraska's one chamber is
+# "legislature" and lives in state_senate).
+ROLE_TYPES = {"state_senate": {"upper", "legislature"}, "state_house": {"lower"}}
+PEOPLE_FILE_URL = "https://github.com/openstates/people/blob/main/"
+# Fields of a current record that carry over to a former record. Contact
+# details are left behind: an office email or phone reaches whoever
+# holds the seat now, not the person who left it.
+FORMER_KEEP = ("id", "openstates_id", "name", "party", "chamber", "district", "role",
+               "office", "photo_url", "photo_source", "photo_credit", "photo_source_url")
+
+
+def _date(value: object) -> dt.date | None:
+    try:
+        return dt.date.fromisoformat(str(value or "")[:10])
+    except ValueError:
+        return None
+
+
+def service_years(person: dict | None, *, chamber: str | None = None, district: object = None,
+                  exec_type: str | None = None) -> tuple[str | None, str | None]:
+    """(first year, last year) of the person's unbroken service in one
+    seat, from Open States role dates. Either can be None when Open
+    States has no date. A role that starts within a month of the end of
+    the one before it (or overlaps it) continues the same stretch of
+    service. Roles whose end comes before their start are errors in the
+    archive and are ignored."""
+    if not person:
+        return None, None
+    roles = person.get("roles") or []
+    if exec_type:
+        match = [r for r in roles if r.get("type") == exec_type]
+    else:
+        types = ROLE_TYPES.get(chamber or "", set())
+        match = [r for r in roles if r.get("type") in types and str(r.get("district")) == str(district)]
+    spans = []
+    for r in match:
+        start, end = _date(r.get("start_date")), _date(r.get("end_date"))
+        if start and end and end < start:
+            continue
+        spans.append((start, end))
+    if not spans:
+        return None, None
+    spans.sort(key=lambda se: (se[0] or dt.date.min, se[1] or dt.date.max))
+    run = [spans[-1]]
+    for start, end in reversed(spans[:-1]):
+        nxt = run[0][0]
+        if end is None or nxt is None or (nxt - end).days > 31:
+            break
+        run.insert(0, (start, end))
+    first, last = run[0][0], run[-1][1]
+    return (str(first.year) if first else None), (str(last.year) if last else None)
+
+
+def former_record(record: dict, person: dict | None, *, recorded_on: str, reason: str,
+                  chamber: str | None = None, exec_type: str | None = None) -> dict:
+    """The _former_members entry for someone who left a seat: their own
+    record as it stood, plus when we noticed and the years they served.
+    left_office_on stays None: only an official source fills it."""
+    rec = {k: record[k] for k in FORMER_KEEP if k in record}
+    start, end = service_years(person, chamber=chamber, district=record.get("district"),
+                               exec_type=exec_type)
+    rec["served_from"] = start
+    rec["served_to"] = end
+    rec["years_source"] = (PEOPLE_FILE_URL + person["_file"]) if person and person.get("_file") and start else None
+    rec["left_office_on"] = None
+    rec["left_office_source"] = None
+    rec["recorded_on"] = recorded_on
+    rec["reason"] = reason
+    rec["successor_ids"] = []
+    moved = re.match(r"moved to (\S+)$", reason or "")
+    if moved:
+        rec["now_id"] = moved.group(1)
+    return rec
+
+
 # ── the refresh ──────────────────────────────────────────────────────
 
 class Report:
@@ -505,6 +596,8 @@ class StateRefresher:
         retired = doc.get("_retired_ids") or []
         self.retired_ids = {r["id"] for r in retired if isinstance(r, dict) and r.get("id")}
         self.retired_out: list[dict] = list(retired)
+        self.former_out: list[dict] = list(doc.get("_former_members") or [])
+        self.former_new: list[tuple[dict, str | None]] = []
         self.all_ids = self._collect_ids()
         # (chamber, district) -> names of members who left that seat in this run
         self.vacated: dict[tuple[str, str], list[str]] = defaultdict(list)
@@ -563,13 +656,22 @@ class StateRefresher:
         self.all_ids.add(candidate)
         return candidate
 
-    def retire(self, record: dict, reason: str) -> None:
+    def retire(self, record: dict, reason: str, *, chamber: str | None = None,
+               exec_type: str | None = None, successor_id: str | None = None) -> None:
         entry = {"id": record["id"], "name": record.get("name"), "retired_on": self.today,
                  "reason": reason}
         if record.get("openstates_id"):
             entry["openstates_id"] = record["openstates_id"]
         self.retired_out.append(entry)
         self.retired_ids.add(record["id"])
+        # The person keeps their id as a former official's page.
+        person = self.people.get(record.get("openstates_id") or "")
+        former = former_record(record, person, recorded_on=self.today, reason=reason,
+                               chamber=chamber, exec_type=exec_type)
+        if successor_id:
+            former["successor_ids"] = [successor_id]
+        self.former_out.append(former)
+        self.former_new.append((former, chamber))
 
     # legislators ----------------------------------------------------
     def chamber_labels(self, chamber: str) -> tuple[str, str]:
@@ -778,7 +880,7 @@ class StateRefresher:
                 else:
                     fix = next((c for c in self.left_office if c.get("openstates_id") == ocd_id), None)
                     self.retire(m, f"left office per {fix['source_url']}" if fix
-                                else "left office (no longer listed by Open States)")
+                                else "left office (no longer listed by Open States)", chamber=chamber)
                     self.vacated[(chamber, str(m.get("district")))].append(m.get("name"))
                     self.report.removed.append(f"{m['id']} ({m.get('name')}): left office")
 
@@ -791,8 +893,8 @@ class StateRefresher:
             person = self.apply_name(person)
             rec = self.new_member(person, chamber, district, carry=old)
             if old:
-                self.retire(old, f"moved to {rec['id']}")
                 old_chamber = "state_senate" if old in self._original_members["state_senate"] else "state_house"
+                self.retire(old, f"moved to {rec['id']}", chamber=old_chamber)
                 self.vacated[(old_chamber, str(old.get("district")))].append(old.get("name"))
                 self.report.changed.append(
                     f"{old['id']} -> {rec['id']} ({person['name']}): district "
@@ -943,7 +1045,8 @@ class StateRefresher:
             else:
                 rec = self.new_exec(self.apply_name(person), slot, label, stem)
                 if ours:
-                    self.retire(ours, f"officeholder changed to {rec['id']}")
+                    self.retire(ours, f"officeholder changed to {rec['id']}", exec_type=rtype,
+                                successor_id=rec["id"])
                     self.report.removed.append(f"{ours['id']} ({ours.get('name')}): no longer {label}")
                     self.report.unverified.append(
                         f"{rec['id']} ({rec['name']}): new {label}. Confirm on the official state "
@@ -1003,9 +1106,26 @@ class StateRefresher:
             ch: list((self.doc.get(ch) or {}).get("members") or []) for ch in ("state_senate", "state_house")}
         self.refresh_legislature()
         self.refresh_executive()
+        self.fill_successors()
+        if self.former_out:
+            self.doc["_former_members"] = self.former_out
         if self.retired_out:
             self.doc["_retired_ids"] = self.retired_out
         return self.doc
+
+    def fill_successors(self) -> None:
+        """A legislator who left gets the ids of the people who took up
+        their district in this run (none for a vacant seat)."""
+        original = {m.get("id") for ch in self._original_members.values() for m in ch}
+        for former, chamber in self.former_new:
+            if former["successor_ids"] or not chamber:
+                continue
+            district = str(former.get("district"))
+            former["successor_ids"] = [
+                m["id"] for m in (self.doc.get(chamber) or {}).get("members") or []
+                if str(m.get("district")) == district and m.get("id") not in original
+                and m.get("openstates_id") != former.get("openstates_id")
+            ]
 
 
 def dump(doc: dict) -> str:
@@ -1013,13 +1133,15 @@ def dump(doc: dict) -> str:
 
 
 def order_keys(doc: dict) -> dict:
-    """Keep the file's top-level key order: _refresh after _source, and
-    _retired_ids last."""
+    """Keep the file's top-level key order: _refresh after _source, then
+    _former_members and _retired_ids last."""
     head = ["_note", "_source", "_refresh", "state", "state_name"]
+    tail = ["_former_members", "_retired_ids"]
     out = {k: doc[k] for k in head if k in doc}
-    out.update({k: v for k, v in doc.items() if k not in out and k != "_retired_ids"})
-    if "_retired_ids" in doc:
-        out["_retired_ids"] = doc["_retired_ids"]
+    out.update({k: v for k, v in doc.items() if k not in out and k not in tail})
+    for k in tail:
+        if k in doc:
+            out[k] = doc[k]
     return out
 
 

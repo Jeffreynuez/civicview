@@ -1,7 +1,11 @@
 # CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 # Proprietary and confidential. See LICENSE at the repository root.
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+
+from app.db import get_db
+from app.services import lifecycle_rosters
 from app.services.geocode_service import GeocodeService
 from app.services.congress_service import CongressService
 from app.services import google_civic_service as google_civic
@@ -21,6 +25,7 @@ async def lookup_address(
             "or just a city / town name."
         ),
     ),
+    db: Session = Depends(get_db),
 ):
     """
     Resolve an address-or-place query to:
@@ -54,6 +59,9 @@ async def lookup_address(
 
     # Step 2: Get Congress members for the state
     members = await congress.get_members_by_state(state_code)
+    # Nobody who has left office is anyone's current official
+    # (2026-10-15), even before the roster refresh drops them.
+    members, gone = lifecycle_rosters.filter_congress_members(members, lifecycle_rosters.departed_ids(db))
 
     # Step 3: Find the specific district representative
     my_rep = None
@@ -78,6 +86,7 @@ async def lookup_address(
     representative_vacant = False
     if my_rep is None and district:
         vacant = await congress.get_house_vacancies(state_code, members)
+        vacant = lifecycle_rosters.add_house_vacancies(vacant, gone, members)
         try:
             district_num = 0 if district == "At-Large" else int(district)
             representative_vacant = district_num in vacant

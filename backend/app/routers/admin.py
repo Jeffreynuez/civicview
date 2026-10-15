@@ -29,7 +29,7 @@ from datetime import datetime
 from typing import Any, List, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
@@ -976,229 +976,16 @@ def list_suspended_users(
     return SuspendedUserListResponse(items=out[:200])
 
 
-# ── Election-win promotion (Phase 5 scaffold) ─────────────────────────
-# Promote a CandidateAccount to a RepAccount per the identity-model
-# spec's "promote in place" decision. Schema-wise we have separate
-# candidate_accounts and rep_accounts tables, so "promote in place"
-# is implemented as:
-#   1. Create a new RepAccount with the candidate's identity (email,
-#      display_name, geography) + the official_id their new office is
-#      keyed on (bioguide_id for federal, state seed id for state, etc.).
-#   2. Migrate every Post / PostReaction / PostComment / CommentReaction
-#      / PollVote / PollComment row from the candidate authorship to
-#      the new rep authorship.
-#   3. Re-key those rows' official_id from candidate_id → new
-#      official_id so the page surface shows the same content under
-#      the rep page URL.
-#   4. Archive the candidate account (is_active=False, suspended_at
-#      stamped with reason 'promoted_to_rep') so the candidate can
-#      no longer log in.
-#   5. Archive the OLD rep on this official_id, if any (the defeated
-#      incumbent), with reason 'defeated_in_election'.
-#
-# Important caveats — this scaffold is intentionally narrow:
-#   • The new RepAccount's password is supplied by the admin. A real
-#     onboarding flow would email the new rep a setup link; that's
-#     deferred to a later phase.
-#   • We don't migrate uploaded images (PostImage.uploader_candidate_id
-#     → uploader_id). The Post rows reference the images correctly via
-#     post_id, so they still render — the ownership trail just keeps
-#     pointing at the archived candidate account. Acceptable for the
-#     historical record.
-#   • This is an irreversible action. Admins should run it once the
-#     election has been certified, not before.
-
-class PromoteCandidateRequest(BaseModel):
-    """Admin payload to promote a candidate to a rep account."""
-    new_official_id: str = Field(..., min_length=1, max_length=64)
-    new_role: Optional[str] = Field(default=None, max_length=64)
-    new_password: str = Field(..., min_length=8, max_length=256)
-
-
-class PromoteCandidateResponse(BaseModel):
-    ok: bool = True
-    candidate_id: int
-    new_rep_account_id: int
-    new_official_id: str
-    defeated_rep_account_id: Optional[int] = None
-    migrated: dict = Field(default_factory=dict)
-
-
-@router.post(
-    "/candidates/{candidate_db_id}/promote",
-    response_model=PromoteCandidateResponse,
-)
-def promote_candidate(
-    candidate_db_id: int,
-    payload: PromoteCandidateRequest,
-    db: Session = Depends(get_db),
-    _actor: dict = Depends(get_current_admin),
-) -> PromoteCandidateResponse:
-    """Promote a CandidateAccount to a RepAccount. See module-level
-    comment for the lifecycle + caveats."""
-    from datetime import datetime
-    from app.auth import hash_password
-    from app.models.pages import (
-        PostReaction, PostComment, CommentReaction, PollVote, PollComment,
-    )
-
-    candidate = db.get(CandidateAccount, candidate_db_id)
-    if candidate is None or not candidate.is_active:
-        raise HTTPException(status_code=404, detail="Candidate account not found.")
-    if candidate.claim_status != "active":
-        raise HTTPException(
-            status_code=400,
-            detail="Only active candidates can be promoted. Approve the claim first.",
-        )
-
-    new_official_id = payload.new_official_id.strip()
-    if not new_official_id:
-        raise HTTPException(status_code=400, detail="new_official_id is required.")
-
-    # Email collision check — a rep account already exists for some
-    # other candidate's email? Refuse, the admin needs to manually
-    # resolve before promoting.
-    existing_email = (
-        db.query(RepAccount).filter(RepAccount.email == candidate.email).first()
-    )
-    if existing_email is not None and existing_email.official_id != new_official_id:
-        raise HTTPException(
-            status_code=409,
-            detail=(
-                f"A rep account already exists with email {candidate.email!r} "
-                f"under official_id {existing_email.official_id!r}. Resolve "
-                "manually before promoting."
-            ),
-        )
-
-    # If a rep account already holds this official_id, that's the
-    # defeated incumbent — archive them with a clear reason.
-    defeated_rep = (
-        db.query(RepAccount)
-        .filter(RepAccount.official_id == new_official_id, RepAccount.suspended_at.is_(None))
-        .first()
-    )
-    defeated_rep_id: Optional[int] = None
-    if defeated_rep is not None:
-        defeated_rep.suspended_at = datetime.utcnow()
-        defeated_rep.suspended_reason = "defeated_in_election"
-        defeated_rep.is_active = False
-        defeated_rep_id = defeated_rep.id
-
-    # Mint the new rep account. We do NOT reuse the defeated rep's
-    # row even when one existed — a fresh row keeps the audit trail
-    # readable and avoids accidentally inheriting suspended state.
-    # Scope fields carry over from the candidate account. When the
-    # candidate had none, fall back to the curated officials index for
-    # the seat they now hold, so the new rep's State / District
-    # filters work from day one (2026-10-03).
-    new_state, new_district = candidate.owner_state, candidate.owner_district
-    if not new_state or not new_district:
-        from app.services.officials_index import owner_scope_fallback
-        geo_state, geo_district = owner_scope_fallback(new_official_id)
-        new_state = new_state or geo_state
-        if not new_district and geo_district and new_state and geo_district.startswith(f"{new_state}-"):
-            new_district = geo_district
-    new_rep = RepAccount(
-        email=candidate.email,
-        password_hash=hash_password(payload.new_password),
-        display_name=candidate.display_name,
-        official_id=new_official_id,
-        role=(payload.new_role or "").strip() or None,
-        owner_state=new_state,
-        owner_district=new_district,
-        owner_city=candidate.owner_city,
-        is_active=True,
-    )
-    db.add(new_rep)
-    db.flush()  # populate new_rep.id
-
-    # Migration sweep — re-attribute every authored row and re-key
-    # official_id from candidate_id → new_official_id. We touch each
-    # engagement table independently so a malformed row in one
-    # doesn't block the others. Rows are tagged on author_candidate_id
-    # so the WHERE-clause is selective.
-    migrated = {}
-    migrated["posts"] = (
-        db.query(Post)
-        .filter(Post.author_candidate_id == candidate.id)
-        .update(
-            {Post.author_id: new_rep.id, Post.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-    # Re-key the page's official_id on all of THIS candidate's posts
-    # (which now belong to the new rep account).
-    db.query(Post).filter(
-        Post.author_id == new_rep.id,
-        Post.official_id == candidate.candidate_id,
-    ).update({Post.official_id: new_official_id}, synchronize_session=False)
-    migrated["post_reactions"] = (
-        db.query(PostReaction)
-        .filter(PostReaction.author_candidate_id == candidate.id)
-        .update(
-            {PostReaction.author_rep_id: new_rep.id, PostReaction.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-    migrated["post_comments"] = (
-        db.query(PostComment)
-        .filter(PostComment.author_candidate_id == candidate.id)
-        .update(
-            {PostComment.author_rep_id: new_rep.id, PostComment.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-    migrated["comment_reactions"] = (
-        db.query(CommentReaction)
-        .filter(CommentReaction.author_candidate_id == candidate.id)
-        .update(
-            {CommentReaction.author_rep_id: new_rep.id, CommentReaction.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-    migrated["poll_votes"] = (
-        db.query(PollVote)
-        .filter(PollVote.author_candidate_id == candidate.id)
-        .update(
-            {PollVote.author_rep_id: new_rep.id, PollVote.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-    migrated["poll_comments"] = (
-        db.query(PollComment)
-        .filter(PollComment.author_candidate_id == candidate.id)
-        .update(
-            {PollComment.author_rep_id: new_rep.id, PollComment.author_candidate_id: None},
-            synchronize_session=False,
-        )
-    )
-
-    # Archive the candidate account so they can no longer log in
-    # through the candidate-auth path. The archived row stays in the
-    # admin queue for historical reference.
-    candidate.is_active = False
-    candidate.suspended_at = datetime.utcnow()
-    candidate.suspended_reason = "promoted_to_rep"
-
-    db.commit()
-    db.refresh(new_rep)
-
-    logger.info(
-        "Promoted candidate %s (db id %d) → rep %s (new db id %d). "
-        "Migrated: %r. Defeated incumbent rep id: %s.",
-        candidate.candidate_id, candidate.id,
-        new_rep.official_id, new_rep.id,
-        migrated, defeated_rep_id,
-    )
-    return PromoteCandidateResponse(
-        ok=True,
-        candidate_id=candidate.id,
-        new_rep_account_id=new_rep.id,
-        new_official_id=new_rep.official_id,
-        defeated_rep_account_id=defeated_rep_id,
-        migrated=migrated,
-    )
+# ── Election-win hand-off ─────────────────────────────────────────────
+# The Phase 5 "promote" scaffold that lived here (POST
+# /candidates/{id}/promote) was removed on 2026-10-15. It moved a
+# winner's campaign posts onto the official page and suspended the
+# incumbent's account, which goes against the decisions for former
+# officials and candidates: the campaign page is archived with its posts
+# on it, and a person who leaves office keeps a Former page. It also
+# could not have run (official_id is unique on rep_accounts). Nothing
+# called it. The hand-off now lives at POST
+# /api/admin/transitions/handoff (routers/admin_transitions.py).
 
 
 # ── Lockout management (Task #56 revision) ───────────────────────────

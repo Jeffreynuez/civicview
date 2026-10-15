@@ -64,6 +64,9 @@ export default function CitizenPollsSection({
   isOwner,
   pageClaimed,
   onCitizenLoginRequired,
+  // An archived page (2026-10-15) takes no new citizen polls; the ones
+  // already there stay readable with their results.
+  pageArchived = false,
 }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -203,7 +206,7 @@ export default function CitizenPollsSection({
   // subscriber-tier action (subject to the 1-per-page rule).
   // Rep owners on a claimed page see only the archive (active is empty
   // post-claim).
-  const canCreate = isCitizen && !pageClaimed && !data?.caller_has_active_poll
+  const canCreate = isCitizen && !pageClaimed && !pageArchived && !data?.caller_has_active_poll
     && (data?.active_count || 0) < (data?.active_cap || 20);
 
   // Suppress the whole section on a claimed page with no pre-claim

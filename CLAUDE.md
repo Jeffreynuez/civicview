@@ -286,6 +286,88 @@ production by accident.
   the sign-in email plus a set-password link (never the password) to
   the contact address, and Forgot password accepts that address.
 
+## Former officials and candidates (settled 2026-10-15, durable)
+
+Jeffrey's principle: former officials "are considered just citizens if
+they are not in office, so it would seem like they have special
+privileges just because they served." The same rules and wording apply
+to every official and candidate, whatever the party. "Nothing is ever
+deleted by this feature. Archive means frozen and hidden from
+discovery, still readable by direct link." Code:
+`services/page_lifecycle.py` (stages, titles, every permission check),
+`services/page_lifecycle_job.py` (the daily notices), admin tab
+Transitions (`routers/admin_transitions.py`).
+
+- **Leaving office.** The page becomes "Former" the day the person
+  leaves, titled like "Former State Senator, Ohio District 1 (2019 to
+  2027)". Every official privilege ends that day (polls, events,
+  liking, voting or commenting as the official); their own polls close
+  to new votes and the results stay visible. A 30-day farewell window
+  allows posts only; after it the page is read-only. Citizens keep
+  commenting, liking and voting on the page, and citizen polls about
+  them stay open, until the archive.
+- **Archive.** Six months after leaving office (three months after a
+  campaign ends): frozen; out of search, the map, feeds, suggestions
+  and tracked lists; readable by direct link with an Archived banner;
+  reports still work, because reports are the only way content comes
+  down. Nothing is deleted.
+- **Nobody's current official.** From the day someone leaves, they never
+  appear as anyone's current official (address lookup, map, officials
+  lists): the successor or "Vacant" shows instead. Until the archive
+  they are still found by search and direct link, with the Former
+  label. No new tracking from the day they leave; existing tracking
+  continues until the archive, then ends.
+- **Notices.** To the person (in-app, plus email where there is one): on
+  leaving, 30 days before the archive, at the archive. One notice to
+  each tracker, with a button to follow whoever replaced them, on
+  unclaimed pages too. The ID.me sentence must be true before ID.me is
+  live ("verify it once ID.me verification opens"). A first run never
+  sends a backlog: for anything already past, only the one notice that
+  fits today's stage, once.
+- **Carried to a citizen account, each only by opt-in from the former
+  account's dashboard:** their own name, for their own citizen account
+  only, matched by ID.me's verified legal name and still reserved
+  against everyone else (a nickname, Chuck and Charles, goes to Jeffrey
+  in admin to approve with a source, after ID.me verification); a copy
+  of tracked items, saved posts and notification settings; an optional
+  "Served as" line, generated from our records, plain text, no badge,
+  removable any time. Not carried: followers, any title or badge, any
+  shortcut past verification. The citizen card shows "nothing about a
+  citizen that isn't already public today": the name and the Served as
+  line only.
+- **Candidates who lose or withdraw:** the same steps on a shorter
+  clock: 30-day farewell from certification (or the withdrawal date),
+  "Former candidate for Governor of Florida (2026)" (titles name the
+  state), archive 3 months after.
+- **Winners:** "Official-elect" until sworn in, then the official page
+  through a hand-off Jeffrey approves in admin; the campaign page is
+  archived with a link both ways, and its followers get one "Follow in
+  office" notice. Re-elected incumbents get no "-elect" label and no
+  hand-off; their campaign page is archived 3 months after
+  certification with a link to the official page, and its followers get
+  the same notice. An incumbent who loses becomes Former on the day the
+  term ends, not on certification; their campaign page follows the
+  candidate clock.
+- **Dates come from official sources only** (for the Florida primary,
+  the Division of Elections or the Elections Canvassing Commission,
+  not news). A "recorded on" date must never read as the day they left.
+- **Unclaimed pages** get the same labels and timing from the data; only
+  the notices to the person are skipped.
+- **Deleting a rep or candidate account closes it**, in office or
+  former: "Otherwise someone could delete their account the day before
+  leaving to erase what they posted in office." Sign-in and private
+  lists go; what they published stays. Citizen account deletion is
+  unchanged.
+- **Ids are pages (the seat-id rule).** When the person in any seat
+  changes, the successor never inherits the predecessor's page, posts,
+  polls, followers or account: the outgoing person keeps the id as
+  their former record (`_former_members`), the newcomer gets a new id
+  (`scripts/refresh_state_officials.py`). `app/data/id_holders.json`
+  records who holds each id; data lint S-1 and S-2 enforce it.
+- **Admin** sets a left-office date or race result with a source, sees
+  the schedule, and every change records who and when. No delete
+  buttons.
+
 ## The "Act as" multi-identity pattern (foundational)
 
 When a viewer is signed in to 2+ identities (citizen + rep + candidate)

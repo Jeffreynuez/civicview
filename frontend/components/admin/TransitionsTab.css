@@ -1,0 +1,159 @@
+/* CivicView. Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
+/* Admin Transitions tab (2026-10-15). Builds on admin.css classes. */
+
+.tr-root {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tr-card {
+  border: 1px solid var(--cl-border);
+  border-radius: 12px;
+  background: white;
+  padding: 12px 14px;
+}
+
+.tr-card > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tr-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px 14px;
+  margin-top: 12px;
+}
+
+.tr-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cl-text-light);
+}
+
+.tr-form input,
+.tr-form select,
+.tr-toolbar input,
+.tr-toolbar select,
+.tr-review input {
+  padding: 7px 9px;
+  border: 1px solid var(--cl-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--cl-text);
+  min-width: 0;
+}
+
+.tr-form .tr-check {
+  flex-direction: row;
+  align-items: center;
+}
+
+.tr-form .tr-wide {
+  grid-column: 1 / -1;
+}
+
+.tr-actions {
+  grid-column: 1 / -1;
+}
+
+.tr-hint,
+.tr-sub {
+  font-size: 0.75rem;
+  color: var(--cl-text-light);
+}
+
+.tr-notice {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--cl-accent-soft, #e6f4ea);
+  font-size: 0.85rem;
+}
+
+.tr-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tr-search {
+  flex: 1 1 200px;
+}
+
+.tr-today {
+  font-size: 0.78rem;
+  color: var(--cl-text-light);
+}
+
+.tr-row {
+  cursor: pointer;
+}
+
+.tr-name {
+  font-weight: 700;
+}
+
+.tr-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.tr-h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.tr-h4 {
+  margin: 12px 0 6px;
+  font-size: 0.85rem;
+}
+
+.tr-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.tr-dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.tr-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tr-history {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.8rem;
+}
+
+.tr-history pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.72rem;
+  background: var(--cl-bg, #f7f7f8);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.tr-review {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--cl-border);
+  font-size: 0.82rem;
+}

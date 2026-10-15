@@ -1651,6 +1651,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "co-rep-32",
+      "openstates_id": "ocd-person/ce4bd827-c1bc-4736-a580-f4f0215e727d",
+      "name": "Manny Rutinel",
+      "party": "D",
+      "chamber": "State House",
+      "district": "32",
+      "role": "State Representative",
+      "photo_url": "https://leg.colorado.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBelZUQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef4c74094f42d481f610cc35459aa4ca3a78b6eb/Rutinel,%20Manny.jpg",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/co/retired/Manny-Rutinel-ce4bd827-c1bc-4736-a580-f4f0215e727d.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "co-rep-32",

@@ -430,7 +430,9 @@ _POLL_AUTHOR_RE = re.compile(r"@(\w+)")
 
 def _load_active_polls(db: Session, kind: Optional[str]):
     """Active polls only. The kind filter mirrors /api/feed/polls."""
-    q = db.query(Poll).filter(Poll.archived_at.is_(None))
+    from app.routers.feed import _poll_not_archived
+    # Archived pages are off every feed, this filter's corpus included.
+    q = db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_not_archived(db))
     if kind == "rep":
         q = q.filter(Poll.author_kind == "rep")
     elif kind == "citizen":

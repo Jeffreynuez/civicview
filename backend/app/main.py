@@ -39,6 +39,8 @@ from app.routers import (
     feed as feed_router,
     ai as ai_router,
     admin as admin_router,
+    admin_transitions as admin_transitions_router,
+    former as former_router,
     appeals as appeals_router,
     bills as bills_router,
     bill_reactions as bill_reactions_router,
@@ -419,7 +421,15 @@ app.include_router(waitlist_router.router, prefix="/api/waitlist", tags=["Pages 
 app.include_router(feed_router.router, prefix="/api/feed", tags=["Pages — Home Feed"])
 app.include_router(activity_router.router, prefix="/api/activity", tags=["Pages — Activity Archive"])
 app.include_router(ai_router.router, prefix="/api/ai", tags=["AI"])
+# Former officials and candidates (2026-10-15): the admin Transitions
+# tab, mounted before the general admin router so its paths win.
+app.include_router(admin_transitions_router.router, prefix="/api/admin/transitions",
+                   tags=["Admin: transitions"])
 app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
+# The former account's dashboard (link a citizen account, opt-ins), the
+# public citizen card with its Served as line, and former members for
+# search. Personal, so never edge-cached.
+app.include_router(former_router.router, prefix="/api/former", tags=["Former officials"])
 # Appeals router declares its own paths under /api/appeals AND
 # /api/me/appeals AND /api/admin/appeals/... so we mount with
 # prefix="/api" rather than baking the segmentation into one prefix.

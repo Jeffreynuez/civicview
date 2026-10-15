@@ -53,6 +53,7 @@ from app.models.pages import (
     TrackedElection,
     TrackedOfficial,
 )
+from app.services import page_lifecycle
 from app.schemas.pages import (
     FeaturedTrackedMap,
     FeaturedTrackedSet,
@@ -136,13 +137,34 @@ def _bill_to_read(row: TrackedBill) -> TrackedBillRead:
     )
 
 
-def _official_to_read(row: TrackedOfficial) -> TrackedOfficialRead:
+def _official_to_read(row: TrackedOfficial, db: Optional[Session] = None) -> TrackedOfficialRead:
+    block = page_lifecycle.lifecycle_block(db, row.official_key) if db is not None else None
     return TrackedOfficialRead(
         official_key=row.official_key,
         snapshot=_loads(row.snapshot_json),
         prefs=_loads(row.prefs_json),
         followed_at=row.followed_at,
+        lifecycle=block if block and block.get("title") else None,
     )
+
+
+def _live_officials(db: Session, kind: str, tid: int) -> list[TrackedOfficial]:
+    """Tracked officials still being tracked: tracking ends when a page
+    is archived (2026-10-15). The daily job stamps ended_at on the row;
+    the archived check also covers the hours before it runs. Ended rows
+    stay in the table."""
+    archived = page_lifecycle.archived_keys_lower(db)
+    rows = (
+        db.query(TrackedOfficial)
+        .filter(
+            TrackedOfficial.tracker_kind == kind,
+            TrackedOfficial.tracker_id == tid,
+            TrackedOfficial.ended_at.is_(None),
+        )
+        .order_by(TrackedOfficial.followed_at.desc())
+        .all()
+    )
+    return [r for r in rows if (r.official_key or "").lower() not in archived]
 
 
 def _election_to_read(row: TrackedElection) -> TrackedElectionRead:
@@ -170,6 +192,12 @@ def _featured_map(db: Session, kind: str, tid: int) -> FeaturedTrackedMap:
         .all()
     )
     by_cat = {r.category: r.item_key for r in rows}
+    # A pinned official or candidate whose page was archived is no
+    # longer tracked, so it is no longer featured either (the row stays).
+    archived = page_lifecycle.archived_keys_lower(db)
+    for cat in ("representative", "candidate"):
+        if (by_cat.get(cat) or "").lower() in archived:
+            by_cat[cat] = None
     return FeaturedTrackedMap(
         representative=by_cat.get("representative"),
         candidate=by_cat.get("candidate"),
@@ -202,15 +230,7 @@ def list_all_tracked(
         .order_by(TrackedBill.tracked_at.desc())
         .all()
     )
-    officials = (
-        db.query(TrackedOfficial)
-        .filter(
-            TrackedOfficial.tracker_kind == kind,
-            TrackedOfficial.tracker_id == tid,
-        )
-        .order_by(TrackedOfficial.followed_at.desc())
-        .all()
-    )
+    officials = _live_officials(db, kind, tid)
     elections = (
         db.query(TrackedElection)
         .filter(
@@ -222,7 +242,7 @@ def list_all_tracked(
     )
     return TrackedListResponse(
         bills=[_bill_to_read(r) for r in bills],
-        officials=[_official_to_read(r) for r in officials],
+        officials=[_official_to_read(r, db) for r in officials],
         elections=[_election_to_read(r) for r in elections],
         featured=_featured_map(db, kind, tid),
     )
@@ -431,16 +451,7 @@ def list_tracked_officials(
     if pair is None:
         return []
     kind, tid = pair
-    rows = (
-        db.query(TrackedOfficial)
-        .filter(
-            TrackedOfficial.tracker_kind == kind,
-            TrackedOfficial.tracker_id == tid,
-        )
-        .order_by(TrackedOfficial.followed_at.desc())
-        .all()
-    )
-    return [_official_to_read(r) for r in rows]
+    return [_official_to_read(r, db) for r in _live_officials(db, kind, tid)]
 
 
 @router.post("/officials", response_model=TrackedOfficialRead)
@@ -468,6 +479,20 @@ def track_official(
         )
         .one_or_none()
     )
+    if existing is None or existing.ended_at is not None:
+        # No new tracking from the day someone leaves office or a
+        # campaign ends; existing tracking continues until the archive.
+        refusal = page_lifecycle.tracking_refusal(db, key)
+        if refusal is not None:
+            raise HTTPException(
+                status_code=refusal.status_code,
+                detail={"code": refusal.code, "message": refusal.message},
+            )
+    if existing is not None and existing.ended_at is not None:
+        # Tracking had ended at an archive that was later undone by a
+        # corrected date: pick it up again on the same row.
+        existing.ended_at = None
+        existing.ended_reason = None
     if existing is None:
         row = TrackedOfficial(
             tracker_kind=kind,
@@ -479,14 +504,14 @@ def track_official(
         db.add(row)
         db.commit()
         db.refresh(row)
-        return _official_to_read(row)
+        return _official_to_read(row, db)
 
     existing.snapshot_json = _dumps(body.snapshot)
     if body.prefs is not None:
         existing.prefs_json = _dumps(body.prefs)
     db.commit()
     db.refresh(existing)
-    return _official_to_read(existing)
+    return _official_to_read(existing, db)
 
 
 @router.delete("/officials/{official_key}")
@@ -541,7 +566,7 @@ def patch_official_prefs(
     row.prefs_json = _dumps(merged)
     db.commit()
     db.refresh(row)
-    return _official_to_read(row)
+    return _official_to_read(row, db)
 
 
 # ── Elections ────────────────────────────────────────────────────────

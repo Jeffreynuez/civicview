@@ -2291,6 +2291,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "va-rep-20",
+      "openstates_id": "ocd-person/47e6d456-740e-4707-ae93-4b6efe8c0ce1",
+      "name": "Michelle Maldonado",
+      "party": "D",
+      "chamber": "House of Delegates",
+      "district": "20",
+      "role": "Delegate",
+      "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michelle-Maldonado.jpg",
+      "served_from": "2024",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/va/retired/Michelle-E-Maldonado-47e6d456-740e-4707-ae93-4b6efe8c0ce1.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "va-rep-20",

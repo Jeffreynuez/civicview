@@ -47,6 +47,12 @@ function transformMember(m) {
     // (resigned, died, moved to another office); profiles say so.
     former_member: !!m.former_member,
     left_office_year: m.left_office_year || null,
+    // Former officials (2026-10-15): stage, "Former ..." title, dates
+    // and archive state from the backend (services/page_lifecycle.py).
+    lifecycle: m.lifecycle || null,
+    // Set on the search index for a member who left office before the
+    // roster caught up; searchable with this label until the archive.
+    former_title: m.former_title || null,
     recentBills: (m.bills || m.recentBills || []).map((b) => ({
       title: b.title,
       status: b.status || 'Introduced',
@@ -321,6 +327,7 @@ export async function fetchAllMembers() {
         const raw = data.members[i] || {};
         members[i].state = raw.state || null;
         members[i].serving_since = raw.serving_since || null;
+        members[i].former_title = raw.former_title || null;
       }
       _allMembersCache = members;
       return { data: members, isLive: true };

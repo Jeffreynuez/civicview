@@ -572,6 +572,10 @@ class PageResponse(BaseModel):
     # GET /api/pages/{official_id}/posts?cursor=...
     posts_next_cursor: Optional[str] = None
     posts_has_more: bool = False
+    # Former officials and candidates (2026-10-15): stage, title, dates
+    # and what the owner and visitors may still do. None while the page
+    # is simply in office or running. See services/page_lifecycle.py.
+    lifecycle: Optional[dict] = None
 
 
 # ── Owner dashboard (Step 7) ──────────────────────────────────────────
@@ -1101,6 +1105,9 @@ class TrackedOfficialRead(BaseModel):
     snapshot: dict
     prefs: dict
     followed_at: datetime
+    # Former officials and candidates (2026-10-15): "Former ..." title
+    # and the archive date while tracking continues. None otherwise.
+    lifecycle: Optional[dict] = None
 
 
 class TrackedElectionCreate(_TrackedSizeCap):

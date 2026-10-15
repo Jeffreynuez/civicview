@@ -39,7 +39,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy import case, func, or_, select
+from sqlalchemy import and_, case, func, or_, select, true
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -74,6 +74,39 @@ def _poll_parent_visible():
     polls have no parent post and are unaffected."""
     hidden_posts = select(Post.id).where(Post.deleted_at.is_not(None))
     return or_(Poll.post_id.is_(None), Poll.post_id.not_in(hidden_posts))
+
+
+def _role_at(db: Session, official_id, created_at, role):
+    """The title the author held when they posted (2026-10-15)."""
+    from app.services import page_lifecycle
+    return page_lifecycle.role_at(db, official_id, created_at, role)
+
+
+def _archived_lower(db: Session) -> list:
+    from app.services import page_lifecycle
+    return sorted(page_lifecycle.archived_keys_lower(db))
+
+
+def _post_not_archived(db: Session):
+    """Archived pages leave the feeds (2026-10-15). Their posts stay on
+    the page, readable by direct link."""
+    archived = _archived_lower(db)
+    if not archived:
+        return true()
+    return ~func.lower(Post.official_id).in_(archived)
+
+
+def _poll_not_archived(db: Session):
+    """Same for polls: citizen polls by their page, rep and candidate
+    polls by their parent post's page. Standalone polls have no page."""
+    archived = _archived_lower(db)
+    if not archived:
+        return true()
+    on_archived = select(Post.id).where(func.lower(Post.official_id).in_(archived))
+    return and_(
+        or_(Poll.target_official_id.is_(None), ~func.lower(Poll.target_official_id).in_(archived)),
+        or_(Poll.post_id.is_(None), Poll.post_id.not_in(on_archived)),
+    )
 
 
 # ── Party lookup ─────────────────────────────────────────────────────
@@ -278,6 +311,7 @@ def national_activity(
         .outerjoin(rxn_score, rxn_score.c.pid == Post.id)
         .outerjoin(cmt_count, cmt_count.c.pid == Post.id)
         .filter(Post.deleted_at.is_(None))
+        .filter(_post_not_archived(db))
         .order_by(Post.created_at.desc())
         .limit(limit)
         .all()
@@ -286,6 +320,7 @@ def national_activity(
     items: List[Dict[str, Any]] = []
     for r in rows:
         pid, official_id, body, created_at, display_name, role, score, cmts = r
+        role = _role_at(db, official_id, created_at, role)
         items.append(
             {
                 "id": pid,
@@ -627,8 +662,9 @@ def _serialize_poll_feed_items(
             else:
                 rep = reps_by_id.get(int(post.author_id)) if post and post.author_id else None
                 author = rep.display_name if rep else "Representative"
-                role = rep.role if rep else None
                 official_id = post.official_id if post else None
+                role = _role_at(db, official_id, post.created_at if post else None,
+                                rep.role if rep else None)
                 display_kind = "rep"
                 # Party lookup — re-use the lazy index built for the
                 # National Activity feed earlier in this module.
@@ -803,6 +839,7 @@ def popular_polls(
         .outerjoin(totals_by_poll, totals_by_poll.c.pid == Poll.id)
         .filter(Poll.archived_at.is_(None))
         .filter(_poll_parent_visible())
+        .filter(_poll_not_archived(db))
         # Tiebreaker on Poll.created_at descending. NULLs (legacy rows
         # before this column was added) sort to the end either way on
         # SQLite + Postgres — fine for the tail.
@@ -927,7 +964,8 @@ def polls_feed(
             return (Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
         return None
 
-    q = db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_parent_visible())
+    q = (db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_parent_visible())
+         .filter(_poll_not_archived(db)))
     if kinds:
         clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
         if clauses:
@@ -1174,6 +1212,7 @@ def posts_feed(
         .outerjoin(cmt_sq, cmt_sq.c.pid == Post.id)
         .outerjoin(poll_sq, poll_sq.c.pid == Post.id)
         .filter(Post.deleted_at.is_(None))
+        .filter(_post_not_archived(db))
     )
     if kinds:
         clauses = [c for k in kinds if (c := _kind_clause(k)) is not None]
@@ -1305,7 +1344,7 @@ def posts_feed(
             rep = reps_by_id[p.author_id]
             kind_label = "rep"
             author = rep.display_name
-            role = rep.role
+            role = _role_at(db, p.official_id, p.created_at, rep.role)
             party = _party_for(p.official_id) if p.official_id else None
         elif p.author_candidate_id and p.author_candidate_id in cands_by_id:
             cand = cands_by_id[p.author_candidate_id]

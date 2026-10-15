@@ -87,7 +87,7 @@ from app.schemas.pages import (
     PostUpdateRequest,
     CommentUpdateRequest,
 )
-from app.services import poll_demographics
+from app.services import page_lifecycle, poll_demographics
 from app.services.edit_window import (
     can_edit_post,
     can_edit_comment,
@@ -176,9 +176,16 @@ def _resolve_engager(
     me_rep: Optional["RepAccount"],
     page_official_id: str,
     me_candidate: Optional["CandidateAccount"] = None,
+    db: Optional[Session] = None,
 ) -> tuple[Optional["CitizenAccount"], Optional["RepAccount"], Optional["CandidateAccount"]]:
     """Return a (citizen, rep, candidate) tuple with exactly one side
     populated.
+
+    With db (every engagement write passes it), two lifecycle gates
+    apply (services/page_lifecycle.py, 2026-10-15): an archived page
+    takes no new engagement from anyone, and a rep or candidate whose
+    time in office or campaign has ended can no longer act as that
+    identity anywhere.
 
     Decision order:
       1. REP signed in AND owns this page → engage as rep (Phase 2).
@@ -197,6 +204,14 @@ def _resolve_engager(
     Backward compat: callers that don't pass me_candidate get the
     original two-identity behaviour (the candidate slot stays None).
     """
+    if db is not None:
+        page_lifecycle.require_page_open(db, page_official_id)
+        result = _resolve_engager(
+            me_citizen=me_citizen, me_rep=me_rep, me_candidate=me_candidate,
+            page_official_id=page_official_id,
+        )
+        page_lifecycle.require_official_identity_active(db, rep=result[1], candidate=result[2])
+        return result
     if me_rep is not None and me_rep.official_id == page_official_id:
         return (None, me_rep, None)
     if me_candidate is not None and me_candidate.candidate_id == page_official_id:
@@ -291,6 +306,7 @@ def _poll_to_read(
     voter_choice_id: Optional[int] = None,
     is_owner_viewing: bool = False,
     voter_choices: Optional[dict] = None,
+    closed_on=None,
 ) -> PollRead:
     """Serialize a poll with its option counts filtered to `active_scope`
     plus a full-breakdown snapshot so the UI can show "4 in FL-19 / 31
@@ -313,7 +329,13 @@ def _poll_to_read(
 
     mode = (poll.presentation_mode or "full").lower()
     now = datetime.utcnow()
-    poll_is_closed = poll.closes_at is not None and now >= poll.closes_at
+    closes_at = poll.closes_at
+    if closed_on is not None:
+        # The page owner left office or ended a campaign: their polls
+        # closed to new votes that day (2026-10-15). Results stay.
+        departure = datetime(closed_on.year, closed_on.month, closed_on.day)
+        closes_at = min(closes_at, departure) if closes_at else departure
+    poll_is_closed = closes_at is not None and now >= closes_at
     suppress_counts = (
         mode == "reveal_after_close"
         and not poll_is_closed
@@ -350,7 +372,7 @@ def _poll_to_read(
     return PollRead(
         id=poll.id,
         question=poll.question,
-        closes_at=poll.closes_at,
+        closes_at=closes_at,
         options=options_out,
         total_votes=active_total,
         voter_choice_id=voter_choice_id,
@@ -520,6 +542,7 @@ def _post_to_read(
             voter_choice_id=voter_choice_id,
             voter_choices=per_identity,
             is_owner_viewing=is_owner_viewing,
+            closed_on=page_lifecycle.poll_closed_by_departure(db, post.official_id),
         )
 
     # Comment count — owner-only scope filter. Non-owners always see
@@ -559,12 +582,14 @@ def _post_to_read(
     # we leave it None.
     if post.author is not None:
         author_summary = AuthorSummary.model_validate(post.author)
+        author_summary.role = page_lifecycle.role_at(
+            db, post.official_id, post.created_at, author_summary.role)
     elif getattr(post, "author_candidate", None) is not None:
         author_summary = AuthorSummary(
             id=post.author_candidate.id,
             official_id=post.author_candidate.candidate_id,
             display_name=post.author_candidate.display_name,
-            role=None,
+            role=page_lifecycle.role_at(db, post.official_id, post.created_at, None),
         )
     else:
         # Shouldn't happen in practice — every post is authored by
@@ -825,6 +850,7 @@ def get_page(
         upcoming_events=upcoming_events,
         allowed_engagement_scopes=allowed_scopes,
         engagement_scope_labels=scope_labels,
+        lifecycle=page_lifecycle.lifecycle_block(db, official_id),
     )
 
 
@@ -942,6 +968,9 @@ def create_post(
     rep, candidate = _resolve_page_owner(
         me_rep=me_rep, me_candidate=me_candidate, page_official_id=official_id,
     )
+    # Former officials and candidates (2026-10-15): posts continue for
+    # the 30-day farewell window, polls end the day they leave.
+    page_lifecycle.require_owner_can_post(db, official_id, with_poll=payload.poll is not None)
 
     post = Post(
         author_id=rep.id if rep is not None else None,
@@ -1122,6 +1151,10 @@ def delete_post(
     )
     if not (is_rep_author or is_candidate_author):
         raise HTTPException(status_code=403, detail="You can only delete your own posts")
+    page_lifecycle.require_can_change_own_content(
+        db, rep=me_rep if is_rep_author else None,
+        candidate=me_candidate if is_candidate_author else None, created_at=post.created_at,
+    )
 
     # Capture the body at delete-time so the moderation audit + the
     # threat-detection algo (Task #14) can see what the user posted
@@ -1165,6 +1198,10 @@ def update_post(
     )
     if not (is_rep_author or is_candidate_author):
         raise HTTPException(status_code=403, detail="You can only edit your own posts")
+    page_lifecycle.require_can_change_own_content(
+        db, rep=me_rep if is_rep_author else None,
+        candidate=me_candidate if is_candidate_author else None, created_at=post.created_at,
+    )
 
     if not can_edit_post(created_at=post.created_at, deleted_at=post.deleted_at):
         raise HTTPException(
@@ -1224,6 +1261,11 @@ def update_comment(
         raise HTTPException(
             status_code=403,
             detail="Only the comment author may edit it.",
+        )
+    if not is_author_citizen:
+        page_lifecycle.require_can_change_own_content(
+            db, rep=me_rep if is_author_rep else None,
+            candidate=me_candidate if is_author_candidate else None, created_at=comment.created_at,
         )
 
     if not can_edit_comment(
@@ -1291,6 +1333,13 @@ def vote_on_poll(
 
     if poll.closes_at is not None and datetime.utcnow() >= poll.closes_at:
         raise HTTPException(status_code=400, detail="This poll is closed")
+    closed_on = page_lifecycle.poll_closed_by_departure(db, official_id)
+    if closed_on is not None:
+        raise HTTPException(
+            status_code=400,
+            detail=f"This poll closed to new votes on {page_lifecycle.long_date(closed_on)}. "
+                   "The results stay visible.",
+        )
 
     option = db.get(PollOption, payload.option_id)
     if not option or option.poll_id != poll.id:
@@ -1309,6 +1358,7 @@ def vote_on_poll(
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=official_id,
     )
@@ -1483,6 +1533,7 @@ def react_to_post(
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
@@ -1569,6 +1620,7 @@ def clear_reaction(
         as_identity=as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
@@ -1873,6 +1925,7 @@ def react_to_comment(
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
@@ -1946,6 +1999,7 @@ def clear_comment_reaction(
         as_identity=as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
@@ -2005,6 +2059,7 @@ def create_comment(
         as_identity=payload.as_identity,
     )
     citizen, rep, candidate = _resolve_engager(
+        db=db,
         me_citizen=acting_citizen, me_rep=acting_rep, me_candidate=acting_candidate,
         page_official_id=post.official_id,
     )
@@ -2195,6 +2250,11 @@ def delete_comment(
         raise HTTPException(
             status_code=403,
             detail="Only the comment author may delete it. Use Report instead.",
+        )
+    if not is_author_citizen:
+        page_lifecycle.require_can_change_own_content(
+            db, rep=me_rep if is_author_rep else None,
+            candidate=me_candidate if is_author_candidate else None, created_at=comment.created_at,
         )
 
     # Tombstone vs hard-delete (Task #41). If this comment has any
@@ -2442,6 +2502,12 @@ def upload_post_image(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sign in as a rep or candidate to upload images.",
         )
+    # Images go on posts, so they follow the posting rule: through the
+    # farewell window after leaving office, then no more.
+    if me_rep is not None:
+        page_lifecycle.require_owner_can_post(db, me_rep.official_id)
+    else:
+        page_lifecycle.require_owner_can_post(db, me_candidate.candidate_id)
     ct = (file.content_type or "").lower()
     if ct not in _ALLOWED_IMAGE_TYPES:
         raise HTTPException(
@@ -2552,6 +2618,7 @@ def create_rep_event(
     rep, candidate = _resolve_page_owner(
         me_rep=me_rep, me_candidate=me_candidate, page_official_id=official_id,
     )
+    page_lifecycle.require_owner_can_manage_events(db, official_id)
 
     evt = RepEvent(
         author_id=(rep.id if rep is not None else None),
@@ -2605,6 +2672,11 @@ def delete_rep_event(
     )
     if not owns:
         raise HTTPException(status_code=403, detail="You can only delete your own events")
+    page_lifecycle.require_can_change_own_content(
+        db, rep=me_rep if (me_rep is not None and evt.author_id == me_rep.id) else None,
+        candidate=me_candidate if me_candidate is not None and evt.author_candidate_id == me_candidate.id else None,
+        created_at=evt.created_at,
+    )
 
     evt.deleted_at = datetime.utcnow()
     db.commit()

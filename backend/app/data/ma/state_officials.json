@@ -3269,6 +3269,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ma-rep-16th Middlesex",
+      "openstates_id": "ocd-person/49816a0c-b8e5-4586-859b-8a8f1ae9b6ab",
+      "name": "Rodney Elliott",
+      "party": "D",
+      "chamber": "State House",
+      "district": "16th Middlesex",
+      "role": "State Representative",
+      "photo_url": "https://malegislature.gov/Legislators/Profile/170/RME1.jpg",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ma/retired/Rodney-M-Elliott-49816a0c-b8e5-4586-859b-8a8f1ae9b6ab.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ma-rep-16th Middlesex",

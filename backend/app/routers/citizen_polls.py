@@ -56,6 +56,8 @@ import logging
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
+
+from app.services import page_lifecycle
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
@@ -162,6 +164,21 @@ def _caller_role(
         # service when payments ship.
         return "subscribed"
     return None
+
+
+def _lifecycle_gate(db: Session, page_id: Optional[str], rep=None, candidate=None) -> None:
+    """Former officials and candidates (2026-10-15). Citizen polls about
+    someone stay open until their page is archived; after that the page
+    takes no new engagement (reports still work). A rep or candidate
+    whose time in office or campaign has ended can no longer act as
+    that identity. Standalone polls (no page) are unaffected."""
+    page_lifecycle.require_page_open(db, page_id)
+    page_lifecycle.require_official_identity_active(db, rep=rep, candidate=candidate)
+
+
+def _comment_page_id(db: Session, comment) -> Optional[str]:
+    parent = db.get(Poll, comment.poll_id) if comment is not None else None
+    return parent.target_official_id if parent is not None else None
 
 
 def _get_poll_or_404(db: Session, poll_id: int) -> Poll:
@@ -314,6 +331,7 @@ def create_citizen_poll(
     # Dormant gate (PRD section 3) — no-op until IDME_ENABLED. Poll
     # CREATION is the one subscriber-tier action.
     require_subscribed(citizen, action="create polls")
+    page_lifecycle.require_page_open(db, official_id)
 
     if _page_is_claimed(db, official_id):
         raise HTTPException(
@@ -568,6 +586,7 @@ def vote_on_citizen_poll(
 
     # Dormant gate (PRD section 3) — no-op until IDME_ENABLED.
     require_verified(citizen, action="vote on polls")
+    _lifecycle_gate(db, poll.target_official_id, rep, candidate)
 
     q = db.query(PollVote).filter(PollVote.poll_id == poll.id)
     if rep is not None:
@@ -653,6 +672,7 @@ def close_citizen_poll(
     poll = _get_poll_or_404(db, poll_id)
     if poll.author_citizen_id != citizen.id:
         raise HTTPException(status_code=403, detail="Only the poll author can close this poll.")
+    page_lifecycle.require_page_open(db, poll.target_official_id)
     if poll.archived_at is not None:
         # Idempotent — already closed.
         return serialize_citizen_poll(db, poll, citizen, None)
@@ -917,6 +937,7 @@ def create_citizen_poll_comment(
     # is VERIFIED-tier as of 2026-07-28; it is deliberately NOT gated on
     # subscription. See CLAUDE.md engagement gates.
     require_verified(citizen, action="comment")
+    _lifecycle_gate(db, poll.target_official_id, rep, candidate)
 
     # Reply-path validation (Phase 3). The "post creator" for a
     # citizen poll is the original citizen author; the page-owning
@@ -1070,6 +1091,11 @@ def delete_poll_comment(
         raise HTTPException(
             status_code=403,
             detail="Only the comment author may delete it. Use Report instead.",
+        )
+    if not is_author_citizen:
+        page_lifecycle.require_can_change_own_content(
+            db, rep=me_rep if is_author_rep else None,
+            candidate=me_candidate if is_author_candidate else None, created_at=comment.created_at,
         )
     comment.deleted_at = datetime.utcnow()
     db.commit()
@@ -1368,6 +1394,7 @@ def react_to_citizen_poll(
         acting_citizen if acting_rep is None and acting_candidate is None else None,
         action="react to polls",
     )
+    _lifecycle_gate(db, poll.target_official_id, acting_rep, acting_candidate)
 
     # Dedupe lookup keyed on the acting identity — matches the same
     # (poll, identity) unique indexes defined on PollReaction.
@@ -1445,6 +1472,7 @@ def clear_citizen_poll_reaction(
     )
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    _lifecycle_gate(db, poll.target_official_id, acting_rep, acting_candidate)
 
     q = db.query(PollReaction).filter(PollReaction.poll_id == poll.id)
     if acting_rep is not None:
@@ -1549,6 +1577,7 @@ def react_to_poll_comment(
         acting_citizen if acting_rep is None and acting_candidate is None else None,
         action="react to comments",
     )
+    _lifecycle_gate(db, _comment_page_id(db, comment), acting_rep, acting_candidate)
 
     q = db.query(PollCommentReaction).filter(
         PollCommentReaction.poll_comment_id == comment.id
@@ -1621,6 +1650,7 @@ def clear_poll_comment_reaction(
     )
     if acting_citizen is None and acting_rep is None and acting_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to react")
+    _lifecycle_gate(db, _comment_page_id(db, comment), acting_rep, acting_candidate)
 
     q = db.query(PollCommentReaction).filter(
         PollCommentReaction.poll_comment_id == comment.id

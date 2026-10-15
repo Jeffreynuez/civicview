@@ -19,15 +19,17 @@ export default function StatewideOfficialsTab({
   stateCode, stateName, onSelectPerson, onNotify, onCompareToggle, compareIds,
 }) {
   // Helper: only expose a click handler when a select callback is wired.
+  // A seat whose holder has left office reads "Vacant" until someone
+  // is in it (2026-10-15): no profile to open, nobody to follow.
   const handleSelect = (person, roleType, extras) =>
-    onSelectPerson
+    onSelectPerson && !person?.vacant
       ? () => onSelectPerson({ ...person, ...(extras || {}) }, roleType)
       : null;
 
   // Helper: build the member snapshot the Follow store needs — includes the
   // injected role_type + chamber so we can render a meaningful entry in
   // "My Tracked" without another round-trip.
-  const followTarget = (person, roleType, extras) => ({
+  const followTarget = (person, roleType, extras) => (person?.vacant ? null : {
     ...person,
     ...(extras || {}),
     role_type: roleType,

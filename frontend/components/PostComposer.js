@@ -72,6 +72,9 @@ export default function PostComposer({
   // 'country' when the parent doesn't know yet (e.g. payload still
   // loading). The backend clamps unsupported scopes on save anyway.
   allowedScopes = ['country'],
+  // False during a former official's or candidate's 30-day farewell
+  // window (2026-10-15): posts continue, polls ended the day they left.
+  allowPoll = true,
 }) {
   const [body, setBody] = useState('');
   const [pollOpen, setPollOpen] = useState(false);
@@ -129,6 +132,8 @@ export default function PostComposer({
   // to write anything alongside it, or share an image without
   // padding the body with filler.
   const hasBody = body.trim().length > 0;
+  // A poll left open from before the window changed is never sent.
+  if (!allowPoll && pollOpen) setPollOpen(false);
   const hasValidPoll = pollOpen && (
     question.trim().length > 0
     && options.filter((o) => o.trim()).length >= 2
@@ -308,6 +313,7 @@ export default function PostComposer({
                 ? '+ Add images'
                 : `+ Add images (${images.length}/${MAX_IMAGES})`}
           </button>
+          {allowPoll && (
           <button
             type="button"
             onClick={() => setPollOpen((o) => !o)}
@@ -319,6 +325,7 @@ export default function PostComposer({
           >
             {pollOpen ? '× Remove poll' : '+ Attach poll'}
           </button>
+          )}
         </div>
       </div>
 

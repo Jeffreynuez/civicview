@@ -307,6 +307,10 @@ def react_to_bill(
     # Dormant gate: a no-op until IDME_ENABLED is on; never applies to
     # reps or candidates (citizen is None on those paths).
     require_verified(citizen, action="react to bills")
+    # A rep or candidate whose time in office or campaign has ended
+    # likes bills as a citizen now, not as the official (2026-10-15).
+    from app.services import page_lifecycle
+    page_lifecycle.require_official_identity_active(db, rep=rep, candidate=candidate)
 
     existing = _own_reaction_query(db, bill_key, citizen, rep, candidate).first()
     if existing is not None:
@@ -362,6 +366,8 @@ def clear_bill_reaction(
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unknown bill.")
     geo_state, geo_district = _parse_geo(state, district)
     citizen, rep, candidate = _acting_identity(me_citizen, me_rep, me_candidate, as_identity)
+    from app.services import page_lifecycle
+    page_lifecycle.require_official_identity_active(db, rep=rep, candidate=candidate)
     existing = _own_reaction_query(db, key, citizen, rep, candidate).first()
     if existing is not None:
         db.delete(existing)

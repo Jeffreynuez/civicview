@@ -1975,6 +1975,44 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ca-sen-10",
+      "openstates_id": "ocd-person/295965df-6c71-4e11-806f-2b7d5be5d45c",
+      "name": "Aisha Wahab",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "10",
+      "role": "State Senator",
+      "photo_url": "https://www.senate.ca.gov/sites/senate.ca.gov/files/senator_photos/wahab_aisha_d-10_-_crop.jpg",
+      "served_from": "2022",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ca/retired/Aisha-Wahab-295965df-6c71-4e11-806f-2b7d5be5d45c.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ca-rep-3",
+      "openstates_id": "ocd-person/5d93a1cb-7a01-43ab-a26c-a2abecdee135",
+      "name": "James Gallagher",
+      "party": "R",
+      "chamber": "State Assembly",
+      "district": "3",
+      "role": "Assembly Member",
+      "photo_url": "https://webapi.assembly.ca.gov/district-media/assets/members/assembly_member_03.jpg",
+      "served_from": "2014",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ca/retired/James-Gallagher-5d93a1cb-7a01-43ab-a26c-a2abecdee135.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ca-sen-10",

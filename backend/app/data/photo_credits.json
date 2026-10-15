@@ -168,6 +168,17 @@
    "license_url": null,
    "attribution_required": false
   },
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg/250px-Secretary_Lori_Chavez-DeRemer_official_portrait_2025_%2854382448706%29.jpg": {
+   "subjects": [
+    "Lori Chavez-DeRemer"
+   ],
+   "file_title": "File:Secretary Lori Chavez-DeRemer official portrait 2025 (54382448706).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Secretary_Lori_Chavez-DeRemer_official_portrait_2025_(54382448706).jpg",
+   "author": "Shawn T Moore, U.S. Department of Labor",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
   "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Annette_Taddeo.jpg/250px-Annette_Taddeo.jpg": {
    "subjects": [
     "Annette Taddeo"
@@ -186,6 +197,17 @@
    "file_title": "File:Congressman Walkinshaw Official Portrait.jpg",
    "file_page": "https://commons.wikimedia.org/wiki/File:Congressman_Walkinshaw_Official_Portrait.jpg",
    "author": "U.S House Office of Photography",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_Portrait_of_Secretary_Kristi_Noem.jpg/250px-Official_Portrait_of_Secretary_Kristi_Noem.jpg": {
+   "subjects": [
+    "Kristi Noem"
+   ],
+   "file_title": "File:Official Portrait of Secretary Kristi Noem.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Official_Portrait_of_Secretary_Kristi_Noem.jpg",
+   "author": "U.S. Department of Homeland Security",
    "license": "Public domain",
    "license_url": null,
    "attribution_required": false
@@ -824,6 +846,17 @@
    "file_title": "File:Official portrait of Attorney General James Uthmeier, 2025 (cropped).jpg",
    "file_page": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Attorney_General_James_Uthmeier,_2025_(cropped).jpg",
    "author": "Office of the Attorney General, State of Florida",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg/250px-Pam_Bondi_official_portrait_%28cropped%29%282%29.jpg": {
+   "subjects": [
+    "Pam Bondi"
+   ],
+   "file_title": "File:Pam Bondi official portrait (cropped)(2).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Pam_Bondi_official_portrait_(cropped)(2).jpg",
+   "author": "U.S. Department of Justice",
    "license": "Public domain",
    "license_url": null,
    "attribution_required": false

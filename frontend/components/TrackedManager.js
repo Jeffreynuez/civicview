@@ -21,6 +21,7 @@ import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
 import BillReactions from '@/components/bills/BillReactions';
 import { BillScopeProvider, useViewerGeo } from '@/components/bills/BillScope';
 import { partyInfo } from '@/lib/party';
+import { formatLongDate } from './LifecycleBanner';
 
 /**
  * TrackedManager — the shared "everything you follow" surface.
@@ -501,9 +502,17 @@ function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, s
           <div style={{ color: 'var(--cl-primary)', fontWeight: 700, fontSize: '0.9rem' }}>
             {official.name}
           </div>
+          {official.lifecycle?.title && (
+            <div style={{ fontSize: '0.72rem', color: 'var(--cl-text)', fontWeight: 600, marginTop: '2px' }}>
+              {official.lifecycle.title}
+              {official.lifecycle.archive_on
+                ? ` · tracking ends ${formatLongDate(official.lifecycle.archive_on)}`
+                : ''}
+            </div>
+          )}
           <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {[
-              official.title || official.role,
+              official.lifecycle?.title ? null : (official.title || official.role),
               official.chamber,
               official.state,
               official.district ? `Dist. ${official.district}` : null,

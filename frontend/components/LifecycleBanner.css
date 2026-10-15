@@ -1,0 +1,90 @@
+/* CivicView. Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
+/* LifecycleBanner: former officials and candidates (2026-10-15). Plain,
+   neutral styling: the same look whatever the party, and no official
+   badge treatment. */
+
+.lifecycle-banner {
+  border: 1px solid var(--cl-border);
+  border-left: 4px solid var(--cl-text-light);
+  background: var(--cl-bg, #f7f7f8);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 0 16px;
+  color: var(--cl-text);
+}
+
+.lifecycle-banner--archived {
+  border-left-color: #6b6b73;
+}
+
+.lifecycle-banner--elect {
+  border-left-color: var(--cl-accent);
+}
+
+.lifecycle-banner__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.lifecycle-banner__title {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.lifecycle-banner__date,
+.lifecycle-banner__line {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.lifecycle-banner__date {
+  color: var(--cl-text-light);
+}
+
+.lifecycle-banner__links {
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.lifecycle-banner__links a,
+.lifecycle-note a {
+  color: var(--cl-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lifecycle-chip {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--cl-border);
+  background: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--cl-text-light);
+}
+
+.lifecycle-compact {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: inherit;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.lifecycle-note {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+}

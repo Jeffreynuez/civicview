@@ -3459,6 +3459,26 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ny-sen-12",
+      "openstates_id": "ocd-person/b0c3d86b-33ca-4001-a9af-b963fabc06c3",
+      "name": "Mike Gianaris",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "12",
+      "role": "State Senator",
+      "photo_url": "https://www.nysenate.gov/sites/default/files/styles/160x160/public/hs_3.jpg?itok=0w8WWqFj",
+      "served_from": "2019",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ny/retired/Michael-Gianaris-b0c3d86b-33ca-4001-a9af-b963fabc06c3.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ny-sen-12",

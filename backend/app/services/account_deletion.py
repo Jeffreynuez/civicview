@@ -24,6 +24,19 @@ as the salt — even if the archive table leaks the email isn't
 recoverable to plaintext.
 
 Reps + candidates skip the archive (they don't go through ID.me).
+
+Reps and candidates are CLOSED, not removed (2026-10-15). Jeffrey,
+for every rep and candidate account, in office or former: deleting the
+account must not take what it published with it. "Otherwise someone
+could delete their account the day before leaving to erase what they
+posted in office." So for those two kinds both modes end in
+close_page_account(): the person can no longer sign in; the sign-in
+email, password, 2FA secret and private lists (tracked items, saved
+posts, notifications, reset tokens, sign-in history) are removed; the
+row stays, with its display name, so every post, poll, event, comment,
+like and vote stays on the page as a public record. The soft mode still
+gives 30 days to change one's mind first. Citizen accounts delete
+exactly as before.
 """
 from __future__ import annotations
 
@@ -267,6 +280,63 @@ def _delete_citizen_authored(db: Session, citizen_id: int) -> dict:
     return counts
 
 
+# ── Close (reps and candidates) ──────────────────────────────────────
+CLOSED_EMAIL_DOMAIN = "closed.invalid"
+
+
+def close_page_account(db: Session, kind: AccountKind, account: AccountRow) -> dict:
+    """Close a rep or candidate account and keep what it published.
+    Removes the sign-in and the private lists; keeps the row, its name
+    and everything public it wrote. Idempotent. Commits."""
+    from app.models.pages import (
+        FeaturedTracked,
+        LoginAttempt,
+        Notification,
+        PasswordResetToken,
+        RecoveryCode,
+        SavedItem,
+        TrackedBill,
+        TrackedElection,
+        TrackedOfficial,
+    )
+    if kind not in ("rep", "candidate"):
+        raise ValueError("close_page_account is for rep and candidate accounts")
+    account_id = account.id
+    removed: dict = {}
+    private = [(m, [m.tracker_kind == kind, m.tracker_id == account_id])
+               for m in (TrackedBill, TrackedOfficial, TrackedElection, FeaturedTracked, SavedItem)]
+    private += [
+        (Notification, [Notification.recipient_kind == kind, Notification.recipient_id == account_id]),
+        (PasswordResetToken, [PasswordResetToken.identity_kind == kind,
+                              PasswordResetToken.account_id == account_id]),
+        (LoginAttempt, [LoginAttempt.identity_kind == kind, LoginAttempt.identity_id == account_id]),
+    ]
+    code_col = RecoveryCode.rep_account_id if kind == "rep" else RecoveryCode.candidate_account_id
+    private.append((RecoveryCode, [code_col == account_id]))
+    for model, conds in private:
+        q = db.query(model)
+        for cond in conds:
+            q = q.filter(cond)
+        n = q.delete(synchronize_session=False)
+        if n:
+            removed[model.__tablename__] = n
+    now = datetime.utcnow()
+    account.email = f"closed-{kind}-{account_id}@{CLOSED_EMAIL_DOMAIN}"
+    account.password_hash = "!closed"  # matches no bcrypt hash
+    account.totp_secret_encrypted = None
+    account.totp_enabled_at = None
+    account.notification_prefs_json = None
+    account.is_active = False
+    account.purge_after = None
+    account.session_epoch = (account.session_epoch or 0) + 1
+    if account.closed_at is None:
+        account.closed_at = now
+    db.commit()
+    logger.info("Closed %s account id=%s; kept its public content; removed %s",
+                kind, account_id, removed or "nothing else")
+    return removed
+
+
 # ── Hard delete (immediate) ──────────────────────────────────────────
 def hard_delete_account(
     db: Session,
@@ -276,7 +346,13 @@ def hard_delete_account(
     """Archive verification (citizens only), remove the rows that point
     at the account by (kind, id), then drop the account row. Cascading
     FK relationships on the model handle dependent content (posts,
-    polls, comments, etc.)."""
+    polls, comments, etc.).
+
+    Rep and candidate accounts are closed instead (close_page_account):
+    what they published stays on their page."""
+    if kind in ("rep", "candidate"):
+        close_page_account(db, kind, account)
+        return
     if kind == "citizen" and isinstance(account, CitizenAccount):
         _archive_citizen_verification(db, account)
     account_id = account.id

@@ -2418,6 +2418,44 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "ok-sen-24",
+      "openstates_id": "ocd-person/bea1fd3e-9a8e-4cd6-bdb8-abedd9f8a888",
+      "name": "Darrell Weaver",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "24",
+      "role": "State Senator",
+      "photo_url": "https://oksenate.gov/sites/default/files/Weaver%2C%20Darrell_flags.jpg",
+      "served_from": "2018",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ok/retired/Darrell-Weaver-bea1fd3e-9a8e-4cd6-bdb8-abedd9f8a888.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "ok-rep-77",
+      "openstates_id": "ocd-person/6a662cc1-492b-4c65-a77c-9b8b202b1ae5",
+      "name": "John Waldron",
+      "party": "D",
+      "chamber": "State House",
+      "district": "77",
+      "role": "State Representative",
+      "photo_url": "https://www.okhouse.gov/Members/Pictures/HiRes/Waldron,%20John.jpg",
+      "served_from": "2018",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/ok/retired/John-Waldron-6a662cc1-492b-4c65-a77c-9b8b202b1ae5.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "ok-sen-24",

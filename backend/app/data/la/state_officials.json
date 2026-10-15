@@ -2341,6 +2341,62 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "la-sen-14",
+      "openstates_id": "ocd-person/52035a94-6995-4ea4-b463-1109d683048b",
+      "name": "Larry Selders",
+      "party": "D",
+      "chamber": "State Senate",
+      "district": "14",
+      "role": "State Senator",
+      "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep67.jpg",
+      "served_from": "2025",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/la/retired/Larry-Selders-52035a94-6995-4ea4-b463-1109d683048b.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "la-rep-77",
+      "openstates_id": "ocd-person/d3ecec03-0408-46f0-8c82-b775f787e6e1",
+      "name": "Mark Wright",
+      "party": "R",
+      "chamber": "State House",
+      "district": "77",
+      "role": "State Representative",
+      "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep77.jpg",
+      "served_from": "2017",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/la/retired/Mark-Wright-d3ecec03-0408-46f0-8c82-b775f787e6e1.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "la-rep-92",
+      "openstates_id": "ocd-person/958015ce-4a91-4830-a11f-e73997823d4b",
+      "name": "Joe Stagni",
+      "party": "R",
+      "chamber": "State House",
+      "district": "92",
+      "role": "State Representative",
+      "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep92.jpg",
+      "served_from": "2017",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/la/retired/Joseph-A-Stagni-958015ce-4a91-4830-a11f-e73997823d4b.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "la-sen-14",

@@ -5,6 +5,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchAllMembers, fetchAllCandidates } from '@/lib/api';
+import { fetchFormerSearchIndex } from '@/lib/formerApi';
 import { adminWhoami, adminUnreadCount } from '@/lib/pagesApi';
 import { useAuth } from '@/lib/auth';
 import { useCandidateAuth, logoutCandidate as logoutCandidateLib } from '@/lib/candidateAuth';
@@ -165,12 +166,21 @@ export default function Navbar({
     if (!focused || loading) return;
     if (allMembers.length > 0 && allCandidates.length > 0) return;
     setLoading(true);
-    Promise.all([fetchAllMembers(), fetchAllCandidates()]).then(([m, c]) => {
-      setAllMembers(m.data || []);
-      // Candidates who withdrew, lost their primary, or are duplicate
-      // records stay reachable by link but are not offered as "running"
-      // in search, where the result row would read as a live campaign.
-      setAllCandidates((c.data || []).filter((x) => !x.withdrawn && !x.eliminated && !x.duplicate_of));
+    Promise.all([fetchAllMembers(), fetchAllCandidates(), fetchFormerSearchIndex()]).then(([m, c, former]) => {
+      // Former officials and candidates (2026-10-15): findable by search
+      // until their page is archived, always with the Former label, so
+      // a result row never reads as a sitting member or a live
+      // campaign. Members the roster already dropped come from the
+      // former index; archived pages are left out by the backend.
+      const seen = new Set((m.data || []).map((x) => x.bioguide_id));
+      const formerMembers = (former || [])
+        .filter((f) => f.bioguide_id && !seen.has(f.bioguide_id))
+        .map((f) => ({
+          id: f.bioguide_id, bioguide_id: f.bioguide_id, name: f.name, state: f.state,
+          former_title: f.title, photoUrl: null,
+        }));
+      setAllMembers([...(m.data || []), ...formerMembers]);
+      setAllCandidates((c.data || []).filter((x) => !x.duplicate_of && !x.lifecycle?.archived));
       setLoading(false);
     });
   }, [focused, allMembers.length, allCandidates.length, loading]);
@@ -578,9 +588,12 @@ export default function Navbar({
             {results.map((item, i) => {
               const isCandidate = item._kind === 'candidate';
               const photo = isCandidate ? item.photo_url : item.photoUrl;
-              const subtitle = isCandidate
+              const formerTitle = isCandidate
+                ? (item.lifecycle?.former ? item.lifecycle.title : null)
+                : item.former_title;
+              const subtitle = formerTitle || (isCandidate
                 ? (item.seeking_office || 'Candidate')
-                : `${item.chamber || ''}${item.district ? `, Dist ${item.district}` : ''}`;
+                : `${item.chamber || ''}${item.district ? `, Dist ${item.district}` : ''}`);
               return (
                 <button
                   key={`${item._kind}:${item.bioguide_id || item.id}`}
@@ -625,7 +638,19 @@ export default function Navbar({
                   </div>
                   {/* Candidate badge sits before the party pill so the user can
                       tell at a glance which side of the search the row came from. */}
-                  {isCandidate && (
+                  {formerTitle ? (
+                    <span
+                      style={{
+                        padding: '2px 7px', borderRadius: '10px',
+                        fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.03em',
+                        background: 'var(--cl-bg)', color: 'var(--cl-text-light)',
+                        border: '1px solid var(--cl-border)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      FORMER
+                    </span>
+                  ) : isCandidate && (
                     <span
                       style={{
                         padding: '2px 7px', borderRadius: '10px',

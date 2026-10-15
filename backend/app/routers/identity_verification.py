@@ -291,6 +291,16 @@ def verification_callback(
     citizen.congressional_district = _district_from_verified_address(attrs)
     db.commit()
 
+    # A former official or candidate who chose to carry their name to
+    # this citizen account gets it now, if the legal name ID.me just
+    # verified matches (services/former_links.py, 2026-10-15).
+    try:
+        from app.services.former_links import reevaluate_for_citizen
+        reevaluate_for_citizen(db, citizen)
+    except Exception:
+        db.rollback()
+        logger.exception("ID.me callback: name hand-off check failed for citizen id=%s", citizen_id)
+
     # ── Write / update the archive ──
     try:
         write_archive_entry(db, email=citizen.email, attrs=attrs, verified_at=now)

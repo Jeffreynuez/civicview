@@ -15,6 +15,7 @@ import {
 import PageButton from './PageButton';
 import TabStrip from './TabStrip';
 import PhotoCredit from './PhotoCredit';
+import LifecycleBanner from './LifecycleBanner';
 import { isWikimediaPhoto } from '@/lib/photoCredits';
 
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent', NP: 'Non-partisan' };
@@ -148,7 +149,14 @@ export default function CandidateProfile({
     photoUrl: c.photo_url || null,
   };
   const isFollowing = isOfficialTracked(followMember);
+  const lifecycle = c.lifecycle || null;
   const toggleFollow = () => {
+    // No new follows once a campaign has ended (2026-10-15); people
+    // already following can still stop.
+    if (!isFollowing && lifecycle && lifecycle.accepts_tracking === false) {
+      if (onNotify) onNotify(`${c.name}'s campaign has ended, so the page can't be followed anymore.`);
+      return;
+    }
     const nowFollowing = toggleOfficial(followMember);
     if (onNotify) {
       onNotify(
@@ -334,7 +342,7 @@ export default function CandidateProfile({
               fontSize: '0.72rem', color: 'rgba(255,255,255,0.85)',
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>
-              {c.seeking_office ? `Candidate for ${c.seeking_office}` : 'Candidate'}
+              {lifecycle?.title || (c.seeking_office ? `Candidate for ${c.seeking_office}` : 'Candidate')}
             </div>
           </div>
           <div style={{ display: 'flex', gap: 3, flexShrink: 0 }}>
@@ -421,6 +429,14 @@ export default function CandidateProfile({
         </div>
       )}
 
+      {/* The page's status shows without expanding the hero
+          (2026-10-15): a campaign that ended must never look active. */}
+      {heroCollapsed && lifecycle?.title && (
+        <div style={{ padding: '10px 12px 0' }}>
+          <LifecycleBanner lifecycle={lifecycle} />
+        </div>
+      )}
+
       {/* Hero — full version. Hidden when collapsed. Centered avatar /
           name / office / chips / action row, all on the dark
           candidate-signature background. Mirrors the rep ProfileView's
@@ -450,6 +466,13 @@ export default function CandidateProfile({
           {/* Lost the primary. Distinct from withdrawn: the person ran and
               the voters chose someone else, which is a result, not a
               decision to leave. Same placement, same urgency. */}
+          {/* Former candidates, winners and archived campaign pages
+              (2026-10-15): title, dates, archive and links. */}
+          {lifecycle?.title && (
+            <div style={{ textAlign: 'left', maxWidth: '46ch', margin: '0 auto 12px' }}>
+              <LifecycleBanner lifecycle={lifecycle} />
+            </div>
+          )}
           {c.eliminated && !c.withdrawn && (
             <div
               role="status"
@@ -529,7 +552,7 @@ export default function CandidateProfile({
             {c.name}
           </h2>
           <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.85)' }}>
-            Candidate for {c.seeking_office}
+            {lifecycle?.title || `Candidate for ${c.seeking_office}`}
           </p>
           {/* Chip row — party + INCUMBENT + hometown. Centered to match
               the avatar/name above. */}

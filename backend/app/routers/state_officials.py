@@ -1,7 +1,11 @@
 # CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 # Proprietary and confidential. See LICENSE at the repository root.
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+
+from app.db import get_db
+from app.services import lifecycle_rosters, page_lifecycle
 from app.services.state_officials_service import StateOfficialsService
 from app.services import state_live
 
@@ -10,7 +14,7 @@ service = StateOfficialsService()
 
 
 @router.get("/{state_code}")
-async def get_state_officials(state_code: str):
+async def get_state_officials(state_code: str, db: Session = Depends(get_db)):
     """Return the curated state-level officials (governor, cabinet, state
     senate + state house leadership and sample members) for a state.
 
@@ -21,7 +25,9 @@ async def get_state_officials(state_code: str):
             status_code=404,
             detail=f"No state-officials data seeded for {state_code.upper()}.",
         )
-    return payload
+    # Someone who has left office is nobody's current official, even
+    # before the next roster refresh; their seat reads vacant (2026-10-15).
+    return lifecycle_rosters.filter_state_payload(payload, lifecycle_rosters.departed_ids(db))
 
 
 @router.get("/{state_code}/governor")
@@ -37,10 +43,21 @@ async def get_governor(state_code: str):
 
 # ── Person lookup + live-data proxies ────────────────────────────────
 @router.get("/{state_code}/person/{person_id}")
-async def get_state_person(state_code: str, person_id: str):
+async def get_state_person(state_code: str, person_id: str, db: Session = Depends(get_db)):
     """Return any state-level official (governor / cabinet / legislator /
-    justice / judge) by their seed id, decorated with `role_type`."""
+    justice / judge) by their seed id, decorated with `role_type`.
+
+    An id whose holder left office opens their former official's page
+    (2026-10-15): the record from the file's _former_members list, with
+    the lifecycle block (title, dates, archive state)."""
     person = service.find_person_by_id(state_code, person_id)
+    if not person:
+        person = lifecycle_rosters.find_former_state_person(
+            service.get_state_officials(state_code), person_id)
+    if person:
+        block = page_lifecycle.lifecycle_block(db, person_id)
+        if block:
+            person = {**person, "lifecycle": block, "former": bool(block.get("former"))}
     if not person:
         raise HTTPException(
             status_code=404,

@@ -1236,7 +1236,8 @@ export default function Home() {
   const pickRandomMembers = useCallback(async (n) => {
     try {
       const { data } = await fetchAllMembers();
-      const pool = (data || []).filter((m) => m && (m.bioguide_id || m.id));
+      // Never demo someone who has left office (2026-10-15).
+      const pool = (data || []).filter((m) => m && (m.bioguide_id || m.id) && !m.former_title);
       if (pool.length < n) return [];
       const picked = [];
       for (let i = 0; i < n; i += 1) {

@@ -2167,6 +2167,64 @@
       }
     ]
   },
+  "_former_members": [
+    {
+      "id": "oh-sen-13",
+      "openstates_id": "ocd-person/d3508136-3927-461f-a2f0-a85665845ab1",
+      "name": "Nathan Manning",
+      "party": "R",
+      "chamber": "State Senate",
+      "district": "13",
+      "role": "State Senator",
+      "photo_url": "https://www.legislature.ohio.gov/assets/people/nathan-h-manning/headshots/thumbnails/medium/nathan-h-manning-may-2023-headshot_medium.jpg",
+      "served_from": "2019",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/oh/retired/Nathan-H-Manning-d3508136-3927-461f-a2f0-a85665845ab1.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": []
+    },
+    {
+      "id": "oh-rep-66",
+      "openstates_id": "ocd-person/352d7ee9-256c-4195-a673-17b7ee200948",
+      "name": "Sharon Ray",
+      "party": "R",
+      "chamber": "State House",
+      "district": "66",
+      "role": "State Representative",
+      "photo_url": "https://www.legislature.ohio.gov/assets/people/sharon-a-ray/headshots/thumbnails/medium/sharon-a-ray-january-2021-headshot_medium.jpg",
+      "served_from": "2023",
+      "served_to": "2026",
+      "years_source": "https://github.com/openstates/people/blob/main/data/oh/retired/Sharon-A-Ray-352d7ee9-256c-4195-a673-17b7ee200948.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "successor_ids": [
+        "oh-rep-66-hutson"
+      ]
+    },
+    {
+      "id": "oh-rep-89",
+      "openstates_id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
+      "name": "D.J. Swearingen",
+      "party": "R",
+      "chamber": "State House",
+      "district": "89",
+      "role": "State Representative",
+      "photo_url": "https://www.legislature.ohio.gov/assets/people/d-j-swearingen/headshots/thumbnails/medium/d-j-swearingen-january-2021-headshot_medium.jpg",
+      "served_from": "2019",
+      "served_to": null,
+      "years_source": "https://github.com/openstates/people/blob/main/data/oh/legislature/D-J-Swearingen-cb2ddd04-e5b0-4c96-b217-d02b732eb896.yml",
+      "left_office_on": null,
+      "left_office_source": null,
+      "recorded_on": "2026-10-14",
+      "reason": "left office per https://ohiohouse.gov/members",
+      "successor_ids": []
+    }
+  ],
   "_retired_ids": [
     {
       "id": "oh-sen-13",

@@ -49,6 +49,34 @@ federal/federal_officials.json):
        codes now carry the state's own word: NP Nonpartisan, U
        Unaffiliated, NA Not Affiliated, UNE Unenrolled, NPA No Party
        Affiliation, TM Tribal Member)
+Seats and former officials (state_officials.json, fl/local_officials.json,
+federal/federal_officials.json, federal/congress_profiles.json, id_holders.json):
+  S-1  every official id, current or former, belongs to the person the
+       ledger id_holders.json names. Jeffrey, 2026-10-15: "When the
+       person in any seat changes, the successor must never inherit the
+       predecessor's page, posts, polls, followers or account; the
+       outgoing person moves to their own former record." Until then
+       us-ag, us-sec-labor and us-sec-dhs had passed to the next
+       officeholder (2026-09-24). Run scripts/build_id_holders.py
+       --write after adding people
+  S-2  former officials: every _retired_ids id has a _former_members
+       record; a former id is not also a current record; successor ids
+       name a record in the same file; recorded_on is a real date;
+       left_office_on is set only with an official https
+       left_office_source (a recorded-on date is never the day someone
+       left); served_from is not after served_to
+  S-3  a curated left_office_on for a member of Congress is a real date
+       with an https left_office_source
+  S-4  a campaign's ended_on (withdrawal date, or the certification date
+       of the result that ended it) has an https ended_on_source on an
+       official site; ended_recorded_on, the day our data recorded the
+       change, is a real date
+  The day someone left, and the day a campaign ended, come from official
+  sources only (Jeffrey, 2026-10-15: "with official sources only (for
+  the Florida primary, the Division of Elections or the Elections
+  Canvassing Commission, not news)"). An official site is a .gov or
+  .us host, or a state's own election or legislature domain listed in
+  OFFICIAL_HOST_SUFFIXES.
 Federal profiles (federal/congress_profiles.json, federal/federal_officials.json):
   F-1  every Areas of Focus (top_issues) source is a specific https
        page, never a site's home page (until 2026-10-15, 1,581
@@ -89,6 +117,9 @@ HTTP_ONLY_HOSTS = {
     # not tell whether https works. Left as Open States supplied them.
     "billstatus.ls.state.ms.us",
 }
+
+# Official sites other than .gov / .us hosts (rules S-2 to S-4).
+OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov")
 
 # Party codes frontend/lib/party.js maps to a label (rule O-4).
 PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
@@ -311,6 +342,13 @@ def lint_candidates(path: Path) -> None:
         oid = c.get("official_id")
         if oid and oid not in official_ids:
             problem("C-4", f"{where} {key}", f"official_id {oid!r} is not a current record in {_rel(officials_path)}")
+        if c.get("ended_on") is not None:
+            if not _real_date(c["ended_on"]):
+                problem("S-4", f"{where} {key}", f"ended_on {c['ended_on']!r} is not a date")
+            if not _official(c.get("ended_on_source")):
+                problem("S-4", f"{where} {key}", "ended_on needs an official https ended_on_source")
+        if c.get("ended_recorded_on") is not None and not _real_date(c["ended_recorded_on"]):
+            problem("S-4", f"{where} {key}", f"ended_recorded_on {c['ended_recorded_on']!r} is not a date")
         dup = c.get("duplicate_of")
         if dup is not None and dup not in cands:
             problem("C-3", f"{where} {key}", f"duplicate_of points at unknown id {dup}")
@@ -386,6 +424,106 @@ def lint_officials(path: Path) -> None:
             problem("O-4", where, f"{rec.get('id')}: party {code!r} is not a known code")
 
 
+# ── Seats and former officials ───────────────────────────────────────
+
+def _name_key(name) -> str:
+    import unicodedata
+    text = unicodedata.normalize("NFKD", str(name or ""))
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return "".join(ch for ch in text.casefold() if ch.isalnum())
+
+
+def _people(node, path=""):
+    """(json path, record) for every dict with a string id and name."""
+    if isinstance(node, dict):
+        if isinstance(node.get("id"), str) and isinstance(node.get("name"), str):
+            yield path, node
+        for k, v in node.items():
+            if k in ("elections", "_refresh", "_source", "_note"):
+                continue
+            yield from _people(v, f"{path}.{k}" if path else str(k))
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            yield from _people(v, f"{path}[{i}]")
+
+
+def lint_id_holders(files) -> None:
+    ledger_path = DATA / "id_holders.json"
+    if not ledger_path.exists():
+        problem("S-1", "id_holders.json", "missing; run scripts/build_id_holders.py --write")
+        return
+    holders = _load(ledger_path).get("holders") or {}
+    for path in files:
+        where = _rel(path)
+        for jpath, rec in _people(_load(path)):
+            entry = holders.get(rec["id"])
+            if entry is None:
+                problem("S-1", f"{where} {jpath}", f"id {rec['id']} is not in id_holders.json; "
+                        "run scripts/build_id_holders.py --write")
+                continue
+            name, short, *aliases = entry
+            if short and str(rec.get("openstates_id") or "").removeprefix("ocd-person/")[:8] == short:
+                continue
+            if _name_key(rec["name"]) in {_name_key(name), *(_name_key(a) for a in aliases)}:
+                continue
+            problem("S-1", f"{where} {jpath}", f"id {rec['id']} belongs to {name}, not {rec['name']}: give "
+                    f"{rec['name']} a new id and move {name} to _former_members")
+
+
+def _official(url) -> bool:
+    if not str(url or "").startswith("https://"):
+        return False
+    host = urlsplit(str(url)).netloc.lower()
+    return host.endswith((".gov", ".us")) or host.endswith(OFFICIAL_HOST_SUFFIXES)
+
+
+def _real_date(value) -> bool:
+    try:
+        _dt.date.fromisoformat(str(value))
+        return True
+    except ValueError:
+        return False
+
+
+def lint_former(path: Path) -> None:
+    doc = _load(path)
+    where = _rel(path)
+    former = doc.get("_former_members") or []
+    current = {rec["id"] for _p, rec in _people({k: v for k, v in doc.items() if not str(k).startswith("_")})}
+    former_ids = {f.get("id") for f in former}
+    for r in doc.get("_retired_ids") or []:
+        if r.get("id") not in former_ids:
+            problem("S-2", where, f"retired id {r.get('id')} has no _former_members record")
+    for f in former:
+        fid = f.get("id")
+        if fid in current:
+            problem("S-2", f"{where} {fid}", "is both a current record and a former one")
+        for sid in f.get("successor_ids") or []:
+            if sid not in current and sid not in former_ids:
+                problem("S-2", f"{where} {fid}", f"successor {sid} is not a record in this file")
+        if not _real_date(f.get("recorded_on")):
+            problem("S-2", f"{where} {fid}", f"recorded_on {f.get('recorded_on')!r} is not a date")
+        if f.get("left_office_on") is not None:
+            if not _real_date(f["left_office_on"]):
+                problem("S-2", f"{where} {fid}", f"left_office_on {f['left_office_on']!r} is not a date")
+            if not _official(f.get("left_office_source")):
+                problem("S-2", f"{where} {fid}", "left_office_on needs an official https left_office_source")
+        start, end = f.get("served_from"), f.get("served_to")
+        if start and end and str(start) > str(end):
+            problem("S-2", f"{where} {fid}", f"served_from {start} is after served_to {end}")
+
+
+def lint_congress_departures(path: Path) -> None:
+    where = _rel(path)
+    for bioguide, prof in (_load(path) or {}).items():
+        if not isinstance(prof, dict) or prof.get("left_office_on") is None:
+            continue
+        if not _real_date(prof["left_office_on"]):
+            problem("S-3", f"{where} {bioguide}", f"left_office_on {prof['left_office_on']!r} is not a date")
+        if not _official(prof.get("left_office_source")):
+            problem("S-3", f"{where} {bioguide}", "left_office_on needs an official https left_office_source")
+
+
 # ── Federal profiles ─────────────────────────────────────────────────
 
 def _is_home_page(url: str) -> bool:
@@ -454,6 +592,13 @@ def main() -> int:
     if (DATA / "fl" / "local_officials.json").exists():
         lint_officials(DATA / "fl" / "local_officials.json")
     lint_officials(DATA / "federal" / "federal_officials.json")
+    officials_files = [sd / "state_officials.json" for sd in state_dirs if (sd / "state_officials.json").exists()]
+    officials_files += [p for p in (DATA / "fl" / "local_officials.json", DATA / "federal" / "federal_officials.json")
+                        if p.exists()]
+    lint_id_holders(officials_files)
+    for path in officials_files:
+        lint_former(path)
+    lint_congress_departures(DATA / "federal" / "congress_profiles.json")
     lint_federal_stances(DATA / "federal" / "congress_profiles.json")
     lint_federal_stances(DATA / "federal" / "federal_officials.json")
     lint_photo_credits(files)
