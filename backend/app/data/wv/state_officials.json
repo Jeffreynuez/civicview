@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "WV",
   "state_name": "West Virginia",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Patrick Morrisey is the Governor of West Virginia, serving since 2025.",
       "sources": [
         "https://governor.wv.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/cf5ab5dc-33c4-4d93-a810-f42cd6f98f5d"
     },
     "cabinet": [
       {
@@ -26,7 +32,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-McCusker.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-McCusker.png",
+        "openstates_id": "ocd-person/0788d53c-8461-4f0f-ba32-07f626cb45e1"
       }
     ]
   },
@@ -631,17 +638,17 @@
         }
       },
       {
-        "id": "wv-rep-4",
-        "openstates_id": "ocd-person/84ae4ee5-01d1-402d-8267-787a78dd58e5",
-        "name": "Bill Flanigan",
+        "id": "wv-rep-4-stack",
+        "openstates_id": "ocd-person/290eeecf-40a3-4418-a80d-15a61b809607",
+        "name": "Shane Stack",
         "party": "R",
         "chamber": "House of Delegates",
         "district": "4",
         "role": "Delegate",
-        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/flanigan_bill.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/stack_shane.jpg",
         "contact": {
-          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Flanigan",
-          "email": "bill.flanigan@wvhouse.gov",
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Stack",
+          "email": "shane.stack@wvhouse.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -919,17 +926,17 @@
         }
       },
       {
-        "id": "wv-rep-22",
-        "openstates_id": "ocd-person/32c4e5cf-81f5-4564-bb9b-568d13156dec",
-        "name": "Daniel Linville",
+        "id": "wv-rep-22-holley",
+        "openstates_id": "ocd-person/feedb0b5-72da-4529-ab31-630805452e1a",
+        "name": "Aaron Holley",
         "party": "R",
         "chamber": "House of Delegates",
         "district": "22",
         "role": "Delegate",
-        "photo_url": "https://www.wvlegislature.gov/images/members/2023/house/linville_daniel.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/holley_aaron.jpg",
         "contact": {
-          "official_website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Linville",
-          "email": "daniel.linville@wvhouse.gov",
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Holley",
+          "email": "aaron.holley@wvhouse.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1367,17 +1374,17 @@
         }
       },
       {
-        "id": "wv-rep-50",
-        "openstates_id": "ocd-person/d7f119af-3e41-40a1-9541-bfa1a1e7a9b4",
-        "name": "Elliott Pritt",
+        "id": "wv-rep-50-vest",
+        "openstates_id": "ocd-person/a49643ec-8dac-4464-8658-1cf68602be17",
+        "name": "Bill Vest",
         "party": "R",
         "chamber": "House of Delegates",
         "district": "50",
         "role": "Delegate",
-        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/pritt_david.jpg",
+        "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/vest_william.jpg",
         "contact": {
-          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Pritt",
-          "email": "elliott.pritt@wvhouse.gov",
+          "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Vest",
+          "email": "william.vest@wvhouse.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2081,7 +2088,7 @@
         "photo_url": "https://www.wvlegislature.gov/images/members/2025/house/bennett_donald.jpg",
         "contact": {
           "official_website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Bennett",
-          "email": "donald.bennett@wvhouse.gov",
+          "email": "donaldlee.bennett@wvhouse.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2183,5 +2190,28 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "wv-rep-4",
+      "name": "Bill Flanigan",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/84ae4ee5-01d1-402d-8267-787a78dd58e5"
+    },
+    {
+      "id": "wv-rep-22",
+      "name": "Daniel Linville",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/32c4e5cf-81f5-4564-bb9b-568d13156dec"
+    },
+    {
+      "id": "wv-rep-50",
+      "name": "Elliott Pritt",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/d7f119af-3e41-40a1-9541-bfa1a1e7a9b4"
+    }
+  ]
 }

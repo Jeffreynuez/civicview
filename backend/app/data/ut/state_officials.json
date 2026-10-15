@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "UT",
   "state_name": "Utah",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Spencer Cox is the Governor of Utah, serving since 2021.",
       "sources": [
         "https://governor.utah.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/52dd3ff2-e7a2-458e-b8f1-797fdab69e4a"
+    },
+    "lt_governor": {
+      "id": "ut-exec-lieutenant-governor-henderson",
+      "openstates_id": "ocd-person/8bae8ef6-d21e-4eba-94e4-2aad97023cbc",
+      "name": "Deidre M. Henderson",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://ltgovernor.utah.gov/",
+      "photo_url": "https://ltgovernor.utah.gov/wp-content/uploads/Official-portrait-2-scaled-1-728x1024.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "ut-exec-attorney-general-brown",
+        "openstates_id": "ocd-person/34430fff-d52e-4218-a99b-3d2764578bc9",
+        "name": "Derek Brown",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://attorneygeneral.utah.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-UT-Brown-Derek.png"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Utah State Senate",
@@ -572,6 +600,22 @@
         }
       },
       {
+        "id": "ut-rep-6-bishop",
+        "openstates_id": "ocd-person/b68ab473-0a2e-41f5-9732-fbffd6738865",
+        "name": "Rob Bishop",
+        "party": "R",
+        "chamber": "State House",
+        "district": "6",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/BISHORW/",
+          "email": "rbishop@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
         "id": "ut-rep-7",
         "openstates_id": "ocd-person/9657724b-ade7-467e-b77d-b77fb98891c5",
         "name": "Ryan Wilcox",
@@ -711,22 +755,6 @@
         "contact": {
           "official_website": "https://house.utah.gov/rep/DEFAYA/",
           "email": "adefay@le.utah.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ut-rep-16",
-        "openstates_id": "ocd-person/3187c9ea-c509-45f3-9eb4-a8ba2d8fd7d9",
-        "name": "Trevor Lee",
-        "party": "R",
-        "chamber": "State House",
-        "district": "16",
-        "role": "State Representative",
-        "photo_url": "https://le.utah.gov/images/legislator/LEETA.jpg",
-        "contact": {
-          "official_website": "https://house.utah.gov/rep/LEETA/",
-          "email": "tlee@le.utah.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1420,6 +1448,22 @@
         }
       },
       {
+        "id": "ut-rep-60-pace",
+        "openstates_id": "ocd-person/83efadab-9aba-4506-96d7-04a79581348c",
+        "name": "Grant Pace",
+        "party": "R",
+        "chamber": "State House",
+        "district": "60",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://house.utleg.gov/rep/PACEG/",
+          "email": "gpace@le.utah.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
         "id": "ut-rep-61",
         "openstates_id": "ocd-person/cc269dc8-cef7-4e8d-a3fc-0d658d1dcfcc",
         "name": "Lisa Shepherd",
@@ -1468,17 +1512,17 @@
         }
       },
       {
-        "id": "ut-rep-64",
-        "openstates_id": "ocd-person/1773d5d5-4967-4af5-9880-3106ace372d7",
-        "name": "Jeff Burton",
+        "id": "ut-rep-64-larson",
+        "openstates_id": "ocd-person/c078ef2d-7a7a-469a-a8bc-d6e5c16203c4",
+        "name": "Jackie Larson",
         "party": "R",
         "chamber": "State House",
         "district": "64",
         "role": "State Representative",
-        "photo_url": "https://le.utah.gov/images/legislator/BURTOJS.jpg",
+        "photo_url": "https://static.wixstatic.com/media/355155_bfae42d4d46d4e1f86e11a37eef18af1~mv2.jpeg/v1/fill/w_873,h_1484,fp_0.46_0.23,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/355155_bfae42d4d46d4e1f86e11a37eef18af1~mv2.jpeg",
         "contact": {
-          "official_website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415546",
-          "email": "jburton@le.utah.gov",
+          "official_website": "https://house.utleg.gov/rep/LARSOJ/",
+          "email": "jlarson@le.utah.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1659,6 +1703,32 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "16",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Trevor Lee"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ut-rep-16",
+      "name": "Trevor Lee",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/3187c9ea-c509-45f3-9eb4-a8ba2d8fd7d9"
+    },
+    {
+      "id": "ut-rep-64",
+      "name": "Jeff Burton",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/1773d5d5-4967-4af5-9880-3106ace372d7"
+    }
+  ]
 }

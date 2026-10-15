@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "TN",
   "state_name": "Tennessee",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Bill Lee is the Governor of Tennessee, serving since 2019.",
       "sources": [
         "https://www.tn.gov/governor"
-      ]
+      ],
+      "openstates_id": "ocd-person/d94cf7a2-1ba6-46f2-bdbf-54ace20b8dfc"
     }
   },
   "state_senate": {
@@ -803,7 +809,7 @@
         "chamber": "State House",
         "district": "16",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://nebula.wsimg.com/ec18d700041ee80017970cc4f5b0d8cb?AccessKeyId=C9D09D69010A6C1BCFA5&disposition=0&alloworigin=1",
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-michele-carringer/",
           "email": "rep.michele.carringer@capitol.tn.gov",
@@ -1031,22 +1037,6 @@
         "contact": {
           "official_website": "https://tnhousegop.org/members/representative-esther-helton-haynes/",
           "email": "rep.esther.helton@capitol.tn.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "tn-rep-31",
-        "openstates_id": "ocd-person/7429d345-6ad7-421c-936b-3ef9755c6d1f",
-        "name": "Ron Travis",
-        "party": "R",
-        "chamber": "State House",
-        "district": "31",
-        "role": "State Representative",
-        "photo_url": "https://www.capitol.tn.gov/house/members/images/h31.jpg",
-        "contact": {
-          "official_website": "https://tnhousegop.org/members/representative-ron-travis/",
-          "email": "rep.ron.travis@capitol.tn.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1884,22 +1874,6 @@
         }
       },
       {
-        "id": "tn-rep-84",
-        "openstates_id": "ocd-person/7a3177a1-118c-48ce-bbb8-17ebb1240e00",
-        "name": "Joe Towns",
-        "party": "D",
-        "chamber": "State House",
-        "district": "84",
-        "role": "State Representative",
-        "photo_url": "https://www.capitol.tn.gov/house/members/images/h84.jpg",
-        "contact": {
-          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H84",
-          "email": "rep.joe.towns@capitol.tn.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "tn-rep-85",
         "openstates_id": "ocd-person/108691a2-9f24-41c5-b4c8-606c7cdf036b",
         "name": "Jesse Chism",
@@ -2028,17 +2002,17 @@
         }
       },
       {
-        "id": "tn-rep-93",
-        "openstates_id": "ocd-person/740ad1ee-4445-41ef-b6b9-1d31185b4916",
-        "name": "G.A. Hardaway",
+        "id": "tn-rep-93-hardaway",
+        "openstates_id": "ocd-person/fb96543d-2ccf-45c0-9ade-49f042bb715e",
+        "name": "T.J. Hardaway",
         "party": "D",
         "chamber": "State House",
         "district": "93",
         "role": "State Representative",
-        "photo_url": "https://www.capitol.tn.gov/house/members/images/h93.jpg",
+        "photo_url": "https://tennesseelookout.com/wp-content/uploads/2026/05/TJHardaway1.jpg",
         "contact": {
-          "official_website": "https://wapp.capitol.tn.gov/apps/legislatorinfo/member.aspx?district=H93",
-          "email": "rep.ga.hardaway@capitol.tn.gov",
+          "official_website": "https://wapp.capitol.tn.gov/apps/LegislatorInfo/Member?district=H93",
+          "email": "rep.tj.hardaway@capitol.tn.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2139,6 +2113,47 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "31",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Ron Travis"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "84",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Joe Towns"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "tn-rep-31",
+      "name": "Ron Travis",
+      "retired_on": "2026-10-14",
+      "reason": "left office per https://wapp.capitol.tn.gov/apps/LegislatorInfo/Member?district=H31&ga=114",
+      "openstates_id": "ocd-person/7429d345-6ad7-421c-936b-3ef9755c6d1f"
+    },
+    {
+      "id": "tn-rep-84",
+      "name": "Joe Towns",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/7a3177a1-118c-48ce-bbb8-17ebb1240e00"
+    },
+    {
+      "id": "tn-rep-93",
+      "name": "G.A. Hardaway",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/740ad1ee-4445-41ef-b6b9-1d31185b4916"
+    }
+  ]
 }

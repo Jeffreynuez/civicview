@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "TX",
   "state_name": "Texas",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Greg Abbott is the Governor of Texas, serving since 2015. He previously served as Attorney General of Texas and as a Justice of the Texas Supreme Court.",
       "sources": [
         "https://gov.texas.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/d73f10ee-69f2-4ca8-ac00-405c453a62d7"
     },
     "lt_governor": {
       "id": "tx-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.ltgov.state.tx.us/wp-content/uploads/2021/01/dan_patrick_new_2021.jpg"
+      "photo_url": "https://www.ltgov.state.tx.us/wp-content/uploads/2021/01/dan_patrick_new_2021.jpg",
+      "openstates_id": "ocd-person/22c1bff3-e936-4398-8d7c-95233e85b5c5"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/ff63d52e-ec3f-4749-9b96-8e8323cd655f"
       },
       {
         "id": "tx-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-TX-Paxton.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-TX-Paxton.jpg",
+        "openstates_id": "ocd-person/1c1b6320-5ed6-4739-9f53-389b724b0305"
       }
     ]
   },
@@ -95,6 +104,22 @@
         "contact": {
           "official_website": "https://senate.texas.gov/member.php?d=3",
           "email": "robert.nichols@senate.texas.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "tx-sen-4-ligon",
+        "openstates_id": "ocd-person/6fde08be-f7c0-464a-83a7-430c60617beb",
+        "name": "Brett Ligon",
+        "party": "R",
+        "chamber": "State Senate",
+        "district": "4",
+        "role": "State Senator",
+        "photo_url": "https://senate.texas.gov/members/d04/img/Ligon_Brett_Headshot_web.jpg",
+        "contact": {
+          "official_website": "https://senate.texas.gov/member.php?d=4",
+          "email": "brett.ligon@senate.texas.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -372,22 +397,6 @@
         }
       },
       {
-        "id": "tx-sen-22",
-        "openstates_id": "ocd-person/44a23037-5ccd-4781-9e93-c4b950f74355",
-        "name": "Brian Birdwell",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "22",
-        "role": "State Senator",
-        "photo_url": "https://senate.texas.gov/members/d22/img/headshot.jpg",
-        "contact": {
-          "official_website": "https://senate.texas.gov/member.php?d=22",
-          "email": "brian.birdwell@senate.texas.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "tx-sen-23",
         "openstates_id": "ocd-person/d6f40682-7b90-4735-980c-7c95ef402a78",
         "name": "Royce West",
@@ -531,27 +540,21 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "22",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Brian Birdwell"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
   },
   "state_house": {
     "body_name": "Texas State House",
     "members": [
-      {
-        "id": "tx-rep-1",
-        "openstates_id": "ocd-person/26617394-4276-4aa7-878c-d20552b260a4",
-        "name": "Gary VanDeaver",
-        "party": "R",
-        "chamber": "State House",
-        "district": "1",
-        "role": "State Representative",
-        "photo_url": "https://house.texas.gov/images/members/2540.jpg?v=1",
-        "contact": {
-          "official_website": "https://house.texas.gov/members/2540",
-          "email": "gary.vandeaver@house.texas.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
       {
         "id": "tx-rep-2",
         "openstates_id": "ocd-person/469f1932-49dc-4a46-8341-b2cd9bc0f96d",
@@ -1915,7 +1918,7 @@
       {
         "id": "tx-rep-87",
         "openstates_id": "ocd-person/5c40c2b0-07c1-4c73-b15b-14d0ef6df40e",
-        "name": "Caroline Fairly",
+        "name": "Caroline Dunmoyer",
         "party": "R",
         "chamber": "State House",
         "district": "87",
@@ -2004,22 +2007,6 @@
         "contact": {
           "official_website": "https://house.texas.gov/members/92",
           "email": "salman.bhojani@house.texas.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "tx-rep-93",
-        "openstates_id": "ocd-person/c6308fcd-b1e1-4ce3-9a29-c05e420e8012",
-        "name": "Nate Schatzline",
-        "party": "R",
-        "chamber": "State House",
-        "district": "93",
-        "role": "State Representative",
-        "photo_url": "https://house.texas.gov/images/members/4355.jpg?v=1",
-        "contact": {
-          "official_website": "https://house.texas.gov/members/4355",
-          "email": "nate.schatzline@house.texas.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2936,6 +2923,47 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "1",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Gary VanDeaver"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "93",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Nate Schatzline"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "tx-sen-22",
+      "name": "Brian Birdwell",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/44a23037-5ccd-4781-9e93-c4b950f74355"
+    },
+    {
+      "id": "tx-rep-1",
+      "name": "Gary VanDeaver",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/26617394-4276-4aa7-878c-d20552b260a4"
+    },
+    {
+      "id": "tx-rep-93",
+      "name": "Nate Schatzline",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/c6308fcd-b1e1-4ce3-9a29-c05e420e8012"
+    }
+  ]
 }

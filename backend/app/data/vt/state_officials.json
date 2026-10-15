@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "VT",
   "state_name": "Vermont",
   "executive": {
@@ -16,8 +21,47 @@
       "bio": "Phil Scott is the Governor of Vermont, serving since 2017.",
       "sources": [
         "https://governor.vermont.gov"
+      ],
+      "openstates_id": "ocd-person/f3e613ff-3cd6-4b2c-b268-f6460d029f05"
+    },
+    "lt_governor": {
+      "id": "vt-exec-lieutenant-governor-rodgers",
+      "openstates_id": "ocd-person/2cb218ea-52a4-4d1f-9732-217940ba260e",
+      "name": "John Rodgers",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://ltgov.vermont.gov/",
+      "photo_url": "https://ltgov.vermont.gov/sites/gray/files/inline-images/John%20Rodgers%20002_0.jpg",
+      "selection_method": "elected",
+      "selection_detail": "No candidate won a majority of the November 2024 vote, so the Legislature elected him in joint session on January 9, 2025.",
+      "normally_elected": true,
+      "sources": [
+        "https://legislature.vermont.gov/Documents/2026/Docs/JOURNAL/ja250109.pdf"
       ]
-    }
+    },
+    "cabinet": [
+      {
+        "id": "vt-exec-attorney-general-clark",
+        "openstates_id": "ocd-person/5ff8e24a-93df-4bc3-a669-7ea42d42c59b",
+        "name": "Charity Clark",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://ago.vermont.gov/",
+        "photo_url": "https://ago.vermont.gov/sites/ago/files/inline-images/Charity%20R%20Clark%20headshot.jpg"
+      },
+      {
+        "id": "vt-exec-secretary-of-state-copeland-hanzas",
+        "openstates_id": "ocd-person/19d6cf01-f77c-4db7-8765-af838a00bc75",
+        "name": "Sarah L. Copeland Hanzas",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://sos.vermont.gov/",
+        "photo_url": "https://sos.vermont.gov/sites/sos/files/images/sarah.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Vermont State Senate",

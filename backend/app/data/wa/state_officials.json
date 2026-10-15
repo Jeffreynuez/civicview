@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "WA",
   "state_name": "Washington",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Bob Ferguson is the Governor of Washington, serving since 2025.",
       "sources": [
         "https://governor.wa.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/117499b6-79e9-4eaf-827d-59c0ed14b7c0"
     },
     "lt_governor": {
       "id": "wa-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://images.squarespace-cdn.com/content/v1/5d70140860791400013fe3ce/2bb4d89d-3bb3-45dd-896a-5f984bdd1d4e/Lt.+Gov+Heck+headshot_updated.jpg"
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/5d70140860791400013fe3ce/2bb4d89d-3bb3-45dd-896a-5f984bdd1d4e/Lt.+Gov+Heck+headshot_updated.jpg",
+      "openstates_id": "ocd-person/b1789e29-3532-4554-9ee1-853497224a85"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-Brown-Nick.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-WA-Brown-Nick.png",
+        "openstates_id": "ocd-person/4816d75e-eac4-4ff8-8270-fb79324b93c8"
       },
       {
         "id": "wa-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.sos.wa.gov/sites/default/files/styles/max_650x650/public/2022-08/Hobbs.jpg"
+        "photo_url": "https://www.sos.wa.gov/sites/default/files/styles/max_650x650/public/2022-08/Hobbs.jpg",
+        "openstates_id": "ocd-person/4a203502-87b1-49f6-8cf2-8cbf4dedb954"
       }
     ]
   },
