@@ -3,6 +3,17 @@
  "_source": "Wikimedia Commons API (commons.wikimedia.org/w/api.php), imageinfo extmetadata.",
  "retrieved": "2026-09-25",
  "credits": {
+  "https://upload.wikimedia.org/wikipedia/commons/2/2b/Andrea_Campbell_official_attorney_general_headshot%2C_2023_%283x4%29.jpg": {
+   "subjects": [
+    "Andrea Joy Campbell"
+   ],
+   "file_title": "File:Andrea Campbell official attorney general headshot, 2023 (3x4).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Andrea_Campbell_official_attorney_general_headshot,_2023_(3x4).jpg",
+   "author": "Office of the Massachusetts Attorney General",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
   "https://upload.wikimedia.org/wikipedia/commons/3/36/Betty_Villegas_by_Gage_Skidmore.jpg": {
    "subjects": [
     "Betty Villegas"
@@ -43,6 +54,17 @@
    "file_title": "File:Official portrait of Lieutenant Governor of Florida Jay Collins.jpg",
    "file_page": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Lieutenant_Governor_of_Florida_Jay_Collins.jpg",
    "author": "Government of Florida",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
+  "https://upload.wikimedia.org/wikipedia/commons/d/d3/Diana_DiZoglio%2C_State_Auditor.png": {
+   "subjects": [
+    "Diana DiZoglio"
+   ],
+   "file_title": "File:Diana DiZoglio, State Auditor.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Diana_DiZoglio,_State_Auditor.png",
+   "author": "Office of the State Auditor",
    "license": "Public domain",
    "license_url": null,
    "attribution_required": false
@@ -220,6 +242,17 @@
    "file_page": "https://commons.wikimedia.org/wiki/File:Associate_Justice_Brett_Kavanaugh_Official_Portrait_(full_length).jpg",
    "author": "Photographer, Fred Schilling Taken for Supreme Court",
    "license": "Public domain",
+   "license_url": null,
+   "attribution_required": false
+  },
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Iowa_State_Senator_Chris_Cournoyer.jpg/250px-Iowa_State_Senator_Chris_Cournoyer.jpg": {
+   "subjects": [
+    "Chris Cournoyer"
+   ],
+   "file_title": "File:Iowa State Senator Chris Cournoyer.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Iowa_State_Senator_Chris_Cournoyer.jpg",
+   "author": "Iowa General Assembly",
+   "license": "Copyrighted free use",
    "license_url": null,
    "attribution_required": false
   },

@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "IL",
   "state_name": "Illinois",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "JB Pritzker is the Governor of Illinois, serving since 2019.",
       "sources": [
         "https://gov.illinois.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/db3adc7a-d2f8-4e61-a017-bf5d3804ba33"
     },
     "lt_governor": {
       "id": "il-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://s7d1.scene7.com/is/image/isp/lg-web-about-portrait-smaller"
+      "photo_url": "https://s7d1.scene7.com/is/image/isp/lg-web-about-portrait-smaller",
+      "openstates_id": "ocd-person/c8b35f07-1a0b-4019-b476-9fa032494c5e"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://illinoisattorneygeneral.gov/images/AG_BioPhoto.jpg"
+        "photo_url": "https://illinoisattorneygeneral.gov/images/AG_BioPhoto.jpg",
+        "openstates_id": "ocd-person/65ee6848-68bd-430d-890c-a121fb6e8577"
       }
     ]
   },
@@ -933,7 +941,7 @@
         "photo_url": "https://cdn.ilga.gov/assets/img/members/{7762DCAD-269B-472B-BDD4-5F5A28D47817}.jpg",
         "contact": {
           "official_website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3216",
-          "email": "harris@ilsenategop.org",
+          "email": "harriss@ilsenategop.org",
           "dc_office": null,
           "dc_phone": null
         }
@@ -971,17 +979,17 @@
         }
       },
       {
-        "id": "il-sen-59",
-        "openstates_id": "ocd-person/5a84a944-7d29-454e-aec6-85e6c3238d53",
-        "name": "Dale Fowler",
+        "id": "il-sen-59-jacobs",
+        "openstates_id": "ocd-person/2febe0de-8b57-43c9-b8cd-a5363af4eae3",
+        "name": "Paul Jacobs",
         "party": "R",
         "chamber": "State Senate",
         "district": "59",
         "role": "State Senator",
-        "photo_url": "https://cdn.ilga.gov/assets/img/members/{1E60CA94-7006-4CAB-841D-C9D99569D9D3}.jpg",
+        "photo_url": "https://cdn.ilga.gov/assets/img/members/{0E151A06-57C8-4261-9577-278F5DD4B717}.jpg",
         "contact": {
-          "official_website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2678",
-          "email": "senatorfowler59@gmail.com",
+          "official_website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3003",
+          "email": "jacobs@ilsenategop.org",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2528,17 +2536,17 @@
         }
       },
       {
-        "id": "il-rep-97",
-        "openstates_id": "ocd-person/1574a50f-6d50-4d7d-87ee-db0254e5093e",
-        "name": "Harry Benton",
+        "id": "il-rep-97-dixon-heitman",
+        "openstates_id": "ocd-person/5ea8a157-c31c-407b-8378-6d80aa7280f9",
+        "name": "Jessica Dixon Heitman",
         "party": "D",
         "chamber": "State House",
         "district": "97",
         "role": "State Representative",
-        "photo_url": "https://cdn.ilga.gov/assets/img/members/{591DB385-5E0D-41CC-8B13-2FDA10A73D7F}.jpg",
+        "photo_url": "https://www.chicagotribune.com/wp-content/uploads/2026/07/ctc-l-Dixon-Heitman_264932049_246515.jpg?w=1392",
         "contact": {
-          "official_website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3241",
-          "email": "info@repharrybenton.com",
+          "official_website": "https://www.ilga.gov/House/Members/Details/3465",
+          "email": "repdixonheitman@repjdh.com",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2864,21 +2872,44 @@
         }
       },
       {
-        "id": "il-rep-118",
-        "openstates_id": "ocd-person/2febe0de-8b57-43c9-b8cd-a5363af4eae3",
-        "name": "Paul Jacobs",
+        "id": "il-rep-118-doody",
+        "openstates_id": "ocd-person/4f34a22a-48e9-4439-8cab-cf5360cd8433",
+        "name": "Scott Doody",
         "party": "R",
         "chamber": "State House",
         "district": "118",
         "role": "State Representative",
-        "photo_url": "https://cdn.ilga.gov/assets/img/members/{0E151A06-57C8-4261-9577-278F5DD4B717}.jpg",
+        "photo_url": null,
         "contact": {
-          "official_website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3003",
-          "email": "jacobs@ilhousegop.org",
+          "official_website": "https://www.ilga.gov/House/Members/Details/3464",
+          "email": "doody@ilhousegop.org",
           "dc_office": null,
           "dc_phone": null
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "il-sen-59",
+      "name": "Dale Fowler",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/5a84a944-7d29-454e-aec6-85e6c3238d53"
+    },
+    {
+      "id": "il-rep-97",
+      "name": "Harry Benton",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/1574a50f-6d50-4d7d-87ee-db0254e5093e"
+    },
+    {
+      "id": "il-rep-118",
+      "name": "Paul Jacobs",
+      "retired_on": "2026-10-14",
+      "reason": "moved to il-sen-59-jacobs",
+      "openstates_id": "ocd-person/2febe0de-8b57-43c9-b8cd-a5363af4eae3"
+    }
+  ]
 }

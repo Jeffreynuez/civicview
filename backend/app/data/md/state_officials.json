@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MD",
   "state_name": "Maryland",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Wes Moore is the Governor of Maryland, serving since 2023.",
       "sources": [
         "https://governor.maryland.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/a6a4f3ad-59c0-471c-8fd3-ea06a8e21a87"
+    },
+    "lt_governor": {
+      "id": "md-exec-lieutenant-governor-miller",
+      "openstates_id": "ocd-person/27dd7c4f-0e25-4cd0-b849-6830e5ec7fa1",
+      "name": "Aruna Miller",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://governor.maryland.gov/leadership/lt-governor",
+      "photo_url": "https://cdn.maryland.gov/maryland-cms/prod/governor/s3fs-public/images/2026-04/lg%201st%20size.png"
+    },
+    "cabinet": [
+      {
+        "id": "md-exec-attorney-general-brown",
+        "openstates_id": "ocd-person/1ad81709-e1d6-42bd-86bc-afdec934288c",
+        "name": "Anthony G. Brown",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://oag.maryland.gov/",
+        "photo_url": "https://oag.maryland.gov/our-office/PublishingImages/AttorneyGeneral.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Maryland State Senate",
@@ -73,7 +101,7 @@
       {
         "id": "md-sen-4",
         "openstates_id": "ocd-person/d8938e62-87cd-420e-a009-f78a418ed138",
-        "name": "William Folden",
+        "name": "Bill Folden",
         "party": "R",
         "chamber": "State Senate",
         "district": "4",
@@ -2172,6 +2200,22 @@
         }
       },
       {
+        "id": "md-rep-42A-harlan",
+        "openstates_id": "ocd-person/39fb5148-7e60-4df3-b538-3bee07dd8a68",
+        "name": "Alex Harlan",
+        "party": "R",
+        "chamber": "House of Delegates",
+        "district": "42A",
+        "role": "Delegate",
+        "photo_url": "https://mgaleg.maryland.gov/2026RS/images/harlan01.jpg",
+        "contact": {
+          "official_website": "https://mgaleg.maryland.gov/mgawebsite/Members/Details/harlan01",
+          "email": "alexander.harlan@house.maryland.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
         "id": "md-rep-45",
         "openstates_id": "ocd-person/d0ca1dc9-5ac3-42ea-8ec5-c86a229ccba5",
         "name": "Caylin Young",
@@ -2844,22 +2888,6 @@
         }
       },
       {
-        "id": "md-rep-42A",
-        "openstates_id": "ocd-person/7817a7bd-51a6-456a-a2df-4b9e3523d181",
-        "name": "Nino Mangione",
-        "party": "R",
-        "chamber": "House of Delegates",
-        "district": "42A",
-        "role": "Delegate",
-        "photo_url": "https://mgaleg.maryland.gov/2019RS/images/mangione01.jpg",
-        "contact": {
-          "official_website": "https://mgaleg.maryland.gov/mgawebsite/Members/Details/mangione01",
-          "email": "nino.mangione@house.maryland.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "md-rep-42B",
         "openstates_id": "ocd-person/b120ed9c-3669-44e7-a5ef-710b716071e7",
         "name": "Michele Guyton",
@@ -3036,5 +3064,14 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "md-rep-42A",
+      "name": "Nino Mangione",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/7817a7bd-51a6-456a-a2df-4b9e3523d181"
+    }
+  ]
 }

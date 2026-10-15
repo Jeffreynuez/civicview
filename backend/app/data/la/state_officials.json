@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "LA",
   "state_name": "Louisiana",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Jeff Landry is the Governor of Louisiana, serving since 2024.",
       "sources": [
         "https://gov.louisiana.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/90d9e851-bec3-4bde-b883-bfa43d63194f"
+    },
+    "lt_governor": {
+      "id": "la-exec-lieutenant-governor-nungesser",
+      "openstates_id": "ocd-person/003d1e83-14f4-4bda-8484-c552e036f421",
+      "name": "Billy Nungesser",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://www.crt.state.la.us/lt-governor/",
+      "photo_url": "https://www.crt.state.la.us/Assets/LTG/nungesser.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "la-exec-attorney-general-murrill",
+        "openstates_id": "ocd-person/6beaac02-1e0d-4aee-96d3-9033f9f918e8",
+        "name": "Liz Murrill",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://ag.louisiana.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2024/02/ag-LA-Murrill-Liz.png"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Louisiana State Senate",
@@ -226,22 +254,6 @@
         "contact": {
           "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=64",
           "email": "sen13@legis.la.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "la-sen-14",
-        "openstates_id": "ocd-person/52035a94-6995-4ea4-b463-1109d683048b",
-        "name": "Larry Selders",
-        "party": "D",
-        "chamber": "State Senate",
-        "district": "14",
-        "role": "State Senator",
-        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep67.jpg",
-        "contact": {
-          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=67",
-          "email": "sen14@legis.la.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -645,6 +657,16 @@
           "dc_office": null,
           "dc_phone": null
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "14",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Larry Selders"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -1868,22 +1890,6 @@
         }
       },
       {
-        "id": "la-rep-77",
-        "openstates_id": "ocd-person/d3ecec03-0408-46f0-8c82-b775f787e6e1",
-        "name": "Mark Wright",
-        "party": "R",
-        "chamber": "State House",
-        "district": "77",
-        "role": "State Representative",
-        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep77.jpg",
-        "contact": {
-          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=77",
-          "email": "wrightm@legis.la.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "la-rep-78",
         "openstates_id": "ocd-person/3c0eeaa2-cf62-4b17-9b62-2531c078dd42",
         "name": "John Illg",
@@ -2014,7 +2020,7 @@
       {
         "id": "la-rep-86",
         "openstates_id": "ocd-person/bc967860-a12b-4285-bd97-36379803f119",
-        "name": "Nicholas Muscarello",
+        "name": "Nicky Muscarello",
         "party": "R",
         "chamber": "State House",
         "district": "86",
@@ -2103,22 +2109,6 @@
         "contact": {
           "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=91",
           "email": "hse091@legis.la.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "la-rep-92",
-        "openstates_id": "ocd-person/958015ce-4a91-4830-a11f-e73997823d4b",
-        "name": "Joe Stagni",
-        "party": "R",
-        "chamber": "State House",
-        "district": "92",
-        "role": "State Representative",
-        "photo_url": "https://house.louisiana.gov/H_Reps/RepPics20/rep92.jpg",
-        "contact": {
-          "official_website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=92",
-          "email": "stagnij@legis.la.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2331,6 +2321,47 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "77",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Mark Wright"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "92",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Joe Stagni"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "la-sen-14",
+      "name": "Larry Selders",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/52035a94-6995-4ea4-b463-1109d683048b"
+    },
+    {
+      "id": "la-rep-77",
+      "name": "Mark Wright",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/d3ecec03-0408-46f0-8c82-b775f787e6e1"
+    },
+    {
+      "id": "la-rep-92",
+      "name": "Joe Stagni",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/958015ce-4a91-4830-a11f-e73997823d4b"
+    }
+  ]
 }
