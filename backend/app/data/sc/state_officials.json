@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "SC",
   "state_name": "South Carolina",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Henry McMaster is the Governor of South Carolina, serving since 2017.",
       "sources": [
         "https://governor.sc.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/333130a9-ecba-4992-b223-d2af0c9f2a06"
+    },
+    "lt_governor": {
+      "id": "sc-exec-lieutenant-governor-evette",
+      "openstates_id": "ocd-person/f96c83a2-ed1e-4ff6-b5a7-7bb83afdf2df",
+      "name": "Pamela Evette",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://governor.sc.gov/lieutenant-governor",
+      "photo_url": "https://governor.sc.gov/sites/governor/files/Documents/Images/LG%20Headshot%202022.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "sc-exec-attorney-general-wilson",
+        "openstates_id": "ocd-person/b9f92b67-9de4-489e-861b-995274f4d20e",
+        "name": "Alan Wilson",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.scag.gov/",
+        "photo_url": "https://www.scag.gov/media/ie5nqrqm/about-meet.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "South Carolina State Senate",
@@ -25,7 +53,7 @@
       {
         "id": "sc-sen-1",
         "openstates_id": "ocd-person/06c7c886-4087-499e-855c-f36b0fa75195",
-        "name": "Thomas Alexander",
+        "name": "Tom Alexander",
         "party": "R",
         "chamber": "State Senate",
         "district": "1",
@@ -1663,7 +1691,7 @@
         "id": "sc-rep-57",
         "openstates_id": "ocd-person/e3d0a679-af6a-4861-aac2-be366fda3210",
         "name": "Lucas Atkinson",
-        "party": "D",
+        "party": "R",
         "chamber": "State House",
         "district": "57",
         "role": "State Representative",

@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "RI",
   "state_name": "Rhode Island",
   "executive": {
@@ -16,8 +21,41 @@
       "bio": "Daniel McKee is the Governor of Rhode Island, serving since 2021.",
       "sources": [
         "https://governor.ri.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/7ca005d1-05b8-4ce2-80b4-04ff7acaa59e"
+    },
+    "lt_governor": {
+      "id": "ri-exec-lieutenant-governor-matos",
+      "openstates_id": "ocd-person/811001df-7f40-4641-9461-fb2dc02bacce",
+      "name": "Sabina Matos",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://ltgov.ri.gov/",
+      "photo_url": "https://ltgov.ri.gov/sites/g/files/xkgbur491/files/styles/max_2600x2600/public/2021-05/Sabina-StatePhoto.png"
+    },
+    "cabinet": [
+      {
+        "id": "ri-exec-attorney-general-neronha",
+        "openstates_id": "ocd-person/2c4e5251-d011-436c-8d4e-5142d174813e",
+        "name": "Peter Neronha",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://riag.ri.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-RI-neronha2.jpg"
+      },
+      {
+        "id": "ri-exec-secretary-of-state-amore",
+        "openstates_id": "ocd-person/18b9f6aa-ba50-4c0a-953c-fba2720ef2a6",
+        "name": "Gregg Amore",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://www.sos.ri.gov/",
+        "photo_url": "https://www.sos.ri.gov/assets/img/secretary-amore-headshot.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Rhode Island State Senate",
@@ -1116,22 +1154,6 @@
         }
       },
       {
-        "id": "ri-rep-31",
-        "openstates_id": "ocd-person/6e1cd170-ab5c-4095-9fb2-8e92138f6db3",
-        "name": "Julie Casimiro",
-        "party": "D",
-        "chamber": "State House",
-        "district": "31",
-        "role": "State Representative",
-        "photo_url": "https://www.rilegislature.gov/representatives/Pictures/casimiro.jpg",
-        "contact": {
-          "official_website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
-          "email": "rep-casimiro@rilegislature.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "ri-rep-32",
         "openstates_id": "ocd-person/a6d519b0-89bd-45d5-9067-3ae0b421eee7",
         "name": "Robert Craven",
@@ -1835,6 +1857,25 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "31",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Julie Casimiro"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ri-rep-31",
+      "name": "Julie Casimiro",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/6e1cd170-ab5c-4095-9fb2-8e92138f6db3"
+    }
+  ]
 }

@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NV",
   "state_name": "Nevada",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Joe Lombardo is the Governor of Nevada, serving since 2023.",
       "sources": [
         "https://gov.nv.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/d2c166cc-f53f-491d-9c4a-6c3fc68274fe"
     },
     "lt_governor": {
       "id": "nv-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.nv.gov/uploadedImages/ltgov2022nvgov/content/AboutUs/Stavros%20New%20Headshot.jpg"
+      "photo_url": "https://ltgov.nv.gov/uploadedImages/ltgov2022nvgov/content/AboutUs/Stavros%20New%20Headshot.jpg",
+      "openstates_id": "ocd-person/e730bc7c-c97e-4428-8bc7-f1e9708cb878"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-NV-ford2.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-NV-ford2.jpg",
+        "openstates_id": "ocd-person/05db3ab9-9801-410f-9d35-2f184df77f8e"
       },
       {
         "id": "nv-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": null
+        "photo_url": null,
+        "openstates_id": "ocd-person/b71b3b3a-2122-43ec-a5e8-1ac394f13cf0"
       }
     ]
   },

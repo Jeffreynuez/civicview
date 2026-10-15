@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NM",
   "state_name": "New Mexico",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Michelle Lujan Grisham is the Governor of New Mexico, serving since 2019.",
       "sources": [
         "https://www.governor.state.nm.us"
-      ]
+      ],
+      "openstates_id": "ocd-person/cb607080-ff7b-48c8-acf4-0180e6e2f999"
     },
     "lt_governor": {
       "id": "nm-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.lgo.nm.gov/wp-content/uploads/2019/08/lt-gov-howie-morales-headshot.jpg"
+      "photo_url": "https://www.lgo.nm.gov/wp-content/uploads/2019/08/lt-gov-howie-morales-headshot.jpg",
+      "openstates_id": "ocd-person/56e025c5-7367-4e17-98eb-d7a5cf0b5688"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-NM-Torrez.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-NM-Torrez.png",
+        "openstates_id": "ocd-person/d52c0e56-76f1-4b81-a62c-2a3dd7abcc4e"
       }
     ]
   },
@@ -1296,22 +1304,6 @@
         }
       },
       {
-        "id": "nm-rep-37",
-        "openstates_id": "ocd-person/05309266-c7a0-455b-94f2-ebf1d436daff",
-        "name": "Joanne Ferrary",
-        "party": "D",
-        "chamber": "State House",
-        "district": "37",
-        "role": "State Representative",
-        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HFERJ.jpg",
-        "contact": {
-          "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HFERJ",
-          "email": "joanne.ferrary@nmlegis.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nm-rep-38",
         "openstates_id": "ocd-person/2904a9a3-7e21-4c6f-b40a-e79288ca1b49",
         "name": "Rebecca Dow",
@@ -1355,22 +1347,6 @@
         "contact": {
           "official_website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSAJO",
           "email": "joseph.sanchez@nmlegis.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nm-rep-41",
-        "openstates_id": "ocd-person/d5d0e9d9-bd6f-4f28-9a3f-13a56cadcc0f",
-        "name": "Susan Herrera",
-        "party": "D",
-        "chamber": "State House",
-        "district": "41",
-        "role": "State Representative",
-        "photo_url": "https://www.nmlegis.gov/Images/Legislators/House/HHERS.jpg",
-        "contact": {
-          "official_website": "https://www.linkedin.com/in/susan-herrera-62757815/",
-          "email": "susan.herrera@nmlegis.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1839,6 +1815,40 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "37",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Joanne Ferrary"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "41",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Susan Herrera"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "nm-rep-37",
+      "name": "Joanne Ferrary",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/05309266-c7a0-455b-94f2-ebf1d436daff"
+    },
+    {
+      "id": "nm-rep-41",
+      "name": "Susan Herrera",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/d5d0e9d9-bd6f-4f28-9a3f-13a56cadcc0f"
+    }
+  ]
 }

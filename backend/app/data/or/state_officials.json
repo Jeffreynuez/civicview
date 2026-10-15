@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "OR",
   "state_name": "Oregon",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Tina Kotek is the Governor of Oregon, serving since 2023.",
       "sources": [
         "https://www.oregon.gov/gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/c136922d-c34a-4b53-a56b-2201b139d469"
+    },
+    "cabinet": [
+      {
+        "id": "or-exec-attorney-general-rayfield",
+        "openstates_id": "ocd-person/201cf42b-d036-4582-a6ff-f23b3ab3f442",
+        "name": "Dan Rayfield",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.doj.state.or.us/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-OR-Rayfield-Dan.png"
+      },
+      {
+        "id": "or-exec-secretary-of-state-read",
+        "openstates_id": "ocd-person/73710d6f-5ce6-4015-8b6f-92fa17458afc",
+        "name": "Tobias Read",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://sos.oregon.gov/",
+        "photo_url": null
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Oregon State Senate",
@@ -401,7 +429,7 @@
         "photo_url": "https://www.oregonlegislature.gov/Jama/PublishingImages/member_photo.jpg",
         "contact": {
           "official_website": "https://www.oregonlegislature.gov/jama",
-          "email": "sen.jamakayse@oregonlegislature.gov",
+          "email": "sen.kaysejama@oregonlegislature.gov",
           "dc_office": null,
           "dc_phone": null
         }
