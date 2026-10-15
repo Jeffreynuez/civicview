@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "WI",
   "state_name": "Wisconsin",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Tony Evers is the Governor of Wisconsin, serving since 2019.",
       "sources": [
         "https://evers.wi.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/44ad52d1-4ba8-4ca2-b1e1-cda1621a0bc7"
     },
     "lt_governor": {
       "id": "wi-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://evers.wi.gov/ltgov/PublishingImages/Pages/default/230207%20LG%20Sara%20Rodriguez%20Portrait%20Second%2002.jpg"
+      "photo_url": "https://evers.wi.gov/ltgov/PublishingImages/Pages/default/230207%20LG%20Sara%20Rodriguez%20Portrait%20Second%2002.jpg",
+      "openstates_id": "ocd-person/827a69f2-8b85-4a72-ac01-14be2c08aa6c"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.wisdoj.gov/PublishingImages/josh-kaul-headshot.jpg"
+        "photo_url": "https://www.wisdoj.gov/PublishingImages/josh-kaul-headshot.jpg",
+        "openstates_id": "ocd-person/21c76f44-b31e-4300-b8d1-bb8d4b93bc51"
       }
     ]
   },

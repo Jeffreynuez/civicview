@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MN",
   "state_name": "Minnesota",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Tim Walz is the Governor of Minnesota, serving since 2019.",
       "sources": [
         "https://mn.gov/governor"
-      ]
+      ],
+      "openstates_id": "ocd-person/aba9f63e-b8ee-4515-acac-af7a63a4d1ec"
     },
     "lt_governor": {
       "id": "mn-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://mn.gov/governor/assets/flanagan-bio-thumbnail_tcm1055-653288.png"
+      "photo_url": "https://mn.gov/governor/assets/flanagan-bio-thumbnail_tcm1055-653288.png",
+      "openstates_id": "ocd-person/d563a09c-876b-4384-a7cc-a15f3d5d064c"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.ag.state.mn.us/Photos/Keith-Ellison.jpg"
+        "photo_url": "https://www.ag.state.mn.us/Photos/Keith-Ellison.jpg",
+        "openstates_id": "ocd-person/46deef0f-6af0-4cb8-b4ac-385aa505df50"
       },
       {
         "id": "mn-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.sos.state.mn.us/media/1810/steve-simon-official-portrait-fb2.jpg"
+        "photo_url": "https://www.sos.state.mn.us/media/1810/steve-simon-official-portrait-fb2.jpg",
+        "openstates_id": "ocd-person/029aa632-cefd-431d-bba0-e2ed611b2151"
       }
     ]
   },
@@ -662,7 +671,7 @@
       {
         "id": "mn-sen-39",
         "openstates_id": "ocd-person/2795e0ed-3a02-4afc-8836-f5c3c067139c",
-        "name": "Mary Kunesh-Podein",
+        "name": "Mary Kunesh",
         "party": "D",
         "chamber": "State Senate",
         "district": "39",
@@ -1764,22 +1773,6 @@
         "contact": {
           "official_website": "https://www.house.mn.gov/members/profile/15603",
           "email": "rep.steven.jacob@house.mn.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "mn-rep-21A",
-        "openstates_id": "ocd-person/f08531c2-0974-4606-ab08-f5453ff76edd",
-        "name": "Joe Schomacker",
-        "party": "R",
-        "chamber": "State House",
-        "district": "21A",
-        "role": "State Representative",
-        "photo_url": "https://www.house.mn.gov/hinfo/memberimgls94/21A.gif?v=112221",
-        "contact": {
-          "official_website": "https://www.house.mn.gov/members/profile/15367",
-          "email": "rep.joe.schomacker@house.mn.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3272,6 +3265,25 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "21A",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Joe Schomacker"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "mn-rep-21A",
+      "name": "Joe Schomacker",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/f08531c2-0974-4606-ab08-f5453ff76edd"
+    }
+  ]
 }

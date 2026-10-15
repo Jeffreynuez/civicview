@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "SD",
   "state_name": "South Dakota",
   "executive": {
@@ -16,8 +21,47 @@
       "bio": "Larry Rhoden is the Governor of South Dakota, serving since 2025.",
       "sources": [
         "https://governor.sd.gov"
+      ],
+      "openstates_id": "ocd-person/b41fff76-c4dd-4e5c-b7f5-c6480a6b1710"
+    },
+    "lt_governor": {
+      "id": "sd-exec-lieutenant-governor-venhuizen",
+      "openstates_id": "ocd-person/c8d6a31f-a4e9-454a-a75a-28b668c1b729",
+      "name": "Tony Venhuizen",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://governor.sd.gov/governor/lt-governor.aspx",
+      "photo_url": "https://governor.sd.gov/img/LtGovTV-photo.jpg",
+      "selection_method": "appointed",
+      "selection_detail": "Nominated by Gov. Larry Rhoden after Rhoden became governor, and confirmed by the Legislature on January 30, 2025, under S.D. Const. Art. IV, sec. 6.",
+      "normally_elected": true,
+      "sources": [
+        "https://mylrc.sdlegislature.gov/api/Documents/279360.pdf"
       ]
-    }
+    },
+    "cabinet": [
+      {
+        "id": "sd-exec-attorney-general-jackley",
+        "openstates_id": "ocd-person/b305d3f4-6e90-44ab-a228-3ed2933e2989",
+        "name": "Marty Jackley",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://atg.sd.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-SD-Jackley-Marty.png"
+      },
+      {
+        "id": "sd-exec-secretary-of-state-johnson",
+        "openstates_id": "ocd-person/e4192363-de65-4632-8224-6d59098f1e61",
+        "name": "Monae Johnson",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://sdsos.gov/",
+        "photo_url": "https://sdsos.gov/general-information/assets/Monae0008a.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "South Dakota State Senate",

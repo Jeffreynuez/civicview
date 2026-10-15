@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MA",
   "state_name": "Massachusetts",
   "executive": {
@@ -16,8 +21,51 @@
       "bio": "Maura Healey is the Governor of Massachusetts, serving since 2023.",
       "sources": [
         "https://www.mass.gov/orgs/office-of-the-governor"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/d90a06b9-0edf-4fda-a823-4247987244dc"
+    },
+    "lt_governor": {
+      "id": "ma-exec-lieutenant-governor-driscoll",
+      "openstates_id": "ocd-person/0587c400-b81a-4ced-b560-a4009519076a",
+      "name": "Kim Driscoll",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://www.mass.gov/person/kim-driscoll-lieutenant-governor",
+      "photo_url": "https://www.mass.gov/files/2023-01/PRINTFINAL-Shopper-Kim_Driscoll_91R_1.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "ma-exec-attorney-general-campbell",
+        "openstates_id": "ocd-person/4e8f36fb-9017-4a35-a692-7f09958dcf61",
+        "name": "Andrea Joy Campbell",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.mass.gov/orgs/office-of-the-attorney-general",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Andrea_Campbell_official_attorney_general_headshot%2C_2023_%283x4%29.jpg"
+      },
+      {
+        "id": "ma-exec-treasurer-goldberg",
+        "openstates_id": "ocd-person/34e31265-0ac9-4817-b54a-3dc5a02b313c",
+        "name": "Deborah B. Goldberg",
+        "party": "D",
+        "role": "Treasurer",
+        "office": "Executive",
+        "website": "https://www.mass.gov/orgs/office-of-state-treasurer-and-receiver-general-deborah-b-goldberg",
+        "photo_url": "https://static.wixstatic.com/media/1cdaec_ca54db32f1e34aea84456889322e22c1~mv2.png"
+      },
+      {
+        "id": "ma-exec-auditor-dizoglio",
+        "openstates_id": "ocd-person/ec37a070-639f-4c27-9228-33c9d38f9639",
+        "name": "Diana DiZoglio",
+        "party": "D",
+        "role": "Auditor",
+        "office": "Executive",
+        "website": "https://www.mass.gov/orgs/office-of-the-state-auditor",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Diana_DiZoglio%2C_State_Auditor.png"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Massachusetts State Senate",
@@ -2700,22 +2748,6 @@
         }
       },
       {
-        "id": "ma-rep-16th Middlesex",
-        "openstates_id": "ocd-person/49816a0c-b8e5-4586-859b-8a8f1ae9b6ab",
-        "name": "Rodney Elliott",
-        "party": "D",
-        "chamber": "State House",
-        "district": "16th Middlesex",
-        "role": "State Representative",
-        "photo_url": "https://malegislature.gov/Legislators/Profile/170/RME1.jpg",
-        "contact": {
-          "official_website": "https://malegislature.gov/Legislators/Profile/RME1",
-          "email": "rodney.elliott@mahouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "ma-rep-16th Worcester",
         "openstates_id": "ocd-person/d70e97f1-b8ec-489d-ab5a-2b7f3775ae8a",
         "name": "Dan Donahue",
@@ -3195,6 +3227,35 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "1st Franklin",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "16th Middlesex",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Rodney Elliott"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "17th Middlesex",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ma-rep-16th Middlesex",
+      "name": "Rodney Elliott",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/49816a0c-b8e5-4586-859b-8a8f1ae9b6ab"
+    }
+  ]
 }

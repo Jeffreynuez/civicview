@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NY",
   "state_name": "New York",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Kathy Hochul is the Governor of New York, serving since 2021. She previously served as Lieutenant Governor of New York and as a U.S. Representative.",
       "sources": [
         "https://www.governor.ny.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/ccdd914d-9853-4fd2-9a80-ce6c962cdd18"
     },
     "lt_governor": {
       "id": "ny-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/LG_Antonio_Delgado_Portrait.jpg/500px-LG_Antonio_Delgado_Portrait.jpg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/LG_Antonio_Delgado_Portrait.jpg/500px-LG_Antonio_Delgado_Portrait.jpg",
+      "openstates_id": "ocd-person/6a95f6b7-1eb0-439b-af25-c9b26d19de9e"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-NY-james2.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-NY-james2.jpg",
+        "openstates_id": "ocd-person/a620faf8-81e3-490e-8d26-dbf84c707786"
       }
     ]
   },
@@ -214,22 +222,6 @@
         "contact": {
           "official_website": "https://www.nysenate.gov/senators-committees",
           "email": "stavisky@nysenate.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ny-sen-12",
-        "openstates_id": "ocd-person/b0c3d86b-33ca-4001-a9af-b963fabc06c3",
-        "name": "Mike Gianaris",
-        "party": "D",
-        "chamber": "State Senate",
-        "district": "12",
-        "role": "State Senator",
-        "photo_url": "https://www.nysenate.gov/sites/default/files/styles/160x160/public/hs_3.jpg?itok=0w8WWqFj",
-        "contact": {
-          "official_website": "https://www.nysenate.gov/senators-committees",
-          "email": "gianaris@nysenate.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1049,6 +1041,16 @@
           "dc_office": null,
           "dc_phone": null
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "12",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Mike Gianaris"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -3456,5 +3458,14 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ny-sen-12",
+      "name": "Mike Gianaris",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/b0c3d86b-33ca-4001-a9af-b963fabc06c3"
+    }
+  ]
 }

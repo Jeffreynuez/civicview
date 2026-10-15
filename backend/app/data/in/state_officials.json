@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "IN",
   "state_name": "Indiana",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mike Braun is the Governor of Indiana, serving since 2025.",
       "sources": [
         "https://www.in.gov/gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/bdc262d7-ce67-4fd1-a96d-f92059ac0dfd"
     },
     "lt_governor": {
       "id": "in-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.in.gov/lg/images/LG-Headshot-26.jpg"
+      "photo_url": "https://www.in.gov/lg/images/LG-Headshot-26.jpg",
+      "openstates_id": "ocd-person/f3361ebb-630c-4160-9f66-68c7c9eb7419"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.in.gov/sos/images/3033-Secretary-Morales-headshot-1-12-27-22.jpg"
+        "photo_url": "https://www.in.gov/sos/images/3033-Secretary-Morales-headshot-1-12-27-22.jpg",
+        "openstates_id": "ocd-person/3ed7846b-4aaa-44fc-b502-a64d70bfd36f"
       },
       {
         "id": "in-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2021/02/ag-IN-Rokita.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2021/02/ag-IN-Rokita.jpg",
+        "openstates_id": "ocd-person/b2cb0fa8-b426-4c50-94d8-dedd948175cd"
       }
     ]
   },

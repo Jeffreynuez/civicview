@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "HI",
   "state_name": "Hawaii",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Josh Green is the Governor of Hawaii, serving since 2022.",
       "sources": [
         "https://governor.hawaii.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/c7e5e0d4-7a5d-42dc-a3cc-d7b54b1dc51b"
     },
     "lt_governor": {
       "id": "hi-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.hawaii.gov/wp-content/uploads/2025/06/LG-Sylvia-Luke-2025-by-Russell-Tanoue-2-cropped-683x1024.jpg"
+      "photo_url": "https://ltgov.hawaii.gov/wp-content/uploads/2025/06/LG-Sylvia-Luke-2025-by-Russell-Tanoue-2-cropped-683x1024.jpg",
+      "openstates_id": "ocd-person/f3a50da6-6c22-4c5a-ba48-d10ee2188333"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2023/01/ag-HI-Lopez-2024.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2023/01/ag-HI-Lopez-2024.jpg",
+        "openstates_id": "ocd-person/8145b3ac-aaee-43d1-a534-d51d5e80f178"
       }
     ]
   },
@@ -315,17 +323,17 @@
         }
       },
       {
-        "id": "hi-sen-18",
-        "openstates_id": "ocd-person/511d674b-1e98-4a1f-8af2-24f986a165d9",
-        "name": "Michelle Kidani",
+        "id": "hi-sen-18-bass",
+        "openstates_id": "ocd-person/f0a277d4-dbc5-4dfe-952b-bdee42260d39",
+        "name": "Danielle Bass",
         "party": "D",
         "chamber": "State Senate",
         "district": "18",
         "role": "State Senator",
-        "photo_url": "https://www.capitol.hawaii.gov/MemberFiles/RepSenPhotos/kidani.jpg",
+        "photo_url": null,
         "contact": {
-          "official_website": "https://capitol.hawaii.gov/memberpage.aspx?member=kidani&year=2019",
-          "email": "senkidani@capitol.hawaii.gov",
+          "official_website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=313",
+          "email": "senbass@capitol.hawaii.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1264,5 +1272,14 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "hi-sen-18",
+      "name": "Michelle Kidani",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/511d674b-1e98-4a1f-8af2-24f986a165d9"
+    }
+  ]
 }

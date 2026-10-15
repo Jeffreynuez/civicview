@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "CA",
   "state_name": "California",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Gavin Newsom is the Governor of California, serving since 2019. He previously served as Lieutenant Governor of California and as Mayor of San Francisco.",
       "sources": [
         "https://www.gov.ca.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/19e0dbe3-0e2d-4dec-b5dd-c34618cdc2c3"
     },
     "lt_governor": {
       "id": "ca-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Ambassador_Eleni_Kounalakis.jpeg"
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Ambassador_Eleni_Kounalakis.jpeg",
+      "openstates_id": "ocd-person/113aeeca-7bac-4407-8ec3-bceab97680e5"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2021/04/ag-CA-Bonta.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2021/04/ag-CA-Bonta.jpg",
+        "openstates_id": "ocd-person/1529b892-b3da-4958-bb3a-5bf04d7b5e0c"
       },
       {
         "id": "ca-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://admin.cdn.sos.ca.gov/img/weber.jpg"
+        "photo_url": "https://admin.cdn.sos.ca.gov/img/weber.jpg",
+        "openstates_id": "ocd-person/c8e67d27-47c2-4565-8e29-79bc78ae9495"
       }
     ]
   },
@@ -191,22 +200,6 @@
         "contact": {
           "official_website": "https://a14.asmdc.org",
           "email": "senator.grayson@senate.ca.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ca-sen-10",
-        "openstates_id": "ocd-person/295965df-6c71-4e11-806f-2b7d5be5d45c",
-        "name": "Aisha Wahab",
-        "party": "D",
-        "chamber": "State Senate",
-        "district": "10",
-        "role": "State Senator",
-        "photo_url": "https://www.senate.ca.gov/sites/senate.ca.gov/files/senator_photos/wahab_aisha_d-10_-_crop.jpg",
-        "contact": {
-          "official_website": "https://sd10.senate.ca.gov/",
-          "email": "senator.wahab@senate.ca.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -691,6 +684,16 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "10",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Aisha Wahab"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
   },
   "state_house": {
@@ -724,22 +727,6 @@
         "contact": {
           "official_website": "https://a02.asmdc.org/",
           "email": "assemblymember.rogers@assembly.ca.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ca-rep-3",
-        "openstates_id": "ocd-person/5d93a1cb-7a01-43ab-a26c-a2abecdee135",
-        "name": "James Gallagher",
-        "party": "R",
-        "chamber": "State Assembly",
-        "district": "3",
-        "role": "Assembly Member",
-        "photo_url": "https://webapi.assembly.ca.gov/district-media/assets/members/assembly_member_03.jpg",
-        "contact": {
-          "official_website": "https://ad03.asmrc.org/",
-          "email": "assemblymember.gallagher@assembly.ca.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1976,6 +1963,32 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "3",
+        "seats_vacant": 1,
+        "previous_members": [
+          "James Gallagher"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ca-sen-10",
+      "name": "Aisha Wahab",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/295965df-6c71-4e11-806f-2b7d5be5d45c"
+    },
+    {
+      "id": "ca-rep-3",
+      "name": "James Gallagher",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/5d93a1cb-7a01-43ab-a26c-a2abecdee135"
+    }
+  ]
 }

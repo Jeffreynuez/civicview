@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NJ",
   "state_name": "New Jersey",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mikie Sherrill is the Governor of New Jersey, serving since 2026.",
       "sources": [
         "https://www.nj.gov/governor"
-      ]
+      ],
+      "openstates_id": "ocd-person/d0bf3dce-c5b7-4f9f-a4e2-9637582299ac"
     },
     "lt_governor": {
       "id": "nj-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.nj.gov/governor/library/secondary/ltgov_LGDaleCaldwell_new.jpg"
+      "photo_url": "https://www.nj.gov/governor/library/secondary/ltgov_LGDaleCaldwell_new.jpg",
+      "openstates_id": "ocd-person/45caac41-0f71-4243-99cc-bb18b7b82386"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2026/01/ag-NJ-Davenport-Jennifer.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2026/01/ag-NJ-Davenport-Jennifer.png",
+        "openstates_id": "ocd-person/cf9793dd-4ef2-4db2-807c-4cf8fce4eecb"
       }
     ]
   },

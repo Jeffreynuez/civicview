@@ -1080,7 +1080,7 @@
    "seat_type": "legislative",
    "term_length_years": 2,
    "open_seat": false,
-   "incumbent_candidate_id": "ny-cand-mike-gianaris-sd12",
+   "incumbent_candidate_id": null,
    "primary_candidates": {
     "D": [
      "ny-cand-mike-gianaris-sd12"

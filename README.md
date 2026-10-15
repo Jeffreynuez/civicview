@@ -980,6 +980,64 @@ Tracked here so it stays visible across sessions:
 
 ---
 
+## Refreshing state officials
+
+The 50 `backend/app/data/<state>/state_officials.json` files (state
+legislators, governors and statewide executives) are refreshed from
+Open States by one script. Run it whenever legislatures change, and
+always in January, after the new legislatures are sworn in.
+
+```
+cd backend
+python scripts/refresh_state_officials.py --all              # dry run: prints the report, writes nothing
+python scripts/refresh_state_officials.py --state TX --state NE   # some states only
+python scripts/refresh_state_officials.py --all --write      # write the files
+python scripts/build_photo_credits.py --write                # only if a Wikimedia photo changed
+python tests/test_data_lint.py
+```
+
+It needs git and network access. The source is the
+[openstates/people](https://github.com/openstates/people) repository
+(public domain, CC0 1.0), cloned shallow into a temporary folder;
+seats per district come from openstates-core. The Open States API is
+used only when a person is missing from the repository.
+
+How it treats the data:
+
+- **People are matched by `openstates_id`.** The same person in the
+  same seat keeps their id and every hand-curated field (photos and
+  photo credits, bios, capitol offices, sources).
+- **A new person gets a new id**: the seat id plus their family name,
+  e.g. `tx-sen-4-ligon`. An id is never handed to a different person,
+  because posts, claimed pages, citizen polls and follows are keyed on
+  it. Ids that leave the roster are kept in each file's `_retired_ids`
+  so they are never reused.
+- **Vacant seats** go in a `vacancies` list on each chamber. The app
+  does not show them yet.
+- **A new governor or statewide executive** gets a record with no bio,
+  and the report says so.
+
+The report lists, per state: added, removed, changed (name, party,
+district), vacancies, anything unverified, and fields left empty.
+
+January checklist:
+
+1. Dry run with `--all` and read the whole report.
+2. Confirm every new governor and statewide executive on the official
+   state website, and write a short neutral bio with sources in the
+   style of the existing ones. Never copy campaign language.
+3. Confirm party changes, and anything else marked unverified, on the
+   legislature's own website.
+4. Write and commit in batches of about ten states, so one bad batch
+   is easy to back out.
+5. Check that incumbents in the CA, NY, PA and TX `candidates.json` and
+   `elections.json` still point at sitting people. Do not regenerate
+   those files with `build_state_federal_candidates.py`.
+6. Rebuild photo credits if a Wikimedia photo changed, then run
+   `tests/test_data_lint.py` and `python -m pytest`.
+
+---
+
 ## License
 
 CivicView is **proprietary software**. All source code, designs,

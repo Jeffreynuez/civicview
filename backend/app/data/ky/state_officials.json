@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "KY",
   "state_name": "Kentucky",
   "executive": {
@@ -16,8 +21,31 @@
       "bio": "Andy Beshear is the Governor of Kentucky, serving since 2019.",
       "sources": [
         "https://governor.ky.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/c7dbc1b4-67fb-4bb2-b1c5-cc5ef9356a5a"
+    },
+    "lt_governor": {
+      "id": "ky-exec-lieutenant-governor-coleman",
+      "openstates_id": "ocd-person/9b07a848-b96c-4424-826a-5194b65e43d9",
+      "name": "Jacqueline Coleman",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://governor.ky.gov/about/lt-governor-jacqueline-coleman",
+      "photo_url": "https://governor.ky.gov/PublishingImages/Lt-Governor-Jacqueline-Coleman-Crop.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "ky-exec-attorney-general-coleman",
+        "openstates_id": "ocd-person/542cf596-f393-4fcf-b2d6-7439e7726328",
+        "name": "Russell Coleman",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.ag.ky.gov/",
+        "photo_url": "https://www.ag.ky.gov/about/SiteAssets/Pages/Attorney-General/Russell-Coleman-400x500.jpg"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Kentucky State Senate",
@@ -918,7 +946,7 @@
         "photo_url": "https://legislature.ky.gov/Legislators%20Thumbnail%20Images/house18.jpg",
         "contact": {
           "official_website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=18",
-          "email": "ryan.dotson@kylegislature.gov",
+          "email": "samara.heavrin@kylegislature.gov",
           "dc_office": null,
           "dc_phone": null
         }

@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "GA",
   "state_name": "Georgia",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Brian Kemp is the Governor of Georgia, serving since 2019. He previously served as Georgia Secretary of State.",
       "sources": [
         "https://gov.georgia.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/600e5c48-f5c0-4535-a219-60a5fd94c38f"
     },
     "lt_governor": {
       "id": "ga-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.georgia.gov/sites/ltgov.georgia.gov/files/styles/4_3_720px_x_540px_/public/2022-12/burt-jones.jpeg"
+      "photo_url": "https://ltgov.georgia.gov/sites/ltgov.georgia.gov/files/styles/4_3_720px_x_540px_/public/2022-12/burt-jones.jpeg",
+      "openstates_id": "ocd-person/ddfab174-3a42-42c0-946e-0ce3169c4d1b"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://sos.ga.gov/sites/default/files/2021/11/01/SoS_Headshot6.jpg"
+        "photo_url": "https://sos.ga.gov/sites/default/files/2021/11/01/SoS_Headshot6.jpg",
+        "openstates_id": "ocd-person/02e75ac0-4350-4305-980e-8dc0462c5cc1"
       },
       {
         "id": "ga-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-GA-Carr1.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-GA-Carr1.jpg",
+        "openstates_id": "ocd-person/57002bfc-2ba0-48cd-85d4-94673c5bf75a"
       }
     ]
   },
@@ -143,6 +152,22 @@
         "contact": {
           "official_website": "https://www.legis.ga.gov/members/senate",
           "email": "matt.brass@senate.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-sen-7-carden",
+        "openstates_id": "ocd-person/3cfc8d4f-68d4-44b2-81f4-a162465e1aed",
+        "name": "Adrienne White Carden",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "7",
+        "role": "State Senator",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/senate/5097",
+          "email": "adrienne.whitecarden@senate.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -861,8 +886,8 @@
         "role": "State Senator",
         "photo_url": "https://images.squarespace-cdn.com/content/69373488c86b8056febeb404/1f53a219-dd13-4b1b-8ab7-c71996cab9b7/Lanny+Thomas+for+Senate+in+road.jpg?content-type=image%2Fjpeg",
         "contact": {
-          "official_website": null,
-          "email": null,
+          "official_website": "https://www.legis.ga.gov/members/senate/5094",
+          "email": "lanny.thomas@senate.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1923,7 +1948,7 @@
         "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/schofield-kim-4916.jpg",
         "contact": {
           "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4916&Session=27",
-          "email": "kim.schoefield@house.ga.gov",
+          "email": "kim.schofield@house.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2418,8 +2443,8 @@
         "role": "State Representative",
         "photo_url": "https://venolaforthefuture.com/wp-content/uploads/2026/02/Venola-Campaign-photo-Oval_s.png",
         "contact": {
-          "official_website": null,
-          "email": null,
+          "official_website": "https://www.legis.ga.gov/members/house/5095",
+          "email": "venola.mason@house.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2627,7 +2652,7 @@
         "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/park-sam-4901.jpg",
         "contact": {
           "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4901&Session=27",
-          "email": "samuel.park@house.ga.gov",
+          "email": "sam.park@house.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3667,7 +3692,7 @@
         "photo_url": "https://www.legis.ga.gov/api/images/default-source/portraits/cannon-charles--chas--5058.jpg",
         "contact": {
           "official_website": "https://www.legis.ga.gov/members/house",
-          "email": "charles.cannon@house.ga.gov",
+          "email": "chas.cannon@house.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3732,6 +3757,22 @@
         "contact": {
           "official_website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4967&Session=27",
           "email": "james.burchett@house.ga.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "ga-rep-177-payton",
+        "openstates_id": "ocd-person/8aa7ee05-bf64-4c51-8821-ad905d25741b",
+        "name": "Alvin Payton",
+        "party": "D",
+        "chamber": "State House",
+        "district": "177",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://www.legis.ga.gov/members/house/5096?session=1034",
+          "email": "alvin.payton@house.ga.gov",
           "dc_office": null,
           "dc_phone": null
         }

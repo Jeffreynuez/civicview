@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "AZ",
   "state_name": "Arizona",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Katie Hobbs is the Governor of Arizona, serving since 2023.",
       "sources": [
         "https://azgovernor.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/6e522a2a-e7b7-4713-a40f-c897e4341a87"
     },
     "cabinet": [
       {
@@ -26,7 +32,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://azsos.gov/sites/default/files/Katie-4.jpg"
+        "photo_url": "https://azsos.gov/sites/default/files/Katie-4.jpg",
+        "openstates_id": "ocd-person/45ff1caf-0d6b-4915-9e34-5f4694907a07"
       },
       {
         "id": "az-exec-attorney-general",
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AZ-Mayes.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-AZ-Mayes.png",
+        "openstates_id": "ocd-person/a94ae259-7b2d-4756-9c9b-d9fc778e6c1f"
       }
     ]
   },
@@ -658,7 +666,7 @@
       {
         "id": "az-rep-5",
         "openstates_id": "ocd-person/c6a181c7-b58e-4c2a-aa2d-9ca31fc6548f",
-        "name": "Aaron Marquez",
+        "name": "Aaron Márquez",
         "party": "D",
         "chamber": "State House",
         "district": "5",
@@ -731,6 +739,22 @@
         "contact": {
           "official_website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2356",
           "email": "wblackman@azleg.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "az-rep-7-allen",
+        "openstates_id": "ocd-person/fa74a7b7-6413-4abb-813d-056b84252549",
+        "name": "Sylvia Allen",
+        "party": "R",
+        "chamber": "State House",
+        "district": "7",
+        "role": "State Representative",
+        "photo_url": "https://azleg.gov/alisImages/MemberPhotos/57leg/House/ALLEN.jpg",
+        "contact": {
+          "official_website": "https://www.azleg.gov/house-member/?legislature=57&legislator=2419",
+          "email": "sallen@azleg.gov",
           "dc_office": null,
           "dc_phone": null
         }

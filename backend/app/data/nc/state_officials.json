@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NC",
   "state_name": "North Carolina",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Josh Stein is the Governor of North Carolina, serving since 2025. He previously served as Attorney General of North Carolina.",
       "sources": [
         "https://governor.nc.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/0a494878-c7fd-4a6a-8b82-3eb681e3fe6e"
     },
     "lt_governor": {
       "id": "nc-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://files.nc.gov/lt-governor/images/2025-02/LG_Headshot_final.jpg"
+      "photo_url": "https://files.nc.gov/lt-governor/images/2025-02/LG_Headshot_final.jpg",
+      "openstates_id": "ocd-person/4c3a1120-2dd5-4fbe-a084-e64894e57163"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-NC-Jackson-Jeff-2025.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-NC-Jackson-Jeff-2025.png",
+        "openstates_id": "ocd-person/59ece42c-d325-427b-bd54-96b3625bc43d"
       }
     ]
   },
@@ -43,17 +51,17 @@
     "body_name": "North Carolina State Senate",
     "members": [
       {
-        "id": "nc-sen-1",
-        "openstates_id": "ocd-person/8911db0d-01aa-4e61-a0f5-727d07a5d232",
-        "name": "Bobby Hanig",
+        "id": "nc-sen-1-tillett",
+        "openstates_id": "ocd-person/de679003-a07a-4f53-bb87-fd9bab0af532",
+        "name": "Jerry Tillett",
         "party": "R",
         "chamber": "State Senate",
         "district": "1",
         "role": "State Senator",
-        "photo_url": "https://www.ncleg.gov/Members/MemberImage/S/435/Low",
+        "photo_url": "https://tillettforsenate.com/wp-content/uploads/2025/11/1-scaled-450x450.jpg",
         "contact": {
-          "official_website": "https://www.ncleg.gov/Members/Biography/S/435",
-          "email": "bobby.hanig@ncleg.gov",
+          "official_website": "https://www.ncleg.gov/Members/Biography/S/1003",
+          "email": "jerry.tillett@ncleg.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -315,17 +323,17 @@
         }
       },
       {
-        "id": "nc-sen-18",
-        "openstates_id": "ocd-person/1217dc52-8590-4c6b-832b-666b57ef121c",
-        "name": "Terence Everitt",
+        "id": "nc-sen-18-fatmi",
+        "openstates_id": "ocd-person/e94fc39b-d33c-4d24-81c7-2cd2cc5aa997",
+        "name": "Haseeb Fatmi",
         "party": "D",
         "chamber": "State Senate",
         "district": "18",
         "role": "State Senator",
-        "photo_url": "https://www.ncleg.gov/Members/MemberImage/H/741/Low",
+        "photo_url": "https://ogletree.com/app/uploads/people/haseeb-s-fatmi.jpg",
         "contact": {
-          "official_website": "https://www.ncleg.gov/Members/Biography/H/741",
-          "email": "terence.everitt@ncleg.gov",
+          "official_website": "https://www.ncleg.gov/Members/Biography/S/1002",
+          "email": "haseeb.fatmi@ncleg.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2272,17 +2280,17 @@
         }
       },
       {
-        "id": "nc-rep-90",
-        "openstates_id": "ocd-person/09099128-27fc-463f-af36-28253d1e7a60",
-        "name": "Sarah Stevens",
+        "id": "nc-rep-90-kiger",
+        "openstates_id": "ocd-person/443b38b0-1881-443c-ba43-70ffb1d7a9ea",
+        "name": "Dan Kiger",
         "party": "R",
         "chamber": "State House",
         "district": "90",
         "role": "State Representative",
-        "photo_url": "https://www.ncleg.gov/Members/MemberImage/H/592/Low",
+        "photo_url": null,
         "contact": {
-          "official_website": "https://www.ncleg.gov/Members/Biography/H/592",
-          "email": "sarah.stevens@ncleg.gov",
+          "official_website": "https://www.ncleg.gov/Members/Biography/H/1004",
+          "email": "dan.kiger@ncleg.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2419,7 +2427,7 @@
         "id": "nc-rep-99",
         "openstates_id": "ocd-person/6acc3963-2724-4d88-8762-f78df333be94",
         "name": "Nasif Majeed",
-        "party": "D",
+        "party": "I",
         "chamber": "State House",
         "district": "99",
         "role": "State Representative",
@@ -2531,7 +2539,7 @@
         "id": "nc-rep-106",
         "openstates_id": "ocd-person/f1ba290a-c2a5-453a-884c-6d03a2c8e83a",
         "name": "Carla Cunningham",
-        "party": "D",
+        "party": "I",
         "chamber": "State House",
         "district": "106",
         "role": "State Representative",
@@ -2768,5 +2776,28 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "nc-sen-1",
+      "name": "Bobby Hanig",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/8911db0d-01aa-4e61-a0f5-727d07a5d232"
+    },
+    {
+      "id": "nc-sen-18",
+      "name": "Terence Everitt",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/1217dc52-8590-4c6b-832b-666b57ef121c"
+    },
+    {
+      "id": "nc-rep-90",
+      "name": "Sarah Stevens",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/09099128-27fc-463f-af36-28253d1e7a60"
+    }
+  ]
 }

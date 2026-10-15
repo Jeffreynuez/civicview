@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "PA",
   "state_name": "Pennsylvania",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Josh Shapiro is the Governor of Pennsylvania, serving since 2023. He previously served as Attorney General of Pennsylvania.",
       "sources": [
         "https://www.governor.pa.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/ac7497c7-0a0d-495f-98ce-75dedbfeb0c7"
     },
     "lt_governor": {
       "id": "pa-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://s7d9.scene7.com/is/image/statepa/LG%20Portrait"
+      "photo_url": "https://s7d9.scene7.com/is/image/statepa/LG%20Portrait",
+      "openstates_id": "ocd-person/e5de67f9-3e82-4e65-89ce-47aa0772d1f8"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.dos.pa.gov/about-us/PublishingImages/Al-Schmidt-Headshot.jpg"
+        "photo_url": "https://www.dos.pa.gov/about-us/PublishingImages/Al-Schmidt-Headshot.jpg",
+        "openstates_id": "ocd-person/6726e869-3e54-4b33-8765-d4704529465d"
       },
       {
         "id": "pa-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-PA-Sunday-2025.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/01/ag-PA-Sunday-2025.jpg",
+        "openstates_id": "ocd-person/d880fd50-7249-4f5d-b7d4-193a4ae8319e"
       }
     ]
   },
@@ -1028,6 +1037,22 @@
         "contact": {
           "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1868",
           "email": "mmustello@pahousegop.com",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-12-dukes",
+        "openstates_id": "ocd-person/f619eb4d-d296-46b9-af60-12f33d90e6e0",
+        "name": "Brandon Dukes",
+        "party": "D",
+        "chamber": "State House",
+        "district": "12",
+        "role": "State Representative",
+        "photo_url": "https://www.pahouse.com/imageHandler/top/125/175/755deff6-049c-f111-afcc-b489d332d98e",
+        "contact": {
+          "official_website": "https://www.pahouse.com/dukes/",
+          "email": "repdukes@pahouse.net",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2355,7 +2380,7 @@
         "photo_url": "https://www.legis.state.pa.us/images/members/200/1749.jpg?1703415645672",
         "contact": {
           "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1749",
-          "email": "chill-evans@pahouse.net",
+          "email": "rephill-evans@pahouse.net",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3083,7 +3108,7 @@
       {
         "id": "pa-rep-141",
         "openstates_id": "ocd-person/f9a1f1ab-9538-424c-87f1-65e2a4f4bfc7",
-        "name": "Tina Marie Davis",
+        "name": "Tina Davis",
         "party": "D",
         "chamber": "State House",
         "district": "141",
@@ -3491,7 +3516,7 @@
         "photo_url": "https://www.legis.state.pa.us/images/members/200/210.jpg?1703415645672",
         "contact": {
           "official_website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=210",
-          "email": "gvitali@pahouse.net",
+          "email": "repvitali@pahouse.net",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3956,6 +3981,22 @@
         "contact": {
           "official_website": "https://www.pahouse.com/KHarris/",
           "email": "kharris@pahouse.net",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "pa-rep-196-margetas",
+        "openstates_id": "ocd-person/3beadda2-daa5-4006-a2eb-32f9d9abdc71",
+        "name": "George Margetas",
+        "party": "R",
+        "chamber": "State House",
+        "district": "196",
+        "role": "State Representative",
+        "photo_url": "https://votemargetas.com/wp-content/uploads/2025/09/George-Margetas-Portrait-Bio-5.jpg",
+        "contact": {
+          "official_website": "https://repmargetas.com/",
+          "email": "gmargetas@pahousegop.com",
           "dc_office": null,
           "dc_phone": null
         }

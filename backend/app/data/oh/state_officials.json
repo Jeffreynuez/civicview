@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "OH",
   "state_name": "Ohio",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mike DeWine is the Governor of Ohio, serving since 2019. He previously served as Attorney General of Ohio, as a U.S. Senator, and as a U.S. Representative.",
       "sources": [
         "https://governor.ohio.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/37478cd9-ed21-43f7-b2cc-578df43ad32d"
     },
     "lt_governor": {
       "id": "oh-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://governor.ohio.gov/wps/wcm/connect/gov/12ebe94c-b50b-41d2-b88f-eafb0b1734e7/Jim+Tressel.jpg?MOD=AJPERES"
+      "photo_url": "https://governor.ohio.gov/wps/wcm/connect/gov/12ebe94c-b50b-41d2-b88f-eafb0b1734e7/Jim+Tressel.jpg?MOD=AJPERES",
+      "openstates_id": "ocd-person/6aef5093-5720-48fd-9997-e4f5451014b4"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-OH-yost.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-OH-yost.jpg",
+        "openstates_id": "ocd-person/b8ac5c3b-66e6-47f4-b8c2-1fd148a1f041"
       },
       {
         "id": "oh-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.sos.state.oh.us/globalassets/about/headshot/laroseheadshot-hires.jpg"
+        "photo_url": "https://www.sos.state.oh.us/globalassets/about/headshot/laroseheadshot-hires.jpg",
+        "openstates_id": "ocd-person/eaeed96a-2f5c-43f2-aef4-fa3432d33451"
       }
     ]
   },
@@ -239,22 +248,6 @@
         "contact": {
           "official_website": "https://ohiohouse.gov/susan-manchester",
           "email": "sd12@ohiosenate.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "oh-sen-13",
-        "openstates_id": "ocd-person/d3508136-3927-461f-a2f0-a85665845ab1",
-        "name": "Nathan Manning",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "13",
-        "role": "State Senator",
-        "photo_url": "https://www.legislature.ohio.gov/assets/people/nathan-h-manning/headshots/thumbnails/medium/nathan-h-manning-may-2023-headshot_medium.jpg",
-        "contact": {
-          "official_website": "https://www.ohiosenate.gov/members/nathan-h-manning",
-          "email": "sd13@ohiosenate.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -578,6 +571,16 @@
           "dc_office": null,
           "dc_phone": null
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "13",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Nathan Manning"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -1625,16 +1628,16 @@
         }
       },
       {
-        "id": "oh-rep-66",
-        "openstates_id": "ocd-person/352d7ee9-256c-4195-a673-17b7ee200948",
-        "name": "Sharon Ray",
+        "id": "oh-rep-66-hutson",
+        "openstates_id": "ocd-person/f578440a-e5ea-4775-bb41-94adad15fa73",
+        "name": "Sean Hutson",
         "party": "R",
         "chamber": "State House",
         "district": "66",
         "role": "State Representative",
-        "photo_url": "https://www.legislature.ohio.gov/assets/people/sharon-a-ray/headshots/thumbnails/medium/sharon-a-ray-january-2021-headshot_medium.jpg",
+        "photo_url": "https://img.legistorm.com/people/550/217550.jpg?rand=304840",
         "contact": {
-          "official_website": "https://ohiohouse.gov/members/sharon-a-ray",
+          "official_website": "https://ohiohouse.gov/members/sean-hutson",
           "email": "rep66@ohiohouse.gov",
           "dc_office": null,
           "dc_phone": null
@@ -1993,22 +1996,6 @@
         }
       },
       {
-        "id": "oh-rep-89",
-        "openstates_id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
-        "name": "D.J. Swearingen",
-        "party": "R",
-        "chamber": "State House",
-        "district": "89",
-        "role": "State Representative",
-        "photo_url": "https://www.legislature.ohio.gov/assets/people/d-j-swearingen/headshots/thumbnails/medium/d-j-swearingen-january-2021-headshot_medium.jpg",
-        "contact": {
-          "official_website": "https://ohiohouse.gov/d-j-swearingen",
-          "email": "rep89@ohiohouse.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "oh-rep-90",
         "openstates_id": "ocd-person/9892fcd7-9432-425f-85a6-7599fbe3177d",
         "name": "Justin Pizzulli",
@@ -2168,6 +2155,39 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "89",
+        "seats_vacant": 1,
+        "previous_members": [
+          "D.J. Swearingen"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "oh-sen-13",
+      "name": "Nathan Manning",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/d3508136-3927-461f-a2f0-a85665845ab1"
+    },
+    {
+      "id": "oh-rep-66",
+      "name": "Sharon Ray",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/352d7ee9-256c-4195-a673-17b7ee200948"
+    },
+    {
+      "id": "oh-rep-89",
+      "name": "D.J. Swearingen",
+      "retired_on": "2026-10-14",
+      "reason": "left office per https://ohiohouse.gov/members",
+      "openstates_id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896"
+    }
+  ]
 }

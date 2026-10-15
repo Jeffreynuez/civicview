@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "VA",
   "state_name": "Virginia",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Abigail Spanberger is the Governor of Virginia, serving since 2026.",
       "sources": [
         "https://www.governor.virginia.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/30e93a95-5457-4263-96f9-2ea38017a253"
     },
     "lt_governor": {
       "id": "va-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.ltgov.virginia.gov/media/governorvirginiagov/lieutenant-governor/Portrait-LT-Governor-Ghazala-Hashmi.jpg"
+      "photo_url": "https://www.ltgov.virginia.gov/media/governorvirginiagov/lieutenant-governor/Portrait-LT-Governor-Ghazala-Hashmi.jpg",
+      "openstates_id": "ocd-person/2ae6c10e-e6d0-4033-927f-0b067b2ba0fc"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.oag.state.va.us/images/Jones-headshot-20260320.jpg"
+        "photo_url": "https://www.oag.state.va.us/images/Jones-headshot-20260320.jpg",
+        "openstates_id": "ocd-person/7ef2fdd9-b55d-4ab4-83ea-17c47c2e5227"
       }
     ]
   },
@@ -987,22 +995,6 @@
         "contact": {
           "official_website": "https://house.vga.virginia.gov/members/H0365",
           "email": "delrhenson@house.virginia.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "va-rep-20",
-        "openstates_id": "ocd-person/47e6d456-740e-4707-ae93-4b6efe8c0ce1",
-        "name": "Michelle Maldonado",
-        "party": "D",
-        "chamber": "House of Delegates",
-        "district": "20",
-        "role": "Delegate",
-        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michelle-Maldonado.jpg",
-        "contact": {
-          "official_website": "https://house.vga.virginia.gov/members/H0340",
-          "email": "delmmaldonado@house.virginia.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2287,6 +2279,25 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "20",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Michelle Maldonado"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "va-rep-20",
+      "name": "Michelle Maldonado",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/47e6d456-740e-4707-ae93-4b6efe8c0ce1"
+    }
+  ]
 }

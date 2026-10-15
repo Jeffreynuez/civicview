@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "WY",
   "state_name": "Wyoming",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mark Gordon is the Governor of Wyoming, serving since 2019.",
       "sources": [
         "https://governor.wyo.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/d832b435-0a83-49ba-abd8-6ce265eb52ef"
     },
     "cabinet": [
       {
@@ -26,7 +32,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://sos.wyo.gov/images/AboutUs_Team/Chuck_Gray.jpg"
+        "photo_url": "https://sos.wyo.gov/images/AboutUs_Team/Chuck_Gray.jpg",
+        "openstates_id": "ocd-person/fc4a66ba-5fc1-47e2-8e8a-4fec762c7af6"
       },
       {
         "id": "wy-exec-attorney-general",
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2025/07/ag-WY-Kautz-Keith-2025.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2025/07/ag-WY-Kautz-Keith-2025.png",
+        "openstates_id": "ocd-person/d2a01d75-b8ff-4c5b-8e8e-38803e9502b4"
       }
     ]
   },

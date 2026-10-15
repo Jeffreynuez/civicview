@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "CT",
   "state_name": "Connecticut",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Ned Lamont is the Governor of Connecticut, serving since 2019.",
       "sources": [
         "https://portal.ct.gov/governor"
-      ]
+      ],
+      "openstates_id": "ocd-person/4cd3e60f-3830-4121-965f-f29d9b5ec6e7"
     },
     "lt_governor": {
       "id": "ct-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://portal.ct.gov/lt-governor/-/media/otlg/02-site-images/official-portraits-of-the-lt-governor/about-lt-governor-susan-bysiewicz.jpg"
+      "photo_url": "https://portal.ct.gov/lt-governor/-/media/otlg/02-site-images/official-portraits-of-the-lt-governor/about-lt-governor-susan-bysiewicz.jpg",
+      "openstates_id": "ocd-person/e5e49f6f-a9d8-4f9c-b235-53f7f571c3e3"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://portal.ct.gov/-/media/SOTS/Headshots/Secretary-Stephanie-Thomas/2023_Secretary_Stephanie_Thomas_HiRes.jpg"
+        "photo_url": "https://portal.ct.gov/-/media/SOTS/Headshots/Secretary-Stephanie-Thomas/2023_Secretary_Stephanie_Thomas_HiRes.jpg",
+        "openstates_id": "ocd-person/e54205b6-c824-4f64-9a68-301d01318457"
       },
       {
         "id": "ct-exec-attorney-general",
@@ -44,7 +52,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://portal.ct.gov/-/media/ag/about-the-ag/agtong-headshot.png"
+        "photo_url": "https://portal.ct.gov/-/media/ag/about-the-ag/agtong-headshot.png",
+        "openstates_id": "ocd-person/4e747abf-37ad-41ba-aba5-064e420d2cc8"
       }
     ]
   },
@@ -3035,7 +3044,7 @@
       {
         "id": "ct-rep-151",
         "openstates_id": "ocd-person/f0ce3c59-536e-4e79-9fe6-20eb59d66c06",
-        "name": "Hector Arzeno",
+        "name": "Héctor Arzeno",
         "party": "D",
         "chamber": "State House",
         "district": "151",

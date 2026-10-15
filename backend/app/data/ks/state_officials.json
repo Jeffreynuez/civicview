@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "KS",
   "state_name": "Kansas",
   "executive": {
@@ -16,8 +21,41 @@
       "bio": "Laura Kelly is the Governor of Kansas, serving since 2019.",
       "sources": [
         "https://governor.kansas.gov"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/2654d836-700f-464d-a0dd-81cb0bd77b9e"
+    },
+    "lt_governor": {
+      "id": "ks-exec-lieutenant-governor-toland",
+      "openstates_id": "ocd-person/33e1e312-76c0-4d83-81d3-fa07768eab34",
+      "name": "David Toland",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://www.governor.ks.gov/about-the-office/lt-governor-david-toland",
+      "photo_url": "https://www.governor.ks.gov/home/showpublishedimage/827/638816867442470000"
+    },
+    "cabinet": [
+      {
+        "id": "ks-exec-attorney-general-kobach",
+        "openstates_id": "ocd-person/10fdb8a1-6fed-43c9-a7ee-289b859b60ab",
+        "name": "Kris Kobach",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.ag.ks.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-KS-Kobach.png"
+      },
+      {
+        "id": "ks-exec-secretary-of-state-schwab",
+        "openstates_id": "ocd-person/5ef16835-fd08-407d-abaf-0407a665ada1",
+        "name": "Scott Schwab",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://sos.ks.gov/",
+        "photo_url": null
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Kansas State Senate",
@@ -2035,7 +2073,7 @@
         "chamber": "State House",
         "district": "86",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://www.kslegislature.gov/static/li_pics/rep_boatman_abi_1.jpg",
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_boatman_abi_1/",
           "email": "abi.boatman@house.ks.gov",
@@ -2067,7 +2105,7 @@
         "chamber": "State House",
         "district": "88",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://www.kslegislature.gov/static/li_pics/rep_pickert_sandy_1.jpg",
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_pickert_sandy_1/",
           "email": "sandy.pickert@house.ks.gov",
@@ -2531,7 +2569,7 @@
         "chamber": "State House",
         "district": "117",
         "role": "State Representative",
-        "photo_url": null,
+        "photo_url": "https://www.kslegislature.gov/static/li_pics/rep_turk_adam_1.jpg",
         "contact": {
           "official_website": "https://www.kslegislature.gov/li/b2025_26/members/rep_turk_adam_1/",
           "email": "adam.turk@house.ks.gov",

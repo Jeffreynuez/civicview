@@ -26,10 +26,18 @@ Candidates (every <state>/candidates.json):
   C-2  no two records for the same person and office unless one is
        marked duplicate_of
   C-3  duplicate_of points at a record that exists
+  C-4  an official_id points at a current record in the same state's
+       state_officials.json (until 2026-10-15 two Florida candidates
+       pointed at ids that never existed, "fl-exec-ag" and
+       "fl-house-42", so their "currently in office" link led nowhere)
 Officials (every <state>/state_officials.json, fl/local_officials.json,
 federal/federal_officials.json):
   O-1  ids are unique within the file
   O-2  the same person is not listed twice for the same office
+  O-3  no two people in a file share one email address (until
+       2026-10-14 the record for Kentucky Rep. Samara Heavrin, House
+       District 18, carried Rep. Ryan Dotson's address, the one on his
+       own House District 73 record)
 Photo credits:
   P-1  every Wikimedia Commons photo in the data has an entry in
        photo_credits.json with a file page and a license, and every
@@ -63,6 +71,17 @@ HTTP_ONLY_HOSTS = {
     # Unreachable from our test network on either scheme, so we could
     # not tell whether https works. Left as Open States supplied them.
     "billstatus.ls.state.ms.us",
+}
+
+# Addresses two people share in the data, checked by hand on
+# 2026-10-14. Open States gives both members the same address and
+# neither legislature publishes member emails we could read, so we
+# cannot tell whose it is. Remove an entry once it is resolved.
+SHARED_EMAILS_UNRESOLVED = {
+    # CA Assembly 36 (Jeff Gonzalez) and 54 (Mark González)
+    "assemblymember.gonzalez@assembly.ca.gov",
+    # NJ Assembly 20 (Ed Rodriguez) and 33 (Gabe Rodriguez)
+    "asmrodriguez@njleg.org",
 }
 
 problems: list[str] = []
@@ -238,6 +257,22 @@ def lint_elections(state_dir: Path) -> None:
 
 # ── Candidates ───────────────────────────────────────────────────────
 
+def _official_ids(node) -> set[str]:
+    """Ids of every current official record in a state_officials.json
+    (keys starting with "_", such as _retired_ids, are left out)."""
+    ids: set[str] = set()
+    if isinstance(node, dict):
+        if isinstance(node.get("id"), str) and "name" in node:
+            ids.add(node["id"])
+        for k, v in node.items():
+            if not str(k).startswith("_"):
+                ids |= _official_ids(v)
+    elif isinstance(node, list):
+        for v in node:
+            ids |= _official_ids(v)
+    return ids
+
+
 def lint_candidates(path: Path) -> None:
     doc = _load(path)
     where = _rel(path)
@@ -245,10 +280,15 @@ def lint_candidates(path: Path) -> None:
     if not isinstance(cands, dict):
         problem("C-1", where, "candidates is not an object keyed by id")
         return
+    officials_path = path.parent / "state_officials.json"
+    official_ids = _official_ids(_load(officials_path)) if officials_path.exists() else set()
     by_person: dict[tuple, list[str]] = {}
     for key, c in cands.items():
         if "id" in c and c["id"] != key:
             problem("C-1", f"{where} {key}", f"id field {c['id']!r} does not match its key")
+        oid = c.get("official_id")
+        if oid and oid not in official_ids:
+            problem("C-4", f"{where} {key}", f"official_id {oid!r} is not a current record in {_rel(officials_path)}")
         dup = c.get("duplicate_of")
         if dup is not None and dup not in cands:
             problem("C-3", f"{where} {key}", f"duplicate_of points at unknown id {dup}")
@@ -282,10 +322,14 @@ def lint_officials(path: Path) -> None:
     where = _rel(path)
     ids: set[str] = set()
     seen: dict[tuple, int] = {}
+    emails: dict[str, list[str]] = {}
     for records in _official_lists(doc):
         for rec in records:
             if not isinstance(rec, dict):
                 continue
+            email = (rec.get("contact") or {}).get("email") if isinstance(rec.get("contact"), dict) else None
+            if isinstance(email, str) and email.strip():
+                emails.setdefault(email.strip().lower(), []).append(str(rec.get("id") or rec.get("name")))
             oid = rec.get("id")
             if oid is not None:
                 if oid in ids:
@@ -299,6 +343,9 @@ def lint_officials(path: Path) -> None:
     for (name, office, district), n in seen.items():
         if n > 1:
             problem("O-2", where, f"{name!r} listed {n} times as {office!r}{' ' + district if district else ''}")
+    for email, owners in emails.items():
+        if len(owners) > 1 and email not in SHARED_EMAILS_UNRESOLVED:
+            problem("O-3", where, f"{email} is on {len(owners)} records: {', '.join(owners)}")
 
 
 WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")

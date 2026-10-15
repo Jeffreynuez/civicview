@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "IA",
   "state_name": "Iowa",
   "executive": {
@@ -16,8 +21,47 @@
       "bio": "Kim Reynolds is the Governor of Iowa, serving since 2017.",
       "sources": [
         "https://governor.iowa.gov"
+      ],
+      "openstates_id": "ocd-person/3895278c-5226-4b70-bce0-d2ac15b3bce1"
+    },
+    "lt_governor": {
+      "id": "ia-exec-lieutenant-governor-cournoyer",
+      "openstates_id": "ocd-person/a32d2cef-0ce9-4a2d-bbf6-8c8a53eaad4f",
+      "name": "Chris Cournoyer",
+      "party": "R",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://governor.iowa.gov/meet-governor-kim-reynolds/meet-lieutenant-governor-chris-cournoyer",
+      "photo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Iowa_State_Senator_Chris_Cournoyer.jpg/250px-Iowa_State_Senator_Chris_Cournoyer.jpg",
+      "selection_method": "appointed",
+      "selection_detail": "Appointed by Gov. Kim Reynolds in December 2024 to fill the vacant office.",
+      "normally_elected": true,
+      "sources": [
+        "https://governor.iowa.gov/meet-governor-kim-reynolds/meet-lieutenant-governor-chris-cournoyer"
       ]
-    }
+    },
+    "cabinet": [
+      {
+        "id": "ia-exec-attorney-general-bird",
+        "openstates_id": "ocd-person/fcb94ca1-9a57-4378-9568-ecbe6c3ae0d6",
+        "name": "Brenna Bird",
+        "party": "R",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.iowaattorneygeneral.gov/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-IA-Bird.png"
+      },
+      {
+        "id": "ia-exec-secretary-of-state-pate",
+        "openstates_id": "ocd-person/f0883baf-9a96-4631-8dd8-2a768fe9357b",
+        "name": "Paul Pate",
+        "party": "R",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://sos.iowa.gov/",
+        "photo_url": null
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Iowa State Senate",
@@ -178,22 +222,6 @@
         "contact": {
           "official_website": "https://www.iowasenaterepublicans.com/senators/dan-dawson/",
           "email": "dan.dawson@legis.iowa.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ia-sen-11",
-        "openstates_id": "ocd-person/67f25420-8ea1-49d1-aa86-488136b5f9f5",
-        "name": "Julian Garrett",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "11",
-        "role": "State Senator",
-        "photo_url": "https://www.legis.iowa.gov/photo?action=getPhoto&ga=91&pid=9404",
-        "contact": {
-          "official_website": "https://www.iowasenaterepublicans.com/senators/julian-garrett/",
-          "email": "julian.garrett@legis.iowa.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -822,6 +850,16 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "11",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Julian Garrett"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
   },
   "state_house": {
@@ -1415,22 +1453,6 @@
         "contact": {
           "official_website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33977&ga=90",
           "email": "barb.kniffmcculla@legis.iowa.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "ia-rep-38",
-        "openstates_id": "ocd-person/7a97018b-eb0e-46cf-8bd8-26520ff0d1e0",
-        "name": "Jon Dunwell",
-        "party": "R",
-        "chamber": "State House",
-        "district": "38",
-        "role": "State Representative",
-        "photo_url": "https://www.legis.iowa.gov/photo?action=getPhoto&ga=91&pid=32165",
-        "contact": {
-          "official_website": "https://iowahouserepublicans.nationbuilder.com/reps",
-          "email": "jon.dunwell@legis.iowa.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2427,6 +2449,32 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "38",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Jon Dunwell"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ia-sen-11",
+      "name": "Julian Garrett",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/67f25420-8ea1-49d1-aa86-488136b5f9f5"
+    },
+    {
+      "id": "ia-rep-38",
+      "name": "Jon Dunwell",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/7a97018b-eb0e-46cf-8bd8-26520ff0d1e0"
+    }
+  ]
 }
