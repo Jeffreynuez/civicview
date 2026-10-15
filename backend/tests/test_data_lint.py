@@ -26,6 +26,10 @@ Candidates (every <state>/candidates.json):
   C-2  no two records for the same person and office unless one is
        marked duplicate_of
   C-3  duplicate_of points at a record that exists
+  C-4  an official_id points at a current record in the same state's
+       state_officials.json (until 2026-10-15 two Florida candidates
+       pointed at ids that never existed, "fl-exec-ag" and
+       "fl-house-42", so their "currently in office" link led nowhere)
 Officials (every <state>/state_officials.json, fl/local_officials.json,
 federal/federal_officials.json):
   O-1  ids are unique within the file
@@ -253,6 +257,22 @@ def lint_elections(state_dir: Path) -> None:
 
 # ── Candidates ───────────────────────────────────────────────────────
 
+def _official_ids(node) -> set[str]:
+    """Ids of every current official record in a state_officials.json
+    (keys starting with "_", such as _retired_ids, are left out)."""
+    ids: set[str] = set()
+    if isinstance(node, dict):
+        if isinstance(node.get("id"), str) and "name" in node:
+            ids.add(node["id"])
+        for k, v in node.items():
+            if not str(k).startswith("_"):
+                ids |= _official_ids(v)
+    elif isinstance(node, list):
+        for v in node:
+            ids |= _official_ids(v)
+    return ids
+
+
 def lint_candidates(path: Path) -> None:
     doc = _load(path)
     where = _rel(path)
@@ -260,10 +280,15 @@ def lint_candidates(path: Path) -> None:
     if not isinstance(cands, dict):
         problem("C-1", where, "candidates is not an object keyed by id")
         return
+    officials_path = path.parent / "state_officials.json"
+    official_ids = _official_ids(_load(officials_path)) if officials_path.exists() else set()
     by_person: dict[tuple, list[str]] = {}
     for key, c in cands.items():
         if "id" in c and c["id"] != key:
             problem("C-1", f"{where} {key}", f"id field {c['id']!r} does not match its key")
+        oid = c.get("official_id")
+        if oid and oid not in official_ids:
+            problem("C-4", f"{where} {key}", f"official_id {oid!r} is not a current record in {_rel(officials_path)}")
         dup = c.get("duplicate_of")
         if dup is not None and dup not in cands:
             problem("C-3", f"{where} {key}", f"duplicate_of points at unknown id {dup}")

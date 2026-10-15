@@ -1763,7 +1763,7 @@
    "seat_type": "legislative",
    "term_length_years": 4,
    "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-aisha-wahab-sd10",
+   "incumbent_candidate_id": null,
    "primary_candidates": {
     "D": [
      "ca-cand-aisha-wahab-sd10"
@@ -2177,7 +2177,7 @@
    "seat_type": "legislative",
    "term_length_years": 2,
    "open_seat": false,
-   "incumbent_candidate_id": "ca-cand-james-gallagher-ad3",
+   "incumbent_candidate_id": null,
    "primary_candidates": {
     "R": [
      "ca-cand-james-gallagher-ad3"
