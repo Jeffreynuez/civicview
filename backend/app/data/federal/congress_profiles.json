@@ -3643,7 +3643,7 @@
       },
       {
         "name": "Agriculture & Natural Resources",
-        "stance": "Sponsors agriculture and public-lands legislation; represents California's Fourth Congressional District, a world-renowned food and wine destination.",
+        "stance": "Sponsors agriculture and public-lands legislation; represents California's Fourth Congressional District.",
         "sources": [
           "https://www.congress.gov/member/T000460?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Agriculture%20and%20Food%22%7D",
           "https://www.congress.gov/member/T000460?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Public%20Lands%20and%20Natural%20Resources%22%7D",
@@ -14000,6 +14000,22 @@
         "sources": [
           "https://www.senate.gov/general/committee_assignments/assignments.htm#ArmstrongOK"
         ]
+      }
+    ],
+    "bio": "Alan Armstrong is a U.S. senator from Oklahoma, appointed in March 2026 to fill the vacancy caused by the resignation of Senator Markwayne Mullin. An engineer and energy infrastructure company executive, Armstrong was chair of the National Petroleum Council in 2026.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/A000383"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, Oklahoma",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "Chair, National Petroleum Council",
+        "from": "2026",
+        "to": "2026"
       }
     ]
   },
