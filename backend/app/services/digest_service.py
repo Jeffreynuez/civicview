@@ -38,7 +38,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, func, or_
 from sqlalchemy.orm import Session
 
 from app.models.pages import (
@@ -64,6 +64,14 @@ def is_demo_email(email: str) -> bool:
 
 
 def _tracked_official_keys(db: Session, citizen_id: int) -> list[str]:
+    """The citizen's tracked official keys, lowercased.
+
+    routers/tracked.py stores every key lowercased, but official ids
+    keep their case on posts, polls and events ("vt-sen-Essex-1"), so
+    every match below compares lowercased ids (_lower_id). Until
+    2026-10-15 the digest compared them as stored and left out every
+    followed official whose id has a capital letter, the same miss
+    notifications_inapp fixed for push and bell alerts."""
     rows = (
         db.query(TrackedOfficial.official_key)
         .filter(
@@ -72,7 +80,12 @@ def _tracked_official_keys(db: Session, citizen_id: int) -> list[str]:
         )
         .all()
     )
-    return [r[0] for r in rows if r[0]]
+    return sorted({r[0].strip().lower() for r in rows if r[0] and r[0].strip()})
+
+
+def _lower_id(column):
+    """An official-id column, lowercased for matching tracked keys."""
+    return func.lower(column)
 
 
 def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
@@ -87,7 +100,7 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
     posts = (
         db.query(Post)
         .filter(
-            Post.official_id.in_(keys),
+            _lower_id(Post.official_id).in_(keys),
             Post.created_at >= since,
             Post.deleted_at.is_(None),
             Post.hide_reason.is_(None),
@@ -102,8 +115,8 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
         .join(Post, Poll.post_id == Post.id, isouter=True)
         .filter(
             or_(
-                and_(Post.official_id.in_(keys), Poll.created_at >= since),
-                and_(Poll.target_official_id.in_(keys), Poll.created_at >= since),
+                and_(_lower_id(Post.official_id).in_(keys), Poll.created_at >= since),
+                and_(_lower_id(Poll.target_official_id).in_(keys), Poll.created_at >= since),
             ),
             Poll.archived_at.is_(None),
         )
@@ -116,7 +129,7 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
         db.query(Poll)
         .join(Post, Poll.post_id == Post.id, isouter=True)
         .filter(
-            or_(Post.official_id.in_(keys), Poll.target_official_id.in_(keys)),
+            or_(_lower_id(Post.official_id).in_(keys), _lower_id(Poll.target_official_id).in_(keys)),
             Poll.closes_at.isnot(None),
             Poll.closes_at > now,
             Poll.closes_at <= now + timedelta(days=CLOSING_AHEAD_DAYS),
@@ -133,7 +146,7 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
     events = (
         db.query(RepEvent)
         .filter(
-            RepEvent.official_id.in_(keys),
+            _lower_id(RepEvent.official_id).in_(keys),
             RepEvent.start_at >= now.isoformat(),
             RepEvent.start_at <= (now + timedelta(days=EVENTS_AHEAD_DAYS)).isoformat(),
             RepEvent.deleted_at.is_(None),

@@ -168,9 +168,14 @@ def _ingest_state_officials(state_code: str, payload: dict) -> None:
         e = exec_block.get(k)
         if isinstance(e, dict):
             _put(e.get("id"), state=state_code)
-    for o in exec_block.get("other") or []:
-        if isinstance(o, dict):
-            _put(o.get("id"), state=state_code)
+    # The state files list every other statewide officeholder (attorney
+    # general, secretary of state, treasurer, auditor) under "cabinet".
+    # Until 2026-10-15 only "other" was read here, so all 82 of them
+    # fell back to Country-only scope on their pages.
+    for key in ("cabinet", "other"):
+        for o in exec_block.get(key) or []:
+            if isinstance(o, dict):
+                _put(o.get("id"), state=state_code)
 
     # State senate / house — district-level.
     senate = payload.get("state_senate") or {}
