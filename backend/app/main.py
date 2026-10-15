@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.middleware.body_limit import BodySizeLimitMiddleware
 from app.services.runtime_env import is_production as _is_production
+from app.services.congress_calendar import current_congress
 from app.middleware.csrf import CsrfMiddleware
 from app.middleware.force_2fa import Force2FAMiddleware
 from app.middleware.rate_limit import EngagementRateLimitMiddleware
@@ -529,7 +530,7 @@ async def root():
             "committee_detail": "/api/congress/committees/{thomas_id}",
             "state_info": "/api/states/{state_code}",
             "address_lookup": "/api/address/lookup?address=1600+Pennsylvania+Ave+NW+Washington+DC",
-            "member_events": "/api/events/upcoming?bioguide_id=R000595",
+            "member_events": "/api/events/upcoming?bioguide_id=S001217",
             "all_events": "/api/events/all",
             "state_officials": "/api/state-officials/{state_code}",
             "governor": "/api/state-officials/{state_code}/governor",
@@ -540,7 +541,9 @@ async def root():
             "federal_elections": "/api/federal-officials/elections",
             "federal_person": "/api/federal-officials/person/{id}",
             "federal_executive_orders": "/api/federal-officials/executive-orders?president_slug=donald-trump",
-            "federal_presidential_actions": "/api/federal-officials/presidential-actions?congress=119&type=signed",
+            "federal_presidential_actions": (
+                f"/api/federal-officials/presidential-actions?congress={current_congress()}&type=signed"
+            ),
             "federal_scotus_cases": "/api/federal-officials/scotus-cases?justice_name=Roberts",
             "local_cities": "/api/local-officials/{state_code}",
             "local_officials": "/api/local-officials/{state_code}/{city_slug}",

@@ -2,9 +2,12 @@
 Pure-parser tests use trimmed real fixtures; the Senate test also exercises the
 live lis->bioguide crosswalk against the vendored legislators_current.json."""
 import importlib.util
+import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
+# The service derives the congress and session from app.services.congress_calendar.
+sys.path.insert(0, str(BASE.parent))
 SVC = BASE.parent / "app" / "services" / "official_votes_service.py"
 FIX = BASE / "fixtures"
 

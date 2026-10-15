@@ -31,7 +31,8 @@ const STATE_ORDER = [
 ];
 export const US_STATES = STATE_ORDER.map((code) => [code, STATE_NAMES[code]]);
 
-// House seats per state, 119th Congress apportionment. One seat means
+// House seats per state, from the 2020 census apportionment (the
+// 118th through 122nd Congresses). One seat means
 // the whole state is one at-large district; DC and the territories each
 // elect one delegate the same way. Keep in step with HOUSE_SEATS in
 // backend/app/services/citizen_geo.py (change both after the 2030 census).

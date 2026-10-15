@@ -503,10 +503,11 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           const stateCode = Object.entries(STATE_CODE_TO_FIPS).find(
             ([, fips]) => fips === stateFips
           )?.[0];
-          const cd119 = String(props.CD119 || '');
+          // lib/api.js copies the layer's own field (CD119, CD120) to CD.
+          const cd = String(props.CD || '');
           let district;
-          if (cd119 === '00' || cd119 === '98') district = 'At-Large';
-          else district = String(parseInt(cd119, 10));
+          if (cd === '00' || cd === '98') district = 'At-Large';
+          else district = String(parseInt(cd, 10));
           const districtLabel =
             district === 'At-Large' ? `${stateCode}-At-Large` : `${stateCode}-${district}`;
 
@@ -525,7 +526,7 @@ export default function MapView({ onStateSelect, onStateDeselect, onDistrictSele
           hoveredDistrictId.current = f.id;
           map.current.setFeatureState({ source: 'state-districts', id: f.id }, { hover: true });
           map.current.getCanvas().style.cursor = 'pointer';
-          const cd = (f.properties.CD119 || '').replace(/^0+/, '') || 'At-Large';
+          const cd = (f.properties.CD || '').replace(/^0+/, '') || 'At-Large';
           setHoveredDistrictLabel(`District ${cd === '98' ? 'Delegate' : cd}`);
         });
 

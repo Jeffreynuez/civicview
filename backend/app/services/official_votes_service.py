@@ -438,12 +438,12 @@ def parse_vote_id(vote_id: str) -> dict:
 
 # --- congress/session derivation + Congress.gov House parsers ---------------
 def current_congress_session() -> tuple[int, int]:
-    """Derive (congress, session) from today's date. Congress N spans years
-    [1789 + 2*(N-1) .. +1]; session 1 = odd (first) year, 2 = even year."""
-    import datetime as _dt
+    """(congress, session) sitting now. Congress N spans years
+    [1789 + 2*(N-1) .. +1]; session 1 = odd (first) year, 2 = even year,
+    and each one opens on January 3 (services/congress_calendar.py)."""
+    from app.services.congress_calendar import current_congress_session as _ccs
 
-    y = _dt.date.today().year
-    return (y - 1789) // 2 + 1, (1 if y % 2 == 1 else 2)
+    return _ccs()
 
 
 def year_for(congress: int, session: int) -> int:

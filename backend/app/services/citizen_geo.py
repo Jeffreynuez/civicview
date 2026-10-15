@@ -22,9 +22,9 @@ legislators roster, and the address lookup returned "At-Large". A
 citizen and their own representative never matched. normalize_district
 reads all of those and returns the one canonical form.
 
-HOUSE_SEATS is the 119th Congress apportionment. The frontend keeps the
-same table in frontend/lib/usStates.js; change both together after the
-2030 census.
+HOUSE_SEATS is the 2020 census apportionment (the 118th through 122nd
+Congresses). The frontend keeps the same table in
+frontend/lib/usStates.js; change both together after the 2030 census.
 """
 from __future__ import annotations
 

@@ -17,6 +17,7 @@
  */
 
 import { getJson, describeError, loadErrorText, UPSTREAM_TIMEOUT_MS } from './http';
+import { currentCongress, ordinal } from './congress';
 const IMAGE_BASE = 'https://unitedstates.github.io/images/congress/225x275';
 
 // ─── Transform backend member to frontend format ─────────────────────
@@ -87,45 +88,69 @@ export async function fetchAllStateData(stateCode) {
 // Returns a GeoJSON FeatureCollection for the given state FIPS + district.
 // Free, no API key. CORS-enabled. Cached in-memory for the session.
 //
-// The map shows the districts that sitting members represent: the 119th
-// Congress's. TIGERweb numbers its layers by position, and the positions
-// move when the Census Bureau adds a vintage. In September 2026 layer 0,
-// which this used to query, became the 120th Congress's districts (the
-// maps for the 2026 elections, field CD120), so every query for CD119
-// failed and the map lost its districts. The layer is now found by name
-// from the service's own layer list, with the current position as a
-// fallback. When the 120th Congress is seated (January 2027), change
-// CONGRESS_DISTRICTS_LAYER to '120th Congressional Districts' and the
-// CD119 field names below to CD120.
+// The map shows the districts that sitting members represent, which
+// change when a new Congress is seated at noon Eastern on January 3 of
+// an odd year (lib/congress.js). TIGERweb numbers its layers by
+// position, and the positions move when the Census Bureau adds a
+// vintage (in September 2026 layer 0 became the 120th Congress's
+// districts, the maps for the 2026 elections), so the layer is found by
+// name from the service's own layer list: "<N>th Congressional
+// Districts" for the sitting Congress, then the previous Congress's
+// layer if TIGERweb has not published the new one yet, then a fixed
+// position. Each layer names its district field after its Congress
+// (CD119, CD120); the queries below ask for that field and copy it to
+// a plain CD property so the map never needs to know which one it got.
 const TIGERWEB_LEGISLATIVE =
   'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer';
-const CONGRESS_DISTRICTS_LAYER = '119th Congressional Districts';
-const CONGRESS_DISTRICTS_LAYER_FALLBACK = 4;
+// "119th Congressional Districts" was at position 4 on 2026-10-15.
+const CONGRESS_DISTRICTS_LAYER_FALLBACK = { id: 4, congress: 119 };
 let _cdLayerPromise = null;
 
-function districtsQueryUrl() {
+function congressDistrictsLayerName(congress) {
+  return `${ordinal(congress)} Congressional Districts`;
+}
+
+function districtsLayer() {
   if (!_cdLayerPromise) {
     _cdLayerPromise = (async () => {
+      const sitting = currentCongress();
       try {
         const resp = await fetch(`${TIGERWEB_LEGISLATIVE}?f=json`);
         if (resp.ok) {
           const info = await resp.json();
-          // The first match is the newest vintage (the list runs newest
-          // first); group layers have sublayers and are skipped.
-          const layer = (info?.layers || []).find(
-            (l) => l?.name === CONGRESS_DISTRICTS_LAYER && !(l.subLayerIds && l.subLayerIds.length),
-          );
-          if (layer && Number.isInteger(layer.id)) return `${TIGERWEB_LEGISLATIVE}/${layer.id}/query`;
+          for (const congress of [sitting, sitting - 1]) {
+            // The first match is the newest vintage (the list runs newest
+            // first); group layers have sublayers and are skipped.
+            const layer = (info?.layers || []).find(
+              (l) => l?.name === congressDistrictsLayerName(congress)
+                && !(l.subLayerIds && l.subLayerIds.length),
+            );
+            if (layer && Number.isInteger(layer.id)) {
+              if (congress !== sitting) {
+                console.warn(`TIGERweb has no ${congressDistrictsLayerName(sitting)} layer yet; using the ${ordinal(congress)}.`);
+              }
+              return { url: `${TIGERWEB_LEGISLATIVE}/${layer.id}/query`, field: `CD${congress}` };
+            }
+          }
         }
       } catch (e) {
         console.warn('TIGERweb layer list failed; using the default layer:', e);
       }
       // Do not keep a failed lookup: try the list again next time.
       _cdLayerPromise = null;
-      return `${TIGERWEB_LEGISLATIVE}/${CONGRESS_DISTRICTS_LAYER_FALLBACK}/query`;
+      const { id, congress } = CONGRESS_DISTRICTS_LAYER_FALLBACK;
+      return { url: `${TIGERWEB_LEGISLATIVE}/${id}/query`, field: `CD${congress}` };
     })();
   }
   return _cdLayerPromise;
+}
+
+// Copy the layer's own district field (CD119, CD120) to CD.
+function withDistrictCode(gj, field) {
+  for (const f of gj?.features || []) {
+    if (f?.properties) f.properties.CD = f.properties[field] ?? null;
+  }
+  return gj;
 }
 
 const _districtCache = new Map();
@@ -135,11 +160,11 @@ export async function fetchDistrictGeometry(stateFips, district) {
   const key = `${stateFips}-${district}`;
   if (_districtCache.has(key)) return _districtCache.get(key);
 
-  // TIGERweb's CD119 field is always 2 chars, zero-padded:
-  //   District "5"        → CD119 = "05"
-  //   District "10"       → CD119 = "10"
-  //   At-Large states     → CD119 = "00"   (e.g. WY, ND, SD, VT, DE, AK)
-  //   DC / PR delegates   → CD119 = "98"
+  // TIGERweb's district field (CD119, CD120) is always 2 chars, zero-padded:
+  //   District "5"        → "05"
+  //   District "10"       → "10"
+  //   At-Large states     → "00"   (e.g. WY, ND, SD, VT, DE, AK)
+  //   DC / PR delegates   → "98"
   // (BASENAME is human-readable text like "Congressional District (at Large)" — not useful for a lookup.)
   let cdCandidates;
   if (district === 'At-Large') {
@@ -149,19 +174,20 @@ export async function fetchDistrictGeometry(stateFips, district) {
     cdCandidates = [padded];
   }
 
+  const layer = await districtsLayer();
   for (const cd of cdCandidates) {
     const params = new URLSearchParams({
-      where: `STATE='${stateFips}' AND CD119='${cd}'`,
-      outFields: 'STATE,BASENAME,NAME,GEOID,CD119',
+      where: `STATE='${stateFips}' AND ${layer.field}='${cd}'`,
+      outFields: `STATE,BASENAME,NAME,GEOID,${layer.field}`,
       returnGeometry: 'true',
       f: 'geojson',
       outSR: '4326',
       geometryPrecision: '4',
     });
     try {
-      const resp = await fetch(`${await districtsQueryUrl()}?${params}`);
+      const resp = await fetch(`${layer.url}?${params}`);
       if (!resp.ok) continue;
-      const gj = await resp.json();
+      const gj = withDistrictCode(await resp.json(), layer.field);
       if (gj?.features?.length) {
         _districtCache.set(key, gj);
         return gj;
@@ -181,9 +207,10 @@ export async function fetchDistrictsForState(stateFips) {
   if (!stateFips) return null;
   if (_stateDistrictsCache.has(stateFips)) return _stateDistrictsCache.get(stateFips);
 
+  const layer = await districtsLayer();
   const params = new URLSearchParams({
     where: `STATE='${stateFips}'`,
-    outFields: 'STATE,CD119,NAME,BASENAME,GEOID',
+    outFields: `STATE,${layer.field},NAME,BASENAME,GEOID`,
     returnGeometry: 'true',
     f: 'geojson',
     outSR: '4326',
@@ -193,9 +220,9 @@ export async function fetchDistrictsForState(stateFips) {
     maxAllowableOffset: '0.005',
   });
   try {
-    const resp = await fetch(`${await districtsQueryUrl()}?${params}`);
+    const resp = await fetch(`${layer.url}?${params}`);
     if (!resp.ok) return null;
-    const gj = await resp.json();
+    const gj = withDistrictCode(await resp.json(), layer.field);
     if (gj?.features?.length) {
       _stateDistrictsCache.set(stateFips, gj);
       return gj;
@@ -777,7 +804,7 @@ export async function fetchExecutiveOrders(presidentSlug, limit = 20) {
 const _presidentialActionsCache = new Map();
 
 export async function fetchPresidentialActions({
-  congress = 119,
+  congress = currentCongress(),
   type = 'signed',
   limit = 100,
 } = {}) {

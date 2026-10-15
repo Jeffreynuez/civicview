@@ -71,7 +71,7 @@ def _fetch_rep_events(
 async def get_upcoming_events(
     bioguide_id: Optional[str] = Query(
         None,
-        description="Member bioguide ID (e.g. R000595). Legacy param — prefer official_id."
+        description="Member bioguide ID (e.g. S001217). Legacy param; prefer official_id."
     ),
     official_id: Optional[str] = Query(
         None,

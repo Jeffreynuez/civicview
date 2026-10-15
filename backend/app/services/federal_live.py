@@ -143,12 +143,14 @@ async def fetch_executive_orders(
 
 # ── Presidential actions on bills (Congress.gov) ──────────────────────
 async def fetch_presidential_actions(
-    congress: int = 119,
+    congress: Optional[int] = None,
     action_type: str = "signed",
     limit: int = 20,
 ) -> list[dict]:
     """Return bills that became law ('signed') or were vetoed during the
-    given congress. Uses the /law/{congress} endpoint for enacted laws.
+    given congress (default: the one sitting today, from
+    services/congress_calendar.py). Uses the /law/{congress} endpoint for
+    enacted laws.
     Requires CONGRESS_API_KEY; returns [] if unset.
 
     For veto data, this is a best-effort filter over recent bills whose
@@ -160,6 +162,9 @@ async def fetch_presidential_actions(
         logger.info("No CONGRESS_API_KEY — presidential-actions returns []")
         return []
 
+    if not congress:
+        from app.services.congress_calendar import current_congress
+        congress = current_congress()
     action = (action_type or "signed").lower()
     key = f"pa::{congress}::{action}::{limit}"
     cached = _get_cached(key, CACHE_TTL_LONG)

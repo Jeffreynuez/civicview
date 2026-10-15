@@ -47,6 +47,7 @@ import BillReactions from './bills/BillReactions';
 import { BillScopeProvider } from './bills/BillScope';
 import { geoForMember } from '@/lib/billReactions';
 import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { currentCongress } from '@/lib/congress';
 
 const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
 const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
@@ -436,8 +437,8 @@ export default function ProfileView({
       // with a Show-more pattern (initial 25 visible) below, so the
       // up-front fetch doesn't translate into a wall of cards.
       Promise.all([
-        fetchPresidentialActions({ congress: 119, type: 'signed', limit: 100 }),
-        fetchPresidentialActions({ congress: 119, type: 'vetoed', limit: 100 }),
+        fetchPresidentialActions({ congress: currentCongress(), type: 'signed', limit: 100 }),
+        fetchPresidentialActions({ congress: currentCongress(), type: 'vetoed', limit: 100 }),
       ]).then(([signed, vetoed]) => {
         setPaState({
           loading: false,
