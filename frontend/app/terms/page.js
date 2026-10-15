@@ -15,13 +15,23 @@
  * company PO box. The arbitration clause and class-action waiver were
  * taken out rather than filled in with an arbitration provider nobody
  * chose; add them back only on counsel's advice.
+ *
+ * 2026-10-15, with the privacy policy rewrite (still no attorney; Jeffrey
+ * can't afford one yet): eligibility is now 18 and older, matching
+ * /child-safety and the store rating (Jeffrey's choice); section 7 says
+ * what deletion really removes and keeps, including that rep and
+ * candidate accounts are closed and their published content stays;
+ * section 4 keeps the license for that published content; section 13
+ * no longer promises an in-app banner that doesn't exist (notice on the
+ * site plus email instead) and no longer says the date is at the top;
+ * em dashes removed.
  */
 
 import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function TermsPage() {
   return (
-    <LegalPageLayout title="Terms of service" eyebrow="Legal" lastUpdated="September 24, 2026">
+    <LegalPageLayout title="Terms of service" eyebrow="Legal" lastUpdated="October 15, 2026">
       <blockquote>
         These Terms are in effect. They have not yet been reviewed by an
         attorney. We plan to have them reviewed, and we will notify users
@@ -38,8 +48,8 @@ export default function TermsPage() {
 
       <h2>1. Eligibility</h2>
       <p>
-        You must be at least 13 years old to use CivicView (16 in the
-        EU and UK). The Service is designed for U.S. residents and
+        You must be at least 18 years old to use CivicView. CivicView is
+        not directed to children. The Service is designed for U.S. residents and
         focuses on U.S. elected officials; access from other countries
         is permitted but the service is not tailored for them.
       </p>
@@ -53,17 +63,17 @@ export default function TermsPage() {
 
       <h2>2. Your account</h2>
       <ul>
-        <li>You're responsible for providing accurate information at signup. Misrepresenting yourself as someone else — especially as an elected official or candidate — is grounds for immediate termination.</li>
+        <li>You're responsible for providing accurate information at signup. Misrepresenting yourself as someone else, especially as an elected official or candidate, is grounds for immediate termination.</li>
         <li>You're responsible for keeping your password and 2FA recovery codes secure. We strongly recommend enabling 2FA on all rep, candidate, and admin accounts (and encourage it for citizen accounts).</li>
         <li>You're responsible for activity on your account. Notify us immediately at civicview@civicview.app if you suspect unauthorized access.</li>
-        <li>One human, one account per identity type — you can hold a citizen + rep + candidate account simultaneously, but only one of each.</li>
+        <li>One human, one account per identity type: you can hold a citizen + rep + candidate account simultaneously, but only one of each.</li>
       </ul>
 
       <h2>3. Acceptable use</h2>
       <p>You agree not to:</p>
       <ul>
         <li>Post content that is unlawful, threatening, defamatory, obscene, infringing, or designed to harass.</li>
-        <li>Impersonate any person or entity — particularly an elected official, candidate, or their staff. Verified rep + candidate accounts go through a manual claim process for exactly this reason.</li>
+        <li>Impersonate any person or entity, particularly an elected official, candidate, or their staff. Verified rep + candidate accounts go through a manual claim process for exactly this reason.</li>
         <li>Doxx others (post their address, phone, or other private contact info without consent).</li>
         <li>Scrape the Service, use automated tools to extract content, or run bots without prior written permission.</li>
         <li>Attempt to gain unauthorized access to any part of the Service or other accounts.</li>
@@ -85,14 +95,17 @@ export default function TermsPage() {
         verified rep or candidate, images you upload). By posting, you
         grant CivicView a worldwide, non-exclusive, royalty-free license
         to host, display, distribute, and adapt the content as needed
-        to operate the Service — including showing it to other users,
+        to operate the Service, including showing it to other users,
         displaying it in search results, and storing backup copies.
       </p>
       <p>
         This license terminates when you delete your content or your
         account, except for: (a) backups we may retain for a reasonable
         period for operational and legal compliance reasons; (b)
-        anonymized or aggregated data that no longer identifies you.
+        anonymized or aggregated data that no longer identifies you; and
+        (c) what a representative or candidate account published on its
+        page, which stays there as a public record when the account is
+        closed (see section 7).
       </p>
       <p>
         You're responsible for the content you post. CivicView is not
@@ -102,8 +115,8 @@ export default function TermsPage() {
 
       <h2>5. CivicView's content</h2>
       <p>
-        The Service itself — the CivicView name, logo, software, design,
-        AI-generated bill summaries, and curated editorial content —
+        The Service itself (the CivicView name, logo, software, design,
+        AI-generated bill summaries, and curated editorial content)
         is owned by CivicView. You may not copy, modify, distribute,
         sell, or lease any part of the Service without our written
         permission.
@@ -128,7 +141,7 @@ export default function TermsPage() {
         apps do not sell subscriptions.
       </p>
       <ul>
-        <li><strong>Cancellation:</strong> you can cancel any time. Cancellation takes effect at the end of your current billing period — you keep access until then.</li>
+        <li><strong>Cancellation:</strong> you can cancel any time. Cancellation takes effect at the end of your current billing period; you keep access until then.</li>
         <li><strong>Refunds:</strong> we generally don't offer refunds for partial periods, but contact us if you believe your situation warrants one. Refunds are issued through Stripe to the original payment method.</li>
         <li><strong>Price changes:</strong> we may change subscription prices with 30 days' notice. If you don't accept a new price, you can cancel before it takes effect.</li>
         <li><strong>Failed payments:</strong> if a subscription payment fails, we may suspend paid features until payment succeeds. Your account and content are retained.</li>
@@ -140,8 +153,9 @@ export default function TermsPage() {
         <a href="/account/delete">/account/delete</a>. Two modes:
       </p>
       <ul>
-        <li><strong>Archive (30 days):</strong> account is hidden; recoverable by signing in within 30 days. After 30 days the account is permanently purged.</li>
-        <li><strong>Immediate:</strong> account and content (including polls you started) are removed immediately, along with your tracked items, saved items, notifications, device registrations and sign-in records. Your votes on other people&rsquo;s polls stay in their totals with no link to you. We keep only a one-way hash of a verified citizen&rsquo;s email and verification date (so a future signup doesn&rsquo;t pay for re-verification), and any appeals you filed and records of moderation decisions about your content, as an audit trail. See the <a href="/privacy">Privacy policy</a> for details.</li>
+        <li><strong>Scheduled (30 days):</strong> your account is hidden and can be recovered by signing in within 30 days. After that, a citizen account is permanently deleted, and a representative or candidate account is closed as described below.</li>
+        <li><strong>Immediate:</strong> a citizen account and its content (including polls you started) are removed immediately, along with your tracked items, saved items, notifications, device registrations and sign-in records. Your votes on other people&rsquo;s polls stay in their totals with no link to you. We keep one-way hashes of a verified citizen&rsquo;s email, verified name and verified street address, with the verification date (so a future signup doesn&rsquo;t pay for re-verification), and any appeals you filed and records of moderation decisions about your content, as an audit trail.</li>
+        <li><strong>Representative and candidate accounts</strong> are closed rather than deleted: you can no longer sign in and your private account data is removed, but what was published on the page (posts, polls, events, comments, likes and votes) stays as a public record. See the <a href="/privacy">Privacy policy</a> for details.</li>
       </ul>
       <p>
         We may suspend or terminate your account if you violate these
@@ -172,8 +186,8 @@ export default function TermsPage() {
         AI-generated summaries are provided for convenience and may
         contain errors; always verify against the primary source when
         accuracy matters (legal filings, voter decisions, etc.). The
-        official record — the actual bill text, the actual roll-call
-        vote — is the source of truth.
+        official record (the actual bill text, the actual roll-call
+        vote) is the source of truth.
       </p>
       <p>
         We don't verify the accuracy of user-submitted content beyond
@@ -186,8 +200,8 @@ export default function TermsPage() {
         TO THE MAXIMUM EXTENT PERMITTED BY LAW, CIVICVIEW AND ITS
         OFFICERS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY
         INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE
-        DAMAGES — INCLUDING LOST PROFITS, LOST DATA, OR BUSINESS
-        INTERRUPTION — ARISING FROM YOUR USE OF THE SERVICE.
+        DAMAGES, INCLUDING LOST PROFITS, LOST DATA, OR BUSINESS
+        INTERRUPTION, ARISING FROM YOUR USE OF THE SERVICE.
       </p>
       <p>
         OUR TOTAL LIABILITY TO YOU FOR ANY CLAIM ARISING FROM THESE
@@ -213,7 +227,7 @@ export default function TermsPage() {
       <p>
         We hope you'll never have a dispute with us. If you do, please
         email <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
-        first — most issues resolve faster informally than through
+        first; most issues resolve faster informally than through
         litigation.
       </p>
       <p>
@@ -230,10 +244,10 @@ export default function TermsPage() {
       <h2>13. Changes to these Terms</h2>
       <p>
         We may update these Terms from time to time. We'll change the
-        "Last updated" date at the top + bottom of this page. For
-        material changes (anything that affects your rights, billing,
-        or what we collect), we'll notify signed-in users via in-app
-        banner at least 30 days before the change takes effect, and
+        "Last updated" date at the bottom of this page. For material
+        changes (anything that affects your rights, billing, or what we
+        collect), we'll post a notice on CivicView and email account
+        holders at least 30 days before the change takes effect, and
         you can cancel your subscription before the new terms apply if
         you don't agree.
       </p>
