@@ -131,7 +131,11 @@ def _subjects() -> dict[str, set[str]]:
         roster = httpx.get(LEGISLATORS_URL, headers={"User-Agent": USER_AGENT}, timeout=60).json()
         for rec in roster:
             bid = (rec.get("id") or {}).get("bioguide")
-            name = (rec.get("name") or {}).get("official_full")
+            names = rec.get("name") or {}
+            # A member new to the roster can lack official_full; first and
+            # last name still let the surname check run on their photo.
+            name = names.get("official_full") or " ".join(
+                p for p in (names.get("first"), names.get("last")) if p)
             if bid and name:
                 bioguide_names[bid] = name
     except Exception as e:  # names are a nicety; credits still build

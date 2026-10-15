@@ -17031,5 +17031,109 @@
       }
     ],
     "former_member": true
+  },
+  "B001328": {
+    "bio": "Everton Blair Jr. represents Georgia's 13th congressional district, serving since 2026 after winning a special election. A former teacher and nonprofit program director, Blair served on the Gwinnett County Board of Education from 2019 to 2022 and was a White House fellow in 2016.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/B001328",
+      "https://clerk.house.gov/members/B001328"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Georgia",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "Gwinnett County Board of Education",
+        "from": "2019",
+        "to": "2022"
+      },
+      {
+        "role": "White House Fellow",
+        "from": "2016",
+        "to": "2016"
+      }
+    ]
+  },
+  "G000607": {
+    "bio": "James Gallagher represents California's 1st congressional district, serving since 2026 after winning a special election. A lawyer, Gallagher previously served in the California State Assembly from 2014 to 2026, including as minority leader from 2022 to 2025, and earlier on the Sutter County Board of Supervisors.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000607",
+      "https://clerk.house.gov/members/G000607"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "California State Assembly",
+        "from": "2014",
+        "to": "2026"
+      },
+      {
+        "role": "Sutter County Board of Supervisors",
+        "from": "2009",
+        "to": "2014"
+      }
+    ]
+  },
+  "G000608": {
+    "bio": "Darline Graham, sister of the late Senator Lindsey O. Graham, is a U.S. senator from South Carolina, appointed in July 2026 to fill the vacancy caused by Lindsey Graham's death. A vocational rehabilitation counselor, Graham previously served as a commissioner of the South Carolina Commission for the Blind.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000608"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, South Carolina",
+        "from": "2026",
+        "to": "Present"
+      }
+    ]
+  },
+  "M001246": {
+    "bio": "Analilia Mejia represents New Jersey's 11th congressional district, serving since 2026 after winning a special election. A professional advocate, Mejia previously served as deputy director of the Women's Bureau at the U.S. Department of Labor in 2021.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/M001246",
+      "https://clerk.house.gov/members/M001246"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, New Jersey",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "Deputy Director, Women's Bureau, U.S. Department of Labor",
+        "from": "2021",
+        "to": "2021"
+      }
+    ]
+  },
+  "W000832": {
+    "bio": "Aisha Wahab represents California's 14th congressional district, serving since 2026 after winning a special election. An information technology professional, Wahab previously served in the California State Senate from 2022 to 2026, including as assistant majority leader from 2024 to 2026, and earlier on the Hayward City Council.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/W000832",
+      "https://clerk.house.gov/members/W000832"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, California",
+        "from": "2026",
+        "to": "Present"
+      },
+      {
+        "role": "California State Senate",
+        "from": "2022",
+        "to": "2026"
+      },
+      {
+        "role": "Hayward City Council",
+        "from": "2018",
+        "to": "2022"
+      }
+    ]
   }
 }
