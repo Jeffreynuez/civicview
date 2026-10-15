@@ -4,267 +4,471 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * /privacy: what CivicView collects, who can see it, how long we
- * keep it, and your rights. Required for the Google Play and Microsoft
- * Store listings. Re-checked against the code on 2026-09-24 (audit P5),
- * which added the missing recipients (Postmark, Resend, Brevo, Google
- * Civic, the Census geocoder, Nominatim, Google Forms, CARTO, unpkg,
- * GitHub, Stripe) and data (contact email, poll demographic answers,
- * address fields, waitlist notes, AI search text), and corrected the
- * IP retention and deletion statements. 2026-09-25: the map stylesheet
- * is now bundled with the app, so unpkg no longer receives requests and
- * was taken off the list. 2026-10-01: the ID.me entries now match
- * routers/identity_verification.py and services/idme_service.py (the
- * legal name kept encrypted, city and state from the verified address,
- * the street address kept only as a one-way hash, the date of birth
- * neither read nor stored), and the deletion entry now lists the name
- * and address hashes the verification archive keeps. 2026-10-03:
- * engagement history now includes likes and dislikes on bills
- * (bill_reactions; removed with the account like other reactions).
- * Same day, account creation rules: state and congressional district
- * are required (city optional) and editable in Account & settings;
- * the demo contact email now also carries this account's sign-in help
- * (the opt-in sign-in email at sign-up, Forgot password); and ID.me
- * verification looks up the district of the verified address once with
- * the Census Geocoder (identity_verification._district_from_verified_address).
- * Earlier notes:
- *  - Three-identity sessions (citizen / rep / candidate) via httpOnly
- *    cookies + bearer-token mirror.
- *  - ID.me verification on citizens; verification hash preserved
- *    across account deletion (Task #81).
- *  - 2FA secrets encrypted at rest via Fernet keyed off SESSION_SECRET.
- *  - Post images live in Cloudflare R2 (when prod); local disk in dev.
- *  - Soft delete has a 30-day grace; hard delete removes everything
- *    tied to the account except the verification hash, appeals and
- *    moderation verdicts (audit B3).
- *  - 2026-10-15 (former officials and candidates): deleting a rep or
- *    candidate account closes it and keeps what it published (Jeffrey:
- *    "Otherwise someone could delete their account the day before
- *    leaving to erase what they posted in office"), and pages of
- *    people who left office are archived, never deleted. DRAFT wording,
- *    pending the attorney review in README task #114.
+ * /privacy: what CivicView collects, who sees it, who receives it, how
+ * long it is kept, and the rights every user has. Required for the
+ * Google Play and Microsoft Store listings.
+ *
+ * 2026-10-15 rewrite. Written without an attorney (Jeffrey: "I don't have
+ * an attorney because I still can't afford one"), so it was checked line
+ * by line against the code at main 9448888 instead, and against the
+ * privacy-policy contents California's CalOPPA (Bus. & Prof. Code
+ * 22575) requires of any site with California users: the categories of
+ * data and of recipients, how to review and correct data, how changes
+ * are announced, the effective date, the response to Do Not Track
+ * signals, and whether other parties track users across sites. Florida's
+ * breach-notice rule (s. 501.171: notice within 30 days) is reflected
+ * under Security. The larger state privacy laws have thresholds CivicView
+ * is far below, but their rights (access, correct, delete, portability,
+ * appeal) are offered to every user anyway.
+ *
+ * Decisions behind it (Jeffrey, 2026-10-15): accounts are for adults 18
+ * and older (matching /child-safety and the store rating); the page
+ * owner's dashboard keeps its "most active commenters" list and this
+ * page discloses it; the policy describes the app exactly as it is, and
+ * the code gaps found in the audit are fixed separately, after which
+ * these sections get simpler:
+ *  - reps' and candidates' last sign-in time is in the public page data
+ *  - uploaded images keep their embedded metadata (no EXIF stripping)
+ *  - notices to trackers about former pages have no email opt-out
+ *  - account deletion does not yet cancel a Stripe subscription (Stripe
+ *    is not live, so this page only says subscriptions aren't available)
+ *  - there is no in-app banner for policy changes (changes are announced
+ *    by email and a notice on the site, which this page promises)
+ * Keep this page true: when the code changes what is collected, shown,
+ * sent or kept, change this page in the same pull request.
  */
 
 import LegalPageLayout from '@/components/LegalPageLayout';
+
+const EMAIL = 'civicview@civicview.app';
+
+function Mail({ subject }) {
+  const href = subject ? `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}` : `mailto:${EMAIL}`;
+  return <a href={href}>{EMAIL}</a>;
+}
 
 export default function PrivacyPage() {
   return (
     <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 15, 2026">
       <p>
-        This policy describes what CivicView collects, why we collect it,
-        who can see it, and how long we keep it. We've tried to write it in
-        plain English. The goal is to be honest about what's happening with
-        your data — not to bury the practices in legal-speak.
+        This policy explains what CivicView collects, why, who can see it,
+        who else receives it, how long we keep it, and what you can do
+        about it. We wrote it in plain English, and we describe what the
+        app actually does today, including the parts we plan to improve.
       </p>
 
       <blockquote>
-        <strong>Quick summary:</strong> We collect the minimum we need to
-        match you with your reps, let you engage, and verify you're a
-        real constituent. We don't sell your data. We don't show you ads.
-        We don't share your individual engagement with reps or candidates —
-        they only ever see aggregate counts by geography. You can delete
-        your account at any time.
+        <strong>The short version.</strong> We collect what we need to show
+        you who represents you, let you take part, and keep accounts safe.
+        We don&apos;t sell your data, show ads, or use advertising or
+        analytics trackers. Your individual poll votes and likes are never
+        shown with your name. Comments and polls you write are public, with
+        your display name and the place they were written from. CivicView
+        is for adults 18 and older. You can see, correct and delete your
+        data at any time.
       </blockquote>
+
+      <h2>Who we are and what this covers</h2>
+      <p>
+        CivicView is run by CivicView, Inc., a Florida benefit corporation
+        (&ldquo;CivicView,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). This
+        policy covers civicview.app, the CivicView Android app on Google
+        Play and the Windows app on the Microsoft Store, which all use the
+        same service. It applies to everyone who uses CivicView: visitors,
+        citizens, elected officials and their staff, and candidates. You
+        can reach us at <Mail subject="Privacy request" /> or at CIVICVIEW,
+        INC., PO Box 621182, Orlando, FL 32862-1182.
+      </p>
 
       <h2>What we collect</h2>
 
-      <h3>Citizens</h3>
-      <ul>
-        <li><strong>Email address</strong>: for login and account recovery. Required. Demo accounts are given a generated address that receives no mail.</li>
-        <li><strong>Contact email (optional, demo accounts)</strong>: if you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in email and a link to choose a new password, never your password), password reset emails when you use Forgot password, and one notice before demo accounts are retired. No newsletters or marketing.</li>
-        <li><strong>Display name</strong>: shown next to your comments + poll votes. You choose what to use.</li>
-        <li><strong>State and congressional district (required) and city (optional)</strong>: so we can show you the right ballot, match your engagement to the right rep's dashboard, and surface local conversations. Your likes, votes and comments are counted by them. You can change them in Account &amp; settings; a verified account&apos;s state comes from its verification. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved.</li>
-        <li><strong>Identity verification (when ID.me verification is available; it is not live yet)</strong>: the result ("verified" / "not verified") and the verification date; your legal name as ID.me confirms it, stored encrypted so it can only be read with our application secret; and the city and state from the address ID.me confirms, which replace the ones you entered, plus that address&apos;s congressional district, which we look up once by sending the address to the U.S. Census Geocoder. Your street address itself is not stored. We keep only a one-way hash of it, salted with our application secret, which we use with a one-way hash of your name to recognize someone who has already verified, so we don&apos;t pay to verify the same person twice. ID.me&apos;s reply may also include your date of birth; we don&apos;t read or store it. We never receive the documents ID.me used.</li>
-        <li><strong>Engagement history</strong>: the polls you've voted in, the posts, comments and bills you've liked or disliked, and the comments you've made. Tied to your account.</li>
-        <li><strong>Optional poll questions</strong>: some polls include questions the poll&apos;s creator chose, such as age range or party, and on some polls race, religion or income. Answering is optional. Answers are stored with your vote so you can change them until the poll closes, are counted only from verified accounts, and are published only as totals for groups of at least 10 people, never tied to you. You can also save the non-sensitive answers as a reusable profile; sensitive categories are never saved to it, and you can clear it from your dashboard.</li>
-      </ul>
-
-      <h3>Representatives and candidates</h3>
-      <ul>
-        <li><strong>Email + display name</strong>: for login + page attribution.</li>
-        <li><strong>Official identifier</strong>: your bioguide_id (for reps) or candidate_id (for declared candidates). Used to bind your account to your public page.</li>
-        <li><strong>Posts, polls, and events you publish.</strong> These are public — that's the point of the page.</li>
-      </ul>
-
-      <h3>Waitlist and claim requests</h3>
-      <ul>
-        <li>If you join the waitlist or ask to claim a page, we store your email, your state if you give it, which button you used, and any note you write (for a claim request, the details you send us).</li>
-      </ul>
-
-      <h3>Security data (all identity types)</h3>
-      <ul>
-        <li><strong>Password hash</strong>: bcrypt with a per-account salt. We never see your actual password.</li>
-        <li><strong>2FA secret (when enabled)</strong>: encrypted at rest using Fernet symmetric encryption keyed off our application secret. Unusable without access to both the database AND the application secret.</li>
-        <li><strong>Recovery codes (when 2FA enabled)</strong>: bcrypt-hashed, single-use, never shown to anyone but you at generation time.</li>
-        <li><strong>Last login timestamp</strong>: used to surface "active recently" indicators + spot abandoned accounts.</li>
-        <li><strong>Sign-in records</strong>: each sign-in attempt is recorded with the email tried, the result, your IP address and your browser&apos;s user agent, to detect password guessing and lock accounts under attack. Records older than 90 days are deleted each time our server restarts, and all of yours are deleted when your account is permanently deleted.</li>
-      </ul>
-
-      <h3>Technical data</h3>
-      <ul>
-        <li><strong>IP address</strong>: visible to our backend on every request and used for rate limiting and abuse detection. Apart from the sign-in records above, we don&apos;t store it. Our hosting and network providers keep their own request logs for a limited time. We don&apos;t build IP-based profiles.</li>
-        <li><strong>Addresses you look up</strong>: when you type an address to find your representatives, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and to Google Civic Information to find its districts. We don&apos;t store it, and it is masked in our logs.</li>
-        <li><strong>&ldquo;Use my location&rdquo;</strong>: only if you tap it and your browser allows it. Your device&apos;s coordinates go directly from your browser to OpenStreetMap&apos;s Nominatim service, which returns the nearest address. We don&apos;t store the coordinates.</li>
-        <li><strong>Browser type + device info</strong>: present in standard HTTP headers; we don't log it beyond what our hosting provider's request logs retain.</li>
-        <li><strong>Cookies</strong>: httpOnly session cookies (<code>cl_session</code> for reps, <code>cl_citizen</code> for citizens, <code>cl_candidate</code> for candidates). No tracking cookies. No third-party advertising cookies. No analytics cookies.</li>
-        <li><strong>Push notification token (Android app, only if you enable push)</strong>: a device identifier issued by Google Firebase Cloud Messaging so we can deliver the alerts you asked for. If you enable push without signing in, we also store the list of officials you track on that device alongside the token. That list is what lets us send you their updates, and it's used for nothing else. Your notification settings (like quiet hours and how often to be alerted, including your timezone offset) are stored so we respect them when sending. Turning push off deletes the token and everything stored with it.</li>
-      </ul>
-
-      <h2>How we use your data</h2>
-      <ul>
-        <li><strong>To match you with your representatives</strong>: your city / state / district is the lookup key for which rep pages, ballots, and elections we show you.</li>
-        <li><strong>To attribute your engagement</strong>: your display name and verification status appear next to comments + poll responses so reps can tell verified constituents from anonymous visitors.</li>
-        <li><strong>To roll up engagement for reps</strong>: your rep sees that <em>X people in their district</em> voted in their poll, but never the individual list. Aggregates only.</li>
-        <li><strong>To send notifications you've opted into</strong>: tracked items, new posts on pages you follow, replies to your comments.</li>
-        <li><strong>To enforce account security</strong>: 2FA, rate limits on login attempts, automatic moderation thresholds.</li>
-      </ul>
-
-      <h2>Who can see your data</h2>
-
-      <h3>Public</h3>
+      <h3>If you browse without an account</h3>
       <p>
-        Anyone visiting CivicView can see: your display name on comments
-        + poll responses you've left, the content of those comments, your
-        verification status badge (if shown), and the page-owner's
-        attributed posts. Anonymous visitors can see this without signing
-        in.
+        You can read CivicView without signing up. We still receive the
+        technical information every website receives (see{' '}
+        <a href="#technical">Technical information</a>), any address you
+        type into the lookup, and anything you choose to send us.
       </p>
 
-      <h3>The page owner (rep or candidate)</h3>
-      <p>
-        Reps and candidates see <strong>aggregate</strong> engagement on
-        their page — the number of citizens in their district who voted
-        each way on a poll, the total comment count, top reactions. They
-        do <strong>not</strong> see a list of individual citizens who
-        engaged. The owner's dashboard surface explicitly hides
-        per-citizen identities.
-      </p>
-
-      <h3>Other citizens</h3>
-      <p>
-        Other signed-in citizens can see your display name on comments +
-        polls + reactions you've made (same as the public view). They
-        cannot see your email, district, or any account-level info.
-      </p>
-
-      <h3>CivicView staff (admins)</h3>
-      <p>
-        Admins have database access to investigate moderation reports,
-        respond to security incidents, and run aggregate analytics. Admin
-        access is gated to an explicit allow-list (the{' '}
-        <code>ADMIN_EMAILS</code> environment variable on the backend),
-        not "anyone who signs in." Admins can see your email + content
-        when investigating a specific report. We don't browse user data
-        speculatively.
-      </p>
-
-      <h3>Third parties we share data with</h3>
+      <h3>Citizen accounts</h3>
       <ul>
-        <li><strong>ID.me</strong>: for citizen identity verification. Verification happens on ID.me&apos;s own site. They see what they need to verify you (such as your name, address, date of birth and ID document). We receive the result along with your name and address, and keep only what&apos;s listed under Identity verification above. Their{' '}
-          <a href="https://www.id.me/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>{' '}applies to their handling of that data.</li>
-        <li><strong>Anthropic</strong>: for AI features. We use Anthropic&apos;s Claude models to (a) generate plain-English summaries of public bills, votes, and executive orders (only public government text is sent), (b) classify and moderate user-generated content: when you create a poll or post a comment, its text is sent to Anthropic to tag it (sentiment, tone, topic) and to screen it for safety and policy violations, and (c) run AI search: the words you type into an AI search box are sent along with the list of items being searched. We do not send your email, address, ID verification, or engagement history. When AI search filters a comment thread, the public display names shown on those comments are included. Anthropic processes this content on our behalf and does not use it to train its models.</li>
-        <li><strong>Postmark</strong>: sends account email such as password reset links. Sees your email address and the message.</li>
-        <li><strong>Resend</strong>: sends CivicView&apos;s admins an email when content is reported. That email contains the reported content, the reason given, and the reporter&apos;s display name.</li>
-        <li><strong>Brevo</strong>: holds the waitlist mailing list. Receives your email, state, and which button you used.</li>
-        <li><strong>Google Civic Information and the U.S. Census Geocoder</strong>: receive addresses you type into the address lookup, to find your districts. The Census Geocoder also receives, once, the address ID.me verifies, to find its congressional district.</li>
-        <li><strong>OpenStreetMap Nominatim</strong>: receives your device&apos;s coordinates if you use &ldquo;Use my location,&rdquo; and a typed address when the Census Geocoder can&apos;t place it.</li>
-        <li><strong>Google Firebase Cloud Messaging</strong>: delivers push notifications on Android if you turn them on (see the push token above).</li>
-        <li><strong>Google Forms</strong>: the feedback form is a Google Form. What you type there goes to Google and to us, under{' '}
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google&apos;s privacy policy</a>.</li>
-        <li><strong>Map and file hosts</strong>: map tiles come from CARTO and state boundary files from GitHub and the U.S. Census. Like any website, they see your IP address when your browser loads them.</li>
-        <li><strong>Stripe</strong>: will process payments when paid subscriptions launch. We will never see your full card number.</li>
-        <li><strong>Render</strong>: our hosting provider. They have access to the underlying server + database. We chose Render because of their privacy posture; we don't make them our data processor for any analytics use.</li>
-        <li><strong>Cloudflare</strong>: DNS + WAF + CDN. Sees the IP address of every visitor (that's how DNS works). Doesn't see the contents of HTTPS-encrypted application traffic.</li>
-        <li><strong>Cloudflare R2</strong>: object storage for post images. Images uploaded by reps + candidates are stored in R2 buckets in our account.</li>
-      </ul>
-      <p>
-        We don't share data with advertisers, analytics platforms (Google
-        Analytics, Mixpanel, etc.), or data brokers. We don't have an ad
-        network. We don't sell user data.
-      </p>
-
-      <h2>How long we keep your data</h2>
-      <ul>
-        <li><strong>Active accounts:</strong> kept indefinitely until you delete.</li>
-        <li><strong>Soft-deleted accounts:</strong> kept for 30 days, then permanently purged. During the grace period you can sign back in and recover.</li>
-        <li><strong>Permanently deleted accounts:</strong> for citizen accounts, the account, your content (posts, polls you started, comments, reactions, and your answers to optional poll questions) and everything tied to your account (tracked and saved items, notifications, push device registrations, sign-in records, password reset links) are removed. Your votes on other people&apos;s polls stay in their totals with no link to you. We keep three things. For verified citizens, one-way hashes of your email, your verified name and your verified street address, and the date your ID.me verification ran, so a future signup doesn&apos;t pay for re-verification ($1.50); the hashes are salted with our application secret, so they can&apos;t be turned back into your email, name or address even if they leaked. Any appeals you filed. And our moderation system&apos;s assessments of content you posted, as a safety record.</li>
-        <li><strong>Representative and candidate accounts:</strong> deleting one closes it; it is never emptied. You can no longer sign in, and your sign-in email, password, two-factor secret and recovery codes, your tracked and saved items, notifications and sign-in records are removed. What you published on your page (posts, polls, events, comments, likes and votes) stays on it as a public record, whether or not you are in office, so that deleting an account can never erase what was published on it.</li>
-        <li><strong>Pages of people who leave office or end a campaign:</strong> the page is kept and labeled as a former official&apos;s or former candidate&apos;s page. Six months after the person leaves office (three months after a campaign ends) it is archived: it no longer appears in search, the map, feeds or tracked lists, and stays readable by direct link. Nothing on it is deleted. Tracking of the page ends at the archive. If the person later links a citizen account, only what they choose to carry over is copied to it.</li>
-        <li><strong>Sign-in records:</strong> about 90 days (older records are deleted whenever our server restarts).</li>
-        <li><strong>Content hidden by moderation:</strong> stays in our database, hidden from everyone but its author, so it can be appealed and decisions can be reviewed. Reports are kept with that history.</li>
-        <li><strong>Admin actions:</strong> suspensions and decisions on reports are recorded in our server logs. We don&apos;t yet keep a separate admin audit table.</li>
-        <li><strong>Waitlist entries:</strong> kept until you ask us to remove them.</li>
+        <li><strong>Email address and password.</strong> For signing in and for messages about your account. We store your password only as a one-way hash. Demo accounts get a generated address that receives no mail.</li>
+        <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
+        <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
+        <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
+        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset), whether you want the weekly digest email (off unless you turn it on), and the officials, bills and elections you track, save or feature.</li>
+        <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
+        <li><strong>Edits and deletions.</strong> When you edit or delete a comment, we keep its original text, hidden from everyone, so moderation decisions can be checked. It&apos;s removed when you delete your account.</li>
+        <li><strong>Optional poll questions.</strong> See <a href="#poll-questions">Optional poll questions</a> below.</li>
+        <li><strong>Notifications.</strong> The in-app notices we send you, such as a reply to your comment (which includes the replier&apos;s display name and a short preview).</li>
+        <li><strong>Reports and appeals.</strong> When you report content, we record that you reported it, your reason and any note. The person you report is not told who reported them. When you appeal a moderation decision, we keep your appeal and our decision.</li>
       </ul>
 
-      <h2>Your rights</h2>
-      <ul>
-        <li><strong>Access your data:</strong> email{' '}
-          <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
-          and we'll send you a copy of everything we have associated with your account within 30 days.</li>
-        <li><strong>Correct your data:</strong> most fields are editable in your dashboard. For fields we control (your verification status, your bioguide_id binding, etc.), email us.</li>
-        <li><strong>Delete your account:</strong> go to <a href="/account/delete">/account/delete</a>. Two options: a 30-day archive (recoverable) or an immediate hard delete. Representative and candidate accounts are closed instead, and what was published on the page stays (see above).</li>
-        <li><strong>Port your data:</strong> the access-data export above is in a portable JSON format you can re-import elsewhere.</li>
-        <li><strong>Opt out of any communication:</strong> notifications can be turned off in your dashboard. Email us for any communication channels not exposed in the UI.</li>
-      </ul>
-
-      <h3>GDPR (EU) + UK GDPR</h3>
+      <h3 id="poll-questions">Optional poll questions</h3>
       <p>
-        If you're in the EU or UK: you have the rights listed above as
-        statutory entitlements. Our legal basis for processing is
-        <strong> legitimate interest</strong> (providing the civic-engagement
-        service you signed up for) and, where applicable,
-        <strong> consent</strong> (for optional features like ID.me
-        verification). To exercise your rights, email{' '}
-        <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>.
-        If you're unsatisfied with our response, you can complain to your
-        national data protection authority.
+        Some polls ask optional questions the poll&apos;s creator chose:
+        age range, sex, whether you&apos;re a parent or guardian,
+        education, employment, whether you own or rent, and military
+        service, and on some polls the sensitive questions political
+        party, race or ethnicity, household income and religion. Answering
+        is always optional, and answers are kept only for verified
+        accounts. They&apos;re stored with your vote so you can change them
+        until the poll closes, and are published only as totals for groups of
+        at least 10 people, never tied to you. You can save the
+        non-sensitive answers as a reusable profile; sensitive answers are
+        never saved to it, and you can clear it from your dashboard.
       </p>
 
-      <h3>CCPA (California)</h3>
+      <h3>Identity verification (ID.me)</h3>
       <p>
-        California residents have the right to know what personal info we
-        collect, to delete it, and to opt out of sale. CivicView does not
-        sell personal information, so opt-out is automatic. For knowledge
-        + deletion requests, use the email above or the deletion flow.
+        Verification is not live yet. When it opens, it happens on
+        ID.me&apos;s own site, and ID.me sees what it needs to verify you
+        (such as your name, address, date of birth and ID documents). We
+        receive the result and keep:
+      </p>
+      <ul>
+        <li>whether you&apos;re verified, how and when;</li>
+        <li>your legal name as ID.me confirms it, stored encrypted. It is used to check a name hand-off for a former official (see below), and a CivicView administrator can see it only when reviewing one of those;</li>
+        <li>the city and state of the address ID.me confirms, which replace the ones you entered, and that address&apos;s congressional district, which we look up once by sending the address to the U.S. Census Geocoder;</li>
+        <li>a one-way hash of your street address, never the address itself; and</li>
+        <li>a separate record of one-way hashes of your email, verified name and verified street address, with the date you verified. It lets us recognize someone who has already verified so we don&apos;t pay ID.me to verify the same person twice, and it stays after you delete your account. The hashes are salted with our application secret, so they can&apos;t be turned back into your email, name or address.</li>
+      </ul>
+      <p>
+        ID.me&apos;s reply can include your date of birth. We don&apos;t
+        read it or save it to your account. We never receive the
+        documents ID.me looked at. ID.me&apos;s{' '}
+        <a href="https://www.id.me/about/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>{' '}
+        covers what ID.me does with your information.
+      </p>
+
+      <h3>Representative and candidate accounts</h3>
+      <ul>
+        <li><strong>Account details.</strong> Sign-in email, password (as a one-way hash), display name, your role, the official or candidate page your account runs, and the state, district or city that page covers (from our records, not from you).</li>
+        <li><strong>What you publish.</strong> Posts, polls, events and images, and the comments, likes and votes you make as the official or candidate. All of it is public, and it stays on the page as a public record (see <a href="#deleting">Deleting your account</a>). Edited or deleted posts keep their original text, hidden, for moderation review.</li>
+        <li><strong>Images.</strong> Stored as you upload them, including any details the file carries, such as where a photo was taken. Please remove those before uploading. Images taken out of a post may stay in storage.</li>
+        <li><strong>Last sign-in time.</strong> Today, the time your account last signed in is included in your page&apos;s public data. We plan to stop publishing it.</li>
+        <li><strong>Claim requests.</strong> If you ask to claim a page, we keep your email, state and the details you send us (such as your name and your connection to the official), and add your email and state to our Brevo mailing list like a waitlist sign-up.</li>
+      </ul>
+
+      <h3>Former officials and candidates</h3>
+      <p>
+        When someone leaves office or a campaign ends, their page stays,
+        labeled as a former official&apos;s or former candidate&apos;s
+        page, and is archived six months later (three months for a
+        campaign). We record the date, its official source and which
+        administrator set it. The person can link a citizen account by
+        being signed in to both in the same browser. We keep that link,
+        and each choice they make about what to carry over (their name,
+        a copy of their tracked items, saved posts and notification
+        settings, and an optional &ldquo;Served as&rdquo; line), with the
+        time it was turned on or off. Their name is released to their
+        citizen account only if ID.me verifies a matching legal name, or
+        an administrator approves the match with a source.
+      </p>
+
+      <h3>Waitlist sign-ups</h3>
+      <p>
+        If you join the waitlist, we keep your email, your state if you
+        give it, which button you used and any note. We also add your
+        email, state and that button to our mailing list at Brevo, which
+        may send you an email asking you to confirm, and which we use to
+        announce CivicView&apos;s launch and major news. Every such email
+        has an unsubscribe link.
+      </p>
+
+      <h3>Messages you send us</h3>
+      <p>
+        Emails you send us, and anything you write in our feedback form
+        (a Google Form, so it also goes to Google under{' '}
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google&apos;s privacy policy</a>).
+      </p>
+
+      <h3>Security information</h3>
+      <ul>
+        <li><strong>Two-step sign-in (2FA).</strong> If you turn it on, your 2FA secret is stored encrypted and your recovery codes as one-way hashes.</li>
+        <li><strong>Sign-in records.</strong> Each sign-in attempt is recorded with the email tried, whether it worked, your IP address and your browser&apos;s user agent, to stop password guessing. We also count failed attempts to lock an account under attack. If your account is locked, we email you, and that email includes the IP address the attempts came from.</li>
+        <li><strong>Last sign-in time</strong> for every account.</li>
+      </ul>
+
+      <h3 id="technical">Technical information</h3>
+      <ul>
+        <li><strong>IP address.</strong> Our servers see it on every request and use it to limit abuse. Apart from sign-in records and lockout emails, we don&apos;t store it, and we don&apos;t build profiles from it.</li>
+        <li><strong>Server logs.</strong> Our application logs record some events with account details, such as the email address on a sign-up or an email we sent, and the display name, state and district of a new account. Typed addresses are masked. Our hosting providers keep these logs, and their own request logs (IP address, browser and the page requested), for a limited time.</li>
+        <li><strong>Addresses you look up.</strong> When you type an address to find your officials, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and, when it&apos;s turned on, to Google Civic Information. We don&apos;t save it on our servers. Lookup results can be cached briefly by our network provider and your browser, and the app remembers the last address you matched on your device.</li>
+        <li><strong>&ldquo;Use my location.&rdquo;</strong> Only if you tap it and allow it. Your device&apos;s coordinates go straight from your browser to Nominatim, which returns the nearest address, and that address is then looked up as above. We never receive or store the coordinates.</li>
+        <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings and, if you aren&apos;t signed in, the list of officials you track on that device. Turning push off deletes the token and everything stored with it.</li>
+      </ul>
+
+      <h3>Payments</h3>
+      <p>
+        Paid subscriptions aren&apos;t available yet. When they launch,
+        Stripe will handle payment on its own pages. We&apos;ll keep your
+        Stripe customer and subscription IDs, your subscription status
+        and renewal date, never your card number.
+      </p>
+
+      <h2 id="cookies">Cookies and storage on your device</h2>
+      <p>
+        CivicView sets three cookies, only to keep you signed in:{' '}
+        <code>cl_citizen</code>, <code>cl_session</code> (officials) and{' '}
+        <code>cl_candidate</code>. They can&apos;t be read by page scripts
+        and expire after 14 days. We use no advertising or analytics
+        cookies.
+      </p>
+      <p>
+        The app also stores a few things in your browser&apos;s local
+        storage:
+      </p>
+      <ul>
+        <li>a copy of your sign-in and security tokens, which keeps you signed in, including in the Android and Windows apps;</li>
+        <li>a random voter ID (<code>civicview_voter_token</code>) that shows you how you voted on older polls from this browser. It isn&apos;t linked to your name;</li>
+        <li>your push choice and token, and your notification settings;</li>
+        <li>your ballot-measure leanings, which stay on your device and are never sent to us;</li>
+        <li>the last district and address you looked up, your map view, and tutorial and display choices.</li>
+      </ul>
+      <p>
+        You can clear all of this in your browser&apos;s settings.
+        Pages run by others, such as our Google feedback form and,
+        later, Stripe&apos;s payment pages, may set their own cookies.
+      </p>
+
+      <h2>How we use your information</h2>
+      <ul>
+        <li><strong>To run CivicView:</strong> show you your officials, ballot and elections, display what you publish, and keep your settings.</li>
+        <li><strong>To count engagement:</strong> totals of votes, likes and comments by area for officials, candidates and everyone.</li>
+        <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, and notices about your account or the pages you track.</li>
+        <li><strong>To keep CivicView safe:</strong> screening new content, handling reports and appeals, rate limits, lockouts and 2FA.</li>
+        <li><strong>For AI features:</strong> plain-English summaries, topic and tone tags on comments and polls, and AI search (see Anthropic below).</li>
+        <li><strong>To verify citizens,</strong> once ID.me verification opens.</li>
+        <li><strong>To understand use in total,</strong> for example how many polls were created, from our own database. We don&apos;t use outside analytics services.</li>
+        <li><strong>To meet legal duties</strong> and protect our users and the service.</li>
+      </ul>
+      <p>
+        We don&apos;t sell personal information, we don&apos;t share it
+        for targeted advertising, and we don&apos;t build advertising
+        profiles.
+      </p>
+
+      <h2>Who can see what</h2>
+
+      <h3>Everyone, without signing in</h3>
+      <ul>
+        <li><strong>Your comments:</strong> your display name, the text, the district or state and the city the comment was written from, an &ldquo;Unverified&rdquo; label if your account wasn&apos;t verified, and your account number (which opens your public card).</li>
+        <li><strong>Polls you create:</strong> your display name, your current state, city and district, and whether you&apos;re verified.</li>
+        <li><strong>Your public card:</strong> your display name and, only if you chose it, a &ldquo;Served as&rdquo; line. It shows nothing else.</li>
+        <li><strong>Totals</strong> of votes and likes. Your own vote or like is shown only to you.</li>
+        <li><strong>Everything on an official&apos;s or candidate&apos;s page,</strong> including, today, when its account last signed in.</li>
+      </ul>
+      <p>
+        Never public: your email, your individual votes and likes, your
+        answers to optional poll questions, what you track or save, and
+        your verification details.
+      </p>
+
+      <h3>Officials and candidates who run a page</h3>
+      <p>
+        They see totals for their page: votes, likes and comments by
+        area, poll results by group (only for groups of at least 10), how
+        many different citizens engaged, and their top posts. Their
+        dashboard also lists their five most active commenters, with each
+        person&apos;s display name, city, district, state and number of
+        comments; those comments are already public. They never see your
+        email, your individual votes or likes, or your answers to optional
+        poll questions.
+      </p>
+
+      <h3>CivicView administrators</h3>
+      <p>
+        Only people on an explicit admin list can use admin tools. They
+        can see account emails, reports and who filed them, suspended and
+        locked accounts, and, only when reviewing a former official&apos;s
+        name hand-off, a verified legal name. They use database access to
+        handle reports, appeals, security incidents and support, and for
+        totals. We don&apos;t browse personal data without a reason.
+        Moderation decisions, appeals and changes to former officials&apos;
+        pages are recorded with who made them.
+      </p>
+
+      <h2>Companies that help us run CivicView</h2>
+      <p>
+        These providers receive personal information only to do their job
+        for us:
+      </p>
+      <ul>
+        <li><strong>Render:</strong> hosts our server and database.</li>
+        <li><strong>Vercel:</strong> hosts the website and receives every visitor&apos;s IP address and request details.</li>
+        <li><strong>Cloudflare:</strong> sits in front of our server to block attacks and speed it up. It handles the traffic to our server, including its contents, and briefly caches public responses. Cloudflare R2 stores images uploaded by officials and candidates.</li>
+        <li><strong>Anthropic (Claude AI):</strong> receives the text of comments, polls (question and options) and the posts and polls of officials and candidates, to screen them for safety and tag their topic and tone; posts when someone asks for a summary; what you type into an AI search box, with the items being searched (for comment search, that includes commenters&apos; display names and short excerpts); and public bills, votes and executive orders to summarize. It doesn&apos;t receive your email, address, verification or votes. Under its commercial terms, Anthropic doesn&apos;t use this content to train its models.</li>
+        <li><strong>Postmark:</strong> sends our account emails (password resets and changes, sign-in help, lockout alerts with the IP address), the weekly digest and notices about former officials&apos; and candidates&apos; pages.</li>
+        <li><strong>Resend:</strong> emails our administrators about new reports (the content, the reason and the reporter&apos;s display name) and appeals (the appellant&apos;s name, email and reasons), and emails you our decision on your appeal.</li>
+        <li><strong>Brevo:</strong> our waitlist mailing list (email, state and the button used).</li>
+        <li><strong>ID.me:</strong> identity verification, once it opens.</li>
+        <li><strong>U.S. Census Geocoder, OpenStreetMap Nominatim and Google Civic Information:</strong> addresses you look up, to find their districts.</li>
+        <li><strong>Google Firebase Cloud Messaging:</strong> delivers push notifications, so the notification text passes through Google.</li>
+        <li><strong>Google Forms:</strong> our feedback form.</li>
+        <li><strong>Stripe:</strong> payments, once subscriptions launch.</li>
+      </ul>
+      <p>
+        Your browser also loads some content straight from other sites:
+        map tiles from CARTO, boundary files from GitHub and the U.S.
+        Census, and officials&apos; photos from public sources such as
+        Wikimedia Commons, GitHub, government websites, Amazon S3 and
+        Google Cloud Storage. Like any website, they see your IP address
+        and browser details when they send it. The public-data services we
+        use (Congress.gov, Open States, the FEC and others) receive no
+        personal information.
+      </p>
+      <p>
+        We may also disclose information when the law requires it (for
+        example a valid subpoena or court order), to protect someone&apos;s
+        safety, to report child sexual abuse material to the National
+        Center for Missing &amp; Exploited Children, or to a company that
+        takes over CivicView, which would have to honor this policy.
+      </p>
+
+      <h3>Tracking, Do Not Track and Global Privacy Control</h3>
+      <p>
+        CivicView has no advertising or analytics trackers, and we
+        don&apos;t let other companies collect information about your
+        activity across websites through CivicView, beyond the request
+        details any site you load content from receives (listed above).
+        Because we don&apos;t track you across sites, CivicView works the
+        same whether or not your browser sends a Do Not Track signal. If
+        your browser sends a Global Privacy Control signal, we treat it as
+        a request to opt out of the sale or sharing of your information,
+        which we don&apos;t do for anyone.
+      </p>
+
+      <h2>Emails we send</h2>
+      <ul>
+        <li><strong>Account and security emails</strong> (password resets and changes, sign-in help, lockout alerts). These protect your account, so they can&apos;t be turned off.</li>
+        <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on, and you can turn it off in Account &amp; settings.</li>
+        <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. To stop them, stop tracking the page.</li>
+        <li><strong>Notices to former officials and candidates</strong> about their page.</li>
+        <li><strong>Your appeal decision.</strong></li>
+        <li><strong>Waitlist emails</strong> from Brevo, each with an unsubscribe link.</li>
+      </ul>
+      <p>
+        We never send advertising for other companies. In-app and push
+        notifications are controlled in Account &amp; settings.
+      </p>
+
+      <h2>How long we keep information</h2>
+      <ul>
+        <li><strong>Your account and what you do on CivicView:</strong> until you delete your account. Clearing a notification hides it; it&apos;s removed when you delete your account.</li>
+        <li><strong>Sign-in records:</strong> about 90 days. Our daily cleanup removes older ones.</li>
+        <li><strong>Password reset links:</strong> expire after one hour (the demo sign-in link after 24 hours), and expired ones are removed daily.</li>
+        <li><strong>Accounts scheduled for deletion:</strong> 30 days, then deleted (citizens) or closed (officials and candidates).</li>
+        <li><strong>Content hidden by moderation, reports and appeals:</strong> kept so decisions can be appealed and checked.</li>
+        <li><strong>Our moderation system&apos;s assessments</strong> of content (which can quote up to a few sentences of it): kept as a safety record, even after the account is deleted.</li>
+        <li><strong>Push tokens:</strong> until you turn push off, the token stops working, or you delete your citizen account.</li>
+        <li><strong>Waitlist entries:</strong> until you ask us to remove them, and on Brevo until you unsubscribe or ask us.</li>
+        <li><strong>Verification records:</strong> the one-way hashes and date described above, kept to avoid paying to verify the same person twice.</li>
+        <li><strong>Pages of officials and candidates, and records of their changes:</strong> kept as a public record. Former pages are archived, not deleted.</li>
+        <li><strong>Logs:</strong> for the limited time our hosting providers keep them.</li>
+        <li><strong>Backups:</strong> deleted data can remain in our database provider&apos;s backups for a short time, until they&apos;re replaced.</li>
+      </ul>
+
+      <h2 id="deleting">Deleting your account</h2>
+      <p>
+        Go to <a href="/account/delete">Delete account</a>. You can
+        schedule deletion for 30 days from now (sign back in before then
+        to cancel) or delete right away.
+      </p>
+      <ul>
+        <li><strong>Citizen accounts</strong> are deleted, with your comments, the polls you created, your likes, your answers to optional poll questions, your tracked and saved items, notifications, push registrations, sign-in records and password reset links. What stays: your votes on other people&apos;s polls remain in their totals with no link to you; reports you filed remain without your name; your appeals and our moderation assessments remain as a safety record; your verification hashes and date remain (see above); and reply notices other people received keep your display name and a short preview.</li>
+        <li><strong>Official and candidate accounts</strong> are closed, never emptied. You can no longer sign in, and your sign-in email, password, 2FA secret and recovery codes, tracked and saved items, notifications and sign-in records are removed. What you published (posts, polls, events, comments, likes and votes) stays on the page as a public record, whether or not you&apos;re in office, so deleting an account can never erase what was published on it.</li>
+      </ul>
+
+      <h2>Your rights and choices</h2>
+      <p>
+        Wherever you live in the U.S., you can:
+      </p>
+      <ul>
+        <li><strong>Get a copy</strong> of the personal information we have about you, in a common machine-readable format.</li>
+        <li><strong>Correct it.</strong> Most of it is editable in Account &amp; settings; email us for the rest.</li>
+        <li><strong>Delete it,</strong> with the delete page or by email (with the exceptions in <a href="#deleting">Deleting your account</a>).</li>
+        <li><strong>Opt out</strong> of the sale or sharing of your information, targeted advertising and profiling. We don&apos;t do any of these.</li>
+        <li><strong>Change your mind</strong> about optional things: your poll answers (until the poll closes), your saved poll profile, push, the digest and the &ldquo;Served as&rdquo; line.</li>
+      </ul>
+      <p>
+        To make a request, email <Mail subject="Privacy request" /> from
+        the email address on your account (or tell us how to confirm
+        it&apos;s you), or write to the address above. Someone you
+        authorize can make a request for you, with your signed permission.
+        We&apos;ll answer within 45 days, and if we need more time
+        we&apos;ll tell you why, within another 45 days at most. If we turn
+        down a request, you can reply to ask us to reconsider, and
+        we&apos;ll answer that within 45 days too; if you still disagree,
+        you can contact your state&apos;s attorney general. Using these
+        rights never changes how CivicView treats you.
+      </p>
+
+      <h2>Sensitive information</h2>
+      <p>
+        Some of what you share can reveal sensitive things: your political
+        views (through your votes and comments) and, if you choose to
+        answer, your party, race or ethnicity, household income and
+        religion. We collect those answers only when you choose to give
+        them, use them only for anonymous totals of at least 10 people,
+        and never sell them or use them for advertising. We never collect
+        your precise location, and we keep your verified legal name
+        encrypted.
       </p>
 
       <h2>Children</h2>
       <p>
-        CivicView is not directed at children under 13. We don't knowingly
-        collect data from users under 13 (or under 16 in the EU/UK). If
-        you believe we've inadvertently collected data from a child,
-        email{' '}
-        <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
-        and we'll remove it.
+        CivicView is for adults 18 and older and isn&apos;t directed to
+        children. We don&apos;t knowingly collect information from anyone
+        under 18. If you believe someone under 18 has an account, email{' '}
+        <Mail subject="Child account" /> and we&apos;ll delete it.
       </p>
 
       <h2>Security</h2>
       <p>
-        We follow the practices outlined in our internal{' '}
-        <code>SECURITY.md</code>: HTTPS end-to-end, parameterized queries
-        (no SQL injection surface), bcrypt password hashing, encrypted 2FA
-        secrets, Cloudflare WAF in front of the API, regular dependency
-        scanning via Dependabot + CodeQL, planned annual penetration
-        testing. No system is perfectly secure; if you discover a
-        vulnerability, please report it to{' '}
-        <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
-        with the subject line "Security disclosure" before public
-        disclosure.
+        We protect your information with HTTPS everywhere, one-way hashed
+        passwords and recovery codes, encrypted 2FA secrets and legal
+        names, protection against cross-site request forgery, rate limits
+        and lockouts, a web application firewall in front of our server,
+        automated code and dependency scanning, and an explicit list of
+        administrators. We plan an independent security review as
+        CivicView grows. No system is perfectly secure. If a breach puts
+        your personal information at risk, we&apos;ll notify you and the
+        authorities as the law requires (in Florida, within 30 days). To
+        report a vulnerability, email <Mail subject="Security disclosure" />{' '}
+        before disclosing it publicly.
+      </p>
+
+      <h2>If you&apos;re outside the United States</h2>
+      <p>
+        CivicView is built for people in the United States, and your
+        information is stored and processed in the U.S. If you use it from
+        the European Union or the United Kingdom, you have the rights above
+        under the GDPR, and you can also object to our processing or
+        complain to your data protection authority. We rely on these legal
+        bases: providing the service you asked for, our legitimate
+        interest in keeping CivicView safe and working, your consent for
+        optional things (poll answers, push, verification), and our legal
+        obligations.
       </p>
 
       <h2>Changes to this policy</h2>
       <p>
-        We'll update the "Last updated" date at the bottom of this page
-        whenever we change something material. For substantive changes
-        (new data uses, new third-party sharing), we'll also notify
-        signed-in users via in-app banner before the change takes effect.
+        When we change this policy, we update the &ldquo;Last
+        updated&rdquo; date at the bottom of this page. For a material
+        change, such as collecting something new, using it in a new way or
+        sharing it with someone new, we&apos;ll post a notice on CivicView
+        and email account holders at least 30 days before it takes effect.
+        We won&apos;t use information you&apos;ve already given us in a
+        materially different way without your consent.
       </p>
 
       <h2>Contact us</h2>
       <p>
-        Email{' '}
-        <a href="mailto:civicview@civicview.app">civicview@civicview.app</a>{' '}
-        for any privacy question. We aim to respond within 48 hours.
+        Email <Mail subject="Privacy request" /> with any privacy question
+        or request, or write to CIVICVIEW, INC., PO Box 621182, Orlando,
+        FL 32862-1182. We usually reply within 24 to 48 hours during the
+        work week.
       </p>
     </LegalPageLayout>
   );
