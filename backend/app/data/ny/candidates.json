@@ -3787,7 +3787,10 @@
    "experience": [],
    "data_status": "incumbent_only",
    "data_source": "Open States current officeholder (state_officials.json); challenger roster + ballot qualification pending a certified New York Secretary of State source",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. The State Senate lists Michael Gianaris as serving until August 10, 2026, and the State Board of Elections certification for Senate District 12 does not include him.",
+   "withdrawn_source": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-jessica-ramos-sd13": {
    "name": "Jessica Ramos",
@@ -8411,6 +8414,52 @@
    "data_status": "incumbent_only",
    "data_source": "Open States current officeholder (state_officials.json); challenger roster + ballot qualification pending a certified New York Secretary of State source",
    "data_observed": "2026-06-04"
+  },
+  "ny-cand-aber-kawas-sd12": {
+   "name": "Aber Kawas",
+   "party": "D",
+   "seeking_office": "New York State Senate, Dist. 12",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "Aber Kawas is the Democratic nominee for New York State Senate District 12 in the Nov 3, 2026 general election.",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (October 7, 2026)",
+   "data_observed": "2026-10-15"
+  },
+  "ny-cand-han-khon-to-sd12": {
+   "name": "Han-Khon To",
+   "party": "R",
+   "seeking_office": "New York State Senate, Dist. 12",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "Han-Khon To is the Republican nominee for New York State Senate District 12 in the Nov 3, 2026 general election.",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (October 7, 2026)",
+   "data_observed": "2026-10-15"
   }
  }
 }

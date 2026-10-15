@@ -28,31 +28,20 @@
    "congressional_district": "1",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": true,
-   "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "D": [
-     "ca-cand-mike-mcguire-h1",
-     "ca-cand-audrey-denney-h1",
-     "ca-cand-james-salegui-h1",
-     "ca-cand-kyle-wilson-h1"
-    ],
-    "R": [
-     "ca-cand-james-gallagher-h1",
-     "ca-cand-doug-lamalfa-h1"
-    ]
-   },
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-james-gallagher-h1",
+   "primary_candidates": {},
    "general_candidates": [
     "ca-cand-mike-mcguire-h1",
-    "ca-cand-james-gallagher-h1",
-    "ca-cand-audrey-denney-h1",
-    "ca-cand-doug-lamalfa-h1",
-    "ca-cand-james-salegui-h1",
-    "ca-cand-kyle-wilson-h1"
+    "ca-cand-james-gallagher-h1"
    ],
-   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
-   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
-   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+   "general_candidates_note": "The two candidates on the Secretary of State's certified list for the Nov 3, 2026 general election. California's top-two primary on June 2 sent them to November; party preference is as printed on the list.",
+   "notes": "James Gallagher has held this seat since June 10, 2026, after a special election to fill the vacancy left by Rep. Doug LaMalfa, who died on January 6, 2026. The counties in the November contest differ from those of the special election.",
+   "_roster_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "ca-2026-us-house-2",
@@ -457,35 +446,20 @@
    "congressional_district": "14",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": true,
-   "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "D": [
-     "ca-cand-rakhi-israni-h14",
-     "ca-cand-melissa-hernandez-h14",
-     "ca-cand-aisha-wahab-h14",
-     "ca-cand-sheriene-ridenour-h14",
-     "ca-cand-matt-ortega-h14",
-     "ca-cand-carin-elam-h14",
-     "ca-cand-abrar-qadir-h14"
-    ],
-    "R": [
-     "ca-cand-wendy-fiona-huang-h14"
-    ]
-   },
+   "open_seat": false,
+   "incumbent_candidate_id": "ca-cand-aisha-wahab-h14",
+   "primary_candidates": {},
    "general_candidates": [
-    "ca-cand-rakhi-israni-h14",
     "ca-cand-melissa-hernandez-h14",
-    "ca-cand-aisha-wahab-h14",
-    "ca-cand-sheriene-ridenour-h14",
-    "ca-cand-matt-ortega-h14",
-    "ca-cand-wendy-fiona-huang-h14",
-    "ca-cand-carin-elam-h14",
-    "ca-cand-abrar-qadir-h14"
+    "ca-cand-aisha-wahab-h14"
    ],
-   "general_candidates_note": "Both cards are populated from active FEC committees for the cycle, grouped by party. The certified general-election ballot must be verified against the California Secretary of State; FEC committee status does not equal ballot qualification, and primary/runoff results are not reflected here.",
-   "notes": "Auto-generated from OpenFEC on 2026-06-04. Non-incumbents skeleton (FEC facts only); incumbent enriched from congress_profiles.json.",
-   "_roster_source": "OpenFEC /candidates/totals/ (cycle active committees)"
+   "general_candidates_note": "The two candidates on the Secretary of State's certified list for the Nov 3, 2026 general election. California's top-two primary on June 2 sent them to November; party preference is as printed on the list.",
+   "notes": "Aisha Wahab has held this seat since September 2, 2026, after a special election to fill the vacancy left by Rep. Eric Swalwell, who resigned on April 14, 2026.",
+   "_roster_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "ca-2026-us-house-15",
@@ -1762,19 +1736,20 @@
    "state_senate_district": "10",
    "seat_type": "legislative",
    "term_length_years": 4,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "D": [
-     "ca-cand-aisha-wahab-sd10"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "ca-cand-aisha-wahab-sd10"
+    "ca-cand-scott-sakakihara-sd10",
+    "ca-cand-linda-r-price-sd10"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races. This seat is one of the 20 California Senate seats on the 2026 ballot.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The two candidates on the Secretary of State's certified list for the Nov 3, 2026 general election. California's top-two primary on June 2 sent them to November; party preference is as printed on the list.",
+   "notes": "Open seat. Aisha Wahab left the State Senate to become the U.S. Representative for CA-14 (sworn in September 2, 2026); the Senate lists District 10 as vacant.",
+   "_roster_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "ca-2026-state-senate-12",
@@ -2176,19 +2151,20 @@
    "state_house_district": "3",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "R": [
-     "ca-cand-james-gallagher-ad3"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "ca-cand-james-gallagher-ad3"
+    "ca-cand-dom-belza-ad3",
+    "ca-cand-james-jamie-johansson-ad3"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the California Secretary of State; FEC/federal data does not cover state races.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The two candidates on the Secretary of State's certified list for the Nov 3, 2026 general election. California's top-two primary on June 2 sent them to November; party preference is as printed on the list.",
+   "notes": "Open seat. James Gallagher resigned effective June 9, 2026, after his election to the U.S. House; the Assembly lists District 3 as vacant.",
+   "_roster_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "ca-2026-state-assembly-4",

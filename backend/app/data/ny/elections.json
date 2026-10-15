@@ -1079,19 +1079,20 @@
    "state_senate_district": "12",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": false,
+   "open_seat": true,
    "incumbent_candidate_id": null,
-   "primary_candidates": {
-    "D": [
-     "ny-cand-mike-gianaris-sd12"
-    ]
-   },
+   "primary_candidates": {},
    "general_candidates": [
-    "ny-cand-mike-gianaris-sd12"
+    "ny-cand-aber-kawas-sd12",
+    "ny-cand-han-khon-to-sd12"
    ],
-   "general_candidates_note": "Only the sitting incumbent is shown (Open States current-members roster). Challenger filings and the certified ballot must be verified against the New York Secretary of State; FEC/federal data does not cover state races.",
-   "notes": "Auto-generated 2026-06-04 from the Open States current-members roster. Incumbent-only; challengers pending a certified source.",
-   "_roster_source": "Open States current members (state_officials.json)"
+   "general_candidates_note": "The candidates certified by the State Board of Elections for the Nov 3, 2026 general election. Each appears on one party line: Aber Kawas on the Democratic line, Han-Khon To on the Republican line.",
+   "notes": "Open seat. Michael Gianaris served until August 10, 2026, and the State Senate lists District 12 as vacant.",
+   "_roster_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (October 7, 2026)",
+   "write_in_candidates": [],
+   "roster_status": "verified_nominees",
+   "roster_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
+   "roster_retrieved": "2026-10-15"
   },
   {
    "id": "ny-2026-state-senate-13",

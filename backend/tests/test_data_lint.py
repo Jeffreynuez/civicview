@@ -21,6 +21,11 @@ Elections (every <state>/elections.json):
        legislative_seats_2026.json (seats not up were listed as 2026
        races in CA, PA and TX until 2026-09-25)
   E-9  no chamber lists the same district twice
+  E-10 no race names a candidate marked withdrawn: someone who is not on
+       the ballot is taken off the race and keeps their record, with
+       withdrawn, withdrawn_note and withdrawn_source (the Florida
+       convention, followed on 2026-10-15 for six CA, NY and TX races
+       that listed a member who had left the seat)
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -222,6 +227,8 @@ def lint_elections(state_dir: Path) -> None:
         for field, cid in _race_candidate_ids(race):
             if cid not in cands:
                 problem("E-2", f"{where} {rid}.{field}", f"unknown candidate id {cid}")
+            elif cands[cid].get("withdrawn") and not field.startswith("result."):
+                problem("E-10", f"{where} {rid}.{field}", f"{cid} is marked withdrawn")
         status = race.get("roster_status")
         if status is not None and status not in ROSTER_STATUSES:
             problem("E-5", f"{where} {rid}", f"unknown roster_status {status!r}")

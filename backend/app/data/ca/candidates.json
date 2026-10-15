@@ -1105,7 +1105,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Rakhi Israni is a Democratic candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -1117,7 +1117,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-brad-sherman-h32": {
    "name": "Brad Sherman",
@@ -1641,7 +1644,7 @@
    "data_observed": "2026-06-04"
   },
   "ca-cand-mike-mcguire-h1": {
-   "name": "Mike Mcguire",
+   "name": "Mike McGuire",
    "party": "D",
    "seeking_office": "U.S. House, CA-1",
    "incumbent": false,
@@ -1653,7 +1656,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Mike Mcguire is a Democratic candidate for U.S. House, CA-1.",
+   "bio": "Mike McGuire is on the Nov 3, 2026 general election ballot for U.S. House District 1, with a Democratic party preference and the ballot designation \"California State Senator\".",
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -1664,8 +1667,9 @@
    },
    "experience": [],
    "data_status": "skeleton",
-   "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-kevin-j-lincoln-ii-h13": {
    "name": "Kevin J Lincoln II",
@@ -2129,16 +2133,16 @@
    "name": "James Gallagher",
    "party": "R",
    "seeking_office": "U.S. House, CA-1",
-   "incumbent": false,
-   "current_office": null,
-   "bioguide_id": null,
+   "incumbent": true,
+   "current_office": "U.S. Representative, CA-1",
+   "bioguide_id": "G000607",
    "fec_id": "H6CA01285",
    "hometown": null,
    "age": null,
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "James Gallagher is a Republican candidate for U.S. House, CA-1.",
+   "bio": "James Gallagher has represented California's 1st congressional district since June 10, 2026, after winning a special election, and is on the Nov 3, 2026 general election ballot for U.S. House District 1 with the ballot designation \"United States Representative/Farmer\".",
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -2149,8 +2153,9 @@
    },
    "experience": [],
    "data_status": "skeleton",
-   "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026); House Clerk",
+   "data_observed": "2026-10-15",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-ami-bera-h3": {
    "name": "Ami Bera",
@@ -2439,7 +2444,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Audrey Denney is a Democratic candidate for U.S. House, CA-1.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -2451,7 +2456,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 1.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-tom-mcclintock-h5": {
    "name": "Tom McClintock",
@@ -2566,7 +2574,7 @@
    "name": "Doug Lamalfa",
    "party": "R",
    "seeking_office": "U.S. House, CA-1",
-   "incumbent": true,
+   "incumbent": false,
    "current_office": null,
    "bioguide_id": null,
    "fec_id": "H2CA02142",
@@ -2575,7 +2583,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Doug Lamalfa is a Republican candidate for U.S. House, CA-1, currently the incumbent.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -2587,7 +2595,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. Rep. Doug LaMalfa died on January 6, 2026 (House Clerk), and the Secretary of State's certified list of candidates for U.S. House District 1 does not include him.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-thomas-ky-phong-vo-h45": {
    "name": "Thomas Ky-Phong Vo",
@@ -3605,7 +3616,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Melissa Hernandez is a Democratic candidate for U.S. House, CA-14.",
+   "bio": "Melissa Hernandez is on the Nov 3, 2026 general election ballot for U.S. House District 14, with a Democratic party preference and the ballot designation \"Healthcare Services Director\".",
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -3616,23 +3627,24 @@
    },
    "experience": [],
    "data_status": "skeleton",
-   "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-aisha-wahab-h14": {
    "name": "Aisha Wahab",
    "party": "D",
    "seeking_office": "U.S. House, CA-14",
-   "incumbent": false,
-   "current_office": null,
-   "bioguide_id": null,
+   "incumbent": true,
+   "current_office": "U.S. Representative, CA-14",
+   "bioguide_id": "W000832",
    "fec_id": "H0CA15213",
    "hometown": null,
    "age": null,
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Aisha Wahab is a Democratic candidate for U.S. House, CA-14.",
+   "bio": "Aisha Wahab has represented California's 14th congressional district since September 2, 2026, after winning a special election, and is on the Nov 3, 2026 general election ballot for U.S. House District 14.",
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -3643,8 +3655,9 @@
    },
    "experience": [],
    "data_status": "skeleton",
-   "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026); House Clerk",
+   "data_observed": "2026-10-15",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-star-l-parker-h49": {
    "name": "Star L Parker",
@@ -5279,7 +5292,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Sheriene Ridenour is a Democratic candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -5291,7 +5304,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-curtis-morrison-h48": {
    "name": "Curtis Morrison",
@@ -5387,7 +5403,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Matt Ortega is a Democratic candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -5399,7 +5415,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-corinna-contreras-h48": {
    "name": "Corinna Contreras",
@@ -5468,7 +5487,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Wendy Fiona Huang is a Republican candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -5480,7 +5499,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-josh-sautter-h32": {
    "name": "Josh Sautter",
@@ -5549,7 +5571,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Carin Elam is a Democratic candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -5561,7 +5583,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-robert-morin-h7": {
    "name": "Robert Morin",
@@ -5738,7 +5763,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Abrar Qadir is a Democratic candidate for U.S. House, CA-14.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -5750,7 +5775,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-mark-andrew-leonard-h45": {
    "name": "Mark Andrew Leonard",
@@ -6899,7 +6927,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "James Salegui is a Democratic candidate for U.S. House, CA-1.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -6911,7 +6939,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 1.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-john-mcbride-h9": {
    "name": "John Mcbride",
@@ -7196,7 +7227,7 @@
    "website": null,
    "social": {},
    "photo_url": null,
-   "bio": "Kyle Wilson is a Democratic candidate for U.S. House, CA-1.",
+   "bio": null,
    "top_issues": [],
    "endorsements": [],
    "fundraising": {
@@ -7208,7 +7239,10 @@
    "experience": [],
    "data_status": "skeleton",
    "data_source": "OpenFEC (active FEC committee; not verified vs state ballot)",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot. This person is not on the California Secretary of State's certified list of candidates for U.S. House District 1.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-anna-kramer-h15": {
    "name": "Anna Kramer",
@@ -7485,7 +7519,10 @@
    "experience": [],
    "data_status": "incumbent_only",
    "data_source": "Open States current officeholder (state_officials.json); challenger roster + ballot qualification pending a certified California Secretary of State source",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot for this seat. Aisha Wahab became the U.S. Representative for CA-14 on September 2, 2026, and the Secretary of State's certified list of candidates for State Senate District 10 does not include her. She is on the ballot for U.S. House, CA-14.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-shannon-grove-sd12": {
    "name": "Shannon Grove",
@@ -7899,7 +7936,10 @@
    "experience": [],
    "data_status": "incumbent_only",
    "data_source": "Open States current officeholder (state_officials.json); challenger roster + ballot qualification pending a certified California Secretary of State source",
-   "data_observed": "2026-06-04"
+   "data_observed": "2026-06-04",
+   "withdrawn": true,
+   "withdrawn_note": "Not on the Nov 3, 2026 ballot for this seat. James Gallagher resigned from the Assembly effective June 9, 2026, after his election to the U.S. House, and the Secretary of State's certified list of candidates for Assembly District 3 does not include him. He is on the ballot for U.S. House, CA-1.",
+   "withdrawn_source": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
   },
   "ca-cand-cecilia-aguiar-curry-ad4": {
    "name": "Cecilia Aguiar-Curry",
@@ -9671,6 +9711,98 @@
    "data_status": "incumbent_only",
    "data_source": "Open States current officeholder (state_officials.json); challenger roster + ballot qualification pending a certified California Secretary of State source",
    "data_observed": "2026-06-04"
+  },
+  "ca-cand-scott-sakakihara-sd10": {
+   "name": "Scott Sakakihara",
+   "party": "D",
+   "seeking_office": "California State Senate, Dist. 10",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "Scott Sakakihara is on the Nov 3, 2026 general election ballot for State Senate District 10, with a Democratic party preference and the ballot designation \"Councilmember/Navy Officer\".",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15"
+  },
+  "ca-cand-linda-r-price-sd10": {
+   "name": "Linda R. Price",
+   "party": "R",
+   "seeking_office": "California State Senate, Dist. 10",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "Linda R. Price is on the Nov 3, 2026 general election ballot for State Senate District 10, with a Republican party preference and the ballot designation \"Businesswoman\".",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15"
+  },
+  "ca-cand-dom-belza-ad3": {
+   "name": "Dom Belza",
+   "party": "R",
+   "seeking_office": "California State Assembly, Dist. 3",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "Dom Belza is on the Nov 3, 2026 general election ballot for State Assembly District 3, with a Republican party preference and the ballot designation \"Agricultural Businessman/Father\".",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15"
+  },
+  "ca-cand-james-jamie-johansson-ad3": {
+   "name": "James \"Jamie\" Johansson",
+   "party": "R",
+   "seeking_office": "California State Assembly, Dist. 3",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
+   "fec_id": null,
+   "hometown": null,
+   "age": null,
+   "website": null,
+   "social": {},
+   "photo_url": null,
+   "bio": "James \"Jamie\" Johansson is on the Nov 3, 2026 general election ballot for State Assembly District 3, with a Republican party preference and the ballot designation \"Farmer\".",
+   "top_issues": [],
+   "endorsements": [],
+   "fundraising": null,
+   "experience": [],
+   "data_status": "skeleton",
+   "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+   "data_source": "California Secretary of State, Certified List of Candidates, November 3, 2026 General Election (August 27, 2026)",
+   "data_observed": "2026-10-15"
   }
  }
 }
