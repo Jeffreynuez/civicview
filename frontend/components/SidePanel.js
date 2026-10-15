@@ -316,6 +316,13 @@ export default function SidePanel({
 
   const rawSenators = stateData?.congress?.senators || [];
   const rawReps = filterByDistrict(stateData?.congress?.representatives);
+  // House districts with nobody seated (0 = the at-large seat), so a
+  // vacant seat reads as vacant rather than as missing data.
+  const vacantDistricts = stateData?.congress?.vacantHouseDistricts || [];
+  const vacantLabel = (d) => (Number(d) === 0 ? 'The at-large seat' : `District ${d}`);
+  const activeDistrictVacant = !!activeDistrict && vacantDistricts.some((d) => (
+    activeDistrict.district === 'At-Large' ? Number(d) === 0 : Number(d) === Number(activeDistrict.district)
+  ));
 
   const showSenators = chamberFilter === 'all' || chamberFilter === 'Senate';
   const showReps = chamberFilter === 'all' || chamberFilter === 'House';
@@ -624,7 +631,24 @@ export default function SidePanel({
                 ))}
               </div>
             )}
-            {activeDistrict && districtReps.length === 0 && (
+            {!activeDistrict && showReps && vacantDistricts.length > 0 && (
+              <div style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)', padding: '4px 12px 8px' }}>
+                Vacant House {vacantDistricts.length === 1 ? 'seat' : 'seats'}:{' '}
+                {vacantDistricts.map(vacantLabel).join(', ')}. Nobody holds {vacantDistricts.length === 1 ? 'it' : 'them'} until a successor is sworn in.
+              </div>
+            )}
+            {activeDistrict && districtReps.length === 0 && activeDistrictVacant && (
+              <div style={{ padding: '12px', background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '8px', fontSize: '0.82rem', color: 'var(--cl-text)', margin: '8px 0' }}>
+                {activeDistrict.district === 'At-Large' ? 'This state\'s at-large House seat' : `The District ${activeDistrict.district} House seat`} is vacant. Nobody represents it until a successor is sworn in.
+                <button
+                  onClick={onClearDistrict}
+                  style={{ marginLeft: '6px', padding: '2px 8px', background: 'white', border: '1px solid var(--cl-border)', borderRadius: '6px', fontSize: '0.75rem', cursor: 'pointer', color: 'var(--cl-text)', fontWeight: 600 }}
+                >
+                  Show all reps
+                </button>
+              </div>
+            )}
+            {activeDistrict && districtReps.length === 0 && !activeDistrictVacant && (
               <div style={{ padding: '12px', background: '#fff8e1', border: '1px solid #ffe08a', borderRadius: '8px', fontSize: '0.82rem', color: '#856404', margin: '8px 0' }}>
                 Couldn&apos;t find the District {activeDistrict.district} representative in our current data set.
                 <button

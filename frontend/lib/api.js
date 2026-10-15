@@ -43,6 +43,10 @@ function transformMember(m) {
     top_issues: m.top_issues || [],
     experience: m.experience || [],
     active_candidacy: m.active_candidacy || null,
+    // Set by the backend for someone who no longer holds the seat
+    // (resigned, died, moved to another office); profiles say so.
+    former_member: !!m.former_member,
+    left_office_year: m.left_office_year || null,
     recentBills: (m.bills || m.recentBills || []).map((b) => ({
       title: b.title,
       status: b.status || 'Introduced',
@@ -64,7 +68,7 @@ export async function fetchAllStateData(stateCode) {
     fetchStateInfo(stateCode),
   ]);
 
-  const congress = congressResult.status === 'fulfilled' ? congressResult.value.data : { senators: [], representatives: [] };
+  const congress = congressResult.status === 'fulfilled' ? congressResult.value.data : { senators: [], representatives: [], vacantHouseDistricts: [] };
   const stateInfo = stateResult.status === 'fulfilled' ? stateResult.value.data : { stateLeg: { senate: [], house: [] }, elections: [] };
   const isLive = (congressResult.status === 'fulfilled' && congressResult.value.isLive) ||
                  (stateResult.status === 'fulfilled' && stateResult.value.isLive);
@@ -259,6 +263,8 @@ export async function lookupAddress(address) {
       stateSenateDistrict: data.stateSenateDistrict,
       stateHouseDistrict: data.stateHouseDistrict,
       yourRepresentative: yourRep,
+      // True when nobody holds the district's House seat right now.
+      representativeVacant: !!data.representativeVacant,
       yourSenators,
       allMembers,
     };
@@ -283,12 +289,14 @@ export async function fetchCongressMembers(stateCode) {
     const members = (data.members || []).map(transformMember);
     const senators = members.filter((m) => m.chamber === 'Senate');
     const representatives = members.filter((m) => m.chamber === 'House');
+    // House districts with nobody seated (0 = the at-large seat).
+    const vacantHouseDistricts = data.vacant_house_districts || [];
 
-    return { data: { senators, representatives }, isLive: true };
+    return { data: { senators, representatives, vacantHouseDistricts }, isLive: true };
   } catch (error) {
     console.warn('Congress API unavailable:', error.message);
     return {
-      data: { senators: [], representatives: [] },
+      data: { senators: [], representatives: [], vacantHouseDistricts: [] },
       isLive: false,
       error: loadErrorText(error),
     };

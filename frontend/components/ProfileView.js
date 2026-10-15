@@ -867,6 +867,11 @@ export default function ProfileView({
         )}
         {photoUrl && <PhotoCredit url={photoUrl} />}
         <h2 style={{ fontSize: '1.2rem', marginBottom: '4px', fontWeight: 700 }}>{member.name}</h2>
+        {member.former_member && (
+          <p style={{ fontSize: '0.8rem', color: 'var(--cl-text)', fontWeight: 600, marginBottom: '4px' }}>
+            Former member of Congress{member.left_office_year ? `, left office in ${member.left_office_year}` : ''}
+          </p>
+        )}
         <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
           <span style={{
             display: 'inline-block', padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,

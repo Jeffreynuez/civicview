@@ -2684,13 +2684,6 @@
   "G000594": {
     "top_issues": [
       {
-        "name": "Immigration & Border Security",
-        "stance": "Immigration is by far his most frequent sponsored-legislation area; represents a large Texas border district.",
-        "sources": [
-          "https://www.congress.gov/member/tony-gonzales/G000594"
-        ]
-      },
-      {
         "name": "Law Enforcement & Public Safety",
         "stance": "Sponsored the Bulletproof Law Enforcement Vehicles Act and related public-safety bills.",
         "sources": [
@@ -2704,7 +2697,20 @@
           "https://www.congress.gov/member/tony-gonzales/G000594"
         ]
       }
-    ]
+    ],
+    "bio": "Tony Gonzales represented Texas's 23rd congressional district from 2021 until he resigned on April 14, 2026.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000594",
+      "https://clerk.house.gov/Members/ViewVacancies"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Representative, Texas",
+        "from": "2021",
+        "to": "2026"
+      }
+    ],
+    "former_member": true
   },
   "V000134": {
     "top_issues": [
@@ -14382,15 +14388,26 @@
         "sources": [
           "https://www.lgraham.senate.gov/public"
         ]
+      }
+    ],
+    "bio": "Lindsey Graham represented South Carolina in the U.S. Senate from 2003 until his death on July 11, 2026. He earlier represented South Carolina's 3rd congressional district in the U.S. House from 1995 to 2003.",
+    "bio_sources": [
+      "https://bioguide.congress.gov/search/bio/G000359",
+      "https://www.senate.gov/senators/SenatorsDiedinOffice.htm"
+    ],
+    "experience": [
+      {
+        "role": "U.S. Senator, South Carolina",
+        "from": "2003",
+        "to": "2026"
       },
       {
-        "name": "Committee Assignments",
-        "stance": "Serves on the Budget and Judiciary Committees.",
-        "sources": [
-          "https://www.lgraham.senate.gov/public"
-        ]
+        "role": "U.S. Representative, South Carolina",
+        "from": "1995",
+        "to": "2003"
       }
-    ]
+    ],
+    "former_member": true
   },
   "C000537": {
     "top_issues": [

@@ -20,7 +20,11 @@ async def get_members(
         raise HTTPException(status_code=400, detail="State must be a two-letter code")
 
     members = await service.get_members_by_state(state)
-    return {"state": state, "count": len(members), "members": members}
+    # House districts with nobody seated (0 = an at-large seat), so the
+    # map can say a seat is vacant instead of that a member is missing.
+    vacant = await service.get_house_vacancies(state, members)
+    return {"state": state, "count": len(members), "members": members,
+            "vacant_house_districts": vacant}
 
 
 @router.get("/members/all")

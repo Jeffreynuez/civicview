@@ -365,6 +365,20 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
           {result.yourRepresentative && (
             <MemberCard member={result.yourRepresentative} label="Your Representative" />
           )}
+          {!result.yourRepresentative && result.representativeVacant && (
+            <div style={{
+              padding: '12px', borderRadius: '10px', border: '1px solid var(--cl-border)',
+              marginBottom: '6px', background: 'white',
+            }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--cl-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '2px' }}>
+                Your Representative
+              </div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 600 }}>This House seat is vacant</div>
+              <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
+                Nobody represents this district until a successor is sworn in.
+              </div>
+            </div>
+          )}
 
           {/* Your Senators */}
           {result.yourSenators.map((s) => (
