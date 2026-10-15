@@ -87,6 +87,8 @@ export default function FeedCard({
   signedIn = false,
   onLoginRequired,
   citizenViewer = null,
+  // Optional [data-tutorial] anchor name for the app tour's spotlight.
+  tourAnchor,
 }) {
   // Self-delete X (top-right). Three ownership paths:
   //   • Standalone poll authored by the viewing citizen (existing)
@@ -505,7 +507,10 @@ export default function FeedCard({
 
   // ── render ──────────────────────────────────────────────────────
   return (
-    <article className={`feed-card feed-card--${kind} ${isCommentsOpen ? 'is-thread-open' : ''}`}>
+    <article
+      className={`feed-card feed-card--${kind} ${isCommentsOpen ? 'is-thread-open' : ''}`}
+      data-tutorial={tourAnchor}
+    >
       <header className="feed-card__top">
         {/* Tag chip is a link to the author's page for rep + candidate
             cards. Citizen + standalone cards stay as plain text — the

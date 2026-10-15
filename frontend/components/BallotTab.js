@@ -221,7 +221,7 @@ export default function BallotTab({
 
       {/* Mode toggle */}
       {hasPersonalGeo && (
-        <div style={{
+        <div data-tutorial="ballot-mode" style={{
           display: 'flex', gap: '6px', padding: '8px 10px', marginBottom: '12px',
           background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '12px',
         }}>
@@ -278,6 +278,7 @@ export default function BallotTab({
               idx === firstUpcomingIdx(elections)
               || Boolean(targetLocation && targetLocation.electionId === el.id)
             }
+            tourAnchor={idx === firstUpcomingIdx(elections)}
             onCandidateSelect={onCandidateSelect}
             onCompareToggle={onCompareToggle}
             compareIds={compareIds}
@@ -411,7 +412,7 @@ function firstUpcomingIdx(elections) {
 
 // ─── Election card ───────────────────────────────────────────────────
 function ElectionCard({
-  election, defaultOpen, onCandidateSelect, onCompareToggle, compareIds,
+  election, defaultOpen, tourAnchor = false, onCandidateSelect, onCompareToggle, compareIds,
   mode, stateCode, onNotify,
   forceOpenRaceId, focusCandidateId, highlightCandidateId,
   onFocusCandidateConsumed, onHighlightConsumed,
@@ -459,6 +460,7 @@ function ElectionCard({
       background: 'white', overflow: 'hidden',
     }}>
       <div
+        data-tutorial={tourAnchor ? 'election-card' : undefined}
         style={{
           display: 'flex', alignItems: 'center', gap: '8px',
           padding: '14px 16px',
@@ -774,7 +776,7 @@ function RaceCard({
   }, [phase, race.primary_candidates]);
 
   return (
-    <div style={{
+    <div data-tutorial="race-card" style={{
       marginBottom: '8px', padding: '11px 13px',
       background: 'white', border: '1px solid var(--cl-border)', borderRadius: '10px',
     }}>

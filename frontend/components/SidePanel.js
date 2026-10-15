@@ -446,6 +446,7 @@ export default function SidePanel({
           ].map(({ key, label }) => (
             <button
               key={key}
+              data-tutorial={`panel-tab-${key}`}
               onClick={() => setActiveTab(key)}
               style={{
                 flex: 1,

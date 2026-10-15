@@ -642,6 +642,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       >
         <button
           type="button"
+          data-tutorial="citizen-demo-toggle"
           onClick={() => setShowDemo((s) => !s)}
           style={{
             background: 'transparent',

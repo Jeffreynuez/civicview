@@ -552,7 +552,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
       <div className="polls-filters">
         <div className="polls-wrap">
           <div className="polls-filters__inner">
-            <div className="polls-kindrow">
+            <div className="polls-kindrow" data-tutorial="polls-filters">
               <div className="polls-kindrow__chips" ref={kindChipsRef} {...chipsDrag}>
                 {activeBranchFilters.map((f) => (
                   <div key={f.id} className={f.id === 'states' ? 'polls-kindrow__states-wrap' : ''}>
@@ -695,10 +695,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
             />
           )}
 
-          {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.map((p) => (
+          {!loading && !isFullEmpty && !isInlineEmpty && visibleItems.map((p, idx) => (
             <FeedCard
               key={p.id}
               card={p}
+              tourAnchor={idx === 0 ? 'feed-card' : undefined}
               kind={tab === "posts" ? "post" : "poll"}
               isCommentsOpen={openCommentId === p.id}
               onToggleComments={() => toggleComments(p.id)}

@@ -26,7 +26,7 @@ import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
 // Contextual push-notification opt-in — renders nothing on the web;
 // in the Android shell it offers push once a citizen is signed in.
-import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import {
   getAllTrackedBills,
@@ -41,6 +41,7 @@ import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
 import { useViewport, useIsLandscape } from '@/lib/useViewport';
 import { loadNavState, saveNavState } from '@/lib/navState';
 import { useTutorialActions } from '@/lib/tutorial';
+import { TOUR_REQUIRE_VOTES } from '@/lib/tutorialSegments';
 import { useCitizenLoginRequest } from '@/lib/loginRequest';
 
 export default function Home() {
@@ -1230,140 +1231,246 @@ export default function Home() {
     await handleMemberSelect(member);
   }, [selectedState, handleMemberSelect, loadStateData]);
 
-  // Random member picks for the guided tour's live demos. Pulls the
-  // same index the navbar search uses (edge-cached, cheap) and
-  // samples without replacement so a pair never repeats a person.
-  const pickRandomMembers = useCallback(async (n) => {
+  // Random member picks for the guided tour's live demos. Samples the
+  // same index the navbar search uses (edge-cached, cheap), never
+  // someone who has left office, then keeps only members whose profile
+  // is not empty: a bio, at least one committee and at least one
+  // sponsored bill (and recent votes when TOUR_REQUIRE_VOTES is on).
+  // Random, never chosen by party or state; candidates are checked a
+  // few at a time and the first that pass win.
+  const pickTourMembers = useCallback(async (n, excludeIds = []) => {
+    let pool;
     try {
       const { data } = await fetchAllMembers();
-      // Never demo someone who has left office (2026-10-15).
-      const pool = (data || []).filter((m) => m && (m.bioguide_id || m.id) && !m.former_title);
-      if (pool.length < n) return [];
-      const picked = [];
-      for (let i = 0; i < n; i += 1) {
-        const idx = Math.floor(Math.random() * pool.length);
-        picked.push(pool.splice(idx, 1)[0]);
-      }
-      return picked;
+      pool = (data || []).filter((m) => m && m.bioguide_id && !m.former_title
+        && !excludeIds.includes(m.bioguide_id));
     } catch {
-      return []; // demo steps degrade to text-only — never block the tour
+      return [];
     }
+    for (let i = pool.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    const check = async (m) => {
+      try {
+        const [detail, bills, votes] = await Promise.all([
+          fetchMemberDetail(m.bioguide_id),
+          fetchMemberBills(m.bioguide_id, 5),
+          TOUR_REQUIRE_VOTES ? fetchMemberVotes(m.bioguide_id, 5) : Promise.resolve(null),
+        ]);
+        const d = detail?.data;
+        if (!d || d.former_member || d.lifecycle?.former) return null;
+        if (!d.bio || !(d.committees || []).length) return null;
+        if (!(bills?.data?.sponsored || []).length) return null;
+        if (votes && !(votes.data || []).length) return null;
+        // Keep the index row's state: the detail payload may lack it.
+        return { ...d, state: d.state || m.state, serving_since: m.serving_since };
+      } catch {
+        return null;
+      }
+    };
+    const picked = [];
+    const MAX_CHECKED = 15;
+    for (let i = 0; i < Math.min(pool.length, MAX_CHECKED) && picked.length < n; i += 3) {
+      const batch = await Promise.all(pool.slice(i, i + 3).map(check));
+      for (const m of batch) if (m && picked.length < n) picked.push(m);
+    }
+    return picked;
   }, []);
+
+  // The person the profile demo opened, so the page demo right after it
+  // opens the same person's page.
+  const tourMemberRef = useRef(null);
+  // The state a demo selected (the random member's state, or Florida).
+  // The State and Elections demos use the visitor's own selected state,
+  // never one the tour picked for them.
+  const tourStateRef = useRef(null);
+  // Phones (stacked layout): demos that open the side panel tuck the
+  // map away so the panel has the screen. Never persisted (that is
+  // handleMapResize's job, for the visitor's own gestures).
+  const collapseMapForTour = useCallback(() => {
+    if (useStackedLayout) setMapHeightPx(0);
+  }, [useStackedLayout]);
+  const expandMapForTour = useCallback(() => {
+    if (useStackedLayout && mapMaxHeightPx > 0) setMapHeightPx(mapMaxHeightPx);
+  }, [useStackedLayout, mapMaxHeightPx]);
 
   // ─── Guided-tour bridge (lib/tutorial.js) ────────────────────────
   // The TutorialOverlay (mounted in the root layout) drives surfaces
-  // that live behind this page's React state — My Tracked, Feedback,
-  // Help Build, the citizen login modal — by emitting bridge actions.
-  // Map them onto the existing open/close handlers here. Unknown
-  // actions are ignored by the listener, and on routes that don't
-  // mount this page (/polls, /bills) the emit is a harmless no-op —
-  // the tour step degrades to panel-only text.
-  const tutorialActionHandlers = useMemo(() => ({
-    'open-citizen-login': () => setCitizenLoginOpen(true),
-    // Tucks the mobile stacked-layout map away (mapHeightPx is unused
-    // by the side-by-side layout, so this is a no-op on desktop).
-    // Deliberately NOT handleMapResize(0) — that would persist
-    // 'cl:map:collapsed' as if the USER closed it; a tour-driven
-    // collapse should not survive the next reload.
-    'collapse-map': () => setMapHeightPx(0),
-    // Live demos — the tour opens REAL surfaces with randomly-picked
-    // members of Congress so every walkthrough shows actual content.
-    'demo-open-profile': async () => {
-      const [m] = await pickRandomMembers(1);
-      if (m) handleGlobalMemberPick(m);
-    },
-    'demo-close-profile': () => handleCloseProfile(),
-    // State tab / Elections tab demos — keep the user's selected state
-    // when there is one; otherwise load Florida (the most fully
-    // curated state) directly onto the requested tab. handleStateSelect
-    // accepts a tab override, clears district/member selection, and
-    // fetches the state payload.
-    'demo-open-state-tab': async () => {
-      handleCloseProfile();
-      if (selectedState) {
-        setSidePanelTab('state');
-      } else {
-        try { await handleStateSelect('FL', 'Florida', { tab: 'state' }); } catch { /* tour degrades to text */ }
-      }
-    },
-    'demo-open-elections-tab': async () => {
-      handleCloseProfile();
-      if (selectedState) {
-        setSidePanelTab('ballot');
-      } else {
-        try { await handleStateSelect('FL', 'Florida', { tab: 'ballot' }); } catch { /* tour degrades to text */ }
-      }
-    },
-    'demo-compare': async () => {
-      handleCloseProfile();
-      const pair = await pickRandomMembers(2);
-      if (pair.length === 2) {
-        setCompareItems(pair.map((m) => ({ ...m, _kind: 'official' })));
-        setCompareOpen(true);
-      }
-    },
-    'demo-open-page': async () => {
-      // Sweep the compare demo (and any open profile) first so the
-      // page view is what the user sees.
-      setCompareOpen(false);
-      setCompareItems([]);
-      handleCloseProfile();
-      const [m] = await pickRandomMembers(1);
-      if (m) {
-        handleOpenPage(m.bioguide_id || m.id, {
-          displayName: m.name,
-          role: m.chamber
-            ? `${m.chamber}${m.district ? `, District ${m.district}` : ''}`
-            : null,
-          photoUrl: m.photoUrl || null,
-        });
-      }
-    },
-    'demo-close-page': () => {
-      setSelectedPageOfficialId(null);
-      setPageMeta(null);
-    },
-    'close-citizen-login': () => setCitizenLoginOpen(false),
-    'open-tracked': () => setTrackedOpen(true),
-    'close-tracked': () => setTrackedOpen(false),
-    // The full-page overlays (Feedback / Help Build) are sibling fixed
-    // layers in the same z family — whichever renders later in the DOM
-    // wins. Opening one from the tour therefore closes the other (and
-    // the login modal), or a still-open Feedback would sit on top of
-    // the Help Build page the step just asked for.
-    'open-feedback': () => {
-      setHelpBuildOpen(false);
-      setCitizenLoginOpen(false);
-      setFeedbackOpen(true);
-    },
-    'close-feedback': () => setFeedbackOpen(false),
-    'open-help-build': () => {
-      setFeedbackOpen(false);
-      setCitizenLoginOpen(false);
-      setHelpBuildOpen(true);
-    },
-    'close-help-build': () => setHelpBuildOpen(false),
-    // Fired when the tour jumps between segments so a surface opened
-    // by a skipped step never lingers under the next one.
-    'close-overlays': () => {
+  // that live behind this page's React state by emitting bridge
+  // actions. Each handler may return { ok, ...facts the step copy
+  // needs }; live demos return ok:false when nothing could be opened,
+  // and the step then shows its text version. On routes that don't
+  // mount this page (/polls, /bills) actions resolve as unhandled.
+  const tutorialActionHandlers = useMemo(() => {
+    // The state on screen counts as the visitor's own only if they
+    // picked it, not if an earlier demo did.
+    const visitorState = () => !!(selectedState && stateData && selectedState !== tourStateRef.current);
+    const closeWindows = () => {
       setCitizenLoginOpen(false);
       setTrackedOpen(false);
       setFeedbackOpen(false);
       setHelpBuildOpen(false);
       setCommitteesOpen(false);
-      // Sweep the live-demo surfaces too so a segment jump never
-      // strands a demo profile / comparison / page under the next
-      // segment's step.
+    };
+    const closeDemos = () => {
       setCompareOpen(false);
       setCompareItems([]);
       handleCloseProfile();
       setSelectedPageOfficialId(null);
       setPageMeta(null);
-    },
+    };
+    const openPageFor = (m) => {
+      handleOpenPage(m.bioguide_id || m.id, {
+        displayName: m.name,
+        role: m.chamber
+          ? `${m.chamber}${m.district ? `, District ${m.district}` : ''}`
+          : null,
+        photoUrl: m.photoUrl || null,
+      });
+    };
+    return {
+      'open-citizen-login': () => { closeDemos(); setCitizenLoginOpen(true); },
+      'close-citizen-login': () => setCitizenLoginOpen(false),
+      'open-tracked': () => { closeDemos(); setTrackedOpen(true); },
+      'close-tracked': () => setTrackedOpen(false),
+      // The full-page overlays (Feedback / Help build) are sibling fixed
+      // layers in the same z family; whichever renders later wins.
+      // Opening one closes the other (and the sign-in).
+      'open-feedback': () => {
+        closeDemos();
+        setHelpBuildOpen(false);
+        setCitizenLoginOpen(false);
+        setFeedbackOpen(true);
+      },
+      'open-help-build': () => {
+        setFeedbackOpen(false);
+        setCitizenLoginOpen(false);
+        setHelpBuildOpen(true);
+      },
+      // A topic finished: close the windows it opened. The page itself
+      // (a profile, a comparison) stays for the visitor to keep using.
+      'close-windows': closeWindows,
+      'close-demos': () => { closeWindows(); closeDemos(); },
+      // Fired when the tour jumps to another topic, so nothing a
+      // previous topic opened lingers under the next one.
+      'close-overlays': () => { closeWindows(); closeDemos(); },
+      // Quick start step 2: the address lookup only shows on the
+      // national view, and the map should be visible beside it.
+      'tour-national': () => {
+        closeWindows();
+        closeDemos();
+        handleStateDeselect();
+        expandMapForTour();
+      },
+      'show-map': () => {
+        closeWindows();
+        closeDemos();
+        expandMapForTour();
+      },
+      // Lists with Compare buttons on screen: no profile, page or
+      // comparison over them, and the Congress tab when a state is open.
+      'tour-lists': () => {
+        closeWindows();
+        closeDemos();
+        collapseMapForTour();
+        if (selectedState) setSidePanelTab('congress');
+      },
+      'demo-open-profile': async () => {
+        closeWindows();
+        closeDemos();
+        collapseMapForTour();
+        const [m] = await pickTourMembers(1);
+        if (!m) return { ok: false };
+        tourMemberRef.current = m;
+        tourStateRef.current = m.state || null;
+        await handleGlobalMemberPick(m);
+        return { ok: true, name: m.name };
+      },
+      'demo-open-page': async () => {
+        closeWindows();
+        setCompareOpen(false);
+        setCompareItems([]);
+        handleCloseProfile();
+        let m = tourMemberRef.current;
+        if (!m) {
+          [m] = await pickTourMembers(1);
+          if (!m) return { ok: false };
+          tourMemberRef.current = m;
+        }
+        openPageFor(m);
+        return { ok: true, name: m.name };
+      },
+      'demo-compare': async () => {
+        closeWindows();
+        closeDemos();
+        const pair = await pickTourMembers(2);
+        if (pair.length < 2) return { ok: false };
+        setCompareItems(pair.map((m) => ({ ...m, _kind: 'official' })));
+        setCompareOpen(true);
+        return { ok: true, names: pair.map((m) => m.name) };
+      },
+      // State tab: the visitor's selected state, otherwise Florida.
+      'demo-open-state-tab': async () => {
+        closeWindows();
+        closeDemos();
+        collapseMapForTour();
+        if (visitorState()) {
+          setSidePanelTab('state');
+          return { ok: true, stateName: stateName || selectedState };
+        }
+        try {
+          tourStateRef.current = 'FL';
+          await handleStateSelect('FL', 'Florida', { tab: 'state' });
+        } catch {
+          return { ok: false };
+        }
+        return { ok: true, stateName: 'Florida' };
+      },
+      // Elections tab: the visitor's selected state only if it has
+      // election data (the API answers 404 when it has none);
+      // otherwise Florida. The step says which state it opened.
+      'demo-open-elections': async () => {
+        closeWindows();
+        closeDemos();
+        collapseMapForTour();
+        if (visitorState()) {
+          const probe = await fetchElections(selectedState);
+          if (probe?.data) {
+            setSidePanelTab('ballot');
+            return { ok: true, stateName: stateName || selectedState, reason: 'selected' };
+          }
+          if (selectedState === 'FL') return { ok: false };
+          try {
+            tourStateRef.current = 'FL';
+            await handleStateSelect('FL', 'Florida', { tab: 'ballot' });
+          } catch {
+            return { ok: false };
+          }
+          return {
+            ok: true,
+            stateName: 'Florida',
+            reason: probe?.notSeeded ? 'no-data' : 'none',
+            selectedName: stateName || selectedState,
+          };
+        }
+        try {
+          tourStateRef.current = 'FL';
+          await handleStateSelect('FL', 'Florida', { tab: 'ballot' });
+        } catch {
+          return { ok: false };
+        }
+        return { ok: true, stateName: 'Florida', reason: 'none' };
+      },
+    };
     // handleGlobalMemberPick re-binds when selectedState changes; the
-    // others are stable. Re-memoizing (and re-binding the listener)
-    // on state switches is cheap and keeps the closures fresh.
-  }), [pickRandomMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage, handleStateSelect, selectedState]);
+    // others are stable. Re-memoizing (and re-binding the listener) on
+    // state switches is cheap and keeps the closures fresh.
+  }, [
+    pickTourMembers, handleGlobalMemberPick, handleCloseProfile, handleOpenPage,
+    handleStateSelect, handleStateDeselect, selectedState, stateData, stateName,
+    collapseMapForTour, expandMapForTour,
+  ]);
   useTutorialActions(tutorialActionHandlers);
   // A deep component (a bill's like button) asking for the sign-in.
   useCitizenLoginRequest(handleCitizenLoginOpen);

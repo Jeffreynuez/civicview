@@ -682,6 +682,8 @@ export default function PageView({
                   </div>
                 )}
                 <div
+                  data-tutorial="page-claim-status"
+                  data-tour-busy={loading ? '1' : undefined}
                   style={{
                     fontSize: '0.72rem', marginTop: '6px',
                     color: claimed ? '#27ae60' : 'var(--cl-text-light)',
@@ -836,6 +838,8 @@ export default function PageView({
               }}
               role="tablist"
               aria-label="Page view"
+              data-tutorial="page-tabs"
+              data-tour-busy={loading ? '1' : undefined}
             >
               {[
                 { key: 'feed',   label: 'Feed' },

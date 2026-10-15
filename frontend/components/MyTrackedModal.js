@@ -87,6 +87,7 @@ export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify, 
             {onOpenInDashboard && (
               <button
                 type="button"
+                data-tutorial="tracked-dashboard-link"
                 onClick={onOpenInDashboard}
                 title="Manage everything you track on your dashboard"
                 style={{

@@ -179,6 +179,7 @@ function FormEmbed() {
   return (
     <>
       <div
+        data-tutorial="feedback-embed"
         style={{
           background: 'var(--cl-card)',
           border: '1px solid var(--cl-border)',

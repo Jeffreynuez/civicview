@@ -1,435 +1,458 @@
-// CivicView — guided-tour segment config.
+// CivicView: guided-tour content.
 // Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 //
-// Single source of truth for the in-app tutorial ("Take the tour").
-// The TutorialOverlay component renders this config; lib/tutorial.js
-// holds the state machine that walks it.
+// Single source of truth for the in-app tour ("Take the tour"). The
+// TutorialOverlay component renders this config; lib/tutorial.js holds
+// the saved position and the event bridge to app/page.js.
 //
-// SHAPE
-// ─────
-// Each segment:
-//   id      — stable string key (persisted in progress storage; don't rename
-//             casually — a rename orphans saved progress for that segment).
-//   title   — short label shown in the segment list.
-//   tier    — 'browse' | 'account' | 'verified' | 'subscriber'.
-//             Drives the badge next to the title. TODAY every tier is
-//             reachable because demo accounts carry both grants
-//             (verified_method='demo', is_subscribed=True — see
-//             auth_citizen.demo_signup). When ID.me + Stripe go live,
-//             the split is a config change HERE (plus badge copy in
-//             TIER_BADGES), not a rewrite: gate 'verified' + 'subscriber'
-//             segments behind the citizen's real flags.
-//   steps   — ordered walkthrough steps. Each step:
-//     route     — pathname the step lives on ('/', '/polls', '/bills').
-//                 Navigating is a full page load (matches how the navbar
-//                 links work); tour progress survives via sessionStorage.
-//     target    — value of a [data-tutorial="…"] anchor to spotlight, or
-//                 null for a panel-only step. Missing targets degrade
-//                 gracefully to panel-only (never block the tour).
-//     action    — optional app action emitted over the event bridge
-//                 (lib/tutorial.js emitTutorialAction) so the tour can
-//                 open the REAL surface (My Tracked window, Feedback,
-//                 Help Build, citizen login). page.js listens and maps
-//                 these onto its existing open/close handlers.
-//     title/body — the step copy. Keep it plain, non-partisan, and
-//                 action-oriented ("try it now" — the spotlight is
-//                 non-blocking, so the page stays fully interactive).
+// STRUCTURE (Jeffrey, 2026-10-15)
+// ───────────────────────────────
+// QUICK_START: six steps every new visitor gets from the coach mark and
+// the menu, then an end card offering "Explore more topics" or "Done".
+// TOUR_TOPICS: optional topics picked from a list, at most three steps
+// each. Every track counts its own steps ("Step 2 of 6").
 //
-// ORDER (agreed with Jeffrey 2026-07-23): Welcome → Map & finding your
-// reps → Home page → Rep profiles → Compare → Official pages → Accounts →
-// My Tracked → Notifications → Polls & Posts → Floor Bills → Dashboard &
-// engagement → Feedback → Help build this.
+// COPY RULES
+// ──────────
+// At most 30 words per step, one idea per step, plain and friendly. No
+// em or en dashes, no all-caps emphasis, no emoji. Every sentence must
+// be true of the app today: check a claim against the code before
+// writing it. The same wording and treatment for every official, party
+// and state; demo picks are random, never chosen by party.
+//
+// STEP SHAPE
+// ──────────
+//   id        stable string (only used for keys and screenshots).
+//   route     pathname the step lives on ('/', '/polls', '/bills').
+//             Navigating is a full page load; the position survives in
+//             sessionStorage.
+//   target    [data-tutorial] anchor to spotlight: a name, an array of
+//             fallbacks (first visible wins), null for no spotlight, or
+//             a function of the context below.
+//   action    bridge action sent to app/page.js on entry (a name, null,
+//             or a function of the context). Unknown actions are
+//             ignored.
+//   demo      true for live demos: the step waits until `waitFor` (the
+//             target by default) has rendered, showing "Opening a live
+//             example" meanwhile, and shows fallbackTitle/fallbackBody
+//             when the demo fails or times out.
+//   title / body   strings, or functions of the context.
+//   avoid     anchor of a window the desktop card should stay off too
+//             (the sign-in window a step opened), when there is room.
+//   placement 'center' puts a no-spotlight card mid-screen on desktop;
+//             the default is a corner, so it never covers full-screen
+//             content.
+//   video     true on the Welcome card: renders the overview button
+//             when TOUR_VIDEO_URL is set.
+//
+// CONTEXT passed to the functions: { compact, signedIn, result }.
+//   compact   the navbar is collapsed into the menu (1024px or less).
+//   signedIn  a citizen account is signed in.
+//   result    what the demo action reported (names, the state opened).
 
-export const TIER_BADGES = {
-  browse: null, // free-for-everyone segments carry no badge
-  account: { label: 'Account', title: 'Available once you create a (free demo) account' },
-  verified: { label: 'Verified', title: 'Will require ID.me verification at launch — open to demo accounts today' },
-  subscriber: { label: '$5/mo', title: 'Will be part of the $5/month subscription at launch — open to demo accounts today' },
+// Bumped when saved positions from an older tour must be discarded
+// (v1 was the 36-step tour).
+export const TOUR_VERSION = 2;
+
+// A "Watch a 2-minute overview" button appears on the Welcome card
+// while this is set. The video comes later; leave it empty until then.
+export const TOUR_VIDEO_URL = '';
+
+// The random demo picks require a non-empty profile: detail with a bio
+// and committees, plus sponsored bills. Recent votes are required too
+// only when this is true. It stays false while the member-votes feed
+// (GovTrack) returns nothing for every member; turn it on once it is
+// fixed.
+export const TOUR_REQUIRE_VOTES = false;
+
+const tapOrClick = (ctx) => (ctx.compact ? 'Tap' : 'Click');
+
+export const QUICK_START = {
+  id: 'quick-start',
+  title: 'Quick start',
+  steps: [
+    {
+      id: 'qs-welcome',
+      route: '/',
+      target: null,
+      placement: 'center',
+      video: true,
+      title: 'Welcome to CivicView',
+      body: 'CivicView is a non-partisan way to follow your elected officials. Browsing is free, with no account. You can close this tour anytime and reopen it from the menu.',
+    },
+    {
+      id: 'qs-find',
+      route: '/',
+      // The address lookup only shows on the national view.
+      action: 'tour-national',
+      // Phones: just the address field, which fits between the map and
+      // the sheet; the whole lookup box does not.
+      target: ({ compact }) => (compact ? ['address-lookup-field', 'address-lookup'] : 'address-lookup'),
+      title: 'Find your representatives',
+      body: 'Enter your address to see who represents you in Congress, or pick any state on the map to browse its officials.',
+    },
+    {
+      id: 'qs-profile',
+      route: '/',
+      action: 'demo-open-profile',
+      demo: true,
+      target: 'profile-tabs',
+      title: 'A real profile',
+      body: ({ result }) => `We opened ${result.name}'s profile, picked at random. These tabs hold their background, issues, committees, sponsored bills and contact details, drawn from public records.`,
+      fallbackTitle: 'Profiles',
+      fallbackBody: 'Select any person in the list to open their profile: their background, issues, committees, sponsored bills and contact details, drawn from public records.',
+    },
+    {
+      id: 'qs-page',
+      route: '/',
+      action: 'demo-open-page',
+      demo: true,
+      target: 'page-tabs',
+      title: 'Every official has a page',
+      body: ({ result }) => `This is ${result.name}'s page. When an official claims their page, they post updates, polls and events here. Until then, citizens can start polls about the office.`,
+      fallbackBody: 'Officials and candidates each have a page. Once claimed, they post updates, polls and events there. Until then, citizens can start polls about the office.',
+    },
+    {
+      id: 'qs-polls',
+      route: '/',
+      action: 'close-demos',
+      target: ({ compact }) => (compact ? 'nav-hamburger' : 'nav-polls'),
+      title: 'Polls',
+      body: ({ compact }) => (compact
+        ? 'The Polls page gathers polls from officials, candidates and citizens in one feed. Open it anytime from Polls in this menu.'
+        : 'The Polls page gathers polls from officials, candidates and citizens in one feed. Open it anytime with the Polls button.'),
+    },
+    {
+      id: 'qs-account',
+      route: '/',
+      action: ({ signedIn }) => (signedIn ? 'close-demos' : 'open-citizen-login'),
+      target: ({ signedIn }) => (signedIn ? 'nav-identity' : ['citizen-demo-toggle', 'citizen-login-modal']),
+      avoid: 'citizen-login-modal',
+      title: 'Try everything with a demo account',
+      body: ({ signedIn }) => (signedIn
+        ? "You're signed in, and this menu opens your dashboard. At launch, ID.me verification unlocks liking, voting and commenting, and $5 a month adds starting polls."
+        : 'Browsing needs no account. A free demo account unlocks everything today. At launch, ID.me verification unlocks liking, voting and commenting, and $5 a month adds starting polls.'),
+    },
+  ],
 };
 
-export const TUTORIAL_SEGMENTS = [
-  {
-    id: 'welcome',
-    title: 'Welcome',
-    tier: 'browse',
-    steps: [
-      {
-        route: '/',
-        target: null,
-        title: 'Welcome to CivicView',
-        body: 'CivicView is a non-partisan platform for following your elected officials — what they sponsor, how they vote, and what they say — and for engaging with them directly. Browsing is free for everyone, forever. This quick tour walks through every surface of the app. Jump to any topic on the list, or close the tour at any time with the ✕ — you can reopen it later from the ☰ menu.',
-      },
-      {
-        route: '/',
-        target: null,
-        title: 'How the tour works',
-        body: 'The tour points at real parts of the live app — nothing is a mockup, and the page stays fully usable while the tour is open. Feel free to click around and try each feature as it comes up. Use Next and Back here, or pick any topic from the list.',
-      },
-    ],
-  },
+// Shown after the last quick-start step. No step count.
+export const QUICK_START_END = {
+  action: 'close-citizen-login',
+  title: "You're all set",
+  body: "That's the quick start. Pick a topic to learn more, or close the tour and explore. Reopen it anytime from the menu.",
+};
+
+export const TOUR_TOPICS = [
   {
     id: 'map',
-    title: 'The map & finding your reps',
-    tier: 'browse',
+    title: 'The map and search',
     steps: [
       {
+        id: 'map-map',
         route: '/',
+        action: 'show-map',
         target: 'map',
-        title: 'The interactive U.S. map',
-        body: 'This map is the front door. Click any state to load its full roster — members of Congress, state legislators, statewide officials, and upcoming elections. Once a state is open you can click an individual congressional district to zoom in further. Clicking the water outside the U.S. resets the view.',
+        title: 'The map',
+        body: (ctx) => `${tapOrClick(ctx)} a state to load its officials, then a district to see that seat's representative and the state's senators. ${tapOrClick(ctx)} outside the U.S. to return to the national view.`,
       },
       {
+        id: 'map-divider',
         route: '/',
         target: 'map-divider',
-        title: 'Open and close the map',
-        body: 'The bar between the map and the panel is a handle. On phones, double-tap it — or slide it — to close the map and give the panel the whole screen, and again to bring the map back. On desktop, drag it to resize the split. Press Next and we’ll tuck the map away on mobile so you can see more of the panel.',
+        title: 'Make room',
+        body: ({ compact }) => (compact
+          ? 'Double-tap or slide the Map bar to hide the map and give the list the whole screen. Do it again to bring the map back.'
+          : 'Drag the Map bar to make the panel wider, up to half the screen.'),
       },
       {
-        route: '/',
-        target: 'address-lookup',
-        // Collapse the mobile map on entry so the address lookup (and
-        // the rest of the panel) has the screen. No-op on desktop.
-        action: 'collapse-map',
-        title: 'Find your district by address',
-        body: 'Not sure which district you live in? Enter your address here and CivicView finds your congressional district, your state legislative districts, and your county — then filters the list to the people who actually represent you. Your address is used only for the lookup.',
-      },
-      {
+        id: 'map-search',
         route: '/',
         target: 'nav-search',
-        title: 'Search any rep or candidate',
-        body: 'Already know who you’re looking for? The search bar covers every sitting member of Congress and every declared candidate — search by name, state, or office. Tip: on desktop, pressing / focuses the search from anywhere.',
+        title: 'Search',
+        body: ({ compact }) => (compact
+          ? 'Tap the search icon to find members of Congress and candidates by name or state.'
+          : 'Search members of Congress and candidates by name or state. Press / to jump to the search box.'),
       },
     ],
   },
   {
-    id: 'home',
-    title: 'The home page',
-    tier: 'browse',
+    id: 'state',
+    title: 'State officials and courts',
     steps: [
       {
+        id: 'state-tab',
         route: '/',
-        target: 'side-panel',
-        title: 'The national panel',
-        body: 'Next to the map lives the main panel. Before you pick a state it shows the national view: the executive branch, the Supreme Court, congressional leadership, live national activity from rep and candidate pages, popular polls, recent floor bills, and a browse-by-state grid.',
-      },
-      {
-        route: '/',
-        target: 'side-panel',
-        title: 'State tabs: Congress · State · Local · Elections',
-        body: 'Once a state is selected, the panel switches to four tabs: Congress (the federal delegation), State (legislators, governor, statewide officials, and the state supreme court), Local (county and city officials), and Elections (upcoming races, candidates, key dates, and your ballot).',
-      },
-    ],
-  },
-  {
-    id: 'profiles',
-    title: 'Rep profiles',
-    tier: 'browse',
-    steps: [
-      {
-        route: '/',
-        target: 'side-panel',
-        // Live demo: opens a random member of Congress's profile so
-        // the next two steps describe a real profile on screen.
-        action: 'demo-open-profile',
-        title: 'Open any official’s profile',
-        body: 'Click any person in the panel to open their full profile: who they are, the committees they sit on, and the issues they focus on — every claim sourced from official records. We just opened one at random so you can see the real thing.',
-      },
-      {
-        route: '/',
-        target: 'side-panel',
-        title: 'Bills, votes & executive orders',
-        body: 'Profiles carry the receipts: sponsored bills with plain-English AI summaries, the votes they’ve cast (with a “What was this vote?” explainer), and — for the executive branch — signed executive orders. An AI search toggle on Bills and Votes lets you filter by topic in your own words.',
-      },
-      {
-        route: '/',
-        target: 'side-panel',
-        title: 'On the ballot?',
-        body: 'When a sitting official is also running in an upcoming election, an “On ballot” badge appears on their profile — clicking it jumps straight to that race on the Elections tab, where you can see everyone they’re running against.',
-      },
-    ],
-  },
-  {
-    id: 'state-officials',
-    title: 'State officials & courts',
-    tier: 'browse',
-    steps: [
-      {
-        route: '/',
-        target: 'side-panel',
-        // Live demo: opens the State tab (keeps the user's selected
-        // state; falls back to Florida when none is selected).
         action: 'demo-open-state-tab',
-        title: 'Your state government',
-        body: 'Congress is only half the story. The State tab covers the state level: the governor and lieutenant governor, statewide officials like the attorney general, and the FULL state legislature — every state senator and house member, for all 50 states. We just opened a real one so you can browse.',
+        demo: true,
+        target: 'panel-tab-state',
+        waitFor: 'state-legislature',
+        title: ({ result }) => `${result.stateName} government`,
+        body: ({ result }) => `We opened the State tab for ${result.stateName}. It lists the governor, statewide officials and every state legislator.`,
+        fallbackTitle: 'State government',
+        fallbackBody: "Pick a state on the map, then open its State tab. It lists the governor, statewide officials and every state legislator.",
       },
       {
+        id: 'state-legislature',
         route: '/',
-        target: 'side-panel',
-        title: 'State legislators & the courts',
-        body: 'Each section expands — tap a state legislator to see their profile, the bills they sponsor, and their votes, pulled live from official state records. The courts sections list the state supreme court and appellate courts, with recent opinions where available. Everything here can be tracked and compared, same as Congress.',
+        target: 'state-legislature',
+        title: 'State legislators',
+        body: 'Open a chamber and select any legislator for their profile, with the bills they sponsored from Open States and the issues they focus on.',
+      },
+      {
+        id: 'state-courts',
+        route: '/',
+        target: 'state-courts',
+        title: 'State courts',
+        body: 'Court rosters cover Florida so far: its Supreme Court justices and District Courts of Appeal appear at the end of its State tab.',
       },
     ],
   },
   {
     id: 'elections',
-    title: 'Elections, your ballot & candidates',
-    tier: 'browse',
+    title: 'Elections and your ballot',
     steps: [
       {
+        id: 'elections-tab',
         route: '/',
-        target: 'side-panel',
-        // Live demo: opens the Elections tab for the selected state
-        // (Florida fallback — the most fully curated election data).
-        action: 'demo-open-elections-tab',
-        title: 'Upcoming elections & key dates',
-        body: 'The Elections tab lays out every upcoming election in the state: primaries and generals with their dates, voter-registration deadlines, and race-by-race sections — U.S. Senate and House, statewide offices, and the state legislature. Closed-primary states get a heads-up about party registration rules, and open seats are flagged.',
+        action: 'demo-open-elections',
+        demo: true,
+        target: 'election-card',
+        title: ({ result }) => `Elections in ${result.stateName}`,
+        body: ({ result }) => {
+          const tail = 'Each election shows its key dates, its races and the candidates in each race.';
+          if (result.reason === 'no-data') return `Election data for ${result.selectedName} isn't in yet, so we opened ${result.stateName}. ${tail}`;
+          if (result.reason === 'none') return `We opened ${result.stateName}, which has the most complete election data. ${tail}`;
+          return `We opened the Elections tab for ${result.stateName}. ${tail}`;
+        },
+        fallbackTitle: 'Elections',
+        fallbackBody: "Pick a state, then open its Elections tab. Each election shows its key dates, its races and the candidates in each race.",
       },
       {
+        id: 'elections-race',
         route: '/',
-        target: 'side-panel',
-        title: 'Candidates & your ballot',
-        body: 'Expand any race to see the full field — incumbents tagged, primaries split by party with “choose 1” guidance. Every candidate has a profile with their background, stated positions, and (for federal races) live fundraising from FEC filings. Use the address lookup from the map segment and this tab scopes to YOUR actual ballot, polling place included. Candidates can be tracked and compared, just like sitting officials.',
+        target: 'race-card',
+        title: 'Races and candidates',
+        body: "Open a race to see its candidates. Select a candidate for their profile, including fundraising when it's on file.",
+      },
+      {
+        id: 'elections-ballot',
+        route: '/',
+        target: ['ballot-mode', 'panel-tab-ballot'],
+        title: 'Your ballot',
+        body: 'After you look up your address or pick a district on the map, this tab adds Your Ballot: only the races for that place.',
       },
     ],
   },
   {
     id: 'compare',
-    title: 'The compare feature',
-    tier: 'browse',
+    title: 'Comparing',
     steps: [
       {
+        id: 'compare-button',
         route: '/',
-        target: 'side-panel',
-        // Close the demo profile from the previous segment so the
-        // roster (with its Compare toggles) is what's on screen.
-        action: 'demo-close-profile',
-        title: 'Compare officials & candidates side-by-side',
-        body: 'Every profile and candidate card has a Compare toggle. Add up to three people — officials, candidates, or a mix — and a tray appears at the bottom of the screen. Press Next and we’ll grab two members of Congress at random and compare them for you, live.',
+        action: 'tour-lists',
+        target: 'compare-button',
+        title: 'Compare',
+        body: 'Use the compare button on any official or candidate to add them, up to three. A tray at the bottom collects your picks.',
       },
       {
+        id: 'compare-view',
         route: '/',
-        // The comparison view is a full overlay with its own chrome —
-        // no spotlight; corner keeps the callout off the comparison.
-        target: null,
-        corner: true,
-        // Live demo: two random members, straight into the view.
         action: 'demo-compare',
-        title: 'The comparison view',
-        body: 'This is a real comparison — two members picked at random. Side-by-side you get roles, issue focus, and shared roll-call votes with an agreement-rate bar showing how often they voted the same way. It’s the fastest way to see where two people actually differ, based on votes rather than rhetoric.',
+        demo: true,
+        target: 'compare-view',
+        title: 'Side by side',
+        body: ({ result }) => `We compared ${result.names[0]} and ${result.names[1]}, picked at random. You see their issue stances, experience and recent sponsored bills side by side.`,
+        fallbackBody: 'Add two or more people and open the tray to see their issue stances, experience and recent sponsored bills side by side.',
       },
     ],
   },
   {
     id: 'pages',
-    title: 'Official pages (posts & polls)',
-    tier: 'browse',
+    title: "Official and former officials' pages",
     steps: [
       {
+        id: 'pages-claim',
         route: '/',
-        target: null,
-        corner: true, // PageView is full-screen — stay out of its way
-        // Live demo: closes the comparison and opens a random
-        // official's real page as a full-screen view.
         action: 'demo-open-page',
-        title: 'Every official has a page',
-        body: 'Beyond the data profile, every rep and candidate has a public page — a moderated, district-scoped channel where verified officials post updates, run polls, and list events like town halls. You’re looking at a real one, picked at random; from any profile, “View page” brings you here.',
+        demo: true,
+        target: 'page-claim-status',
+        title: 'Claimed or not',
+        body: 'This line shows whether the official has claimed their page. Once they do, they post updates, polls and events here.',
+        fallbackBody: 'Each page shows whether the official has claimed it. Once they do, they post updates, polls and events there.',
       },
       {
+        id: 'pages-citizen-polls',
+        route: '/',
+        target: 'page-citizen-polls',
+        title: 'Citizen polls',
+        body: 'On an unclaimed page, citizens can start polls about the office. If the official claims the page, those polls close to new votes and keep their results.',
+      },
+      {
+        id: 'pages-former',
         route: '/',
         target: null,
-        corner: true,
-        title: 'Claimed vs. unclaimed pages',
-        body: 'Pages exist for every official from day one — the one on your screen is almost certainly still unclaimed. When the official verifies and claims their page, their posts carry a verified badge and an “Author” marker. On unclaimed pages, citizens can still run polls about that office — the conversation doesn’t wait for the official to show up.',
-      },
-    ],
-  },
-  {
-    id: 'accounts',
-    title: 'Citizen accounts & verification',
-    tier: 'browse',
-    steps: [
-      {
-        route: '/',
-        target: 'nav-citizen-login',
-        // Close the demo page from the previous segment so the home
-        // navbar (and its login button) is front and center.
-        action: 'demo-close-page',
-        title: 'Create a citizen account',
-        body: 'Browsing needs no account. To engage — like, vote on polls, comment — you’ll want a citizen account. Right now CivicView is in demo preview: anyone can create a free demo account in seconds, no email verification required, and it unlocks the full engagement experience.',
-      },
-      {
-        route: '/',
-        // Anchor on the login modal's card so the callout parks BESIDE
-        // the window instead of centering on top of it.
-        target: 'citizen-login-modal',
-        action: 'open-citizen-login',
-        title: 'Try it — the login window',
-        body: 'This is the real sign-in window (we just opened it). “Create demo account” gets you in immediately. At launch, accounts will verify through ID.me — a one-time identity check that proves you’re a real U.S. resident of your district, which is what makes every vote and comment on CivicView a verified-constituent signal.',
-      },
-      {
-        route: '/',
-        target: null,
-        action: 'close-citizen-login',
-        title: 'What’s coming at launch',
-        body: 'The tiers at launch: browsing, searching, and tracking stay free for everyone; ID.me-verified citizens can like, vote on polls, and comment; a $5/month subscription (the app’s only revenue — no ads, ever) adds creating your own polls. Demo accounts get all of it today so you can try everything now.',
+        title: 'When an official leaves office',
+        body: "Their page becomes Former, with their years of service. It stays readable, citizens can still comment, and six months later it's archived. Nothing is deleted.",
       },
     ],
   },
   {
     id: 'tracked',
     title: 'My Tracked',
-    tier: 'browse',
     steps: [
       {
+        id: 'tracked-button',
         route: '/',
-        target: 'nav-tracked',
-        title: 'Track what you care about',
-        body: 'Almost everything in CivicView is trackable: officials, candidates, bills, and elections. Look for the Track / bookmark affordance on profiles, bills, and races. Your tracked list lives behind this button.',
+        action: 'close-demos',
+        target: ({ compact }) => (compact ? 'nav-hamburger' : 'nav-tracked'),
+        title: 'My Tracked',
+        body: ({ compact }) => (compact
+          ? 'Use Follow or Track on officials, candidates, bills and elections, and they gather in My Tracked, in this menu. Saving them needs a free account.'
+          : 'Use Follow or Track on officials, candidates, bills and elections, and they gather in My Tracked. Saving them needs a free account.'),
       },
       {
+        id: 'tracked-window',
         route: '/',
-        target: 'tracked-modal',
         action: 'open-tracked',
+        target: ['tracked-dashboard-link', 'tracked-modal'],
+        avoid: 'tracked-modal',
         title: 'Your tracked window',
-        body: 'Here’s the real window (we just opened it). Tracked bills alert you when their status changes; tracked officials feed your notifications when they post. With an account, your tracked list syncs across devices, and the dashboard’s “Followed” spotlights let you pin one favorite per category.',
+        body: 'Filter what you track here. Open your dashboard to star one favorite in each group for your Overview.',
       },
     ],
   },
   {
     id: 'notifications',
     title: 'Notifications',
-    tier: 'browse',
     steps: [
       {
+        id: 'notifications-bell',
         route: '/',
+        action: 'close-windows',
         target: 'nav-bell',
-        action: 'close-tracked',
-        title: 'The notification bell',
-        body: 'The bell collects your in-app alerts: status changes on tracked bills, new posts from officials you track, replies, and moderation notices — across every identity you’re signed in as. With an account you can also opt into a weekly email digest of your tracked officials’ activity (off by default; your inbox is safe).',
+        title: 'Notifications',
+        body: 'The bell collects replies to your comments, plus new posts, polls and events from officials you track.',
+      },
+      {
+        id: 'notifications-channels',
+        route: '/',
+        target: null,
+        title: 'Push and email',
+        body: 'Push alerts for officials you track work in the CivicView Android app. Email digests arrive at launch.',
       },
     ],
   },
   {
-    id: 'polls',
-    title: 'Polls & Posts',
-    tier: 'browse',
+    id: 'feeds',
+    title: 'The Polls and Posts feeds',
     steps: [
       {
+        id: 'feeds-filters',
         route: '/polls',
-        target: 'polls-page',
-        title: 'The global Polls feed',
-        body: 'This is the app-wide polls feed — every active poll from rep pages, candidate pages, and citizen-created standalone polls, in one place. Filter by state, by branch, or use the AI filter to find polls about a topic in your own words.',
+        target: 'polls-filters',
+        title: 'Filter the feed',
+        body: 'Narrow the feed by where polls come from: Congress, the executive branch, the courts, candidates or standalone citizen polls.',
       },
       {
+        id: 'feeds-card',
         route: '/polls',
-        target: 'polls-page',
-        title: 'Posts, comments & results',
-        body: 'The Posts tab is the same feed for posts. On any card you can open the comment thread, see live poll results, and — on polls with demographic forms attached — explore aggregate result breakdowns (always anonymized, never individual answers). Engagement needs an account; browsing doesn’t.',
+        target: 'feed-card',
+        title: 'Vote and discuss',
+        body: 'Vote right on a card, explore the results and open the comments. Browsing is free; voting and commenting need an account.',
+      },
+      {
+        id: 'feeds-posts',
+        route: '/polls',
+        target: 'feed-tabs',
+        title: 'Posts',
+        body: 'Switch to Posts for updates from officials and candidates who have claimed their pages, all in one feed.',
       },
     ],
   },
   {
     id: 'bills',
     title: 'Floor Bills',
-    tier: 'browse',
     steps: [
       {
+        id: 'bills-controls',
         route: '/bills',
-        target: 'bills-page',
-        title: 'Bills & Votes — the floor record',
-        body: 'Floor Bills (in the ☰ menu from anywhere) shows recent roll-call votes in the Senate and House on an interactive seat chart. Pick a chamber and a vote, then click any seat to see that member’s vote and jump to their profile.',
+        target: 'bills-controls',
+        title: 'Pick a vote',
+        body: 'Choose the Senate or the House, then any of the 50 most recent roll-call votes.',
       },
       {
+        id: 'bills-chart',
         route: '/bills',
-        target: 'bills-page',
+        target: 'bills-chart',
+        title: 'Every seat is a member',
+        body: (ctx) => `Each seat is one member. ${tapOrClick(ctx)} a seat to see how they voted and open their profile.`,
+      },
+      {
+        id: 'bills-explainer',
+        route: '/bills',
+        target: 'bills-explainer',
         title: 'What did this vote mean?',
-        body: 'Every vote carries a tally by party, a link to the bill on Congress.gov, and a plain-English AI explainer: what a Yea meant, what a Nay meant, and what the outcome does. Vote pages are deep-linkable — share a URL straight to a specific roll call.',
+        body: 'Open this for a plain-English guide to what a Yea, a Nay and the outcome meant, plus an optional AI explanation.',
       },
     ],
   },
   {
     id: 'dashboard',
-    title: 'Your dashboard & engagement',
-    tier: 'account',
+    title: 'Your dashboard and the "Act as" picker',
     steps: [
       {
+        id: 'dashboard-open',
         route: '/',
-        // Signed in → spotlight the identity pill; signed out → the
-        // login button (first visible anchor wins).
-        target: ['nav-identity', 'nav-citizen-login'],
-        title: 'Once you’re signed in',
-        body: 'With a citizen account, your identity pill appears here in the navbar. It opens your dashboard: your reps at a glance, upcoming elections, recent activity from people you track, your polls, saved items, and account settings (2FA, start-page preference, and more).',
+        action: 'close-demos',
+        target: ({ signedIn }) => (signedIn ? 'nav-identity' : 'nav-citizen-login'),
+        title: 'Your dashboard',
+        body: ({ signedIn }) => (signedIn
+          ? 'Open your dashboard from this menu: the people you follow, your polls, saved items, and settings like your start page.'
+          : 'Sign in here, then open your dashboard from the same spot: the people you follow, your polls, saved items, and settings like your start page.'),
       },
       {
+        id: 'dashboard-act-as',
         route: '/',
         target: null,
-        title: 'Liking & voting on polls',
-        body: 'Signed-in citizens can like or dislike posts and polls and vote on any poll — rep polls, candidate polls, citizen polls. Results update live. At launch these actions will require ID.me verification, so every tally reads as verified constituents; demo accounts can do all of it today.',
-      },
-      {
-        route: '/',
-        target: null,
-        title: 'Commenting & creating polls',
-        body: 'Verified citizens can comment on posts and polls — no subscription needed; verification is what makes your comment a verified-constituent signal. Creating your own polls (standalone questions on the Polls page, or polls on any unclaimed official page, with optional anonymous demographic breakdowns) is the one feature in the $5/month subscription. Demo accounts have all of it now.',
-      },
-      {
-        route: '/',
-        target: null,
-        title: 'One more thing: multiple identities',
-        body: 'If you’re ever signed in as more than one identity — say a citizen AND a verified rep or candidate — every like, vote, and comment asks which identity is acting via an “Act as” picker. You always know who’s speaking.',
+        title: 'The Act as picker',
+        body: 'Signed in as a citizen and also as an official or candidate? Each like and vote asks which account is acting, and comments show a Posting as choice.',
       },
     ],
   },
   {
     id: 'feedback',
-    title: 'Feedback',
-    tier: 'browse',
+    title: 'Feedback and Help build this',
     steps: [
       {
+        id: 'feedback-form',
         route: '/',
-        // Anchor on the embedded form column so the callout sits
-        // beside it rather than covering it.
-        target: 'feedback-form',
         action: 'open-feedback',
-        title: 'Tell us what you think',
-        body: 'This is the Feedback page (we just opened it — it’s in the ☰ menu anytime). CivicView is in active development and feedback genuinely shapes what gets built next. Bugs, confusing screens, missing data, feature ideas — all of it is welcome.',
+        target: ['feedback-embed', 'feedback-form'],
+        title: 'Send feedback',
+        body: 'Spotted a bug, a missing feature or wrong information? Tell us here. Every submission is read.',
       },
-    ],
-  },
-  {
-    id: 'helpbuild',
-    title: 'Help build this',
-    tier: 'browse',
-    steps: [
       {
+        id: 'feedback-helpbuild',
         route: '/',
-        // Anchor on the page's main content column — callout beside
-        // it where there's room, bottom overlap-fallback otherwise.
-        target: 'helpbuild-content',
         action: 'open-help-build',
-        title: 'How CivicView gets built',
-        body: 'This is the transparency page: everything already built, what’s in progress, and what’s blocked on funding — with real dollar amounts. CivicView is a Florida Benefit Corporation with no ads and no venture capital; if you want to help it exist, this page shows exactly where support goes.',
-      },
-      {
-        route: '/',
-        target: null,
-        action: 'close-help-build',
-        title: 'That’s the tour!',
-        body: 'You’ve seen the whole app. Reopen this tour anytime from the ☰ menu, and jump straight to any topic from the list. Thanks for being here early — go find your reps. 🇺🇸',
+        target: ['helpbuild-meter', 'helpbuild-content'],
+        title: 'Help build this',
+        body: "See what's built, what's in progress and what's blocked on funding, with every cost cited. An Indiegogo crowdfund is planned for January 2027.",
       },
     ],
   },
 ];
 
-// Flat step count across all segments — used for the "Step X of Y"
-// overall progress line in the panel footer.
-export const TOTAL_STEPS = TUTORIAL_SEGMENTS.reduce((n, s) => n + s.steps.length, 0);
+export const ALL_TRACKS = [QUICK_START, ...TOUR_TOPICS];
 
-export function getSegment(id) {
-  return TUTORIAL_SEGMENTS.find((s) => s.id === id) || null;
+export function getTrack(id) {
+  return ALL_TRACKS.find((t) => t.id === id) || null;
 }
 
-export function getSegmentIndex(id) {
-  return TUTORIAL_SEGMENTS.findIndex((s) => s.id === id);
+// Resolve a step field that may be a function of the context.
+export function resolveField(value, ctx) {
+  return typeof value === 'function' ? value(ctx) : value;
 }

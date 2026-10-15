@@ -229,8 +229,9 @@ export default function CompareView({ open, items, onClose }) {
           boxShadow: '0 24px 64px rgba(0,0,0,0.32)',
         }}
       >
-        {/* Header */}
+        {/* Header (also the app tour's anchor for the comparison) */}
         <div
+          data-tutorial="compare-view"
           style={{
             padding: '14px 20px', borderBottom: '1px solid var(--cl-border)',
             background: 'var(--cl-bg)', display: 'flex', alignItems: 'center', gap: '10px',

@@ -5,31 +5,43 @@
 // Storage model
 // ─────────────
 // localStorage  (durable, per-browser):
-//   cv:tutorial:seen   '1' once the user has OPENED the tour at least
-//                      once. Drives the "new here" pulse on the ☰
-//                      hamburger + the Take-the-tour menu row.
-//   cv:tutorial:coach  '1' once the one-time coach-mark tooltip has
-//                      been dismissed (opening the tour also sets it).
-//   cv:tutorial:done   JSON array of segment ids the user has finished
-//                      — renders the ✓ in the segment list.
-// sessionStorage (per-tab, survives full-page route navigations —
-// the tour hops between '/', '/polls' and '/bills' via real page
-// loads, matching how the navbar itself navigates):
-//   cv:tutorial:pos    JSON { active: bool, segmentId, stepIndex }
+//   cv:tutorial:seen     '1' once the user has OPENED the tour at least
+//                        once. Drives the "new here" pulse on the menu
+//                        button + the Take-the-tour menu row.
+//   cv:tutorial:coach    '1' once the one-time coach-mark tooltip has
+//                        been dismissed (opening the tour also sets it).
+//   cv:tutorial:done:v2  JSON array of finished track ids ('quick-start'
+//                        and topic ids): the checkmarks in the topic
+//                        list. The 36-step tour's list (cv:tutorial:done)
+//                        is not carried over; its sections changed.
+// sessionStorage (per-tab, survives full-page route navigations: the
+// tour hops between '/', '/polls' and '/bills' via real page loads,
+// matching how the navbar itself navigates):
+//   cv:tutorial:pos      JSON { v, active, view, trackId, stepIndex,
+//                        minimized }. view is 'step', 'end' (the quick
+//                        start's end card) or 'topics' (the topic list).
+//                        A position without the current TOUR_VERSION is
+//                        thrown away, so an old 36-step position never
+//                        resurfaces.
 //
 // Event bridge
 // ────────────
-// The tour must open surfaces that live behind React state inside
-// app/page.js (My Tracked window, Feedback, Help Build, the citizen
-// login modal). Rather than threading handlers through the root
-// layout, the overlay dispatches a DOM CustomEvent and page.js maps
-// it onto its existing open/close handlers:
-//   window event 'cv:tutorial:action'  detail: { action: string }
-// Known actions (see TUTORIAL_SEGMENTS steps + the page.js listener):
-//   open-citizen-login · close-citizen-login · open-tracked ·
-//   close-tracked · open-feedback · close-feedback · open-help-build ·
-//   close-help-build · close-overlays
-// Unknown actions are ignored — a stale config entry can never throw.
+// The tour drives surfaces that live behind React state inside
+// app/page.js (profiles, pages, the comparison, My Tracked, Feedback,
+// Help build, the citizen sign-in). The overlay dispatches a DOM
+// CustomEvent and page.js maps it onto its handlers:
+//   window event 'cv:tutorial:action'
+//     detail: { action, payload, respond(result), claimed }
+// emitTutorialAction() returns a promise of the handler's result
+// ({ ok, ...facts the step copy needs }). A route with no listener (or
+// an unknown action) resolves { ok: false, unhandled: true } at once,
+// so a stale config entry can never throw or hang.
+//
+// page.js announces that it is listening (useTutorialActions sets
+// window.__cvTourBridge and fires 'cv:tutorial:bridge'), so a step
+// entered right after a page load waits for the listener instead of
+// firing into the void. That lost first action is what left the
+// profile demo unopened in some runs.
 //
 // A second event, 'cv:tutorial:changed', fires after every storage
 // mutation so hooks (navbar pulse, overlay) re-read synchronously.
@@ -37,14 +49,16 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { TOUR_VERSION, getTrack, QUICK_START } from './tutorialSegments';
 
 const K_SEEN = 'cv:tutorial:seen';
 const K_COACH = 'cv:tutorial:coach';
-const K_DONE = 'cv:tutorial:done';
+const K_DONE = 'cv:tutorial:done:v2';
 const K_POS = 'cv:tutorial:pos';
 
 export const TUTORIAL_ACTION_EVENT = 'cv:tutorial:action';
 export const TUTORIAL_CHANGED_EVENT = 'cv:tutorial:changed';
+export const TUTORIAL_BRIDGE_EVENT = 'cv:tutorial:bridge';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -87,7 +101,7 @@ export function dismissCoachMark() {
   emitChanged();
 }
 
-// ─── completed segments ────────────────────────────────────────────
+// ─── finished tracks (checkmarks) ──────────────────────────────────
 export function getCompletedSegments() {
   if (!isBrowser()) return [];
   try {
@@ -97,24 +111,41 @@ export function getCompletedSegments() {
   } catch { return []; }
 }
 
-export function markSegmentCompleted(segmentId) {
-  if (!isBrowser() || !segmentId) return;
+export function markSegmentCompleted(trackId) {
+  if (!isBrowser() || !trackId) return;
   const done = getCompletedSegments();
-  if (!done.includes(segmentId)) {
-    lsSet(K_DONE, JSON.stringify([...done, segmentId]));
+  if (!done.includes(trackId)) {
+    lsSet(K_DONE, JSON.stringify([...done, trackId]));
     emitChanged();
   }
 }
 
 // ─── tour position (per-tab; survives route navigation) ────────────
+function validPos(pos) {
+  if (!pos || typeof pos !== 'object' || pos.v !== TOUR_VERSION) return null;
+  if (pos.view === 'topics') return pos;
+  const track = getTrack(pos.trackId);
+  if (!track) return null;
+  if (pos.view === 'end') return pos.trackId === QUICK_START.id ? pos : null;
+  if (pos.view !== 'step') return null;
+  const i = Number(pos.stepIndex);
+  if (!Number.isInteger(i) || i < 0 || i >= track.steps.length) return null;
+  return pos;
+}
+
 export function getTutorialPos() {
   if (!isBrowser()) return null;
   try {
     const raw = ssGet(K_POS);
     if (!raw) return null;
-    const pos = JSON.parse(raw);
-    return pos && typeof pos === 'object' ? pos : null;
-  } catch { return null; }
+    const pos = validPos(JSON.parse(raw));
+    // An old (36-step) or damaged position is discarded for good.
+    if (!pos) ssRemove(K_POS);
+    return pos;
+  } catch {
+    ssRemove(K_POS);
+    return null;
+  }
 }
 
 export function setTutorialPos(pos) {
@@ -122,61 +153,136 @@ export function setTutorialPos(pos) {
   if (!pos) {
     ssRemove(K_POS);
   } else {
-    ssSet(K_POS, JSON.stringify(pos));
+    ssSet(K_POS, JSON.stringify({ ...pos, v: TOUR_VERSION }));
   }
   emitChanged();
 }
 
 // ─── open / close ──────────────────────────────────────────────────
-// Opening marks seen + kills the coach mark (the pulse's job is done)
-// and records an active position. `segmentId` optionally jumps
-// straight to a segment (used by "resume where you left off").
-export function openTutorial(segmentId, stepIndex) {
-  if (!isBrowser()) return;
+function markOpened() {
   lsSet(K_SEEN, '1');
   lsSet(K_COACH, '1');
+}
+
+/**
+ * Open the tour from the menu.
+ *   - Closed partway through a track: resume where it was.
+ *   - Finished the quick start (or anything else finished): the topic
+ *     list, with the quick start at the top to run again.
+ *   - Otherwise: the quick start from step 1.
+ */
+export function openTutorial() {
+  if (!isBrowser()) return;
+  markOpened();
   const prev = getTutorialPos();
-  setTutorialPos({
-    active: true,
-    segmentId: segmentId || prev?.segmentId || null, // null → overlay starts at segment 0
-    stepIndex: typeof stepIndex === 'number' ? stepIndex : (segmentId ? 0 : prev?.stepIndex || 0),
-  });
+  const minimized = !!prev?.minimized;
+  if (prev && prev.view === 'step') {
+    // arrived: false, so the step's own page is opened again even when
+    // the visitor has since moved to another route.
+    setTutorialPos({ ...prev, active: true, arrived: false });
+    return;
+  }
+  if (getCompletedSegments().includes(QUICK_START.id)) {
+    setTutorialPos({ active: true, view: 'topics', minimized });
+    return;
+  }
+  setTutorialPos({ active: true, view: 'step', trackId: QUICK_START.id, stepIndex: 0, minimized });
+}
+
+/** Start the quick start from step 1 (the coach mark's button). */
+export function startQuickStart() {
+  if (!isBrowser()) return;
+  markOpened();
+  setTutorialPos({ active: true, view: 'step', trackId: QUICK_START.id, stepIndex: 0, minimized: false });
 }
 
 export function closeTutorial() {
   if (!isBrowser()) return;
   const prev = getTutorialPos();
-  // Keep the position but flip active off — reopening resumes in place.
+  // Keep the position but flip active off: reopening mid-track resumes.
   setTutorialPos(prev ? { ...prev, active: false } : null);
 }
 
 // ─── event bridge ──────────────────────────────────────────────────
-export function emitTutorialAction(action) {
-  if (!isBrowser() || !action) return;
-  window.dispatchEvent(new CustomEvent(TUTORIAL_ACTION_EVENT, { detail: { action } }));
+export function isTutorialBridgeReady() {
+  return isBrowser() && (window.__cvTourBridge || 0) > 0;
+}
+
+/**
+ * Wait until app/page.js is listening, up to `timeoutMs`. Resolves
+ * true when it is, false on timeout (the caller then degrades).
+ */
+export function waitForTutorialBridge(timeoutMs = 4000) {
+  if (!isBrowser()) return Promise.resolve(false);
+  if (isTutorialBridgeReady()) return Promise.resolve(true);
+  return new Promise((resolve) => {
+    const done = (ok) => {
+      window.removeEventListener(TUTORIAL_BRIDGE_EVENT, onReady);
+      clearTimeout(t);
+      resolve(ok);
+    };
+    const onReady = () => done(true);
+    const t = setTimeout(() => done(isTutorialBridgeReady()), timeoutMs);
+    window.addEventListener(TUTORIAL_BRIDGE_EVENT, onReady);
+  });
+}
+
+/**
+ * Send a bridge action. Resolves with the handler's result, defaulting
+ * to { ok: true }; { ok: false, unhandled: true } when nobody handles
+ * it; { ok: false } when the handler throws.
+ */
+export function emitTutorialAction(action, payload) {
+  if (!isBrowser() || !action) return Promise.resolve({ ok: false, unhandled: true });
+  return new Promise((resolve) => {
+    let settled = false;
+    const respond = (result) => {
+      if (settled) return;
+      settled = true;
+      resolve(result && typeof result === 'object' ? result : { ok: true });
+    };
+    const detail = { action, payload: payload || {}, respond, claimed: false };
+    window.dispatchEvent(new CustomEvent(TUTORIAL_ACTION_EVENT, { detail }));
+    if (!detail.claimed) respond({ ok: false, unhandled: true });
+  });
 }
 
 /**
  * Subscribe to tour actions. Used by app/page.js to map bridge
- * actions onto its overlay open/close handlers. Returns nothing;
- * cleans up on unmount.
+ * actions onto its handlers. A handler may return a value or a
+ * promise; it becomes the step's result.
  *
  *   useTutorialActions({ 'open-tracked': () => setTrackedOpen(true), … })
  *
- * The handler map can change between renders — the listener always
- * reads the latest via a ref-free closure re-bind (cheap: one
- * add/removeEventListener pair per render of the consumer, and the
- * consumer (page.js) memoizes the map).
+ * The consumer memoizes the map; a change re-binds the listener.
  */
 export function useTutorialActions(handlers) {
   useEffect(() => {
     if (!isBrowser() || !handlers) return undefined;
     const onAction = (e) => {
-      const fn = handlers[e?.detail?.action];
-      if (typeof fn === 'function') fn();
+      const detail = e?.detail;
+      const fn = handlers[detail?.action];
+      if (typeof fn !== 'function') return;
+      detail.claimed = true;
+      let out;
+      try {
+        out = fn(detail.payload || {});
+      } catch {
+        detail.respond?.({ ok: false });
+        return;
+      }
+      Promise.resolve(out).then(
+        (r) => detail.respond?.(r && typeof r === 'object' ? r : { ok: true }),
+        () => detail.respond?.({ ok: false }),
+      );
     };
     window.addEventListener(TUTORIAL_ACTION_EVENT, onAction);
-    return () => window.removeEventListener(TUTORIAL_ACTION_EVENT, onAction);
+    window.__cvTourBridge = (window.__cvTourBridge || 0) + 1;
+    window.dispatchEvent(new CustomEvent(TUTORIAL_BRIDGE_EVENT));
+    return () => {
+      window.removeEventListener(TUTORIAL_ACTION_EVENT, onAction);
+      window.__cvTourBridge = Math.max(0, (window.__cvTourBridge || 1) - 1);
+    };
   }, [handlers]);
 }
 
@@ -202,8 +308,8 @@ export function useTutorialSeen() {
 
 /**
  * Reactive tour position — the overlay's backbone. Re-reads on every
- * 'cv:tutorial:changed'. Returns { pos, completed } plus stable
- * mutators.
+ * 'cv:tutorial:changed'. Returns { pos, completed } plus a stable
+ * mutator.
  */
 export function useTutorialState() {
   const [pos, setPos] = useState(null);
