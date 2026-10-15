@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MT",
   "state_name": "Montana",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Greg Gianforte is the Governor of Montana, serving since 2021.",
       "sources": [
         "https://governor.mt.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/c40b88ef-ba7b-415f-a6d4-581bfecf0ea7"
     },
     "lt_governor": {
       "id": "mt-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://governor.mt.gov/_images/portrait_juras.jpg"
+      "photo_url": "https://governor.mt.gov/_images/portrait_juras.jpg",
+      "openstates_id": "ocd-person/f4a7fa52-2f69-40f9-b806-7cec241ab27d"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2021/02/ag-MT-Knudsen.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2021/02/ag-MT-Knudsen.jpg",
+        "openstates_id": "ocd-person/6932f017-6867-409a-8321-6cf9dce312ef"
       }
     ]
   },

@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MS",
   "state_name": "Mississippi",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Tate Reeves is the Governor of Mississippi, serving since 2020.",
       "sources": [
         "https://governor.ms.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/3c19275b-6e87-43fa-83fa-ced52c9119bf"
     },
     "lt_governor": {
       "id": "ms-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgovhosemann.ms.gov/wp-content/uploads/2024/10/CDH-Headshot-6.20.22-400x560.jpg"
+      "photo_url": "https://ltgovhosemann.ms.gov/wp-content/uploads/2024/10/CDH-Headshot-6.20.22-400x560.jpg",
+      "openstates_id": "ocd-person/c735ee81-f40f-4c16-aa57-e7068d7df10e"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-MS-Fitch-2024.jpg"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-MS-Fitch-2024.jpg",
+        "openstates_id": "ocd-person/3a1d28c1-dd21-40b8-9a79-159441a5c88a"
       }
     ]
   },
@@ -763,28 +771,6 @@
         }
       },
       {
-        "id": "ms-sen-34",
-        "openstates_id": "ocd-person/fcb35ef2-7463-4f8a-9a8a-3bc45b235ecb",
-        "name": "Juan Barnett",
-        "party": "D",
-        "chamber": "State Senate",
-        "district": "34",
-        "role": "State Senator",
-        "photo_url": "https://static.votesmart.org/static/canphoto/156222.jpg",
-        "contact": {
-          "email": "jbarnett@senate.ms.gov",
-          "dc_office": null,
-          "dc_phone": null,
-          "official_document": {
-            "url": "https://billstatus.ls.state.ms.us/members/senate/barnett.xml",
-            "kind": "xml",
-            "label": "Legislative record",
-            "downloads": true,
-            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
-          }
-        }
-      },
-      {
         "id": "ms-sen-35",
         "openstates_id": "ocd-person/80fca1ba-017c-4941-990c-a5e2ff34aea0",
         "name": "Andy Berry",
@@ -1058,7 +1044,7 @@
         "role": "State Senator",
         "photo_url": "http://billstatus.ls.state.ms.us/members/senate/seymour.jpg",
         "contact": {
-          "email": "jseymour@senate.ms.gov",
+          "email": "mseymour@senate.ms.gov",
           "dc_office": null,
           "dc_phone": null,
           "official_document": {
@@ -1179,6 +1165,16 @@
             "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
           }
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "34",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Juan Barnett"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -2704,28 +2700,6 @@
         }
       },
       {
-        "id": "ms-rep-70",
-        "openstates_id": "ocd-person/b8541474-47fd-4dd2-8576-53b7fe911039",
-        "name": "Bo Brown",
-        "party": "D",
-        "chamber": "State House",
-        "district": "70",
-        "role": "State Representative",
-        "photo_url": "http://billstatus.ls.state.ms.us/members/house/brown_(70th).jpg",
-        "contact": {
-          "email": "bbrown@house.ms.gov",
-          "dc_office": null,
-          "dc_phone": null,
-          "official_document": {
-            "url": "https://billstatus.ls.state.ms.us/members/house/brown.xml",
-            "kind": "xml",
-            "label": "Legislative record",
-            "downloads": true,
-            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
-          }
-        }
-      },
-      {
         "id": "ms-rep-71",
         "openstates_id": "ocd-person/fee2ce67-1403-487e-b891-587e625ce15c",
         "name": "Ronnie Crudup",
@@ -2757,7 +2731,7 @@
         "role": "State Representative",
         "photo_url": "https://billstatus.ls.state.ms.us/members/house/gibbs_(72nd).jpg",
         "contact": {
-          "email": "gibbs@house.ms.gov",
+          "email": "jgibbs@house.ms.gov",
           "dc_office": null,
           "dc_phone": null,
           "official_document": {
@@ -2850,28 +2824,6 @@
           "dc_phone": null,
           "official_document": {
             "url": "https://billstatus.ls.state.ms.us/members/house/holloway.xml",
-            "kind": "xml",
-            "label": "Legislative record",
-            "downloads": true,
-            "note": "This link opens an XML and may download to your device. It is not the member's website — no web page was published for this record."
-          }
-        }
-      },
-      {
-        "id": "ms-rep-77",
-        "openstates_id": "ocd-person/35bf01bd-be16-4ce6-b07c-bfff3d25e7e3",
-        "name": "Price Wallace",
-        "party": "R",
-        "chamber": "State House",
-        "district": "77",
-        "role": "State Representative",
-        "photo_url": "http://billstatus.ls.state.ms.us/members/house/wallace.jpg",
-        "contact": {
-          "email": "pwallace@house.ms.gov",
-          "dc_office": null,
-          "dc_phone": null,
-          "official_document": {
-            "url": "https://billstatus.ls.state.ms.us/members/house/wallace.xml",
             "kind": "xml",
             "label": "Legislative record",
             "downloads": true,
@@ -3869,6 +3821,47 @@
           }
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "70",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Bo Brown"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "77",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Price Wallace"
+        ],
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "ms-sen-34",
+      "name": "Juan Barnett",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/fcb35ef2-7463-4f8a-9a8a-3bc45b235ecb"
+    },
+    {
+      "id": "ms-rep-70",
+      "name": "Bo Brown",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/b8541474-47fd-4dd2-8576-53b7fe911039"
+    },
+    {
+      "id": "ms-rep-77",
+      "name": "Price Wallace",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/35bf01bd-be16-4ce6-b07c-bfff3d25e7e3"
+    }
+  ]
 }

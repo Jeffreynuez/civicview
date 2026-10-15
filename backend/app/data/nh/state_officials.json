@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NH",
   "state_name": "New Hampshire",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Kelly Ayotte is the Governor of New Hampshire, serving since 2025.",
       "sources": [
         "https://www.governor.nh.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/3eabef50-7d86-44cf-87db-8c549d2d21bd"
     }
   },
   "state_senate": {
@@ -508,17 +514,17 @@
         }
       },
       {
-        "id": "nh-rep-Coos 6",
-        "openstates_id": "ocd-person/546b9d6e-0e31-4a6c-9d8f-63a0c9bb2b1f",
-        "name": "Mike Murphy",
+        "id": "nh-rep-Coos 5-tremblay",
+        "openstates_id": "ocd-person/20e7dbe4-40e8-4a11-bf8b-c7f7d2658725",
+        "name": "Marc Tremblay",
         "party": "R",
         "chamber": "State House",
-        "district": "Coos 6",
+        "district": "Coos 5",
         "role": "State Representative",
-        "photo_url": "https://nhjournal.com/wp-content/uploads/2024/01/mike-murphy-233x300.jpeg",
+        "photo_url": "https://indepthnh.org/wp-content/uploads/2025/11/marc-tmblay.jpg",
         "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11119",
-          "email": "michael.murphy@gc.nh.gov",
+          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=6469",
+          "email": "marc.tremblay@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -599,22 +605,6 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11309",
           "email": "travis.toner@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nh-rep-Belknap 5",
-        "openstates_id": "ocd-person/643751f4-6db0-4021-bf76-b8f2483d640d",
-        "name": "Charlie St. Clair",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Belknap 5",
-        "role": "State Representative",
-        "photo_url": "https://images.dailykos.com/images/448207/story_image/Charlie_St._Clair.jpg?1505263188",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=8956",
-          "email": "charlie.stclair@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1244,22 +1234,6 @@
         }
       },
       {
-        "id": "nh-rep-Grafton 9",
-        "openstates_id": "ocd-person/077af83c-d03f-45d9-8bcd-28574d9422c0",
-        "name": "Thomas Oppel",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Grafton 9",
-        "role": "State Representative",
-        "photo_url": "https://www.nhnonprofits.org/sites/default/files/profile-photos/consultants/ThomasPOppel%20Close%20Up.jpeg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11182",
-          "email": "thomas.oppel@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nh-rep-Cheshire 2",
         "openstates_id": "ocd-person/31e633fb-0fd5-43e8-8a18-2bd0c1d6bca9",
         "name": "Dru Fox",
@@ -1711,7 +1685,7 @@
         "id": "nh-rep-Sullivan 6",
         "openstates_id": "ocd-person/87ac63e4-d144-451e-a13b-0b834f1ef81b",
         "name": "Dale Girard",
-        "party": "D",
+        "party": "R",
         "chamber": "State House",
         "district": "Sullivan 6",
         "role": "State Representative",
@@ -3116,22 +3090,6 @@
         }
       },
       {
-        "id": "nh-rep-Rockingham 5-2",
-        "openstates_id": "ocd-person/1aa8819a-e1bd-4569-93ec-305ad61e8ea4",
-        "name": "Michael Vose",
-        "party": "R",
-        "chamber": "State House",
-        "district": "Rockingham 5",
-        "role": "State Representative",
-        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/61167.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=909",
-          "email": "michael.vose@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nh-rep-Rockingham 6",
         "openstates_id": "ocd-person/fa004123-5b0b-4019-8f74-8c43570c388c",
         "name": "Eric Turer",
@@ -3367,6 +3325,22 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11283",
           "email": "wayne.pearson@gc.nh.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nh-rep-Strafford 12-butler",
+        "openstates_id": "ocd-person/1c179bc8-d192-44c1-aed6-4801e9d6b338",
+        "name": "Billie Butler",
+        "party": "D",
+        "chamber": "State House",
+        "district": "Strafford 12",
+        "role": "State Representative",
+        "photo_url": "https://www.fosters.com/gcdn/authoring/authoring-images/2025/06/11/NFDD/84151476007-billie-1.jpg?width=660&height=495&fit=crop&format=pjpg&auto=webp",
+        "contact": {
+          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11524",
+          "email": null,
           "dc_office": null,
           "dc_phone": null
         }
@@ -3655,22 +3629,6 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?member=408615",
           "email": "julie.gilman@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nh-rep-Rockingham 11-3",
-        "openstates_id": "ocd-person/ad3c3841-fa56-4055-bd86-8a3c504d36a9",
-        "name": "Linda Haskins",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Rockingham 11",
-        "role": "State Representative",
-        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/123187.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=10855",
-          "email": "linda.haskins@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -4236,22 +4194,6 @@
         }
       },
       {
-        "id": "nh-rep-Rockingham 22",
-        "openstates_id": "ocd-person/79bb2147-ea4b-4706-8b38-ee2309613ea0",
-        "name": "Kate Murray",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Rockingham 22",
-        "role": "State Representative",
-        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/59307.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?member=408619",
-          "email": "kate.murray@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nh-rep-Rockingham 23",
         "openstates_id": "ocd-person/deb760cf-91f7-415c-949a-bab0c5311d6f",
         "name": "Jim Maggiore",
@@ -4279,22 +4221,6 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?member=377137",
           "email": "dennis.malloy@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nh-rep-Rockingham 24-2",
-        "openstates_id": "ocd-person/26f01212-5287-4735-aa1f-77e4f0d2acb6",
-        "name": "Jaci Grote",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Rockingham 24",
-        "role": "State Representative",
-        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/73222.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?member=408923",
-          "email": "jaci.grote@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -5079,22 +5005,6 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11191",
           "email": "leeann.kluger@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nh-rep-Hillsborough 6-3",
-        "openstates_id": "ocd-person/ce985799-268d-4190-b078-955fc63a8c3c",
-        "name": "Sue Vail",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Hillsborough 6",
-        "role": "State Representative",
-        "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/76050.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=789",
-          "email": "suzanne.vail@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -6364,22 +6274,6 @@
         }
       },
       {
-        "id": "nh-rep-Hillsborough 39",
-        "openstates_id": "ocd-person/4df69dca-ac45-46e2-a42d-26d77ddcdde4",
-        "name": "Jon Morton",
-        "party": "R",
-        "chamber": "State House",
-        "district": "Hillsborough 39",
-        "role": "State Representative",
-        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jonathan_Morton_20240826_041814.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11371",
-          "email": "jonathan.morton@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nh-rep-Hillsborough 39-2",
         "openstates_id": "ocd-person/01358592-fa6d-49bf-a933-ea2f223572d7",
         "name": "Mark Warden",
@@ -6428,22 +6322,6 @@
         }
       },
       {
-        "id": "nh-rep-Hillsborough 40-3",
-        "openstates_id": "ocd-person/128e737d-1ff8-45c1-937e-34e66c08069d",
-        "name": "Suraj Budathoki",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Hillsborough 40",
-        "role": "State Representative",
-        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Suraj_Budathoki.JPG",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11217",
-          "email": "suraj.budathoki@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "nh-rep-Hillsborough 40-4",
         "openstates_id": "ocd-person/6164e59b-1d52-4ee4-aa53-28ea86884757",
         "name": "Trinidad Tellez",
@@ -6487,22 +6365,6 @@
         "contact": {
           "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11219",
           "email": "lily.foss@gc.nh.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "nh-rep-Hillsborough 41-3",
-        "openstates_id": "ocd-person/5b26425f-330d-458b-b8f6-b6a2b1997b41",
-        "name": "Tim Hartnett",
-        "party": "D",
-        "chamber": "State House",
-        "district": "Hillsborough 41",
-        "role": "State Representative",
-        "photo_url": "https://www.citizenscount.org/sites/default/files/2024-09/tim-hartnett.jpg",
-        "contact": {
-          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=11220",
-          "email": "tim.hartnett@gc.nh.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -6604,6 +6466,22 @@
         }
       },
       {
+        "id": "nh-rep-Hillsborough 43-daniels",
+        "openstates_id": "ocd-person/281c916b-4280-41ff-9ee1-ba183d838536",
+        "name": "Gary Daniels",
+        "party": "R",
+        "chamber": "State House",
+        "district": "Hillsborough 43",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://gc.nh.gov/house/members/member.aspx?pid=423",
+          "email": "gary.daniels@gc.nh.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
         "id": "nh-rep-Hillsborough 44",
         "openstates_id": "ocd-person/e44fbca0-a34c-4b73-aaa6-872b471b9031",
         "name": "Lisa Mazur",
@@ -6651,6 +6529,210 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "Belknap 2",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Belknap 5",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Charlie St. Clair"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Belknap 6",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Cheshire 1",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Coos 6",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Mike Murphy"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Grafton 9",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Thomas Oppel"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 1",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 6",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Sue Vail"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 24",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 29",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 39",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Jon Morton"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 40",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Suraj Budathoki"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Hillsborough 41",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Tim Hartnett"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Rockingham 5",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Michael Vose"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Rockingham 11",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Linda Haskins"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Rockingham 22",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Kate Murray"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Rockingham 24",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Jaci Grote"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "Rockingham 25",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "nh-rep-Coos 6",
+      "name": "Mike Murphy",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/546b9d6e-0e31-4a6c-9d8f-63a0c9bb2b1f"
+    },
+    {
+      "id": "nh-rep-Belknap 5",
+      "name": "Charlie St. Clair",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/643751f4-6db0-4021-bf76-b8f2483d640d"
+    },
+    {
+      "id": "nh-rep-Grafton 9",
+      "name": "Thomas Oppel",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/077af83c-d03f-45d9-8bcd-28574d9422c0"
+    },
+    {
+      "id": "nh-rep-Rockingham 5-2",
+      "name": "Michael Vose",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/1aa8819a-e1bd-4569-93ec-305ad61e8ea4"
+    },
+    {
+      "id": "nh-rep-Rockingham 11-3",
+      "name": "Linda Haskins",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/ad3c3841-fa56-4055-bd86-8a3c504d36a9"
+    },
+    {
+      "id": "nh-rep-Rockingham 22",
+      "name": "Kate Murray",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/79bb2147-ea4b-4706-8b38-ee2309613ea0"
+    },
+    {
+      "id": "nh-rep-Rockingham 24-2",
+      "name": "Jaci Grote",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/26f01212-5287-4735-aa1f-77e4f0d2acb6"
+    },
+    {
+      "id": "nh-rep-Hillsborough 6-3",
+      "name": "Sue Vail",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/ce985799-268d-4190-b078-955fc63a8c3c"
+    },
+    {
+      "id": "nh-rep-Hillsborough 39",
+      "name": "Jon Morton",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/4df69dca-ac45-46e2-a42d-26d77ddcdde4"
+    },
+    {
+      "id": "nh-rep-Hillsborough 40-3",
+      "name": "Suraj Budathoki",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/128e737d-1ff8-45c1-937e-34e66c08069d"
+    },
+    {
+      "id": "nh-rep-Hillsborough 41-3",
+      "name": "Tim Hartnett",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/5b26425f-330d-458b-b8f6-b6a2b1997b41"
+    }
+  ]
 }

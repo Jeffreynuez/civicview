@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MI",
   "state_name": "Michigan",
   "executive": {
@@ -16,8 +21,41 @@
       "bio": "Gretchen Whitmer is the Governor of Michigan, serving since 2019.",
       "sources": [
         "https://www.michigan.gov/whitmer"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/9b425a88-36ae-439c-b2f9-8da167b9ff27"
+    },
+    "lt_governor": {
+      "id": "mi-exec-lieutenant-governor-gilchrist",
+      "openstates_id": "ocd-person/e077b72e-8c9e-4506-a4b5-1fd83d6f6226",
+      "name": "Garlin Gilchrist II",
+      "party": "D",
+      "role": "Lieutenant Governor",
+      "office": "Executive",
+      "website": "https://www.michigan.gov/whitmer/ltgov",
+      "photo_url": "https://www.michigan.gov/whitmer/-/media/Project/Websites/Whitmer/Images/About/Lt-Governor-Bio/LtGovGilchrist2x.jpg"
+    },
+    "cabinet": [
+      {
+        "id": "mi-exec-attorney-general-nessel",
+        "openstates_id": "ocd-person/d45a5608-2735-4ef3-883b-0ebdabed89e0",
+        "name": "Dana Nessel",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.michigan.gov/ag",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-MI-nessel2.jpg"
+      },
+      {
+        "id": "mi-exec-secretary-of-state-benson",
+        "openstates_id": "ocd-person/bcdc22e9-cca9-47d9-96a4-757fef25f866",
+        "name": "Jocelyn Benson",
+        "party": "D",
+        "role": "Secretary of State",
+        "office": "Executive",
+        "website": "https://www.michigan.gov/sos",
+        "photo_url": "https://www.michigan.gov/sos/-/media/Project/Websites/sos/22lawensn/SOS_Jocelyn_Benson_web.jpg?rev=472f8685a68348eaadbb49b50169f20f&hash=066812B4000A0920442A62601E420910&w=+1400"
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Michigan State Senate",
@@ -562,6 +600,22 @@
         "contact": {
           "official_website": "https://gophouse.org/representatives/central/hauck/",
           "email": "senrhauck@senate.michigan.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "mi-sen-35-greene",
+        "openstates_id": "ocd-person/b5b41ca8-2f16-4df4-9808-66b2a13bfecc",
+        "name": "Chedrick Greene",
+        "party": "D",
+        "chamber": "State Senate",
+        "district": "35",
+        "role": "State Senator",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chedrick_Greene_20251023_010156.jpeg",
+        "contact": {
+          "official_website": "https://senatedems.com/greene/",
+          "email": "sencgreene@senate.michigan.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1622,7 +1676,7 @@
         "photo_url": "https://www.house.mi.gov/media/Representatives/DeBoyer-063.jpg",
         "contact": {
           "official_website": "https://gophouse.org/member/RepJayDeBoyer/posts",
-          "email": "jaydeboyerr@house.mi.gov",
+          "email": "jaydeboyer@house.mi.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2086,7 +2140,7 @@
         "photo_url": "https://www.house.mi.gov/media/Representatives/Neyer-092.jpg",
         "contact": {
           "official_website": "https://gophouse.org/member/RepJerryNeyer/posts",
-          "email": "jerryneyerr@house.mi.gov",
+          "email": "jerryneyer@house.mi.gov",
           "dc_office": null,
           "dc_phone": null
         }

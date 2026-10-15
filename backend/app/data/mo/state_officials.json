@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "MO",
   "state_name": "Missouri",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Mike Kehoe is the Governor of Missouri, serving since 2025.",
       "sources": [
         "https://governor.mo.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/b1263b48-7df4-443c-8a71-41abc892bd7e"
     },
     "lt_governor": {
       "id": "mo-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.mo.gov/wp-content/uploads/2025/06/cropped-Lt-Gov-photo-scaled-1.jpg"
+      "photo_url": "https://ltgov.mo.gov/wp-content/uploads/2025/06/cropped-Lt-Gov-photo-scaled-1.jpg",
+      "openstates_id": "ocd-person/43d8764b-a3b7-432a-8750-ae0e9165ecf9"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://ago.mo.gov/wp-content/uploads/Hanaway-Headshot-230x300.jpg"
+        "photo_url": "https://ago.mo.gov/wp-content/uploads/Hanaway-Headshot-230x300.jpg",
+        "openstates_id": "ocd-person/c2f94a50-d59c-4c56-abe6-2eebbce40a68"
       }
     ]
   },
@@ -182,22 +190,6 @@
         "contact": {
           "official_website": "https://www.house.mo.gov/MemberDetails.aspx?district=23",
           "email": "barbara.washington@senate.mo.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "mo-sen-10",
-        "openstates_id": "ocd-person/c9758b3c-066c-40b4-9d40-a93880fda67a",
-        "name": "Travis Fitzwater",
-        "party": "R",
-        "chamber": "State Senate",
-        "district": "10",
-        "role": "State Senator",
-        "photo_url": null,
-        "contact": {
-          "official_website": "https://www.senate.mo.gov/Senators/Member/10",
-          "email": "travis.fitzwater@senate.mo.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -585,6 +577,16 @@
           "dc_office": null,
           "dc_phone": null
         }
+      }
+    ],
+    "vacancies": [
+      {
+        "district": "10",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Travis Fitzwater"
+        ],
+        "first_noted": "2026-10-14"
       }
     ]
   },
@@ -1035,22 +1037,6 @@
         "contact": {
           "official_website": "https://house.mo.gov/MemberDetails.aspx?district=028",
           "email": "donna.barnes@house.mo.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
-        "id": "mo-rep-29",
-        "openstates_id": "ocd-person/ba6eb394-0402-49ba-9917-c5618d8a1589",
-        "name": "Aaron Crossley",
-        "party": "D",
-        "chamber": "State House",
-        "district": "29",
-        "role": "State Representative",
-        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2366",
-        "contact": {
-          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=29",
-          "email": "aaron.crossley@house.mo.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2144,22 +2130,6 @@
         }
       },
       {
-        "id": "mo-rep-99",
-        "openstates_id": "ocd-person/b93bdb73-001b-43ed-a436-99ad2efe4937",
-        "name": "Ian Mackey",
-        "party": "D",
-        "chamber": "State House",
-        "district": "99",
-        "role": "State Representative",
-        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2080",
-        "contact": {
-          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=099",
-          "email": "ian.mackey@house.mo.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "mo-rep-100",
         "openstates_id": "ocd-person/4d403f59-65f6-484f-9aeb-fe05380d4bcf",
         "name": "Philip Oehlerking",
@@ -2922,7 +2892,7 @@
         "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2393",
         "contact": {
           "official_website": "https://house.mo.gov/MemberDetails.aspx?district=150",
-          "email": "cameron.buntingparke@house.mo.gov",
+          "email": "cameron.parker@house.mo.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -3056,22 +3026,6 @@
         }
       },
       {
-        "id": "mo-rep-159",
-        "openstates_id": "ocd-person/914b9a95-6dd2-4d1d-8dc4-eed597b02e53",
-        "name": "Dirk Deaton",
-        "party": "R",
-        "chamber": "State House",
-        "district": "159",
-        "role": "State Representative",
-        "photo_url": "https://house.mo.gov/MemberPhoto.aspx?id=2090",
-        "contact": {
-          "official_website": "https://house.mo.gov/MemberDetails.aspx?district=159",
-          "email": "dirk.deaton@house.mo.gov",
-          "dc_office": null,
-          "dc_phone": null
-        }
-      },
-      {
         "id": "mo-rep-161",
         "openstates_id": "ocd-person/56f5920f-46d9-4991-b029-5984b80cd7ff",
         "name": "Lane Roberts",
@@ -3119,6 +3073,87 @@
           "dc_phone": null
         }
       }
+    ],
+    "vacancies": [
+      {
+        "district": "29",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Aaron Crossley"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "95",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "99",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Ian Mackey"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "110",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "114",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "149",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "159",
+        "seats_vacant": 1,
+        "previous_members": [
+          "Dirk Deaton"
+        ],
+        "first_noted": "2026-10-14"
+      },
+      {
+        "district": "160",
+        "seats_vacant": 1,
+        "first_noted": "2026-10-14"
+      }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "mo-sen-10",
+      "name": "Travis Fitzwater",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/c9758b3c-066c-40b4-9d40-a93880fda67a"
+    },
+    {
+      "id": "mo-rep-29",
+      "name": "Aaron Crossley",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/ba6eb394-0402-49ba-9917-c5618d8a1589"
+    },
+    {
+      "id": "mo-rep-99",
+      "name": "Ian Mackey",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/b93bdb73-001b-43ed-a436-99ad2efe4937"
+    },
+    {
+      "id": "mo-rep-159",
+      "name": "Dirk Deaton",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/914b9a95-6dd2-4d1d-8dc4-eed597b02e53"
+    }
+  ]
 }

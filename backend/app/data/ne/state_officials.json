@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "NE",
   "state_name": "Nebraska",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Jim Pillen is the Governor of Nebraska, serving since 2023.",
       "sources": [
         "https://governor.nebraska.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/c67c3ac8-3260-44d7-b419-3d8210c4f0bd"
     },
     "lt_governor": {
       "id": "ne-exec-lieutenant-governor",
@@ -25,17 +31,19 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://ltgov.nebraska.gov/sites/default/files/img/Lt%20Governor%20Kelly-1.jpg"
+      "photo_url": "https://ltgov.nebraska.gov/sites/default/files/img/Lt%20Governor%20Kelly-1.jpg",
+      "openstates_id": "ocd-person/74c5deca-9550-45e2-a5dc-c3386623edef"
     },
     "cabinet": [
       {
         "id": "ne-exec-attorney-general",
         "name": "Mike Hilgers",
-        "party": "I",
+        "party": "R",
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-OK-Hilgers.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/11/ag-OK-Hilgers.png",
+        "openstates_id": "ocd-person/3eafc2ab-5448-40ac-9d5f-b317abdbc747"
       },
       {
         "id": "ne-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://sos.nebraska.gov/sites/sos.nebraska.gov/files/img/headshot-bio.jpg"
+        "photo_url": "https://sos.nebraska.gov/sites/sos.nebraska.gov/files/img/headshot-bio.jpg",
+        "openstates_id": "ocd-person/ecaf1ef5-c273-497b-8c05-74d0edc97e27"
       }
     ]
   },
@@ -78,7 +87,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist02/highres/dist02.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=2",
-          "email": "rclements@leg.ne.gov",
+          "email": "robert.clements@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -94,7 +103,7 @@
         "photo_url": null,
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=3",
-          "email": "vrountree@leg.ne.gov",
+          "email": "victor.rountree@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -110,7 +119,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist04/highres/dist04.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=4",
-          "email": "bvongillern@leg.ne.gov",
+          "email": "brad.vongillern@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -142,7 +151,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist06/highres/dist06.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=6",
-          "email": "mcavanaugh@leg.ne.gov",
+          "email": "machaela.cavanaugh@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -174,7 +183,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist08/highres/dist08.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=8",
-          "email": "mhunt@leg.ne.gov",
+          "email": "megan.hunt@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -190,7 +199,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist09/highres/dist09.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=9",
-          "email": "jcavanaugh@leg.ne.gov",
+          "email": "john.cavanaugh@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -206,7 +215,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist10/highres/dist10.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=10",
-          "email": "wdeboer@leg.ne.gov",
+          "email": "wendy.deboer@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -222,7 +231,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist11/highres/dist11.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=11",
-          "email": "tmckinney@leg.ne.gov",
+          "email": "terrell.mckinney@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -238,7 +247,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist12/highres/dist12.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=12",
-          "email": "mriepe@leg.ne.gov",
+          "email": "merv.riepe@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -270,7 +279,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist14/highres/dist14.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=14",
-          "email": "jarch@leg.ne.gov",
+          "email": "john.arch@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -286,7 +295,7 @@
         "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/164427.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=15",
-          "email": "dwordekemper@leg.ne.gov",
+          "email": "dave.wordekemper@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -302,7 +311,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist16/highres/dist16.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=16",
-          "email": "bhansen@leg.ne.gov",
+          "email": "ben.hansen@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -318,7 +327,7 @@
         "photo_url": null,
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=17",
-          "email": "gmeyer@leg.ne.gov",
+          "email": "glen.meyer@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -350,7 +359,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist19/highres/dist19.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=19",
-          "email": "rdover@leg.ne.gov",
+          "email": "robert.dover@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -366,7 +375,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist20/highres/dist20.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=20",
-          "email": "jfredrickson@leg.ne.gov",
+          "email": "john.fredrickson@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -382,7 +391,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist21/highres/dist21.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=21",
-          "email": "bballard@leg.ne.gov",
+          "email": "beau.ballard@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -462,7 +471,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist26/highres/dist26.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=26",
-          "email": "gdungan@leg.ne.gov",
+          "email": "george.dungan@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -494,7 +503,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist28/highres/dist28.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=28",
-          "email": "jraybould@leg.ne.gov",
+          "email": "jane.raybould@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -510,7 +519,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist29/highres/dist29.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=29",
-          "email": "ebostar@leg.ne.gov",
+          "email": "eliot.bostar@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -526,7 +535,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist30/highres/dist30.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=30",
-          "email": "mdorn@leg.ne.gov",
+          "email": "myron.dorn@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -542,7 +551,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist31/highres/dist31.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=31",
-          "email": "kkauth@leg.ne.gov",
+          "email": "kathleen.kauth@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -558,7 +567,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist32/highres/dist32.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=32",
-          "email": "tbrandt@leg.ne.gov",
+          "email": "tom.brandt@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -574,7 +583,7 @@
         "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167026.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=33",
-          "email": "dlonowski@leg.ne.gov",
+          "email": "dan.lonowski@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -590,7 +599,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist34/highres/dist34.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=34",
-          "email": "llippincott@leg.ne.gov",
+          "email": "loren.lippincott@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -606,7 +615,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/blogs/dist35.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=35",
-          "email": "dquick@leg.ne.gov",
+          "email": "dan.quick@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -622,7 +631,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist36/highres/dist36.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=36",
-          "email": "rholdcroft@leg.ne.gov",
+          "email": "rick.holdcroft@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -638,7 +647,7 @@
         "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167022.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=37",
-          "email": "sclouse@leg.ne.gov",
+          "email": "stan.clouse@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -654,7 +663,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist38/highres/dist38.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=38",
-          "email": "dmurman@leg.ne.gov",
+          "email": "dave.murman@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -670,7 +679,7 @@
         "photo_url": null,
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=39",
-          "email": "tsorrentino@leg.ne.gov",
+          "email": "tony.sorrentino@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -686,7 +695,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist40/highres/dist40.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=40",
-          "email": "bdekay@leg.ne.gov",
+          "email": "barry.dekay@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -718,7 +727,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist42/highres/dist42.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=42",
-          "email": "mjacobson@leg.ne.gov",
+          "email": "mike.jacobson@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -734,7 +743,7 @@
         "photo_url": null,
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=43",
-          "email": "tstorer@leg.ne.gov",
+          "email": "tanya.storer@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -750,7 +759,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist44/highres/dist44.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=44",
-          "email": "tibach@leg.ne.gov",
+          "email": "teresa.ibach@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -766,7 +775,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist45/highres/dist45.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=45",
-          "email": "rsanders@leg.ne.gov",
+          "email": "rita.sanders@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -782,7 +791,7 @@
         "photo_url": "https://www.nebraskalegislature.gov/media/images/senators/dist46/highres/dist46.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=46",
-          "email": "dconrad@leg.ne.gov",
+          "email": "danielle.conrad@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -798,7 +807,7 @@
         "photo_url": null,
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=47",
-          "email": "pstrommen@leg.ne.gov",
+          "email": "paul.strommen@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -830,7 +839,7 @@
         "photo_url": "https://storage.googleapis.com/enview-dev-public-general/legislative-people-photos/167021.jpg",
         "contact": {
           "official_website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=49",
-          "email": "bandersen@leg.ne.gov",
+          "email": "bob.andersen@leg.ne.gov",
           "dc_office": null,
           "dc_phone": null
         }

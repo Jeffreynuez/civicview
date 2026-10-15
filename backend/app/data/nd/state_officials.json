@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "ND",
   "state_name": "North Dakota",
   "executive": {
@@ -16,7 +21,8 @@
       "bio": "Kelly Armstrong is the Governor of North Dakota, serving since 2025.",
       "sources": [
         "https://www.governor.nd.gov"
-      ]
+      ],
+      "openstates_id": "ocd-person/482e4b71-bc8b-4c9e-80a5-bc2c51e90aa0"
     },
     "lt_governor": {
       "id": "nd-exec-lieutenant-governor",
@@ -25,7 +31,8 @@
       "role": "Lieutenant Governor",
       "office": "Executive",
       "website": null,
-      "photo_url": "https://www.governor.nd.gov/sites/www/files/documents/portraits/LtGovMichelleStrinden.jpg"
+      "photo_url": "https://www.governor.nd.gov/sites/www/files/documents/portraits/LtGovMichelleStrinden.jpg",
+      "openstates_id": "ocd-person/a6e733ce-ccdc-425a-bb9b-9010a09c3933"
     },
     "cabinet": [
       {
@@ -35,7 +42,8 @@
         "role": "Attorney General",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://www.naag.org/wp-content/uploads/2022/02/ag-ND-Wrigley-Drew.png"
+        "photo_url": "https://www.naag.org/wp-content/uploads/2022/02/ag-ND-Wrigley-Drew.png",
+        "openstates_id": "ocd-person/b86dfdcd-93e3-40d8-929f-47f1c86813e3"
       },
       {
         "id": "nd-exec-secretary-of-state",
@@ -44,7 +52,8 @@
         "role": "Secretary of State",
         "office": "Executive",
         "website": null,
-        "photo_url": "https://sos.nd.gov/files/images/michael-howe-2023.jpg"
+        "photo_url": "https://sos.nd.gov/files/images/michael-howe-2023.jpg",
+        "openstates_id": "ocd-person/31c83885-ce7e-4b8f-ac6d-bf310c12acb8"
       }
     ]
   },
@@ -740,17 +749,17 @@
         }
       },
       {
-        "id": "nd-sen-44",
-        "openstates_id": "ocd-person/50d67a3d-7267-4f21-93af-6827c45077f0",
-        "name": "Josh Boschee",
+        "id": "nd-sen-44-selzler",
+        "openstates_id": "ocd-person/b6b20b68-a6e2-4d3a-abf1-84a019c197d9",
+        "name": "Jamie Selzler",
         "party": "D",
         "chamber": "State Senate",
         "district": "44",
         "role": "State Senator",
-        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/jboschee2023.jpg?itok=dn-POEYf",
+        "photo_url": "https://demnpl.com/wp-content/uploads/2024/02/JamieS-4websitesquare-1.jpg",
         "contact": {
-          "official_website": "https://ndlegis.gov/biography/josh-boschee",
-          "email": "jboschee@ndlegis.gov",
+          "official_website": "https://ndlegis.gov/biography/jamie-selzler",
+          "email": "jselzler@ndlegis.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1113,17 +1122,17 @@
         }
       },
       {
-        "id": "nd-rep-11-2",
-        "openstates_id": "ocd-person/d8e43158-838e-40fc-a960-c29c46aa512e",
-        "name": "Liz Conmy",
+        "id": "nd-rep-11-goldwyn",
+        "openstates_id": "ocd-person/3735ca02-1a6a-4f2f-b13b-1a5118d78ae2",
+        "name": "Adam Goldwyn",
         "party": "D",
         "chamber": "State House",
         "district": "11",
         "role": "State Representative",
-        "photo_url": "https://www.ndlegis.gov/sites/default/files/styles/member_list_photo/public/person/photo/lconmy2023.jpg?itok=4p3lHbz-",
+        "photo_url": "https://www.ndsu.edu/sites/default/files/styles/content_profile_full_medium/public/fileadmin/english.ndsu.edu/IMG_7188.JPG.webp?itok=Fwkfn24a&cb=44eb361c",
         "contact": {
-          "official_website": "https://ndlegis.gov/biography/liz-conmy",
-          "email": "lconmy@ndlegis.gov",
+          "official_website": "https://ndlegis.gov/biography/adam-goldwyn",
+          "email": "agoldwyn@ndlegis.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -1396,6 +1405,22 @@
         "contact": {
           "official_website": "https://ndlegis.gov/biography/mike-beltz",
           "email": "mbeltz@ndlegis.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
+        "id": "nd-rep-20-rustebakke",
+        "openstates_id": "ocd-person/62c94736-93a5-43a9-af8d-5a37b65159c6",
+        "name": "Dave Rustebakke",
+        "party": "R",
+        "chamber": "State House",
+        "district": "20",
+        "role": "State Representative",
+        "photo_url": null,
+        "contact": {
+          "official_website": "https://ndlegis.gov/biography/dave-rustebakke",
+          "email": "drustebakke@ndlegis.gov",
           "dc_office": null,
           "dc_phone": null
         }
@@ -2297,5 +2322,21 @@
         }
       }
     ]
-  }
+  },
+  "_retired_ids": [
+    {
+      "id": "nd-sen-44",
+      "name": "Josh Boschee",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/50d67a3d-7267-4f21-93af-6827c45077f0"
+    },
+    {
+      "id": "nd-rep-11-2",
+      "name": "Liz Conmy",
+      "retired_on": "2026-10-14",
+      "reason": "left office (no longer listed by Open States)",
+      "openstates_id": "ocd-person/d8e43158-838e-40fc-a960-c29c46aa512e"
+    }
+  ]
 }

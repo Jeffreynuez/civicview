@@ -1,6 +1,11 @@
 {
   "_note": "State legislators + statewide executives. Legislators + execs from Open States/Plural; governor curated.",
   "_source": "Open States / Plural API (bulk people data + executive classification); governor from official state site.",
+  "_refresh": {
+    "refreshed_on": "2026-10-14",
+    "source": "Open States people data (github.com/openstates/people, CC0 1.0) at commit 855b9f47864a; seats per district from openstates-core metadata",
+    "script": "backend/scripts/refresh_state_officials.py"
+  },
   "state": "ME",
   "state_name": "Maine",
   "executive": {
@@ -16,8 +21,27 @@
       "bio": "Janet Mills is the Governor of Maine, serving since 2019.",
       "sources": [
         "https://www.maine.gov/governor"
-      ]
-    }
+      ],
+      "openstates_id": "ocd-person/3a068db0-d252-4bf9-929d-feb15cb84087"
+    },
+    "cabinet": [
+      {
+        "id": "me-exec-attorney-general-frey",
+        "openstates_id": "ocd-person/530fa17b-8a45-4d39-adb1-e9492081a761",
+        "name": "Aaron M. Frey",
+        "party": "D",
+        "role": "Attorney General",
+        "office": "Executive",
+        "website": "https://www.maine.gov/ag/",
+        "photo_url": "https://www.naag.org/wp-content/uploads/2020/09/ag-ME-Frey-Aaron-2025.png",
+        "selection_method": "elected",
+        "selection_detail": "Maine's Attorney General is elected by the Legislature. Elected in joint session on December 4, 2024, for 2025 and 2026.",
+        "normally_elected": false,
+        "sources": [
+          "https://legislature.maine.gov/house/Repository/Documents/132/LegislativeRecords/63b12a60-3275-4662-a4b0-47bc70c89dff_20241204.pdf"
+        ]
+      }
+    ]
   },
   "state_senate": {
     "body_name": "Maine State Senate",
@@ -1036,6 +1060,22 @@
         }
       },
       {
+        "id": "me-rep-29-theriault",
+        "openstates_id": "ocd-person/58e6cfa5-f375-4619-b8b3-2ce7d176cb55",
+        "name": "Nancy Theriault",
+        "party": "R",
+        "chamber": "State House",
+        "district": "29",
+        "role": "State Representative",
+        "photo_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nancy_Theriault_20260419_055420.jpg",
+        "contact": {
+          "official_website": "https://legislature.maine.gov/house/MemberProfiles/Details/3142",
+          "email": "nancy.theriault@legislature.maine.gov",
+          "dc_office": null,
+          "dc_phone": null
+        }
+      },
+      {
         "id": "me-rep-30",
         "openstates_id": "ocd-person/54f9af68-0a59-4cd7-a448-40725e8781ab",
         "name": "Jim White",
@@ -1182,7 +1222,7 @@
       {
         "id": "me-rep-39",
         "openstates_id": "ocd-person/b7b97724-7abc-44fb-bace-d3606d3fadb2",
-        "name": "Janice Dodge",
+        "name": "Jan Dodge",
         "party": "D",
         "chamber": "State House",
         "district": "39",
@@ -2846,7 +2886,7 @@
       {
         "id": "me-rep-143",
         "openstates_id": "ocd-person/8646c09c-1d84-4065-bcf2-8be6a8baf494",
-        "name": "Ann Marie Fredericks",
+        "name": "Ann Fredericks",
         "party": "R",
         "chamber": "State House",
         "district": "143",
