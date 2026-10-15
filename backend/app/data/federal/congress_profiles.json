@@ -161,7 +161,9 @@
       {
         "name": "Senate Leadership",
         "stance": "Serves as the Senate Democratic Leader (Minority Leader).",
-        "sources": []
+        "sources": [
+          "https://www.senate.gov/senators/leadership.htm"
+        ]
       },
       {
         "name": "Economy & Consumer Costs",
@@ -259,7 +261,9 @@
       {
         "name": "House Leadership",
         "stance": "Serves as the House Democratic Leader (Minority Leader).",
-        "sources": []
+        "sources": [
+          "https://www.house.gov/leadership"
+        ]
       },
       {
         "name": "Criminal Justice",
@@ -298,12 +302,16 @@
       {
         "name": "House Leadership",
         "stance": "Serves as Speaker of the House.",
-        "sources": []
+        "sources": [
+          "https://www.house.gov/leadership"
+        ]
       },
       {
         "name": "Constitutional & Legal Policy",
         "stance": "A former constitutional-law attorney; law and the judiciary are among his focus areas.",
-        "sources": []
+        "sources": [
+          "https://mikejohnson.house.gov/about"
+        ]
       },
       {
         "name": "Government Operations",
@@ -336,7 +344,10 @@
       {
         "name": "Congressional Leadership",
         "stance": "Speaker of the House Emerita; previously served as Speaker (2007-2011, 2019-2023).",
-        "sources": []
+        "sources": [
+          "https://pelosi.house.gov/biography",
+          "https://bioguide.congress.gov/search/bio/P000197"
+        ]
       },
       {
         "name": "Democratic Institutions",
@@ -415,7 +426,10 @@
       {
         "name": "Senate Institutional Role",
         "stance": "The longest-serving Senate party leader in U.S. history; served as Senate Republican Leader through 2025.",
-        "sources": []
+        "sources": [
+          "https://www.senate.gov/artandhistory/history/common/briefing/Majority_Minority_Leaders.htm",
+          "https://bioguide.congress.gov/search/bio/M000355"
+        ]
       },
       {
         "name": "Federal Judiciary",
@@ -543,6 +557,7 @@
         "name": "Education",
         "stance": "A former superintendent of Denver Public Schools; sponsors education legislation.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/B001267",
           "https://www.congress.gov/member/B001267?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Education%22%7D"
         ]
       },
@@ -682,6 +697,7 @@
         "name": "Healthcare",
         "stance": "A physician, Dunn concentrates heavily on health policy; health is by far his most frequent sponsored-legislation area, including the Sickle Cell Disease Comprehensive Care Act, the Mental Health TALK SAFE Act, and the Timely Access to Coverage Decisions Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/D000628",
           "https://www.congress.gov/member/D000628?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
           "https://www.congress.gov/bill/119th-congress/house-bill/5178",
           "https://www.congress.gov/bill/119th-congress/house-bill/6994",
@@ -809,7 +825,8 @@
         "name": "Space & Aerospace",
         "stance": "Representing Florida's Space Coast, he sponsored the One Giant LEAP Act addressing the space sector.",
         "sources": [
-          "https://www.congress.gov/bill/119th-congress/house-bill/8851"
+          "https://www.congress.gov/bill/119th-congress/house-bill/8851",
+          "https://haridopolos.house.gov/issues/space"
         ]
       },
       {
@@ -955,7 +972,8 @@
         "name": "Education",
         "stance": "Sponsors education legislation; a former Florida state legislator active on education policy.",
         "sources": [
-          "https://www.congress.gov/member/B001314?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Education%22%7D"
+          "https://www.congress.gov/member/B001314?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Education%22%7D",
+          "https://bioguide.congress.gov/search/bio/B001314"
         ]
       }
     ],
@@ -987,6 +1005,7 @@
         "name": "Law Enforcement & Public Safety",
         "stance": "A former Jacksonville sheriff; crime and law enforcement is his most frequent sponsored-legislation area, including the PLAN for School Safety Act and the HELPER Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/R000609",
           "https://www.congress.gov/member/R000609?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
           "https://www.congress.gov/bill/119th-congress/house-bill/2577",
           "https://www.congress.gov/bill/119th-congress/house-bill/2094"
@@ -1165,7 +1184,8 @@
         "name": "Climate & Energy",
         "stance": "Energy is among her most frequent sponsored-legislation areas; she previously chaired the Select Committee on the Climate Crisis.",
         "sources": [
-          "https://www.congress.gov/member/C001066?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/C001066?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://bioguide.congress.gov/search/bio/C001066"
         ]
       },
       {
@@ -1199,7 +1219,8 @@
         "name": "Crime & Law Enforcement",
         "stance": "Crime and law enforcement is by far her most frequent sponsored-legislation area; she is a former Florida judge and Secretary of State.",
         "sources": [
-          "https://www.congress.gov/member/L000597?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/L000597?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://bioguide.congress.gov/search/bio/L000597"
         ]
       },
       {
@@ -1426,7 +1447,8 @@
         "name": "Foreign Policy & National Security",
         "stance": "Armed forces and international affairs make up most of his sponsored legislation; he chairs the House Foreign Affairs Committee and is a combat veteran.",
         "sources": [
-          "https://clerk.house.gov/committees/FA00"
+          "https://clerk.house.gov/committees/FA00",
+          "https://mast.house.gov/about-brian"
         ]
       },
       {
@@ -1468,7 +1490,8 @@
         "name": "Emergency Management & Disaster Response",
         "stance": "Emergency management is his most frequent sponsored-legislation area; he is a former director of Florida's Division of Emergency Management.",
         "sources": [
-          "https://www.congress.gov/member/M001217?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/M001217?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://bioguide.congress.gov/search/bio/M001217"
         ]
       },
       {
@@ -1576,7 +1599,9 @@
         "name": "Healthcare",
         "stance": "Sponsors health legislation, including bills addressing cancer survivorship and infant formula access.",
         "sources": [
-          "https://www.congress.gov/member/W000797?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Health%22%7D"
+          "https://www.congress.gov/member/W000797?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Health%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-bill/8839",
+          "https://www.congress.gov/bill/119th-congress/house-bill/9007"
         ]
       }
     ],
@@ -1846,6 +1871,7 @@
         "name": "National Security",
         "stance": "A former Navy SEAL; sponsors national-security legislation.",
         "sources": [
+          "https://crenshaw.house.gov/biography",
           "https://www.congress.gov/member/C001120?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Armed%20Forces%20and%20National%20Security%22%7D"
         ]
       }
@@ -1880,6 +1906,7 @@
         "name": "Veterans & Military",
         "stance": "An Army veteran; sponsored veterans legislation, including the Veterans Hearing Aid Improvement Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/S001224",
           "https://www.congress.gov/bill/119th-congress/house-bill/9001"
         ]
       },
@@ -1996,7 +2023,9 @@
       {
         "name": "Veterans & Military",
         "stance": "A Navy veteran; sponsors military and veterans legislation.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/E000071"
+        ]
       },
       {
         "name": "Healthcare",
@@ -2044,7 +2073,9 @@
         "name": "Healthcare",
         "stance": "Health is among her most frequent sponsored-legislation areas, including reproductive-health legislation.",
         "sources": [
-          "https://www.congress.gov/member/F000468?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/F000468?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-bill/999",
+          "https://www.congress.gov/bill/119th-congress/house-bill/4099"
         ]
       },
       {
@@ -2156,7 +2187,8 @@
         "name": "Foreign Policy & National Security",
         "stance": "International affairs is by far his most frequent sponsored-legislation area; former Chair of the House Foreign Affairs Committee.",
         "sources": [
-          "https://www.congress.gov/member/M001157?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/M001157?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://bioguide.congress.gov/search/bio/M001157"
         ]
       },
       {
@@ -2169,7 +2201,9 @@
       {
         "name": "Homeland Security",
         "stance": "A former Chair of the House Homeland Security Committee.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/M001157"
+        ]
       }
     ],
     "bio": "Michael T. McCaul represents Texas's 10th congressional district, serving since 2005. A former federal prosecutor, he has chaired the House Homeland Security and Foreign Affairs committees.",
@@ -2190,7 +2224,8 @@
         "name": "Energy",
         "stance": "Sponsored oil-and-gas legislation, including the Protect Domestic Oil and Gas Small Business Act; represents the Permian Basin.",
         "sources": [
-          "https://www.congress.gov/bill/119th-congress/house-bill/8990"
+          "https://www.congress.gov/bill/119th-congress/house-bill/8990",
+          "https://pfluger.house.gov/news/documentsingle.aspx?DocumentID=2425"
         ]
       },
       {
@@ -2305,7 +2340,8 @@
         "name": "Energy",
         "stance": "Energy is his most frequent sponsored-legislation area; represents a Gulf Coast district.",
         "sources": [
-          "https://www.congress.gov/member/W000814?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/W000814?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://weber.house.gov/news/documentsingle.aspx?documentid=3692"
         ]
       },
       {
@@ -2345,7 +2381,8 @@
         "name": "Immigration & Border Security",
         "stance": "Immigration is among her most frequent sponsored-legislation areas; represents a South Texas border district.",
         "sources": [
-          "https://www.congress.gov/member/D000594?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/D000594?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://delacruz.house.gov/news/documentsingle.aspx?DocumentID=851"
         ]
       },
       {
@@ -2379,7 +2416,8 @@
         "name": "Immigration & Border",
         "stance": "Immigration is among her most frequent sponsored-legislation areas; represents the El Paso border region.",
         "sources": [
-          "https://www.congress.gov/member/E000299?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/E000299?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://escobar.house.gov/about"
         ]
       },
       {
@@ -2624,6 +2662,7 @@
         "name": "Law Enforcement",
         "stance": "A former sheriff; sponsors law-enforcement legislation.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/N000026",
           "https://www.congress.gov/member/N000026?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Crime%20and%20Law%20Enforcement%22%7D"
         ]
       }
@@ -2833,7 +2872,9 @@
       {
         "name": "Immigration & Border",
         "stance": "Immigration is his most frequent sponsored-legislation area; represents a South Texas border district.",
-        "sources": []
+        "sources": [
+          "https://cuellar.house.gov/biography"
+        ]
       },
       {
         "name": "Border Trade & Infrastructure",
@@ -2878,7 +2919,8 @@
         "name": "Financial Services & Housing",
         "stance": "Finance is her most frequent sponsored-legislation area, including HUD housing legislation.",
         "sources": [
-          "https://www.congress.gov/member/G000587?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/G000587?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-bill/8877"
         ]
       },
       {
@@ -3090,7 +3132,8 @@
         "name": "Immigration & Border",
         "stance": "Immigration is among his frequent sponsored-legislation areas; represents a South Texas border district.",
         "sources": [
-          "https://www.congress.gov/member/G000581?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/G000581?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://gonzalez.house.gov/issues/foreign-relations-trade"
         ]
       },
       {
@@ -3164,7 +3207,9 @@
       {
         "name": "Healthcare",
         "stance": "A dentist; health is among his most frequent sponsored-legislation areas.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/B001291"
+        ]
       },
       {
         "name": "Immigration",
@@ -3255,6 +3300,7 @@
         "name": "Public Safety & Law Enforcement",
         "stance": "An Army veteran; crime and law enforcement is among his frequent sponsored-legislation areas.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/H001095",
           "https://www.congress.gov/member/H001095?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
         ]
       }
@@ -3281,7 +3327,9 @@
       {
         "name": "National Security & Oversight",
         "stance": "A former Chair of the House Intelligence Committee; focuses on national security and government oversight.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/S001150"
+        ]
       },
       {
         "name": "Education & Nutrition",
@@ -3326,6 +3374,7 @@
         "name": "Elections & Voting Access",
         "stance": "A former California Secretary of State; sponsored the Absentee and Mail Voter Protection Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/P000145",
           "https://www.congress.gov/bill/119th-congress/senate-bill/4369"
         ]
       },
@@ -3516,7 +3565,9 @@
       {
         "name": "Gun Violence Prevention",
         "stance": "Chairs the House Gun Violence Prevention Task Force.",
-        "sources": []
+        "sources": [
+          "https://mikethompson.house.gov/about/committee-caucuses"
+        ]
       }
     ],
     "bio": "Mike Thompson represents California's 4th congressional district, serving since 1999. A U.S. Army veteran, he previously served in the California State Assembly.",
@@ -3593,6 +3644,7 @@
         "name": "Healthcare",
         "stance": "A physician; health is among his most frequent sponsored-legislation areas.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/B001287",
           "https://www.congress.gov/member/B001287?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
         ]
       },
@@ -3627,7 +3679,8 @@
         "name": "Healthcare",
         "stance": "Health is by far her most frequent sponsored-legislation area, including mental-health legislation.",
         "sources": [
-          "https://www.congress.gov/member/M001163?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/M001163?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-bill/8487"
         ]
       },
       {
@@ -3662,7 +3715,8 @@
         "name": "Transportation & Infrastructure",
         "stance": "Transportation is his most frequent sponsored-legislation area, including maritime policy.",
         "sources": [
-          "https://www.congress.gov/member/G000559?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/G000559?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://www.congress.gov/bill/118th-congress/house-bill/7719"
         ]
       },
       {
@@ -3775,7 +3829,9 @@
       {
         "name": "Transit & Transportation",
         "stance": "Transportation is her most frequent sponsored-legislation area, including paratransit legislation.",
-        "sources": []
+        "sources": [
+          "https://www.congress.gov/bill/119th-congress/house-bill/8128"
+        ]
       },
       {
         "name": "Crime Survivors & Public Safety",
@@ -3917,7 +3973,8 @@
         "name": "Housing",
         "stance": "Housing is his most frequent sponsored-legislation area; a former mayor of San Jose.",
         "sources": [
-          "https://www.congress.gov/member/L000607?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/L000607?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://bioguide.congress.gov/search/bio/L000607"
         ]
       },
       {
@@ -3958,7 +4015,8 @@
         "name": "National Security & Foreign Policy",
         "stance": "Armed forces and international affairs are among his most frequent sponsored-legislation areas, including war-powers measures.",
         "sources": [
-          "https://www.congress.gov/member/K000389?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/K000389?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-concurrent-resolution/87"
         ]
       },
       {
@@ -3971,7 +4029,9 @@
       {
         "name": "Technology & Economy",
         "stance": "Represents Silicon Valley; focuses on technology and economic policy.",
-        "sources": []
+        "sources": [
+          "https://khanna.house.gov/about/about-rep-khanna"
+        ]
       }
     ],
     "bio": "Ro Khanna represents California's 17th congressional district, serving since 2017.",
@@ -4035,6 +4095,7 @@
         "name": "National Defense & Veterans",
         "stance": "A veteran; armed forces is his most frequent sponsored-legislation area.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/P000613",
           "https://www.congress.gov/member/P000613?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
         ]
       },
@@ -4084,7 +4145,9 @@
       {
         "name": "Energy",
         "stance": "Represents an energy-producing Central Valley district.",
-        "sources": []
+        "sources": [
+          "https://fong.house.gov/media/press-releases/congressman-fong-releases-landmark-video-profiling-californias-20th-district"
+        ]
       }
     ],
     "bio": "Vince Fong represents California's 20th congressional district, serving since 2024. He previously served in the California State Assembly and as a district director for a member of Congress.",
@@ -4111,6 +4174,7 @@
         "stance": "Serves on the Agriculture Committee; represents the Central Valley; sponsored the Rural Development Modernization Act.",
         "sources": [
           "https://clerk.house.gov/members/C001059",
+          "https://costa.house.gov/2025-end-year-report",
           "https://www.congress.gov/bill/119th-congress/house-bill/7609"
         ]
       },
@@ -4144,6 +4208,7 @@
         "stance": "Agriculture is his most frequent sponsored-legislation area; a Central Valley dairy farmer; serves on Appropriations.",
         "sources": [
           "https://www.congress.gov/member/V000129?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://valadao.house.gov/about",
           "https://clerk.house.gov/members/V000129"
         ]
       },
@@ -4258,6 +4323,7 @@
         "name": "Healthcare",
         "stance": "An emergency physician; health is by far his most frequent sponsored-legislation area, including the Community Health Workforce Act.",
         "sources": [
+          "https://ruiz.house.gov/about/biography",
           "https://www.congress.gov/member/R000599?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
           "https://www.congress.gov/bill/119th-congress/house-bill/8629"
         ]
@@ -4330,7 +4396,9 @@
       {
         "name": "Science & Space",
         "stance": "A former NASA chief of staff and space-industry executive; focuses on science and aerospace.",
-        "sources": []
+        "sources": [
+          "https://whitesides.house.gov/about"
+        ]
       },
       {
         "name": "Veterans",
@@ -4414,7 +4482,8 @@
         "name": "STEM Education & Technology",
         "stance": "Sponsored the Computer Science for All Act; has an engineering background.",
         "sources": [
-          "https://www.congress.gov/bill/119th-congress/house-bill/6591"
+          "https://www.congress.gov/bill/119th-congress/house-bill/6591",
+          "https://bioguide.congress.gov/search/bio/R000620"
         ]
       },
       {
@@ -4489,6 +4558,7 @@
         "name": "National Defense & Military Families",
         "stance": "A Navy veteran; armed forces is by far his most frequent sponsored-legislation area, including the PROTECT Military Families Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/C001123",
           "https://www.congress.gov/member/C001123?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
           "https://www.congress.gov/bill/119th-congress/house-bill/6958"
         ]
@@ -4576,7 +4646,9 @@
       {
         "name": "House Leadership",
         "stance": "Serves as Chair of the House Democratic Caucus.",
-        "sources": []
+        "sources": [
+          "https://www.house.gov/leadership"
+        ]
       },
       {
         "name": "Appropriations & Federal Funding",
@@ -4805,7 +4877,8 @@
         "name": "Veterans",
         "stance": "Armed forces is by far his most frequent sponsored-legislation area; ranking member of the House Veterans' Affairs Committee.",
         "sources": [
-          "https://www.congress.gov/member/T000472?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/T000472?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://democrats-veterans.house.gov/about/ranking-member"
         ]
       },
       {
@@ -4921,7 +4994,9 @@
         "name": "Government Oversight",
         "stance": "Government operations is his most frequent sponsored-legislation area; ranking member of the House Oversight Committee; a former mayor of Long Beach.",
         "sources": [
-          "https://www.congress.gov/member/G000598?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/G000598?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://oversightdemocrats.house.gov/about/members",
+          "https://bioguide.congress.gov/search/bio/G000598"
         ]
       },
       {
@@ -4962,7 +5037,9 @@
       {
         "name": "Financial Services",
         "stance": "Finance is by far her most frequent sponsored-legislation area; ranking member of the House Financial Services Committee.",
-        "sources": []
+        "sources": [
+          "https://democrats-financialservices.house.gov/about/"
+        ]
       },
       {
         "name": "Housing",
@@ -5038,6 +5115,7 @@
         "name": "Veterans & Military",
         "stance": "An Army veteran; armed forces is his most frequent sponsored-legislation area, including the Veterans' Benefits Improvement Act.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/T000491",
           "https://www.congress.gov/member/T000491?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
           "https://www.congress.gov/bill/119th-congress/house-bill/8066"
         ]
@@ -5384,6 +5462,7 @@
         "name": "National Defense & Veterans",
         "stance": "A Navy veteran; armed forces is by far his most frequent sponsored-legislation area.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/L000598",
           "https://www.congress.gov/member/L000598?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
         ]
       },
@@ -5535,7 +5614,8 @@
         "name": "Foreign Policy",
         "stance": "International affairs is by far his most frequent sponsored-legislation area; ranking member of the House Foreign Affairs Committee.",
         "sources": [
-          "https://www.congress.gov/member/M001137?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/M001137?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://democrats-foreignaffairs.house.gov/chairman"
         ]
       },
       {
@@ -5588,7 +5668,8 @@
         "name": "Civil Rights & Anti-Hate",
         "stance": "Sponsors civil-rights legislation, including measures addressing hate crimes.",
         "sources": [
-          "https://www.congress.gov/member/M001188?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Civil%20Rights%20and%20Liberties%2C%20Minority%20Issues%22%7D"
+          "https://www.congress.gov/member/M001188?q=%7B%22sponsorship%22%3A%22sponsored%22%2C%22subject%22%3A%22Civil%20Rights%20and%20Liberties%2C%20Minority%20Issues%22%7D",
+          "https://www.congress.gov/bill/119th-congress/house-bill/9066"
         ]
       }
     ],
@@ -5610,7 +5691,8 @@
         "name": "Small Business",
         "stance": "Commerce is her most frequent sponsored-legislation area; ranking member of the House Small Business Committee.",
         "sources": [
-          "https://www.congress.gov/member/V000081?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/V000081?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://democrats-smallbusiness.house.gov/about/chairwoman-velazquez.htm"
         ]
       },
       {
@@ -5693,7 +5775,9 @@
       {
         "name": "Justice & Oversight",
         "stance": "A former federal prosecutor; crime and government oversight are among his most frequent sponsored-legislation areas.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/G000599"
+        ]
       },
       {
         "name": "Immigration",
@@ -5767,7 +5851,9 @@
       {
         "name": "Judiciary & Civil Liberties",
         "stance": "A former Chair of the House Judiciary Committee; sponsors judiciary and civil-liberties legislation.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/N000002"
+        ]
       },
       {
         "name": "Crime & Justice",
@@ -5884,7 +5970,9 @@
       {
         "name": "Local Government & Economy",
         "stance": "A former Westchester County Executive; focuses on local-government and economic issues.",
-        "sources": []
+        "sources": [
+          "https://bioguide.congress.gov/search/bio/L000606"
+        ]
       },
       {
         "name": "Consumer & Small Business",
@@ -5961,6 +6049,7 @@
         "name": "National Defense & Veterans",
         "stance": "An Army veteran and West Point graduate; armed forces is by far his most frequent sponsored-legislation area.",
         "sources": [
+          "https://bioguide.congress.gov/search/bio/R000579",
           "https://www.congress.gov/member/R000579?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
         ]
       },
@@ -6220,7 +6309,8 @@
         "name": "Government Operations & Elections",
         "stance": "Government operations is among his most frequent sponsored-legislation areas; ranking member of the House Administration Committee.",
         "sources": [
-          "https://www.congress.gov/member/M001206?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/M001206?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://democrats-cha.house.gov/about/rankingmember-joseph-morelle"
         ]
       },
       {
@@ -6269,7 +6359,8 @@
         "name": "Transportation & Infrastructure",
         "stance": "Transportation is among his most frequent sponsored-legislation areas; represents the Buffalo region.",
         "sources": [
-          "https://www.congress.gov/member/K000402?q=%7B%22sponsorship%22%3A%22sponsored%22%7D"
+          "https://www.congress.gov/member/K000402?q=%7B%22sponsorship%22%3A%22sponsored%22%7D",
+          "https://kennedy.house.gov/about/our-district.htm"
         ]
       },
       {
