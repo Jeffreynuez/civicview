@@ -18,7 +18,7 @@ import { useTutorialSeen, openTutorial } from '@/lib/tutorial';
 import NotificationBellMenu from '@/components/NotificationBellMenu';
 import CivicViewLogo from '@/components/brand/CivicViewLogo';
 import IdentitySwitcher from '@/components/IdentitySwitcher';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
 
 export default function Navbar({
@@ -638,17 +638,20 @@ export default function Navbar({
                       CANDIDATE
                     </span>
                   )}
-                  <span
-                    style={{
-                      padding: '2px 8px', borderRadius: '10px',
-                      fontSize: '0.7rem', fontWeight: 700,
-                      background: item.party === 'R' ? '#fde8e8' : item.party === 'D' ? '#e3f0f7' : '#f0eaff',
-                      color: PARTY_TEXT_COLORS[item.party] || PARTY_TEXT_COLORS.I,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {item.party || 'I'}
-                  </span>
+                  {partyInfo(item.party) && (
+                    <span
+                      title={partyInfo(item.party).label}
+                      style={{
+                        padding: '2px 8px', borderRadius: '10px',
+                        fontSize: '0.7rem', fontWeight: 700,
+                        background: partyStyle(item.party).tint,
+                        color: partyStyle(item.party).text,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {partyInfo(item.party).short}
+                    </span>
+                  )}
                 </button>
               );
             })}

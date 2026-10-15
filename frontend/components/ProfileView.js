@@ -46,11 +46,9 @@ import PhotoCredit from './PhotoCredit';
 import BillReactions from './bills/BillReactions';
 import { BillScopeProvider } from './bills/BillScope';
 import { geoForMember } from '@/lib/billReactions';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
 import { currentCongress } from '@/lib/congress';
+import { partyInfo, partyStyle } from '@/lib/party';
 
-const PARTY_COLORS = { R: '#e63946', D: '#457b9d', I: '#6c3ec1' };
-const PARTY_NAMES = { R: 'Republican', D: 'Democrat', I: 'Independent' };
 
 // Per-role tab configuration. Congress members fall through to 'congress'
 // so the existing US-Senate/US-House behavior is preserved.
@@ -295,8 +293,13 @@ export default function ProfileView({
   const [govActionsState, setGovActionsState] = useState({ loading: false, loaded: false, data: null, isLive: false });
   const [stateCasesState, setStateCasesState] = useState({ loading: false, loaded: false, data: null, isLive: false });
 
-  const party = member.party || 'I';
-  const partyFull = PARTY_NAMES[party] || 'Independent';
+  // The official's party as their source writes it (lib/party.js), or
+  // none at all: an appointed official whose sources give no party
+  // shows only the selection badge, never a guessed "Independent".
+  const partyMeta = partyInfo(member.party);
+  const party = partyMeta?.code || '';
+  const partyFull = partyMeta?.label || '';
+  const partyColors = partyStyle(party);
   // Photo URL — accept the three naming conventions in use across
   // the codebase. Congress members loaded via GovTrack carry
   // `image` (the unitedstates.github.io/images/congress/225x275
@@ -832,15 +835,17 @@ export default function ProfileView({
               </CompactIconButton>
             )}
           </div>
-          <span style={{
-            display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
-            fontSize: '0.7rem', fontWeight: 700,
-            background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I,
-            flexShrink: 0,
-          }}>
-            {party}
-          </span>
+          {partyMeta && (
+            <span title={partyFull} style={{
+              display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
+              fontSize: '0.7rem', fontWeight: 700,
+              background: partyColors.tint,
+              color: partyColors.text,
+              flexShrink: 0,
+            }}>
+              {partyMeta.short}
+            </span>
+          )}
         </div>
       )}
 
@@ -873,13 +878,15 @@ export default function ProfileView({
           </p>
         )}
         <p style={{ fontSize: '0.82rem', color: 'var(--cl-text-light)' }}>
-          <span style={{
-            display: 'inline-block', padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
-            background: party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : '#f0eaff',
-            color: PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I, marginRight: '6px',
-          }}>
-            {partyFull}
-          </span>
+          {partyMeta && (
+            <span style={{
+              display: 'inline-block', padding: '2px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 700,
+              background: partyColors.tint,
+              color: partyColors.text, marginRight: '6px',
+            }}>
+              {partyFull}
+            </span>
+          )}
           {member.active_candidacy && (
             <>
               <OnBallotBadge
@@ -952,9 +959,9 @@ export default function ProfileView({
                 fontSize: isMobile ? '0.9rem' : '0.82rem',
                 fontWeight: 600,
                 cursor: 'pointer',
-                background: isComparing ? `${PARTY_COLORS[party]}14` : 'white',
-                color: isComparing ? (PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I) : 'var(--cl-text)',
-                border: isComparing ? `1.5px solid ${PARTY_COLORS[party]}` : '1px solid var(--cl-border)',
+                background: isComparing ? `${partyColors.fill}14` : 'white',
+                color: isComparing ? partyColors.text : 'var(--cl-text)',
+                border: isComparing ? `1.5px solid ${partyColors.fill}` : '1px solid var(--cl-border)',
                 minHeight: isMobile ? 44 : undefined,
               }}
             >
@@ -1239,8 +1246,8 @@ function OverviewTab({ member, role, statsState, onRetryStats }) {
 }
 
 function StatsBlock({ party, stats, loading }) {
-  const partyColor = PARTY_COLORS[party] || PARTY_COLORS.I;
-  const partyText = PARTY_TEXT_COLORS[party] || PARTY_TEXT_COLORS.I;
+  const partyColor = partyStyle(party).fill;
+  const partyText = partyStyle(party).text;
   const pct = stats?.party_line_pct;
   const analyzed = stats?.votes_analyzed || 0;
   const issues = stats?.top_issues || [];

@@ -81,10 +81,12 @@ is ahead of it, record that in app/data/state_officials_corrections.json
   it short or wrong (and the family name the new id is built from).
 * party: the party an official source gives (certified election
   results, the legislature's roster) when Open States or our own
-  record has it wrong.
-* exclude: a statewide officeholder not to add, with the reason (for
-  example an appointed office with no party on any official source,
-  which the profile would otherwise show as "Independent").
+  record has it wrong, including the state's own word for no party
+  ("U" Unaffiliated, "NA" Not Affiliated, "UNE" Unenrolled, "NPA" No
+  Party Affiliation, "TM" Tribal Member). A party of null means the
+  official has none (an appointed office with no party on any official
+  source), and no party label shows.
+* exclude: a statewide officeholder not to add, with the reason.
 Every run reports each correction; once Open States agrees, the report
 says the correction can be deleted.
 
@@ -148,16 +150,22 @@ DEFAULT_LABELS = {
     "state_house": ("State House", "State Representative"),
 }
 
-# Party names as Open States writes them -> the one-letter codes the app
-# shows. Fusion tickets ("Republican/Conservative") use the first party.
-# Nebraska's officially nonpartisan senators have always been stored as
-# "I"; that is kept so this refresh changes no labels.
+# Party names as Open States writes them -> the codes the app shows
+# (frontend/lib/party.js maps each code to its label). Fusion tickets
+# ("Republican/Conservative") use the first party. Nebraska's officially
+# nonpartisan senators are "NP" (shown "Nonpartisan"; until 2026-10-15
+# they were stored as "I" and shown as Independent). Where a state's own
+# word differs from Open States' ("Unaffiliated" in North Carolina, "Not
+# Affiliated" in Alaska, "Unenrolled" in Massachusetts and Maine, "No
+# Party Affiliation" in Florida), a party entry in
+# state_officials_corrections.json gives it, with its source.
 PARTY_CODE = {
     "Republican": "R",
     "Democratic": "D",
     "Democratic-Farmer-Labor": "D",
     "Independent": "I",
-    "Nonpartisan": "I",
+    "Nonpartisan": "NP",
+    "Unaffiliated": "U",
     "Forward": "F",
     "Libertarian": "L",
     "Green": "G",
@@ -616,7 +624,7 @@ class StateRefresher:
             "photo_url": None,
             "contact": {},
         }
-        if current_party(person) and not rec["party"]:
+        if current_party(person) and not rec["party"] and not self.corrected_party(person)[1]:
             self.report.unverified.append(
                 f"{rec['id']}: party {current_party(person)!r} has no code; stored as given")
             rec["party"] = current_party(person)
@@ -883,8 +891,17 @@ class StateRefresher:
                 elif rtype in EXEC_OFFICES:
                     holders[rtype].append({**person, "_role": role})
                 elif rtype in SKIPPED_EXEC_TYPES:
-                    self.report.notes.append(
-                        f"skipped {person['name']} ({rtype}): election administrator, not carried")
+                    kept = next((c for c in exe.get("cabinet") or []
+                                 if c.get("openstates_id") == person["id"]), None)
+                    if kept:
+                        # An elected officeholder Open States types as an
+                        # election administrator (Massachusetts' Secretary
+                        # of the Commonwealth). The curated record stays.
+                        self.report.notes.append(
+                            f"{kept['id']} ({kept.get('name')}): kept; Open States types the office {rtype}")
+                    else:
+                        self.report.notes.append(
+                            f"skipped {person['name']} ({rtype}): election administrator, not carried")
 
         cabinet = list(exe.get("cabinet") or [])
         for rtype, (slot, label, stem) in EXEC_OFFICES.items():
@@ -949,7 +966,11 @@ class StateRefresher:
             "id": self.new_id(f"{self.state}-{stem}", person),
             "openstates_id": person["id"],
             "name": person["name"],
-            "party": self.corrected_party(person)[0] or current_party(person),
+            # A correction can say there is no party (an appointed office
+            # whose sources give none); only without one does Open States'
+            # own wording stand in for a missing code.
+            "party": (self.corrected_party(person)[0] if self.corrected_party(person)[1]
+                      else (self.corrected_party(person)[0] or current_party(person))),
             "role": label,
             "office": "Executive Office of the Governor" if slot == "governor" else "Executive",
         }

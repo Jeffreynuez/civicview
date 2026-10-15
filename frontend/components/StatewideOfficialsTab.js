@@ -8,7 +8,7 @@ import { fetchStateOfficials } from '@/lib/api';
 import FollowButton from './FollowButton';
 import { LoadError } from './ui';
 import CompareButton from './CompareButton';
-import { PARTY_TEXT_COLORS } from '@/lib/constants';
+import { partyInfo, partyStyle } from '@/lib/party';
 
 
 /**
@@ -557,9 +557,11 @@ function OfficialCard({
   onClick, followTarget, onNotify, onCompareToggle, compareIds,
 }) {
   // Initials and the pill sit on the party tint, so they use the text
-  // shades (audit F6).
-  const partyColor = party ? (PARTY_TEXT_COLORS[party] || '#666') : null;
-  const partyBg = party === 'R' ? '#fde8e8' : party === 'D' ? '#e3f0f7' : party === 'I' ? '#f0eaff' : '#eef';
+  // shades (audit F6). The pill shows the label as the official source
+  // writes it (lib/party.js); with no party there is no pill.
+  const partyMeta = partyInfo(party);
+  const partyColor = partyMeta ? partyStyle(partyMeta.code).text : null;
+  const partyBg = partyMeta ? partyStyle(partyMeta.code).tint : null;
   const clickable = typeof onClick === 'function';
   const memberCmpId = followTarget && (followTarget.bioguide_id || followTarget.id);
   const isComparing = Boolean(compareIds && memberCmpId && compareIds.has(memberCmpId));
@@ -640,13 +642,13 @@ function OfficialCard({
         )}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-        {party && (
-          <span style={{
+        {partyMeta && (
+          <span title={partyMeta.label} style={{
             padding: '2px 8px', borderRadius: '10px',
             background: partyBg, color: partyColor,
             fontSize: '0.68rem', fontWeight: 800,
           }}>
-            {party}
+            {partyMeta.short}
           </span>
         )}
         <SelectionBadge

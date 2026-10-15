@@ -1335,7 +1335,8 @@ class CongressService:
                 roster.append({
                     "bioguide_id": bioguide,
                     "name": m.get("name") or "",
-                    "party": party_by_bg.get(bioguide) or "I",
+                    # Unknown stays unknown (no party label), never "I".
+                    "party": party_by_bg.get(bioguide) or None,
                     "state": state_by_bg.get(bioguide),
                     "title": m.get("title") or "",
                     "rank": m.get("rank"),

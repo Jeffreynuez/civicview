@@ -43,6 +43,12 @@ federal/federal_officials.json):
        2026-10-14 the record for Kentucky Rep. Samara Heavrin, House
        District 18, carried Rep. Ryan Dotson's address, the one on his
        own House District 73 record)
+  O-4  every official's party is a code frontend/lib/party.js knows,
+       or null for none (until 2026-10-15 every non-party status was
+       stored as "I" and an empty party showed as "Independent"; the
+       codes now carry the state's own word: NP Nonpartisan, U
+       Unaffiliated, NA Not Affiliated, UNE Unenrolled, NPA No Party
+       Affiliation, TM Tribal Member)
 Photo credits:
   P-1  every Wikimedia Commons photo in the data has an entry in
        photo_credits.json with a file page and a license, and every
@@ -77,6 +83,9 @@ HTTP_ONLY_HOSTS = {
     # not tell whether https works. Left as Open States supplied them.
     "billstatus.ls.state.ms.us",
 }
+
+# Party codes frontend/lib/party.js maps to a label (rule O-4).
+PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
 
 # Addresses two people share in the data, checked by hand on
 # 2026-10-14. Open States gives both members the same address and
@@ -353,6 +362,22 @@ def lint_officials(path: Path) -> None:
     for email, owners in emails.items():
         if len(owners) > 1 and email not in SHARED_EMAILS_UNRESOLVED:
             problem("O-3", where, f"{email} is on {len(owners)} records: {', '.join(owners)}")
+
+    def parties(node):
+        if isinstance(node, dict):
+            if "party" in node and "name" in node and "id" in node:
+                yield node
+            for k, v in node.items():
+                if not str(k).startswith("_"):
+                    yield from parties(v)
+        elif isinstance(node, list):
+            for v in node:
+                yield from parties(v)
+
+    for rec in parties(doc):
+        code = rec.get("party")
+        if code is not None and code not in PARTY_CODES:
+            problem("O-4", where, f"{rec.get('id')}: party {code!r} is not a known code")
 
 
 WIKIMEDIA_RE = re.compile(r"https://upload\.wikimedia\.org/wikipedia/commons/[^\s\"]+")

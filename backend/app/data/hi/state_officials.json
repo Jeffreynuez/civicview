@@ -38,12 +38,21 @@
       {
         "id": "hi-exec-attorney-general",
         "name": "Anne Lopez",
-        "party": "I",
+        "party": "D",
         "role": "Attorney General",
         "office": "Executive",
-        "website": null,
+        "website": "https://ag.hawaii.gov/",
         "photo_url": "https://www.naag.org/wp-content/uploads/2023/01/ag-HI-Lopez-2024.jpg",
-        "openstates_id": "ocd-person/8145b3ac-aaee-43d1-a534-d51d5e80f178"
+        "openstates_id": "ocd-person/8145b3ac-aaee-43d1-a534-d51d5e80f178",
+        "selection_method": "appointed",
+        "normally_elected": false,
+        "selection_detail": "Appointed by Gov. Josh Green and confirmed by the State Senate on April 25, 2023.",
+        "sources": [
+          "https://ag.hawaii.gov/about-us/overview/",
+          "https://ag.hawaii.gov/wp-content/uploads/2023/08/HI-Attorney-General-Anne-E.-Lopez.pdf",
+          "https://data.capitol.hawaii.gov/sessions/session2023/bills/GM502_.PDF",
+          "https://www.capitol.hawaii.gov/session/measure_indiv.aspx?billtype=GM&billnumber=502&year=2023"
+        ]
       }
     ]
   },

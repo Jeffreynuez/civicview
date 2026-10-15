@@ -64,6 +64,26 @@
         "office": "Executive",
         "website": "https://www.mass.gov/orgs/office-of-the-state-auditor",
         "photo_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Diana_DiZoglio%2C_State_Auditor.png"
+      },
+      {
+        "id": "ma-exec-secretary-of-the-commonwealth-galvin",
+        "openstates_id": "ocd-person/ead7f955-7ff0-4ac0-bc29-35688074b79f",
+        "name": "William Francis Galvin",
+        "party": "D",
+        "role": "Secretary of the Commonwealth",
+        "office": "Executive",
+        "website": "https://www.sec.state.ma.us/",
+        "photo_url": null,
+        "serving_since": "1995",
+        "contact": {
+          "capitol_office": "State House, Room 340, Boston, MA 02133",
+          "capitol_phone": "617-727-9180"
+        },
+        "sources": [
+          "https://www.sec.state.ma.us/divisions/cis/government/constitutional-officers.htm",
+          "https://electionstats.state.ma.us/elections/view/154341/",
+          "https://electionstats.state.ma.us/elections/search/year_from:1990/year_to:1994/office_id:45/stage:General"
+        ]
       }
     ]
   },
@@ -1983,7 +2003,7 @@
         "id": "ma-rep-2nd Franklin",
         "openstates_id": "ocd-person/76b07f35-1876-4259-9c0a-bdf595541c39",
         "name": "Susannah Whipps",
-        "party": "I",
+        "party": "UNE",
         "chamber": "State House",
         "district": "2nd Franklin",
         "role": "State Representative",
