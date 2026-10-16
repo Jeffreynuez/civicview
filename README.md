@@ -148,6 +148,8 @@ flow.
 - **pyotp** + **cryptography (Fernet)** for TOTP 2FA
 - **httpx** for outbound HTTP (federal data, ID.me)
 - **boto3** for Cloudflare R2 (S3-compatible)
+- **Pillow** to strip hidden metadata (EXIF, GPS location) from uploaded
+  post images before they are stored
 - **postmarker** for transactional email
 - **stripe** for subscription billing
 - **anthropic** for AI features (Claude Haiku — bill summaries, vote
@@ -197,7 +199,7 @@ backend boots cleanly in any environment.
 | Service | Module | Production backend | Dev fallback | Required env vars |
 | --- | --- | --- | --- | --- |
 | Image storage | `services/image_storage.py` | `R2Storage` | `LocalDiskStorage` | `R2_ACCOUNT_ID` + `R2_ACCESS_KEY_ID` + `R2_SECRET_ACCESS_KEY` + `R2_BUCKET_NAME` |
-| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (sends nothing; logs the recipient only) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
+| Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (sends nothing; logs the masked recipient only) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
 | Billing | `services/stripe_service.py` | `StripeBillingService` | `DevBillingService` (returns about:blank) | `STRIPE_API_KEY` + `STRIPE_PRICE_ID` + `STRIPE_WEBHOOK_SECRET` |
 | Identity verification | `services/idme_service.py` | `IdMeService` | `DevIdMeService` (fail-closed) | `IDME_CLIENT_ID` + `IDME_CLIENT_SECRET` + `IDME_REDIRECT_URI` |
 
@@ -1051,6 +1053,20 @@ source and retrieved-date rules and an example are in
 [`docs/election-reminders.md`](./docs/election-reminders.md). Sending is
 off until `ELECTION_REMINDERS_ENABLED=true` is set on Render; check
 Admin, Election reminders first.
+
+---
+
+## Site notice
+
+The privacy policy and the Terms promise a notice on CivicView at
+least 30 days before a material change. Set `SITE_NOTICE_TEXT` on
+Render (and optionally `SITE_NOTICE_URL`, a "Read more" link such as
+`/privacy` or a full `https://` address) and a small banner appears at
+the top of every page on the site and in the apps; unset the text to
+take it down. Each browser can dismiss it once per notice: a new text
+or link shows again. Served by `GET /api/app/notice`
+(`backend/app/routers/app_meta.py`), shown by
+`frontend/components/SiteNoticeBanner.js`.
 
 ---
 

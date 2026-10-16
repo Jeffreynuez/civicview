@@ -96,3 +96,9 @@ defusedxml>=0.7.1
 # shutdown does not affect topic calls. 7.7.0 is already the locked
 # version, so requirements.txt does not change.
 firebase-admin>=7.7.0,<8
+
+# Post images (2026-10-16): uploads are decoded and re-encoded without
+# their metadata (EXIF, including GPS location, XMP, comments, text
+# chunks) in services/image_storage.strip_image_metadata. The EXIF
+# orientation is applied to the pixels first so photos stay upright.
+Pillow>=11,<13

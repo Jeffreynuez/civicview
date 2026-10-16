@@ -30,6 +30,8 @@ import os
 
 import httpx
 
+from app.services.log_redaction import mask_email
+
 logger = logging.getLogger(__name__)
 
 _BREVO_CONTACTS_URL = "https://api.brevo.com/v3/contacts"
@@ -121,11 +123,23 @@ def sync_waitlist_contact(
         # 201 = created, 204 = updated (existing contact via updateEnabled).
         if resp.status_code in (200, 201, 204):
             return True
+        # Brevo's error code only, not its message, which can repeat
+        # the address.
         logger.warning(
             "Brevo waitlist sync non-2xx for email=%s: %s %s",
-            email, resp.status_code, resp.text[:300],
+            mask_email(email), resp.status_code, _brevo_error_code(resp),
         )
         return False
     except Exception:
-        logger.exception("Brevo waitlist sync failed for email=%s", email)
+        logger.exception("Brevo waitlist sync failed for email=%s", mask_email(email))
         return False
+
+
+def _brevo_error_code(resp) -> str:
+    """Brevo's machine-readable error code ("duplicate_parameter"...)."""
+    try:
+        body = resp.json()
+    except Exception:
+        return "(no JSON body)"
+    code = body.get("code") if isinstance(body, dict) else None
+    return str(code)[:64] if code else "(no code)"

@@ -72,7 +72,8 @@ export default function LocationPrompt() {
 
   if (!open) return null;
 
-  const lockedState = citizen?.verified ? String(citizen.state || '').toUpperCase() || null : null;
+  // Only a real verification fixes the state (server: verified_person).
+  const lockedState = citizen?.verified_person ? String(citizen.state || '').toUpperCase() || null : null;
   const canSave = locationComplete({ ...value, state: lockedState || value.state }) && !busy;
 
   const save = async () => {

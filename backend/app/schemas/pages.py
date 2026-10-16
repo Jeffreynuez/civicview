@@ -541,12 +541,15 @@ class RepEventRead(BaseModel):
 
 # ── Page payload ──────────────────────────────────────────────────────
 class PageOwnerInfo(BaseModel):
-    """The rep who owns the page. Null when unclaimed."""
+    """The rep who owns the page. Null when unclaimed.
+
+    Public: every visitor receives it. The account's last sign-in time
+    is deliberately not here (2026-10-16); it is a security record, not
+    page content."""
     model_config = ConfigDict(from_attributes=True)
     id: int
     display_name: str
     role: Optional[str] = None
-    last_login_at: Optional[datetime] = None
 
 
 class PageResponse(BaseModel):
@@ -661,6 +664,12 @@ class CitizenMeResponse(BaseModel):
     zip_code: Optional[str] = None
     congressional_district: Optional[str] = None
     verified: bool = False
+    # The rule the server uses for "this is a verified person"
+    # (services/verified_identity.is_verified_person, read through
+    # CitizenAccount.verified_person): verified by a real method such as
+    # ID.me, never a demo grant or a flag set by hand. The UI's
+    # "Verified citizen" badge reads this, not `verified` (2026-10-16).
+    verified_person: bool = False
     # 2FA Phase 4 — citizens are opt-in for 2FA, so this is always
     # False. Field kept for shape symmetry with the rep / candidate
     # /me responses so a generic identity-aware client can read it
@@ -878,6 +887,8 @@ class CitizenAuthorSummary(BaseModel):
     """Lightweight identity payload for the poll author. Includes the
     'Unverified' geography so the UI can render 'Citizen · FL · Naples'
     style chips without knowing about the canonical citizen schema.
+    `verified` follows is_verified_person (2026-10-16), so a demo grant
+    or a hand-set flag still reads as Unverified.
     """
     model_config = ConfigDict(from_attributes=True)
     id: int

@@ -23,7 +23,7 @@ import {
   WarningCircle,
   MapPin,
 } from './ui';
-import { formatDistrict } from '@/lib/usStates';
+import { formatDistrict, yourDistrictLine } from '@/lib/usStates';
 
 // Phase 4C: party colors resolve through canonical --cl-* tokens. NP
 // (non-partisan races, common at the local level) keeps a neutral grey
@@ -206,8 +206,8 @@ export default function BallotTab({
   // signed in and their state matches stateCode, treat as registered.
   // When their state differs, this is the out-of-state-visitor case
   // from the design (banner explaining they're browsing FL's ballot
-  // but verified for a different district). When citizen is null,
-  // we omit the banner entirely.
+  // while their account is in a different district). When citizen is
+  // null, we omit the banner entirely.
   const voterStatus = citizen
     ? (citizen.state === stateCode
         ? { kind: 'registered',  district: citizen.congressional_district, state: citizen.state, city: citizen.city }
@@ -1774,9 +1774,13 @@ function SupportOppose({ label, items, color }) {
 // Sits at the top of BallotTab when a citizen is signed in. Two
 // variants from the design:
 //   - kind: 'registered'   — accent-soft tinted card, check-circle
-//                            icon, "You're registered to vote in FL-19"
+//                            icon, "Your district: FL-19" (the kind name
+//                            is historical: CivicView can't know voter
+//                            registration, so the banner never claims it)
 //   - kind: 'out-of-state' — warning-soft tinted card, warning-circle,
-//                            "You're not verified to vote in FL"
+//                            "You're viewing FL's ballot". The account's
+//                            district is self-entered for demo accounts,
+//                            so it is never called "verified" (2026-10-16).
 function VoterStatusBanner({ status }) {
   if (status.kind === 'out-of-state') {
     return (
@@ -1803,7 +1807,7 @@ function VoterStatusBanner({ status }) {
               color: 'var(--cl-warning-text)',
             }}
           >
-            You&rsquo;re not verified to vote in {status.browsing}
+            You&rsquo;re viewing {status.browsing}&rsquo;s ballot
           </div>
           <div
             style={{
@@ -1813,8 +1817,8 @@ function VoterStatusBanner({ status }) {
               lineHeight: 'var(--cl-leading-snug)',
             }}
           >
-            This is {status.browsing}&rsquo;s ballot. Your verified district
-            is {formatDistrict(status.district) || status.state}.
+            Your account&rsquo;s district is{' '}
+            {formatDistrict(status.district) || status.state}, in another state.
           </div>
         </div>
       </div>
@@ -1845,7 +1849,7 @@ function VoterStatusBanner({ status }) {
             color: 'var(--cl-text)',
           }}
         >
-          You&rsquo;re registered to vote in {formatDistrict(status.district) || status.state}
+          {yourDistrictLine(status.district, status.state)}
         </div>
         <div
           style={{

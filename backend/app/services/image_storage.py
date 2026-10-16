@@ -266,3 +266,234 @@ def _r2_env_present() -> bool:
     """True iff every required R2 env var is set + non-empty."""
     required = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET_NAME")
     return all((os.getenv(name) or "").strip() for name in required)
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Metadata stripping (2026-10-16)
+# ─────────────────────────────────────────────────────────────────────
+# Uploaded post images are public, and a photo straight off a phone
+# carries EXIF: where it was taken (GPS), when, and the device. Every
+# upload is decoded and re-encoded from its pixels alone before it is
+# stored, so none of that is kept: no EXIF, no XMP, no JPEG comments,
+# no PNG text chunks, no embedded color profile and no secondary
+# images (the depth or preview images some phones attach as MPO).
+#
+# What is kept is what you see: the EXIF orientation is applied to the
+# pixels first, so a photo shot sideways stays upright; a non-sRGB color
+# profile (an iPhone's Display P3, say) is converted to sRGB so colors
+# look the same without the profile; PNG transparency, animation frames
+# and timing are kept; and the format stays the same (a JPEG stays a
+# JPEG, a lossless WebP stays lossless). A JPEG that needs no rotation
+# or color conversion keeps its original quantization tables, so it is
+# not degraded by the re-encode.
+
+# Decoded size limit, across all frames. 50 megapixels admits a 48 MP
+# phone photo and keeps a small file that expands into an enormous
+# image (a decompression bomb) from exhausting the server's memory.
+MAX_DECODED_PIXELS = 50_000_000
+
+# Pillow's format name -> the content type we store and serve. MPO is a
+# JPEG with extra images appended; it is stored as a plain JPEG.
+_FORMAT_CONTENT_TYPES = {
+    "JPEG": "image/jpeg",
+    "MPO": "image/jpeg",
+    "PNG": "image/png",
+    "WEBP": "image/webp",
+}
+_SAVE_FORMAT = {"JPEG": "JPEG", "MPO": "JPEG", "PNG": "PNG", "WEBP": "WEBP"}
+_ORIENTATION_TAG = 0x0112
+
+
+class ImageRejected(ValueError):
+    """The upload can't be stored. str(error) is a message for the user."""
+
+
+def strip_image_metadata(data: bytes) -> tuple[bytes, str]:
+    """Return (clean bytes, content type) for an uploaded image.
+
+    The content type comes from the file's actual format, not from what
+    the browser declared. Raises ImageRejected for anything that is not
+    a readable JPEG, PNG or WebP, or that decodes to more than
+    MAX_DECODED_PIXELS."""
+    from io import BytesIO
+
+    from PIL import Image
+
+    try:
+        src = Image.open(BytesIO(data))
+        fmt = src.format
+        if fmt not in _FORMAT_CONTENT_TYPES:
+            raise ImageRejected("Only JPEG, PNG, and WebP images are supported.")
+        # MPO reports its appended images as frames; they are not an
+        # animation and are dropped with the rest of the metadata.
+        frames = 1 if fmt == "MPO" else int(getattr(src, "n_frames", 1) or 1)
+        width, height = src.size
+        if width * height * frames > MAX_DECODED_PIXELS:
+            raise ImageRejected("This image is too large to process. Please upload a smaller one.")
+        out = BytesIO()
+        if _SAVE_FORMAT[fmt] == "JPEG":
+            _save_jpeg(src, fmt, out)
+        elif frames > 1:
+            _save_animated(src, fmt, data, out)
+        else:
+            _save_still(src, fmt, data, out)
+    except ImageRejected:
+        raise
+    except Exception as e:
+        # Pillow raises a range of types for a damaged or disguised file
+        # (UnidentifiedImageError, SyntaxError, struct.error, ...).
+        raise ImageRejected("This file couldn't be read as an image.") from e
+    return out.getvalue(), _FORMAT_CONTENT_TYPES[fmt]
+
+
+def _orientation(im) -> int:
+    try:
+        return int(im.getexif().get(_ORIENTATION_TAG, 1) or 1)
+    except Exception:
+        return 1
+
+
+def _transpose_method(orientation: int):
+    from PIL import Image
+
+    return {
+        2: Image.Transpose.FLIP_LEFT_RIGHT,
+        3: Image.Transpose.ROTATE_180,
+        4: Image.Transpose.FLIP_TOP_BOTTOM,
+        5: Image.Transpose.TRANSPOSE,
+        6: Image.Transpose.ROTATE_270,
+        7: Image.Transpose.TRANSVERSE,
+        8: Image.Transpose.ROTATE_90,
+    }.get(orientation)
+
+
+_CONVERTIBLE_MODES = {"RGB": "RGB", "RGBA": "RGBA", "CMYK": "RGB"}
+
+
+def _foreign_profile(icc, mode: str) -> Optional[bytes]:
+    """The embedded color profile when converting to sRGB would change
+    how the image looks; None when there is none, it is sRGB, or the
+    image's mode is one LittleCMS can't convert (the profile is then
+    simply dropped)."""
+    if not icc or mode not in _CONVERTIBLE_MODES:
+        return None
+    try:
+        from io import BytesIO
+
+        from PIL import ImageCms
+
+        desc = ImageCms.getProfileDescription(ImageCms.ImageCmsProfile(BytesIO(icc))) or ""
+    except Exception:
+        return None  # unreadable profile: dropped, nothing to convert from
+    return None if "srgb" in desc.lower() else icc
+
+
+def _to_srgb(im, icc: Optional[bytes]):
+    """Convert pixels from the embedded profile to sRGB, so the profile
+    can be dropped without changing colors."""
+    out_mode = _CONVERTIBLE_MODES.get(im.mode)
+    if not icc or out_mode is None:
+        return im
+    try:
+        from io import BytesIO
+
+        from PIL import ImageCms
+
+        return ImageCms.profileToProfile(
+            im, ImageCms.ImageCmsProfile(BytesIO(icc)), ImageCms.createProfile("sRGB"),
+            outputMode=out_mode,
+        )
+    except Exception:
+        return im
+
+
+def _upright(im, orientation: int):
+    method = _transpose_method(orientation)
+    return im.transpose(method) if method is not None else im.copy()
+
+
+def _save_jpeg(src, fmt: str, out) -> None:
+    from PIL import JpegImagePlugin
+
+    orientation = _orientation(src)
+    icc = _foreign_profile(src.info.get("icc_profile"), src.mode)
+    if fmt == "JPEG" and _transpose_method(orientation) is None and icc is None:
+        # Nothing to change in the pixels: re-encode with the original
+        # quantization tables and subsampling. Pillow writes no EXIF,
+        # XMP or profile unless asked; the comment is the one thing it
+        # copies from .info, so .info is emptied first.
+        src.info = {}
+        try:
+            src.save(out, "JPEG", quality="keep", subsampling="keep")
+            return
+        except Exception:
+            out.seek(0)
+            out.truncate()
+    sampling = JpegImagePlugin.get_sampling(src)
+    im = _to_srgb(_upright(src, orientation), icc)
+    im.info = {}
+    options = {"quality": 90}
+    if sampling in (0, 1, 2):
+        options["subsampling"] = sampling
+    im.save(out, "JPEG", **options)
+
+
+def _webp_is_lossless(data: bytes) -> bool:
+    """True when the WebP's first image chunk is VP8L (lossless)."""
+    pos = 12  # after "RIFF", the size and "WEBP"
+    while pos + 8 <= len(data):
+        fourcc = data[pos:pos + 4]
+        size = int.from_bytes(data[pos + 4:pos + 8], "little")
+        if fourcc == b"VP8L":
+            return True
+        if fourcc == b"VP8 ":
+            return False
+        if fourcc == b"ANMF":
+            # 16-byte frame header, then the frame's own chunks; an
+            # alpha (ALPH) chunk is followed by lossy VP8 data.
+            return data[pos + 24:pos + 28] == b"VP8L"
+        pos += 8 + size + (size & 1)
+    return False
+
+
+def _webp_options(data: bytes) -> dict:
+    return {"lossless": True} if _webp_is_lossless(data) else {"quality": 90}
+
+
+def _save_still(src, fmt: str, data: bytes, out) -> None:
+    transparency = src.info.get("transparency")
+    icc = _foreign_profile(src.info.get("icc_profile"), src.mode)
+    im = _to_srgb(_upright(src, _orientation(src)), icc)
+    im.info = {}
+    options = {}
+    if fmt == "PNG" and transparency is not None and im.mode in ("1", "L", "P", "RGB", "I", "I;16"):
+        # The tRNS chunk is how a palette or grayscale PNG says which
+        # color is see-through: pixels, not metadata.
+        options["transparency"] = transparency
+    if fmt == "WEBP":
+        options.update(_webp_options(data))
+    im.save(out, _SAVE_FORMAT[fmt], **options)
+
+
+def _save_animated(src, fmt: str, data: bytes, out) -> None:
+    """Animated PNG or WebP: Pillow hands each frame over composited
+    onto the full canvas, so saving the composited frames with their
+    durations reproduces the animation exactly. A color profile on an
+    animation is dropped without conversion."""
+    from PIL import ImageSequence
+
+    method = _transpose_method(_orientation(src))
+    loop = src.info.get("loop", 0)
+    frames, durations = [], []
+    for frame in ImageSequence.Iterator(src):
+        frame.load()  # WebP sets a frame's duration when it is decoded
+        durations.append(frame.info.get("duration", 100))
+        clean = frame.convert("RGBA")
+        if method is not None:
+            clean = clean.transpose(method)
+        clean.info = {}
+        frames.append(clean)
+    options = {"save_all": True, "append_images": frames[1:], "duration": durations, "loop": loop}
+    if fmt == "WEBP":
+        options.update(_webp_options(data))
+    frames[0].save(out, _SAVE_FORMAT[fmt], **options)

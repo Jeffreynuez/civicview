@@ -25,14 +25,9 @@
  * and older (matching /child-safety and the store rating); the page
  * owner's dashboard keeps its "most active commenters" list and this
  * page discloses it; the policy describes the app exactly as it is, and
- * the code gaps found in the audit are fixed separately, after which
- * these sections get simpler:
- *  - reps' and candidates' last sign-in time is in the public page data
- *  - uploaded images keep their embedded metadata (no EXIF stripping)
- *  - account deletion does not yet cancel a Stripe subscription (Stripe
- *    is not live, so this page only says subscriptions aren't available)
- *  - there is no in-app banner for policy changes (changes are announced
- *    by email and a notice on the site, which this page promises)
+ * the code gaps found in the audit were fixed separately (the last one,
+ * an email opt-out for notices to trackers about former pages, on
+ * 2026-10-16).
  * Keep this page true: when the code changes what is collected, shown,
  * sent or kept, change this page in the same pull request.
  */
@@ -94,6 +89,7 @@ export default function PrivacyPage() {
         <li><strong>Email address and password.</strong> For signing in and for messages about your account. We store your password only as a one-way hash. Demo accounts get a generated address that receives no mail.</li>
         <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
+        <li><strong>Age confirmation.</strong> When you create an account, you confirm that you&apos;re 18 or older, and we keep the time you confirmed it.</li>
         <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
         <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), whether we email you when a page you track changes (on unless you turn it off), and the officials, bills and elections you track, save or feature.</li>
         <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
@@ -145,8 +141,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Account details.</strong> Sign-in email, password (as a one-way hash), display name, your role, the official or candidate page your account runs, and the state, district or city that page covers (from our records, not from you).</li>
         <li><strong>What you publish.</strong> Posts, polls, events and images, and the comments, likes and votes you make as the official or candidate. All of it is public, and it stays on the page as a public record (see <a href="#deleting">Deleting your account</a>). Edited or deleted posts keep their original text, hidden, for moderation review.</li>
-        <li><strong>Images.</strong> Stored as you upload them, including any details the file carries, such as where a photo was taken. Please remove those before uploading. Images taken out of a post may stay in storage.</li>
-        <li><strong>Last sign-in time.</strong> Today, the time your account last signed in is included in your page&apos;s public data. We plan to stop publishing it.</li>
+        <li><strong>Images.</strong> We remove hidden details such as location from the images you upload before storing them. Images taken out of a post may stay in storage.</li>
         <li><strong>Claim requests.</strong> If you ask to claim a page, we keep your email, state and the details you send us (such as your name and your connection to the official), and add your email and state to our Brevo mailing list like a waitlist sign-up.</li>
       </ul>
 
@@ -193,7 +188,7 @@ export default function PrivacyPage() {
       <h3 id="technical">Technical information</h3>
       <ul>
         <li><strong>IP address.</strong> Our servers see it on every request and use it to limit abuse. Apart from sign-in records and lockout emails, we don&apos;t store it, and we don&apos;t build profiles from it.</li>
-        <li><strong>Server logs.</strong> Our application logs record some events with account details, such as the email address on a sign-up or an email we sent, and the display name, state and district of a new account. Typed addresses are masked. Our hosting providers keep these logs, and their own request logs (IP address, browser and the page requested), for a limited time.</li>
+        <li><strong>Server logs.</strong> Our application logs record some events, such as a sign-up or an email we sent. They name an account by its number, and show an email address only as its first letter and domain (like j***@example.org). Typed addresses and the random voter ID are masked. Our hosting providers keep these logs, and their own request logs (IP address, browser and the page requested), for a limited time.</li>
         <li><strong>Addresses you look up.</strong> When you type an address to find your officials, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and, when it&apos;s turned on, to Google Civic Information. We don&apos;t save it on our servers. Lookup results can be cached briefly by our network provider and your browser, and the app remembers the last address you matched on your device.</li>
         <li><strong>&ldquo;Use my location.&rdquo;</strong> Only if you tap it and allow it. Your device&apos;s coordinates go straight from your browser to Nominatim, which returns the nearest address, and that address is then looked up as above. We never receive or store the coordinates.</li>
         <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings and, if you aren&apos;t signed in, the list of officials you track on that device. While you&apos;re signed in on the device, the token is linked to your citizen account; signing out unlinks it and clears that list. If you choose a daily or weekly summary, or an update arrives during your quiet hours, we keep that update (who posted and the push text) until the summary goes out, then delete it. Turning push off deletes the token and everything stored with it.</li>
@@ -204,7 +199,9 @@ export default function PrivacyPage() {
         Paid subscriptions aren&apos;t available yet. When they launch,
         Stripe will handle payment on its own pages. We&apos;ll keep your
         Stripe customer and subscription IDs, your subscription status
-        and renewal date, never your card number.
+        and renewal date, never your card number. When your account is
+        deleted, we cancel any subscription on it right away, so you
+        aren&apos;t charged again.
       </p>
 
       <h2 id="cookies">Cookies and storage on your device</h2>
@@ -224,7 +221,7 @@ export default function PrivacyPage() {
         <li>a random voter ID (<code>civicview_voter_token</code>) that shows you how you voted on older polls from this browser. It isn&apos;t linked to your name;</li>
         <li>your push choice and token, and your notification settings;</li>
         <li>your ballot-measure leanings, which stay on your device and are never sent to us;</li>
-        <li>the last district and address you looked up, your map view, and tutorial and display choices.</li>
+        <li>the last district and address you looked up, your map view, tutorial and display choices, and which site notice you dismissed.</li>
       </ul>
       <p>
         You can clear all of this in your browser&apos;s settings.
@@ -257,7 +254,7 @@ export default function PrivacyPage() {
         <li><strong>Polls you create:</strong> your display name, your current state, city and district, and whether you&apos;re verified.</li>
         <li><strong>Your public card:</strong> your display name and, only if you chose it, a &ldquo;Served as&rdquo; line. It shows nothing else.</li>
         <li><strong>Totals</strong> of votes and likes. Your own vote or like is shown only to you.</li>
-        <li><strong>Everything on an official&apos;s or candidate&apos;s page,</strong> including, today, when its account last signed in.</li>
+        <li><strong>Everything on an official&apos;s or candidate&apos;s page.</strong></li>
       </ul>
       <p>
         Never public: your email, your individual votes and likes, your

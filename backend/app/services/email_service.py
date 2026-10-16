@@ -35,6 +35,8 @@ import os
 from abc import ABC, abstractmethod
 from typing import Optional
 
+from app.services.log_redaction import mask_email
+
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +143,7 @@ class PostmarkEmailService(EmailService):
             # log it and return False.
             # Recipient only: the subject comes from templates such as the
             # password reset email, and CodeQL treats it as sensitive.
-            logger.exception("Postmark send failed (to=%s)", to)
+            logger.exception("Postmark send failed (to=%s)", mask_email(to))
             return False
 
 
@@ -175,13 +177,13 @@ class DevEmailService(EmailService):
             logger.error(
                 "Email NOT sent (no email provider configured in production): "
                 "to=%s. Set POSTMARK_API_TOKEN and POSTMARK_FROM_EMAIL.",
-                to,
+                mask_email(to),
             )
             return False
         # Local development: note that a message was due, never its
         # contents. Subject and body both come from templates such as the
         # password reset email.
-        logger.info("EMAIL (dev, not sent) to=%s", to)
+        logger.info("EMAIL (dev, not sent) to=%s", mask_email(to))
         return True
 
 
@@ -228,7 +230,7 @@ def get_email_service() -> EmailService:
             )
 
     _EMAIL_SINGLETON = DevEmailService()
-    logger.info("Email service: Dev backend active (emails are not sent; only the recipient is logged)")
+    logger.info("Email service: Dev backend active (emails are not sent; only the masked recipient is logged)")
     return _EMAIL_SINGLETON
 
 
@@ -439,6 +441,6 @@ def send_lockout_alert_email(
     except Exception:
         logger.exception(
             "send_lockout_alert_email failed unexpectedly (to=%s, identity_kind=%s)",
-            to_email, identity_kind,
+            mask_email(to_email), identity_kind,
         )
         return False

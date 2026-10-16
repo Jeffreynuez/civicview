@@ -664,8 +664,10 @@ export async function loginCitizenApi(email, password) {
 // required (2026-10-03); congressionalDistrict is the picker value
 // ("17", or "AL" for at-large). sendSigninEmail asks the backend to
 // email the sign-in email and a set-password link to contactEmail.
+// ageConfirmed is the required "I'm 18 or older" box (2026-10-16); the
+// backend refuses a sign-up without it.
 export async function signupDemoCitizen({
-  displayName, state, congressionalDistrict, city, contactEmail, sendSigninEmail,
+  displayName, state, congressionalDistrict, city, contactEmail, sendSigninEmail, ageConfirmed,
 } = {}) {
   // Phase 6: multi-identity — no tear-down of other sessions on
   // demo-signup either.
@@ -680,6 +682,7 @@ export async function signupDemoCitizen({
       // sign-in help since 2026-10-03).
       contact_email: contactEmail || null,
       send_signin_email: !!(sendSigninEmail && contactEmail),
+      age_confirmed: ageConfirmed === true,
     },
   });
   if (result?.data?.citizen_token) {

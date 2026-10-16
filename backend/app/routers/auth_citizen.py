@@ -159,6 +159,10 @@ class CitizenDemoSignupRequest(BaseModel):
     # and a link to choose a new password to contact_email. Never the
     # password. Ignored without a contact email.
     send_signin_email: bool = False
+    # The required "I'm 18 or older" checkbox (2026-10-16). A sign-up
+    # without it is refused; the time it was confirmed is stored on the
+    # account as age_confirmed_at.
+    age_confirmed: bool = False
 
 
 class CitizenDemoSignupResponse(BaseModel):
@@ -372,6 +376,14 @@ def demo_signup(
     from app.services.citizen_geo import normalize_district, normalize_state
     from app.services.display_names import clean_display_name, name_conflict
 
+    # Adults only (Terms section 1). Checked first, so nothing else about
+    # the sign-up is looked at without it.
+    if payload.age_confirmed is not True:
+        raise HTTPException(
+            status_code=422,
+            detail="Confirm that you're 18 or older. CivicView accounts are for adults.",
+        )
+
     try:
         display_name = clean_display_name(payload.display_name)
     except ValueError as e:
@@ -448,6 +460,7 @@ def demo_signup(
         congressional_district=district,
         verified=False,  # Always false for demo. ID.me flips this in v2.
         is_active=True,
+        age_confirmed_at=datetime.utcnow(),
         # ── Temporary demo-grant for subscription (Task #88) ──
         # Real billing isn't live yet (Stripe + ID.me both pending).
         # Demo citizens get is_subscribed=True so the subscriber-tier
@@ -490,10 +503,9 @@ def demo_signup(
     db.commit()
     db.refresh(citizen)
 
-    logger.info(
-        "Demo citizen created: id=%d, display_name=%r, state=%s, district=%s",
-        citizen.id, citizen.display_name, citizen.state, citizen.congressional_district,
-    )
+    # The account number only: its name, state and district stay in the
+    # database, not in the logs (2026-10-16).
+    logger.info("Demo citizen created: id=%d", citizen.id)
 
     # "Email me my sign-in details" (2026-10-03): the sign-in email and a
     # link to choose a new password, to the contact address. Best effort:
@@ -677,7 +689,11 @@ def set_location(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
     raw_state = (body.state or "").strip()
-    if citizen.verified:
+    # Only a real verification fixes the state (2026-10-16): the message
+    # below says it came from identity verification, which is untrue for
+    # a demo grant or a hand-set flag.
+    from app.services.verified_identity import is_verified_person
+    if is_verified_person(citizen):
         state = normalize_state(citizen.state)
         if raw_state and raw_state.upper() != (citizen.state or "").upper():
             raise HTTPException(
@@ -731,7 +747,7 @@ def set_location(
     db.add(citizen)
     db.commit()
     db.refresh(citizen)
-    logger.info("Citizen id=%d set location %s (moved state: %s)", citizen.id, district, moved)
+    logger.info("Citizen id=%d set location (moved state: %s)", citizen.id, moved)
     return CitizenMeResponse.model_validate(citizen)
 
 
@@ -924,6 +940,7 @@ def delete_account(
     Hard delete archives the citizen's ID.me verification (preserving
     the cost-skip on a future re-signup) before dropping the row."""
     from app.services.account_deletion import (
+        SubscriptionCancelError,
         hard_delete_account,
         soft_delete_account,
         verify_email_confirmation,
@@ -942,7 +959,16 @@ def delete_account(
             detail="Enter your current password to delete this account.",
         )
     if payload.mode == "hard":
-        hard_delete_account(db, "citizen", citizen)
+        try:
+            hard_delete_account(db, "citizen", citizen)
+        except SubscriptionCancelError as e:
+            # Deleting now would leave the subscription charging with no
+            # account to cancel it from. Nothing was deleted.
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="We couldn't cancel your subscription with our payment provider, "
+                       "so your account was not deleted. Please try again in a few minutes.",
+            ) from e
         clear_citizen_cookie(response)
         return DeleteAccountResponse(mode="hard", purge_after=None)
     purge_at = soft_delete_account(db, "citizen", citizen)

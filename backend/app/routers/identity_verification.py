@@ -33,6 +33,7 @@ from sqlalchemy.orm import Session
 from app.auth_citizen import get_current_citizen
 from app.db import get_db
 from app.models.pages import CitizenAccount
+from app.services.verified_identity import is_verified_person
 from app.services.idme_service import (
     DEFAULT_POST_AUTH_REDIRECT,
     IdMeError,
@@ -102,7 +103,9 @@ def start_verification(
     are at ID.me. The flag is enough; the BillingSection +
     engagement gates only check `verified`.
     """
-    if citizen.verified:
+    # Verified by a real method only: an account whose flag was set by
+    # hand has not been through ID.me and must not be told it has.
+    if is_verified_person(citizen):
         # Already verified — no need to send them through again.
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -220,7 +223,7 @@ def verification_callback(
             f"{bounce_base.replace('verified=1', 'verified=0')}&reason=account_missing",
             status_code=303,
         )
-    if citizen.verified:
+    if is_verified_person(citizen):
         # Idempotent — repeated callbacks for an already-verified
         # citizen don't re-charge or re-overwrite. Just bounce home.
         return RedirectResponse(
@@ -313,8 +316,5 @@ def verification_callback(
             citizen_id,
         )
 
-    logger.info(
-        "ID.me verification completed for citizen id=%s state=%s city=%s",
-        citizen_id, citizen.state, citizen.city,
-    )
+    logger.info("ID.me verification completed for citizen id=%s", citizen_id)
     return RedirectResponse(f"{bounce_base}&via=id.me", status_code=303)

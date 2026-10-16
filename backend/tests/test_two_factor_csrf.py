@@ -30,7 +30,7 @@ def main() -> int:
     with TestClient(m.app) as c:
         r = c.post("/api/citizen-auth/demo-signup", json={
             "display_name": "Two Factor Tester", "city": "Orlando", "state": "FL",
-            "congressional_district": "FL-10",
+            "congressional_district": "FL-10", "age_confirmed": True,
         })
         if r.status_code not in (200, 201):
             print("FAIL: demo signup", r.status_code, r.text[:200])

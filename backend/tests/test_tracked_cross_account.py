@@ -71,6 +71,7 @@ def main() -> int:
                 "state": "FL",
                 "congressional_district": "FL-19",
                 "city": "Naples",
+                "age_confirmed": True,
             })
             assert r.status_code == 201, f"demo-signup {name}: {r.status_code} {r.text}"
             body = r.json()

@@ -76,7 +76,7 @@ def main() -> int:
         "    p = Poll(post_id=None, question='Q?', author_kind='citizen', target_official_id='X',\n"
         "             default_visibility_scope='country', presentation_mode='full', created_at=datetime(2026,9,1))\n"
         "    d.add(p); d.flush(); d.add(PollOption(poll_id=p.id, text='A', sort_order=0)); d.commit(); pid = p.id\n"
-        "r = c.post('/api/citizen-auth/demo-signup', json={'display_name':'Unverified','state':'FL','congressional_district':'FL-10','city':'Orlando'})\n"
+        "r = c.post('/api/citizen-auth/demo-signup', json={'display_name':'Unverified','state':'FL','congressional_district':'FL-10','city':'Orlando','age_confirmed':True})\n"
         "t = r.json()['citizen_token']; h = {'X-Citizen-Token': t, 'X-CSRF-Token': compute_csrf_token(t)}\n"
         "c.cookies.clear()\n"
         "r1 = c.post(f'/api/citizen-polls/{pid}/reactions', json={'kind':'up'}, headers=h)\n"

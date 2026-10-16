@@ -60,6 +60,7 @@ from app.services.session_epoch import epoch_of
 from app.models.pages import CandidateAccount, CitizenAccount, RepAccount
 from app.services import recovery_codes_service, totp_service
 from app.services.admin_auth import get_current_admin
+from app.services.log_redaction import mask_email
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -335,7 +336,7 @@ def enroll_verify(
     db.commit()
 
     codes = recovery_codes_service.generate_codes_for_account(db, kind, account.id)
-    logger.info("2FA enabled for %s account #%d (%s).", kind, account.id, getattr(account, "email", "?"))
+    logger.info("2FA enabled for %s account #%d (%s).", kind, account.id, mask_email(getattr(account, "email", None)))
     return EnrollVerifyResponse(enabled=True, recovery_codes=codes)
 
 
@@ -389,7 +390,7 @@ def regenerate_recovery_codes(
     codes = recovery_codes_service.generate_codes_for_account(db, kind, account.id)
     logger.info(
         "Recovery codes regenerated for %s account #%d (%s).",
-        kind, account.id, getattr(account, "email", "?"),
+        kind, account.id, mask_email(getattr(account, "email", None)),
     )
     return RecoveryCodesResponse(recovery_codes=codes)
 
@@ -417,7 +418,7 @@ def disable(
     deleted = recovery_codes_service.wipe_codes(db, kind, account.id)
     logger.info(
         "2FA disabled for %s account #%d (%s); %d recovery codes wiped.",
-        kind, account.id, getattr(account, "email", "?"), deleted,
+        kind, account.id, mask_email(getattr(account, "email", None)), deleted,
     )
     return {"disabled": True}
 
@@ -558,7 +559,7 @@ def admin_reset_2fa(
     deleted = recovery_codes_service.wipe_codes(db, kind, account_id)
     logger.warning(
         "ADMIN-RESET 2FA for %s account #%d (%s). Had 2FA: %s; recovery codes wiped: %d.",
-        kind, account_id, getattr(account, "email", "?"), had_2fa, deleted,
+        kind, account_id, mask_email(getattr(account, "email", None)), had_2fa, deleted,
     )
     return {"reset": True, "had_2fa": had_2fa, "recovery_codes_wiped": deleted}
 
