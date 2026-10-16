@@ -27,7 +27,6 @@
  * page discloses it; the policy describes the app exactly as it is, and
  * the code gaps found in the audit are fixed separately, after which
  * these sections get simpler:
- *  - reps' and candidates' last sign-in time is in the public page data
  *  - uploaded images keep their embedded metadata (no EXIF stripping)
  *  - notices to trackers about former pages have no email opt-out
  *  - account deletion does not yet cancel a Stripe subscription (Stripe
@@ -147,7 +146,6 @@ export default function PrivacyPage() {
         <li><strong>Account details.</strong> Sign-in email, password (as a one-way hash), display name, your role, the official or candidate page your account runs, and the state, district or city that page covers (from our records, not from you).</li>
         <li><strong>What you publish.</strong> Posts, polls, events and images, and the comments, likes and votes you make as the official or candidate. All of it is public, and it stays on the page as a public record (see <a href="#deleting">Deleting your account</a>). Edited or deleted posts keep their original text, hidden, for moderation review.</li>
         <li><strong>Images.</strong> Stored as you upload them, including any details the file carries, such as where a photo was taken. Please remove those before uploading. Images taken out of a post may stay in storage.</li>
-        <li><strong>Last sign-in time.</strong> Today, the time your account last signed in is included in your page&apos;s public data. We plan to stop publishing it.</li>
         <li><strong>Claim requests.</strong> If you ask to claim a page, we keep your email, state and the details you send us (such as your name and your connection to the official), and add your email and state to our Brevo mailing list like a waitlist sign-up.</li>
       </ul>
 
@@ -258,7 +256,7 @@ export default function PrivacyPage() {
         <li><strong>Polls you create:</strong> your display name, your current state, city and district, and whether you&apos;re verified.</li>
         <li><strong>Your public card:</strong> your display name and, only if you chose it, a &ldquo;Served as&rdquo; line. It shows nothing else.</li>
         <li><strong>Totals</strong> of votes and likes. Your own vote or like is shown only to you.</li>
-        <li><strong>Everything on an official&apos;s or candidate&apos;s page,</strong> including, today, when its account last signed in.</li>
+        <li><strong>Everything on an official&apos;s or candidate&apos;s page.</strong></li>
       </ul>
       <p>
         Never public: your email, your individual votes and likes, your

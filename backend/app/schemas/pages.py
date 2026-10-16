@@ -541,12 +541,15 @@ class RepEventRead(BaseModel):
 
 # ── Page payload ──────────────────────────────────────────────────────
 class PageOwnerInfo(BaseModel):
-    """The rep who owns the page. Null when unclaimed."""
+    """The rep who owns the page. Null when unclaimed.
+
+    Public: every visitor receives it. The account's last sign-in time
+    is deliberately not here (2026-10-16); it is a security record, not
+    page content."""
     model_config = ConfigDict(from_attributes=True)
     id: int
     display_name: str
     role: Optional[str] = None
-    last_login_at: Optional[datetime] = None
 
 
 class PageResponse(BaseModel):
