@@ -187,8 +187,9 @@ export function ElectionRemindersToggle({ refreshKey }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: '0.8rem', fontWeight: 600 }}>Election reminders</div>
         <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
-          Voting deadlines and Election Day, from official state sources, for elections you track and
-          for your state if it is Florida, California, New York, Pennsylvania or Texas.
+          {settings.your_state_covered
+            ? 'Voting deadlines and Election Day, from official state sources, for your state and for elections you track.'
+            : 'Voting deadlines and Election Day, from official state sources, for elections you track. Your state\u2019s dates aren\u2019t in yet.'}
         </div>
       </div>
     </label>

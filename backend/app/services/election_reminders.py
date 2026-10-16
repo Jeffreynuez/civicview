@@ -18,19 +18,24 @@ What is sent (Jeffrey's decisions, 2026-10-16):
   election_day_1d   Election Day is tomorrow, with the statewide poll
                     hours and a link to the official polling-place lookup
 
-Where the dates come from: backend/app/data/<state>/elections.json.
-key_dates holds the dates, key_date_sources the official page behind
-each one, and voter_info the links, poll hours, deadline times and the
-few sentences a state's rules need. A date without an https source is
-never scheduled (data lint E-11 also refuses it), and voter_info
+Where the dates come from: backend/app/data/<state>/elections.json,
+for every state that has one. The format is documented in
+docs/election-reminders.md. key_dates holds the dates, key_date_sources
+the official page behind each one, and voter_info the links, poll
+hours, deadline times and the few sentences a state's rules need. A
+date without an https source is never scheduled (data lint E-11 also
+refuses it), and voter_info
 .no_reminder records, with its source, a reminder a state's rules rule
 out (California has no mail ballot request deadline, Pennsylvania no
 early voting period). Every election in those files whose date is still
 ahead gets its reminders, so a future cycle needs only new dates.
 
-Who gets them:
-  * signed-in citizens whose account state is one of REMINDER_STATES:
-    on by default, as a bell row plus a push to any phone with push on;
+Who gets them (no fixed list of states, 2026-10-16: a state is covered
+when its elections.json has reminder dates with official sources, so
+adding a state's dates is the whole change):
+  * signed-in citizens whose account state has sourced reminder dates:
+    on by default, as a bell row plus a push to any phone with push on.
+    Nobody in a state without them gets one;
   * anyone tracking an election gets that election's reminders, subject
     to the tracked election's own alert settings;
   * nobody who turned election reminders off, and nobody who tapped
@@ -82,11 +87,6 @@ from sqlalchemy.orm import Session
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-
-# The states whose election data has been checked date by date against
-# the official sources. Adding a state means adding its key_date_sources
-# and voter_info first.
-REMINDER_STATES = ("FL", "CA", "NY", "PA", "TX")
 
 ENV_FLAG = "ELECTION_REMINDERS_ENABLED"
 # Local testing only: an ISO datetime the job treats as "now". Ignored in
@@ -303,19 +303,30 @@ class Schedule:
 
 @lru_cache(maxsize=1)
 def _load_state_docs() -> dict:
+    """{state code: elections.json} for every state folder that has one.
+    Which states get reminders is decided from these files alone."""
     docs = {}
-    for state in REMINDER_STATES:
-        path = DATA_DIR / state.lower() / "elections.json"
+    for path in sorted(DATA_DIR.glob("*/elections.json")):
+        if path.parent.name.startswith("_"):
+            continue
         try:
             with path.open(encoding="utf-8") as fh:
-                docs[state] = json.load(fh)
+                doc = json.load(fh)
         except (OSError, json.JSONDecodeError):
             logger.exception("Election reminders: could not read %s", path)
+            continue
+        docs[str(doc.get("state") or path.parent.name).upper()] = doc
     return docs
 
 
 def reload_data() -> None:
     _load_state_docs.cache_clear()
+
+
+def covered_states(today: Optional[date] = None, docs: Optional[dict] = None) -> list:
+    """States with at least one sourced reminder for an election still
+    ahead. Decided from the data alone."""
+    return sorted({r.state for r in build_schedule(today=today, docs=docs).reminders})
 
 
 def _render(state_doc: dict, spec: _KindSpec, fields: dict) -> tuple[str, str]:
@@ -335,7 +346,7 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
     today = today or today_et()
     docs = docs if docs is not None else _load_state_docs()
     out = Schedule()
-    for state in REMINDER_STATES:
+    for state in sorted(docs):
         doc = docs.get(state) or {}
         key_dates = doc.get("key_dates") or {}
         sources = doc.get("key_date_sources") or {}
@@ -789,7 +800,7 @@ def preview(db: Session, now_utc: Optional[datetime] = None) -> dict:
         "today_et": today.isoformat(),
         "send_hour_local": SEND_HOUR,
         "fallback_timezone": FALLBACK_TZ,
-        "states": list(REMINDER_STATES),
+        "states": sorted({r.state for r in schedule.reminders}),
         "reminders": items,
         "skipped": [asdict(s) for s in schedule.skipped],
     }
@@ -801,10 +812,11 @@ def citizen_settings(citizen) -> dict:
     from app.services.digest_service import is_demo_email
 
     state = (citizen.state or "").upper()
+    covered = covered_states()
     return {
         "enabled": citizen.election_reminders_off_at is None,
-        "covered_states": list(REMINDER_STATES),
-        "your_state_covered": state in REMINDER_STATES,
+        "covered_states": covered,
+        "your_state_covered": state in covered,
         "email": citizen.election_reminder_email_at is not None,
         # A demo account's sign-in address receives no mail.
         "email_available": bool(citizen.email) and not is_demo_email(citizen.email),

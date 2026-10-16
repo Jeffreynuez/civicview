@@ -11,9 +11,6 @@
  */
 import { request } from './http';
 
-// Same order and names as the backend's REMINDER_STATES.
-export const ELECTION_REMINDER_STATES = ['FL', 'CA', 'NY', 'PA', 'TX'];
-
 export function fetchElectionReminderSettings() {
   return request('/api/election-reminders/settings');
 }

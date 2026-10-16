@@ -341,7 +341,7 @@ export const TOUR_TOPICS = [
         route: '/',
         target: 'nav-bell',
         title: 'Election reminders',
-        body: 'If your account is in Florida, California, New York, Pennsylvania or Texas, or you track an election, the bell reminds you of voting deadlines. Turn them off anytime.',
+        body: 'Where we have official dates for your state, or for an election you track, the bell reminds you of voting deadlines and Election Day. Turn them off anytime.',
       },
       {
         id: 'notifications-channels',

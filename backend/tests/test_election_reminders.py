@@ -23,8 +23,10 @@ actually go out. Pushes are captured, never sent.
      same person, send one reminder.
   6. Off switch: nothing without ELECTION_REMINDERS_ENABLED; a citizen
      who turns reminders off gets none, and can turn them back on.
-  7. Who: nobody outside the five states, unless they track that
-     state's election; a tracked election's own alert settings apply.
+  7. Who: decided from the data alone. Nobody in a state without
+     sourced dates gets one, unless they track an election in a state
+     that has them; a tracked election's own alert settings apply; a
+     state whose file gains sourced dates is covered with no code change.
   8. Admin preview: every reminder with its wording, source, status and
      recipient count; admins only.
   9. "I already voted": no more reminders for that election, other
@@ -44,7 +46,11 @@ sys.path.insert(0, os.path.dirname(__file__))
 import former_helpers as fh  # noqa: E402
 
 fh.bootstrap()
-os.environ.pop("ELECTION_REMINDERS_NOW", None)
+# Requests that read the clock themselves (settings, I already voted,
+# the preview) see October 16, 2026, so the checks keep passing after
+# the election. run() below passes its own time.
+TEST_NOW = "2026-10-16T12:00:00"
+os.environ["ELECTION_REMINDERS_NOW"] = TEST_NOW
 os.environ.pop("ELECTION_REMINDERS_ENABLED", None)
 
 PUSHES = []
@@ -273,7 +279,8 @@ def main() -> int:
     # ── 7. Who ───────────────────────────────────────────────────────
     run("2026-10-19T15:00:00")  # Florida mail reminder day, 11 a.m. Eastern
     run("2026-11-02T15:00:00")  # Election Day eve
-    check("7 an Ohio citizen tracking nothing gets nothing", not bell(oh.id))
+    check("7 nobody in a state without sourced dates gets one (an Ohio citizen tracking nothing)",
+          not bell(oh.id))
     oh_ids = {json.loads(n.payload_json)["reminder_id"] for n in bell(oh_tracker.id)}
     check("7 an Ohio citizen tracking Florida's election gets Florida's reminders, only",
           oh_ids == {"fl-2026-11-03-mail-request-3d", "fl-2026-11-03-election-day-1d"}, oh_ids)
@@ -287,11 +294,42 @@ def main() -> int:
     recips = {x.citizen_id for x in er.eligible_recipients(db, sched_fl["fl-2026-11-03-registration-1d"])}
     check("7 a tracked election's own alert settings apply (registration alerts off)",
           fl.id not in recips and oh_tracker.id in recips, recips)
-    states = {db.get(CitizenAccount, n.recipient_id).state for n in
-              db.query(Notification).filter(Notification.kind == "election_reminder").all()}
-    check("7 nobody outside the five states got one, except by tracking",
-          states <= {"FL", "CA", "NY", "PA", "TX", "OH"}
-          and all(n.recipient_id != oh.id for n in db.query(Notification).all()), states)
+    covered = er.covered_states(today=date(2026, 10, 1))
+    check("7 the states covered come from the data: those whose files have sourced reminder dates",
+          covered == sorted(s for s, d in er._load_state_docs().items() if d.get("key_date_sources")), covered)
+    uncovered = {n.recipient_id for n in
+                 db.query(Notification).filter(Notification.kind == "election_reminder").all()
+                 if db.get(CitizenAccount, n.recipient_id).state not in covered}
+    check("7 nobody in a state without sourced dates got one, except by tracking an election",
+          uncovered == {oh_tracker.id}, uncovered)
+
+    # A state whose file gains sourced dates is covered with no code
+    # change. Test-only Ohio data (not real dates), as if a later session
+    # had added data/oh/elections.json in the documented format.
+    real_docs = er._load_state_docs()
+    test_oh = {
+        "state": "OH", "state_name": "Ohio", "cycle": "2026",
+        "key_dates": {"general": "2026-11-03", "voter_registration_deadline_general": "2026-10-05"},
+        "key_date_sources": {"general": "https://www.ohiosos.gov/test-only-source",
+                             "voter_registration_deadline_general": "https://www.ohiosos.gov/test-only-source"},
+        "voter_info": {"official_site": "https://www.ohiosos.gov/",
+                       "poll_hours": {"open": "06:30", "close": "19:30",
+                                      "source_url": "https://www.ohiosos.gov/test-only-source"}},
+    }
+    loader = er._load_state_docs
+    er._load_state_docs = lambda: {**real_docs, "OH": test_oh}
+    try:
+        check("7 Ohio is covered once its file has sourced dates",
+              "OH" in er.covered_states(today=date(2026, 10, 1)))
+        run("2026-11-02T16:00:00")
+        oh_rows = bell(oh.id)
+        oh_now = {json.loads(n.payload_json)["reminder_id"] for n in oh_rows}
+        check("7 ... and its citizens get its reminders, with no code change",
+              oh_now == {"oh-2026-11-03-election-day-1d"}, oh_now)
+        check("7 ... with the state's own poll hours",
+              bool(oh_rows) and "6:30 a.m. to 7:30 p.m." in json.loads(oh_rows[0].payload_json)["body"])
+    finally:
+        er._load_state_docs = loader
 
     # ── 6b. A citizen turns them off, then on ────────────────────────
     quiet = fh.make_citizen(db, "Quinn Off", "quinn@example.org", state="NY", district="NY-12", city="")
@@ -301,7 +339,7 @@ def main() -> int:
     check("6 a citizen who turned them off gets none", not bell(quiet.id))
     r = client.get("/api/election-reminders/settings", headers=fh.citizen_headers(quiet))
     check("6 settings report off and the covered states",
-          r.status_code == 200 and r.json() == {"enabled": False, "covered_states": ["FL", "CA", "NY", "PA", "TX"],
+          r.status_code == 200 and r.json() == {"enabled": False, "covered_states": ["CA", "FL", "NY", "PA", "TX"],
                                                 "your_state_covered": True, "email": False,
                                                 "email_available": True}, r.text)
     r = client.put("/api/election-reminders/settings", json={"enabled": True}, headers=fh.citizen_headers(quiet))
@@ -332,7 +370,7 @@ def main() -> int:
         r = client.get("/api/admin/election-reminders", headers=fh.citizen_headers(ca))
         check("8 not an admin: 403", r.status_code == 403, r.status_code)
     finally:
-        os.environ.pop("ELECTION_REMINDERS_NOW", None)
+        os.environ["ELECTION_REMINDERS_NOW"] = TEST_NOW
 
     # ── 9. "I already voted" ─────────────────────────────────────────
     voter = fh.make_citizen(db, "Vera Voter", "vera@example.org", state="CA", district="CA-11", city="")
