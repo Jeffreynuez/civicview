@@ -139,7 +139,10 @@ HTTP_ONLY_HOSTS = {
 # E-12). Each is run by the government itself; checked by hand.
 #   dcboe.org: the District of Columbia Board of Elections, the official
 #     election office for DC, 2026-10-16.
-OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org")
+#   arizona.vote: the Arizona Secretary of State's voter portal
+#     (my.arizona.vote); azsos.gov sends voters there to find their voting
+#     location and track their ballot, 2026-10-16.
+OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org", "arizona.vote")
 
 # Party codes frontend/lib/party.js maps to a label (rule O-4).
 PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}

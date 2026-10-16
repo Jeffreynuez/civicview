@@ -1,0 +1,77 @@
+{
+  "_note": "Idaho 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "ID",
+  "state_name": "Idaho",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-23",
+    "voter_registration_online_general": "2026-10-23",
+    "voter_registration_mail_general": "2026-10-23, received",
+    "voter_registration_in_person_general": "2026-10-23",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-23",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_rule_general": "Days set by each county"
+  },
+  "key_date_sources": {
+    "general": "https://voteidaho.gov/idaho-general-election/",
+    "voter_registration_deadline_general": "https://voteidaho.gov/voter-registration/",
+    "voter_registration_online_general": "https://voteidaho.gov/voter-registration/",
+    "voter_registration_mail_general": "https://archive.voteidaho.gov/download/2026-election-calendar.pdf",
+    "voter_registration_in_person_general": "https://legislature.idaho.gov/statutesrules/idstat/Title34/T34CH4/SECT34-408",
+    "same_day_registration_general": "https://voteidaho.gov/voter-registration/",
+    "all_mail_general": "https://voteidaho.gov/casting-your-ballot/",
+    "vote_by_mail_request_deadline_general": "https://archive.voteidaho.gov/download/2026-election-calendar.pdf",
+    "mail_ballot_return_deadline_general": "https://voteidaho.gov/casting-your-ballot/",
+    "early_voting_rule_general": "https://voteidaho.gov/casting-your-ballot/"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_rule_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://voteidaho.gov/",
+    "links": {
+      "registration": "https://voteidaho.gov/voter-registration/",
+      "check_registration": "https://votertools.voteidaho.gov/TEDElectionLink/VoterServices/voter-search/ovr-voter-search?returnUrl=VoterServices%2Fvoter%2Fvoter-profile",
+      "mail_ballot": "https://votertools.voteidaho.gov/TEDElectionLink/VoterServices/voter-search/oabr-voter-search?returnUrl=VoterServices%2Fwizard%2Frequest-my-vote-by-mail",
+      "early_voting": "https://voteidaho.gov/casting-your-ballot/#vote-early",
+      "polling_place": "https://votertools.voteidaho.gov/TEDElectionLink/VoterServices/voter/where-do-I-vote",
+      "sample_ballot": "https://votertools.voteidaho.gov/TEDElectionLink/VoterServices/voter/el-sample-ballot",
+      "track_ballot": "https://votertools.voteidaho.gov/TEDElectionLink/VoterServices/voter-search/ovr-voter-search?returnUrl=VoterServices%2Ftimeline%2Ftrack-my-vote-by-mail"
+    },
+    "poll_hours": {
+      "open": "08:00",
+      "close": "20:00",
+      "source_url": "https://voteidaho.gov/casting-your-ballot/",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    },
+    "no_reminder": {
+      "early_voting_window_general": {
+        "reason": "Early in-person voting days in Idaho are set by each county.",
+        "source_url": "https://voteidaho.gov/casting-your-ballot/",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

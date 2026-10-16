@@ -1,0 +1,69 @@
+{
+  "_note": "Iowa 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "IA",
+  "state_name": "Iowa",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-19",
+    "voter_registration_online_general": "2026-10-19",
+    "voter_registration_mail_general": "2026-10-19, postmarked",
+    "voter_registration_in_person_general": "2026-10-19",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-19",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-14 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://sos.iowa.gov/news-resources/secretary-pate-encourages-iowans-make-plan-vote-2026-general-election",
+    "voter_registration_deadline_general": "https://sos.iowa.gov/sites/default/files/2026-01/Candidate%27s%20Guide_General%202026_010726.pdf",
+    "voter_registration_online_general": "https://sos.iowa.gov/sites/default/files/2026-01/Candidate%27s%20Guide_General%202026_010726.pdf",
+    "voter_registration_mail_general": "https://www.legis.iowa.gov/docs/code/48A.9.pdf",
+    "voter_registration_in_person_general": "https://sos.iowa.gov/sites/default/files/2026-01/Candidate%27s%20Guide_General%202026_010726.pdf",
+    "same_day_registration_general": "https://www.legis.iowa.gov/docs/code/48A.7A.pdf",
+    "all_mail_general": "https://sos.iowa.gov/news-resources/secretary-pate-encourages-iowans-make-plan-vote-2026-general-election",
+    "vote_by_mail_request_deadline_general": "https://sos.iowa.gov/news-resources/secretary-pate-encourages-iowans-make-plan-vote-2026-general-election",
+    "mail_ballot_return_deadline_general": "https://sos.iowa.gov/news-resources/secretary-pate-encourages-iowans-make-plan-vote-2026-general-election",
+    "early_voting_window_general": "https://sos.iowa.gov/news-resources/secretary-pate-encourages-iowans-make-plan-vote-2026-general-election"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://sos.iowa.gov/voters",
+    "links": {
+      "registration": "https://mymvd.iowadot.gov/Account/Login?ReturnUrl=%2fVoterRegistration",
+      "check_registration": "https://apps.sos.iowa.gov/elections/voterreg/regtovote/search.aspx",
+      "mail_ballot": "https://sos.iowa.gov/voters/absentee-voting",
+      "early_voting": "https://sos.iowa.gov/voters/absentee-voting",
+      "polling_place": "https://apps.sos.iowa.gov/elections/voterreg/pollingplace/search.aspx",
+      "track_ballot": "https://apps.sos.iowa.gov/elections/absenteeballotstatus/absentee/search"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://www.legis.iowa.gov/docs/code/49.73.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

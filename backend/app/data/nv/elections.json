@@ -1,0 +1,69 @@
+{
+  "_note": "Nevada 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "NV",
+  "state_name": "Nevada",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_online_general": "2026-11-03",
+    "voter_registration_mail_general": "2026-10-06",
+    "voter_registration_in_person_general": "2026-10-06",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-07, 5 p.m.",
+    "early_voting_window_general": "2026-10-17 to 2026-10-30"
+  },
+  "key_date_sources": {
+    "general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec12755",
+    "voter_registration_online_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560",
+    "voter_registration_mail_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560",
+    "voter_registration_in_person_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560",
+    "same_day_registration_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec5842",
+    "all_mail_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269911",
+    "mail_ballot_return_deadline_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269921",
+    "early_voting_window_general": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec3568"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.nvsos.gov/elections/voters",
+    "links": {
+      "registration": "https://registertovote.nv.gov/",
+      "check_registration": "https://www.nvsos.gov/votersearch",
+      "mail_ballot": "https://www.nvsos.gov/elections/voters/mail-ballot-voting",
+      "early_voting": "https://www.nvsos.gov/elections/election-information/2026-election-information/2026-polling-locations",
+      "polling_place": "https://www.nvsos.gov/votersearch",
+      "sample_ballot": "https://www.nvsos.gov/votersearch",
+      "track_ballot": "https://myballot.nv.gov/"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec273",
+      "retrieved": "2026-10-15"
+    },
+    "no_reminder": {
+      "voter_registration_deadline_general": {
+        "reason": "Registration in Nevada stays open through Election Day.",
+        "source_url": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560",
+        "retrieved": "2026-10-15"
+      },
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in Nevada is mailed a ballot, so no request is needed.",
+        "source_url": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269911",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

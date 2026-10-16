@@ -1,0 +1,70 @@
+{
+  "_note": "Illinois 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "IL",
+  "state_name": "Illinois",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-18",
+    "voter_registration_online_general": "2026-10-18",
+    "voter_registration_mail_general": "2026-10-06, postmarked",
+    "voter_registration_in_person_general": "2026-10-06",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-29",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-17",
+    "early_voting_window_general": "2026-09-24 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://www.elections.il.gov/ElectionOperations/VotingByMail.aspx",
+    "voter_registration_deadline_general": "https://ova.elections.il.gov/",
+    "voter_registration_online_general": "https://ova.elections.il.gov/",
+    "voter_registration_mail_general": "https://www.elections.il.gov/NewDocDisplay.aspx?%2fM0cs48zOKVZyk9eAbpEoxjoGz9b5YaGE%2bEuf7JVd2Tlx2Mybp2RbacEJVh848tnFOLoTd3G4cRsCxSj%2bcrL1MmhG9QsYgJ9XEPk5RBnskXetvBKqlqFjTKgx7qP9eeYvjYVE4PHXwpZnTFFeskkj9bQfLeonJZF",
+    "voter_registration_in_person_general": "https://www.elections.il.gov/Main/CalendarEventDetail.aspx?Date=mChub8y2UOgH4khEJh9d5iiIUfDUlGHH",
+    "same_day_registration_general": "https://www.elections.il.gov/NewDocDisplay.aspx?%2fM0cs48zOKVZyk9eAbpEoxjoGz9b5YaGE%2bEuf7JVd2Tlx2Mybp2RbacEJVh848tnFOLoTd3G4cRsCxSj%2bcrL1MmhG9QsYgJ9OAgI8oxP06UUz3N9a%2babH2TsAY3ULa94pWnj7HwRoALh1dif5CSlCA%3d%3d",
+    "all_mail_general": "https://www.elections.il.gov/ElectionOperations/VotingByMail.aspx",
+    "vote_by_mail_request_deadline_general": "https://www.elections.il.gov/ElectionOperations/VotingByMail.aspx",
+    "mail_ballot_return_deadline_general": "https://www.elections.il.gov/NewDocDisplay.aspx?%2fM0cs48zOKVZyk9eAbpEoxjoGz9b5YaGOZJlr8CbkngFbsRPV%2f1ATx4aQkxzja565ESGno4fDfetZNJEnD3jlKUsS4RoI55UaaHzJzO%2bW22z%2bFdnOD0t%2fwh1C2oj%2b6xuWex0QqWjWNBPVuyG4mP71aeJ81dCoVnPT2xSsv019YSRF00y%2bwzk7g%3d%3d",
+    "early_voting_window_general": "https://www.ilga.gov/Documents/legislation/ilcs/documents/001000050K19A-15.htm"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.elections.il.gov/InformationForVoters.aspx?MID=I0cuvBFuZRw%3d",
+    "links": {
+      "registration": "https://ova.elections.il.gov/",
+      "check_registration": "https://ova.elections.il.gov/RegistrationLookup.aspx",
+      "mail_ballot": "https://www.elections.il.gov/ElectionOperations/VotingByMail.aspx",
+      "early_voting": "https://www.elections.il.gov/VotingAndRegistrationSystems/EarlyVotingLocationsSearch.aspx",
+      "polling_place": "https://ova.elections.il.gov/PollingPlaceLookup.aspx",
+      "sample_ballot": "https://www.elections.il.gov/Main/FAQ.aspx",
+      "track_ballot": "https://www.elections.il.gov/NewDocDisplay.aspx?%2fM0cs48zOKVZyk9eAbpEoxjoGz9b5YaGOZJlr8CbkngFbsRPV%2f1ATx4aQkxzja565ESGno4fDfetZNJEnD3jlKUsS4RoI55UaaHzJzO%2bW22z%2bFdnOD0t%2fwh1C2oj%2b6xuWex0QqWjWNBPVuyG4mP71aeJ81dCoVnPT2xSsv019YSRF00y%2bwzk7g%3d%3d"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "19:00",
+      "source_url": "https://www.ilga.gov/Documents/legislation/ilcs/documents/001000050K17-1.htm",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "23:59"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

@@ -1,0 +1,67 @@
+{
+  "_note": "Maryland 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "MD",
+  "state_name": "Maryland",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, postmarked",
+    "voter_registration_in_person_general": "2026-10-13",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-27",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-13, 10 a.m.",
+    "early_voting_window_general": "2026-10-22 to 2026-10-29"
+  },
+  "key_date_sources": {
+    "general": "https://elections.maryland.gov/elections/2026/index.html",
+    "voter_registration_deadline_general": "https://elections.maryland.gov/press_room/documents/2026/SBE_General_Election_Voter_Registration_Reminder-2026.pdf",
+    "voter_registration_online_general": "https://elections.maryland.gov/press_room/documents/2026/SBE_General_Election_Voter_Registration_Reminder-2026.pdf",
+    "voter_registration_mail_general": "https://elections.maryland.gov/press_room/documents/2026/SBE_General_Election_Voter_Registration_Reminder-2026.pdf",
+    "voter_registration_in_person_general": "https://elections.maryland.gov/elections/2026/2026_Election_Calendar.pdf",
+    "same_day_registration_general": "https://elections.maryland.gov/voter_registration/index.html",
+    "all_mail_general": "https://elections.maryland.gov/elections/2026/index.html",
+    "vote_by_mail_request_deadline_general": "https://elections.maryland.gov/elections/2026/index.html",
+    "mail_ballot_return_deadline_general": "https://elections.maryland.gov/elections/2026/2026_Election_Calendar.pdf",
+    "early_voting_window_general": "https://elections.maryland.gov/voting/early_voting.html"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://elections.maryland.gov/elections/2026/index.html",
+    "links": {
+      "registration": "https://elections.maryland.gov/voter_registration/index.html",
+      "check_registration": "https://voterservices.elections.maryland.gov/VoterSearch",
+      "mail_ballot": "https://voterservices.elections.maryland.gov/OnlineMailinRequest/InstructionsStep1",
+      "early_voting": "https://elections.maryland.gov/voting/early_voting.html",
+      "polling_place": "https://voterservices.elections.maryland.gov/PollingPlaceSearch",
+      "sample_ballot": "https://voterservices.elections.maryland.gov/VoterSearch",
+      "track_ballot": "https://voterservices.elections.maryland.gov/VoterSearch"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://elections.maryland.gov/elections/2026/index.html",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 3."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

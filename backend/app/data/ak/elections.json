@@ -1,0 +1,63 @@
+{
+  "_note": "Alaska 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "AK",
+  "state_name": "Alaska",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-04",
+    "voter_registration_online_general": "2026-10-04",
+    "voter_registration_mail_general": "2026-10-04, postmarked",
+    "voter_registration_in_person_general": "2026-10-04",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-24",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-13",
+    "early_voting_window_general": "2026-10-19 to 2026-11-03"
+  },
+  "key_date_sources": {
+    "general": "https://www.elections.alaska.gov/calendar/",
+    "voter_registration_deadline_general": "https://www.elections.alaska.gov/calendar/",
+    "voter_registration_online_general": "https://www.elections.alaska.gov/calendar/",
+    "voter_registration_mail_general": "https://www.elections.alaska.gov/voter-information/absentee-and-early-voting/",
+    "voter_registration_in_person_general": "https://www.elections.alaska.gov/calendar/",
+    "same_day_registration_general": "https://www.elections.alaska.gov/voter-information/",
+    "all_mail_general": "https://www.elections.alaska.gov/voter-information/absentee-and-early-voting/",
+    "vote_by_mail_request_deadline_general": "https://www.elections.alaska.gov/",
+    "mail_ballot_return_deadline_general": "https://www.elections.alaska.gov/calendar/",
+    "early_voting_window_general": "https://www.akleg.gov/basis/statutes.asp?media=print&secStart=15.20.064&secEnd=15.20.064"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.elections.alaska.gov/",
+    "links": {
+      "registration": "https://voterregistration.alaska.gov/",
+      "check_registration": "https://myvoterportal.alaska.gov/",
+      "mail_ballot": "https://www.elections.alaska.gov/voter-information/absentee-and-early-voting/",
+      "early_voting": "https://www.elections.alaska.gov/avo/",
+      "polling_place": "https://www.elections.alaska.gov/election-polls/",
+      "sample_ballot": "https://www.elections.alaska.gov/sample-ballots/",
+      "track_ballot": "https://myvoterportal.alaska.gov/"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://www.elections.alaska.gov/election-polls/",
+      "retrieved": "2026-10-15"
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

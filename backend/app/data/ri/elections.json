@@ -1,0 +1,68 @@
+{
+  "_note": "Rhode Island 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "RI",
+  "state_name": "Rhode Island",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-04",
+    "voter_registration_online_general": "2026-10-04",
+    "voter_registration_mail_general": "2026-10-04, postmarked",
+    "voter_registration_in_person_general": "2026-10-04",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-13",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03",
+    "early_voting_window_general": "2026-10-14 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf",
+    "voter_registration_deadline_general": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf",
+    "voter_registration_online_general": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf",
+    "voter_registration_mail_general": "https://webserver.rilegislature.gov/Statutes/TITLE17/17-9.1/17-9.1-9.htm",
+    "voter_registration_in_person_general": "https://webserver.rilegislature.gov/Statutes/TITLE17/17-9.1/17-9.1-3.htm",
+    "same_day_registration_general": "https://webserver.rilegislature.gov/Statutes/TITLE17/17-1/17-1-3.htm",
+    "all_mail_general": "https://webserver.rilegislature.gov/Statutes/TITLE17/17-20/17-20-2.1.htm",
+    "vote_by_mail_request_deadline_general": "https://vote.sos.ri.gov/Forms/elections/Forms/ElecMB.pdf",
+    "mail_ballot_return_deadline_general": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf",
+    "early_voting_window_general": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://vote.sos.ri.gov/",
+    "links": {
+      "registration": "https://vote.sos.ri.gov/Voter/RegisterToVote",
+      "check_registration": "https://vote.sos.ri.gov/",
+      "mail_ballot": "https://vote.sos.ri.gov/Voter/VotebyMail",
+      "early_voting": "https://vote.sos.ri.gov/Voter/PersonVotingPage",
+      "polling_place": "https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=2",
+      "sample_ballot": "https://vote.sos.ri.gov/Home/PollingPlaces?ActiveFlag=2",
+      "track_ballot": "https://ballottrax.sos.ri.gov/voter/"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by city or town",
+      "source_url": "https://vote.sos.ri.gov/Forms/Elections/Guides/2026ElecCal.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "16:00"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}
